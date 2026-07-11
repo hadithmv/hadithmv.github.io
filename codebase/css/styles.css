@@ -340,14 +340,15 @@ body {
 }
 
 /* ---- Navigation bar ---- */
-#readerNav,
-#readerNavBottom {
+.reader-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 12px 0;
   margin-bottom: 24px;
   border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
 }
 
 #readerNavBottom {
@@ -357,20 +358,28 @@ body {
   border-top: 1px solid var(--color-border);
 }
 
+/* Left side: page buttons */
+.nav-pages {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .nav-btn {
-  padding: 8px 20px;
-  font-size: 0.9rem;
+  padding: 6px 14px;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   transition:
     background 0.15s ease,
     border-color 0.15s ease,
     color 0.15s ease;
   font-family: system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
 }
 
 .nav-btn:hover:not(:disabled) {
@@ -380,15 +389,120 @@ body {
 }
 
 .nav-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: default;
 }
 
+/* Edge buttons — slightly wider */
+.nav-edge {
+  padding: 6px 10px;
+  letter-spacing: -0.1em;
+}
+
+/* Page number buttons */
+.page-numbers {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.page-num {
+  min-width: 34px;
+  padding: 6px 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-family: system-ui, -apple-system, sans-serif;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.page-num:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+  color: var(--color-nav-btn-hover-text);
+}
+
+.page-num.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+  cursor: default;
+}
+
+.page-ellipsis {
+  min-width: 34px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-subtle);
+  font-family: system-ui, -apple-system, sans-serif;
+  user-select: none;
+}
+
+/* Right side: page jump */
+.nav-goto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.page-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family: system-ui, -apple-system, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.page-input {
+  width: 58px;
+  padding: 5px 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  -moz-appearance: textfield;
+}
+
+.page-input::-webkit-inner-spin-button,
+.page-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.page-input:focus {
+  border-color: var(--color-card-hover-border);
+}
+
 .nav-counter {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-text-muted);
   font-family: system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+}
+
+.nav-counter-bottom {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  font-family: system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
 }
 
 /* ---- Reader content ---- */
@@ -469,12 +583,39 @@ body {
     padding: 8px 10px;
   }
 
+  .reader-nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .nav-btn {
-    padding: 8px 14px;
+    padding: 6px 10px;
     font-size: 0.8rem;
   }
 
-  .nav-counter {
+  .page-num {
+    min-width: 28px;
+    padding: 4px 2px;
+    font-size: 0.78rem;
+  }
+
+  .page-numbers {
+    gap: 2px;
+  }
+
+  .nav-goto {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-counter,
+  .nav-counter-bottom {
+    font-size: 0.8rem;
+  }
+
+  .page-input {
+    width: 50px;
+    padding: 4px 4px;
     font-size: 0.8rem;
   }
 

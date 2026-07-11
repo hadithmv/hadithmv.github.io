@@ -52,16 +52,31 @@
         <button id="searchClear" class="search-clear" title="Clear search" style="display: none">✕</button>
         <span id="searchInfo" class="search-info" style="display: none"></span>
       </div>
-      <nav id="readerNav">
-        <button id="prevBtn" class="nav-btn" title="Previous (← arrow key)">← Previous</button>
-        <span id="rowCounter" class="nav-counter"></span>
-        <button id="nextBtn" class="nav-btn" title="Next (→ arrow key)">Next →</button>
+      <nav id="readerNav" class="reader-nav">
+        <div class="nav-pages">
+          <button id="firstBtn" class="nav-btn nav-edge" title="First page (Home)">««</button>
+          <button id="prevBtn" class="nav-btn" title="Previous page (←)">«</button>
+          <span id="pageNumbers" class="page-numbers"></span>
+          <button id="nextBtn" class="nav-btn" title="Next page (→)">»</button>
+          <button id="lastBtn" class="nav-btn nav-edge" title="Last page (End)">»»</button>
+        </div>
+        <div class="nav-goto">
+          <label for="pageInput" class="page-label">Page</label>
+          <input type="number" id="pageInput" class="page-input" min="1" inputmode="numeric" list="pageList" />
+          <datalist id="pageList"></datalist>
+          <span class="nav-counter" id="pageOfTotal"></span>
+        </div>
       </nav>
       <article id="readerContent" dir="rtl"></article>
-      <nav id="readerNavBottom">
-        <button id="prevBtnBottom" class="nav-btn" title="Previous (← arrow key)">← Previous</button>
-        <span id="rowCounterBottom" class="nav-counter"></span>
-        <button id="nextBtnBottom" class="nav-btn" title="Next (→ arrow key)">Next →</button>
+      <nav id="readerNavBottom" class="reader-nav">
+        <div class="nav-pages">
+          <button id="firstBtnBottom" class="nav-btn nav-edge" title="First page (Home)">««</button>
+          <button id="prevBtnBottom" class="nav-btn" title="Previous page (←)">«</button>
+          <span id="pageNumbersBottom" class="page-numbers"></span>
+          <button id="nextBtnBottom" class="nav-btn" title="Next page (→)">»</button>
+          <button id="lastBtnBottom" class="nav-btn nav-edge" title="Last page (End)">»»</button>
+        </div>
+        <div class="nav-counter-bottom" id="pageOfTotalBottom"></div>
       </nav>
     </div>
 
@@ -134,26 +149,31 @@
             const allData = data;               // never changes
             let filteredData = allData;         // subset when searching
             let currentIndex = 0;
+            const searchInput   = document.getElementById("searchInput");
+            const searchClear   = document.getElementById("searchClear");
+            const searchInfo    = document.getElementById("searchInfo");
+            const pageInput     = document.getElementById("pageInput");
+            const pageList      = document.getElementById("pageList");
+            const pageOfTotal   = document.getElementById("pageOfTotal");
+            const pageOfTotalBtm = document.getElementById("pageOfTotalBottom");
 
-            function rowCount() { return filteredData.length; }
+            function totalPages() { return filteredData.length; }
+            function pageLabel(n) { return "Page " + n; }
 
-            function renderRow(index) {
+            // ── Render current page ────────────────────────────
+            function renderPage(index) {
               const row = filteredData[index];
               if (!row) return;
 
               const rowNum = row[0] || index + 1;
               let html = `<div class="reader-row-num">#${rowNum}</div>`;
-
-              // Collect non-empty columns (skip col 0 — the row number)
               const fields = [];
               for (let i = 1; i < row.length; i++) {
-                const value = row[i];
-                if (value !== null && value !== undefined && String(value).trim() !== "") {
-                  fields.push({ index: i, value: String(value).trim() });
+                const v = row[i];
+                if (v !== null && v !== undefined && String(v).trim() !== "") {
+                  fields.push({ value: String(v).trim() });
                 }
               }
-
-              // Render all fields, with a divider before the last one
               for (let i = 0; i < fields.length; i++) {
                 if (i === fields.length - 1 && fields.length > 1) {
                   html += `<div class="reader-divider"></div>`;
@@ -162,53 +182,115 @@
                   html += `<div class="reader-field" dir="auto">${fields[i].value}</div>`;
                 }
               }
-
               document.getElementById("readerContent").innerHTML = html;
 
-              // Build counter text
-              const total = rowCount();
-              let counterText = `Row ${index + 1} of ${total}`;
-              const query = document.getElementById("searchInput").value.trim();
-              if (query && total !== allData.length) {
-                counterText += ` · ${total} match${total === 1 ? "" : "es"}`;
-              }
-
-              document.getElementById("rowCounter").textContent = counterText;
-              document.getElementById("rowCounterBottom").textContent = counterText;
-
-              // Update button states
-              document.getElementById("prevBtn").disabled = index === 0;
-              document.getElementById("prevBtnBottom").disabled = index === 0;
-              document.getElementById("nextBtn").disabled = index === total - 1;
-              document.getElementById("nextBtnBottom").disabled = index === total - 1;
-
-              // Scroll reader into view
+              updatePagination();
               document.getElementById("readerContent").scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
-            function goTo(index) {
-              const total = rowCount();
-              if (index >= 0 && index < total) {
-                currentIndex = index;
-                renderRow(currentIndex);
+            // ── Pagination UI ──────────────────────────────────
+            function pageNumbersHTML(current, total) {
+              if (total <= 1) return "";
+              if (total <= 9) {
+                // Show all
+                let h = "";
+                for (let p = 1; p <= total; p++) {
+                  h += pageBtn(p, p === current);
+                }
+                return h;
+              }
+              // Sliding window: first … window … last
+              let h = pageBtn(1, current === 1);
+              if (current > 4) h += `<span class="page-ellipsis">…</span>`;
+
+              const start = Math.max(2, current - 2);
+              const end   = Math.min(total - 1, current + 2);
+              for (let p = start; p <= end; p++) {
+                h += pageBtn(p, p === current);
+              }
+
+              if (current < total - 3) h += `<span class="page-ellipsis">…</span>`;
+              h += pageBtn(total, current === total);
+              return h;
+            }
+
+            function pageBtn(page, active) {
+              return `<button class="page-num${active ? " active" : ""}" data-page="${page}">${page}</button>`;
+            }
+
+            function updatePagination() {
+              const total = totalPages();
+              const cur   = currentIndex + 1; // 1-based for display
+
+              // Page strip
+              const strip = pageNumbersHTML(cur, total);
+              document.getElementById("pageNumbers").innerHTML = strip;
+              document.getElementById("pageNumbersBottom").innerHTML = strip;
+
+              // Wire page-number click handlers
+              document.querySelectorAll(".page-num").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                  goTo(parseInt(this.dataset.page) - 1);
+                });
+              });
+
+              // Edge buttons
+              var atFirst = currentIndex === 0;
+              var atLast  = currentIndex === total - 1;
+              document.getElementById("firstBtn").disabled = atFirst;
+              document.getElementById("prevBtn").disabled  = atFirst;
+              document.getElementById("nextBtn").disabled  = atLast;
+              document.getElementById("lastBtn").disabled  = atLast;
+              document.getElementById("firstBtnBottom").disabled = atFirst;
+              document.getElementById("prevBtnBottom").disabled  = atFirst;
+              document.getElementById("nextBtnBottom").disabled  = atLast;
+              document.getElementById("lastBtnBottom").disabled  = atLast;
+
+              // Counter text
+              var cnt = `Page ${cur} of ${total}`;
+              var query = searchInput.value.trim();
+              if (query && total !== allData.length) {
+                cnt += ` · ${total} match${total === 1 ? "" : "es"}`;
+              }
+              if (pageOfTotal) pageOfTotal.textContent = cnt;
+              if (pageOfTotalBtm) pageOfTotalBtm.textContent = `Page ${cur} of ${total}`;
+
+              // Page input
+              if (pageInput) {
+                pageInput.max = total;
+                pageInput.value = cur;
+              }
+
+              // Datalist — rebuild when total changes
+              if (pageList && pageList.options.length !== total) {
+                pageList.innerHTML = "";
+                for (var p = 1; p <= total; p++) {
+                  var opt = document.createElement("option");
+                  opt.value = p;
+                  pageList.appendChild(opt);
+                }
               }
             }
 
-            // ── Search ─────────────────────────────────────────
-            const searchInput = document.getElementById("searchInput");
-            const searchClear = document.getElementById("searchClear");
-            const searchInfo  = document.getElementById("searchInfo");
+            function goTo(index) {
+              var total = totalPages();
+              if (total === 0) return;
+              if (index < 0) index = 0;
+              if (index >= total) index = total - 1;
+              currentIndex = index;
+              renderPage(currentIndex);
+            }
 
+            // ── Search ─────────────────────────────────────────
             function applySearch(query) {
-              const q = query.trim();
+              var q = query.trim();
               if (!q) {
-                // Reset to full dataset
                 filteredData = allData;
                 currentIndex = 0;
                 searchClear.style.display = "none";
                 searchInfo.style.display = "none";
               } else {
-                const lower = q.toLowerCase();
+                var lower = q.toLowerCase();
                 filteredData = allData.filter(function (row) {
                   return row.some(function (cell) {
                     return cell !== null && cell !== undefined &&
@@ -227,38 +309,82 @@
               if (filteredData.length === 0) {
                 document.getElementById("readerContent").innerHTML =
                   '<div class="reader-no-results">No rows match "' + query + '"</div>';
+                updatePagination();
               } else {
-                renderRow(currentIndex);
+                renderPage(currentIndex);
               }
             }
 
             searchInput.addEventListener("input", function () {
               applySearch(this.value);
             });
-
             searchClear.addEventListener("click", function () {
               searchInput.value = "";
               applySearch("");
               searchInput.focus();
             });
 
-            // ── Navigation ─────────────────────────────────────
-            // Wire navigation — top bar
-            document.getElementById("prevBtn").addEventListener("click", () => goTo(currentIndex - 1));
-            document.getElementById("nextBtn").addEventListener("click", () => goTo(currentIndex + 1));
+            // ── Navigation: buttons ────────────────────────────
+            function bindNav(id, delta) {
+              document.getElementById(id).addEventListener("click", function () {
+                goTo(currentIndex + delta);
+              });
+            }
+            bindNav("firstBtn", -currentIndex);
+            bindNav("prevBtn", -1);
+            bindNav("nextBtn", 1);
+            bindNav("lastBtn", totalPages() - 1 - currentIndex);
+            bindNav("firstBtnBottom", -currentIndex);
+            bindNav("prevBtnBottom", -1);
+            bindNav("nextBtnBottom", 1);
+            bindNav("lastBtnBottom", totalPages() - 1 - currentIndex);
 
-            // Wire navigation — bottom bar
-            document.getElementById("prevBtnBottom").addEventListener("click", () => goTo(currentIndex - 1));
-            document.getElementById("nextBtnBottom").addEventListener("click", () => goTo(currentIndex + 1));
+            // Fix Last buttons to always jump to end
+            document.getElementById("lastBtn").addEventListener("click", function () {
+              goTo(totalPages() - 1);
+            });
+            document.getElementById("lastBtnBottom").addEventListener("click", function () {
+              goTo(totalPages() - 1);
+            });
+            // Fix First buttons
+            document.getElementById("firstBtn").addEventListener("click", function () {
+              goTo(0);
+            });
+            document.getElementById("firstBtnBottom").addEventListener("click", function () {
+              goTo(0);
+            });
 
-            // Keyboard: arrow keys navigate, / focuses search
+            // ── Navigation: page input ─────────────────────────
+            pageInput.addEventListener("keydown", function (e) {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                var v = parseInt(pageInput.value, 10);
+                if (!isNaN(v) && v >= 1 && v <= totalPages()) {
+                  goTo(v - 1);
+                } else {
+                  pageInput.value = currentIndex + 1;
+                }
+              }
+            });
+            pageInput.addEventListener("change", function () {
+              var v = parseInt(pageInput.value, 10);
+              if (!isNaN(v) && v >= 1 && v <= totalPages()) {
+                goTo(v - 1);
+              } else {
+                pageInput.value = currentIndex + 1;
+              }
+            });
+
+            // ── Keyboard ───────────────────────────────────────
             document.addEventListener("keydown", function onKey(e) {
-              // Don't steal focus when typing in search
-              if (document.activeElement === searchInput) return;
+              if (document.activeElement === searchInput ||
+                  document.activeElement === pageInput) return;
 
               if (e.key === "ArrowLeft")   { e.preventDefault(); goTo(currentIndex - 1); }
               if (e.key === "ArrowRight")  { e.preventDefault(); goTo(currentIndex + 1); }
-              if (e.key === "/" || e.key === "f" && (e.ctrlKey || e.metaKey)) {
+              if (e.key === "Home")        { e.preventDefault(); goTo(0); }
+              if (e.key === "End")         { e.preventDefault(); goTo(totalPages() - 1); }
+              if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
                 e.preventDefault();
                 searchInput.focus();
                 searchInput.select();
@@ -266,7 +392,7 @@
             });
 
             // Initial render
-            renderRow(0);
+            renderPage(0);
 
             // Reveal everything at once
             document.getElementById("loadingMessage").style.display = "none";
