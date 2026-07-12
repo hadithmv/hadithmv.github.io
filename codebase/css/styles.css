@@ -137,6 +137,22 @@ body {
   border-bottom: 2px solid var(--color-page-header-border);
 }
 
+.back-link {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  transition: color 0.15s ease;
+  direction: rtl;
+}
+
+.back-link:hover {
+  color: var(--color-text);
+}
+
 #pageHeader h1 {
   margin: 0 0 10px 0;
   font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
