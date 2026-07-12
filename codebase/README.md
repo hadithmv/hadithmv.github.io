@@ -90,11 +90,11 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Search
 
-- Real-time filtering against all columns, case‑insensitive
+- Real-time "find and jump" — search highlights matches in a dropdown, clicking jumps to that row without filtering the dataset
 - Results dropdown with highlighted snippets (~300 chars of context)
 - Click or Enter to jump; ↑/↓ to navigate; Escape to close
-- Red bold ✕ clear button
-- Advanced search button with modal for column/condition/value filters
+- Red bold ✕ clear button resets to full content
+- Advanced search modal for column/condition/value filters with AND/OR logic — same find-and-jump behavior
 
 ### Toolbar
 
