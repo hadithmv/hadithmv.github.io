@@ -153,6 +153,7 @@ body {
   text-align: center;
   padding: 40px;
   color: var(--color-loading);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 .error {
@@ -742,7 +743,7 @@ body {
   padding: 40px 20px;
   color: var(--color-text-muted);
   font-size: 1rem;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 .reader-row-num {
