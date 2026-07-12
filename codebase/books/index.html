@@ -96,11 +96,23 @@
     <div id="readerWrapper" style="display: none">
       <div id="readerChrome">
         <div id="pageHeader" style="display: none">
-          <a href="index.html" id="backToDashboard" class="back-link" data-i18n="navDashboard">← ފޮތްތަކުގެ ލިސްޓް</a>
+          <a
+            href="index.html"
+            id="backToDashboard"
+            class="back-link"
+            data-i18n="navDashboard"
+            >← ފޮތްތަކުގެ ލިސްޓް</a
+          >
           <h1 id="pageTitle"></h1>
           <div id="pageSubRow" style="display: none">
             <span class="subrow-left">
-              <button id="btnFocusExpand" class="focus-expand-btn" data-i18n="btnFocusExpand">ފޯކަސް ވިއު ▼</button>
+              <button
+                id="btnFocusExpand"
+                class="focus-expand-btn"
+                data-i18n="btnFocusExpand"
+              >
+                ފޯކަސް ވިއު ▼
+              </button>
             </span>
             <span class="subrow-right">
               <span id="pageTags"></span>
@@ -109,6 +121,13 @@
           </div>
         </div>
         <div id="searchBar">
+          <button
+            id="btnAdvancedSearch"
+            class="search-advanced-btn"
+            data-i18n="btnAdvancedSearch"
+          >
+            ◉ އިތުރު ހޯދުން
+          </button>
           <input
             id="searchInput"
             type="search"
@@ -463,6 +482,56 @@
                 <option value="ar">العربية</option>
               </select>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Search Modal -->
+    <div id="advancedSearchOverlay" class="modal-overlay">
+      <div id="advancedSearchModal" class="modal" role="dialog">
+        <div class="modal-header">
+          <h2 class="modal-title" data-i18n="advancedSearchTitle">
+            އިތުރު ހޯދުން
+          </h2>
+          <button id="advancedSearchClose" class="modal-close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div id="advancedSearchRows"></div>
+          <button
+            id="btnAddCondition"
+            class="modal-reset-sm"
+            style="
+              width: 100%;
+              margin-top: 8px;
+              color: var(--color-text);
+              border-color: var(--color-border);
+            "
+            data-i18n="btnAddCondition"
+          >
+            + ޝަރުތު އިތުރު ކުރޭ
+          </button>
+          <div style="display: flex; gap: 8px; margin-top: 12px">
+            <button
+              id="btnApplyAdvancedSearch"
+              class="modal-reset-sm"
+              style="
+                flex: 1;
+                color: var(--color-text);
+                border-color: var(--color-border);
+              "
+              data-i18n="btnApplySearch"
+            >
+              ހޯދާ
+            </button>
+            <button
+              id="btnClearAdvancedSearch"
+              class="modal-reset-sm"
+              style="flex: 1"
+              data-i18n="btnReset"
+            >
+              ↺ ރީސެޓް
+            </button>
           </div>
         </div>
       </div>

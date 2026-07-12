@@ -128,6 +128,8 @@ initializePageWithMetadata(async function (metadata) {
       const searchClear = document.getElementById("searchClear");
       const searchInfo = document.getElementById("searchInfo");
       const searchResults = document.getElementById("searchResults");
+      const advSearchOverlay = document.getElementById("advancedSearchOverlay");
+      const advSearchRows = document.getElementById("advancedSearchRows");
       const btnTashkeel = document.getElementById("btnTashkeel");
       const btnCopy = document.getElementById("btnCopy");
       const btnReset = document.getElementById("btnReset");
@@ -555,6 +557,115 @@ initializePageWithMetadata(async function (metadata) {
         }
       });
 
+      // ── Advanced Search ────────────────────────────────────
+      var OPERATORS = [
+        { id: "equals", fn: function(cellVal, q) { return cellVal === q; }, needsValue: true },
+        { id: "not", fn: function(cellVal, q) { return cellVal !== q; }, needsValue: true },
+        { id: "starts", fn: function(cellVal, q) { return cellVal.indexOf(q) === 0; }, needsValue: true },
+        { id: "notStarts", fn: function(cellVal, q) { return cellVal.indexOf(q) !== 0; }, needsValue: true },
+        { id: "contains", fn: function(cellVal, q) { return cellVal.indexOf(q) !== -1; }, needsValue: true },
+        { id: "notContains", fn: function(cellVal, q) { return cellVal.indexOf(q) === -1; }, needsValue: true },
+        { id: "ends", fn: function(cellVal, q) { return cellVal.endsWith(q); }, needsValue: true },
+        { id: "notEnds", fn: function(cellVal, q) { return !cellVal.endsWith(q); }, needsValue: true },
+        { id: "empty", fn: function(cellVal) { return cellVal === ""; }, needsValue: false },
+        { id: "notEmpty", fn: function(cellVal) { return cellVal !== ""; }, needsValue: false },
+      ];
+
+      function renderConditionRow(condition, idx) {
+        var colOpts = "";
+        for (var i = 0; i < maxCols; i++) {
+          colOpts += '<option value="' + i + '"' + (condition.col === i ? ' selected' : '') + '>' + colLabel(i) + '</option>';
+        }
+        var opOpts = "";
+        OPERATORS.forEach(function(op) {
+          opOpts += '<option value="' + op.id + '"' + (condition.op === op.id ? ' selected' : '') + '>' + t("cond" + op.id.charAt(0).toUpperCase() + op.id.slice(1)) + '</option>';
+        });
+        var needVal = OPERATORS.find(function(o){return o.id===condition.op;});
+        var valDisplay = (needVal && needVal.needsValue === false) ? 'style="display:none"' : '';
+        var logicHTML = idx === 0 ? '' : '<select class="adv-logic-select" data-idx="' + idx + '" data-field="logic"><option value="AND"' + (condition.logic==='AND'?' selected':'') + '>AND</option><option value="OR"' + (condition.logic==='OR'?' selected':'') + '>OR</option></select>';
+        return '<div class="adv-search-row" data-idx="' + idx + '">' +
+          logicHTML +
+          '<select data-field="col">' + colOpts + '</select>' +
+          '<select data-field="op">' + opOpts + '</select>' +
+          '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advValue") + '" ' + valDisplay + ' />' +
+          '<button class="adv-remove-btn" data-i18n="advRemove">✕</button>' +
+          '</div>';
+      }
+
+      var advConditions = [];
+      function addCondition() {
+        advConditions.push({ col: 0, op: "contains", val: "", logic: "AND" });
+        renderAdvancedSearch();
+      }
+      function removeCondition(idx) {
+        advConditions.splice(idx, 1);
+        renderAdvancedSearch();
+      }
+      function renderAdvancedSearch() {
+        if (advConditions.length === 0) addCondition();
+        advSearchRows.innerHTML = advConditions.map(function(c, i) { return renderConditionRow(c, i); }).join("");
+        // Wire events
+        advSearchRows.querySelectorAll(".adv-search-row").forEach(function(row) {
+          var idx = parseInt(row.dataset.idx);
+          row.querySelector("select[data-field=col]").addEventListener("change", function(){ advConditions[idx].col = parseInt(this.value); });
+          row.querySelector("select[data-field=op]").addEventListener("change", function(){
+            advConditions[idx].op = this.value;
+            var needVal = OPERATORS.find(function(o){return o.id===this.value;});
+            var input = row.querySelector("input[data-field=val]");
+            input.style.display = (needVal && needVal.needsValue === false) ? "none" : "";
+          });
+          row.querySelector("input[data-field=val]").addEventListener("input", function(){ advConditions[idx].val = this.value; });
+          row.querySelector("select[data-field=logic]") && row.querySelector("select[data-field=logic]").addEventListener("change", function(){ advConditions[idx].logic = this.value; });
+          row.querySelector(".adv-remove-btn").addEventListener("click", function(){ removeCondition(idx); });
+        });
+      }
+
+      function applyAdvancedSearch() {
+        var rows = filteredData.length === 0 ? allData : allData; // always filter against full data
+        var result = rows.filter(function(row) {
+          if (advConditions.length === 0) return true;
+          // Evaluate all conditions with AND/OR logic
+          var matches = advConditions.map(function(c) {
+            var cellVal = (row[c.col] !== null && row[c.col] !== undefined) ? String(row[c.col]) : "";
+            var op = OPERATORS.find(function(o){return o.id===c.op;});
+            if (!op) return true;
+            if (op.needsValue === false) return op.fn(cellVal);
+            var q = c.val || "";
+            return op.fn(cellVal, q);
+          });
+          // Combine: first condition sets the baseline, subsequent use logic
+          var result = matches[0];
+          for (var i = 1; i < matches.length; i++) {
+            if (advConditions[i].logic === "AND") result = result && matches[i];
+            else result = result || matches[i];
+          }
+          return result;
+        });
+        filteredData = result;
+        currentPage = 0;
+        advSearchOverlay.classList.remove("open");
+        // Update search info
+        searchInfo.style.display = "";
+        searchInfo.textContent = t("resultCount") + ": " + filteredData.length;
+        searchClear.style.display = "";
+        rebuildAll();
+      }
+
+      // Open advanced search
+      document.getElementById("btnAdvancedSearch").addEventListener("click", function () {
+        renderAdvancedSearch();
+        advSearchOverlay.classList.add("open");
+      });
+      document.getElementById("advancedSearchClose").addEventListener("click", function () {
+        advSearchOverlay.classList.remove("open");
+      });
+      advSearchOverlay.addEventListener("click", function (e) { if (e.target === advSearchOverlay) advSearchOverlay.classList.remove("open"); });
+      document.getElementById("btnAddCondition").addEventListener("click", addCondition);
+      document.getElementById("btnApplyAdvancedSearch").addEventListener("click", applyAdvancedSearch);
+      document.getElementById("btnClearAdvancedSearch").addEventListener("click", function () {
+        advConditions = [];
+        renderAdvancedSearch();
+      });
 
       // ── Toolbar: tashkeel toggle ────────────────────────────
       btnTashkeel.addEventListener("click", function () {

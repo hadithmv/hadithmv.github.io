@@ -912,6 +912,75 @@ body {
   white-space: nowrap;
 }
 
+.search-advanced-btn {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.search-advanced-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.adv-search-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  margin-bottom: 6px;
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.adv-search-row select,
+.adv-search-row input {
+  padding: 5px 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+}
+
+.adv-search-row select {
+  cursor: pointer;
+}
+
+.adv-search-row input {
+  flex: 1;
+  min-width: 80px;
+}
+
+.adv-remove-btn {
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-error-text);
+  background: none;
+  border: 1px solid var(--color-error-text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.adv-remove-btn:hover {
+  opacity: 0.7;
+}
+
 /* ---- Search results dropdown ---- */
 .search-results {
   position: relative;
