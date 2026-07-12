@@ -65,7 +65,8 @@ initializePageWithMetadata(async function (metadata) {
           pageTitle.style.margin = "";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
-          pageSubRow.style.margin = "0 0 0 0";
+          pageSubRow.style.justifyContent = "";
+          pageSubRow.style.margin = "";
         } else if (lang === "dv") {
           pageHeader.style.display = "flex";
           pageHeader.style.flexDirection = "column";
@@ -78,8 +79,12 @@ initializePageWithMetadata(async function (metadata) {
           pageSubtitle.style.display = "";
           pageSubtitle.dir = "rtl";
           pageSubRow.style.display = "flex";
+          pageSubRow.style.justifyContent = "flex-end";
           pageSubRow.style.margin = "0 56px 0 0";
+          pageSubRow.style.gap = "10px";
           pageSubRow.dir = "";
+          pageSubtitle.style.order = "2";
+          pageTagsContainer.style.order = "1";
         } else if (lang === "ar") {
           pageHeader.style.display = "";
           pageTitle.textContent = metadata.titleAR || metadata.bookCode;
@@ -87,7 +92,8 @@ initializePageWithMetadata(async function (metadata) {
           pageTitle.style.margin = "";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
-          pageSubRow.style.margin = "0 0 0 0";
+          pageSubRow.style.justifyContent = "";
+          pageSubRow.style.margin = "";
         }
         renderPageTags();
       }
@@ -182,19 +188,6 @@ initializePageWithMetadata(async function (metadata) {
         if (maxCols > 0) columnTogglesGrp.style.display = "";
       }
       buildColumnToggles();
-
-      // Column dropdown toggle
-      var btnColDropdown = document.getElementById("btnColDropdown");
-      var columnDropdown = document.getElementById("columnDropdown");
-      btnColDropdown.addEventListener("click", function (e) {
-        e.stopPropagation();
-        columnDropdown.style.display = columnDropdown.style.display === "none" ? "block" : "none";
-      });
-      document.addEventListener("click", function (e) {
-        if (!columnDropdown.contains(e.target) && e.target !== btnColDropdown) {
-          columnDropdown.style.display = "none";
-        }
-      });
 
       // ── Tashkeel helpers ────────────────────────────────────
       // Unicode ranges for Arabic diacritics / tashkeel
@@ -392,15 +385,10 @@ initializePageWithMetadata(async function (metadata) {
           document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
         });
 
-        var numsHTML = `<span class="c-n">${total}</span> / <span class="c-n">${cur}</span>`;
-        if (pageOfTotal) pageOfTotal.innerHTML =
-          `${numsHTML} ${t("pageOf")}`;
+        let cnt = `${t("pageOf")} ${cur} / ${total}`;
+        if (pageOfTotal) pageOfTotal.textContent = cnt;
         if (pageOfTotalBtm)
-          pageOfTotalBtm.innerHTML =
-          `${numsHTML} ${t("pageOf")}`;
-        var fpi = document.getElementById("focusPageIndicator");
-        if (fpi) fpi.innerHTML =
-          `${numsHTML} ${t("pageOf")}`;
+          pageOfTotalBtm.textContent = `${t("pageOf")} ${cur} / ${total}`;
 
         if (pageInput) {
           pageInput.max = total;
@@ -633,31 +621,6 @@ initializePageWithMetadata(async function (metadata) {
         }, 1500);
       }
 
-      // ── Toolbar: focus mode ──────────────────────────────────
-      var btnFocus = document.getElementById("btnFocus");
-      function setFocus(on) {
-        var html = document.documentElement;
-        var btn = document.getElementById("btnFocus");
-        var expandBtn = document.getElementById("btnFocusExpand");
-        if (on) {
-          html.setAttribute("data-focus", "");
-          if (btn) { btn.classList.add("active"); btn.textContent = t("btnFocusOut"); }
-          if (expandBtn) expandBtn.textContent = t("btnFocusOut");
-        } else {
-          html.removeAttribute("data-focus");
-          if (btn) { btn.classList.remove("active"); btn.textContent = t("btnFocusIn"); }
-          if (expandBtn) expandBtn.textContent = t("btnFocusOut");
-        }
-        try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
-      }
-      if ((function(){try{return localStorage.getItem("focus")==="1"}catch(_){return false}})()) setFocus(true);
-      btnFocus.addEventListener("click", function () {
-        setFocus(!document.documentElement.hasAttribute("data-focus"));
-      });
-      document.getElementById("btnFocusExpand").addEventListener("click", function () {
-        setFocus(false);
-      });
-
       // ── Toolbar: reset ──────────────────────────────────────
       btnReset.addEventListener("click", function () {
         // Clear search
@@ -783,10 +746,6 @@ initializePageWithMetadata(async function (metadata) {
           e.preventDefault();
           goTo(filteredData.length - 1);
         }
-        if (e.key === "z" && !e.ctrlKey && !e.metaKey) {
-          e.preventDefault();
-          setFocus(!document.documentElement.hasAttribute("data-focus"));
-        }
         if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
           e.preventDefault();
           searchInput.focus();
@@ -794,28 +753,9 @@ initializePageWithMetadata(async function (metadata) {
         }
       });
 
-      // ── Settings reset from modal → re-render ─────────────
-      document.addEventListener("readerset", function () {
-        rowsPerPage = 1;
-        selRowsPerPage.value = 1;
-        hideTashkeel = false;
-        btnTashkeel.classList.remove("active");
-        readerContent.classList.remove("hide-tashkeel");
-        hiddenColumns = [];
-        buildColumnToggles();
-        searchInput.value = "";
-        applySearch("");
-        setFocus(false);
-        rebuildAll();
-      });
-
       // ── Language change → re-render ───────────────────────
       document.addEventListener("languagechange", function () {
         buildColumnToggles();
-        // Update focus button text for current state
-        var btn = document.getElementById("btnFocus");
-        var on = document.documentElement.hasAttribute("data-focus");
-        if (btn) btn.textContent = t(on ? "btnFocusOut" : "btnFocusIn");
         if (filteredData.length > 0) rebuildAll();
       });
 

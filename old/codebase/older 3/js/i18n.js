@@ -39,19 +39,8 @@ const STRINGS = {
     en: "Toggle Arabic diacritics",
     ar: "إظهار/إخفاء التشكيل",
   },
-  btnFocusIn: { dv: "ފޯކަސް ވިއު ▲", en: "Focus view ▲", ar: "عرض التركيز ▲" },
-  btnFocusOut: { dv: "ފޯކަސް ވިއު ▼", en: "Full view ▼", ar: "العرض الكامل ▼" },
-  btnFocusExpand: {
-    dv: "▼ ފޯކަސް ވިއު",
-    en: "▼ Focus view",
-    ar: "▼ عرض التركيز",
-  },
   btnReset: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ إعادة ضبط" },
-  btnResetSettings: {
-    dv: "↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ",
-    en: "↺ Reset all settings",
-    ar: "↺ إعادة ضبط جميع الإعدادات",
-  },
+  btnResetSettings: { dv: "↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ", en: "↺ Reset all settings", ar: "↺ إعادة ضبط جميع الإعدادات" },
   btnResetTitle: {
     dv: "ހުރިހާ ސ�ޓިންގް ރީސެޓް ކުރޭ",
     en: "Reset all settings",
@@ -63,9 +52,9 @@ const STRINGS = {
     ar: "عرض الصفحات:",
   },
   labelHideColumns: {
-    dv: "ކޮލަމް ފޮރުވާ ▾",
-    en: "Hide columns ▾",
-    ar: "إخفاء الأعمدة ▾",
+    dv: "ކޮލަމް ފޮރުވާ:",
+    en: "Hide columns:",
+    ar: "إخفاء الأعمدة:",
   },
   labelPageNo: {
     dv: "މި ސަފްހާގެ ނަންބަރު:",
@@ -101,15 +90,11 @@ const STRINGS = {
   menuTitle: { dv: "މެނޫ", en: "Menu", ar: "القائمة" },
   sidebarTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
   navDashboard: {
-    dv: "← ފޮތްތަކުގެ ލިސްޓް",
+    dv: "← ފޮތް ތަކުގެ ލިސްޓް",
     en: "← Book list",
     ar: "← قائمة الكتب",
   },
-  navScrollTop: {
-    dv: "⬆ މައްޗަށް",
-    en: "⬆ Scroll to top",
-    ar: "⬆ أعلى الصفحة",
-  },
+  navScrollTop: { dv: "⬆ މައްޗަށް", en: "⬆ Scroll to top", ar: "⬆ أعلى الصفحة" },
   navGitHub: { dv: "🐙 ގިޓްހަބް", en: "🐙 GitHub", ar: "🐙 غيت هب" },
   navFaq: { dv: "❓ ސުވާލުތައް", en: "❓ FAQ", ar: "❓ الأسئلة الشائعة" },
   navHelp: { dv: "🛟 އެހީ", en: "🛟 Help", ar: "🛟 مساعدة" },
@@ -154,7 +139,7 @@ const STRINGS = {
   tagQRN: { dv: "ޤުރުއާން", en: "Quran", ar: "قرآن" },
   tagRDF: { dv: "ރަދީފް", en: "Radheef", ar: "رديف" },
   tagDFK: { dv: "ދަރުސް", en: "DFK", ar: "دروس" },
-  tagIH: { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
+  tagIH:  { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
 
   // ── Dashboard ──
   dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },

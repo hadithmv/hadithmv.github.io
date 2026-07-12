@@ -30,23 +30,22 @@
 
       <nav class="sidebar-nav">
         <a href="index.html" class="sidebar-link" data-i18n="navDashboard"
-          >← ފޮތްތަކުގެ ލިސްޓް</a
+          >← ފޮތް ތަކުގެ ލިސްޓް</a
         >
       </nav>
 
       <div class="sidebar-divider"></div>
 
       <nav class="sidebar-nav">
-        <a
-          href="https://github.com/hadithmv/hadithmv.github.io"
-          target="_blank"
-          rel="noopener"
-          class="sidebar-link"
-          data-i18n="navGitHub"
+        <a href="https://github.com/hadithmv/hadithmv.github.io" target="_blank" rel="noopener" class="sidebar-link" data-i18n="navGitHub"
           >🐙 GitHub</a
         >
-        <a href="faq.html" class="sidebar-link" data-i18n="navFaq">❓ FAQ</a>
-        <a href="help.html" class="sidebar-link" data-i18n="navHelp">🛟 އެހީ</a>
+        <a href="faq.html" class="sidebar-link" data-i18n="navFaq"
+          >❓ FAQ</a
+        >
+        <a href="help.html" class="sidebar-link" data-i18n="navHelp"
+          >🛟 އެހީ</a
+        >
         <a href="contact.html" class="sidebar-link" data-i18n="navContact"
           >📧 ގުޅުން</a
         >
@@ -59,11 +58,7 @@
         <span data-i18n="labelSettings">ސެޓިންގްސް</span>
       </a>
 
-      <a
-        id="btnScrollTop"
-        class="sidebar-link"
-        style="cursor: pointer"
-        data-i18n="navScrollTop"
+      <a id="btnScrollTop" class="sidebar-link" style="cursor: pointer" data-i18n="navScrollTop"
         >⬆ މައްޗަށް</a
       >
 
@@ -90,15 +85,12 @@
         id="backToDashboard"
         class="back-link"
         data-i18n="navDashboard"
-        >← ފޮތްތަކުގެ ލިސްޓް</a
+        >← ފޮތް ތަކުގެ ލިސްޓް</a
       >
       <h1 id="pageTitle"></h1>
-      <div id="pageSubRow" style="display: none">
-        <span id="focusPageIndicator" class="focus-page-indicator"></span>
-        <span class="subrow-right">
-          <span id="pageTags"></span>
-          <span id="pageSubtitle"></span>
-        </span>
+      <div id="pageSubRow" style="display:none">
+        <span id="pageSubtitle"></span>
+        <span id="pageTags"></span>
       </div>
     </div>
 
@@ -181,12 +173,10 @@
           id="columnTogglesGroup"
           style="display: none"
         >
-          <button id="btnColDropdown" class="toolbar-btn" data-i18n="labelHideColumns">
-            ކޮލަމް ފޮރުވާ ▾
-          </button>
-          <div id="columnDropdown" class="column-dropdown" style="display:none">
-            <div id="columnToggles" class="column-toggles"></div>
-          </div>
+          <label class="toolbar-label" data-i18n="labelHideColumns"
+            >ކޮލަމް ފޮރުވާ:</label
+          >
+          <div id="columnToggles" class="column-toggles"></div>
         </div>
       </div>
       <nav id="readerNav" class="reader-nav" dir="rtl">
@@ -221,22 +211,8 @@
           />
           <datalist id="pageList"></datalist>
           <span class="nav-counter" id="pageOfTotal"></span>
-          <span class="nav-sep">|</span>
-          <button
-            id="btnFocus"
-            class="nav-focus-btn"
-            title="Toggle focus reading mode"
-            data-i18n="btnFocusIn"
-          >
-            ފޯކަސް ވިއު ▲
-          </button>
         </div>
       </nav>
-      <div class="focus-expand">
-        <button id="btnFocusExpand" data-i18n="btnFocusExpand">
-          ▼ ފޯކަސް ވިއު
-        </button>
-      </div>
       <article id="readerContent" dir="rtl"></article>
       <nav id="readerNavBottom" class="reader-nav" dir="rtl">
         <div class="nav-pages">
@@ -388,12 +364,10 @@
         closeBtn.addEventListener("click", close);
         overlay.addEventListener("click", close);
         // Scroll-to-top
-        document
-          .getElementById("btnScrollTop")
-          .addEventListener("click", function () {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            close();
-          });
+        document.getElementById("btnScrollTop").addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          close();
+        });
         document.addEventListener("keydown", function (e) {
           if (e.key === "Escape") close();
         });
@@ -422,9 +396,7 @@
                 id="themeToggle"
                 class="modal-toggle"
                 title="Toggle dark / light theme"
-              >
-                🌙
-              </button>
+              >🌙</button>
             </div>
             <div class="modal-row">
               <span data-i18n="btnWidescreen">📐 ފުޅާ ސްކްރީން</span>
@@ -477,11 +449,7 @@
             </div>
           </div>
         </div>
-        <button
-          id="btnResetSettings"
-          class="modal-reset-btn"
-          data-i18n="btnResetSettings"
-        >
+        <button id="btnResetSettings" class="modal-reset-btn" data-i18n="btnResetSettings">
           ↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ
         </button>
       </div>
@@ -540,49 +508,31 @@
       })();
 
       // Reset all settings
-      document
-        .getElementById("btnResetSettings")
-        .addEventListener("click", function () {
-          var html = document.documentElement;
-          html.removeAttribute("data-theme");
-          localStorage.removeItem("theme");
-          var thBtn = document.getElementById("themeToggle");
-          if (thBtn) thBtn.classList.remove("active");
-          html.removeAttribute("data-widescreen");
-          localStorage.removeItem("widescreen");
-          var wsBtn = document.getElementById("btnWidescreen");
-          if (wsBtn) {
-            wsBtn.classList.remove("active");
-            wsBtn.textContent = "☐";
-          }
-          html.style.removeProperty("--reader-font-size");
-          localStorage.removeItem("fontSize");
-          var fsv = document.getElementById("fontSizeVal");
-          if (fsv) fsv.textContent = "1.25rem";
-          html.removeAttribute("data-font-system");
-          localStorage.removeItem("fontSystem");
-          var ffBtn = document.getElementById("btnFontToggle");
-          var ffLbl = document.getElementById("fontFamilyLabel");
-          if (ffBtn) ffBtn.classList.remove("active");
-          if (ffLbl) ffLbl.textContent = "Hadithmv";
-          // Reader settings
-          [
-            "reader:rowsPerPage",
-            "reader:hideTashkeel",
-            "reader:hiddenColumns",
-          ].forEach(function (k) {
-            localStorage.removeItem(k);
-          });
-          localStorage.removeItem("focus");
-          html.removeAttribute("data-focus");
-          var fBtn = document.getElementById("btnFocus");
-          if (fBtn) fBtn.classList.remove("active");
-          document.dispatchEvent(new CustomEvent("readerset"));
-          localStorage.removeItem("lang");
-          var sel = document.getElementById("selLanguage");
-          if (sel) sel.value = "dv";
-          document.getElementById("settingsOverlay").classList.remove("open");
-        });
+      document.getElementById("btnResetSettings").addEventListener("click", function () {
+        var html = document.documentElement;
+        html.removeAttribute("data-theme");
+        localStorage.removeItem("theme");
+        var thBtn = document.getElementById("themeToggle");
+        if (thBtn) thBtn.classList.remove("active");
+        html.removeAttribute("data-widescreen");
+        localStorage.removeItem("widescreen");
+        var wsBtn = document.getElementById("btnWidescreen");
+        if (wsBtn) { wsBtn.classList.remove("active"); wsBtn.textContent = "☐"; }
+        html.style.removeProperty("--reader-font-size");
+        localStorage.removeItem("fontSize");
+        var fsv = document.getElementById("fontSizeVal");
+        if (fsv) fsv.textContent = "1.25rem";
+        html.removeAttribute("data-font-system");
+        localStorage.removeItem("fontSystem");
+        var ffBtn = document.getElementById("btnFontToggle");
+        var ffLbl = document.getElementById("fontFamilyLabel");
+        if (ffBtn) ffBtn.classList.remove("active");
+        if (ffLbl) ffLbl.textContent = "Hadithmv";
+        localStorage.removeItem("lang");
+        var sel = document.getElementById("selLanguage");
+        if (sel) sel.value = "dv";
+        document.getElementById("settingsOverlay").classList.remove("open");
+      });
 
       // Settings modal open / close
       (function () {

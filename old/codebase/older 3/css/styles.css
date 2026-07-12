@@ -304,53 +304,6 @@ body {
   border-color: var(--color-nav-btn-text);
 }
 
-/* ---- Focus mode — hide chrome, keep title ---- */
-[data-focus] #searchBar,
-[data-focus] #searchResults,
-[data-focus] #readerToolbar,
-[data-focus] #readerNav,
-[data-focus] #readerNavBottom {
-  display: none !important;
-}
-
-[data-focus] #readerContent {
-  border: none;
-  box-shadow: none;
-}
-
-/* Expand button to exit focus mode */
-.focus-expand {
-  display: none;
-}
-
-[data-focus] .focus-expand {
-  display: flex;
-  justify-content: center;
-  padding: 8px 0 4px;
-}
-
-.focus-expand button {
-  padding: 6px 16px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
-  transition: background 0.15s ease;
-}
-
-[data-focus] .focus-expand {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.focus-expand button:hover {
-  background: var(--color-nav-btn-hover-bg);
-}
-
 /* ---- Widescreen mode ---- */
 [data-widescreen] #pageHeader,
 [data-widescreen] #readerWrapper,
@@ -664,15 +617,8 @@ body {
 #pageSubRow {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
   gap: 8px;
   margin-top: 4px;
-}
-
-.subrow-right {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
 }
 
 #pageSubRow #pageTags {
@@ -1054,38 +1000,6 @@ body {
   text-decoration: line-through;
 }
 
-/* Column dropdown */
-.column-dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 60;
-  margin-top: 4px;
-  padding: 6px;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
-  max-width: 140px;
-}
-
-.column-dropdown .column-toggles {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.column-dropdown .col-toggle {
-  text-align: right;
-  width: 100%;
-  padding: 5px 10px;
-  font-size: 0.8rem;
-}
-
-#columnTogglesGroup {
-  position: relative;
-}
-
 /* ── Tashkeel hide mode ── */
 .hide-tashkeel .tashkeel {
   display: none;
@@ -1281,10 +1195,6 @@ body {
   color: var(--color-text-muted);
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
-  display: inline-block;
-  width: 170px;
-  text-align: center;
-  direction: ltr;
 }
 
 .nav-counter-bottom {
@@ -1293,88 +1203,6 @@ body {
   color: var(--color-text-muted);
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
-  display: inline-block;
-  width: 170px;
-  text-align: center;
-  direction: ltr;
-}
-
-.counter-nums {
-  display: inline-block;
-  min-width: 60px;
-  text-align: center;
-}
-
-.c-n {
-  display: inline-block;
-  width: 2.2em;
-  text-align: center;
-}
-
-.nav-sep {
-  color: var(--color-border);
-  font-weight: 300;
-  user-select: none;
-}
-
-.nav-focus-btn {
-  padding: 6px 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
-  white-space: nowrap;
-}
-
-.nav-focus-btn:hover {
-  background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
-}
-
-.nav-focus-btn.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
-}
-
-.nav-focus-btn.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
-}
-
-/* Sticky header in focus mode */
-[data-focus] #pageHeader {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: var(--color-bg);
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-}
-
-[data-focus] .menu-btn {
-  position: fixed;
-}
-
-[data-focus] .back-link {
-  position: fixed;
-}
-
-.focus-page-indicator {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-text-subtle);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
-  white-space: nowrap;
-  direction: ltr;
 }
 
 /* ---- Reader content ---- */
