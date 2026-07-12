@@ -1,20 +1,21 @@
 # Book Lookup System Architecture
 
-A metadata-driven, single-page viewer for Islamic texts. All configuration lives in CSV files — adding content or categories never requires code changes. The UI is in Dhivehi; error messages are in English.
+A metadata-driven, single-page viewer for Islamic texts. All configuration lives in CSV files. The UI supports Dhivehi, English, and Arabic via an i18n module.
 
 ## Files
 
-| File               | Purpose                                                       |
-| ------------------ | ------------------------------------------------------------- |
-| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)          |
-| `tags.csv`         | Tag definitions (code, label, badge colors)                   |
-| `books/index.html` | Shared viewer page and library dashboard                      |
-| `css/styles.css`   | All styles: light + dark themes, reader, toolbar, responsive  |
-| `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering         |
-| `js/reader.js`     | Book viewer: pagination, search, toolbar, clipboard, keyboard |
-| `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)    |
-| `data/*.csv`       | Per-book content files                                        |
-| `dependencies/`    | PapaParse only                                                |
+| File               | Purpose                                                           |
+| ------------------ | ----------------------------------------------------------------- |
+| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)              |
+| `tags.csv`         | Tag definitions (code, label, badge colors)                       |
+| `books/index.html` | Shared viewer page and library dashboard                          |
+| `css/styles.css`   | All styles: light + dark themes, sidebar, reader, toolbar, responsive |
+| `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering             |
+| `js/reader.js`     | Book viewer: pagination, search, toolbar, clipboard, keyboard     |
+| `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `cycleLanguage()`        |
+| `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
+| `data/*.csv`       | Per-book content files                                            |
+| `dependencies/`    | PapaParse only                                                    |
 
 ## Request flow
 
@@ -32,8 +33,8 @@ URL: ?book=AQD-nawaqidulIslam
     ├─ Papa.parse(../data/AQD-nawaqidulIslam.csv)
     ├─ skip # header row if present
     ├─ build column toggle buttons from header or auto-names
-    ├─ renderPage(0) → vertical reading card
-    └─ wire pagination / search / toolbar / keyboard
+    ├─ renderPage(0) → vertical reading card(s)
+    └─ wire pagination / search / toolbar / keyboard / i18n
 ```
 
 No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all registered books.
@@ -43,73 +44,105 @@ No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all reg
 ### Layout
 
 ```text
-┌─ Search bar ──────────────────────────────────────────────┐
-│  މި ފޮތުން ހޯދާ…                            [✕]  ނަތީޖާ N │
-├─ Search results (dropdown, visible while searching) ──────┤
-│  #5  …matching text from column 1 with <mark>…           │
-│  #5  …matching text from column 3 with <mark>…           │
-│  #8  …matching text from column 2 with <mark>…           │
-├─ Toolbar ─────────────────────────────────────────────────┤
-│  [📋 ކޮޕީ ކުރޭ] [◉ ފިލި ފޮރުވާ]           │
-│  އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ: [1 ▾]               │
-│  ކޮލަމް ފޮރުވާ: [#] [1] [2] [3] [4] [ނޯޓު]        │
-├─ Pagination (top) ────────────────────────────────┤
-│  »  »»  10  …  3  2  1  ««  «     މިހާރުގެ ސަފްހާ [1 ▾]  ސަފްހާ 1 / 10 │
-├─ Reader content ──────────────────────────────────┤
-│  #1                                                │
-│  [column 1]                                        │
-│  [column 2]                                        │
-│  column 3 …                                        │
-│  column 4 …                                        │
-│         ◆                                          │
-│  footnotes                                         │
-├─ Pagination (bottom) ─────────────────────────────┤
-│  »  »»  10  …  3  2  1  ««  «     ސަފްހާ 1 / 10   │
-└────────────────────────────────────────────────────┘
+┌─ Sidebar (☰) ──────────────────────────────────────────┐
+│  Hadithmv                                    [✕]        │
+│  ← Book list   📧 Contact                              │
+│  ─────────────────────────                              │
+│  📐 Widescreen                                          │
+│  🌐 Language    ދިވެހި                                  │
+│  🌙 Dark mode                                           │
+│  ─────────────────────────                              │
+│  Version 6.9.85 · Web                                   │
+│  Made by: hadithmv                                      │
+└─────────────────────────────────────────────────────────┘
+
+┌─ Search bar ───────────────────────────────────────────┐
+│  މި ފޮތުން ހޯދާ…                          [✕]   ނަތީޖާ N │
+├─ Search results (dropdown) ─────────────────────────────┤
+│  #5  …matching text from column 1…                     │
+│  #5  …matching text from column 3…                     │
+├─ Toolbar ──────────────────────────────────────────────┤
+│  [📋 Copy] [◉ Hide diacritics] [↺ Reset]               │
+│  Show pages at once: [1 ▾]   Hide columns: [#] [1] [2]…│
+├─ Pagination (top) ─────────────────────────────────────┤
+│  »  »»  10  …  3  2  1  ««  «     Page no.: [1 ▾]  Page 1 / 10 │
+├─ Reader content ───────────────────────────────────────┤
+│  #1                                                     │
+│  [column 1]                                             │
+│  [column 2]                                             │
+│  column 3 …                                             │
+│         ◆                                               │
+│  footnotes                                              │
+├─ Pagination (bottom) ──────────────────────────────────┤
+│  »  »»  10  …  3  2  1  ««  «                Page 1 / 10 │
+└─────────────────────────────────────────────────────────┘
 ```
 
 ### Vertical reading card
 
-Column 0 is the row number (`#N`), toggleable via the column controls. All non-empty columns are displayed in order with `dir="auto"` for automatic RTL/LTR detection. The last non-empty column is separated by a decorative `◆` divider and rendered as footnotes.
+Column 0 is the row number (`#N`), toggleable via the column controls. All non‑empty, non‑hidden columns are displayed in order with `dir="auto"`. The last non‑empty column gets a decorative `◆` divider and smaller footnote styling.
+
+When `Show pages at once` > 1, multiple rows render in a single page separated by a dashed `<hr>`.
 
 ### Pagination
 
-- **Page strip** — clickable buttons. ≤ 9 pages: all shown. > 9: first, `…`, ±2 window around current, `…`, last.
+- **Page strip** — clickable buttons. ≤ 9 total: all shown. > 9: first, `…`, ±2 window around current, `…`, last.
 - **First / Last** (`««` / `»»`) and **Prev / Next** (`«` / `»`).
-- **Page input** — type + Enter, or pick from `<datalist>` dropdown. Top nav only.
-- Nav flows RTL (`dir="rtl"`) to match Arabic: `» »» 10 … 1 «« «`.
-- Counter: `ސަފްހާ X / Y`. Match count appears separately next to the search bar.
+- **Page input** — type + Enter, or pick from `<datalist>` dropdown.
+- Nav flows RTL (`dir="rtl"`): `» »» 10 … 1 «« «`.
 
 ### Search
 
-Real-time filtering against all columns, case-insensitive. Pagination operates on the filtered set. `/` or `Ctrl+F` focuses the input.
+Real‑time, case‑insensitive filtering against all columns. Pagination operates on the filtered set.
 
-A **results dropdown** appears below the search bar showing up to 50 matches. Each matching column in a row gets its own entry with a ~300-char snippet and `<mark>` highlighting. Click a result or press Enter to jump directly to that page. ↑/↓ arrows navigate the list; Escape closes it. Match count is shown as `ނަތީޖާ N` (or `ނަތީޖާ 0` when none).
+The **results dropdown** shows up to 50 entries — each matching column in a row produces its own entry with a ~300‑char snippet centred on the first match. Matches are highlighted with `<mark>` tags. The dropdown is keyboard‑navigable (↑/↓/Enter/Escape) and closes when clicking outside.
 
 ### Toolbar
 
-| Control            | Implementation                                                                                                                                                                          |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Copy               | Builds plain text from fields with book title header, blank lines between fields, and `ـ` divider before footnotes. Uses `navigator.clipboard.writeText()` with `execCommand` fallback. |
-| Hide diacritics    | Wraps Unicode ranges U+064B–U+065F, U+0610–U+061A, U+06D6–U+06ED in `<span class="tashkeel">`. Toggle adds `.hide-tashkeel` class → CSS `display: none`.                                |
-| Show pages at once | Changes `rowsPerPage` (1/2/3/5). `renderPage` slices the filtered data into pages of N rows, separated by dashed `<hr>`.                                                                |
-| Hide columns       | Per-index toggle buttons. Hidden indices stored in `hiddenColumns[]`. `renderPage` skips hidden columns. Column 0 (row number) is toggleable.                                           |
+| Control | Implementation |
+|---|---|
+| Copy | Builds plain text: book title (DV − AR), row numbers, blank lines between fields, `ـ` divider before footnotes. Uses `navigator.clipboard.writeText()` with `execCommand` fallback. |
+| Hide diacritics | Wraps Unicode ranges U+064B–U+065F, U+0610–U+061A, U+06D6–U+06ED in `<span class="tashkeel">` during render. Toggle adds `.hide‑tashkeel` class on `#readerContent` → `display: none`. |
+| Reset | Clears search, resets rowsPerPage to 1, unhides all columns, shows tashkeel, jumps to page 1, clears all `localStorage` reader settings. |
+| Show pages at once | `rowsPerPage ∈ {1,2,3,5}`. `renderPage` slices `filteredData` into pages of N rows. Changing the value preserves the top‑most visible row. |
+| Hide columns | Per‑index buttons built from the header row or auto‑names (`#`, `1`, `2`, …, `colNotes`). `hiddenColumns[]` persisted. Column 0 is toggleable. |
 
-All toolbar settings persist to `localStorage` under `reader:` keys.
+### Sidebar
+
+Opened via the ☰ hamburger button (top‑right). Slides in from the right over a semi‑transparent overlay. Closes on ✕, overlay click, or Escape.
+
+- **Dashboard link** → `index.html` (clears `?book`)
+- **Contact link** → `contact.html`
+- **Widescreen** → toggles `data-widescreen` on `<html>`, removing `max-width` from reader, page header, and dashboard
+- **Language** → cycles `dv → en → ar → dv`, fires `languagechange` event
+- **Dark mode** → toggles `data-theme`, persisted, applied before paint
+- **Footer** → version string and creator credit
 
 ### Dark mode
 
-CSS custom properties under `:root` (light) and `[data-theme="dark"]` (dark). Toggle button applies `data-theme` attribute on `<html>`. Preference saved to `localStorage` and restored via blocking `<script>` in `<head>` before CSS paints — no flash.
+CSS custom properties: `:root` (light) and `[data-theme="dark"]` (dark). A blocking `<script>` in `<head>` reads `localStorage` and sets `data-theme` before the CSS link — no flash of wrong theme.
+
+### Widescreen mode
+
+`[data-widescreen]` removes `max-width` constraints from `#pageHeader`, `#readerWrapper`, and `#dashboardWrapper`. The reader content borders become seamless. Persisted to `localStorage`.
+
+### Internationalisation
+
+All UI strings live in [`js/i18n.js`](../js/i18n.js) as a `STRINGS` dictionary with `dv`, `en`, and `ar` keys. Language is stored in `localStorage` and applied as `data-lang` on `<html>`.
+
+- **Static text:** `data-i18n` and `data-i18n-title` attributes on HTML elements. `initI18n()` walks them on load and on every language change.
+- **Dynamic text:** `t(key)` imported by `reader.js` and `dbLookup.js`. A `languagechange` CustomEvent triggers column‑toggle rebuild and page re‑render.
 
 ### Keyboard
 
-| Key             | Action               |
-| --------------- | -------------------- |
-| `←` / `→`       | Previous / next page |
-| `Home` / `End`  | First / last page    |
-| `/` or `Ctrl+F` | Focus search bar     |
-
-Suppressed while search or page input is focused.
+| Key | Context | Action |
+|---|---|---|
+| `←` / `→` | Reader (not in inputs) | Previous / next page |
+| `Home` / `End` | Reader (not in inputs) | First / last page |
+| `/` or `Ctrl+F` | Anywhere | Focus search bar |
+| `↑` / `↓` | Search focused | Navigate results list |
+| `Enter` | Search focused + result selected | Jump to result |
+| `Escape` | Search focused or sidebar open | Close dropdown / sidebar |
 
 ## Data shape
 
@@ -126,25 +159,20 @@ Suppressed while search or page input is focused.
 
 | Column  | Description                                              |
 | ------- | -------------------------------------------------------- |
-| `code`  | Tag code — matches a hyphen-separated prefix in bookCode |
+| `code`  | Tag code — matches a hyphen‑separated prefix in bookCode |
 | `label` | Display name for the badge                               |
 | `color` | Text color (CSS hex)                                     |
 | `bg`    | Background color (CSS hex)                               |
 
 ### data/{bookCode}.csv
 
-Optional `#` header row. If present, column labels are taken from it for the toolbar toggles. The row itself is excluded from display.
+Optional `#` header row. If present, labels the column toggles. The row is excluded from display.
 
-```csv
-#,section,arabic_text,dhivehi_text,notes
-1,Introduction,بسم الله...,ބިސްމި...,—
-```
-
-Without a header row, auto-names are used: `#`, `1`, `2`, …, `ނޯޓު`.
+Without a header row, auto‑names are used: `#`, `1`, `2`, …, `colNotes`.
 
 ## Tag system
 
-Tag codes are the hyphen-separated prefix segments of `bookCode`, excluding the final segment (the book name). Each code is looked up in `tags.csv`. Unknown codes are silently ignored.
+Tag codes are the hyphen‑separated prefix segments of `bookCode`, excluding the final segment (the book name). Each code is looked up in `tags.csv`. Unknown codes are silently ignored.
 
 | bookCode                        | Tags        | Book Name             |
 | ------------------------------- | ----------- | --------------------- |
@@ -155,11 +183,14 @@ Tag codes are the hyphen-separated prefix segments of `bookCode`, excluding the 
 
 ## Error states
 
-All error paths show visible messages in English (no silent blank screens):
+All errors show visible messages in English:
 
-- **Registry fails:** "Unable to load the book registry. Please check your connection and try again."
-- **Book not found:** "Book X was not found in the registry. The registry may have failed to load, or the book code is incorrect."
-- **CSV empty/fails:** "No data found in CSV file: …" / "Error loading CSV: …"
+| Error | Source |
+|---|---|
+| Registry fails to load | `dbLookup.js` → dashboard |
+| Book code not found | `dbLookup.js` → reader |
+| CSV empty or fails to parse | `reader.js` → reader |
+| CSV parse warnings | Console (non‑fatal) |
 
 ## Adding content
 
@@ -178,7 +209,9 @@ All error paths show visible messages in English (no silent blank screens):
 
 - **Single source of truth** — book metadata and tag definitions in CSV files
 - **Shared template** — one HTML page for all books
-- **Zero code changes** — adding books or categories is CSV-only
-- **Light + dark themes** — persisted, no flash
-- **RTL-native** — nav flows right-to-left to match Arabic/Dhivehi reading direction
-- **Graceful errors** — failures show messages, not blank screens
+- **Zero code changes** — adding books or categories is CSV‑only
+- **Light + dark themes** — persisted, no flash, CSS custom properties
+- **RTL‑native** — nav and content flow right‑to‑left for Arabic/Dhivehi
+- **Trilingual UI** — Dhivehi, English, Arabic; one click to cycle
+- **Graceful errors** — failures show messages, never blank screens
+- **All settings persisted** — theme, language, widescreen, rows/page, hidden columns, tashkeel

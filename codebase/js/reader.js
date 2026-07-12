@@ -7,6 +7,7 @@
  */
 
 import { initializePageWithMetadata, extractTags } from "./dbLookup.js";
+import { t } from "./i18n.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -111,7 +112,7 @@ initializePageWithMetadata(async function (metadata) {
       function colLabel(idx) {
         if (headerRow && headerRow[idx]) return headerRow[idx];
         if (idx === 0) return "#";
-        if (idx === maxCols - 1) return "ނޯޓު";
+        if (idx === maxCols - 1) return t("colNotes");
         return "" + idx;
       }
 
@@ -275,10 +276,10 @@ initializePageWithMetadata(async function (metadata) {
           document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
         });
 
-        let cnt = `ސަފްހާ ${cur} / ${total}`;
+        let cnt = `${t("pageOf")} ${cur} / ${total}`;
         if (pageOfTotal) pageOfTotal.textContent = cnt;
         if (pageOfTotalBtm)
-          pageOfTotalBtm.textContent = `ސަފްހާ ${cur} / ${total}`;
+          pageOfTotalBtm.textContent = `${t("pageOf")} ${cur} / ${total}`;
 
         if (pageInput) {
           pageInput.max = total;
@@ -357,7 +358,7 @@ initializePageWithMetadata(async function (metadata) {
         if (count >= MAX && count < filteredData.length) {
           html +=
             '<div class="search-result" style="color:var(--color-text-subtle);cursor:default">' +
-            "… އަދި އިތުރު ނަތީޖާ" +
+            t("andMore") +
             "</div>";
         }
         return html;
@@ -403,15 +404,15 @@ initializePageWithMetadata(async function (metadata) {
           searchInfo.style.display = "";
           searchInfo.textContent =
             filteredData.length === 0
-              ? "ނަތީޖާ: 0"
-              : "ނަތީޖާ: " + filteredData.length;
+              ? t("noResults")
+              : t("resultCount") + ": " + filteredData.length;
         }
         if (filteredData.length === 0) {
           readerContent.innerHTML =
-            '<div class="reader-no-results">މިއަށް ނަތީޖާއެއް ނުފެނުނު: "' +
+            '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
             query +
             '"</div>';
-          pageText = 'މިއަށް ނަތީޖާއެއް ނުފެނުނު: "' + query + '"';
+          pageText = t("noMatchesMsg") + ': "' + query + '"';
           searchResults.style.display = "none";
           updatePagination();
         } else {
@@ -473,7 +474,7 @@ initializePageWithMetadata(async function (metadata) {
         navigator.clipboard
           .writeText(text)
           .then(function () {
-            showToast("ކޮޕީ ކުރެވިއްޖެ!");
+            showToast(t("toastCopied"));
           })
           .catch(function () {
             // Fallback for older browsers / non-HTTPS
@@ -485,9 +486,9 @@ initializePageWithMetadata(async function (metadata) {
             ta.select();
             try {
               document.execCommand("copy");
-              showToast("ކޮޕީ ކުރެވިއްޖެ!");
+              showToast(t("toastCopied"));
             } catch (_) {
-              showToast("ކޮޕީ ނުކުރެވުނު");
+              showToast(t("toastCopyFailed"));
             }
             document.body.removeChild(ta);
           });
@@ -636,6 +637,12 @@ initializePageWithMetadata(async function (metadata) {
           searchInput.focus();
           searchInput.select();
         }
+      });
+
+      // ── Language change → re-render ───────────────────────
+      document.addEventListener("languagechange", function () {
+        buildColumnToggles();
+        if (filteredData.length > 0) renderPage(currentPage);
       });
 
       // ── Initial render ──────────────────────────────────────

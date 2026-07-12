@@ -1,6 +1,6 @@
 # Hadithmv — Book Viewer
 
-A metadata-driven, single-page book viewer for Islamic texts. All configuration lives in CSV files — adding a book or a category never requires code changes.
+A metadata-driven, single-page book viewer for Islamic texts. All configuration lives in CSV files — adding a book or a category never requires code changes. The UI supports Dhivehi, English, and Arabic.
 
 ## File structure
 
@@ -14,6 +14,7 @@ css/
 js/
   dbLookup.js          ← Metadata loader, tag extraction, dashboard renderer
   reader.js            ← Book viewer: pagination, search, toolbar, keyboard
+  i18n.js              ← Translations (Dhivehi / English / Arabic)
 font/
   merged-300.woff2     ← Custom merged font (Arabic + Thaana + Latin)
   merged-300.woff
@@ -50,19 +51,17 @@ code,label,color,bg
 FQH,Fiqh,#b91c1c,#fef2f2
 ```
 
-Books with a `FQH-` prefix in their `bookCode` will show a "Fiqh" badge. No code needed.
+Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed.
 
 ## Data CSV format
 
-Each book's CSV in `data/` can optionally include a header row for reference. The viewer detects and hides it automatically.
+Each book's CSV can optionally include a header row for reference. If the first field of the first row is `#`, it is treated as a header — excluded from display and used to label the column toggle buttons in the toolbar.
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes
 1,Introduction,بسم الله...,ބިސްމި...,—
 2,Chapter 1,الحمد لله...,އަލްޙަމްދު...,—
 ```
-
-**Convention:** if the first field of the first row is `#`, the viewer treats it as a header — excluded from display and used to label columns in the toolbar.
 
 ## How it works
 
@@ -73,45 +72,51 @@ Each book's CSV in `data/` can optionally include a header row for reference. Th
 
 **No book selected?** The dashboard shows all registered books as a card grid.
 
-## Reader features
+## Features
 
 ### Reading view
 
-- **Vertical layout** — each row's columns are stacked with `dir="auto"` for proper RTL/LTR rendering.
-- **Footnotes divider** — the last column is separated by a decorative `◆` divider and rendered in smaller text.
-- **Multi-row pages** — show 1, 2, 3, or 5 rows per page via the toolbar selector.
+- Columns stacked vertically with `dir="auto"` for RTL/LTR detection
+- Footnotes separated by a `◆` divider
+- Show 1 / 2 / 3 / 5 rows per page
+- All columns toggleable — including the row number
+- Back link to return to the dashboard
 
 ### Pagination
 
-- **Page strip** — clickable page numbers with the current page highlighted. Uses `…` ellipsis for large ranges.
-- **First / Last** (`««` / `»»`) and **Prev / Next** (`«` / `»`) buttons.
-- **Page input** — type a number + Enter, or pick from the dropdown.
-- Counter displays `ސަފްހާ X / Y`.
+- Page strip with sliding window (±2 around current, `…` ellipsis for gaps)
+- First / Last and Prev / Next buttons
+- Type a page number + Enter, or pick from the dropdown
+- Counter shows "Page X / Y"
+- RTL nav flow: `» »» 10 … 1 «« «`
 
 ### Search
 
-- Real-time filtering — matches any text in any column, case-insensitive.
-- **Results dropdown** — appears below the search bar showing up to 50 matches. Each matching column gets its own row with a highlighted snippet (~300 chars of context).
-- **Click** a result or press **Enter** to jump directly to that page.
-- **↑ / ↓** arrows navigate the results list. **Escape** closes it.
-- Match count shown as `ނަތީޖާ N` next to the search bar.
-- Clear button (✕) resets to full dataset.
-- Keyboard: `/` or `Ctrl+F` focuses the search bar.
+- Real-time filtering against all columns, case‑insensitive
+- **Results dropdown** — each matching column gets its own row with a highlighted snippet (~300 chars of context)
+- Click or Enter to jump to a result; ↑/↓ to navigate; Escape to close
+- Match count shown next to the search bar
 
 ### Toolbar
 
 | Control | Description |
 |---|---|
-| 📋 Copy | Copy current page to clipboard with proper formatting |
-| ◉ Hide diacritics | Toggle Arabic tashkeel (harakat) visibility |
-| Show pages at once | Select rows per page: 1 / 2 / 3 / 5 |
-| Hide columns | Per-column toggle buttons — click to show/hide any column |
+| 📋 Copy | Copy current page as formatted plain text with book title header |
+| ◉ Hide diacritics | Toggle Arabic tashkeel visibility (Unicode ranges wrapped in spans) |
+| ↺ Reset | Reset all settings to defaults (search, columns, rows, tashkeel) |
+| Show pages at once | Rows per page: 1 / 2 / 3 / 5 |
+| Hide columns | Per-column toggle buttons (including row number) |
 
-### Dark mode
+All toolbar settings persist to `localStorage`.
 
-- Toggle button (top-right) switches between light and dark themes.
-- Persisted to `localStorage`, applied before paint — no flash.
-- All colors defined as CSS custom properties.
+### Sidebar (☰)
+
+- **Dashboard link** — return to the book list
+- **Contact link** — `contact.html`
+- **Dark mode toggle** — persisted, no flash on load
+- **Widescreen toggle** — removes max-width constraints for full-width reading
+- **Language toggle** — cycles Dhivehi → English → Arabic
+- **App info** — version number, platform, creator credit
 
 ### Keyboard shortcuts
 
@@ -120,23 +125,26 @@ Each book's CSV in `data/` can optionally include a header row for reference. Th
 | `←` / `→` | Previous / next page |
 | `Home` / `End` | First / last page |
 | `/` or `Ctrl+F` | Focus search bar |
+| `Escape` | Close sidebar |
 
-Arrow keys are suppressed when the search or page input is focused.
+Arrow keys are suppressed while the search or page input is focused.
 
 ### Font
 
-The bundled `font/merged-300.*` files provide a custom font covering Arabic, Thaana (Dhivehi), and Latin scripts. Applied via `@font-face` to all reader content, dashboard titles, and UI labels.
+The `font/merged-300.*` files provide a custom font covering Arabic, Thaana, and Latin scripts. Served as WOFF2 with WOFF fallback. Applied via `@font-face` to all reader content, dashboard titles, toolbar labels, and UI elements.
 
-### Language
+### Internationalisation
 
-The UI (toolbar, nav, search, counters) is written in Dhivehi. Error messages remain in English.
+All UI strings are defined in [`js/i18n.js`](js/i18n.js) with Dhivehi (`dv`), English (`en`), and Arabic (`ar`) translations. Static HTML uses `data-i18n` attributes; dynamic text uses the `t()` function. The language cycles on each click of the sidebar button and is persisted to `localStorage`.
 
 ## Error handling
 
-- **Registry failed to load** — visible error message on the dashboard.
-- **Book code not found** — error explains which book was requested.
-- **Data CSV empty or fails** — error shown in the reader.
-- **CSV parse warnings** — logged to console (non-fatal).
+All errors show visible messages in English:
+
+- Registry failed to load → error on the dashboard
+- Book code not found → error in the reader
+- Data CSV empty or fails → error in the reader
+- CSV parse warnings → logged to browser console (non-fatal)
 
 ## Dependencies
 

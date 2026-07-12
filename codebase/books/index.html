@@ -24,39 +24,43 @@
     <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
-        <h2 class="sidebar-title">Hadithmv</h2>
+        <h2 class="sidebar-title" data-i18n="sidebarTitle">Hadithmv</h2>
         <button id="sidebarClose" class="sidebar-close">✕</button>
       </div>
       <nav class="sidebar-nav">
-        <a href="index.html" class="sidebar-link">← ފޮތް ތަކުގެ ލިސްޓް</a>
-        <a href="contact.html" class="sidebar-link">📧 ގުޅުން</a>
+        <a href="index.html" class="sidebar-link" data-i18n="navDashboard">← ފޮތް ތަކުގެ ލިސްޓް</a>
+        <a href="contact.html" class="sidebar-link" data-i18n="navContact">📧 ގުޅުން</a>
       </nav>
       <div class="sidebar-section">
         <button id="btnWidescreen" class="sidebar-theme-btn" title="Toggle widescreen mode">
-          📐 ފުޅާ ސްކްރީން
+          <span data-i18n="btnWidescreen">📐 ފުޅާ ސްކްރީން</span>
+        </button>
+        <button id="btnLang" class="sidebar-theme-btn" title="Change language">
+          <span data-i18n="btnLang">🌐 ބަސް</span>
+          <span class="lang-indicator" data-i18n="langLabel">ދިވެހި</span>
         </button>
         <button id="themeToggle" class="sidebar-theme-btn" title="Toggle dark / light theme">
           <span class="icon-dark">🌙</span>
           <span class="icon-light">☀️</span>
-          <span class="label-dark">ޑާރކް މޯޑް</span>
-          <span class="label-light">ލައިޓް މޯޑް</span>
+          <span class="label-dark" data-i18n="labelDark">ޑާރކް މޯޑް</span>
+          <span class="label-light" data-i18n="labelLight">ލައިޓް މޯޑް</span>
         </button>
       </div>
       <div class="sidebar-footer">
-        <div class="sidebar-version">ވާޝަން 6.9.85 · ވެބް</div>
-        <div class="sidebar-credit">ހަދާފައިވަނީ: hadithmv</div>
+        <div class="sidebar-version" data-i18n="appVersion">ވާޝަން 6.9.85 · ވެބް</div>
+        <div class="sidebar-credit" data-i18n="appCredit">ހަދާފައިވަނީ: hadithmv</div>
       </div>
     </aside>
 
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
-      <h1 class="dashboard-title">Hadithmv</h1>
+      <h1 class="dashboard-title" data-i18n="dashboardTitle">Hadithmv</h1>
       <div id="bookGrid" class="book-grid"></div>
     </div>
 
     <!-- Page Header with Metadata (shown once data is ready) -->
     <div id="pageHeader" style="display: none">
-      <a href="index.html" id="backToDashboard" class="back-link">← ފޮތް ތަކުގެ ލިސްޓް</a>
+      <a href="index.html" id="backToDashboard" class="back-link" data-i18n="navDashboard">← ފޮތް ތަކުގެ ލިސްޓް</a>
       <h1 id="pageTitle"></h1>
       <p id="pageSubtitle"></p>
       <p id="pageSubsubtitle"></p>
@@ -64,7 +68,7 @@
     </div>
 
     <!-- Loading State -->
-    <div id="loadingMessage" class="loading" dir="rtl">ފޮތް ލޯޑް ކުރަނީ…</div>
+    <div id="loadingMessage" class="loading" dir="rtl" data-i18n="loading">ފޮތް ލޯޑް ކުރަނީ…</div>
 
     <!-- Error State -->
     <div id="errorMessage" class="error" style="display: none"></div>
@@ -76,7 +80,7 @@
           id="searchInput"
           type="search"
           class="search-input"
-          placeholder="މި ފޮތުން ހޯދާ…"
+          data-i18n="searchPlaceholder" placeholder="މި ފޮތުން ހޯދާ…"
           dir="rtl"
         />
         <button
@@ -97,21 +101,23 @@
             class="toolbar-btn"
             title="Copy page to clipboard"
           >
-            📋 ކޮޕީ ކުރޭ
+            <span data-i18n="btnCopy">📋 ކޮޕީ ކުރޭ</span>
           </button>
           <button
             id="btnTashkeel"
             class="toolbar-btn"
+            data-i18n-title="btnTashkeelTitle"
             title="Toggle Arabic diacritics (tashkeel)"
           >
-            ◉ ފިލި ފޮރުވާ
+            <span data-i18n="btnTashkeel">◉ ފިލި ފޮރުވާ</span>
           </button>
-          <button id="btnReset" class="toolbar-btn" title="Reset all settings to defaults">
-            ↺ ރީސެޓް
+          <button id="btnReset" class="toolbar-btn" data-i18n-title="btnResetTitle" title="Reset all settings to defaults">
+            <span data-i18n="btnReset">↺ ރީސެޓް</span>
           </button>
         </div>
         <div class="toolbar-group">
           <label class="toolbar-label" for="selRowsPerPage"
+            data-i18n="labelRowsPerPage"
             >އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:</label
           >
           <select id="selRowsPerPage" class="toolbar-select">
@@ -126,7 +132,7 @@
           id="columnTogglesGroup"
           style="display: none"
         >
-          <label class="toolbar-label">ކޮލަމް ފޮރުވާ:</label>
+          <label class="toolbar-label" data-i18n="labelHideColumns">ކޮލަމް ފޮރުވާ:</label>
           <div id="columnToggles" class="column-toggles"></div>
         </div>
       </div>
@@ -150,6 +156,7 @@
         </div>
         <div class="nav-goto">
           <label for="pageInput" class="page-label"
+            data-i18n="labelPageNo"
             >މި ސަފްހާގެ ނަންބަރު:</label
           >
           <input
@@ -192,6 +199,12 @@
         <div class="nav-counter-bottom" id="pageOfTotalBottom"></div>
       </nav>
     </div>
+
+    <script type="module">
+      import { initI18n, cycleLanguage } from "../js/i18n.js";
+      initI18n();
+      document.getElementById("btnLang").addEventListener("click", cycleLanguage);
+    </script>
 
     <script>
       // Theme toggle

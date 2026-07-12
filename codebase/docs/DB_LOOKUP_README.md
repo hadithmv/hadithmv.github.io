@@ -2,13 +2,13 @@
 
 ES module that loads metadata from `bookNames.csv` and `tags.csv`, resolves book lookups, and renders the dashboard. All CSV parsing uses PapaParse.
 
-> The book viewer (pagination, search, toolbar, clipboard, keyboard) lives in [`js/reader.js`](../js/reader.js). This module handles only metadata and the dashboard.
+> The book viewer (pagination, search, toolbar, clipboard, keyboard) lives in [`js/reader.js`](../js/reader.js). The translations module is [`js/i18n.js`](../js/i18n.js). This module handles only metadata and the dashboard.
 
 ## Exports
 
 ### `initializePageWithMetadata(callback)`
 
-Main entry point. Reads `?book=CODE` from the URL, preloads tag definitions and book metadata, then either renders the dashboard or invokes the callback.
+Main entry point. Reads `?book=CODE` from the URL, preloads tag definitions and book metadata, then either renders the dashboard or invokes the callback with metadata for the selected book.
 
 ```javascript
 import { initializePageWithMetadata } from "../js/dbLookup.js";
@@ -22,20 +22,23 @@ initializePageWithMetadata(async function (metadata) {
 });
 ```
 
-**No `?book=` param** → renders the dashboard (card grid of all books).
-**Book found** → calls `callback(metadata)`.
-**Book not found or registry failed** → shows an error message.
+| Case | Behavior |
+|---|---|
+| No `?book=` param | Renders the dashboard (card grid of all books) |
+| Book found | Calls `callback(metadata)` |
+| Book not found | Shows error with book code |
+| Registry failed to load | Shows error on dashboard or reader |
 
 ### `loadBookNames()`
 
-Fetches and caches `bookNames.csv`. Safe to call multiple times.
+Fetches and caches `bookNames.csv` using PapaParse. Safe to call multiple times — subsequent calls return the cache.
 
 ```javascript
 const books = await loadBookNames();
 // [{ bookCode: "AQD-nawaqidulIslam", titleAR: "نواقض الإسلام", ... }, ...]
 ```
 
-Returns `[]` on error.
+Returns `[]` on error. Cache is only set on success so retries work.
 
 ### `getPageMetadata(bookCode)`
 
@@ -57,7 +60,7 @@ getCsvPath("AQD-qawaidulArbau");
 
 ### `extractTags(bookCode)`
 
-Synchronous. Splits the book code on `-`, drops the last segment (book name), and resolves remaining segments against `tags.csv`.
+Synchronous. Splits the book code on `-`, drops the last segment (book name), and resolves remaining segments against `tags.csv`. Returns an array of tag objects with `code`, `label`, `color`, and `bg`.
 
 ```javascript
 const tags = extractTags("AQD-DFK-sharhuSunnahBarbahari");
@@ -67,26 +70,36 @@ const tags = extractTags("AQD-DFK-sharhuSunnahBarbahari");
 // ]
 ```
 
-Tags must be preloaded via `loadTagDefinitions()` (called automatically by `initializePageWithMetadata`). Returns `[]` if called before loading.
+Tags must be preloaded via `loadTagDefinitions()` (called automatically by `initializePageWithMetadata`). Returns `[]` gracefully if called before loading or if a tag code is unknown.
 
 ## Internal functions
 
 ### `loadTagDefinitions()`
 
-Fetches and caches `tags.csv`, building a lookup map of `{ code → { label, color, bg } }`.
+Fetches and caches `tags.csv`, building a lookup map:
+
+```javascript
+{ AQD: { label: "Aqidah", color: "#4f46e5", bg: "#eef2ff" }, … }
+```
+
+Called once by `initializePageWithMetadata()` before any rendering. Cache is set on success; on failure, an empty object is cached to prevent repeated retries.
 
 ### `renderDashboard(bookNames)`
 
-Renders the card grid from the book registry. Shows an error if the list is empty.
+Renders the card grid from the book registry. Each card shows tag badges and titles in Arabic, Dhivehi, and English. Shows an error if the book list is empty. Hides the loading message.
 
 ## File dependencies
 
 ```text
 js/dbLookup.js
-  ├── reads ../bookNames.csv    (fetch + PapaParse)
-  └── reads ../tags.csv         (fetch + PapaParse)
+  ├── reads  ../bookNames.csv       (fetch + PapaParse)
+  └── reads  ../tags.csv            (fetch + PapaParse)
 
 js/reader.js
-  ├── imports dbLookup.js       (initializePageWithMetadata, extractTags)
-  └── reads ../data/*.csv       (PapaParse)
+  ├── imports js/dbLookup.js        (initializePageWithMetadata, extractTags)
+  ├── imports js/i18n.js            (t)
+  └── reads  ../data/*.csv          (PapaParse)
+
+js/i18n.js
+  └── (no dependencies — pure data + DOM)
 ```
