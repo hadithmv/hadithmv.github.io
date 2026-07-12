@@ -94,6 +94,10 @@ const STRINGS = {
     en: "← Book list",
     ar: "← قائمة الكتب",
   },
+  navScrollTop: { dv: "⬆ މައްޗަށް", en: "⬆ Scroll to top", ar: "⬆ أعلى الصفحة" },
+  navGitHub: { dv: "🐙 ގިޓްހަބް", en: "🐙 GitHub", ar: "🐙 غيت هب" },
+  navFaq: { dv: "❓ ސުވާލުތައް", en: "❓ FAQ", ar: "❓ الأسئلة الشائعة" },
+  navHelp: { dv: "🛟 އެހީ", en: "🛟 Help", ar: "🛟 مساعدة" },
   navContact: { dv: "📧 ގުޅުން", en: "📧 Contact", ar: "📧 اتصل بنا" },
   btnWidescreen: {
     dv: "📐 ފުޅާ ސްކްރީން",

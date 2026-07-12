@@ -32,15 +32,35 @@
         <a href="index.html" class="sidebar-link" data-i18n="navDashboard"
           >← ފޮތް ތަކުގެ ލިސްޓް</a
         >
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <nav class="sidebar-nav">
+        <a href="https://github.com/hadithmv/hadithmv.github.io" target="_blank" rel="noopener" class="sidebar-link" data-i18n="navGitHub"
+          >🐙 GitHub</a
+        >
+        <a href="faq.html" class="sidebar-link" data-i18n="navFaq"
+          >❓ FAQ</a
+        >
+        <a href="help.html" class="sidebar-link" data-i18n="navHelp"
+          >🛟 އެހީ</a
+        >
         <a href="contact.html" class="sidebar-link" data-i18n="navContact"
           >📧 ގުޅުން</a
         >
       </nav>
 
+      <div class="sidebar-divider"></div>
+
       <a id="btnSettings" class="sidebar-link" style="cursor: pointer">
         <span>⚙</span>
         <span data-i18n="labelSettings">ސެޓިންގްސް</span>
       </a>
+
+      <a id="btnScrollTop" class="sidebar-link" style="cursor: pointer" data-i18n="navScrollTop"
+        >⬆ މައްޗަށް</a
+      >
 
       <div class="sidebar-footer">
         <div class="sidebar-version" data-i18n="appVersion">
@@ -342,6 +362,11 @@
         openBtn.addEventListener("click", open);
         closeBtn.addEventListener("click", close);
         overlay.addEventListener("click", close);
+        // Scroll-to-top
+        document.getElementById("btnScrollTop").addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          close();
+        });
         document.addEventListener("keydown", function (e) {
           if (e.key === "Escape") close();
         });
