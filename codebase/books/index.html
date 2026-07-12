@@ -9,7 +9,8 @@
     <script>
       (function () {
         var t = localStorage.getItem("theme");
-        if (t && t !== "light") document.documentElement.setAttribute("data-theme", t);
+        if (t && t !== "light")
+          document.documentElement.setAttribute("data-theme", t);
       })();
     </script>
   </head>
@@ -94,128 +95,132 @@
     <!-- Reader Container (single-row vertical reading view) -->
     <div id="readerWrapper" style="display: none">
       <div id="readerChrome">
-      <div id="pageHeader" style="display: none">
-        <a href="index.html" id="backToDashboard" class="back-link" data-i18n="navDashboard">← ފޮތްތަކުގެ ލިސްޓް</a>
-        <h1 id="pageTitle"></h1>
-        <div id="pageSubRow" style="display: none">
-          <span class="subrow-left">
-            <button id="btnFocusExpand" class="focus-expand-btn" data-i18n="btnFocusExpand">ފޯކަސް ވިއު ▼</button>
-          </span>
-          <span class="subrow-right">
-            <span id="pageTags"></span>
-            <span id="pageSubtitle"></span>
-          </span>
-        </div>
-      </div>
-      <div id="searchBar">
-        <input
-          id="searchInput"
-          type="search"
-          class="search-input"
-          data-i18n="searchPlaceholder"
-          placeholder="މި ފޮތުން ހޯދާ…"
-          dir="rtl"
-        />
-        <button
-          id="searchClear"
-          class="search-clear"
-          title="Clear search"
-          style="display: none"
-        >
-          ✕
-        </button>
-        <span id="searchInfo" class="search-info" style="display: none"></span>
-      </div>
-      <div
-        id="searchResults"
-        class="search-results"
-        style="display: none"
-      ></div>
-      <div id="readerToolbar" class="reader-toolbar" dir="rtl">
-        <div class="toolbar-group">
-          <button
-            id="btnCopy"
-            class="toolbar-btn"
-            title="Copy page to clipboard"
-          >
-            <span data-i18n="btnCopy">📋 ކޮޕީ ކުރޭ</span>
-          </button>
-          <button
-            id="btnTashkeel"
-            class="toolbar-btn"
-            data-i18n-title="btnTashkeelTitle"
-            title="Toggle Arabic diacritics (tashkeel)"
-          >
-            <span data-i18n="btnTashkeel">◉ ފިލި ފޮރުވާ</span>
-          </button>
-          <button
-            id="btnReset"
-            class="toolbar-btn"
-            data-i18n-title="btnResetTitle"
-            title="Reset all settings to defaults"
-          >
-            <span data-i18n="btnReset">↺ ރީސެޓް</span>
-          </button>
-        </div>
-        <div class="toolbar-group">
-          <label
-            class="toolbar-label"
-            for="selRowsPerPage"
-            data-i18n="labelRowsPerPage"
-            >އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:</label
-          >
-          <select id="selRowsPerPage" class="toolbar-select">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-        <div
-          class="toolbar-group"
-          id="columnTogglesGroup"
-          style="display: none"
-        >
-          <button id="btnColDropdown" class="toolbar-btn" data-i18n="labelHideColumns">
-            ކޮލަމް ފޮރުވާ ▾
-          </button>
-          <div id="columnDropdown" class="column-dropdown" style="display:none">
-            <div id="columnToggles" class="column-toggles"></div>
+        <div id="pageHeader" style="display: none">
+          <a href="index.html" id="backToDashboard" class="back-link" data-i18n="navDashboard">← ފޮތްތަކުގެ ލިސްޓް</a>
+          <h1 id="pageTitle"></h1>
+          <div id="pageSubRow" style="display: none">
+            <span class="subrow-left">
+              <button id="btnFocusExpand" class="focus-expand-btn" data-i18n="btnFocusExpand">ފޯކަސް ވިއު ▼</button>
+            </span>
+            <span class="subrow-right">
+              <span id="pageTags"></span>
+              <span id="pageSubtitle"></span>
+            </span>
           </div>
         </div>
+        <div id="searchBar">
+          <input
+            id="searchInput"
+            type="search"
+            class="search-input"
+            data-i18n="searchPlaceholder"
+            placeholder="މި ފޮތުން ހޯދާ…"
+            dir="rtl"
+          />
+          <button
+            id="searchClear"
+            class="search-clear"
+            title="Clear search"
+            style="display: none"
+          >
+            ✕
+          </button>
+          <span
+            id="searchInfo"
+            class="search-info"
+            style="display: none"
+          ></span>
+        </div>
+        <div
+          id="searchResults"
+          class="search-results"
+          style="display: none"
+        ></div>
+        <div id="readerToolbar" class="reader-toolbar" dir="rtl">
+          <div class="toolbar-group">
+            <button
+              id="btnCopy"
+              class="toolbar-btn"
+              title="Copy page to clipboard"
+            >
+              <span data-i18n="btnCopy">📋 ކޮޕީ ކުރޭ</span>
+            </button>
+            <button
+              id="btnTashkeel"
+              class="toolbar-btn"
+              data-i18n-title="btnTashkeelTitle"
+              title="Toggle Arabic diacritics (tashkeel)"
+            >
+              <span data-i18n="btnTashkeel">◉ ފިލި ފޮރުވާ</span>
+            </button>
+            <button
+              id="btnReset"
+              class="toolbar-btn"
+              data-i18n-title="btnResetTitle"
+              title="Reset all settings to defaults"
+            >
+              <span data-i18n="btnReset">↺ ރީސެޓް</span>
+            </button>
+          </div>
+          <div
+            class="toolbar-group"
+            id="columnTogglesGroup"
+            style="display: none"
+          >
+            <button
+              id="btnColDropdown"
+              class="toolbar-btn"
+              data-i18n="labelHideColumns"
+            >
+              ކޮލަމް ފޮރުވާ ▾
+            </button>
+            <div
+              id="columnDropdown"
+              class="column-dropdown"
+              style="display: none"
+            >
+              <div id="columnToggles" class="column-toggles"></div>
+            </div>
+          </div>
+        </div>
+        <nav id="readerNav" class="reader-nav" dir="rtl">
+          <div class="nav-pages">
+            <span id="pageLabel" class="page-of-label"></span>
+            <button
+              id="firstBtn"
+              class="nav-btn nav-edge"
+              title="First page (Home)"
+            >
+              ««
+            </button>
+            <button id="prevBtn" class="nav-btn" title="Previous page (←)">
+              «
+            </button>
+            <span id="pageNumbers" class="page-numbers"></span>
+            <button id="nextBtn" class="nav-btn" title="Next page (→)">
+              »
+            </button>
+            <button
+              id="lastBtn"
+              class="nav-btn nav-edge"
+              title="Last page (End)"
+            >
+              »»
+            </button>
+          </div>
+          <div class="nav-goto">
+            <button
+              id="btnFocus"
+              class="nav-focus-btn"
+              title="Toggle focus reading mode"
+              data-i18n="btnFocusIn"
+            >
+              ފޯކަސް ވިއު ▲
+            </button>
+          </div>
+        </nav>
       </div>
-      <nav id="readerNav" class="reader-nav" dir="rtl">
-        <div class="nav-pages">
-          <span id="pageLabel" class="page-of-label"></span>
-          <button
-            id="firstBtn"
-            class="nav-btn nav-edge"
-            title="First page (Home)"
-          >
-            ««
-          </button>
-          <button id="prevBtn" class="nav-btn" title="Previous page (←)">
-            «
-          </button>
-          <span id="pageNumbers" class="page-numbers"></span>
-          <button id="nextBtn" class="nav-btn" title="Next page (→)">»</button>
-          <button id="lastBtn" class="nav-btn nav-edge" title="Last page (End)">
-            »»
-          </button>
-          <span id="pageLabel" class="page-of-label"></span>
-        </div>
-        <div class="nav-goto">
-          <button
-            id="btnFocus"
-            class="nav-focus-btn"
-            title="Toggle focus reading mode"
-            data-i18n="btnFocusIn"
-          >
-            ފޯކަސް ވިއު ▲
-          </button>
-        </div>
-      </nav>
-      </div><!-- #readerChrome -->
+      <!-- #readerChrome -->
       <article id="readerContent" dir="rtl"></article>
       <nav id="readerNavBottom" class="reader-nav" dir="rtl">
         <div class="nav-pages">
@@ -230,7 +235,6 @@
           <button id="prevBtnBottom" class="nav-btn" title="Previous page (←)">
             «
           </button>
-          <span id="pageLabelBottom" class="page-of-label"></span>
           <span id="pageNumbersBottom" class="page-numbers"></span>
           <button id="nextBtnBottom" class="nav-btn" title="Next page (→)">
             »
@@ -387,7 +391,14 @@
       <div id="settingsModal" class="modal" role="dialog">
         <div class="modal-header">
           <h2 class="modal-title" data-i18n="labelSettings">ސެޓިންގްސް</h2>
-          <button id="btnResetSettings" class="modal-reset-sm" data-i18n="btnReset" title="Reset all settings">↺ ރީސެޓް</button>
+          <button
+            id="btnResetSettings"
+            class="modal-reset-sm"
+            data-i18n="btnReset"
+            title="Reset all settings"
+          >
+            ↺ ރީސެޓް
+          </button>
           <button id="modalClose" class="modal-close">✕</button>
         </div>
         <div class="modal-body">
@@ -463,11 +474,13 @@
       // Theme select
       (function () {
         var sel = document.getElementById("selTheme");
-        var current = document.documentElement.getAttribute("data-theme") || "light";
+        var current =
+          document.documentElement.getAttribute("data-theme") || "light";
         sel.value = current;
         sel.addEventListener("change", function () {
           var val = this.value;
-          if (val === "light") document.documentElement.removeAttribute("data-theme");
+          if (val === "light")
+            document.documentElement.removeAttribute("data-theme");
           else document.documentElement.setAttribute("data-theme", val);
           localStorage.setItem("theme", val === "light" ? "" : val);
         });

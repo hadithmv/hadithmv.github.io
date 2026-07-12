@@ -115,7 +115,7 @@ initializePageWithMetadata(async function (metadata) {
         },
       };
 
-      let rowsPerPage = LS.get("rowsPerPage", 1);
+      var ROWS_PER_CHUNK = 2;
       let hideTashkeel = LS.get("hideTashkeel", false);
       let hiddenColumns = LS.get("hiddenColumns", []);
 
@@ -128,7 +128,6 @@ initializePageWithMetadata(async function (metadata) {
       const searchClear = document.getElementById("searchClear");
       const searchInfo = document.getElementById("searchInfo");
       const searchResults = document.getElementById("searchResults");
-      const selRowsPerPage = document.getElementById("selRowsPerPage");
       const btnTashkeel = document.getElementById("btnTashkeel");
       const btnCopy = document.getElementById("btnCopy");
       const btnReset = document.getElementById("btnReset");
@@ -137,7 +136,6 @@ initializePageWithMetadata(async function (metadata) {
       const readerContent = document.getElementById("readerContent");
 
       // Init UI controls from persisted state
-      selRowsPerPage.value = rowsPerPage;
       if (hideTashkeel) {
         btnTashkeel.classList.add("active");
         readerContent.classList.add("hide-tashkeel");
@@ -211,14 +209,30 @@ initializePageWithMetadata(async function (metadata) {
         return text.replace(re, "<mark>$1</mark>");
       }
 
-      // ── Total pages (respects rowsPerPage) ─────────────────
-      function totalPages() {
-        return Math.ceil(filteredData.length / rowsPerPage);
-      }
-
       // ── Infinite-scroll render ──────────────────────────────
-      let pageText = "";
       let loadedStart = -1, loadedEnd = -1;
+
+      function rowText(row, rowNum) {
+        var t = "";
+        if (hiddenColumns.indexOf(0) === -1) {
+          t += `#${rowNum}\n\n`;
+        }
+        var fields = [];
+        for (var i = 1; i < row.length; i++) {
+          if (hiddenColumns.indexOf(i) !== -1) continue;
+          var v = row[i];
+          if (v !== null && v !== undefined && String(v).trim() !== "") {
+            fields.push({ value: String(v).trim(), index: i });
+          }
+        }
+        for (var i = 0; i < fields.length; i++) {
+          if (i === fields.length - 1 && fields.length > 1) {
+            t += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
+          }
+          t += fields[i].value + "\n\n";
+        }
+        return t;
+      }
 
       function renderRowHTML(row, rowNum) {
         var h = "";
@@ -237,7 +251,7 @@ initializePageWithMetadata(async function (metadata) {
         for (var i = 0; i < fields.length; i++) {
           var display = markupTashkeel(highlightMatches(fields[i].value, query));
           if (i === fields.length - 1 && fields.length > 1) {
-            h += `<div class="reader-divider"></div>`;
+            h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
             h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
             h += `<div class="reader-field" dir="auto">${display}</div>`;
@@ -249,7 +263,7 @@ initializePageWithMetadata(async function (metadata) {
       function renderChunkHTML(startIdx, endIdx) {
         var h = "";
         for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
-          if (i > startIdx) h += `<hr class="reader-page-sep" />`;
+          if (i > startIdx) h += `<div class="reader-divider"></div>`;
           var row = filteredData[i];
           var rowNum = row[0] || (i + 1);
           h += `<div class="reader-chunk" data-row="${i}">`;
@@ -260,21 +274,31 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function loadInitial() {
-        var end = Math.min(rowsPerPage * 3, filteredData.length);
+        var end = Math.min(ROWS_PER_CHUNK * 3, filteredData.length);
         loadedStart = 0;
         loadedEnd = end;
         readerContent.innerHTML =
           `<div id="sentinelTop" class="reader-sentinel"></div>` +
           renderChunkHTML(0, end) +
           `<div id="sentinelBottom" class="reader-sentinel"></div>`;
-        pageText = readerContent.innerText.trim();
         updatePagination();
+      }
+
+      function buildClipboardText(startIdx, endIdx) {
+        var t = "";
+        for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
+          if (i > startIdx) t += "\n";
+          var row = filteredData[i];
+          var rowNum = row[0] || (i + 1);
+          t += rowText(row, rowNum);
+        }
+        return t.trim();
       }
 
       function appendNext() {
         if (loadedEnd >= filteredData.length) return;
         var prevH = readerContent.scrollHeight;
-        var nextEnd = Math.min(loadedEnd + rowsPerPage, filteredData.length);
+        var nextEnd = Math.min(loadedEnd + ROWS_PER_CHUNK, filteredData.length);
         var sentinel = document.getElementById("sentinelBottom");
         sentinel.insertAdjacentHTML("beforebegin", renderChunkHTML(loadedEnd, nextEnd));
         loadedEnd = nextEnd;
@@ -284,7 +308,7 @@ initializePageWithMetadata(async function (metadata) {
       function prependPrev() {
         if (loadedStart <= 0) return;
         var prevH = readerContent.scrollHeight;
-        var nextStart = Math.max(0, loadedStart - rowsPerPage);
+        var nextStart = Math.max(0, loadedStart - ROWS_PER_CHUNK);
         var sentinel = document.getElementById("sentinelTop");
         sentinel.insertAdjacentHTML("afterend", renderChunkHTML(nextStart, loadedStart));
         loadedStart = nextStart;
@@ -327,7 +351,6 @@ initializePageWithMetadata(async function (metadata) {
         if (filteredData.length === 0) {
           readerContent.innerHTML = "";
           loadedStart = loadedEnd = -1;
-          pageText = "";
           updatePagination();
           return;
         }
@@ -346,9 +369,9 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function updatePagination() {
-        const total = totalPages();
+        const total = filteredData.length;
         const visibleRow = visiblePageIndex();
-        const cur = Math.floor(visibleRow / rowsPerPage) + 1;
+        const cur = visibleRow + 1; // 1-based row number
 
         var selHTML = pageSelectHTML(cur, total);
         var label = t("pageOf");
@@ -381,7 +404,7 @@ initializePageWithMetadata(async function (metadata) {
           if (String(psi.value) !== String(cur)) psi.value = cur;
           psi.addEventListener("change", function () {
             var v = parseInt(this.value, 10);
-            if (!isNaN(v) && v >= 1) goTo((v - 1) * rowsPerPage);
+            if (!isNaN(v) && v >= 1) goTo(v - 1);
           });
         }
       }
@@ -502,7 +525,6 @@ initializePageWithMetadata(async function (metadata) {
             '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
             query +
             '"</div>';
-          pageText = t("noMatchesMsg") + ': "' + query + '"';
           searchResults.style.display = "none";
           loadedStart = loadedEnd = -1;
           updatePagination();
@@ -533,17 +555,6 @@ initializePageWithMetadata(async function (metadata) {
         }
       });
 
-      // ── Toolbar: rows per page ──────────────────────────────
-      selRowsPerPage.addEventListener("change", function () {
-        var firstRowIdx = visiblePageIndex();
-        rowsPerPage = parseInt(this.value, 10) || 1;
-        LS.set("rowsPerPage", rowsPerPage);
-        rebuildAll();
-        // Scroll back to roughly the same position
-        setTimeout(function () {
-          goTo(firstRowIdx);
-        }, 100);
-      });
 
       // ── Toolbar: tashkeel toggle ────────────────────────────
       btnTashkeel.addEventListener("click", function () {
@@ -562,8 +573,9 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Toolbar: copy to clipboard ──────────────────────────
       btnCopy.addEventListener("click", function () {
-        const text = pageText;
-        if (!text) return;
+        var vRow = visiblePageIndex();
+        var text = clipboardHeader + "\n\n" + buildClipboardText(vRow, vRow + 1);
+        if (!text.trim()) return;
         navigator.clipboard
           .writeText(text)
           .then(function () {
@@ -633,9 +645,6 @@ initializePageWithMetadata(async function (metadata) {
         searchInput.value = "";
         applySearch("");
         // Reset rows per page
-        rowsPerPage = 1;
-        selRowsPerPage.value = 1;
-        LS.set("rowsPerPage", 1);
         // Show all columns
         hiddenColumns = [];
         LS.set("hiddenColumns", []);
@@ -670,7 +679,7 @@ initializePageWithMetadata(async function (metadata) {
                 : 1e9;
         document.getElementById(id).addEventListener("click", function () {
           if (delta === -1e9) goTo(0);
-          else if (delta === 1e9) goTo(totalPages() - 1);
+          else if (delta === 1e9) goTo(filteredData.length - 1);
           else goTo(visiblePageIndex() + delta);
         });
       });
@@ -751,7 +760,7 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Settings reset from modal → re-render ─────────────
       document.addEventListener("readerset", function () {
-        rowsPerPage = 1;
+        ROWS_PER_CHUNK = 1;
         selRowsPerPage.value = 1;
         hideTashkeel = false;
         btnTashkeel.classList.remove("active");

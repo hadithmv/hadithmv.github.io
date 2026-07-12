@@ -1134,7 +1134,7 @@ body {
   padding: 8px 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   color: #fff;
   background: #1a202c;
   border-radius: 8px;
@@ -1142,6 +1142,7 @@ body {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
+  direction: rtl;
 }
 
 [data-theme="dark"] .copy-toast {
@@ -1457,7 +1458,7 @@ body {
 .reader-divider {
   border: none;
   border-top: 1px solid var(--color-divider);
-  margin: 24px 0 20px;
+  margin: 32px 0 28px;
   text-align: center;
   line-height: 0;
 }
@@ -1470,6 +1471,15 @@ body {
   color: var(--color-divider-ornament);
   background: var(--color-reader-bg);
   padding: 0 12px;
+}
+
+.reader-footnote-divider {
+  color: var(--color-text-subtle);
+  font-size: 0.85rem;
+  margin: 16px 0 12px;
+  text-align: right;
+  letter-spacing: -0.05em;
+  user-select: none;
 }
 
 /* Infinite scroll sentinels */
