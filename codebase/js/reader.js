@@ -447,6 +447,23 @@ initializePageWithMetadata(async function (metadata) {
         return results;
       }
 
+      function buildAdvResultsHTML(query, rows, realIdxMap) {
+        var MAX = 30;
+        var q = query.trim();
+        if (!q || rows.length === 0) return "";
+        var html = ""; var count = 0;
+        for (var i = 0; i < rows.length && count < MAX; i++) {
+          var row = rows[i];
+          var rowNum = row[0] || (realIdxMap[i] + 1);
+          var snippets = buildSnippets(row, q);
+          for (var s = 0; s < snippets.length && count < MAX; s++) {
+            html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snippets[s] + '</span></div>';
+            count++;
+          }
+        }
+        return html;
+      }
+
       function buildResultsHTML(query) {
         const MAX = 50;
         const q = query.trim();
@@ -504,9 +521,10 @@ initializePageWithMetadata(async function (metadata) {
           searchClear.style.display = "none";
           searchInfo.style.display = "none";
           searchResults.style.display = "none";
+          rebuildAll();
         } else {
           const lower = q.toLowerCase();
-          filteredData = allData.filter(function (row) {
+          var tempFiltered = allData.filter(function (row) {
             return row.some(function (cell) {
               return (
                 cell !== null &&
@@ -518,21 +536,36 @@ initializePageWithMetadata(async function (metadata) {
           searchClear.style.display = "";
           searchInfo.style.display = "";
           searchInfo.textContent =
-            filteredData.length === 0
+            tempFiltered.length === 0
               ? t("noResults")
-              : t("resultCount") + ": " + filteredData.length;
-        }
-        if (filteredData.length === 0) {
-          readerContent.innerHTML =
-            '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
-            query +
-            '"</div>';
-          searchResults.style.display = "none";
-          loadedStart = loadedEnd = -1;
-          updatePagination();
-        } else {
-          updateSearchResults(query);
-          rebuildAll();
+              : t("resultCount") + ": " + tempFiltered.length;
+          if (tempFiltered.length === 0) {
+            readerContent.innerHTML =
+              '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
+              query +
+              '"</div>';
+            searchResults.style.display = "none";
+            loadedStart = loadedEnd = -1;
+            updatePagination();
+          } else {
+            // Show results without filtering — clicking jumps to real row
+            var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
+            var origFiltered = filteredData;
+            filteredData = tempFiltered;
+            searchResults.innerHTML = buildAdvResultsHTML(query, tempFiltered, realIdxMap);
+            searchResults.style.display = "";
+            selectedResultIdx = -1;
+            searchResults.querySelectorAll(".search-result[data-real]").forEach(function (el) {
+              el.addEventListener("click", function () {
+                filteredData = allData;
+                searchInput.value = query;
+                rebuildAll();
+                setTimeout(function () { goTo(parseInt(el.dataset.real)); }, 150);
+                searchInput.blur();
+              });
+            });
+            filteredData = origFiltered;
+          }
         }
       }
 
@@ -641,47 +674,46 @@ initializePageWithMetadata(async function (metadata) {
           }
           return result;
         });
-        // Store results in a temp variable and show in results dropdown
+        // Show results inline — clicking jumps to row in full dataset
         var tempFiltered = result;
         advSearchOverlay.classList.remove("open");
         if (tempFiltered.length === 0) {
           searchInfo.style.display = "";
           searchInfo.textContent = t("noResults");
           searchClear.style.display = "";
-          searchResults.style.display = "none";
           readerContent.innerHTML = '<div class="reader-no-results">' + t("noMatchesMsg") + '</div>';
           loadedStart = loadedEnd = -1;
           updatePagination();
         } else {
-          // Show results dropdown without committing the filter yet
           searchInfo.style.display = "";
           searchInfo.textContent = t("resultCount") + ": " + tempFiltered.length;
           searchClear.style.display = "";
-          filteredData = tempFiltered;
-          // Build results view inline
+          var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
           var q = advConditions.length > 0 ? advConditions[0].val : "";
-          var resHTML = q ? buildResultsHTML(q) : "";
+          var resHTML = q ? buildAdvResultsHTML(q, tempFiltered, realIdxMap) : "";
           if (!resHTML) {
             var limit = Math.min(tempFiltered.length, 30);
             for (var i = 0; i < limit; i++) {
               var row = tempFiltered[i];
-              var rowNum = row[0] || (i + 1);
+              var rowNum = row[0] || (realIdxMap[i] + 1);
               var snip = String(row[1] || row[0] || "").slice(0, 120);
-              resHTML += '<div class="search-result" data-idx="' + i + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
+              resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
             }
           }
           readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + resHTML + '</div>';
-          readerContent.querySelectorAll(".search-result[data-idx]").forEach(function (el) {
-            el.addEventListener("click", function () {
-              goTo(parseInt(this.dataset.idx));
-              searchInput.blur();
-            });
-          });
-          loadedStart = 0; loadedEnd = tempFiltered.length;
-          // Wire clicks to commit and navigate
-          searchResults.querySelectorAll(".search-result[data-idx]").forEach(function (el) {
-            el.addEventListener("click", function () {
-              goTo(parseInt(this.dataset.idx));
+          loadedStart = loadedEnd = -1;
+          updatePagination();
+          var resultEls = readerContent.querySelectorAll(".search-result[data-real]");
+          resultEls.forEach(function (el) {
+            el.addEventListener("click", function (e) {
+              e.stopPropagation();
+              var targetRow = parseInt(el.dataset.real);
+              var sq = advConditions.length > 0 ? (advConditions[0].val || "") : "";
+              searchInput.value = sq;
+              filteredData = allData;
+              loadInitial();
+              observeSentinels();
+              setTimeout(function () { goTo(targetRow); }, 150);
               searchInput.blur();
             });
           });

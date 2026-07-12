@@ -2,13 +2,13 @@
 
 ES module that loads metadata from `bookNames.csv` and `tags.csv`, resolves book lookups, and renders the dashboard. All CSV parsing uses PapaParse.
 
-> The book viewer (pagination, search, toolbar, clipboard, keyboard) lives in [`js/reader.js`](../js/reader.js). The translations module is [`js/i18n.js`](../js/i18n.js). This module handles only metadata and the dashboard.
+> The book viewer lives in [`js/reader.js`](../js/reader.js). Translations in [`js/i18n.js`](../js/i18n.js). This module handles only metadata and the dashboard.
 
 ## Exports
 
 ### `initializePageWithMetadata(callback)`
 
-Main entry point. Reads `?book=CODE` from the URL, preloads tag definitions and book metadata, then either renders the dashboard or invokes the callback with metadata for the selected book.
+Main entry point. Reads `?book=CODE` from the URL, preloads tag definitions and book metadata, then either renders the dashboard or invokes the callback.
 
 ```javascript
 import { initializePageWithMetadata } from "../js/dbLookup.js";
@@ -31,7 +31,7 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadBookNames()`
 
-Fetches and caches `bookNames.csv` using PapaParse. Safe to call multiple times — subsequent calls return the cache.
+Fetches and caches `bookNames.csv` using PapaParse. Safe to call multiple times.
 
 ```javascript
 const books = await loadBookNames();
@@ -60,7 +60,7 @@ getCsvPath("AQD-qawaidulArbau");
 
 ### `extractTags(bookCode)`
 
-Synchronous. Splits the book code on `-`, drops the last segment (book name), and resolves remaining segments against `tags.csv`. Returns an array of tag objects with `code`, `label`, `color`, and `bg`.
+Synchronous. Splits the book code on `-`, drops the last segment (book name), and resolves remaining segments against `tags.csv`.
 
 ```javascript
 const tags = extractTags("AQD-DFK-sharhuSunnahBarbahari");
@@ -76,17 +76,11 @@ Tags must be preloaded via `loadTagDefinitions()` (called automatically by `init
 
 ### `loadTagDefinitions()`
 
-Fetches and caches `tags.csv`, building a lookup map:
-
-```javascript
-{ AQD: { label: "Aqidah", color: "#4f46e5", bg: "#eef2ff" }, … }
-```
-
-Called once by `initializePageWithMetadata()` before any rendering. Cache is set on success; on failure, an empty object is cached to prevent repeated retries.
+Fetches and caches `tags.csv`, building a lookup map. Called once by `initializePageWithMetadata()` before any rendering.
 
 ### `renderDashboard(bookNames)`
 
-Renders the card grid from the book registry. Each card shows tag badges and titles in Arabic, Dhivehi, and English. Shows an error if the book list is empty. Hides the loading message.
+Renders the card grid from the book registry. Each card shows tag badges and titles in Arabic, Dhivehi, and English. Shows an error if the list is empty.
 
 ## File dependencies
 

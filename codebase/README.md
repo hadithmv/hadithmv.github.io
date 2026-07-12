@@ -10,10 +10,10 @@ tags.csv               ← Tag definitions (code, label, colors)
 books/
   index.html           ← Shared viewer + dashboard (the only HTML page)
 css/
-  styles.css           ← All styles (light + dark themes, custom properties)
+  styles.css           ← All styles (light + dark + sepia themes, custom properties)
 js/
   dbLookup.js          ← Metadata loader, tag extraction, dashboard renderer
-  reader.js            ← Book viewer: pagination, search, toolbar, keyboard
+  reader.js            ← Book viewer: infinite scroll, search, toolbar, keyboard
   i18n.js              ← Translations (Dhivehi / English / Arabic)
 font/
   merged-300.woff2     ← Custom merged font (Arabic + Thaana + Latin)
@@ -55,7 +55,7 @@ Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed.
 
 ## Data CSV format
 
-Each book's CSV can optionally include a header row for reference. If the first field of the first row is `#`, it is treated as a header — excluded from display and used to label the column toggle buttons in the toolbar.
+Each book's CSV can optionally include a header row. If the first field of the first row is `#`, it is treated as a header — excluded from display and used to label column toggle buttons.
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes
@@ -68,7 +68,7 @@ Each book's CSV can optionally include a header row for reference. If the first 
 1. The page reads `?book=CODE` from the URL.
 1. `dbLookup.js` loads `bookNames.csv` and `tags.csv` for metadata and badges.
 1. `reader.js` loads `data/{bookCode}.csv` via PapaParse.
-1. Each row renders as a vertical reading card — columns stacked top to bottom, one page at a time.
+1. Content renders with infinite scroll — rows load as you scroll.
 
 **No book selected?** The dashboard shows all registered books as a card grid.
 
@@ -77,65 +77,62 @@ Each book's CSV can optionally include a header row for reference. If the first 
 ### Reading view
 
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
-- Footnotes separated by a `◆` divider
-- Show 1 / 2 / 3 / 5 rows per page
-- All columns toggleable — including the row number
-- Back link to return to the dashboard
+- `◆` divider between rows, `ـــــــــــ` tatweel line above footnotes
+- Infinite scroll — content loads automatically as you scroll
+- All columns toggleable via a dropdown — including the row number
+- Sticky header, search bar, toolbar, and pagination
 
 ### Pagination
 
-- Page strip with sliding window (±2 around current, `…` ellipsis for gaps)
-- First / Last and Prev / Next buttons
-- Type a page number + Enter, or pick from the dropdown
-- Counter shows "Page X / Y"
-- RTL nav flow: `» »» 10 … 1 «« «`
+- Simple: First / Prev / row-select / Next / Last
+- Row select dropdown with total count: `10 / [5]`
+- `ސަފްހާ:` label on the far right
 
 ### Search
 
 - Real-time filtering against all columns, case‑insensitive
-- **Results dropdown** — each matching column gets its own row with a highlighted snippet (~300 chars of context)
-- Click or Enter to jump to a result; ↑/↓ to navigate; Escape to close
-- Match count shown next to the search bar
+- Results dropdown with highlighted snippets (~300 chars of context)
+- Click or Enter to jump; ↑/↓ to navigate; Escape to close
+- Red bold ✕ clear button
+- Advanced search button with modal for column/condition/value filters
 
 ### Toolbar
 
 | Control | Description |
 |---|---|
-| 📋 Copy | Copy current page as formatted plain text with book title header |
-| ◉ Hide diacritics | Toggle Arabic tashkeel visibility (Unicode ranges wrapped in spans) |
-| ↺ Reset | Reset all settings to defaults (search, columns, rows, tashkeel) |
-| Show pages at once | Rows per page: 1 / 2 / 3 / 5 |
-| Hide columns | Per-column toggle buttons (including row number) |
-
-All toolbar settings persist to `localStorage`.
+| 📋 Copy | Copy current row as formatted plain text |
+| ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
+| ↺ Reset | Reset all reader settings to defaults |
+| Hide columns ▾ | Dropdown of per-column toggle buttons |
 
 ### Sidebar (☰)
 
-- **Dashboard link** — return to the book list
-- **Contact link** — `contact.html`
-- **Dark mode toggle** — persisted, no flash on load
-- **Widescreen toggle** — removes max-width constraints for full-width reading
-- **Language toggle** — cycles Dhivehi → English → Arabic
-- **App info** — version number, platform, creator credit
+- Navigation: Book list, GitHub, FAQ, Help, Contact
+- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family, Language selector
+- Scroll to top
+- App version and creator credit
+
+### Focus mode
+
+Toggled from the pagination bar or `z` key. Hides search bar, toolbar, and pagination — only the sticky header and reader content remain. Expand button in the header row exits focus mode.
+
+### Themes
+
+Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cream/beige). Persisted, no flash on load.
 
 ### Keyboard shortcuts
 
 | Key | Action |
 |---|---|
-| `←` / `→` | Previous / next page |
-| `Home` / `End` | First / last page |
+| `←` / `→` | Previous / next row |
+| `Home` / `End` | First / last row |
 | `/` or `Ctrl+F` | Focus search bar |
-| `Escape` | Close sidebar |
-
-Arrow keys are suppressed while the search or page input is focused.
-
-### Font
-
-The `font/merged-300.*` files provide a custom font covering Arabic, Thaana, and Latin scripts. Served as WOFF2 with WOFF fallback. Applied via `@font-face` to all reader content, dashboard titles, toolbar labels, and UI elements.
+| `z` | Toggle focus mode |
+| `Escape` | Close sidebar / modal |
 
 ### Internationalisation
 
-All UI strings are defined in [`js/i18n.js`](js/i18n.js) with Dhivehi (`dv`), English (`en`), and Arabic (`ar`) translations. Static HTML uses `data-i18n` attributes; dynamic text uses the `t()` function. The language cycles on each click of the sidebar button and is persisted to `localStorage`.
+All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`.
 
 ## Error handling
 
