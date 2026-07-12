@@ -94,6 +94,7 @@ initializePageWithMetadata(async function (metadata) {
       const selRowsPerPage = document.getElementById("selRowsPerPage");
       const btnTashkeel = document.getElementById("btnTashkeel");
       const btnCopy = document.getElementById("btnCopy");
+      const btnReset = document.getElementById("btnReset");
       const columnToggles = document.getElementById("columnToggles");
       const columnTogglesGrp = document.getElementById("columnTogglesGroup");
       const readerContent = document.getElementById("readerContent");
@@ -506,6 +507,29 @@ initializePageWithMetadata(async function (metadata) {
           el.classList.remove("show");
         }, 1500);
       }
+
+      // ── Toolbar: reset ──────────────────────────────────────
+      btnReset.addEventListener("click", function () {
+        // Clear search
+        searchInput.value = "";
+        applySearch("");
+        // Reset rows per page
+        rowsPerPage = 1;
+        selRowsPerPage.value = 1;
+        LS.set("rowsPerPage", 1);
+        // Show all columns
+        hiddenColumns = [];
+        LS.set("hiddenColumns", []);
+        buildColumnToggles();
+        // Show tashkeel
+        hideTashkeel = false;
+        LS.set("hideTashkeel", false);
+        btnTashkeel.classList.remove("active");
+        readerContent.classList.remove("hide-tashkeel");
+        // Go to page 1 without scrolling
+        currentPage = 0;
+        renderPage(0);
+      });
 
       // ── Navigation: buttons ─────────────────────────────────
       [
