@@ -650,8 +650,8 @@ body {
 /* ---- Page header ---- */
 #pageHeader {
   max-width: 800px;
-  margin: 0 auto 20px;
-  padding: 20px;
+  margin: 0 auto 8px;
+  padding: 8px 20px;
   border-bottom: 2px solid var(--color-page-header-border);
 }
 
@@ -854,13 +854,13 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 6px;
 }
 
 .search-input {
   flex: 1;
-  padding: 8px 14px;
-  font-size: 0.95rem;
+  padding: 5px 12px;
+  font-size: 0.9rem;
   font-family:
     "Hadithmv",
     "Traditional Arabic", "Scheherazade New",
@@ -980,9 +980,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 8px 0;
-  margin-bottom: 12px;
+  gap: 8px;
+  padding: 4px 0;
+  margin-bottom: 4px;
   flex-wrap: wrap;
 }
 
@@ -1159,8 +1159,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 8px 0;
-  margin-bottom: 24px;
+  padding: 4px 0;
+  margin-bottom: 8px;
   border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
 }
@@ -1179,7 +1179,7 @@ body {
 }
 
 #readerNavBottom {
-  margin-top: 32px;
+  margin-top: 16px;
   margin-bottom: 0;
   border-bottom: none;
   border-top: 1px solid var(--color-border);
@@ -1230,39 +1230,41 @@ body {
 .page-numbers {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 3px;
+  direction: ltr;
+}
+
+.page-of-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
 }
 
 .page-num {
-  min-width: 30px;
-  padding: 4px 3px;
+  width: 42px;
+  padding: 5px 0;
   font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--color-nav-btn-text);
+  font-weight: 700;
+  color: var(--color-text);
   background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-card-hover-border);
   border-radius: 6px;
   cursor: pointer;
   text-align: center;
   font-family: system-ui, -apple-system, sans-serif;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+  box-sizing: border-box;
 }
 
 .page-num:hover {
   background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
   color: var(--color-nav-btn-hover-text);
 }
-
-.page-num.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
   cursor: default;
 }
+
 
 .page-ellipsis {
   min-width: 34px;
@@ -1272,6 +1274,7 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   user-select: none;
 }
+
 
 /* Right side: page jump */
 .nav-goto {
@@ -1389,18 +1392,16 @@ body {
   border-color: var(--color-nav-btn-text);
 }
 
-/* Sticky header in focus mode */
-[data-focus] #pageHeader {
+/* Sticky chrome — always */
+#readerChrome {
   position: sticky;
   top: 0;
   z-index: 50;
   background: var(--color-bg);
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+  padding-bottom: 4px;
 }
 
-[data-focus] .menu-btn {
+.menu-btn {
   position: fixed;
 }
 

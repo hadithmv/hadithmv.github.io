@@ -39,12 +39,12 @@ const STRINGS = {
     en: "Toggle Arabic diacritics",
     ar: "إظهار/إخفاء التشكيل",
   },
-  btnFocusIn: { dv: "▲ ފޯކަސް ވިއު", en: "▲ Focus view", ar: "▲ عرض التركيز" },
-  btnFocusOut: { dv: "▼ ފޯކަސް ވިއު", en: "▼ Full view", ar: "▼ العرض الكامل" },
+  btnFocusIn: { dv: "ފޯކަސް ވިއު ▲", en: "Focus view ▲", ar: "عرض التركيز ▲" },
+  btnFocusOut: { dv: "ފޯކަސް ވިއު ▼", en: "Full view ▼", ar: "العرض الكامل ▼" },
   btnFocusExpand: {
-    dv: "▼ ފޯކަސް ވިއު",
-    en: "▼ Focus view",
-    ar: "▼ عرض التركيز",
+    dv: "ފޯކަސް ވިއު ▼",
+    en: "Focus view ▼",
+    ar: "عرض التركيز ▼",
   },
   btnReset: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ إعادة ضبط" },
   btnResetSettings: {
@@ -75,7 +75,7 @@ const STRINGS = {
   colNotes: { dv: "ނޯޓު", en: "Notes", ar: "ملاحظات" },
 
   // ── Pagination ──
-  pageOf: { dv: "ސަފްހާ", en: "Page", ar: "صفحة" },
+  pageOf: { dv: "ސަފްހާ:", en: "Page:", ar: "صفحة:" },
   resultCount: { dv: "ނަތީޖާ", en: "match", ar: "نتيجة" },
   noResults: { dv: "ނަތީޖާ 0", en: "0 matches", ar: "٠ نتائج" },
   noMatchesMsg: {

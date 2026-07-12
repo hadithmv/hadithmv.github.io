@@ -83,28 +83,6 @@
       <div id="bookGrid" class="book-grid"></div>
     </div>
 
-    <!-- Page Header with Metadata (shown once data is ready) -->
-    <div id="pageHeader" style="display: none">
-      <a
-        href="index.html"
-        id="backToDashboard"
-        class="back-link"
-        data-i18n="navDashboard"
-        >← ފޮތްތަކުގެ ލިސްޓް</a
-      >
-      <h1 id="pageTitle"></h1>
-      <div id="pageSubRow" style="display: none">
-        <span class="subrow-left">
-          <button id="btnFocusExpand" class="focus-expand-btn" data-i18n="btnFocusExpand">▼ ފޯކަސް ވިއު</button>
-          <span id="focusPageIndicator" class="focus-page-indicator"></span>
-        </span>
-        <span class="subrow-right">
-          <span id="pageTags"></span>
-          <span id="pageSubtitle"></span>
-        </span>
-      </div>
-    </div>
-
     <!-- Loading State -->
     <div id="loadingMessage" class="loading" dir="rtl" data-i18n="loading">
       ފޮތް ލޯޑް ކުރަނީ…
@@ -115,6 +93,20 @@
 
     <!-- Reader Container (single-row vertical reading view) -->
     <div id="readerWrapper" style="display: none">
+      <div id="readerChrome">
+      <div id="pageHeader" style="display: none">
+        <a href="index.html" id="backToDashboard" class="back-link" data-i18n="navDashboard">← ފޮތްތަކުގެ ލިސްޓް</a>
+        <h1 id="pageTitle"></h1>
+        <div id="pageSubRow" style="display: none">
+          <span class="subrow-left">
+            <button id="btnFocusExpand" class="focus-expand-btn" data-i18n="btnFocusExpand">ފޯކަސް ވިއު ▼</button>
+          </span>
+          <span class="subrow-right">
+            <span id="pageTags"></span>
+            <span id="pageSubtitle"></span>
+          </span>
+        </div>
+      </div>
       <div id="searchBar">
         <input
           id="searchInput"
@@ -194,6 +186,7 @@
       </div>
       <nav id="readerNav" class="reader-nav" dir="rtl">
         <div class="nav-pages">
+          <span id="pageLabel" class="page-of-label"></span>
           <button
             id="firstBtn"
             class="nav-btn nav-edge"
@@ -209,35 +202,24 @@
           <button id="lastBtn" class="nav-btn nav-edge" title="Last page (End)">
             »»
           </button>
+          <span id="pageLabel" class="page-of-label"></span>
         </div>
         <div class="nav-goto">
-          <label for="pageInput" class="page-label" data-i18n="labelPageNo"
-            >މި ސަފްހާގެ ނަންބަރު:</label
-          >
-          <input
-            type="number"
-            id="pageInput"
-            class="page-input"
-            min="1"
-            inputmode="numeric"
-            list="pageList"
-          />
-          <datalist id="pageList"></datalist>
-          <span class="nav-counter" id="pageOfTotal"></span>
-          <span class="nav-sep">|</span>
           <button
             id="btnFocus"
             class="nav-focus-btn"
             title="Toggle focus reading mode"
             data-i18n="btnFocusIn"
           >
-            ▲ ފޯކަސް ވިއު
+            ފޯކަސް ވިއު ▲
           </button>
         </div>
       </nav>
+      </div><!-- #readerChrome -->
       <article id="readerContent" dir="rtl"></article>
       <nav id="readerNavBottom" class="reader-nav" dir="rtl">
         <div class="nav-pages">
+          <span id="pageLabelBottom" class="page-of-label"></span>
           <button
             id="firstBtnBottom"
             class="nav-btn nav-edge"
@@ -248,6 +230,7 @@
           <button id="prevBtnBottom" class="nav-btn" title="Previous page (←)">
             «
           </button>
+          <span id="pageLabelBottom" class="page-of-label"></span>
           <span id="pageNumbersBottom" class="page-numbers"></span>
           <button id="nextBtnBottom" class="nav-btn" title="Next page (→)">
             »
@@ -260,7 +243,6 @@
             »»
           </button>
         </div>
-        <div class="nav-counter-bottom" id="pageOfTotalBottom"></div>
       </nav>
     </div>
 

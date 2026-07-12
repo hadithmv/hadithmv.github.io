@@ -128,10 +128,6 @@ initializePageWithMetadata(async function (metadata) {
       const searchClear = document.getElementById("searchClear");
       const searchInfo = document.getElementById("searchInfo");
       const searchResults = document.getElementById("searchResults");
-      const pageInput = document.getElementById("pageInput");
-      const pageList = document.getElementById("pageList");
-      const pageOfTotal = document.getElementById("pageOfTotal");
-      const pageOfTotalBtm = document.getElementById("pageOfTotalBottom");
       const selRowsPerPage = document.getElementById("selRowsPerPage");
       const btnTashkeel = document.getElementById("btnTashkeel");
       const btnCopy = document.getElementById("btnCopy");
@@ -340,25 +336,13 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Pagination UI ───────────────────────────────────────
-      function pageBtn(page, active) {
-        return `<button class="page-num${active ? " active" : ""}" data-page="${page}">${page}</button>`;
-      }
-
-      function pageNumbersHTML(current, total) {
+      function pageSelectHTML(current, total) {
         if (total <= 1) return "";
-        if (total <= 9) {
-          let h = "";
-          for (let p = 1; p <= total; p++) h += pageBtn(p, p === current);
-          return h;
+        var opts = "";
+        for (var p = 1; p <= total; p++) {
+          opts += `<option value="${p}">${p}</option>`;
         }
-        let h = pageBtn(1, current === 1);
-        if (current > 4) h += `<span class="page-ellipsis">…</span>`;
-        const start = Math.max(2, current - 2);
-        const end = Math.min(total - 1, current + 2);
-        for (let p = start; p <= end; p++) h += pageBtn(p, p === current);
-        if (current < total - 3) h += `<span class="page-ellipsis">…</span>`;
-        h += pageBtn(total, current === total);
-        return h;
+        return `<span class="page-of-label">${total} / </span><select id="pageStripInput" class="toolbar-select" style="width:58px;text-align:center;text-align-last:center" autocomplete="off">${opts}</select>`;
       }
 
       function updatePagination() {
@@ -366,15 +350,14 @@ initializePageWithMetadata(async function (metadata) {
         const visibleRow = visiblePageIndex();
         const cur = Math.floor(visibleRow / rowsPerPage) + 1;
 
-        const strip = pageNumbersHTML(cur, total);
-        document.getElementById("pageNumbers").innerHTML = strip;
-        document.getElementById("pageNumbersBottom").innerHTML = strip;
-
-        document.querySelectorAll(".page-num").forEach(function (btn) {
-          btn.addEventListener("click", function () {
-            goTo((parseInt(this.dataset.page) - 1) * rowsPerPage);
-          });
-        });
+        var selHTML = pageSelectHTML(cur, total);
+        var label = t("pageOf");
+        document.getElementById("pageNumbers").innerHTML = selHTML;
+        document.getElementById("pageNumbersBottom").innerHTML = selHTML;
+        var pl = document.getElementById("pageLabel");
+        if (pl) pl.textContent = label;
+        var plb = document.getElementById("pageLabelBottom");
+        if (plb) plb.textContent = label;
 
         var vRow2 = visiblePageIndex();
         var atFirst = vRow2 === 0;
@@ -392,28 +375,14 @@ initializePageWithMetadata(async function (metadata) {
           document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
         });
 
-        var numsHTML = `<span class="c-n">${total}</span> / <span class="c-n">${cur}</span>`;
-        if (pageOfTotal) pageOfTotal.innerHTML =
-          `${numsHTML} ${t("pageOf")}`;
-        if (pageOfTotalBtm)
-          pageOfTotalBtm.innerHTML =
-          `${numsHTML} ${t("pageOf")}`;
-        var fpi = document.getElementById("focusPageIndicator");
-        if (fpi) fpi.innerHTML =
-          `${numsHTML} ${t("pageOf")}`;
-
-        if (pageInput) {
-          pageInput.max = total;
-          pageInput.value = cur;
-        }
-
-        if (pageList && pageList.options.length !== total) {
-          pageList.innerHTML = "";
-          for (let p = 1; p <= total; p++) {
-            const opt = document.createElement("option");
-            opt.value = p;
-            pageList.appendChild(opt);
-          }
+        // Wire page strip select
+        var psi = document.getElementById("pageStripInput");
+        if (psi) {
+          if (String(psi.value) !== String(cur)) psi.value = cur;
+          psi.addEventListener("change", function () {
+            var v = parseInt(this.value, 10);
+            if (!isNaN(v) && v >= 1) goTo((v - 1) * rowsPerPage);
+          });
         }
       }
 
@@ -706,22 +675,7 @@ initializePageWithMetadata(async function (metadata) {
         });
       });
 
-      // ── Navigation: page input ──────────────────────────────
-      pageInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          const v = parseInt(pageInput.value, 10);
-          var total = totalPages();
-          if (!isNaN(v) && v >= 1 && v <= total) goTo((v - 1) * rowsPerPage);
-          else pageInput.value = Math.floor(visiblePageIndex() / rowsPerPage) + 1;
-        }
-      });
-      pageInput.addEventListener("change", function () {
-        const v = parseInt(pageInput.value, 10);
-        var total = totalPages();
-        if (!isNaN(v) && v >= 1 && v <= total) goTo((v - 1) * rowsPerPage);
-        else pageInput.value = Math.floor(visiblePageIndex() / rowsPerPage) + 1;
-      });
+      // ── Navigation: page strip input handled in updatePagination ─
 
       // ── Keyboard ────────────────────────────────────────────
       document.addEventListener("keydown", function onKey(e) {
@@ -764,7 +718,8 @@ initializePageWithMetadata(async function (metadata) {
           return;
         }
 
-        if (document.activeElement === pageInput) return;
+        var psi = document.getElementById("pageStripInput");
+        if (document.activeElement === psi) return;
 
         var vRow = visiblePageIndex();
         if (e.key === "ArrowLeft") {
