@@ -642,11 +642,11 @@ initializePageWithMetadata(async function (metadata) {
         if (on) {
           html.setAttribute("data-focus", "");
           if (btn) { btn.classList.add("active"); btn.textContent = t("btnFocusOut"); }
-          if (expandBtn) expandBtn.textContent = t("btnFocusOut");
+          if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         } else {
           html.removeAttribute("data-focus");
           if (btn) { btn.classList.remove("active"); btn.textContent = t("btnFocusIn"); }
-          if (expandBtn) expandBtn.textContent = t("btnFocusOut");
+          if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         }
         try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
       }

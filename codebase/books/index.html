@@ -9,7 +9,7 @@
     <script>
       (function () {
         var t = localStorage.getItem("theme");
-        if (t) document.documentElement.setAttribute("data-theme", t);
+        if (t && t !== "light") document.documentElement.setAttribute("data-theme", t);
       })();
     </script>
   </head>
@@ -94,7 +94,10 @@
       >
       <h1 id="pageTitle"></h1>
       <div id="pageSubRow" style="display: none">
-        <span id="focusPageIndicator" class="focus-page-indicator"></span>
+        <span class="subrow-left">
+          <button id="btnFocusExpand" class="focus-expand-btn" data-i18n="btnFocusExpand">▼ ފޯކަސް ވިއު</button>
+          <span id="focusPageIndicator" class="focus-page-indicator"></span>
+        </span>
         <span class="subrow-right">
           <span id="pageTags"></span>
           <span id="pageSubtitle"></span>
@@ -228,15 +231,10 @@
             title="Toggle focus reading mode"
             data-i18n="btnFocusIn"
           >
-            ފޯކަސް ވިއު ▲
+            ▲ ފޯކަސް ވިއު
           </button>
         </div>
       </nav>
-      <div class="focus-expand">
-        <button id="btnFocusExpand" data-i18n="btnFocusExpand">
-          ▼ ފޯކަސް ވިއު
-        </button>
-      </div>
       <article id="readerContent" dir="rtl"></article>
       <nav id="readerNavBottom" class="reader-nav" dir="rtl">
         <div class="nav-pages">
@@ -407,6 +405,7 @@
       <div id="settingsModal" class="modal" role="dialog">
         <div class="modal-header">
           <h2 class="modal-title" data-i18n="labelSettings">ސެޓިންގްސް</h2>
+          <button id="btnResetSettings" class="modal-reset-sm" data-i18n="btnReset" title="Reset all settings">↺ ރީސެޓް</button>
           <button id="modalClose" class="modal-close">✕</button>
         </div>
         <div class="modal-body">
@@ -415,16 +414,12 @@
               ދިރުން
             </h3>
             <div class="modal-row">
-              <span class="modal-label" data-i18n="labelDark"
-                >އަނދިރި މޯޑް</span
-              >
-              <button
-                id="themeToggle"
-                class="modal-toggle"
-                title="Toggle dark / light theme"
-              >
-                🌙
-              </button>
+              <span class="modal-label" data-i18n="labelTheme">ތީމް</span>
+              <select id="selTheme" class="sidebar-select">
+                <option value="light">☀️ ލައިޓް</option>
+                <option value="dark">🌙 ޑާރކް</option>
+                <option value="sepia">📜 ސީޕިއާ</option>
+              </select>
             </div>
             <div class="modal-row">
               <span data-i18n="btnWidescreen">📐 ފުޅާ ސްކްރީން</span>
@@ -477,37 +472,22 @@
             </div>
           </div>
         </div>
-        <button
-          id="btnResetSettings"
-          class="modal-reset-btn"
-          data-i18n="btnResetSettings"
-        >
-          ↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ
-        </button>
       </div>
     </div>
 
     <script>
       // All modal-backed controls — placed after modal HTML
 
-      // Theme toggle
+      // Theme select
       (function () {
-        var btn = document.getElementById("themeToggle");
-        if (document.documentElement.getAttribute("data-theme") === "dark") {
-          btn.classList.add("active");
-        }
-        btn.addEventListener("click", function () {
-          var html = document.documentElement;
-          var on = html.getAttribute("data-theme") === "dark";
-          if (on) {
-            html.removeAttribute("data-theme");
-            btn.classList.remove("active");
-            localStorage.removeItem("theme");
-          } else {
-            html.setAttribute("data-theme", "dark");
-            btn.classList.add("active");
-            localStorage.setItem("theme", "dark");
-          }
+        var sel = document.getElementById("selTheme");
+        var current = document.documentElement.getAttribute("data-theme") || "light";
+        sel.value = current;
+        sel.addEventListener("change", function () {
+          var val = this.value;
+          if (val === "light") document.documentElement.removeAttribute("data-theme");
+          else document.documentElement.setAttribute("data-theme", val);
+          localStorage.setItem("theme", val === "light" ? "" : val);
         });
       })();
 
@@ -545,9 +525,9 @@
         .addEventListener("click", function () {
           var html = document.documentElement;
           html.removeAttribute("data-theme");
-          localStorage.removeItem("theme");
-          var thBtn = document.getElementById("themeToggle");
-          if (thBtn) thBtn.classList.remove("active");
+          localStorage.setItem("theme", "");
+          var thSel = document.getElementById("selTheme");
+          if (thSel) thSel.value = "light";
           html.removeAttribute("data-widescreen");
           localStorage.removeItem("widescreen");
           var wsBtn = document.getElementById("btnWidescreen");

@@ -33,6 +33,36 @@
   --color-mark-text: inherit;
 }
 
+/* ---- Theme: sepia ---- */
+[data-theme="sepia"] {
+  --color-bg: #faf3e6;
+  --color-text: #3d2e1c;
+  --color-text-muted: #7a6a55;
+  --color-text-subtle: #a89478;
+  --color-border: #d6c8b0;
+  --color-card-bg: #f5ecda;
+  --color-card-hover-border: #bfa888;
+  --color-error-bg: #fce4dc;
+  --color-error-text: #b71c1c;
+  --color-nav-btn-bg: #efe0c8;
+  --color-nav-btn-hover-bg: #e6d4b8;
+  --color-nav-btn-text: #5c4a30;
+  --color-nav-btn-hover-text: #2e1f0c;
+  --color-reader-bg: #fdf6ea;
+  --color-divider: #d6c8b0;
+  --color-divider-ornament: #bfa888;
+  --color-page-header-border: #d6c8b0;
+  --color-loading: #8c7a60;
+  --color-footnotes: #7a6a55;
+  --color-shadow-sm: rgba(0, 0, 0, 0.04);
+  --color-shadow-card: rgba(0, 0, 0, 0.05);
+  --color-shadow-card-hover: rgba(0, 0, 0, 0.1);
+  --color-theme-toggle-bg: #efe0c8;
+  --color-theme-toggle-text: #5c4a30;
+  --color-mark-bg: #f0c060;
+  --color-mark-text: #3d2e1c;
+}
+
 /* ---- Theme: dark ---- */
 [data-theme="dark"] {
   --color-bg: #0f172a;
@@ -318,37 +348,34 @@ body {
   box-shadow: none;
 }
 
-/* Expand button to exit focus mode */
-.focus-expand {
+/* Expand button — next to counter, visible in focus mode */
+.focus-expand-btn {
   display: none;
-}
-
-[data-focus] .focus-expand {
-  display: flex;
-  justify-content: center;
-  padding: 8px 0 4px;
-}
-
-.focus-expand button {
-  padding: 6px 16px;
-  font-size: 0.85rem;
+  padding: 3px 10px;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-text-muted);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   transition: background 0.15s ease;
+  white-space: nowrap;
 }
 
-[data-focus] .focus-expand {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.focus-expand button:hover {
+.focus-expand-btn:hover {
   background: var(--color-nav-btn-hover-bg);
+}
+
+[data-focus] .focus-expand-btn {
+  display: inline-block;
+}
+
+.subrow-left {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
 }
 
 /* ---- Widescreen mode ---- */
@@ -571,23 +598,23 @@ body {
   border-color: var(--color-nav-btn-text);
 }
 
-.modal-reset-btn {
-  width: 100%;
-  padding: 10px;
-  margin-top: 4px;
-  font-size: 0.85rem;
+.modal-reset-sm {
+  padding: 4px 10px;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-error-text);
-  background: var(--color-error-bg);
+  background: none;
   border: 1px solid var(--color-error-text);
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   transition: opacity 0.15s ease;
+  margin-right: auto;
+  margin-left: 8px;
 }
 
-.modal-reset-btn:hover {
-  opacity: 0.8;
+.modal-reset-sm:hover {
+  opacity: 0.7;
 }
 
 /* System font override */
@@ -1131,11 +1158,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0;
+  gap: 8px;
+  padding: 8px 0;
   margin-bottom: 24px;
   border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
+}
+
+.nav-pages {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.nav-goto {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 #readerNavBottom {
@@ -1153,8 +1193,8 @@ body {
 }
 
 .nav-btn {
-  padding: 6px 14px;
-  font-size: 0.85rem;
+  padding: 5px 10px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
@@ -1194,9 +1234,9 @@ body {
 }
 
 .page-num {
-  min-width: 34px;
-  padding: 6px 4px;
-  font-size: 0.85rem;
+  min-width: 30px;
+  padding: 4px 3px;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
@@ -1364,9 +1404,6 @@ body {
   position: fixed;
 }
 
-[data-focus] .back-link {
-  position: fixed;
-}
 
 .focus-page-indicator {
   font-size: 0.8rem;
