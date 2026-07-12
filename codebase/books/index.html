@@ -15,13 +15,39 @@
   </head>
 
   <body>
-    <!-- Theme toggle -->
-    <button id="themeToggle" title="Toggle dark / light theme">
-      <span class="icon-dark">🌙</span>
-      <span class="icon-light">☀️</span>
-      <span class="label-dark">Dark</span>
-      <span class="label-light">Light</span>
-    </button>
+    <!-- Hamburger menu button -->
+    <button id="menuBtn" class="menu-btn" title="Menu">☰</button>
+
+    <!-- Sidebar overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Hadithmv</h2>
+        <button id="sidebarClose" class="sidebar-close">✕</button>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="index.html" class="sidebar-link">← ފޮތް ތަކުގެ ލިސްޓް</a>
+        <a href="contact.html" class="sidebar-link">📧 ގުޅުން</a>
+      </nav>
+      <div class="sidebar-section">
+        <button id="btnWidescreen" class="sidebar-theme-btn" title="Toggle widescreen mode">
+          📐 ފުޅާ ސްކްރީން
+        </button>
+        <button id="themeToggle" class="sidebar-theme-btn" title="Toggle dark / light theme">
+          <span class="icon-dark">🌙</span>
+          <span class="icon-light">☀️</span>
+          <span class="label-dark">ޑާރކް މޯޑް</span>
+          <span class="label-light">ލައިޓް މޯޑް</span>
+        </button>
+      </div>
+      <div class="sidebar-footer">
+        <div class="sidebar-version">ވާޝަން 6.9.85 · ވެބް</div>
+        <div class="sidebar-credit">ހަދާފައިވަނީ: hadithmv</div>
+      </div>
+    </aside>
+
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
       <h1 class="dashboard-title">Hadithmv</h1>
@@ -168,7 +194,7 @@
     </div>
 
     <script>
-      // Theme toggle — runs before module so it works on dashboard too
+      // Theme toggle
       document
         .getElementById("themeToggle")
         .addEventListener("click", function () {
@@ -178,6 +204,51 @@
           html.setAttribute("data-theme", next);
           localStorage.setItem("theme", next);
         });
+
+      // Widescreen toggle
+      (function () {
+        var btn = document.getElementById("btnWidescreen");
+        function set(on) {
+          var html = document.documentElement;
+          if (on) {
+            html.setAttribute("data-widescreen", "");
+            btn.classList.add("active");
+          } else {
+            html.removeAttribute("data-widescreen");
+            btn.classList.remove("active");
+          }
+        }
+        if (localStorage.getItem("widescreen")) { set(true); }
+        btn.addEventListener("click", function () {
+          var on = !document.documentElement.hasAttribute("data-widescreen");
+          set(on);
+          if (on) localStorage.setItem("widescreen", "1");
+          else localStorage.removeItem("widescreen");
+        });
+      })();
+
+      // Sidebar toggle
+      (function () {
+        var sidebar = document.getElementById("sidebar");
+        var overlay = document.getElementById("sidebarOverlay");
+        var openBtn = document.getElementById("menuBtn");
+        var closeBtn = document.getElementById("sidebarClose");
+
+        function open() {
+          sidebar.classList.add("open");
+          overlay.classList.add("open");
+        }
+        function close() {
+          sidebar.classList.remove("open");
+          overlay.classList.remove("open");
+        }
+        openBtn.addEventListener("click", open);
+        closeBtn.addEventListener("click", close);
+        overlay.addEventListener("click", close);
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") close();
+        });
+      })();
     </script>
 
     <script src="../dependencies/papaparse.min.js"></script>
