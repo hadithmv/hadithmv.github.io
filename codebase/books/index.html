@@ -27,28 +27,28 @@
         <h2 class="sidebar-title" data-i18n="sidebarTitle">Hadithmv</h2>
         <button id="sidebarClose" class="sidebar-close">✕</button>
       </div>
+
       <nav class="sidebar-nav">
-        <a href="index.html" class="sidebar-link" data-i18n="navDashboard">← ފޮތް ތަކުގެ ލިސްޓް</a>
-        <a href="contact.html" class="sidebar-link" data-i18n="navContact">📧 ގުޅުން</a>
+        <a href="index.html" class="sidebar-link" data-i18n="navDashboard"
+          >← ފޮތް ތަކުގެ ލިސްޓް</a
+        >
+        <a href="contact.html" class="sidebar-link" data-i18n="navContact"
+          >📧 ގުޅުން</a
+        >
       </nav>
-      <div class="sidebar-section">
-        <button id="btnWidescreen" class="sidebar-theme-btn" title="Toggle widescreen mode">
-          <span data-i18n="btnWidescreen">📐 ފުޅާ ސްކްރީން</span>
-        </button>
-        <button id="btnLang" class="sidebar-theme-btn" title="Change language">
-          <span data-i18n="btnLang">🌐 ބަސް</span>
-          <span class="lang-indicator" data-i18n="langLabel">ދިވެހި</span>
-        </button>
-        <button id="themeToggle" class="sidebar-theme-btn" title="Toggle dark / light theme">
-          <span class="icon-dark">🌙</span>
-          <span class="icon-light">☀️</span>
-          <span class="label-dark" data-i18n="labelDark">ޑާރކް މޯޑް</span>
-          <span class="label-light" data-i18n="labelLight">ލައިޓް މޯޑް</span>
-        </button>
-      </div>
+
+      <a id="btnSettings" class="sidebar-link" style="cursor: pointer">
+        <span>⚙</span>
+        <span data-i18n="labelSettings">ސެޓިންގްސް</span>
+      </a>
+
       <div class="sidebar-footer">
-        <div class="sidebar-version" data-i18n="appVersion">ވާޝަން 6.9.85 · ވެބް</div>
-        <div class="sidebar-credit" data-i18n="appCredit">ހަދާފައިވަނީ: hadithmv</div>
+        <div class="sidebar-version" data-i18n="appVersion">
+          ވާޝަން 6.9.85 · ވެބް
+        </div>
+        <div class="sidebar-credit" data-i18n="appCredit">
+          ހަދާފައިވަނީ: hadithmv
+        </div>
       </div>
     </aside>
 
@@ -60,7 +60,13 @@
 
     <!-- Page Header with Metadata (shown once data is ready) -->
     <div id="pageHeader" style="display: none">
-      <a href="index.html" id="backToDashboard" class="back-link" data-i18n="navDashboard">← ފޮތް ތަކުގެ ލިސްޓް</a>
+      <a
+        href="index.html"
+        id="backToDashboard"
+        class="back-link"
+        data-i18n="navDashboard"
+        >← ފޮތް ތަކުގެ ލިސްޓް</a
+      >
       <h1 id="pageTitle"></h1>
       <p id="pageSubtitle"></p>
       <p id="pageSubsubtitle"></p>
@@ -68,7 +74,9 @@
     </div>
 
     <!-- Loading State -->
-    <div id="loadingMessage" class="loading" dir="rtl" data-i18n="loading">ފޮތް ލޯޑް ކުރަނީ…</div>
+    <div id="loadingMessage" class="loading" dir="rtl" data-i18n="loading">
+      ފޮތް ލޯޑް ކުރަނީ…
+    </div>
 
     <!-- Error State -->
     <div id="errorMessage" class="error" style="display: none"></div>
@@ -80,7 +88,8 @@
           id="searchInput"
           type="search"
           class="search-input"
-          data-i18n="searchPlaceholder" placeholder="މި ފޮތުން ހޯދާ…"
+          data-i18n="searchPlaceholder"
+          placeholder="މި ފޮތުން ހޯދާ…"
           dir="rtl"
         />
         <button
@@ -93,7 +102,11 @@
         </button>
         <span id="searchInfo" class="search-info" style="display: none"></span>
       </div>
-      <div id="searchResults" class="search-results" style="display: none"></div>
+      <div
+        id="searchResults"
+        class="search-results"
+        style="display: none"
+      ></div>
       <div id="readerToolbar" class="reader-toolbar" dir="rtl">
         <div class="toolbar-group">
           <button
@@ -111,12 +124,19 @@
           >
             <span data-i18n="btnTashkeel">◉ ފިލި ފޮރުވާ</span>
           </button>
-          <button id="btnReset" class="toolbar-btn" data-i18n-title="btnResetTitle" title="Reset all settings to defaults">
+          <button
+            id="btnReset"
+            class="toolbar-btn"
+            data-i18n-title="btnResetTitle"
+            title="Reset all settings to defaults"
+          >
             <span data-i18n="btnReset">↺ ރީސެޓް</span>
           </button>
         </div>
         <div class="toolbar-group">
-          <label class="toolbar-label" for="selRowsPerPage"
+          <label
+            class="toolbar-label"
+            for="selRowsPerPage"
             data-i18n="labelRowsPerPage"
             >އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:</label
           >
@@ -132,7 +152,9 @@
           id="columnTogglesGroup"
           style="display: none"
         >
-          <label class="toolbar-label" data-i18n="labelHideColumns">ކޮލަމް ފޮރުވާ:</label>
+          <label class="toolbar-label" data-i18n="labelHideColumns"
+            >ކޮލަމް ފޮރުވާ:</label
+          >
           <div id="columnToggles" class="column-toggles"></div>
         </div>
       </div>
@@ -155,8 +177,7 @@
           </button>
         </div>
         <div class="nav-goto">
-          <label for="pageInput" class="page-label"
-            data-i18n="labelPageNo"
+          <label for="pageInput" class="page-label" data-i18n="labelPageNo"
             >މި ސަފްހާގެ ނަންބަރު:</label
           >
           <input
@@ -201,45 +222,108 @@
     </div>
 
     <script type="module">
-      import { initI18n, cycleLanguage } from "../js/i18n.js";
+      import { initI18n, setLanguage } from "../js/i18n.js";
       initI18n();
-      document.getElementById("btnLang").addEventListener("click", cycleLanguage);
+      document
+        .getElementById("selLanguage")
+        .addEventListener("change", function () {
+          setLanguage(this.value);
+        });
+
+      // ── Font controls ──────────────────────────────────────
+      var FONT_SIZES = [
+        "1rem",
+        "1.1rem",
+        "1.2rem",
+        "1.3rem",
+        "1.4rem",
+        "1.5rem",
+        "1.65rem",
+        "1.8rem",
+        "2rem",
+      ];
+      var DEFAULT_FONT_SIZE = "1.25rem";
+      var html = document.documentElement;
+
+      function getFontSizeIdx() {
+        var cur =
+          html.style.getPropertyValue("--reader-font-size") ||
+          DEFAULT_FONT_SIZE;
+        var idx = FONT_SIZES.indexOf(cur);
+        return idx === -1 ? FONT_SIZES.indexOf(DEFAULT_FONT_SIZE) : idx;
+      }
+
+      function applyFontSize(idx) {
+        var size = FONT_SIZES[idx];
+        html.style.setProperty("--reader-font-size", size);
+        document.getElementById("fontSizeVal").textContent = size;
+        try {
+          localStorage.setItem("fontSize", size);
+        } catch (_) {}
+      }
+
+      // Restore saved size
+      var savedSize = (function () {
+        try {
+          return localStorage.getItem("fontSize");
+        } catch (_) {
+          return null;
+        }
+      })();
+      if (savedSize && FONT_SIZES.indexOf(savedSize) !== -1) {
+        html.style.setProperty("--reader-font-size", savedSize);
+        document.getElementById("fontSizeVal").textContent = savedSize;
+      }
+
+      document
+        .getElementById("btnFontDown")
+        .addEventListener("click", function () {
+          var idx = getFontSizeIdx();
+          if (idx > 0) applyFontSize(idx - 1);
+        });
+      document
+        .getElementById("btnFontUp")
+        .addEventListener("click", function () {
+          var idx = getFontSizeIdx();
+          if (idx < FONT_SIZES.length - 1) applyFontSize(idx + 1);
+        });
+
+      // ── Font family toggle ─────────────────────────────────
+      (function () {
+        var btn = document.getElementById("btnFontToggle");
+        var label = document.getElementById("fontFamilyLabel");
+        var isSystem = (function () {
+          try {
+            return localStorage.getItem("fontSystem") === "1";
+          } catch (_) {
+            return false;
+          }
+        })();
+
+        function set(sys) {
+          isSystem = sys;
+          if (sys) {
+            html.setAttribute("data-font-system", "");
+            btn.classList.add("active");
+            label.textContent = "System";
+          } else {
+            html.removeAttribute("data-font-system");
+            btn.classList.remove("active");
+            label.textContent = "Hadithmv";
+          }
+          try {
+            localStorage.setItem("fontSystem", sys ? "1" : "0");
+          } catch (_) {}
+        }
+
+        set(isSystem);
+        btn.addEventListener("click", function () {
+          set(!isSystem);
+        });
+      })();
     </script>
 
     <script>
-      // Theme toggle
-      document
-        .getElementById("themeToggle")
-        .addEventListener("click", function () {
-          var html = document.documentElement;
-          var next =
-            html.getAttribute("data-theme") === "dark" ? "light" : "dark";
-          html.setAttribute("data-theme", next);
-          localStorage.setItem("theme", next);
-        });
-
-      // Widescreen toggle
-      (function () {
-        var btn = document.getElementById("btnWidescreen");
-        function set(on) {
-          var html = document.documentElement;
-          if (on) {
-            html.setAttribute("data-widescreen", "");
-            btn.classList.add("active");
-          } else {
-            html.removeAttribute("data-widescreen");
-            btn.classList.remove("active");
-          }
-        }
-        if (localStorage.getItem("widescreen")) { set(true); }
-        btn.addEventListener("click", function () {
-          var on = !document.documentElement.hasAttribute("data-widescreen");
-          set(on);
-          if (on) localStorage.setItem("widescreen", "1");
-          else localStorage.removeItem("widescreen");
-        });
-      })();
-
       // Sidebar toggle
       (function () {
         var sidebar = document.getElementById("sidebar");
@@ -265,6 +349,185 @@
     </script>
 
     <script src="../dependencies/papaparse.min.js"></script>
+
+    <!-- Settings modal -->
+    <div id="settingsOverlay" class="modal-overlay">
+      <div id="settingsModal" class="modal" role="dialog">
+        <div class="modal-header">
+          <h2 class="modal-title" data-i18n="labelSettings">ސެޓިންގްސް</h2>
+          <button id="modalClose" class="modal-close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-card">
+            <h3 class="modal-card-title" data-i18n="settingsAppearance">
+              ދިރުން
+            </h3>
+            <div class="modal-row">
+              <span class="modal-label" data-i18n="labelDark"
+                >އަނދިރި މޯޑް</span
+              >
+              <button
+                id="themeToggle"
+                class="modal-toggle"
+                title="Toggle dark / light theme"
+              >🌙</button>
+            </div>
+            <div class="modal-row">
+              <span data-i18n="btnWidescreen">📐 ފުޅާ ސްކްރީން</span>
+              <button id="btnWidescreen" class="modal-toggle">☐</button>
+            </div>
+          </div>
+          <div class="modal-card">
+            <h3 class="modal-card-title" data-i18n="settingsFont">ފޮންޓް</h3>
+            <div class="modal-row">
+              <span data-i18n="labelFontSize">ފޮންޓް ސައިޒު</span>
+              <div class="font-size-row">
+                <button
+                  id="btnFontDown"
+                  class="font-adj-btn"
+                  title="Decrease font size"
+                >
+                  −
+                </button>
+                <span id="fontSizeVal" class="font-size-val">1.25rem</span>
+                <button
+                  id="btnFontUp"
+                  class="font-adj-btn"
+                  title="Increase font size"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="modal-row">
+              <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
+              <button id="btnFontToggle" class="modal-toggle">
+                <span id="fontFamilyLabel">Hadithmv</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-card">
+            <h3 class="modal-card-title" data-i18n="settingsLanguage">ބަސް</h3>
+            <div class="modal-row">
+              <span>🌐</span>
+              <select
+                id="selLanguage"
+                class="sidebar-select"
+                data-i18n-title="btnLang"
+                title="Change language"
+              >
+                <option value="dv">ދިވެހި</option>
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button id="btnResetSettings" class="modal-reset-btn" data-i18n="btnResetSettings">
+          ↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // All modal-backed controls — placed after modal HTML
+
+      // Theme toggle
+      (function () {
+        var btn = document.getElementById("themeToggle");
+        if (document.documentElement.getAttribute("data-theme") === "dark") {
+          btn.classList.add("active");
+        }
+        btn.addEventListener("click", function () {
+          var html = document.documentElement;
+          var on = html.getAttribute("data-theme") === "dark";
+          if (on) {
+            html.removeAttribute("data-theme");
+            btn.classList.remove("active");
+            localStorage.removeItem("theme");
+          } else {
+            html.setAttribute("data-theme", "dark");
+            btn.classList.add("active");
+            localStorage.setItem("theme", "dark");
+          }
+        });
+      })();
+
+      // Widescreen toggle
+      (function () {
+        var btn = document.getElementById("btnWidescreen");
+        function set(on) {
+          var html = document.documentElement;
+          if (on) {
+            html.setAttribute("data-widescreen", "");
+            btn.classList.add("active");
+            btn.textContent = "☑";
+          } else {
+            html.removeAttribute("data-widescreen");
+            btn.classList.remove("active");
+            btn.textContent = "☐";
+          }
+        }
+        if (localStorage.getItem("widescreen")) {
+          set(true);
+        } else {
+          btn.textContent = "☐";
+        }
+        btn.addEventListener("click", function () {
+          var on = !document.documentElement.hasAttribute("data-widescreen");
+          set(on);
+          if (on) localStorage.setItem("widescreen", "1");
+          else localStorage.removeItem("widescreen");
+        });
+      })();
+
+      // Reset all settings
+      document.getElementById("btnResetSettings").addEventListener("click", function () {
+        var html = document.documentElement;
+        html.removeAttribute("data-theme");
+        localStorage.removeItem("theme");
+        var thBtn = document.getElementById("themeToggle");
+        if (thBtn) thBtn.classList.remove("active");
+        html.removeAttribute("data-widescreen");
+        localStorage.removeItem("widescreen");
+        var wsBtn = document.getElementById("btnWidescreen");
+        if (wsBtn) { wsBtn.classList.remove("active"); wsBtn.textContent = "☐"; }
+        html.style.removeProperty("--reader-font-size");
+        localStorage.removeItem("fontSize");
+        var fsv = document.getElementById("fontSizeVal");
+        if (fsv) fsv.textContent = "1.25rem";
+        html.removeAttribute("data-font-system");
+        localStorage.removeItem("fontSystem");
+        var ffBtn = document.getElementById("btnFontToggle");
+        var ffLbl = document.getElementById("fontFamilyLabel");
+        if (ffBtn) ffBtn.classList.remove("active");
+        if (ffLbl) ffLbl.textContent = "Hadithmv";
+        localStorage.removeItem("lang");
+        var sel = document.getElementById("selLanguage");
+        if (sel) sel.value = "dv";
+        document.getElementById("settingsOverlay").classList.remove("open");
+      });
+
+      // Settings modal open / close
+      (function () {
+        var overlay = document.getElementById("settingsOverlay");
+        var closeBtn = document.getElementById("modalClose");
+        function open() {
+          overlay.classList.add("open");
+        }
+        function close() {
+          overlay.classList.remove("open");
+        }
+        document.getElementById("btnSettings").addEventListener("click", open);
+        closeBtn.addEventListener("click", close);
+        overlay.addEventListener("click", function (e) {
+          if (e.target === overlay) close();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") close();
+        });
+      })();
+    </script>
 
     <script type="module" src="../js/reader.js"></script>
   </body>

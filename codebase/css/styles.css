@@ -211,11 +211,62 @@ body {
   background: var(--color-nav-btn-hover-bg);
 }
 
-/* Sidebar section divider */
-.sidebar-section {
-  padding: 20px 0;
+/* Sidebar settings toggle */
+.sidebar-settings-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sidebar-settings-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.settings-toggle-icon {
+  font-size: 1rem;
+}
+
+.settings-arrow {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--color-text-subtle);
+  transition: transform 0.2s ease;
+}
+
+/* Settings panel */
+.settings-panel {
+  padding: 0 4px 12px;
+}
+
+.settings-group {
+  padding: 10px 0;
   border-top: 1px solid var(--color-border);
-  margin-bottom: auto;
+}
+
+.settings-group:first-child {
+  border-top: none;
+}
+
+.settings-group-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 /* Sidebar theme button */
@@ -247,21 +298,6 @@ body {
   border-color: var(--color-nav-btn-text);
 }
 
-.sidebar-theme-btn .icon-light,
-.sidebar-theme-btn .icon-dark {
-  font-size: 1rem;
-  line-height: 1;
-}
-
-/* Show/hide icon and label based on theme */
-.sidebar-theme-btn .icon-light,
-.sidebar-theme-btn .label-light { display: none; }
-
-[data-theme="dark"] .sidebar-theme-btn .icon-dark,
-[data-theme="dark"] .sidebar-theme-btn .label-dark { display: none; }
-[data-theme="dark"] .sidebar-theme-btn .icon-light,
-[data-theme="dark"] .sidebar-theme-btn .label-light { display: inline; }
-
 /* ---- Widescreen mode ---- */
 [data-widescreen] #pageHeader,
 [data-widescreen] #readerWrapper,
@@ -273,6 +309,253 @@ body {
   border-radius: 0;
   border-left: none;
   border-right: none;
+}
+
+/* Sidebar select */
+.sidebar-select-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.sidebar-select-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-select {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.sidebar-select:focus {
+  border-color: var(--color-card-hover-border);
+}
+
+/* Font size controls */
+.font-size-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.font-adj-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.font-adj-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.font-size-val {
+  min-width: 52px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.font-family-label {
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* ---- Settings modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+.modal {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  width: 420px;
+  max-width: 92vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  direction: rtl;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.modal-close:hover {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-text);
+}
+
+.modal-body {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-card {
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.modal-card-title {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
+.modal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  gap: 12px;
+}
+
+.modal-row + .modal-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.modal-label {
+  font-weight: 500;
+}
+
+.modal-toggle {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.modal-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.modal-toggle.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+
+.modal-reset-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-error-text);
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-text);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  transition: opacity 0.15s ease;
+}
+
+.modal-reset-btn:hover {
+  opacity: 0.8;
+}
+
+/* System font override */
+[data-font-system] #readerContent,
+[data-font-system] .reader-field,
+[data-font-system] .reader-footnotes {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+[data-font-system] .book-card .title-ar,
+[data-font-system] .book-card .title-dv,
+[data-font-system] #pageHeader h1,
+[data-font-system] #pageHeader p,
+[data-font-system] .toolbar-btn,
+[data-font-system] .toolbar-label,
+[data-font-system] .page-label,
+[data-font-system] .nav-counter,
+[data-font-system] .nav-counter-bottom,
+[data-font-system] .sidebar,
+[data-font-system] .search-result-snippet {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Sidebar footer */
@@ -904,7 +1187,7 @@ body {
   border-radius: 12px;
   padding: 32px 36px;
   line-height: 2.2;
-  font-size: 1.25rem;
+  font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
   box-shadow: 0 1px 3px var(--color-shadow-sm);
 }
@@ -966,7 +1249,7 @@ body {
 @media (max-width: 600px) {
   #readerContent {
     padding: 20px 16px;
-    font-size: 1.1rem;
+    font-size: var(--reader-font-size-mobile, 1.1rem);
     line-height: 2;
   }
 
@@ -1038,4 +1321,7 @@ body {
   }
 
   .sidebar { width: 260px; }
+  .modal { width: 92vw; border-radius: 12px; }
+  .modal-body { padding: 0 16px 16px; }
+  .modal-header { padding: 16px 16px 8px; }
 }
