@@ -582,8 +582,10 @@ body {
 }
 
 .back-link {
-  display: inline-block;
-  margin-bottom: 12px;
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  z-index: 50;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-muted);
@@ -591,6 +593,11 @@ body {
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   transition: color 0.15s ease;
   direction: rtl;
+  white-space: nowrap;
+}
+
+#pageHeader {
+  position: relative;
 }
 
 .back-link:hover {
@@ -602,10 +609,20 @@ body {
   font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
 }
 
-#pageHeader p {
-  margin: 0;
+#pageSubtitle {
   color: var(--color-text-muted);
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+}
+
+#pageSubRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+#pageSubRow #pageTags {
+  margin-top: 0;
 }
 
 /* ---- Shared states ---- */
@@ -645,6 +662,7 @@ body {
   margin-bottom: 40px;
   color: var(--color-text);
   letter-spacing: -0.025em;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 .book-grid {
@@ -725,13 +743,14 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.025em;
   border: 1px solid rgba(0, 0, 0, 0.04);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 #pageTags {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 10px;
+  vertical-align: middle;
 }
 
 /* ============================================================
@@ -1207,11 +1226,10 @@ body {
 }
 
 .reader-row-num {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-text-subtle);
-  margin-bottom: 20px;
-  letter-spacing: 0.025em;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 24px;
   font-family: system-ui, -apple-system, sans-serif;
 }
 

@@ -133,9 +133,27 @@ const STRINGS = {
     ar: "…جارٍ تحميل بيانات الكتاب",
   },
 
+  // ── Tag labels ──
+  tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
+  tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
+  tagQRN: { dv: "ޤުރުއާން", en: "Quran", ar: "قرآن" },
+  tagRDF: { dv: "ރަދީފް", en: "Radheef", ar: "رديف" },
+  tagDFK: { dv: "ދަރުސް", en: "DFK", ar: "دروس" },
+  tagIH:  { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
+
   // ── Dashboard ──
   dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
 };
+
+/** Translate a tag code. Pass lang to override current language. Falls back to the CSV label. */
+export function tagLabel(code, fallback, lang) {
+  var l = lang || _currentLang;
+  var key = "tag" + code;
+  var entry = STRINGS[key];
+  if (entry && entry[l]) return entry[l];
+  if (entry && entry.en) return entry.en;
+  return fallback || code;
+}
 
 // ── State ──────────────────────────────────────────────────
 const LANG_ORDER = ["dv", "en", "ar"];

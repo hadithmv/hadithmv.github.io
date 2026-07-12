@@ -7,7 +7,7 @@
  */
 
 import { initializePageWithMetadata, extractTags } from "./dbLookup.js";
-import { t } from "./i18n.js";
+import { t, tagLabel, currentLang } from "./i18n.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -34,27 +34,74 @@ initializePageWithMetadata(async function (metadata) {
         headerRow = data.shift();
       }
 
-      // Populate page header
-      document.getElementById("pageTitle").textContent =
-        metadata.titleEN || metadata.bookCode;
-      document.getElementById("pageSubtitle").textContent =
-        metadata.titleAR || "";
-      document.getElementById("pageSubsubtitle").textContent =
-        metadata.titleDV || "";
-
-      // Render tags in page header
+      // Language-aware page header
       const pageTagsContainer = document.getElementById("pageTags");
-      const tags = extractTags(metadata.bookCode);
-      if (tags.length > 0) {
-        pageTagsContainer.innerHTML = tags
-          .map(
-            (t) =>
-              `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${t.label}</span>`,
-          )
-          .join("");
+      const pageTags = extractTags(metadata.bookCode);
+
+      function renderPageTags() {
+        var lang = currentLang();
+        pageTagsContainer.innerHTML = pageTags.map(function (t) {
+          var label;
+          if (lang === "dv") {
+            label = tagLabel(t.code, t.label, "dv") + " · " + tagLabel(t.code, t.label, "ar");
+          } else {
+            label = tagLabel(t.code, t.label);
+          }
+          return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + label + '</span>';
+        }).join("");
       }
 
-      // Clipboard header — book title line
+      function updatePageHeader() {
+        var lang = currentLang();
+        var pageTitle = document.getElementById("pageTitle");
+        var pageSubtitle = document.getElementById("pageSubtitle");
+        var pageSubRow = document.getElementById("pageSubRow");
+
+        var pageHeader = document.getElementById("pageHeader");
+        if (lang === "en") {
+          pageHeader.style.display = "";
+          pageTitle.textContent = metadata.titleEN || metadata.bookCode;
+          pageTitle.dir = "ltr";
+          pageTitle.style.margin = "";
+          pageSubtitle.style.display = "none";
+          pageSubRow.style.display = "";
+          pageSubRow.style.justifyContent = "";
+          pageSubRow.style.margin = "";
+        } else if (lang === "dv") {
+          pageHeader.style.display = "flex";
+          pageHeader.style.flexDirection = "column";
+          pageHeader.style.alignItems = "flex-end";
+          pageHeader.style.paddingTop = "8px";
+          pageTitle.textContent = metadata.titleDV || metadata.bookCode;
+          pageTitle.dir = "rtl";
+          pageTitle.style.margin = "0 56px 6px 0";
+          pageSubtitle.textContent = metadata.titleAR || "";
+          pageSubtitle.style.display = "";
+          pageSubtitle.dir = "rtl";
+          pageSubRow.style.display = "flex";
+          pageSubRow.style.justifyContent = "flex-end";
+          pageSubRow.style.margin = "0 56px 0 0";
+          pageSubRow.style.gap = "10px";
+          pageSubRow.dir = "";
+          pageSubtitle.style.order = "2";
+          pageTagsContainer.style.order = "1";
+        } else if (lang === "ar") {
+          pageHeader.style.display = "";
+          pageTitle.textContent = metadata.titleAR || metadata.bookCode;
+          pageTitle.dir = "rtl";
+          pageTitle.style.margin = "";
+          pageSubtitle.style.display = "none";
+          pageSubRow.style.display = "";
+          pageSubRow.style.justifyContent = "";
+          pageSubRow.style.margin = "";
+        }
+        renderPageTags();
+      }
+
+      updatePageHeader();
+      document.addEventListener("languagechange", updatePageHeader);
+
+      // Clipboard header — book title line (always DV - AR)
       const clipboardHeader = metadata.titleDV + " - " + metadata.titleAR;
 
       // ── Settings (persisted) ────────────────────────────────

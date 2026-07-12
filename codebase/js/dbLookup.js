@@ -4,6 +4,8 @@
  * All configuration lives in CSV files — no hardcoded data.
  */
 
+import { tagLabel } from "./i18n.js";
+
 let bookNamesCache = null;
 let tagDefinitionsCache = null;
 
@@ -205,7 +207,10 @@ export async function initializePageWithMetadata(callback) {
  * Shows an error message when no books could be loaded.
  * @param {Array} bookNames - Array of book metadata objects
  */
+let _lastBookNames = null;
+
 function renderDashboard(bookNames) {
+  _lastBookNames = bookNames;
   const loading = document.getElementById("loadingMessage");
   if (loading) loading.style.display = "none";
 
@@ -233,7 +238,7 @@ function renderDashboard(bookNames) {
             ? `<div class="card-tags">${tags
                 .map(
                   (t) =>
-                    `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${t.label}</span>`,
+                    `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${tagLabel(t.code, t.label)}</span>`,
                 )
                 .join("")}</div>`
             : "";
@@ -249,3 +254,10 @@ function renderDashboard(bookNames) {
       .join("");
   }
 }
+
+// Re-render dashboard on language change (if visible)
+document.addEventListener("languagechange", function () {
+  if (_lastBookNames && _lastBookNames.length > 0) {
+    renderDashboard(_lastBookNames);
+  }
+});
