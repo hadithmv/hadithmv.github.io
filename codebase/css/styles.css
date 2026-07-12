@@ -889,19 +889,19 @@ body {
   width: 28px;
   height: 28px;
   padding: 0;
-  font-size: 0.85rem;
+  font-size: 1rem;
+  font-weight: 900;
   line-height: 1;
-  color: var(--color-text-muted);
+  color: #dc2626;
   background: none;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease;
 }
 
 .search-clear:hover {
-  background: var(--color-nav-btn-bg);
-  color: var(--color-text);
+  background: #fef2f2;
 }
 
 .search-info {

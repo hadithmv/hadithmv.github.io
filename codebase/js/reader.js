@@ -641,14 +641,51 @@ initializePageWithMetadata(async function (metadata) {
           }
           return result;
         });
-        filteredData = result;
-        currentPage = 0;
+        // Store results in a temp variable and show in results dropdown
+        var tempFiltered = result;
         advSearchOverlay.classList.remove("open");
-        // Update search info
-        searchInfo.style.display = "";
-        searchInfo.textContent = t("resultCount") + ": " + filteredData.length;
-        searchClear.style.display = "";
-        rebuildAll();
+        if (tempFiltered.length === 0) {
+          searchInfo.style.display = "";
+          searchInfo.textContent = t("noResults");
+          searchClear.style.display = "";
+          searchResults.style.display = "none";
+          readerContent.innerHTML = '<div class="reader-no-results">' + t("noMatchesMsg") + '</div>';
+          loadedStart = loadedEnd = -1;
+          updatePagination();
+        } else {
+          // Show results dropdown without committing the filter yet
+          searchInfo.style.display = "";
+          searchInfo.textContent = t("resultCount") + ": " + tempFiltered.length;
+          searchClear.style.display = "";
+          filteredData = tempFiltered;
+          // Build results view inline
+          var q = advConditions.length > 0 ? advConditions[0].val : "";
+          var resHTML = q ? buildResultsHTML(q) : "";
+          if (!resHTML) {
+            var limit = Math.min(tempFiltered.length, 30);
+            for (var i = 0; i < limit; i++) {
+              var row = tempFiltered[i];
+              var rowNum = row[0] || (i + 1);
+              var snip = String(row[1] || row[0] || "").slice(0, 120);
+              resHTML += '<div class="search-result" data-idx="' + i + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
+            }
+          }
+          readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + resHTML + '</div>';
+          readerContent.querySelectorAll(".search-result[data-idx]").forEach(function (el) {
+            el.addEventListener("click", function () {
+              goTo(parseInt(this.dataset.idx));
+              searchInput.blur();
+            });
+          });
+          loadedStart = 0; loadedEnd = tempFiltered.length;
+          // Wire clicks to commit and navigate
+          searchResults.querySelectorAll(".search-result[data-idx]").forEach(function (el) {
+            el.addEventListener("click", function () {
+              goTo(parseInt(this.dataset.idx));
+              searchInput.blur();
+            });
+          });
+        }
       }
 
       // Open advanced search
