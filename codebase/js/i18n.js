@@ -30,6 +30,7 @@ const STRINGS = {
   btnAdvancedSearchText: { dv: "🔎 އެޑްވާންސްޑް", en: "🔎 Advanced", ar: "🔎 متقدم" },
   btnCopyText: { dv: "📋 ކޮޕީ", en: "📋 Copy", ar: "📋 نسخ" },
   btnTashkeelText: { dv: "◉ ފިލި", en: "◉ Diacritics", ar: "◉ تشكيل" },
+  btnExportText: { dv: "📥 އެކްސްޕޯޓް", en: "📥 Export", ar: "📥 تصدير" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
   btnTashkeelTitle: {
     dv: "ފިލި ފޮރުވާ/ދައްކާ",
@@ -158,9 +159,9 @@ const STRINGS = {
 
   // ── Footer / meta ──
   appVersion: {
-    dv: "ވާޝަން 6.9.85 · ވެބް",
-    en: "Version 6.9.85 · Web",
-    ar: "الإصدار 6.9.85 · ويب",
+    dv: "v6.9.85 (Web)",
+    en: "v6.9.85 (Web)",
+    ar: "v6.9.85 (Web)",
   },
   appCredit: {
     dv: "ހަދާފައިވަނީ: hadithmv",

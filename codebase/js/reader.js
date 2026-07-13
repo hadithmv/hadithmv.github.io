@@ -289,7 +289,7 @@ initializePageWithMetadata(async function (metadata) {
       function buildClipboardText(startIdx, endIdx) {
         var t = "";
         for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
-          if (i > startIdx) t += "\n";
+          if (i > startIdx) t += "\n──────────\n\n";
           var row = filteredData[i];
           var rowNum = row[0] || (i + 1);
           t += rowText(row, rowNum);
@@ -817,6 +817,114 @@ initializePageWithMetadata(async function (metadata) {
       });
       document.getElementById("btnFocusExpand").addEventListener("click", function () {
         setFocus(false);
+      });
+
+      // ── Toolbar: export ─────────────────────────────────────
+      var btnExport = document.getElementById("btnExport");
+      var exportDropdown = document.getElementById("exportDropdown");
+      btnExport.addEventListener("click", function (e) {
+        e.stopPropagation();
+        exportDropdown.style.display = exportDropdown.style.display === "none" ? "block" : "none";
+      });
+      document.addEventListener("click", function (e) {
+        if (!exportDropdown.contains(e.target) && e.target !== btnExport) {
+          exportDropdown.style.display = "none";
+        }
+      });
+
+      function downloadFile(content, filename, mime) {
+        var blob = new Blob([content], { type: mime });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url; a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      exportDropdown.querySelectorAll(".export-option").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var fmt = this.dataset.format;
+          var baseName = (metadata.titleEN || metadata.bookCode || "book");
+          var rows = allData;
+          var content, filename, mime;
+          var siteURL = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "");
+          var versionFull = t("appVersion");
+          var versionText = versionFull.replace(/ \(.*\)/, "");
+          var exportHeader = (metadata.titleEN || metadata.bookCode) + "\n" + metadata.titleDV + "\n" + metadata.titleAR + "\n\n" + siteURL + "\nHadithmv\n" + versionText + "\n\n" + "──────────\n\n";
+
+          if (fmt === "txt") {
+            content = exportHeader + buildClipboardText(0, rows.length);
+            filename = baseName + ".txt";
+            mime = "text/plain";
+          } else if (fmt === "md") {
+            content = "# " + (metadata.titleEN || metadata.bookCode) + "\n\n" + metadata.titleDV + "\n" + metadata.titleAR + "\n\n" + siteURL + "\n\nHadithmv\n" + versionText + "\n\n---\n\n";
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              content += "## #" + (r[0] || (i + 1)) + "\n\n";
+              for (var j = 1; j < r.length; j++) {
+                if (r[j] && String(r[j]).trim()) content += String(r[j]).trim() + "\n\n";
+              }
+              content += "---\n\n";
+            }
+            filename = baseName + ".md";
+            mime = "text/markdown";
+          } else if (fmt === "json") {
+            content = JSON.stringify(rows, null, 2);
+            filename = baseName + ".json";
+            mime = "application/json";
+          } else if (fmt === "csv") {
+            content = Papa.unparse(rows);
+            filename = baseName + ".csv";
+            mime = "text/csv";
+          } else if (fmt === "pdf") {
+            var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
+            var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0}</style></head><body>';
+            pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + siteURL + " - " + versionText + "</p>";
+            pdfHTML += "<h1>" + metadata.titleDV + "</h1><p style='text-align:center'>" + metadata.titleAR + "</p>";
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              pdfHTML += "<h2>#" + (r[0] || (i + 1)) + "</h2>";
+              var fields = [];
+              for (var j = 1; j < r.length; j++) {
+                if (r[j] && String(r[j]).trim()) fields.push(String(r[j]).trim());
+              }
+              for (var j = 0; j < fields.length; j++) {
+                if (j === fields.length - 1 && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+                pdfHTML += "<p>" + fields[j] + "</p>";
+              }
+              pdfHTML += "<hr>";
+            }
+            pdfHTML += "</body></html>";
+            var w = window.open("", "_blank");
+            w.document.write(pdfHTML);
+            w.document.close();
+            w.onload = function () { w.print(); };
+          } else if (fmt === "word") {
+            content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
+            content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
+            content += "<h1>" + metadata.titleDV + " - " + metadata.titleAR + "</h1>";
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              content += "<h2>#" + (r[0] || (i + 1)) + "</h2>";
+              var fields = [];
+              for (var j = 1; j < r.length; j++) {
+                if (r[j] && String(r[j]).trim()) fields.push(String(r[j]).trim());
+              }
+              for (var j = 0; j < fields.length; j++) {
+                if (j === fields.length - 1 && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+                content += "<p>" + fields[j] + "</p>";
+              }
+              content += "<hr>";
+            }
+            content += "</body></html>";
+            filename = baseName + ".doc";
+            mime = "application/msword";
+          }
+          if (content) downloadFile(content, filename, mime);
+          exportDropdown.style.display = "none";
+        });
       });
 
       // ── Toolbar: reset ──────────────────────────────────────

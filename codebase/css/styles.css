@@ -1182,6 +1182,40 @@ body {
   position: relative;
 }
 
+.export-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 60;
+  margin-top: 4px;
+  padding: 4px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  min-width: 130px;
+}
+
+.export-option {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: right;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.export-option:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
 /* ── Tashkeel hide mode ── */
 .hide-tashkeel .tashkeel {
   display: none;
