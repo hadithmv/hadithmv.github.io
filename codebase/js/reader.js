@@ -901,6 +901,54 @@ initializePageWithMetadata(async function (metadata) {
             w.document.write(pdfHTML);
             w.document.close();
             w.onload = function () { w.print(); };
+          } else if (fmt === "png") {
+            var vRow = visiblePageIndex();
+            var rc = document.getElementById("readerContent");
+            var bg = getComputedStyle(rc).backgroundColor;
+            var fg = getComputedStyle(rc).color;
+            var chunk = rc.querySelector('.reader-chunk[data-row="' + vRow + '"]');
+            if (!chunk) { exportDropdown.style.display = "none"; return; }
+            // Load font as base64 so canvas isn't tainted
+            fetch("../font/merged-300.woff2").then(function(r){return r.blob();}).then(function(blob){
+              var reader = new FileReader();
+              reader.onload = function() {
+                var fontData = reader.result;
+                var clone = chunk.cloneNode(true);
+                var wrapper = document.createElement("div");
+                wrapper.style.cssText = "position:fixed;left:-9999px;top:0;width:720px;padding:28px;font-family:Hadithmv,'Traditional Arabic',serif;font-size:17pt;line-height:2.3;direction:rtl;text-align:right;background:" + bg + ";color:" + fg;
+                wrapper.appendChild(clone);
+                document.body.appendChild(wrapper);
+                var rect = wrapper.getBoundingClientRect();
+                var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + rect.width + '" height="' + rect.height + '">' +
+                  '<defs><style>@font-face{font-family:Hadithmv;src:url(' + fontData + ') format("woff2");font-weight:300}</style></defs>' +
+                  '<foreignObject width="100%" height="100%">' +
+                  '<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Hadithmv">' + wrapper.innerHTML + '</div>' +
+                  '</foreignObject></svg>';
+                var img = new Image();
+                img.onload = function () {
+                  var canvas = document.createElement("canvas");
+                  canvas.width = rect.width * 2;
+                  canvas.height = rect.height * 2;
+                  var ctx = canvas.getContext("2d");
+                  ctx.scale(2, 2);
+                  ctx.fillStyle = bg;
+                  ctx.fillRect(0, 0, rect.width, rect.height);
+                  ctx.drawImage(img, 0, 0);
+                  canvas.toBlob(function (b) {
+                    var u = URL.createObjectURL(b);
+                    var a = document.createElement("a");
+                    a.href = u; a.download = baseName + ".png";
+                    document.body.appendChild(a); a.click();
+                    document.body.removeChild(a); URL.revokeObjectURL(u);
+                    document.body.removeChild(wrapper);
+                  }, "image/png");
+                };
+                img.src = "data:image/svg+xml," + encodeURIComponent(svg);
+              };
+              reader.readAsDataURL(blob);
+            });
+            exportDropdown.style.display = "none";
+            return;
           } else if (fmt === "word") {
             content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
             content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
