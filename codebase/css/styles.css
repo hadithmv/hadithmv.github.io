@@ -650,8 +650,8 @@ body {
 /* ---- Page header ---- */
 #pageHeader {
   max-width: 800px;
-  margin: 0 auto 8px;
-  padding: 8px 20px;
+  margin: 0 auto;
+  padding: 8px 20px 16px;
   border-bottom: 2px solid var(--color-page-header-border);
 }
 
@@ -854,6 +854,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-top: 6px;
   margin-bottom: 6px;
 }
 
@@ -1263,8 +1264,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 4px 0;
-  margin-bottom: 8px;
+  padding: 4px 0 8px;
+  margin-bottom: 0;
   border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
 }
@@ -1525,13 +1526,11 @@ body {
 /* ---- Reader content ---- */
 #readerContent {
   background: var(--color-reader-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 32px 36px;
+  border: none;
+  padding: 12px 36px 32px;
   line-height: 2.2;
   font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
-  box-shadow: 0 1px 3px var(--color-shadow-sm);
 }
 
 .reader-no-results {
@@ -1636,7 +1635,7 @@ body {
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   #readerContent {
-    padding: 20px 16px;
+    padding: 8px 16px 20px;
     font-size: var(--reader-font-size-mobile, 1.1rem);
     line-height: 2;
   }
@@ -1732,10 +1731,13 @@ body {
     display: none;
   }
 
-  #pageHeader h1 { margin: 0 44px 6px 8px !important; font-size: 1.15rem; }
+  #pageHeader h1 { margin: 0 44px 2px 8px !important; font-size: 1.15rem; }
   #pageSubRow { margin: 0 44px 0 8px !important; }
   .btn-text { display: none; }
-  .back-link { font-size: 1.4rem; left: 6px; top: 8px; }
+  #pageHeader { padding: 4px 8px 12px !important; margin-bottom: 0 !important; }
+  #searchBar { margin-top: 6px; }
+  #readerNav { padding-bottom: 8px; margin-bottom: 0; }
+  .back-link { font-size: 1.4rem; left: 6px; top: 6px; }
 
   .sidebar { width: 260px; }
   .modal { width: 92vw; border-radius: 12px; }

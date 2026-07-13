@@ -49,11 +49,10 @@ No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all reg
 │  Search bar: input, ✕ clear, match count                  │
 │  Toolbar: Copy, Hide diacritics, Reset, Hide columns ▾    │
 │  Pagination: ސަފްހާ: «« « 10/[5] » »»  Focus btn         │
-├─ Reader content (scrollable) ─────────────────────────────┤
+├─ Reader content (no borders, scrollable) ─────────────────┤
 │  #1                                                        │
-│  [column 1]                                                │
-│  [column 2]                                                │
-│  column 3 …                                                │
+│  column 1 …                                                │
+│  column 2 …                                                │
 │       ــــــــــــــــــــــــــــــــــــــــــــ         │
 │  footnotes                                                 │
 │         ◆                                                  │

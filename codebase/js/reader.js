@@ -367,7 +367,7 @@ initializePageWithMetadata(async function (metadata) {
         for (var p = 1; p <= total; p++) {
           opts += `<option value="${p}">${p}</option>`;
         }
-        return `<span class="page-of-label">${total} / </span><select id="pageStripInput" class="toolbar-select" style="width:58px;text-align:center;text-align-last:center" autocomplete="off">${opts}</select>`;
+        return `<span class="page-of-label">${total} / </span><select class="page-strip-sel toolbar-select" style="width:58px;text-align:center;text-align-last:center" autocomplete="off">${opts}</select>`;
       }
 
       function updatePagination() {
@@ -400,15 +400,14 @@ initializePageWithMetadata(async function (metadata) {
           document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
         });
 
-        // Wire page strip select
-        var psi = document.getElementById("pageStripInput");
-        if (psi) {
+        // Wire page strip selects (top and bottom)
+        document.querySelectorAll(".page-strip-sel").forEach(function (psi) {
           if (String(psi.value) !== String(cur)) psi.value = cur;
           psi.addEventListener("change", function () {
             var v = parseInt(this.value, 10);
             if (!isNaN(v) && v >= 1) goTo(v - 1);
           });
-        }
+        });
       }
 
       function goTo(rowIdx) {
@@ -1073,8 +1072,7 @@ initializePageWithMetadata(async function (metadata) {
           return;
         }
 
-        var psi = document.getElementById("pageStripInput");
-        if (document.activeElement === psi) return;
+        if (document.activeElement && document.activeElement.classList.contains("page-strip-sel")) return;
 
         var vRow = visiblePageIndex();
         if (e.key === "ArrowLeft") {
