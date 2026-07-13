@@ -1706,8 +1706,8 @@ body {
   }
 
   .menu-btn {
-    top: 4px;
-    right: 4px;
+    top: 10px;
+    right: 10px;
     width: 32px;
     height: 32px;
     font-size: 1rem;
@@ -1732,8 +1732,8 @@ body {
     display: none;
   }
 
-  #pageHeader h1 { margin: 0 8px 6px 0 !important; font-size: 1.15rem; }
-  #pageSubRow { margin: 0 8px 0 0 !important; }
+  #pageHeader h1 { margin: 0 44px 6px 8px !important; font-size: 1.15rem; }
+  #pageSubRow { margin: 0 44px 0 8px !important; }
   .btn-text { display: none; }
   .back-link { font-size: 1.4rem; left: 6px; top: 8px; }
 
