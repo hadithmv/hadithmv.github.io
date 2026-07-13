@@ -103,6 +103,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 | 📋 Copy | Copy current row as formatted plain text |
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
 | ↺ Reset | Reset all reader settings to defaults |
+| 📥 Export | Dropdown: TXT, MD, JSON, CSV, Word, PDF |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
 ### Sidebar (☰)

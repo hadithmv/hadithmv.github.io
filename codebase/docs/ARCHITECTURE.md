@@ -83,6 +83,7 @@ Real‑time, case‑insensitive filtering against all columns. Results dropdown 
 | Copy | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before footnotes. `navigator.clipboard.writeText()` with `execCommand` fallback. |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`. |
 | Reset | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage. |
+| Export | Dropdown with TXT, MD, JSON, CSV, Word, PDF. Each includes Hadithmv header, URL, version, book title, and proper formatting with tatweel dividers. |
 | Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
 
 ### Focus mode
