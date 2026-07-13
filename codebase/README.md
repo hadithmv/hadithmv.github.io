@@ -103,7 +103,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 | 📋 Copy | Copy current row as formatted plain text |
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
 | ↺ Reset | Reset all reader settings to defaults |
-| 📥 Export | Dropdown: TXT, MD, JSON, CSV, Word, PDF |
+| 📥 Export | Dropdown: TXT, MD, JSON, CSV, Word, PDF, PNG — each with header, URL, and version |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
 ### Sidebar (☰)
@@ -141,6 +141,10 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `/` or `Ctrl+F` | Focus search bar |
 | `z` | Toggle focus mode |
 | `Escape` | Close sidebar / modal |
+
+### Exports
+
+All formats include: book title (EN, DV, AR), website URL, Hadithmv, and version number. Row separators between pages. PNG captures the visible page with the Hadithmv font.
 
 ### Internationalisation
 
