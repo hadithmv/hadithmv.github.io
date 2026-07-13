@@ -915,14 +915,14 @@ initializePageWithMetadata(async function (metadata) {
                 var fontData = reader.result;
                 var clone = chunk.cloneNode(true);
                 var wrapper = document.createElement("div");
-                wrapper.style.cssText = "position:fixed;left:-9999px;top:0;width:720px;padding:28px;font-family:Hadithmv,'Traditional Arabic',serif;font-size:17pt;line-height:2.3;direction:rtl;text-align:right;background:" + bg + ";color:" + fg;
+                wrapper.style.cssText = "position:fixed;left:-9999px;top:0;width:600px;padding:32px;font-family:Hadithmv,'Traditional Arabic',serif;font-size:17pt;line-height:2.3;direction:rtl;text-align:right;background:" + bg + ";color:" + fg + ";border-radius:12px;border:1px solid #e2e8f0";
                 wrapper.appendChild(clone);
                 document.body.appendChild(wrapper);
                 var rect = wrapper.getBoundingClientRect();
                 var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + rect.width + '" height="' + rect.height + '">' +
                   '<defs><style>@font-face{font-family:Hadithmv;src:url(' + fontData + ') format("woff2");font-weight:300}</style></defs>' +
                   '<foreignObject width="100%" height="100%">' +
-                  '<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Hadithmv">' + wrapper.innerHTML + '</div>' +
+                  '<div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Hadithmv;font-size:17pt;line-height:2.3;direction:rtl;text-align:right;padding:32px;background:' + bg + ';color:' + fg + '">' + clone.innerHTML + '</div>' +
                   '</foreignObject></svg>';
                 var img = new Image();
                 img.onload = function () {
