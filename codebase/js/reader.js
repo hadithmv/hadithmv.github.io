@@ -967,7 +967,21 @@ initializePageWithMetadata(async function (metadata) {
       loadInitial();
       observeSentinels();
       // Scroll-driven pagination update
-      window.addEventListener("scroll", function () { updatePagination(); }, { passive: true });
+      var scrollCounter = document.getElementById("scrollCounter");
+      var scrollTimer;
+      window.addEventListener("scroll", function () {
+        updatePagination();
+        if (scrollCounter) {
+          var vRow = visiblePageIndex();
+          var total = filteredData.length;
+          scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span>';
+          scrollCounter.classList.add("show");
+          clearTimeout(scrollTimer);
+          scrollTimer = setTimeout(function () {
+            scrollCounter.classList.remove("show");
+          }, 2000);
+        }
+      }, { passive: true });
 
       // Reveal everything at once
       document.getElementById("loadingMessage").style.display = "none";

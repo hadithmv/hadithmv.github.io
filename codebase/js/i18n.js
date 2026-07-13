@@ -23,24 +23,26 @@ const STRINGS = {
   },
 
   // ── Toolbar ──
-  btnCopy: { dv: "📋 ކޮޕީ ކުރޭ", en: "📋 Copy", ar: "📋 نسخ" },
-  btnCopyTitle: {
-    dv: "ސަފްހާ ކޮޕީ ކުރޭ",
-    en: "Copy page to clipboard",
-    ar: "نسخ الصفحة إلى الحافظة",
-  },
-  btnTashkeel: {
-    dv: "◉ ފިލި ފޮރުވާ",
-    en: "◉ Hide diacritics",
-    ar: "◉ إخفاء التشكيل",
-  },
+  btnCopyText: { dv: "ކޮޕީ ކުރޭ", en: "Copy", ar: "نسخ" },
+  btnTashkeelText: { dv: "ފިލި ފޮރުވާ", en: "Hide diacritics", ar: "إخفاء التشكيل" },
+  btnResetText: { dv: "ރީސެޓް", en: "Reset", ar: "إعادة ضبط" },
+  btnFocusText: { dv: "ފޯކަސް", en: "Focus", ar: "تركيز" },
+  btnAdvancedSearchText: { dv: "🔎 އެޑްވާންސްޑް", en: "🔎 Advanced", ar: "🔎 متقدم" },
+  btnCopyText: { dv: "📋 ކޮޕީ", en: "📋 Copy", ar: "📋 نسخ" },
+  btnTashkeelText: { dv: "◉ ފިލި", en: "◉ Diacritics", ar: "◉ تشكيل" },
+  btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
   btnTashkeelTitle: {
     dv: "ފިލި ފޮރުވާ/ދައްކާ",
     en: "Toggle Arabic diacritics",
     ar: "إظهار/إخفاء التشكيل",
   },
-  btnFocusIn: { dv: "ފޯކަސް ވިއު ▲", en: "Focus view ▲", ar: "عرض التركيز ▲" },
-  btnFocusOut: { dv: "ފޯކަސް ވިއު ▼", en: "Full view ▼", ar: "العرض الكامل ▼" },
+  btnFocusIn: { dv: "ފޯކަސް ▲", en: "Focus ▲", ar: "تركيز ▲" },
+  btnFocusOut: { dv: "ފޯކަސް ▼", en: "Full ▼", ar: "كامل ▼" },
+  btnFocusExpand: {
+    dv: "ފޯކަސް ▼",
+    en: "Focus ▼",
+    ar: "تركيز ▼",
+  },
   btnAdvancedSearch: {
     dv: "🔎 އެޑްވާންސްޑް ހޯދުން",
     en: "🔎 Advanced",
@@ -72,11 +74,6 @@ const STRINGS = {
   condEmpty: { dv: "ހުސް", en: "empty", ar: "فارغ" },
   condNotEmpty: { dv: "ހުސްނޫން", en: "not empty", ar: "غير فارغ" },
 
-  btnFocusExpand: {
-    dv: "ފޯކަސް ވިއު ▼",
-    en: "Focus view ▼",
-    ar: "عرض التركيز ▼",
-  },
   btnReset: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ إعادة ضبط" },
   btnResetSettings: {
     dv: "↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ",
@@ -94,9 +91,9 @@ const STRINGS = {
     ar: "عرض الصفحات:",
   },
   labelHideColumns: {
-    dv: "ކޮލަމް ފޮރުވާ ▾",
-    en: "Hide columns ▾",
-    ar: "إخفاء الأعمدة ▾",
+    dv: "ކޮލަމް ▾",
+    en: "Columns ▾",
+    ar: "أعمدة ▾",
   },
   labelPageNo: {
     dv: "މި ސަފްހާގެ ނަންބަރު:",
@@ -132,9 +129,9 @@ const STRINGS = {
   menuTitle: { dv: "މެނޫ", en: "Menu", ar: "القائمة" },
   sidebarTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
   navDashboard: {
-    dv: "← ފޮތްތަކުގެ ލިސްޓް",
-    en: "← Book list",
-    ar: "← قائمة الكتب",
+    dv: "ފޮތްތަކުގެ ލިސްޓް",
+    en: "Book list",
+    ar: "قائمة الكتب",
   },
   navScrollTop: {
     dv: "⬆ މައްޗަށް",

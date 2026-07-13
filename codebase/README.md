@@ -114,7 +114,18 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Focus mode
 
-Toggled from the pagination bar or `z` key. Hides search bar, toolbar, and pagination — only the sticky header and reader content remain. Expand button in the header row exits focus mode.
+Toggled from the pagination bar or `z` key. Hides search bar, toolbar, and pagination — only the sticky header and reader content remain.
+
+### Scroll counter
+
+A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / current row). Appears while scrolling, fades after 2 seconds.
+
+### Mobile
+
+- Buttons shorten to icon + compact text (e.g. `📋 ކޮޕީ`, `◉ ފިލި`, `ކޮލަމް ▾`)
+- Back link shows only `←`
+- `ސަފްހާ:` label hidden
+- Sticky chrome compresses for smaller screens
 
 ### Themes
 
