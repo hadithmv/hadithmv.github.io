@@ -146,10 +146,9 @@ initializePageWithMetadata(async function (metadata) {
       // ── Column info ─────────────────────────────────────────
       const maxCols = allData.reduce((m, r) => Math.max(m, r.length), 0);
       function colLabel(idx) {
+        if (idx === 0) return "1";
         if (headerRow && headerRow[idx]) return headerRow[idx];
-        if (idx === 0) return "#";
-        if (idx === maxCols - 1) return t("colNotes");
-        return "" + idx;
+        return "" + (idx + 1);
       }
 
       // ── Column toggle buttons ───────────────────────────────

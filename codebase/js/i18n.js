@@ -101,8 +101,6 @@ const STRINGS = {
     en: "Current page no.:",
     ar: "رقم الصفحة الحالية:",
   },
-  colNotes: { dv: "ނޯޓު", en: "Notes", ar: "ملاحظات" },
-
   // ── Pagination ──
   pageOf: { dv: "ސަފްހާ:", en: "Page:", ar: "صفحة:" },
   resultCount: { dv: "ނަތީޖާ", en: "match", ar: "نتيجة" },
