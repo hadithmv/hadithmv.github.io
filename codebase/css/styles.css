@@ -712,7 +712,10 @@ body {
   font-family: "Hadithmv", "Traditional Arabic", serif;
   text-align: center;
   white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+#topBar #pageTitle::-webkit-scrollbar { display: none; }
 
 #backToDashboard {
   width: 40px;
@@ -753,6 +756,7 @@ body {
 #pageSubtitle {
   color: var(--color-text-muted);
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  white-space: nowrap;
 }
 
 #pageSubRow {
@@ -761,6 +765,8 @@ body {
   justify-content: space-between;
   gap: 8px;
   margin-top: 4px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .subrow-right {
@@ -882,8 +888,7 @@ body {
   margin-bottom: 12px;
 }
 
-.book-card .tag-badge,
-#pageTags .tag-badge {
+.book-card .tag-badge {
   font-size: 0.7rem;
   font-weight: 700;
   padding: 3px 8px;
@@ -894,11 +899,22 @@ body {
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
+#pageTags .tag-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: 6px;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+}
+
 #pageTags {
   display: inline-flex;
   flex-wrap: wrap;
   gap: 6px;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 /* ============================================================
@@ -1123,8 +1139,12 @@ body {
   gap: 8px;
   padding: 4px 0;
   margin-bottom: 4px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.reader-toolbar::-webkit-scrollbar { display: none; }
 
 .toolbar-group {
   display: flex;
@@ -1170,9 +1190,11 @@ body {
 }
 
 .toolbar-select {
-  padding: 4px 6px;
-  font-size: 0.85rem;
+  box-sizing: border-box;
+  padding: 5px 6px;
+  font-size: 0.82rem;
   font-weight: 600;
+  line-height: 1.4;
   font-family: system-ui, -apple-system, sans-serif;
   color: var(--color-text);
   background: var(--color-reader-bg);
@@ -1334,7 +1356,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 4px 0 8px;
+  padding: 4px 0 0;
   margin-bottom: 0;
   flex-wrap: wrap;
 }
@@ -1398,7 +1420,7 @@ body {
 
 /* Edge buttons — slightly wider */
 .nav-edge {
-  padding: 6px 10px;
+  padding: 5px 10px;
   letter-spacing: -0.1em;
 }
 
@@ -1830,7 +1852,8 @@ body {
   #pageSubRow { margin: 0 8px !important; justify-content: center; }
   .btn-text { display: none; }
   #searchBar { margin-top: 6px; }
-  #readerNav { padding-bottom: 8px; margin-bottom: 0; }
+  #readerNav { padding-bottom: 0; margin-bottom: 0; justify-content: center; }
+  #readerNavBottom { justify-content: center; }
   #backToDashboard { width: 32px; height: 32px; font-size: 1rem; }
   .menu-btn { width: 32px; height: 32px; font-size: 1rem; }
   #topBar { padding: 8px 20px 4px 20px; gap: 4px; direction: ltr; justify-content: space-between; }

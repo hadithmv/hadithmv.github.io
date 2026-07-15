@@ -76,18 +76,22 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Reading view
 
+- Fixed topBar with return (red), focus (green), title, and hamburger (blue) buttons — only hamburger visible on dashboard
+- Sticky reader chrome below with bottom-border cutoff separating chrome from content
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
 - `◆` divider between rows, `ـــــــــــ` tatweel line above footnotes
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown
 - **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
-- Sticky header, search bar, toolbar, and pagination
+- Consecutive blank lines within cells collapsed to single line breaks
 
 ### Pagination
 
-- Simple: First / Prev / row-select / Next / Last
+- Simple: First (`<<`) / Prev (`<`) / row-select / Next (`>`) / Last (`>>`)
+- All nav buttons and the page select share the same height
 - Row select dropdown with total count: `10 / [5]`
 - `ސަފްހާ:` label on the far right
+- Centered on mobile
 
 ### Search
 
@@ -111,6 +115,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Sidebar (☰)
 
+- Blue ☰ hamburger button (always visible, opens right-side drawer)
 - Navigation: Book list, GitHub, FAQ, Help, Contact
 - Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family, Language selector
 - Scroll to top
@@ -118,7 +123,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Focus mode
 
-Toggled from the pagination bar or `z` key. Hides search bar, toolbar, and pagination — only the sticky header and reader content remain.
+Toggled from the green ↕ button in the topBar or `z` key. Hides search bar, toolbar, and pagination — only the sticky chrome border and reader content remain. Button shows ▼ when active.
 
 ### Sharing
 
@@ -130,10 +135,12 @@ A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / cu
 
 ### Mobile
 
-- Buttons shorten to icon + compact text (e.g. `📋 ކޮޕީ`, `◉ ފިލި`, `ކޮލަމް ▾`)
-- Back link shows only `←`
+- TopBar and chrome compress: buttons shrink to 32×32px, tighter padding
+- Toolbar scrolls horizontally (hidden scrollbar) instead of wrapping
+- Pagination nav centered
 - `ސަފްހާ:` label hidden
-- Sticky chrome compresses for smaller screens
+- Search input matches advanced search button height
+- Side padding aligns topBar buttons with chrome content below
 
 ### Themes
 
@@ -149,7 +156,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `Enter` | Select search result |
 | `/` or `Ctrl+f` | Focus search bar |
 | `Ctrl+Shift+f` | Open advanced search |
-| `z` | Toggle focus mode |
+| `z` | Toggle focus mode (same as green ↕/▼ button in topBar) |
 | `t` | Toggle tashkeel (diacritics) |
 | `v` | Toggle card / table view |
 | `s` | Share link |

@@ -44,23 +44,25 @@ No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all reg
 ### Layout
 
 ```text
-┌─ Sticky chrome ───────────────────────────────────────────┐
-│  Page header: back link, title, subtitle + tags, counter   │
-│  Search bar: input, ✕ clear, match count                  │
-│  Toolbar: Copy, Hide diacritics, Reset, Hide columns ▾    │
-│  Pagination: ސަފްހާ: «« « 10/[5] » »»  Focus btn         │
-├─ Reader content (no borders, scrollable) ─────────────────┤
-│  #1                                                        │
-│  column 1 …                                                │
-│  column 2 …                                                │
-│       ــــــــــــــــــــــــــــــــــــــــــــ         │
-│  footnotes                                                 │
-│         ◆                                                  │
-│  #2                                                        │
-│  …                                                         │
-├─ Pagination (bottom) ─────────────────────────────────────┤
-│  ސަފްހާ: «« « 10/[5] » »»                                │
-└────────────────────────────────────────────────────────────┘
+┌─ Fixed topBar (z-index 101, opaque bg) ──────────────────────┐
+│  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
+├─ Sticky chrome (top: 56px, z-index 50, bottom-border cut) ──┤
+│  Focus btn (outside collapsible, stays in focus mode)        │
+│  Search bar: 🔎 Advanced, input, ✕ clear, match count       │
+│  Toolbar: subtitle + tags, Copy, Tashkeel, Share, etc.      │
+│  Pagination: ސަފްހާ: << < 10/[5] > >>                      │
+├─ Reader content (scrollable) ────────────────────────────────┤
+│  #1                                                          │
+│  column 1 …                                                  │
+│  column 2 …                                                  │
+│       ــــــــــــــــــــــــــــــــــــــــــــ           │
+│  footnotes                                                   │
+│         ◆                                                    │
+│  #2                                                          │
+│  …                                                           │
+├─ Pagination (bottom) ────────────────────────────────────────┤
+│  << < 10/[5] > >>                                            │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ### Infinite scroll
@@ -69,7 +71,7 @@ Content loads in chunks of 2 rows. Sentinel elements at top and bottom trigger `
 
 ### Pagination
 
-Simple: First / Prev / a `<select>` dropdown of all rows / Next / Last. The select shows `10 / [5]` (total rows / current row). `ސަފްހާ:` label sits to the right of First/Prev.
+Simple: First (`<<`) / Prev (`<`) / a `<select>` dropdown of all rows / Next (`>`) / Last (`>>`). The select shows `10 / [5]` (total rows / current row). All buttons and the select share the same height. Centered on mobile. `ސަފްހާ:` label sits to the right.
 
 ### Search
 
@@ -80,15 +82,18 @@ Real‑time, case‑insensitive filtering against all columns. Results dropdown 
 | Control | Implementation |
 |---|---|
 | Copy | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before footnotes. `navigator.clipboard.writeText()` with `execCommand` fallback. |
+| Share | Copies a deep link (`?book=CODE&row=N`) to the current row. |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`. |
 | View toggle | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table. Applies to all books. |
 | Reset | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage. |
 | Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel (SheetJS mini, lazy-loaded), Word, PDF, PNG. TOON uses expanded list per spec. All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
 
+The toolbar scrolls horizontally on narrow screens (hidden scrollbar) instead of wrapping to a second row.
+
 ### Focus mode
 
-Toggled via pagination bar button or `z` key. Collapses search bar, toolbar, and top pagination with a smooth slide animation via `max-height` transition on `#collapsibleChrome`. Bottom nav hidden. Sticky header with title and expand button remains.
+Toggled via the green focus button (↕) in the topBar or `z` key. Collapses search bar, toolbar, and top pagination with a smooth slide animation via `max-height` transition on `#collapsibleChrome`. The focus button turns ▼ (active state). Bottom nav hidden. The `readerChrome` bottom border remains as the separator between topBar and content. Focus button is outside `#collapsibleChrome` so it stays visible in focus mode.
 
 ### Themes
 
@@ -112,7 +117,7 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 | `Enter` | Search focused | Select result |
 | `/` or `Ctrl+f` | Anywhere | Focus search bar |
 | `Ctrl+Shift+f` | Anywhere | Open advanced search |
-| `z` | Reader | Toggle focus mode |
+| `z` | Reader | Toggle focus mode (same as ↕/▼ button) |
 | `t` | Reader | Toggle tashkeel |
 | `v` | Reader | Toggle card/table view |
 | `s` | Reader | Share link |
