@@ -662,19 +662,29 @@ body {
   border-bottom: 2px solid var(--color-card-hover-border);
 }
 
-.back-link {
+#backToDashboard {
   position: absolute;
-  top: 18px;
-  left: 16px;
+  top: 14px;
+  left: 12px;
   z-index: 50;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-decoration: none;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
-  transition: color 0.15s ease;
   direction: rtl;
+  padding: 5px 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  cursor: pointer;
   white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+#backToDashboard:hover {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
 }
 
 #pageHeader {
@@ -1779,7 +1789,7 @@ body {
   #pageHeader { padding: 4px 8px 12px !important; margin-bottom: 0 !important; }
   #searchBar { margin-top: 6px; }
   #readerNav { padding-bottom: 8px; margin-bottom: 0; }
-  .back-link { font-size: 1.4rem; left: 6px; top: 6px; }
+  .back-link { font-size: 1.2rem; left: 6px; top: 8px; padding: 2px 8px; }
 
   .sidebar { width: 260px; }
   .modal { width: 92vw; border-radius: 12px; }

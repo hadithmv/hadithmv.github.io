@@ -108,9 +108,18 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 |---|---|---|
 | `←` / `→` | Reader | Previous / next row |
 | `Home` / `End` | Reader | First / last row |
-| `/` or `Ctrl+F` | Anywhere | Focus search bar |
+| `↑` / `↓` | Search focused | Navigate results |
+| `Enter` | Search focused | Select result |
+| `/` or `Ctrl+f` | Anywhere | Focus search bar |
+| `Ctrl+Shift+f` | Anywhere | Open advanced search |
 | `z` | Reader | Toggle focus mode |
-| `Escape` | Sidebar/modal open | Close |
+| `t` | Reader | Toggle tashkeel |
+| `v` | Reader | Toggle card/table view |
+| `s` | Reader | Share link |
+| `e` | Reader | Open export dropdown |
+| `Ctrl+,` | Anywhere | Open settings |
+| `Ctrl+b` | Anywhere | Back to book list |
+| `Escape` | Sidebar/modal/dropdown | Close |
 
 ## Data shape
 

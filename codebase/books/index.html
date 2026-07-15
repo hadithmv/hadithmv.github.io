@@ -17,7 +17,7 @@
 
   <body>
     <!-- Hamburger menu button -->
-    <button id="menuBtn" class="menu-btn" title="Menu">☰</button>
+    <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">☰</button>
 
     <!-- Sidebar overlay -->
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
@@ -26,7 +26,7 @@
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
         <h2 class="sidebar-title" data-i18n="sidebarTitle">Hadithmv</h2>
-        <button id="sidebarClose" class="sidebar-close">✕</button>
+        <button id="sidebarClose" class="sidebar-close" title="Close (Escape key)">✕</button>
       </div>
 
       <nav class="sidebar-nav">
@@ -55,7 +55,7 @@
 
       <div class="sidebar-divider"></div>
 
-      <a id="btnSettings" class="sidebar-link" style="cursor: pointer">
+      <a id="btnSettings" class="sidebar-link" style="cursor: pointer" title="Open settings (Ctrl+,)">
         <span>⚙</span>
         <span data-i18n="labelSettings">ސެޓިންގްސް</span>
       </a>
@@ -96,11 +96,11 @@
     <div id="readerWrapper" style="display: none">
       <div id="readerChrome">
         <div id="pageHeader" style="display: none">
-          <a href="index.html" id="backToDashboard" class="back-link"
-            >←
+          <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'"
+            >↩
             <span class="btn-text" data-i18n="navDashboard"
               >ފޮތްތަކުގެ ލިސްޓް</span
-            ></a
+            ></button
           >
           <h1 id="pageTitle"></h1>
           <div id="pageSubRow" style="display: none">
@@ -124,6 +124,7 @@
           <button
             id="btnAdvancedSearch"
             class="search-advanced-btn"
+            title="Advanced search (Ctrl+Shift+f)"
             data-i18n="btnAdvancedSearchText"
           >
             🔎 އެޑްވާންސްޑް ހޯދުން
@@ -132,6 +133,7 @@
             id="searchInput"
             type="search"
             class="search-input"
+            title="Search (/ or Ctrl+f to focus, ↑↓ to navigate results, Enter to select)"
             data-i18n="searchPlaceholder"
             placeholder="މި ފޮތުން ހޯދާ…"
             dir="rtl"
@@ -168,7 +170,7 @@
             <button
               id="btnTashkeel"
               class="toolbar-btn"
-              title="Toggle Arabic diacritics (tashkeel)"
+              title="Toggle Arabic diacritics (t key)"
               data-i18n="btnTashkeelText"
             >
               ◉ ފިލި ފޮރުވާ
@@ -176,7 +178,7 @@
             <button
               id="btnShare"
               class="toolbar-btn"
-              title="Share link to current position"
+              title="Share link to current position (s key)"
               data-i18n="btnShareText"
             >
               🔗 ޝެއަރ
@@ -184,7 +186,7 @@
             <button
               id="btnViewToggle"
               class="toolbar-btn"
-              title="Toggle vertical / table view"
+              title="Toggle card / table view (v key)"
               data-i18n="btnViewToggleText"
             >
               📖 ޓޭބަލް
@@ -201,7 +203,7 @@
               <button
                 id="btnExport"
                 class="toolbar-btn"
-                title="Export book in various formats"
+                title="Export book in various formats (e key)"
                 data-i18n="btnExportText"
               >
                 📥 އެކްސްޕޯޓް
@@ -253,21 +255,21 @@
             <button
               id="firstBtn"
               class="nav-btn nav-edge"
-              title="First page (Home)"
+              title="First page (Home key)"
             >
               ««
             </button>
-            <button id="prevBtn" class="nav-btn" title="Previous page (←)">
+            <button id="prevBtn" class="nav-btn" title="Previous page (← arrow key)">
               «
             </button>
             <span id="pageNumbers" class="page-numbers"></span>
-            <button id="nextBtn" class="nav-btn" title="Next page (→)">
+            <button id="nextBtn" class="nav-btn" title="Next page (→ arrow key)">
               »
             </button>
             <button
               id="lastBtn"
               class="nav-btn nav-edge"
-              title="Last page (End)"
+              title="Last page (End key)"
             >
               »»
             </button>
@@ -276,7 +278,7 @@
             <button
               id="btnFocus"
               class="nav-focus-btn"
-              title="Toggle focus reading mode"
+              title="Toggle focus reading mode (z key)"
               data-i18n="btnFocusIn"
             >
               ފޯކަސް ވިއު ▲
@@ -293,21 +295,21 @@
           <button
             id="firstBtnBottom"
             class="nav-btn nav-edge"
-            title="First page (Home)"
+            title="First page (Home key)"
           >
             ««
           </button>
-          <button id="prevBtnBottom" class="nav-btn" title="Previous page (←)">
+          <button id="prevBtnBottom" class="nav-btn" title="Previous page (← arrow key)">
             «
           </button>
           <span id="pageNumbersBottom" class="page-numbers"></span>
-          <button id="nextBtnBottom" class="nav-btn" title="Next page (→)">
+          <button id="nextBtnBottom" class="nav-btn" title="Next page (→ arrow key)">
             »
           </button>
           <button
             id="lastBtnBottom"
             class="nav-btn nav-edge"
-            title="Last page (End)"
+            title="Last page (End key)"
           >
             »»
           </button>
@@ -464,7 +466,7 @@
           >
             ↺ ރީސެޓް
           </button>
-          <button id="modalClose" class="modal-close">✕</button>
+          <button id="modalClose" class="modal-close" title="Close (Escape key)">✕</button>
         </div>
         <div class="modal-body">
           <div class="modal-card">
@@ -539,7 +541,7 @@
           <h2 class="modal-title" data-i18n="advancedSearchTitle">
             އިތުރު ހޯދުން
           </h2>
-          <button id="advancedSearchClose" class="modal-close">✕</button>
+          <button id="advancedSearchClose" class="modal-close" title="Close (Escape key)">✕</button>
         </div>
         <div class="modal-body">
           <div id="advancedSearchRows"></div>

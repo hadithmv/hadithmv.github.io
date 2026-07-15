@@ -145,9 +145,18 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 |---|---|
 | `←` / `→` | Previous / next row |
 | `Home` / `End` | First / last row |
-| `/` or `Ctrl+F` | Focus search bar |
+| `↑` / `↓` | Navigate search results (when search focused) |
+| `Enter` | Select search result |
+| `/` or `Ctrl+f` | Focus search bar |
+| `Ctrl+Shift+f` | Open advanced search |
 | `z` | Toggle focus mode |
-| `Escape` | Close sidebar / modal |
+| `t` | Toggle tashkeel (diacritics) |
+| `v` | Toggle card / table view |
+| `s` | Share link |
+| `e` | Open export dropdown |
+| `Ctrl+,` | Open settings |
+| `Ctrl+b` | Back to book list |
+| `Escape` | Close sidebar / modal / search results |
 
 ### Exports
 

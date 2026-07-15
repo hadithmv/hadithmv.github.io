@@ -219,6 +219,7 @@ initializePageWithMetadata(async function (metadata) {
           t += `#${rowNum}\n\n`;
         }
         var fields = [];
+        var maxI = row.length - 1;
         for (var i = 1; i < row.length; i++) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
@@ -227,7 +228,7 @@ initializePageWithMetadata(async function (metadata) {
           }
         }
         for (var i = 0; i < fields.length; i++) {
-          if (i === fields.length - 1 && fields.length > 1) {
+          if (fields[i].index === maxI && fields.length > 1) {
             t += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
           }
           t += fields[i].value + "\n\n";
@@ -250,6 +251,7 @@ initializePageWithMetadata(async function (metadata) {
           h += `<div class="reader-row-num">#${rowNum}</div>`;
         }
         var fields = [];
+        var maxColIdx = row.length - 1;
         for (var i = 1; i < row.length; i++) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
@@ -260,7 +262,7 @@ initializePageWithMetadata(async function (metadata) {
         var query = searchInput.value.trim();
         for (var i = 0; i < fields.length; i++) {
           var display = markupTashkeel(highlightMatches(fields[i].value, query));
-          if (i === fields.length - 1 && fields.length > 1) {
+          if (fields[i].index === maxColIdx && fields.length > 1) {
             h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
             h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
@@ -1252,9 +1254,39 @@ initializePageWithMetadata(async function (metadata) {
           e.preventDefault();
           goTo(filteredData.length - 1);
         }
+        if (e.key === "," && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          document.getElementById("settingsOverlay").classList.add("open");
+        }
+        if (e.key === "e" && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          document.getElementById("btnExport").click();
+        }
+        if (e.key === "b" && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          window.location.href = "index.html";
+        }
+        if (e.key === "s" && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          document.getElementById("btnShare").click();
+        }
         if (e.key === "z" && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           setFocus(!document.documentElement.hasAttribute("data-focus"));
+        }
+        if (e.key === "t" && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          btnTashkeel.click();
+        }
+        if (e.key === "v" && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          var vtBtn = document.getElementById("btnViewToggle");
+          if (vtBtn) vtBtn.click();
+        }
+        if (e.key === "F" && e.shiftKey && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          document.getElementById("advancedSearchOverlay").classList.add("open");
+          renderAdvancedSearch();
         }
         if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
           e.preventDefault();
