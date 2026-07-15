@@ -1620,6 +1620,46 @@ body {
   opacity: 1;
 }
 
+/* RDF table mode */
+.rdf-table {
+  width: calc(100% + 72px);
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  direction: rtl;
+  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  margin: 0 -36px;
+}
+
+.rdf-table td {
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  vertical-align: top;
+  text-align: right;
+}
+
+.rdf-table tr:hover td {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.rdf-table td:first-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.rdf-table th {
+  padding: 8px 10px;
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text);
+  text-align: right;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 /* Infinite scroll sentinels */
 .reader-sentinel {
   height: 1px;

@@ -5,7 +5,7 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 ## File structure
 
 ```text
-bookNames.csv          ← Book registry (code, titles in AR/DV/EN)
+data/01-bookNames.csv  ← Book registry (code, titles in AR/DV/EN)
 tags.csv               ← Tag definitions (code, label, colors)
 books/
   index.html           ← Shared viewer + dashboard (the only HTML page)
@@ -31,7 +31,7 @@ docs/
 
 ### Add a new book
 
-1. Add a row to `bookNames.csv`:
+1. Add a row to `data/01-bookNames.csv`:
 
    ```csv
    bookCode,titleAR,titleDV,titleEN
@@ -79,7 +79,8 @@ Each book's CSV can optionally include a header row. If the first field of the f
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
 - `◆` divider between rows, `ـــــــــــ` tatweel line above footnotes
 - Infinite scroll — content loads automatically as you scroll
-- All columns toggleable via a dropdown — including the row number
+- All columns toggleable via a dropdown
+- **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
 - Sticky header, search bar, toolbar, and pagination
 
 ### Pagination
@@ -102,8 +103,9 @@ Each book's CSV can optionally include a header row. If the first field of the f
 |---|---|
 | 📋 Copy | Copy current row as formatted plain text |
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
+| 📖 Table/Card | Toggle between vertical card and horizontal table view |
 | ↺ Reset | Reset all reader settings to defaults |
-| 📥 Export | Dropdown: TXT, MD, JSON, CSV, Word, PDF, PNG — each with header, URL, and version |
+| 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, Word, PDF, PNG |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
 ### Sidebar (☰)
@@ -144,7 +146,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 ### Exports
 
-All formats include: book title (EN, DV, AR), website URL, Hadithmv, and version number. Row separators between pages. PNG captures the visible page with the Hadithmv font.
+All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses SheetJS mini (lazy-loaded, 273KB). PNG captures the visible page with the Hadithmv font embedded.
 
 ### Internationalisation
 
@@ -164,6 +166,7 @@ All errors show visible messages in English:
 Vendored in `dependencies/` — no CDN, no build step:
 
 - [PapaParse](https://www.papaparse.com/) — CSV parsing
+- [SheetJS mini](https://sheetjs.com/) — Excel export (lazy-loaded on demand, 273KB)
 
 ## Documentation
 

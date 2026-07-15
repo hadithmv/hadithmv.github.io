@@ -102,7 +102,7 @@ export async function loadBookNames() {
   }
 
   try {
-    const response = await fetch("../bookNames.csv");
+    const response = await fetch("../data/01-bookNames.csv");
     if (!response.ok) {
       throw new Error(
         `Failed to load book registry (HTTP ${response.status})`,

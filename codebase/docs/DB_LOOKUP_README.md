@@ -86,7 +86,7 @@ Renders the card grid from the book registry. Each card shows tag badges and tit
 
 ```text
 js/dbLookup.js
-  ├── reads  ../bookNames.csv       (fetch + PapaParse)
+  ├── reads  ../data/01-bookNames.csv       (fetch + PapaParse)
   └── reads  ../tags.csv            (fetch + PapaParse)
 
 js/reader.js

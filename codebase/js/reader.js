@@ -235,6 +235,15 @@ initializePageWithMetadata(async function (metadata) {
         return t;
       }
 
+      var isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0;
+      var btnViewToggle = document.getElementById("btnViewToggle");
+      btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+      btnViewToggle.addEventListener("click", function () {
+        isTableMode = !isTableMode;
+        btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+        rebuildAll();
+      });
+
       function renderRowHTML(row, rowNum) {
         var h = "";
         if (hiddenColumns.indexOf(0) === -1) {
@@ -263,25 +272,75 @@ initializePageWithMetadata(async function (metadata) {
 
       function renderChunkHTML(startIdx, endIdx) {
         var h = "";
+        if (isTableMode) {
+          h = '<table class="rdf-table"><tbody>';
+          for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
+            var row = filteredData[i];
+            var rowNum = row[0] || (i + 1);
+            h += '<tr class="reader-chunk" data-row="' + i + '">';
+            for (var j = 0; j < row.length; j++) {
+              if (hiddenColumns.indexOf(j) !== -1) { h += '<td></td>'; continue; }
+              var v = (row[j] != null ? String(row[j]).trim() : "");
+              var display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
+              h += '<td dir="auto">' + display + '</td>';
+            }
+            h += '</tr>';
+          }
+          h += '</tbody></table>';
+        } else {
+          for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
+            if (i > startIdx) h += `<div class="reader-divider"></div>`;
+            var row = filteredData[i];
+            var rowNum = row[0] || (i + 1);
+            h += `<div class="reader-chunk" data-row="${i}">`;
+            h += renderRowHTML(row, rowNum);
+            h += `</div>`;
+          }
+        }
+        return h;
+      }
+
+      function renderTableRows(startIdx, endIdx) {
+        var h = "";
         for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
-          if (i > startIdx) h += `<div class="reader-divider"></div>`;
           var row = filteredData[i];
-          var rowNum = row[0] || (i + 1);
-          h += `<div class="reader-chunk" data-row="${i}">`;
-          h += renderRowHTML(row, rowNum);
-          h += `</div>`;
+          h += '<tr class="reader-chunk" data-row="' + i + '">';
+          for (var j = 0; j < row.length; j++) {
+            if (hiddenColumns.indexOf(j) !== -1) continue;
+            var v = (row[j] != null ? String(row[j]).trim() : "");
+            var display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
+            h += '<td dir="auto">' + display + '</td>';
+          }
+          h += '</tr>';
         }
         return h;
       }
 
       function loadInitial() {
-        var end = Math.min(ROWS_PER_CHUNK * 3, filteredData.length);
+        var initialRows = isTableMode ? 30 : ROWS_PER_CHUNK * 3;
+        var end = Math.min(initialRows, filteredData.length);
         loadedStart = 0;
         loadedEnd = end;
-        readerContent.innerHTML =
-          `<div id="sentinelTop" class="reader-sentinel"></div>` +
-          renderChunkHTML(0, end) +
-          `<div id="sentinelBottom" class="reader-sentinel"></div>`;
+        if (isTableMode) {
+          var thead = "";
+          if (headerRow) {
+            thead = "<thead><tr>";
+            for (var j = 0; j < headerRow.length; j++) {
+              if (hiddenColumns.indexOf(j) !== -1) continue;
+              thead += "<th>" + (headerRow[j] || "") + "</th>";
+            }
+            thead += "</tr></thead>";
+          }
+          readerContent.innerHTML =
+            `<table class="rdf-table">${thead}<tbody id="rdfBody"></tbody></table>` +
+            `<div id="sentinelBottom" class="reader-sentinel"></div>`;
+          document.getElementById("rdfBody").innerHTML = renderTableRows(0, end);
+        } else {
+          readerContent.innerHTML =
+            `<div id="sentinelTop" class="reader-sentinel"></div>` +
+            renderChunkHTML(0, end) +
+            `<div id="sentinelBottom" class="reader-sentinel"></div>`;
+        }
         updatePagination();
       }
 
@@ -298,22 +357,32 @@ initializePageWithMetadata(async function (metadata) {
 
       function appendNext() {
         if (loadedEnd >= filteredData.length) return;
-        var prevH = readerContent.scrollHeight;
-        var nextEnd = Math.min(loadedEnd + ROWS_PER_CHUNK, filteredData.length);
-        var sentinel = document.getElementById("sentinelBottom");
-        sentinel.insertAdjacentHTML("beforebegin", renderChunkHTML(loadedEnd, nextEnd));
+        var chunkSize = isTableMode ? 10 : ROWS_PER_CHUNK;
+        var nextEnd = Math.min(loadedEnd + chunkSize, filteredData.length);
+        if (isTableMode) {
+          var body = document.getElementById("rdfBody");
+          body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
+        } else {
+          var sentinel = document.getElementById("sentinelBottom");
+          sentinel.insertAdjacentHTML("beforebegin", renderChunkHTML(loadedEnd, nextEnd));
+        }
         loadedEnd = nextEnd;
-        readerContent.scrollTop = readerContent.scrollTop; // prevent jump
       }
 
       function prependPrev() {
         if (loadedStart <= 0) return;
-        var prevH = readerContent.scrollHeight;
-        var nextStart = Math.max(0, loadedStart - ROWS_PER_CHUNK);
-        var sentinel = document.getElementById("sentinelTop");
-        sentinel.insertAdjacentHTML("afterend", renderChunkHTML(nextStart, loadedStart));
+        var chunkSize = isTableMode ? 10 : ROWS_PER_CHUNK;
+        var nextStart = Math.max(0, loadedStart - chunkSize);
+        if (isTableMode) {
+          var body = document.getElementById("rdfBody");
+          body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
+        } else {
+          var prevH = readerContent.scrollHeight;
+          var sentinel = document.getElementById("sentinelTop");
+          sentinel.insertAdjacentHTML("afterend", renderChunkHTML(nextStart, loadedStart));
+          readerContent.scrollTop += readerContent.scrollHeight - prevH;
+        }
         loadedStart = nextStart;
-        readerContent.scrollTop += readerContent.scrollHeight - prevH;
       }
 
       function visiblePageIndex() {
@@ -957,6 +1026,81 @@ initializePageWithMetadata(async function (metadata) {
             });
             exportDropdown.style.display = "none";
             return;
+          } else if (fmt === "excel") {
+            exportDropdown.style.display = "none";
+            function doExport() {
+              var ws = XLSX.utils.aoa_to_sheet(rows);
+              var wb = XLSX.utils.book_new();
+              XLSX.utils.book_append_sheet(wb, ws, baseName);
+              XLSX.writeFile(wb, baseName + ".xlsx");
+            }
+            if (window.XLSX) { doExport(); }
+            else {
+              var s = document.createElement("script");
+              s.src = "../dependencies/xlsx.mini.min.js";
+              s.onload = doExport;
+              document.head.appendChild(s);
+            }
+            return;
+          } else if (fmt === "yaml") {
+            var y = "# " + (metadata.titleEN || baseName) + "\n# " + metadata.titleDV + " - " + metadata.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              y += "- id: " + (r[0] || (i + 1)) + "\n  fields:\n";
+              for (var j = 1; j < r.length; j++) {
+                if (r[j] != null && String(r[j]).trim()) {
+                  y += "    - |\n      " + String(r[j]).trim().replace(/\n/g, "\n      ") + "\n";
+                }
+              }
+            }
+            downloadFile(y, baseName + ".yaml", "text/yaml");
+          } else if (fmt === "toon") {
+            var to = "[" + rows.length + "]:\n";
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              var vals = [];
+              for (var j = 0; j < r.length; j++) {
+                if (r[j] == null || String(r[j]).trim() === "") {
+                  vals.push("null");
+                } else {
+                  var v = String(r[j]).trim();
+                  vals.push(/[\s,:"\\\[\]{}]/.test(v) || v === "true" || v === "false" || v === "null" || /^-?\d+(?:\.\d+)?(?:e[+\-]?\d+)?$/i.test(v) ? JSON.stringify(v) : v);
+                }
+              }
+              to += "  - [" + vals.length + "]: " + vals.join(",") + "\n";
+            }
+            downloadFile(to, baseName + ".toon", "text/plain");
+          } else if (fmt === "html") {
+            var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (metadata.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
+            htmlExport += '<h1>' + metadata.titleDV + '</h1><p style="text-align:center">' + metadata.titleAR + '</p>';
+            htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              htmlExport += '<h2>#' + (r[0] || (i + 1)) + '</h2>';
+              for (var j = 1; j < r.length; j++) {
+                if (r[j] != null && String(r[j]).trim()) htmlExport += '<p>' + String(r[j]).trim() + '</p>';
+              }
+              if (i < rows.length - 1) htmlExport += '<div class="sep">◆</div>';
+            }
+            htmlExport += '</body></html>';
+            downloadFile(htmlExport, baseName + ".html", "text/html");
+          } else if (fmt === "xml") {
+            var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<book>\n';
+            xml += '  <title><dv>' + (metadata.titleDV || "") + '</dv><ar>' + (metadata.titleAR || "") + '</ar><en>' + (metadata.titleEN || "") + '</en></title>\n';
+            xml += '  <meta><url>' + siteURL + '</url><version>' + versionText + '</version></meta>\n';
+            xml += '  <rows>\n';
+            for (var i = 0; i < rows.length; i++) {
+              var r = rows[i];
+              xml += '    <row id="' + (r[0] || (i + 1)) + '">\n';
+              for (var j = 1; j < r.length; j++) {
+                if (r[j] != null && String(r[j]).trim()) {
+                  xml += '      <col' + j + '>' + String(r[j]).trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</col' + j + '>\n';
+                }
+              }
+              xml += '    </row>\n';
+            }
+            xml += '  </rows>\n</book>';
+            downloadFile(xml, baseName + ".xml", "application/xml");
           } else if (fmt === "word") {
             content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
             content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
@@ -998,6 +1142,9 @@ initializePageWithMetadata(async function (metadata) {
         LS.set("hideTashkeel", false);
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
+        // Reset table mode to default for this book
+        isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0;
+        if (btnViewToggle) btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
         // Go to page 1 without scrolling
         rebuildAll();
       });
@@ -1119,10 +1266,12 @@ initializePageWithMetadata(async function (metadata) {
       // ── Language change → re-render ───────────────────────
       document.addEventListener("languagechange", function () {
         buildColumnToggles();
-        // Update focus button text for current state
+        // Update focus and view toggle button text
         var btn = document.getElementById("btnFocus");
         var on = document.documentElement.hasAttribute("data-focus");
         if (btn) btn.textContent = t(on ? "btnFocusOut" : "btnFocusIn");
+        var vtBtn = document.getElementById("btnViewToggle");
+        if (vtBtn) vtBtn.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
         if (filteredData.length > 0) rebuildAll();
       });
 

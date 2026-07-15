@@ -24,13 +24,23 @@ const STRINGS = {
 
   // ── Toolbar ──
   btnCopyText: { dv: "ކޮޕީ ކުރޭ", en: "Copy", ar: "نسخ" },
-  btnTashkeelText: { dv: "ފިލި ފޮރުވާ", en: "Hide diacritics", ar: "إخفاء التشكيل" },
+  btnTashkeelText: {
+    dv: "ފިލި ފޮރުވާ",
+    en: "Hide diacritics",
+    ar: "إخفاء التشكيل",
+  },
   btnResetText: { dv: "ރީސެޓް", en: "Reset", ar: "إعادة ضبط" },
   btnFocusText: { dv: "ފޯކަސް", en: "Focus", ar: "تركيز" },
-  btnAdvancedSearchText: { dv: "🔎 އެޑްވާންސްޑް", en: "🔎 Advanced", ar: "🔎 متقدم" },
+  btnAdvancedSearchText: {
+    dv: "🔎 އެޑްވާންސްޑް",
+    en: "🔎 Advanced",
+    ar: "🔎 متقدم",
+  },
   btnCopyText: { dv: "📋 ކޮޕީ", en: "📋 Copy", ar: "📋 نسخ" },
   btnTashkeelText: { dv: "◉ ފިލި", en: "◉ Diacritics", ar: "◉ تشكيل" },
   btnExportText: { dv: "📥 އެކްސްޕޯޓް", en: "📥 Export", ar: "📥 تصدير" },
+  btnViewToggleText: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
+  btnViewToggleCard: { dv: "📖 ކާޑް", en: "📖 Card", ar: "📖 بطاقة" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
   btnTashkeelTitle: {
     dv: "ފިލި ފޮރުވާ/ދައްކާ",
@@ -177,9 +187,9 @@ const STRINGS = {
   // ── Tag labels ──
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
   tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
-  tagQRN: { dv: "ޤުރުއާން", en: "Quran", ar: "قرآن" },
-  tagRDF: { dv: "ރަދީފް", en: "Radheef", ar: "رديف" },
-  tagDFK: { dv: "ދަރުސް", en: "DFK", ar: "دروس" },
+  tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
+  tagRDF: { dv: "ރަދީފް", en: "Dictionary", ar: "معجم" },
+  tagDFK: { dv: "ދފކ", en: "DFK", ar: "دفك" },
   tagIH: { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
 
   // ── Dashboard ──

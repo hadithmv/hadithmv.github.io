@@ -6,7 +6,7 @@ A metadata-driven, single-page viewer for Islamic texts. All configuration lives
 
 | File               | Purpose                                                           |
 | ------------------ | ----------------------------------------------------------------- |
-| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)              |
+| `data/01-bookNames.csv` | Central registry of books (code, titles in AR/DV/EN)         |
 | `tags.csv`         | Tag definitions (code, label, badge colors)                       |
 | `books/index.html` | Shared viewer page and library dashboard                          |
 | `css/styles.css`   | All styles: light + dark + sepia themes, sidebar, reader, responsive |
@@ -15,7 +15,7 @@ A metadata-driven, single-page viewer for Islamic texts. All configuration lives
 | `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
 | `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
 | `data/*.csv`       | Per-book content files                                            |
-| `dependencies/`    | PapaParse only                                                    |
+| `dependencies/`    | PapaParse + SheetJS mini (Excel export, lazy-loaded)              |
 
 ## Request flow
 
@@ -24,7 +24,7 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   dbLookup.js
-    ├─ fetch ../bookNames.csv  ──→  find row by bookCode
+    ├─ fetch ../data/01-bookNames.csv  ──→  find row by bookCode
     ├─ fetch ../tags.csv       ──→  resolve tag badges from prefix
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
         │
@@ -81,8 +81,9 @@ Real‑time, case‑insensitive filtering against all columns. Results dropdown 
 |---|---|
 | Copy | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before footnotes. `navigator.clipboard.writeText()` with `execCommand` fallback. |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`. |
+| View toggle | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table. Applies to all books. |
 | Reset | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage. |
-| Export | Dropdown with TXT, MD, JSON, CSV, Word, PDF, PNG. Each includes book title (EN/DV/AR), URL, Hadithmv name, version, and row separators. PNG uses embedded base64 font via SVG foreignObject + canvas. |
+| Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel (SheetJS mini, lazy-loaded), Word, PDF, PNG. TOON uses expanded list per spec. All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
 
 ### Focus mode
