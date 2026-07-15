@@ -44,11 +44,6 @@ const STRINGS = {
   btnViewToggleText: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
   btnViewToggleCard: { dv: "📖 ކާޑް", en: "📖 Card", ar: "📖 بطاقة" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
-  btnTashkeelTitle: {
-    dv: "ފިލި ފޮރުވާ/ދައްކާ",
-    en: "Toggle Arabic diacritics",
-    ar: "إظهار/إخفاء التشكيل",
-  },
   btnFocusIn: { dv: "ފޯކަސް ▲", en: "Focus ▲", ar: "تركيز ▲" },
   btnFocusOut: { dv: "ފޯކަސް ▼", en: "Full ▼", ar: "كامل ▼" },
   btnFocusExpand: {
@@ -92,11 +87,6 @@ const STRINGS = {
     dv: "↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ",
     en: "↺ Reset all settings",
     ar: "↺ إعادة ضبط جميع الإعدادات",
-  },
-  btnResetTitle: {
-    dv: "ހުރިހާ ސ�ޓިންގް ރީސެޓް ކުރޭ",
-    en: "Reset all settings",
-    ar: "إعادة ضبط جميع الإعدادات",
   },
   labelRowsPerPage: {
     dv: "އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:",
@@ -272,10 +262,6 @@ function applyDocumentLang() {
     } else {
       el.textContent = t(key);
     }
-  });
-  // Handle title attributes
-  document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
-    el.title = t(el.getAttribute("data-i18n-title"));
   });
   // Fire event so reader can update dynamic text
   document.dispatchEvent(new CustomEvent("languagechange"));

@@ -155,7 +155,7 @@ All text formats include book title, URL, Hadithmv, and version. TOON uses the e
 
 ### Internationalisation
 
-All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`.
+All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. Tooltip titles are English-only and never translated.
 
 ## Error handling
 
