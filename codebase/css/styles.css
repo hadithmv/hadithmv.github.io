@@ -334,13 +334,20 @@ body {
   border-color: var(--color-nav-btn-text);
 }
 
-/* ---- Focus mode — hide chrome, keep title ---- */
-[data-focus] #searchBar,
-[data-focus] #searchResults,
-[data-focus] #readerToolbar,
-[data-focus] #readerNav,
+/* ---- Focus mode — slide chrome up ---- */
+#collapsibleChrome {
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+
+[data-focus] #collapsibleChrome {
+  max-height: 0;
+  opacity: 0;
+}
+
 [data-focus] #readerNavBottom {
-  display: none !important;
+  display: none;
 }
 
 [data-focus] #readerContent {
@@ -1478,7 +1485,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
 }
@@ -1492,12 +1499,7 @@ body {
   background: var(--color-nav-btn-text);
   color: var(--color-reader-bg);
   border-color: var(--color-nav-btn-text);
-}
-
-.nav-focus-btn.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 /* Sticky chrome — always */

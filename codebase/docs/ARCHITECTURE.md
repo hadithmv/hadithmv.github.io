@@ -88,7 +88,7 @@ Real‑time, case‑insensitive filtering against all columns. Results dropdown 
 
 ### Focus mode
 
-Toggled via pagination bar button or `z` key. Hides search bar, toolbar, and pagination bars. Sticky header with title and expand button remains. `[data-focus]` CSS attribute.
+Toggled via pagination bar button or `z` key. Collapses search bar, toolbar, and top pagination with a smooth slide animation via `max-height` transition on `#collapsibleChrome`. Bottom nav hidden. Sticky header with title and expand button remains.
 
 ### Themes
 
