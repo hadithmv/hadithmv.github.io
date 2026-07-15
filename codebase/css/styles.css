@@ -652,7 +652,7 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 8px 20px 16px;
-  border-bottom: 2px solid var(--color-page-header-border);
+  border-bottom: 2px solid var(--color-card-hover-border);
 }
 
 .back-link {
@@ -1266,7 +1266,7 @@ body {
   gap: 8px;
   padding: 4px 0 8px;
   margin-bottom: 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-card-hover-border);
   flex-wrap: wrap;
 }
 
@@ -1287,7 +1287,7 @@ body {
   margin-top: 16px;
   margin-bottom: 0;
   border-bottom: none;
-  border-top: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-card-hover-border);
 }
 
 /* Left side: page buttons */

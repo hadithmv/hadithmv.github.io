@@ -102,6 +102,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 | Control | Description |
 |---|---|
 | 📋 Copy | Copy current row as formatted plain text |
+| 🔗 Share | Copy deep link to current book + row |
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
 | 📖 Table/Card | Toggle between vertical card and horizontal table view |
 | ↺ Reset | Reset all reader settings to defaults |
@@ -118,6 +119,10 @@ Each book's CSV can optionally include a header row. If the first field of the f
 ### Focus mode
 
 Toggled from the pagination bar or `z` key. Hides search bar, toolbar, and pagination — only the sticky header and reader content remain.
+
+### Sharing
+
+The browser URL silently updates as you scroll (`?book=CODE&row=N`). Copy the address bar anytime to share your exact position. Or use the 🔗 Share button to copy a deep link. Opening a shared URL lands on the same row.
 
 ### Scroll counter
 

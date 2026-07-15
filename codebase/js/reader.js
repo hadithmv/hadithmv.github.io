@@ -818,6 +818,21 @@ initializePageWithMetadata(async function (metadata) {
         if (filteredData.length > 0) rebuildAll();
       });
 
+      // ── Toolbar: share ─────────────────────────────────────
+      document.getElementById("btnShare").addEventListener("click", function () {
+        var vRow = visiblePageIndex();
+        var url = window.location.origin + window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
+        navigator.clipboard.writeText(url).then(function () {
+          showToast(t("toastShared"));
+        }).catch(function () {
+          var ta = document.createElement("textarea");
+          ta.value = url; ta.style.position = "fixed"; ta.style.left = "-9999px";
+          document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); showToast(t("toastShared")); } catch (_) {}
+          document.body.removeChild(ta);
+        });
+      });
+
       // ── Toolbar: copy to clipboard ──────────────────────────
       btnCopy.addEventListener("click", function () {
         var vRow = visiblePageIndex();
@@ -1278,9 +1293,15 @@ initializePageWithMetadata(async function (metadata) {
       // ── Initial render ──────────────────────────────────────
       loadInitial();
       observeSentinels();
+      // Handle shared URL with &row= parameter
+      var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
+      if (sharedRow >= 1 && sharedRow <= filteredData.length) {
+        setTimeout(function () { goTo(sharedRow - 1); }, 200);
+      }
       // Scroll-driven pagination update
       var scrollCounter = document.getElementById("scrollCounter");
       var scrollTimer;
+      var urlSyncTimer;
       window.addEventListener("scroll", function () {
         updatePagination();
         if (scrollCounter) {
@@ -1293,6 +1314,12 @@ initializePageWithMetadata(async function (metadata) {
             scrollCounter.classList.remove("show");
           }, 2000);
         }
+        // Sync URL with current position (debounced 500ms)
+        clearTimeout(urlSyncTimer);
+        urlSyncTimer = setTimeout(function () {
+          var newURL = window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
+          history.replaceState(null, "", newURL);
+        }, 500);
       }, { passive: true });
 
       // Reveal everything at once
