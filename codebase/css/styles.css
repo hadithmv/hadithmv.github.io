@@ -669,7 +669,7 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 800px;
-  padding: 12px 0 0 0;
+  padding: 12px 0 4px 0;
   box-sizing: border-box;
   z-index: 101;
   display: flex;
@@ -907,7 +907,7 @@ body {
 
 #readerWrapper {
   max-width: 800px;
-  margin: 52px auto 60px;
+  margin: 56px auto 60px;
   padding: 0 20px;
   font-family:
     "Hadithmv",
@@ -923,12 +923,14 @@ body {
   gap: 8px;
   margin-top: 6px;
   margin-bottom: 6px;
+  overflow: hidden;
 }
 
 .search-input {
   flex: 1;
-  padding: 5px 12px;
-  font-size: 0.9rem;
+  min-width: 0;
+  padding: 4px 12px;
+  font-size: 0.8rem;
   font-family:
     "Hadithmv",
     "Traditional Arabic", "Scheherazade New",
@@ -949,6 +951,7 @@ body {
 .search-input::placeholder {
   color: var(--color-text-subtle);
   opacity: 1;
+  font-weight: 700;
 }
 
 /* Clear button inside the search bar */
@@ -1560,7 +1563,7 @@ body {
 /* Sticky chrome — always */
 #readerChrome {
   position: sticky;
-  top: 52px;
+  top: 56px;
   z-index: 50;
   background: var(--color-bg);
   padding-bottom: 14px;
@@ -1739,7 +1742,7 @@ body {
 
   .search-input {
     font-size: 0.8rem;
-    padding: 5px 8px;
+    padding: 4px 8px;
   }
 
   .search-advanced-btn {
@@ -1830,9 +1833,9 @@ body {
   #readerNav { padding-bottom: 8px; margin-bottom: 0; }
   #backToDashboard { width: 32px; height: 32px; font-size: 1rem; }
   .menu-btn { width: 32px; height: 32px; font-size: 1rem; }
-  #topBar { padding: 8px 20px 0 20px; gap: 4px; direction: ltr; justify-content: space-between; }
-  #readerWrapper { margin-top: 40px; }
-  #readerChrome { top: 40px; }
+  #topBar { padding: 8px 20px 4px 20px; gap: 4px; direction: ltr; justify-content: space-between; }
+  #readerWrapper { margin-top: 44px; }
+  #readerChrome { top: 44px; }
   #pageSubRow { justify-content: flex-start !important; margin: 2px 0 0 !important; }
   #pageTitle { font-size: 1rem; }
   .nav-focus-btn { padding: 5px 8px !important; font-size: 0.75rem !important; }
