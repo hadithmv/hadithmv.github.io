@@ -16,8 +16,10 @@
   </head>
 
   <body>
-    <!-- Hamburger menu button -->
-    <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">☰</button>
+    <div id="topBar">
+      <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'">↩</button>
+      <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">☰</button>
+    </div>
 
     <!-- Sidebar overlay -->
     <div id="sidebarOverlay" class="sidebar-overlay"></div>
@@ -96,12 +98,6 @@
     <div id="readerWrapper" style="display: none">
       <div id="readerChrome">
         <div id="pageHeader" style="display: none">
-          <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'"
-            >↩
-            <span class="btn-text" data-i18n="navDashboard"
-              >ފޮތްތަކުގެ ލިސްޓް</span
-            ></button
-          >
           <h1 id="pageTitle"></h1>
           <div id="pageSubRow" style="display: none">
             <span class="subrow-left">

@@ -121,20 +121,22 @@ body {
 
 /* ---- Hamburger menu button ---- */
 .menu-btn {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 101;
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 40px;
   height: 40px;
   padding: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1;
   color: var(--color-text);
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: 10px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background 0.15s ease, border-color 0.15s ease;
   font-family: system-ui, -apple-system, sans-serif;
 }
@@ -662,28 +664,45 @@ body {
   border-bottom: 2px solid var(--color-card-hover-border);
 }
 
+#topBar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 816px;
+  height: 0;
+  z-index: 101;
+  pointer-events: none;
+}
+
+#topBar button {
+  pointer-events: auto;
+}
+
 #backToDashboard {
   position: absolute;
-  top: 14px;
-  left: 12px;
-  z-index: 50;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
-  direction: rtl;
-  padding: 5px 10px;
-  font-size: 0.82rem;
-  font-weight: 600;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  font-family: system-ui, -apple-system, sans-serif;
   color: #b91c1c;
-  background: #fef2f2;
+  background: var(--color-card-bg);
   border: 1px solid #fecaca;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 #backToDashboard:hover {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #fef2f2;
   border-color: #fca5a5;
 }
 
@@ -1757,8 +1776,8 @@ body {
   }
 
   .menu-btn {
-    top: 10px;
-    right: 10px;
+    top: 16px;
+    right: 16px;
     width: 32px;
     height: 32px;
     font-size: 1rem;
@@ -1783,13 +1802,15 @@ body {
     display: none;
   }
 
-  #pageHeader h1 { margin: 0 44px 2px 8px !important; font-size: 1.15rem; }
-  #pageSubRow { margin: 0 44px 0 8px !important; }
+  #pageHeader h1 { margin: 0 8px 4px 8px !important; font-size: 1.15rem; text-align: center; }
+  #pageSubRow { margin: 0 8px !important; justify-content: center; }
   .btn-text { display: none; }
-  #pageHeader { padding: 4px 8px 12px !important; margin-bottom: 0 !important; }
+  #pageHeader { padding: 48px 8px 12px !important; margin-bottom: 0 !important; }
   #searchBar { margin-top: 6px; }
   #readerNav { padding-bottom: 8px; margin-bottom: 0; }
-  .back-link { font-size: 1.2rem; left: 6px; top: 8px; padding: 2px 8px; }
+  #backToDashboard { position: static; width: 32px; height: 32px; font-size: 1rem; }
+  .menu-btn { position: static; width: 32px; height: 32px; font-size: 1rem; }
+  #topBar { top: 14px; width: calc(100% - 24px); height: auto; display: flex; justify-content: space-between; align-items: center; }
 
   .sidebar { width: 260px; }
   .modal { width: 92vw; border-radius: 12px; }
