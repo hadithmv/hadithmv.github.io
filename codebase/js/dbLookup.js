@@ -231,6 +231,7 @@ function renderDashboard(bookNames) {
   const grid = document.getElementById("bookGrid");
   if (grid) {
     grid.innerHTML = bookNames
+      .filter(function (book) { return !book.bookCode.endsWith("-DRAFT"); })
       .map((book) => {
         const tags = extractTags(book.bookCode);
         const tagHtml =
