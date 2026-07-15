@@ -1581,7 +1581,7 @@ body {
   background: var(--color-reader-bg);
   border: none;
   padding: 12px 36px 32px;
-  line-height: 2.2;
+  line-height: 1.9;
   font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
 }
@@ -1598,12 +1598,12 @@ body {
   font-size: 1rem;
   font-weight: 800;
   color: var(--color-text);
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-family: system-ui, -apple-system, sans-serif;
 }
 
 .reader-field {
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   text-align: right;
   white-space: pre-line;
 }

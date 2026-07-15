@@ -214,7 +214,8 @@ initializePageWithMetadata(async function (metadata) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
           if (v !== null && v !== undefined && String(v).trim() !== "") {
-            fields.push({ value: String(v).trim(), index: i });
+            var val = String(v).trim().replace(/\n{2,}/g, "\n");
+            fields.push({ value: val, index: i });
           }
         }
         for (var i = 0; i < fields.length; i++) {
@@ -246,7 +247,8 @@ initializePageWithMetadata(async function (metadata) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
           if (v !== null && v !== undefined && String(v).trim() !== "") {
-            fields.push({ value: String(v).trim(), index: i });
+            var val = String(v).trim().replace(/\n{2,}/g, "\n");
+            fields.push({ value: val, index: i });
           }
         }
         var query = searchInput.value.trim();
