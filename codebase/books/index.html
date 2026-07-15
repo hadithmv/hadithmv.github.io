@@ -17,7 +17,9 @@
 
   <body>
     <div id="topBar">
-      <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'">↩</button>
+      <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'" style="display:none">↩</button>
+      <button id="btnFocus" class="nav-focus-btn" title="Toggle focus reading mode (z key)" style="display:none">↕</button>
+      <h1 id="pageTitle" style="display:none"></h1>
       <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">☰</button>
     </div>
 
@@ -97,24 +99,7 @@
     <!-- Reader Container (single-row vertical reading view) -->
     <div id="readerWrapper" style="display: none">
       <div id="readerChrome">
-        <div id="pageHeader" style="display: none">
-          <h1 id="pageTitle"></h1>
-          <div id="pageSubRow" style="display: none">
-            <span class="subrow-left">
-              <button
-                id="btnFocusExpand"
-                class="focus-expand-btn"
-                data-i18n="btnFocusExpand"
-              >
-                ފޯކަސް ވިއު ▼
-              </button>
-            </span>
-            <span class="subrow-right">
-              <span id="pageTags"></span>
-              <span id="pageSubtitle"></span>
-            </span>
-          </div>
-        </div>
+        <div id="pageHeader" style="display: none"></div>
         <div id="collapsibleChrome">
         <div id="searchBar">
           <button
@@ -154,6 +139,10 @@
           style="display: none"
         ></div>
         <div id="readerToolbar" class="reader-toolbar" dir="rtl">
+          <span id="pageSubRow" style="display: none">
+            <span id="pageSubtitle"></span>
+            <span id="pageTags"></span>
+          </span>
           <div class="toolbar-group">
             <button
               id="btnCopy"
@@ -223,25 +212,11 @@
                 <button class="export-option" data-format="png">Image</button>
               </div>
             </div>
-          </div>
-          <div
-            class="toolbar-group"
-            id="columnTogglesGroup"
-            style="display: none"
-          >
-            <button
-              id="btnColDropdown"
-              class="toolbar-btn"
-              data-i18n="labelHideColumns"
-            >
-              ކޮލަމް ފޮރުވާ ▾
-            </button>
-            <div
-              id="columnDropdown"
-              class="column-dropdown"
-              style="display: none"
-            >
-              <div id="columnToggles" class="column-toggles"></div>
+            <div id="columnTogglesGroup" style="display: none; position: relative">
+              <button id="btnColDropdown" class="toolbar-btn" data-i18n="labelHideColumns">ކޮލަމް ފޮރުވާ ▾</button>
+              <div id="columnDropdown" class="column-dropdown" style="display: none">
+                <div id="columnToggles" class="column-toggles"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -268,16 +243,6 @@
               title="Last page (End key)"
             >
               »»
-            </button>
-          </div>
-          <div class="nav-goto">
-            <button
-              id="btnFocus"
-              class="nav-focus-btn"
-              title="Toggle focus reading mode (z key)"
-              data-i18n="btnFocusIn"
-            >
-              ފޯކަސް ވިއު ▲
             </button>
           </div>
         </nav>

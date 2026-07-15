@@ -57,34 +57,24 @@ initializePageWithMetadata(async function (metadata) {
         var pageSubtitle = document.getElementById("pageSubtitle");
         var pageSubRow = document.getElementById("pageSubRow");
 
-        var pageHeader = document.getElementById("pageHeader");
         if (lang === "en") {
-          pageHeader.style.display = "";
           pageTitle.textContent = metadata.titleEN || metadata.bookCode;
           pageTitle.dir = "ltr";
-          pageTitle.style.margin = "";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
           pageSubRow.style.margin = "0 0 0 0";
         } else if (lang === "dv") {
-          pageHeader.style.display = "flex";
-          pageHeader.style.flexDirection = "column";
-          pageHeader.style.alignItems = "flex-end";
-          pageHeader.style.paddingTop = "8px";
           pageTitle.textContent = metadata.titleDV || metadata.bookCode;
           pageTitle.dir = "rtl";
-          pageTitle.style.margin = "0 56px 6px 0";
           pageSubtitle.textContent = metadata.titleAR || "";
           pageSubtitle.style.display = "";
           pageSubtitle.dir = "rtl";
           pageSubRow.style.display = "flex";
-          pageSubRow.style.margin = "0 56px 0 0";
+          pageSubRow.style.margin = "0 0 0 0";
           pageSubRow.dir = "";
         } else if (lang === "ar") {
-          pageHeader.style.display = "";
           pageTitle.textContent = metadata.titleAR || metadata.bookCode;
           pageTitle.dir = "rtl";
-          pageTitle.style.margin = "";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
           pageSubRow.style.margin = "0 0 0 0";
@@ -886,11 +876,11 @@ initializePageWithMetadata(async function (metadata) {
         var expandBtn = document.getElementById("btnFocusExpand");
         if (on) {
           html.setAttribute("data-focus", "");
-          if (btn) { btn.classList.add("active"); btn.textContent = t("btnFocusOut"); }
+          if (btn) { btn.classList.add("active"); btn.textContent = "▼"; }
           if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         } else {
           html.removeAttribute("data-focus");
-          if (btn) { btn.classList.remove("active"); btn.textContent = t("btnFocusIn"); }
+          if (btn) { btn.classList.remove("active"); btn.textContent = "↕"; }
           if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         }
         try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
@@ -899,9 +889,12 @@ initializePageWithMetadata(async function (metadata) {
       btnFocus.addEventListener("click", function () {
         setFocus(!document.documentElement.hasAttribute("data-focus"));
       });
-      document.getElementById("btnFocusExpand").addEventListener("click", function () {
-        setFocus(false);
-      });
+      var expandBtn2 = document.getElementById("btnFocusExpand");
+      if (expandBtn2) {
+        expandBtn2.addEventListener("click", function () {
+          setFocus(false);
+        });
+      }
 
       // ── Toolbar: export ─────────────────────────────────────
       var btnExport = document.getElementById("btnExport");
@@ -1316,7 +1309,7 @@ initializePageWithMetadata(async function (metadata) {
         // Update focus and view toggle button text
         var btn = document.getElementById("btnFocus");
         var on = document.documentElement.hasAttribute("data-focus");
-        if (btn) btn.textContent = t(on ? "btnFocusOut" : "btnFocusIn");
+        if (btn) btn.textContent = on ? "▼" : "↕";
         var vtBtn = document.getElementById("btnViewToggle");
         if (vtBtn) vtBtn.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
         if (filteredData.length > 0) rebuildAll();
@@ -1356,7 +1349,9 @@ initializePageWithMetadata(async function (metadata) {
 
       // Reveal everything at once
       document.getElementById("loadingMessage").style.display = "none";
-      document.getElementById("pageHeader").style.display = "block";
+      document.getElementById("backToDashboard").style.display = "";
+      document.getElementById("btnFocus").style.display = "";
+      document.getElementById("pageTitle").style.display = "";
       document.getElementById("readerWrapper").style.display = "block";
     },
     error: function (err) {
