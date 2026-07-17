@@ -151,7 +151,7 @@ const STRINGS = {
   labelTheme: { dv: "ތީމް", en: "Theme", ar: "المظهر" },
   btnLang: { dv: "🌐 ބަސް", en: "🌐 Language", ar: "🌐 اللغة" },
   labelSettings: { dv: "ސެޓިންގްސް", en: "Settings", ar: "الإعدادات" },
-  settingsAppearance: { dv: "ދިރުން", en: "Appearance", ar: "المظهر" },
+  settingsAppearance: { dv: "ފެންނަ ގޮތް", en: "Appearance", ar: "المظهر" },
   settingsFont: { dv: "ފޮންޓް", en: "Font", ar: "الخط" },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },

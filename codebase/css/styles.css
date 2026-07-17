@@ -112,8 +112,9 @@ body {
 /* ---- Fonts ---- */
 @font-face {
   font-family: "Hadithmv";
-  src: url("../font/merged-300.woff2") format("woff2"),
-       url("../font/merged-300.woff") format("woff");
+  src:
+    url("../font/merged-300.woff2") format("woff2"),
+    url("../font/merged-300.woff") format("woff");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -134,8 +135,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, border-color 0.15s ease;
-  font-family: system-ui, -apple-system, sans-serif;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   margin-left: auto;
 }
 
@@ -178,7 +184,12 @@ body {
   transition: transform 0.25s ease;
   overflow-y: auto;
   overscroll-behavior: contain;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   direction: rtl;
 }
 
@@ -211,7 +222,9 @@ body {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .sidebar-close:hover {
@@ -258,7 +271,12 @@ body {
   margin-bottom: 4px;
   font-size: 0.9rem;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: none;
   border: none;
@@ -303,7 +321,10 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 8px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 /* Sidebar theme button */
@@ -315,13 +336,20 @@ body {
   padding: 10px 14px;
   font-size: 0.9rem;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .sidebar-theme-btn:hover {
@@ -339,7 +367,7 @@ body {
 #collapsibleChrome {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1);
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 #collapsibleChrome > * {
   overflow: hidden;
@@ -353,7 +381,9 @@ body {
 [data-focus] #collapsibleChrome {
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1);
+  transition:
+    grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-focus] #readerChrome {
@@ -382,7 +412,12 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   transition: background 0.15s ease;
   white-space: nowrap;
 }
@@ -432,7 +467,12 @@ body {
   padding: 8px 10px;
   font-size: 0.85rem;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -467,7 +507,10 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.15s ease;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .font-adj-btn:hover {
@@ -480,7 +523,10 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .font-family-label {
@@ -501,12 +547,18 @@ body {
   justify-content: center;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
 }
 
 .modal-overlay.open {
   visibility: visible;
   opacity: 1;
+}
+
+body:has(.modal-overlay.open) {
+  overflow: hidden;
 }
 
 .modal {
@@ -517,9 +569,15 @@ body {
   max-width: 92vw;
   max-height: 85vh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
   direction: rtl;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .modal-header {
@@ -547,7 +605,9 @@ body {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .modal-close:hover {
@@ -576,7 +636,12 @@ body {
   color: var(--color-text-subtle);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .modal-row {
@@ -606,7 +671,12 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   transition: background 0.15s ease;
   white-space: nowrap;
 }
@@ -630,7 +700,12 @@ body {
   border: 1px solid var(--color-error-text);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   transition: opacity 0.15s ease;
   margin-right: auto;
   margin-left: 8px;
@@ -644,7 +719,13 @@ body {
 [data-font-system] #readerContent,
 [data-font-system] .reader-field,
 [data-font-system] .reader-footnotes {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 [data-font-system] .book-card .title-ar,
@@ -658,7 +739,13 @@ body {
 [data-font-system] .nav-counter-bottom,
 [data-font-system] .sidebar,
 [data-font-system] .search-result-snippet {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
 }
 
 /* Sidebar footer */
@@ -732,7 +819,9 @@ body {
   overflow-x: auto;
   scrollbar-width: none;
 }
-#topBar #pageTitle::-webkit-scrollbar { display: none; }
+#topBar #pageTitle::-webkit-scrollbar {
+  display: none;
+}
 
 #backToDashboard {
   width: 40px;
@@ -740,7 +829,10 @@ body {
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: #b91c1c;
   background: #fef2f2;
   border: 1px solid #fecaca;
@@ -749,7 +841,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 #backToDashboard:hover {
@@ -800,7 +894,12 @@ body {
   text-align: center;
   padding: 40px;
   color: var(--color-loading);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .error {
@@ -814,7 +913,7 @@ body {
 /* ---- Dashboard ---- */
 #dashboardWrapper {
   max-width: 1000px;
-  margin: 70px auto 40px;
+  margin: 78px auto 40px;
   padding: 0 20px;
   font-family:
     system-ui,
@@ -902,7 +1001,12 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.025em;
   border: 1px solid rgba(0, 0, 0, 0.04);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 #pageTags .tag-badge {
@@ -913,7 +1017,12 @@ body {
   font-weight: 600;
   line-height: 1.4;
   border-radius: 6px;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
 }
 
@@ -934,9 +1043,7 @@ body {
   margin: 62px auto 60px;
   padding: 0 20px;
   font-family:
-    "Hadithmv",
-    "Traditional Arabic", "Scheherazade New",
-    "Faruma", "MV Boli",
+    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
     serif;
 }
 
@@ -957,9 +1064,7 @@ body {
   font-size: 0.85rem;
   line-height: 1.4;
   font-family:
-    "Hadithmv",
-    "Traditional Arabic", "Scheherazade New",
-    "Faruma", "MV Boli",
+    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
     serif;
   color: var(--color-text);
   background: var(--color-reader-bg);
@@ -1004,7 +1109,12 @@ body {
   flex-shrink: 0;
   font-size: 0.8rem;
   color: var(--color-text-subtle);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
 }
 
@@ -1020,7 +1130,12 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
   transition: background 0.15s ease;
 }
@@ -1046,7 +1161,12 @@ body {
   padding: 5px 8px;
   font-size: 0.82rem;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -1072,7 +1192,10 @@ body {
   border: 1px solid var(--color-error-text);
   border-radius: 6px;
   cursor: pointer;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .adv-remove-btn:hover {
@@ -1118,7 +1241,10 @@ body {
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--color-text-subtle);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   min-width: 28px;
   direction: ltr;
   text-align: left;
@@ -1155,7 +1281,9 @@ body {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
-.reader-toolbar::-webkit-scrollbar { display: none; }
+.reader-toolbar::-webkit-scrollbar {
+  display: none;
+}
 
 .toolbar-group {
   display: flex;
@@ -1174,7 +1302,12 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   transition:
     background 0.15s ease,
     border-color 0.15s ease,
@@ -1198,7 +1331,12 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   letter-spacing: 0.04em;
 }
 
@@ -1208,7 +1346,10 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.4;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -1233,7 +1374,12 @@ body {
   padding: 3px 7px;
   font-size: 0.72rem;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1309,7 +1455,12 @@ body {
   font-size: 0.82rem;
   font-weight: 600;
   text-align: right;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: none;
   border: none;
@@ -1343,7 +1494,12 @@ body {
   padding: 8px 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: #fff;
   background: #1a202c;
   border-radius: 8px;
@@ -1376,7 +1532,9 @@ body {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
-.reader-nav::-webkit-scrollbar { display: none; }
+.reader-nav::-webkit-scrollbar {
+  display: none;
+}
 
 .nav-pages {
   display: flex;
@@ -1420,7 +1578,10 @@ body {
     background 0.15s ease,
     border-color 0.15s ease,
     color 0.15s ease;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
 }
 
@@ -1454,7 +1615,12 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-muted);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
 }
 
@@ -1471,7 +1637,10 @@ body {
   border-radius: 6px;
   cursor: pointer;
   text-align: center;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   box-sizing: border-box;
 }
 
@@ -1484,10 +1653,12 @@ body {
   text-align: center;
   font-size: 0.85rem;
   color: var(--color-text-subtle);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   user-select: none;
 }
-
 
 /* Right side: page jump */
 .nav-goto {
@@ -1501,7 +1672,12 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   letter-spacing: 0.05em;
 }
 
@@ -1511,7 +1687,10 @@ body {
   font-size: 0.85rem;
   font-weight: 600;
   text-align: center;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -1535,7 +1714,12 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
   display: inline-block;
   width: 170px;
@@ -1547,7 +1731,12 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
   display: inline-block;
   width: 170px;
@@ -1584,8 +1773,16 @@ body {
   border: 1px solid #bbf7d0;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
 }
 
@@ -1598,7 +1795,10 @@ body {
   background: #15803d;
   color: #fff;
   border-color: #15803d;
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Sticky chrome — always */
@@ -1615,7 +1815,12 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
   direction: ltr;
 }
@@ -1635,7 +1840,12 @@ body {
   padding: 40px 20px;
   color: var(--color-text-muted);
   font-size: 1rem;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .reader-row-num {
@@ -1643,7 +1853,10 @@ body {
   font-weight: 800;
   color: var(--color-text);
   margin-bottom: 16px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 .reader-field {
@@ -1694,7 +1907,12 @@ body {
   min-width: 90px;
   text-align: center;
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
@@ -1777,9 +1995,15 @@ body {
     line-height: 2;
   }
 
-  .search-results { max-height: 260px; }
-  .search-result { padding: 6px 10px; }
-  .search-result-snippet { font-size: 0.82rem; }
+  .search-results {
+    max-height: 260px;
+  }
+  .search-result {
+    padding: 6px 10px;
+  }
+  .search-result-snippet {
+    font-size: 0.82rem;
+  }
 
   .search-input {
     font-size: 0.85rem;
@@ -1814,7 +2038,6 @@ body {
   .page-numbers {
     gap: 2px;
   }
-
 
   .nav-counter,
   .nav-counter-bottom {
@@ -1858,25 +2081,81 @@ body {
     display: none;
   }
 
-  #pageSubRow { margin: 0 8px !important; justify-content: center; }
-  .btn-text { display: none; }
-  #searchBar { margin: 0; }
-  #readerNav { padding-bottom: 0; margin-bottom: 0; justify-content: flex-start; }
-  #readerNavBottom { justify-content: center; }
-  #backToDashboard { width: 32px; height: 32px; font-size: 1rem; }
-  .menu-btn { width: 32px; height: 32px; font-size: 1rem; }
-  #topBar { padding: 10px 20px; gap: 4px; direction: ltr; justify-content: space-between; }
-  #readerWrapper { margin-top: 60px; }
-  #readerChrome { top: 60px; }
-  #collapsibleChrome { gap: 10px; }
-  #pageSubRow { justify-content: flex-start !important; margin: 0 !important; }
-  #topBarBrand { font-size: 1rem; }
-  #pageTitle { font-size: 1rem; }
-  .nav-focus-btn { padding: 5px 8px !important; font-size: 0.75rem !important; }
-  #topBar .nav-focus-btn { width: 32px; height: 32px; padding: 0 !important; font-size: 1rem !important; }
+  #pageSubRow {
+    margin: 0 8px !important;
+    justify-content: center;
+  }
+  .btn-text {
+    display: none;
+  }
+  #searchBar {
+    margin: 0;
+  }
+  #readerNav {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
+  #readerNavBottom {
+    justify-content: center;
+  }
+  #backToDashboard {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  .menu-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  #topBar {
+    padding: 10px 20px;
+    gap: 4px;
+    direction: ltr;
+    justify-content: space-between;
+  }
+  #readerWrapper {
+    margin-top: 60px;
+  }
+  #readerChrome {
+    top: 60px;
+  }
+  #collapsibleChrome {
+    gap: 10px;
+  }
+  #pageSubRow {
+    justify-content: flex-start !important;
+    margin: 0 !important;
+  }
+  #topBarBrand {
+    font-size: 1rem;
+  }
+  #pageTitle {
+    font-size: 1rem;
+  }
+  .nav-focus-btn {
+    padding: 5px 8px !important;
+    font-size: 0.75rem !important;
+  }
+  #topBar .nav-focus-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+    font-size: 1rem !important;
+  }
 
-  .sidebar { width: 260px; }
-  .modal { width: 92vw; border-radius: 12px; }
-  .modal-body { padding: 0 16px 16px; }
-  .modal-header { padding: 16px 16px 8px; }
+  .sidebar {
+    width: 260px;
+  }
+  .modal {
+    width: 92vw;
+    border-radius: 12px;
+  }
+  .modal-body {
+    padding: 0 16px 16px;
+  }
+  .modal-header {
+    padding: 16px 16px 8px;
+  }
 }
