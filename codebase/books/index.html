@@ -159,6 +159,7 @@
     <div id="readerWrapper" style="display: none">
       <div id="readerChrome">
         <div id="pageHeader" style="display: none"></div>
+        <div id="searchHistory" class="search-results" style="display:none;position:absolute;z-index:55;max-height:320px;overflow-y:auto;overflow-x:hidden;direction:rtl;overscroll-behavior:contain"></div>
         <div id="collapsibleChrome">
           <div class="chrome-inner">
             <div id="searchBar">
@@ -170,14 +171,23 @@
               >
                 🔎 އެޑްވާންސްޑް ހޯދުން
               </button>
+              <button
+                id="btnWholeWord"
+                class="search-advanced-btn"
+                title="Whole-word match"
+                style="display:none"
+              >
+                <span style="text-decoration:underline;text-underline-offset:3px">ab</span>
+              </button>
               <input
                 id="searchInput"
                 type="search"
                 class="search-input"
-                title="Search (/ or Ctrl+f to focus, ↑↓ to navigate results, Enter to select)"
+                title="Search (/ or Ctrl+f. * wildcard, ? char, -exclude, ~fuzzy~, .wholeword, /regex/)"
                 data-i18n="searchPlaceholder"
                 placeholder="މި ފޮތުން ހޯދާ…"
                 dir="rtl"
+                autocomplete="off"
               />
               <button
                 id="searchClear"

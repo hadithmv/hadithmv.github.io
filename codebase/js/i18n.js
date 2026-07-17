@@ -189,7 +189,7 @@ const STRINGS = {
   // ── Tag labels ──
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
   tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
-  tagDRFT: { dv: "⚠️ ޑްރާފްޓް", en: "⚠️ Draft", ar: "⚠️ مسودة" },
+  tagDRFT: { dv: "⚠️ ޑްރާފްޓް", en: "Draft", ar: "مسودة" },
   tagAKHLQ: { dv: "އަޚްލާގު", en: "Akhlaq", ar: "أخلاق" },
   tagATHR: { dv: "އާޘާރު", en: "Athar", ar: "آثار" },
   tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
@@ -208,6 +208,7 @@ const STRINGS = {
   dashboardSortAZ: { dv: "އ ← ޔ", en: "A → Z", ar: "أ ← ي" },
   dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
   dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
+  searchClearHistory: { dv: "✕   ހިސްޓަރީ ފޮހެލާ", en: "✕   Clear history", ar: "✕   مسح السجل" },
   dashColBookCode: { dv: "ކޯޑް", en: "Code", ar: "رمز" },
   dashColTitleAR: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
   dashColTitleDV: {
@@ -248,8 +249,6 @@ export function normaliseForSearch(str) {
   s = s.replace(/ى/g, "ي");
   // Normalise waw-hamza → waw
   s = s.replace(/ؤ/g, "و");
-  // Thaana fili (vowel marks: abafili, aabaafili, ubufili, sukun, etc.)
-  s = s.replace(/[ަ-ް]/g, "");
   // Thaana thikijehi → base Thaana equivalents
   s = s.replace(/ޘ/g, "ސ");
   s = s.replace(/ޙ/g, "ހ");

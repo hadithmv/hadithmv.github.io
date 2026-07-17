@@ -527,16 +527,50 @@ initializePageWithMetadata(async function (metadata) {
       let selectedResultIdx = -1; // index within searchResults DOM children
 
       function buildSnippets(row, q) {
-        var nq = normaliseForSearch(q);
-        var results = [];
+        var parsed = parseQuery(q);
+        // Find which cells actually match
+        var matchingCells = [];
         for (var i = 0; i < row.length; i++) {
           var cell = row[i];
           if (cell === null || cell === undefined) continue;
-          var str = String(cell);
-          var pos = normaliseForSearch(str).indexOf(nq);
-          if (pos === -1) continue;
-          var start = Math.max(0, pos - 150);
-          var end = Math.min(str.length, pos + q.length + 150);
+          var testRow = [];
+          testRow[i] = cell;
+          if (rowMatchesQuery(testRow, parsed)) {
+            matchingCells.push({ index: i, text: String(cell) });
+          }
+        }
+        if (matchingCells.length === 0) return [];
+
+        var results = [];
+        for (var m = 0; m < matchingCells.length; m++) {
+          var str = matchingCells[m].text;
+          var nstr = normaliseForSearch(str);
+          // Find first matching term position
+          var bestPos = -1, bestLen = 0;
+          for (var t = 0; t < parsed.include.length; t++) {
+            var term = parsed.include[t];
+            var nterm = normaliseForSearch(term.term);
+            if (!nterm) continue;
+            var pos = nstr.indexOf(nterm);
+            if (pos !== -1 && (bestPos === -1 || pos < bestPos)) {
+              bestPos = pos; bestLen = nterm.length;
+            }
+          }
+          // Fallback: take from start of cell
+          if (bestPos === -1) { bestPos = 0; bestLen = Math.min(str.length, 80); }
+          // Map back to original
+          var origStart = 0, normIdx = 0;
+          while (normIdx < bestPos && origStart < str.length) {
+            if (normaliseForSearch(str[origStart]) === (nstr[normIdx] || "")) normIdx++;
+            origStart++;
+          }
+          var origEnd = origStart, matchedNorm = 0;
+          while (matchedNorm < bestLen && origEnd < str.length) {
+            if (normaliseForSearch(str[origEnd]) === (nstr[bestPos + matchedNorm] || "")) matchedNorm++;
+            origEnd++;
+          }
+          var start = Math.max(0, origStart - 150);
+          var end = Math.min(str.length, origEnd + 150);
           var snip =
             (start > 0 ? "…" : "") +
             str.slice(start, end) +
@@ -555,6 +589,15 @@ initializePageWithMetadata(async function (metadata) {
           var row = rows[i];
           var rowNum = row[0] || (realIdxMap[i] + 1);
           var snippets = buildSnippets(row, q);
+          if (snippets.length === 0) {
+            // Fallback: show first non-empty cell
+            for (var c = 0; c < row.length; c++) {
+              if (row[c] != null && String(row[c]).trim()) {
+                snippets = [highlightMatches(String(row[c]).trim().slice(0, 200), q)];
+                break;
+              }
+            }
+          }
           for (var s = 0; s < snippets.length && count < MAX; s++) {
             html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snippets[s] + '</span></div>';
             count++;
@@ -613,37 +656,200 @@ initializePageWithMetadata(async function (metadata) {
           });
       }
 
+      // ── Enhanced search engine ──────────────────────────────
+      var searchHistory = LS.get("searchHistory", []);
+      var MAX_HISTORY = 20;
+
+      function matchTerm(text, term, wholeWord) {
+        var nt = normaliseForSearch(text);
+        var nterm = normaliseForSearch(term);
+        if (!nterm) return false;
+
+        // Fuzzy match: ~term or term~
+        var fuzzy = false;
+        var fuzzyTerm = nterm;
+        if (nterm[0] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(1); }
+        if (nterm[nterm.length - 1] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(0, -1); }
+
+        if (fuzzy) {
+          // Levenshtein distance <= 2
+          return fuzzyMatch(nt, fuzzyTerm, 2);
+        }
+
+        // Build regex from term
+        var pattern = "";
+        for (var i = 0; i < nterm.length; i++) {
+          var ch = nterm[i];
+          if (ch === "*") pattern += ".*";
+          else if (ch === "?") pattern += ".";
+          else pattern += escapeRegex(ch);
+        }
+
+        var flags = "iu";
+        if (wholeWord) {
+          pattern = "(^|[^\\p{L}])(" + pattern + ")([^\\p{L}]|$)";
+        }
+        try {
+          return new RegExp(pattern, flags).test(nt);
+        } catch (e) {
+          return nt.indexOf(nterm) !== -1;
+        }
+      }
+
+      function fuzzyMatch(text, pattern, maxDist) {
+        var tLen = text.length;
+        var pLen = pattern.length;
+        if (Math.abs(tLen - pLen) > maxDist) return false;
+        // Check sliding window + Levenshtein
+        for (var start = 0; start <= tLen - pLen + maxDist; start++) {
+          var sub = text.slice(start, start + pLen + maxDist);
+          if (levenshtein(sub, pattern, maxDist) <= maxDist) return true;
+        }
+        // Also check if pattern appears as subsequence within the text
+        for (var s = 0; s < tLen - pLen + maxDist + 1; s++) {
+          if (levenshtein(text.slice(s, Math.min(s + pLen + maxDist, tLen)), pattern, maxDist) <= maxDist) return true;
+        }
+        return false;
+      }
+
+      function levenshtein(a, b, max) {
+        if (Math.abs(a.length - b.length) > max) return max + 1;
+        var prev = [];
+        for (var i = 0; i <= b.length; i++) prev[i] = i;
+        for (var i = 1; i <= a.length; i++) {
+          var curr = [i];
+          var minInRow = i;
+          for (var j = 1; j <= b.length; j++) {
+            var cost = a[i - 1] === b[j - 1] ? 0 : 1;
+            curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
+            if (curr[j] < minInRow) minInRow = curr[j];
+          }
+          if (minInRow > max) return max + 1;
+          prev = curr;
+        }
+        return prev[b.length];
+      }
+
+      function parseQuery(query) {
+        // Returns { include: [{term, wholeWord, fuzzy, col}], exclude: [{term, wholeWord, fuzzy, col}], regex: null }
+        var result = { include: [], exclude: [] };
+        if (!query || !query.trim()) return result;
+
+        // Check for regex: /pattern/flags
+        var regexMatch = query.match(/^\/(.+?)\/([gimsu]*)$/);
+        if (regexMatch) {
+          try {
+            result.regex = new RegExp(regexMatch[1], regexMatch[2] || "gi");
+          } catch (e) {
+            result.regex = null;
+          }
+          return result;
+        }
+
+        // Tokenise: split on whitespace, preserve quoted phrases
+        var tokens = [];
+        var re = /"([^"]+)"|'([^']+)'|(\S+)/g;
+        var m;
+        while ((m = re.exec(query)) !== null) {
+          tokens.push(m[1] || m[2] || m[3]);
+        }
+
+        tokens.forEach(function (token) {
+          var exclude = false;
+          var wholeWord = false;
+          var fuzzy = false;
+          var col = null;
+
+          if (token[0] === "-") { exclude = true; token = token.slice(1); }
+          if (token[0] === ".") { wholeWord = true; token = token.slice(1); }
+
+          // col:N prefix
+          var colMatch = token.match(/^col:(\d+):(.+)/);
+          if (colMatch) { col = parseInt(colMatch[1]); token = colMatch[2]; }
+
+          if (token[0] === "~" || token[token.length - 1] === "~") {
+            fuzzy = true;
+            if (token[0] === "~") token = token.slice(1);
+            if (token[token.length - 1] === "~") token = token.slice(0, -1);
+          }
+
+          if (token) {
+            (exclude ? result.exclude : result.include).push({
+              term: token, wholeWord: wholeWord, fuzzy: fuzzy, col: col
+            });
+          }
+        });
+
+        return result;
+      }
+
+      function rowMatchesQuery(row, parsed) {
+        if (parsed.regex) {
+          return row.some(function (cell) {
+            return cell != null && parsed.regex.test(normaliseForSearch(String(cell)));
+          });
+        }
+
+        // Must match ALL include terms (AND), NONE of exclude terms
+        for (var i = 0; i < parsed.include.length; i++) {
+          var inc = parsed.include[i];
+          var cols = inc.col !== null ? [row[inc.col]] : row;
+          if (!cols.some(function (cell) {
+            return cell != null && matchTerm(String(cell), inc.term, inc.wholeWord);
+          })) return false;
+        }
+        for (var j = 0; j < parsed.exclude.length; j++) {
+          var exc = parsed.exclude[j];
+          var excCols = exc.col !== null ? [row[exc.col]] : row;
+          if (excCols.some(function (cell) {
+            return cell != null && matchTerm(String(cell), exc.term, exc.wholeWord);
+          })) return false;
+        }
+        return true;
+      }
+
+      var historySaveTimer = null;
+      function addSearchHistory(query) {
+        var q = query.trim();
+        if (!q) return;
+        clearTimeout(historySaveTimer);
+        historySaveTimer = setTimeout(function () {
+          searchHistory = searchHistory.filter(function (h) { return h !== q; });
+          searchHistory.unshift(q);
+          if (searchHistory.length > MAX_HISTORY) searchHistory.pop();
+          LS.set("searchHistory", searchHistory);
+        }, 800);
+      }
+
       function applySearch(query) {
-        const q = query.trim();
+        var q = query.trim();
         if (!q) {
           filteredData = allData;
           searchClear.style.display = "none";
           searchInfo.style.display = "none";
           searchResults.style.display = "none";
           rebuildAll();
-        } else {
-          const nq = normaliseForSearch(q);
-          var tempFiltered = allData.filter(function (row) {
-            return row.some(function (cell) {
-              return (
-                cell !== null &&
-                cell !== undefined &&
-                normaliseForSearch(String(cell)).indexOf(nq) !== -1
-              );
-            });
-          });
-          searchClear.style.display = "";
-          searchInfo.style.display = "";
-          searchInfo.textContent =
-            tempFiltered.length === 0
-              ? t("noResults")
-              : t("resultCount") + ": " + tempFiltered.length;
-          if (tempFiltered.length === 0) {
-            readerContent.innerHTML =
-              '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
-              query +
-              '"</div>';
-            searchResults.style.display = "none";
+          return;
+        }
+
+        var parsed = parseQuery(q);
+        var tempFiltered = allData.filter(function (row) {
+          return rowMatchesQuery(row, parsed);
+        });
+
+        addSearchHistory(q);
+        searchClear.style.display = "";
+        searchInfo.style.display = "";
+        searchInfo.textContent =
+          tempFiltered.length === 0
+            ? t("noResults")
+            : t("resultCount") + ": " + tempFiltered.length;
+        if (tempFiltered.length === 0) {
+          readerContent.innerHTML =
+            '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
+            query +
+            '"</div>';
+          searchResults.style.display = "none";
             loadedStart = loadedEnd = -1;
             updatePagination();
           } else {
@@ -666,9 +872,82 @@ initializePageWithMetadata(async function (metadata) {
             filteredData = origFiltered;
           }
         }
+
+      var wholeWordMode = false;
+      var btnWholeWord = document.getElementById("btnWholeWord");
+
+      // Override parseQuery to respect whole-word toggle
+      var _parseQuery = parseQuery;
+      parseQuery = function (query) {
+        var result = _parseQuery(query);
+        if (wholeWordMode) {
+          result.include.forEach(function (t) { t.wholeWord = true; });
+          result.exclude.forEach(function (t) { t.wholeWord = true; });
+        }
+        return result;
+      };
+
+      btnWholeWord.style.display = "";
+      btnWholeWord.addEventListener("click", function () {
+        wholeWordMode = !wholeWordMode;
+        btnWholeWord.classList.toggle("active", wholeWordMode);
+        if (searchInput.value.trim()) applySearch(searchInput.value);
+      });
+
+      // Search history dropdown
+      var searchHistoryEl = document.getElementById("searchHistory");
+
+      function renderSearchHistory() {
+        if (searchHistory.length === 0) {
+          searchHistoryEl.style.display = "none";
+          return;
+        }
+        // Position below the search bar
+        var sbRect = searchInput.getBoundingClientRect();
+        var rcRect = document.getElementById("readerChrome").getBoundingClientRect();
+        searchHistoryEl.style.left = (sbRect.left - rcRect.left) + "px";
+        searchHistoryEl.style.right = (rcRect.right - sbRect.right) + "px";
+        searchHistoryEl.style.top = (sbRect.bottom - rcRect.top) + "px";
+        searchHistoryEl.innerHTML = searchHistory.map(function (h, i) {
+          return '<div class="search-history-item" data-idx="' + i + '">' +
+            '<span class="hist-text">' + escapeHTML(h) + '</span>' +
+            '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
+        }).join("") +
+        '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
+        searchHistoryEl.style.display = "";
+        // Wire clicks
+        searchHistoryEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
+          item.addEventListener("click", function (e) {
+            if (e.target.classList.contains("hist-remove")) return;
+            searchInput.value = searchHistory[parseInt(this.dataset.idx)];
+            applySearch(searchInput.value);
+            searchHistoryEl.style.display = "none";
+          });
+        });
+        searchHistoryEl.querySelectorAll(".hist-remove").forEach(function (x) {
+          x.addEventListener("click", function (e) {
+            e.stopPropagation();
+            var idx = parseInt(this.dataset.idx);
+            searchHistory.splice(idx, 1);
+            LS.set("searchHistory", searchHistory);
+            renderSearchHistory();
+          });
+        });
+        // Clear-all button
+        var clearAll = searchHistoryEl.querySelector(".search-history-clear");
+        if (clearAll) clearAll.addEventListener("click", function () {
+          searchHistory = [];
+          LS.set("searchHistory", []);
+          searchHistoryEl.style.display = "none";
+        });
       }
 
+      searchInput.addEventListener("focus", function () {
+        if (!this.value.trim()) renderSearchHistory();
+        else searchResults.style.display = "";
+      });
       searchInput.addEventListener("input", function () {
+        searchHistoryEl.style.display = "none";
         applySearch(this.value);
       });
       searchClear.addEventListener("click", function () {
@@ -678,6 +957,7 @@ initializePageWithMetadata(async function (metadata) {
       });
       // Close results when clicking outside
       document.addEventListener("click", function (e) {
+        if (btnWholeWord.contains(e.target) || btnAdvancedSearch.contains(e.target)) return;
         if (!searchResults.contains(e.target) && e.target !== searchInput) {
           searchResults.style.display = "none";
         }
