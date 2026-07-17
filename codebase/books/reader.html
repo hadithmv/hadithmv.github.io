@@ -295,6 +295,23 @@
             overscroll-behavior: contain;
           "
         ></div>
+        <div id="columnDropdown" class="column-dropdown" style="display:none;position:absolute;z-index:60">
+          <div id="columnToggles" class="column-toggles"></div>
+        </div>
+        <div id="exportDropdown" class="export-dropdown" style="display:none;position:absolute;z-index:60">
+          <button class="export-option" data-format="txt">TXT</button>
+          <button class="export-option" data-format="md">MD</button>
+          <button class="export-option" data-format="json">JSON</button>
+          <button class="export-option" data-format="csv">CSV</button>
+          <button class="export-option" data-format="word">Word</button>
+          <button class="export-option" data-format="excel">Excel</button>
+          <button class="export-option" data-format="yaml">YAML</button>
+          <button class="export-option" data-format="toon">TOON</button>
+          <button class="export-option" data-format="html">HTML</button>
+          <button class="export-option" data-format="xml">XML</button>
+          <button class="export-option" data-format="pdf">PDF</button>
+          <button class="export-option" data-format="png">Image</button>
+        </div>
         <div id="collapsibleChrome">
           <div class="chrome-inner">
             <div id="searchBar">
@@ -397,38 +414,6 @@
                   >
                     📥 އެކްސްޕޯޓް
                   </button>
-                  <div
-                    id="exportDropdown"
-                    class="export-dropdown"
-                    style="display: none"
-                  >
-                    <button class="export-option" data-format="txt">TXT</button>
-                    <button class="export-option" data-format="md">MD</button>
-                    <button class="export-option" data-format="json">
-                      JSON
-                    </button>
-                    <button class="export-option" data-format="csv">CSV</button>
-                    <button class="export-option" data-format="word">
-                      Word
-                    </button>
-                    <button class="export-option" data-format="excel">
-                      Excel
-                    </button>
-                    <button class="export-option" data-format="yaml">
-                      YAML
-                    </button>
-                    <button class="export-option" data-format="toon">
-                      TOON
-                    </button>
-                    <button class="export-option" data-format="html">
-                      HTML
-                    </button>
-                    <button class="export-option" data-format="xml">XML</button>
-                    <button class="export-option" data-format="pdf">PDF</button>
-                    <button class="export-option" data-format="png">
-                      Image
-                    </button>
-                  </div>
                 </div>
                 <div
                   id="columnTogglesGroup"
@@ -441,13 +426,6 @@
                   >
                     ކޮލަމް ފޮރުވާ ▾
                   </button>
-                  <div
-                    id="columnDropdown"
-                    class="column-dropdown"
-                    style="display: none"
-                  >
-                    <div id="columnToggles" class="column-toggles"></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -528,97 +506,56 @@
       </nav>
     </div>
 
-    <script src="../dependencies/papaparse.min.js"></script>
     <script type="module" src="../js/common.js"></script>
     <script type="module" src="../js/reader.js"></script>
     <div id="scrollCounter" class="scroll-counter"></div>
     <script>
       (function () {
         var SCROLL_AMOUNT = 100;
-        function hasOverflow(el) {
-          return el.scrollWidth > el.clientWidth + 1;
-        }
-        function isRTL(el) {
-          return getComputedStyle(el).direction === "rtl";
-        }
-        function updateArrows(row) {
-          var wrap = row.parentNode;
+        function hasOverflow(el) { return el.scrollWidth > el.clientWidth + 1; }
+        function isRTL(el) { return getComputedStyle(el).direction === "rtl"; }
+        function updateArrows(wrap) {
           if (!wrap || !wrap.classList.contains("h-scroll-wrap")) return;
-          var s = wrap.querySelector(".scroll-arrow-start");
-          var e = wrap.querySelector(".scroll-arrow-end");
-          if (!hasOverflow(row)) {
-            wrap.classList.remove("has-overflow");
-            return;
-          }
+          var s = wrap.querySelector(".scroll-arrow-start"), e = wrap.querySelector(".scroll-arrow-end");
+          if (!hasOverflow(wrap)) { wrap.classList.remove("has-overflow"); return; }
           wrap.classList.add("has-overflow");
-          var tol = 4,
-            rtl = isRTL(row);
-          var sl = rtl ? -row.scrollLeft : row.scrollLeft;
-          var mx = row.scrollWidth - row.clientWidth;
+          var tol = 4, rtl = isRTL(wrap);
+          var sl = rtl ? -wrap.scrollLeft : wrap.scrollLeft;
+          var mx = wrap.scrollWidth - wrap.clientWidth;
           if (s) s.classList.toggle("hidden", sl <= tol);
           if (e) e.classList.toggle("hidden", sl >= mx - tol);
         }
-        function scrollRow(row, delta) {
-          var start = row.scrollLeft,
-            target = start + delta,
-            t0 = performance.now();
-          function ease(t) {
-            return t * (2 - t);
-          }
-          function step(now) {
+        function scrollWrap(wrap, delta) {
+          var start = wrap.scrollLeft, target = start + delta, t0 = performance.now();
+          function ease(t) { return t * (2 - t); }
+          (function step(now) {
             var p = (now - t0) / 300;
-            if (p >= 1) {
-              row.scrollLeft = target;
-              return;
-            }
-            row.scrollLeft = start + delta * ease(p);
+            if (p >= 1) { wrap.scrollLeft = target; return; }
+            wrap.scrollLeft = start + delta * ease(p);
             requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
+          })(t0);
         }
-        document
-          .querySelectorAll(".reader-toolbar, .reader-nav")
-          .forEach(function (row) {
-            var rtl = isRTL(row),
-              wrap = document.createElement("div");
-            wrap.className = "h-scroll-wrap";
-            if (rtl) wrap.dir = "rtl";
-            var b1 = document.createElement("button"),
-              b2 = document.createElement("button");
-            b1.className = "scroll-arrow scroll-arrow-start hidden";
-            b2.className = "scroll-arrow scroll-arrow-end hidden";
-            b1.innerHTML = rtl ? "&#9654;" : "&#9664;";
-            b2.innerHTML = rtl ? "&#9664;" : "&#9654;";
-            row.parentNode.insertBefore(wrap, row);
-            wrap.appendChild(b1);
-            wrap.appendChild(row);
-            wrap.appendChild(b2);
-            var sd = rtl ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
-            var ed = rtl ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
-            b1.addEventListener("click", function () {
-              scrollRow(row, sd);
-            });
-            b2.addEventListener("click", function () {
-              scrollRow(row, ed);
-            });
-            row.addEventListener("scroll", function () {
-              updateArrows(row);
-            });
-            updateArrows(row);
-            new ResizeObserver(function () {
-              updateArrows(row);
-            }).observe(row);
-          });
-        document.addEventListener(
-          "wheel",
-          function (e) {
-            var row = e.target.closest(".reader-toolbar, .reader-nav");
-            if (!row || !hasOverflow(row)) return;
-            e.preventDefault();
-            row.scrollLeft += e.deltaY;
-          },
-          { passive: false },
-        );
+        document.querySelectorAll(".reader-toolbar, .reader-nav").forEach(function (row) {
+          var rtl = isRTL(row), wrap = document.createElement("div");
+          wrap.className = "h-scroll-wrap"; if (rtl) wrap.dir = "rtl";
+          var b1 = document.createElement("button"), b2 = document.createElement("button");
+          b1.className = "scroll-arrow scroll-arrow-start hidden"; b1.innerHTML = rtl ? "&#9654;" : "&#9664;";
+          b2.className = "scroll-arrow scroll-arrow-end hidden";   b2.innerHTML = rtl ? "&#9664;" : "&#9654;";
+          row.parentNode.insertBefore(wrap, row);
+          wrap.appendChild(b1); wrap.appendChild(row); wrap.appendChild(b2);
+          var sd = rtl ? SCROLL_AMOUNT : -SCROLL_AMOUNT, ed = rtl ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
+          b1.addEventListener("click", function () { scrollWrap(wrap, sd); });
+          b2.addEventListener("click", function () { scrollWrap(wrap, ed); });
+          wrap.addEventListener("scroll", function () { updateArrows(wrap); });
+          updateArrows(wrap);
+          new ResizeObserver(function () { updateArrows(wrap); }).observe(wrap);
+        });
+        document.addEventListener("wheel", function (e) {
+          var wrap = e.target.closest(".h-scroll-wrap");
+          if (!wrap || !hasOverflow(wrap)) return;
+          e.preventDefault();
+          wrap.scrollLeft += e.deltaY;
+        }, { passive: false });
       })();
     </script>
   </body>

@@ -1,7 +1,7 @@
 /**
  * Reader Module
  *
- * Book viewer: loads CSV data via PapaParse, renders vertical reading cards,
+ * Book viewer: loads CSV data via fetch + parseCSV, renders vertical reading cards,
  * provides pagination, full-text search, copy-to-clipboard, tashkeel toggle,
  * rows-per-page control, and per-column visibility toggles.
  */
@@ -9,19 +9,20 @@
 import { initializePageWithMetadata, extractTags } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
+import { parseCSV, unparseCSV } from "./csv.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
 
-  Papa.parse(metadata.csvPath, {
-    download: true,
-    header: false,
-    dynamicTyping: true,
-    complete: function (results) {
-      const data = results.data.filter(
-        (row) =>
-          Array.isArray(row) &&
-          row.some((value) => value !== null && value !== ""),
+  fetch(metadata.csvPath)
+    .then(function (r) { if (!r.ok) throw Error("Failed to load " + metadata.csvPath); return r.text(); })
+    .then(function (text) {
+      var data = parseCSV(text);
+      data = data.filter(
+        function (row) {
+          return Array.isArray(row) &&
+            row.some(function (value) { return value !== null && value !== ""; });
+        }
       );
 
       if (data.length === 0) {
@@ -174,7 +175,15 @@ initializePageWithMetadata(async function (metadata) {
       var columnDropdown = document.getElementById("columnDropdown");
       btnColDropdown.addEventListener("click", function (e) {
         e.stopPropagation();
-        columnDropdown.style.display = columnDropdown.style.display === "none" ? "block" : "none";
+        if (columnDropdown.style.display === "none" || !columnDropdown.style.display) {
+          var btnRect = btnColDropdown.getBoundingClientRect();
+          var rcRect = document.getElementById("readerChrome").getBoundingClientRect();
+          columnDropdown.style.left = (btnRect.left - rcRect.left) + "px";
+          columnDropdown.style.top = (btnRect.bottom - rcRect.top) + "px";
+          columnDropdown.style.display = "block";
+        } else {
+          columnDropdown.style.display = "none";
+        }
       });
       document.addEventListener("click", function (e) {
         if (!columnDropdown.contains(e.target) && e.target !== btnColDropdown) {
@@ -962,7 +971,15 @@ initializePageWithMetadata(async function (metadata) {
       var exportDropdown = document.getElementById("exportDropdown");
       btnExport.addEventListener("click", function (e) {
         e.stopPropagation();
-        exportDropdown.style.display = exportDropdown.style.display === "none" ? "block" : "none";
+        if (exportDropdown.style.display === "none" || !exportDropdown.style.display) {
+          var btnRect = btnExport.getBoundingClientRect();
+          var rcRect = document.getElementById("readerChrome").getBoundingClientRect();
+          exportDropdown.style.left = (btnRect.left - rcRect.left) + "px";
+          exportDropdown.style.top = (btnRect.bottom - rcRect.top) + "px";
+          exportDropdown.style.display = "block";
+        } else {
+          exportDropdown.style.display = "none";
+        }
       });
       document.addEventListener("click", function (e) {
         if (!exportDropdown.contains(e.target) && e.target !== btnExport) {
@@ -1013,7 +1030,7 @@ initializePageWithMetadata(async function (metadata) {
             filename = baseName + ".json";
             mime = "application/json";
           } else if (fmt === "csv") {
-            content = Papa.unparse(rows);
+            content = unparseCSV(rows);
             filename = baseName + ".csv";
             mime = "text/csv";
           } else if (fmt === "pdf") {
@@ -1415,11 +1432,9 @@ initializePageWithMetadata(async function (metadata) {
       document.getElementById("btnFocus").style.display = "";
       document.getElementById("pageTitle").style.display = "";
       document.getElementById("readerWrapper").style.display = "block";
-    },
-    error: function (err) {
+    }).catch(function (err) {
       showError("Error loading CSV: " + err);
-    },
-  });
+    });
 });
 
 function showError(message) {

@@ -20,10 +20,11 @@ js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
   catalog.js          ← Metadata loader, tag extraction, dashboard rendering
   reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
+  csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
   search.js            ← Search engine: normalisation, parsing, matching, history
   i18n.js              ← Translations (dv/en/ar)
 font/                  ← Custom merged font (Arabic + Thaana + Latin)
-dependencies/          ← PapaParse + SheetJS mini
+dependencies/          ← SheetJS mini (Excel export, lazy-loaded)
 docs/                  ← User guide, architecture, API reference
 ```
 
@@ -73,7 +74,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 1. The page reads `?book=CODE` from the URL.
 1. `catalog.js` loads `bookNames.csv` and `02-bookTags.csv` for metadata and badges.
-1. `reader.js` loads `data/{bookCode}.csv` via PapaParse.
+1. `reader.js` loads `data/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 
 **No book selected?** The dashboard shows all registered books as a card grid.
@@ -215,7 +216,7 @@ All errors show visible messages in English:
 
 Vendored in `dependencies/` — no CDN, no build step:
 
-- [PapaParse](https://www.papaparse.com/) — CSV parsing
+- `js/csv.js` — tiny CSV parser (~1 KB), handles quoted fields and multiline values
 - [SheetJS mini](https://sheetjs.com/) — Excel export (lazy-loaded on demand, 273KB)
 
 ## Documentation

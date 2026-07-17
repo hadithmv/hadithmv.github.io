@@ -4,8 +4,8 @@
 
 | Page | Entry point | Loads |
 |---|---|---|
-| `books/index.html` | Inline module → `catalog.js` | `common.js`, `papaparse` |
-| `books/reader.html` | `reader.js` | `common.js`, `papaparse` |
+| `books/index.html` | Inline module → `catalog.js` | `common.js` |
+| `books/reader.html` | `reader.js` | `common.js` |
 
 ## Modules
 

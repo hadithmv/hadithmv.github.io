@@ -17,6 +17,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/common.js`     | Shared init: theme, fonts, i18n, sidebar, settings, keyboard      |
 | `js/catalog.js`   | Metadata loading, tag extraction, dashboard rendering             |
 | `js/reader.js`     | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard |
+| `js/csv.js`        | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`           |
 | `js/search.js`     | Search engine: normalisation, parsing, matching, snippets, history |
 | `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
 | `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
@@ -24,7 +25,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books    |
 | `css/dashboard.css`| Dashboard-specific styles: grid, cards, controls, table          |
 | `js/search.js`     | Shared search engine: normalisation, parsing, matching, history  |
-| `dependencies/`    | PapaParse + SheetJS mini (Excel export, lazy-loaded)              |
+| `dependencies/`    | SheetJS mini (Excel export, lazy-loaded)                          |
 
 ## Request flow
 

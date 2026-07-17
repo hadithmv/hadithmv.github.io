@@ -1276,12 +1276,15 @@ body:has(.modal-overlay.open) {
   margin: 0;
   flex-wrap: nowrap;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: visible;
   scrollbar-width: none;
   scroll-behavior: smooth;
 }
-.reader-toolbar::-webkit-scrollbar {
-  display: none;
+.reader-toolbar::-webkit-scrollbar { display: none; }
+.h-scroll-wrap.has-overflow .reader-toolbar {
+  flex: 1;
+  min-width: 0;
+  margin: 0 6px;
 }
 
 .toolbar-group {
@@ -1436,7 +1439,6 @@ body:has(.modal-overlay.open) {
 .export-dropdown {
   position: absolute;
   top: 100%;
-  right: 0;
   z-index: 60;
   margin-top: 4px;
   padding: 4px;
@@ -1552,7 +1554,8 @@ body:has(.modal-overlay.open) {
   pointer-events: none;
 }
 .h-scroll-wrap.has-overflow .reader-nav,
-.h-scroll-wrap.has-overflow .reader-toolbar {
+.h-scroll-wrap.has-overflow .reader-toolbar,
+.h-scroll-wrap.has-overflow .reader-nav {
   flex: 1;
   min-width: 0;
   margin: 0 6px;
@@ -1568,14 +1571,16 @@ body:has(.modal-overlay.open) {
   margin: 0;
   flex-wrap: nowrap;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
+  overflow-y: visible;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
-.reader-nav::-webkit-scrollbar {
-  display: none;
+.reader-nav::-webkit-scrollbar { display: none; }
+.h-scroll-wrap.has-overflow .reader-nav {
+  flex: 1;
+  min-width: 0;
+  margin: 0 6px;
 }
-
 .nav-pages {
   display: flex;
   align-items: center;

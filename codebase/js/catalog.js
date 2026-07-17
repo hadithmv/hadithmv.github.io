@@ -6,6 +6,18 @@
 
 import { tagLabel, t } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
+import { parseCSV } from "./csv.js";
+
+function parseCSVWithHeader(text) {
+  var rows = parseCSV(text);
+  if (rows.length === 0) return [];
+  var headers = rows[0].map(function (h) { return h.trim(); });
+  return rows.slice(1).map(function (row) {
+    var obj = {};
+    headers.forEach(function (h, i) { obj[h] = (row[i] || "").trim(); });
+    return obj;
+  });
+}
 
 let bookNamesCache = null;
 let tagDefinitionsCache = null;
@@ -31,20 +43,12 @@ async function loadTagDefinitions() {
     }
     const csv = await response.text();
 
-    const result = Papa.parse(csv, {
-      header: true,
-      skipEmptyLines: true,
-      transformHeader: (h) => h.trim(),
-      transform: (v) => v.trim(),
-    });
+    var result = parseCSVWithHeader(csv);
 
-    if (result.errors.length > 0) {
-      console.warn("Tag CSV parsing warnings:", result.errors);
-    }
-
-    // Build lookup map: { AQD: {label, color, bg}, HDT: {...}, ... }
+    // Build lookup map
     tagDefinitionsCache = {};
-    for (const row of result.data) {
+    for (var i = 0; i < result.length; i++) {
+      var row = result[i];
       if (row.code) {
         tagDefinitionsCache[row.code] = {
           label: row.label || row.code,
@@ -93,7 +97,7 @@ function extractTags(bookCode) {
 // ---------------------------------------------------------------------------
 
 /**
- * Load bookNames.csv and parse it using PapaParse.
+ * Load bookNames.csv and parse it using parseCSV.
  * Uses a cache so the file is only fetched once per page load.
  * @returns {Promise<Array>} Array of book metadata objects (empty on error)
  */
@@ -111,19 +115,9 @@ export async function loadBookNames() {
     }
     const csv = await response.text();
 
-    const result = Papa.parse(csv, {
-      header: true,
-      skipEmptyLines: true,
-      transformHeader: (header) => header.trim(),
-      transform: (value) => value.trim(),
-    });
-
-    if (result.errors.length > 0) {
-      console.warn("CSV parsing warnings:", result.errors);
-    }
-
-    bookNamesCache = result.data;
-    return result.data;
+    var result = parseCSVWithHeader(csv);
+    bookNamesCache = result;
+    return result;
   } catch (error) {
     console.error("Error loading bookNames.csv:", error);
     return [];
