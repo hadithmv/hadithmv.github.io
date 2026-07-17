@@ -1116,19 +1116,40 @@ initializePageWithMetadata(async function (metadata) {
             return;
           } else if (fmt === "excel") {
             exportDropdown.style.display = "none";
-            function doExport() {
-              var ws = XLSX.utils.aoa_to_sheet(rows);
-              var wb = XLSX.utils.book_new();
-              XLSX.utils.book_append_sheet(wb, ws, baseName);
-              XLSX.writeFile(wb, baseName + ".xlsx");
-            }
-            if (window.XLSX) { doExport(); }
-            else {
-              var s = document.createElement("script");
-              s.src = "../dependencies/xlsx.mini.min.js";
-              s.onload = doExport;
-              document.head.appendChild(s);
-            }
+            import("./xlsx.js").then(function(mod) {
+              var xlsxBlob = mod.createXLSX(rows, baseName);
+              var u = URL.createObjectURL(xlsxBlob);
+              var a = document.createElement("a");
+              a.href = u; a.download = baseName + ".xlsx";
+              document.body.appendChild(a); a.click();
+              document.body.removeChild(a); URL.revokeObjectURL(u);
+            });
+            return;
+          } else if (fmt === "epub") {
+            exportDropdown.style.display = "none";
+            // Fetch font for embedding before loading the EPUB module
+            fetch("../font/merged-300.woff2")
+              .then(function(r) { return r.ok ? r.arrayBuffer() : null; })
+              .then(function(fontBuf) {
+                return import("./epub.js").then(function(mod) {
+                  var epubBlob = mod.createEPUB(rows, {
+                    bookCode: metadata.bookCode,
+                    titleEN: metadata.titleEN,
+                    titleDV: metadata.titleDV,
+                    titleAR: metadata.titleAR,
+                    tags: pageTags
+                  }, {
+                    siteURL: siteURL,
+                    versionText: versionText,
+                    fontData: fontBuf ? new Uint8Array(fontBuf) : null
+                  });
+                  var u = URL.createObjectURL(epubBlob);
+                  var a = document.createElement("a");
+                  a.href = u; a.download = baseName + ".epub";
+                  document.body.appendChild(a); a.click();
+                  document.body.removeChild(a); URL.revokeObjectURL(u);
+                });
+              });
             return;
           } else if (fmt === "yaml") {
             var y = "# " + (metadata.titleEN || baseName) + "\n# " + metadata.titleDV + " - " + metadata.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
@@ -1432,6 +1453,8 @@ initializePageWithMetadata(async function (metadata) {
       document.getElementById("btnFocus").style.display = "";
       document.getElementById("pageTitle").style.display = "";
       document.getElementById("readerWrapper").style.display = "block";
+      // Scroll arrows can't detect overflow while #readerWrapper was hidden
+      if (window._initScrollArrows) window._initScrollArrows();
     }).catch(function (err) {
       showError("Error loading CSV: " + err);
     });

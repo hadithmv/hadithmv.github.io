@@ -305,6 +305,7 @@
           <button class="export-option" data-format="csv">CSV</button>
           <button class="export-option" data-format="word">Word</button>
           <button class="export-option" data-format="excel">Excel</button>
+          <button class="export-option" data-format="epub">EPUB</button>
           <button class="export-option" data-format="yaml">YAML</button>
           <button class="export-option" data-format="toon">TOON</button>
           <button class="export-option" data-format="html">HTML</button>
@@ -514,48 +515,86 @@
         var SCROLL_AMOUNT = 100;
         function hasOverflow(el) { return el.scrollWidth > el.clientWidth + 1; }
         function isRTL(el) { return getComputedStyle(el).direction === "rtl"; }
+
+        // The row (toolbar/nav) is the scrollable element. The wrap just holds
+        // absolutely-positioned arrows in its padding area.
+        //
+        // scrollLeft:  0 = at start,  mx = at end.  Increases toward end.
         function updateArrows(wrap) {
-          if (!wrap || !wrap.classList.contains("h-scroll-wrap")) return;
-          var s = wrap.querySelector(".scroll-arrow-start"), e = wrap.querySelector(".scroll-arrow-end");
-          if (!hasOverflow(wrap)) { wrap.classList.remove("has-overflow"); return; }
-          wrap.classList.add("has-overflow");
-          var tol = 4, rtl = isRTL(wrap);
-          var sl = rtl ? -wrap.scrollLeft : wrap.scrollLeft;
-          var mx = wrap.scrollWidth - wrap.clientWidth;
-          if (s) s.classList.toggle("hidden", sl <= tol);
-          if (e) e.classList.toggle("hidden", sl >= mx - tol);
+          if (!wrap) return;
+          var row = wrap._row;
+          if (!row || !hasOverflow(row)) {
+            wrap._arrowStart.classList.add("hidden");
+            wrap._arrowEnd.classList.add("hidden");
+            return;
+          }
+          // scrollLeft:  0 = logical start,  -mx = logical end  (negative range in RTL)
+          // Decreasing (-delta) → toward end.  Increasing (+delta) → toward start.
+          var mx = row.scrollWidth - row.clientWidth;
+          var atStart = row.scrollLeft > -1;       // near 0 = at logical start
+          var atEnd   = row.scrollLeft < -mx + 1;  // near -mx = at logical end
+          wrap._arrowStart.classList.toggle("hidden", atStart);
+          wrap._arrowEnd.classList.toggle("hidden", atEnd || mx < 1);
         }
-        function scrollWrap(wrap, delta) {
-          var start = wrap.scrollLeft, target = start + delta, t0 = performance.now();
-          function ease(t) { return t * (2 - t); }
+
+        function scrollRow(row, delta) {
+          var start = row.scrollLeft, target = start + delta;
+          var duration = 300, t0 = performance.now();
+          function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
           (function step(now) {
-            var p = (now - t0) / 300;
-            if (p >= 1) { wrap.scrollLeft = target; return; }
-            wrap.scrollLeft = start + delta * ease(p);
-            requestAnimationFrame(step);
+            var p = Math.min(1, (now - t0) / duration);
+            row.scrollLeft = start + delta * easeOutCubic(p);
+            updateArrows(row.closest(".h-scroll-wrap"));
+            if (p < 1) requestAnimationFrame(step);
           })(t0);
         }
+
+        // Wrap toolbar & nav rows — DOM ops work even in hidden subtrees.
         document.querySelectorAll(".reader-toolbar, .reader-nav").forEach(function (row) {
           var rtl = isRTL(row), wrap = document.createElement("div");
           wrap.className = "h-scroll-wrap"; if (rtl) wrap.dir = "rtl";
           var b1 = document.createElement("button"), b2 = document.createElement("button");
-          b1.className = "scroll-arrow scroll-arrow-start hidden"; b1.innerHTML = rtl ? "&#9654;" : "&#9664;";
-          b2.className = "scroll-arrow scroll-arrow-end hidden";   b2.innerHTML = rtl ? "&#9664;" : "&#9654;";
+          b1.className = "scroll-arrow scroll-arrow-start"; b1.innerHTML = rtl ? "&#9654;" : "&#9664;";
+          b2.className = "scroll-arrow scroll-arrow-end";   b2.innerHTML = rtl ? "&#9664;" : "&#9654;";
+          // Store refs directly on the wrap so updateArrows never queries wrong element
+          wrap._row = row; wrap._arrowStart = b1; wrap._arrowEnd = b2;
           row.parentNode.insertBefore(wrap, row);
           wrap.appendChild(b1); wrap.appendChild(row); wrap.appendChild(b2);
-          var sd = rtl ? SCROLL_AMOUNT : -SCROLL_AMOUNT, ed = rtl ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
-          b1.addEventListener("click", function () { scrollWrap(wrap, sd); });
-          b2.addEventListener("click", function () { scrollWrap(wrap, ed); });
-          wrap.addEventListener("scroll", function () { updateArrows(wrap); });
-          updateArrows(wrap);
-          new ResizeObserver(function () { updateArrows(wrap); }).observe(wrap);
+          // b1 (start arrow, ▶ in RTL): scroll toward start → +delta.
+          // b2 (end   arrow, ◀ in RTL): scroll toward end   → -delta.
+          b1.addEventListener("click", function () { scrollRow(row,  SCROLL_AMOUNT); });
+          b2.addEventListener("click", function () { scrollRow(row, -SCROLL_AMOUNT); });
+          row.addEventListener("scroll", function () { updateArrows(wrap); });
         });
+
+        // Wheel — scroll toward end on wheel-down
         document.addEventListener("wheel", function (e) {
           var wrap = e.target.closest(".h-scroll-wrap");
-          if (!wrap || !hasOverflow(wrap)) return;
+          if (!wrap || !wrap._row) return;
+          var row = wrap._row;
+          if (!hasOverflow(row)) return;
           e.preventDefault();
-          wrap.scrollLeft += e.deltaY;
+          row.scrollLeft -= e.deltaY + e.deltaX;
         }, { passive: false });
+
+        // Called by reader.js after #readerWrapper becomes visible
+        window._initScrollArrows = function () {
+          document.querySelectorAll(".h-scroll-wrap").forEach(function (wrap) {
+            if (!wrap._row) return;
+            // Double-rAF so layout is fully settled after display:none → block
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                updateArrows(wrap);
+                // Debounced resize observer to avoid flicker from rapid-fire callbacks
+                var timer = 0;
+                new ResizeObserver(function () {
+                  clearTimeout(timer);
+                  timer = setTimeout(function () { updateArrows(wrap); }, 50);
+                }).observe(wrap._row);
+              });
+            });
+          });
+        };
       })();
     </script>
   </body>

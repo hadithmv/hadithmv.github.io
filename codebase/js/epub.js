@@ -1,0 +1,204 @@
+/**
+ * Tiny EPUB 3 writer (~4 KB)
+ *
+ * Generates valid .epub e-books with zero dependencies.
+ * Lazy-loaded only when the user exports to EPUB.
+ *
+ * EPUB is a ZIP of XHTML + XML metadata.  Reuses zipStore() from xlsx.js.
+ * Each book row becomes a chapter.  Font can be embedded for offline reading.
+ */
+
+import { zipStore } from "./xlsx.js";
+
+var enc = new TextEncoder();
+
+// ── XML entity escaping ──────────────────────────────────────────
+function xmlEsc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+}
+
+/**
+ * Create an EPUB 3 e-book Blob.
+ * @param {Array<Array<*>>} rows      — 2D array of cell values (null/undefined → empty)
+ * @param {{bookCode,titleEN,titleDV,titleAR,tags:string[]}} meta — book metadata
+ * @param {{siteURL,versionText,fontData?:Uint8Array}} opts
+ * @returns {Blob}  application/epub+zip
+ */
+export function createEPUB(rows, meta, opts) {
+  var bookTitle = meta.titleEN || meta.bookCode || "Hadithmv Book";
+  var uniqueId = "hadithmv-" + (meta.bookCode || Date.now());
+  var nowISO = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
+  var lang = "dv";  // Dhivehi primary; Arabic text auto-detected in XHTML
+
+  // ── Build chapter XHTML files ──────────────────────────────────
+  var chapters = [];
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    var chapId = "ch" + pad(i + 1, 3);
+    // Chapter title: first non-empty column value
+    var chapTitle = null;
+    for (var j = 0; j < row.length; j++) {
+      if (row[j] != null && String(row[j]).trim()) {
+        chapTitle = String(row[j]).trim();
+        break;
+      }
+    }
+    if (!chapTitle) chapTitle = "#" + (row[0] || (i + 1));
+    // Truncate long titles
+    if (chapTitle.length > 80) chapTitle = chapTitle.slice(0, 77) + "…";
+
+    // Build chapter body
+    var body = "";
+    var nonEmpty = [];
+    for (var j = 1; j < row.length; j++) {
+      if (row[j] != null && String(row[j]).trim()) nonEmpty.push(j);
+    }
+    for (var j = 0; j < row.length; j++) {
+      if (j === 0) continue; // skip row number for chapter content
+      var val = row[j] != null ? String(row[j]).trim() : "";
+      if (!val) continue;
+      var lines = val.split(/\n+/);
+      // Last non-empty column = footnotes (divider before it)
+      if (j === nonEmpty[nonEmpty.length - 1] && nonEmpty.length > 1) {
+        body += '<div class="divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>\n';
+      }
+      for (var l = 0; l < lines.length; l++) {
+        body += "<p>" + xmlEsc(lines[l]) + "</p>\n";
+      }
+    }
+
+    chapters.push({ id: chapId, title: chapTitle, body: body });
+  }
+
+  // ── Cover XHTML ────────────────────────────────────────────────
+  var cover = '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' + lang + '"><head>'
+    + '<title>' + xmlEsc(bookTitle) + '</title>'
+    + '<link rel="stylesheet" type="text/css" href="styles.css"/>'
+    + '</head><body class="cover">'
+    + '<h1 class="cover-title">' + xmlEsc(meta.titleDV || meta.titleEN || "") + '</h1>';
+  if (meta.titleAR) cover += '<p class="cover-ar">' + xmlEsc(meta.titleAR) + '</p>';
+  if (meta.titleEN && meta.titleDV) cover += '<p class="cover-en">' + xmlEsc(meta.titleEN) + '</p>';
+  if (meta.tags && meta.tags.length) {
+    cover += '<p class="cover-tags">' + xmlEsc(meta.tags.join(" · ")) + '</p>';
+  }
+  cover += '<p class="cover-brand">Hadithmv</p>'
+    + '<p class="cover-url">' + xmlEsc(opts.siteURL || "") + '</p>'
+    + '</body></html>';
+
+  // ── Navigation XHTML  (EPUB 3 nav doc) ─────────────────────────
+  var nav = '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="' + lang + '"><head>'
+    + '<title>' + xmlEsc(bookTitle) + '</title>'
+    + '<link rel="stylesheet" type="text/css" href="styles.css"/>'
+    + '</head><body><nav epub:type="toc"><h1>' + xmlEsc(bookTitle) + '</h1><ol>';
+  for (var i = 0; i < chapters.length; i++) {
+    nav += '<li><a href="' + chapters[i].id + '.xhtml">' + xmlEsc(chapters[i].title) + '</a></li>';
+  }
+  nav += '</ol></nav></body></html>';
+
+  // ── OPF (package document) ─────────────────────────────────────
+  var manifestItems = "";
+  var spineItems = "";
+  // Cover
+  manifestItems += '<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>';
+  manifestItems += '<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>';
+  spineItems += '<itemref idref="cover"/>';
+  spineItems += '<itemref idref="nav"/>';
+  // Chapters
+  for (var i = 0; i < chapters.length; i++) {
+    manifestItems += '<item id="' + chapters[i].id + '" href="' + chapters[i].id + '.xhtml" media-type="application/xhtml+xml"/>';
+    spineItems += '<itemref idref="' + chapters[i].id + '"/>';
+  }
+  // CSS
+  manifestItems += '<item id="css" href="styles.css" media-type="text/css"/>';
+  // Font (if embedded)
+  var hasFont = !!(opts.fontData && opts.fontData.length);
+  if (hasFont) {
+    manifestItems += '<item id="font" href="fonts/hadithmv.woff2" media-type="font/woff2"/>';
+  }
+
+  var opf = '<?xml version="1.0" encoding="UTF-8"?>'
+    + '<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="book-id" version="3.0">'
+    + '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
+    + '<dc:title>' + xmlEsc(bookTitle) + '</dc:title>'
+    + '<dc:creator>Hadithmv</dc:creator>'
+    + '<dc:language>' + lang + '</dc:language>'
+    + '<dc:identifier id="book-id">' + xmlEsc(uniqueId) + '</dc:identifier>'
+    + '<dc:date>' + nowISO + '</dc:date>'
+    + '<dc:publisher>Hadithmv</dc:publisher>'
+    + '<dc:description>' + xmlEsc((meta.titleDV || "") + " — " + (meta.titleAR || "")) + '</dc:description>';
+  if (meta.tags && meta.tags.length) {
+    opf += '<dc:subject>' + xmlEsc(meta.tags.join(", ")) + '</dc:subject>';
+  }
+  opf += '<meta property="dcterms:modified">' + nowISO + '</meta>'
+    + '</metadata>'
+    + '<manifest>' + manifestItems + '</manifest>'
+    + '<spine>' + spineItems + '</spine>'
+    + '</package>';
+
+  // ── Stylesheet ─────────────────────────────────────────────────
+  var css = '/* Hadithmv EPUB */\n';
+  if (hasFont) {
+    css += '@font-face { font-family: Hadithmv; src: url("fonts/hadithmv.woff2") format("woff2"); font-weight: 300; }\n';
+  }
+  css += 'body { font-family: ' + (hasFont ? 'Hadithmv, ' : '') + '"Traditional Arabic", "Scheherazade New", serif; font-size: 1rem; line-height: 1.9; direction: rtl; text-align: right; margin: 0; padding: 0.5em; }\n'
+    + 'h1 { font-size: 1.3rem; text-align: center; margin: 1em 0 0.5em; }\n'
+    + 'p { margin: 0.5em 0; }\n'
+    + '.divider { text-align: center; color: #888; margin: 1em 0; direction: ltr; }\n'
+    + '/* Cover */\n'
+    + 'body.cover { text-align: center; padding: 2em 1em; }\n'
+    + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'
+    + '.cover-ar { font-size: 1.2rem; color: #555; margin: 0.2em 0; }\n'
+    + '.cover-en { font-size: 1rem; color: #888; margin: 0.2em 0; }\n'
+    + '.cover-tags { font-size: 0.85rem; color: #666; margin: 1em 0 0; }\n'
+    + '.cover-brand { font-size: 0.85rem; color: #999; margin: 2em 0 0; }\n'
+    + '.cover-url { font-size: 0.75rem; color: #aaa; margin: 0.2em 0; }\n'
+    + '/* Nav */\n'
+    + 'nav ol { padding-right: 1.5em; }\n'
+    + 'nav li { margin: 0.3em 0; }\n'
+    + 'nav a { text-decoration: none; }\n';
+
+  // ── Container.xml ──────────────────────────────────────────────
+  var container = '<?xml version="1.0" encoding="UTF-8"?>'
+    + '<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">'
+    + '<rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>'
+    + '</rootfiles></container>';
+
+  // ── Assemble ZIP ───────────────────────────────────────────────
+  // mimetype MUST be first and uncompressed (store is our default)
+  var zipFiles = [
+    { name: "mimetype",                  data: enc.encode("application/epub+zip") },
+    { name: "META-INF/container.xml",    data: enc.encode(container) },
+    { name: "OEBPS/content.opf",         data: enc.encode(opf) },
+    { name: "OEBPS/nav.xhtml",           data: enc.encode(nav) },
+    { name: "OEBPS/cover.xhtml",         data: enc.encode(cover) },
+    { name: "OEBPS/styles.css",          data: enc.encode(css) }
+  ];
+  for (var i = 0; i < chapters.length; i++) {
+    zipFiles.push({ name: "OEBPS/" + chapters[i].id + ".xhtml", data: enc.encode(chapterHTML(chapters[i])) });
+  }
+  if (hasFont) {
+    zipFiles.push({ name: "OEBPS/fonts/hadithmv.woff2", data: opts.fontData });
+  }
+
+  var zipped = zipStore(zipFiles);
+  return new Blob([zipped], { type: "application/epub+zip" });
+
+  // ── Chapter XHTML builder (nested helper) ──────────────────────
+  function chapterHTML(ch) {
+    return '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' + lang + '"><head>'
+      + '<title>' + xmlEsc(ch.title) + '</title>'
+      + '<link rel="stylesheet" type="text/css" href="styles.css"/>'
+      + '</head><body>'
+      + '<h1>' + xmlEsc(ch.title) + '</h1>\n'
+      + ch.body
+      + '</body></html>';
+  }
+}
+
+// ── Zero-pad helper ──────────────────────────────────────────────
+function pad(n, width) {
+  var s = String(n);
+  while (s.length < width) s = "0" + s;
+  return s;
+}

@@ -23,8 +23,9 @@ js/
   csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
   search.js            ← Search engine: normalisation, parsing, matching, history
   i18n.js              ← Translations (dv/en/ar)
+  xlsx.js              ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
+  epub.js              ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
 font/                  ← Custom merged font (Arabic + Thaana + Latin)
-dependencies/          ← SheetJS mini (Excel export, lazy-loaded)
 docs/                  ← User guide, architecture, API reference
 ```
 
@@ -101,7 +102,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Chrome layout
 
-All rows inside the collapsible chrome use uniform 10px spacing via flex column gap and readerChrome padding. Toolbar and pagination rows scroll horizontally with hidden scrollbar; mouse wheel is redirected to horizontal scroll. All interactive elements share `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4` for uniform height.
+All rows inside the collapsible chrome use uniform 10px spacing via flex column gap and readerChrome padding. Toolbar and pagination rows are wrapped in `.h-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements share `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4` for uniform height.
 
 ### Search
 
@@ -121,10 +122,10 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
 | 📖 Table/Card | Toggle between vertical card and horizontal table view |
 | ↺ Reset | Reset all reader settings to defaults |
-| 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, Word, PDF, PNG |
+| 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
-Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row edges, with a smooth glide animation on click.
+Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row edges — ◀ scrolls toward the end, ▶ scrolls back toward the start. Clicking animates smoothly via an ease-out-cubic curve. Arrows auto-hide at the scroll extremes.
 
 ### TopBar
 
@@ -165,7 +166,7 @@ A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / cu
 ### Mobile
 
 - TopBar and chrome compress: buttons shrink to 32×32px, tighter padding
-- Toolbar and pagination rows scroll horizontally (hidden scrollbar, wheel redirect)
+- Toolbar and pagination rows scroll horizontally (hidden scrollbar, ◀▶ arrow buttons, wheel redirect)
 - Pagination nav right-aligned for scrollability
 - `ސަފްހާ:` label hidden
 - All chrome buttons share same height and font size (0.85rem, 7px padding)
@@ -197,7 +198,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 ### Exports
 
-All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses SheetJS mini (lazy-loaded, 273KB). PNG captures the visible page with the Hadithmv font embedded.
+All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`js/xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`js/epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures the visible page with the Hadithmv font embedded.
 
 ### Internationalisation
 
@@ -214,10 +215,11 @@ All errors show visible messages in English:
 
 ## Dependencies
 
-Vendored in `dependencies/` — no CDN, no build step:
+Zero external dependencies. No CDN, no build step:
 
 - `js/csv.js` — tiny CSV parser (~1 KB), handles quoted fields and multiline values
-- [SheetJS mini](https://sheetjs.com/) — Excel export (lazy-loaded on demand, 273KB)
+- `js/xlsx.js` — inline XLSX writer (~2.5 KB), lazy-loaded only when exporting to Excel
+- `js/epub.js` — inline EPUB 3 e-book writer (~4 KB), lazy-loaded only when exporting to EPUB
 
 ## Documentation
 

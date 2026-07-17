@@ -1276,16 +1276,9 @@ body:has(.modal-overlay.open) {
   margin: 0;
   flex-wrap: nowrap;
   overflow-x: auto;
-  overflow-y: visible;
   scrollbar-width: none;
-  scroll-behavior: smooth;
 }
 .reader-toolbar::-webkit-scrollbar { display: none; }
-.h-scroll-wrap.has-overflow .reader-toolbar {
-  flex: 1;
-  min-width: 0;
-  margin: 0 6px;
-}
 
 .toolbar-group {
   display: flex;
@@ -1525,40 +1518,50 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   position: relative;
+  padding: 0 30px;   /* room for 24px arrows + 6px gap on each side */
 }
+/* The row itself scrolls — wrap just provides arrow space */
+.h-scroll-wrap .reader-toolbar,
+.h-scroll-wrap .reader-nav {
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.h-scroll-wrap .reader-toolbar::-webkit-scrollbar,
+.h-scroll-wrap .reader-nav::-webkit-scrollbar { display: none; }
+
 .h-scroll-wrap .scroll-arrow {
-  flex-shrink: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 24px;
   height: 24px;
   padding: 0;
   font-size: 0.65rem;
   line-height: 1;
   color: var(--color-text-muted);
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
+  background: transparent;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition:
-    opacity 0.15s ease,
-    background 0.15s ease;
+  transition: color 0.15s ease;
+  z-index: 5;
 }
+.scroll-arrow-start { left: 2px; }
+.scroll-arrow-end   { right: 2px; }
+[dir="rtl"] .scroll-arrow-start { left: auto; right: 2px; }
+[dir="rtl"] .scroll-arrow-end   { right: auto; left: 2px; }
+
 .h-scroll-wrap .scroll-arrow:hover {
-  background: var(--color-nav-btn-hover-bg);
   color: var(--color-text);
 }
 .h-scroll-wrap .scroll-arrow.hidden {
   opacity: 0;
   pointer-events: none;
-}
-.h-scroll-wrap.has-overflow .reader-nav,
-.h-scroll-wrap.has-overflow .reader-toolbar,
-.h-scroll-wrap.has-overflow .reader-nav {
-  flex: 1;
-  min-width: 0;
-  margin: 0 6px;
 }
 
 /* ---- Navigation bar ---- */
@@ -1571,16 +1574,9 @@ body:has(.modal-overlay.open) {
   margin: 0;
   flex-wrap: nowrap;
   overflow-x: auto;
-  overflow-y: visible;
   scrollbar-width: none;
-  scroll-behavior: smooth;
 }
 .reader-nav::-webkit-scrollbar { display: none; }
-.h-scroll-wrap.has-overflow .reader-nav {
-  flex: 1;
-  min-width: 0;
-  margin: 0 6px;
-}
 .nav-pages {
   display: flex;
   align-items: center;

@@ -15,6 +15,8 @@
 | `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
+| `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
+| `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
 | `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()` |
 
 ## catalog.js
@@ -187,3 +189,60 @@ Consumes the above modules. Key internal functions:
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
 | `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
+
+---
+
+## epub.js
+
+Lazy-loaded module — only fetched when the user chooses EPUB export. Zero dependencies (reuses `zipStore` from `xlsx.js`).
+
+### `createEPUB(rows, meta, opts)`
+
+Generates a valid EPUB 3 e-book Blob. Each book row becomes a chapter. The Hadithmv font is optionally embedded for offline reading.
+
+- `rows` — 2D array of cell values
+- `meta` — `{bookCode, titleEN, titleDV, titleAR, tags}`
+- `opts` — `{siteURL, versionText, fontData?: Uint8Array}`
+- Returns `Blob` with MIME type `application/epub+zip`
+
+Structure: `mimetype` (first, uncompressed) · `META-INF/container.xml` · `OEBPS/content.opf` (Dublin Core metadata) · `OEBPS/nav.xhtml` (EPUB 3 TOC) · `OEBPS/cover.xhtml` · `OEBPS/chXXX.xhtml` (one per row) · `OEBPS/styles.css` · `OEBPS/fonts/hadithmv.woff2` (if embedded).
+
+```js
+import("./epub.js").then(mod => {
+  const blob = mod.createEPUB(allData, {
+    bookCode: "AQD-nawaqidulIslam",
+    titleEN: "Nawaqid ul-Islam",
+    titleDV: "ނަވާޤިޟުލް އިސްލާމް",
+    titleAR: "نواقض الإسلام",
+    tags: ["AQD"]
+  }, { siteURL, versionText, fontData: new Uint8Array(fontBuf) });
+  // download blob…
+});
+```
+
+---
+
+## xlsx.js
+
+Lazy-loaded module — only fetched when the user chooses Excel export. Zero dependencies. Also provides the shared ZIP layer for `epub.js`.
+
+### `zipStore(files)`
+
+Store-only ZIP writer. Takes `[{name: string, data: Uint8Array}]`, returns `Uint8Array`.
+
+### `createXLSX(rows, sheetName)`
+
+Generates a valid `.xlsx` (Office Open XML) spreadsheet Blob.
+
+- `rows` — 2D array of cell values (`null`/`undefined` → empty cell)
+- `sheetName` — sheet name, sanitised to ≤31 chars with `[ ] : * ? / \\` removed
+- Returns `Blob` with MIME type `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+
+Uses inline strings (no shared-strings table) and store-only ZIP (no compression). The ZIP bundles five XML files: `[Content_Types].xml`, `_rels/.rels`, `xl/workbook.xml`, `xl/_rels/workbook.xml.rels`, `xl/worksheets/sheet1.xml`.
+
+```js
+import("./xlsx.js").then(mod => {
+  const blob = mod.createXLSX(allData, "MySheet");
+  // download blob…
+});
+```

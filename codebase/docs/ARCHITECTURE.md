@@ -19,13 +19,12 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/reader.js`     | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard |
 | `js/csv.js`        | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`           |
 | `js/search.js`     | Search engine: normalisation, parsing, matching, snippets, history |
+| `js/xlsx.js`       | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded  |
+| `js/epub.js`       | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand     |
 | `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
 | `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
 | `data/*.csv`       | Per-book content files                                            |
 | `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books    |
-| `css/dashboard.css`| Dashboard-specific styles: grid, cards, controls, table          |
-| `js/search.js`     | Shared search engine: normalisation, parsing, matching, history  |
-| `dependencies/`    | SheetJS mini (Excel export, lazy-loaded)                          |
 
 ## Request flow
 
@@ -40,7 +39,7 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   reader.js
-    ├─ Papa.parse(../data/AQD-nawaqidulIslam.csv)
+    ├─ parseCSV(../data/AQD-nawaqidulIslam.csv)
     ├─ skip # header row if present
     ├─ build column toggle buttons
     ├─ loadInitial() → first chunk of rows
@@ -99,10 +98,10 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`. |
 | View toggle | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table. Applies to all books. |
 | Reset | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage. |
-| Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel (SheetJS mini, lazy-loaded), Word, PDF, PNG. TOON uses expanded list per spec. All include book title, URL, Hadithmv, version, and proper formatting. |
+| Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
 
-The toolbar and pagination rows scroll horizontally (hidden scrollbar) instead of wrapping. Direction-aware ◀▶ arrow buttons appear at the edges when content overflows — clicking glides the row smoothly via `requestAnimationFrame`. Mouse wheel is redirected to horizontal scroll on these rows. All buttons, inputs, and selects in the chrome share uniform height via `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4`, `box-sizing: border-box`. Chrome rows use uniform 10px spacing via flex column gap and readerChrome padding.
+The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with `padding: 0 30px` that provides space for absolutely‑positioned ◀▶ arrow buttons at the edges. The row itself handles horizontal scrolling (`overflow-x: auto`, hidden scrollbar). Mouse wheel over the wrap is redirected to horizontal scroll on the row. When the row overflows, direction‑aware arrow buttons appear at the edges: ◀ at the end (scrolls toward end), ▶ at the start (scrolls toward start). Arrows are hidden at the appropriate extremes. Clicking an arrow animates the scroll smoothly via `requestAnimationFrame` with an ease‑out‑cubic curve (300ms). Arrow visibility updates on scroll, resize, and after the reader wrapper becomes visible.
 
 ### Focus mode
 
