@@ -45,13 +45,12 @@ No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all reg
 ### Layout
 
 ```text
-┌─ Fixed topBar (z-index 101, opaque bg) ──────────────────────┐
+┌─ Fixed topBar (z-index 101, opaque bg, bottom border) ───────┐
 │  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
-├─ Sticky chrome (top: 56px, z-index 50, bottom-border cut) ──┤
-│  Focus btn (outside collapsible, stays in focus mode)        │
+├─ Sticky chrome (z-index 50, bottom-border cut) ──────────────┤
 │  Search bar: 🔎 Advanced, input, ✕ clear, match count       │
-│  Toolbar: subtitle + tags, Copy, Tashkeel, Share, etc.      │
-│  Pagination: ސަފްހާ: << < 10/[5] > >>                      │
+│  Toolbar: Copy, Tashkeel, Share, View, Reset, Export, etc.  │
+│  Pagination: ސަފްހާ: << < 10/[5] > >>  Subtitle + Tags     │
 ├─ Reader content (scrollable) ────────────────────────────────┤
 │  #1                                                          │
 │  column 1 …                                                  │
@@ -90,11 +89,11 @@ Real‑time, case‑insensitive filtering against all columns. Results dropdown 
 | Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel (SheetJS mini, lazy-loaded), Word, PDF, PNG. TOON uses expanded list per spec. All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
 
-The toolbar scrolls horizontally on narrow screens (hidden scrollbar) instead of wrapping to a second row.
+The toolbar and pagination rows scroll horizontally (hidden scrollbar) instead of wrapping. Mouse wheel is redirected to horizontal scroll on these rows. All buttons, inputs, and selects in the chrome share uniform height via `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4`, `box-sizing: border-box`. Chrome rows use uniform 10px spacing via flex column gap and readerChrome padding.
 
 ### Focus mode
 
-Toggled via the green focus button (↕) in the topBar or `z` key. Collapses search bar, toolbar, and top pagination with a smooth slide animation via `max-height` transition on `#collapsibleChrome`. The focus button turns ▼ (active state). Bottom nav hidden. The `readerChrome` bottom border remains as the separator between topBar and content. Focus button is outside `#collapsibleChrome` so it stays visible in focus mode.
+Toggled via the green ↕/▼ button in the topBar or `z` key. Collapses the chrome smoothly via CSS Grid `grid-template-rows: 1fr → 0fr` transition (no max-height stutter). Chrome padding and border also hidden. Bottom nav hidden. Only the topBar and reader content remain.
 
 ### Themes
 
@@ -102,7 +101,7 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System), and Language (select dropdown). Reset button in the modal header clears all settings.
+Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings.
 
 ### Internationalisation
 

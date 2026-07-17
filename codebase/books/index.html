@@ -101,6 +101,7 @@
       <div id="readerChrome">
         <div id="pageHeader" style="display: none"></div>
         <div id="collapsibleChrome">
+        <div class="chrome-inner">
         <div id="searchBar">
           <button
             id="btnAdvancedSearch"
@@ -139,10 +140,6 @@
           style="display: none"
         ></div>
         <div id="readerToolbar" class="reader-toolbar" dir="rtl">
-          <span id="pageSubRow" style="display: none">
-            <span id="pageSubtitle"></span>
-            <span id="pageTags"></span>
-          </span>
           <div class="toolbar-group">
             <button
               id="btnCopy"
@@ -245,7 +242,12 @@
               &gt;&gt;
             </button>
           </div>
+          <span id="pageSubRow" style="display: none">
+            <span id="pageSubtitle"></span>
+            <span id="pageTags"></span>
+          </span>
         </nav>
+        </div><!-- .chrome-inner -->
         </div><!-- #collapsibleChrome -->
       </div>
       <!-- #readerChrome -->
@@ -645,5 +647,15 @@
 
     <script type="module" src="../js/reader.js"></script>
     <div id="scrollCounter" class="scroll-counter"></div>
+    <script>
+      // Redirect mouse wheel to horizontal scroll on toolbar and pagination rows
+      document.addEventListener("wheel", function (e) {
+        var el = e.target.closest(".reader-toolbar, .reader-nav");
+        if (!el) return;
+        if (el.scrollWidth <= el.clientWidth) return;
+        e.preventDefault();
+        el.scrollLeft += e.deltaY;
+      }, { passive: false });
+    </script>
   </body>
 </html>

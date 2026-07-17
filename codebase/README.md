@@ -94,11 +94,14 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Pagination
 
-- Simple: First (`<<`) / Prev (`<`) / row-select / Next (`>`) / Last (`>>`)
-- All nav buttons and the page select share the same height
-- Row select dropdown with total count: `10 / [5]`
+- First (`<<`) / Prev (`<`) / page select / Next (`>`) / Last (`>>`), all same height
+- Subtitle and tag badges on the same row (scrolls horizontally if too wide)
 - `ސަފްހާ:` label on the far right
-- Centered on mobile
+- Centered on mobile (bottom nav), right-aligned (top nav)
+
+### Chrome layout
+
+All rows inside the collapsible chrome use uniform 10px spacing via flex column gap and readerChrome padding. Toolbar and pagination rows scroll horizontally with hidden scrollbar; mouse wheel is redirected to horizontal scroll. All interactive elements share `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4` for uniform height.
 
 ### Search
 
@@ -120,6 +123,13 @@ Each book's CSV can optionally include a header row. If the first field of the f
 | 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, Word, PDF, PNG |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
+### TopBar
+
+- Fixed bar with bottom border separator, always visible
+- Dashboard: shows "ހަދީޘްއެމްވީ" branding (centered) + ☰ hamburger
+- Reader: ↩ Return (red) + ↕ Focus (green) + Book Title (center) + ☰ Menu (blue)
+- All three buttons: 40×40px desktop, 32×32px mobile, tinted backgrounds
+
 ### Sidebar (☰)
 
 - Blue ☰ hamburger button (always visible, opens right-side drawer)
@@ -130,7 +140,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 
 ### Focus mode
 
-Toggled from the green ↕ button in the topBar or `z` key. Hides search bar, toolbar, and pagination — only the sticky chrome border and reader content remain. Button shows ▼ when active.
+Toggled from the green ↕ button in the topBar or `z` key. Collapses the entire chrome smoothly via CSS Grid transition (no max-height stutter). Padding and border also hidden. Only the topBar and reader content remain. Button shows ▼ when active.
 
 ### Sharing
 
@@ -143,11 +153,12 @@ A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / cu
 ### Mobile
 
 - TopBar and chrome compress: buttons shrink to 32×32px, tighter padding
-- Toolbar scrolls horizontally (hidden scrollbar) instead of wrapping
-- Pagination nav centered
+- Toolbar and pagination rows scroll horizontally (hidden scrollbar, wheel redirect)
+- Pagination nav right-aligned for scrollability
 - `ސަފްހާ:` label hidden
-- Search input matches advanced search button height
-- Side padding aligns topBar buttons with chrome content below
+- All chrome buttons share same height and font size (0.85rem, 7px padding)
+- Sidebar has `overscroll-behavior: contain` to prevent scroll bleed
+- Search bar prevented from going offscreen
 
 ### Themes
 

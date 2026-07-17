@@ -63,6 +63,18 @@ function Get-BookName($code) {
     return ""
 }
 
+# ── Clean up " - Sheet1" suffixes from CSV filenames ──────────
+Get-ChildItem $dataDir -Filter "* - Sheet1.csv" | ForEach-Object {
+    $newName = $_.Name -replace " - Sheet1\.csv$", ".csv"
+    $newPath = Join-Path $dataDir $newName
+    if (-not (Test-Path $newPath)) {
+        Write-Host "  rename: $($_.Name)  →  $newName"
+        Rename-Item $_.FullName $newName
+    } else {
+        Write-Host "  skip (target exists): $($_.Name)"
+    }
+}
+
 # ── Read existing registry ────────────────────────────────────
 $lines  = Get-Content $csvPath
 $header = $lines[0]

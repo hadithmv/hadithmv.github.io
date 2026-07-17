@@ -177,6 +177,7 @@ body {
   transform: translateX(100%);
   transition: transform 0.25s ease;
   overflow-y: auto;
+  overscroll-behavior: contain;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   direction: rtl;
 }
@@ -336,14 +337,29 @@ body {
 
 /* ---- Focus mode — slide chrome up ---- */
 #collapsibleChrome {
-  max-height: 500px;
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+#collapsibleChrome > * {
   overflow: hidden;
-  transition: max-height 0.35s ease, opacity 0.35s ease;
+}
+#collapsibleChrome .chrome-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 [data-focus] #collapsibleChrome {
-  max-height: 0;
+  grid-template-rows: 0fr;
   opacity: 0;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-focus] #readerChrome {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 [data-focus] #readerNavBottom {
@@ -669,7 +685,7 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 800px;
-  padding: 12px 0 10px 0;
+  padding: 10px 0;
   box-sizing: border-box;
   z-index: 101;
   display: flex;
@@ -765,7 +781,6 @@ body {
   align-items: baseline;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 4px;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -799,7 +814,7 @@ body {
 /* ---- Dashboard ---- */
 #dashboardWrapper {
   max-width: 1000px;
-  margin: 80px auto 40px;
+  margin: 70px auto 40px;
   padding: 0 20px;
   font-family:
     system-ui,
@@ -892,9 +907,11 @@ body {
 
 #pageTags .tag-badge {
   display: inline-block;
-  padding: 5px 10px;
+  box-sizing: border-box;
+  padding: 7px 10px;
   font-size: 0.85rem;
   font-weight: 600;
+  line-height: 1.4;
   border-radius: 6px;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
@@ -914,7 +931,7 @@ body {
 
 #readerWrapper {
   max-width: 800px;
-  margin: 72px auto 60px;
+  margin: 62px auto 60px;
   padding: 0 20px;
   font-family:
     "Hadithmv",
@@ -928,16 +945,17 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  margin: 0;
   overflow: hidden;
 }
 
 .search-input {
   flex: 1;
   min-width: 0;
-  padding: 4px 12px;
-  font-size: 0.8rem;
+  box-sizing: border-box;
+  padding: 7px 10px;
+  font-size: 0.85rem;
+  line-height: 1.4;
   font-family:
     "Hadithmv",
     "Traditional Arabic", "Scheherazade New",
@@ -992,9 +1010,11 @@ body {
 
 .search-advanced-btn {
   flex-shrink: 0;
-  padding: 4px 10px;
-  font-size: 0.8rem;
+  box-sizing: border-box;
+  padding: 7px 10px;
+  font-size: 0.85rem;
   font-weight: 600;
+  line-height: 1.4;
   color: var(--color-text-muted);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1128,8 +1148,8 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 4px 0;
-  margin-bottom: 4px;
+  padding: 0;
+  margin: 0;
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -1144,9 +1164,11 @@ body {
 }
 
 .toolbar-btn {
-  padding: 5px 10px;
+  box-sizing: border-box;
+  padding: 7px 10px;
   font-size: 0.85rem;
   font-weight: 600;
+  line-height: 1.4;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1182,8 +1204,8 @@ body {
 
 .toolbar-select {
   box-sizing: border-box;
-  padding: 5px 6px;
-  font-size: 0.82rem;
+  padding: 7px 6px;
+  font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.4;
   font-family: system-ui, -apple-system, sans-serif;
@@ -1347,10 +1369,14 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 4px 0 0;
-  margin-bottom: 0;
-  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.reader-nav::-webkit-scrollbar { display: none; }
 
 .nav-pages {
   display: flex;
@@ -1381,8 +1407,8 @@ body {
 
 .nav-btn {
   box-sizing: border-box;
-  padding: 5px 10px;
-  font-size: 0.82rem;
+  padding: 7px 10px;
+  font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.4;
   color: var(--color-nav-btn-text);
@@ -1411,7 +1437,7 @@ body {
 
 /* Edge buttons — slightly wider */
 .nav-edge {
-  padding: 5px 10px;
+  padding: 7px 10px;
   letter-spacing: -0.1em;
 }
 
@@ -1425,7 +1451,7 @@ body {
 }
 
 .page-of-label {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-text-muted);
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
@@ -1433,10 +1459,12 @@ body {
 }
 
 .page-num {
+  box-sizing: border-box;
   width: 42px;
-  padding: 5px 0;
-  font-size: 0.82rem;
+  padding: 7px 0;
+  font-size: 0.85rem;
   font-weight: 700;
+  line-height: 1.4;
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-card-hover-border);
@@ -1479,7 +1507,7 @@ body {
 
 .page-input {
   width: 58px;
-  padding: 5px 6px;
+  padding: 7px 6px;
   font-size: 0.85rem;
   font-weight: 600;
   text-align: center;
@@ -1547,8 +1575,8 @@ body {
 
 .nav-focus-btn {
   box-sizing: border-box;
-  padding: 5px 10px;
-  font-size: 0.82rem;
+  padding: 7px 10px;
+  font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.4;
   color: #15803d;
@@ -1576,10 +1604,10 @@ body {
 /* Sticky chrome — always */
 #readerChrome {
   position: sticky;
-  top: 72px;
+  top: 62px;
   z-index: 50;
   background: var(--color-bg);
-  padding-bottom: 14px;
+  padding: 10px 0;
   border-bottom: 2px solid var(--color-card-hover-border);
 }
 
@@ -1754,13 +1782,13 @@ body {
   .search-result-snippet { font-size: 0.82rem; }
 
   .search-input {
-    font-size: 0.8rem;
-    padding: 4px 8px;
+    font-size: 0.85rem;
+    padding: 7px 8px;
   }
 
   .search-advanced-btn {
-    padding: 5px 8px;
-    font-size: 0.78rem;
+    padding: 7px 8px;
+    font-size: 0.85rem;
   }
 
   .reader-nav {
@@ -1773,14 +1801,14 @@ body {
   }
 
   .nav-btn {
-    padding: 6px 10px;
-    font-size: 0.8rem;
+    padding: 7px 10px;
+    font-size: 0.85rem;
   }
 
   .page-num {
     min-width: 28px;
-    padding: 4px 2px;
-    font-size: 0.78rem;
+    padding: 7px 2px;
+    font-size: 0.85rem;
   }
 
   .page-numbers {
@@ -1803,11 +1831,6 @@ body {
     gap: 8px;
   }
 
-  .toolbar-btn {
-    padding: 5px 8px;
-    font-size: 0.78rem;
-  }
-
   .col-toggle {
     padding: 2px 5px;
     font-size: 0.68rem;
@@ -1821,14 +1844,9 @@ body {
     font-size: 1rem;
   }
 
-  .toolbar-btn {
-    padding: 4px 7px;
-    font-size: 0.75rem;
-  }
-
   .search-advanced-btn {
-    padding: 4px 6px;
-    font-size: 0.72rem;
+    padding: 7px 6px;
+    font-size: 0.85rem;
   }
 
   .nav-focus-btn {
@@ -1842,15 +1860,17 @@ body {
 
   #pageSubRow { margin: 0 8px !important; justify-content: center; }
   .btn-text { display: none; }
-  #searchBar { margin-top: 6px; }
-  #readerNav { padding-bottom: 0; margin-bottom: 0; justify-content: center; }
+  #searchBar { margin: 0; }
+  #readerNav { padding-bottom: 0; margin-bottom: 0; justify-content: flex-start; }
   #readerNavBottom { justify-content: center; }
   #backToDashboard { width: 32px; height: 32px; font-size: 1rem; }
   .menu-btn { width: 32px; height: 32px; font-size: 1rem; }
-  #topBar { padding: 8px 20px 10px 20px; gap: 4px; direction: ltr; justify-content: space-between; }
+  #topBar { padding: 10px 20px; gap: 4px; direction: ltr; justify-content: space-between; }
   #readerWrapper { margin-top: 60px; }
   #readerChrome { top: 60px; }
-  #pageSubRow { justify-content: flex-start !important; margin: 2px 0 0 !important; }
+  #collapsibleChrome { gap: 10px; }
+  #pageSubRow { justify-content: flex-start !important; margin: 0 !important; }
+  #topBarBrand { font-size: 1rem; }
   #pageTitle { font-size: 1rem; }
   .nav-focus-btn { padding: 5px 8px !important; font-size: 0.75rem !important; }
   #topBar .nav-focus-btn { width: 32px; height: 32px; padding: 0 !important; font-size: 1rem !important; }
