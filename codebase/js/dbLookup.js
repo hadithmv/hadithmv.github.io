@@ -4,7 +4,7 @@
  * All configuration lives in CSV files — no hardcoded data.
  */
 
-import { tagLabel } from "./i18n.js";
+import { tagLabel, t } from "./i18n.js";
 
 let bookNamesCache = null;
 let tagDefinitionsCache = null;
@@ -178,6 +178,7 @@ export async function initializePageWithMetadata(callback) {
   if (!bookCode) {
     const bookNames = await loadBookNames();
     renderDashboard(bookNames);
+    setupDashboardControls();
     return;
   }
 
@@ -208,6 +209,8 @@ export async function initializePageWithMetadata(callback) {
  * @param {Array} bookNames - Array of book metadata objects
  */
 let _lastBookNames = null;
+let _dashFilter = { search: "", tags: [], sort: "az" };
+let _dashTableMode = false;
 
 function renderDashboard(bookNames) {
   _lastBookNames = bookNames;
@@ -228,32 +231,160 @@ function renderDashboard(bookNames) {
   const dashboard = document.getElementById("dashboardWrapper");
   if (dashboard) dashboard.style.display = "block";
 
-  const grid = document.getElementById("bookGrid");
-  if (grid) {
-    grid.innerHTML = bookNames
-      .filter(function (book) { return !book.bookCode.endsWith("-HDN"); })
-      .map((book) => {
-        const tags = extractTags(book.bookCode);
-        const tagHtml =
-          tags.length > 0
-            ? `<div class="card-tags">${tags
-                .map(
-                  (t) =>
-                    `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${tagLabel(t.code, t.label)}</span>`,
-                )
-                .join("")}</div>`
-            : "";
-        return `
-      <a href="?book=${book.bookCode}" class="book-card">
-        ${tagHtml}
-        <div class="title-ar">${book.titleAR || ""}</div>
-        <div class="title-dv">${book.titleDV || ""}</div>
-        <div class="title-en">${book.titleEN || book.bookCode}</div>
-      </a>
-    `;
-      })
-      .join("");
+  // Filter out hidden books
+  var visible = bookNames.filter(function (b) { return !b.bookCode.endsWith("-HDN"); });
+
+  // Apply search filter
+  var q = _dashFilter.search.trim().toLowerCase();
+  if (q) {
+    visible = visible.filter(function (b) {
+      return (b.titleDV || "").toLowerCase().indexOf(q) !== -1 ||
+             (b.titleAR || "").toLowerCase().indexOf(q) !== -1 ||
+             (b.titleEN || "").toLowerCase().indexOf(q) !== -1 ||
+             (b.bookCode || "").toLowerCase().indexOf(q) !== -1;
+    });
   }
+
+  // Apply tag filter
+  if (_dashFilter.tags.length > 0) {
+    visible = visible.filter(function (b) {
+      var bookTags = extractTags(b.bookCode).map(function (t) { return t.code; });
+      return _dashFilter.tags.every(function (tc) { return bookTags.indexOf(tc) !== -1; });
+    });
+  }
+
+  // Sort
+  visible.sort(function (a, b) {
+    var na = (a.titleEN || a.bookCode || "").toLowerCase();
+    var nb = (b.titleEN || b.bookCode || "").toLowerCase();
+    if (_dashFilter.sort === "az") return na < nb ? -1 : na > nb ? 1 : 0;
+    return na < nb ? 1 : na > nb ? -1 : 0;
+  });
+
+  // Render tag chips
+  var allVisible = bookNames.filter(function (b) { return !b.bookCode.endsWith("-HDN"); });
+  var tagCounts = {};
+  allVisible.forEach(function (b) {
+    extractTags(b.bookCode).forEach(function (t) {
+      if (!tagCounts[t.code]) tagCounts[t.code] = { label: t.label, color: t.color, bg: t.bg, count: 0 };
+      tagCounts[t.code].count++;
+    });
+  });
+  var chipsHTML = Object.keys(tagCounts).sort().map(function (code) {
+    var tc = tagCounts[code];
+    var active = _dashFilter.tags.indexOf(code) !== -1;
+    return '<span class="dash-tag-chip' + (active ? ' active' : '') + '" data-tag="' + code + '" style="color:' + (active ? '#fff' : tc.color) + ';background:' + (active ? tc.color : tc.bg) + ';border-color:' + tc.color + '">' +
+      (active ? '<span class="chip-x">✕</span>' : '') + tagLabel(code, tc.label) + ' <small>(' + tc.count + ')</small></span>';
+  }).join("");
+  document.getElementById("dashboardTagChips").innerHTML = chipsHTML;
+
+  // Result count
+  document.getElementById("dashboardResultCount").textContent = visible.length + " " + t("dashboardBooks");
+
+  // Update view toggle button text
+  var vt = document.getElementById("dashboardViewToggle");
+  if (vt) vt.textContent = t(_dashTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+
+  // Render card grid or table
+  var grid = document.getElementById("bookGrid");
+  if (!grid) return;
+
+  if (_dashTableMode) {
+    grid.style.display = "block";
+    grid.innerHTML = '<table class="dash-table"><thead><tr>' +
+      '<th>' + t("dashColTitleAR") + '</th>' +
+      '<th>' + t("dashColTitleDV") + '</th>' +
+      '<th>' + t("dashColTitleEN") + '</th>' +
+      '<th>' + t("dashColTags") + '</th></tr></thead><tbody>' +
+      visible.map(function (book) {
+        var tags = extractTags(book.bookCode);
+        var tagHtml = tags.length > 0
+          ? '<div class="dash-table-tags">' + tags.map(function (t) {
+              return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
+            }).join("") + '</div>'
+          : "";
+        return '<tr data-href="?book=' + book.bookCode + '">' +
+          '<td>' + (book.titleAR || "") + '</td>' +
+          '<td>' + (book.titleDV || "") + '</td>' +
+          '<td>' + (book.titleEN || "") + '</td>' +
+          '<td>' + tagHtml + '</td></tr>';
+      }).join("") + '</tbody></table>';
+
+    // Make rows clickable
+    grid.querySelectorAll(".dash-table tbody tr").forEach(function (tr) {
+      tr.addEventListener("click", function () {
+        window.location.href = this.dataset.href;
+      });
+    });
+  } else {
+    grid.style.display = "";
+    grid.innerHTML = visible.map(function (book) {
+      var tags = extractTags(book.bookCode);
+      var tagHtml = tags.length > 0
+        ? '<div class="card-tags">' + tags.map(function (t) {
+            return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
+          }).join("") + '</div>'
+        : "";
+      return '<a href="?book=' + book.bookCode + '" class="book-card">' +
+        tagHtml +
+        '<div class="title-ar">' + (book.titleAR || "") + '</div>' +
+        '<div class="title-dv">' + (book.titleDV || "") + '</div>' +
+        '<div class="title-en">' + (book.titleEN || book.bookCode) + '</div>' +
+        '</a>';
+    }).join("");
+  }
+}
+
+// ── Wire dashboard controls ──────────────────────────────────
+function setupDashboardControls() {
+  var si = document.getElementById("dashboardSearch");
+  var sc = document.getElementById("dashboardSearchClear");
+  var ss = document.getElementById("dashboardSort");
+  var tc = document.getElementById("dashboardTagChips");
+  if (!si) return;
+
+  si.addEventListener("input", function () {
+    _dashFilter.search = this.value;
+    sc.style.display = this.value ? "" : "none";
+    renderDashboard(_lastBookNames);
+  });
+  sc.addEventListener("click", function () {
+    si.value = "";
+    _dashFilter.search = "";
+    sc.style.display = "none";
+    renderDashboard(_lastBookNames);
+    si.focus();
+  });
+  ss.addEventListener("change", function () {
+    _dashFilter.sort = this.value;
+    renderDashboard(_lastBookNames);
+  });
+  tc.addEventListener("click", function (e) {
+    var chip = e.target.closest(".dash-tag-chip");
+    if (!chip) return;
+    var tag = chip.dataset.tag;
+    var idx = _dashFilter.tags.indexOf(tag);
+    if (idx === -1) _dashFilter.tags.push(tag);
+    else _dashFilter.tags.splice(idx, 1);
+    renderDashboard(_lastBookNames);
+  });
+
+  var vt = document.getElementById("dashboardViewToggle");
+  if (vt) vt.addEventListener("click", function () {
+    _dashTableMode = !_dashTableMode;
+    renderDashboard(_lastBookNames);
+  });
+
+  var dr = document.getElementById("dashboardReset");
+  if (dr) dr.addEventListener("click", function () {
+    _dashFilter = { search: "", tags: [], sort: "az" };
+    _dashTableMode = false;
+    si.value = "";
+    sc.style.display = "none";
+    ss.value = "az";
+    renderDashboard(_lastBookNames);
+    si.focus();
+  });
 }
 
 // Re-render dashboard on language change (if visible)

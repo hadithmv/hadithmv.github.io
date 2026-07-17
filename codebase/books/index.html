@@ -17,11 +17,41 @@
 
   <body>
     <div id="topBar">
-      <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'" style="display:none">↩</button>
-      <button id="btnFocus" class="nav-focus-btn" title="Toggle focus reading mode (z key)" style="display:none">↕</button>
-      <span id="topBarBrand" style="position:absolute;left:50%;transform:translateX(-50%);font-weight:800;font-size:1.3rem;font-family:'Hadithmv','Traditional Arabic',serif;color:var(--color-text);pointer-events:none">ހަދީޘްއެމްވީ</span>
-      <h1 id="pageTitle" style="display:none"></h1>
-      <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">☰</button>
+      <button
+        id="backToDashboard"
+        title="Back to book list (Ctrl+b)"
+        onclick="window.location.href = 'index.html'"
+        style="display: none"
+      >
+        ↩
+      </button>
+      <button
+        id="btnFocus"
+        class="nav-focus-btn"
+        title="Toggle focus reading mode (z key)"
+        style="display: none"
+      >
+        ↕
+      </button>
+      <span
+        id="topBarBrand"
+        style="
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          font-weight: 800;
+          font-size: 1.3rem;
+          font-family:
+            &quot;Hadithmv&quot;, &quot;Traditional Arabic&quot;, serif;
+          color: var(--color-text);
+          pointer-events: none;
+        "
+        >ހަދީޘްއެމްވީ</span
+      >
+      <h1 id="pageTitle" style="display: none"></h1>
+      <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">
+        ☰
+      </button>
     </div>
 
     <!-- Sidebar overlay -->
@@ -31,7 +61,13 @@
     <aside id="sidebar" class="sidebar">
       <div class="sidebar-header">
         <h2 class="sidebar-title" data-i18n="sidebarTitle">Hadithmv</h2>
-        <button id="sidebarClose" class="sidebar-close" title="Close (Escape key)">✕</button>
+        <button
+          id="sidebarClose"
+          class="sidebar-close"
+          title="Close (Escape key)"
+        >
+          ✕
+        </button>
       </div>
 
       <nav class="sidebar-nav">
@@ -60,7 +96,12 @@
 
       <div class="sidebar-divider"></div>
 
-      <a id="btnSettings" class="sidebar-link" style="cursor: pointer" title="Open settings (Ctrl+,)">
+      <a
+        id="btnSettings"
+        class="sidebar-link"
+        style="cursor: pointer"
+        title="Open settings (Ctrl+,)"
+      >
         <span>⚙</span>
         <span data-i18n="labelSettings">ސެޓިންގްސް</span>
       </a>
@@ -85,12 +126,30 @@
 
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
+      <div id="dashboardControls">
+        <div id="dashboardSearchBar">
+          <button id="dashboardSearchClear" class="search-clear" title="Clear search" style="display:none">✕</button>
+          <input id="dashboardSearch" type="search" class="search-input" data-i18n="dashboardSearchPlaceholder" placeholder="Search books…" dir="rtl" />
+        </div>
+        <div id="dashboardTagChips"></div>
+        <div id="dashboardSortRow">
+          <span id="dashboardResultCount" class="search-info"></span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button id="dashboardReset" class="toolbar-btn" data-i18n="btnResetText">↺ ރީސެޓް</button>
+            <button id="dashboardViewToggle" class="toolbar-btn" data-i18n="btnViewToggleText">📖 ޓޭބަލް</button>
+            <select id="dashboardSort" class="toolbar-select">
+              <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
+              <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
+            </select>
+          </div>
+        </div>
+      </div>
       <div id="bookGrid" class="book-grid"></div>
     </div>
 
     <!-- Loading State -->
     <div id="loadingMessage" class="loading" dir="rtl" data-i18n="loading">
-      ފޮތް ލޯޑް ކުރަނީ…
+      ލޯޑުވަނީ...
     </div>
 
     <!-- Error State -->
@@ -101,154 +160,191 @@
       <div id="readerChrome">
         <div id="pageHeader" style="display: none"></div>
         <div id="collapsibleChrome">
-        <div class="chrome-inner">
-        <div id="searchBar">
-          <button
-            id="btnAdvancedSearch"
-            class="search-advanced-btn"
-            title="Advanced search (Ctrl+Shift+f)"
-            data-i18n="btnAdvancedSearchText"
-          >
-            🔎 އެޑްވާންސްޑް ހޯދުން
-          </button>
-          <input
-            id="searchInput"
-            type="search"
-            class="search-input"
-            title="Search (/ or Ctrl+f to focus, ↑↓ to navigate results, Enter to select)"
-            data-i18n="searchPlaceholder"
-            placeholder="މި ފޮތުން ހޯދާ…"
-            dir="rtl"
-          />
-          <button
-            id="searchClear"
-            class="search-clear"
-            title="Clear search"
-            style="display: none"
-          >
-            ✕
-          </button>
-          <span
-            id="searchInfo"
-            class="search-info"
-            style="display: none"
-          ></span>
-        </div>
-        <div
-          id="searchResults"
-          class="search-results"
-          style="display: none"
-        ></div>
-        <div id="readerToolbar" class="reader-toolbar" dir="rtl">
-          <div class="toolbar-group">
-            <button
-              id="btnCopy"
-              class="toolbar-btn"
-              title="Copy page to clipboard"
-              data-i18n="btnCopyText"
-            >
-              📋 ކޮޕީ ކުރޭ
-            </button>
-            <button
-              id="btnTashkeel"
-              class="toolbar-btn"
-              title="Toggle Arabic diacritics (t key)"
-              data-i18n="btnTashkeelText"
-            >
-              ◉ ފިލި ފޮރުވާ
-            </button>
-            <button
-              id="btnShare"
-              class="toolbar-btn"
-              title="Share link to current position (s key)"
-              data-i18n="btnShareText"
-            >
-              🔗 ޝެއަރ
-            </button>
-            <button
-              id="btnViewToggle"
-              class="toolbar-btn"
-              title="Toggle card / table view (v key)"
-              data-i18n="btnViewToggleText"
-            >
-              📖 ޓޭބަލް
-            </button>
-            <button
-              id="btnReset"
-              class="toolbar-btn"
-              title="Reset all settings to defaults"
-              data-i18n="btnResetText"
-            >
-              ↺ ރީސެޓް
-            </button>
-            <div class="toolbar-group" style="position: relative">
+          <div class="chrome-inner">
+            <div id="searchBar">
               <button
-                id="btnExport"
-                class="toolbar-btn"
-                title="Export book in various formats (e key)"
-                data-i18n="btnExportText"
+                id="btnAdvancedSearch"
+                class="search-advanced-btn"
+                title="Advanced search (Ctrl+Shift+f)"
+                data-i18n="btnAdvancedSearchText"
               >
-                📥 އެކްސްޕޯޓް
+                🔎 އެޑްވާންސްޑް ހޯދުން
               </button>
-              <div
-                id="exportDropdown"
-                class="export-dropdown"
+              <input
+                id="searchInput"
+                type="search"
+                class="search-input"
+                title="Search (/ or Ctrl+f to focus, ↑↓ to navigate results, Enter to select)"
+                data-i18n="searchPlaceholder"
+                placeholder="މި ފޮތުން ހޯދާ…"
+                dir="rtl"
+              />
+              <button
+                id="searchClear"
+                class="search-clear"
+                title="Clear search"
                 style="display: none"
               >
-                <button class="export-option" data-format="txt">TXT</button>
-                <button class="export-option" data-format="md">MD</button>
-                <button class="export-option" data-format="json">JSON</button>
-                <button class="export-option" data-format="csv">CSV</button>
-                <button class="export-option" data-format="word">Word</button>
-                <button class="export-option" data-format="excel">Excel</button>
-                <button class="export-option" data-format="yaml">YAML</button>
-                <button class="export-option" data-format="toon">TOON</button>
-                <button class="export-option" data-format="html">HTML</button>
-                <button class="export-option" data-format="xml">XML</button>
-                <button class="export-option" data-format="pdf">PDF</button>
-                <button class="export-option" data-format="png">Image</button>
+                ✕
+              </button>
+              <span
+                id="searchInfo"
+                class="search-info"
+                style="display: none"
+              ></span>
+            </div>
+            <div
+              id="searchResults"
+              class="search-results"
+              style="display: none"
+            ></div>
+            <div id="readerToolbar" class="reader-toolbar" dir="rtl">
+              <div class="toolbar-group">
+                <button
+                  id="btnCopy"
+                  class="toolbar-btn"
+                  title="Copy page to clipboard"
+                  data-i18n="btnCopyText"
+                >
+                  📋 ކޮޕީ ކުރޭ
+                </button>
+                <button
+                  id="btnTashkeel"
+                  class="toolbar-btn"
+                  title="Toggle Arabic diacritics (t key)"
+                  data-i18n="btnTashkeelText"
+                >
+                  ◉ ފިލި ފޮރުވާ
+                </button>
+                <button
+                  id="btnShare"
+                  class="toolbar-btn"
+                  title="Share link to current position (s key)"
+                  data-i18n="btnShareText"
+                >
+                  🔗 ޝެއަރ
+                </button>
+                <button
+                  id="btnViewToggle"
+                  class="toolbar-btn"
+                  title="Toggle card / table view (v key)"
+                  data-i18n="btnViewToggleText"
+                >
+                  📖 ޓޭބަލް
+                </button>
+                <button
+                  id="btnReset"
+                  class="toolbar-btn"
+                  title="Reset all settings to defaults"
+                  data-i18n="btnResetText"
+                >
+                  ↺ ރީސެޓް
+                </button>
+                <div class="toolbar-group" style="position: relative">
+                  <button
+                    id="btnExport"
+                    class="toolbar-btn"
+                    title="Export book in various formats (e key)"
+                    data-i18n="btnExportText"
+                  >
+                    📥 އެކްސްޕޯޓް
+                  </button>
+                  <div
+                    id="exportDropdown"
+                    class="export-dropdown"
+                    style="display: none"
+                  >
+                    <button class="export-option" data-format="txt">TXT</button>
+                    <button class="export-option" data-format="md">MD</button>
+                    <button class="export-option" data-format="json">
+                      JSON
+                    </button>
+                    <button class="export-option" data-format="csv">CSV</button>
+                    <button class="export-option" data-format="word">
+                      Word
+                    </button>
+                    <button class="export-option" data-format="excel">
+                      Excel
+                    </button>
+                    <button class="export-option" data-format="yaml">
+                      YAML
+                    </button>
+                    <button class="export-option" data-format="toon">
+                      TOON
+                    </button>
+                    <button class="export-option" data-format="html">
+                      HTML
+                    </button>
+                    <button class="export-option" data-format="xml">XML</button>
+                    <button class="export-option" data-format="pdf">PDF</button>
+                    <button class="export-option" data-format="png">
+                      Image
+                    </button>
+                  </div>
+                </div>
+                <div
+                  id="columnTogglesGroup"
+                  style="display: none; position: relative"
+                >
+                  <button
+                    id="btnColDropdown"
+                    class="toolbar-btn"
+                    data-i18n="labelHideColumns"
+                  >
+                    ކޮލަމް ފޮރުވާ ▾
+                  </button>
+                  <div
+                    id="columnDropdown"
+                    class="column-dropdown"
+                    style="display: none"
+                  >
+                    <div id="columnToggles" class="column-toggles"></div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div id="columnTogglesGroup" style="display: none; position: relative">
-              <button id="btnColDropdown" class="toolbar-btn" data-i18n="labelHideColumns">ކޮލަމް ފޮރުވާ ▾</button>
-              <div id="columnDropdown" class="column-dropdown" style="display: none">
-                <div id="columnToggles" class="column-toggles"></div>
+            <nav id="readerNav" class="reader-nav" dir="rtl">
+              <div class="nav-pages">
+                <span id="pageLabel" class="page-of-label"></span>
+                <button
+                  id="firstBtn"
+                  class="nav-btn nav-edge"
+                  title="First page (Home key)"
+                >
+                  <<
+                </button>
+                <button
+                  id="prevBtn"
+                  class="nav-btn"
+                  title="Previous page (← arrow key)"
+                >
+                  &lt;
+                </button>
+                <span id="pageNumbers" class="page-numbers"></span>
+                <button
+                  id="nextBtn"
+                  class="nav-btn"
+                  title="Next page (→ arrow key)"
+                >
+                  &gt;
+                </button>
+                <button
+                  id="lastBtn"
+                  class="nav-btn nav-edge"
+                  title="Last page (End key)"
+                >
+                  &gt;&gt;
+                </button>
               </div>
-            </div>
+              <span id="pageSubRow" style="display: none">
+                <span id="pageSubtitle"></span>
+                <span id="pageTags"></span>
+              </span>
+            </nav>
           </div>
+          <!-- .chrome-inner -->
         </div>
-        <nav id="readerNav" class="reader-nav" dir="rtl">
-          <div class="nav-pages">
-            <span id="pageLabel" class="page-of-label"></span>
-            <button
-              id="firstBtn"
-              class="nav-btn nav-edge"
-              title="First page (Home key)"
-            >
-              <<
-            </button>
-            <button id="prevBtn" class="nav-btn" title="Previous page (← arrow key)">
-              &lt;
-            </button>
-            <span id="pageNumbers" class="page-numbers"></span>
-            <button id="nextBtn" class="nav-btn" title="Next page (→ arrow key)">
-              &gt;
-            </button>
-            <button
-              id="lastBtn"
-              class="nav-btn nav-edge"
-              title="Last page (End key)"
-            >
-              &gt;&gt;
-            </button>
-          </div>
-          <span id="pageSubRow" style="display: none">
-            <span id="pageSubtitle"></span>
-            <span id="pageTags"></span>
-          </span>
-        </nav>
-        </div><!-- .chrome-inner -->
-        </div><!-- #collapsibleChrome -->
+        <!-- #collapsibleChrome -->
       </div>
       <!-- #readerChrome -->
       <article id="readerContent" dir="rtl"></article>
@@ -262,11 +358,19 @@
           >
             <<
           </button>
-          <button id="prevBtnBottom" class="nav-btn" title="Previous page (← arrow key)">
+          <button
+            id="prevBtnBottom"
+            class="nav-btn"
+            title="Previous page (← arrow key)"
+          >
             &lt;
           </button>
           <span id="pageNumbersBottom" class="page-numbers"></span>
-          <button id="nextBtnBottom" class="nav-btn" title="Next page (→ arrow key)">
+          <button
+            id="nextBtnBottom"
+            class="nav-btn"
+            title="Next page (→ arrow key)"
+          >
             &gt;
           </button>
           <button
@@ -351,8 +455,13 @@
       (function () {
         var sel = document.getElementById("selFontFamily");
         var saved = (function () {
-          try { return localStorage.getItem("fontSystem") === "1" ? "system" : "hadithmv"; }
-          catch (_) { return "hadithmv"; }
+          try {
+            return localStorage.getItem("fontSystem") === "1"
+              ? "system"
+              : "hadithmv";
+          } catch (_) {
+            return "hadithmv";
+          }
         })();
         sel.value = saved;
         if (saved === "system") html.setAttribute("data-font-system", "");
@@ -416,7 +525,13 @@
           >
             ↺ ރީސެޓް
           </button>
-          <button id="modalClose" class="modal-close" title="Close (Escape key)">✕</button>
+          <button
+            id="modalClose"
+            class="modal-close"
+            title="Close (Escape key)"
+          >
+            ✕
+          </button>
         </div>
         <div class="modal-body">
           <div class="modal-card">
@@ -460,7 +575,11 @@
             </div>
             <div class="modal-row">
               <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
-              <select id="selFontFamily" class="sidebar-select" style="width:auto">
+              <select
+                id="selFontFamily"
+                class="sidebar-select"
+                style="width: auto"
+              >
                 <option value="hadithmv">Hadithmv font</option>
                 <option value="system">System font</option>
               </select>
@@ -492,7 +611,13 @@
           <h2 class="modal-title" data-i18n="advancedSearchTitle">
             އިތުރު ހޯދުން
           </h2>
-          <button id="advancedSearchClose" class="modal-close" title="Close (Escape key)">✕</button>
+          <button
+            id="advancedSearchClose"
+            class="modal-close"
+            title="Close (Escape key)"
+          >
+            ✕
+          </button>
         </div>
         <div class="modal-body">
           <div id="advancedSearchRows"></div>
@@ -648,14 +773,111 @@
     <script type="module" src="../js/reader.js"></script>
     <div id="scrollCounter" class="scroll-counter"></div>
     <script>
-      // Redirect mouse wheel to horizontal scroll on toolbar and pagination rows
-      document.addEventListener("wheel", function (e) {
-        var el = e.target.closest(".reader-toolbar, .reader-nav");
-        if (!el) return;
-        if (el.scrollWidth <= el.clientWidth) return;
-        e.preventDefault();
-        el.scrollLeft += e.deltaY;
-      }, { passive: false });
+      // ── Horizontal scroll rows: wheel redirect + arrow buttons ──
+      (function () {
+        var SCROLL_AMOUNT = 100;
+
+        function hasOverflow(el) {
+          return el.scrollWidth > el.clientWidth + 1;
+        }
+
+        function isRTL(el) {
+          return getComputedStyle(el).direction === "rtl";
+        }
+
+        function updateArrows(row) {
+          var wrap = row.parentNode;
+          if (!wrap || !wrap.classList.contains("h-scroll-wrap")) return;
+          var arrowStart = wrap.querySelector(".scroll-arrow-start");
+          var arrowEnd = wrap.querySelector(".scroll-arrow-end");
+          if (!hasOverflow(row)) {
+            wrap.classList.remove("has-overflow");
+            return;
+          }
+          wrap.classList.add("has-overflow");
+          var tol = 4;
+          var rtl = isRTL(row);
+          var sl = rtl ? -row.scrollLeft : row.scrollLeft;
+          var maxScroll = row.scrollWidth - row.clientWidth;
+          if (arrowStart) arrowStart.classList.toggle("hidden", sl <= tol);
+          if (arrowEnd)
+            arrowEnd.classList.toggle("hidden", sl >= maxScroll - tol);
+        }
+
+        function scrollRow(row, delta) {
+          var start = row.scrollLeft;
+          var target = start + delta;
+          var duration = 300;
+          var startTime = performance.now();
+          function easeOut(t) {
+            return t * (2 - t);
+          }
+          function step(now) {
+            var elapsed = (now - startTime) / duration;
+            if (elapsed >= 1) {
+              row.scrollLeft = target;
+              return;
+            }
+            row.scrollLeft = start + delta * easeOut(elapsed);
+            requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        // Wrap each scrollable row with arrow buttons
+        document
+          .querySelectorAll(".reader-toolbar, .reader-nav")
+          .forEach(function (row) {
+            var rtl = isRTL(row);
+            var wrap = document.createElement("div");
+            wrap.className = "h-scroll-wrap";
+            if (rtl) wrap.dir = "rtl";
+            var btnStart = document.createElement("button");
+            btnStart.className = "scroll-arrow scroll-arrow-start hidden";
+            btnStart.innerHTML = rtl ? "&#9654;" : "&#9664;";
+            var btnEnd = document.createElement("button");
+            btnEnd.className = "scroll-arrow scroll-arrow-end hidden";
+            btnEnd.innerHTML = rtl ? "&#9664;" : "&#9654;";
+
+            row.parentNode.insertBefore(wrap, row);
+            wrap.appendChild(btnStart);
+            wrap.appendChild(row);
+            wrap.appendChild(btnEnd);
+
+            // In RTL: start=right side, click start btn scrolls toward start (positive)
+            //         end=left side, click end btn scrolls toward end (negative)
+            var startDelta = rtl ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
+            var endDelta = rtl ? -SCROLL_AMOUNT : SCROLL_AMOUNT;
+            btnStart.addEventListener("click", function () {
+              scrollRow(row, startDelta);
+            });
+            btnEnd.addEventListener("click", function () {
+              scrollRow(row, endDelta);
+            });
+
+            row.addEventListener("scroll", function () {
+              updateArrows(row);
+            });
+            updateArrows(row);
+
+            var ro = new ResizeObserver(function () {
+              updateArrows(row);
+            });
+            ro.observe(row);
+          });
+
+        // Wheel → horizontal scroll on these rows
+        document.addEventListener(
+          "wheel",
+          function (e) {
+            var row = e.target.closest(".reader-toolbar, .reader-nav");
+            if (!row || !hasOverflow(row)) return;
+            e.preventDefault();
+            row.scrollLeft += e.deltaY;
+          },
+          { passive: false },
+        );
+      })();
     </script>
   </body>
 </html>

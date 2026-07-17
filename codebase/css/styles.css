@@ -892,7 +892,8 @@ body:has(.modal-overlay.open) {
 /* ---- Shared states ---- */
 .loading {
   text-align: center;
-  padding: 40px;
+  padding: 100px 40px 40px;
+  font-size: 1.3rem;
   color: var(--color-loading);
   font-family:
     "Hadithmv",
@@ -928,6 +929,139 @@ body:has(.modal-overlay.open) {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+}
+
+/* ---- Dashboard controls ---- */
+#dashboardControls {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  direction: rtl;
+}
+
+#dashboardSearchBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#dashboardSearchBar .search-input {
+  flex: 1;
+}
+
+#dashboardTagChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  direction: rtl;
+}
+
+.dash-tag-chip {
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--color-border);
+  background: var(--color-nav-btn-bg);
+  color: var(--color-nav-btn-text);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+.dash-tag-chip:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+.dash-tag-chip.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+.dash-tag-chip .chip-x {
+  margin-right: 4px;
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/* Dashboard table view */
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  direction: rtl;
+  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+}
+.dash-table th {
+  padding: 10px 12px;
+  background: var(--color-nav-btn-bg);
+  border-bottom: 2px solid var(--color-card-hover-border);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  white-space: nowrap;
+  position: sticky;
+  top: 64px;
+  z-index: 1;
+}
+.dash-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  text-align: right;
+}
+.dash-table tbody tr {
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+.dash-table tbody tr:hover td {
+  background: var(--color-nav-btn-hover-bg);
+}
+.dash-table .dash-table-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-end;
+}
+.dash-table .dash-table-tags .tag-badge {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+}
+
+#dashboardSortRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  direction: rtl;
+}
+#dashboardSort,
+#dashboardViewToggle,
+#dashboardReset {
+  box-sizing: border-box;
+  padding: 7px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+#dashboardSort {
+  padding-right: 6px;
+}
+#dashboardResultCount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 /* ---- Book cards ---- */
@@ -1061,7 +1195,7 @@ body:has(.modal-overlay.open) {
   min-width: 0;
   box-sizing: border-box;
   padding: 7px 10px;
-  font-size: 0.85rem;
+  font-size: 1.1rem;
   line-height: 1.4;
   font-family:
     "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
@@ -1107,8 +1241,9 @@ body:has(.modal-overlay.open) {
 
 .search-info {
   flex-shrink: 0;
-  font-size: 0.8rem;
-  color: var(--color-text-subtle);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
   font-family:
     "Hadithmv",
     "Faruma",
@@ -1257,7 +1392,7 @@ body:has(.modal-overlay.open) {
 }
 
 .search-result-snippet {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   color: var(--color-text);
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
@@ -1280,6 +1415,7 @@ body:has(.modal-overlay.open) {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 .reader-toolbar::-webkit-scrollbar {
   display: none;
@@ -1519,6 +1655,46 @@ body:has(.modal-overlay.open) {
   opacity: 1;
 }
 
+/* ---- Horizontal scroll wrapper (toolbar & nav) ---- */
+.h-scroll-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.h-scroll-wrap .scroll-arrow {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
+}
+.h-scroll-wrap .scroll-arrow:hover {
+  background: var(--color-nav-btn-hover-bg);
+  color: var(--color-text);
+}
+.h-scroll-wrap .scroll-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.h-scroll-wrap.has-overflow .reader-nav,
+.h-scroll-wrap.has-overflow .reader-toolbar {
+  flex: 1;
+  min-width: 0;
+  margin: 0 6px;
+}
+
 /* ---- Navigation bar ---- */
 .reader-nav {
   display: flex;
@@ -1530,6 +1706,7 @@ body:has(.modal-overlay.open) {
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
   scrollbar-width: none;
 }
 .reader-nav::-webkit-scrollbar {
@@ -2002,11 +2179,11 @@ body:has(.modal-overlay.open) {
     padding: 6px 10px;
   }
   .search-result-snippet {
-    font-size: 0.82rem;
+    font-size: 1rem;
   }
 
   .search-input {
-    font-size: 0.85rem;
+    font-size: 1rem;
     padding: 7px 8px;
   }
 

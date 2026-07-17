@@ -40,7 +40,11 @@ const STRINGS = {
   btnTashkeelText: { dv: "◉ ފިލި", en: "◉ Diacritics", ar: "◉ تشكيل" },
   btnExportText: { dv: "📥 އެކްސްޕޯޓް", en: "📥 Export", ar: "📥 تصدير" },
   btnShareText: { dv: "🔗 ޝެއަރ", en: "🔗 Share", ar: "🔗 مشاركة" },
-  toastShared: { dv: "ލިންކް ކޮޕީ ކުރެވިއްޖެ!", en: "Link copied!", ar: "تم نسخ الرابط!" },
+  toastShared: {
+    dv: "ލިންކް ކޮޕީ ކުރެވިއްޖެ!",
+    en: "Link copied!",
+    ar: "تم نسخ الرابط!",
+  },
   btnViewToggleText: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
   btnViewToggleCard: { dv: "📖 ކާޑް", en: "📖 Card", ar: "📖 بطاقة" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
@@ -156,7 +160,11 @@ const STRINGS = {
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },
-  fontHadithmv: { dv: "ހަދީޘްއ�މްވީ ފޮންޓް", en: "Hadithmv font", ar: "خط هاديث-ام-في" },
+  fontHadithmv: {
+    dv: "ހަދީޘްއ�މްވީ ފޮންޓް",
+    en: "Hadithmv font",
+    ar: "خط هاديث-ام-في",
+  },
   fontSystem: { dv: "ސިސްޓަމް ފޮންޓް", en: "System font", ar: "خط النظام" },
 
   // ── Footer / meta ──
@@ -173,24 +181,46 @@ const STRINGS = {
 
   // ── Loading ──
   loading: {
-    dv: "ފޮތް ލޯޑް ކުރަނީ…",
-    en: "Loading book data…",
-    ar: "…جارٍ تحميل بيانات الكتاب",
+    dv: "ލޯޑުވަނީ...",
+    en: "Loading…",
+    ar: "…جارٍ تحميل",
   },
 
   // ── Tag labels ──
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
   tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
   tagDRFT: { dv: "⚠️ ޑްރާފްޓް", en: "⚠️ Draft", ar: "⚠️ مسودة" },
-  tagAKHLQ: { dv: "އަޚްލާޤް", en: "Akhlaq", ar: "أخلاق" },
+  tagAKHLQ: { dv: "އަޚްލާގު", en: "Akhlaq", ar: "أخلاق" },
   tagATHR: { dv: "އާޘާރު", en: "Athar", ar: "آثار" },
   tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
+  tagQRNU: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
   tagRDF: { dv: "ރަދީފް", en: "Dictionary", ar: "معجم" },
   tagDFK: { dv: "ދފކ", en: "DFK", ar: "دفك" },
   tagIH: { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
 
   // ── Dashboard ──
   dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
+  dashboardSearchPlaceholder: {
+    dv: "ފޮތް ހޯދާ…",
+    en: "Search books…",
+    ar: "…ابحث عن كتاب",
+  },
+  dashboardSortAZ: { dv: "އ ← ޔ", en: "A → Z", ar: "أ ← ي" },
+  dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
+  dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
+  dashColBookCode: { dv: "ކޯޑް", en: "Code", ar: "رمز" },
+  dashColTitleAR: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
+  dashColTitleDV: {
+    dv: "ދިވެހި ނަން",
+    en: "Dhivehi name",
+    ar: "الاسم الديفهي",
+  },
+  dashColTitleEN: {
+    dv: "އިނގިރޭސި ނަން",
+    en: "English name",
+    ar: "الاسم الإنجليزي",
+  },
+  dashColTags: { dv: "ޓޭގް", en: "Tags", ar: "وسوم" },
 };
 
 /** Translate a tag code. Pass lang to override current language. Falls back to the CSV label. */

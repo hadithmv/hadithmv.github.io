@@ -38,7 +38,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all registered books.
+No `?book=` → `dbLookup.js` calls `renderDashboard()` → search bar, tag chips, sort/table toggle, and card grid (or table) of all registered books.
 
 ## Reader UI
 
@@ -89,7 +89,7 @@ Real‑time, case‑insensitive filtering against all columns. Results dropdown 
 | Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel (SheetJS mini, lazy-loaded), Word, PDF, PNG. TOON uses expanded list per spec. All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
 
-The toolbar and pagination rows scroll horizontally (hidden scrollbar) instead of wrapping. Mouse wheel is redirected to horizontal scroll on these rows. All buttons, inputs, and selects in the chrome share uniform height via `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4`, `box-sizing: border-box`. Chrome rows use uniform 10px spacing via flex column gap and readerChrome padding.
+The toolbar and pagination rows scroll horizontally (hidden scrollbar) instead of wrapping. Direction-aware ◀▶ arrow buttons appear at the edges when content overflows — clicking glides the row smoothly via `requestAnimationFrame`. Mouse wheel is redirected to horizontal scroll on these rows. All buttons, inputs, and selects in the chrome share uniform height via `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4`, `box-sizing: border-box`. Chrome rows use uniform 10px spacing via flex column gap and readerChrome padding.
 
 ### Focus mode
 
@@ -101,7 +101,7 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings.
+Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
 
 ### Internationalisation
 

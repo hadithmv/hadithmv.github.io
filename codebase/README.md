@@ -123,6 +123,8 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 | 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, Word, PDF, PNG |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
+Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row edges, with a smooth glide animation on click.
+
 ### TopBar
 
 - Fixed bar with bottom border separator, always visible
@@ -130,11 +132,20 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 - Reader: ↩ Return (red) + ↕ Focus (green) + Book Title (center) + ☰ Menu (blue)
 - All three buttons: 40×40px desktop, 32×32px mobile, tinted backgrounds
 
+### Dashboard
+
+- Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
+- Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count
+- Sort dropdown — A→Z / Z←A (arrows follow reading direction)
+- Table/Card view toggle — card grid or full-width table with clickable rows
+- ↺ Reset button — clears all filters, search, and view mode
+- All controls work together: search + tags + sort combined
+
 ### Sidebar (☰)
 
 - Blue ☰ hamburger button (always visible, opens right-side drawer)
 - Navigation: Book list, GitHub, FAQ, Help, Contact
-- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family, Language selector
+- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector
 - Scroll to top
 - App version and creator credit
 
