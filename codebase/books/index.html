@@ -19,6 +19,7 @@
     <div id="topBar">
       <button id="backToDashboard" title="Back to book list (Ctrl+b)" onclick="window.location.href='index.html'" style="display:none">↩</button>
       <button id="btnFocus" class="nav-focus-btn" title="Toggle focus reading mode (z key)" style="display:none">↕</button>
+      <span id="topBarBrand" style="position:absolute;left:50%;transform:translateX(-50%);font-weight:800;font-size:1.3rem;font-family:'Hadithmv','Traditional Arabic',serif;color:var(--color-text);pointer-events:none">ހަދީޘްއެމްވީ</span>
       <h1 id="pageTitle" style="display:none"></h1>
       <button id="menuBtn" class="menu-btn" title="Menu (Escape to close)">☰</button>
     </div>
@@ -84,7 +85,6 @@
 
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
-      <h1 class="dashboard-title" data-i18n="dashboardTitle">Hadithmv</h1>
       <div id="bookGrid" class="book-grid"></div>
     </div>
 

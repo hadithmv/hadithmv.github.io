@@ -1351,6 +1351,7 @@ initializePageWithMetadata(async function (metadata) {
 
       // Reveal everything at once
       document.getElementById("loadingMessage").style.display = "none";
+      document.getElementById("topBarBrand").style.display = "none";
       document.getElementById("backToDashboard").style.display = "";
       document.getElementById("btnFocus").style.display = "";
       document.getElementById("pageTitle").style.display = "";

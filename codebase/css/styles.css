@@ -669,7 +669,7 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 800px;
-  padding: 12px 0 4px 0;
+  padding: 12px 0 10px 0;
   box-sizing: border-box;
   z-index: 101;
   display: flex;
@@ -678,6 +678,7 @@ body {
   gap: 8px;
   direction: ltr;
   background-color: var(--color-bg);
+  border-bottom: 2px solid var(--color-card-hover-border);
 }
 
 #topBar > * {
@@ -798,7 +799,7 @@ body {
 /* ---- Dashboard ---- */
 #dashboardWrapper {
   max-width: 1000px;
-  margin: 70px auto 40px;
+  margin: 80px auto 40px;
   padding: 0 20px;
   font-family:
     system-ui,
@@ -807,16 +808,6 @@ body {
     "Segoe UI",
     Roboto,
     sans-serif;
-}
-
-.dashboard-title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 40px;
-  color: var(--color-text);
-  letter-spacing: -0.025em;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 .book-grid {
@@ -923,7 +914,7 @@ body {
 
 #readerWrapper {
   max-width: 800px;
-  margin: 56px auto 60px;
+  margin: 72px auto 60px;
   padding: 0 20px;
   font-family:
     "Hadithmv",
@@ -1585,7 +1576,7 @@ body {
 /* Sticky chrome — always */
 #readerChrome {
   position: sticky;
-  top: 56px;
+  top: 72px;
   z-index: 50;
   background: var(--color-bg);
   padding-bottom: 14px;
@@ -1856,9 +1847,9 @@ body {
   #readerNavBottom { justify-content: center; }
   #backToDashboard { width: 32px; height: 32px; font-size: 1rem; }
   .menu-btn { width: 32px; height: 32px; font-size: 1rem; }
-  #topBar { padding: 8px 20px 4px 20px; gap: 4px; direction: ltr; justify-content: space-between; }
-  #readerWrapper { margin-top: 44px; }
-  #readerChrome { top: 44px; }
+  #topBar { padding: 8px 20px 10px 20px; gap: 4px; direction: ltr; justify-content: space-between; }
+  #readerWrapper { margin-top: 60px; }
+  #readerChrome { top: 60px; }
   #pageSubRow { justify-content: flex-start !important; margin: 2px 0 0 !important; }
   #pageTitle { font-size: 1rem; }
   .nav-focus-btn { padding: 5px 8px !important; font-size: 0.75rem !important; }
