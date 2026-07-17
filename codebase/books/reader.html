@@ -295,10 +295,18 @@
             overscroll-behavior: contain;
           "
         ></div>
-        <div id="columnDropdown" class="column-dropdown" style="display:none;position:absolute;z-index:60">
+        <div
+          id="columnDropdown"
+          class="column-dropdown"
+          style="display: none; position: absolute; z-index: 60"
+        >
           <div id="columnToggles" class="column-toggles"></div>
         </div>
-        <div id="exportDropdown" class="export-dropdown" style="display:none;position:absolute;z-index:60">
+        <div
+          id="exportDropdown"
+          class="export-dropdown"
+          style="display: none; position: absolute; z-index: 60"
+        >
           <button class="export-option" data-format="txt">TXT</button>
           <button class="export-option" data-format="md">MD</button>
           <button class="export-option" data-format="json">JSON</button>
@@ -513,8 +521,12 @@
     <script>
       (function () {
         var SCROLL_AMOUNT = 100;
-        function hasOverflow(el) { return el.scrollWidth > el.clientWidth + 1; }
-        function isRTL(el) { return getComputedStyle(el).direction === "rtl"; }
+        function hasOverflow(el) {
+          return el.scrollWidth > el.clientWidth + 1;
+        }
+        function isRTL(el) {
+          return getComputedStyle(el).direction === "rtl";
+        }
 
         // The row (toolbar/nav) is the scrollable element. The wrap just holds
         // absolutely-positioned arrows in its padding area.
@@ -531,16 +543,20 @@
           // scrollLeft:  0 = logical start,  -mx = logical end  (negative range in RTL)
           // Decreasing (-delta) → toward end.  Increasing (+delta) → toward start.
           var mx = row.scrollWidth - row.clientWidth;
-          var atStart = row.scrollLeft > -1;       // near 0 = at logical start
-          var atEnd   = row.scrollLeft < -mx + 1;  // near -mx = at logical end
+          var atStart = row.scrollLeft > -1; // near 0 = at logical start
+          var atEnd = row.scrollLeft < -mx + 1; // near -mx = at logical end
           wrap._arrowStart.classList.toggle("hidden", atStart);
           wrap._arrowEnd.classList.toggle("hidden", atEnd || mx < 1);
         }
 
         function scrollRow(row, delta) {
-          var start = row.scrollLeft, target = start + delta;
-          var duration = 300, t0 = performance.now();
-          function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+          var start = row.scrollLeft,
+            target = start + delta;
+          var duration = 300,
+            t0 = performance.now();
+          function easeOutCubic(t) {
+            return 1 - Math.pow(1 - t, 3);
+          }
           (function step(now) {
             var p = Math.min(1, (now - t0) / duration);
             row.scrollLeft = start + delta * easeOutCubic(p);
@@ -550,32 +566,53 @@
         }
 
         // Wrap toolbar & nav rows — DOM ops work even in hidden subtrees.
-        document.querySelectorAll(".reader-toolbar, .reader-nav").forEach(function (row) {
-          var rtl = isRTL(row), wrap = document.createElement("div");
-          wrap.className = "h-scroll-wrap"; if (rtl) wrap.dir = "rtl";
-          var b1 = document.createElement("button"), b2 = document.createElement("button");
-          b1.className = "scroll-arrow scroll-arrow-start"; b1.innerHTML = rtl ? "&#9654;" : "&#9664;";
-          b2.className = "scroll-arrow scroll-arrow-end";   b2.innerHTML = rtl ? "&#9664;" : "&#9654;";
-          // Store refs directly on the wrap so updateArrows never queries wrong element
-          wrap._row = row; wrap._arrowStart = b1; wrap._arrowEnd = b2;
-          row.parentNode.insertBefore(wrap, row);
-          wrap.appendChild(b1); wrap.appendChild(row); wrap.appendChild(b2);
-          // b1 (start arrow, ▶ in RTL): scroll toward start → +delta.
-          // b2 (end   arrow, ◀ in RTL): scroll toward end   → -delta.
-          b1.addEventListener("click", function () { scrollRow(row,  SCROLL_AMOUNT); });
-          b2.addEventListener("click", function () { scrollRow(row, -SCROLL_AMOUNT); });
-          row.addEventListener("scroll", function () { updateArrows(wrap); });
-        });
+        document
+          .querySelectorAll(".reader-toolbar, .reader-nav")
+          .forEach(function (row) {
+            var rtl = isRTL(row),
+              wrap = document.createElement("div");
+            wrap.className = "h-scroll-wrap";
+            if (rtl) wrap.dir = "rtl";
+            var b1 = document.createElement("button"),
+              b2 = document.createElement("button");
+            b1.className = "scroll-arrow scroll-arrow-start";
+            b1.innerHTML = rtl ? "&#9654;" : "&#9664;";
+            b2.className = "scroll-arrow scroll-arrow-end";
+            b2.innerHTML = rtl ? "&#9664;" : "&#9654;";
+            // Store refs directly on the wrap so updateArrows never queries wrong element
+            wrap._row = row;
+            wrap._arrowStart = b1;
+            wrap._arrowEnd = b2;
+            row.parentNode.insertBefore(wrap, row);
+            wrap.appendChild(b1);
+            wrap.appendChild(row);
+            wrap.appendChild(b2);
+            // b1 (start arrow, ▶ in RTL): scroll toward start → +delta.
+            // b2 (end   arrow, ◀ in RTL): scroll toward end   → -delta.
+            b1.addEventListener("click", function () {
+              scrollRow(row, SCROLL_AMOUNT);
+            });
+            b2.addEventListener("click", function () {
+              scrollRow(row, -SCROLL_AMOUNT);
+            });
+            row.addEventListener("scroll", function () {
+              updateArrows(wrap);
+            });
+          });
 
-        // Wheel — scroll toward end on wheel-down
-        document.addEventListener("wheel", function (e) {
-          var wrap = e.target.closest(".h-scroll-wrap");
-          if (!wrap || !wrap._row) return;
-          var row = wrap._row;
-          if (!hasOverflow(row)) return;
-          e.preventDefault();
-          row.scrollLeft -= e.deltaY + e.deltaX;
-        }, { passive: false });
+        // Wheel — redirect to horizontal with smooth easing
+        document.addEventListener(
+          "wheel",
+          function (e) {
+            var wrap = e.target.closest(".h-scroll-wrap");
+            if (!wrap || !wrap._row) return;
+            var row = wrap._row;
+            if (!hasOverflow(row)) return;
+            e.preventDefault();
+            scrollRow(row, e.deltaY + e.deltaX);
+          },
+          { passive: false },
+        );
 
         // Called by reader.js after #readerWrapper becomes visible
         window._initScrollArrows = function () {
@@ -589,7 +626,9 @@
                 var timer = 0;
                 new ResizeObserver(function () {
                   clearTimeout(timer);
-                  timer = setTimeout(function () { updateArrows(wrap); }, 50);
+                  timer = setTimeout(function () {
+                    updateArrows(wrap);
+                  }, 50);
                 }).observe(wrap._row);
               });
             });

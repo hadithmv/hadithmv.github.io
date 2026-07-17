@@ -1137,7 +1137,7 @@ initializePageWithMetadata(async function (metadata) {
                     titleEN: metadata.titleEN,
                     titleDV: metadata.titleDV,
                     titleAR: metadata.titleAR,
-                    tags: pageTags
+                    tags: pageTags.map(function(t) { return t.code; })
                   }, {
                     siteURL: siteURL,
                     versionText: versionText,

@@ -125,7 +125,7 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 | 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
-Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row edges — ◀ scrolls toward the end, ▶ scrolls back toward the start. Clicking animates smoothly via an ease-out-cubic curve. Arrows auto-hide at the scroll extremes.
+Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row edges — ◀ scrolls toward the end, ▶ scrolls back toward the start. Both arrow clicks and mouse-wheel redirection animate smoothly via an ease-out-cubic curve. Arrows auto-hide at the scroll extremes.
 
 ### TopBar
 

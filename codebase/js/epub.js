@@ -79,9 +79,6 @@ export function createEPUB(rows, meta, opts) {
     + '<h1 class="cover-title">' + xmlEsc(meta.titleDV || meta.titleEN || "") + '</h1>';
   if (meta.titleAR) cover += '<p class="cover-ar">' + xmlEsc(meta.titleAR) + '</p>';
   if (meta.titleEN && meta.titleDV) cover += '<p class="cover-en">' + xmlEsc(meta.titleEN) + '</p>';
-  if (meta.tags && meta.tags.length) {
-    cover += '<p class="cover-tags">' + xmlEsc(meta.tags.join(" · ")) + '</p>';
-  }
   cover += '<p class="cover-brand">Hadithmv</p>'
     + '<p class="cover-url">' + xmlEsc(opts.siteURL || "") + '</p>'
     + '</body></html>';
@@ -127,9 +124,6 @@ export function createEPUB(rows, meta, opts) {
     + '<dc:date>' + nowISO + '</dc:date>'
     + '<dc:publisher>Hadithmv</dc:publisher>'
     + '<dc:description>' + xmlEsc((meta.titleDV || "") + " — " + (meta.titleAR || "")) + '</dc:description>';
-  if (meta.tags && meta.tags.length) {
-    opf += '<dc:subject>' + xmlEsc(meta.tags.join(", ")) + '</dc:subject>';
-  }
   opf += '<meta property="dcterms:modified">' + nowISO + '</meta>'
     + '</metadata>'
     + '<manifest>' + manifestItems + '</manifest>'
@@ -150,7 +144,6 @@ export function createEPUB(rows, meta, opts) {
     + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'
     + '.cover-ar { font-size: 1.2rem; color: #555; margin: 0.2em 0; }\n'
     + '.cover-en { font-size: 1rem; color: #888; margin: 0.2em 0; }\n'
-    + '.cover-tags { font-size: 0.85rem; color: #666; margin: 1em 0 0; }\n'
     + '.cover-brand { font-size: 0.85rem; color: #999; margin: 2em 0 0; }\n'
     + '.cover-url { font-size: 0.75rem; color: #aaa; margin: 0.2em 0; }\n'
     + '/* Nav */\n'
