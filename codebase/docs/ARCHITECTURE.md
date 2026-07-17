@@ -15,6 +15,7 @@ A metadata-driven, single-page viewer for Islamic texts. All configuration lives
 | `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
 | `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
 | `data/*.csv`       | Per-book content files                                            |
+| `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books    |
 | `dependencies/`    | PapaParse + SheetJS mini (Excel export, lazy-loaded)              |
 
 ## Request flow
@@ -101,7 +102,7 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family toggle Hadithmv/System), and Language (select dropdown). Reset button in the modal header clears all settings.
+Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System), and Language (select dropdown). Reset button in the modal header clears all settings.
 
 ### Internationalisation
 
@@ -152,14 +153,20 @@ Optional `#` header row for column labels. Excluded from display.
 
 ## Tag system
 
-Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Each code is looked up in `tags.csv`. Unknown codes silently ignored.
+Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are also stripped before extracting the book name. Each code is looked up in `02-bookTags.csv`. Unknown codes silently ignored.
 
-| bookCode                        | Tags        | Book Name             |
-| ------------------------------- | ----------- | --------------------- |
-| `AQD-nawaqidulIslam`            | Aqidah      | nawaqidulIslam        |
-| `AQD-qawaidulArbau`             | Aqidah      | qawaidulArbau         |
-| `HDT-umdathulAhkam`             | Hadith      | umdathulAhkam         |
-| `AQD-DFK-sharhuSunnahBarbahari` | Aqidah, DFK | sharhuSunnahBarbahari |
+| bookCode                        | Tags              | Book Name             |
+| ------------------------------- | ----------------- | --------------------- |
+| `AQD-nawaqidulIslam`            | Aqidah            | nawaqidulIslam        |
+| `AQD-qawaidulArbau`             | Aqidah            | qawaidulArbau         |
+| `HDT-umdathulAhkam`             | Hadith            | umdathulAhkam         |
+| `AQD-DFK-sharhuSunnahBarbahari` | Aqidah, DFK       | sharhuSunnahBarbahari |
+| `DRFT-AQD-aqidahNawawi`         | ⚠️ Draft, Aqidah  | aqidahNawawi          |
+
+**Naming conventions:**
+- `DRFT-` prefix → book gets a ⚠️ Draft badge, still visible on dashboard
+- `-HDN` suffix → book hidden from dashboard
+- `-DRAFT` suffix (legacy) → also hidden, same as `-HDN`
 
 ## Error states
 

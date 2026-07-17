@@ -345,37 +345,24 @@
           if (idx < FONT_SIZES.length - 1) applyFontSize(idx + 1);
         });
 
-      // ── Font family toggle ─────────────────────────────────
+      // ── Font family dropdown ───────────────────────────────
       (function () {
-        var btn = document.getElementById("btnFontToggle");
-        var label = document.getElementById("fontFamilyLabel");
-        var isSystem = (function () {
-          try {
-            return localStorage.getItem("fontSystem") === "1";
-          } catch (_) {
-            return false;
-          }
+        var sel = document.getElementById("selFontFamily");
+        var saved = (function () {
+          try { return localStorage.getItem("fontSystem") === "1" ? "system" : "hadithmv"; }
+          catch (_) { return "hadithmv"; }
         })();
-
-        function set(sys) {
-          isSystem = sys;
-          if (sys) {
+        sel.value = saved;
+        if (saved === "system") html.setAttribute("data-font-system", "");
+        sel.addEventListener("change", function () {
+          var val = this.value;
+          if (val === "system") {
             html.setAttribute("data-font-system", "");
-            btn.classList.add("active");
-            label.textContent = "System";
+            localStorage.setItem("fontSystem", "1");
           } else {
             html.removeAttribute("data-font-system");
-            btn.classList.remove("active");
-            label.textContent = "Hadithmv";
+            localStorage.setItem("fontSystem", "0");
           }
-          try {
-            localStorage.setItem("fontSystem", sys ? "1" : "0");
-          } catch (_) {}
-        }
-
-        set(isSystem);
-        btn.addEventListener("click", function () {
-          set(!isSystem);
         });
       })();
     </script>
@@ -471,9 +458,10 @@
             </div>
             <div class="modal-row">
               <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
-              <button id="btnFontToggle" class="modal-toggle">
-                <span id="fontFamilyLabel">Hadithmv</span>
-              </button>
+              <select id="selFontFamily" class="sidebar-select" style="width:auto">
+                <option value="hadithmv">Hadithmv font</option>
+                <option value="system">System font</option>
+              </select>
             </div>
           </div>
           <div class="modal-card">
@@ -612,11 +600,9 @@
           var fsv = document.getElementById("fontSizeVal");
           if (fsv) fsv.textContent = "1.25rem";
           html.removeAttribute("data-font-system");
-          localStorage.removeItem("fontSystem");
-          var ffBtn = document.getElementById("btnFontToggle");
-          var ffLbl = document.getElementById("fontFamilyLabel");
-          if (ffBtn) ffBtn.classList.remove("active");
-          if (ffLbl) ffLbl.textContent = "Hadithmv";
+          localStorage.setItem("fontSystem", "0");
+          var ffSel = document.getElementById("selFontFamily");
+          if (ffSel) ffSel.value = "hadithmv";
           // Reader settings
           [
             "reader:rowsPerPage",

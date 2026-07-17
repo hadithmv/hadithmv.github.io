@@ -156,6 +156,8 @@ const STRINGS = {
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },
+  fontHadithmv: { dv: "ހަދީޘްއ�މްވީ ފޮންޓް", en: "Hadithmv font", ar: "خط هاديث-ام-في" },
+  fontSystem: { dv: "ސިސްޓަމް ފޮންޓް", en: "System font", ar: "خط النظام" },
 
   // ── Footer / meta ──
   appVersion: {

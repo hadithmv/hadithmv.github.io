@@ -7,6 +7,7 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 ```text
 data/01-bookNames.csv  ← Book registry (code, titles in AR/DV/EN)
 data/02-bookTags.csv   ← Tag definitions (code, label, colors)
+data/03-updateBookMeta.ps1 ← Auto-generate titleEN, sync new books
 books/
   index.html           ← Shared viewer + dashboard (the only HTML page)
 css/
@@ -52,6 +53,12 @@ FQH,Fiqh,#b91c1c,#fef2f2
 ```
 
 Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed.
+
+### Book code conventions
+
+- `DRFT-` prefix — marks a draft book (⚠️ badge), still visible on dashboard
+- `-HDN` suffix — hides the book from the dashboard
+- Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books
 
 ## Data CSV format
 
