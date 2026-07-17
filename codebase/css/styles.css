@@ -1921,7 +1921,7 @@ body:has(.modal-overlay.open) {
 .reader-divider::after {
   content: "◆";
   position: relative;
-  top: -0.55em;
+  top: -0.35em;
   font-size: 0.55rem;
   color: var(--color-divider-ornament);
   background: var(--color-reader-bg);
