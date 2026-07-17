@@ -7,7 +7,7 @@
  */
 
 import { initializePageWithMetadata, extractTags } from "./dbLookup.js";
-import { t, tagLabel, currentLang } from "./i18n.js";
+import { t, tagLabel, currentLang, normaliseForSearch } from "./i18n.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -196,8 +196,47 @@ initializePageWithMetadata(async function (metadata) {
 
       function highlightMatches(text, query) {
         if (!query) return text;
-        const re = new RegExp("(" + escapeRegex(query) + ")", "gi");
-        return text.replace(re, "<mark>$1</mark>");
+        var nq = normaliseForSearch(query);
+        var nt = normaliseForSearch(text);
+        if (!nq) return text;
+        // Find all matches in normalised text, map back to original positions
+        var result = "";
+        var lastEnd = 0;
+        var pos = 0;
+        while (pos < nt.length) {
+          var idx = nt.indexOf(nq, pos);
+          if (idx === -1) break;
+          var matchLen = nq.length;
+          // Map normalised position to original text
+          // Walk through original to find corresponding span
+          var origStart = 0, normIdx = 0;
+          while (normIdx < idx && origStart < text.length) {
+            if (normaliseForSearch(text[origStart]) === nt[normIdx]) {
+              normIdx++;
+            } else {
+              // This char in original is a diacritic not in norm
+            }
+            origStart++;
+          }
+          var origEnd = origStart;
+          var matchedNorm = 0;
+          while (matchedNorm < matchLen && origEnd < text.length) {
+            if (normaliseForSearch(text[origEnd]) === nt[idx + matchedNorm]) {
+              matchedNorm++;
+            }
+            origEnd++;
+          }
+          result += escapeHTML(text.slice(lastEnd, origStart));
+          result += "<mark>" + escapeHTML(text.slice(origStart, origEnd)) + "</mark>";
+          lastEnd = origEnd;
+          pos = idx + matchLen;
+        }
+        result += escapeHTML(text.slice(lastEnd));
+        return result;
+      }
+
+      function escapeHTML(str) {
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       }
 
       // ── Infinite-scroll render ──────────────────────────────
@@ -488,14 +527,13 @@ initializePageWithMetadata(async function (metadata) {
       let selectedResultIdx = -1; // index within searchResults DOM children
 
       function buildSnippets(row, q) {
-        // Return one snippet per matching column
-        const lower = q.toLowerCase();
+        var nq = normaliseForSearch(q);
         var results = [];
-        for (let i = 0; i < row.length; i++) {
-          const cell = row[i];
+        for (var i = 0; i < row.length; i++) {
+          var cell = row[i];
           if (cell === null || cell === undefined) continue;
-          const str = String(cell);
-          const pos = str.toLowerCase().indexOf(lower);
+          var str = String(cell);
+          var pos = normaliseForSearch(str).indexOf(nq);
           if (pos === -1) continue;
           var start = Math.max(0, pos - 150);
           var end = Math.min(str.length, pos + q.length + 150);
@@ -584,13 +622,13 @@ initializePageWithMetadata(async function (metadata) {
           searchResults.style.display = "none";
           rebuildAll();
         } else {
-          const lower = q.toLowerCase();
+          const nq = normaliseForSearch(q);
           var tempFiltered = allData.filter(function (row) {
             return row.some(function (cell) {
               return (
                 cell !== null &&
                 cell !== undefined &&
-                String(cell).toLowerCase().indexOf(lower) !== -1
+                normaliseForSearch(String(cell)).indexOf(nq) !== -1
               );
             });
           });
@@ -723,9 +761,9 @@ initializePageWithMetadata(async function (metadata) {
             var cellVal = (row[c.col] !== null && row[c.col] !== undefined) ? String(row[c.col]) : "";
             var op = OPERATORS.find(function(o){return o.id===c.op;});
             if (!op) return true;
-            if (op.needsValue === false) return op.fn(cellVal);
+            if (op.needsValue === false) return op.fn(normaliseForSearch(cellVal));
             var q = c.val || "";
-            return op.fn(cellVal, q);
+            return op.fn(normaliseForSearch(cellVal), normaliseForSearch(q));
           });
           // Combine: first condition sets the baseline, subsequent use logic
           var result = matches[0];

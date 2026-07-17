@@ -4,7 +4,7 @@
  * All configuration lives in CSV files — no hardcoded data.
  */
 
-import { tagLabel, t } from "./i18n.js";
+import { tagLabel, t, normaliseForSearch } from "./i18n.js";
 
 let bookNamesCache = null;
 let tagDefinitionsCache = null;
@@ -235,13 +235,14 @@ function renderDashboard(bookNames) {
   var visible = bookNames.filter(function (b) { return !b.bookCode.endsWith("-HDN"); });
 
   // Apply search filter
-  var q = _dashFilter.search.trim().toLowerCase();
+  var q = _dashFilter.search.trim();
   if (q) {
+    var nq = normaliseForSearch(q);
     visible = visible.filter(function (b) {
-      return (b.titleDV || "").toLowerCase().indexOf(q) !== -1 ||
-             (b.titleAR || "").toLowerCase().indexOf(q) !== -1 ||
-             (b.titleEN || "").toLowerCase().indexOf(q) !== -1 ||
-             (b.bookCode || "").toLowerCase().indexOf(q) !== -1;
+      return normaliseForSearch(b.titleDV || "").indexOf(nq) !== -1 ||
+             normaliseForSearch(b.titleAR || "").indexOf(nq) !== -1 ||
+             normaliseForSearch(b.titleEN || "").indexOf(nq) !== -1 ||
+             normaliseForSearch(b.bookCode || "").indexOf(nq) !== -1;
     });
   }
 

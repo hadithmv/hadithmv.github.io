@@ -75,7 +75,7 @@ Simple: First (`<<`) / Prev (`<`) / a `<select>` dropdown of all rows / Next (`>
 
 ### Search
 
-Real‑time, case‑insensitive filtering against all columns. Results dropdown with highlighted snippets. Keyboard‑navigable (↑/↓/Enter/Escape). Advanced search modal for column/condition/value filters with AND/OR logic.
+Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — strips Arabic diacritics, normalises alif/ya/waw variants, strips Thaana fili (vowel marks), and normalises Thaana thikijehi (Arabic‑derived letters) to base Thaana. Results dropdown with highlighted snippets mapped back to original text. Keyboard‑navigable (↑/↓/Enter/Escape). Advanced search modal for column/condition/value filters with AND/OR logic. Same normalisation used for dashboard search.
 
 ### Toolbar
 

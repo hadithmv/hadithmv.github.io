@@ -106,7 +106,8 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 ### Search
 
 - Real-time "find and jump" — search highlights matches in a dropdown, clicking jumps to that row without filtering the dataset
-- Results dropdown with highlighted snippets (~300 chars of context)
+- Tashkeel-insensitive: strips Arabic diacritics and Thaana fili before matching, normalises Arabic letter variants (أ إ آ → ا, ى → ي) and Thaana thikijehi (ޘ → ސ, etc.)
+- Results dropdown with highlighted snippets (~300 chars of context), highlighting maps back to original text with tashkeel intact
 - Click or Enter to jump; ↑/↓ to navigate; Escape to close
 - Red bold ✕ clear button resets to full content
 - Advanced search modal for column/condition/value filters with AND/OR logic — same find-and-jump behavior
