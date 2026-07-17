@@ -7,7 +7,7 @@ A metadata-driven, single-page viewer for Islamic texts. All configuration lives
 | File               | Purpose                                                           |
 | ------------------ | ----------------------------------------------------------------- |
 | `data/01-bookNames.csv` | Central registry of books (code, titles in AR/DV/EN)         |
-| `tags.csv`         | Tag definitions (code, label, badge colors)                       |
+| `data/02-bookTags.csv` | Tag definitions (code, label, badge colors)                  |
 | `books/index.html` | Shared viewer page and library dashboard                          |
 | `css/styles.css`   | All styles: light + dark + sepia themes, sidebar, reader, responsive |
 | `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering             |
@@ -25,7 +25,7 @@ URL: ?book=AQD-nawaqidulIslam
         ▼
   dbLookup.js
     ├─ fetch ../data/01-bookNames.csv  ──→  find row by bookCode
-    ├─ fetch ../tags.csv       ──→  resolve tag badges from prefix
+    ├─ fetch ../data/02-bookTags.csv ──→  resolve tag badges from prefix
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
         │
         ▼
@@ -137,7 +137,7 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
 
-### tags.csv
+### 02-bookTags.csv
 
 | Column  | Description                                              |
 | ------- | -------------------------------------------------------- |
@@ -182,7 +182,7 @@ All errors show visible messages in English:
 
 ### New tag category
 
-1. Add a row to `tags.csv`.
+1. Add a row to `data/02-bookTags.csv`.
 1. Use the code as a prefix in any `bookCode` — badges render automatically.
 
 ## Key benefits

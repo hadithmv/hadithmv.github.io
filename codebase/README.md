@@ -6,7 +6,7 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/01-bookNames.csv  ← Book registry (code, titles in AR/DV/EN)
-tags.csv               ← Tag definitions (code, label, colors)
+data/02-bookTags.csv   ← Tag definitions (code, label, colors)
 books/
   index.html           ← Shared viewer + dashboard (the only HTML page)
 css/
@@ -44,7 +44,7 @@ docs/
 
 ### Add a new tag category
 
-Add a row to `tags.csv`:
+Add a row to `data/02-bookTags.csv`:
 
 ```csv
 code,label,color,bg
@@ -66,7 +66,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `dbLookup.js` loads `bookNames.csv` and `tags.csv` for metadata and badges.
+1. `dbLookup.js` loads `bookNames.csv` and `02-bookTags.csv` for metadata and badges.
 1. `reader.js` loads `data/{bookCode}.csv` via PapaParse.
 1. Content renders with infinite scroll — rows load as you scroll.
 

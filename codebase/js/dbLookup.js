@@ -1,6 +1,6 @@
 /**
  * Database Lookup Module
- * Loads and manages bookNames.csv and tags.csv metadata.
+ * Loads and manages 01-bookNames.csv and 02-bookTags.csv metadata.
  * All configuration lives in CSV files — no hardcoded data.
  */
 
@@ -10,11 +10,11 @@ let bookNamesCache = null;
 let tagDefinitionsCache = null;
 
 // ---------------------------------------------------------------------------
-// Tag definitions — loaded from tags.csv
+// Tag definitions — loaded from 02-bookTags.csv
 // ---------------------------------------------------------------------------
 
 /**
- * Load tag definitions from tags.csv.
+ * Load tag definitions from 02-bookTags.csv.
  * Cached after first load; safe to call multiple times.
  * @returns {Promise<Object>} Map of tag code → {label, color, bg}
  */
@@ -24,7 +24,7 @@ async function loadTagDefinitions() {
   }
 
   try {
-    const response = await fetch("../tags.csv");
+    const response = await fetch("../data/02-bookTags.csv");
     if (!response.ok) {
       throw new Error(`Failed to load tags (HTTP ${response.status})`);
     }
@@ -54,7 +54,7 @@ async function loadTagDefinitions() {
     }
     return tagDefinitionsCache;
   } catch (error) {
-    console.error("Error loading tags.csv:", error);
+    console.error("Error loading 02-bookTags.csv:", error);
     // Cache the empty result so we don't retry endlessly
     tagDefinitionsCache = {};
     return tagDefinitionsCache;
@@ -231,7 +231,7 @@ function renderDashboard(bookNames) {
   const grid = document.getElementById("bookGrid");
   if (grid) {
     grid.innerHTML = bookNames
-      .filter(function (book) { return !book.bookCode.endsWith("-DRAFT"); })
+      .filter(function (book) { return !book.bookCode.endsWith("-HDN"); })
       .map((book) => {
         const tags = extractTags(book.bookCode);
         const tagHtml =

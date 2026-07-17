@@ -179,6 +179,7 @@ const STRINGS = {
   // ── Tag labels ──
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
   tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
+  tagDRFT: { dv: "⚠️ ޑްރާފްޓް", en: "⚠️ Draft", ar: "⚠️ مسودة" },
   tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
   tagRDF: { dv: "ރަދީފް", en: "Dictionary", ar: "معجم" },
   tagDFK: { dv: "ދފކ", en: "DFK", ar: "دفك" },
