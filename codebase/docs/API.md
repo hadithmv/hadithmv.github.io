@@ -1,9 +1,17 @@
 # API Reference
 
+## Pages
+
+| Page | Entry point | Loads |
+|---|---|---|
+| `books/index.html` | Inline module → `dbLookup.js` | `common.js`, `papaparse` |
+| `books/reader.html` | `reader.js` | `common.js`, `papaparse` |
+
 ## Modules
 
 | Module | Purpose |
 |---|---|
+| `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard |
 | `js/dbLookup.js` | Book registry, tag resolution, dashboard rendering |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |

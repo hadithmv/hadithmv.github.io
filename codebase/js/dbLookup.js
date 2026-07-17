@@ -305,7 +305,7 @@ function renderDashboard(bookNames) {
               return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
             }).join("") + '</div>'
           : "";
-        return '<tr data-href="?book=' + book.bookCode + '">' +
+        return '<tr data-href="reader.html?book=' + book.bookCode + '">' +
           '<td>' + (book.titleAR || "") + '</td>' +
           '<td>' + (book.titleDV || "") + '</td>' +
           '<td>' + (book.titleEN || "") + '</td>' +
@@ -327,7 +327,7 @@ function renderDashboard(bookNames) {
             return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
           }).join("") + '</div>'
         : "";
-      return '<a href="?book=' + book.bookCode + '" class="book-card">' +
+      return '<a href="reader.html?book=' + book.bookCode + '" class="book-card">' +
         tagHtml +
         '<div class="title-ar">' + (book.titleAR || "") + '</div>' +
         '<div class="title-dv">' + (book.titleDV || "") + '</div>' +

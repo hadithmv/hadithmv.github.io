@@ -11,18 +11,20 @@ data/
   03-updateBookMeta.ps1← Auto-generate titleEN, sync new books
   *.csv                ← Per-book content files
 books/
-  index.html           ← Shared viewer + dashboard
+  index.html           ← Dashboard — book list, search, tag filter, table/card view
+  reader.html          ← Book viewer — loaded via ?book=CODE
 css/
   styles.css           ← Shared: themes, topBar, sidebar, modals, responsive
   dashboard.css        ← Dashboard: grid, cards, controls, table view
 js/
-  dbLookup.js          ← Metadata loader, tag extraction, dashboard renderer
+  common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
+  dbLookup.js          ← Metadata loader, tag extraction, dashboard rendering
   reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
   search.js            ← Search engine: normalisation, parsing, matching, history
   i18n.js              ← Translations (dv/en/ar)
 font/                  ← Custom merged font (Arabic + Thaana + Latin)
 dependencies/          ← PapaParse + SheetJS mini
-docs/                  ← ARCHITECTURE.md, DB_LOOKUP_README.md
+docs/                  ← User guide, architecture, API reference
 ```
 
 ## Quick start

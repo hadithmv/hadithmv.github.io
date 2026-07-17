@@ -10,9 +10,11 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | ------------------ | ----------------------------------------------------------------- |
 | `data/01-bookNames.csv` | Central registry of books (code, titles in AR/DV/EN)         |
 | `data/02-bookTags.csv` | Tag definitions (code, label, badge colors)                  |
-| `books/index.html` | Shared viewer page and library dashboard                          |
+| `books/index.html` | Dashboard — book list, search, tag filter, table/card view        |
+| `books/reader.html`| Book viewer — loaded via `?book=CODE`                             |
 | `css/styles.css`   | Shared styles: themes, topBar, sidebar, modals, responsive        |
 | `css/dashboard.css`| Dashboard styles: grid, cards, controls, table view               |
+| `js/common.js`     | Shared init: theme, fonts, i18n, sidebar, settings, keyboard      |
 | `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering             |
 | `js/reader.js`     | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard |
 | `js/search.js`     | Search engine: normalisation, parsing, matching, snippets, history |
@@ -44,7 +46,11 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → `dbLookup.js` calls `renderDashboard()` → search bar, tag chips, sort/table toggle, and card grid (or table) of all registered books.
+No `?book=` → dashboard (`index.html`) loads `dbLookup.js` → search bar, tag chips, sort/table toggle, card grid of all books.
+
+`?book=CODE` → reader (`reader.html`) loads `reader.js` → parses the book CSV, renders infinite-scroll content.
+
+Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, and keyboard shortcuts.
 
 ## Reader UI
 

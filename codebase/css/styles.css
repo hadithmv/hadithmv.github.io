@@ -903,6 +903,46 @@ body:has(.modal-overlay.open) {
     sans-serif;
 }
 
+/* Skeleton loading lines */
+.skeleton {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 100px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.skeleton-line {
+  height: 1rem;
+  border-radius: 4px;
+  background: var(--color-border);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+.skeleton-line:first-child {
+  width: 30%;
+  height: 0.85rem;
+  margin-bottom: 8px;
+}
+.skeleton-line:nth-child(2) { width: 100%; }
+.skeleton-line:nth-child(3) { width: 95%; }
+.skeleton-line:nth-child(4) { width: 88%; }
+.skeleton-line:nth-child(5) { width: 92%; }
+.skeleton-line:nth-child(6) { width: 45%; }
+.skeleton-line:nth-child(7) { width: 100%; }
+.skeleton-line:nth-child(8) { width: 92%; }
+.skeleton-line:nth-child(9) { width: 35%; }
+.skeleton-line:nth-child(10) { width: 20%; margin-top: 16px; }
+.skeleton-line:nth-child(11) { width: 100%; }
+.skeleton-line:nth-child(12) { width: 85%; }
+.skeleton-line:nth-child(13) { width: 92%; }
+.skeleton-line:nth-child(14) { width: 40%; }
+.skeleton-line:nth-child(15) { width: 25%; margin-top: 16px; }
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
 .error {
   color: var(--color-error-text);
   padding: 20px;
@@ -1899,10 +1939,10 @@ body:has(.modal-overlay.open) {
 
 .scroll-counter {
   position: fixed;
-  bottom: 16px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 5px 16px;
+  padding: 4px 12px;
   font-size: 0.8rem;
   min-width: 90px;
   text-align: center;
