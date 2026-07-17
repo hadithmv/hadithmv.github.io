@@ -9,27 +9,41 @@ $csvPath    = Join-Path $PSScriptRoot "01-bookNames.csv"
 $tagsPath   = Join-Path $PSScriptRoot "02-bookTags.csv"
 $dataDir    = $PSScriptRoot
 
+# ── Helpers for coloured output ──────────────────────────────
+function Write-Section($text) {
+    Write-Host "`n━━━ $text ━━━" -ForegroundColor Cyan
+}
+function Write-Add($text)    { Write-Host "  ✅ $text" -ForegroundColor Green }
+function Write-Update($text) { Write-Host "  📝 $text" -ForegroundColor Yellow }
+function Write-Rename($text) { Write-Host "  🔄 $text" -ForegroundColor Magenta }
+function Write-Skip($text)   { Write-Host "  ⏭️  $text" -ForegroundColor DarkGray }
+function Write-Info($text)   { Write-Host "    $text" -ForegroundColor Gray }
+
+Write-Host "`n📚 Hadithmv — Update Book Metadata" -ForegroundColor White
+
 # ── Load known tag codes from 02-bookTags.csv ────────────────
+Write-Section "Loading tags"
 $knownTags = @{}
 if (Test-Path $tagsPath) {
+    $tagList = @()
     Get-Content $tagsPath | Select-Object -Skip 1 | ForEach-Object {
         $line = $_.Trim()
         if ($line) {
             $code = ($line -split ",")[0].Trim()
-            if ($code) { $knownTags[$code] = $true }
+            if ($code) { $knownTags[$code] = $true; $tagList += $code }
         }
     }
+    Write-Info "$($tagList.Count) tags: $($tagList -join ', ')"
+} else {
+    Write-Skip "02-bookTags.csv not found"
 }
-Write-Host "Loaded tags: $($knownTags.Keys -join ', ')"
 
 # Known suffix flags to strip from end of bookCode
 $suffixFlags = @("HDN", "DRAFT")
 
 # ── Helper: camelCase → Title Case ───────────────────────────
 function ConvertTo-TitleCase($name) {
-    # Insert space before each uppercase letter that follows a lowercase letter
     $spaced = $name -creplace '(?<=[a-z])(?=[A-Z])', ' '
-    # Capitalize first letter of each word
     $words = $spaced -split ' ' | Where-Object { $_ }
     $titled = ($words | ForEach-Object {
         if ($_.Length -gt 0) {
@@ -45,17 +59,13 @@ function Get-BookName($code) {
     $start = 0
     $end   = $parts.Count - 1
 
-    # Strip known prefix tags
     while ($start -lt $parts.Count -and $knownTags.ContainsKey($parts[$start])) {
         $start++
     }
-
-    # Strip known suffix flags
     while ($end -ge $start -and $suffixFlags -contains $parts[$end]) {
         $end--
     }
 
-    # Join remaining parts
     if ($start -le $end) {
         $nameParts = $parts[$start..$end]
         return ($nameParts -join '')
@@ -63,31 +73,37 @@ function Get-BookName($code) {
     return ""
 }
 
-# ── Clean up " - Sheet1" suffixes from CSV filenames ──────────
+# ── Clean up " - Sheet1" suffixes ────────────────────────────
+Write-Section "Cleaning filenames"
+$renamed = 0
 Get-ChildItem $dataDir -Filter "* - Sheet1.csv" | ForEach-Object {
     $newName = $_.Name -replace " - Sheet1\.csv$", ".csv"
     $newPath = Join-Path $dataDir $newName
     if (-not (Test-Path $newPath)) {
-        Write-Host "  rename: $($_.Name)  →  $newName"
+        Write-Rename "$($_.Name)  →  $newName"
         Rename-Item $_.FullName $newName
+        $renamed++
     } else {
-        Write-Host "  skip (target exists): $($_.Name)"
+        Write-Skip "target exists: $($_.Name)"
     }
 }
+if ($renamed -eq 0) { Write-Info "nothing to rename" }
 
 # ── Read existing registry ────────────────────────────────────
+Write-Section "Reading registry"
 $lines  = Get-Content $csvPath
 $header = $lines[0]
 $rows   = $lines[1..($lines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
 
-# Get registered book codes
 $registered = @{}
 foreach ($row in $rows) {
     $code = ($row -split ",")[0].Trim()
     if ($code) { $registered[$code] = $true }
 }
+Write-Info "$($rows.Count) books in 01-bookNames.csv"
 
 # ── Find new CSV files ────────────────────────────────────────
+Write-Section "Scanning for new books"
 $added = 0
 Get-ChildItem $dataDir -Filter *.csv | Where-Object {
     $_.Name -notin @("01-bookNames.csv", "02-bookTags.csv")
@@ -95,16 +111,19 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {
         $enTitle = ConvertTo-TitleCase (Get-BookName $code)
-        Write-Host "  + $code  →  $enTitle"
+        Write-Add "$code"
+        Write-Info "titleEN → $enTitle"
         $rows += "$code,,,$enTitle"
         $added++
     }
 }
+if ($added -eq 0) { Write-Info "no new books found" }
 
 # ── Update titleEN for existing rows (if empty) ──────────────
+Write-Section "Filling missing titleEN"
 $updated = 0
 $newRows = foreach ($row in $rows) {
-    $cols = $row -split ",", 4  # max 4 parts: code,ar,dv,en
+    $cols = $row -split ",", 4
     $code    = $cols[0].Trim()
     $titleAR = if ($cols.Count -gt 1) { $cols[1].Trim() } else { "" }
     $titleDV = if ($cols.Count -gt 2) { $cols[2].Trim() } else { "" }
@@ -113,7 +132,7 @@ $newRows = foreach ($row in $rows) {
     if (-not $titleEN) {
         $derived = ConvertTo-TitleCase (Get-BookName $code)
         if ($derived) {
-            Write-Host "  ~ $code  →  $derived"
+            Write-Update "$code  →  $derived"
             $titleEN = $derived
             $updated++
         }
@@ -121,6 +140,7 @@ $newRows = foreach ($row in $rows) {
 
     "$code,$titleAR,$titleDV,$titleEN"
 }
+if ($updated -eq 0) { Write-Info "all titles already filled" }
 
 # ── Sort alphabetically by bookCode ───────────────────────────
 $sorted = $newRows | Sort-Object { ($_ -split ",")[0].Trim() }
@@ -130,4 +150,12 @@ $output = @($header) + $sorted
 $output -join "`r`n" | Out-File $csvPath -Encoding UTF8 -NoNewline
 
 $total = $sorted.Count
-Write-Host "Done. $total books ($added added, $updated titles updated), sorted by bookCode."
+Write-Host "`n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
+Write-Host "  📊 $total books total" -ForegroundColor White
+if ($added -gt 0)   { Write-Host "  ✅ $added added" -ForegroundColor Green }
+if ($updated -gt 0) { Write-Host "  📝 $updated titles filled" -ForegroundColor Yellow }
+if ($renamed -gt 0) { Write-Host "  🔄 $renamed files renamed" -ForegroundColor Magenta }
+if ($added -eq 0 -and $updated -eq 0 -and $renamed -eq 0) {
+    Write-Host "  ✨ already up to date" -ForegroundColor Green
+}
+Write-Host ""
