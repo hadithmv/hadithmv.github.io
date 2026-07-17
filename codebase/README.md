@@ -5,27 +5,24 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 ## File structure
 
 ```text
-data/01-bookNames.csv  ← Book registry (code, titles in AR/DV/EN)
-data/02-bookTags.csv   ← Tag definitions (code, label, colors)
-data/03-updateBookMeta.ps1 ← Auto-generate titleEN, sync new books
+data/
+  01-bookNames.csv     ← Book registry (code, titles in AR/DV/EN)
+  02-bookTags.csv      ← Tag definitions (code, label, colors)
+  03-updateBookMeta.ps1← Auto-generate titleEN, sync new books
+  *.csv                ← Per-book content files
 books/
-  index.html           ← Shared viewer + dashboard (the only HTML page)
+  index.html           ← Shared viewer + dashboard
 css/
-  styles.css           ← All styles (light + dark + sepia themes, custom properties)
+  styles.css           ← Shared: themes, topBar, sidebar, modals, responsive
+  dashboard.css        ← Dashboard: grid, cards, controls, table view
 js/
   dbLookup.js          ← Metadata loader, tag extraction, dashboard renderer
-  reader.js            ← Book viewer: infinite scroll, search, toolbar, keyboard
-  i18n.js              ← Translations (Dhivehi / English / Arabic)
-font/
-  merged-300.woff2     ← Custom merged font (Arabic + Thaana + Latin)
-  merged-300.woff
-data/
-  *.csv                ← Per-book content files
-dependencies/
-  papaparse.min.js     ← CSV parsing (only dependency)
-docs/
-  ARCHITECTURE.md      ← System design and conventions
-  DB_LOOKUP_README.md  ← API reference for dbLookup.js
+  reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
+  search.js            ← Search engine: normalisation, parsing, matching, history
+  i18n.js              ← Translations (dv/en/ar)
+font/                  ← Custom merged font (Arabic + Thaana + Latin)
+dependencies/          ← PapaParse + SheetJS mini
+docs/                  ← ARCHITECTURE.md, DB_LOOKUP_README.md
 ```
 
 ## Quick start
@@ -221,5 +218,8 @@ Vendored in `dependencies/` — no CDN, no build step:
 
 ## Documentation
 
-- [ARCHITECTURE.md](docs/ARCHITECTURE.md) — system design and conventions
-- [DB_LOOKUP_README.md](docs/DB_LOOKUP_README.md) — JavaScript API reference
+| Doc | Audience |
+|---|---|
+| [User Guide](docs/USER_GUIDE.md) | Readers — how to browse, search, read, and use settings |
+| [Architecture](docs/ARCHITECTURE.md) | Developers & LLMs — system design, data flow, conventions |
+| [API Reference](docs/API.md) | Developers — module exports, function signatures, search syntax |

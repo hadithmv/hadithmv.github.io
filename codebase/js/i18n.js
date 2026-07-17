@@ -234,39 +234,6 @@ export function tagLabel(code, fallback, lang) {
   return fallback || code;
 }
 
-// ── Search normalisation ───────────────────────────────────
-// Strips tashkeel/rab/rug from Arabic, thikijehi from Thaana,
-// and normalises alif/ya variants so searches match regardless.
-export function normaliseForSearch(str) {
-  if (!str) return "";
-  var s = str.toLowerCase();
-  // Arabic tashkeel + tatweel
-  s = s.replace(/[ؐ-ًؚ-ٰٟۖ-ۭ]/g, "");
-  s = s.replace(/ـ/g, ""); // tatweel
-  // Normalise alif variants → plain alif
-  s = s.replace(/[أإآ]/g, "ا");
-  // Normalise ya variants → ya
-  s = s.replace(/ى/g, "ي");
-  // Normalise waw-hamza → waw
-  s = s.replace(/ؤ/g, "و");
-  // Thaana thikijehi → base Thaana equivalents
-  s = s.replace(/ޘ/g, "ސ");
-  s = s.replace(/ޙ/g, "ހ");
-  s = s.replace(/ޚ/g, "ހ");
-  s = s.replace(/ޛ/g, "ޒ");
-  s = s.replace(/ޜ/g, "ޒ");
-  s = s.replace(/ޝ/g, "ސ");
-  s = s.replace(/ޞ/g, "ސ");
-  s = s.replace(/ޟ/g, "ދ");
-  s = s.replace(/ޠ/g, "ތ");
-  s = s.replace(/ޡ/g, "ޒ");
-  s = s.replace(/ޢ/g, "އ");
-  s = s.replace(/ޣ/g, "ގ");
-  s = s.replace(/ޤ/g, "ގ");
-  s = s.replace(/ޥ/g, "ވ");
-  return s;
-}
-
 // ── State ──────────────────────────────────────────────────
 const LANG_ORDER = ["dv", "en", "ar"];
 let _currentLang = "dv";

@@ -4,7 +4,8 @@
  * All configuration lives in CSV files — no hardcoded data.
  */
 
-import { tagLabel, t, normaliseForSearch } from "./i18n.js";
+import { tagLabel, t } from "./i18n.js";
+import { normaliseForSearch } from "./search.js";
 
 let bookNamesCache = null;
 let tagDefinitionsCache = null;

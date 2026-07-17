@@ -1,6 +1,8 @@
-# Book Lookup System Architecture
+# Architecture
 
-A metadata-driven, single-page viewer for Islamic texts. All configuration lives in CSV files. The UI supports Dhivehi, English, and Arabic via an i18n module.
+Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CSV files. UI supports Dhivehi, English, and Arabic.
+
+> **Other docs:** [User Guide](USER_GUIDE.md) for readers · [API Reference](API.md) for developers
 
 ## Files
 
@@ -9,13 +11,17 @@ A metadata-driven, single-page viewer for Islamic texts. All configuration lives
 | `data/01-bookNames.csv` | Central registry of books (code, titles in AR/DV/EN)         |
 | `data/02-bookTags.csv` | Tag definitions (code, label, badge colors)                  |
 | `books/index.html` | Shared viewer page and library dashboard                          |
-| `css/styles.css`   | All styles: light + dark + sepia themes, sidebar, reader, responsive |
+| `css/styles.css`   | Shared styles: themes, topBar, sidebar, modals, responsive        |
+| `css/dashboard.css`| Dashboard styles: grid, cards, controls, table view               |
 | `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering             |
-| `js/reader.js`     | Book viewer: infinite scroll, search, toolbar, clipboard, keyboard |
+| `js/reader.js`     | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard |
+| `js/search.js`     | Search engine: normalisation, parsing, matching, snippets, history |
 | `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
 | `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
 | `data/*.csv`       | Per-book content files                                            |
 | `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books    |
+| `css/dashboard.css`| Dashboard-specific styles: grid, cards, controls, table          |
+| `js/search.js`     | Shared search engine: normalisation, parsing, matching, history  |
 | `dependencies/`    | PapaParse + SheetJS mini (Excel export, lazy-loaded)              |
 
 ## Request flow

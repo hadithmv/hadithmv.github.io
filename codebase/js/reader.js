@@ -7,7 +7,8 @@
  */
 
 import { initializePageWithMetadata, extractTags } from "./dbLookup.js";
-import { t, tagLabel, currentLang, normaliseForSearch } from "./i18n.js";
+import { t, tagLabel, currentLang } from "./i18n.js";
+import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -190,50 +191,6 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Search highlight ───────────────────────────────────
-      function escapeRegex(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-
-      function highlightMatches(text, query) {
-        if (!query) return text;
-        var nq = normaliseForSearch(query);
-        var nt = normaliseForSearch(text);
-        if (!nq) return text;
-        // Find all matches in normalised text, map back to original positions
-        var result = "";
-        var lastEnd = 0;
-        var pos = 0;
-        while (pos < nt.length) {
-          var idx = nt.indexOf(nq, pos);
-          if (idx === -1) break;
-          var matchLen = nq.length;
-          // Map normalised position to original text
-          // Walk through original to find corresponding span
-          var origStart = 0, normIdx = 0;
-          while (normIdx < idx && origStart < text.length) {
-            if (normaliseForSearch(text[origStart]) === nt[normIdx]) {
-              normIdx++;
-            } else {
-              // This char in original is a diacritic not in norm
-            }
-            origStart++;
-          }
-          var origEnd = origStart;
-          var matchedNorm = 0;
-          while (matchedNorm < matchLen && origEnd < text.length) {
-            if (normaliseForSearch(text[origEnd]) === nt[idx + matchedNorm]) {
-              matchedNorm++;
-            }
-            origEnd++;
-          }
-          result += escapeHTML(text.slice(lastEnd, origStart));
-          result += "<mark>" + escapeHTML(text.slice(origStart, origEnd)) + "</mark>";
-          lastEnd = origEnd;
-          pos = idx + matchLen;
-        }
-        result += escapeHTML(text.slice(lastEnd));
-        return result;
-      }
 
       function escapeHTML(str) {
         return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -526,58 +483,10 @@ initializePageWithMetadata(async function (metadata) {
       // ── Search ──────────────────────────────────────────────
       let selectedResultIdx = -1; // index within searchResults DOM children
 
-      function buildSnippets(row, q) {
-        var parsed = parseQuery(q);
-        // Find which cells actually match
-        var matchingCells = [];
-        for (var i = 0; i < row.length; i++) {
-          var cell = row[i];
-          if (cell === null || cell === undefined) continue;
-          var testRow = [];
-          testRow[i] = cell;
-          if (rowMatchesQuery(testRow, parsed)) {
-            matchingCells.push({ index: i, text: String(cell) });
-          }
-        }
-        if (matchingCells.length === 0) return [];
 
-        var results = [];
-        for (var m = 0; m < matchingCells.length; m++) {
-          var str = matchingCells[m].text;
-          var nstr = normaliseForSearch(str);
-          // Find first matching term position
-          var bestPos = -1, bestLen = 0;
-          for (var t = 0; t < parsed.include.length; t++) {
-            var term = parsed.include[t];
-            var nterm = normaliseForSearch(term.term);
-            if (!nterm) continue;
-            var pos = nstr.indexOf(nterm);
-            if (pos !== -1 && (bestPos === -1 || pos < bestPos)) {
-              bestPos = pos; bestLen = nterm.length;
-            }
-          }
-          // Fallback: take from start of cell
-          if (bestPos === -1) { bestPos = 0; bestLen = Math.min(str.length, 80); }
-          // Map back to original
-          var origStart = 0, normIdx = 0;
-          while (normIdx < bestPos && origStart < str.length) {
-            if (normaliseForSearch(str[origStart]) === (nstr[normIdx] || "")) normIdx++;
-            origStart++;
-          }
-          var origEnd = origStart, matchedNorm = 0;
-          while (matchedNorm < bestLen && origEnd < str.length) {
-            if (normaliseForSearch(str[origEnd]) === (nstr[bestPos + matchedNorm] || "")) matchedNorm++;
-            origEnd++;
-          }
-          var start = Math.max(0, origStart - 150);
-          var end = Math.min(str.length, origEnd + 150);
-          var snip =
-            (start > 0 ? "…" : "") +
-            str.slice(start, end) +
-            (end < str.length ? "…" : "");
-          results.push(highlightMatches(snip, q));
-        }
-        return results;
+      function buildSnippets(row, q) {
+        var parsed = parseQueryWithMode(q);
+        return buildSnippetsFromSearch(row, parsed, q);
       }
 
       function buildAdvResultsHTML(query, rows, realIdxMap) {
@@ -656,171 +565,6 @@ initializePageWithMetadata(async function (metadata) {
           });
       }
 
-      // ── Enhanced search engine ──────────────────────────────
-      var searchHistory = LS.get("searchHistory", []);
-      var MAX_HISTORY = 20;
-
-      function matchTerm(text, term, wholeWord) {
-        var nt = normaliseForSearch(text);
-        var nterm = normaliseForSearch(term);
-        if (!nterm) return false;
-
-        // Fuzzy match: ~term or term~
-        var fuzzy = false;
-        var fuzzyTerm = nterm;
-        if (nterm[0] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(1); }
-        if (nterm[nterm.length - 1] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(0, -1); }
-
-        if (fuzzy) {
-          // Levenshtein distance <= 2
-          return fuzzyMatch(nt, fuzzyTerm, 2);
-        }
-
-        // Build regex from term
-        var pattern = "";
-        for (var i = 0; i < nterm.length; i++) {
-          var ch = nterm[i];
-          if (ch === "*") pattern += ".*";
-          else if (ch === "?") pattern += ".";
-          else pattern += escapeRegex(ch);
-        }
-
-        var flags = "iu";
-        if (wholeWord) {
-          pattern = "(^|[^\\p{L}])(" + pattern + ")([^\\p{L}]|$)";
-        }
-        try {
-          return new RegExp(pattern, flags).test(nt);
-        } catch (e) {
-          return nt.indexOf(nterm) !== -1;
-        }
-      }
-
-      function fuzzyMatch(text, pattern, maxDist) {
-        var tLen = text.length;
-        var pLen = pattern.length;
-        if (Math.abs(tLen - pLen) > maxDist) return false;
-        // Check sliding window + Levenshtein
-        for (var start = 0; start <= tLen - pLen + maxDist; start++) {
-          var sub = text.slice(start, start + pLen + maxDist);
-          if (levenshtein(sub, pattern, maxDist) <= maxDist) return true;
-        }
-        // Also check if pattern appears as subsequence within the text
-        for (var s = 0; s < tLen - pLen + maxDist + 1; s++) {
-          if (levenshtein(text.slice(s, Math.min(s + pLen + maxDist, tLen)), pattern, maxDist) <= maxDist) return true;
-        }
-        return false;
-      }
-
-      function levenshtein(a, b, max) {
-        if (Math.abs(a.length - b.length) > max) return max + 1;
-        var prev = [];
-        for (var i = 0; i <= b.length; i++) prev[i] = i;
-        for (var i = 1; i <= a.length; i++) {
-          var curr = [i];
-          var minInRow = i;
-          for (var j = 1; j <= b.length; j++) {
-            var cost = a[i - 1] === b[j - 1] ? 0 : 1;
-            curr[j] = Math.min(prev[j] + 1, curr[j - 1] + 1, prev[j - 1] + cost);
-            if (curr[j] < minInRow) minInRow = curr[j];
-          }
-          if (minInRow > max) return max + 1;
-          prev = curr;
-        }
-        return prev[b.length];
-      }
-
-      function parseQuery(query) {
-        // Returns { include: [{term, wholeWord, fuzzy, col}], exclude: [{term, wholeWord, fuzzy, col}], regex: null }
-        var result = { include: [], exclude: [] };
-        if (!query || !query.trim()) return result;
-
-        // Check for regex: /pattern/flags
-        var regexMatch = query.match(/^\/(.+?)\/([gimsu]*)$/);
-        if (regexMatch) {
-          try {
-            result.regex = new RegExp(regexMatch[1], regexMatch[2] || "gi");
-          } catch (e) {
-            result.regex = null;
-          }
-          return result;
-        }
-
-        // Tokenise: split on whitespace, preserve quoted phrases
-        var tokens = [];
-        var re = /"([^"]+)"|'([^']+)'|(\S+)/g;
-        var m;
-        while ((m = re.exec(query)) !== null) {
-          tokens.push(m[1] || m[2] || m[3]);
-        }
-
-        tokens.forEach(function (token) {
-          var exclude = false;
-          var wholeWord = false;
-          var fuzzy = false;
-          var col = null;
-
-          if (token[0] === "-") { exclude = true; token = token.slice(1); }
-          if (token[0] === ".") { wholeWord = true; token = token.slice(1); }
-
-          // col:N prefix
-          var colMatch = token.match(/^col:(\d+):(.+)/);
-          if (colMatch) { col = parseInt(colMatch[1]); token = colMatch[2]; }
-
-          if (token[0] === "~" || token[token.length - 1] === "~") {
-            fuzzy = true;
-            if (token[0] === "~") token = token.slice(1);
-            if (token[token.length - 1] === "~") token = token.slice(0, -1);
-          }
-
-          if (token) {
-            (exclude ? result.exclude : result.include).push({
-              term: token, wholeWord: wholeWord, fuzzy: fuzzy, col: col
-            });
-          }
-        });
-
-        return result;
-      }
-
-      function rowMatchesQuery(row, parsed) {
-        if (parsed.regex) {
-          return row.some(function (cell) {
-            return cell != null && parsed.regex.test(normaliseForSearch(String(cell)));
-          });
-        }
-
-        // Must match ALL include terms (AND), NONE of exclude terms
-        for (var i = 0; i < parsed.include.length; i++) {
-          var inc = parsed.include[i];
-          var cols = inc.col !== null ? [row[inc.col]] : row;
-          if (!cols.some(function (cell) {
-            return cell != null && matchTerm(String(cell), inc.term, inc.wholeWord);
-          })) return false;
-        }
-        for (var j = 0; j < parsed.exclude.length; j++) {
-          var exc = parsed.exclude[j];
-          var excCols = exc.col !== null ? [row[exc.col]] : row;
-          if (excCols.some(function (cell) {
-            return cell != null && matchTerm(String(cell), exc.term, exc.wholeWord);
-          })) return false;
-        }
-        return true;
-      }
-
-      var historySaveTimer = null;
-      function addSearchHistory(query) {
-        var q = query.trim();
-        if (!q) return;
-        clearTimeout(historySaveTimer);
-        historySaveTimer = setTimeout(function () {
-          searchHistory = searchHistory.filter(function (h) { return h !== q; });
-          searchHistory.unshift(q);
-          if (searchHistory.length > MAX_HISTORY) searchHistory.pop();
-          LS.set("searchHistory", searchHistory);
-        }, 800);
-      }
-
       function applySearch(query) {
         var q = query.trim();
         if (!q) {
@@ -832,7 +576,7 @@ initializePageWithMetadata(async function (metadata) {
           return;
         }
 
-        var parsed = parseQuery(q);
+        var parsed = parseQueryWithMode(q);
         var tempFiltered = allData.filter(function (row) {
           return rowMatchesQuery(row, parsed);
         });
@@ -876,16 +620,15 @@ initializePageWithMetadata(async function (metadata) {
       var wholeWordMode = false;
       var btnWholeWord = document.getElementById("btnWholeWord");
 
-      // Override parseQuery to respect whole-word toggle
-      var _parseQuery = parseQuery;
-      parseQuery = function (query) {
-        var result = _parseQuery(query);
+      // Wrapper around parseQuery to respect whole-word toggle
+      function parseQueryWithMode(query) {
+        var result = parseQuery(query);
         if (wholeWordMode) {
           result.include.forEach(function (t) { t.wholeWord = true; });
           result.exclude.forEach(function (t) { t.wholeWord = true; });
         }
         return result;
-      };
+      }
 
       btnWholeWord.style.display = "";
       btnWholeWord.addEventListener("click", function () {
@@ -898,7 +641,8 @@ initializePageWithMetadata(async function (metadata) {
       var searchHistoryEl = document.getElementById("searchHistory");
 
       function renderSearchHistory() {
-        if (searchHistory.length === 0) {
+        var history = getSearchHistory();
+        if (history.length === 0) {
           searchHistoryEl.style.display = "none";
           return;
         }
@@ -908,7 +652,7 @@ initializePageWithMetadata(async function (metadata) {
         searchHistoryEl.style.left = (sbRect.left - rcRect.left) + "px";
         searchHistoryEl.style.right = (rcRect.right - sbRect.right) + "px";
         searchHistoryEl.style.top = (sbRect.bottom - rcRect.top) + "px";
-        searchHistoryEl.innerHTML = searchHistory.map(function (h, i) {
+        searchHistoryEl.innerHTML = history.map(function (h, i) {
           return '<div class="search-history-item" data-idx="' + i + '">' +
             '<span class="hist-text">' + escapeHTML(h) + '</span>' +
             '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
@@ -919,7 +663,7 @@ initializePageWithMetadata(async function (metadata) {
         searchHistoryEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
           item.addEventListener("click", function (e) {
             if (e.target.classList.contains("hist-remove")) return;
-            searchInput.value = searchHistory[parseInt(this.dataset.idx)];
+            searchInput.value = history[parseInt(this.dataset.idx)];
             applySearch(searchInput.value);
             searchHistoryEl.style.display = "none";
           });
@@ -927,17 +671,14 @@ initializePageWithMetadata(async function (metadata) {
         searchHistoryEl.querySelectorAll(".hist-remove").forEach(function (x) {
           x.addEventListener("click", function (e) {
             e.stopPropagation();
-            var idx = parseInt(this.dataset.idx);
-            searchHistory.splice(idx, 1);
-            LS.set("searchHistory", searchHistory);
+            removeSearchHistoryItem(parseInt(this.dataset.idx));
             renderSearchHistory();
           });
         });
         // Clear-all button
         var clearAll = searchHistoryEl.querySelector(".search-history-clear");
         if (clearAll) clearAll.addEventListener("click", function () {
-          searchHistory = [];
-          LS.set("searchHistory", []);
+          clearSearchHistory();
           searchHistoryEl.style.display = "none";
         });
       }
