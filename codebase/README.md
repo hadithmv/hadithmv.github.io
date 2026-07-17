@@ -18,7 +18,7 @@ css/
   dashboard.css        ← Dashboard: grid, cards, controls, table view
 js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
-  dbLookup.js          ← Metadata loader, tag extraction, dashboard rendering
+  catalog.js          ← Metadata loader, tag extraction, dashboard rendering
   reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
   search.js            ← Search engine: normalisation, parsing, matching, history
   i18n.js              ← Translations (dv/en/ar)
@@ -51,7 +51,7 @@ code,label,color,bg
 FQH,Fiqh,#b91c1c,#fef2f2
 ```
 
-Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed.
+Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Check `data/02-bookTags.csv` for existing colours — pick a hue zone not already taken so tags stay visually distinct.
 
 ### Book code conventions
 
@@ -72,7 +72,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `dbLookup.js` loads `bookNames.csv` and `02-bookTags.csv` for metadata and badges.
+1. `catalog.js` loads `bookNames.csv` and `02-bookTags.csv` for metadata and badges.
 1. `reader.js` loads `data/{bookCode}.csv` via PapaParse.
 1. Content renders with infinite scroll — rows load as you scroll.
 

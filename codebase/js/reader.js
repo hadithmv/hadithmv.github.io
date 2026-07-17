@@ -6,7 +6,7 @@
  * rows-per-page control, and per-column visibility toggles.
  */
 
-import { initializePageWithMetadata, extractTags } from "./dbLookup.js";
+import { initializePageWithMetadata, extractTags } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
 

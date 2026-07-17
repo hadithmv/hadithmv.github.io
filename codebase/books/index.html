@@ -117,19 +117,136 @@
       </div>
     </aside>
 
+    <div id="settingsOverlay" class="modal-overlay">
+      <div id="settingsModal" class="modal" role="dialog">
+        <div class="modal-header">
+          <h2 class="modal-title" data-i18n="labelSettings">ސެޓިންގްސް</h2>
+          <button
+            id="btnResetSettings"
+            class="modal-reset-sm"
+            data-i18n="btnReset"
+            title="Reset all settings"
+          >
+            ↺ ރީސެޓް
+          </button>
+          <button
+            id="modalClose"
+            class="modal-close"
+            title="Close (Escape key)"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-card">
+            <h3 class="modal-card-title" data-i18n="settingsAppearance">
+              ފެންނަ ގޮތް
+            </h3>
+            <div class="modal-row">
+              <span class="modal-label" data-i18n="labelTheme">ތީމް</span>
+              <select id="selTheme" class="sidebar-select">
+                <option value="light">☀️ ލައިޓް</option>
+                <option value="dark">🌙 ޑާރކް</option>
+                <option value="sepia">📜 ސީޕިއާ</option>
+              </select>
+            </div>
+            <div class="modal-row">
+              <span data-i18n="btnWidescreen">🖥️ ފުޅާ ސްކްރީން</span>
+              <button id="btnWidescreen" class="modal-toggle">☐</button>
+            </div>
+          </div>
+          <div class="modal-card">
+            <h3 class="modal-card-title" data-i18n="settingsFont">ފޮންޓް</h3>
+            <div class="modal-row">
+              <span data-i18n="labelFontSize">ފޮންޓް ސައިޒު</span>
+              <div class="font-size-row">
+                <button
+                  id="btnFontDown"
+                  class="font-adj-btn"
+                  title="Decrease font size"
+                >
+                  −
+                </button>
+                <span id="fontSizeVal" class="font-size-val">1.25rem</span>
+                <button
+                  id="btnFontUp"
+                  class="font-adj-btn"
+                  title="Increase font size"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+            <div class="modal-row">
+              <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
+              <select
+                id="selFontFamily"
+                class="sidebar-select"
+                style="width: auto"
+              >
+                <option value="hadithmv">Hadithmv font</option>
+                <option value="system">System font</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-card">
+            <h3 class="modal-card-title" data-i18n="settingsLanguage">ބަސް</h3>
+            <div class="modal-row">
+              <span>🌐</span>
+              <select
+                id="selLanguage"
+                class="sidebar-select"
+                title="Change language"
+              >
+                <option value="dv">ދިވެހި - Dhivehi - الديفيهية</option>
+                <option value="en">އިނގިރޭސި - English - إنجليزي</option>
+                <option value="ar">އަރަބި - Arabic - العربية</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
       <div id="dashboardControls">
         <div id="dashboardSearchBar">
-          <button id="dashboardSearchClear" class="search-clear" title="Clear search" style="display:none">✕</button>
-          <input id="dashboardSearch" type="search" class="search-input" data-i18n="dashboardSearchPlaceholder" placeholder="Search books…" dir="rtl" />
+          <button
+            id="dashboardSearchClear"
+            class="search-clear"
+            title="Clear search"
+            style="display: none"
+          >
+            ✕
+          </button>
+          <input
+            id="dashboardSearch"
+            type="search"
+            class="search-input"
+            data-i18n="dashboardSearchPlaceholder"
+            placeholder="Search books…"
+            dir="rtl"
+          />
         </div>
         <div id="dashboardTagChips"></div>
         <div id="dashboardSortRow">
           <span id="dashboardResultCount" class="search-info"></span>
-          <div style="display:flex;gap:6px;align-items:stretch">
-            <button id="dashboardReset" class="toolbar-btn" data-i18n="btnResetText">↺ ރީސެޓް</button>
-            <button id="dashboardViewToggle" class="toolbar-btn" data-i18n="btnViewToggleText">📖 ޓޭބަލް</button>
+          <div style="display: flex; gap: 6px; align-items: stretch">
+            <button
+              id="dashboardReset"
+              class="toolbar-btn"
+              data-i18n="btnResetText"
+            >
+              ↺ ރީސެޓް
+            </button>
+            <button
+              id="dashboardViewToggle"
+              class="toolbar-btn"
+              data-i18n="btnViewToggleText"
+            >
+              📖 ޓޭބަލް
+            </button>
             <select id="dashboardSort" class="toolbar-select">
               <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
               <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
@@ -142,11 +259,21 @@
 
     <!-- Loading State -->
     <div id="loadingMessage" class="skeleton" dir="rtl">
-      <div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div>
-      <div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div>
-      <div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div>
-      <div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div>
-      <div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>
     </div>
 
     <!-- Error State -->
@@ -155,8 +282,8 @@
     <script src="../dependencies/papaparse.min.js"></script>
     <script type="module" src="../js/common.js"></script>
     <script type="module">
-      import { initializePageWithMetadata } from "../js/dbLookup.js";
-      initializePageWithMetadata(function(){});
+      import { initializePageWithMetadata } from "../js/catalog.js";
+      initializePageWithMetadata(function () {});
     </script>
   </body>
 </html>

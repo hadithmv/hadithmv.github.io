@@ -148,9 +148,9 @@ const STRINGS = {
   navHelp: { dv: "🛟 އެހީ", en: "🛟 Help", ar: "🛟 مساعدة" },
   navContact: { dv: "📧 ގުޅުން", en: "📧 Contact", ar: "📧 اتصل بنا" },
   btnWidescreen: {
-    dv: "📐 ފުޅާ ސްކްރީން",
-    en: "📐 Widescreen",
-    ar: "📐 شاشة عريضة",
+    dv: "🖥️ ފުޅާ ސްކްރީން",
+    en: "🖥️ Widescreen",
+    ar: "🖥️ شاشة عريضة",
   },
   labelTheme: { dv: "ތީމް", en: "Theme", ar: "المظهر" },
   btnLang: { dv: "🌐 ބަސް", en: "🌐 Language", ar: "🌐 اللغة" },
@@ -208,7 +208,11 @@ const STRINGS = {
   dashboardSortAZ: { dv: "އ ← ޔ", en: "A → Z", ar: "أ ← ي" },
   dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
   dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
-  searchClearHistory: { dv: "✕   ހިސްޓަރީ ފޮހެލާ", en: "✕   Clear history", ar: "✕   مسح السجل" },
+  searchClearHistory: {
+    dv: "✕   ހިސްޓަރީ ފޮހެލާ",
+    en: "✕   Clear history",
+    ar: "✕   مسح السجل",
+  },
   dashColBookCode: { dv: "ކޯޑް", en: "Code", ar: "رمز" },
   dashColTitleAR: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
   dashColTitleDV: {

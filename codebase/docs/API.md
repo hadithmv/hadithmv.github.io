@@ -4,7 +4,7 @@
 
 | Page | Entry point | Loads |
 |---|---|---|
-| `books/index.html` | Inline module → `dbLookup.js` | `common.js`, `papaparse` |
+| `books/index.html` | Inline module → `catalog.js` | `common.js`, `papaparse` |
 | `books/reader.html` | `reader.js` | `common.js`, `papaparse` |
 
 ## Modules
@@ -12,12 +12,12 @@
 | Module | Purpose |
 |---|---|
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard |
-| `js/dbLookup.js` | Book registry, tag resolution, dashboard rendering |
+| `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
 | `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()` |
 
-## dbLookup.js
+## catalog.js
 
 ### `initializePageWithMetadata(callback)`
 
@@ -28,7 +28,7 @@ Main entry point. Reads `?book=CODE` from the URL.
 - Book not found → shows error
 
 ```js
-import { initializePageWithMetadata } from "../js/dbLookup.js";
+import { initializePageWithMetadata } from "../js/catalog.js";
 
 initializePageWithMetadata(async function (metadata) {
   // metadata.bookCode   — "AQD-qawaidulArbau"
@@ -77,7 +77,7 @@ extractTags("AQD-DFK-sharhuSunnahBarbahari");
 
 ## search.js
 
-Pure logic. No DOM dependencies. Imported by both `dbLookup.js` and `reader.js`.
+Pure logic. No DOM dependencies. Imported by both `catalog.js` and `reader.js`.
 
 ### `normaliseForSearch(str)`
 

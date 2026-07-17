@@ -15,7 +15,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `css/styles.css`   | Shared styles: themes, topBar, sidebar, modals, responsive        |
 | `css/dashboard.css`| Dashboard styles: grid, cards, controls, table view               |
 | `js/common.js`     | Shared init: theme, fonts, i18n, sidebar, settings, keyboard      |
-| `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering             |
+| `js/catalog.js`   | Metadata loading, tag extraction, dashboard rendering             |
 | `js/reader.js`     | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard |
 | `js/search.js`     | Search engine: normalisation, parsing, matching, snippets, history |
 | `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
@@ -32,7 +32,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 URL: ?book=AQD-nawaqidulIslam
         │
         ▼
-  dbLookup.js
+  catalog.js
     ├─ fetch ../data/01-bookNames.csv  ──→  find row by bookCode
     ├─ fetch ../data/02-bookTags.csv ──→  resolve tag badges from prefix
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
@@ -46,7 +46,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `dbLookup.js` → search bar, tag chips, sort/table toggle, card grid of all books.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort/table toggle, card grid of all books.
 
 `?book=CODE` → reader (`reader.html`) loads `reader.js` → parses the book CSV, renders infinite-scroll content.
 
@@ -158,6 +158,8 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 | `color` | Text color (CSS hex)                                     |
 | `bg`    | Background color (CSS hex)                               |
 
+Pick colours from distinct hue zones so no two tags look alike. Current palette: indigo (AQD), emerald (HDT), amber (QRN), brown (QRNU), violet (RDF), slate (DFK), cyan (IH), red (DRFT), orange (AKHLQ), blue (ATHR).
+
 ### data/{bookCode}.csv
 
 Optional `#` header row for column labels. Excluded from display.
@@ -185,8 +187,8 @@ All errors show visible messages in English:
 
 | Error | Source |
 |---|---|
-| Registry fails to load | `dbLookup.js` → dashboard |
-| Book code not found | `dbLookup.js` → reader |
+| Registry fails to load | `catalog.js` → dashboard |
+| Book code not found | `catalog.js` → reader |
 | CSV empty or fails | `reader.js` → reader |
 | CSV parse warnings | Console (non‑fatal) |
 

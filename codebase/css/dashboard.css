@@ -47,9 +47,17 @@
   border: 1px solid var(--color-border);
   background: var(--color-nav-btn-bg);
   color: var(--color-nav-btn-text);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
   user-select: none;
 }
 .dash-tag-chip:hover {
@@ -128,7 +136,12 @@
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.4;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -143,7 +156,12 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 /* ---- Book cards ---- */
 .book-card {
@@ -228,4 +246,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+}
+
+@media (max-width: 600px) {
+  #dashboardWrapper {
+    margin: 62px auto 16px;
+  }
 }
