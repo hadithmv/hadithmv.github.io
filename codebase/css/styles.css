@@ -1028,6 +1028,7 @@ body:has(.modal-overlay.open) {
 }
 .dash-table .dash-table-tags .tag-badge {
   font-size: 0.75rem;
+  font-weight: 700;
   padding: 3px 8px;
 }
 
