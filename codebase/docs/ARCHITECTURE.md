@@ -6,25 +6,25 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 
 ## Files
 
-| File               | Purpose                                                           |
-| ------------------ | ----------------------------------------------------------------- |
-| `data/01-bookNames.csv` | Central registry of books (code, titles in AR/DV/EN)         |
-| `data/02-bookTags.csv` | Tag definitions (code, label, badge colors)                  |
-| `books/index.html` | Dashboard — book list, search, tag filter, table/card view        |
-| `books/reader.html`| Book viewer — loaded via `?book=CODE`                             |
-| `css/styles.css`   | Shared styles: themes, topBar, sidebar, modals, responsive        |
-| `css/dashboard.css`| Dashboard styles: grid, cards, controls, table view               |
-| `js/common.js`     | Shared init: theme, fonts, i18n, sidebar, settings, keyboard      |
-| `js/catalog.js`   | Metadata loading, tag extraction, dashboard rendering             |
-| `js/reader.js`     | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard |
-| `js/csv.js`        | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`           |
-| `js/search.js`     | Search engine: normalisation, parsing, matching, snippets, history |
-| `js/xlsx.js`       | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded  |
-| `js/epub.js`       | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand     |
-| `js/i18n.js`       | Translations module (dv/en/ar) — `t()`, `setLanguage()`          |
-| `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)        |
-| `data/*.csv`       | Per-book content files                                            |
-| `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books    |
+| File                         | Purpose                                                                    |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| `data/01-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
+| `data/02-bookTags.csv`       | Tag definitions (code, label, badge colors)                                |
+| `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
+| `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
+| `css/styles.css`             | Shared styles: themes, topBar, sidebar, modals, responsive                 |
+| `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
+| `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard               |
+| `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
+| `js/reader.js`               | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard         |
+| `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`                     |
+| `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history         |
+| `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
+| `js/epub.js`                 | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand               |
+| `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
+| `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
+| `data/*.csv`                 | Per-book content files                                                     |
+| `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
 
 ## Request flow
 
@@ -91,15 +91,15 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 
 ### Toolbar
 
-| Control | Implementation |
-|---|---|
-| Copy | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before footnotes. `navigator.clipboard.writeText()` with `execCommand` fallback. |
-| Share | Copies a deep link (`?book=CODE&row=N`) to the current row. |
-| Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`. |
-| View toggle | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table. Applies to all books. |
-| Reset | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage. |
-| Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
-| Hide columns | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted. |
+| Control         | Implementation                                                                                                                                                                                                                                                                   |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Copy            | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before footnotes. `navigator.clipboard.writeText()` with `execCommand` fallback.                                                                                    |
+| Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                      |
+| Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
+| View toggle     | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table. Applies to all books.                                                                                                                                                        |
+| Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
+| Export          | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
+| Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
 
 The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with `padding: 0 30px` that provides space for absolutely‑positioned ◀▶ arrow buttons at the edges. The row itself handles horizontal scrolling (`overflow-x: auto`, hidden scrollbar). Mouse wheel over the wrap is redirected to horizontal scroll on the row. When the row overflows, direction‑aware arrow buttons appear at the edges: ◀ at the end (scrolls toward end), ▶ at the start (scrolls toward start). Arrows are hidden at the appropriate extremes. Both arrow clicks and mouse‑wheel redirection animate smoothly via the same `requestAnimationFrame` loop with an ease‑out‑cubic curve (300ms). Arrow visibility updates on scroll, resize, and after the reader wrapper becomes visible.
 
@@ -121,22 +121,22 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 
 ### Keyboard
 
-| Key | Context | Action |
-|---|---|---|
-| `←` / `→` | Reader | Previous / next row |
-| `Home` / `End` | Reader | First / last row |
-| `↑` / `↓` | Search focused | Navigate results |
-| `Enter` | Search focused | Select result |
-| `/` or `Ctrl+f` | Anywhere | Focus search bar |
-| `Ctrl+Shift+f` | Anywhere | Open advanced search |
-| `z` | Reader | Toggle focus mode (same as ↕/▼ button) |
-| `t` | Reader | Toggle tashkeel |
-| `v` | Reader | Toggle card/table view |
-| `s` | Reader | Share link |
-| `e` | Reader | Open export dropdown |
-| `Ctrl+,` | Anywhere | Open settings |
-| `Ctrl+b` | Anywhere | Back to book list |
-| `Escape` | Sidebar/modal/dropdown | Close |
+| Key             | Context                | Action                                 |
+| --------------- | ---------------------- | -------------------------------------- |
+| `←` / `→`       | Reader                 | Previous / next row                    |
+| `Home` / `End`  | Reader                 | First / last row                       |
+| `↑` / `↓`       | Search focused         | Navigate results                       |
+| `Enter`         | Search focused         | Select result                          |
+| `/` or `Ctrl+f` | Anywhere               | Focus search bar                       |
+| `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
+| `z`             | Reader                 | Toggle focus mode (same as ↕/▼ button) |
+| `t`             | Reader                 | Toggle tashkeel                        |
+| `v`             | Reader                 | Toggle card/table view                 |
+| `s`             | Reader                 | Share link                             |
+| `e`             | Reader                 | Open export dropdown                   |
+| `Ctrl+,`        | Anywhere               | Open settings                          |
+| `Ctrl+b`        | Anywhere               | Back to book list                      |
+| `Escape`        | Sidebar/modal/dropdown | Close                                  |
 
 ## Data shape
 
@@ -158,7 +158,7 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 | `color` | Text color (CSS hex)                                     |
 | `bg`    | Background color (CSS hex)                               |
 
-Pick colours from distinct hue zones so no two tags look alike. Current palette: indigo (AQD), emerald (HDT), amber (QRN), brown (QRNU), violet (RDF), slate (DFK), cyan (IH), red (DRFT), orange (AKHLQ), blue (ATHR).
+Pick colours from distinct hue zones so no two tags look alike. Current palette: indigo (AQD), emerald (HDT), amber (QRN), brown (QRNU), violet (RDF), slate (DFK), cyan (IH), red (DRFT), orange (AKLQ), blue (ATHR).
 
 ### data/{bookCode}.csv
 
@@ -168,15 +168,16 @@ Optional `#` header row for column labels. Excluded from display.
 
 Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are also stripped before extracting the book name. Each code is looked up in `02-bookTags.csv`. Unknown codes silently ignored.
 
-| bookCode                        | Tags              | Book Name             |
-| ------------------------------- | ----------------- | --------------------- |
-| `AQD-nawaqidulIslam`            | Aqidah            | nawaqidulIslam        |
-| `AQD-qawaidulArbau`             | Aqidah            | qawaidulArbau         |
-| `HDT-umdathulAhkam`             | Hadith            | umdathulAhkam         |
-| `AQD-DFK-sharhuSunnahBarbahari` | Aqidah, DFK       | sharhuSunnahBarbahari |
-| `DRFT-AQD-aqidahNawawi`         | ⚠️ Draft, Aqidah  | aqidahNawawi          |
+| bookCode                        | Tags             | Book Name             |
+| ------------------------------- | ---------------- | --------------------- |
+| `AQD-nawaqidulIslam`            | Aqidah           | nawaqidulIslam        |
+| `AQD-qawaidulArbau`             | Aqidah           | qawaidulArbau         |
+| `HDT-umdathulAhkam`             | Hadith           | umdathulAhkam         |
+| `AQD-DFK-sharhuSunnahBarbahari` | Aqidah, DFK      | sharhuSunnahBarbahari |
+| `DRFT-AQD-aqidahNawawi`         | ⚠️ Draft, Aqidah | aqidahNawawi          |
 
 **Naming conventions:**
+
 - `DRFT-` prefix → book gets a ⚠️ Draft badge, still visible on dashboard
 - `-HDN` suffix → book hidden from dashboard
 - `-DRAFT` suffix (legacy) → also hidden, same as `-HDN`
@@ -185,12 +186,12 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 
 All errors show visible messages in English:
 
-| Error | Source |
-|---|---|
+| Error                  | Source                   |
+| ---------------------- | ------------------------ |
 | Registry fails to load | `catalog.js` → dashboard |
-| Book code not found | `catalog.js` → reader |
-| CSV empty or fails | `reader.js` → reader |
-| CSV parse warnings | Console (non‑fatal) |
+| Book code not found    | `catalog.js` → reader    |
+| CSV empty or fails     | `reader.js` → reader     |
+| CSV parse warnings     | Console (non‑fatal)      |
 
 ## Adding content
 

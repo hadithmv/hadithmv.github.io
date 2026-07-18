@@ -190,7 +190,7 @@ const STRINGS = {
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
   tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
   tagDRFT: { dv: "⚠️ ޑްރާފްޓް", en: "Draft", ar: "مسودة" },
-  tagAKHLQ: { dv: "އަޚްލާގު", en: "Akhlaq", ar: "أخلاق" },
+  tagAKLQ: { dv: "އަޚްލާގު", en: "Akhlaq", ar: "أخلاق" },
   tagATHR: { dv: "އާޘާރު", en: "Athar", ar: "آثار" },
   tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
   tagQRNU: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },

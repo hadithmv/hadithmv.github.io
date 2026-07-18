@@ -1,12 +1,14 @@
 bookCode,titleAR,titleDV,titleEN
-DRFT-AQD-aqidatuRaziyain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Aqidatu Raziyain
 AQD-DFK-aqidatuSalafSoabuni,عقيدة السلف لأبي عثمان الصابوني,އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ,Aqidatu Salaf Soabuni
 AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nawaqidul Islam
 AQD-qawaidulArbau,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau
 AQD-usooluThalaatha,الأصول الثلاثة,ތިން އުސޫލު,Usoolu Thalaatha
-DFK-AKHLQ-ATHR-QRNU-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Akhlaq Hamalathil Quran
-DFK-AKHLQ-ATHR-akhbaruShuyukh,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Akhbaru Shuyukh
+DFK-AKLQ-ATHR-akhbaruShuyukh,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Akhbaru Shuyukh
+DFK-AKLQ-ATHR-QRNU-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Akhlaq Hamalathil Quran
+DFK-AQD-intisarLiAshabilHadith,الانتصار لأصحاب الحديث للسمعاني,ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,Intisar Li Ashabil Hadith
+DFK-AQD-kalimathulIkhlas,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Kalimathul Ikhlas
 DRFT-AQD-aqidatuNawawi-HDN,عقيدة النووي,ނަވަވީގެ އަގީދާ,Aqidatu Nawawi
+DRFT-AQD-aqidatuRaziyain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Aqidatu Raziyain
 DRFT-AQD-sharhuSunnahBarbahari,شرح السنة للبربهاري,ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Sharhu Sunnah Barbahari
 DRFT-AQD-usooluSiththa,الأصول الستة,ހަ އުސޫލު,Usoolu Siththa
 DRFT-AQD-usooluSunnahAhmed,أصول السنة لأحمد,އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Usoolu Sunnah Ahmed
