@@ -198,6 +198,7 @@ const STRINGS = {
   tagRDF: { dv: "ރަދީފް", en: "Dictionary", ar: "معجم" },
   tagDFK: { dv: "ދފކ", en: "DFK", ar: "دفك" },
   tagIH: { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
+  tagZKR: { dv: "ޒިކުރު", en: "Zikr", ar: "ذكر" },
 
   // ── Dashboard ──
   dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },

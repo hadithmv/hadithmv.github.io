@@ -118,6 +118,16 @@ initializePageWithMetadata(async function (metadata) {
       let hideTashkeel = LS.get("hideTashkeel", false);
       let hiddenColumns = LS.get("hiddenColumns", []);
 
+      // Columns whose header ends with "-HDN" start hidden every session
+      if (headerRow) {
+        for (let i = 0; i < headerRow.length; i++) {
+          var hdr = (headerRow[i] || "").trim().toLowerCase();
+          if (hdr.endsWith("-hdn") && hiddenColumns.indexOf(i) === -1) {
+            hiddenColumns.push(i);
+          }
+        }
+      }
+
       // ── Reader state ────────────────────────────────────────
       const allData = data;
       let filteredData = allData;
@@ -240,6 +250,9 @@ initializePageWithMetadata(async function (metadata) {
             if (prevHdr0.endsWith("ar") && colHeader0.endsWith("dv")) {
               t += "\n";
             }
+            if (prevHdr0.startsWith("matn") && colHeader0.startsWith("sharh")) {
+              t += "· · ·\n\n";
+            }
           }
           if (!colHeader0.startsWith("foot")) {
             if (colHeader0.startsWith("head")) {
@@ -291,6 +304,9 @@ initializePageWithMetadata(async function (metadata) {
             if (prevHdr.endsWith("ar") && colHeader.endsWith("dv")) {
               h += `<div class="reader-ar-dv-spacer"></div>`;
             }
+            if (prevHdr.startsWith("matn") && colHeader.startsWith("sharh")) {
+              h += `<div class="reader-matn-sharh-separator"></div>`;
+            }
           }
           if (colHeader.startsWith("foot") && fields.length > 1) {
             h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
@@ -303,6 +319,10 @@ initializePageWithMetadata(async function (metadata) {
               fieldClass += " reader-field-kitab";
             } else if (colHeader.startsWith("bab")) {
               fieldClass += " reader-field-bab";
+            } else if (colHeader.startsWith("matn")) {
+              fieldClass += " reader-field-matn";
+            } else if (colHeader.startsWith("sharh")) {
+              fieldClass += " reader-field-sharh";
             }
             h += `<div class="${fieldClass}" dir="auto">${display}</div>`;
           }
@@ -321,7 +341,11 @@ initializePageWithMetadata(async function (metadata) {
               if (hiddenColumns.indexOf(j) !== -1) { h += '<td></td>'; continue; }
               var v = (row[j] != null ? String(row[j]).trim() : "");
               var display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
-              h += '<td dir="auto">' + display + '</td>';
+              var tdClass = "";
+              var tdHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
+              if (tdHdr.startsWith("matn")) tdClass = ' class="td-matn"';
+              else if (tdHdr.startsWith("sharh")) tdClass = ' class="td-sharh"';
+              h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
             }
             h += '</tr>';
           }
@@ -348,7 +372,11 @@ initializePageWithMetadata(async function (metadata) {
             if (hiddenColumns.indexOf(j) !== -1) continue;
             var v = (row[j] != null ? String(row[j]).trim() : "");
             var display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
-            h += '<td dir="auto">' + display + '</td>';
+            var tdClass = "";
+            var tdHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
+            if (tdHdr.startsWith("matn")) tdClass = ' class="td-matn"';
+            else if (tdHdr.startsWith("sharh")) tdClass = ' class="td-sharh"';
+            h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
           }
           h += '</tr>';
         }
@@ -1085,8 +1113,14 @@ initializePageWithMetadata(async function (metadata) {
               var r = rows[i];
               content += "## " + (hasRowNums ? "#" : "") + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "\n\n";
               var exportStart0 = hasRowNums ? 1 : 0;
+              var mdPrevHdr = "";
               for (var j = exportStart0; j < r.length; j++) {
-                if (r[j] && String(r[j]).trim()) content += String(r[j]).trim() + "\n\n";
+                if (r[j] && String(r[j]).trim()) {
+                  var mdHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
+                  if (mdPrevHdr.startsWith("matn") && mdHdr.startsWith("sharh")) content += "· · ·\n\n";
+                  content += String(r[j]).trim() + "\n\n";
+                  mdPrevHdr = mdHdr;
+                }
               }
               content += "---\n\n";
             }
@@ -1126,6 +1160,7 @@ initializePageWithMetadata(async function (metadata) {
                 if (j > 0) {
                   var prevHdr2 = (headerRow && headerRow[fields[j - 1].index]) ? headerRow[fields[j - 1].index].toLowerCase() : "";
                   if (prevHdr2.endsWith("ar") && colHeader2.endsWith("dv")) pdfHTML += "<p>&nbsp;</p>";
+                  if (prevHdr2.startsWith("matn") && colHeader2.startsWith("sharh")) pdfHTML += '<p style="text-align:center;color:#bbb;margin:6px 0;font-size:8pt;letter-spacing:3px">· · ·</p>';
                 }
                 if (colHeader2.startsWith("foot") && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
                 if (!colHeader2.startsWith("foot")) {
@@ -1135,6 +1170,8 @@ initializePageWithMetadata(async function (metadata) {
                     pdfHTML += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
                   } else if (colHeader2.startsWith("bab")) {
                     pdfHTML += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
+                  } else if (colHeader2.startsWith("sharh")) {
+                    pdfHTML += '<p style="font-size:12.5pt">' + fields[j].value + '</p>';
                   } else {
                     pdfHTML += "<p>" + fields[j].value + "</p>";
                   }
@@ -1274,14 +1311,24 @@ initializePageWithMetadata(async function (metadata) {
             }
             downloadFile(to, baseName + ".toon", "text/plain");
           } else if (fmt === "html") {
-            var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (metadata.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
+            var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (metadata.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
             htmlExport += '<h1>' + metadata.titleDV + '</h1><p style="text-align:center">' + metadata.titleAR + '</p>';
             htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
               htmlExport += '<h2>#' + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + '</h2>';
+              var expPrevHdr = "";
               for (var j = (hasRowNums ? 1 : 0); j < r.length; j++) {
-                if (r[j] != null && String(r[j]).trim()) htmlExport += '<p>' + String(r[j]).trim() + '</p>';
+                if (r[j] != null && String(r[j]).trim()) {
+                  var expHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
+                  if (expPrevHdr.startsWith("matn") && expHdr.startsWith("sharh")) htmlExport += '<div class="ms-sep">· · ·</div>';
+                  if (expHdr.startsWith("sharh")) {
+                    htmlExport += '<p class="sharh">' + String(r[j]).trim() + '</p>';
+                  } else {
+                    htmlExport += '<p>' + String(r[j]).trim() + '</p>';
+                  }
+                  expPrevHdr = expHdr;
+                }
               }
               if (i < rows.length - 1) htmlExport += '<div class="sep">◆</div>';
             }
@@ -1320,6 +1367,7 @@ initializePageWithMetadata(async function (metadata) {
                 if (j > 0) {
                   var prevHdr3 = (headerRow && headerRow[fields[j - 1].index]) ? headerRow[fields[j - 1].index].toLowerCase() : "";
                   if (prevHdr3.endsWith("ar") && colHeader3.endsWith("dv")) content += "<p>&nbsp;</p>";
+                  if (prevHdr3.startsWith("matn") && colHeader3.startsWith("sharh")) content += '<p style="text-align:center;color:#bbb;margin:6px 0;font-size:8pt;letter-spacing:3px">· · ·</p>';
                 }
                 if (colHeader3.startsWith("foot") && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
                 if (!colHeader3.startsWith("foot")) {
@@ -1329,6 +1377,8 @@ initializePageWithMetadata(async function (metadata) {
                     content += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
                   } else if (colHeader3.startsWith("bab")) {
                     content += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
+                  } else if (colHeader3.startsWith("sharh")) {
+                    content += '<p style="font-size:12.5pt">' + fields[j].value + '</p>';
                   } else {
                     content += "<p>" + fields[j].value + "</p>";
                   }

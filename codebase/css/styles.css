@@ -1942,6 +1942,18 @@ body:has(.modal-overlay.open) {
   height: 1em;
 }
 
+/* Sharh (commentary) text — slightly smaller than matn */
+.reader-field-sharh {
+  font-size: 0.9em;
+}
+
+/* Subtle dotted separator between matn and sharh within the same language */
+.reader-matn-sharh-separator {
+  border: none;
+  border-top: 2px dotted var(--color-divider-ornament);
+  margin: 14px 0 12px;
+}
+
 /* Heading hierarchy for header/kitab/bab columns */
 .reader-field-header {
   font-size: 1.3rem;
@@ -2018,6 +2030,12 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   vertical-align: top;
   text-align: right;
+}
+
+/* Sharh cells in table mode — smaller text + separator from matn */
+.rdf-table td.td-sharh {
+  font-size: 0.88em;
+  border-inline-start: 2px dotted var(--color-divider-ornament);
 }
 
 .rdf-table tr:hover td {

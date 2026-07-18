@@ -167,16 +167,17 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `label` | Display name for the badge                               |
 | `color` | Text color (CSS hex)                                     |
 | `bg`    | Background color (CSS hex)                               |
+| `hue`   | Colour family name — for humans; not read by the app     |
 
-Pick colours from distinct hue zones so no two tags look alike. Current palette: indigo (AQD), emerald (HDT), amber (QRN), brown (QRNU), violet (RDF), slate (DFK), cyan (IH), red (DRFT), orange (AKLQ), blue (ATHR).
+Pick colours from distinct hue zones so no two tags look alike. Check the `hue` column in `02-bookTags.csv` — it lists every reserved colour, including the PIN chip. Current palette: red (PIN), indigo (AQD), emerald (HDT), amber (QRN), brown (QRNU, DRFT), violet (RDF), slate (DFK), cyan (IH), orange (AKLQ), blue (ATHR), sky (ZKR).
 
 ### data/{bookCode}.csv
 
-First row is always the header row. If column 0 is `#` or blank it's treated as row numbers (hidden from content, shown as `#N` labels in the card view). Otherwise column 0 is regular content.
+First row is always the header row. If column 0 is `#` or blank it's treated as row numbers (hidden from content, shown as `#N` labels in the card view). Otherwise column 0 is regular content. Column headers ending with `-HDN` (case-insensitive) are hidden by default — the reader starts with those columns toggled off (they can still be turned back on via the column dropdown).
 
 ## Tag system
 
-Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are also stripped before extracting the book name. Each code is looked up in `02-bookTags.csv`. Unknown codes silently ignored.
+Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are stripped before extracting the book name (and also hide the book from the dashboard). At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader. Each code is looked up in `02-bookTags.csv`. Unknown codes silently ignored.
 
 | bookCode                        | Tags             | Book Name             |
 | ------------------------------- | ---------------- | --------------------- |
@@ -213,7 +214,7 @@ All errors show visible messages in English:
 
 ### New tag category
 
-1. Add a row to `data/02-bookTags.csv`.
+1. Add a row to `data/02-bookTags.csv`. Check the `hue` column first — avoid reusing a colour zone already claimed by another tag (or the `PIN` chip).
 1. Use the code as a prefix in any `bookCode` — badges render automatically.
 
 ## Key benefits

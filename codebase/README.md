@@ -49,16 +49,16 @@ docs/                  ← User guide, architecture, API reference
 Add a row to `data/02-bookTags.csv`:
 
 ```csv
-code,label,color,bg
-FQH,Fiqh,#b91c1c,#fef2f2
+code,label,color,bg,hue
+FQH,Fiqh,#b91c1c,#fef2f2,warm-red
 ```
 
-Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Check `data/02-bookTags.csv` for existing colours — pick a hue zone not already taken so tags stay visually distinct.
+Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Check the `hue` column in the CSV — it documents every reserved colour (including the `PIN` chip) so tags stay visually distinct.
 
 ### Book code conventions
 
 - `DRFT-` prefix — marks a draft book (⚠️ badge), still visible on dashboard
-- `-HDN` suffix — hides the book from the dashboard
+- `-HDN` suffix — hides the book from the dashboard; as a column header suffix (e.g. `notes-HDN`), hides that column by default in the reader (still toggleable back on)
 - Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books
 
 ## Data CSV format
@@ -88,11 +88,12 @@ The first row of each book's CSV is always the header row. If column 0 is `#` or
 - Sticky reader chrome below with bottom-border cutoff separating chrome from content
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
 - Heading hierarchy: columns starting with `head`/`kitab`/`bab` (e.g. `headAR`, `kitabDV`) rendered as large/medium/small bold headings; in plain text copy, heads get a dash-rule underline, kitabs get a `Kitab:` prefix, babs get an indented `Bab:` prefix
+- `matn`/`sharh` columns: sharh (commentary) text rendered ~10% smaller than matn (main text); a `· · ·` dotted separator line inserted between matn→sharh within the same language
 - Blank line inserted between the last `*AR` column and first `*DV` column
 - `◆` divider between all rows (including across scroll-chunk boundaries)
 - `ـــــــــــ` tatweel line before columns whose header starts with `foot`
 - Infinite scroll — content loads automatically as you scroll
-- All columns toggleable via a dropdown
+- All columns toggleable via a dropdown; columns whose header ends with `-HDN` start hidden
 - **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
 - Consecutive blank lines within cells collapsed to single line breaks
 

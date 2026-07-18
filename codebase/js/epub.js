@@ -76,13 +76,22 @@ export function createEPUB(rows, meta, opts) {
       if (colHeader.startsWith("foot") && nonEmpty.length > 1) {
         body += '<div class="divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>\n';
       }
-      // Heading hierarchy for header/kitab/bab columns
+      // Matn → Sharh separator
+      if (prevNonEmpty >= 0) {
+        var prevHdrMS = (opts.headerRow && opts.headerRow[prevNonEmpty]) ? opts.headerRow[prevNonEmpty].toLowerCase() : "";
+        if (prevHdrMS.startsWith("matn") && colHeader.startsWith("sharh")) {
+          body += '<div class="ms-sep">· · ·</div>\n';
+        }
+      }
+      // Heading hierarchy for header/kitab/bab/matn/sharh columns
       var tag = "p";
       var cls = "";
       if (!colHeader.startsWith("foot")) {
         if (colHeader.startsWith("head")) { tag = "p"; cls = ' class="header"'; }
         else if (colHeader.startsWith("kitab")) { tag = "p"; cls = ' class="kitab"'; }
         else if (colHeader.startsWith("bab"))  { tag = "p"; cls = ' class="bab"'; }
+        else if (colHeader.startsWith("matn"))  { tag = "p"; cls = ' class="matn"'; }
+        else if (colHeader.startsWith("sharh"))  { tag = "p"; cls = ' class="sharh"'; }
       }
       for (var l = 0; l < lines.length; l++) {
         body += "<" + tag + cls + ">" + xmlEsc(lines[l]) + "</" + tag + ">\n";
@@ -164,6 +173,9 @@ export function createEPUB(rows, meta, opts) {
     + '.header { font-size: 1.25rem; font-weight: 700; margin: 0.8em 0 0.3em; }\n'
     + '.kitab { font-weight: 600; font-size: 1.05rem; margin: 0.6em 0 0.2em; }\n'
     + '.bab { font-weight: 600; margin: 0.4em 0 0.2em; }\n'
+    + '.matn { margin: 0.5em 0; }\n'
+    + '.sharh { font-size: 0.9em; margin: 0.4em 0; }\n'
+    + '.ms-sep { text-align: center; color: #aaa; margin: 0.8em 0; font-size: 0.6em; letter-spacing: 0.3em; direction: ltr; }\n'
     + '/* Cover */\n'
     + 'body.cover { text-align: center; padding: 2em 1em; }\n'
     + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'
