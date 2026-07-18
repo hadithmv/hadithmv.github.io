@@ -941,8 +941,7 @@ initializePageWithMetadata(async function (metadata) {
         var pinned = isPinned(metadata.bookCode);
         if (pinned) {
           btnBookmark.classList.add("active");
-          btnBookmark.setAttribute("data-i18n","btnBookmarkText");
-          btnBookmark.innerHTML = "📌 " + t("btnBookmarkText").replace(/^📌 /, "");
+          btnBookmark.innerHTML = "📌 ޕިންވެފަ";
         } else {
           btnBookmark.classList.remove("active");
           btnBookmark.innerHTML = "📌 " + t("btnBookmarkText").replace(/^📌 /, "");

@@ -1317,9 +1317,9 @@ body:has(.modal-overlay.open) {
 }
 
 .toolbar-btn.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+  box-shadow: inset 0 0 0 1px var(--color-card-hover-border);
 }
 
 .toolbar-label {
