@@ -174,7 +174,27 @@ function Generate-CommitMessage {
     return $commitMsg
 }
 
+try {
+    # Store the initial location to return to it at the end if needed
+    $initialLocation = Get-Location
+    Set-Location -Path $PSScriptRoot -ErrorAction Stop
+    $startTime = Get-Date
+    $newVersion = $null
+    $currentVersion = Get-CurrentVersion
+    if ($currentVersion) {
+        $script:newVersion = $currentVersion
+        $newVersion = $currentVersion
+    }
+}
+catch {
+    Write-Error "Failed to initialize script: $_"
+    exit 1
+}
+
 function Increment-Version {
+    param (
+        [switch]$SkipIncrement
+    )
     # Files to update versions in - JS files only
     $filesToUpdate = @(
         @{Path = "..\js\navbar.js"; Pattern = 'var hmvVersionNo = "(\d+\.\d+\.\d+)";'; Replacement = 'var hmvVersionNo = "{0}";' },
@@ -223,27 +243,32 @@ function Increment-Version {
                     if ($null -eq $currentVersion) {
                         $currentVersion = $fileVersion
                         
-                        # Parse semver components
-                        $versionParts = $currentVersion.Split('.')
-                        $major = [int]$versionParts[0]
-                        $minor = [int]$versionParts[1]
-                        $patch = [int]$versionParts[2]
-                        
-                        # Increment version according to pattern
-                        $patch += 1
-                        if ($patch -ge 100) {
-                            $patch = 0
-                            $minor += 1
-                            
-                            if ($minor -ge 10) {
-                                $minor = 0
-                                $major += 1
-                            }
+                        if ($SkipIncrement) {
+                            $script:newVersion = $currentVersion
                         }
-                        
-                        # Format with leading zeros for patch when needed
-                        $patchStr = if ($patch -lt 10) { "0$patch" } else { "$patch" }
-                        $script:newVersion = "$major.$minor.$patchStr"
+                        else {
+                            # Parse semver components
+                            $versionParts = $currentVersion.Split('.')
+                            $major = [int]$versionParts[0]
+                            $minor = [int]$versionParts[1]
+                            $patch = [int]$versionParts[2]
+                            
+                            # Increment version according to pattern
+                            $patch += 1
+                            if ($patch -ge 100) {
+                                $patch = 0
+                                $minor += 1
+                                
+                                if ($minor -ge 10) {
+                                    $minor = 0
+                                    $major += 1
+                                }
+                            }
+                            
+                            # Format with leading zeros for patch when needed
+                            $patchStr = if ($patch -lt 10) { "0$patch" } else { "$patch" }
+                            $script:newVersion = "$major.$minor.$patchStr"
+                        }
                     }
                     
                     # Replace the version in the file
@@ -251,9 +276,18 @@ function Increment-Version {
                     $newContent = $content -replace $file.Pattern, $replacement
                     
                     if ($newContent -eq $content) {
-                        Write-Host "❌ (Version replacement failed)" -ForegroundColor Red
-                        $failCount++
-                        continue
+                        if ($SkipIncrement) {
+                            # In skip mode, unchanged content is expected — already at target version
+                            Write-Host "✅ " -ForegroundColor Green -NoNewline
+                            Write-Host "(Already at $script:newVersion)" -ForegroundColor DarkGray
+                            $successCount++
+                            continue
+                        }
+                        else {
+                            Write-Host "❌ (Version replacement failed)" -ForegroundColor Red
+                            $failCount++
+                            continue
+                        }
                     }
                     
                     # Write the new content
@@ -426,14 +460,8 @@ try {
     $versionMode = $versionIncrementSetting.ToLowerInvariant()
 
     if ($SkipVersionIncrement -or $versionMode -eq 'off') {
-        Write-Host "⏭️ Version increment disabled. Skipping version update." -ForegroundColor Yellow
-        $versionSuccess = $true
-        if ($newVersion) {
-            $script:newVersion = $newVersion
-        }
-        else {
-            $script:newVersion = $null
-        }
+        Write-Host "⏭️ Version increment disabled. Applying current version without changing it." -ForegroundColor Yellow
+        $versionSuccess = Increment-Version -SkipIncrement
     }
     elseif ($versionMode -eq 'on') {
         # First run version increment
@@ -468,7 +496,7 @@ try {
             Write-Host "🚀 Version update: " -ForegroundColor Green -NoNewline
             Write-Host "SKIPPED" -ForegroundColor Yellow
             if ($newVersion) {
-                Write-Host "📌 Current version: " -ForegroundColor Cyan -NoNewline
+                Write-Host "📌 Current version applied: " -ForegroundColor Cyan -NoNewline
                 Write-Host "v$newVersion" -ForegroundColor White
             }
         }
