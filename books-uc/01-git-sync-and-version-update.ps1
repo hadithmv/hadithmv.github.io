@@ -8,16 +8,22 @@ param(
 # Change this to "off" to disable version increments without removing the script logic.
 $versionIncrementSetting = "off"
 
-try {
-    # Store the initial location to return to it at the end if needed
-    $initialLocation = Get-Location
-    Set-Location -Path $PSScriptRoot -ErrorAction Stop
-    $startTime = Get-Date
-    $newVersion = $null
-}
-catch {
-    Write-Error "Failed to initialize script: $_"
-    exit 1
+function Get-CurrentVersion {
+    $versionFiles = @(
+        @{Path = '..\js\navbar.js'; Pattern = 'var hmvVersionNo = "(\d+\.\d+\.\d+)";' },
+        @{Path = '..\js\navbar.min.js'; Pattern = 'var hmvVersionNo="(\d+\.\d+\.\d+)"' }
+    )
+
+    foreach ($file in $versionFiles) {
+        if (Test-Path $file.Path) {
+            $content = Get-Content $file.Path -Raw -ErrorAction SilentlyContinue
+            if ($content -match $file.Pattern) {
+                return $matches[1]
+            }
+        }
+    }
+
+    return $null
 }
 
 function Run-GitCommand {
@@ -422,7 +428,12 @@ try {
     if ($SkipVersionIncrement -or $versionMode -eq 'off') {
         Write-Host "⏭️ Version increment disabled. Skipping version update." -ForegroundColor Yellow
         $versionSuccess = $true
-        $script:newVersion = $null
+        if ($newVersion) {
+            $script:newVersion = $newVersion
+        }
+        else {
+            $script:newVersion = $null
+        }
     }
     elseif ($versionMode -eq 'on') {
         # First run version increment
@@ -456,6 +467,10 @@ try {
         if ($SkipVersionIncrement -or $versionMode -eq 'off') {
             Write-Host "🚀 Version update: " -ForegroundColor Green -NoNewline
             Write-Host "SKIPPED" -ForegroundColor Yellow
+            if ($newVersion) {
+                Write-Host "📌 Current version: " -ForegroundColor Cyan -NoNewline
+                Write-Host "v$newVersion" -ForegroundColor White
+            }
         }
         else {
             Write-Host "🚀 Updated to version: " -ForegroundColor Green -NoNewline
@@ -508,7 +523,12 @@ try {
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
     if ($versionSuccess -and $gitSuccess) {
-        Write-Host "✅ SUCCESSFULLY UPDATED TO VERSION v$newVersion AND SYNCED WITH GIT ✅" -ForegroundColor Green
+        if ($SkipVersionIncrement -or $versionMode -eq 'off') {
+            Write-Host "✅ SUCCESSFULLY SYNCED WITH GIT USING VERSION v$newVersion ✅" -ForegroundColor Green
+        }
+        else {
+            Write-Host "✅ SUCCESSFULLY UPDATED TO VERSION v$newVersion AND SYNCED WITH GIT ✅" -ForegroundColor Green
+        }
     }
     else {
         Write-Host "⚠️ COMPLETED WITH ERRORS OR WARNINGS ⚠️" -ForegroundColor Yellow
