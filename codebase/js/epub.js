@@ -60,7 +60,7 @@ export function createEPUB(rows, meta, opts) {
       var val = row[j] != null ? String(row[j]).trim() : "";
       if (!val) continue;
       var lines = val.split(/\n+/);
-      // Column header contains "footnotes" (case-insensitive) → divider before it
+      // Column header starts with "foot" (case-insensitive) → divider before it
       var colHeader = (opts.headerRow && opts.headerRow[j]) ? opts.headerRow[j].toLowerCase() : "";
       // AR→DV break: blank line between last AR-ending col and first DV-ending col
       if (prevNonEmpty >= 0) {
@@ -69,14 +69,14 @@ export function createEPUB(rows, meta, opts) {
           body += '<p class="spacer">&nbsp;</p>\n';
         }
       }
-      if (colHeader.indexOf("footnotes") !== -1 && nonEmpty.length > 1) {
+      if (colHeader.startsWith("foot") && nonEmpty.length > 1) {
         body += '<div class="divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>\n';
       }
       // Heading hierarchy for header/kitab/bab columns
       var tag = "p";
       var cls = "";
-      if (colHeader.indexOf("footnotes") === -1) {
-        if (colHeader.startsWith("header")) { tag = "p"; cls = ' class="header"'; }
+      if (!colHeader.startsWith("foot")) {
+        if (colHeader.startsWith("head")) { tag = "p"; cls = ' class="header"'; }
         else if (colHeader.startsWith("kitab")) { tag = "p"; cls = ' class="kitab"'; }
         else if (colHeader.startsWith("bab"))  { tag = "p"; cls = ' class="bab"'; }
       }

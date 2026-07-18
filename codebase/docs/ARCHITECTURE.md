@@ -65,12 +65,12 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 │  Pagination: ސަފްހާ: << < 10/[5] > >>  Subtitle + Tags     │
 ├─ Reader content (scrollable) ────────────────────────────────┤
 │  #1                                                          │
-│  header …                              (large, bold)         │
+│  head …                                (large, bold)         │
 │  kitab …                               (medium, bold)        │
 │  bab …                                 (smaller, bold)        │
 │  column …                                                    │
 │       ــــــــــــــــــــــــــــــــــــــــــــ           │
-│  footnotes                                                   │
+│  foot …                                                      │
 │         ◆                                                    │
 │  #2                                                          │
 │  …                                                           │
@@ -79,7 +79,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 └──────────────────────────────────────────────────────────────┘
 ```
 
-Columns are rendered in header order. A blank line separates the last `*AR` column from the first `*DV` column (AR‑ending → DV‑ending headers). A `ـــــــــــ` tatweel divider appears before any column whose header contains "footnotes" (case‑insensitive — matches `footnotes`, `footnotesAR`, `footnotesDV`, etc.).
+Columns are rendered in header order. A blank line separates the last `*AR` column from the first `*DV` column (AR‑ending → DV‑ending headers). A `ـــــــــــ` tatweel divider appears before any column whose header starts with `foot` (case‑insensitive — matches `foot`, `footAR`, `footDV`). Columns starting with `head`/`kitab`/`bab` render as large/medium/small bold headings respectively.
 
 ### Infinite scroll
 
@@ -97,7 +97,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 
 | Control         | Implementation                                                                                                                                                                                                                                                                   |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Copy            | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before columns whose header contains "footnotes" (case‑insensitive), blank line between AR‑ending and DV‑ending columns. `navigator.clipboard.writeText()` with `execCommand` fallback.                                                                                    |
+| Copy            | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before columns starting with `foot`, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. `navigator.clipboard.writeText()` with `execCommand` fallback.                                                                                    |
 | Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                      |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
 | View toggle     | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table. Applies to all books.                                                                                                                                                        |
@@ -141,6 +141,9 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 | `Ctrl+,`        | Anywhere               | Open settings                          |
 | `Ctrl+b`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
+| `Escape`        | Dashboard search       | Clear search & blur                    |
+
+Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips, badges, book cards, table rows, toolbar buttons, and page titles all carry `title` tooltips describing their action or category.
 
 ## Data shape
 

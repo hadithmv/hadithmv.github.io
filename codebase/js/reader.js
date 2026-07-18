@@ -49,7 +49,7 @@ initializePageWithMetadata(async function (metadata) {
           } else {
             label = tagLabel(t.code, t.label);
           }
-          return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + label + '</span>';
+          return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, "en") + '" style="color:' + t.color + ';background:' + t.bg + '">' + label + '</span>';
         }).join("");
       }
 
@@ -61,14 +61,17 @@ initializePageWithMetadata(async function (metadata) {
 
         if (lang === "en") {
           pageTitle.textContent = metadata.titleEN || metadata.bookCode;
+          pageTitle.title = "Book name";
           pageTitle.dir = "ltr";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
           pageSubRow.style.margin = "0 0 0 0";
         } else if (lang === "dv") {
           pageTitle.textContent = metadata.titleDV || metadata.bookCode;
+          pageTitle.title = "Book name";
           pageTitle.dir = "rtl";
           pageSubtitle.textContent = metadata.titleAR || "";
+          pageSubtitle.title = "Book name in Arabic";
           pageSubtitle.style.display = "";
           pageSubtitle.dir = "rtl";
           pageSubRow.style.display = "flex";
@@ -76,6 +79,7 @@ initializePageWithMetadata(async function (metadata) {
           pageSubRow.dir = "";
         } else if (lang === "ar") {
           pageTitle.textContent = metadata.titleAR || metadata.bookCode;
+          pageTitle.title = "Book name";
           pageTitle.dir = "rtl";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
@@ -224,7 +228,7 @@ initializePageWithMetadata(async function (metadata) {
         }
         for (var i = 0; i < fields.length; i++) {
           var colHeader0 = (headerRow && headerRow[fields[i].index]) ? headerRow[fields[i].index].toLowerCase() : "";
-          if (colHeader0.indexOf("footnotes") !== -1 && fields.length > 1) {
+          if (colHeader0.startsWith("foot") && fields.length > 1) {
             t += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
           }
           if (i > 0) {
@@ -233,8 +237,8 @@ initializePageWithMetadata(async function (metadata) {
               t += "\n";
             }
           }
-          if (colHeader0.indexOf("footnotes") === -1) {
-            if (colHeader0.startsWith("header")) {
+          if (!colHeader0.startsWith("foot")) {
+            if (colHeader0.startsWith("head")) {
               t += fields[i].value + "\n───────────\n\n";
             } else if (colHeader0.startsWith("kitab")) {
               t += "Kitab: " + fields[i].value + "\n\n";
@@ -283,12 +287,12 @@ initializePageWithMetadata(async function (metadata) {
               h += `<div class="reader-ar-dv-spacer"></div>`;
             }
           }
-          if (colHeader.indexOf("footnotes") !== -1 && fields.length > 1) {
+          if (colHeader.startsWith("foot") && fields.length > 1) {
             h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
             h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
             var fieldClass = "reader-field";
-            if (colHeader.startsWith("header")) {
+            if (colHeader.startsWith("head")) {
               fieldClass += " reader-field-header";
             } else if (colHeader.startsWith("kitab")) {
               fieldClass += " reader-field-kitab";
@@ -1083,9 +1087,9 @@ initializePageWithMetadata(async function (metadata) {
                   var prevHdr2 = (headerRow && headerRow[fields[j - 1].index]) ? headerRow[fields[j - 1].index].toLowerCase() : "";
                   if (prevHdr2.endsWith("ar") && colHeader2.endsWith("dv")) pdfHTML += "<p>&nbsp;</p>";
                 }
-                if (colHeader2.indexOf("footnotes") !== -1 && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-                if (colHeader2.indexOf("footnotes") === -1) {
-                  if (colHeader2.startsWith("header")) {
+                if (colHeader2.startsWith("foot") && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+                if (!colHeader2.startsWith("foot")) {
+                  if (colHeader2.startsWith("head")) {
                     pdfHTML += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
                   } else if (colHeader2.startsWith("kitab")) {
                     pdfHTML += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
@@ -1277,9 +1281,9 @@ initializePageWithMetadata(async function (metadata) {
                   var prevHdr3 = (headerRow && headerRow[fields[j - 1].index]) ? headerRow[fields[j - 1].index].toLowerCase() : "";
                   if (prevHdr3.endsWith("ar") && colHeader3.endsWith("dv")) content += "<p>&nbsp;</p>";
                 }
-                if (colHeader3.indexOf("footnotes") !== -1 && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-                if (colHeader3.indexOf("footnotes") === -1) {
-                  if (colHeader3.startsWith("header")) {
+                if (colHeader3.startsWith("foot") && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+                if (!colHeader3.startsWith("foot")) {
+                  if (colHeader3.startsWith("head")) {
                     content += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
                   } else if (colHeader3.startsWith("kitab")) {
                     content += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';

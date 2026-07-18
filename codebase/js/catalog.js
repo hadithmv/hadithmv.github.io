@@ -269,7 +269,8 @@ function renderDashboard(bookNames) {
   var chipsHTML = Object.keys(tagCounts).sort().map(function (code) {
     var tc = tagCounts[code];
     var active = _dashFilter.tags.indexOf(code) !== -1;
-    return '<span class="dash-tag-chip' + (active ? ' active' : '') + '" data-tag="' + code + '" style="color:' + (active ? '#fff' : tc.color) + ';background:' + (active ? tc.color : tc.bg) + ';border-color:' + tc.color + '">' +
+    var chipTitle = active ? "Remove filter: " + tc.label : "Filter by " + tc.label;
+    return '<span class="dash-tag-chip' + (active ? ' active' : '') + '" data-tag="' + code + '" title="' + chipTitle + '" style="color:' + (active ? '#fff' : tc.color) + ';background:' + (active ? tc.color : tc.bg) + ';border-color:' + tc.color + '">' +
       (active ? '<span class="chip-x">✕</span>' : '') + tagLabel(code, tc.label) + ' <small>(' + tc.count + ')</small></span>';
   }).join("");
   document.getElementById("dashboardTagChips").innerHTML = chipsHTML
@@ -298,10 +299,10 @@ function renderDashboard(bookNames) {
         var tags = extractTags(book.bookCode);
         var tagHtml = tags.length > 0
           ? '<div class="dash-table-tags">' + tags.map(function (t) {
-              return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
+              return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, 'en') + '" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
             }).join("") + '</div>'
           : "";
-        return '<tr data-href="reader.html?book=' + book.bookCode + '">' +
+        return '<tr data-href="reader.html?book=' + book.bookCode + '" title="' + book.bookCode + '">' +
           '<td>' + (book.titleAR || "") + '</td>' +
           '<td>' + (book.titleDV || "") + '</td>' +
           '<td>' + (book.titleEN || "") + '</td>' +
@@ -320,10 +321,10 @@ function renderDashboard(bookNames) {
       var tags = extractTags(book.bookCode);
       var tagHtml = tags.length > 0
         ? '<div class="card-tags">' + tags.map(function (t) {
-            return '<span class="tag-badge" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
+            return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, 'en') + '" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
           }).join("") + '</div>'
         : "";
-      return '<a href="reader.html?book=' + book.bookCode + '" class="book-card">' +
+      return '<a href="reader.html?book=' + book.bookCode + '" class="book-card" title="' + book.bookCode + '">' +
         tagHtml +
         '<div class="title-ar">' + (book.titleAR || "") + '</div>' +
         '<div class="title-dv">' + (book.titleDV || "") + '</div>' +
@@ -382,6 +383,26 @@ function setupDashboardControls() {
     ss.value = "az";
     renderDashboard(_lastBookNames);
     si.focus();
+  });
+
+  // Keyboard shortcuts (dashboard only — guards check for visible wrapper)
+  document.addEventListener("keydown", function (e) {
+    var wrap = document.getElementById("dashboardWrapper");
+    if (!wrap || wrap.style.display === "none") return;
+    // Don't intercept when typing in an input (except Escape)
+    var tag = (e.target.tagName || "").toLowerCase();
+    var isInput = (tag === "input" || tag === "textarea" || tag === "select" || e.target.isContentEditable);
+    if ((e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) && !isInput) {
+      e.preventDefault();
+      si.focus();
+    }
+    if (e.key === "Escape" && isInput && e.target === si) {
+      si.value = "";
+      _dashFilter.search = "";
+      sc.style.display = "none";
+      renderDashboard(_lastBookNames);
+      si.blur();
+    }
   });
 }
 

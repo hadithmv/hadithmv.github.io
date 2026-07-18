@@ -87,10 +87,10 @@ Each book's CSV can optionally include a header row. If the first field of the f
 - Fixed topBar with return (red), focus (green), title, and hamburger (blue) buttons — only hamburger visible on dashboard
 - Sticky reader chrome below with bottom-border cutoff separating chrome from content
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
-- Heading hierarchy: columns starting with `header`/`kitab`/`bab` (e.g. `headerAR`, `kitabDV`) rendered as large/medium/small bold headings; in plain text copy, headers get a dash-rule underline, kitabs get a `Kitab:` prefix, babs get an indented `Bab:` prefix
+- Heading hierarchy: columns starting with `head`/`kitab`/`bab` (e.g. `headAR`, `kitabDV`) rendered as large/medium/small bold headings; in plain text copy, heads get a dash-rule underline, kitabs get a `Kitab:` prefix, babs get an indented `Bab:` prefix
 - Blank line inserted between the last `*AR` column and first `*DV` column
 - `◆` divider between all rows (including across scroll-chunk boundaries)
-- `ـــــــــــ` tatweel line before columns whose header contains "footnotes"
+- `ـــــــــــ` tatweel line before columns whose header starts with `foot`
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown
 - **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
@@ -184,22 +184,23 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 ### Keyboard shortcuts
 
-| Key | Action |
-|---|---|
-| `←` / `→` | Previous / next row |
-| `Home` / `End` | First / last row |
-| `↑` / `↓` | Navigate search results (when search focused) |
-| `Enter` | Select search result |
-| `/` or `Ctrl+f` | Focus search bar |
-| `Ctrl+Shift+f` | Open advanced search |
-| `z` | Toggle focus mode (same as green ↕/▼ button in topBar) |
-| `t` | Toggle tashkeel (diacritics) |
-| `v` | Toggle card / table view |
-| `s` | Share link |
-| `e` | Open export dropdown |
-| `Ctrl+,` | Open settings |
-| `Ctrl+b` | Back to book list |
-| `Escape` | Close sidebar / modal / search results |
+| Key | Context | Action |
+|---|---|---|
+| `←` / `→` | Reader | Previous / next row |
+| `Home` / `End` | Reader | First / last row |
+| `↑` / `↓` | Search focused | Navigate search results |
+| `Enter` | Search focused | Select search result |
+| `/` or `Ctrl+f` | Anywhere | Focus search bar |
+| `Ctrl+Shift+f` | Anywhere | Open advanced search |
+| `z` | Reader | Toggle focus mode (green ↕/▼ button) |
+| `t` | Reader | Toggle tashkeel (diacritics) |
+| `v` | Reader | Toggle card / table view |
+| `s` | Reader | Share link |
+| `e` | Reader | Open export dropdown |
+| `Escape` | Dashboard | Clear search & blur |
+| `Ctrl+,` | Anywhere | Open settings |
+| `Ctrl+b` | Anywhere | Back to book list |
+| `Escape` | Anywhere | Close sidebar / modal / search results |
 
 ### Exports
 
