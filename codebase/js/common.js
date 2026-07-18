@@ -187,7 +187,10 @@ function applyFontSize(idx) {
       localStorage.removeItem(k);
     });
     localStorage.removeItem("focus");
+    localStorage.removeItem("pinnedBooks");
+    localStorage.removeItem("readHistory");
     document.dispatchEvent(new CustomEvent("readerset"));
+    document.dispatchEvent(new CustomEvent("catalogreset"));
     localStorage.removeItem("lang");
     var sel = document.getElementById("selLanguage");
     if (sel) sel.value = "dv";

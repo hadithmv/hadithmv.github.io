@@ -630,6 +630,10 @@ function setupDashboardControls() {
     si.value = "";
     sc.style.display = "none";
     ss.value = "az";
+    clearPins();
+    clearReadHistory();
+    renderPins();
+    renderHistory();
     renderDashboard(_lastBookNames);
     si.focus();
   });
@@ -664,6 +668,15 @@ function setupDashboardControls() {
     }
   });
 }
+
+// Re-render dashboard on settings reset (if visible)
+document.addEventListener("catalogreset", function () {
+  if (_lastBookNames && _lastBookNames.length > 0) {
+    renderPins();
+    renderHistory();
+    renderDashboard(_lastBookNames);
+  }
+});
 
 // Re-render dashboard on language change (if visible)
 document.addEventListener("languagechange", function () {

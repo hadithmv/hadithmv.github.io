@@ -117,7 +117,7 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
+Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings including reader state, pins, and history. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
 
 ### Internationalisation
 

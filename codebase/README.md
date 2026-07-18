@@ -148,7 +148,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 - Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering
 - Sort dropdown — A→Z / Z←A (arrows follow reading direction)
 - Table/Card view toggle — card grid or full-width table with clickable rows
-- ↺ Reset button — clears all filters, search, and view mode
+- ↺ Reset button — clears all filters, search, view mode, pins, and history
 - Card grid flows right-to-left (`direction: rtl`)
 - All controls work together: search + tags + sort combined
 
@@ -156,7 +156,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 - Blue ☰ hamburger button (always visible, opens right-side drawer)
 - Navigation: Book list, GitHub, FAQ, Help, Contact
-- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector
+- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector; ↺ Reset all settings clears pins and history too
 - Scroll to top
 - App version and creator credit
 

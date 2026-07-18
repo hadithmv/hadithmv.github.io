@@ -14,7 +14,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Switch view** — click the Table/Card button to toggle between a card grid and a table with all book details.
 
-- **Reset** — the ↺ Reset button clears all filters, search, and view mode.
+- **Reset** — the ↺ Reset button clears all filters, search, view mode, pins, and history.
 
 Click any book card or table row to open it.
 
