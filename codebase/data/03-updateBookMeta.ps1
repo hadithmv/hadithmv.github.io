@@ -84,7 +84,10 @@ Get-ChildItem $dataDir -Filter "* - Sheet1.csv" | ForEach-Object {
         Rename-Item $_.FullName $newName
         $renamed++
     } else {
-        Write-Skip "target exists: $($_.Name)"
+        Write-Rename "$($_.Name)  →  $newName (replacing existing)"
+        Remove-Item $newPath -Force
+        Rename-Item $_.FullName $newName
+        $renamed++
     }
 }
 if ($renamed -eq 0) { Write-Info "nothing to rename" }

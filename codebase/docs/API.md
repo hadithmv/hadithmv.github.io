@@ -73,7 +73,7 @@ extractTags("AQD-DFK-sharhuSunnahBarbahari");
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/03-updateBookMeta.ps1` to auto‑generate `titleEN` from `bookCode`
+- Run `data/03-updateBookMeta.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), and register new books
 
 ---
 

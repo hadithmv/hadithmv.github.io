@@ -214,7 +214,6 @@ initializePageWithMetadata(async function (metadata) {
           t += `#${rowNum}\n\n`;
         }
         var fields = [];
-        var maxI = row.length - 1;
         for (var i = 1; i < row.length; i++) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
@@ -224,8 +223,15 @@ initializePageWithMetadata(async function (metadata) {
           }
         }
         for (var i = 0; i < fields.length; i++) {
-          if (fields[i].index === maxI && fields.length > 1) {
+          var colHeader0 = (headerRow && headerRow[fields[i].index]) ? headerRow[fields[i].index].toLowerCase() : "";
+          if (colHeader0.indexOf("footnotes") !== -1 && fields.length > 1) {
             t += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
+          }
+          if (i > 0) {
+            var prevHdr0 = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
+            if (prevHdr0.endsWith("ar") && colHeader0.endsWith("dv")) {
+              t += "\n";
+            }
           }
           t += fields[i].value + "\n\n";
         }
@@ -247,7 +253,6 @@ initializePageWithMetadata(async function (metadata) {
           h += `<div class="reader-row-num">#${rowNum}</div>`;
         }
         var fields = [];
-        var maxColIdx = row.length - 1;
         for (var i = 1; i < row.length; i++) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
@@ -259,7 +264,14 @@ initializePageWithMetadata(async function (metadata) {
         var query = searchInput.value.trim();
         for (var i = 0; i < fields.length; i++) {
           var display = markupTashkeel(highlightMatches(fields[i].value, query));
-          if (fields[i].index === maxColIdx && fields.length > 1) {
+          var colHeader = (headerRow && headerRow[fields[i].index]) ? headerRow[fields[i].index].toLowerCase() : "";
+          if (i > 0) {
+            var prevHdr = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
+            if (prevHdr.endsWith("ar") && colHeader.endsWith("dv")) {
+              h += `<div class="reader-ar-dv-spacer"></div>`;
+            }
+          }
+          if (colHeader.indexOf("footnotes") !== -1 && fields.length > 1) {
             h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
             h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
@@ -1043,11 +1055,16 @@ initializePageWithMetadata(async function (metadata) {
               pdfHTML += "<h2>#" + (r[0] || (i + 1)) + "</h2>";
               var fields = [];
               for (var j = 1; j < r.length; j++) {
-                if (r[j] && String(r[j]).trim()) fields.push(String(r[j]).trim());
+                if (r[j] && String(r[j]).trim()) fields.push({ value: String(r[j]).trim(), index: j });
               }
               for (var j = 0; j < fields.length; j++) {
-                if (j === fields.length - 1 && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-                pdfHTML += "<p>" + fields[j] + "</p>";
+                var colHeader2 = (headerRow && headerRow[fields[j].index]) ? headerRow[fields[j].index].toLowerCase() : "";
+                if (j > 0) {
+                  var prevHdr2 = (headerRow && headerRow[fields[j - 1].index]) ? headerRow[fields[j - 1].index].toLowerCase() : "";
+                  if (prevHdr2.endsWith("ar") && colHeader2.endsWith("dv")) pdfHTML += "<p>&nbsp;</p>";
+                }
+                if (colHeader2.indexOf("footnotes") !== -1 && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+                pdfHTML += "<p>" + fields[j].value + "</p>";
               }
               pdfHTML += "<hr>";
             }
@@ -1141,7 +1158,8 @@ initializePageWithMetadata(async function (metadata) {
                   }, {
                     siteURL: siteURL,
                     versionText: versionText,
-                    fontData: fontBuf ? new Uint8Array(fontBuf) : null
+                    fontData: fontBuf ? new Uint8Array(fontBuf) : null,
+                    headerRow: headerRow
                   });
                   var u = URL.createObjectURL(epubBlob);
                   var a = document.createElement("a");
@@ -1219,11 +1237,16 @@ initializePageWithMetadata(async function (metadata) {
               content += "<h2>#" + (r[0] || (i + 1)) + "</h2>";
               var fields = [];
               for (var j = 1; j < r.length; j++) {
-                if (r[j] && String(r[j]).trim()) fields.push(String(r[j]).trim());
+                if (r[j] && String(r[j]).trim()) fields.push({ value: String(r[j]).trim(), index: j });
               }
               for (var j = 0; j < fields.length; j++) {
-                if (j === fields.length - 1 && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-                content += "<p>" + fields[j] + "</p>";
+                var colHeader3 = (headerRow && headerRow[fields[j].index]) ? headerRow[fields[j].index].toLowerCase() : "";
+                if (j > 0) {
+                  var prevHdr3 = (headerRow && headerRow[fields[j - 1].index]) ? headerRow[fields[j - 1].index].toLowerCase() : "";
+                  if (prevHdr3.endsWith("ar") && colHeader3.endsWith("dv")) content += "<p>&nbsp;</p>";
+                }
+                if (colHeader3.indexOf("footnotes") !== -1 && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+                content += "<p>" + fields[j].value + "</p>";
               }
               content += "<hr>";
             }

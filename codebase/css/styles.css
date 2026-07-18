@@ -1938,6 +1938,10 @@ body:has(.modal-overlay.open) {
   user-select: none;
 }
 
+.reader-ar-dv-spacer {
+  height: 1em;
+}
+
 .scroll-counter {
   position: fixed;
   bottom: 10px;

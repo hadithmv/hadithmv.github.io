@@ -1,4 +1,13 @@
 # Combined script for version increment and Git sync
+
+[CmdletBinding()]
+param(
+    [switch]$SkipVersionIncrement
+)
+
+# Change this to "off" to disable version increments without removing the script logic.
+$versionIncrementSetting = "off"
+
 try {
     # Store the initial location to return to it at the end if needed
     $initialLocation = Get-Location
@@ -408,8 +417,22 @@ function Sync-Git {
 
 # Main execution block
 try {
-    # First run version increment
-    $versionSuccess = Increment-Version
+    $versionMode = $versionIncrementSetting.ToLowerInvariant()
+
+    if ($SkipVersionIncrement -or $versionMode -eq 'off') {
+        Write-Host "⏭️ Version increment disabled. Skipping version update." -ForegroundColor Yellow
+        $versionSuccess = $true
+        $script:newVersion = $null
+    }
+    elseif ($versionMode -eq 'on') {
+        # First run version increment
+        $versionSuccess = Increment-Version
+    }
+    else {
+        Write-Host "⚠️ Invalid version increment setting '$versionIncrementSetting'. Use 'on' or 'off'." -ForegroundColor Yellow
+        $versionSuccess = $true
+        $script:newVersion = $null
+    }
     
     # Then run git sync if version increment was successful
     if ($versionSuccess) {
@@ -430,8 +453,14 @@ try {
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
 
     if ($versionSuccess) {
-        Write-Host "🚀 Updated to version: " -ForegroundColor Green -NoNewline
-        Write-Host "v$newVersion ✨" -ForegroundColor Yellow
+        if ($SkipVersionIncrement -or $versionMode -eq 'off') {
+            Write-Host "🚀 Version update: " -ForegroundColor Green -NoNewline
+            Write-Host "SKIPPED" -ForegroundColor Yellow
+        }
+        else {
+            Write-Host "🚀 Updated to version: " -ForegroundColor Green -NoNewline
+            Write-Host "v$newVersion ✨" -ForegroundColor Yellow
+        }
     
         if ($gitSuccess) {
             # Show detailed file changes breakdown

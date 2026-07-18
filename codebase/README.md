@@ -87,7 +87,7 @@ Each book's CSV can optionally include a header row. If the first field of the f
 - Fixed topBar with return (red), focus (green), title, and hamburger (blue) buttons — only hamburger visible on dashboard
 - Sticky reader chrome below with bottom-border cutoff separating chrome from content
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
-- `◆` divider between rows, `ـــــــــــ` tatweel line above footnotes
+- `◆` divider between rows, `ـــــــــــ` tatweel line before columns whose header contains "footnotes"
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown
 - **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)

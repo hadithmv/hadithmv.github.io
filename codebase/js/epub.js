@@ -22,7 +22,7 @@ function xmlEsc(s) {
  * Create an EPUB 3 e-book Blob.
  * @param {Array<Array<*>>} rows      — 2D array of cell values (null/undefined → empty)
  * @param {{bookCode,titleEN,titleDV,titleAR,tags:string[]}} meta — book metadata
- * @param {{siteURL,versionText,fontData?:Uint8Array}} opts
+ * @param {{siteURL,versionText,fontData?:Uint8Array,headerRow?:Array<string>}} opts
  * @returns {Blob}  application/epub+zip
  */
 export function createEPUB(rows, meta, opts) {
@@ -54,18 +54,28 @@ export function createEPUB(rows, meta, opts) {
     for (var j = 1; j < row.length; j++) {
       if (row[j] != null && String(row[j]).trim()) nonEmpty.push(j);
     }
+    var prevNonEmpty = -1;
     for (var j = 0; j < row.length; j++) {
       if (j === 0) continue; // skip row number for chapter content
       var val = row[j] != null ? String(row[j]).trim() : "";
       if (!val) continue;
       var lines = val.split(/\n+/);
-      // Last non-empty column = footnotes (divider before it)
-      if (j === nonEmpty[nonEmpty.length - 1] && nonEmpty.length > 1) {
+      // Column header contains "footnotes" (case-insensitive) → divider before it
+      var colHeader = (opts.headerRow && opts.headerRow[j]) ? opts.headerRow[j].toLowerCase() : "";
+      // AR→DV break: blank line between last AR-ending col and first DV-ending col
+      if (prevNonEmpty >= 0) {
+        var prevHdrEPUB = (opts.headerRow && opts.headerRow[prevNonEmpty]) ? opts.headerRow[prevNonEmpty].toLowerCase() : "";
+        if (prevHdrEPUB.endsWith("ar") && colHeader.endsWith("dv")) {
+          body += '<p class="spacer">&nbsp;</p>\n';
+        }
+      }
+      if (colHeader.indexOf("footnotes") !== -1 && nonEmpty.length > 1) {
         body += '<div class="divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>\n';
       }
       for (var l = 0; l < lines.length; l++) {
         body += "<p>" + xmlEsc(lines[l]) + "</p>\n";
       }
+      prevNonEmpty = j;
     }
 
     chapters.push({ id: chapId, title: chapTitle, body: body });
