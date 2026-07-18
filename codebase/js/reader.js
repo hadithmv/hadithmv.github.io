@@ -1069,6 +1069,15 @@ initializePageWithMetadata(async function (metadata) {
             content = unparseCSV(rows);
             filename = baseName + ".csv";
             mime = "text/csv";
+          } else if (fmt === "tsv") {
+            content = rows.map(function (row) {
+              return row.map(function (cell) {
+                var s = cell == null ? "" : String(cell);
+                return s.replace(/\t/g, " ").replace(/\n/g, " ");
+              }).join("\t");
+            }).join("\n");
+            filename = baseName + ".tsv";
+            mime = "text/tab-separated-values";
           } else if (fmt === "pdf") {
             var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
             var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0}</style></head><body>';

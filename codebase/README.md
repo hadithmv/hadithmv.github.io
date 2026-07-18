@@ -125,7 +125,7 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
 | 📖 Table/Card | Toggle between vertical card and horizontal table view |
 | ↺ Reset | Reset all reader settings to defaults |
-| 📥 Export | Dropdown: TXT, MD, JSON, CSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG |
+| 📥 Export | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG |
 | Hide columns ▾ | Dropdown of per-column toggle buttons |
 
 Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row edges — ◀ scrolls toward the end, ▶ scrolls back toward the start. Both arrow clicks and mouse-wheel redirection animate smoothly via an ease-out-cubic curve. Arrows auto-hide at the scroll extremes.
