@@ -70,7 +70,8 @@
   border-color: var(--color-nav-btn-text);
 }
 .dash-tag-chip .chip-x {
-  margin-right: 4px;
+  margin-left: 6px;
+  margin-right: 2px;
   font-size: 0.7rem;
   opacity: 0.7;
 }
@@ -163,6 +164,19 @@
     -apple-system,
     sans-serif;
 }
+
+.dash-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
 /* ---- Book cards ---- */
 .book-card {
   background: var(--color-card-bg);
@@ -246,6 +260,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+  direction: rtl;
 }
 
 @media (max-width: 600px) {

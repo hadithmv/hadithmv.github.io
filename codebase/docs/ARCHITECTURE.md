@@ -65,8 +65,10 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 │  Pagination: ސަފްހާ: << < 10/[5] > >>  Subtitle + Tags     │
 ├─ Reader content (scrollable) ────────────────────────────────┤
 │  #1                                                          │
-│  column 1 …                                                  │
-│  column 2 …                                                  │
+│  header …                              (large, bold)         │
+│  kitab …                               (medium, bold)        │
+│  bab …                                 (smaller, bold)        │
+│  column …                                                    │
 │       ــــــــــــــــــــــــــــــــــــــــــــ           │
 │  footnotes                                                   │
 │         ◆                                                    │

@@ -272,10 +272,12 @@ function renderDashboard(bookNames) {
     return '<span class="dash-tag-chip' + (active ? ' active' : '') + '" data-tag="' + code + '" style="color:' + (active ? '#fff' : tc.color) + ';background:' + (active ? tc.color : tc.bg) + ';border-color:' + tc.color + '">' +
       (active ? '<span class="chip-x">✕</span>' : '') + tagLabel(code, tc.label) + ' <small>(' + tc.count + ')</small></span>';
   }).join("");
-  document.getElementById("dashboardTagChips").innerHTML = chipsHTML;
+  document.getElementById("dashboardTagChips").innerHTML = chipsHTML
+    ? '<span class="dash-label">' + t("dashboardTagsLabel") + '</span> ' + chipsHTML
+    : "";
 
   // Result count
-  document.getElementById("dashboardResultCount").textContent = visible.length + " " + t("dashboardBooks");
+  document.getElementById("dashboardResultCount").textContent = t("dashboardBooksLabel") + " " + visible.length;
 
   // Update view toggle button text
   var vt = document.getElementById("dashboardViewToggle");

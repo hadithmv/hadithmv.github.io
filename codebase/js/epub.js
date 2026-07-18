@@ -72,8 +72,16 @@ export function createEPUB(rows, meta, opts) {
       if (colHeader.indexOf("footnotes") !== -1 && nonEmpty.length > 1) {
         body += '<div class="divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>\n';
       }
+      // Heading hierarchy for header/kitab/bab columns
+      var tag = "p";
+      var cls = "";
+      if (colHeader.indexOf("footnotes") === -1) {
+        if (colHeader.startsWith("header")) { tag = "p"; cls = ' class="header"'; }
+        else if (colHeader.startsWith("kitab")) { tag = "p"; cls = ' class="kitab"'; }
+        else if (colHeader.startsWith("bab"))  { tag = "p"; cls = ' class="bab"'; }
+      }
       for (var l = 0; l < lines.length; l++) {
-        body += "<p>" + xmlEsc(lines[l]) + "</p>\n";
+        body += "<" + tag + cls + ">" + xmlEsc(lines[l]) + "</" + tag + ">\n";
       }
       prevNonEmpty = j;
     }
@@ -149,6 +157,9 @@ export function createEPUB(rows, meta, opts) {
     + 'h1 { font-size: 1.3rem; text-align: center; margin: 1em 0 0.5em; }\n'
     + 'p { margin: 0.5em 0; }\n'
     + '.divider { text-align: center; color: #888; margin: 1em 0; direction: ltr; }\n'
+    + '.header { font-size: 1.25rem; font-weight: 700; margin: 0.8em 0 0.3em; }\n'
+    + '.kitab { font-weight: 600; font-size: 1.05rem; margin: 0.6em 0 0.2em; }\n'
+    + '.bab { font-weight: 600; margin: 0.4em 0 0.2em; }\n'
     + '/* Cover */\n'
     + 'body.cover { text-align: center; padding: 2em 1em; }\n'
     + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'

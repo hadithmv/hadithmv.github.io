@@ -1942,6 +1942,28 @@ body:has(.modal-overlay.open) {
   height: 1em;
 }
 
+/* Heading hierarchy for header/kitab/bab columns */
+.reader-field-header {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin: 8px 0 12px;
+}
+
+.reader-field-kitab {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 6px 0 6px;
+}
+
+.reader-field-bab {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 4px 0 8px;
+}
+
 .scroll-counter {
   position: fixed;
   bottom: 10px;

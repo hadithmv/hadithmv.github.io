@@ -87,7 +87,10 @@ Each book's CSV can optionally include a header row. If the first field of the f
 - Fixed topBar with return (red), focus (green), title, and hamburger (blue) buttons — only hamburger visible on dashboard
 - Sticky reader chrome below with bottom-border cutoff separating chrome from content
 - Columns stacked vertically with `dir="auto"` for RTL/LTR detection
-- `◆` divider between rows, `ـــــــــــ` tatweel line before columns whose header contains "footnotes"
+- Heading hierarchy: columns starting with `header`/`kitab`/`bab` (e.g. `headerAR`, `kitabDV`) rendered as large/medium/small bold headings; in plain text copy, headers get a dash-rule underline, kitabs get a `Kitab:` prefix, babs get an indented `Bab:` prefix
+- Blank line inserted between the last `*AR` column and first `*DV` column
+- `◆` divider between all rows (including across scroll-chunk boundaries)
+- `ـــــــــــ` tatweel line before columns whose header contains "footnotes"
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown
 - **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
@@ -137,10 +140,12 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 ### Dashboard
 
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
+- `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count
 - Sort dropdown — A→Z / Z←A (arrows follow reading direction)
 - Table/Card view toggle — card grid or full-width table with clickable rows
 - ↺ Reset button — clears all filters, search, and view mode
+- Card grid flows right-to-left (`direction: rtl`)
 - All controls work together: search + tags + sort combined
 
 ### Sidebar (☰)

@@ -208,6 +208,8 @@ const STRINGS = {
   dashboardSortAZ: { dv: "އ ← ޔ", en: "A → Z", ar: "أ ← ي" },
   dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
   dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
+  dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
+  dashboardTagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
   searchClearHistory: {
     dv: "✕   ހިސްޓަރީ ފޮހެލާ",
     en: "✕   Clear history",

@@ -233,7 +233,19 @@ initializePageWithMetadata(async function (metadata) {
               t += "\n";
             }
           }
-          t += fields[i].value + "\n\n";
+          if (colHeader0.indexOf("footnotes") === -1) {
+            if (colHeader0.startsWith("header")) {
+              t += fields[i].value + "\n───────────\n\n";
+            } else if (colHeader0.startsWith("kitab")) {
+              t += "Kitab: " + fields[i].value + "\n\n";
+            } else if (colHeader0.startsWith("bab")) {
+              t += "  Bab: " + fields[i].value + "\n\n";
+            } else {
+              t += fields[i].value + "\n\n";
+            }
+          } else {
+            t += fields[i].value + "\n\n";
+          }
         }
         return t;
       }
@@ -275,7 +287,15 @@ initializePageWithMetadata(async function (metadata) {
             h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
             h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
-            h += `<div class="reader-field" dir="auto">${display}</div>`;
+            var fieldClass = "reader-field";
+            if (colHeader.startsWith("header")) {
+              fieldClass += " reader-field-header";
+            } else if (colHeader.startsWith("kitab")) {
+              fieldClass += " reader-field-kitab";
+            } else if (colHeader.startsWith("bab")) {
+              fieldClass += " reader-field-bab";
+            }
+            h += `<div class="${fieldClass}" dir="auto">${display}</div>`;
           }
         }
         return h;
@@ -375,7 +395,7 @@ initializePageWithMetadata(async function (metadata) {
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
         } else {
           var sentinel = document.getElementById("sentinelBottom");
-          sentinel.insertAdjacentHTML("beforebegin", renderChunkHTML(loadedEnd, nextEnd));
+          sentinel.insertAdjacentHTML("beforebegin", `<div class="reader-divider"></div>` + renderChunkHTML(loadedEnd, nextEnd));
         }
         loadedEnd = nextEnd;
       }
@@ -390,7 +410,7 @@ initializePageWithMetadata(async function (metadata) {
         } else {
           var prevH = readerContent.scrollHeight;
           var sentinel = document.getElementById("sentinelTop");
-          sentinel.insertAdjacentHTML("afterend", renderChunkHTML(nextStart, loadedStart));
+          sentinel.insertAdjacentHTML("afterend", renderChunkHTML(nextStart, loadedStart) + `<div class="reader-divider"></div>`);
           readerContent.scrollTop += readerContent.scrollHeight - prevH;
         }
         loadedStart = nextStart;
@@ -1064,7 +1084,19 @@ initializePageWithMetadata(async function (metadata) {
                   if (prevHdr2.endsWith("ar") && colHeader2.endsWith("dv")) pdfHTML += "<p>&nbsp;</p>";
                 }
                 if (colHeader2.indexOf("footnotes") !== -1 && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-                pdfHTML += "<p>" + fields[j].value + "</p>";
+                if (colHeader2.indexOf("footnotes") === -1) {
+                  if (colHeader2.startsWith("header")) {
+                    pdfHTML += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
+                  } else if (colHeader2.startsWith("kitab")) {
+                    pdfHTML += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
+                  } else if (colHeader2.startsWith("bab")) {
+                    pdfHTML += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
+                  } else {
+                    pdfHTML += "<p>" + fields[j].value + "</p>";
+                  }
+                } else {
+                  pdfHTML += "<p>" + fields[j].value + "</p>";
+                }
               }
               pdfHTML += "<hr>";
             }
@@ -1246,7 +1278,19 @@ initializePageWithMetadata(async function (metadata) {
                   if (prevHdr3.endsWith("ar") && colHeader3.endsWith("dv")) content += "<p>&nbsp;</p>";
                 }
                 if (colHeader3.indexOf("footnotes") !== -1 && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-                content += "<p>" + fields[j].value + "</p>";
+                if (colHeader3.indexOf("footnotes") === -1) {
+                  if (colHeader3.startsWith("header")) {
+                    content += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
+                  } else if (colHeader3.startsWith("kitab")) {
+                    content += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
+                  } else if (colHeader3.startsWith("bab")) {
+                    content += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
+                  } else {
+                    content += "<p>" + fields[j].value + "</p>";
+                  }
+                } else {
+                  content += "<p>" + fields[j].value + "</p>";
+                }
               }
               content += "<hr>";
             }
