@@ -120,6 +120,7 @@ All rows inside the collapsible chrome use uniform 10px spacing via flex column 
 
 | Control | Description |
 |---|---|
+| 📌 Pin | Bookmark current book + page (p key) |
 | 📋 Copy | Copy current row as formatted plain text |
 | 🔗 Share | Copy deep link to current book + row |
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
@@ -139,6 +140,8 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 ### Dashboard
 
+- **📌 Pins** — dropdown button in sort row; shows bookmarked books; ▲▼ reorder arrows, ✕ to remove, "Clear all"; max 10; click entry to open at bookmarked page
+- **🕐 History** — dropdown button in sort row; auto-logged on every page read; shows book name + relative time ("3m ago"); ✕ to remove, "Clear all"; max 10; one entry per book (latest position)
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count
@@ -195,9 +198,12 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `z` | Reader | Toggle focus mode (green ↕/▼ button) |
 | `t` | Reader | Toggle tashkeel (diacritics) |
 | `v` | Reader | Toggle card / table view |
+| `p` | Reader | Toggle bookmark (pin) |
 | `s` | Reader | Share link |
 | `e` | Reader | Open export dropdown |
 | `Escape` | Dashboard | Clear search & blur |
+| `p` | Dashboard | Toggle pins dropdown |
+| `h` | Dashboard | Toggle history dropdown |
 | `Ctrl+,` | Anywhere | Open settings |
 | `Ctrl+b` | Anywhere | Back to book list |
 | `Escape` | Anywhere | Close sidebar / modal / search results |

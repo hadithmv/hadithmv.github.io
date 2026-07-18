@@ -6,7 +6,7 @@
  * rows-per-page control, and per-column visibility toggles.
  */
 
-import { initializePageWithMetadata, extractTags } from "./catalog.js";
+import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
 import { parseCSV, unparseCSV } from "./csv.js";
@@ -935,6 +935,33 @@ initializePageWithMetadata(async function (metadata) {
         });
       });
 
+      // ── Toolbar: pin toggle ──────────────────────────────────
+      var btnBookmark = document.getElementById("btnBookmark");
+      function updateBookmarkButton() {
+        var pinned = isPinned(metadata.bookCode);
+        if (pinned) {
+          btnBookmark.classList.add("active");
+          btnBookmark.setAttribute("data-i18n","btnBookmarkText");
+          btnBookmark.innerHTML = "📌 " + t("btnBookmarkText").replace(/^📌 /, "");
+        } else {
+          btnBookmark.classList.remove("active");
+          btnBookmark.innerHTML = "📌 " + t("btnBookmarkText").replace(/^📌 /, "");
+        }
+        btnBookmark.title = pinned ? "Remove bookmark (p key)" : "Bookmark current page (p key)";
+      }
+      btnBookmark.addEventListener("click", function () {
+        var vRow = visiblePageIndex() + 1;
+        if (isPinned(metadata.bookCode)) {
+          removePin(metadata.bookCode);
+          showToast(t("toastUnpinned"));
+        } else {
+          var ok = addPin(metadata.bookCode, vRow);
+          showToast(ok ? t("toastPinned") : t("toastPinned"));
+        }
+        updateBookmarkButton();
+      });
+      updateBookmarkButton();
+
       // ── Toolbar: copy to clipboard ──────────────────────────
       btnCopy.addEventListener("click", function () {
         var vRow = visiblePageIndex();
@@ -1460,6 +1487,10 @@ initializePageWithMetadata(async function (metadata) {
           var vtBtn = document.getElementById("btnViewToggle");
           if (vtBtn) vtBtn.click();
         }
+        if (e.key === "p" && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          if (btnBookmark) btnBookmark.click();
+        }
         if (e.key === "F" && e.shiftKey && (e.ctrlKey || e.metaKey)) {
           e.preventDefault();
           document.getElementById("advancedSearchOverlay").classList.add("open");
@@ -1511,6 +1542,14 @@ initializePageWithMetadata(async function (metadata) {
       var scrollCounter = document.getElementById("scrollCounter");
       var scrollTimer;
       var urlSyncTimer;
+      var historyTimer;
+      var _lastHistoryRow = 0;
+
+      // Initial history log
+      var _initRow = visiblePageIndex() + 1;
+      addReadHistory(metadata.bookCode, _initRow);
+      _lastHistoryRow = _initRow;
+
       window.addEventListener("scroll", function () {
         updatePagination();
         if (scrollCounter) {
@@ -1529,6 +1568,14 @@ initializePageWithMetadata(async function (metadata) {
           var newURL = window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
           history.replaceState(null, "", newURL);
         }, 500);
+        // History auto-log (debounced 2s, row must change)
+        if (vRow + 1 !== _lastHistoryRow) {
+          clearTimeout(historyTimer);
+          historyTimer = setTimeout(function () {
+            addReadHistory(metadata.bookCode, vRow + 1);
+            _lastHistoryRow = vRow + 1;
+          }, 2000);
+        }
       }, { passive: true });
 
       // Reveal everything at once

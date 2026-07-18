@@ -46,7 +46,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort/table toggle, card grid of all books.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as dropdown panels from toolbar buttons.
 
 `?book=CODE` → reader (`reader.html`) loads `reader.js` → parses the book CSV, renders infinite-scroll content.
 
@@ -61,7 +61,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 │  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
 ├─ Sticky chrome (z-index 50, bottom-border cut) ──────────────┤
 │  Search bar: 🔎 Advanced, input, ✕ clear, match count       │
-│  Toolbar: Copy, Tashkeel, Share, View, Reset, Export, etc.  │
+│  Toolbar: Pin, Copy, Tashkeel, Share, View, Reset, Export, etc.  │
 │  Pagination: ސަފްހާ: << < 10/[5] > >>  Subtitle + Tags     │
 ├─ Reader content (scrollable) ────────────────────────────────┤
 │  #1                                                          │
@@ -136,12 +136,15 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle
 | `z`             | Reader                 | Toggle focus mode (same as ↕/▼ button) |
 | `t`             | Reader                 | Toggle tashkeel                        |
 | `v`             | Reader                 | Toggle card/table view                 |
+| `p`             | Reader                 | Toggle bookmark (pin)                  |
 | `s`             | Reader                 | Share link                             |
 | `e`             | Reader                 | Open export dropdown                   |
 | `Ctrl+,`        | Anywhere               | Open settings                          |
 | `Ctrl+b`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
 | `Escape`        | Dashboard search       | Clear search & blur                    |
+| `p`             | Dashboard              | Toggle pins dropdown                   |
+| `h`             | Dashboard              | Toggle history dropdown                |
 
 Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips, badges, book cards, table rows, toolbar buttons, and page titles all carry `title` tooltips describing their action or category.
 

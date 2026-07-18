@@ -4,7 +4,7 @@
  * All configuration lives in CSV files — no hardcoded data.
  */
 
-import { tagLabel, t } from "./i18n.js";
+import { tagLabel, t, currentLang } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
 import { parseCSV } from "./csv.js";
 
@@ -149,6 +149,159 @@ export function getCsvPath(bookCode) {
   return `../data/${bookCode}.csv`;
 }
 
+// ── Pins & History (localStorage) ──────────────────────────
+const PINNED_KEY = "pinnedBooks";
+const HISTORY_KEY = "readHistory";
+const MAX_PINS = 10;
+const MAX_HISTORY = 10;
+
+export function getPinnedBooks() {
+  try { return JSON.parse(localStorage.getItem(PINNED_KEY) || "[]"); } catch (_) { return []; }
+}
+function setPinnedBooks(arr) {
+  try { localStorage.setItem(PINNED_KEY, JSON.stringify(arr)); } catch (_) {}
+}
+export function isPinned(bookCode) {
+  return getPinnedBooks().some(function (p) { return p.bookCode === bookCode; });
+}
+export function addPin(bookCode, row) {
+  var pins = getPinnedBooks();
+  var idx = pins.findIndex(function (p) { return p.bookCode === bookCode; });
+  if (idx !== -1) {
+    pins[idx].row = row;
+    pins[idx].addedAt = Date.now();
+  } else {
+    if (pins.length >= MAX_PINS) return false;
+    pins.push({ bookCode: bookCode, row: row, addedAt: Date.now() });
+  }
+  setPinnedBooks(pins);
+  return true;
+}
+export function removePin(bookCode) {
+  setPinnedBooks(getPinnedBooks().filter(function (p) { return p.bookCode !== bookCode; }));
+}
+export function movePin(bookCode, dir) {
+  var pins = getPinnedBooks();
+  var idx = pins.findIndex(function (p) { return p.bookCode === bookCode; });
+  if (idx === -1) return;
+  var tgt = idx + dir;
+  if (tgt < 0 || tgt >= pins.length) return;
+  var tmp = pins[idx]; pins[idx] = pins[tgt]; pins[tgt] = tmp;
+  setPinnedBooks(pins);
+}
+export function clearPins() { setPinnedBooks([]); }
+
+export function getReadHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); } catch (_) { return []; }
+}
+function setReadHistory(arr) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); } catch (_) {}
+}
+export function addReadHistory(bookCode, row) {
+  var h = getReadHistory().filter(function (e) { return e.bookCode !== bookCode; });
+  h.unshift({ bookCode: bookCode, row: row, timestamp: Date.now() });
+  if (h.length > MAX_HISTORY) h.pop();
+  setReadHistory(h);
+}
+export function removeHistoryEntry(bookCode) {
+  setReadHistory(getReadHistory().filter(function (e) { return e.bookCode !== bookCode; }));
+}
+export function clearReadHistory() { setReadHistory([]); }
+
+function timeAgo(ts) {
+  var diff = Date.now() - ts;
+  var sec = Math.floor(diff / 1000);
+  if (sec < 60) return t("relativeJustNow");
+  var min = Math.floor(sec / 60);
+  if (min < 60) return min + " " + t("relativeMinutes");
+  var hr = Math.floor(min / 60);
+  if (hr < 24) return hr + " " + t("relativeHours");
+  var dy = Math.floor(hr / 24);
+  return dy + " " + t("relativeDays");
+}
+
+function bookDisplayName(bookCode) {
+  if (!_lastBookNames) return bookCode;
+  var entry = null;
+  for (var i = 0; i < _lastBookNames.length; i++) {
+    if (_lastBookNames[i].bookCode === bookCode) { entry = _lastBookNames[i]; break; }
+  }
+  if (!entry) return bookCode;
+  var lang = currentLang();
+  if (lang === "dv") return entry.titleDV || entry.titleEN || bookCode;
+  if (lang === "ar") return entry.titleAR || entry.titleEN || bookCode;
+  return entry.titleEN || bookCode;
+}
+
+// ── Render Pins & History dropdowns ───────────────────────
+
+function renderPins() {
+  var dd = document.getElementById("pinsDropdown");
+  if (!dd) return;
+  var pins = getPinnedBooks();
+  if (pins.length === 0) {
+    dd.style.display = "none";
+    dd.innerHTML = "";
+    return;
+  }
+  var html = '<div class="dd-grid">';
+  html += '<div class="dd-header">';
+  html += '<span class="dd-col-idx">' + t("ddColIdx") + '</span>';
+  html += '<span class="dd-col-sort">' + t("ddColSort") + '</span>';
+  html += '<span class="dd-col-book">' + t("ddColBook") + '</span>';
+  html += '<span class="dd-col-page">' + t("ddColPage") + '</span>';
+  html += '<span class="dd-col-remove">' + t("ddColRemove") + '</span>';
+  html += '</div>';
+  for (var i = 0; i < pins.length; i++) {
+    var p = pins[i];
+    var name = bookDisplayName(p.bookCode);
+    html += '<div class="dash-dropdown-item" data-code="' + p.bookCode + '">';
+    html += '<span class="dd-col-idx">' + (i + 1) + '</span>';
+    html += '<span class="dd-col-sort">';
+    html += '<span class="chip-arrow' + (i === 0 ? ' chip-arrow-disabled' : '') + '" data-dir="-1" title="Move up">▲</span>';
+    html += '<span class="chip-arrow' + (i === pins.length - 1 ? ' chip-arrow-disabled' : '') + '" data-dir="1" title="Move down">▼</span>';
+    html += '</span>';
+    html += '<a class="dd-col-book dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a>';
+    html += '<span class="dd-col-page">' + p.row + '</span>';
+    html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
+    html += '</div>';
+  }
+  html += '</div>';
+  html += '<button class="dd-clear-all">' + t("dashboardClearAll") + '</button>';
+  dd.innerHTML = html;
+}
+
+function renderHistory() {
+  var dd = document.getElementById("historyDropdown");
+  if (!dd) return;
+  var history = getReadHistory();
+  if (history.length === 0) {
+    dd.style.display = "none";
+    dd.innerHTML = "";
+    return;
+  }
+  var html = '<div class="dd-grid">';
+  html += '<div class="dd-header">';
+  html += '<span class="dd-col-book">' + t("ddColBook") + '</span>';
+  html += '<span class="dd-col-page">' + t("ddColPage") + '</span>';
+  html += '<span class="dd-col-time">' + t("ddColTime") + '</span>';
+  html += '<span class="dd-col-remove">' + t("ddColRemove") + '</span>';
+  html += '</div>';
+  for (var i = 0; i < history.length; i++) {
+    var h = history[i];
+    var name = bookDisplayName(h.bookCode);
+    html += '<div class="dash-dropdown-item" data-code="' + h.bookCode + '">';
+    html += '<a class="dd-col-book dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a>';
+    html += '<span class="dd-col-page">' + h.row + '</span>';
+    html += '<span class="dd-col-time">' + timeAgo(h.timestamp) + '</span>';
+    html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
+    html += '</div>';
+  }
+  html += '</div>';
+  html += '<button class="dd-clear-all">' + t("dashboardClearAll") + '</button>';
+  dd.innerHTML = html;
+}
+
 // ---------------------------------------------------------------------------
 // Page initialisation
 // ---------------------------------------------------------------------------
@@ -225,6 +378,10 @@ function renderDashboard(bookNames) {
 
   const dashboard = document.getElementById("dashboardWrapper");
   if (dashboard) dashboard.style.display = "block";
+
+  // Render pins & history (independent of search/tag filters)
+  renderPins();
+  renderHistory();
 
   // Filter out hidden books
   var visible = bookNames.filter(function (b) { return !b.bookCode.endsWith("-HDN"); });
@@ -368,6 +525,76 @@ function setupDashboardControls() {
     renderDashboard(_lastBookNames);
   });
 
+  // ── Pins & History dropdown toggling ──────────────────────
+  function closeAllDropdowns() {
+    var pdd = document.getElementById("pinsDropdown");
+    var hdd = document.getElementById("historyDropdown");
+    if (pdd) pdd.style.display = "none";
+    if (hdd) hdd.style.display = "none";
+  }
+  function toggleDropdown(ddId) {
+    var dd = document.getElementById(ddId);
+    if (!dd) return;
+    var other = ddId === "pinsDropdown" ? "historyDropdown" : "pinsDropdown";
+    var otherDD = document.getElementById(other);
+    if (otherDD) otherDD.style.display = "none";
+    dd.style.display = (dd.style.display === "block") ? "none" : "block";
+  }
+
+  var btnPD = document.getElementById("btnPinsDropdown");
+  if (btnPD) btnPD.addEventListener("click", function (e) {
+    e.stopPropagation();
+    renderPins();
+    toggleDropdown("pinsDropdown");
+  });
+
+  var btnHD = document.getElementById("btnHistoryDropdown");
+  if (btnHD) btnHD.addEventListener("click", function (e) {
+    e.stopPropagation();
+    renderHistory();
+    toggleDropdown("historyDropdown");
+  });
+
+  // Close dropdowns on outside click
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest("#pinsDropdown") && !e.target.closest("#btnPinsDropdown") &&
+        !e.target.closest("#historyDropdown") && !e.target.closest("#btnHistoryDropdown")) {
+      closeAllDropdowns();
+    }
+  });
+
+  // Pins dropdown click delegation
+  var pdd = document.getElementById("pinsDropdown");
+  if (pdd) pdd.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var clearBtn = e.target.closest(".dd-clear-all");
+    var arrow = e.target.closest(".chip-arrow:not(.chip-arrow-disabled)");
+    var xBtn = e.target.closest(".chip-x[data-action='remove']");
+    if (clearBtn) { clearPins(); renderPins(); renderDashboard(_lastBookNames); return; }
+    if (arrow) {
+      var item = arrow.closest(".dash-dropdown-item");
+      if (item) { movePin(item.dataset.code, parseInt(arrow.dataset.dir, 10)); renderPins(); }
+      return;
+    }
+    if (xBtn) {
+      var pi = xBtn.closest(".dash-dropdown-item");
+      if (pi) { removePin(pi.dataset.code); renderPins(); renderDashboard(_lastBookNames); }
+    }
+  });
+
+  // History dropdown click delegation
+  var hdd = document.getElementById("historyDropdown");
+  if (hdd) hdd.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var clearBtn = e.target.closest(".dd-clear-all");
+    var xBtn = e.target.closest(".chip-x[data-action='remove']");
+    if (clearBtn) { clearReadHistory(); renderHistory(); renderDashboard(_lastBookNames); return; }
+    if (xBtn) {
+      var hi = xBtn.closest(".dash-dropdown-item");
+      if (hi) { removeHistoryEntry(hi.dataset.code); renderHistory(); renderDashboard(_lastBookNames); }
+    }
+  });
+
   var vt = document.getElementById("dashboardViewToggle");
   if (vt) vt.addEventListener("click", function () {
     _dashTableMode = !_dashTableMode;
@@ -389,7 +616,7 @@ function setupDashboardControls() {
   document.addEventListener("keydown", function (e) {
     var wrap = document.getElementById("dashboardWrapper");
     if (!wrap || wrap.style.display === "none") return;
-    // Don't intercept when typing in an input (except Escape)
+    // Don't intercept when typing in an input
     var tag = (e.target.tagName || "").toLowerCase();
     var isInput = (tag === "input" || tag === "textarea" || tag === "select" || e.target.isContentEditable);
     if ((e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) && !isInput) {
@@ -402,6 +629,16 @@ function setupDashboardControls() {
       sc.style.display = "none";
       renderDashboard(_lastBookNames);
       si.blur();
+    }
+    if (e.key === "p" && !isInput && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      var bpd = document.getElementById("btnPinsDropdown");
+      if (bpd) bpd.click();
+    }
+    if (e.key === "h" && !isInput && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      var bhd = document.getElementById("btnHistoryDropdown");
+      if (bhd) bhd.click();
     }
   });
 }

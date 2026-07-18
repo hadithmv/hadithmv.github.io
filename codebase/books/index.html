@@ -233,7 +233,7 @@
         <div id="dashboardTagChips"></div>
         <div id="dashboardSortRow">
           <span id="dashboardResultCount" class="search-info"></span>
-          <div style="display: flex; gap: 6px; align-items: stretch">
+          <div style="display: flex; gap: 6px; align-items: stretch; position: relative">
             <button
               id="dashboardReset"
               class="toolbar-btn"
@@ -254,6 +254,10 @@
               <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
               <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
             </select>
+            <button id="btnPinsDropdown" class="toolbar-btn" title="Pinned books (p key)">📌 ޕިންތައް</button>
+            <button id="btnHistoryDropdown" class="toolbar-btn" title="Reading history (h key)">🕐 ހިސްޓަރީ</button>
+            <div id="pinsDropdown" class="dash-dropdown" style="display:none"></div>
+            <div id="historyDropdown" class="dash-dropdown" style="display:none"></div>
           </div>
         </div>
       </div>

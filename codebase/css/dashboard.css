@@ -177,6 +177,185 @@
     sans-serif;
 }
 
+/* ---- Dashboard Pins & History dropdowns ---- */
+.dash-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 60;
+  margin-top: 4px;
+  padding: 4px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  min-width: 300px;
+  max-width: 420px;
+  direction: rtl;
+}
+
+.dd-grid {
+  display: grid;
+  align-items: center;
+  gap: 2px 4px;
+}
+
+/* Pins columns: idx | sort | book | page | remove */
+#pinsDropdown .dd-grid {
+  grid-template-columns: 18px 32px 1fr 28px auto;
+}
+
+/* History columns: book | page | time | remove */
+#historyDropdown .dd-grid {
+  grid-template-columns: 1fr 28px auto auto;
+}
+
+.dd-header,
+.dash-dropdown-item {
+  display: contents;
+}
+
+.dd-header > * {
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  border-bottom: 1px solid var(--color-border);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.dash-dropdown-item > * {
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.dash-dropdown-item:hover > * {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.dash-dropdown-item > .dd-col-book {
+  border-radius: 0 4px 4px 0;
+}
+
+.dash-dropdown-item > .dd-col-remove {
+  border-radius: 4px 0 0 4px;
+}
+
+
+.dd-col-idx {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--color-text-subtle);
+}
+
+.dd-col-sort {
+  display: inline-flex;
+  gap: 0;
+  justify-content: center;
+}
+
+.dd-col-book {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.dd-col-page {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-text-subtle);
+}
+
+.dd-col-time {
+  text-align: right;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+}
+
+.dd-col-remove {
+  text-align: center;
+}
+
+.dd-link {
+  color: inherit;
+  text-decoration: none;
+}
+.dd-link:hover {
+  text-decoration: underline;
+}
+
+.chip-arrow {
+  font-size: 0.6rem;
+  padding: 1px 2px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  line-height: 1;
+  color: var(--color-text-subtle);
+}
+.chip-arrow:hover {
+  opacity: 1;
+}
+.chip-arrow-disabled {
+  opacity: 0.2;
+  cursor: default;
+  pointer-events: none;
+}
+
+.dash-dropdown-item .chip-x {
+  font-size: 0.7rem;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.dash-dropdown-item .chip-x:hover {
+  opacity: 1;
+  color: #e53e3e;
+}
+
+.dd-clear-all {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 5px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #e53e3e;
+  background: none;
+  border: 1px solid transparent;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0 0 4px 4px;
+  cursor: pointer;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  text-align: center;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+.dd-clear-all:hover {
+  opacity: 1;
+}
+
 /* ---- Book cards ---- */
 .book-card {
   background: var(--color-card-bg);
