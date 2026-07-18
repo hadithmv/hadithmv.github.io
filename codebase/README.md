@@ -63,7 +63,7 @@ Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Check `data
 
 ## Data CSV format
 
-Each book's CSV can optionally include a header row. If the first field of the first row is `#`, it is treated as a header — excluded from display and used to label column toggle buttons.
+The first row of each book's CSV is always the header row. If column 0 is `#` or blank, it's treated as row numbers (hidden from content, shown as `#N` labels in card view). Otherwise column 0 is regular content. Header names label the column toggle buttons.
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes

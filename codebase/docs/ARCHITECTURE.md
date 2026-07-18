@@ -40,7 +40,7 @@ URL: ?book=AQD-nawaqidulIslam
         ▼
   reader.js
     ├─ parseCSV(../data/AQD-nawaqidulIslam.csv)
-    ├─ skip # header row if present
+    ├─ first row = header; col 0 = # or blank → row numbers
     ├─ build column toggle buttons
     ├─ loadInitial() → first chunk of rows
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
@@ -169,7 +169,7 @@ Pick colours from distinct hue zones so no two tags look alike. Current palette:
 
 ### data/{bookCode}.csv
 
-Optional `#` header row for column labels. Excluded from display.
+First row is always the header row. If column 0 is `#` or blank it's treated as row numbers (hidden from content, shown as `#N` labels in the card view). Otherwise column 0 is regular content.
 
 ## Tag system
 
@@ -205,7 +205,7 @@ All errors show visible messages in English:
 ### New book
 
 1. Add a row to `bookNames.csv`.
-1. Create `data/{bookCode}.csv` with an optional `#` header row.
+1. Create `data/{bookCode}.csv` with a header row as the first row.
 1. Open the viewer — it appears automatically.
 
 ### New tag category

@@ -32,8 +32,11 @@ initializePageWithMetadata(async function (metadata) {
 
       // Detect and remove a header row (convention: first field is "#")
       let headerRow = null;
-      if (data.length > 0 && data[0][0] === "#") {
+      var hasRowNums = false;
+      if (data.length > 0) {
         headerRow = data.shift();
+        var firstCol = (headerRow[0] || "").trim();
+        hasRowNums = (firstCol === "#" || firstCol === "");
       }
 
       // Language-aware page header
@@ -214,11 +217,12 @@ initializePageWithMetadata(async function (metadata) {
 
       function rowText(row, rowNum) {
         var t = "";
-        if (hiddenColumns.indexOf(0) === -1) {
+        if (hasRowNums && hiddenColumns.indexOf(0) === -1) {
           t += `#${rowNum}\n\n`;
         }
         var fields = [];
-        for (var i = 1; i < row.length; i++) {
+        var fieldStart = hasRowNums ? 1 : 0;
+        for (var i = fieldStart; i < row.length; i++) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
           if (v !== null && v !== undefined && String(v).trim() !== "") {
@@ -265,11 +269,12 @@ initializePageWithMetadata(async function (metadata) {
 
       function renderRowHTML(row, rowNum) {
         var h = "";
-        if (hiddenColumns.indexOf(0) === -1) {
+        if (hasRowNums && hiddenColumns.indexOf(0) === -1) {
           h += `<div class="reader-row-num">#${rowNum}</div>`;
         }
         var fields = [];
-        for (var i = 1; i < row.length; i++) {
+        var fieldStart = hasRowNums ? 1 : 0;
+        for (var i = fieldStart; i < row.length; i++) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
           if (v !== null && v !== undefined && String(v).trim() !== "") {
@@ -311,7 +316,6 @@ initializePageWithMetadata(async function (metadata) {
           h = '<table class="rdf-table"><tbody>';
           for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
             var row = filteredData[i];
-            var rowNum = row[0] || (i + 1);
             h += '<tr class="reader-chunk" data-row="' + i + '">';
             for (var j = 0; j < row.length; j++) {
               if (hiddenColumns.indexOf(j) !== -1) { h += '<td></td>'; continue; }
@@ -326,7 +330,7 @@ initializePageWithMetadata(async function (metadata) {
           for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
             if (i > startIdx) h += `<div class="reader-divider"></div>`;
             var row = filteredData[i];
-            var rowNum = row[0] || (i + 1);
+            var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
             h += `<div class="reader-chunk" data-row="${i}">`;
             h += renderRowHTML(row, rowNum);
             h += `</div>`;
@@ -384,7 +388,7 @@ initializePageWithMetadata(async function (metadata) {
         for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
           if (i > startIdx) t += "\n──────────\n\n";
           var row = filteredData[i];
-          var rowNum = row[0] || (i + 1);
+          var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
           t += rowText(row, rowNum);
         }
         return t.trim();
@@ -1053,8 +1057,9 @@ initializePageWithMetadata(async function (metadata) {
             content = "# " + (metadata.titleEN || metadata.bookCode) + "\n\n" + metadata.titleDV + "\n" + metadata.titleAR + "\n\n" + siteURL + "\n\nHadithmv\n" + versionText + "\n\n---\n\n";
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
-              content += "## #" + (r[0] || (i + 1)) + "\n\n";
-              for (var j = 1; j < r.length; j++) {
+              content += "## " + (hasRowNums ? "#" : "") + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "\n\n";
+              var exportStart0 = hasRowNums ? 1 : 0;
+              for (var j = exportStart0; j < r.length; j++) {
                 if (r[j] && String(r[j]).trim()) content += String(r[j]).trim() + "\n\n";
               }
               content += "---\n\n";
@@ -1085,9 +1090,9 @@ initializePageWithMetadata(async function (metadata) {
             pdfHTML += "<h1>" + metadata.titleDV + "</h1><p style='text-align:center'>" + metadata.titleAR + "</p>";
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
-              pdfHTML += "<h2>#" + (r[0] || (i + 1)) + "</h2>";
+              pdfHTML += "<h2>" + (hasRowNums ? "#" : "") + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "</h2>";
               var fields = [];
-              for (var j = 1; j < r.length; j++) {
+              for (var j = (hasRowNums ? 1 : 0); j < r.length; j++) {
                 if (r[j] && String(r[j]).trim()) fields.push({ value: String(r[j]).trim(), index: j });
               }
               for (var j = 0; j < fields.length; j++) {
@@ -1218,8 +1223,8 @@ initializePageWithMetadata(async function (metadata) {
             var y = "# " + (metadata.titleEN || baseName) + "\n# " + metadata.titleDV + " - " + metadata.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
-              y += "- id: " + (r[0] || (i + 1)) + "\n  fields:\n";
-              for (var j = 1; j < r.length; j++) {
+              y += "- id: " + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "\n  fields:\n";
+              for (var j = (hasRowNums ? 1 : 0); j < r.length; j++) {
                 if (r[j] != null && String(r[j]).trim()) {
                   y += "    - |\n      " + String(r[j]).trim().replace(/\n/g, "\n      ") + "\n";
                 }
@@ -1248,8 +1253,8 @@ initializePageWithMetadata(async function (metadata) {
             htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
-              htmlExport += '<h2>#' + (r[0] || (i + 1)) + '</h2>';
-              for (var j = 1; j < r.length; j++) {
+              htmlExport += '<h2>#' + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + '</h2>';
+              for (var j = (hasRowNums ? 1 : 0); j < r.length; j++) {
                 if (r[j] != null && String(r[j]).trim()) htmlExport += '<p>' + String(r[j]).trim() + '</p>';
               }
               if (i < rows.length - 1) htmlExport += '<div class="sep">◆</div>';
@@ -1263,8 +1268,8 @@ initializePageWithMetadata(async function (metadata) {
             xml += '  <rows>\n';
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
-              xml += '    <row id="' + (r[0] || (i + 1)) + '">\n';
-              for (var j = 1; j < r.length; j++) {
+              xml += '    <row id="' + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + '">\n';
+              for (var j = (hasRowNums ? 1 : 0); j < r.length; j++) {
                 if (r[j] != null && String(r[j]).trim()) {
                   xml += '      <col' + j + '>' + String(r[j]).trim().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</col' + j + '>\n';
                 }
@@ -1279,9 +1284,9 @@ initializePageWithMetadata(async function (metadata) {
             content += "<h1>" + metadata.titleDV + " - " + metadata.titleAR + "</h1>";
             for (var i = 0; i < rows.length; i++) {
               var r = rows[i];
-              content += "<h2>#" + (r[0] || (i + 1)) + "</h2>";
+              content += "<h2>" + (hasRowNums ? "#" : "") + (hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "</h2>";
               var fields = [];
-              for (var j = 1; j < r.length; j++) {
+              for (var j = (hasRowNums ? 1 : 0); j < r.length; j++) {
                 if (r[j] && String(r[j]).trim()) fields.push({ value: String(r[j]).trim(), index: j });
               }
               for (var j = 0; j < fields.length; j++) {

@@ -30,33 +30,37 @@ export function createEPUB(rows, meta, opts) {
   var uniqueId = "hadithmv-" + (meta.bookCode || Date.now());
   var nowISO = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
   var lang = "dv";  // Dhivehi primary; Arabic text auto-detected in XHTML
+  var epubFirstCol = (opts.headerRow && opts.headerRow[0]) ? opts.headerRow[0].trim() : "";
+  var epubHasRowNums = (epubFirstCol === "#" || epubFirstCol === "");
 
   // ── Build chapter XHTML files ──────────────────────────────────
   var chapters = [];
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     var chapId = "ch" + pad(i + 1, 3);
-    // Chapter title: first non-empty column value
+    // Chapter title: first non-empty column value (skip row-num col)
     var chapTitle = null;
-    for (var j = 0; j < row.length; j++) {
+    var chapStart = epubHasRowNums ? 1 : 0;
+    for (var j = chapStart; j < row.length; j++) {
       if (row[j] != null && String(row[j]).trim()) {
         chapTitle = String(row[j]).trim();
         break;
       }
     }
-    if (!chapTitle) chapTitle = "#" + (row[0] || (i + 1));
+    if (!chapTitle) chapTitle = (epubHasRowNums ? "#" : "") + (epubHasRowNums ? (row[0] || (i + 1)) : (i + 1));
     // Truncate long titles
     if (chapTitle.length > 80) chapTitle = chapTitle.slice(0, 77) + "…";
 
     // Build chapter body
     var body = "";
     var nonEmpty = [];
-    for (var j = 1; j < row.length; j++) {
+    var bodyStart = epubHasRowNums ? 1 : 0;
+    for (var j = bodyStart; j < row.length; j++) {
       if (row[j] != null && String(row[j]).trim()) nonEmpty.push(j);
     }
     var prevNonEmpty = -1;
     for (var j = 0; j < row.length; j++) {
-      if (j === 0) continue; // skip row number for chapter content
+      if (epubHasRowNums && j === 0) continue; // skip row number for chapter content
       var val = row[j] != null ? String(row[j]).trim() : "";
       if (!val) continue;
       var lines = val.split(/\n+/);
