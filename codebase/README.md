@@ -140,11 +140,11 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 ### Dashboard
 
-- **📌 Pins** — dropdown button in sort row; shows bookmarked books; ▲▼ reorder arrows, ✕ to remove, "Clear all"; max 10; click entry to open at bookmarked page
+- **📌 Pins** — dropdown button in sort row; shows bookmarked books; ▲▼ reorder arrows, ✕ to remove, "Clear all"; max 10; click entry to open at bookmarked page. A `📌 ޕިން` pins filter chip appears in the tag row (click to show only pinned books). Pinned books show a `📌 ޕިން` badge on their card.
 - **🕐 History** — dropdown button in sort row; auto-logged on every page read; shows book name + relative time ("3m ago"); ✕ to remove, "Clear all"; max 10; one entry per book (latest position)
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
-- Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count
+- Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering
 - Sort dropdown — A→Z / Z←A (arrows follow reading direction)
 - Table/Card view toggle — card grid or full-width table with clickable rows
 - ↺ Reset button — clears all filters, search, and view mode

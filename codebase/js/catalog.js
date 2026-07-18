@@ -357,7 +357,7 @@ export async function initializePageWithMetadata(callback) {
  * @param {Array} bookNames - Array of book metadata objects
  */
 let _lastBookNames = null;
-let _dashFilter = { search: "", tags: [], sort: "az" };
+let _dashFilter = { search: "", tags: [], sort: "az", pinsOnly: false };
 let _dashTableMode = false;
 
 function renderDashboard(bookNames) {
@@ -406,6 +406,12 @@ function renderDashboard(bookNames) {
     });
   }
 
+  // Apply pins-only filter
+  if (_dashFilter.pinsOnly) {
+    var pinnedCodes = getPinnedBooks().map(function (p) { return p.bookCode; });
+    visible = visible.filter(function (b) { return pinnedCodes.indexOf(b.bookCode) !== -1; });
+  }
+
   // Sort
   visible.sort(function (a, b) {
     var na = (a.titleEN || a.bookCode || "").toLowerCase();
@@ -423,6 +429,16 @@ function renderDashboard(bookNames) {
       tagCounts[t.code].count++;
     });
   });
+  // Pins filter chip
+  var pinnedCodes = getPinnedBooks().map(function (p) { return p.bookCode; });
+  var pinnedVisible = allVisible.filter(function (b) { return pinnedCodes.indexOf(b.bookCode) !== -1; });
+  var pinsChipHTML = "";
+  if (pinnedVisible.length > 0) {
+    var pinsActive = _dashFilter.pinsOnly;
+    pinsChipHTML = '<span class="dash-tag-chip' + (pinsActive ? ' active' : '') + '" data-tag="__pins__" title="' + (pinsActive ? 'Remove filter: Pinned' : 'Filter by pinned') + '" style="color:' + (pinsActive ? '#fff' : '#dc2626') + ';background:' + (pinsActive ? '#dc2626' : '#fef2f2') + ';border-color:#dc2626">' +
+      (pinsActive ? '<span class="chip-x">✕</span>' : '') + '📌 ޕިން <small>(' + pinnedVisible.length + ')</small></span>';
+  }
+
   var chipsHTML = Object.keys(tagCounts).sort().map(function (code) {
     var tc = tagCounts[code];
     var active = _dashFilter.tags.indexOf(code) !== -1;
@@ -430,8 +446,8 @@ function renderDashboard(bookNames) {
     return '<span class="dash-tag-chip' + (active ? ' active' : '') + '" data-tag="' + code + '" title="' + chipTitle + '" style="color:' + (active ? '#fff' : tc.color) + ';background:' + (active ? tc.color : tc.bg) + ';border-color:' + tc.color + '">' +
       (active ? '<span class="chip-x">✕</span>' : '') + tagLabel(code, tc.label) + ' <small>(' + tc.count + ')</small></span>';
   }).join("");
-  document.getElementById("dashboardTagChips").innerHTML = chipsHTML
-    ? '<span class="dash-label">' + t("dashboardTagsLabel") + '</span> ' + chipsHTML
+  document.getElementById("dashboardTagChips").innerHTML = (pinsChipHTML + chipsHTML)
+    ? '<span class="dash-label">' + t("dashboardTagsLabel") + '</span> ' + pinsChipHTML + chipsHTML
     : "";
 
   // Result count
@@ -454,8 +470,9 @@ function renderDashboard(bookNames) {
       '<th>' + t("dashColTags") + '</th></tr></thead><tbody>' +
       visible.map(function (book) {
         var tags = extractTags(book.bookCode);
-        var tagHtml = tags.length > 0
-          ? '<div class="dash-table-tags">' + tags.map(function (t) {
+        var pinnedBadge = isPinned(book.bookCode) ? '<span class="pin-badge" title="Pinned">📌 ޕިން</span>' : '';
+        var tagHtml = (pinnedBadge || tags.length > 0)
+          ? '<div class="dash-table-tags">' + pinnedBadge + tags.map(function (t) {
               return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, 'en') + '" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
             }).join("") + '</div>'
           : "";
@@ -476,8 +493,9 @@ function renderDashboard(bookNames) {
     grid.style.display = "";
     grid.innerHTML = visible.map(function (book) {
       var tags = extractTags(book.bookCode);
-      var tagHtml = tags.length > 0
-        ? '<div class="card-tags">' + tags.map(function (t) {
+      var pinnedBadge = isPinned(book.bookCode) ? '<span class="pin-badge" title="Pinned">📌 ޕިން</span>' : '';
+      var tagHtml = (pinnedBadge || tags.length > 0)
+        ? '<div class="card-tags">' + pinnedBadge + tags.map(function (t) {
             return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, 'en') + '" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
           }).join("") + '</div>'
         : "";
@@ -519,9 +537,13 @@ function setupDashboardControls() {
     var chip = e.target.closest(".dash-tag-chip");
     if (!chip) return;
     var tag = chip.dataset.tag;
-    var idx = _dashFilter.tags.indexOf(tag);
-    if (idx === -1) _dashFilter.tags.push(tag);
-    else _dashFilter.tags.splice(idx, 1);
+    if (tag === "__pins__") {
+      _dashFilter.pinsOnly = !_dashFilter.pinsOnly;
+    } else {
+      var idx = _dashFilter.tags.indexOf(tag);
+      if (idx === -1) _dashFilter.tags.push(tag);
+      else _dashFilter.tags.splice(idx, 1);
+    }
     renderDashboard(_lastBookNames);
   });
 
@@ -603,7 +625,7 @@ function setupDashboardControls() {
 
   var dr = document.getElementById("dashboardReset");
   if (dr) dr.addEventListener("click", function () {
-    _dashFilter = { search: "", tags: [], sort: "az" };
+    _dashFilter = { search: "", tags: [], sort: "az", pinsOnly: false };
     _dashTableMode = false;
     si.value = "";
     sc.style.display = "none";
