@@ -236,7 +236,7 @@ initializePageWithMetadata(async function (metadata) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
           if (v !== null && v !== undefined && String(v).trim() !== "") {
-            var val = String(v).trim().replace(/\n{2,}/g, "\n");
+            var val = String(v).trim().replace(/\r\n/g, "\n").replace(/\n{2,}/g, "\n");
             fields.push({ value: val, index: i });
           }
         }
@@ -291,7 +291,7 @@ initializePageWithMetadata(async function (metadata) {
           if (hiddenColumns.indexOf(i) !== -1) continue;
           var v = row[i];
           if (v !== null && v !== undefined && String(v).trim() !== "") {
-            var val = String(v).trim().replace(/\n{2,}/g, "\n");
+            var val = String(v).trim().replace(/\r\n/g, "\n").replace(/\n{2,}/g, "\n");
             fields.push({ value: val, index: i });
           }
         }
@@ -1097,6 +1097,7 @@ initializePageWithMetadata(async function (metadata) {
           var fmt = this.dataset.format;
           var baseName = (metadata.titleEN || metadata.bookCode || "book");
           var rows = allData;
+          var rowsWithHeader = headerRow ? [headerRow].concat(rows) : rows;
           var content, filename, mime;
           var siteURL = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "");
           var versionFull = t("appVersion");
@@ -1127,15 +1128,15 @@ initializePageWithMetadata(async function (metadata) {
             filename = baseName + ".md";
             mime = "text/markdown";
           } else if (fmt === "json") {
-            content = JSON.stringify(rows, null, 2);
+            content = JSON.stringify(rowsWithHeader, null, 2);
             filename = baseName + ".json";
             mime = "application/json";
           } else if (fmt === "csv") {
-            content = unparseCSV(rows);
+            content = unparseCSV(rowsWithHeader);
             filename = baseName + ".csv";
             mime = "text/csv";
           } else if (fmt === "tsv") {
-            content = rows.map(function (row) {
+            content = rowsWithHeader.map(function (row) {
               return row.map(function (cell) {
                 var s = cell == null ? "" : String(cell);
                 return s.replace(/\t/g, " ").replace(/\n/g, " ");
@@ -1247,7 +1248,7 @@ initializePageWithMetadata(async function (metadata) {
           } else if (fmt === "excel") {
             exportDropdown.style.display = "none";
             import("./xlsx.js").then(function(mod) {
-              var xlsxBlob = mod.createXLSX(rows, baseName);
+              var xlsxBlob = mod.createXLSX(rowsWithHeader, baseName);
               var u = URL.createObjectURL(xlsxBlob);
               var a = document.createElement("a");
               a.href = u; a.download = baseName + ".xlsx";
@@ -1334,6 +1335,27 @@ initializePageWithMetadata(async function (metadata) {
             }
             htmlExport += '</body></html>';
             downloadFile(htmlExport, baseName + ".html", "text/html");
+          } else if (fmt === "html-table") {
+            var ht = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (metadata.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:12pt;line-height:1.8;padding:16px;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:16pt;margin-bottom:4px} table{width:100%;border-collapse:collapse;direction:rtl} th,td{padding:6px 8px;border:1px solid #ddd;text-align:right;vertical-align:top} th{background:#f5f5f5;font-weight:700;font-size:10pt;white-space:nowrap} .hd{text-align:center;font-size:9pt;color:#999;margin-bottom:16px}</style></head><body>';
+            ht += '<h1>' + metadata.titleDV + '</h1><p style="text-align:center">' + metadata.titleAR + '</p>';
+            ht += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div>';
+            ht += '<table><thead><tr>';
+            if (headerRow) {
+              for (var ci = 0; ci < headerRow.length; ci++) {
+                ht += '<th>' + (headerRow[ci] || "").replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</th>';
+              }
+            }
+            ht += '</tr></thead><tbody>';
+            for (var ri = 0; ri < rows.length; ri++) {
+              ht += '<tr>';
+              for (var cj = 0; cj < rows[ri].length; cj++) {
+                var cv = rows[ri][cj] != null ? String(rows[ri][cj]).trim() : "";
+                ht += '<td>' + cv.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</td>';
+              }
+              ht += '</tr>';
+            }
+            ht += '</tbody></table></body></html>';
+            downloadFile(ht, baseName + "-table.html", "text/html");
           } else if (fmt === "xml") {
             var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<book>\n';
             xml += '  <title><dv>' + (metadata.titleDV || "") + '</dv><ar>' + (metadata.titleAR || "") + '</ar><en>' + (metadata.titleEN || "") + '</en></title>\n';

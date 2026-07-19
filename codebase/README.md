@@ -65,6 +65,8 @@ Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Check the `
 
 The first row of each book's CSV is always the header row. If column 0 is `#` or blank, it's treated as row numbers (hidden from content, shown as `#N` labels in card view). Otherwise column 0 is regular content. Header names label the column toggle buttons.
 
+For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqidulIslam.csv) — it's small and covers the common column patterns (`headAR`, `bodyAR`, `headDV`, `bodyDV`, `foot`).
+
 ```csv
 #,section,arabic_text,dhivehi_text,notes
 1,Introduction,بسم الله...,ބިސްމި...,—
@@ -95,7 +97,7 @@ The first row of each book's CSV is always the header row. If column 0 is `#` or
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown; columns whose header ends with `-HDN` start hidden
 - **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
-- Consecutive blank lines within cells collapsed to single line breaks
+- Consecutive blank lines within cells collapsed to single line breaks (handles both `\n` and `\r\n` endings)
 
 ### Pagination
 
