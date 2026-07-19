@@ -102,8 +102,23 @@ function applyFontSize(idx) {
 
   var scrollTop = document.getElementById("btnScrollTop");
   if (scrollTop) scrollTop.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
     close();
+    // Delay scroll slightly so sidebar close doesn't interfere
+    setTimeout(function () {
+      var start = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      var duration = 400;
+      var startTime = null;
+      function ease(k) { return 1 - Math.pow(1 - k, 3); }
+      function step(t) {
+        if (!startTime) startTime = t;
+        var elapsed = t - startTime;
+        var k = Math.min(elapsed / duration, 1);
+        var pos = start * (1 - ease(k));
+        window.scrollTo(0, pos);
+        if (k < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }, 50);
   });
 
   document.addEventListener("keydown", function (e) {

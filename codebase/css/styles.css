@@ -102,6 +102,9 @@ mark {
 }
 
 /* ---- Body ---- */
+html {
+  scroll-behavior: smooth;
+}
 body {
   background: var(--color-bg);
   color: var(--color-text);
@@ -1858,10 +1861,10 @@ body:has(.modal-overlay.open) {
 /* Sticky chrome — always */
 #readerChrome {
   position: sticky;
-  top: 62px;
+  top: 60px;
   z-index: 50;
   background: var(--color-bg);
-  padding: 10px 0;
+  padding: 12px 0 8px;
   border-bottom: 2px solid var(--color-card-hover-border);
 }
 
