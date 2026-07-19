@@ -1099,7 +1099,7 @@ initializePageWithMetadata(async function (metadata) {
           var rows = allData;
           var rowsWithHeader = headerRow ? [headerRow].concat(rows) : rows;
           var content, filename, mime;
-          var siteURL = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "");
+          var siteURL = window.location.origin + window.location.pathname + "?book=" + metadata.bookCode;
           var versionFull = t("appVersion");
           var versionText = versionFull.replace(/ \(.*\)/, "");
           var exportHeader = (metadata.titleEN || metadata.bookCode) + "\n" + metadata.titleDV + "\n" + metadata.titleAR + "\n\n" + siteURL + "\nHadithmv\n" + versionText + "\n\n" + "──────────\n\n";
