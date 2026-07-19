@@ -1155,12 +1155,21 @@ body:has(.modal-overlay.open) {
 }
 
 .adv-search-row select,
-.adv-search-row input {
-  height: 32px;
+.adv-search-row input,
+.adv-remove-btn {
+  box-sizing: border-box;
+  height: 30px;
   padding: 0 8px;
   font-size: 0.82rem;
-  line-height: 32px;
+  line-height: 28px;
   font-weight: 600;
+  border-radius: 6px;
+  outline: none;
+  vertical-align: middle;
+}
+
+.adv-search-row select,
+.adv-search-row input {
   font-family:
     "Hadithmv",
     "Faruma",
@@ -1170,13 +1179,16 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
-  outline: none;
-  box-sizing: border-box;
 }
 
 .adv-search-row select {
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  padding-inline-end: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 6px center;
 }
 
 .adv-search-row input {
@@ -1185,17 +1197,10 @@ body:has(.modal-overlay.open) {
 }
 
 .adv-remove-btn {
-  height: 32px;
-  padding: 0 8px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  line-height: 32px;
   color: var(--color-error-text);
   background: none;
   border: 1px solid var(--color-error-text);
-  border-radius: 6px;
   cursor: pointer;
-  box-sizing: border-box;
   font-family:
     system-ui,
     -apple-system,
