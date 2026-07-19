@@ -48,6 +48,23 @@ URL: ?book=AQD-nawaqidulIslam
 
 No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as dropdown panels from toolbar buttons.
 
+```text
+┌─ Search bar ───────────────────── [✕] [Advanced] ─────────┐
+│  Tags: [📌 ޕިން (3)] [Aqidah ✕] [Hadith] [Fiqh] …          │
+│  Books: 12                                                  │
+├─ Sort row ─────────────────────────────────────────────────┤
+│  📌 Pins ▾   🕐 History ▾   ↺ Reset   ☰≡ View   Sort: A-Z │
+├─ Card grid ────────────────────────────────────────────────┤
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐                  │
+│  │ 📌 Aqidah │  │  Hadith  │  │  Quran   │                  │
+│  │ Title DV  │  │ Title DV  │  │ Title DV  │                  │
+│  │ Title AR  │  │ Title AR  │  │ Title AR  │                  │
+│  │ N rows    │  │ N rows    │  │ N rows    │                  │
+│  └──────────┘  └──────────┘  └──────────┘                  │
+│  …                                                          │
+└─────────────────────────────────────────────────────────────┘
+```
+
 `?book=CODE` → reader (`reader.html`) loads `reader.js` → parses the book CSV, renders infinite-scroll content.
 
 Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, and keyboard shortcuts.
@@ -81,6 +98,20 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 
 Columns are rendered in header order. A blank line separates the last `*AR` column from the first `*DV` column (AR‑ending → DV‑ending headers). A `ـــــــــــ` tatweel divider appears before any column whose header starts with `foot` (case‑insensitive — matches `foot`, `footAR`, `footDV`). Columns starting with `head`/`kitab`/`bab` render as large/medium/small bold headings respectively.
 
+Column header prefix → CSS class / visual treatment:
+
+```text
+CSV header          CSS class               Visual result
+──────────          ──────────              ─────────────
+headAR, headDV      reader-field-header     1.3rem bold
+kitabAR, kitabDV    reader-field-kitab      1.2rem semi‑bold
+babAR, babDV        reader-field-bab        1.1rem semi‑bold
+matnAR, matnDV      reader-field-matn       normal body text
+sharhAR, sharhDV    reader-field-sharh      0.9em smaller text
+foot, footDV        reader-footnotes        0.9rem muted colour
+                   + reader-footnote-divider  ﻿ـــــــــــ  tatweel line before
+```
+
 ### Infinite scroll
 
 Content loads in chunks of 2 rows. Sentinel elements at top and bottom trigger `IntersectionObserver` to prepend/append more rows when scrolling near edges. Pagination updates based on the most visible row.
@@ -104,6 +135,28 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
 | Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
+
+#### Export formats
+
+| Format     | Type        | Header row? | Module        | Notes                                |
+|-----------|-------------|-------------|---------------|--------------------------------------|
+| TXT       | Rich text   | No          | —             | Formatted like clipboard copy        |
+| MD        | Rich text   | No          | —             | Markdown with `##` per row           |
+| JSON      | Data        | Yes         | —             | Array of arrays, header first        |
+| CSV       | Data        | Yes         | —             | `unparseCSV()`                       |
+| TSV       | Data        | Yes         | —             | Tab‑separated                        |
+| Excel     | Data        | Yes         | `xlsx.js`     | Lazy‑loaded, inline strings          |
+| HTML      | Rich text   | No          | —             | Book reader view, styled paragraphs  |
+| HTML Table| Data        | Yes         | —             | `<table>` with `<thead>`             |
+| Word      | Rich text   | No          | —             | HTML saved as `.doc`                 |
+| EPUB      | Rich text   | No          | `epub.js`     | Lazy‑loaded, embedded font           |
+| YAML      | Structured  | —           | —             | `id` + `fields` per row              |
+| TOON      | Structured  | —           | —             | Hadithmv compact notation            |
+| XML       | Structured  | —           | —             | `<book>` / `<row>` / `<colN>`        |
+| PDF       | Rich text   | No          | —             | Print‑only (window print)            |
+| PNG       | Screenshot  | —           | —             | Canvas render of visible card        |
+
+**Rule:** data formats (CSV, TSV, Excel, JSON, HTML Table) include the CSV header row. Rich‑text and structured formats do not.
 
 The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with `padding: 0 30px` that provides space for absolutely‑positioned ◀▶ arrow buttons at the edges. The row itself handles horizontal scrolling (`overflow-x: auto`, hidden scrollbar). Mouse wheel over the wrap is redirected to horizontal scroll on the row. When the row overflows, direction‑aware arrow buttons appear at the edges: ◀ at the end (scrolls toward end), ▶ at the start (scrolls toward start). Arrows are hidden at the appropriate extremes. Both arrow clicks and mouse‑wheel redirection animate smoothly via the same `requestAnimationFrame` loop with an ease‑out‑cubic curve (300ms). Arrow visibility updates on scroll, resize, and after the reader wrapper becomes visible.
 
@@ -254,7 +307,21 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 
 ### Data & CSV
 
-**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `02-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name. Examples: `AQD-nawaqidulIslam` → tag AQD, name "nawaqidulIslam"; `DRFT-AQD-aqidahNawawi` → tags DRFT + AQD, name "aqidahNawawi".
+**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `02-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name.
+
+```text
+"DRFT-AQD-sharhuSunnahBarbahari-HDN"
+  │    │          │                │
+  │    │          │                └─ Suffix flag: hide from dashboard
+  │    │          └─ Book name (after stripping tags & suffixes)
+  │    └─ Tag prefix → "Aqidah" badge
+  └─ Tag prefix → "⚠️ Draft" badge
+
+"AQD-nawaqidulIslam"
+  │        │
+  │        └─ Book name
+  └─ Tag prefix → "Aqidah" badge
+```
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
