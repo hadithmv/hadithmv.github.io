@@ -195,6 +195,15 @@
   direction: rtl;
 }
 
+.dd-empty {
+  padding: 16px 12px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", serif;
+}
+
 .dd-grid {
   display: grid;
   align-items: center;

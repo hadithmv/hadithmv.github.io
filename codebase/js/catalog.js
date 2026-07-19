@@ -240,8 +240,7 @@ function renderPins() {
   if (!dd) return;
   var pins = getPinnedBooks();
   if (pins.length === 0) {
-    dd.style.display = "none";
-    dd.innerHTML = "";
+    dd.innerHTML = '<div class="dd-empty">' + t("pinsEmpty") + '</div>';
     return;
   }
   var html = '<div class="dd-grid">';
@@ -276,8 +275,7 @@ function renderHistory() {
   if (!dd) return;
   var history = getReadHistory();
   if (history.length === 0) {
-    dd.style.display = "none";
-    dd.innerHTML = "";
+    dd.innerHTML = '<div class="dd-empty">' + t("historyEmpty") + '</div>';
     return;
   }
   var html = '<div class="dd-grid">';

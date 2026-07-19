@@ -119,6 +119,29 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings including reader state, pins, and history. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
 
+### Persisted state
+
+All client-side state is stored in `localStorage`. No sessionStorage, cookies, or IndexedDB are used. In‑memory caches (`bookNamesCache`, `tagDefinitionsCache`) are populated at startup and never written to disk.
+
+| Key | Where used | Shape | Notes |
+|-----|-----------|-------|-------|
+| `theme` | `common.js` | `"dark"` / `"sepia"` / `""` (light) | Applied before paint to avoid flash |
+| `widescreen` | `common.js` | `"1"` or absent | Toggle state |
+| `fontSize` | `common.js` | CSS value like `"1.25rem"` | Reader font size |
+| `fontSystem` | `common.js` | `"1"` or `"0"` | `"1"` = system font, `"0"` = Hadithmv |
+| `lang` | `i18n.js` | `"dv"` / `"en"` / `"ar"` | UI language |
+| `focus` | `reader.js` | `"1"` or `"0"` | Focus reading mode |
+| `reader:rowsPerPage` | `reader.js` | number (JSON) | Rows per page |
+| `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
+| `reader:hiddenColumns` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns |
+| `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
+| `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10) |
+| `readHistory` | `catalog.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
+
+The settings reset button clears all of the above except `lang`.
+
+> **When adding new persisted state**, add a row to this table. This is the single reference for porting to desktop, mobile, or other platforms.
+
 ### Internationalisation
 
 `js/i18n.js` exports `t(key)`, `setLanguage(lang)`, `initI18n()`. Static HTML uses `data-i18n` attributes; dynamic text calls `t()`. A `languagechange` CustomEvent triggers re‑render. Language persisted to `localStorage`.
@@ -192,6 +215,58 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 - `DRFT-` prefix → book gets a ⚠️ Draft badge, still visible on dashboard
 - `-HDN` suffix → book hidden from dashboard
 - `-DRAFT` suffix (legacy) → also hidden, same as `-HDN`
+
+## Development conventions
+
+### UI & theming
+
+**No external dependencies.** Everything is hand‑rolled — no npm, no CDN, no frameworks. CSS variables for theming, vanilla JS modules, a custom CSV parser (~1 KB), a custom ZIP/XLSX writer, and a custom EPUB writer. Keep it that way.
+
+**RTL‑first.** The default text direction is `rtl` (Arabic / Dhivehi). Only UI chrome labels and English‑only text (tooltips, errors) appear LTR. New elements default to `direction: rtl` unless they are explicitly English‑only.
+
+**CSS variables.** Never hardcode a colour. Every colour comes from a CSS custom property defined in `:root` (light), `[data-theme="sepia"]`, and `[data-theme="dark"]`. If you add a new colour variable, you must define it in all three theme blocks — light, sepia, and dark. New components must be tested in all three themes to confirm they are readable and look correct. The variable naming pattern is `--color-<role>` (e.g. `--color-text`, `--color-border`, `--color-nav-btn-bg`).
+
+**Responsive.** Single breakpoint at `max-width: 600px`. Mobile gets reduced padding, smaller font sizes, and larger tap targets. The reader font size is user‑adjustable via the settings modal and stored in `localStorage`.
+
+**Font.** A single merged WOFF2 font (`font/merged-300.woff2`) covers Arabic, Thaana, and Latin glyphs. `font-family` stacks always list `"Hadithmv"` first, then platform fallbacks. Never load external fonts.
+
+### HTML & DOM
+
+**IDs.** Element IDs use camelCase — e.g. `btnReset`, `searchInput`, `readerContent`, `pinsDropdown`. No kebab‑case or snake_case.
+
+**Tooltips.** Every `<button>`, `<a>`, and interactive element carries a `title` tooltip describing its action. If the element has a keyboard shortcut, the tooltip includes the key in parentheses — e.g. `title="Toggle focus mode (z key)"`. Tooltips are **always in English** and never translated.
+
+**Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
+
+### JavaScript
+
+**Module pattern.** All JS files are ES modules (`<script type="module">`). Heavy modules (`epub.js`, `xlsx.js`) use dynamic `import()` — they are only fetched when the user triggers an export, keeping the initial bundle small.
+
+**Variable style.** `var` is used for function‑scoped variables throughout the codebase. `let` and `const` appear only in newer, self‑contained additions.
+
+**New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `reader.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
+
+### i18n
+
+**Key naming.** i18n keys are camelCase and describe the element or purpose — e.g. `btnExportText`, `tagAQD`, `pinsEmpty`. Add keys for all three languages (`dv`, `en`, `ar`).
+
+**Errors and messages.** All error messages, status text, and alerts are in **English only** — they are not run through `t()` or `data-i18n`. This keeps errors readable regardless of the user's chosen UI language.
+
+### Data & CSV
+
+**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `02-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name. Examples: `AQD-nawaqidulIslam` → tag AQD, name "nawaqidulIslam"; `DRFT-AQD-aqidahNawawi` → tags DRFT + AQD, name "aqidahNawawi".
+
+**CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
+
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes for load order (`01-bookNames.csv`, `02-bookTags.csv`). For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+
+### Keyboard shortcuts
+
+Any new button or action that has a keyboard shortcut documents it in the tooltip (see above) and in the [Keyboard](#keyboard) table. Shortcuts are kept discoverable — if you add a shortcut, add the tooltip.
+
+### State
+
+**Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) table. This table is the single inventory for porting to desktop/mobile apps — keep it current.
 
 ## Error states
 
