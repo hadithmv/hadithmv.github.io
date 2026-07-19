@@ -214,7 +214,7 @@ const STRINGS = {
   dashboardTagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
   dashboardPinsLabel: { dv: "ޕިންތައް:", en: "Pins:", ar: "تثبيت:" },
   dashboardHistoryLabel: { dv: "ހިސްޓަރީ:", en: "History:", ar: "السجل:" },
-  dashboardClearAll: { dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕", en: "Clear all&nbsp;&nbsp;✕", ar: "مسح الكل&nbsp;&nbsp;✕" },
+  dashboardClearAll: { dv: "✕&nbsp;&nbsp;އެއްކޮށް ފޮހެލާ", en: "✕&nbsp;&nbsp;Clear all", ar: "✕&nbsp;&nbsp;مسح الكل" },
   ddColSort: { dv: "ތަރުތީބު", en: "Sort", ar: "ترتيب" },
   ddColBook: { dv: "ފޮތް", en: "Book", ar: "كتاب" },
   ddColPage: { dv: "ސަފްހާ", en: "Page", ar: "صفحة" },
