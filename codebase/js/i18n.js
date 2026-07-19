@@ -221,6 +221,8 @@ const STRINGS = {
   ddColTime: { dv: "ވަގުތު", en: "Time", ar: "وقت" },
   ddColRemove: { dv: "ފޮހެލާ", en: "Remove", ar: "حذف" },
   ddColIdx: { dv: "#", en: "#", ar: "#" },
+  advLogicAND: { dv: "އަދި", en: "AND", ar: "و" },
+  advLogicOR: { dv: "ނުވަތަ", en: "OR", ar: "أو" },
   pinsEmpty: { dv: "ޕިންކޮށްފައިވާ ފޮތެއް ނެތް", en: "No pinned books", ar: "لا توجد كتب مثبتة" },
   historyEmpty: { dv: "ކިޔާފައިވާ ފޮތެއް ނެތް", en: "No reading history", ar: "لا يوجد سجل قراءة" },
   toastPinned: { dv: "ޕިން ކުރެވިއްޖެ", en: "Bookmarked", ar: "تم التثبيت" },

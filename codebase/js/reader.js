@@ -155,7 +155,6 @@ initializePageWithMetadata(async function (metadata) {
       // ── Column info ─────────────────────────────────────────
       const maxCols = allData.reduce((m, r) => Math.max(m, r.length), 0);
       function colLabel(idx) {
-        if (idx === 0) return "1";
         if (headerRow && headerRow[idx]) return headerRow[idx];
         return "" + (idx + 1);
       }
@@ -812,13 +811,13 @@ initializePageWithMetadata(async function (metadata) {
         });
         var needVal = OPERATORS.find(function(o){return o.id===condition.op;});
         var valDisplay = (needVal && needVal.needsValue === false) ? 'style="display:none"' : '';
-        var logicHTML = idx === 0 ? '' : '<select class="adv-logic-select" data-idx="' + idx + '" data-field="logic"><option value="AND"' + (condition.logic==='AND'?' selected':'') + '>AND</option><option value="OR"' + (condition.logic==='OR'?' selected':'') + '>OR</option></select>';
+        var logicHTML = idx === 0 ? '' : '<select class="adv-logic-select" data-idx="' + idx + '" data-field="logic" title="Combine with previous condition"><option value="AND"' + (condition.logic==='AND'?' selected':'') + '>' + t("advLogicAND") + '</option><option value="OR"' + (condition.logic==='OR'?' selected':'') + '>' + t("advLogicOR") + '</option></select>';
         return '<div class="adv-search-row" data-idx="' + idx + '">' +
           logicHTML +
-          '<select data-field="col">' + colOpts + '</select>' +
-          '<select data-field="op">' + opOpts + '</select>' +
-          '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advValue") + '" ' + valDisplay + ' />' +
-          '<button class="adv-remove-btn" data-i18n="advRemove">✕</button>' +
+          '<select data-field="col" title="Column to search in">' + colOpts + '</select>' +
+          '<select data-field="op" title="Match type">' + opOpts + '</select>' +
+          '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advValue") + '" title="Text to search for" ' + valDisplay + ' />' +
+          '<button class="adv-remove-btn" data-i18n="advRemove" title="Remove this condition">✕</button>' +
           '</div>';
       }
 

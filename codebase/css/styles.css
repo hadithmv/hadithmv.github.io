@@ -1156,8 +1156,10 @@ body:has(.modal-overlay.open) {
 
 .adv-search-row select,
 .adv-search-row input {
-  padding: 5px 8px;
+  height: 32px;
+  padding: 0 8px;
   font-size: 0.82rem;
+  line-height: 32px;
   font-weight: 600;
   font-family:
     "Hadithmv",
@@ -1170,6 +1172,7 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   outline: none;
+  box-sizing: border-box;
 }
 
 .adv-search-row select {
@@ -1182,14 +1185,17 @@ body:has(.modal-overlay.open) {
 }
 
 .adv-remove-btn {
-  padding: 4px 8px;
-  font-size: 0.78rem;
+  height: 32px;
+  padding: 0 8px;
+  font-size: 0.82rem;
   font-weight: 600;
+  line-height: 32px;
   color: var(--color-error-text);
   background: none;
   border: 1px solid var(--color-error-text);
   border-radius: 6px;
   cursor: pointer;
+  box-sizing: border-box;
   font-family:
     system-ui,
     -apple-system,
