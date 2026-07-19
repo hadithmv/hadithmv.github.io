@@ -960,6 +960,8 @@ body:has(.modal-overlay.open) {
   font-weight: 600;
   line-height: 1.4;
   border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
   font-family:
     "Hadithmv",
     "Faruma",

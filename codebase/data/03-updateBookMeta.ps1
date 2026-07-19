@@ -122,6 +122,19 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
 }
 if ($added -eq 0) { Write-Info "no new books found" }
 
+# ── Check for orphaned registry entries ──────────────────────
+Write-Section "Checking for missing CSV files"
+$missing = 0
+foreach ($row in $rows) {
+    $code = ($row -split ",")[0].Trim()
+    $csvFile = Join-Path $dataDir "$code.csv"
+    if (-not (Test-Path $csvFile)) {
+        Write-Warning "  ⚠️  $code  —  registered but CSV file missing"
+        $missing++
+    }
+}
+if ($missing -eq 0) { Write-Info "all registered books have CSV files" }
+
 # ── Update titleEN for existing rows (if empty) ──────────────
 Write-Section "Filling missing titleEN"
 $updated = 0
@@ -158,7 +171,8 @@ Write-Host "  📊 $total books total" -ForegroundColor White
 if ($added -gt 0)   { Write-Host "  ✅ $added added" -ForegroundColor Green }
 if ($updated -gt 0) { Write-Host "  📝 $updated titles filled" -ForegroundColor Yellow }
 if ($renamed -gt 0) { Write-Host "  🔄 $renamed files renamed" -ForegroundColor Magenta }
-if ($added -eq 0 -and $updated -eq 0 -and $renamed -eq 0) {
+if ($missing -gt 0)  { Write-Host "  ⚠️  $missing missing CSV files" -ForegroundColor Red }
+if ($added -eq 0 -and $updated -eq 0 -and $renamed -eq 0 -and $missing -eq 0) {
     Write-Host "  ✨ already up to date" -ForegroundColor Green
 }
 Write-Host ""

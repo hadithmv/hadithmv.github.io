@@ -323,6 +323,9 @@ export async function initializePageWithMetadata(callback) {
 
   if (!bookCode) {
     const bookNames = await loadBookNames();
+    // Read ?tags= from URL for pre-filtered dashboard links
+    var urlTags = urlParams.get("tags");
+    if (urlTags) { _dashFilter.tags = urlTags.split(","); }
     renderDashboard(bookNames);
     setupDashboardControls();
     return;
@@ -542,6 +545,10 @@ function setupDashboardControls() {
       if (idx === -1) _dashFilter.tags.push(tag);
       else _dashFilter.tags.splice(idx, 1);
     }
+    // Sync URL with active tags
+    var url = window.location.pathname;
+    if (_dashFilter.tags.length > 0) url += "?tags=" + _dashFilter.tags.join(",");
+    history.replaceState(null, "", url);
     renderDashboard(_lastBookNames);
   });
 
@@ -628,6 +635,7 @@ function setupDashboardControls() {
     si.value = "";
     sc.style.display = "none";
     ss.value = "az";
+    history.replaceState(null, "", window.location.pathname);
     clearPins();
     clearReadHistory();
     renderPins();

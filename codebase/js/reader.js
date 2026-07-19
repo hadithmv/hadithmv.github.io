@@ -52,7 +52,7 @@ initializePageWithMetadata(async function (metadata) {
           } else {
             label = tagLabel(t.code, t.label);
           }
-          return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, "en") + '" style="color:' + t.color + ';background:' + t.bg + '">' + label + '</span>';
+          return '<a href="index.html?tags=' + t.code + '" class="tag-badge" title="Show all ' + tagLabel(t.code, t.label, "en") + ' books" style="color:' + t.color + ';background:' + t.bg + '">' + label + '</a>';
         }).join("");
       }
 
@@ -839,7 +839,8 @@ initializePageWithMetadata(async function (metadata) {
           row.querySelector("select[data-field=col]").addEventListener("change", function(){ advConditions[idx].col = parseInt(this.value); });
           row.querySelector("select[data-field=op]").addEventListener("change", function(){
             advConditions[idx].op = this.value;
-            var needVal = OPERATORS.find(function(o){return o.id===this.value;});
+            var opVal = this.value;
+            var needVal = OPERATORS.find(function(o){return o.id===opVal;});
             var input = row.querySelector("input[data-field=val]");
             input.style.display = (needVal && needVal.needsValue === false) ? "none" : "";
           });

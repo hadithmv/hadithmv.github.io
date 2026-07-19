@@ -46,7 +46,9 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as dropdown panels from toolbar buttons.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as dropdown panels from toolbar buttons. Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
+
+The reader's page‑header tag badges link to `index.html?tags=CODE`, letting readers jump to the dashboard filtered by that category.
 
 ```text
 ┌─ Search bar ───────────────────── [✕] [Advanced] ─────────┐
