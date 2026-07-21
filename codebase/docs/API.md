@@ -246,3 +246,45 @@ import("./xlsx.js").then(mod => {
   // download blob…
 });
 ```
+
+## Data API (HTTP GET)
+
+All data files are served as static assets — no server logic, just plain GET requests. Responses are CSV or JSON. Base URL: `https://hadithmv.github.io/codebase/`
+
+### Book registry
+
+```http
+GET data/01-bookNames.csv
+```
+
+Returns a CSV with columns `code,titleAR,titleDV,titleEN`. One row per registered book.
+
+### Tag definitions
+
+```http
+GET data/02-bookTags.csv
+```
+
+Returns a CSV with columns `code,label`. Tags are auto‑assigned colours client‑side from a 12‑slot palette; the CSV only needs code and label.
+
+### Book content
+
+```http
+GET data/{bookCode}.csv
+```
+
+Returns the book CSV. First row is the column header. Column 0 is `#` (row numbers) or regular content. Headers ending in `*AR` are Arabic, `*DV` are Dhivehi.
+
+### Example fetches
+
+```js
+// List all books
+fetch("https://hadithmv.github.io/codebase/data/01-bookNames.csv")
+  .then(r => r.text())
+
+// Get a specific book as CSV
+fetch("https://hadithmv.github.io/codebase/data/AQD-nawaqidulIslam.csv")
+  .then(r => r.text())
+```
+
+No authentication, no rate limiting, no CORS restrictions — static files on GitHub Pages. For programmatic access, parse the CSV with any CSV library (the format is standard: comma‑delimited, quoted fields, `\r\n` line endings).
