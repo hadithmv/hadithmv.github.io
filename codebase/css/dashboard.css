@@ -125,9 +125,13 @@
 #dashboardSortRow {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px;
   direction: rtl;
+}
+#dashboardSortRow > div {
+  flex-wrap: wrap;
 }
 #dashboardSort,
 #dashboardViewToggle,

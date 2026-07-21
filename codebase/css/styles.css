@@ -1304,10 +1304,11 @@ body:has(.modal-overlay.open) {
 
 .toolbar-btn {
   box-sizing: border-box;
-  padding: 7px 10px;
+  height: 34px;
+  padding: 0 10px;
   font-size: 0.85rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 34px;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1353,10 +1354,11 @@ body:has(.modal-overlay.open) {
 
 .toolbar-select {
   box-sizing: border-box;
-  padding: 7px 6px;
+  height: 34px;
+  padding: 0 6px;
   font-size: 0.85rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 34px;
   font-family:
     system-ui,
     -apple-system,

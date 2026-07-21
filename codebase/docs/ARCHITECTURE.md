@@ -337,6 +337,60 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 **Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) table. This table is the single inventory for porting to desktop/mobile apps — keep it current.
 
+## How‑to examples
+
+### Add a new book
+
+1. Create `data/FQH-usululFiqh.csv` with a header row and content:
+   ```csv
+   #,headAR,bodyAR,headDV,bodyDV,foot
+   1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
+   ```
+2. Add a line to `data/01-bookNames.csv`:
+   ```csv
+   FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh
+   ```
+3. Run `data/03-updateBookMeta.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
+
+### Add a new tag category
+
+Add one row to `data/02-bookTags.csv`. Check the `hue` column so the colour does not clash:
+```csv
+code,label,color,bg,hue
+FQH,Fiqh,#b91c1c,#fef2f2,warm-red
+```
+Use the tag code as a prefix in any `bookCode` (e.g. `FQH-usululFiqh`) — badges render automatically.
+
+### Add a new export format
+
+In `js/reader.js`, add an `else if (fmt === "...")` block inside the export click handler. Data formats use `rowsWithHeader`; rich‑text formats use `rows`:
+```js
+} else if (fmt === "newfmt") {
+  content = myFormatBuilder(rowsWithHeader);   // include headers
+  filename = baseName + ".ext";
+  mime = "application/x-myformat";
+}
+```
+Heavy modules use dynamic `import()` so they only load on demand (see `xlsx.js` and `epub.js`).
+
+### Add a new i18n key
+
+In `js/i18n.js`, add one entry to the `STRINGS` object with all three languages:
+```js
+btnMyFeature: { dv: "ތަރުޖަމާ", en: "My Feature", ar: "ميزتي" },
+```
+Use `data-i18n="btnMyFeature"` in static HTML, or `t("btnMyFeature")` in JS. Tooltip text is English‑only — hardcode the string.
+
+### Add a new theme colour
+
+Define the variable in all three theme blocks. Pick a descriptive `--color-<role>` name:
+```css
+:root                              { --color-accent: #2563eb; }
+[data-theme="sepia"]               { --color-accent: #b45309; }
+[data-theme="dark"]                { --color-accent: #60a5fa; }
+```
+Use `var(--color-accent)` everywhere. Never reference the hardcoded hex directly.
+
 ## Error states
 
 All errors show visible messages in English:
