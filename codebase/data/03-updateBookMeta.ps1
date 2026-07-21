@@ -1,12 +1,12 @@
 # Update and sort bookNames.csv
-#   - Reads known tag codes from 02-bookTags.csv
+#   - Reads known tag codes from 01-bookTags.csv
 #   - Strips prefix tags and suffix flags from bookCode to derive titleEN
 #   - Converts camelCase to Title Case (e.g. "aqidahNawawi" → "Aqidah Nawawi")
 #   - Scans data/ for CSV files not yet registered and adds them
 #   - Sorts alphabetically by bookCode
 
-$csvPath    = Join-Path $PSScriptRoot "01-bookNames.csv"
-$tagsPath   = Join-Path $PSScriptRoot "02-bookTags.csv"
+$csvPath    = Join-Path $PSScriptRoot "02-bookNames.csv"
+$tagsPath   = Join-Path $PSScriptRoot "01-bookTags.csv"
 $dataDir    = $PSScriptRoot
 
 # ── Helpers for coloured output ──────────────────────────────
@@ -21,7 +21,7 @@ function Write-Info($text)   { Write-Host "    $text" -ForegroundColor Gray }
 
 Write-Host "`n📚 Hadithmv — Update Book Metadata" -ForegroundColor White
 
-# ── Load known tag codes from 02-bookTags.csv ────────────────
+# ── Load known tag codes from 01-bookTags.csv ────────────────
 Write-Section "Loading tags"
 $knownTags = @{}
 if (Test-Path $tagsPath) {
@@ -35,11 +35,11 @@ if (Test-Path $tagsPath) {
     }
     Write-Info "$($tagList.Count) tags: $($tagList -join ', ')"
 } else {
-    Write-Skip "02-bookTags.csv not found"
+    Write-Skip "01-bookTags.csv not found"
 }
 
 # Known suffix flags to strip from end of bookCode
-$suffixFlags = @("HDN", "DRAFT")
+$suffixFlags = @("HDN", "DSC")
 
 # ── Helper: camelCase → Title Case ───────────────────────────
 function ConvertTo-TitleCase($name) {
@@ -73,21 +73,23 @@ function Get-BookName($code) {
     return ""
 }
 
-# ── Clean up " - Sheet1" suffixes ────────────────────────────
+# ── Clean up " - Sheet1" / " - Worksheet" suffixes ────────────
 Write-Section "Cleaning filenames"
 $renamed = 0
-Get-ChildItem $dataDir -Filter "* - Sheet1.csv" | ForEach-Object {
-    $newName = $_.Name -replace " - Sheet1\.csv$", ".csv"
-    $newPath = Join-Path $dataDir $newName
-    if (-not (Test-Path $newPath)) {
-        Write-Rename "$($_.Name)  →  $newName"
-        Rename-Item $_.FullName $newName
-        $renamed++
-    } else {
-        Write-Rename "$($_.Name)  →  $newName (replacing existing)"
-        Remove-Item $newPath -Force
-        Rename-Item $_.FullName $newName
-        $renamed++
+Get-ChildItem $dataDir -Filter "*.csv" | ForEach-Object {
+    $newName = $_.Name -replace " - (Sheet|Worksheet)\d*\.csv$", ".csv"
+    if ($newName -ne $_.Name) {
+        $newPath = Join-Path $dataDir $newName
+        if (-not (Test-Path $newPath)) {
+            Write-Rename "$($_.Name)  →  $newName"
+            Rename-Item $_.FullName $newName
+            $renamed++
+        } else {
+            Write-Rename "$($_.Name)  →  $newName (replacing existing)"
+            Remove-Item $newPath -Force
+            Rename-Item $_.FullName $newName
+            $renamed++
+        }
     }
 }
 if ($renamed -eq 0) { Write-Info "nothing to rename" }
@@ -103,13 +105,13 @@ foreach ($row in $rows) {
     $code = ($row -split ",")[0].Trim()
     if ($code) { $registered[$code] = $true }
 }
-Write-Info "$($rows.Count) books in 01-bookNames.csv"
+Write-Info "$($rows.Count) books in 02-bookNames.csv"
 
 # ── Find new CSV files ────────────────────────────────────────
 Write-Section "Scanning for new books"
 $added = 0
 Get-ChildItem $dataDir -Filter *.csv | Where-Object {
-    $_.Name -notin @("01-bookNames.csv", "02-bookTags.csv")
+    $_.Name -notin @("02-bookNames.csv", "01-bookTags.csv")
 } | ForEach-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {

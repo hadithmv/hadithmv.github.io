@@ -131,6 +131,10 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Reader state ────────────────────────────────────────
       const allData = data;
+      // Books ending with -DSC display rows in reverse (last-to-first)
+      if (metadata.bookCode && metadata.bookCode.toUpperCase().endsWith("-DSC")) {
+        allData.reverse();
+      }
       let filteredData = allData;
 
       // DOM refs
@@ -299,6 +303,13 @@ initializePageWithMetadata(async function (metadata) {
         for (var i = 0; i < fields.length; i++) {
           var display = markupTashkeel(highlightMatches(fields[i].value, query));
           var colHeader = (headerRow && headerRow[fields[i].index]) ? headerRow[fields[i].index].toLowerCase() : "";
+          // KNSH books: first line of body column is a heading
+          if (metadata.bookCode && metadata.bookCode.toUpperCase().startsWith("KNSH-") && colHeader.startsWith("body")) {
+            var nlIdx = display.indexOf("\n");
+            if (nlIdx !== -1) {
+              display = '<span class="knhs-body-header">' + display.slice(0, nlIdx) + '</span>' + display.slice(nlIdx);
+            }
+          }
           if (i > 0) {
             var prevHdr = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
             if (prevHdr.endsWith("ar") && colHeader.endsWith("dv")) {

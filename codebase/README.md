@@ -6,8 +6,8 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/
-  01-bookNames.csv     ← Book registry (code, titles in AR/DV/EN)
-  02-bookTags.csv      ← Tag definitions (code, label, colors)
+  02-bookNames.csv     ← Book registry (code, titles in AR/DV/EN)
+  01-bookTags.csv      ← Tag definitions (code, label, colors)
   03-updateBookMeta.ps1← Auto-generate titleEN, sync new books
   *.csv                ← Per-book content files
 books/
@@ -33,7 +33,7 @@ docs/                  ← User guide, architecture, API reference
 
 ### Add a new book
 
-1. Add a row to `data/01-bookNames.csv`:
+1. Add a row to `data/02-bookNames.csv`:
 
    ```csv
    bookCode,titleAR,titleDV,titleEN
@@ -46,7 +46,7 @@ docs/                  ← User guide, architecture, API reference
 
 ### Add a new tag category
 
-Add a row to `data/02-bookTags.csv`:
+Add a row to `data/01-bookTags.csv`:
 
 ```csv
 code,label
@@ -59,7 +59,9 @@ Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Colours are
 
 - `DRFT-` prefix — marks a draft book (⚠️ badge), still visible on dashboard
 - `-HDN` suffix — hides the book from the dashboard; as a column header suffix (e.g. `notes-HDN`), hides that column by default in the reader (still toggleable back on)
-- Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books
+- `-DSC` suffix — displays rows in reverse order (last‑to‑first), used for descending collections
+- `KNSH-` prefix — first line of `body*` columns styled as a heading
+- Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books. When adding a new suffix flag, also add it to `$suffixFlags` in that script so it's stripped from `titleEN`.
 
 ## Data CSV format
 
@@ -76,7 +78,7 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `catalog.js` loads `bookNames.csv` and `02-bookTags.csv` for metadata and badges.
+1. `catalog.js` loads `02-bookNames.csv` and `01-bookTags.csv` for metadata and badges.
 1. `reader.js` loads `data/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 

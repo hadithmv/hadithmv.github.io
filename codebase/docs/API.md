@@ -43,7 +43,7 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadBookNames()`
 
-Fetches and caches `01-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`). Returns `[]` on error.
+Fetches and caches `02-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`). Returns `[]` on error.
 
 ### `getPageMetadata(bookCode)`
 
@@ -254,14 +254,14 @@ No JSON endpoints. All data is CSV — one source of truth, no duplication. If y
 ### Book registry
 
 ```http
-GET data/01-bookNames.csv
+GET data/02-bookNames.csv
 ```
 Columns: `bookCode,titleAR,titleDV,titleEN`. One row per registered book.
 
 ### Tag definitions
 
 ```http
-GET data/02-bookTags.csv
+GET data/01-bookTags.csv
 ```
 Columns: `code,label`. Colours are auto‑generated client‑side using golden‑ratio HSL — unlimited tags, always distinct.
 
@@ -298,7 +298,7 @@ with urllib.request.urlopen(url) as r:
 
 ```bash
 # curl into any CSV tool
-curl -s https://hadithmv.github.io/codebase/data/01-bookNames.csv | csvlook
+curl -s https://hadithmv.github.io/codebase/data/02-bookNames.csv | csvlook
 ```
 
 No authentication, no rate limiting, no CORS — static files on GitHub Pages.

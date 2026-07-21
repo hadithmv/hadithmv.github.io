@@ -2016,6 +2016,15 @@ body:has(.modal-overlay.open) {
   margin: 8px 0 12px;
 }
 
+/* KNSH books: first line of body column styled as a heading */
+.knhs-body-header {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
 .reader-field-kitab {
   font-size: 1.2rem;
   font-weight: 600;

@@ -8,8 +8,8 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| `data/01-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
-| `data/02-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
+| `data/02-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
+| `data/01-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `css/styles.css`             | Shared styles: themes, topBar, sidebar, modals, responsive                 |
@@ -33,8 +33,8 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   catalog.js
-    ├─ fetch ../data/01-bookNames.csv  ──→  find row by bookCode
-    ├─ fetch ../data/02-bookTags.csv ──→  resolve tag badges from prefix
+    ├─ fetch ../data/02-bookNames.csv  ──→  find row by bookCode
+    ├─ fetch ../data/01-bookTags.csv ──→  resolve tag badges from prefix
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
         │
         ▼
@@ -237,7 +237,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
 
-### 02-bookTags.csv
+### 01-bookTags.csv
 
 | Column  | Description                                              |
 | ------- | -------------------------------------------------------- |
@@ -252,7 +252,7 @@ First row is always the header row. For a representative sample, see `AQD-nawaqi
 
 ## Tag system
 
-Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are stripped before extracting the book name (and also hide the book from the dashboard). At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader. Each code is looked up in `02-bookTags.csv`. Unknown codes silently ignored.
+Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are stripped before extracting the book name (and also hide the book from the dashboard). At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader. Each code is looked up in `01-bookTags.csv`. Unknown codes silently ignored.
 
 | bookCode                        | Tags             | Book Name             |
 | ------------------------------- | ---------------- | --------------------- |
@@ -266,7 +266,9 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 
 - `DRFT-` prefix → book gets a ⚠️ Draft badge, still visible on dashboard
 - `-HDN` suffix → book hidden from dashboard
-- `-DRAFT` suffix (legacy) → also hidden, same as `-HDN`
+- `-DSC` suffix → rows displayed in reverse order; stripped from derived `titleEN`
+- When adding a new suffix flag, add it to `$suffixFlags` in `03-updateBookMeta.ps1` so `titleEN` is generated correctly
+- `KNSH-` prefix → first line of `body*` columns styled as a heading
 
 ## Development conventions
 
@@ -306,7 +308,7 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 
 ### Data & CSV
 
-**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `02-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name.
+**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `01-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name.
 
 ```text
 "DRFT-AQD-sharhuSunnahBarbahari-HDN"
@@ -324,7 +326,7 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes for load order (`01-bookNames.csv`, `02-bookTags.csv`). For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes for load order (`02-bookNames.csv`, `01-bookTags.csv`). For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 ### Keyboard shortcuts
 
@@ -343,7 +345,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
    #,headAR,bodyAR,headDV,bodyDV,foot
    1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
    ```
-2. Add a line to `data/01-bookNames.csv`:
+2. Add a line to `data/02-bookNames.csv`:
    ```csv
    FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh
    ```
@@ -351,7 +353,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 ### Add a new tag category
 
-Add one row to `data/02-bookTags.csv`. Colours are auto‑generated — just `code` and `label`:
+Add one row to `data/01-bookTags.csv`. Colours are auto‑generated — just `code` and `label`:
 ```csv
 code,label
 FQH,Fiqh
@@ -409,7 +411,7 @@ All errors show visible messages in English:
 
 ### New tag category
 
-1. Add a row to `data/02-bookTags.csv` with `code,label`. Colours are auto‑generated — no need to pick hex values.
+1. Add a row to `data/01-bookTags.csv` with `code,label`. Colours are auto‑generated — no need to pick hex values.
 1. Use the code as a prefix in any `bookCode` — badges render automatically.
 
 ## Key benefits

@@ -1,6 +1,6 @@
 /**
  * Database Lookup Module
- * Loads and manages 01-bookNames.csv and 02-bookTags.csv metadata.
+ * Loads and manages 02-bookNames.csv and 01-bookTags.csv metadata.
  * All configuration lives in CSV files — no hardcoded data.
  */
 
@@ -23,7 +23,7 @@ let bookNamesCache = null;
 let tagDefinitionsCache = null;
 
 // ---------------------------------------------------------------------------
-// Tag definitions — loaded from 02-bookTags.csv
+// Tag definitions — loaded from 01-bookTags.csv
 // ---------------------------------------------------------------------------
 
 /**
@@ -49,7 +49,7 @@ function injectPaletteCSS(slotCount) {
 }
 
 /**
- * Load tag definitions from 02-bookTags.csv.
+ * Load tag definitions from 01-bookTags.csv.
  * Cached after first load; safe to call multiple times.
  * @returns {Promise<Object>} Map of tag code → {label, palette}
  */
@@ -59,7 +59,7 @@ async function loadTagDefinitions() {
   }
 
   try {
-    const response = await fetch("../data/02-bookTags.csv");
+    const response = await fetch("../data/01-bookTags.csv");
     if (!response.ok) {
       throw new Error(`Failed to load tags (HTTP ${response.status})`);
     }
@@ -90,7 +90,7 @@ async function loadTagDefinitions() {
     }
     return tagDefinitionsCache;
   } catch (error) {
-    console.error("Error loading 02-bookTags.csv:", error);
+    console.error("Error loading 01-bookTags.csv:", error);
     // Cache the empty result so we don't retry endlessly
     tagDefinitionsCache = {};
     return tagDefinitionsCache;
@@ -137,7 +137,7 @@ export async function loadBookNames() {
   }
 
   try {
-    const response = await fetch("../data/01-bookNames.csv");
+    const response = await fetch("../data/02-bookNames.csv");
     if (!response.ok) {
       throw new Error(
         `Failed to load book registry (HTTP ${response.status})`,
