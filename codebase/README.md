@@ -53,7 +53,7 @@ code,label
 FQH,Fiqh
 ```
 
-Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Tags get auto‑assigned colours from a 12‑slot palette (light + dark mode). To override the colour, add `color` and `bg` columns with hex values.
+Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Colours are auto‑generated using golden‑ratio HSL — no limit on tags, always distinct, dark‑mode built in.
 
 ### Book code conventions
 

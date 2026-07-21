@@ -27,9 +27,31 @@ let tagDefinitionsCache = null;
 // ---------------------------------------------------------------------------
 
 /**
+ * Generate palette CSS with golden-ratio HSL slots (infinite, always distinct).
+ * Inserts a <style> tag so colours auto-respond to theme changes.
+ */
+var _paletteCSSInjected = false;
+function injectPaletteCSS(slotCount) {
+  if (_paletteCSSInjected) return;
+  _paletteCSSInjected = true;
+  var css = "";
+  for (var n = 0; n < slotCount; n++) {
+    var hue = Math.round((n * 137.508) % 360);
+    // Light / sepia
+    css += '.tag-palette-' + n + ' { --tag-color: hsl(' + hue + ',55%,40%); --tag-bg: hsl(' + hue + ',40%,94%); }';
+    // Dark
+    css += '[data-theme="dark"] .tag-palette-' + n + ' { --tag-color: hsl(' + hue + ',50%,75%); --tag-bg: hsl(' + hue + ',25%,14%); }';
+  }
+  var style = document.createElement("style");
+  style.id = "tag-palette-css";
+  style.textContent = css;
+  document.head.appendChild(style);
+}
+
+/**
  * Load tag definitions from 02-bookTags.csv.
  * Cached after first load; safe to call multiple times.
- * @returns {Promise<Object>} Map of tag code → {label, color, bg}
+ * @returns {Promise<Object>} Map of tag code → {label, palette}
  */
 async function loadTagDefinitions() {
   if (tagDefinitionsCache) {
@@ -45,18 +67,23 @@ async function loadTagDefinitions() {
 
     var result = parseCSVWithHeader(csv);
 
-    // Build lookup map — assign palette slot to each tag (skipping PIN)
+    // Generate palette CSS with enough slots (tags + headroom)
+    var tagCount = 0;
+    for (var i = 0; i < result.length; i++) {
+      if (result[i].code && result[i].code !== "PIN") tagCount++;
+    }
+    injectPaletteCSS(Math.max(tagCount + 8, 20));
+
+    // Build lookup map — assign sequential palette slot to each tag (skipping PIN)
     tagDefinitionsCache = {};
     var palIdx = 0;
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
       if (row.code) {
         var code = row.code;
-        var palette = (code === "PIN") ? -1 : (palIdx++ % 12);
+        var palette = (code === "PIN") ? -1 : palIdx++;
         tagDefinitionsCache[code] = {
           label: row.label || code,
-          color: row.color || "#333",
-          bg: row.bg || "#f5f5f5",
           palette: palette
         };
       }
@@ -91,8 +118,6 @@ function extractTags(bookCode) {
     .map((code) => ({
       code,
       label: defs[code].label,
-      color: defs[code].color,
-      bg: defs[code].bg,
       palette: defs[code].palette,
     }));
 }

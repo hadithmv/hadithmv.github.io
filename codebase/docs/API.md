@@ -249,42 +249,56 @@ import("./xlsx.js").then(mod => {
 
 ## Data API (HTTP GET)
 
-All data files are served as static assets — no server logic, just plain GET requests. Responses are CSV or JSON. Base URL: `https://hadithmv.github.io/codebase/`
+No JSON endpoints. All data is CSV — one source of truth, no duplication. If you need JSON, fetch the CSV and parse it yourself. Base URL: `https://hadithmv.github.io/codebase/`
 
 ### Book registry
 
 ```http
 GET data/01-bookNames.csv
 ```
-
-Returns a CSV with columns `code,titleAR,titleDV,titleEN`. One row per registered book.
+Columns: `bookCode,titleAR,titleDV,titleEN`. One row per registered book.
 
 ### Tag definitions
 
 ```http
 GET data/02-bookTags.csv
 ```
-
-Returns a CSV with columns `code,label`. Tags are auto‑assigned colours client‑side from a 12‑slot palette; the CSV only needs code and label.
+Columns: `code,label`. Colours are auto‑generated client‑side using golden‑ratio HSL — unlimited tags, always distinct.
 
 ### Book content
 
 ```http
 GET data/{bookCode}.csv
 ```
+First row is the column header. Column 0 is `#` (row numbers) or regular content. Headers ending in `*AR` are Arabic, `*DV` are Dhivehi. Standard CSV: comma‑delimited, quoted fields, `\r\n` line endings.
 
-Returns the book CSV. First row is the column header. Column 0 is `#` (row numbers) or regular content. Headers ending in `*AR` are Arabic, `*DV` are Dhivehi.
+### Parsing
 
-### Example fetches
+Every language has a CSV parser. Here's how to get started:
 
 ```js
-// List all books
-fetch("https://hadithmv.github.io/codebase/data/01-bookNames.csv")
-  .then(r => r.text())
-
-// Get a specific book as CSV
-fetch("https://hadithmv.github.io/codebase/data/AQD-nawaqidulIslam.csv")
-  .then(r => r.text())
+// JavaScript — fetch + parse to array of arrays
+const csv = await fetch(url).then(r => r.text());
+const rows = csv.trim().split(/\r?\n/).map(line => {
+  const cols = []; let cur = "", inQ = false;
+  for (const c of line) {
+    if (inQ) { if (c === '"') inQ = false; else cur += c; }
+    else { if (c === '"') inQ = true; else if (c === ',') { cols.push(cur); cur = ""; } else cur += c; }
+  }
+  cols.push(cur); return cols;
+});
 ```
 
-No authentication, no rate limiting, no CORS restrictions — static files on GitHub Pages. For programmatic access, parse the CSV with any CSV library (the format is standard: comma‑delimited, quoted fields, `\r\n` line endings).
+```python
+# Python — stdlib csv module
+import csv, urllib.request
+with urllib.request.urlopen(url) as r:
+    rows = list(csv.reader(r.read().decode().splitlines()))
+```
+
+```bash
+# curl into any CSV tool
+curl -s https://hadithmv.github.io/codebase/data/01-bookNames.csv | csvlook
+```
+
+No authentication, no rate limiting, no CORS — static files on GitHub Pages.
