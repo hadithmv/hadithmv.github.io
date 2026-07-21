@@ -254,7 +254,7 @@ const STRINGS = {
   toastUnpinned: { dv: "ޕިން ނެތް", en: "Bookmark removed", ar: "تمت الإزالة" },
   relativeJustNow: { dv: "ދެންމެ", en: "just now", ar: "الآن" },
   relativeMinutes: { dv: "މިނެޓް ކުރިން", en: "m ago", ar: "د" },
-  relativeHours: { dv: "ގަޑި ކުރިން", en: "h ago", ar: "س" },
+  relativeHours: { dv: "ގަޑިއިރު ކުރިން", en: "h ago", ar: "س" },
   relativeDays: { dv: "ދުވަސް ކުރިން", en: "d ago", ar: "ي" },
   searchClearHistory: {
     dv: "✕   ހިސްޓަރީ ފޮހެލާ",
