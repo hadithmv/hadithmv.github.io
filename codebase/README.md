@@ -49,11 +49,11 @@ docs/                  ← User guide, architecture, API reference
 Add a row to `data/02-bookTags.csv`:
 
 ```csv
-code,label,color,bg,hue
-FQH,Fiqh,#b91c1c,#fef2f2,warm-red
+code,label
+FQH,Fiqh
 ```
 
-Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Check the `hue` column in the CSV — it documents every reserved colour (including the `PIN` chip) so tags stay visually distinct.
+Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Tags get auto‑assigned colours from a 12‑slot palette (light + dark mode). To override the colour, add `color` and `bg` columns with hex values.
 
 ### Book code conventions
 

@@ -101,6 +101,49 @@ mark {
   padding: 0 1px;
 }
 
+/* ---- Tag colour palette (12 slots, auto-assigned) ---- */
+:root,
+[data-theme="sepia"] {
+  --palette-0: #4f46e5; --palette-0-bg: #eef2ff;
+  --palette-1: #059669; --palette-1-bg: #ecfdf5;
+  --palette-2: #d97706; --palette-2-bg: #fffbeb;
+  --palette-3: #b45309; --palette-3-bg: #fff7ed;
+  --palette-4: #7c3aed; --palette-4-bg: #f5f3ff;
+  --palette-5: #475569; --palette-5-bg: #f1f5f9;
+  --palette-6: #0891b2; --palette-6-bg: #ecfeff;
+  --palette-7: #dc2626; --palette-7-bg: #fef2f2;
+  --palette-8: #ea580c; --palette-8-bg: #fff7ed;
+  --palette-9: #2563eb; --palette-9-bg: #eff6ff;
+  --palette-10: #0284c7; --palette-10-bg: #f0f9ff;
+  --palette-11: #be185d; --palette-11-bg: #fdf2f8;
+}
+[data-theme="dark"] {
+  --palette-0: #a5b4fc; --palette-0-bg: #1e1b4b;
+  --palette-1: #6ee7b7; --palette-1-bg: #022c22;
+  --palette-2: #fcd34d; --palette-2-bg: #422006;
+  --palette-3: #d6a87c; --palette-3-bg: #2d1a0b;
+  --palette-4: #c4b5fd; --palette-4-bg: #2e1065;
+  --palette-5: #94a3b8; --palette-5-bg: #1e293b;
+  --palette-6: #67e8f9; --palette-6-bg: #042f2e;
+  --palette-7: #fca5a5; --palette-7-bg: #450a0a;
+  --palette-8: #fb923c; --palette-8-bg: #3d1600;
+  --palette-9: #93c5fd; --palette-9-bg: #172554;
+  --palette-10: #7dd3fc; --palette-10-bg: #082f49;
+  --palette-11: #f9a8d4; --palette-11-bg: #500724;
+}
+.tag-palette-0  { --tag-color: var(--palette-0);  --tag-bg: var(--palette-0-bg); }
+.tag-palette-1  { --tag-color: var(--palette-1);  --tag-bg: var(--palette-1-bg); }
+.tag-palette-2  { --tag-color: var(--palette-2);  --tag-bg: var(--palette-2-bg); }
+.tag-palette-3  { --tag-color: var(--palette-3);  --tag-bg: var(--palette-3-bg); }
+.tag-palette-4  { --tag-color: var(--palette-4);  --tag-bg: var(--palette-4-bg); }
+.tag-palette-5  { --tag-color: var(--palette-5);  --tag-bg: var(--palette-5-bg); }
+.tag-palette-6  { --tag-color: var(--palette-6);  --tag-bg: var(--palette-6-bg); }
+.tag-palette-7  { --tag-color: var(--palette-7);  --tag-bg: var(--palette-7-bg); }
+.tag-palette-8  { --tag-color: var(--palette-8);  --tag-bg: var(--palette-8-bg); }
+.tag-palette-9  { --tag-color: var(--palette-9);  --tag-bg: var(--palette-9-bg); }
+.tag-palette-10 { --tag-color: var(--palette-10); --tag-bg: var(--palette-10-bg); }
+.tag-palette-11 { --tag-color: var(--palette-11); --tag-bg: var(--palette-11-bg); }
+
 /* ---- Body ---- */
 html {
   scroll-behavior: smooth;
@@ -151,6 +194,15 @@ body {
 .menu-btn:hover {
   background: #eff6ff;
   border-color: #93c5fd;
+}
+[data-theme="dark"] .menu-btn {
+  color: #93c5fd;
+  background: #1e3a5f;
+  border-color: #1e3a5f;
+}
+[data-theme="dark"] .menu-btn:hover {
+  background: #1e3a5f;
+  border-color: #60a5fa;
 }
 
 /* ---- Sidebar overlay ---- */
@@ -809,6 +861,14 @@ body:has(.modal-overlay.open) {
   background: #f0fdf4;
   border-color: #bbf7d0;
 }
+[data-theme="dark"] #topBar .nav-focus-btn {
+  color: #86efac;
+  background: #14532d;
+  border-color: #14532d;
+}
+[data-theme="dark"] #topBar .nav-focus-btn:hover {
+  border-color: #4ade80;
+}
 
 #topBar #pageTitle {
   flex: 1;
@@ -852,6 +912,15 @@ body:has(.modal-overlay.open) {
 #backToDashboard:hover {
   background: #fef2f2;
   border-color: #fca5a5;
+}
+[data-theme="dark"] #backToDashboard {
+  color: #fca5a5;
+  background: #450a0a;
+  border-color: #450a0a;
+}
+[data-theme="dark"] #backToDashboard:hover {
+  background: #450a0a;
+  border-color: #f87171;
 }
 
 #pageHeader {
@@ -955,16 +1024,19 @@ body:has(.modal-overlay.open) {
 }
 
 
-#pageTags .tag-badge {
+#pageTags .tag-badge,
+.tag-badge {
   display: inline-block;
   box-sizing: border-box;
-  padding: 7px 10px;
-  font-size: 0.85rem;
+  padding: 5px 10px;
+  font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.4;
   border-radius: 6px;
   text-decoration: none;
   cursor: pointer;
+  color: var(--tag-color, var(--color-text));
+  background: var(--tag-bg, var(--color-nav-btn-bg));
   font-family:
     "Hadithmv",
     "Faruma",
@@ -972,14 +1044,17 @@ body:has(.modal-overlay.open) {
     -apple-system,
     sans-serif;
   white-space: nowrap;
+  border: 1px solid transparent;
+}
+[data-theme="dark"] .tag-badge {
+  border-color: transparent;
 }
 
 #pageTags {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  vertical-align: middle;
-  white-space: nowrap;
+  align-items: center;
 }
 
 /* ============================================================

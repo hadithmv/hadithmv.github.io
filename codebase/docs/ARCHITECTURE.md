@@ -9,7 +9,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
 | `data/01-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
-| `data/02-bookTags.csv`       | Tag definitions (code, label, badge colors)                                |
+| `data/02-bookTags.csv`       | Tag definitions (code, label) — colours auto‑assigned from palette         |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `css/styles.css`             | Shared styles: themes, topBar, sidebar, modals, responsive                 |
@@ -243,11 +243,8 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | ------- | -------------------------------------------------------- |
 | `code`  | Tag code — matches a hyphen‑separated prefix in bookCode |
 | `label` | Display name for the badge                               |
-| `color` | Text color (CSS hex)                                     |
-| `bg`    | Background color (CSS hex)                               |
-| `hue`   | Colour family name — for humans; not read by the app     |
 
-Pick colours from distinct hue zones so no two tags look alike. Check the `hue` column in `02-bookTags.csv` — it lists every reserved colour, including the PIN chip. Current palette: red (PIN), indigo (AQD), emerald (HDT), amber (QRN), brown (QRNU, DRFT), violet (RDF), slate (DFK), cyan (IH), orange (AKLQ), blue (ATHR), sky (ZKR).
+Tags are auto‑assigned a colour from a 12‑slot palette defined in `styles.css`. Each slot has light, sepia, and dark‑mode variants — no colour‑picking needed. Adding a new tag is just `code,label`. The PIN entry exists only to document the pin chip colour; it is not used as a book‑code prefix.
 
 ### data/{bookCode}.csv
 
@@ -354,12 +351,12 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 ### Add a new tag category
 
-Add one row to `data/02-bookTags.csv`. Check the `hue` column so the colour does not clash:
+Add one row to `data/02-bookTags.csv`. The `color`/`bg`/`hue` columns are optional — tags are auto‑assigned a colour from a 12‑slot palette with built‑in dark‑mode support. Just add `code` and `label`:
 ```csv
-code,label,color,bg,hue
-FQH,Fiqh,#b91c1c,#fef2f2,warm-red
+code,label
+FQH,Fiqh
 ```
-Use the tag code as a prefix in any `bookCode` (e.g. `FQH-usululFiqh`) — badges render automatically.
+To override the palette, set `color` and `bg` to specific hex values. Use the tag code as a prefix in any `bookCode` (e.g. `FQH-usululFiqh`) — badges render automatically.
 
 ### Add a new export format
 
@@ -412,7 +409,7 @@ All errors show visible messages in English:
 
 ### New tag category
 
-1. Add a row to `data/02-bookTags.csv`. Check the `hue` column first — avoid reusing a colour zone already claimed by another tag (or the `PIN` chip).
+1. Add a row to `data/02-bookTags.csv` with `code,label`. Colours are auto‑assigned from a 12‑slot palette — no need to pick hex values.
 1. Use the code as a prefix in any `bookCode` — badges render automatically.
 
 ## Key benefits

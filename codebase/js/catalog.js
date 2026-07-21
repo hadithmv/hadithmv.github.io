@@ -45,15 +45,19 @@ async function loadTagDefinitions() {
 
     var result = parseCSVWithHeader(csv);
 
-    // Build lookup map
+    // Build lookup map — assign palette slot to each tag (skipping PIN)
     tagDefinitionsCache = {};
+    var palIdx = 0;
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
       if (row.code) {
-        tagDefinitionsCache[row.code] = {
-          label: row.label || row.code,
+        var code = row.code;
+        var palette = (code === "PIN") ? -1 : (palIdx++ % 12);
+        tagDefinitionsCache[code] = {
+          label: row.label || code,
           color: row.color || "#333",
           bg: row.bg || "#f5f5f5",
+          palette: palette
         };
       }
     }
@@ -89,6 +93,7 @@ function extractTags(bookCode) {
       label: defs[code].label,
       color: defs[code].color,
       bg: defs[code].bg,
+      palette: defs[code].palette,
     }));
 }
 
@@ -426,7 +431,7 @@ function renderDashboard(bookNames) {
   var tagCounts = {};
   allVisible.forEach(function (b) {
     extractTags(b.bookCode).forEach(function (t) {
-      if (!tagCounts[t.code]) tagCounts[t.code] = { label: t.label, color: t.color, bg: t.bg, count: 0 };
+      if (!tagCounts[t.code]) tagCounts[t.code] = { label: t.label, palette: t.palette, count: 0 };
       tagCounts[t.code].count++;
     });
   });
@@ -444,7 +449,8 @@ function renderDashboard(bookNames) {
     var tc = tagCounts[code];
     var active = _dashFilter.tags.indexOf(code) !== -1;
     var chipTitle = active ? "Remove filter: " + tc.label : "Filter by " + tc.label;
-    return '<span class="dash-tag-chip' + (active ? ' active' : '') + '" data-tag="' + code + '" title="' + chipTitle + '" style="color:' + (active ? '#fff' : tc.color) + ';background:' + (active ? tc.color : tc.bg) + ';border-color:' + tc.color + '">' +
+    var palClass = (tc.palette >= 0) ? ' tag-palette-' + tc.palette : '';
+    return '<span class="dash-tag-chip' + (active ? ' active' : '') + palClass + '" data-tag="' + code + '" title="' + chipTitle + '">' +
       (active ? '<span class="chip-x">✕</span>' : '') + tagLabel(code, tc.label) + ' <small>(' + tc.count + ')</small></span>';
   }).join("");
   document.getElementById("dashboardTagChips").innerHTML = (pinsChipHTML + chipsHTML)
@@ -474,7 +480,7 @@ function renderDashboard(bookNames) {
         var pinnedBadge = isPinned(book.bookCode) ? '<span class="pin-badge" title="Pinned">📌 ޕިން</span>' : '';
         var tagHtml = (pinnedBadge || tags.length > 0)
           ? '<div class="dash-table-tags">' + pinnedBadge + tags.map(function (t) {
-              return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, 'en') + '" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
+              return '<span class="tag-badge' + (t.palette >= 0 ? ' tag-palette-' + t.palette : '') + '" title="Category: ' + tagLabel(t.code, t.label, 'en') + '">' + tagLabel(t.code, t.label) + '</span>';
             }).join("") + '</div>'
           : "";
         return '<tr data-href="reader.html?book=' + book.bookCode + '" title="' + book.bookCode + '">' +
@@ -497,7 +503,7 @@ function renderDashboard(bookNames) {
       var pinnedBadge = isPinned(book.bookCode) ? '<span class="pin-badge" title="Pinned">📌 ޕިން</span>' : '';
       var tagHtml = (pinnedBadge || tags.length > 0)
         ? '<div class="card-tags">' + pinnedBadge + tags.map(function (t) {
-            return '<span class="tag-badge" title="Category: ' + tagLabel(t.code, t.label, 'en') + '" style="color:' + t.color + ';background:' + t.bg + '">' + tagLabel(t.code, t.label) + '</span>';
+            return '<span class="tag-badge' + (t.palette >= 0 ? ' tag-palette-' + t.palette : '') + '" title="Category: ' + tagLabel(t.code, t.label, 'en') + '">' + tagLabel(t.code, t.label) + '</span>';
           }).join("") + '</div>'
         : "";
       return '<a href="reader.html?book=' + book.bookCode + '" class="book-card" title="' + book.bookCode + '">' +

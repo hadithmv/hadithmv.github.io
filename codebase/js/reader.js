@@ -52,7 +52,8 @@ initializePageWithMetadata(async function (metadata) {
           } else {
             label = tagLabel(t.code, t.label);
           }
-          return '<a href="index.html?tags=' + t.code + '" class="tag-badge" title="Show all ' + tagLabel(t.code, t.label, "en") + ' books" style="color:' + t.color + ';background:' + t.bg + '">' + label + '</a>';
+          var palClass = (t.palette >= 0) ? ' tag-palette-' + t.palette : '';
+          return '<a href="index.html?tags=' + t.code + '" class="tag-badge' + palClass + '" title="Show all ' + tagLabel(t.code, t.label, "en") + ' books">' + label + '</a>';
         }).join("");
       }
 
