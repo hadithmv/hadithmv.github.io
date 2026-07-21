@@ -158,7 +158,8 @@
 #dashboardViewToggle,
 #dashboardReset {
   box-sizing: border-box;
-  padding: 7px 10px;
+  /* padding: 7px 10px; */
+  padding: 1px 6px 3px 6px;
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 1.4;
@@ -289,7 +290,6 @@
 .dash-dropdown-item > .dd-col-remove {
   border-radius: 4px 0 0 4px;
 }
-
 
 .dd-col-idx {
   text-align: center;
@@ -475,7 +475,6 @@
   background: #3b0a0a;
   border-color: #7f1d1d;
 }
-
 
 .book-grid {
   display: grid;
