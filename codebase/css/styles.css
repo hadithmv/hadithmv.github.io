@@ -1949,11 +1949,14 @@ body:has(.modal-overlay.open) {
 /* Sticky chrome — always */
 #readerChrome {
   position: sticky;
-  top: 60px;
+  top: 62px;
   z-index: 50;
   background: var(--color-bg);
   padding: 12px 0 8px;
   border-bottom: 2px solid var(--color-card-hover-border);
+  /* Extend background to cover RDF table overflow (±36px) and seal gap above */
+  box-shadow: 36px 0 0 var(--color-bg), -36px 0 0 var(--color-bg),
+              0 -4px 0 4px var(--color-bg);
 }
 
 .focus-page-indicator {
