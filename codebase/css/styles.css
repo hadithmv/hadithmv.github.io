@@ -1960,8 +1960,10 @@ body:has(.modal-overlay.open) {
 #readerChrome::before {
   content: "";
   position: absolute;
-  top: 0; bottom: 0;
-  left: -50vw; right: -50vw;
+  top: 0;
+  bottom: 0;
+  left: -50vw;
+  right: -50vw;
   background: inherit;
   z-index: -1;
 }
@@ -1984,11 +1986,10 @@ body:has(.modal-overlay.open) {
 #readerContent {
   background: var(--color-reader-bg);
   border: none;
-  padding: 12px 36px 32px;
+  padding: 0 36px 32px;
   line-height: 1.9;
   font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
-  overflow-x: auto;
 }
 
 .reader-no-results {
@@ -2005,7 +2006,10 @@ body:has(.modal-overlay.open) {
 }
 
 /* Skip painting off-screen chunks — huge scroll perf boost for large books */
-.reader-chunk {
+/* NOTE: NOT applied to table rows (tr.reader-chunk) because content-visibility
+   breaks the table layout algorithm and causes severe jank. */
+#readerContent > .reader-chunk,
+.reader-chunk:not(tr) {
   content-visibility: auto;
 }
 .reader-row-num {
@@ -2143,21 +2147,88 @@ body:has(.modal-overlay.open) {
 }
 
 /* RDF table mode */
+.rdf-table-wrap {
+  overflow-x: hidden; /* fallback */
+  overflow-x: clip; /* clips overflow WITHOUT creating a scroll container → sticky th works */
+  margin: 0 -36px;
+  direction: rtl;
+}
+/* Top scrollbar — sits above the table, sticky so it stays visible on vertical scroll */
+.rdf-top-scroll {
+  position: sticky;
+  top: calc(var(--rdf-header-top, 62px) + 2px);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  margin: 0 -36px;
+  padding: 3px 0 4px;
+  direction: rtl;
+  background: var(--color-reader-bg);
+}
+.rdf-top-scroll-inner {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: 0;
+}
+.rdf-top-scroll-inner::-webkit-scrollbar {
+  height: 10px;
+}
+.rdf-top-scroll-inner::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 5px;
+}
+.rdf-top-scroll-inner::-webkit-scrollbar-thumb:hover {
+  background: var(--color-card-hover-border);
+}
+.rdf-top-scroll-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+.rdf-top-scroll-spacer {
+  height: 1px;
+}
+
+/* Arrow buttons flanking the scrollbar */
+.rdf-scroll-arrow {
+  flex-shrink: 0;
+  padding: 0 4px;
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.rdf-scroll-arrow:hover {
+  color: var(--color-text);
+}
+
 .rdf-table {
-  width: calc(100% + 72px);
-  border-collapse: collapse;
+  width: 100%;
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 0.95rem;
   line-height: 1.8;
   direction: rtl;
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
-  margin: 0 -36px;
+  contain: layout style;
 }
 
 .rdf-table td {
   padding: 6px 10px;
-  border: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
   vertical-align: top;
   text-align: right;
+  overflow-wrap: break-word;
+}
+/* Left border on first column (rightmost in RTL) */
+.rdf-table td:first-child {
+  border-left: 1px solid var(--color-border);
+  white-space: nowrap;
+  width: 60px;
 }
 
 /* Sharh cells in table mode — smaller text + separator from matn */
@@ -2170,25 +2241,27 @@ body:has(.modal-overlay.open) {
   background: var(--color-nav-btn-hover-bg);
 }
 
-.rdf-table td:first-child {
-  white-space: nowrap;
-  width: 1%;
-}
-
 .rdf-table thead {
-  position: sticky;
-  top: var(--rdf-header-top, 62px);
   z-index: 5;
-  background: var(--color-reader-bg);
 }
 .rdf-table th {
+  position: sticky;
+  top: var(--rdf-header-top, 62px);
   padding: 8px 10px;
   background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
   font-weight: 700;
   font-size: 0.85rem;
   color: var(--color-text);
   text-align: right;
+  z-index: 5;
+  white-space: nowrap;
+}
+.rdf-table th:first-child {
+  border-left: 1px solid var(--color-border);
+  width: 60px;
 }
 .rdf-table thead tr {
   box-shadow: 0 1px 0 0 var(--color-card-hover-border);
@@ -2209,7 +2282,7 @@ body:has(.modal-overlay.open) {
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   #readerContent {
-    padding: 8px 16px 20px;
+    padding: 0 16px 20px;
     font-size: var(--reader-font-size-mobile, 1.1rem);
     line-height: 2;
   }

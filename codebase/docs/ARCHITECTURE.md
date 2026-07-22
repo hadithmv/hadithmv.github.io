@@ -83,6 +83,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 │  Toolbar: Pin, Copy, Tashkeel, Share, View, Reset, Export, etc.  │
 │  Pagination: ސަފްހާ: << < 10/[5] > >>  Subtitle + Tags     │
 ├─ Reader content (scrollable) ────────────────────────────────┤
+│  [Table mode only] ▶ ════ horizontal scrollbar ════ ◀       │
 │  #1                                                          │
 │  head …                                (large, bold)         │
 │  kitab …                               (medium, bold)        │
@@ -116,11 +117,21 @@ foot, footDV        reader-footnotes        0.9rem muted colour
 
 ### Infinite scroll
 
-Content loads in chunks of 2 rows. Sentinel elements at top and bottom trigger `IntersectionObserver` to prepend/append more rows when scrolling near edges. Pagination updates based on the most visible row.
+Content loads in chunks: 25 rows (card mode) or 30 rows (table mode), with 50 rows in the initial table load. Sentinel elements at top and bottom trigger `IntersectionObserver` to prepend/append more rows when scrolling near edges. Pagination updates based on the most visible row (detected via `document.elementFromPoint()` for O(1) lookup, with a linear-scan fallback).
 
 ### Pagination
 
-Simple: First (`<<`) / Prev (`<`) / a `<select>` dropdown of all rows / Next (`>`) / Last (`>>`). The select shows `10 / [5]` (total rows / current row). All buttons and the select share the same height. Centered on mobile. `ސަފްހާ:` label sits to the right.
+First (`<<`) / Prev (`<`) / a number input showing current row / Next (`>`) / Last (`>>`). The input shows `total / [current]` and accepts direct row-number entry. All buttons and the input share the same height. Pagination updates are throttled to ~8 fps and skip DOM writes when values haven't changed.
+
+### Table mode (RDF view)
+
+When toggled via the View button (`v` key), the reader switches from vertical cards to a horizontal `<table>` with `table-layout: auto`. Columns size to content — narrow columns for short text, wide for long text. The first column (row number) has a 60px minimum width and `white-space: nowrap`; other columns have no fixed width, letting the browser distribute space naturally.
+
+**Horizontal scrollbar.** When column content exceeds the viewport width, a sticky horizontal scrollbar appears above the table. It sits below the reader chrome (`position: sticky; top: var(--rdf-header-top) + 2px; z-index: 6`) so it remains visible during vertical scrolling. Arrow buttons (`▶` back / `◀` forward) flank the scrollbar and scroll one column width (150px) per click with a custom `requestAnimationFrame` ease-out animation. Shift+wheel on the table area also drives horizontal scroll. The scrollbar row is hidden entirely when the table fits without overflow.
+
+**Sticky headers.** `<th>` elements use `position: sticky`. When the horizontal scrollbar is visible their `top` offset is increased by 19px to sit below the scrollbar; when hidden they sit directly below the chrome. The offset is set dynamically via JS.
+
+**Performance.** `table-layout: auto` lets the browser size columns by content. `border-collapse: separate; border-spacing: 0` avoids the expensive collapsing-border algorithm. `contain: layout style` isolates the table's layout from the rest of the page. `content-visibility: auto` is explicitly NOT applied to `<tr>` elements (it breaks the table layout algorithm). The table wrapper uses `overflow-x: clip` (fallback: `hidden`) so sticky positioning is not trapped by a scroll container.
 
 ### Search
 

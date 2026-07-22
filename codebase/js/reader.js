@@ -395,7 +395,7 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function loadInitial() {
-        var initialRows = isTableMode ? 150 : ROWS_PER_CHUNK * 3;
+        var initialRows = isTableMode ? 50 : ROWS_PER_CHUNK * 3;
         var end = Math.min(initialRows, filteredData.length);
         loadedStart = 0;
         loadedEnd = end;
@@ -410,9 +410,11 @@ initializePageWithMetadata(async function (metadata) {
             thead += "</tr></thead>";
           }
           readerContent.innerHTML =
-            `<table class="rdf-table">${thead}<tbody id="rdfBody"></tbody></table>` +
+            `<div class="rdf-top-scroll" id="rdfTopScroll"><button class="rdf-scroll-arrow" id="rdfScrollBack" title="Back to beginning">▶</button><div class="rdf-top-scroll-inner"><div class="rdf-top-scroll-spacer" id="rdfTopScrollInner"></div></div><button class="rdf-scroll-arrow" id="rdfScrollFwd" title="More columns">◀</button></div>` +
+            `<div class="rdf-table-wrap" id="rdfTableWrap"><table class="rdf-table">${thead}<tbody id="rdfBody"></tbody></table></div>` +
             `<div id="sentinelBottom" class="reader-sentinel"></div>`;
           document.getElementById("rdfBody").innerHTML = renderTableRows(0, end);
+          setupTableScroll();
         } else {
           readerContent.innerHTML =
             `<div id="sentinelTop" class="reader-sentinel"></div>` +
@@ -434,20 +436,159 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function expandIfOverflowing() {
-        var rw = document.getElementById("readerWrapper");
-        var rc = document.getElementById("readerContent");
-        if (!rw || !rc) return;
-        if (rc.scrollWidth > rw.clientWidth) {
-          rw.style.maxWidth = (window.innerWidth - 20) + "px";
-        }
+        // Defer read to rAF to avoid forced sync layout during row insertion
+        requestAnimationFrame(function () {
+          var rw = document.getElementById("readerWrapper");
+          var rc = document.getElementById("readerContent");
+          if (!rw || !rc) return;
+          if (rc.scrollWidth > rw.clientWidth) {
+            rw.style.maxWidth = (window.innerWidth - 20) + "px";
+          }
+        });
       }
+
+      // ── Top scrollbar + horizontal scroll setup ──────────────
+      function setupTableScroll() {
+        var topScrollOuter = document.getElementById("rdfTopScroll");
+        var tableWrap = document.getElementById("rdfTableWrap");
+        var topSpacer = document.getElementById("rdfTopScrollInner");
+        // The scrollbar lives on the inner div (so padding on outer stays clean)
+        var topScroll = topScrollOuter ? topScrollOuter.querySelector(".rdf-top-scroll-inner") : null;
+        if (!topScroll || !tableWrap) return;
+
+        function getTable() {
+          return tableWrap.querySelector(".rdf-table");
+        }
+
+        // Compute and apply table width: first col 60px, rest 150px each.
+        // If total exceeds wrapper width, table overflows → scrollbar appears.
+        function applyTableWidth() {
+          var table = getTable();
+          if (!table) return 0;
+          var visCols = 0;
+          if (headerRow) {
+            for (var j = 0; j < headerRow.length; j++) {
+              if (hiddenColumns.indexOf(j) === -1) visCols++;
+            }
+          }
+          if (visCols === 0) return 0;
+          // Estimate: first col 60px, others 150px each (used only for overflow check)
+          var colWidth = 60 + (visCols - 1) * 150;
+          // Reset to CSS defaults — let table-layout:auto size columns to content
+          table.style.width = "";
+          var ths = table.querySelectorAll("thead th");
+          if (ths.length > 0) {
+            ths[0].style.width = "60px"; // row-number column stays narrow
+            for (var k = 1; k < ths.length; k++) {
+              ths[k].style.width = ""; // let browser size by content
+            }
+          }
+          return colWidth;
+        }
+
+        function refreshScrollWidth(colWidth) {
+          var table = getTable();
+          if (!table || !topSpacer) return;
+          // Force overflow width if columns demand it
+          var wrapW = tableWrap.clientWidth;
+          if (wrapW > 0 && colWidth > wrapW) {
+            table.style.width = colWidth + "px";
+          }
+          var w = parseInt(table.style.width) || table.scrollWidth;
+          topSpacer.style.width = (w || table.scrollWidth) + "px";
+          // Hide the whole scrollbar row when table fits without overflow
+          var needed = table.scrollWidth > tableWrap.clientWidth + 1;
+          topScrollOuter.style.display = needed ? "" : "none";
+          // Only clip overflow when scrollbar is needed (prevents edge clipping when table fits)
+          tableWrap.style.overflowX = needed ? "" : "visible";
+          // Adjust th sticky offset: only reserve space when scrollbar is visible
+          var ths = table.querySelectorAll("thead th");
+          var thTop = needed ? "calc(var(--rdf-header-top, 62px) + 19px)" : "var(--rdf-header-top, 62px)";
+          for (var i = 0; i < ths.length; i++) {
+            ths[i].style.setProperty("top", thTop);
+          }
+        }
+
+        function syncTableTransform() {
+          var table = getTable();
+          if (!table) return;
+          // Normalise RTL scroll position to a 0–1 fraction.
+          // Chrome: scrollLeft ∈ [0, maxScroll]   Firefox: scrollLeft ∈ [-maxScroll, 0]
+          var maxScroll = topScroll.scrollWidth - topScroll.clientWidth;
+          if (maxScroll <= 0) { table.style.transform = ""; return; }
+          var fraction = Math.abs(topScroll.scrollLeft) / maxScroll;
+          var tableOverflow = table.scrollWidth - tableWrap.clientWidth;
+          if (tableOverflow <= 0) { table.style.transform = ""; return; }
+          var offset = fraction * tableOverflow;
+          table.style.transform = "translateX(" + offset + "px)";
+        }
+
+        // Apply width first, then set up scroll width (deferred for layout)
+        var _colWidth = applyTableWidth();
+        requestAnimationFrame(function () {
+          refreshScrollWidth(_colWidth);
+        });
+
+        // Scroll the table when the top scrollbar moves
+        topScroll.addEventListener("scroll", syncTableTransform);
+
+        // Arrow buttons: smooth-scroll one column width per click
+        var COL_STEP = 150;
+        function smoothScrollBy(delta) {
+          var start = topScroll.scrollLeft;
+          var target = start + delta;
+          var duration = 250; // ms
+          var startTime = performance.now();
+          function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+          function animate(now) {
+            var elapsed = now - startTime;
+            var t = Math.min(elapsed / duration, 1);
+            topScroll.scrollLeft = start + delta * easeOut(t);
+            if (t < 1) requestAnimationFrame(animate);
+          }
+          requestAnimationFrame(animate);
+        }
+        var scrollFwdBtn = document.getElementById("rdfScrollFwd");
+        var scrollBackBtn = document.getElementById("rdfScrollBack");
+        if (scrollFwdBtn) {
+          scrollFwdBtn.addEventListener("click", function () {
+            smoothScrollBy(-COL_STEP);
+          });
+        }
+        if (scrollBackBtn) {
+          scrollBackBtn.addEventListener("click", function () {
+            smoothScrollBy(COL_STEP);
+          });
+        }
+
+        // Shift+wheel on the wrapper → horizontal scroll
+        tableWrap.addEventListener("wheel", function (e) {
+          if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            e.preventDefault();
+            var amount = e.deltaX || e.deltaY;
+            topScroll.scrollLeft += amount;
+          }
+        }, { passive: false });
+
+        // Refresh when columns are toggled
+        window.__rdfRefreshScrollWidth = function () {
+          var cw = applyTableWidth();
+          requestAnimationFrame(function () {
+            refreshScrollWidth(cw);
+          });
+        };
+      }
+
       function appendNext() {
         if (loadedEnd >= filteredData.length) return;
-        var chunkSize = isTableMode ? 50 : ROWS_PER_CHUNK;
+        var chunkSize = isTableMode ? 30 : ROWS_PER_CHUNK;
         var nextEnd = Math.min(loadedEnd + chunkSize, filteredData.length);
         if (isTableMode) {
           var body = document.getElementById("rdfBody");
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
+          requestAnimationFrame(function () {
+            if (window.__rdfRefreshScrollWidth) window.__rdfRefreshScrollWidth();
+          });
         } else {
           var sentinel = document.getElementById("sentinelBottom");
           sentinel.insertAdjacentHTML("beforebegin", `<div class="reader-divider"></div>` + renderChunkHTML(loadedEnd, nextEnd));
@@ -458,11 +599,14 @@ initializePageWithMetadata(async function (metadata) {
 
       function prependPrev() {
         if (loadedStart <= 0) return;
-        var chunkSize = isTableMode ? 50 : ROWS_PER_CHUNK;
+        var chunkSize = isTableMode ? 30 : ROWS_PER_CHUNK;
         var nextStart = Math.max(0, loadedStart - chunkSize);
         if (isTableMode) {
           var body = document.getElementById("rdfBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
+          requestAnimationFrame(function () {
+            if (window.__rdfRefreshScrollWidth) window.__rdfRefreshScrollWidth();
+          });
         } else {
           var prevH = readerContent.scrollHeight;
           var sentinel = document.getElementById("sentinelTop");
@@ -473,16 +617,25 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function visiblePageIndex() {
+        // Fast path: use elementFromPoint at viewport centre (O(1) vs O(n) scan)
+        var viewMid = window.innerHeight / 2;
+        var el = document.elementFromPoint(window.innerWidth / 2, viewMid);
+        if (el) {
+          var row = el.closest('.reader-chunk');
+          if (row && row.dataset.row) return parseInt(row.dataset.row);
+        }
+        // Fallback: linear scan (rarely reached)
         var chunks = readerContent.querySelectorAll(".reader-chunk");
         if (chunks.length === 0) return 0;
         var best = 0, bestTop = Infinity;
         var viewH = window.innerHeight;
-        var viewMid = viewH / 2;
         for (var i = 0; i < chunks.length; i++) {
           var cr = chunks[i].getBoundingClientRect();
           var mid = cr.top + cr.height / 2;
           var dist = Math.abs(mid - viewMid);
           if (dist < bestTop) { bestTop = dist; best = parseInt(chunks[i].dataset.row); }
+          // Early exit: once we've passed the viewport, remaining rows are further away
+          if (cr.top > viewH && dist > bestTop) break;
         }
         return best;
       }
@@ -518,17 +671,27 @@ initializePageWithMetadata(async function (metadata) {
       // ── Pagination UI ───────────────────────────────────────
       function pageSelectHTML(current, total) {
         if (total <= 1) return "";
-        var opts = "";
-        for (var p = 1; p <= total; p++) {
-          opts += `<option value="${p}">${p}</option>`;
-        }
-        return `<span class="page-of-label">${total} / </span><select class="page-strip-sel toolbar-select" style="width:58px;text-align:center;text-align-last:center" autocomplete="off">${opts}</select>`;
+        // Number input is O(1) — a <select> with one <option> per row is O(n) and
+        // kills performance on large books (5 000+ <option> elements rendered twice).
+        return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:58px;text-align:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
       }
 
+      var _lastPagUpdate = 0;
+      var _lastPagCur = -1;
+      var _lastPagTotal = -1;
       function updatePagination() {
+        var now = performance.now();
+        if (now - _lastPagUpdate < 120) return; // throttle to ~8 fps — enough for page indicator
+        _lastPagUpdate = now;
+
         const total = filteredData.length;
         const visibleRow = visiblePageIndex();
         const cur = visibleRow + 1; // 1-based row number
+
+        // Skip DOM updates if nothing changed
+        if (cur === _lastPagCur && total === _lastPagTotal) return;
+        _lastPagCur = cur;
+        _lastPagTotal = total;
 
         var selHTML = pageSelectHTML(cur, total);
         var label = t("pageOf");
@@ -539,9 +702,8 @@ initializePageWithMetadata(async function (metadata) {
         var plb = document.getElementById("pageLabelBottom");
         if (plb) plb.textContent = label;
 
-        var vRow2 = visiblePageIndex();
-        var atFirst = vRow2 === 0;
-        var atLast = vRow2 >= filteredData.length - 1;
+        var atFirst = visibleRow === 0;
+        var atLast = visibleRow >= filteredData.length - 1;
         [
           "firstBtn",
           "prevBtn",
@@ -1638,7 +1800,7 @@ initializePageWithMetadata(async function (metadata) {
       observeSentinels();
       updateRdfHeaderTop();
       expandIfOverflowing();
-      window.addEventListener("resize", function () { updateRdfHeaderTop(); expandIfOverflowing(); });
+      window.addEventListener("resize", function () { updateRdfHeaderTop(); expandIfOverflowing(); if (window.__rdfRefreshScrollWidth) window.__rdfRefreshScrollWidth(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {
