@@ -268,7 +268,8 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 - `-HDN` suffix → book hidden from dashboard
 - `-DSC` suffix → rows displayed in reverse order; stripped from derived `titleEN`
 - When adding a new suffix flag, add it to `$suffixFlags` in `03-updateBookMeta.ps1` so `titleEN` is generated correctly
-- `KNSH-` prefix → first line of `body*` columns styled as a heading
+- `KNSH-` prefix → first line of `body*` columns styled as a heading; `titleEN` gets a `Kunnaasha ` prefix
+- `RDF-` prefix (without `AQD-`) → `titleEN` gets a `Radheef ` prefix
 
 ## Development conventions
 

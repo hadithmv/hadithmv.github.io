@@ -60,8 +60,9 @@ Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Colours are
 - `DRFT-` prefix — marks a draft book (⚠️ badge), still visible on dashboard
 - `-HDN` suffix — hides the book from the dashboard; as a column header suffix (e.g. `notes-HDN`), hides that column by default in the reader (still toggleable back on)
 - `-DSC` suffix — displays rows in reverse order (last‑to‑first), used for descending collections
-- `KNSH-` prefix — first line of `body*` columns styled as a heading
-- Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books. When adding a new suffix flag, also add it to `$suffixFlags` in that script so it's stripped from `titleEN`.
+- `KNSH-` prefix — first line of `body*` columns styled as a heading; `titleEN` auto‑prefixed with "Kunnaasha "
+- `RDF-` prefix (without `AQD-`) — `titleEN` auto‑prefixed with "Radheef "
+- Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books. When adding a new suffix or prefix rule, update `Get-TitlePrefix` and `$suffixFlags` in that script.
 
 ## Data CSV format
 
@@ -98,7 +99,7 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 - `ـــــــــــ` tatweel line before columns whose header starts with `foot`
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown; columns whose header ends with `-HDN` start hidden
-- **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table)
+- **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table); table header row sticks below the toolbar when scrolling
 - Consecutive blank lines within cells collapsed to single line breaks (handles both `\n` and `\r\n` endings)
 
 ### Pagination

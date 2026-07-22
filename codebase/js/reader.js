@@ -1046,6 +1046,15 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Toolbar: focus mode ──────────────────────────────────
       var btnFocus = document.getElementById("btnFocus");
+      function updateRdfHeaderTop() {
+        requestAnimationFrame(function () {
+          var topBar = document.getElementById("topBar");
+          var chrome = document.getElementById("readerChrome");
+          var top = (topBar ? topBar.offsetHeight : 62);
+          if (chrome && chrome.offsetHeight > 0) top += chrome.offsetHeight;
+          document.documentElement.style.setProperty("--rdf-header-top", (top - 1) + "px");
+        });
+      }
       function setFocus(on) {
         var html = document.documentElement;
         var btn = document.getElementById("btnFocus");
@@ -1060,6 +1069,8 @@ initializePageWithMetadata(async function (metadata) {
           if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         }
         try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
+        // Wait for chrome collapse/expand transition (~300ms) then recalc
+        setTimeout(updateRdfHeaderTop, 350);
       }
       if ((function(){try{return localStorage.getItem("focus")==="1"}catch(_){return false}})()) setFocus(true);
       btnFocus.addEventListener("click", function () {
@@ -1616,6 +1627,8 @@ initializePageWithMetadata(async function (metadata) {
       // ── Initial render ──────────────────────────────────────
       loadInitial();
       observeSentinels();
+      updateRdfHeaderTop();
+      window.addEventListener("resize", function () { updateRdfHeaderTop(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {

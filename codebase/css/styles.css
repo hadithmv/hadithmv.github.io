@@ -956,24 +956,59 @@ body:has(.modal-overlay.open) {
   height: 0.85rem;
   margin-bottom: 8px;
 }
-.skeleton-line:nth-child(2) { width: 100%; }
-.skeleton-line:nth-child(3) { width: 95%; }
-.skeleton-line:nth-child(4) { width: 88%; }
-.skeleton-line:nth-child(5) { width: 92%; }
-.skeleton-line:nth-child(6) { width: 45%; }
-.skeleton-line:nth-child(7) { width: 100%; }
-.skeleton-line:nth-child(8) { width: 92%; }
-.skeleton-line:nth-child(9) { width: 35%; }
-.skeleton-line:nth-child(10) { width: 20%; margin-top: 16px; }
-.skeleton-line:nth-child(11) { width: 100%; }
-.skeleton-line:nth-child(12) { width: 85%; }
-.skeleton-line:nth-child(13) { width: 92%; }
-.skeleton-line:nth-child(14) { width: 40%; }
-.skeleton-line:nth-child(15) { width: 25%; margin-top: 16px; }
+.skeleton-line:nth-child(2) {
+  width: 100%;
+}
+.skeleton-line:nth-child(3) {
+  width: 95%;
+}
+.skeleton-line:nth-child(4) {
+  width: 88%;
+}
+.skeleton-line:nth-child(5) {
+  width: 92%;
+}
+.skeleton-line:nth-child(6) {
+  width: 45%;
+}
+.skeleton-line:nth-child(7) {
+  width: 100%;
+}
+.skeleton-line:nth-child(8) {
+  width: 92%;
+}
+.skeleton-line:nth-child(9) {
+  width: 35%;
+}
+.skeleton-line:nth-child(10) {
+  width: 20%;
+  margin-top: 16px;
+}
+.skeleton-line:nth-child(11) {
+  width: 100%;
+}
+.skeleton-line:nth-child(12) {
+  width: 85%;
+}
+.skeleton-line:nth-child(13) {
+  width: 92%;
+}
+.skeleton-line:nth-child(14) {
+  width: 40%;
+}
+.skeleton-line:nth-child(15) {
+  width: 25%;
+  margin-top: 16px;
+}
 
 @keyframes skeleton-pulse {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
 .error {
@@ -983,7 +1018,6 @@ body:has(.modal-overlay.open) {
   border-radius: 4px;
   margin: 20px;
 }
-
 
 #pageTags .tag-badge,
 .tag-badge {
@@ -1330,7 +1364,9 @@ body:has(.modal-overlay.open) {
   overflow-x: auto;
   scrollbar-width: none;
 }
-.reader-toolbar::-webkit-scrollbar { display: none; }
+.reader-toolbar::-webkit-scrollbar {
+  display: none;
+}
 
 .toolbar-group {
   display: flex;
@@ -1572,7 +1608,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   position: relative;
-  padding: 0 30px;   /* room for 24px arrows + 6px gap on each side */
+  padding: 0 30px; /* room for 24px arrows + 6px gap on each side */
 }
 /* The row itself scrolls — wrap just provides arrow space */
 .h-scroll-wrap .reader-toolbar,
@@ -1584,7 +1620,9 @@ body:has(.modal-overlay.open) {
   margin: 0;
 }
 .h-scroll-wrap .reader-toolbar::-webkit-scrollbar,
-.h-scroll-wrap .reader-nav::-webkit-scrollbar { display: none; }
+.h-scroll-wrap .reader-nav::-webkit-scrollbar {
+  display: none;
+}
 
 .h-scroll-wrap .scroll-arrow {
   position: absolute;
@@ -1605,10 +1643,20 @@ body:has(.modal-overlay.open) {
   transition: color 0.15s ease;
   z-index: 5;
 }
-.scroll-arrow-start { left: 2px; }
-.scroll-arrow-end   { right: 2px; }
-[dir="rtl"] .scroll-arrow-start { left: auto; right: 2px; }
-[dir="rtl"] .scroll-arrow-end   { right: auto; left: 2px; }
+.scroll-arrow-start {
+  left: 2px;
+}
+.scroll-arrow-end {
+  right: 2px;
+}
+[dir="rtl"] .scroll-arrow-start {
+  left: auto;
+  right: 2px;
+}
+[dir="rtl"] .scroll-arrow-end {
+  right: auto;
+  left: 2px;
+}
 
 .h-scroll-wrap .scroll-arrow:hover {
   color: var(--color-text);
@@ -1630,7 +1678,9 @@ body:has(.modal-overlay.open) {
   overflow-x: auto;
   scrollbar-width: none;
 }
-.reader-nav::-webkit-scrollbar { display: none; }
+.reader-nav::-webkit-scrollbar {
+  display: none;
+}
 .nav-pages {
   display: flex;
   align-items: center;
@@ -2110,6 +2160,12 @@ body:has(.modal-overlay.open) {
   width: 1%;
 }
 
+.rdf-table thead {
+  position: sticky;
+  top: var(--rdf-header-top, 62px);
+  z-index: 5;
+  background: var(--color-reader-bg);
+}
 .rdf-table th {
   padding: 8px 10px;
   background: var(--color-nav-btn-bg);
@@ -2118,9 +2174,9 @@ body:has(.modal-overlay.open) {
   font-size: 0.85rem;
   color: var(--color-text);
   text-align: right;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+}
+.rdf-table thead tr {
+  box-shadow: 0 1px 0 0 var(--color-card-hover-border);
 }
 
 /* Infinite scroll sentinels */
