@@ -2249,7 +2249,7 @@ body:has(.modal-overlay.open) {
   top: var(--rdf-header-top, 62px);
   padding: 8px 10px;
   background: var(--color-nav-btn-bg);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-divider-ornament);
   border-right: 1px solid var(--color-border);
   border-top: 1px solid var(--color-border);
   font-weight: 700;
@@ -2262,9 +2262,6 @@ body:has(.modal-overlay.open) {
 .rdf-table th:first-child {
   border-left: 1px solid var(--color-border);
   width: 60px;
-}
-.rdf-table thead tr {
-  box-shadow: 0 1px 0 0 var(--color-card-hover-border);
 }
 
 /* Infinite scroll sentinels */
