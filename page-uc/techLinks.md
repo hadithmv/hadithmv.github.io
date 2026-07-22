@@ -532,11 +532,14 @@ ShareX
       - icons in context menu: on
 
 - anydesk
+  - installation (click the purple second card in dashboard)
+    - install anydesk printer: off
+    - accept and install
   - settings, unlock
     - security, access
       - unattended access
         - set password
-        - allow other devices to save login: off
+        - allow other devices to save login: off?
 
 - advanced systemcare
   - when running a care scan, set to auto fix
@@ -1514,6 +1517,7 @@ Zikuru
   - general
     - gridlines: golden ratio, center mark
     - shutter sound: off
+- change weekday start from monday to sunday?
 
 <!-- TOC --><a name="other-settings"></a>
 
@@ -1579,6 +1583,10 @@ Zikuru
   - set download folder? -->
 - sign in to play console
 - add recovery email for new google account
+- google translate
+  - download offline languages?
+- google maps
+  - download offline map
 - restore social media app backups
   - whatsapp → verify number → restore when prompted
   - whatsapp business too
@@ -1919,7 +1927,7 @@ Zikuru
   - check if calls and SMS working on sims
   - block / mute sms from numbers
 - restart phone to ensure everything is running smoothly?
-- set alarms
+- set alarms, refer to old alarm screenshots
 - keep old phone around atleast a month until everything is tested and working on new device
 - factory reset old phone after confirming everything is on new device
 - clean old phone and store away
