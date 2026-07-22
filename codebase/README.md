@@ -97,7 +97,7 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 - `ـــــــــــ` tatweel line before columns whose header starts with `foot`
 - Infinite scroll — content loads automatically as you scroll
 - All columns toggleable via a dropdown; columns whose header ends with `-HDN` start hidden
-- **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table); table header row sticks below the toolbar when scrolling
+- **View toggle** — switch between vertical card view and horizontal table view (RDF/dictionary books default to table on desktop, card on mobile); table header row sticks below the toolbar when scrolling
 - Consecutive blank lines within cells collapsed to single line breaks (handles both `\n` and `\r\n` endings)
 
 ### Pagination

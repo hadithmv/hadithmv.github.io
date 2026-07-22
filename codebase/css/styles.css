@@ -1955,8 +1955,10 @@ body:has(.modal-overlay.open) {
   padding: 12px 0 8px;
   border-bottom: 2px solid var(--color-card-hover-border);
   /* Extend background to cover RDF table overflow (±36px) and seal gap above */
-  box-shadow: 36px 0 0 var(--color-bg), -36px 0 0 var(--color-bg),
-              0 -4px 0 4px var(--color-bg);
+  box-shadow:
+    36px 0 0 var(--color-bg),
+    -36px 0 0 var(--color-bg),
+    0 -4px 0 4px var(--color-bg);
 }
 
 .focus-page-indicator {
@@ -2029,7 +2031,7 @@ body:has(.modal-overlay.open) {
 .reader-divider::after {
   content: "◆";
   position: relative;
-  top: -0.35em;
+  top: -0.2em;
   font-size: 0.55rem;
   color: var(--color-divider-ornament);
   background: var(--color-reader-bg);

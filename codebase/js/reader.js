@@ -275,7 +275,7 @@ initializePageWithMetadata(async function (metadata) {
         return t;
       }
 
-      var isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0;
+      var isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600;
       var btnViewToggle = document.getElementById("btnViewToggle");
       btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
       btnViewToggle.addEventListener("click", function () {
@@ -1458,7 +1458,7 @@ initializePageWithMetadata(async function (metadata) {
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
         // Reset table mode to default for this book
-        isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0;
+        isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600;
         if (btnViewToggle) btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
         // Go to page 1 without scrolling
         rebuildAll();
