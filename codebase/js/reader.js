@@ -115,7 +115,7 @@ initializePageWithMetadata(async function (metadata) {
         },
       };
 
-      var ROWS_PER_CHUNK = 2;
+      var ROWS_PER_CHUNK = 25;
       let hideTashkeel = LS.get("hideTashkeel", false);
       let hiddenColumns = LS.get("hiddenColumns", []);
 
@@ -395,7 +395,7 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function loadInitial() {
-        var initialRows = isTableMode ? 30 : ROWS_PER_CHUNK * 3;
+        var initialRows = isTableMode ? 150 : ROWS_PER_CHUNK * 3;
         var end = Math.min(initialRows, filteredData.length);
         loadedStart = 0;
         loadedEnd = end;
@@ -433,9 +433,17 @@ initializePageWithMetadata(async function (metadata) {
         return t.trim();
       }
 
+      function expandIfOverflowing() {
+        var rw = document.getElementById("readerWrapper");
+        var rc = document.getElementById("readerContent");
+        if (!rw || !rc) return;
+        if (rc.scrollWidth > rw.clientWidth) {
+          rw.style.maxWidth = (window.innerWidth - 20) + "px";
+        }
+      }
       function appendNext() {
         if (loadedEnd >= filteredData.length) return;
-        var chunkSize = isTableMode ? 10 : ROWS_PER_CHUNK;
+        var chunkSize = isTableMode ? 50 : ROWS_PER_CHUNK;
         var nextEnd = Math.min(loadedEnd + chunkSize, filteredData.length);
         if (isTableMode) {
           var body = document.getElementById("rdfBody");
@@ -445,11 +453,12 @@ initializePageWithMetadata(async function (metadata) {
           sentinel.insertAdjacentHTML("beforebegin", `<div class="reader-divider"></div>` + renderChunkHTML(loadedEnd, nextEnd));
         }
         loadedEnd = nextEnd;
+        expandIfOverflowing();
       }
 
       function prependPrev() {
         if (loadedStart <= 0) return;
-        var chunkSize = isTableMode ? 10 : ROWS_PER_CHUNK;
+        var chunkSize = isTableMode ? 50 : ROWS_PER_CHUNK;
         var nextStart = Math.max(0, loadedStart - chunkSize);
         if (isTableMode) {
           var body = document.getElementById("rdfBody");
@@ -1599,7 +1608,7 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Settings reset from modal → re-render ─────────────
       document.addEventListener("readerset", function () {
-        ROWS_PER_CHUNK = 1;
+        ROWS_PER_CHUNK = 25;
         selRowsPerPage.value = 1;
         hideTashkeel = false;
         btnTashkeel.classList.remove("active");
@@ -1628,7 +1637,8 @@ initializePageWithMetadata(async function (metadata) {
       loadInitial();
       observeSentinels();
       updateRdfHeaderTop();
-      window.addEventListener("resize", function () { updateRdfHeaderTop(); });
+      expandIfOverflowing();
+      window.addEventListener("resize", function () { updateRdfHeaderTop(); expandIfOverflowing(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {

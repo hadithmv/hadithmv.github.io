@@ -1954,11 +1954,16 @@ body:has(.modal-overlay.open) {
   background: var(--color-bg);
   padding: 12px 0 8px;
   border-bottom: 2px solid var(--color-card-hover-border);
-  /* Extend background to cover RDF table overflow (±36px) and seal gap above */
-  box-shadow:
-    36px 0 0 var(--color-bg),
-    -36px 0 0 var(--color-bg),
-    0 -4px 0 4px var(--color-bg);
+  overflow: hidden;
+}
+/* Extend chrome background to full viewport width */
+#readerChrome::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -50vw; right: -50vw;
+  background: inherit;
+  z-index: -1;
 }
 
 .focus-page-indicator {
@@ -1983,6 +1988,7 @@ body:has(.modal-overlay.open) {
   line-height: 1.9;
   font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
+  overflow-x: auto;
 }
 
 .reader-no-results {
@@ -1998,6 +2004,10 @@ body:has(.modal-overlay.open) {
     sans-serif;
 }
 
+/* Skip painting off-screen chunks — huge scroll perf boost for large books */
+.reader-chunk {
+  content-visibility: auto;
+}
 .reader-row-num {
   font-size: 1rem;
   font-weight: 800;
