@@ -206,7 +206,7 @@ const STRINGS = {
   tagAKLQ: { dv: "އަޚްލާގު", en: "Akhlaq", ar: "أخلاق" },
   tagATHR: { dv: "އާޘާރު", en: "Athar", ar: "آثار" },
   tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
-  tagQRNU: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
+  tagQRUL: { dv: "ގުރްއާނުގެ އިލްމު", en: "Quran Sciences", ar: "علوم القرآن" },
   tagRDF: { dv: "ރަދީފް", en: "Dictionary", ar: "معجم" },
   tagDFK: { dv: "ދފކ", en: "DFK", ar: "دفك" },
   tagIH: { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },

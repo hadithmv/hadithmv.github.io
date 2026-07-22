@@ -4,7 +4,7 @@ AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލ
 AQD-qawaidulArbau,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau
 AQD-usooluThalaatha,الأصول الثلاثة,ތިން އުސޫލު,Usoolu Thalaatha
 DFK-AKLQ-ATHR-akhbaruShuyukh,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Akhbaru Shuyukh
-DFK-AKLQ-ATHR-QRNU-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Akhlaq Hamalathil Quran
+DFK-AKLQ-ATHR-QRUL-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Akhlaq Hamalathil Quran
 DFK-AQD-intisarLiAshabilHadith,الانتصار لأصحاب الحديث للسمعاني,ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,Intisar Li Ashabil Hadith
 DFK-AQD-kalimathulIkhlas,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Kalimathul Ikhlas
 DFK-AQD-kitabulEmanAbiUbaid,كتاب الإيمان لأبي عبيد,އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Kitabul Eman Abi Ubaid
@@ -31,6 +31,8 @@ IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام...,...އިސ�
 IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,Rasoolul Islam Muhammad
 KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv
 KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Kunnaasha Muhammed Maldheefi
+QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي ,,Quran with Imlai Script
+QRN-DATA-rasmUthmani,القرآن بالرسم العثماني,,Quran with Uthamni Script
 RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Radheef Ahmad Fahmy
 RDF-all,الجامع في المعاجم,ހުރިހާ ރަދީފުތައް,Radheef All
 RDF-AQD-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Asmaullahil Husna
