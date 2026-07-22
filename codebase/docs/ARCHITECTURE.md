@@ -337,6 +337,24 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 **Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) table. This table is the single inventory for porting to desktop/mobile apps — keep it current.
 
+### Documentation
+
+**One source of truth.** Every fact lives in exactly one doc. When adding or changing a convention, error state, naming rule, or configuration detail, update the canonical location — never duplicate it across docs.
+
+| Content | Lives in | Linked from |
+|---------|----------|-------------|
+| Naming conventions (prefixes, suffixes) | ARCHITECTURE | README |
+| Error states | ARCHITECTURE | README |
+| Development conventions | ARCHITECTURE | — |
+| How‑to examples (add book, tag, export, etc.) | ARCHITECTURE | — |
+| Persisted state inventory | ARCHITECTURE | — |
+| Keyboard shortcuts | README, USER_GUIDE | — |
+| Feature overview | README | — |
+| API signatures and Data API | API.md | — |
+| Reader instructions | USER_GUIDE | — |
+
+**When adding a new fact,** put it in the right column above. If you're not sure, default to ARCHITECTURE — it's the canonical developer reference. The other docs link to it; they don't repeat it.
+
 ## How‑to examples
 
 ### Add a new book

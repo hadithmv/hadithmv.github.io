@@ -57,12 +57,10 @@ Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Colours are
 
 ### Book code conventions
 
-- `DRFT-` prefix — marks a draft book (⚠️ badge), still visible on dashboard
-- `-HDN` suffix — hides the book from the dashboard; as a column header suffix (e.g. `notes-HDN`), hides that column by default in the reader (still toggleable back on)
-- `-DSC` suffix — displays rows in reverse order (last‑to‑first), used for descending collections
-- `KNSH-` prefix — first line of `body*` columns styled as a heading; `titleEN` auto‑prefixed with "Kunnaasha "
-- `RDF-` prefix (without `AQD-`) — `titleEN` auto‑prefixed with "Radheef "
-- Run `data/03-updateBookMeta.ps1` to auto-generate `titleEN` from bookCode and sync new books. When adding a new suffix or prefix rule, update `Get-TitlePrefix` and `$suffixFlags` in that script.
+Prefixes and suffixes control book behaviour — badges, visibility, row order, and more. See [Architecture → Naming conventions](docs/ARCHITECTURE.md#naming-conventions) for the full list. A quick summary:
+
+- `DRFT-` → draft badge · `-HDN` → hidden · `-DSC` → reversed rows · `KNSH-` → body heading style
+- Run `data/03-updateBookMeta.ps1` to sync new books and generate `titleEN`
 
 ## Data CSV format
 
@@ -224,11 +222,7 @@ All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translati
 
 ## Error handling
 
-All errors show visible messages in English:
-
-- Registry failed to load → error on the dashboard
-- Book code not found → error in the reader
-- Data CSV empty or fails → error in the reader
+All errors show visible messages in English — see [Architecture → Error states](docs/ARCHITECTURE.md#error-states).
 - CSV parse warnings → logged to browser console (non-fatal)
 
 ## Dependencies
