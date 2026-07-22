@@ -5,19 +5,19 @@
 #   - Scans data/ for CSV files not yet registered and adds them
 #   - Sorts alphabetically by bookCode
 
-$csvPath    = Join-Path $PSScriptRoot "02-bookNames.csv"
-$tagsPath   = Join-Path $PSScriptRoot "01-bookTags.csv"
-$dataDir    = $PSScriptRoot
+$csvPath = Join-Path $PSScriptRoot "02-bookNames.csv"
+$tagsPath = Join-Path $PSScriptRoot "01-bookTags.csv"
+$dataDir = $PSScriptRoot
 
 # ── Helpers for coloured output ──────────────────────────────
 function Write-Section($text) {
     Write-Host "`n━━━ $text ━━━" -ForegroundColor Cyan
 }
-function Write-Add($text)    { Write-Host "  ✅ $text" -ForegroundColor Green }
+function Write-Add($text) { Write-Host "  ✅ $text" -ForegroundColor Green }
 function Write-Update($text) { Write-Host "  📝 $text" -ForegroundColor Yellow }
 function Write-Rename($text) { Write-Host "  🔄 $text" -ForegroundColor Magenta }
-function Write-Skip($text)   { Write-Host "  ⏭️  $text" -ForegroundColor DarkGray }
-function Write-Info($text)   { Write-Host "    $text" -ForegroundColor Gray }
+function Write-Skip($text) { Write-Host "  ⏭️  $text" -ForegroundColor DarkGray }
+function Write-Info($text) { Write-Host "    $text" -ForegroundColor Gray }
 
 Write-Host "`n📚 Hadithmv — Update Book Metadata" -ForegroundColor White
 
@@ -34,22 +34,37 @@ if (Test-Path $tagsPath) {
         }
     }
     Write-Info "$($tagList.Count) tags: $($tagList -join ', ')"
-} else {
+}
+else {
     Write-Skip "01-bookTags.csv not found"
 }
 
 # Known suffix flags to strip from end of bookCode
 $suffixFlags = @("HDN", "DSC")
 
+# ── Helper: prefix based on tags ─────────────────────────────
+function Get-TitlePrefix($code) {
+    $parts = $code -split '-'
+    $tags = @()
+    foreach ($p in $parts) {
+        if ($knownTags.ContainsKey($p)) { $tags += $p }
+        else { break }
+    }
+    if ($tags -contains "KNSH") { return "Kunnaasha " }
+    if ($tags -contains "RDF" -and $tags -notcontains "AQD") { return "Radheef " }
+    return ""
+}
+
 # ── Helper: camelCase → Title Case ───────────────────────────
 function ConvertTo-TitleCase($name) {
     $spaced = $name -creplace '(?<=[a-z])(?=[A-Z])', ' '
     $words = $spaced -split ' ' | Where-Object { $_ }
     $titled = ($words | ForEach-Object {
-        if ($_.Length -gt 0) {
-            $_.Substring(0,1).ToUpper() + $_.Substring(1).ToLower()
-        } else { $_ }
-    }) -join ' '
+            if ($_.Length -gt 0) {
+                $_.Substring(0, 1).ToUpper() + $_.Substring(1).ToLower()
+            }
+            else { $_ }
+        }) -join ' '
     return $titled
 }
 
@@ -57,7 +72,7 @@ function ConvertTo-TitleCase($name) {
 function Get-BookName($code) {
     $parts = $code -split '-'
     $start = 0
-    $end   = $parts.Count - 1
+    $end = $parts.Count - 1
 
     while ($start -lt $parts.Count -and $knownTags.ContainsKey($parts[$start])) {
         $start++
@@ -84,7 +99,8 @@ Get-ChildItem $dataDir -Filter "*.csv" | ForEach-Object {
             Write-Rename "$($_.Name)  →  $newName"
             Rename-Item $_.FullName $newName
             $renamed++
-        } else {
+        }
+        else {
             Write-Rename "$($_.Name)  →  $newName (replacing existing)"
             Remove-Item $newPath -Force
             Rename-Item $_.FullName $newName
@@ -96,9 +112,9 @@ if ($renamed -eq 0) { Write-Info "nothing to rename" }
 
 # ── Read existing registry ────────────────────────────────────
 Write-Section "Reading registry"
-$lines  = Get-Content $csvPath
+$lines = Get-Content $csvPath
 $header = $lines[0]
-$rows   = $lines[1..($lines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
+$rows = $lines[1..($lines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
 
 $registered = @{}
 foreach ($row in $rows) {
@@ -115,7 +131,7 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
 } | ForEach-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {
-        $enTitle = ConvertTo-TitleCase (Get-BookName $code)
+        $enTitle = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
         Write-Add "$code"
         Write-Info "titleEN → $enTitle"
         $rows += "$code,,,$enTitle"
@@ -142,13 +158,13 @@ Write-Section "Filling missing titleEN"
 $updated = 0
 $newRows = foreach ($row in $rows) {
     $cols = $row -split ",", 4
-    $code    = $cols[0].Trim()
+    $code = $cols[0].Trim()
     $titleAR = if ($cols.Count -gt 1) { $cols[1].Trim() } else { "" }
     $titleDV = if ($cols.Count -gt 2) { $cols[2].Trim() } else { "" }
     $titleEN = if ($cols.Count -gt 3) { $cols[3].Trim() } else { "" }
 
     if (-not $titleEN) {
-        $derived = ConvertTo-TitleCase (Get-BookName $code)
+        $derived = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
         if ($derived) {
             Write-Update "$code  →  $derived"
             $titleEN = $derived
@@ -170,10 +186,10 @@ $output -join "`r`n" | Out-File $csvPath -Encoding UTF8 -NoNewline
 $total = $sorted.Count
 Write-Host "`n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
 Write-Host "  📊 $total books total" -ForegroundColor White
-if ($added -gt 0)   { Write-Host "  ✅ $added added" -ForegroundColor Green }
+if ($added -gt 0) { Write-Host "  ✅ $added added" -ForegroundColor Green }
 if ($updated -gt 0) { Write-Host "  📝 $updated titles filled" -ForegroundColor Yellow }
 if ($renamed -gt 0) { Write-Host "  🔄 $renamed files renamed" -ForegroundColor Magenta }
-if ($missing -gt 0)  { Write-Host "  ⚠️  $missing missing CSV files" -ForegroundColor Red }
+if ($missing -gt 0) { Write-Host "  ⚠️  $missing missing CSV files" -ForegroundColor Red }
 if ($added -eq 0 -and $updated -eq 0 -and $renamed -eq 0 -and $missing -eq 0) {
     Write-Host "  ✨ already up to date" -ForegroundColor Green
 }
