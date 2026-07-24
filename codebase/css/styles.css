@@ -1609,10 +1609,12 @@ body:has(.modal-overlay.open) {
   align-items: center;
   position: relative;
   padding: 0 30px; /* room for 24px arrows + 6px gap on each side */
+  overflow: hidden;
 }
 /* The row itself scrolls — wrap just provides arrow space */
 .h-scroll-wrap .reader-toolbar,
-.h-scroll-wrap .reader-nav {
+.h-scroll-wrap .reader-nav,
+.h-scroll-wrap .quran-nav {
   overflow-x: auto;
   scrollbar-width: none;
   flex: 1;
@@ -1620,7 +1622,8 @@ body:has(.modal-overlay.open) {
   margin: 0;
 }
 .h-scroll-wrap .reader-toolbar::-webkit-scrollbar,
-.h-scroll-wrap .reader-nav::-webkit-scrollbar {
+.h-scroll-wrap .reader-nav::-webkit-scrollbar,
+.h-scroll-wrap .quran-nav::-webkit-scrollbar {
   display: none;
 }
 
@@ -2286,7 +2289,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 0 0;
+  padding: 1px 0 0;
   flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
@@ -2298,22 +2301,35 @@ body:has(.modal-overlay.open) {
 
 .quran-sticky-arrow {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
   padding: 0;
   font-size: 0.65rem;
   line-height: 1;
   color: var(--color-text-muted);
-  background: var(--color-reader-bg);
+  background: var(--color-bg);
   border: none;
   cursor: pointer;
   z-index: 5;
   position: sticky;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.quran-sticky-arrow:hover { color: var(--color-text); }
-.quran-sticky-arrow.hidden { opacity: 0; pointer-events: none; }
-.quran-sticky-start { right: 0; }   /* RTL: sticks to right edge */
-.quran-sticky-end   { left: 0; }    /* RTL: sticks to left edge */
+.quran-sticky-arrow:hover {
+  color: var(--color-text);
+}
+.quran-sticky-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.quran-sticky-start {
+  right: 0;
+  padding: 0 12px;
+}
+.quran-sticky-end {
+  left: 0;
+  padding: 0 12px;
+}
 
 .quran-nav-group {
   display: flex;

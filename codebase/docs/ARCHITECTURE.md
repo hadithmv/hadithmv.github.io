@@ -357,6 +357,46 @@ Quran clipboard format: decorated ayah text, `[surahName surahNo:ayahNo]` refere
 
 **Font.** A single merged WOFF2 font (`font/merged-300.woff2`) covers Arabic, Thaana, and Latin glyphs. `font-family` stacks always list `"Hadithmv"` first, then platform fallbacks. Never load external fonts.
 
+### Horizontal scrolling & RTL
+
+The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrolling in non‑obvious ways:
+
+**RTL scroll conventions differ by browser:**
+- Chrome: `scrollLeft = 0` at the rightmost (start), goes **positive** when scrolling left toward end
+- Firefox: `scrollLeft = 0` at the rightmost (start), goes **negative** when scrolling left toward end
+- Always use `Math.abs(scrollLeft)` for position checks. Always test scroll behavior in both browsers.
+
+**RTL start/end terminology:**
+- **Start** = beginning of content = right side in RTL
+- **End** = later content = left side in RTL
+- `scroll-arrow-start` (►) scrolls toward start (right). `scroll-arrow-end` (◄) scrolls toward end (left).
+
+**`.h-scroll-wrap` pattern** (used for toolbar, nav, quranNav):
+```
+.h-scroll-wrap (display:flex, position:relative, padding:0 30px)
+  ├── button.scroll-arrow.scroll-arrow-start (►)  — absolute, left:2px
+  ├── .reader-toolbar / .reader-nav / .quran-nav   — flex:1, min-width:0, overflow-x:auto, hidden scrollbar
+  └── button.scroll-arrow.scroll-arrow-end (◄)    — absolute, right:2px
+```
+- Arrows sit in the padding area and are absolutely positioned.
+- The scrollable row is constrained to the content area by `flex:1; min-width:0`.
+- `overflow:hidden` on the wrap clips content to the content area — row content CANNOT bleed into the arrow padding.
+- DO NOT wrap a hidden (`display:none`) element — it has 0 dimensions and breaks layout. Wrap only after the element is visible.
+- Click handlers: start arrow (►) → `scrollLeft -= 200` (toward start/right). End arrow (◄) → `scrollLeft += 200` (toward end/left).
+- Visibility: start arrow hidden when `abs(scrollLeft) < 1`. End arrow hidden when `abs(scrollLeft) > maxScroll - 2`.
+
+**Sticky‑arrow pattern** (alternative, used for quranNav):
+- Arrows are `position:sticky` children inside the scrollable flex row.
+- First child (start arrow): `right:0`, sticks to right edge. Last child (end arrow): `left:0`, sticks to left edge.
+- Need `align-self:stretch` + solid `background` to create a full‑height cutoff barrier.
+- Need horizontal `padding` to widen the barrier beyond just the arrow symbol.
+
+**When adding a new horizontally‑scrollable row:**
+1. If it exists at page load and is visible → use `.h-scroll-wrap` pattern (add to the inline script's `querySelectorAll`).
+2. If it's created or shown dynamically → use the sticky‑arrow pattern, or wrap it in `.h-scroll-wrap` AFTER it becomes visible.
+3. Never set `wrap.style.padding = "0"` — the padding is always needed for arrow placement.
+4. Never create wrapper divs inside `.chrome-inner` at page load for hidden elements.
+
 ### HTML & DOM
 
 **IDs.** Element IDs use camelCase — e.g. `btnReset`, `searchInput`, `readerContent`, `pinsDropdown`. No kebab‑case or snake_case.
