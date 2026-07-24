@@ -685,7 +685,7 @@
 /* Sticky chrome — always */
 #readerChrome {
   position: sticky;
-  top: 62px;
+  top: 58px;
   z-index: 50;
   background: var(--color-bg);
   padding: 10px 0;
@@ -1014,7 +1014,7 @@
     margin-top: 60px;
   }
   #readerChrome {
-    top: 60px;
+    top: 52px;
   }
   #pageSubRow {
     justify-content: flex-start !important;
