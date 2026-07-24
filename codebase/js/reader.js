@@ -1936,7 +1936,7 @@ initializePageWithMetadata(async function (metadata) {
             var scAyah = getAyahNoFromRowQuran(scRow, headerRow);
             var scInfo = getSurahInfo(scSurah);
             var scName = scInfo ? scInfo.nameAR : "";
-            scrollCounter.innerHTML = '<span class="sc-n">' + scName + ' ' + scSurah + ' : ' + scAyah + '</span>';
+            scrollCounter.innerHTML = scName + ' <span class="sc-n">' + scSurah + '</span> : <span class="sc-n">' + scAyah + '</span>';
           } else {
             var total = filteredData.length;
             scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span>';

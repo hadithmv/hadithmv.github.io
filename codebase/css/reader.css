@@ -870,13 +870,15 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
   box-shadow: 0 2px 8px var(--color-shadow-card);
-  direction: ltr;
+  direction: rtl;
 }
 
 .sc-n {
   display: inline-block;
   min-width: 2ch;
   text-align: center;
+  direction: ltr;
+  font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
 }
 
 .scroll-counter.show {
@@ -901,8 +903,10 @@
     line-height: 2.2;
   }
   .quran-nav-input {
+    height: auto;
     padding: 0.35em 0.4em;
     font-size: var(--panel-font-size-mobile, 0.78rem);
+    line-height: 2.2;
   }
   .readerPanel-inner .search-input {
     height: auto;
