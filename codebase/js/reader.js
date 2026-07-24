@@ -1929,8 +1929,18 @@ initializePageWithMetadata(async function (metadata) {
         updatePagination();
         if (scrollCounter) {
           var vRow = visiblePageIndex();
-          var total = filteredData.length;
-          scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span>';
+          if (quranBook && filteredData.length > 0) {
+            var scRow = filteredData[vRow];
+            findQuranColIndices(headerRow);
+            var scSurah = getRowSurah(scRow, headerRow);
+            var scAyah = getAyahNoFromRowQuran(scRow, headerRow);
+            var scInfo = getSurahInfo(scSurah);
+            var scName = scInfo ? scInfo.nameAR : "";
+            scrollCounter.innerHTML = '<span class="sc-n">' + scName + ' ' + scSurah + ':' + scAyah + '</span>';
+          } else {
+            var total = filteredData.length;
+            scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span>';
+          }
           scrollCounter.classList.add("show");
           clearTimeout(scrollTimer);
           scrollTimer = setTimeout(function () {
