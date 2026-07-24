@@ -54,8 +54,8 @@
   min-width: 0;
   height: auto;
   padding: 0.35em 0.75em;
-  font-size: 1.05rem;
-  line-height: normal;
+  font-size: var(--panel-font-size, 0.85rem);
+  line-height: 2.2;
   text-align: right;
   background: var(--color-reader-bg);
   direction: rtl;
@@ -903,7 +903,7 @@
   }
   .readerPanel-inner .search-input {
     height: auto;
-    font-size: var(--panel-font-size-mobile, 0.9rem);
+    font-size: var(--panel-font-size-mobile, 0.78rem);
     line-height: 2.2;
     padding: 0.35em 0.65em;
   }

@@ -157,37 +157,7 @@
           </div>
           <div class="modal-card">
             <h3 class="modal-card-title" data-i18n="settingsFont">ފޮންޓް</h3>
-            <div class="modal-row">
-              <span data-i18n="labelFontSize">ފޮންޓް ސައިޒު</span>
-              <div class="font-size-row">
-                <button
-                  id="btnFontDown"
-                  class="font-adj-btn"
-                  title="Decrease font size"
-                >
-                  −
-                </button>
-                <span id="fontSizeVal" class="font-size-val">1.25rem</span>
-                <button
-                  id="btnFontUp"
-                  class="font-adj-btn"
-                  title="Increase font size"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-            <div class="modal-row">
-              <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
-              <select
-                id="selFontFamily"
-                class="sidebar-select"
-                style="width: auto"
-              >
-                <option value="hadithmv">Hadithmv font</option>
-                <option value="system">System font</option>
-              </select>
-            </div>
+            <button id="btnOpenFontModal" class="font-open-btn" data-i18n="btnOpenFont">🔤 ފޮންޓް ބަދަލު ކުރޭ…</button>
           </div>
           <div class="modal-card">
             <h3 class="modal-card-title" data-i18n="settingsLanguage">ބަސް</h3>
@@ -203,6 +173,33 @@
                 <option value="ar">އަރަބި - Arabic - العربية</option>
               </select>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="fontModalOverlay" class="modal-overlay">
+      <div id="fontModal" class="modal font-modal" role="dialog">
+        <div class="modal-header">
+          <h2 class="modal-title" data-i18n="settingsFont">ފޮންޓް</h2>
+          <button id="btnResetFont" class="modal-reset-sm" data-i18n="btnReset" title="Reset font to defaults">↺ ރީސެޓް</button>
+          <button id="fontModalClose" class="modal-close" title="Close (Escape key)">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-row">
+            <span data-i18n="labelFontSize">ފޮންޓް ސައިޒު</span>
+            <div class="font-size-row">
+              <button id="btnFontDown" class="font-adj-btn" title="Decrease font size">−</button>
+              <span id="fontSizeVal" class="font-size-val">1.25rem</span>
+              <button id="btnFontUp" class="font-adj-btn" title="Increase font size">+</button>
+            </div>
+          </div>
+          <div class="modal-row">
+            <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
+            <select id="selFontFamily" class="sidebar-select" style="width:auto">
+              <option value="hadithmv">Hadithmv font</option>
+              <option value="system">System font</option>
+            </select>
           </div>
         </div>
       </div>

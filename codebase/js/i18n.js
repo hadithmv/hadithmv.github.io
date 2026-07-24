@@ -159,6 +159,7 @@ const STRINGS = {
   labelSettings: { dv: "ސެޓިންގްސް", en: "Settings", ar: "الإعدادات" },
   settingsAppearance: { dv: "ފެންނަ ގޮތް", en: "Appearance", ar: "المظهر" },
   settingsFont: { dv: "ފޮންޓް", en: "Font", ar: "الخط" },
+  btnOpenFont: { dv: "🔤 ފޮންޓް ބަދަލު ކުރޭ…", en: "🔤 Change font…", ar: "🔤 تغيير الخط…" },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },

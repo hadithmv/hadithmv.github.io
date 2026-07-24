@@ -1042,6 +1042,28 @@ body:has(.modal-overlay.open) {
 }
 
 
+/* ---- Font modal ---- */
+.font-open-btn {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  transition: background 0.15s ease;
+}
+.font-open-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.font-modal {
+  max-width: 340px;
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   .menu-btn {

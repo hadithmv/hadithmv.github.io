@@ -17,7 +17,7 @@ initI18n();
 
 // ── Font controls ───────────────────────────────────────────
 var FONT_SIZES = [
-  "1rem", "1.1rem", "1.2rem", "1.3rem", "1.4rem",
+  "0.7rem", "0.8rem", "0.9rem", "1rem", "1.1rem", "1.2rem", "1.25rem", "1.3rem", "1.4rem",
   "1.5rem", "1.65rem", "1.8rem", "2rem",
 ];
 var DEFAULT_FONT_SIZE = "1.25rem";
@@ -230,6 +230,47 @@ function applyFontSize(idx) {
   });
 })();
 
+// ── Font modal ───────────────────────────────────────────────
+(function () {
+  var overlay = document.getElementById("fontModalOverlay");
+  if (!overlay) return;
+
+  function open() {
+    // Close settings modal and sidebar first so user sees the full page
+    var so = document.getElementById("settingsOverlay");
+    if (so) so.classList.remove("open");
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar) sidebar.classList.remove("open");
+    var sOverlay = document.getElementById("sidebarOverlay");
+    if (sOverlay) sOverlay.classList.remove("open");
+    overlay.classList.add("open");
+  }
+
+  function close() { overlay.classList.remove("open"); }
+
+  document.getElementById("btnOpenFontModal").addEventListener("click", open);
+  document.getElementById("fontModalClose").addEventListener("click", close);
+  document.getElementById("btnResetFont").addEventListener("click", function () {
+    var html = document.documentElement;
+    html.style.setProperty("--reader-font-size", DEFAULT_FONT_SIZE);
+    html.style.setProperty("--reader-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.88 * 100) / 100 + "rem");
+    html.style.setProperty("--panel-font-size", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 100) / 100 + "rem");
+    html.style.setProperty("--panel-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 0.9 * 100) / 100 + "rem");
+    localStorage.removeItem("fontSize");
+    var fsv = document.getElementById("fontSizeVal");
+    if (fsv) fsv.textContent = DEFAULT_FONT_SIZE;
+    html.removeAttribute("data-font-system");
+    localStorage.setItem("fontSystem", "0");
+    var ffSel = document.getElementById("selFontFamily");
+    if (ffSel) ffSel.value = "hadithmv";
+    document.dispatchEvent(new CustomEvent("readerset"));
+  });
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && overlay.classList.contains("open")) close();
+  });
+})();
+
 // ── Language select ─────────────────────────────────────────
 (function () {
   var sel = document.getElementById("selLanguage");
@@ -256,6 +297,8 @@ document.addEventListener("keydown", function (e) {
     window.location.href = "index.html";
   }
   if (e.key === "Escape") {
+    var fo = document.getElementById("fontModalOverlay");
+    if (fo && fo.classList.contains("open")) { fo.classList.remove("open"); return; }
     var so = document.getElementById("settingsOverlay");
     if (so && so.classList.contains("open")) so.classList.remove("open");
   }
