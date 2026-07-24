@@ -1008,7 +1008,7 @@ ShareX
   - use drop shadows for icon labels on the desktop
   - ?save taskbar menu previews
   - ?smooth scroll list boxes
-  - (to put it short, remove everything else and just keep: enable peek, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.)
+  - (to put it short; remove everything else and just keep: enable peek, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.)
 - ui, input & accessibility
   - display settings
     - set main display
@@ -1038,7 +1038,6 @@ ShareX
 ### Apps & Debloat
 
 - ninite?
-- use edge to download chrome
   - skip ignore all edge questions / offers
 - chrome remote desktop
 - iobit uninstall bloatware (preinstalled software & games)
@@ -1078,7 +1077,7 @@ ShareX
 
 ### Web Browser
 
-- chrome
+- edge
   - sign in?
   - settings
     - profile, theme color, avatar
@@ -1109,6 +1108,8 @@ ShareX
       - vertical tabs: enabled
         - close and reopen chrome
         - right click tab: show tabs vertically
+    - enable desktop notifications for
+      - gmail
 
 ---
 
