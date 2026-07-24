@@ -764,7 +764,7 @@ initializePageWithMetadata(async function (metadata) {
         if (total <= 1) return "";
         // Number input is O(1) — a <select> with one <option> per row is O(n) and
         // kills performance on large books (5 000+ <option> elements rendered twice).
-        return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:58px;text-align:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
+        return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:58px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
       }
 
       var _lastPagUpdate = 0;
@@ -1906,11 +1906,11 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Quran UI ───────────────────────────────────────────
       function initQuranUI() {
-        var readerQuranNavBar = document.getElementById("readerQuranNavBar");
-        if (!readerQuranNavBar) return;
-        readerQuranNavBar.style.display = "";
+        var readerPanelQuran = document.getElementById("readerPanelQuran");
+        if (!readerPanelQuran) return;
+        readerPanelQuran.style.display = "";
         // Shift+wheel → horizontal scroll
-        readerQuranNavBar.addEventListener("wheel", function (e) {
+        readerPanelQuran.addEventListener("wheel", function (e) {
           if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
             e.preventDefault();
             qSmoothScroll(e.deltaX || e.deltaY);
@@ -1925,14 +1925,14 @@ initializePageWithMetadata(async function (metadata) {
         qa2.className = "quran-sticky-arrow quran-sticky-end hidden";
         qa2.innerHTML = "&#9664;";
         qa2.title = "Scroll toward end";
-        readerQuranNavBar.insertBefore(qa1, readerQuranNavBar.firstChild);
-        readerQuranNavBar.appendChild(qa2);
+        readerPanelQuran.insertBefore(qa1, readerPanelQuran.firstChild);
+        readerPanelQuran.appendChild(qa2);
         function qSmoothScroll(delta) {
-          var start = readerQuranNavBar.scrollLeft, target = start + delta, duration = 250, t0 = performance.now();
+          var start = readerPanelQuran.scrollLeft, target = start + delta, duration = 250, t0 = performance.now();
           function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
           function step(now) {
             var t = Math.min((now - t0) / duration, 1);
-            readerQuranNavBar.scrollLeft = start + delta * easeOut(t);
+            readerPanelQuran.scrollLeft = start + delta * easeOut(t);
             if (t < 1) requestAnimationFrame(step);
           }
           requestAnimationFrame(step);
@@ -1940,12 +1940,12 @@ initializePageWithMetadata(async function (metadata) {
         qa1.addEventListener("click", function (e) { e.stopPropagation(); qSmoothScroll(200); });
         qa2.addEventListener("click", function (e) { e.stopPropagation(); qSmoothScroll(-200); });
         function qUpdateArrows() {
-          var ov = readerQuranNavBar.scrollWidth > readerQuranNavBar.clientWidth + 1;
+          var ov = readerPanelQuran.scrollWidth > readerPanelQuran.clientWidth + 1;
           if (ov) {
             qa1.classList.remove("hidden");
             qa2.classList.remove("hidden");
-            var sl = Math.abs(readerQuranNavBar.scrollLeft);
-            var maxSl = readerQuranNavBar.scrollWidth - readerQuranNavBar.clientWidth;
+            var sl = Math.abs(readerPanelQuran.scrollLeft);
+            var maxSl = readerPanelQuran.scrollWidth - readerPanelQuran.clientWidth;
             var atStart = sl < 1;
             var atEnd = sl > maxSl - 2;
             qa1.classList.toggle("hidden", atStart);
@@ -1955,7 +1955,7 @@ initializePageWithMetadata(async function (metadata) {
             qa2.classList.add("hidden");
           }
         }
-        readerQuranNavBar.addEventListener("scroll", qUpdateArrows);
+        readerPanelQuran.addEventListener("scroll", qUpdateArrows);
         window.addEventListener("resize", qUpdateArrows);
         requestAnimationFrame(function () { requestAnimationFrame(qUpdateArrows); });
 

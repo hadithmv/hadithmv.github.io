@@ -478,7 +478,7 @@ function renderDashboard(bookNames) {
     return '<span class="dash-tag-chip' + (active ? ' active' : '') + palClass + '" data-tag="' + code + '" title="' + chipTitle + '">' +
       (active ? '<span class="chip-x">✕</span>' : '') + tagLabel(code, tc.label) + ' <small>(' + tc.count + ')</small></span>';
   }).join("");
-  document.getElementById("dashboardTagChips").innerHTML = (pinsChipHTML + chipsHTML)
+  document.getElementById("dashboardPanelTags").innerHTML = (pinsChipHTML + chipsHTML)
     ? '<span class="dash-label">' + t("dashboardTagsLabel") + '</span> ' + pinsChipHTML + chipsHTML
     : "";
 
@@ -546,7 +546,7 @@ function setupDashboardControls() {
   var si = document.getElementById("dashboardSearch");
   var sc = document.getElementById("dashboardSearchClear");
   var ss = document.getElementById("dashboardSort");
-  var tc = document.getElementById("dashboardTagChips");
+  var tc = document.getElementById("dashboardPanelTags");
   if (!si) return;
 
   si.addEventListener("input", function () {

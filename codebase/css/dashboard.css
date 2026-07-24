@@ -13,7 +13,7 @@
 }
 
 /* ---- Dashboard controls ---- */
-#dashboardControls {
+#dashboardPanel {
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
@@ -21,16 +21,16 @@
   direction: rtl;
 }
 
-#dashboardSearchBar {
+#dashboardPanelSearch {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-#dashboardSearchBar .search-input {
+#dashboardPanelSearch .search-input {
   flex: 1;
 }
 
-#dashboardTagChips {
+#dashboardPanelTags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -143,7 +143,7 @@
   padding: 5px 10px;
 }
 
-#dashboardSortRow {
+#dashboardPanelFunctions {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -151,7 +151,7 @@
   gap: 8px;
   direction: rtl;
 }
-#dashboardSortRow > div {
+#dashboardPanelFunctions > div {
   flex-wrap: wrap;
 }
 #dashboardSort,

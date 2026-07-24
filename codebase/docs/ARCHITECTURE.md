@@ -395,7 +395,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 1. If it exists at page load and is visible → use `.h-scroll-wrap` pattern (add to the inline script's `querySelectorAll`).
 2. If it's created or shown dynamically → use the sticky‑arrow pattern, or wrap it in `.h-scroll-wrap` AFTER it becomes visible.
 3. Never set `wrap.style.padding = "0"` — the padding is always needed for arrow placement.
-4. Never create wrapper divs inside `.panel-inner` at page load for hidden elements.
+4. Never create wrapper divs inside `.readerPanel-inner` at page load for hidden elements.
 
 ### HTML & DOM
 

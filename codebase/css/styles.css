@@ -252,7 +252,7 @@ body {
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   margin-bottom: 24px;
 }
 
@@ -282,7 +282,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 10px 14px;
   margin-bottom: 4px;
   font-size: 0.9rem;
@@ -348,7 +348,7 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 10px 14px;
   font-size: 0.9rem;
   font-weight: 600;
@@ -380,21 +380,86 @@ body {
 }
 
 /* ---- Focus mode — slide chrome up ---- */
-#collapsiblePanel {
+#collapsibleReaderPanel {
   display: grid;
   grid-template-rows: 1fr;
   transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-#collapsiblePanel > .panel-inner {
+#collapsibleReaderPanel > .readerPanel-inner {
   overflow: hidden;
 }
-#collapsiblePanel .panel-inner {
+#collapsibleReaderPanel .readerPanel-inner {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-[data-focus] #collapsiblePanel {
+/* ── Shared: all buttons + inputs inside panel rows ── */
+.readerPanel-inner button,
+.readerPanel-inner input,
+.readerPanel-inner select {
+  box-sizing: border-box;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 34px;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.readerPanel-inner button:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+.readerPanel-inner button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.readerPanel-inner input {
+  background: var(--color-reader-bg);
+  text-align: center;
+}
+.readerPanel-inner input:focus {
+  border-color: var(--color-card-hover-border);
+}
+.readerPanel-inner .search-input {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 1.05rem;
+  line-height: 34px;
+  text-align: right;
+  background: var(--color-reader-bg);
+  direction: rtl;
+}
+.readerPanel-inner .search-input::placeholder {
+  color: var(--color-text-subtle);
+  opacity: 1;
+  font-weight: 700;
+}
+/* Scroll arrows — narrower, no border */
+.readerPanel-inner .scroll-arrow {
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+}
+.readerPanel-inner .scroll-arrow:hover {
+  color: var(--color-text);
+  background: transparent;
+}
+
+[data-focus] #collapsibleReaderPanel {
   grid-template-rows: 0fr;
   opacity: 0;
   transition:
@@ -408,7 +473,7 @@ body {
   border-bottom: none;
 }
 
-[data-focus] #readerPaginationBarBottom {
+[data-focus] #readerPanelPaginationBottom {
   display: none;
 }
 
@@ -469,7 +534,7 @@ body {
 .sidebar-select-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-bottom: 4px;
 }
 
@@ -794,7 +859,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   direction: ltr;
   background-color: var(--color-bg);
   border-bottom: 2px solid var(--color-card-hover-border);
@@ -907,7 +972,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -1066,10 +1131,10 @@ body:has(.modal-overlay.open) {
 }
 
 /* ---- Search bar ---- */
-#readerSearchBar {
+#readerPanelSearch {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin: 0;
   overflow: visible;
   position: relative;
@@ -1078,29 +1143,8 @@ body:has(.modal-overlay.open) {
 .search-input {
   flex: 1;
   min-width: 0;
-  box-sizing: border-box;
-  padding: 7px 10px;
-  font-size: 1.1rem;
-  line-height: 1.4;
-  font-family:
-    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
-    serif;
-  color: var(--color-text);
-  background: var(--color-reader-bg);
-  border: 1px solid var(--color-border);
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   border-radius: 8px;
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-
-.search-input:focus {
-  border-color: var(--color-card-hover-border);
-}
-
-.search-input::placeholder {
-  color: var(--color-text-subtle);
-  opacity: 1;
-  font-weight: 700;
 }
 
 /* Clear button inside the search bar */
@@ -1357,7 +1401,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   padding: 0;
   margin: 0;
   flex-wrap: nowrap;
@@ -1371,7 +1415,7 @@ body:has(.modal-overlay.open) {
 .toolbar-group {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .toolbar-btn {
@@ -1386,25 +1430,15 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
-
 .toolbar-btn:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
   color: var(--color-nav-btn-hover-text);
 }
-
 .toolbar-btn.active {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
@@ -1427,10 +1461,14 @@ body:has(.modal-overlay.open) {
 .toolbar-select {
   box-sizing: border-box;
   height: 34px;
-  padding: 0 6px;
+  padding: 0 8px;
   font-size: 0.85rem;
   font-weight: 600;
   line-height: 34px;
+  text-align: center;
+  text-align-last: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
   font-family:
     system-ui,
     -apple-system,
@@ -1452,7 +1490,7 @@ body:has(.modal-overlay.open) {
 .column-toggles {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 6px;
 }
 
 .col-toggle {
@@ -1612,14 +1650,14 @@ body:has(.modal-overlay.open) {
   overflow: hidden;
 }
 /* The row itself scrolls — wrap just provides arrow space */
-.h-scroll-wrap .panel-row {
+.h-scroll-wrap .readerPanel-row {
   overflow-x: auto;
   scrollbar-width: none;
   flex: 1;
   min-width: 0;
   margin: 0;
 }
-.h-scroll-wrap .panel-row::-webkit-scrollbar {
+.h-scroll-wrap .readerPanel-row::-webkit-scrollbar {
   display: none;
 }
 
@@ -1670,7 +1708,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   padding: 0;
   margin: 0;
   flex-wrap: nowrap;
@@ -1683,17 +1721,17 @@ body:has(.modal-overlay.open) {
 .nav-pages {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 6px;
 }
 
 .nav-goto {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
-#readerPaginationBarBottom {
+#readerPanelPaginationBottom {
   margin-top: 16px;
   margin-bottom: 0;
   border-bottom: none;
@@ -1704,37 +1742,17 @@ body:has(.modal-overlay.open) {
 .nav-pages {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .nav-btn {
-  box-sizing: border-box;
-  padding: 7px 10px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  line-height: 1.4;
   color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
   cursor: pointer;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
-  white-space: nowrap;
+  font-family: system-ui, -apple-system, sans-serif;
 }
-
 .nav-btn:hover:not(:disabled) {
-  background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
   color: var(--color-nav-btn-hover-text);
 }
-
 .nav-btn:disabled {
   opacity: 0.3;
   cursor: default;
@@ -1751,7 +1769,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 6px;
   direction: ltr;
 }
 
@@ -2284,7 +2302,7 @@ body:has(.modal-overlay.open) {
 .quran-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 9px 0 0;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -2330,35 +2348,29 @@ body:has(.modal-overlay.open) {
 .quran-nav-group {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
 .quran-nav-btn {
   box-sizing: border-box;
-  height: 30px;
-  padding: 0 8px;
-  font-size: 0.82rem;
+  height: 34px;
+  padding: 0 10px;
+  font-size: 0.85rem;
   font-weight: 600;
-  line-height: 30px;
+  line-height: 34px;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
 .quran-nav-btn:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
-}
-.quran-nav-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
 }
 
 .quran-nav-arrow {
@@ -2375,17 +2387,16 @@ body:has(.modal-overlay.open) {
 .quran-nav-input {
   box-sizing: border-box;
   width: 50px;
-  height: 30px;
-  padding: 0 4px;
+  padding: 7px 4px;
   font-size: 0.85rem;
   font-weight: 600;
   text-align: center;
-  font-family: system-ui, sans-serif;
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
   border-radius: 6px;
   outline: none;
+  font-family: system-ui, sans-serif;
   appearance: textfield;
   -moz-appearance: textfield;
 }
@@ -2468,7 +2479,7 @@ body:has(.modal-overlay.open) {
 .quran-surah-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 16px;
   border-bottom: 1px solid var(--color-border);
 }
@@ -2511,7 +2522,7 @@ body:has(.modal-overlay.open) {
   display: grid;
   grid-template-columns: 30px 1.3fr 120px 90px;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   padding: 9px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -2552,6 +2563,20 @@ body:has(.modal-overlay.open) {
 
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
+  .readerPanel-inner button,
+  .readerPanel-inner input,
+  .readerPanel-inner select {
+    height: 30px;
+    padding: 0 7px;
+    font-size: 0.78rem;
+    line-height: 30px;
+  }
+  .readerPanel-inner .search-input {
+    height: 30px;
+    font-size: 0.9rem;
+    line-height: 30px;
+  }
+
   #readerContent {
     padding: 10px 16px 20px;
     font-size: var(--reader-font-size-mobile, 1.1rem);
@@ -2580,22 +2605,17 @@ body:has(.modal-overlay.open) {
 
   .reader-nav {
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: 6px;
   }
 
   .nav-pages {
     gap: 2px;
   }
 
-  .nav-btn {
-    padding: 7px 10px;
-    font-size: 0.85rem;
-  }
-
   .page-num {
     min-width: 28px;
-    padding: 7px 2px;
-    font-size: 0.85rem;
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .page-numbers {
@@ -2614,7 +2634,7 @@ body:has(.modal-overlay.open) {
   }
 
   .reader-toolbar {
-    gap: 8px;
+    gap: 6px;
   }
 
   .col-toggle {
@@ -2651,15 +2671,15 @@ body:has(.modal-overlay.open) {
   .btn-text {
     display: none;
   }
-  #readerSearchBar {
+  #readerPanelSearch {
     margin: 0;
   }
-  #readerPaginationBar {
+  #readerPanelPagination {
     padding-bottom: 0;
     margin-bottom: 0;
     justify-content: flex-start;
   }
-  #readerPaginationBarBottom {
+  #readerPanelPaginationBottom {
     justify-content: center;
   }
   #backToDashboard {
@@ -2674,7 +2694,7 @@ body:has(.modal-overlay.open) {
   }
   #topBar {
     padding: 10px 20px;
-    gap: 4px;
+    gap: 6px;
     direction: ltr;
     justify-content: space-between;
   }
