@@ -35,6 +35,20 @@ Click any book card or table row to open it.
 | **Toolbar** | Copy the current row, hide Arabic diacritics, share a link, switch between card and table view, reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow. |
 | **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The subtitle and tag badges are on the same row — scroll sideways if it's too wide. |
 
+### Reading the Quran
+
+When you open a Quran book (code starting with `QRN-`), extra controls appear:
+
+- **Surah navigation** — Previous/next surah buttons or click the surah name to search all 114 surahs.
+- **Ayah navigation** — Click the ayah input to see all ayahs in the current surah, or type a number and press Enter.
+- **Juz navigation** — Same as ayah, for juz (1–30).
+
+#### Adding columns from other Quran books
+
+Click the **ގުރްއާން ފޮތްތައް** (Quran Books) button to see available columns from other Quran editions and translations. Check a column to add it — all columns from that book appear below the current ayah text. Uncheck to hide.
+
+When columns from one or more other books are active, each book's content is prefixed with a bold label showing the book's display name (e.g. **ދިވެހި ތަރުޖަމާ:**). This makes it easy to tell which translation or tafsir each block of text comes from.
+
 ### Keyboard shortcuts
 
 | Key | Action |

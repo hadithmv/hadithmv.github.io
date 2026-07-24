@@ -837,6 +837,14 @@
   margin: 4px 0 8px;
 }
 
+.reader-quran-book-label {
+  font-size: calc(var(--reader-font-size, 1.25rem) * 0.88);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 10px 0 2px;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
 .scroll-counter {
   position: fixed;
   bottom: 10px;

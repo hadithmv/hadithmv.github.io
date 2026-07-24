@@ -401,7 +401,7 @@ body {
   opacity: 1;
 }
 
-body:has(.modal-overlay.open) {
+body:has(#settingsOverlay.open) {
   overflow: hidden;
 }
 

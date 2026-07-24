@@ -14,6 +14,7 @@
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard |
 | `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
+| `js/quran.js` | Quran data: loading, decoration, navigation, column registry, source labels |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
 | `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
 | `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
@@ -47,7 +48,11 @@ Fetches and caches `02-bookNames.csv`. Returns `Array` of book objects (`bookCod
 
 ### `getPageMetadata(bookCode)`
 
-Looks up a single book by code. Returns the metadata object or `null`.
+Looks up a single book by code (async). Returns the metadata object or `null`.
+
+### `getBookTitleSync(bookCode)`
+
+Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran.js` for source-book labels.
 
 ### `getCsvPath(bookCode)`
 
@@ -175,9 +180,85 @@ Processes all `data-i18n` attributes in the DOM and sets initial language from `
 
 ---
 
+## quran.js
+
+Quran-specific data loading, ayah decoration, navigation, and column management. Imported by `reader.js` when a `QRN-` prefixed book is opened.
+
+### `loadQuranBaseData()`
+
+Fetches and caches `QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv`. Returns `Array` of rows (juz, surah, ayah numbers + Imlai text).
+
+### `mergeQuranData(bookCode)`
+
+Loads base data + the current book's CSV + surah names, then merges into a single `{headerRow, allData}`. Base columns come first, then book-specific columns appended.
+
+### `loadColumnRegistry()`
+
+Fetches `QRN-DATA-columns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+
+### `getColumnDisplayName(sourceBook, sourceCol)`
+
+Looks up a human-readable label from the column registry. Falls back to `"bookCode:colIndex"`.
+
+### `getBookLabel(colIndex)`
+
+Returns the book-level title (from `02-bookNames.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
+
+### `hasExternalColumns(currentBookCode)`
+
+Returns `true` when any column from a book other than `currentBookCode` or the base data is loaded. The renderer uses this to decide whether to show source-book labels.
+
+### `getColumnSourceMap()`
+
+Returns the full `colIndex → {sourceBook, sourceCol}` mapping for all loaded columns.
+
+### `rebuildColumnSourceMap(loadedColMap)`
+
+Rebuilds the source map from the internal `loadedColMap`. Called automatically after column loading — consumer code should not need to invoke this.
+
+### `decorateAyah(text, ayahNo, showBraces, showAyahNum, numBrackets)`
+
+Wraps ayah text in `﴿ ﴾` braces and appends the ayah number (as Arabic numeral). Respects user display preferences from localStorage.
+
+### `isAyahTextColumn(header)`
+
+Returns `true` if the column header is an ayah text column (`ayahimlai`, `ayahuthmani`, or `ayahtext`).
+
+### `findQuranColIndices(headerRow)`
+
+Finds the indices of juz/surah/ayah columns in the header. Cached.
+
+### `getAyahNoFromRow(row, headerRow)`, `getRowJuz(row, headerRow)`, `getRowSurah(row, headerRow)`
+
+Extract ayah, juz, and surah numbers from a data row.
+
+### `updateQuranNavDisplay()`
+
+Syncs the surah/ayah/juz inputs and labels with `quranState`.
+
+### Navigation helpers
+
+| Function | Description |
+|---|---|
+| `getSurahInfo(surahNo)` | Returns `{nameAR, nameDV, nameEN, ayahCount}` |
+| `getRowsForSurah(surahNo, baseData)` | Returns all rows for a surah |
+| `findAyahRow(surahNo, ayahNo, baseData)` | Finds a specific ayah within the base data |
+| `buildSurahListHTML(query, currentSurah)` | Renders searchable surah selector HTML |
+| `toArabicNumeral(n)` | Converts a number to Arabic-Indic numerals (١٢٣) |
+
+### `quranState`
+
+Shared mutable state object:
+
+```js
+{ currentSurah: 1, currentAyah: 1, currentJuz: 1 }
+```
+
+---
+
 ## reader.js
 
-Consumes the above modules. Key internal functions:
+Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key internal functions:
 
 | Function | Description |
 |---|---|
@@ -189,6 +270,12 @@ Consumes the above modules. Key internal functions:
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
 | `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
+| `window.closeAllDropdowns()` | Closes all open dropdowns (columns, export, search history, Quran ayah/juz/content/display, surah overlay). Called by any dropdown before opening itself. |
+
+### Clipboard format
+
+- **Standard books** — header line `titleDV - titleAR` followed by row text with column separators (AR/DV spacer, matn/sharh divider, footnote divider).
+- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-bookNames.csv`) above each book's columns. Per-column headers are omitted.
 
 ---
 

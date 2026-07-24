@@ -7,7 +7,7 @@
  */
 
 import { parseCSV } from "./csv.js";
-import { loadBookNames } from "./catalog.js";
+import { loadBookNames, getBookTitleSync } from "./catalog.js";
 import { t, currentLang } from "./i18n.js";
 
 // ═══════════════════════════════════════════════════════════════
@@ -232,6 +232,40 @@ export function getColumnDisplayName(sourceBook, sourceCol) {
     }
   }
   return sourceBook + ":" + sourceCol;
+}
+
+// Map: colIndex → {sourceBook, sourceCol}
+var _columnSourceMap = null;
+export function getColumnSourceMap() { return _columnSourceMap; }
+export function rebuildColumnSourceMap(loadedColMap) {
+  _columnSourceMap = {};
+  for (var key in loadedColMap) {
+    var idx = loadedColMap[key];
+    var parts = key.split(":");
+    var sourceBook = parts.slice(0, -1).join(":");
+    var sourceCol = parseInt(parts[parts.length - 1], 10);
+    _columnSourceMap[idx] = { sourceBook: sourceBook, sourceCol: sourceCol };
+  }
+}
+
+// Get the human-readable label for any non-base book column
+export function getBookLabel(colIndex) {
+  if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
+  var info = _columnSourceMap[colIndex];
+  if (info.sourceBook === "QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai") return null;
+  return getBookTitleSync(info.sourceBook) || info.sourceBook;
+}
+
+// True when any column from a book other than current or base is loaded
+export function hasExternalColumns(currentBookCode) {
+  if (!_columnSourceMap) return false;
+  for (var idx in _columnSourceMap) {
+    var info = _columnSourceMap[idx];
+    if (info.sourceBook !== "QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai" && info.sourceBook !== currentBookCode) {
+      return true;
+    }
+  }
+  return false;
 }
 
 export function getAllAvailableColumns() {
@@ -809,6 +843,7 @@ export function initQuranUI(ctx) {
         }
       }
     }
+    rebuildColumnSourceMap(_loadedColMap);
   }
 
   function loadAndInsertColumn(sourceBook, sourceCol) {
@@ -836,6 +871,7 @@ export function initQuranUI(ctx) {
           allData[r].splice(insertAt, 0, val);
         }
         _loadedColMap[key] = insertAt;
+        rebuildColumnSourceMap(_loadedColMap);
         var hc = ctx.getHiddenColumns();
         var hp = hc.indexOf(insertAt);
         if (hp !== -1) hc.splice(hp, 1);

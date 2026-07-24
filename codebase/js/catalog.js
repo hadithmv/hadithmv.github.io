@@ -164,6 +164,13 @@ export async function getPageMetadata(bookCode) {
   return bookNames.find((entry) => entry.bookCode === bookCode) || null;
 }
 
+/** Sync lookup — cache must already be populated (it is after page init). */
+export function getBookTitleSync(bookCode) {
+  if (!bookNamesCache) return null;
+  var entry = bookNamesCache.find(function (e) { return e.bookCode === bookCode; });
+  return entry ? (entry.titleDV || entry.titleEN || bookCode) : null;
+}
+
 /**
  * Extract tags from a bookCode.
  * Exported for use in page templates.

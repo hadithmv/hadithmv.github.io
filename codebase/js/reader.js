@@ -10,7 +10,7 @@ import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, a
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
 import { parseCSV, unparseCSV } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getColumnDisplayName, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah } from "./quran.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah } from "./quran.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -281,18 +281,22 @@ initializePageWithMetadata(async function (metadata) {
             }
           }
           if (qt) qt += "\n";
-          qt += "[" + surahName + " " + surahNo + ":" + ayahNo + "]\n\n";
-          // Book-specific columns
+          qt += "[" + surahName + " " + surahNo + " : " + ayahNo + "]\n\n";
+          // Book-specific columns — grouped by source book
+          var lastBook = "";
           for (var cj = 0; cj < row.length; cj++) {
             if (hiddenColumns.indexOf(cj) !== -1) continue;
             var ch2 = (headerRow && headerRow[cj]) ? headerRow[cj].toLowerCase().replace(/-hdn$/i, "").trim() : "";
             // Skip base columns
             if (ch2 === "juzno" || ch2 === "surahno" || ch2 === "ayahno" || ch2 === "basmalah" || isAyahTextColumn(ch2)) continue;
             var cv = (row[cj] != null ? String(row[cj]).trim() : "");
-            if (cv) {
-              var label = getColumnDisplayName(ch2, cj, headerRow);
-              qt += label + ":\n" + cv + "\n\n";
+            if (!cv) continue;
+            var bookLabel = getBookLabel(cj) || metadata.titleDV;
+            if (bookLabel && bookLabel !== lastBook) {
+              qt += bookLabel + ":\n";
+              lastBook = bookLabel;
             }
+            qt += cv + "\n\n";
           }
           return qt;
         }
@@ -372,6 +376,7 @@ initializePageWithMetadata(async function (metadata) {
           }
         }
         var query = searchInput.value.trim();
+        var lastExtBook = "";
         for (var i = 0; i < fields.length; i++) {
           var colIdx = fields[i].index;
           var rawVal = fields[i].value;
@@ -391,6 +396,16 @@ initializePageWithMetadata(async function (metadata) {
             var nlIdx = display.indexOf("\n");
             if (nlIdx !== -1) {
               display = '<span class="knhs-body-header">' + display.slice(0, nlIdx) + '</span>' + display.slice(nlIdx);
+            }
+          }
+          // Quran: insert source-book label when crossing into a new book (only if external books are loaded)
+          if (quranBook && hasExternalColumns(metadata.bookCode)) {
+            var bookLabel = getBookLabel(colIdx);
+            if (bookLabel && bookLabel !== lastExtBook) {
+              h += '<div class="reader-quran-book-label">' + bookLabel + ':</div>';
+              lastExtBook = bookLabel;
+            } else if (!bookLabel) {
+              lastExtBook = "";
             }
           }
           if (i > 0) {
@@ -1284,7 +1299,8 @@ initializePageWithMetadata(async function (metadata) {
       // ── Toolbar: copy to clipboard ──────────────────────────
       btnCopy.addEventListener("click", function () {
         var vRow = visiblePageIndex();
-        var text = clipboardHeader + "\n\n" + buildClipboardText(vRow, vRow + 1);
+        var body = buildClipboardText(vRow, vRow + 1);
+        var text = quranBook ? body : (clipboardHeader + "\n\n" + body);
         if (!text.trim()) return;
         navigator.clipboard
           .writeText(text)

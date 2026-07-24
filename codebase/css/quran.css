@@ -143,9 +143,9 @@
 .quran-content-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 8px;
-  font-size: var(--panel-font-size, 0.85rem);
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
   color: var(--color-text);
   border-radius: 4px;
   cursor: pointer;
