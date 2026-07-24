@@ -2,7 +2,27 @@
 #collapsibleReaderPanel {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: sticky;
+  top: 58px;
+  z-index: 50;
+  background: var(--color-bg);
+  padding: 10px 0;
+  border-bottom: 2px solid var(--color-card-hover-border);
+  overflow: hidden;
+}
+/* Extend chrome background to full viewport width */
+#collapsibleReaderPanel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -50vw;
+  right: -50vw;
+  background: inherit;
+  z-index: -1;
 }
 #collapsibleReaderPanel > .readerPanel-inner {
   overflow: hidden;
@@ -83,12 +103,6 @@
 [data-focus] #collapsibleReaderPanel {
   grid-template-rows: 0fr;
   opacity: 0;
-  transition:
-    grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-focus] #readerChrome {
   padding-top: 0;
   padding-bottom: 0;
   border-bottom: none;
@@ -682,28 +696,6 @@
   user-select: none;
 }
 
-/* Sticky chrome — always */
-#readerChrome {
-  position: sticky;
-  top: 58px;
-  z-index: 50;
-  background: var(--color-bg);
-  padding: 10px 0;
-  border-bottom: 2px solid var(--color-card-hover-border);
-  overflow: hidden;
-}
-/* Extend chrome background to full viewport width */
-#readerChrome::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -50vw;
-  right: -50vw;
-  background: inherit;
-  z-index: -1;
-}
-
 .focus-page-indicator {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
@@ -1013,7 +1005,7 @@
   #readerWrapper {
     margin-top: 60px;
   }
-  #readerChrome {
+  #collapsibleReaderPanel {
     top: 52px;
   }
   #pageSubRow {

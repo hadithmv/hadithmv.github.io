@@ -1319,7 +1319,7 @@ initializePageWithMetadata(async function (metadata) {
       function updateRdfHeaderTop() {
         requestAnimationFrame(function () {
           var topBar = document.getElementById("topBar");
-          var chrome = document.getElementById("readerChrome");
+          var chrome = document.getElementById("collapsibleReaderPanel");
           var top = (topBar ? topBar.offsetHeight : 62);
           if (chrome && chrome.offsetHeight > 0) top += chrome.offsetHeight;
           document.documentElement.style.setProperty("--rdf-header-top", (top - 1) + "px");

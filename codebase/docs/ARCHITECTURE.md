@@ -87,13 +87,11 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 ```text
 ┌─ Fixed topBar (z-index 101, opaque bg, bottom border) ─────══┐
 │  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
-├─ Sticky readerChrome (z-index 50) ───────────────────────────┤
-│  ┌─ collapsibleReaderPanel ──────────────────────────────┐   │
-│  │ readerPanelSearch    🔎 Advanced  [input]  ✕  (N)     │   │
-│  │ readerPanelFunctions 📋 📌 ◉ 🔗 ↕ ↺ 📥 …            │   │
-│  │ readerPanelPagination  << < [N] / [N] > >>  Tags …   │   │
-│  │ readerPanelQuran (QRN only)  ▶ 1 الفاتحة ◀  …       │   │
-│  └───────────────────────────────────────────────────────┘   │
+├─ Sticky collapsibleReaderPanel (z-index 50) ─────────────────┤
+│  readerPanelSearch       🔎 Advanced  [input]  ✕  (N)        │
+│  readerPanelFunctions    📋 📌 ◉ 🔗 ↕ ↺ 📥 …               │
+│  readerPanelPagination   << < [N] / [N] > >>  Tags …        │
+│  readerPanelQuran (QRN)  ▶ 1 الفاتحة ◀  …                  │
 ├─ Reader content (scrollable) ────────────────────────────────┤
 │  [Table mode] ▶ ════ scrollbar ════ ◀                       │
 │  #1 …                                                        │
