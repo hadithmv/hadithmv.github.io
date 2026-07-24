@@ -138,41 +138,29 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="modal-card">
-            <h3 class="modal-card-title" data-i18n="settingsAppearance">
-              ފެންނަ ގޮތް
-            </h3>
-            <div class="modal-row">
-              <span class="modal-label" data-i18n="labelTheme">ތީމް</span>
-              <select id="selTheme" class="sidebar-select">
-                <option value="light">☀️ ލައިޓް</option>
-                <option value="dark">🌙 ޑާރކް</option>
-                <option value="sepia">📜 ސީޕިއާ</option>
-              </select>
-            </div>
-            <div class="modal-row">
-              <span data-i18n="btnWidescreen">🖥️ ފުޅާ ސްކްރީން</span>
-              <button id="btnWidescreen" class="modal-toggle">☐</button>
-            </div>
+          <div class="modal-row">
+            <span class="modal-label" data-i18n="labelTheme">ތީމް</span>
+            <select id="selTheme" class="modal-select">
+              <option value="light">☀️ ލައިޓް</option>
+              <option value="dark">🌙 ޑާރކް</option>
+              <option value="sepia">📜 ސީޕިއާ</option>
+            </select>
           </div>
-          <div class="modal-card">
-            <h3 class="modal-card-title" data-i18n="settingsFont">ފޮންޓް</h3>
-            <button id="btnOpenFontModal" class="font-open-btn" data-i18n="btnOpenFont">🔤 ފޮންޓް ބަދަލު ކުރޭ…</button>
+          <div class="modal-row">
+            <span data-i18n="btnWidescreen">🖥️ ފުޅާ ސްކްރީން</span>
+            <button id="btnWidescreen" class="modal-toggle">☐</button>
           </div>
-          <div class="modal-card">
-            <h3 class="modal-card-title" data-i18n="settingsLanguage">ބަސް</h3>
-            <div class="modal-row">
-              <span>🌐</span>
-              <select
-                id="selLanguage"
-                class="sidebar-select"
-                title="Change language"
-              >
-                <option value="dv">ދިވެހި - Dhivehi - الديفيهية</option>
-                <option value="en">އިނގިރޭސި - English - إنجليزي</option>
-                <option value="ar">އަރަބި - Arabic - العربية</option>
-              </select>
-            </div>
+          <div class="modal-row">
+            <span class="modal-label" data-i18n="settingsLanguage">ބަސް</span>
+            <select id="selLanguage" class="modal-select" title="Change language">
+              <option value="dv">ދިވެހި</option>
+              <option value="en">English</option>
+              <option value="ar">العربية</option>
+            </select>
+          </div>
+          <div class="modal-row">
+            <span class="modal-label" data-i18n="settingsFont">ފޮންޓް</span>
+            <button id="btnOpenFontModal" class="modal-select" data-i18n="btnOpenFontShort">ބަދަލުކުރޭ</button>
           </div>
         </div>
       </div>
