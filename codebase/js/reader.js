@@ -1261,10 +1261,10 @@ initializePageWithMetadata(async function (metadata) {
         var pinned = isPinned(metadata.bookCode);
         if (pinned) {
           btnBookmark.classList.add("active");
-          btnBookmark.innerHTML = "📌 ޕިންވެފަ";
+          btnBookmark.innerHTML = t("btnBookmarkPinned");
         } else {
           btnBookmark.classList.remove("active");
-          btnBookmark.innerHTML = "📌 " + t("btnBookmarkText").replace(/^📌 /, "");
+          btnBookmark.innerHTML = t("btnBookmarkText");
         }
         btnBookmark.title = pinned ? "Remove bookmark (p key)" : "Bookmark current page (p key)";
       }
