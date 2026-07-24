@@ -274,6 +274,20 @@ const STRINGS = {
     ar: "الاسم الإنجليزي",
   },
   dashColTags: { dv: "ޓޭގް", en: "Tags", ar: "وسوم" },
+
+  // ── Quran navigation ──
+  qrnSurah: { dv: "ސޫރަތް:", en: "Surah:", ar: "سورة:" },
+  qrnAyah: { dv: "އާޔަތް:", en: "Ayah:", ar: "آية:" },
+  qrnJuz: { dv: "ޖުޒް:", en: "Juz:", ar: "جزء:" },
+  qrnContent: { dv: "ގުރްއާން ފޮތްތައް ▾", en: "Quran Books ▾", ar: "كتب القرآن ▾" },
+  qrnToggleAyahNum: { dv: "އާޔަތް ނަންބަރު", en: "Ayah number", ar: "رقم الآية" },
+  qrnToggleBraces: { dv: "ގުރުއާން ބްރެކެޓް", en: "Quranic braces", ar: "أقواس قرآنية" },
+  qrnSurahSearch: { dv: "…ސޫރަތް ހޯދާ", en: "Search surah…", ar: "…ابحث عن سورة" },
+
+  // ── Dashboard pins / history ──
+  dashPinsBtn: { dv: "📌 ޕިންތައް", en: "📌 Pins", ar: "📌 دبابيس" },
+  dashHistoryBtn: { dv: "🕐 ހިސްޓަރީ", en: "🕐 History", ar: "🕐 السجل" },
+  dashPinsChip: { dv: "ޕިން", en: "Pins", ar: "دبابيس" },
 };
 
 /** Translate a tag code. Pass lang to override current language. Falls back to the CSV label. */

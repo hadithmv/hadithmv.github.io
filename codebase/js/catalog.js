@@ -467,7 +467,7 @@ function renderDashboard(bookNames) {
   if (pinnedVisible.length > 0) {
     var pinsActive = _dashFilter.pinsOnly;
     pinsChipHTML = '<span class="dash-tag-chip' + (pinsActive ? ' active' : '') + '" data-tag="__pins__" title="' + (pinsActive ? 'Remove filter: Pinned' : 'Filter by pinned') + '" style="color:' + (pinsActive ? '#fff' : '#dc2626') + ';background:' + (pinsActive ? '#dc2626' : '#fef2f2') + ';border-color:#dc2626">' +
-      (pinsActive ? '<span class="chip-x">✕</span>' : '') + '📌 ޕިން <small>(' + pinnedVisible.length + ')</small></span>';
+      (pinsActive ? '<span class="chip-x">✕</span>' : '') + '📌 ' + t("dashPinsChip") + ' <small>(' + pinnedVisible.length + ')</small></span>';
   }
 
   var chipsHTML = Object.keys(tagCounts).sort().map(function (code) {

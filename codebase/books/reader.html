@@ -247,7 +247,12 @@
                 border: 1px solid var(--color-text);
                 border-radius: 6px;
                 cursor: pointer;
-                font-family: Hadithmv, Faruma, system-ui, -apple-system, sans-serif;
+                font-family:
+                  Hadithmv,
+                  Faruma,
+                  system-ui,
+                  -apple-system,
+                  sans-serif;
               "
               title="Run advanced search"
               data-i18n="btnApplySearch"
@@ -565,6 +570,141 @@
               ></span>
             </nav>
           </div>
+          <!-- Quran navigation row (hidden for non-Quran books) -->
+          <div id="quranNav" class="quran-nav" dir="rtl" style="display: none">
+            <div class="quran-nav-group">
+              <span class="quran-nav-label" data-i18n="qrnSurah">ސޫރަތް:</span>
+              <button
+                id="qrnSurahPrev"
+                class="quran-nav-btn quran-nav-arrow"
+                title="Previous surah"
+              >
+                ▶
+              </button>
+              <button
+                id="qrnSurahBtn"
+                class="quran-nav-btn quran-nav-box"
+                title="Select surah"
+              >
+                <span id="qrnSurahLabel">1 الفَاتِحَة</span>
+              </button>
+              <button
+                id="qrnSurahNext"
+                class="quran-nav-btn quran-nav-arrow"
+                title="Next surah"
+              >
+                ◀
+              </button>
+            </div>
+            <div class="quran-nav-group">
+              <span class="quran-nav-label" data-i18n="qrnAyah">އާޔަތް:</span>
+              <button
+                id="qrnAyahPrev"
+                class="quran-nav-btn quran-nav-arrow"
+                title="Previous ayah"
+              >
+                ▶
+              </button>
+              <input
+                id="qrnAyahInput"
+                type="number"
+                class="quran-nav-input"
+                min="1"
+                max="7"
+                value="1"
+                title="Ayah number"
+              />
+              <button
+                id="qrnAyahNext"
+                class="quran-nav-btn quran-nav-arrow"
+                title="Next ayah"
+              >
+                ◀
+              </button>
+            </div>
+            <div class="quran-nav-group">
+              <span class="quran-nav-label" data-i18n="qrnJuz">ޖުޒް:</span>
+              <button
+                id="qrnJuzPrev"
+                class="quran-nav-btn quran-nav-arrow"
+                title="Previous juz"
+              >
+                ▶
+              </button>
+              <input
+                id="qrnJuzInput"
+                type="number"
+                class="quran-nav-input"
+                min="1"
+                max="30"
+                value="1"
+                title="Juz number"
+              />
+              <button
+                id="qrnJuzNext"
+                class="quran-nav-btn quran-nav-arrow"
+                title="Next juz"
+              >
+                ◀
+              </button>
+            </div>
+            <div class="quran-nav-group" style="position: relative">
+              <button
+                id="qrnContentBtn"
+                class="quran-nav-btn"
+                title="Manage columns"
+                data-i18n="qrnContent"
+              >
+                ގުރްއާން ފޮތްތައް ▾
+              </button>
+              <div
+                id="qrnContentDropdown"
+                class="quran-content-dropdown"
+                style="display: none; position: absolute"
+              >
+                <div id="qrnContentList" class="quran-content-list"></div>
+              </div>
+            </div>
+            <div class="quran-nav-group" style="position:relative">
+              <button id="qrnDisplayBtn" class="quran-nav-btn" title="Display options">﴿١﴾ ▾</button>
+              <div id="qrnDisplayDropdown" class="quran-content-dropdown" style="display:none;position:absolute;left:0;min-width:200px">
+                <label class="quran-content-item">
+                  <input type="checkbox" id="qrnToggleBraces" checked><span>﴿ ﴾ ގުރުއާން ބްރެކެޓް</span>
+                </label>
+                <label class="quran-content-item">
+                  <input type="checkbox" id="qrnToggleAyahNum" checked><span>١٢٣ އާޔަތް ނަންބަރު</span>
+                </label>
+                <label class="quran-content-item" id="qrnNumBracketsRow">
+                  <input type="checkbox" id="qrnToggleNumBrackets"><span>﴿١٢٣﴾ ނަންބަރު ބްރެކެޓް</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            id="qrnSurahOverlay"
+            class="quran-surah-overlay"
+            style="display: none"
+          >
+            <div class="quran-surah-selector" dir="rtl">
+              <div class="quran-surah-header">
+                <input
+                  id="qrnSurahSearch"
+                  type="search"
+                  class="quran-surah-search"
+                  placeholder="ސޫރަތް ހޯދާ…"
+                  dir="rtl"
+                />
+                <button
+                  id="qrnSurahClose"
+                  class="quran-surah-close"
+                  title="Close"
+                >
+                  ✕
+                </button>
+              </div>
+              <div id="qrnSurahList" class="quran-surah-list"></div>
+            </div>
+          </div>
         </div>
       </div>
       <article id="readerContent" dir="rtl"></article>
@@ -627,8 +767,10 @@
           if (!row || !hasOverflow(row)) {
             wrap._arrowStart.classList.add("hidden");
             wrap._arrowEnd.classList.add("hidden");
+            wrap.style.padding = "0";
             return;
           }
+          wrap.style.padding = ""; // restore CSS default
           // scrollLeft:  0 = logical start,  -mx = logical end  (negative range in RTL)
           // Decreasing (-delta) → toward end.  Increasing (+delta) → toward start.
           var mx = row.scrollWidth - row.clientWidth;

@@ -17,6 +17,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard               |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
 | `js/reader.js`               | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard         |
+| `js/quran.js`                | Quran data loading, ayah decoration, surah/juz/ayah nav, column registry   |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`                     |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history         |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
@@ -25,6 +26,10 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/*.csv`                 | Per-book content files                                                     |
 | `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
+| `data/QRN-DATA-surahNames.csv`      | 114 surah names in AR/DV/EN with ayah counts                      |
+| `data/QRN-DATA-columns.csv`         | Registry of all available Quran columns (source, labels, defaults) |
+| `data/QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
+| `data/QRN-DATA-ayahUthmani.csv`     | Quran text in Uthmani script                                     |
 
 ## Request flow
 
@@ -203,6 +208,9 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
 | `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). Row auto‑updates as user reads |
 | `readHistory` | `catalog.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
+| `reader:quranShowAyahNum` | `reader.js` | boolean (JSON) | Show ayah number decoration |
+| `reader:quranShowBraces` | `reader.js` | boolean (JSON) | Show Quranic braces decoration |
+| `reader:quranShowNumBrackets` | `reader.js` | boolean (JSON) | Brackets around number only (not ayah text) |
 
 The settings reset button clears all of the above except `lang`.
 
@@ -281,6 +289,59 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 - When adding a new suffix flag, add it to `$suffixFlags` in `03-updateBookMeta.ps1` so `titleEN` is generated correctly
 - `KNSH-` prefix → first line of `body*` columns styled as a heading; `titleEN` gets a `Kunnaasha ` prefix
 - `RDF-` prefix (without `AQD-`) → `titleEN` gets a `Radheef ` prefix
+
+## Quran data model
+
+Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran mode in the reader. Multiple CSV files are merged by row index — row N of every CSV corresponds to ayah N of the Quran.
+
+### Data files
+
+| File | Role | Columns |
+|------|------|---------|
+| `QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv` | Base data (always loaded) | `juzNo, surahNo, ayahNo, basmalah, ayahImlai` |
+| `QRN-DATA-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
+| `QRN-DATA-surahNames.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount` |
+| `QRN-DATA-columns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
+| `QRN-{name}.csv` | Book-specific columns | Varies per book |
+
+### Merging
+
+Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-columns.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`).
+
+### Quran navigation
+
+A navigation row appears inside the collapsible chrome for QRN books:
+
+- **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs (AR/DV/EN names, diacritic-insensitive search via `normaliseForSearch`)
+- **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus. Clamped to current surah's ayah count.
+- **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30).
+- **Content dropdown**: lists all columns from the registry with checkboxes. Book-specific columns show as `"Book Title: N"`. Columns from other books load on demand. Base columns `juzNo/surahNo/ayahNo` default hidden via `-HDN` suffix. Changes apply immediately — no preset or Apply buttons.
+- **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration:
+  - `﴿ ﴾` — wraps ayah in Quranic braces
+  - `١٢٣` — appends ayah number in Arabic numerals
+  - `﴿١٢٣﴾` — number-only brackets: `text ﴿١﴾` instead of `﴿text ١﴾`
+
+Navigation syncs on scroll: the visible ayah's surah, ayah, and juz update automatically. Changing any selector updates the others (e.g. changing surah recalculates juz).
+
+### Ayah decoration
+
+Columns `ayahImlai` and `ayahUthmani` are rendered with configurable decoration:
+
+| Braces | Number | Num Brackets | Output |
+|--------|--------|-------------|--------|
+| ☑ | ☑ | ☐ | `﴿text ١﴾` |
+| ☑ | ☑ | ☑ | `text ﴿١﴾` |
+| ☑ | ☐ | — | `﴿text﴾` |
+| ☐ | ☑ | — | `text ١` |
+| ☐ | ☐ | — | `text` |
+
+### Clipboard
+
+Quran clipboard format: decorated ayah text, `[surahName surahNo:ayahNo]` reference line, then each visible book column with its title as a heading.
+
+### Performance
+
+`table-layout: auto` lets columns size to content. `border-collapse: separate` avoids the expensive collapsing-border algorithm. `contain: layout style` on `.rdf-table` isolates layout. `content-visibility: auto` is explicitly excluded from `<tr>` (breaks table layout). The table wrapper uses `overflow-x: clip` (fallback: `hidden`) so sticky `<th>` elements aren't trapped by a scroll container. A sticky horizontal scrollbar at the top of the table provides horizontal scrolling for wide tables.
 
 ## Development conventions
 
