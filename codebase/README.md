@@ -109,7 +109,7 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 
 ### Chrome layout
 
-All rows inside the collapsible chrome use uniform 10px spacing via flex column gap and readerChrome padding. Toolbar and pagination rows are wrapped in `.h-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements share `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4` for uniform height.
+All rows inside the collapsible panel use uniform 10px spacing via flex column gap and readerChrome padding. Toolbar and pagination rows are wrapped in `.h-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements share `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4` for uniform height.
 
 ### Search
 

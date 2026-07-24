@@ -407,9 +407,9 @@
             XML
           </button>
         </div>
-        <div id="collapsibleChrome">
-          <div class="chrome-inner">
-            <div id="searchBar">
+        <div id="collapsiblePanel">
+          <div class="panel-inner">
+            <div id="readerSearchBar" class="panel-row">
               <button
                 id="btnAdvancedSearch"
                 class="search-advanced-btn"
@@ -458,7 +458,7 @@
               class="search-results"
               style="display: none"
             ></div>
-            <div id="readerToolbar" class="reader-toolbar" dir="rtl">
+            <div id="readerFunctionsBar" class="panel-row reader-toolbar" dir="rtl">
               <div class="toolbar-group">
                 <button
                   id="btnCopy"
@@ -532,7 +532,7 @@
                 </div>
               </div>
             </div>
-            <nav id="readerNav" class="reader-nav" dir="rtl">
+            <nav id="readerPaginationBar" class="panel-row reader-nav" dir="rtl">
               <div class="nav-pages">
                 <span id="pageLabel" class="page-of-label"></span>
                 <button
@@ -571,7 +571,7 @@
             </nav>
           </div>
           <!-- Quran navigation row (hidden for non-Quran books) -->
-          <div id="quranNav" class="quran-nav" dir="rtl" style="display: none">
+          <div id="readerQuranNavBar" class="panel-row quran-nav" dir="rtl" style="display: none">
             <div class="quran-nav-group">
               <span class="quran-nav-label" data-i18n="qrnSurah">ސޫރަތް:</span>
               <button
@@ -708,7 +708,7 @@
         </div>
       </div>
       <article id="readerContent" dir="rtl"></article>
-      <nav id="readerNavBottom" class="reader-nav" dir="rtl">
+      <nav id="readerPaginationBarBottom" class="panel-row reader-nav" dir="rtl">
         <div class="nav-pages">
           <span id="pageLabelBottom" class="page-of-label"></span>
           <button
@@ -796,7 +796,7 @@
 
         // Wrap toolbar & nav rows — DOM ops work even in hidden subtrees.
         document
-          .querySelectorAll(".reader-toolbar, .reader-nav")
+          .querySelectorAll(".panel-row")
           .forEach(function (row) {
             var rtl = isRTL(row),
               wrap = document.createElement("div");

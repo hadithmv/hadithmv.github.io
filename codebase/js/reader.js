@@ -1906,11 +1906,11 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Quran UI ───────────────────────────────────────────
       function initQuranUI() {
-        var quranNav = document.getElementById("quranNav");
-        if (!quranNav) return;
-        quranNav.style.display = "";
+        var readerQuranNavBar = document.getElementById("readerQuranNavBar");
+        if (!readerQuranNavBar) return;
+        readerQuranNavBar.style.display = "";
         // Shift+wheel → horizontal scroll
-        quranNav.addEventListener("wheel", function (e) {
+        readerQuranNavBar.addEventListener("wheel", function (e) {
           if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
             e.preventDefault();
             qSmoothScroll(e.deltaX || e.deltaY);
@@ -1925,14 +1925,14 @@ initializePageWithMetadata(async function (metadata) {
         qa2.className = "quran-sticky-arrow quran-sticky-end hidden";
         qa2.innerHTML = "&#9664;";
         qa2.title = "Scroll toward end";
-        quranNav.insertBefore(qa1, quranNav.firstChild);
-        quranNav.appendChild(qa2);
+        readerQuranNavBar.insertBefore(qa1, readerQuranNavBar.firstChild);
+        readerQuranNavBar.appendChild(qa2);
         function qSmoothScroll(delta) {
-          var start = quranNav.scrollLeft, target = start + delta, duration = 250, t0 = performance.now();
+          var start = readerQuranNavBar.scrollLeft, target = start + delta, duration = 250, t0 = performance.now();
           function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
           function step(now) {
             var t = Math.min((now - t0) / duration, 1);
-            quranNav.scrollLeft = start + delta * easeOut(t);
+            readerQuranNavBar.scrollLeft = start + delta * easeOut(t);
             if (t < 1) requestAnimationFrame(step);
           }
           requestAnimationFrame(step);
@@ -1940,12 +1940,12 @@ initializePageWithMetadata(async function (metadata) {
         qa1.addEventListener("click", function (e) { e.stopPropagation(); qSmoothScroll(200); });
         qa2.addEventListener("click", function (e) { e.stopPropagation(); qSmoothScroll(-200); });
         function qUpdateArrows() {
-          var ov = quranNav.scrollWidth > quranNav.clientWidth + 1;
+          var ov = readerQuranNavBar.scrollWidth > readerQuranNavBar.clientWidth + 1;
           if (ov) {
             qa1.classList.remove("hidden");
             qa2.classList.remove("hidden");
-            var sl = Math.abs(quranNav.scrollLeft);
-            var maxSl = quranNav.scrollWidth - quranNav.clientWidth;
+            var sl = Math.abs(readerQuranNavBar.scrollLeft);
+            var maxSl = readerQuranNavBar.scrollWidth - readerQuranNavBar.clientWidth;
             var atStart = sl < 1;
             var atEnd = sl > maxSl - 2;
             qa1.classList.toggle("hidden", atStart);
@@ -1955,7 +1955,7 @@ initializePageWithMetadata(async function (metadata) {
             qa2.classList.add("hidden");
           }
         }
-        quranNav.addEventListener("scroll", qUpdateArrows);
+        readerQuranNavBar.addEventListener("scroll", qUpdateArrows);
         window.addEventListener("resize", qUpdateArrows);
         requestAnimationFrame(function () { requestAnimationFrame(qUpdateArrows); });
 

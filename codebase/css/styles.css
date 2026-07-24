@@ -380,21 +380,21 @@ body {
 }
 
 /* ---- Focus mode — slide chrome up ---- */
-#collapsibleChrome {
+#collapsiblePanel {
   display: grid;
   grid-template-rows: 1fr;
   transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-#collapsibleChrome > .chrome-inner {
+#collapsiblePanel > .panel-inner {
   overflow: hidden;
 }
-#collapsibleChrome .chrome-inner {
+#collapsiblePanel .panel-inner {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-[data-focus] #collapsibleChrome {
+[data-focus] #collapsiblePanel {
   grid-template-rows: 0fr;
   opacity: 0;
   transition:
@@ -408,7 +408,7 @@ body {
   border-bottom: none;
 }
 
-[data-focus] #readerNavBottom {
+[data-focus] #readerPaginationBarBottom {
   display: none;
 }
 
@@ -1066,7 +1066,7 @@ body:has(.modal-overlay.open) {
 }
 
 /* ---- Search bar ---- */
-#searchBar {
+#readerSearchBar {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1612,18 +1612,14 @@ body:has(.modal-overlay.open) {
   overflow: hidden;
 }
 /* The row itself scrolls — wrap just provides arrow space */
-.h-scroll-wrap .reader-toolbar,
-.h-scroll-wrap .reader-nav,
-.h-scroll-wrap .quran-nav {
+.h-scroll-wrap .panel-row {
   overflow-x: auto;
   scrollbar-width: none;
   flex: 1;
   min-width: 0;
   margin: 0;
 }
-.h-scroll-wrap .reader-toolbar::-webkit-scrollbar,
-.h-scroll-wrap .reader-nav::-webkit-scrollbar,
-.h-scroll-wrap .quran-nav::-webkit-scrollbar {
+.h-scroll-wrap .panel-row::-webkit-scrollbar {
   display: none;
 }
 
@@ -1697,7 +1693,7 @@ body:has(.modal-overlay.open) {
   flex-shrink: 0;
 }
 
-#readerNavBottom {
+#readerPaginationBarBottom {
   margin-top: 16px;
   margin-bottom: 0;
   border-bottom: none;
@@ -2289,7 +2285,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 1px 0 0;
+  padding: 9px 0 0;
   flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
@@ -2655,15 +2651,15 @@ body:has(.modal-overlay.open) {
   .btn-text {
     display: none;
   }
-  #searchBar {
+  #readerSearchBar {
     margin: 0;
   }
-  #readerNav {
+  #readerPaginationBar {
     padding-bottom: 0;
     margin-bottom: 0;
     justify-content: flex-start;
   }
-  #readerNavBottom {
+  #readerPaginationBarBottom {
     justify-content: center;
   }
   #backToDashboard {
@@ -2687,9 +2683,6 @@ body:has(.modal-overlay.open) {
   }
   #readerChrome {
     top: 60px;
-  }
-  #collapsibleChrome {
-    gap: 10px;
   }
   #pageSubRow {
     justify-content: flex-start !important;

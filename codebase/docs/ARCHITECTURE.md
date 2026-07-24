@@ -310,13 +310,13 @@ Base data columns are always present. Book-specific columns are merged by row in
 
 ### Quran navigation
 
-A navigation row appears inside the collapsible chrome for QRN books:
+A navigation row appears inside the collapsible panel for QRN books:
 
-- **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs (AR/DV/EN names, diacritic-insensitive search via `normaliseForSearch`)
-- **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus. Clamped to current surah's ayah count.
-- **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30).
-- **Content dropdown**: lists all columns from the registry with checkboxes. Book-specific columns show as `"Book Title: N"`. Columns from other books load on demand. Base columns `juzNo/surahNo/ayahNo` default hidden via `-HDN` suffix. Changes apply immediately — no preset or Apply buttons.
-- **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration:
+  - **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
+  - **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
+  - **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30)
+  - **Content dropdown**: checkboxes for all columns from the registry; changes apply immediately
+  - **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration (braces, ayah number, number-position)
   - `﴿ ﴾` — wraps ayah in Quranic braces
   - `١٢٣` — appends ayah number in Arabic numerals
   - `﴿١٢٣﴾` — number-only brackets: `text ﴿١﴾` instead of `﴿text ١﴾`
@@ -395,7 +395,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 1. If it exists at page load and is visible → use `.h-scroll-wrap` pattern (add to the inline script's `querySelectorAll`).
 2. If it's created or shown dynamically → use the sticky‑arrow pattern, or wrap it in `.h-scroll-wrap` AFTER it becomes visible.
 3. Never set `wrap.style.padding = "0"` — the padding is always needed for arrow placement.
-4. Never create wrapper divs inside `.chrome-inner` at page load for hidden elements.
+4. Never create wrapper divs inside `.panel-inner` at page load for hidden elements.
 
 ### HTML & DOM
 
