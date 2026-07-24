@@ -1909,55 +1909,6 @@ initializePageWithMetadata(async function (metadata) {
         var readerPanelQuran = document.getElementById("readerPanelQuran");
         if (!readerPanelQuran) return;
         readerPanelQuran.style.display = "";
-        // Shift+wheel → horizontal scroll
-        readerPanelQuran.addEventListener("wheel", function (e) {
-          if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-            e.preventDefault();
-            qSmoothScroll(e.deltaX || e.deltaY);
-          }
-        }, { passive: false });
-        // Sticky arrows as first/last children of the scrollable row
-        var qa1 = document.createElement("button");
-        qa1.className = "quran-sticky-arrow quran-sticky-start hidden";
-        qa1.innerHTML = "&#9654;";
-        qa1.title = "Scroll toward start";
-        var qa2 = document.createElement("button");
-        qa2.className = "quran-sticky-arrow quran-sticky-end hidden";
-        qa2.innerHTML = "&#9664;";
-        qa2.title = "Scroll toward end";
-        readerPanelQuran.insertBefore(qa1, readerPanelQuran.firstChild);
-        readerPanelQuran.appendChild(qa2);
-        function qSmoothScroll(delta) {
-          var start = readerPanelQuran.scrollLeft, target = start + delta, duration = 250, t0 = performance.now();
-          function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-          function step(now) {
-            var t = Math.min((now - t0) / duration, 1);
-            readerPanelQuran.scrollLeft = start + delta * easeOut(t);
-            if (t < 1) requestAnimationFrame(step);
-          }
-          requestAnimationFrame(step);
-        }
-        qa1.addEventListener("click", function (e) { e.stopPropagation(); qSmoothScroll(200); });
-        qa2.addEventListener("click", function (e) { e.stopPropagation(); qSmoothScroll(-200); });
-        function qUpdateArrows() {
-          var ov = readerPanelQuran.scrollWidth > readerPanelQuran.clientWidth + 1;
-          if (ov) {
-            qa1.classList.remove("hidden");
-            qa2.classList.remove("hidden");
-            var sl = Math.abs(readerPanelQuran.scrollLeft);
-            var maxSl = readerPanelQuran.scrollWidth - readerPanelQuran.clientWidth;
-            var atStart = sl < 1;
-            var atEnd = sl > maxSl - 2;
-            qa1.classList.toggle("hidden", atStart);
-            qa2.classList.toggle("hidden", atEnd);
-          } else {
-            qa1.classList.add("hidden");
-            qa2.classList.add("hidden");
-          }
-        }
-        readerPanelQuran.addEventListener("scroll", qUpdateArrows);
-        window.addEventListener("resize", qUpdateArrows);
-        requestAnimationFrame(function () { requestAnimationFrame(qUpdateArrows); });
 
         // Load toggle state
         var showAyahNum = LS.get("quranShowAyahNum", true);

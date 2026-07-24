@@ -32,6 +32,16 @@ function getFontSizeIdx() {
 function applyFontSize(idx) {
   var size = FONT_SIZES[idx];
   html.style.setProperty("--reader-font-size", size);
+  // Mobile reader content (slightly smaller)
+  var readerPx = parseFloat(size);
+  var mobileReaderPx = Math.round(readerPx * 0.88 * 100) / 100;
+  html.style.setProperty("--reader-font-size-mobile", mobileReaderPx + "rem");
+  // Scale panel UI proportionally (default ratio: 0.85rem / 1.25rem = 0.68)
+  var panelPx = Math.round(readerPx * 0.68 * 100) / 100;
+  html.style.setProperty("--panel-font-size", panelPx + "rem");
+  // Mobile panel UI (same proportion, slightly smaller)
+  var mobilePanelPx = Math.round(panelPx * 0.9 * 100) / 100;
+  html.style.setProperty("--panel-font-size-mobile", mobilePanelPx + "rem");
   var val = document.getElementById("fontSizeVal");
   if (val) val.textContent = size;
   try { localStorage.setItem("fontSize", size); } catch (_) {}
@@ -40,12 +50,16 @@ function applyFontSize(idx) {
 (function () {
   var saved = (function () { try { return localStorage.getItem("fontSize"); } catch (_) { return null; } })();
   var val = document.getElementById("fontSizeVal");
-  if (saved && FONT_SIZES.indexOf(saved) !== -1) {
-    html.style.setProperty("--reader-font-size", saved);
-    if (val) val.textContent = saved;
-  } else if (val) {
-    val.textContent = DEFAULT_FONT_SIZE;
-  }
+  var size = (saved && FONT_SIZES.indexOf(saved) !== -1) ? saved : DEFAULT_FONT_SIZE;
+  html.style.setProperty("--reader-font-size", size);
+  var readerPx = parseFloat(size);
+  var mobileReaderPx = Math.round(readerPx * 0.88 * 100) / 100;
+  html.style.setProperty("--reader-font-size-mobile", mobileReaderPx + "rem");
+  var panelPx = Math.round(readerPx * 0.68 * 100) / 100;
+  html.style.setProperty("--panel-font-size", panelPx + "rem");
+  var mobilePanelPx = Math.round(panelPx * 0.9 * 100) / 100;
+  html.style.setProperty("--panel-font-size-mobile", mobilePanelPx + "rem");
+  if (val) val.textContent = size;
 })();
 
 // ── Font family dropdown ────────────────────────────────────
@@ -190,7 +204,10 @@ function applyFontSize(idx) {
     localStorage.removeItem("widescreen");
     var wsBtn = document.getElementById("btnWidescreen");
     if (wsBtn) { wsBtn.classList.remove("active"); wsBtn.textContent = "☐"; }
-    html.style.removeProperty("--reader-font-size");
+    html.style.setProperty("--reader-font-size", DEFAULT_FONT_SIZE);
+    html.style.setProperty("--reader-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.88 * 100) / 100 + "rem");
+    html.style.setProperty("--panel-font-size", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 100) / 100 + "rem");
+    html.style.setProperty("--panel-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 0.9 * 100) / 100 + "rem");
     localStorage.removeItem("fontSize");
     var fsv = document.getElementById("fontSizeVal");
     if (fsv) fsv.textContent = DEFAULT_FONT_SIZE;

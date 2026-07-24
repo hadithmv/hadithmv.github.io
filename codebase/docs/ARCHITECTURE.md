@@ -81,26 +81,21 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 ### Layout
 
 ```text
-┌─ Fixed topBar (z-index 101, opaque bg, bottom border) ───────┐
+┌─ Fixed topBar (z-index 101, opaque bg, bottom border) ─────══┐
 │  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
-├─ Sticky chrome (z-index 50, bottom-border cut) ──────────────┤
-│  Search bar: 🔎 Advanced, input, ✕ clear, match count       │
-│  Toolbar: Pin, Copy, Tashkeel, Share, View, Reset, Export, etc.  │
-│  Pagination: ސަފްހާ: << < 10/[5] > >>  Subtitle + Tags     │
+├─ Sticky readerChrome (z-index 50) ───────────────────────────┤
+│  ┌─ collapsibleReaderPanel ──────────────────────────────┐   │
+│  │ readerPanelSearch    🔎 Advanced  [input]  ✕  (N)     │   │
+│  │ readerPanelFunctions 📋 📌 ◉ 🔗 ↕ ↺ 📥 …            │   │
+│  │ readerPanelPagination  << < [N] / [N] > >>  Tags …   │   │
+│  │ readerPanelQuran (QRN only)  ▶ 1 الفاتحة ◀  …       │   │
+│  └───────────────────────────────────────────────────────┘   │
 ├─ Reader content (scrollable) ────────────────────────────────┤
-│  [Table mode only] ▶ ════ horizontal scrollbar ════ ◀       │
-│  #1                                                          │
-│  head …                                (large, bold)         │
-│  kitab …                               (medium, bold)        │
-│  bab …                                 (smaller, bold)        │
-│  column …                                                    │
-│       ــــــــــــــــــــــــــــــــــــــــــــ           │
-│  foot …                                                      │
-│         ◆                                                    │
-│  #2                                                          │
-│  …                                                           │
-├─ Pagination (bottom) ────────────────────────────────────────┤
-│  << < 10/[5] > >>                                            │
+│  [Table mode] ▶ ════ scrollbar ════ ◀                       │
+│  #1 …                                                        │
+│  #2 …                                                        │
+├─ readerPanelPaginationBottom ─────────────────────────────────┤
+│  << < [N] / [N] > >>                                          │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -188,7 +183,20 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings including reader state, pins, and history. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
+Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings including reader state, pins, and history and restores CSS variable defaults. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
+
+### Font scaling
+
+Font size is controlled via four CSS custom properties on `<html>`:
+
+| Variable | Default | Controls |
+|---|---|---|
+| `--reader-font-size` | `1.25rem` | Reader content text |
+| `--reader-font-size-mobile` | `0.88 × reader` | Reader content on mobile |
+| `--panel-font-size` | `0.68 × reader` | All panel UI text (buttons, inputs, labels) |
+| `--panel-font-size-mobile` | `0.9 × panel` | Panel UI + dashboard on mobile |
+
+All panel buttons and inputs use `em`-based `height`, `padding`, and `line-height` so they scale proportionally with `--panel-font-size`. The Settings → Font ± control sets all four variables. Reset restores defaults.
 
 ### Persisted state
 
@@ -310,7 +318,7 @@ Base data columns are always present. Book-specific columns are merged by row in
 
 ### Quran navigation
 
-A navigation row appears inside the collapsible panel for QRN books:
+A navigation row (`readerPanelQuran`) appears inside the collapsible reader panel for QRN books:
 
   - **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
   - **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
@@ -375,7 +383,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 ```
 .h-scroll-wrap (display:flex, position:relative, padding:0 30px)
   ├── button.scroll-arrow.scroll-arrow-start (►)  — absolute, left:2px
-  ├── .reader-toolbar / .reader-nav / .quran-nav   — flex:1, min-width:0, overflow-x:auto, hidden scrollbar
+  ├── .readerPanel-row   — flex:1, min-width:0, overflow-x:auto, hidden scrollbar
   └── button.scroll-arrow.scroll-arrow-end (◄)    — absolute, right:2px
 ```
 - Arrows sit in the padding area and are absolutely positioned.
