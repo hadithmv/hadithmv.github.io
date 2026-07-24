@@ -391,7 +391,9 @@ body {
 #collapsibleReaderPanel .readerPanel-inner {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+}
+.readerPanel-inner > * + * {
+  margin-top: 10px;
 }
 
 /* ── Shared: all buttons + inputs inside panel rows ── */
@@ -1732,7 +1734,7 @@ body:has(.modal-overlay.open) {
 }
 
 #readerPanelPaginationBottom {
-  margin-top: 16px;
+  margin-top: 10px;
   margin-bottom: 0;
   border-bottom: none;
   border-top: 2px solid var(--color-card-hover-border);
@@ -1970,7 +1972,7 @@ body:has(.modal-overlay.open) {
   top: 62px;
   z-index: 50;
   background: var(--color-bg);
-  padding: 12px 0 8px;
+  padding: 10px 0;
   border-bottom: 2px solid var(--color-card-hover-border);
   overflow: hidden;
 }
