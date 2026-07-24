@@ -21,8 +21,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard               |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
 | `js/reader.js`               | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard         |
-| `js/quran.js`                | Quran data loading, ayah decoration, surah/juz/ayah nav, column registry   |
-| `js/quran-ui.js`             | Quran UI: surah/ayah/juz selectors, content dropdown, display options      |
+| `js/quran.js`                | Quran: data loading, decoration, nav, column registry, UI setup            |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`                     |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history         |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
@@ -221,9 +220,9 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
 | `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). Row auto‑updates as user reads |
 | `readHistory` | `catalog.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
-| `reader:quranShowAyahNum` | `quran-ui.js` | boolean (JSON) | Show ayah number decoration |
-| `reader:quranShowBraces` | `quran-ui.js` | boolean (JSON) | Show Quranic braces decoration |
-| `reader:quranShowNumBrackets` | `quran-ui.js` | boolean (JSON) | Brackets around number only (not ayah text) |
+| `reader:quranShowAyahNum` | `quran.js` | boolean (JSON) | Show ayah number decoration |
+| `reader:quranShowBraces` | `quran.js` | boolean (JSON) | Show Quranic braces decoration |
+| `reader:quranShowNumBrackets` | `quran.js` | boolean (JSON) | Brackets around number only (not ayah text) |
 
 The settings reset button clears all of the above except `lang`.
 

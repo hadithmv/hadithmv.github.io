@@ -11,48 +11,6 @@
   position: relative;
 }
 
-.search-input {
-  flex: 1;
-  min-width: 0;
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
-  border-radius: 8px;
-}
-
-/* Clear button inside the search bar */
-.search-clear {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  font-size: 1rem;
-  font-weight: 900;
-  line-height: 1;
-  color: #dc2626;
-  background: none;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.search-clear:hover {
-  background: #fef2f2;
-}
-
-.search-info {
-  flex-shrink: 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
-  white-space: nowrap;
-}
-
 .search-advanced-btn {
   flex-shrink: 0;
   box-sizing: border-box;

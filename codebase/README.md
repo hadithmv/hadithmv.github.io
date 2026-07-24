@@ -24,8 +24,7 @@ js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
   catalog.js          ← Metadata loader, tag extraction, dashboard rendering
   reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
-  quran.js             ← Quran data: multi-CSV merging, ayah decoration, nav helpers
-  quran-ui.js          ← Quran UI: surah/ayah/juz selectors, content/display dropdowns
+  quran.js             ← Quran: data, decoration, nav, column registry, all UI
   csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
   search.js            ← Search engine: normalisation, parsing, matching, history
   i18n.js              ← Translations (dv/en/ar)
