@@ -1,0 +1,136 @@
+/* ============================================================
+   RDF Table — top scrollbar, table layout, sentinels, footnotes
+   ============================================================ */
+/* RDF table mode */
+.rdf-table-wrap {
+  overflow-x: hidden; /* fallback */
+  overflow-x: clip; /* clips overflow WITHOUT creating a scroll container → sticky th works */
+  margin: 0 -36px;
+  direction: rtl;
+}
+/* Top scrollbar — sits above the table, sticky so it stays visible on vertical scroll */
+.rdf-top-scroll {
+  position: sticky;
+  top: calc(var(--rdf-header-top, 62px) + 2px);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  margin: 0 -36px;
+  padding: 3px 0 4px;
+  direction: rtl;
+  background: var(--color-reader-bg);
+}
+.rdf-top-scroll-inner {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  min-width: 0;
+}
+.rdf-top-scroll-inner::-webkit-scrollbar {
+  height: 10px;
+}
+.rdf-top-scroll-inner::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 5px;
+}
+.rdf-top-scroll-inner::-webkit-scrollbar-thumb:hover {
+  background: var(--color-card-hover-border);
+}
+.rdf-top-scroll-inner::-webkit-scrollbar-track {
+  background: transparent;
+}
+.rdf-top-scroll-spacer {
+  height: 1px;
+}
+
+/* Arrow buttons flanking the scrollbar */
+.rdf-scroll-arrow {
+  flex-shrink: 0;
+  padding: 0 4px;
+  font-size: 0.7rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.rdf-scroll-arrow:hover {
+  color: var(--color-text);
+}
+
+.rdf-table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  direction: rtl;
+  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  contain: layout style;
+}
+
+.rdf-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  vertical-align: top;
+  text-align: right;
+  overflow-wrap: break-word;
+}
+/* Left border on first column (rightmost in RTL) */
+.rdf-table td:first-child {
+  border-left: 1px solid var(--color-border);
+  white-space: nowrap;
+  width: 60px;
+}
+
+/* Sharh cells in table mode — smaller text + separator from matn */
+.rdf-table td.td-sharh {
+  font-size: 0.88em;
+  border-inline-start: 2px dotted var(--color-divider-ornament);
+}
+
+.rdf-table tr:hover td {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.rdf-table thead {
+  z-index: 5;
+}
+.rdf-table th {
+  position: sticky;
+  top: var(--rdf-header-top, 62px);
+  padding: 8px 10px;
+  background: var(--color-nav-btn-bg);
+  border-bottom: 2px solid var(--color-divider-ornament);
+  border-right: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
+  font-weight: 700;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text);
+  text-align: right;
+  z-index: 5;
+  white-space: nowrap;
+}
+.rdf-table th:first-child {
+  border-left: 1px solid var(--color-border);
+  width: 60px;
+}
+
+/* Infinite scroll sentinels */
+.reader-sentinel {
+  height: 1px;
+}
+
+/* Footnotes / sources (last column) */
+.reader-footnotes {
+  font-size: 0.9rem;
+  color: var(--color-footnotes);
+  line-height: 1.8;
+}
+
+/* ============================================================
+   Quran Reader
+   ============================================================ */

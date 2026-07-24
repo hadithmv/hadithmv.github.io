@@ -12,12 +12,17 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `data/01-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
-| `css/styles.css`             | Shared styles: themes, topBar, sidebar, modals, responsive                 |
+| `css/common.css`             | Shared: themes, fonts, topBar, sidebar, settings modal, tag colors        |
+| `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive         |
+| `css/search.css`             | Reader: search bar, results dropdown, advanced search                      |
+| `css/tableView.css`          | Reader: table view mode, top scrollbar, sentinels                          |
+| `css/quran.css`              | Reader: Quran navigation row, dropdowns, surah overlay                     |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard               |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
 | `js/reader.js`               | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard         |
 | `js/quran.js`                | Quran data loading, ayah decoration, surah/juz/ayah nav, column registry   |
+| `js/quran-ui.js`             | Quran UI: surah/ayah/juz selectors, content dropdown, display options      |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`                     |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history         |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
@@ -216,9 +221,9 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
 | `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). Row auto‑updates as user reads |
 | `readHistory` | `catalog.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
-| `reader:quranShowAyahNum` | `reader.js` | boolean (JSON) | Show ayah number decoration |
-| `reader:quranShowBraces` | `reader.js` | boolean (JSON) | Show Quranic braces decoration |
-| `reader:quranShowNumBrackets` | `reader.js` | boolean (JSON) | Brackets around number only (not ayah text) |
+| `reader:quranShowAyahNum` | `quran-ui.js` | boolean (JSON) | Show ayah number decoration |
+| `reader:quranShowBraces` | `quran-ui.js` | boolean (JSON) | Show Quranic braces decoration |
+| `reader:quranShowNumBrackets` | `quran-ui.js` | boolean (JSON) | Brackets around number only (not ayah text) |
 
 The settings reset button clears all of the above except `lang`.
 

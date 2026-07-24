@@ -1,0 +1,1254 @@
+/* ---- Focus mode — slide chrome up ---- */
+#collapsibleReaderPanel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#collapsibleReaderPanel > .readerPanel-inner {
+  overflow: hidden;
+}
+#collapsibleReaderPanel .readerPanel-inner {
+  display: flex;
+  flex-direction: column;
+}
+.readerPanel-inner > * + * {
+  margin-top: 10px;
+}
+
+/* ── Shared: all buttons + inputs inside panel rows ── */
+.readerPanel-inner button,
+.readerPanel-inner input,
+.readerPanel-inner select {
+  box-sizing: border-box;
+  height: auto;
+  padding: 0.35em 0.75em;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  line-height: 2.2;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.readerPanel-inner button:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+.readerPanel-inner button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.readerPanel-inner input {
+  background: var(--color-reader-bg);
+  text-align: center;
+}
+.readerPanel-inner input:focus {
+  border-color: var(--color-card-hover-border);
+}
+.readerPanel-inner .search-input {
+  flex: 1;
+  min-width: 0;
+  height: auto;
+  padding: 0.35em 0.75em;
+  font-size: 1.05rem;
+  line-height: normal;
+  text-align: right;
+  background: var(--color-reader-bg);
+  direction: rtl;
+}
+.readerPanel-inner .search-input::placeholder {
+  color: var(--color-text-subtle);
+  opacity: 1;
+  font-weight: 700;
+}
+/* Scroll arrows — narrower, no border */
+.readerPanel-inner .scroll-arrow {
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+}
+.readerPanel-inner .scroll-arrow:hover {
+  color: var(--color-text);
+  background: transparent;
+}
+
+[data-focus] #collapsibleReaderPanel {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-focus] #readerChrome {
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+[data-focus] #readerPanelPaginationBottom {
+  display: none;
+}
+
+[data-focus] #readerContent {
+  border: none;
+  box-shadow: none;
+}
+
+.subrow-left {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+
+/* ---- Widescreen mode ---- */
+[data-widescreen] #pageHeader,
+[data-widescreen] #readerWrapper,
+[data-widescreen] #dashboardWrapper {
+  max-width: none;
+}
+
+[data-widescreen] #readerContent {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+
+/* Sidebar select */
+.sidebar-select-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.sidebar-select-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.sidebar-select {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.sidebar-select:focus {
+  border-color: var(--color-card-hover-border);
+}
+
+/* Font size controls */
+.font-size-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.font-adj-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.font-adj-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.font-size-val {
+  min-width: 52px;
+  text-align: center;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.font-family-label {
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-subtle);
+  margin-right: 0;
+  margin-left: auto;
+}
+
+
+/* ---- Page header ---- */
+#pageHeader {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 8px 20px 16px;
+  border-bottom: 2px solid var(--color-card-hover-border);
+}
+
+#topBar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 800px;
+  padding: 10px 0;
+  box-sizing: border-box;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  direction: ltr;
+  background-color: var(--color-bg);
+  border-bottom: 2px solid var(--color-card-hover-border);
+}
+
+#topBar > * {
+  flex-shrink: 0;
+}
+
+#topBar button {
+  flex-shrink: 0;
+}
+
+#topBar .nav-focus-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: #15803d;
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+[data-theme="dark"] #topBar .nav-focus-btn {
+  color: #86efac;
+  background: #14532d;
+  border-color: #14532d;
+}
+[data-theme="dark"] #topBar .nav-focus-btn:hover {
+  border-color: #4ade80;
+}
+
+#topBar #pageTitle {
+  flex: 1;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: "Hadithmv", "Traditional Arabic", serif;
+  text-align: center;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+#topBar #pageTitle::-webkit-scrollbar {
+  display: none;
+}
+
+#backToDashboard {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+#backToDashboard:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+[data-theme="dark"] #backToDashboard {
+  color: #fca5a5;
+  background: #450a0a;
+  border-color: #450a0a;
+}
+[data-theme="dark"] #backToDashboard:hover {
+  background: #450a0a;
+  border-color: #f87171;
+}
+
+#pageHeader {
+  position: relative;
+}
+
+.back-link:hover {
+  color: var(--color-text);
+}
+
+#pageHeader h1 {
+  margin: 0 0 10px 0;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
+}
+
+#pageSubtitle {
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  white-space: nowrap;
+}
+
+#pageSubRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.subrow-right {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+#pageSubRow #pageTags {
+  margin-top: 0;
+}
+
+
+/* ---- Reader toolbar ---- */
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.reader-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Column toggle buttons */
+.column-toggles {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.col-toggle {
+  padding: 3px 7px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  white-space: nowrap;
+}
+
+.col-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+
+.col-toggle.off {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+/* Column dropdown */
+.column-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 60;
+  margin-top: 4px;
+  padding: 6px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  max-width: 140px;
+}
+
+.column-dropdown .column-toggles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.column-dropdown .col-toggle {
+  text-align: right;
+  width: 100%;
+  padding: 5px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+}
+
+#columnTogglesGroup {
+  position: relative;
+}
+
+.export-dropdown {
+  position: absolute;
+  top: 100%;
+  z-index: 60;
+  margin-top: 4px;
+  padding: 4px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  min-width: 130px;
+}
+
+.export-option {
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  text-align: right;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.export-option:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+/* ── Tashkeel hide mode ── */
+.hide-tashkeel .tashkeel {
+  display: none;
+}
+
+/* ── Multi-row page separator ── */
+.reader-page-sep {
+  border: none;
+  border-top: 1px dashed var(--color-divider);
+  margin: 28px 0;
+}
+
+/* ── Copy feedback toast ── */
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #fff;
+  background: #1a202c;
+  border-radius: 8px;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  direction: rtl;
+}
+
+[data-theme="dark"] .copy-toast {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.copy-toast.show {
+  opacity: 1;
+}
+
+/* ---- Horizontal scroll wrapper (toolbar & nav) ---- */
+
+.h-scroll-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 30px; /* room for 24px arrows + 6px gap on each side */
+  overflow: hidden;
+}
+/* The row itself scrolls — wrap just provides arrow space */
+.h-scroll-wrap .readerPanel-row {
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+.h-scroll-wrap .readerPanel-row::-webkit-scrollbar {
+  display: none;
+}
+
+.h-scroll-wrap .scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+  z-index: 5;
+}
+.scroll-arrow-start {
+  left: 2px;
+}
+.scroll-arrow-end {
+  right: 2px;
+}
+[dir="rtl"] .scroll-arrow-start {
+  left: auto;
+  right: 2px;
+}
+[dir="rtl"] .scroll-arrow-end {
+  right: auto;
+  left: 2px;
+}
+
+.h-scroll-wrap .scroll-arrow:hover {
+  color: var(--color-text);
+}
+.h-scroll-wrap .scroll-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---- Navigation bar ---- */
+
+.reader-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.reader-nav::-webkit-scrollbar {
+  display: none;
+}
+.nav-pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-goto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+#readerPanelPaginationBottom {
+  margin-top: 10px;
+  margin-bottom: 0;
+  border-bottom: none;
+  border-top: 2px solid var(--color-card-hover-border);
+}
+
+/* Left side: page buttons */
+.nav-pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn {
+  color: var(--color-nav-btn-text);
+  cursor: pointer;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.nav-btn:hover:not(:disabled) {
+  color: var(--color-nav-btn-hover-text);
+}
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Edge buttons — slightly wider */
+.nav-edge {
+  padding: 7px 10px;
+  letter-spacing: -0.1em;
+}
+
+/* Page number buttons */
+.page-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  direction: ltr;
+}
+
+.page-of-label {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  white-space: nowrap;
+  padding-inline-start: 2px;
+}
+
+.page-num {
+  box-sizing: border-box;
+  width: 42px;
+  padding: 7px 0;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-card-hover-border);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  box-sizing: border-box;
+}
+
+.page-num:hover {
+  background: var(--color-nav-btn-hover-bg);
+  color: var(--color-nav-btn-hover-text);
+}
+.page-ellipsis {
+  min-width: 34px;
+  text-align: center;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-subtle);
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  user-select: none;
+}
+
+/* Right side: page jump */
+.nav-goto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.page-label {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.page-input {
+  width: 58px;
+  padding: 7px 6px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  text-align: center;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  -moz-appearance: textfield;
+}
+
+.page-input::-webkit-inner-spin-button,
+.page-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.page-input:focus {
+  border-color: var(--color-card-hover-border);
+}
+
+.nav-counter {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  white-space: nowrap;
+  display: inline-block;
+  width: 170px;
+  text-align: center;
+  direction: ltr;
+}
+
+.nav-counter-bottom {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  white-space: nowrap;
+  display: inline-block;
+  width: 170px;
+  text-align: center;
+  direction: ltr;
+}
+
+.counter-nums {
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+
+.c-n {
+  display: inline-block;
+  width: 2.2em;
+  text-align: center;
+}
+
+.nav-sep {
+  color: var(--color-border);
+  font-weight: 300;
+  user-select: none;
+}
+
+.nav-focus-btn {
+  box-sizing: border-box;
+  padding: 7px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  line-height: 1.4;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  white-space: nowrap;
+}
+
+.nav-focus-btn:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.nav-focus-btn.active {
+  background: #15803d;
+  color: #fff;
+  border-color: #15803d;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Sticky chrome — always */
+#readerChrome {
+  position: sticky;
+  top: 62px;
+  z-index: 50;
+  background: var(--color-bg);
+  padding: 10px 0;
+  border-bottom: 2px solid var(--color-card-hover-border);
+  overflow: hidden;
+}
+/* Extend chrome background to full viewport width */
+#readerChrome::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -50vw;
+  right: -50vw;
+  background: inherit;
+  z-index: -1;
+}
+
+.focus-page-indicator {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* ---- Reader content ---- */
+
+#readerContent {
+  background: var(--color-reader-bg);
+  border: none;
+  padding: 12px 36px 32px;
+  line-height: 1.9;
+  font-size: var(--reader-font-size, 1.25rem);
+  color: var(--color-text);
+}
+
+.reader-no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Skip painting off-screen chunks — huge scroll perf boost for large books */
+/* NOTE: NOT applied to table rows (tr.reader-chunk) because content-visibility
+   breaks the table layout algorithm and causes severe jank. */
+#readerContent > .reader-chunk,
+.reader-chunk:not(tr) {
+  content-visibility: auto;
+}
+.reader-row-num {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 16px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.reader-field {
+  margin-bottom: 10px;
+  text-align: right;
+  white-space: pre-line;
+}
+
+.reader-field:last-child {
+  margin-bottom: 0;
+}
+
+/* Divider between main text and footnotes */
+.reader-divider {
+  border: none;
+  border-top: 1px solid var(--color-divider);
+  margin: 32px 0 28px;
+  text-align: center;
+  line-height: 0;
+}
+
+.reader-divider::after {
+  content: "◆";
+  position: relative;
+  top: -0.2em;
+  font-size: 0.55rem;
+  color: var(--color-divider-ornament);
+  background: var(--color-reader-bg);
+  padding: 0 12px;
+}
+
+.reader-footnote-divider {
+  color: var(--color-text-subtle);
+  font-size: var(--panel-font-size, 0.85rem);
+  margin: 16px 0 12px;
+  text-align: right;
+  letter-spacing: -0.05em;
+  user-select: none;
+}
+
+.reader-ar-dv-spacer {
+  height: 1em;
+}
+
+/* Sharh (commentary) text — slightly smaller than matn */
+.reader-field-sharh {
+  font-size: 0.9em;
+}
+
+/* Subtle dotted separator between matn and sharh within the same language */
+.reader-matn-sharh-separator {
+  border: none;
+  border-top: 2px dotted var(--color-divider-ornament);
+  margin: 14px 0 12px;
+}
+
+/* Heading hierarchy for header/kitab/bab columns */
+.reader-field-header {
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin: 8px 0 12px;
+}
+
+/* KNSH books: first line of body column styled as a heading */
+.knhs-body-header {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.reader-field-kitab {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 6px 0 6px;
+}
+
+.reader-field-bab {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 4px 0 8px;
+}
+
+.scroll-counter {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 12px;
+  font-size: var(--panel-font-size, 0.85rem);
+  min-width: 90px;
+  text-align: center;
+  font-weight: 600;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 2px 8px var(--color-shadow-card);
+  direction: ltr;
+}
+
+.sc-n {
+  display: inline-block;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.scroll-counter.show {
+  opacity: 1;
+}
+
+
+/* ---- Responsive ---- */
+
+@media (max-width: 600px) {
+  .quran-nav-label { display: none; }
+
+  .readerPanel-inner button,
+  .readerPanel-inner input,
+  .readerPanel-inner select,
+  .toolbar-btn,
+  .nav-btn,
+  .quran-nav-btn {
+    height: auto;
+    padding: 0.35em 0.65em;
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+    line-height: 2.2;
+  }
+  .quran-nav-input {
+    padding: 0.35em 0.4em;
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+  }
+  .readerPanel-inner .search-input {
+    height: auto;
+    font-size: var(--panel-font-size-mobile, 0.9rem);
+    line-height: 2.2;
+    padding: 0.35em 0.65em;
+  }
+
+  #readerContent {
+    padding: 10px 16px 20px;
+    font-size: var(--reader-font-size-mobile, 1.1rem);
+    line-height: 2;
+  }
+
+  .search-results {
+    max-height: 260px;
+  }
+  .search-result {
+    padding: 6px 10px;
+  }
+  .search-result-snippet {
+    font-size: 1rem;
+  }
+
+  .search-input {
+    font-size: 1rem;
+    padding: 7px 8px;
+  }
+
+  .search-advanced-btn {
+    padding: 7px 8px;
+    font-size: var(--panel-font-size, 0.85rem);
+  }
+
+  .reader-nav {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .nav-pages {
+    gap: 2px;
+  }
+
+  .page-num {
+    min-width: 28px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  .page-numbers {
+    gap: 2px;
+  }
+
+  .nav-counter,
+  .nav-counter-bottom {
+    font-size: var(--panel-font-size, 0.85rem);
+  }
+
+  .page-input {
+    width: 50px;
+    padding: 4px 4px;
+    font-size: var(--panel-font-size, 0.85rem);
+  }
+
+  .reader-toolbar {
+    gap: 6px;
+  }
+
+  .col-toggle {
+    padding: 2px 5px;
+    font-size: 0.68rem;
+  }
+
+  .menu-btn {
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .search-advanced-btn {
+    padding: 7px 6px;
+    font-size: var(--panel-font-size, 0.85rem);
+  }
+
+  .nav-focus-btn {
+    padding: 4px 8px;
+    font-size: var(--panel-font-size, 0.85rem);
+  }
+
+  .page-of-label {
+    display: none;
+  }
+
+  #pageSubRow {
+    margin: 0 8px !important;
+    justify-content: center;
+  }
+  #pageSubtitle {
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+  }
+  .btn-text {
+    display: none;
+  }
+  #readerPanelSearch {
+    margin: 0;
+  }
+  #readerPanelPagination {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    justify-content: flex-start;
+  }
+  #readerPanelPaginationBottom {
+    justify-content: center;
+  }
+  #backToDashboard {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  .menu-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  #topBar {
+    padding: 10px 20px;
+    gap: 6px;
+    direction: ltr;
+    justify-content: space-between;
+  }
+  #readerWrapper {
+    margin-top: 60px;
+  }
+  #readerChrome {
+    top: 60px;
+  }
+  #pageSubRow {
+    justify-content: flex-start !important;
+    margin: 0 !important;
+  }
+  #topBarBrand {
+    font-size: 1rem;
+  }
+  #pageTitle {
+    font-size: 1rem;
+  }
+  .nav-focus-btn {
+    padding: 5px 8px !important;
+    font-size: var(--panel-font-size, 0.85rem) !important;
+  }
+  #topBar .nav-focus-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+    font-size: 1rem !important;
+  }
+
+  .sidebar {
+    width: 260px;
+  }
+  .modal {
+    width: 92vw;
+    border-radius: 12px;
+  }
+  .modal-body {
+    padding: 0 16px 16px;
+  }
+  .modal-header {
+    padding: 16px 16px 8px;
+  }
+}

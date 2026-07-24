@@ -14,12 +14,18 @@ books/
   index.html           ← Dashboard — book list, search, tag filter, table/card view
   reader.html          ← Book viewer — loaded via ?book=CODE
 css/
-  styles.css           ← Shared: themes, topBar, sidebar, modals, responsive
+  common.css           ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
+  reader.css           ← Reader page: focus mode, toolbar, pagination, content, responsive
+  search.css           ← Reader: search bar, results dropdown, advanced search
+  tableView.css        ← Reader: table view mode, top scrollbar, sentinels
+  quran.css            ← Reader: Quran navigation row, dropdowns, surah overlay
   dashboard.css        ← Dashboard: grid, cards, controls, table view
 js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
   catalog.js          ← Metadata loader, tag extraction, dashboard rendering
   reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
+  quran.js             ← Quran data: multi-CSV merging, ayah decoration, nav helpers
+  quran-ui.js          ← Quran UI: surah/ayah/juz selectors, content/display dropdowns
   csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
   search.js            ← Search engine: normalisation, parsing, matching, history
   i18n.js              ← Translations (dv/en/ar)
@@ -109,7 +115,7 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 
 ### Chrome layout
 
-All rows inside the collapsible panel use uniform 10px spacing via flex column gap and readerChrome padding. Toolbar and pagination rows are wrapped in `.h-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements share `font-size: 0.85rem`, `padding: 7px`, `line-height: 1.4` for uniform height.
+All rows inside the collapsible panel use uniform 10px spacing via flex column gap. Toolbar and pagination rows are wrapped in `.h-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements use `em`-based padding and `line-height: 2.2`, sized via `--panel-font-size` CSS variable (tied to the reader font size control).
 
 ### Search
 

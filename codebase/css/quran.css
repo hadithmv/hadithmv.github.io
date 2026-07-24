@@ -1,0 +1,266 @@
+/* ============================================================
+   Quran Reader — navigation, dropdowns, surah selector
+   ============================================================ */
+/* ---- Quran navigation row ---- */
+.quran-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 0 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  direction: rtl;
+}
+.quran-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.quran-sticky-arrow {
+  flex-shrink: 0;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: none;
+  cursor: pointer;
+  z-index: 5;
+  position: sticky;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quran-sticky-arrow:hover {
+  color: var(--color-text);
+}
+.quran-sticky-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.quran-sticky-start {
+  right: 0;
+  padding: 0 12px;
+}
+.quran-sticky-end {
+  left: 0;
+  padding: 0 12px;
+}
+
+.quran-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.quran-nav-btn {
+  box-sizing: border-box;
+  height: auto;
+  padding: 0.35em 0.75em;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.quran-nav-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+
+.quran-nav-arrow {
+  min-width: 26px;
+  text-align: center;
+}
+
+.quran-nav-box {
+  min-width: 60px;
+  text-align: center;
+  background: var(--color-reader-bg);
+}
+
+.quran-nav-input {
+  box-sizing: border-box;
+  width: 50px;
+  height: auto;
+  padding: 0.35em 0.35em;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  font-family: system-ui, sans-serif;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+.quran-nav-input::-webkit-inner-spin-button,
+.quran-nav-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.quran-nav-label {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  font-family: "Hadithmv", "Faruma", system-ui, sans-serif;
+  padding-inline-start: 2px;
+}
+
+/* ---- Quran content dropdown ---- */
+.quran-content-dropdown {
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  padding: 8px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  min-width: 260px;
+  z-index: 60;
+  direction: rtl;
+}
+.quran-content-list {
+  max-height: 260px;
+  overflow-y: auto;
+  margin-bottom: 6px;
+}
+.quran-content-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, sans-serif;
+}
+.quran-content-item:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.quran-content-item input[type="checkbox"] {
+  accent-color: var(--color-nav-btn-text);
+  margin: 0;
+}
+
+/* ---- Surah selector overlay ---- */
+.quran-surah-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quran-surah-selector {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  width: 380px;
+  max-width: 92vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  direction: rtl;
+}
+.quran-surah-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+.quran-surah-search {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+}
+.quran-surah-search::placeholder {
+  color: var(--color-text-subtle);
+}
+.quran-surah-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.quran-surah-close:hover {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-text);
+}
+.quran-surah-list {
+  overflow-y: auto;
+  padding: 8px;
+  flex: 1;
+}
+.quran-surah-item {
+  display: grid;
+  grid-template-columns: 30px 1.3fr 120px 90px;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+.quran-surah-item:hover,
+.quran-surah-item.active {
+  background: var(--color-nav-btn-hover-bg);
+}
+.quran-surah-item.active {
+  border: 1px solid var(--color-card-hover-border);
+}
+.quran-surah-item-no {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-family: system-ui, sans-serif;
+  direction: ltr;
+  text-align: right;
+}
+.quran-surah-item-ar {
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: "Traditional Arabic", "Scheherazade New", serif;
+  text-align: right;
+}
+.quran-surah-item-dv {
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+}
+.quran-surah-item-en {
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-subtle);
+  font-family: system-ui, sans-serif;
+  direction: ltr;
+  text-align: left;
+}
+

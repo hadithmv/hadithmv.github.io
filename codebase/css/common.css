@@ -1,0 +1,819 @@
+/* ============================================================
+   Book Viewer — Shared Styles
+   Colour scheme uses custom properties; toggled via [data-theme]
+   ============================================================ */
+
+/* ---- Theme: light (default) ---- */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a202c;
+  --color-text-muted: #718096;
+  --color-text-subtle: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-card-bg: #ffffff;
+  --color-card-hover-border: #cbd5e1;
+  --color-error-bg: #ffebee;
+  --color-error-text: #d32f2f;
+  --color-nav-btn-bg: #f7fafc;
+  --color-nav-btn-hover-bg: #edf2f7;
+  --color-nav-btn-text: #4a5568;
+  --color-nav-btn-hover-text: #1a202c;
+  --color-reader-bg: #ffffff;
+  --color-divider: #e2e8f0;
+  --color-divider-ornament: #cbd5e1;
+  --color-page-header-border: #ddd;
+  --color-loading: #999;
+  --color-footnotes: #64748b;
+  --color-shadow-sm: rgba(0, 0, 0, 0.04);
+  --color-shadow-card: rgba(0, 0, 0, 0.05);
+  --color-shadow-card-hover: rgba(0, 0, 0, 0.1);
+  --color-theme-toggle-bg: #f1f5f9;
+  --color-theme-toggle-text: #475569;
+  --color-mark-bg: #fef08a;
+  --color-mark-text: inherit;
+}
+
+/* ---- Theme: sepia ---- */
+[data-theme="sepia"] {
+  --color-bg: #faf3e6;
+  --color-text: #3d2e1c;
+  --color-text-muted: #7a6a55;
+  --color-text-subtle: #a89478;
+  --color-border: #d6c8b0;
+  --color-card-bg: #f5ecda;
+  --color-card-hover-border: #bfa888;
+  --color-error-bg: #fce4dc;
+  --color-error-text: #b71c1c;
+  --color-nav-btn-bg: #efe0c8;
+  --color-nav-btn-hover-bg: #e6d4b8;
+  --color-nav-btn-text: #5c4a30;
+  --color-nav-btn-hover-text: #2e1f0c;
+  --color-reader-bg: #fdf6ea;
+  --color-divider: #d6c8b0;
+  --color-divider-ornament: #bfa888;
+  --color-page-header-border: #d6c8b0;
+  --color-loading: #8c7a60;
+  --color-footnotes: #7a6a55;
+  --color-shadow-sm: rgba(0, 0, 0, 0.04);
+  --color-shadow-card: rgba(0, 0, 0, 0.05);
+  --color-shadow-card-hover: rgba(0, 0, 0, 0.1);
+  --color-theme-toggle-bg: #efe0c8;
+  --color-theme-toggle-text: #5c4a30;
+  --color-mark-bg: #f0c060;
+  --color-mark-text: #3d2e1c;
+}
+
+/* ---- Theme: dark ---- */
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #64748b;
+  --color-border: #334155;
+  --color-card-bg: #1e293b;
+  --color-card-hover-border: #475569;
+  --color-error-bg: #450a0a;
+  --color-error-text: #fca5a5;
+  --color-nav-btn-bg: #1e293b;
+  --color-nav-btn-hover-bg: #334155;
+  --color-nav-btn-text: #94a3b8;
+  --color-nav-btn-hover-text: #e2e8f0;
+  --color-reader-bg: #1e293b;
+  --color-divider: #334155;
+  --color-divider-ornament: #475569;
+  --color-page-header-border: #334155;
+  --color-loading: #64748b;
+  --color-footnotes: #94a3b8;
+  --color-shadow-sm: rgba(0, 0, 0, 0.2);
+  --color-shadow-card: rgba(0, 0, 0, 0.2);
+  --color-shadow-card-hover: rgba(0, 0, 0, 0.35);
+  --color-theme-toggle-bg: #1e293b;
+  --color-theme-toggle-text: #94a3b8;
+  --color-mark-bg: #854d0e;
+  --color-mark-text: #fef9c3;
+}
+
+/* ---- Search highlight ---- */
+mark {
+  background: var(--color-mark-bg, #fef08a);
+  color: var(--color-mark-text, inherit);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* ---- Tag colours (JS-generated via golden-ratio HSL) ---- */
+/* Inline --tag-color / --tag-bg custom properties are set by catalog.js */
+/* No fixed palette — unlimited tags, always perceptually distinct.   */
+
+/* ---- Body ---- */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Fonts ---- */
+@font-face {
+  font-family: "Hadithmv";
+  src:
+    url("../font/merged-300.woff2") format("woff2"),
+    url("../font/merged-300.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Hamburger menu button ---- */
+.menu-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  margin-left: auto;
+}
+
+.menu-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+[data-theme="dark"] .menu-btn {
+  color: #93c5fd;
+  background: #1e3a5f;
+  border-color: #1e3a5f;
+}
+[data-theme="dark"] .menu-btn:hover {
+  background: #1e3a5f;
+  border-color: #60a5fa;
+}
+
+/* ---- Sidebar overlay ---- */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---- Sidebar ---- */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 85vw;
+  z-index: 200;
+  background: var(--color-card-bg);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  direction: rtl;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sidebar-title {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.sidebar-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.sidebar-close:hover {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-text);
+}
+
+/* Sidebar nav links */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.sidebar-link {
+  display: block;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.sidebar-link:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.sidebar-divider {
+  height: 1px;
+  margin: 8px 4px;
+  background: var(--color-border);
+}
+
+/* Sidebar settings toggle */
+.sidebar-settings-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sidebar-settings-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.settings-toggle-icon {
+  font-size: 1rem;
+}
+
+.settings-arrow {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--color-text-subtle);
+  transition: transform 0.2s ease;
+}
+
+/* Settings panel */
+.settings-panel {
+  padding: 0 4px 12px;
+}
+
+.settings-group {
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.settings-group:first-child {
+  border-top: none;
+}
+
+.settings-group-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Sidebar theme button */
+.sidebar-theme-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.sidebar-theme-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+
+.sidebar-theme-btn.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+
+
+/* ---- Settings modal ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.modal-overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
+
+body:has(.modal-overlay.open) {
+  overflow: hidden;
+}
+
+.modal {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  width: 420px;
+  max-width: 92vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  direction: rtl;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.modal-close:hover {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-text);
+}
+
+.modal-body {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-card {
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.modal-card-title {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.modal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  gap: 12px;
+}
+
+.modal-row + .modal-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.modal-label {
+  font-weight: 500;
+}
+
+.modal-toggle {
+  padding: 6px 14px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.modal-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.modal-toggle.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+
+.modal-reset-sm {
+  padding: 4px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-error-text);
+  background: none;
+  border: 1px solid var(--color-error-text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  transition: opacity 0.15s ease;
+  margin-right: auto;
+  margin-left: 8px;
+}
+
+.modal-reset-sm:hover {
+  opacity: 0.7;
+}
+
+/* System font override */
+[data-font-system] #readerContent,
+[data-font-system] .reader-field,
+[data-font-system] .reader-footnotes {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+[data-font-system] .book-card .title-ar,
+[data-font-system] .book-card .title-dv,
+[data-font-system] #pageHeader h1,
+[data-font-system] #pageHeader p,
+[data-font-system] .toolbar-btn,
+[data-font-system] .toolbar-label,
+[data-font-system] .page-label,
+[data-font-system] .nav-counter,
+[data-font-system] .nav-counter-bottom,
+[data-font-system] .sidebar,
+[data-font-system] .search-result-snippet {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-subtle);
+  line-height: 1.8;
+}
+
+
+/* ---- Shared states ---- */
+.loading {
+  text-align: center;
+  padding: 100px 40px 40px;
+  font-size: 1.3rem;
+  color: var(--color-loading);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+/* Skeleton loading lines */
+.skeleton {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 100px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.skeleton-line {
+  height: 1rem;
+  border-radius: 4px;
+  background: var(--color-border);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+.skeleton-line:first-child {
+  width: 30%;
+  height: 0.85rem;
+  margin-bottom: 8px;
+}
+.skeleton-line:nth-child(2) {
+  width: 100%;
+}
+.skeleton-line:nth-child(3) {
+  width: 95%;
+}
+.skeleton-line:nth-child(4) {
+  width: 88%;
+}
+.skeleton-line:nth-child(5) {
+  width: 92%;
+}
+.skeleton-line:nth-child(6) {
+  width: 45%;
+}
+.skeleton-line:nth-child(7) {
+  width: 100%;
+}
+.skeleton-line:nth-child(8) {
+  width: 92%;
+}
+.skeleton-line:nth-child(9) {
+  width: 35%;
+}
+.skeleton-line:nth-child(10) {
+  width: 20%;
+  margin-top: 16px;
+}
+.skeleton-line:nth-child(11) {
+  width: 100%;
+}
+.skeleton-line:nth-child(12) {
+  width: 85%;
+}
+.skeleton-line:nth-child(13) {
+  width: 92%;
+}
+.skeleton-line:nth-child(14) {
+  width: 40%;
+}
+.skeleton-line:nth-child(15) {
+  width: 25%;
+  margin-top: 16px;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.error {
+  color: var(--color-error-text);
+  padding: 20px;
+  background-color: var(--color-error-bg);
+  border-radius: 4px;
+  margin: 20px;
+}
+
+#pageTags .tag-badge,
+.tag-badge {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  line-height: 1.4;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--tag-color, var(--color-text));
+  background: var(--tag-bg, var(--color-nav-btn-bg));
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+[data-theme="dark"] .tag-badge {
+  border-color: transparent;
+}
+
+#pageTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+/* ============================================================
+   Reader — single-row vertical reading view
+   ============================================================ */
+
+#readerWrapper {
+  max-width: 800px;
+  margin: 62px auto 60px;
+  padding: 0 32px;
+  font-family:
+    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
+    serif;
+}
+
+/* ---- Shared toolbar components ---- */
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.toolbar-btn {
+  box-sizing: border-box;
+  height: auto;
+  padding: 0.35em 0.75em;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.toolbar-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+  color: var(--color-nav-btn-hover-text);
+}
+.toolbar-btn.active {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+  box-shadow: inset 0 0 0 1px var(--color-card-hover-border);
+}
+
+.toolbar-label {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.toolbar-select {
+  box-sizing: border-box;
+  height: auto;
+  padding: 0 8px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  text-align: center;
+  text-align-last: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.toolbar-select:focus {
+  border-color: var(--color-card-hover-border);
+}
