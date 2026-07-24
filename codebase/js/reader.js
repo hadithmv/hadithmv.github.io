@@ -1836,11 +1836,12 @@ initializePageWithMetadata(async function (metadata) {
           var newURL = window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
           history.replaceState(null, "", newURL);
         }, 500);
-        // History auto-log (debounced 2s, row must change)
+        // History auto-log + pin update (debounced 2s, row must change)
         if (vRow + 1 !== _lastHistoryRow) {
           clearTimeout(historyTimer);
           historyTimer = setTimeout(function () {
             addReadHistory(metadata.bookCode, vRow + 1);
+            if (isPinned(metadata.bookCode)) addPin(metadata.bookCode, vRow + 1);
             _lastHistoryRow = vRow + 1;
           }, 2000);
         }

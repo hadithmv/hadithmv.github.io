@@ -46,7 +46,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as dropdown panels from toolbar buttons. Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as dropdown panels from toolbar buttons. Pins auto‑update their row position as the user reads (piggybacking on the history timer, debounced 2s). Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
 
 The reader's page‑header tag badges link to `index.html?tags=CODE`, letting readers jump to the dashboard filtered by that category.
 
@@ -201,7 +201,7 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
 | `reader:hiddenColumns` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns |
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
-| `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10) |
+| `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). Row auto‑updates as user reads |
 | `readHistory` | `catalog.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
 
 The settings reset button clears all of the above except `lang`.
