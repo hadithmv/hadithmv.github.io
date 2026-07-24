@@ -2296,6 +2296,25 @@ body:has(.modal-overlay.open) {
   display: none;
 }
 
+.quran-sticky-arrow {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: var(--color-reader-bg);
+  border: none;
+  cursor: pointer;
+  z-index: 5;
+  position: sticky;
+}
+.quran-sticky-arrow:hover { color: var(--color-text); }
+.quran-sticky-arrow.hidden { opacity: 0; pointer-events: none; }
+.quran-sticky-start { right: 0; }   /* RTL: sticks to right edge */
+.quran-sticky-end   { left: 0; }    /* RTL: sticks to left edge */
+
 .quran-nav-group {
   display: flex;
   align-items: center;

@@ -767,10 +767,8 @@
           if (!row || !hasOverflow(row)) {
             wrap._arrowStart.classList.add("hidden");
             wrap._arrowEnd.classList.add("hidden");
-            wrap.style.padding = "0";
             return;
           }
-          wrap.style.padding = ""; // restore CSS default
           // scrollLeft:  0 = logical start,  -mx = logical end  (negative range in RTL)
           // Decreasing (-delta) → toward end.  Increasing (+delta) → toward start.
           var mx = row.scrollWidth - row.clientWidth;
