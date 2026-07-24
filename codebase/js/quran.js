@@ -457,6 +457,7 @@ export function initQuranUI(ctx) {
     for (var i = 1; i <= max; i++) {
       html += '<div class="quran-content-item" data-v="' + i + '">' + i + '</div>';
     }
+    window.closeAllDropdowns && window.closeAllDropdowns();
     ayahDD.innerHTML = html;
     var ir = ayahInput.getBoundingClientRect();
     ayahDD.style.position = "fixed";
@@ -511,6 +512,7 @@ export function initQuranUI(ctx) {
     for (var i = 1; i <= 30; i++) {
       html += '<div class="quran-content-item" data-v="' + i + '">' + i + '</div>';
     }
+    window.closeAllDropdowns && window.closeAllDropdowns();
     juzDD.innerHTML = html;
     var jr = juzInput.getBoundingClientRect();
     juzDD.style.position = "fixed";
@@ -556,6 +558,7 @@ export function initQuranUI(ctx) {
   qrnDisplayBtn.addEventListener("click", function (e) {
     e.stopPropagation();
     if (qrnDisplayDD.style.display === "block") { qrnDisplayDD.style.display = "none"; return; }
+    window.closeAllDropdowns && window.closeAllDropdowns();
     var btnRect = qrnDisplayBtn.getBoundingClientRect();
     qrnDisplayDD.style.position = "fixed";
     qrnDisplayDD.style.top = btnRect.bottom + 4 + "px";
@@ -697,6 +700,7 @@ export function initQuranUI(ctx) {
   // ── Surah selector ──
 
   function openSurahSelector() {
+    window.closeAllDropdowns && window.closeAllDropdowns();
     var overlay = document.getElementById("qrnSurahOverlay");
     overlay.style.display = "flex";
     document.getElementById("qrnSurahSearch").value = "";
@@ -725,6 +729,7 @@ export function initQuranUI(ctx) {
   function toggleQuranContentDropdown() {
     var dd = document.getElementById("qrnContentDropdown");
     if (dd.style.display === "block") { dd.style.display = "none"; return; }
+    window.closeAllDropdowns && window.closeAllDropdowns();
     renderQuranContentList();
     var btnRect = document.getElementById("qrnContentBtn").getBoundingClientRect();
     dd.style.position = "fixed";

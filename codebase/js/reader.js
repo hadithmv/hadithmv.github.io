@@ -209,12 +209,22 @@ initializePageWithMetadata(async function (metadata) {
       }
       buildColumnToggles();
 
+      // Shared: close all dropdowns (columns, export, Quran ayah/juz/content/display, surah overlay)
+      window.closeAllDropdowns = function () {
+        var ids = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnContentDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.style.display = "none";
+        });
+      };
+
       // Column dropdown toggle
       var btnColDropdown = document.getElementById("btnColDropdown");
       var columnDropdown = document.getElementById("columnDropdown");
       btnColDropdown.addEventListener("click", function (e) {
         e.stopPropagation();
         if (columnDropdown.style.display === "none" || !columnDropdown.style.display) {
+          window.closeAllDropdowns();
           var btnRect = btnColDropdown.getBoundingClientRect();
           columnDropdown.style.position = "fixed";
           columnDropdown.style.left = btnRect.left + "px";
@@ -1350,6 +1360,7 @@ initializePageWithMetadata(async function (metadata) {
       btnExport.addEventListener("click", function (e) {
         e.stopPropagation();
         if (exportDropdown.style.display === "none" || !exportDropdown.style.display) {
+          window.closeAllDropdowns();
           var btnRect = btnExport.getBoundingClientRect();
           exportDropdown.style.position = "fixed";
           exportDropdown.style.left = btnRect.left + "px";
