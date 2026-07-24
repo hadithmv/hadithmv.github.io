@@ -436,7 +436,7 @@ body {
   height: auto;
   padding: 0.35em 0.75em;
   font-size: 1.05rem;
-  line-height: auto;
+  line-height: normal;
   text-align: right;
   background: var(--color-reader-bg);
   direction: rtl;
@@ -482,35 +482,6 @@ body {
 [data-focus] #readerContent {
   border: none;
   box-shadow: none;
-}
-
-/* Expand button — next to counter, visible in focus mode */
-.focus-expand-btn {
-  display: none;
-  padding: 3px 10px;
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
-  transition: background 0.15s ease;
-  white-space: nowrap;
-}
-
-.focus-expand-btn:hover {
-  background: var(--color-nav-btn-hover-bg);
-}
-
-[data-focus] .focus-expand-btn {
-  display: inline-block;
 }
 
 .subrow-left {
@@ -1427,7 +1398,6 @@ body:has(.modal-overlay.open) {
   padding: 0.35em 0.75em;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: auto;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1467,7 +1437,6 @@ body:has(.modal-overlay.open) {
   padding: 0 8px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: auto;
   text-align: center;
   text-align-last: center;
   -moz-appearance: textfield;
@@ -2361,7 +2330,6 @@ body:has(.modal-overlay.open) {
   padding: 0.35em 0.75em;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: auto;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);

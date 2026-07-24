@@ -1338,15 +1338,12 @@ initializePageWithMetadata(async function (metadata) {
       function setFocus(on) {
         var html = document.documentElement;
         var btn = document.getElementById("btnFocus");
-        var expandBtn = document.getElementById("btnFocusExpand");
         if (on) {
           html.setAttribute("data-focus", "");
           if (btn) { btn.classList.add("active"); btn.textContent = "▼"; }
-          if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         } else {
           html.removeAttribute("data-focus");
           if (btn) { btn.classList.remove("active"); btn.textContent = "↕"; }
-          if (expandBtn) expandBtn.textContent = t("btnFocusExpand");
         }
         try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
         // Wait for chrome collapse/expand transition (~300ms) then recalc
@@ -1356,12 +1353,6 @@ initializePageWithMetadata(async function (metadata) {
       btnFocus.addEventListener("click", function () {
         setFocus(!document.documentElement.hasAttribute("data-focus"));
       });
-      var expandBtn2 = document.getElementById("btnFocusExpand");
-      if (expandBtn2) {
-        expandBtn2.addEventListener("click", function () {
-          setFocus(false);
-        });
-      }
 
       // ── Toolbar: export ─────────────────────────────────────
       var btnExport = document.getElementById("btnExport");
@@ -1880,7 +1871,6 @@ initializePageWithMetadata(async function (metadata) {
       // ── Settings reset from modal → re-render ─────────────
       document.addEventListener("readerset", function () {
         ROWS_PER_CHUNK = 25;
-        selRowsPerPage.value = 1;
         hideTashkeel = false;
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");

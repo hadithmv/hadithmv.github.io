@@ -23,13 +23,6 @@ const STRINGS = {
   },
 
   // ── Toolbar ──
-  btnCopyText: { dv: "ކޮޕީ ކުރޭ", en: "Copy", ar: "نسخ" },
-  btnTashkeelText: {
-    dv: "ފިލި ފޮރުވާ",
-    en: "Hide diacritics",
-    ar: "إخفاء التشكيل",
-  },
-  btnResetText: { dv: "ރީސެޓް", en: "Reset", ar: "إعادة ضبط" },
   btnFocusText: { dv: "ފޯކަސް", en: "Focus", ar: "تركيز" },
   btnAdvancedSearchText: {
     dv: "🔎 އެޑްވާންސްޑް",
@@ -51,11 +44,6 @@ const STRINGS = {
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
   btnFocusIn: { dv: "ފޯކަސް ▲", en: "Focus ▲", ar: "تركيز ▲" },
   btnFocusOut: { dv: "ފޯކަސް ▼", en: "Full ▼", ar: "كامل ▼" },
-  btnFocusExpand: {
-    dv: "ފޯކަސް ▼",
-    en: "Focus ▼",
-    ar: "تركيز ▼",
-  },
   btnAdvancedSearch: {
     dv: "🔎 އެޑްވާންސްޑް ހޯދުން",
     en: "🔎 Advanced",

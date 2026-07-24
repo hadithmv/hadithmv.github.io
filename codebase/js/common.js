@@ -215,7 +215,7 @@ function applyFontSize(idx) {
     localStorage.setItem("fontSystem", "0");
     var ffSel = document.getElementById("selFontFamily");
     if (ffSel) ffSel.value = "hadithmv";
-    ["reader:rowsPerPage","reader:hideTashkeel","reader:hiddenColumns","reader:searchHistory"].forEach(function (k) {
+    ["reader:hideTashkeel","reader:hiddenColumns","reader:searchHistory"].forEach(function (k) {
       localStorage.removeItem(k);
     });
     localStorage.removeItem("focus");
