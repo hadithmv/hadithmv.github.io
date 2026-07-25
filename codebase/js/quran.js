@@ -584,6 +584,7 @@ export function initQuranUI(ctx) {
   juzDD.addEventListener("click", function (e) { e.stopPropagation(); _justSelectedJuz = true; });
 
   // ── Content dropdown ──
+  trapWheel(document.getElementById("qrnContentDropdown"));
   document.getElementById("qrnContentBtn").addEventListener("click", function (e) {
     e.stopPropagation();
     toggleQuranContentDropdown();
@@ -592,6 +593,7 @@ export function initQuranUI(ctx) {
   // ── Display options dropdown ──
   var qrnDisplayBtn = document.getElementById("qrnDisplayBtn");
   var qrnDisplayDD = document.getElementById("qrnDisplayDropdown");
+  trapWheel(qrnDisplayDD);
   qrnDisplayBtn.addEventListener("click", function (e) {
     e.stopPropagation();
     if (qrnDisplayDD.style.display === "block") { qrnDisplayDD.style.display = "none"; return; }
@@ -757,14 +759,21 @@ export function initQuranUI(ctx) {
 
   // ── Content dropdown ──
 
+  // Stop wheel events on dropdowns from scrolling the horizontal nav row
+  function trapWheel(el) {
+    el.addEventListener("wheel", function (e) { e.stopPropagation(); });
+  }
+
   function toggleQuranContentDropdown() {
     var dd = document.getElementById("qrnContentDropdown");
-    if (dd.style.display === "block") { dd.style.display = "none"; return; }
+    if (dd.style.display === "block") {
+      dd.style.display = "none";
+      return;
+    }
     renderQuranContentList();
     var btn = document.getElementById("qrnContentBtn");
     window.openDropdown(dd, btn);
     dd.style.left = Math.max(8, btn.getBoundingClientRect().left) + "px";
-    dd.style.maxWidth = Math.min(window.innerWidth - Math.max(8, btn.getBoundingClientRect().left) - 16, 320) + "px";
   }
 
   function renderQuranContentList() {
@@ -789,7 +798,16 @@ export function initQuranUI(ctx) {
         var sourceBook = this.dataset.source;
         var sourceCol = parseInt(this.dataset.col, 10);
         if (this.checked) {
-          loadAndInsertColumn(sourceBook, sourceCol);
+          var label = this.parentNode.querySelector("span");
+          var origText = label.textContent;
+          this.disabled = true;
+          label.textContent = t("loading");
+          loadAndInsertColumn(sourceBook, sourceCol).finally(function () {
+            // renderQuranContentList() already rebuilds on success;
+            // restore inline state on failure / no-op
+            cb.disabled = false;
+            label.textContent = origText;
+          });
         } else {
           hideLoadedColumn(sourceBook, sourceCol);
         }
@@ -847,9 +865,9 @@ export function initQuranUI(ctx) {
       var pos = hiddenColumns.indexOf(idx);
       if (pos !== -1) hiddenColumns.splice(pos, 1);
       ctx.rebuildAll();
-      return;
+      return Promise.resolve();
     }
-    fetch("../data/" + sourceBook + ".csv")
+    return fetch("../data/" + sourceBook + ".csv")
       .then(function (r) { if (!r.ok) throw Error("Failed to load " + sourceBook); return r.text(); })
       .then(function (text) {
         var rows = parseCSV(text);

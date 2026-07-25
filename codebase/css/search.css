@@ -164,6 +164,7 @@
   position: relative;
   max-height: 360px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   margin-bottom: 12px;
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);

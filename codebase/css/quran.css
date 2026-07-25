@@ -131,13 +131,15 @@
   border: 1px solid var(--color-border);
   border-radius: 8px;
   box-shadow: 0 4px 12px var(--color-shadow-card-hover);
-  min-width: 260px;
+  min-width: 200px;
+  max-width: 280px;
   z-index: 60;
   direction: rtl;
 }
 .quran-content-list {
   max-height: 260px;
   overflow-y: auto;
+  overscroll-behavior: contain;
   margin-bottom: 6px;
 }
 .quran-content-item {
@@ -220,6 +222,7 @@
 }
 .quran-surah-list {
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 8px;
   flex: 1;
 }

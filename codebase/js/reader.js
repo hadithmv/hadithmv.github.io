@@ -1034,12 +1034,10 @@ initializePageWithMetadata(async function (metadata) {
           searchHistoryEl.style.display = "none";
           return;
         }
-        // Position below the search bar
+        // Position below the search bar, full width
+        window.openDropdown(searchHistoryEl, searchInput, 0);
         var sbRect = searchInput.getBoundingClientRect();
-        searchHistoryEl.style.position = "fixed";
-        searchHistoryEl.style.left = sbRect.left + "px";
         searchHistoryEl.style.right = (window.innerWidth - sbRect.right) + "px";
-        searchHistoryEl.style.top = sbRect.bottom + "px";
         searchHistoryEl.innerHTML = history.map(function (h, i) {
           return '<div class="search-history-item" data-idx="' + i + '">' +
             '<span class="hist-text">' + escapeHTML(h) + '</span>' +
