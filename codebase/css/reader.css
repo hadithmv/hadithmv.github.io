@@ -375,7 +375,7 @@
 /* ── Copy feedback toast ── */
 .copy-toast {
   position: fixed;
-  bottom: 80px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 20px;
