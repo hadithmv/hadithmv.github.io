@@ -1,12 +1,12 @@
 # Update and sort bookNames.csv
-#   - Reads known tag codes from 01-bookTags.csv
+#   - Reads known tag codes from 01-registry-bookTags.csv
 #   - Strips prefix tags and suffix flags from bookCode to derive titleEN
 #   - Converts camelCase to Title Case (e.g. "aqidahNawawi" → "Aqidah Nawawi")
 #   - Scans data/ for CSV files not yet registered and adds them
 #   - Sorts alphabetically by bookCode
 
-$csvPath = Join-Path $PSScriptRoot "02-bookNames.csv"
-$tagsPath = Join-Path $PSScriptRoot "01-bookTags.csv"
+$csvPath = Join-Path $PSScriptRoot "02-registry-bookNames.csv"
+$tagsPath = Join-Path $PSScriptRoot "01-registry-bookTags.csv"
 $dataDir = $PSScriptRoot
 
 # ── Helpers for coloured output ──────────────────────────────
@@ -21,7 +21,7 @@ function Write-Info($text) { Write-Host "    $text" -ForegroundColor Gray }
 
 Write-Host "`n📚 Hadithmv — Update Book Metadata" -ForegroundColor White
 
-# ── Load known tag codes from 01-bookTags.csv ────────────────
+# ── Load known tag codes from 01-registry-bookTags.csv ────────────────
 Write-Section "Loading tags"
 $knownTags = @{}
 if (Test-Path $tagsPath) {
@@ -36,7 +36,7 @@ if (Test-Path $tagsPath) {
     Write-Info "$($tagList.Count) tags: $($tagList -join ', ')"
 }
 else {
-    Write-Skip "01-bookTags.csv not found"
+    Write-Skip "01-registry-bookTags.csv not found"
 }
 
 # Known suffix flags to strip from end of bookCode
@@ -121,13 +121,13 @@ foreach ($row in $rows) {
     $code = ($row -split ",")[0].Trim()
     if ($code) { $registered[$code] = $true }
 }
-Write-Info "$($rows.Count) books in 02-bookNames.csv"
+Write-Info "$($rows.Count) books in 02-registry-bookNames.csv"
 
 # ── Find new CSV files ────────────────────────────────────────
 Write-Section "Scanning for new books"
 $added = 0
 Get-ChildItem $dataDir -Filter *.csv | Where-Object {
-    $_.Name -notin @("02-bookNames.csv", "01-bookTags.csv")
+    $_.Name -notin @("02-registry-bookNames.csv", "01-registry-bookTags.csv")
 } | ForEach-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {

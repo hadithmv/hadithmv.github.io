@@ -8,8 +8,8 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| `data/02-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
-| `data/01-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
+| `data/02-registry-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
+| `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `css/common.css`             | Shared: themes, fonts, topBar, sidebar, settings modal, tag colors        |
@@ -29,11 +29,11 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/*.csv`                 | Per-book content files                                                     |
-| `data/03-updateBookMeta.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
-| `data/QRN-DATA-surahNames.csv`      | 114 surah names in AR/DV/EN with ayah counts                      |
-| `data/QRN-DATA-columns.csv`         | Registry of all available Quran columns (source, labels, defaults) |
-| `data/QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
-| `data/QRN-DATA-ayahUthmani.csv`     | Quran text in Uthmani script                                     |
+| `data/03-update-bookRegistry.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
+| `data/QRN-DATA-registry-surahSelector.csv`      | 114 surah names in AR/DV/EN with ayah counts                      |
+| `data/QRN-DATA-registry-bookToggle.csv`         | Registry of all available Quran columns (source, labels, defaults) |
+| `data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
+| `data/QRN-DATA-baseFile-2-ayahUthmani.csv`     | Quran text in Uthmani script                                     |
 
 ## Request flow
 
@@ -42,8 +42,8 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   catalog.js
-    ├─ fetch ../data/02-bookNames.csv  ──→  find row by bookCode
-    ├─ fetch ../data/01-bookTags.csv ──→  resolve tag badges from prefix
+    ├─ fetch ../data/02-registry-bookNames.csv  ──→  find row by bookCode
+    ├─ fetch ../data/01-registry-bookTags.csv ──→  resolve tag badges from prefix
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
         │
         ▼
@@ -143,7 +143,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 
 | Control         | Implementation                                                                                                                                                                                                                                                                   |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Copy            | Builds formatted plain text from the visible row: book title header, blank lines between fields, `ـ` divider before columns starting with `foot`, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. `navigator.clipboard.writeText()` with `execCommand` fallback.                                                                                    |
+| Copy            | **Standard books:** `titleDV - titleAR` header, then row text with `ـ` divider before `foot` columns, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. **Quran books:** no book header; decorated ayah text, `[name surahNo : ayahNo]` reference, then columns grouped by source book with one book-level label per book. `navigator.clipboard.writeText()` with `execCommand` fallback. |
 | Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                      |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
 | View toggle     | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table on desktop (>600px), card on mobile. Applies to all books.                                                                                                                                                        |
@@ -257,7 +257,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 ## Data shape
 
-### bookNames.csv
+### 02-registry-bookNames.csv
 
 | Column     | Description                                         |
 | ---------- | --------------------------------------------------- |
@@ -266,7 +266,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
 
-### 01-bookTags.csv
+### 01-registry-bookTags.csv
 
 | Column  | Description                                              |
 | ------- | -------------------------------------------------------- |
@@ -281,7 +281,7 @@ First row is always the header row. For a representative sample, see `AQD-nawaqi
 
 ## Tag system
 
-Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are stripped before extracting the book name (and also hide the book from the dashboard). At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader. Each code is looked up in `01-bookTags.csv`. Unknown codes silently ignored.
+Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are stripped before extracting the book name (and also hide the book from the dashboard). At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader. Each code is looked up in `01-registry-bookTags.csv`. Unknown codes silently ignored.
 
 | bookCode                        | Tags             | Book Name             |
 | ------------------------------- | ---------------- | --------------------- |
@@ -296,7 +296,7 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 - `DRFT-` prefix → book gets a ⚠️ Draft badge, still visible on dashboard
 - `-HDN` suffix → book hidden from dashboard
 - `-DSC` suffix → rows displayed in reverse order; stripped from derived `titleEN`
-- When adding a new suffix flag, add it to `$suffixFlags` in `03-updateBookMeta.ps1` so `titleEN` is generated correctly
+- When adding a new suffix flag, add it to `$suffixFlags` in `03-update-bookRegistry.ps1` so `titleEN` is generated correctly
 - `KNSH-` prefix → first line of `body*` columns styled as a heading; `titleEN` gets a `Kunnaasha ` prefix
 - `RDF-` prefix (without `AQD-`) → `titleEN` gets a `Radheef ` prefix
 
@@ -308,15 +308,15 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 | File | Role | Columns |
 |------|------|---------|
-| `QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv` | Base data (always loaded) | `juzNo, surahNo, ayahNo, basmalah, ayahImlai` |
-| `QRN-DATA-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
-| `QRN-DATA-surahNames.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount` |
-| `QRN-DATA-columns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
+| `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base data (always loaded) | `juzNo, surahNo, ayahNo, basmalah, ayahImlai` |
+| `QRN-DATA-baseFile-2-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
+| `QRN-DATA-registry-surahSelector.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount` |
+| `QRN-DATA-registry-bookToggle.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
 | `QRN-{name}.csv` | Book-specific columns | Varies per book |
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-columns.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`).
+Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`).
 
 ### Quran navigation
 
@@ -347,7 +347,7 @@ Columns `ayahImlai` and `ayahUthmani` are rendered with configurable decoration:
 
 ### Clipboard
 
-Quran clipboard format: decorated ayah text, `[surahName surahNo:ayahNo]` reference line, then each visible book column with its title as a heading.
+Quran clipboard format: no book header line. Decorated ayah text, `[surahName surahNo : ayahNo]` reference, then columns grouped by source book — each book gets one label (from `02-registry-bookNames.csv`) above its first column, no per-column headings.
 
 ### Performance
 
@@ -431,7 +431,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 ### Data & CSV
 
-**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `01-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name.
+**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `01-registry-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name.
 
 ```text
 "DRFT-AQD-sharhuSunnahBarbahari-HDN"
@@ -449,7 +449,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes for load order (`02-bookNames.csv`, `01-bookTags.csv`). For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes for load order (`02-registry-bookNames.csv`, `01-registry-bookTags.csv`). For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 ### Keyboard shortcuts
 
@@ -486,15 +486,15 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
    #,headAR,bodyAR,headDV,bodyDV,foot
    1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
    ```
-2. Add a line to `data/02-bookNames.csv`:
+2. Add a line to `data/02-registry-bookNames.csv`:
    ```csv
    FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh
    ```
-3. Run `data/03-updateBookMeta.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
+3. Run `data/03-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
 
 ### Add a new tag category
 
-Add one row to `data/01-bookTags.csv`. Colours are auto‑generated — just `code` and `label`:
+Add one row to `data/01-registry-bookTags.csv`. Colours are auto‑generated — just `code` and `label`:
 ```csv
 code,label
 FQH,Fiqh
@@ -546,13 +546,13 @@ All errors show visible messages in English:
 
 ### New book
 
-1. Add a row to `bookNames.csv`.
+1. Add a row to `data/02-registry-bookNames.csv`.
 1. Create `data/{bookCode}.csv` with a header row as the first row.
 1. Open the viewer — it appears automatically.
 
 ### New tag category
 
-1. Add a row to `data/01-bookTags.csv` with `code,label`. Colours are auto‑generated — no need to pick hex values.
+1. Add a row to `data/01-registry-bookTags.csv` with `code,label`. Colours are auto‑generated — no need to pick hex values.
 1. Use the code as a prefix in any `bookCode` — badges render automatically.
 
 ## Key benefits

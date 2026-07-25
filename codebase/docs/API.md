@@ -44,7 +44,7 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadBookNames()`
 
-Fetches and caches `02-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`). Returns `[]` on error.
+Fetches and caches `02-registry-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`). Returns `[]` on error.
 
 ### `getPageMetadata(bookCode)`
 
@@ -78,7 +78,7 @@ extractTags("AQD-DFK-sharhuSunnahBarbahari");
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/03-updateBookMeta.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), and register new books
+- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), and register new books
 
 ---
 
@@ -186,7 +186,7 @@ Quran-specific data loading, ayah decoration, navigation, and column management.
 
 ### `loadQuranBaseData()`
 
-Fetches and caches `QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv`. Returns `Array` of rows (juz, surah, ayah numbers + Imlai text).
+Fetches and caches `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv`. Returns `Array` of rows (juz, surah, ayah numbers + Imlai text).
 
 ### `mergeQuranData(bookCode)`
 
@@ -194,7 +194,7 @@ Loads base data + the current book's CSV + surah names, then merges into a singl
 
 ### `loadColumnRegistry()`
 
-Fetches `QRN-DATA-columns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+Fetches `QRN-DATA-registry-bookToggle.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
 ### `getColumnDisplayName(sourceBook, sourceCol)`
 
@@ -202,7 +202,7 @@ Looks up a human-readable label from the column registry. Falls back to `"bookCo
 
 ### `getBookLabel(colIndex)`
 
-Returns the book-level title (from `02-bookNames.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
+Returns the book-level title (from `02-registry-bookNames.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
 
 ### `hasExternalColumns(currentBookCode)`
 
@@ -275,7 +275,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 ### Clipboard format
 
 - **Standard books** — header line `titleDV - titleAR` followed by row text with column separators (AR/DV spacer, matn/sharh divider, footnote divider).
-- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-bookNames.csv`) above each book's columns. Per-column headers are omitted.
+- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-registry-bookNames.csv`) above each book's columns. Per-column headers are omitted.
 
 ---
 
@@ -341,14 +341,14 @@ No JSON endpoints. All data is CSV — one source of truth, no duplication. If y
 ### Book registry
 
 ```http
-GET data/02-bookNames.csv
+GET data/02-registry-bookNames.csv
 ```
 Columns: `bookCode,titleAR,titleDV,titleEN`. One row per registered book.
 
 ### Tag definitions
 
 ```http
-GET data/01-bookTags.csv
+GET data/01-registry-bookTags.csv
 ```
 Columns: `code,label`. Colours are auto‑generated client‑side using golden‑ratio HSL — unlimited tags, always distinct.
 
@@ -385,7 +385,7 @@ with urllib.request.urlopen(url) as r:
 
 ```bash
 # curl into any CSV tool
-curl -s https://hadithmv.github.io/codebase/data/02-bookNames.csv | csvlook
+curl -s https://hadithmv.github.io/codebase/data/02-registry-bookNames.csv | csvlook
 ```
 
 No authentication, no rate limiting, no CORS — static files on GitHub Pages.

@@ -54,7 +54,7 @@ var BASE_HEADERS = ["juzNo-HDN", "surahNo-HDN", "ayahNo-HDN", "basmalah", "ayahI
 
 export function loadQuranBaseData() {
   if (_baseDataCache) return Promise.resolve(_baseDataCache);
-  return fetchCSV("../data/QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai.csv")
+  return fetchCSV("../data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv")
     .then(function (rows) {
       if (rows.length > 0) rows.shift(); // strip header row
       _baseDataCache = rows; // 6236 data rows
@@ -72,7 +72,7 @@ export function getBaseHeaders() {
 
 export function loadUthmaniData() {
   if (_uthmaniDataCache) return Promise.resolve(_uthmaniDataCache);
-  return fetchCSV("../data/QRN-DATA-ayahUthmani.csv")
+  return fetchCSV("../data/QRN-DATA-baseFile-2-ayahUthmani.csv")
     .then(function (rows) {
       if (rows.length > 0) rows.shift(); // strip header row (now has ayahUthmani header)
       _uthmaniDataCache = rows;
@@ -86,7 +86,7 @@ export function loadUthmaniData() {
 
 export function loadSurahNames() {
   if (_surahNamesCache) return Promise.resolve(_surahNamesCache);
-  return fetchCSV("../data/QRN-DATA-surahNames.csv")
+  return fetchCSV("../data/QRN-DATA-registry-surahSelector.csv")
     .then(function (rows) {
       if (rows.length === 0) return [];
       var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount
@@ -208,7 +208,7 @@ export function mergeQuranData(bookCode) {
 
 export function loadColumnRegistry() {
   if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
-  return fetchCSV("../data/QRN-DATA-columns.csv")
+  return fetchCSV("../data/QRN-DATA-registry-bookToggle.csv")
     .then(function (rows) {
       if (rows.length === 0) return [];
       rows.shift(); // strip header
@@ -252,7 +252,7 @@ export function rebuildColumnSourceMap(loadedColMap) {
 export function getBookLabel(colIndex) {
   if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
   var info = _columnSourceMap[colIndex];
-  if (info.sourceBook === "QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai") return null;
+  if (info.sourceBook === "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai") return null;
   return getBookTitleSync(info.sourceBook) || info.sourceBook;
 }
 
@@ -261,7 +261,7 @@ export function hasExternalColumns(currentBookCode) {
   if (!_columnSourceMap) return false;
   for (var idx in _columnSourceMap) {
     var info = _columnSourceMap[idx];
-    if (info.sourceBook !== "QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai" && info.sourceBook !== currentBookCode) {
+    if (info.sourceBook !== "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" && info.sourceBook !== currentBookCode) {
       return true;
     }
   }
@@ -812,7 +812,7 @@ export function initQuranUI(ctx) {
     var saved = {};
     for (var k in _loadedColMap) {
       var parts = k.split(":");
-      if (parts[0] !== "QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai" && parts[0] !== metadata.bookCode) {
+      if (parts[0] !== "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" && parts[0] !== metadata.bookCode) {
         saved[k] = _loadedColMap[k];
       }
     }
@@ -824,7 +824,7 @@ export function initQuranUI(ctx) {
       var hdr = (headerRow[i] || "").replace(/-hdn$/i, "").trim().toLowerCase();
       for (var b = 0; b < baseNames.length; b++) {
         if (hdr === baseNames[b]) {
-          _loadedColMap["QRN-DATA-juz_surah_ayahNo_basmalah_ayahImlai:" + b] = i;
+          _loadedColMap["QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai:" + b] = i;
         }
       }
     }
