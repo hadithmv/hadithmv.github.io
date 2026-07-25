@@ -270,7 +270,8 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
 | `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
-| `window.closeAllDropdowns()` | Closes all open dropdowns (columns, export, search history, Quran ayah/juz/content/display, surah overlay). Called by any dropdown before opening itself. |
+| `window.closeAllDropdowns()` | Closes all open dropdowns (columns, export, search history, Quran ayah/juz/content/display, surah overlay). |
+| `window.openDropdown(dd, anchorEl, gap)` | Closes other dropdowns, positions `dd` below `anchorEl` with the given gap (default 4px), and shows it. Used by all dropdown toggles. |
 
 ### Clipboard format
 

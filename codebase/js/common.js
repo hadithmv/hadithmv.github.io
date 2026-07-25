@@ -32,14 +32,14 @@ function getFontSizeIdx() {
 function applyFontSize(idx) {
   var size = FONT_SIZES[idx];
   html.style.setProperty("--reader-font-size", size);
-  // Mobile reader content (slightly smaller)
+  // Mobile reader = 88% of desktop reader (readable on narrow screens)
   var readerPx = parseFloat(size);
   var mobileReaderPx = Math.round(readerPx * 0.88 * 100) / 100;
   html.style.setProperty("--reader-font-size-mobile", mobileReaderPx + "rem");
-  // Scale panel UI proportionally (default ratio: 0.85rem / 1.25rem = 0.68)
+  // Panel chrome = 68% of reader size (0.85rem / 1.25rem default)
   var panelPx = Math.round(readerPx * 0.68 * 100) / 100;
   html.style.setProperty("--panel-font-size", panelPx + "rem");
-  // Mobile panel UI (same proportion, slightly smaller)
+  // Mobile panel = 90% of desktop panel (fits toolbar buttons on small screens)
   var mobilePanelPx = Math.round(panelPx * 0.9 * 100) / 100;
   html.style.setProperty("--panel-font-size-mobile", mobilePanelPx + "rem");
   var val = document.getElementById("fontSizeVal");
