@@ -101,6 +101,8 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 
 Columns are rendered in header order. A blank line separates the last `*AR` column from the first `*DV` column (AR‑ending → DV‑ending headers). A `ـــــــــــ` tatweel divider appears before any column whose header starts with `foot` (case‑insensitive — matches `foot`, `footAR`, `footDV`). Columns starting with `head`/`kitab`/`bab` render as large/medium/small bold headings respectively.
 
+The sticky `#collapsibleReaderPanel` extends to the full width of `#readerWrapper` (800px). `#readerContent` has its own side padding. Scroll arrows appear at the edges of horizontally-overflowing panel rows — Quran row arrows have a slight `padding-top` offset to optically center against the taller nav items.
+
 Column header prefix → CSS class / visual treatment:
 
 ```text

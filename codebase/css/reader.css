@@ -87,6 +87,7 @@
 }
 /* Scroll arrows — narrower, no border */
 .readerPanel-inner .scroll-arrow {
+  height: 24px;
   padding: 0;
   font-size: 0.65rem;
   line-height: 1;
@@ -428,9 +429,10 @@
 
 .h-scroll-wrap .scroll-arrow {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
   width: 24px;
+  height: 24px;
   padding: 0;
   font-size: 0.65rem;
   line-height: 1;
@@ -449,6 +451,11 @@
 }
 .scroll-arrow-end {
   right: 2px;
+}
+
+/* Quran row arrows sit higher — nudge down */
+.h-scroll-wrap:has(.quran-nav) .scroll-arrow {
+  padding-top: 6px;
 }
 [dir="rtl"] .scroll-arrow-start {
   left: auto;
