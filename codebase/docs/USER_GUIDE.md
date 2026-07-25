@@ -65,6 +65,8 @@ When columns from one or more other books are active, each book's content is pre
 | `Ctrl+,` | Open settings |
 | `Ctrl+B` | Back to book list |
 | `Escape` | Close sidebar / modal / search results |
+| Swipe right | Next row (mobile) |
+| Swipe left | Previous row (mobile) |
 
 ### Focus mode
 

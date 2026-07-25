@@ -235,6 +235,7 @@ The settings reset button clears all of the above except `lang`.
 | Key             | Context                | Action                                 |
 | --------------- | ---------------------- | -------------------------------------- |
 | `←` / `→`       | Reader                 | Previous / next row                    |
+| Swipe left/right | Reader (mobile)     | Previous / next row |
 | `Home` / `End`  | Reader                 | First / last row                       |
 | `↑` / `↓`       | Search focused         | Navigate results                       |
 | `Enter`         | Search focused         | Select result                          |

@@ -1882,6 +1882,27 @@ initializePageWithMetadata(async function (metadata) {
         }
       });
 
+      // ── Touch swipe left/right → prev/next row ──────────────
+      (function () {
+        var startX = 0, startY = 0, swiping = false;
+        readerContent.addEventListener("touchstart", function (e) {
+          if (e.touches.length !== 1) return;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          swiping = true;
+        }, { passive: true });
+        readerContent.addEventListener("touchend", function (e) {
+          if (!swiping) return;
+          swiping = false;
+          var dx = (e.changedTouches[0] ? e.changedTouches[0].clientX : startX) - startX;
+          var dy = Math.abs((e.changedTouches[0] ? e.changedTouches[0].clientY : startY) - startY);
+          if (Math.abs(dx) < 50 || Math.abs(dx) < dy) return; // min 50px, must be horizontal
+          var vRow = visiblePageIndex();
+          if (dx > 0 && vRow < filteredData.length - 1) goTo(vRow + 1);
+          else if (dx < 0 && vRow > 0) goTo(vRow - 1);
+        });
+      })();
+
       // ── Settings reset from modal → re-render ─────────────
       document.addEventListener("readerset", function () {
         ROWS_PER_CHUNK = 25;
