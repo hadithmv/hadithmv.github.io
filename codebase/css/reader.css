@@ -87,7 +87,6 @@
 }
 /* Scroll arrows — narrower, no border */
 .readerPanel-inner .scroll-arrow {
-  height: 24px;
   padding: 0;
   font-size: 0.65rem;
   line-height: 1;
@@ -429,10 +428,9 @@
 
 .h-scroll-wrap .scroll-arrow {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  bottom: 0;
   width: 24px;
-  height: 24px;
   padding: 0;
   font-size: 0.65rem;
   line-height: 1;
