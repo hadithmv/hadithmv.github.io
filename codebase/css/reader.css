@@ -727,19 +727,23 @@
   background: #10b981;
 }
 
-.confetti-piece {
+.completion-border {
   position: fixed;
-  top: -10px;
-  width: 8px;
-  height: 12px;
-  border-radius: 2px;
-  z-index: 9999;
+  inset: 0;
+  z-index: 9998;
   pointer-events: none;
-  animation: confetti-fall linear forwards;
+  border: 0px solid #059669;
+  animation: border-glow 5s ease-in-out forwards;
 }
-@keyframes confetti-fall {
-  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+@keyframes border-glow {
+  0%   { border-width: 0px; opacity: 0; }
+  15%  { border-width: 12px; opacity: 1; }
+  30%  { border-width: 12px; opacity: 0.2; }
+  45%  { border-width: 12px; opacity: 1; }
+  60%  { border-width: 12px; opacity: 0.2; }
+  75%  { border-width: 12px; opacity: 1; }
+  90%  { border-width: 12px; opacity: 0.15; }
+  100% { border-width: 0px; opacity: 0; }
 }
 
 #readerContent {

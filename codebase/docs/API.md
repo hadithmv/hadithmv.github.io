@@ -11,7 +11,7 @@
 
 | Module | Purpose |
 |---|---|
-| `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modal layer |
+| `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
 | `js/catalog.js` | Book registry, tag resolution, dashboard rendering, pins/history modal |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
 | `js/quran.js` | Quran data: loading, decoration, navigation, column registry, source labels |
@@ -189,6 +189,10 @@ Returns the translated label for a tag code. Falls back to the CSV label, then t
 ### `initI18n()`
 
 Processes all `data-i18n` attributes in the DOM and sets initial language from `localStorage`.
+
+### `window.showToast(msg)`
+
+Shows a brief toast message at the bottom of the screen. Single shared implementation in `common.js` — used by reader, quran, and catalog modules. Auto-dismisses after 2.5s.
 
 ### Unified modal layer
 

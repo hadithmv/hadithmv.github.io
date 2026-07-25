@@ -140,6 +140,20 @@ function applyFontSize(idx) {
   });
 })();
 
+// ── Shared toast ────────────────────────────────────────────
+window.showToast = function (msg) {
+  var el = document.querySelector(".copy-toast");
+  if (!el) {
+    el = document.createElement("div");
+    el.className = "copy-toast";
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(el._timeout);
+  el._timeout = setTimeout(function () { el.classList.remove("show"); }, 2500);
+};
+
 // ── Unified modal layer ────────────────────────────────────
 // All modals use the same open/close/escape pattern.
 // Each modal registers its overlay ID here.

@@ -27,7 +27,7 @@ Click any book card or table row to open it.
 - **Title** — the book title in the centre. Scrolls if too long.
 - **☰ Menu** (blue) — opens the sidebar with navigation, pins, history, and settings.
 
-A thin progress bar runs along the bottom of the top bar showing how far you've read. Milestone toasts appear at 25%, 50%, and 75%. At 100% the bar turns green with confetti.
+A thin progress bar runs along the bottom of the top bar. For Quran books it tracks progress within the current surah; for other books it tracks the full book. Milestone toasts appear at 25%, 50%, and 75%. At 100% the bar turns green and a green border pulses around the screen. Scrolling back resets the milestones.
 
 ### Below the top bar
 

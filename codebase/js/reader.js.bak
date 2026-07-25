@@ -1338,6 +1338,20 @@ initializePageWithMetadata(async function (metadata) {
           });
       });
 
+      function showToast(msg) {
+        let el = document.querySelector(".copy-toast");
+        if (!el) {
+          el = document.createElement("div");
+          el.className = "copy-toast";
+          document.body.appendChild(el);
+        }
+        el.textContent = msg;
+        el.classList.add("show");
+        clearTimeout(el._timeout);
+        el._timeout = setTimeout(function () {
+          el.classList.remove("show");
+        }, 1500);
+      }
 
       // ── Toolbar: focus mode ──────────────────────────────────
       var btnFocus = document.getElementById("btnFocus");
