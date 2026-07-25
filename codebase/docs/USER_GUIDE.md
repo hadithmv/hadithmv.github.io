@@ -74,9 +74,11 @@ When columns from one or more other books are active, each book's content is pre
 
 Press `z` or click the green ↕ button to hide everything except the book text. Press again to return.
 
-### Sharing
+### Sharing & Copying
 
 Your position is saved in the URL as you scroll. Copy the address bar to share the exact row you're reading.
+
+The **📋 Copy** button copies the current row as formatted text. For Quran books, columns are grouped by source book with a book-level label (no per-column headers), and the surah reference appears in the format `[البَقَرَة 2 : 60]`.
 
 ## Sidebar
 
