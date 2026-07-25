@@ -300,7 +300,9 @@ document.addEventListener("keydown", function (e) {
     var fo = document.getElementById("fontModalOverlay");
     if (fo && fo.classList.contains("open")) { fo.classList.remove("open"); return; }
     var so = document.getElementById("settingsOverlay");
-    if (so && so.classList.contains("open")) so.classList.remove("open");
+    if (so && so.classList.contains("open")) { so.classList.remove("open"); return; }
+    var ph = document.getElementById("pinsHistoryModalOverlay");
+    if (ph && ph.classList.contains("open")) { ph.classList.remove("open"); return; }
   }
 });
 

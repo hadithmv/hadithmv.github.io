@@ -262,6 +262,9 @@ function timeAgo(ts) {
   return dy + " " + t("relativeDays");
 }
 
+// Eagerly load book names so bookDisplayName works on all pages
+loadBookNames().then(function (list) { _lastBookNames = list; });
+
 function bookDisplayName(bookCode) {
   if (!_lastBookNames) return bookCode;
   var entry = null;
@@ -275,71 +278,146 @@ function bookDisplayName(bookCode) {
   return entry.titleEN || bookCode;
 }
 
-// ── Render Pins & History dropdowns ───────────────────────
+// ── Pins & History modal ──────────────────────────────────
 
-function renderPins() {
-  var dd = document.getElementById("pinsDropdown");
-  if (!dd) return;
-  var pins = getPinnedBooks();
-  if (pins.length === 0) {
-    dd.innerHTML = '<div class="dd-empty">' + t("pinsEmpty") + '</div>';
-    return;
-  }
-  var html = '<div class="dd-grid">';
-  html += '<div class="dd-header">';
-  html += '<span class="dd-col-idx">' + t("ddColIdx") + '</span>';
-  html += '<span class="dd-col-sort">' + t("ddColSort") + '</span>';
-  html += '<span class="dd-col-book">' + t("ddColBook") + '</span>';
-  html += '<span class="dd-col-page">' + t("ddColPage") + '</span>';
-  html += '<span class="dd-col-remove">' + t("ddColRemove") + '</span>';
-  html += '</div>';
-  for (var i = 0; i < pins.length; i++) {
-    var p = pins[i];
-    var name = bookDisplayName(p.bookCode);
-    html += '<div class="dash-dropdown-item" data-code="' + p.bookCode + '">';
-    html += '<span class="dd-col-idx">' + (i + 1) + '</span>';
-    html += '<span class="dd-col-sort">';
-    html += '<span class="chip-arrow' + (i === 0 ? ' chip-arrow-disabled' : '') + '" data-dir="-1" title="Move up">▲</span>';
-    html += '<span class="chip-arrow' + (i === pins.length - 1 ? ' chip-arrow-disabled' : '') + '" data-dir="1" title="Move down">▼</span>';
-    html += '</span>';
-    html += '<a class="dd-col-book dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a>';
-    html += '<span class="dd-col-page">' + (p.label || p.row) + '</span>';
-    html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
-    html += '</div>';
-  }
-  html += '</div>';
-  html += '<button class="dd-clear-all">' + t("dashboardClearAll") + '</button>';
-  dd.innerHTML = html;
+function _ensureModal() {
+  if (document.getElementById("pinsHistoryModalOverlay")) return;
+  var overlay = document.createElement("div");
+  overlay.id = "pinsHistoryModalOverlay";
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = '<div class="modal pins-history-modal" role="dialog">' +
+    '<div class="modal-header">' +
+      '<h2 id="pinsHistoryModalTitle"></h2>' +
+      '<button id="pinsHistoryModalClose" class="modal-close" title="Close (Escape key)">✕</button>' +
+    '</div>' +
+    '<div id="pinsHistoryModalBody" class="pins-history-body"></div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) closePinsHistoryModal();
+  });
+  document.getElementById("pinsHistoryModalClose").addEventListener("click", closePinsHistoryModal);
 }
 
-function renderHistory() {
-  var dd = document.getElementById("historyDropdown");
-  if (!dd) return;
+window.openPinsModal = function () {
+  _ensureModal();
+  document.getElementById("pinsHistoryModalTitle").textContent = t("dashPinsBtn");
+  var body = document.getElementById("pinsHistoryModalBody");
+  body.setAttribute("data-mode", "pins");
+  var pins = getPinnedBooks();
+  if (pins.length === 0) {
+    body.innerHTML = '<div class="dd-empty">' + t("pinsEmpty") + '</div>';
+  } else {
+    var html = '<div class="dd-grid">';
+    html += '<div class="dd-header"><span class="dd-col-idx">' + t("ddColIdx") + '</span><span class="dd-col-sort">' + t("ddColSort") + '</span><span class="dd-col-book">' + t("ddColBook") + '</span><span class="dd-col-page">' + t("ddColPage") + '</span><span class="dd-col-remove">' + t("ddColRemove") + '</span></div>';
+    for (var i = 0; i < pins.length; i++) {
+      var p = pins[i];
+      var name = bookDisplayName(p.bookCode);
+      html += '<div class="dash-dropdown-item" data-code="' + p.bookCode + '">';
+      html += '<span class="dd-col-idx">' + (i + 1) + '</span>';
+      html += '<span class="dd-col-sort">';
+      html += '<span class="chip-arrow' + (i === 0 ? ' chip-arrow-disabled' : '') + '" data-dir="-1" title="Move up">▲</span>';
+      html += '<span class="chip-arrow' + (i === pins.length - 1 ? ' chip-arrow-disabled' : '') + '" data-dir="1" title="Move down">▼</span>';
+      html += '</span>';
+      html += '<a class="dd-col-book dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a>';
+      html += '<span class="dd-col-page">' + (p.label || p.row) + '</span>';
+      html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
+      html += '</div>';
+    }
+    html += '</div><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
+    body.innerHTML = html;
+    document.getElementById("pinsClearAll").addEventListener("click", function () { clearPins(); window.openPinsModal(); });
+  }
+  document.getElementById("pinsHistoryModalOverlay").classList.add("open");
+  _wirePinsHistoryModal();
+};
+
+window.openHistoryModal = function () {
+  _ensureModal();
+  document.getElementById("pinsHistoryModalTitle").textContent = t("dashHistoryBtn");
+  var body = document.getElementById("pinsHistoryModalBody");
+  body.setAttribute("data-mode", "history");
   var history = getReadHistory();
   if (history.length === 0) {
-    dd.innerHTML = '<div class="dd-empty">' + t("historyEmpty") + '</div>';
-    return;
+    body.innerHTML = '<div class="dd-empty">' + t("historyEmpty") + '</div>';
+  } else {
+    var html = '<div class="dd-grid">';
+    html += '<div class="dd-header"><span class="dd-col-book">' + t("ddColBook") + '</span><span class="dd-col-page">' + t("ddColPage") + '</span><span class="dd-col-time">' + t("ddColTime") + '</span><span class="dd-col-remove">' + t("ddColRemove") + '</span></div>';
+    for (var i = 0; i < history.length; i++) {
+      var h = history[i];
+      var name = bookDisplayName(h.bookCode);
+      html += '<div class="dash-dropdown-item" data-code="' + h.bookCode + '">';
+      html += '<a class="dd-col-book dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a>';
+      html += '<span class="dd-col-page">' + (h.label || h.row) + '</span>';
+      html += '<span class="dd-col-time">' + timeAgo(h.timestamp) + '</span>';
+      html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
+      html += '</div>';
+    }
+    html += '</div><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
+    body.innerHTML = html;
+    document.getElementById("historyClearAll").addEventListener("click", function () { clearReadHistory(); window.openHistoryModal(); });
   }
-  var html = '<div class="dd-grid">';
-  html += '<div class="dd-header">';
-  html += '<span class="dd-col-book">' + t("ddColBook") + '</span>';
-  html += '<span class="dd-col-page">' + t("ddColPage") + '</span>';
-  html += '<span class="dd-col-time">' + t("ddColTime") + '</span>';
-  html += '<span class="dd-col-remove">' + t("ddColRemove") + '</span>';
-  html += '</div>';
-  for (var i = 0; i < history.length; i++) {
-    var h = history[i];
-    var name = bookDisplayName(h.bookCode);
-    html += '<div class="dash-dropdown-item" data-code="' + h.bookCode + '">';
-    html += '<a class="dd-col-book dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a>';
-    html += '<span class="dd-col-page">' + (h.label || h.row) + '</span>';
-    html += '<span class="dd-col-time">' + timeAgo(h.timestamp) + '</span>';
-    html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
-    html += '</div>';
-  }
-  html += '</div>';
-  html += '<button class="dd-clear-all">' + t("dashboardClearAll") + '</button>';
-  dd.innerHTML = html;
+  document.getElementById("pinsHistoryModalOverlay").classList.add("open");
+  _wirePinsHistoryModal();
+};
+
+function closePinsHistoryModal() {
+  var overlay = document.getElementById("pinsHistoryModalOverlay");
+  if (overlay) overlay.classList.remove("open");
+}
+
+// Wire sidebar links on both reader and dashboard
+(function () {
+  var sp = document.getElementById("sidebarPins");
+  if (sp) sp.addEventListener("click", function () {
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar) sidebar.classList.remove("open");
+    var sOverlay = document.getElementById("sidebarOverlay");
+    if (sOverlay) sOverlay.classList.remove("open");
+    window.openPinsModal();
+  });
+  var sh = document.getElementById("sidebarHistory");
+  if (sh) sh.addEventListener("click", function () {
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar) sidebar.classList.remove("open");
+    var sOverlay = document.getElementById("sidebarOverlay");
+    if (sOverlay) sOverlay.classList.remove("open");
+    window.openHistoryModal();
+  });
+})();
+
+function _wirePinsHistoryModal() {
+  var body = document.getElementById("pinsHistoryModalBody");
+  if (!body) return;
+  body.querySelectorAll(".chip-x[data-action='remove']").forEach(function (x) {
+    x.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var item = x.closest(".dash-dropdown-item");
+      if (item) {
+        if (item.querySelector(".dd-col-sort")) {
+          removePin(item.dataset.code); window.openPinsModal();
+        } else {
+          removeHistoryEntry(item.dataset.code); window.openHistoryModal();
+        }
+      }
+    });
+  });
+  body.querySelectorAll(".chip-arrow:not(.chip-arrow-disabled)").forEach(function (arrow) {
+    arrow.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var item = arrow.closest(".dash-dropdown-item");
+      if (item) { movePin(item.dataset.code, parseInt(arrow.dataset.dir, 10)); window.openPinsModal(); }
+    });
+  });
+}
+
+function renderPins() {
+  var overlay = document.getElementById("pinsHistoryModalOverlay");
+  if (overlay && overlay.classList.contains("open")) window.openPinsModal();
+}
+function renderHistory() {
+  var overlay = document.getElementById("pinsHistoryModalOverlay");
+  if (overlay && overlay.classList.contains("open")) window.openHistoryModal();
 }
 
 // ---------------------------------------------------------------------------
@@ -421,10 +499,6 @@ function renderDashboard(bookNames) {
 
   const dashboard = document.getElementById("dashboardWrapper");
   if (dashboard) dashboard.style.display = "block";
-
-  // Render pins & history (independent of search/tag filters)
-  renderPins();
-  renderHistory();
 
   // Filter out hidden books
   var visible = bookNames.filter(function (b) { return !b.bookCode.endsWith("-HDN"); });
@@ -595,75 +669,22 @@ function setupDashboardControls() {
     renderDashboard(_lastBookNames);
   });
 
-  // ── Pins & History dropdown toggling ──────────────────────
-  function closeAllDropdowns() {
-    var pdd = document.getElementById("pinsDropdown");
-    var hdd = document.getElementById("historyDropdown");
-    if (pdd) pdd.style.display = "none";
-    if (hdd) hdd.style.display = "none";
-  }
-  function toggleDropdown(ddId) {
-    var dd = document.getElementById(ddId);
-    if (!dd) return;
-    var other = ddId === "pinsDropdown" ? "historyDropdown" : "pinsDropdown";
-    var otherDD = document.getElementById(other);
-    if (otherDD) otherDD.style.display = "none";
-    dd.style.display = (dd.style.display === "block") ? "none" : "block";
-  }
+  // ── Pins & History modal triggers ─────────────────────────
 
   var btnPD = document.getElementById("btnPinsDropdown");
   if (btnPD) btnPD.addEventListener("click", function (e) {
     e.stopPropagation();
-    renderPins();
-    toggleDropdown("pinsDropdown");
+    window.openPinsModal();
   });
 
   var btnHD = document.getElementById("btnHistoryDropdown");
   if (btnHD) btnHD.addEventListener("click", function (e) {
     e.stopPropagation();
-    renderHistory();
-    toggleDropdown("historyDropdown");
+    window.openHistoryModal();
   });
 
-  // Close dropdowns on outside click
-  document.addEventListener("click", function (e) {
-    if (!e.target.closest("#pinsDropdown") && !e.target.closest("#btnPinsDropdown") &&
-        !e.target.closest("#historyDropdown") && !e.target.closest("#btnHistoryDropdown")) {
-      closeAllDropdowns();
-    }
-  });
 
-  // Pins dropdown click delegation
-  var pdd = document.getElementById("pinsDropdown");
-  if (pdd) pdd.addEventListener("click", function (e) {
-    e.stopPropagation();
-    var clearBtn = e.target.closest(".dd-clear-all");
-    var arrow = e.target.closest(".chip-arrow:not(.chip-arrow-disabled)");
-    var xBtn = e.target.closest(".chip-x[data-action='remove']");
-    if (clearBtn) { clearPins(); renderPins(); renderDashboard(_lastBookNames); return; }
-    if (arrow) {
-      var item = arrow.closest(".dash-dropdown-item");
-      if (item) { movePin(item.dataset.code, parseInt(arrow.dataset.dir, 10)); renderPins(); }
-      return;
-    }
-    if (xBtn) {
-      var pi = xBtn.closest(".dash-dropdown-item");
-      if (pi) { removePin(pi.dataset.code); renderPins(); renderDashboard(_lastBookNames); }
-    }
-  });
-
-  // History dropdown click delegation
-  var hdd = document.getElementById("historyDropdown");
-  if (hdd) hdd.addEventListener("click", function (e) {
-    e.stopPropagation();
-    var clearBtn = e.target.closest(".dd-clear-all");
-    var xBtn = e.target.closest(".chip-x[data-action='remove']");
-    if (clearBtn) { clearReadHistory(); renderHistory(); renderDashboard(_lastBookNames); return; }
-    if (xBtn) {
-      var hi = xBtn.closest(".dash-dropdown-item");
-      if (hi) { removeHistoryEntry(hi.dataset.code); renderHistory(); renderDashboard(_lastBookNames); }
-    }
-  });
+  // Escape handled centrally in common.js
 
   var vt = document.getElementById("dashboardViewToggle");
   if (vt) vt.addEventListener("click", function () {
