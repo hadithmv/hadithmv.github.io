@@ -239,12 +239,12 @@
 
 /* Pins columns: idx | sort | book | page | remove */
 #pinsDropdown .dd-grid {
-  grid-template-columns: 18px 32px 1fr 28px auto;
+  grid-template-columns: 18px 32px 1fr auto auto;
 }
 
 /* History columns: book | page | time | remove */
 #historyDropdown .dd-grid {
-  grid-template-columns: 1fr 28px auto auto;
+  grid-template-columns: 1fr auto auto auto;
 }
 
 .dd-header,
@@ -315,6 +315,7 @@
   text-align: center;
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-subtle);
+  white-space: nowrap;
 }
 
 .dd-col-time {

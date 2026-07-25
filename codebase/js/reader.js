@@ -1279,13 +1279,23 @@ initializePageWithMetadata(async function (metadata) {
         }
         btnBookmark.title = pinned ? "Remove bookmark (p key)" : "Bookmark current page (p key)";
       }
+      function pinLabel(vRow) {
+        if (!quranBook || filteredData.length === 0) return null;
+        var row = filteredData[vRow - 1];
+        if (!row) return null;
+        var surahNo = parseInt(row[1], 10) || 0;
+        var ayahNo = parseInt(row[2], 10) || 0;
+        var info = getSurahInfo(surahNo);
+        var surahName = info ? info.nameAR : "";
+        return surahName + " " + ayahNo + ":" + surahNo;
+      }
       btnBookmark.addEventListener("click", function () {
         var vRow = visiblePageIndex() + 1;
         if (isPinned(metadata.bookCode)) {
           removePin(metadata.bookCode);
           showToast(t("toastUnpinned"));
         } else {
-          var ok = addPin(metadata.bookCode, vRow);
+          var ok = addPin(metadata.bookCode, vRow, pinLabel(vRow));
           showToast(ok ? t("toastPinned") : t("toastPinned"));
         }
         updateBookmarkButton();
@@ -1971,8 +1981,8 @@ initializePageWithMetadata(async function (metadata) {
         if (vRow + 1 !== _lastHistoryRow) {
           clearTimeout(historyTimer);
           historyTimer = setTimeout(function () {
-            addReadHistory(metadata.bookCode, vRow + 1);
-            if (isPinned(metadata.bookCode)) addPin(metadata.bookCode, vRow + 1);
+            addReadHistory(metadata.bookCode, vRow + 1, pinLabel(vRow + 1));
+            if (isPinned(metadata.bookCode)) addPin(metadata.bookCode, vRow + 1, pinLabel(vRow + 1));
             _lastHistoryRow = vRow + 1;
           }, 2000);
         }

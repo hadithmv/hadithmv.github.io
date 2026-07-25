@@ -201,15 +201,18 @@ function setPinnedBooks(arr) {
 export function isPinned(bookCode) {
   return getPinnedBooks().some(function (p) { return p.bookCode === bookCode; });
 }
-export function addPin(bookCode, row) {
+export function addPin(bookCode, row, label) {
   var pins = getPinnedBooks();
   var idx = pins.findIndex(function (p) { return p.bookCode === bookCode; });
   if (idx !== -1) {
     pins[idx].row = row;
+    if (label) pins[idx].label = label;
     pins[idx].addedAt = Date.now();
   } else {
     if (pins.length >= MAX_PINS) return false;
-    pins.push({ bookCode: bookCode, row: row, addedAt: Date.now() });
+    var entry = { bookCode: bookCode, row: row, addedAt: Date.now() };
+    if (label) entry.label = label;
+    pins.push(entry);
   }
   setPinnedBooks(pins);
   return true;
@@ -234,9 +237,11 @@ export function getReadHistory() {
 function setReadHistory(arr) {
   try { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); } catch (_) {}
 }
-export function addReadHistory(bookCode, row) {
+export function addReadHistory(bookCode, row, label) {
   var h = getReadHistory().filter(function (e) { return e.bookCode !== bookCode; });
-  h.unshift({ bookCode: bookCode, row: row, timestamp: Date.now() });
+  var entry = { bookCode: bookCode, row: row, timestamp: Date.now() };
+  if (label) entry.label = label;
+  h.unshift(entry);
   if (h.length > MAX_HISTORY) h.pop();
   setReadHistory(h);
 }
@@ -298,7 +303,7 @@ function renderPins() {
     html += '<span class="chip-arrow' + (i === pins.length - 1 ? ' chip-arrow-disabled' : '') + '" data-dir="1" title="Move down">▼</span>';
     html += '</span>';
     html += '<a class="dd-col-book dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a>';
-    html += '<span class="dd-col-page">' + p.row + '</span>';
+    html += '<span class="dd-col-page">' + (p.label || p.row) + '</span>';
     html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
     html += '</div>';
   }
@@ -327,7 +332,7 @@ function renderHistory() {
     var name = bookDisplayName(h.bookCode);
     html += '<div class="dash-dropdown-item" data-code="' + h.bookCode + '">';
     html += '<a class="dd-col-book dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a>';
-    html += '<span class="dd-col-page">' + h.row + '</span>';
+    html += '<span class="dd-col-page">' + (h.label || h.row) + '</span>';
     html += '<span class="dd-col-time">' + timeAgo(h.timestamp) + '</span>';
     html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
     html += '</div>';
