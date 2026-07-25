@@ -375,7 +375,7 @@
 /* ── Copy feedback toast ── */
 .copy-toast {
   position: fixed;
-  bottom: 24px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 20px;
@@ -705,6 +705,24 @@
 }
 
 /* ---- Reader content ---- */
+
+#topBar { border-bottom: none; }
+
+#readerProgressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-card-hover-border);
+  direction: rtl;
+}
+#readerProgressFill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-nav-btn-text);
+  transition: width 0.3s ease-out;
+}
 
 #readerContent {
   background: var(--color-reader-bg);

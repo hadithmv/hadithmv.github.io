@@ -1971,14 +1971,24 @@ initializePageWithMetadata(async function (metadata) {
       var urlSyncTimer;
       var historyTimer;
       var _lastHistoryRow = 0;
+      var _lastMilestone = 0;
 
       // Initial history log
       var _initRow = visiblePageIndex() + 1;
-      addReadHistory(metadata.bookCode, _initRow);
+      addReadHistory(metadata.bookCode, _initRow, pinLabel(_initRow));
       _lastHistoryRow = _initRow;
 
       window.addEventListener("scroll", function () {
         updatePagination();
+        // Progress bar — continuous scroll-based
+        var scrollH = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = scrollH > 0 ? Math.round((window.scrollY / scrollH) * 100) : 0;
+        document.getElementById("readerProgressFill").style.width = pct + "%";
+        // Milestone toasts at 25%, 50%, 75%, 100%
+        if (pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; showToast("📖 25%"); }
+        else if (pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; showToast("📖 50%"); }
+        else if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; showToast("📖 75%"); }
+        else if (pct >= 100 && _lastMilestone < 100) { _lastMilestone = 100; showToast("✅ 100%"); }
         if (scrollCounter) {
           var vRow = visiblePageIndex();
           if (quranBook && filteredData.length > 0) {
@@ -2023,6 +2033,7 @@ initializePageWithMetadata(async function (metadata) {
       document.getElementById("btnFocus").style.display = "";
       document.getElementById("pageTitle").style.display = "";
       document.getElementById("readerWrapper").style.display = "block";
+      updateScrollPadding();
       // Scroll arrows can't detect overflow while #readerWrapper was hidden
       if (window._initScrollArrows) window._initScrollArrows();
     }).catch(function (err) {
