@@ -270,8 +270,9 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
 | `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
-| `window.closeAllDropdowns()` | Closes all open dropdowns (columns, export, search history, Quran ayah/juz/content/display, surah overlay). |
+| `window.closeAllDropdowns()` | Closes all 7 registered dropdowns at once. |
 | `window.openDropdown(dd, anchorEl, gap)` | Closes other dropdowns, positions `dd` below `anchorEl` with the given gap (default 4px), and shows it. Used by all dropdown toggles. |
+| `trapWheel(el)` (quran.js) | Stops wheel events on `el` from propagating — prevents dropdown scroll from hijacking the horizontal `.quran-nav` row. |
 
 ### Clipboard format
 

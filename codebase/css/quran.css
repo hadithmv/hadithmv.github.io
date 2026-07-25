@@ -51,7 +51,7 @@
 .quran-nav-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
   flex-shrink: 0;
 }
 

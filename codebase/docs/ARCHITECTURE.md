@@ -13,14 +13,14 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `css/common.css`             | Shared: themes, fonts, topBar, sidebar, settings modal, tag colors        |
-| `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive         |
+| `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override quran.css on specificity ties. |
 | `css/search.css`             | Reader: search bar, results dropdown, advanced search                      |
 | `css/tableView.css`          | Reader: table view mode, top scrollbar, sentinels                          |
-| `css/quran.css`              | Reader: Quran navigation row, dropdowns, surah overlay                     |
+| `css/quran.css`              | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard               |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
-| `js/reader.js`               | Book viewer: infinite scroll, toolbar, keyboard, export, clipboard         |
+| `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, export, keyboard, dropdowns, focus mode |
 | `js/quran.js`                | Quran: data loading, decoration, nav, column registry, UI setup            |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`                     |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history         |
@@ -449,7 +449,15 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes for load order (`02-registry-bookNames.csv`, `01-registry-bookTags.csv`). For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes, then a category: `01-registry-*` for tag/book registries, `02-registry-*` for the book list, `QRN-DATA-registry-*` for Quran metadata, `QRN-DATA-baseFile-{N}-*` for Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+
+**CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
+
+**Dropdowns.** All dropdowns use the shared helpers on `window`:
+- `window.openDropdown(dd, anchorEl, gap)` — closes other dropdowns, positions `dd` below `anchorEl`, shows it. Default gap 4px.
+- `window.closeAllDropdowns()` — hides all 7 registered dropdowns.
+- `trapWheel(el)` (quran.js) — prevents wheel events on a dropdown from scrolling the horizontal nav row behind it.
+- Dropdowns with scrollable lists (`.search-results`, `.quran-content-list`, `.quran-surah-list`) use `overscroll-behavior: contain` to prevent scroll chaining at boundaries.
 
 ### Keyboard shortcuts
 
