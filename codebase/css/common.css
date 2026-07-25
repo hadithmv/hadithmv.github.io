@@ -165,6 +165,15 @@ body {
   background: #1e3a5f;
   border-color: #60a5fa;
 }
+[data-theme="sepia"] .menu-btn {
+  color: #3b5f8a;
+  background: #e8e0d5;
+  border-color: #c4b99a;
+}
+[data-theme="sepia"] .menu-btn:hover {
+  background: #ddd4c5;
+  border-color: #8a7a55;
+}
 
 /* ---- Sidebar overlay ---- */
 .sidebar-overlay {
@@ -811,6 +820,8 @@ body:has(#settingsOverlay.open) {
   min-width: 0;
   font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   border-radius: 8px;
+  background: var(--color-reader-bg);
+  color: var(--color-text);
 }
 
 .search-clear {
@@ -970,6 +981,14 @@ body:has(#settingsOverlay.open) {
 [data-theme="dark"] #topBar .nav-focus-btn:hover {
   border-color: #4ade80;
 }
+[data-theme="sepia"] #topBar .nav-focus-btn {
+  color: #3d6b35;
+  background: #e6efe0;
+  border-color: #b4c8a8;
+}
+[data-theme="sepia"] #topBar .nav-focus-btn:hover {
+  border-color: #7a9a6a;
+}
 
 #topBar #pageTitle {
   flex: 1;
@@ -1022,6 +1041,14 @@ body:has(#settingsOverlay.open) {
 [data-theme="dark"] #backToDashboard:hover {
   background: #450a0a;
   border-color: #f87171;
+}
+[data-theme="sepia"] #backToDashboard {
+  color: #8b3a3a;
+  background: #f0e4dc;
+  border-color: #c8a8a0;
+}
+[data-theme="sepia"] #backToDashboard:hover {
+  border-color: #9a6a5a;
 }
 
 /* Focus button (shared — appears on topBar, shown via JS) */
