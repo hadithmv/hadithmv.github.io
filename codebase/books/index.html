@@ -274,7 +274,10 @@
     <script type="module" src="../js/common.js"></script>
     <script type="module">
       import { initializePageWithMetadata } from "../js/catalog.js";
-      initializePageWithMetadata(function () {});
+      initializePageWithMetadata(function (metadata) {
+        // Dashboard got a ?book= link — redirect to the reader
+        window.location.replace("reader.html" + window.location.search);
+      });
     </script>
   </body>
 </html>
