@@ -25,7 +25,7 @@ Click any book card or table row to open it.
 - **↩ Return** (red) — goes back to the book list
 - **↕ Focus** (green) — toggles distraction‑free reading mode. Click again or press `z` to exit.
 - **Title** — the book title in the centre. Scrolls if too long.
-- **☰ Menu** (blue) — opens the sidebar with navigation and settings.
+- **☰ Menu** (blue) — opens the sidebar with navigation, pins, history, and settings.
 
 ### Below the top bar
 
@@ -81,6 +81,8 @@ Your position is saved in the URL as you scroll. Copy the address bar to share t
 Open with the blue ☰ button. From here you can:
 
 - Go to the book list
+- Open **📌 Pins** — view and manage bookmarked positions across all books
+- Open **🕐 History** — see recently read books with timestamps
 - Visit the GitHub page
 - Open FAQ, Help, or Contact pages
 - Open **Settings**

@@ -140,20 +140,49 @@ function applyFontSize(idx) {
   });
 })();
 
+// ── Unified modal layer ────────────────────────────────────
+// All modals use the same open/close/escape pattern.
+// Each modal registers its overlay ID here.
+window.MODAL_IDS = ["settingsOverlay", "fontModalOverlay"];
+
+window.closeAllModals = function () {
+  window.MODAL_IDS.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove("open");
+  });
+};
+
+window.closeModal = function (id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.remove("open");
+};
+
+window.openModal = function (id) {
+  window.closeAllModals();
+  var el = document.getElementById(id);
+  if (el) el.classList.add("open");
+};
+
+// Shared backdrop + close-button wiring for any modal
+function wireModal(id) {
+  var overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) window.closeModal(id);
+  });
+  var closeBtn = overlay.querySelector(".modal-close");
+  if (closeBtn) closeBtn.addEventListener("click", function () { window.closeModal(id); });
+}
+window.MODAL_IDS.forEach(wireModal);
+
 // ── Settings modal ──────────────────────────────────────────
 (function () {
   var overlay = document.getElementById("settingsOverlay");
   if (!overlay) return;
 
-  function close() { overlay.classList.remove("open"); }
-
   document.getElementById("btnSettings").addEventListener("click", function () {
+    window.closeAllModals();
     overlay.classList.add("open");
-  });
-  document.getElementById("modalClose").addEventListener("click", close);
-  overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && overlay.classList.contains("open")) close();
   });
 
   // Theme select
@@ -226,7 +255,7 @@ function applyFontSize(idx) {
     localStorage.removeItem("lang");
     var sel = document.getElementById("selLanguage");
     if (sel) sel.value = "dv";
-    document.getElementById("settingsOverlay").classList.remove("open");
+    window.closeModal("settingsOverlay");
   });
 })();
 
@@ -235,21 +264,13 @@ function applyFontSize(idx) {
   var overlay = document.getElementById("fontModalOverlay");
   if (!overlay) return;
 
-  function open() {
-    // Close settings modal and sidebar first so user sees the full page
-    var so = document.getElementById("settingsOverlay");
-    if (so) so.classList.remove("open");
+  document.getElementById("btnOpenFontModal").addEventListener("click", function () {
     var sidebar = document.getElementById("sidebar");
     if (sidebar) sidebar.classList.remove("open");
     var sOverlay = document.getElementById("sidebarOverlay");
     if (sOverlay) sOverlay.classList.remove("open");
-    overlay.classList.add("open");
-  }
-
-  function close() { overlay.classList.remove("open"); }
-
-  document.getElementById("btnOpenFontModal").addEventListener("click", open);
-  document.getElementById("fontModalClose").addEventListener("click", close);
+    window.openModal("fontModalOverlay");
+  });
   document.getElementById("btnResetFont").addEventListener("click", function () {
     var html = document.documentElement;
     html.style.setProperty("--reader-font-size", DEFAULT_FONT_SIZE);
@@ -265,10 +286,7 @@ function applyFontSize(idx) {
     if (ffSel) ffSel.value = "hadithmv";
     document.dispatchEvent(new CustomEvent("readerset"));
   });
-  overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && overlay.classList.contains("open")) close();
-  });
+  // Backdrop click + Escape handled by unified wireModal
 })();
 
 // ── Language select ─────────────────────────────────────────
@@ -297,12 +315,11 @@ document.addEventListener("keydown", function (e) {
     window.location.href = "index.html";
   }
   if (e.key === "Escape") {
-    var fo = document.getElementById("fontModalOverlay");
-    if (fo && fo.classList.contains("open")) { fo.classList.remove("open"); return; }
-    var so = document.getElementById("settingsOverlay");
-    if (so && so.classList.contains("open")) { so.classList.remove("open"); return; }
-    var ph = document.getElementById("pinsHistoryModalOverlay");
-    if (ph && ph.classList.contains("open")) { ph.classList.remove("open"); return; }
+    // Close any open modal (order matters: close innermost first)
+    for (var i = window.MODAL_IDS.length - 1; i >= 0; i--) {
+      var el = document.getElementById(window.MODAL_IDS[i]);
+      if (el && el.classList.contains("open")) { el.classList.remove("open"); return; }
+    }
   }
 });
 

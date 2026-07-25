@@ -12,7 +12,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
-| `css/common.css`             | Shared: themes, fonts, topBar, sidebar, settings modal, tag colors        |
+| `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, dropdown grid, tag colors |
 | `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override quran.css on specificity ties. |
 | `css/search.css`             | Reader: search bar, results dropdown, advanced search                      |
 | `css/tableView.css`          | Reader: table view mode, top scrollbar, sentinels                          |
@@ -453,6 +453,8 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 **File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes, then a category: `01-registry-*` for tag/book registries, `02-registry-*` for the book list, `QRN-DATA-registry-*` for Quran metadata, `QRN-DATA-baseFile-{N}-*` for Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 **CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
+
+**Modals.** All modals use the unified layer in `common.js`: `window.openModal(id)`, `window.closeModal(id)`, `window.closeAllModals()`. Each modal's overlay ID is registered in `window.MODAL_IDS`. Backdrop click and `.modal-close` button are auto-wired via `wireModal()`. New modals push their ID to the array and wire themselves on creation.
 
 **Dropdowns.** All dropdowns use the shared helpers on `window`:
 - `window.openDropdown(dd, anchorEl, gap)` — closes other dropdowns, positions `dd` below `anchorEl`, shows it. Default gap 4px.

@@ -11,8 +11,8 @@
 
 | Module | Purpose |
 |---|---|
-| `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard |
-| `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
+| `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modal layer |
+| `js/catalog.js` | Book registry, tag resolution, dashboard rendering, pins/history modal |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
 | `js/quran.js` | Quran data: loading, decoration, navigation, column registry, source labels |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
@@ -53,6 +53,18 @@ Looks up a single book by code (async). Returns the metadata object or `null`.
 ### `getBookTitleSync(bookCode)`
 
 Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran.js` for source-book labels.
+
+### `window.openPinsModal()`
+
+Opens a modal overlay listing all pinned books with their position labels (surah references for Quran books, row numbers otherwise). Supports reordering, removal, and click-to-jump. Accessible from the dashboard toolbar and the reader sidebar.
+
+### `window.openHistoryModal()`
+
+Same modal, showing the last 10 books visited with timestamps. Supports removal and clear-all.
+
+### `addPin(bookCode, row, label?)`, `addReadHistory(bookCode, row, label?)`
+
+Optional third parameter `label` stores a human-readable position string (e.g. `"البَقَرَة 5:2"`) for Quran books. Shown in the pins/history modal instead of the raw row number.
 
 ### `getCsvPath(bookCode)`
 
@@ -177,6 +189,19 @@ Returns the translated label for a tag code. Falls back to the CSV label, then t
 ### `initI18n()`
 
 Processes all `data-i18n` attributes in the DOM and sets initial language from `localStorage`.
+
+### Unified modal layer
+
+All modals (settings, font, pins/history) share the same open/close/Escape pattern.
+
+| Function | Description |
+|---|---|
+| `window.openModal(id)` | Closes all other modals, then opens the one with the given overlay ID. |
+| `window.closeModal(id)` | Closes a specific modal by overlay ID. |
+| `window.closeAllModals()` | Closes every registered modal. |
+| `window.MODAL_IDS` | Array of registered modal overlay IDs. Pins/history self-registers on first open. |
+
+`wireModal(id)` in common.js auto-wires backdrop-click-to-close and the `.modal-close` button for any modal at page load. Dynamically-created modals (pins/history) wire themselves on creation.
 
 ---
 

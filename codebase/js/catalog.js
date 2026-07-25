@@ -288,15 +288,19 @@ function _ensureModal() {
   overlay.innerHTML = '<div class="modal pins-history-modal" role="dialog">' +
     '<div class="modal-header">' +
       '<h2 id="pinsHistoryModalTitle"></h2>' +
-      '<button id="pinsHistoryModalClose" class="modal-close" title="Close (Escape key)">✕</button>' +
+      '<button class="modal-close" title="Close (Escape key)">✕</button>' +
     '</div>' +
     '<div id="pinsHistoryModalBody" class="pins-history-body"></div>' +
     '</div>';
   document.body.appendChild(overlay);
+  // Unified modal wiring
+  window.MODAL_IDS.push("pinsHistoryModalOverlay");
   overlay.addEventListener("click", function (e) {
-    if (e.target === overlay) closePinsHistoryModal();
+    if (e.target === overlay) window.closeModal("pinsHistoryModalOverlay");
   });
-  document.getElementById("pinsHistoryModalClose").addEventListener("click", closePinsHistoryModal);
+  overlay.querySelector(".modal-close").addEventListener("click", function () {
+    window.closeModal("pinsHistoryModalOverlay");
+  });
 }
 
 window.openPinsModal = function () {
@@ -328,7 +332,7 @@ window.openPinsModal = function () {
     body.innerHTML = html;
     document.getElementById("pinsClearAll").addEventListener("click", function () { clearPins(); window.openPinsModal(); });
   }
-  document.getElementById("pinsHistoryModalOverlay").classList.add("open");
+  window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();
 };
 
@@ -357,13 +361,12 @@ window.openHistoryModal = function () {
     body.innerHTML = html;
     document.getElementById("historyClearAll").addEventListener("click", function () { clearReadHistory(); window.openHistoryModal(); });
   }
-  document.getElementById("pinsHistoryModalOverlay").classList.add("open");
+  window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();
 };
 
 function closePinsHistoryModal() {
-  var overlay = document.getElementById("pinsHistoryModalOverlay");
-  if (overlay) overlay.classList.remove("open");
+  window.closeModal("pinsHistoryModalOverlay");
 }
 
 // Wire sidebar links on both reader and dashboard
