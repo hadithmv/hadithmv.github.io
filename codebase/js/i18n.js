@@ -190,6 +190,13 @@ const STRINGS = {
     ar: "…جارٍ تحميل",
   },
 
+  // ── Progress ──
+  qrnCompleted: {
+    dv: "ނިމުނީ",
+    en: "Complete",
+    ar: "اكتمل",
+  },
+
   // ── Tag labels ──
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
   tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },

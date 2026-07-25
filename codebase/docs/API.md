@@ -18,7 +18,7 @@
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
 | `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
 | `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
-| `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()` |
+| `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()`, progress milestones |
 
 ## catalog.js
 

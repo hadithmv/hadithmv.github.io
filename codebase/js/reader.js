@@ -1338,6 +1338,20 @@ initializePageWithMetadata(async function (metadata) {
           });
       });
 
+      function spawnConfetti() {
+        var colors = ["#dc2626","#f59e0b","#10b981","#3b82f6","#8b5cf6","#ec4899","#14b8a6"];
+        for (var i = 0; i < 60; i++) {
+          var p = document.createElement("div");
+          p.className = "confetti-piece";
+          p.style.left = Math.random() * 100 + "%";
+          p.style.background = colors[Math.floor(Math.random() * colors.length)];
+          p.style.animationDelay = Math.random() * 0.8 + "s";
+          p.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+          document.body.appendChild(p);
+          setTimeout(function (el) { el.remove(); }, 3000, p);
+        }
+      }
+
       function showToast(msg) {
         let el = document.querySelector(".copy-toast");
         if (!el) {
@@ -1988,7 +2002,12 @@ initializePageWithMetadata(async function (metadata) {
         if (pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; showToast("📖 25%"); }
         else if (pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; showToast("📖 50%"); }
         else if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; showToast("📖 75%"); }
-        else if (pct >= 100 && _lastMilestone < 100) { _lastMilestone = 100; showToast("✅ 100%"); }
+        else if (pct >= 100 && _lastMilestone < 100) {
+          _lastMilestone = 100;
+          showToast("✅ 100% " + t("qrnCompleted") + " 📖");
+          document.getElementById("readerProgressFill").classList.add("done");
+          spawnConfetti();
+        }
         if (scrollCounter) {
           var vRow = visiblePageIndex();
           if (quranBook && filteredData.length > 0) {

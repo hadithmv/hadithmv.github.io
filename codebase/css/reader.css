@@ -721,7 +721,25 @@
   height: 100%;
   width: 0%;
   background: var(--color-nav-btn-text);
-  transition: width 0.3s ease-out;
+  transition: width 0.3s ease-out, background 0.5s ease;
+}
+#readerProgressFill.done {
+  background: #10b981;
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  z-index: 9999;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
+@keyframes confetti-fall {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
 }
 
 #readerContent {

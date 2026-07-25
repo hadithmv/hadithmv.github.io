@@ -85,8 +85,9 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 ### Layout
 
 ```text
-┌─ Fixed topBar (z-index 101, opaque bg, bottom border) ─────══┐
+┌─ Fixed topBar (z-index 101, opaque bg) ───────────────────═┐
 │  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
+│  ═══ progress bar (2px, RTL fill, green at 100%)            │
 ├─ Sticky collapsibleReaderPanel (z-index 50) ─────────────────┤
 │  readerPanelSearch       🔎 Advanced  [input]  ✕  (N)        │
 │  readerPanelFunctions    📋 📌 ◉ 🔗 ↕ ↺ 📥 …               │
