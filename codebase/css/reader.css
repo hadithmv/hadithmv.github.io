@@ -108,10 +108,6 @@
   border-bottom: none;
 }
 
-[data-focus] #readerPanelPaginationBottom {
-  display: none;
-}
-
 [data-focus] #readerContent {
   border: none;
   box-shadow: none;
@@ -502,13 +498,6 @@
   flex-shrink: 0;
 }
 
-#readerPanelPaginationBottom {
-  margin-top: 10px;
-  margin-bottom: 0;
-  border-bottom: none;
-  border-top: 2px solid var(--color-card-hover-border);
-}
-
 /* Left side: page buttons */
 .nav-pages {
   display: flex;
@@ -715,7 +704,7 @@
 #readerContent {
   background: var(--color-reader-bg);
   border: none;
-  padding: 12px 36px 32px;
+  padding: 12px 32px 32px;
   line-height: 1.9;
   font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
@@ -916,7 +905,7 @@
   }
 
   #readerContent {
-    padding: 10px 16px 20px;
+    padding: 10px 24px 20px;
     font-size: var(--reader-font-size-mobile, 1.1rem);
     line-height: 2;
   }
@@ -1006,9 +995,6 @@
     padding-bottom: 0;
     margin-bottom: 0;
     justify-content: flex-start;
-  }
-  #readerPanelPaginationBottom {
-    justify-content: center;
   }
   #readerWrapper {
     margin-top: 60px;

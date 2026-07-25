@@ -825,11 +825,8 @@ initializePageWithMetadata(async function (metadata) {
         var selHTML = pageSelectHTML(cur, total);
         var label = t("pageOf");
         document.getElementById("pageNumbers").innerHTML = selHTML;
-        document.getElementById("pageNumbersBottom").innerHTML = selHTML;
         var pl = document.getElementById("pageLabel");
         if (pl) pl.textContent = label;
-        var plb = document.getElementById("pageLabelBottom");
-        if (plb) plb.textContent = label;
 
         var atFirst = visibleRow === 0;
         var atLast = visibleRow >= filteredData.length - 1;
@@ -838,15 +835,11 @@ initializePageWithMetadata(async function (metadata) {
           "prevBtn",
           "nextBtn",
           "lastBtn",
-          "firstBtnBottom",
-          "prevBtnBottom",
-          "nextBtnBottom",
-          "lastBtnBottom",
         ].forEach(function (id, i) {
-          document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
+          document.getElementById(id).disabled = i < 2 ? atFirst : atLast;
         });
 
-        // Wire page strip selects (top and bottom)
+        // Wire page strip selects
         document.querySelectorAll(".page-strip-sel").forEach(function (psi) {
           if (String(psi.value) !== String(cur)) psi.value = cur;
           psi.addEventListener("change", function () {
@@ -1756,10 +1749,6 @@ initializePageWithMetadata(async function (metadata) {
         "prevBtn",
         "nextBtn",
         "lastBtn",
-        "firstBtnBottom",
-        "prevBtnBottom",
-        "nextBtnBottom",
-        "lastBtnBottom",
       ].forEach(function (id) {
         const delta =
           id.indexOf("first") === 0

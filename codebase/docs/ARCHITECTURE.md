@@ -96,8 +96,6 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 │  [Table mode] ▶ ════ scrollbar ════ ◀                       │
 │  #1 …                                                        │
 │  #2 …                                                        │
-├─ readerPanelPaginationBottom ─────────────────────────────────┤
-│  << < [N] / [N] > >>                                          │
 └──────────────────────────────────────────────────────────────┘
 ```
 

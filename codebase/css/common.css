@@ -762,7 +762,7 @@ body:has(#settingsOverlay.open) {
 #readerWrapper {
   max-width: 800px;
   margin: 62px auto 60px;
-  padding: 0 32px;
+  padding: 0;
   font-family:
     "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
     serif;
