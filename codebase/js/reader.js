@@ -849,6 +849,12 @@ initializePageWithMetadata(async function (metadata) {
         });
       }
 
+      function updateScrollPadding() {
+        var topBar = document.getElementById("topBar");
+        var panel = document.getElementById("collapsibleReaderPanel");
+        var offset = (topBar ? topBar.offsetHeight : 62) + (panel ? panel.offsetHeight : 0);
+        document.documentElement.style.scrollPaddingTop = offset + "px";
+      }
       function goTo(rowIdx) {
         if (filteredData.length === 0) return;
         if (rowIdx < 0) rowIdx = 0;
@@ -856,6 +862,7 @@ initializePageWithMetadata(async function (metadata) {
         // Ensure row is loaded
         while (rowIdx < loadedStart) prependPrev();
         while (rowIdx >= loadedEnd) appendNext();
+        updateScrollPadding();
         var el = readerContent.querySelector('.reader-chunk[data-row="' + rowIdx + '"]');
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
         updatePagination();
@@ -1369,7 +1376,7 @@ initializePageWithMetadata(async function (metadata) {
         }
         try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
         // Wait for chrome collapse/expand transition (~300ms) then recalc
-        setTimeout(updateRdfHeaderTop, 350);
+        setTimeout(function () { updateRdfHeaderTop(); updateScrollPadding(); }, 350);
       }
       if ((function(){try{return localStorage.getItem("focus")==="1"}catch(_){return false}})()) setFocus(true);
       btnFocus.addEventListener("click", function () {
