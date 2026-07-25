@@ -237,16 +237,6 @@
   gap: 2px 4px;
 }
 
-/* Pins columns: idx | sort | book | page | remove */
-#pinsDropdown .dd-grid {
-  grid-template-columns: 18px 32px 1fr auto auto;
-}
-
-/* History columns: book | page | time | remove */
-#historyDropdown .dd-grid {
-  grid-template-columns: 1fr auto auto auto;
-}
-
 .dd-header,
 .dash-dropdown-item {
   display: contents;
