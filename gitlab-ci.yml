@@ -2,7 +2,7 @@ pages:
   stage: deploy
   script:
     - mkdir -p public
-    - cp -r . public
+    - cp -r $(ls -A | grep -v public) public/ 2>/dev/null || true
     - rm -rf public/.git public/.github public/.gitlab-ci.yml
   artifacts:
     paths:
