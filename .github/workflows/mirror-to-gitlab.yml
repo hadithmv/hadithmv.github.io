@@ -1,0 +1,18 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - gh-pages
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror repository to GitLab
+        run: |
+          git clone --mirror https://github.com/${{ github.repository }}.git
+          cd $(basename ${{ github.repository }}).git
+          git push --mirror ${{ secrets.GITLAB_PUSH_URL }}
