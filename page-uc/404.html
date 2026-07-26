@@ -450,21 +450,53 @@
           </p>
           <div class="mirror-links">
             <a href="https://hadithmv.github.io/" target="_blank">Main Site</a>
+
+            <!-- Cloudflare Pages -->
+            <a href="https://hadithmv.pages.dev" target="_blank">Mirror 1</a>
+            <!-- custom domain below pulls from hadithmv.pages.dev above-->
+            <a href="https://hadithmv.com" target="_blank">Mirror 2</a>
+            <!--  -->
             <!-- OnRender
           Build Command: jekyll build
           Publish directory: _site/
           -->
             <a href="https://hadithmv-github-io.onrender.com" target="_blank"
-              >Mirror 1</a
-            >
-            <!-- Cloudflare Pages -->
-            <a href="https://hadithmv.pages.dev" target="_blank">Mirror 2</a>
-            <!-- rawgithack-->
-            <a
-              href="https://raw.githack.com/hadithmv/hadithmv.github.io/master/books/index.html"
-              target="_blank"
               >Mirror 3</a
             >
+            <!--  -->
+            <!-- raw.githack
+             run by: Pavel Puchkin, https://github.com/neoascetic/rawgithack
+             (this used to be what rawgit.com did, by Ryan Grove, https://github.com/rgrove/rawgit
+             The original RawGit service is permanently shut down, and its official source code remains archived on the RawGit GitHub Repository.
+             Alternative Proxy: Raw.githack offers a similar live proxy service for development.)
+             have to point give them a url pointing to the desired html file for them to serve it, they provide two ways to serve as development and production, so two links -->
+            <a
+              href="https://raw.githack.com/hadithmv/hadithmv.github.io/main/books/index.html"
+              target="_blank"
+              >Mirror 4 (have to click 'open the page')</a
+            >
+            <a
+              href="https://rawcdn.githack.com/hadithmv/hadithmv.github.io/1ee875ad7581738bfd690dd8827146528f9fd718/books/index.html"
+              target="_blank"
+              >Mirror 5 (have to click 'open the page')</a
+            >
+            <!-- they also seem to have rawgit.net ? -->
+            <a
+              href="https://rawcdn.rawgit.net/hadithmv/hadithmv.github.io/1ee875ad7581738bfd690dd8827146528f9fd718/books/index.html"
+              target="_blank"
+              >Mirror 6</a
+            >
+            <a
+              href="https://raw.rawgit.net/hadithmv/hadithmv.github.io/main/books/index.html"
+              target="_blank"
+              >Mirror 7</a
+            >
+
+            <!-- Rawgit - dead
+            <a href="https://ghcdn.rawgit.org/hadithmv/hadithmv.github.io/master/books/index.html"
+          >Mirror 4</a> -->
+
+            <!--  -->
             <!-- vercel,
             when importing a git repository, change name from hadithmv-github-io to hadithmv, otherwise browser shows this warning prompt thinking it should redirect to .github.io
             ...
@@ -489,11 +521,15 @@
           ...
           sometimes the domains under deployment show one main link, sometimes they show an addition two branching links? 
         -->
-            <a href="https://hadithmv.vercel.app" target="_blank">Mirror 4</a>
+            <a href="https://hadithmv.vercel.app" target="_blank">Mirror 6</a>
+            <!--  -->
             <!-- Netlify - disabled automatic deployment, otherwise it automatically switches to paid tier when free is used up, and the only way oyt of that is to make another account?  -->
 
-            <a href="https://hadithmv.netlify.app" target="_blank">Mirror 5</a>
-            <!-- doesnt seem to work anymore, they changed their settings, and havent been able to reconfigure to get it deployed -->
+            <a href="https://hadithmv.netlify.app" target="_blank"
+              >(old) Mirror 7</a
+            >
+            <!--  -->
+            <!-- below stuff doesnt seem to work anymore, they changed their settings, and havent been able to reconfigure to get it deployed -->
             <!-- <a
             href="https://hadithmv.gitlab.io"
             
@@ -505,11 +541,6 @@
           href="https://combinatronics.com/hadithmv/hadithmv.github.io/master/books/index.html"
           >Mirror 5</a
         > | -->
-            <!-- Rawgit - dead -->
-            <!--<a
-          href="https://ghcdn.rawgit.org/hadithmv/hadithmv.github.io/master/books/index.html"
-          >Mirror 4</a
-        >-->
           </div>
         </div>
 
