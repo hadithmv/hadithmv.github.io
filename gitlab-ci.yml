@@ -2,11 +2,9 @@ pages:
   stage: deploy
   script:
     - mkdir -p public
-    - cp -r $(ls -A | grep -v public) public/ 2>/dev/null || true
-    - rm -rf public/.git public/.github public/.gitlab-ci.yml
+    - cp -r dist/* public/   # adjust to wherever your built site lives
   artifacts:
     paths:
       - public
-  only:
-    - main
-    - master
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
