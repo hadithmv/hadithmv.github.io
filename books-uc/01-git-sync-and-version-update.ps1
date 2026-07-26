@@ -172,7 +172,8 @@ function Generate-CommitMessage {
     $commitMsg = "$summary`n`n$timestamp`n`n$($details -join "`n")"
     
     return $commitMsg
-}
+} 
+
 
 try {
     # Store the initial location to return to it at the end if needed
