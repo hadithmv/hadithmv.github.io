@@ -1,10 +1,10 @@
 pages:
   stage: deploy
-  image: alpine:latest
+  image: ruby:3.2
   script:
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
+    - gem install bundler
+    - bundle install
+    - bundle exec jekyll build -d public
   artifacts:
     paths:
       - public
