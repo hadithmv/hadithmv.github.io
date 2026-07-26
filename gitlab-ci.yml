@@ -1,8 +1,10 @@
 pages:
   stage: deploy
+  image: alpine:latest
   script:
-    - mkdir -p public
-    - cp -r dist/* public/   # adjust to wherever your built site lives
+    - mkdir .public
+    - cp -r * .public
+    - mv .public public
   artifacts:
     paths:
       - public
