@@ -19,5 +19,5 @@ jobs:
       - name: Push to GitLab
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/hadithmv/hadithmv.gitlab.io.git
-          git push gitlab main --force-with-lease
-          git push gitlab --tags
+          git push gitlab main --force
+          git push gitlab --tags --force
