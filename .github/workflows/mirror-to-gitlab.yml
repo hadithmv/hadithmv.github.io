@@ -11,8 +11,13 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: Mirror repository to GitLab
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push to GitLab
         run: |
-          git clone --mirror https://github.com/${{ github.repository }}.git
-          cd $(basename ${{ github.repository }}).git
-          git push --mirror ${{ secrets.GITLAB_PUSH_URL }}
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/hadithmv/hadithmv.gitlab.io.git
+          git push gitlab main --force-with-lease
+          git push gitlab --tags
