@@ -15,5 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Mirror to GitLab
+        env:
+          MY_SECRET_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
-          git push --prune --force https://oauth2:${{ secrets.GITLAB_TOKEN }}@://gitlab.com refs/heads/*:refs/heads/* refs/tags/*:refs/tags/*
+          git push --prune --force https://oauth2:${MY_SECRET_TOKEN}@://gitlab.com refs/heads/*:refs/heads/* refs/tags/*:refs/tags/*
