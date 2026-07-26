@@ -193,6 +193,7 @@ catch {
     exit 1
 }
 
+
 function Increment-Version {
     param (
         [switch]$SkipIncrement
