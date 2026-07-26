@@ -175,6 +175,7 @@ function Generate-CommitMessage {
 } 
 
 
+
 try {
     # Store the initial location to return to it at the end if needed
     $initialLocation = Get-Location
