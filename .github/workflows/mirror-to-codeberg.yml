@@ -21,7 +21,7 @@ jobs:
 
       - name: Build Jekyll Site
         run: |
-          bundle exec jekyll build
+          bundle exec jekyll build --url "https://codeberg.page" --baseurl "/hadithmv"
         env:
           JEKYLL_ENV: production
 
