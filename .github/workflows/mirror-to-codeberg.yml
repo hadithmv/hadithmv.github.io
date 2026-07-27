@@ -12,13 +12,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
-      - name: Mirror to Codeberg
-        uses: cssnr/mirror-repository-action@v1
-        with:
-          url: https://codeberg.org/hadithmv/pages.git
-          username: hadithmv
-          password: ${{ secrets.CODEBERG_TOKEN }}
-          create: true
+      - name: Remove large unrelated folders
+        run: |
+          rm -rf app androidApp-kt windowsApp-tauri codebase node_modules
+
+      - name: Push filtered content to Codeberg
+        run: |
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+          git add -A
+          git commit -m "Mirror: exclude app/ and build folders" --allow-empty
+          git push --force https://hadithmv:${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/pages.git HEAD:main
