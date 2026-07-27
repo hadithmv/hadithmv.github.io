@@ -16,12 +16,17 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2' # Adjust Ruby version if needed
-          bundler-cache: true # Runs 'bundle install' automatically
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Generate Codeberg Config Override
+        run: |
+          echo 'url: "https://hadithmv.codeberg.page"' > _config_codeberg.yml
+          echo 'baseurl: "/hadithmv"' >> _config_codeberg.yml
 
       - name: Build Jekyll Site
         run: |
-          bundle exec jekyll build --url "https://codeberg.page" --baseurl "/hadithmv"
+          bundle exec jekyll build --config _config.yml,_config_codeberg.yml
         env:
           JEKYLL_ENV: production
 
