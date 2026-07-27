@@ -1,51 +1,19 @@
-name: Mirror to Codeberg, Build Jekyll and Deploy to Codeberg Pages
+name: Mirror to Codeberg
 
 on:
   push:
     branches:
-      - main # Or 'master' depending on your default branch name
+      - '**'
+  delete:
 
 jobs:
-  build-and-deploy:
+  mirror:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Mirror to Codeberg
+        uses: cssnr/mirror-repository-action@v1
         with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
-      - name: Generate Codeberg Config Override
-        run: |
-          echo 'url: "https://codeberg.page"' > _config_codeberg.yml
-          echo 'baseurl: "/hadithmv"' >> _config_codeberg.yml
-
-      - name: Build Jekyll Site
-        run: |
-          bundle exec jekyll build --config _config.yml,_config_codeberg.yml
-        env:
-          JEKYLL_ENV: production
-
-      - name: Deploy Compiled HTML to Codeberg Pages
-        run: |
-          # 1. Move into the built static files directory
-          cd _site
-          
-          # 2. Initialize a temporary Git repository inside the built folder
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          
-          # 3. Force git to target a 'pages' branch
-          git checkout -b pages
-          
-          # 4. Commit all compiled HTML, CSS, and JS assets
-          git add -A
-          git commit -m "Deploy Jekyll build from GitHub Action"
-          
-          # 5. Force push using the '+' sign to reset Codeberg's branch history
-          git push --force https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/hadithmv.git +pages:pages
+          host: codeberg.org
+          username: hadithmv
+          password: ${{ secrets.CODEBERG_TOKEN }}
+          create: true
