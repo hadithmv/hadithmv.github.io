@@ -1,19 +1,46 @@
-name: Mirror to Codeberg
+name: Mirror to Codeberg, Build Jekyll and Deploy to Codeberg Pages
 
 on:
   push:
-    branches: [ main, master, pages ]
+    branches:
+      - main # Or 'master' depending on your default branch name
 
 jobs:
-  codeberg:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Mirror to Codeberg
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # Adjust Ruby version if needed
+          bundler-cache: true # Runs 'bundle install' automatically
+
+      - name: Build Jekyll Site
         run: |
-          git remote add codeberg https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/hadithmv.git
-          git push --force --prune codeberg refs/remotes/origin/*:refs/heads/*
+          bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Deploy Compiled HTML to Codeberg Pages
+        run: |
+          # 1. Move into the built static files directory
+          cd _site
+          
+          # 2. Initialize a temporary Git repository inside the built folder
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          # 3. Force git to target a 'pages' branch
+          git checkout -b pages
+          
+          # 4. Commit all compiled HTML, CSS, and JS assets
+          git add -A
+          git commit -m "Deploy Jekyll build from GitHub Action"
+          
+          # 5. Push directly to Codeberg's pages branch using your token
+          git push --force https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/hadithmv.git pages:pages
