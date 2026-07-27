@@ -1,25 +1,104 @@
+BFG Repo-Cleaner
+
+...
+
+BFG Repo-Cleaner is a much faster alternative to `git filter-branch` for stripping large files or unwanted folders out of git history. Given your situation — a 2.3 GB `.git` folder full of history for `app/`, `androidApp-kt/`, `windowsApp-tauri/`, `codebase/`, `node_modules/` — this is exactly the right tool if you want to permanently shrink your GitHub repo too, not just filter the Codeberg mirror.
+
+## Prerequisites
+BFG needs Java and works on a **fresh bare mirror clone**, not your working repo.
+
+```bash
+java -version   # confirm Java is installed; if not, install a JRE first
+```
+
+## Step 1: Download BFG
+```bash
+curl -LO https://repo1.maven.org/maven2/com/madgag/bfg/1.14.0/bfg-1.14.0.jar
+```
+(Check https://rtyley.github.io/bfg-repo-cleaner/ for the latest version if this one's outdated.)
+
+## Step 2: Make a fresh bare mirror clone
+BFG operates on a bare mirror, not a normal checkout — and it rewrites history destructively, so work on a fresh clone, never your daily-use working copy.
+
+```bash
+git clone --mirror https://github.com/hadithmv/hadithmv.github.io.git
+cd hadithmv.github.io.git
+```
+
+## Step 3: Run BFG to strip the unwanted folders
+To delete specific folders from all of history:
+
+```bash
+java -jar ../bfg-1.14.0.jar --delete-folders "{app,androidApp-kt,windowsApp-tauri,codebase,node_modules}" --no-blob-protection .
+```
+
+- `--delete-folders` takes a brace-list of folder names (matches any path segment with that name, at any depth)
+- `--no-blob-protection` is needed because BFG normally protects the current HEAD commit's content from being touched — since you *want* these folders gone from HEAD too, this flag allows that
+
+Alternative — if you only want to strip large **individual files** (not whole folders), by size threshold:
+```bash
+java -jar ../bfg-1.14.0.jar --strip-blobs-bigger-than 10M .
+```
+This deletes any blob over 10 MB from all history, regardless of filename.
+
+You can combine both flags in one run if needed.
+
+## Step 4: Clean up git's internal references
+BFG only rewrites history — old objects still linger until you garbage-collect:
+
+```bash
+cd hadithmv.github.io.git
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+```
+
+## Step 5: Check the new size
+```bash
+du -sh .
+```
+This should now be a fraction of the original 2.3 GB.
+
+## Step 6: Push the rewritten history
+**This is destructive and rewrites public history** — anyone else with a clone will need to re-clone, not pull.
+
+```bash
+git push --force
+```
+
+Since it's a `--mirror` clone, this pushes all branches, tags, and the rewritten history back to `origin` (GitHub) in one go.
+
+## ⚠️ Important considerations before you do this
+
+1. **This rewrites your actual GitHub repo's history permanently** — different from what we did with the Codeberg mirror (which was a fresh orphan commit, non-destructive to GitHub). Make sure you actually want `app/` etc. gone from GitHub too, not just excluded from Codeberg.
+2. **If those folders (`app/`, `androidApp-kt/`, `windowsApp-tauri/`) are separate active projects you still care about**, don't delete them from GitHub history — better to move them into their own separate repo first, then remove from this one with a normal commit (not BFG), keeping their history intact elsewhere.
+3. Any open pull requests, forks, or local clones by others will break/diverge after a force-push of rewritten history.
+4. Back up first: `cp -r hadithmv.github.io.git hadithmv.github.io.git.backup` before running BFG, just in case.
+
+Given that `app/`, `androidApp-kt/`, and `windowsApp-tauri/` look like real separate projects (not junk) sitting inside your Jekyll site repo — is the goal here to permanently split them out into their own repos, or just to shrink this repo's history because it's grown unwieldy?
+
+...
+...
+
 https://adnanxteam.medium.com/how-to-clear-git-history-with-bfg-cleaner-5db4eb6c5a79 (now hidden by medium paywall)
-
-[$ java -jar bfg.jar --strip-blobs-bigger-than 100M some-big-repo.git]
-
-..[$ java -jar bfg.jar --strip-blobs-bigger-than 100M hadithmv.github.io.git]
 
 https://rtyley.github.io/bfg-repo-cleaner
 
+...
 
-copy the bfg jar file to (outside of) the 'hadithmv.github.io' folder (its usually already there)
-(run in powershell, right outside the 'hadithmv.github.io' folder)
+make a local copy of the repo first
+copy the bfg jar file to (outside of) the 'hadithmv.github.io' folder (its usually there from before)
+(run in powershell, right outside the 'hadithmv.github.io' folder: open terminal from there)
+
 =======
+
 https://adnanxteam.medium.com/how-to-clear-git-history-with-bfg-cleaner-5db4eb6c5a79
 
-$ java -jar bfg.jar --strip-blobs-bigger-than 100M some-big-repo.git
-
+[$ java -jar bfg.jar --strip-blobs-bigger-than 100M some-big-repo.git]
 $ java -jar bfg.jar --strip-blobs-bigger-than 100M hadithmv.github.io.git
-
 (for larger than 100mb)
 
-java -jar bfg-1.14.0.jar --strip-blobs-bigger-than 2M hadithmv.github.io
-!!! (i usually use this)
+java -jar bfg-1.15.0.jar --strip-blobs-bigger-than 2M hadithmv.github.io
+!!! (i usually use this, it deals with bigger than 2 mb)
 
 cd hadithmv.github.io
 
@@ -29,8 +108,39 @@ git push --force
 
 =======
 
+???
+
 git config --global http.postBuffer 524288000
 
 git config --global http.version HTTP/1.1
 git push 
 git config --global http.version HTTP/2
+
+...
+...
+
+check repo's size: Run this locally to see the real number:
+
+bash:
+cd hadithmv.github.io
+du -sh .git
+
+should show something like:
+2.3G    .git
+
+Check if it's history bloat or current files
+bash:
+du -sh --exclude=.git .
+
+Find what's actually taking the space
+bash:
+du -sh */ | sort -rh | head -15
+
+Once you see the top offender(s), drill further:
+bash:
+du -sh [path/to/big-folder]/* | sort -rh | head -15
+
+Confirm what app/ actually is
+bash:
+ls app/
+[or any other folder than app]
