@@ -13,12 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # full history, not just latest commit
+          fetch-depth: 0
 
       - name: Mirror to Codeberg
         uses: cssnr/mirror-repository-action@v1
         with:
           host: codeberg.org
           username: hadithmv
+          repo: pages
           password: ${{ secrets.CODEBERG_TOKEN }}
           create: true
