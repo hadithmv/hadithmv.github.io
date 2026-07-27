@@ -21,7 +21,7 @@ jobs:
 
       - name: Generate Codeberg Config Override
         run: |
-          echo 'url: "https://hadithmv.codeberg.page"' > _config_codeberg.yml
+          echo 'url: "https://codeberg.page"' > _config_codeberg.yml
           echo 'baseurl: "/hadithmv"' >> _config_codeberg.yml
 
       - name: Build Jekyll Site
@@ -47,5 +47,5 @@ jobs:
           git add -A
           git commit -m "Deploy Jekyll build from GitHub Action"
           
-          # 5. Push directly to Codeberg's pages branch using your token
-          git push --force https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/hadithmv.git pages:pages
+          # 5. Force push using the '+' sign to reset Codeberg's branch history
+          git push --force https://${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/hadithmv.git +pages:pages
