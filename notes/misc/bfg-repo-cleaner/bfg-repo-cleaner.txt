@@ -1,0 +1,383 @@
+
+
+...
+
+previously i ran BFG directly against hadithmv.github.io — but it should have been a fresh --mirror clone, not your normal working copy. If it's your regular working directory (the one you use day-to-day), stop and redo this against a mirror clone instead.
+
+BFG works directly on bare repos and needs that --mirror structure to rewrite refs properly — running it against a normal checkout can leave things in a broken state.
+
+...
+
+cloning `--mirror` from the GitHub URL would re-download everything over the network. But since you already have a full local copy on disk, you don't need to hit GitHub again — clone the mirror **from your local folder instead**, which just copies on-disk, no internet involved.
+
+```powershell
+cd D:\hadithmv
+git clone --mirror D:\hadithmv\hadithmv.github.io hadithmv-mirror.git
+```
+
+That reads straight from your existing local `.git`, so it's fast (seconds/minutes depending on disk speed, not download speed).
+
+
+Then run BFG against that local mirror:
+
+```powershell
+java -jar bfg-1.15.0.jar --strip-blobs-bigger-than 1M hadithmv-mirror.git
+```
+
+Then clean up refs:
+```powershell
+cd hadithmv-mirror.git
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+```
+
+Check the new size:
+```bash
+cd hadithmv-mirror.git
+du -sh .
+```
+(or on Windows without `du`, powershell:: `Get-ChildItem -Recurse | Measure-Object -Property Length -Sum`)
+
+
+!!! SKIP, if folders being large is a separate issue !!!, instead go to step: java -jar bfg-1.15.0.jar --delete-folders "{app,androidApp-kt,windowsApp-tauri,node_modules}" --no-blob-protection hadithmv-mirror.git
+When you're ready to push the cleaned history back, this mirror clone's `origin` already points at your local folder, not GitHub — so before pushing, repoint it:
+
+```powershell
+git remote set-url origin https://github.com/hadithmv/hadithmv.github.io.git
+git push --force
+```
+WAIT FOR IT TO COMPLETE
+it will show fo a long time: Enumerating objects: 82733, done. (This means it is calculating the total number of files, commits, and history entries it needs to prepare before uploading.)
+The process will go through these stages:
+Counting objects: Quantifying the total files.
+Compressing objects: Shrinking the file sizes for the upload.
+Writing objects: Uploading the data to GitHub. (depends on internet)
+Remote resolution: GitHub updating its references.
+(so dont make changes on git elsewhere else will run into error: — cannot lock ref 'refs/heads/main': is at X but expected Y' — means GitHub's copy of main changed after you made your mirror clone but before this push landed. Something updated main on GitHub in between (could be a stray commit via the web UI, an Action, or just a timing gap). It's not a size or quota issue this time — it's a stale-reference conflict.)
+If your Git push hangs, you can diagnose it by following these steps: Verify Network TrafficOpen Task Manager (Ctrl + Shift + Esc) and check your network activity. If your terminal or Git process is using upload bandwidth, the push is working in the background and you should let it run.
+
+That push is the only step that goes over the network — and it should be much smaller than 5.6 GB now, since it's only sending the *rewritten* (smaller) history, not a fresh copy of the original.
+
+...
+
+your push rewrote history on GitHub with all new commit hashes, but your local working folder (`D:\hadithmv\hadithmv.github.io`) still has the **old** history sitting in its own `.git`, completely disconnected from what's now on GitHub. That's why it's still 7.9 GB (actually grew, likely because it now has both the old objects *and* picked up some new ones from earlier fetches). Local won't auto-sync — you have to force it.
+
+## Simplest and safest: fresh clone
+Since your real working files (Jekyll source, etc.) live in this folder but the `.git` history is now irrelevant garbage, the cleanest fix is to clone fresh and swap it in:
+
+!!! SKIP, go to instead: Alternative: reset the existing folder in place
+```powershell
+cd D:\hadithmv
+git clone https://github.com/hadithmv/hadithmv.github.io.git hadithmv.github.io-fresh
+```
+
+Then:
+1. Check `git log -1` and the file listing in `hadithmv.github.io-fresh` to confirm it matches what you expect (the removed folders should be gone, size should be small)
+2. If it looks right, rename folders — move your old one aside, rename the fresh one in:
+```powershell
+ren hadithmv.github.io hadithmv.github.io-OLD
+ren hadithmv.github.io-fresh hadithmv.github.io
+```
+3. Once you've confirmed the new folder has everything you need and your workflows still work, delete `hadithmv.github.io-OLD` to reclaim the disk space.
+
+**Before you do this — check for uncommitted local changes first:**
+```powershell
+cd D:\hadithmv\hadithmv.github.io
+git status
+```
+If there's anything uncommitted (Jekyll drafts, config tweaks, etc. not yet pushed), copy those specific files out before you swap folders — a fresh clone won't have anything that wasn't already pushed to GitHub.
+
+...
+
+## Alternative: reset the existing folder in place
+If you'd rather not juggle folders:
+
+```powershell
+cd D:\hadithmv\hadithmv.github.io
+git fetch origin
+git reset --hard origin/main
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+```
+
+⚠️ `git reset --hard` **discards any uncommitted local changes** — same caveat as above, check `git status` first. This keeps the same folder but forcibly overwrites local history and working files to match the rewritten GitHub state, then garbage-collects the old orphaned objects.
+
+Either way, check `du -sh .` afterward — it should now reflect the smaller size that showed up in your mirror (~1.7 GB minus whatever the folder-removal-from-HEAD step additionally cut).
+
+...
+
+if local repo still too large;
+
+The mismatch makes sense now — `git reset --hard origin/main` only moves your `main` branch pointer; it doesn't touch your **local tags**. You still have 44 local tags (`2.0`, `2.01`, ... `6.9.39`) pointing at the **old**, pre-rewrite commit hashes. Since those tags are still reachable refs in your local repo, `git gc --prune=now` can't touch the old objects they point to — they're "still in use" as far as git is concerned, so the old ~6 GB of history stays alive locally even though GitHub's copy is clean.
+
+## Fix: delete and re-fetch tags to match the rewritten remote
+
+```powershell
+cd D:\hadithmv\hadithmv.github.io
+
+# delete all local tags
+git tag | ForEach-Object { git tag -d $_ }
+
+# fetch fresh tags from the rewritten remote
+git fetch origin --tags --prune
+
+# now gc again
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+
+du -sh .
+```
+
+That should drop you down close to the 1.7 GB your mirror clone showed (or lower, since your mirror clone was made before the folder-removal-from-HEAD commit — your local should now reflect that removal too).
+
+If it's still stubbornly large after that, check for other lingering refs:
+```powershell
+git for-each-ref
+```
+Look for anything under `refs/remotes/`, `refs/stash`, or leftover branches pointing at old hashes — those would need the same treatment (delete locally, refetch).
+
+---
+
+?
+
+## Checking the size of the remote (GitHub's copy)
+
+A few ways, no local cloning needed:
+
+**1. GitHub's own repo page**
+Go to `https://github.com/hadithmv/hadithmv.github.io` → the right-hand sidebar shows repo size under the "About" section, or check **Account -> Settings → General** — GitHub tracks and displays this. (https://github.com/settings/repositories, search for the repo)
+
+**2. GitHub API (exact number, in KB)**
+```powershell
+curl -s https://api.github.com/repos/hadithmv/hadithmv.github.io | Select-String '"size"'
+```
+Or just open `https://api.github.com/repos/hadithmv/hadithmv.github.io` in a browser and search for `"size":` — it's in KB.
+
+**3. GitHub's "Insights" — not size-specific, but shows commit/contributor stats if useful separately.**
+
+Note: GitHub's reported size can take a little while to recalculate after a force-push — if you check immediately and it still shows the old large number, give it a few minutes and refresh.
+
+...
+
+That actually explains itself — object count matches the mirror almost exactly (82733 vs 82733), so the `.git` history really is clean now. But `du -sh .` on this folder measures **both** `.git` *and* your checked-out working files on disk — unlike the bare mirror, which only has `.git` (no working tree at all).
+
+Check just the `.git` folder to see the real history size:
+
+```powershell
+du -sh .git
+```
+
+That should come in close to the mirror's 1.7 GB. The remaining difference between that and your 7.3 GB total is your **actual working tree** — the live files sitting in your project folder right now, most likely still including large stuff in `notes/`, `img/`, `js/`, etc. (recall `du -sh */` from earlier showed 35M notes, 22M img, 106M js — those numbers were from *before*, might be different now, or there could be other large working files not yet identified).
+
+Run:
+```powershell
+du -sh --exclude=.git .
+```
+to see what's taking space in the working tree specifically, separate from git history.
+
+## Checking the actual remote size on GitHub
+Simplest way — just open this in a browser:
+```
+https://api.github.com/repos/hadithmv/hadithmv.github.io
+```
+Search the page (Ctrl+F) for `"size":` — that number is in **KB**, and reflects GitHub's post-force-push recalculated size. If it still shows something huge, give it a few minutes; GitHub recalculates asynchronously after a force-push and can lag behind.
+
+Or from PowerShell:
+```powershell
+(Invoke-RestMethod https://api.github.com/repos/hadithmv/hadithmv.github.io).size
+```
+This gives you the number directly in KB.
+
+...
+
+That's ~862 MB (882870 KB ÷ 1024). Great progress from the original several GB, but still a bit over Codeberg's 750 MiB default quota — so this alone won't get past the mirror push to Codeberg without another quota error.
+
+## What's likely still in there
+Given your earlier `du -sh */` breakdown, once `app/`, `androidApp-kt/`, `windowsApp-tauri/`, `codebase/`, `node_modules/` are gone, the largest remaining folders were things like `notes/` (35M), `img/` (22M), `js/` (106M) — but those were *working tree* sizes, not history. The gap between 862 MB (GitHub's packed repo size) and those small numbers suggests there's still meaningful bulk sitting in old history that BFG's folder-delete and 2M blob-strip didn't fully catch — likely files just under your thresholds, or files that existed under different paths at different points in history (BFG's `--delete-folders` only catches folders by that exact name at any depth, but if content was ever moved/renamed, old paths might not match).
+
+## Find what's actually left in history now
+Run this against your **local working repo** (now that it's synced with the rewritten remote):
+
+```bash
+git rev-list --objects --all | git cat-file --batch-check="%(objecttype) %(objectname) %(objectsize) %(rest)" | sort -k3 -n -r | head -30
+```
+
+This lists the 30 largest objects still in history, with their size and path — tells you exactly what's eating the remaining ~800 MB instead of guessing.
+
+## Likely next steps once you see that list
+- If it's still one-off large files (old zips, PDFs, media) → another BFG `--strip-blobs-bigger-than` pass at a lower threshold, e.g. `1M`, catches those specifically.
+- If it's actually your `js/` folder's history (106M in working tree — could be much larger across all historical versions if it's been rewritten many times) → may need `--delete-folders "{js}"` too, though check first whether current `js/` is needed for your live Jekyll site before nuking it.
+
+Run that `rev-list` command and share the top 20–30 lines — that'll tell us exactly what to target next rather than guessing another threshold.
+
+...
+...
+
+
+???
+
+output of check size:
+ashra@ashraaf2 MINGW64 /d/hadithmv/hadithmv-mirror.git (BARE:main)
+$ du -sh .
+1.7G    .
+
+That's only a partial win — down from 2.3 GB to 1.7 GB, still nowhere near Codeberg's 750 MiB quota. Two likely reasons the `--strip-blobs-bigger-than 2M` pass didn't cut deeper:
+
+1. The bulk in `app/`, `androidApp-kt/`, `windowsApp-tauri/`, `node_modules/` is probably made of **many small-to-medium files** (individual source files, small assets, dependency files) rather than a few huge blobs — size-based stripping won't touch those.
+2. Multiple historical versions of the same files (different commits) each count separately in `.git` history, so lots of small changes across many commits adds up fast.
+
+## Better approach: delete the folders entirely from history
+Since these are whole unrelated project folders (not something your Jekyll site needs), target them directly instead of by size:
+
+```powershell
+cd D:\hadithmv
+java -jar bfg-1.15.0.jar --delete-folders "{app,androidApp-kt,windowsApp-tauri,node_modules}" --no-blob-protection hadithmv-mirror.git
+```
+
+Then re-clean:
+```powershell
+cd hadithmv-mirror.git
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+du -sh .
+```
+
+Note: since you already ran the size-based strip, running `--delete-folders` now on top of that is fine — BFG passes are cumulative, each pass further prunes what's left.
+
+## Check what's still large after that
+If it's still not under 750 MiB, find out what's actually left:
+```powershell
+git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sort -k3 -n -r | head -20
+```
+This lists the largest objects still in history by path — tells you exactly what else to target if needed (could be old images, PDFs, or `_site/` build output accidentally committed at some point).
+
+Run the `--delete-folders` pass and share the new `du -sh .` result.
+
+???
+
+...
+...
+
+???
+
+explanation of you're stuck at 1.7 GB instead of dropping way down:
+
+## Problem 1: BFG protected your current HEAD commit
+Look at this part of your first run's output:
+
+```
+Protected commits
+-----------------
+ * commit fe860772 (protected by 'HEAD') - contains 51 dirty files :
+        - app/androidApp-kt/app/src/main/assets/js/json/HDT-all.json (2.9 MB)
+        - app/androidApp-kt/app/src/main/assets/js/json/HDT-muwattaMalik.json (4.6 MB)
+```
+
+BFG **refuses to strip content that exists in your current HEAD commit** by default — it only cleans up *old* history, not your live tip. Since `app/`, `androidApp-kt/`, etc. are still sitting in your actual latest commit on GitHub right now (you only excluded them at the *mirror* stage with `rm -rf` in the GitHub Action — that never removed them from the real repo), BFG can shrink old history around them, but the files themselves are still live at HEAD and keep taking space.
+
+**Fix:** you need to actually remove these folders from your real repo with a normal commit, *then* run BFG to clean the old history left behind.
+
+---
+
+## Correct sequence (redo from scratch)
+
+**Step 1 — actually remove the folders from your real GitHub repo**
+```powershell
+cd D:\hadithmv\hadithmv.github.io
+git rm -r --cached app androidApp-kt windowsApp-tauri codebase node_modules
+git commit -m "Remove unrelated app/build folders from repo"
+git push origin main
+```
+This is a real, permanent removal from GitHub going forward (not just from the Codeberg mirror). Only do this if you're sure — see my note below about whether these are separate active projects.
+
+**Step 2 — fresh mirror clone (local, no re-download)**
+```powershell
+cd D:\hadithmv
+rmdir /s /q hadithmv-mirror.git
+git clone --mirror D:\hadithmv\hadithmv.github.io hadithmv-mirror.git
+```
+
+**Step 3 — BFG, all folders included this time, plus size-based strip**
+```powershell
+java -jar bfg-1.15.0.jar --delete-folders "{app,androidApp-kt,windowsApp-tauri,node_modules}" --no-blob-protection hadithmv-mirror.git
+java -jar bfg-1.15.0.jar --strip-blobs-bigger-than 1M hadithmv-mirror.git
+```
+
+**Step 4 — clean up**
+```powershell
+cd hadithmv-mirror.git
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+du -sh .
+```
+
+**Step 5 — push cleaned history back to GitHub**
+```powershell
+git push --force
+```
+Since Step 1 already updated GitHub's `main` for real, and this mirror clone was made *after* that push, the ref-lock mismatch from before shouldn't recur.
+
+---
+
+⚠️ Before you run Step 1: this permanently deletes `app/`, `androidApp-kt/`, `windowsApp-tauri/`, `node_modules/` from your live GitHub repo (not just history — your working files too, next time anyone pulls). Given `androidApp-kt` and `windowsApp-tauri` look like real separate app projects, not junk — are you certain you want them gone from this repo entirely, or would you rather move them to their own repo(s) first so their history/content isn't lost?
+
+???
+
+...
+...
+
+bfg-1.15.0 requires java11+, not 8
+
+To upgrade from your current Java 8 version to a modern version, you must download the installer for a Long-Term Support (LTS) release like Java 25.
+Because your current version is over a decade old, you cannot just click "update now" to reach a modern release; you need to install it fresh. [3] 
+------------------------------
+## 1. Select Your Target Version
+
+* Java 25 (LTS): Recommended for most modern uses, long-term stability, and maximum speed benefits.
+
+------------------------------
+## 2. Run the Upgrade Process## Step 1: Download the Modern Installer
+
+* 
+* Open your browser and navigate to the official [Oracle Java Downloads](https://www.oracle.com/java/technologies/downloads/) page.
+* Click on the tab for JDK 25.
+* Select your operating system (Windows).
+* Download the x64 Installer executable (.exe).
+* 
+
+## Step 2: Install the Package
+
+* 
+* Run the downloaded setup file.
+* Follow the default installation wizard prompts.
+* Click Close when the installation completes successfully.
+* 
+
+## Step 3: Clear Out Java 8 (Optional but Recommended)
+
+* 
+* Open your system's Control Panel or Applications menu.
+* Find your old Java 8 (1.8.0_501) application.
+* Click Uninstall to prevent legacy version conflicts.
+* 
+
+------------------------------
+## 3. Update System Path Variables (Windows Only)
+You must tell your operating system where the new Java is located.
+
+* 
+* Search for "Environment Variables" in your Windows start menu.
+* Click Environment Variables at the bottom of the system properties window.
+* Under System Variables, click New:
+* Name: JAVA_HOME
+   * Value: C:\Program Files\Java\jdk-25 (or your chosen path)
+
+* Find the Path variable under System Variables, click Edit, and append:
+* %JAVA_HOME%\bin [3, 10] 
+* Click OK to save and apply the changes.
+*
+
+------------------------------
+## 4. Verify Your Success
+
+* 
+* Open a BRAND NEW Command Prompt or Terminal window.
+* Type the verification command: java -version
+* Press Enter. Your system should now display Java version "25" or your selected version instead of 1.8. [11, 12] 
+* 
