@@ -18,8 +18,7 @@ jobs:
       - name: Mirror to Codeberg
         uses: cssnr/mirror-repository-action@v1
         with:
-          host: codeberg.org
+          url: https://codeberg.org/hadithmv/pages.git
           username: hadithmv
-          repo: pages
           password: ${{ secrets.CODEBERG_TOKEN }}
           create: true
