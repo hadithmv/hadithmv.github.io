@@ -1,0 +1,31 @@
+name: Build and Deploy Jekyll
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: docker
+    container:
+      image: ruby:3.2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Build Jekyll site
+        run: bundle exec jekyll build --destination _site
+
+      - name: Deploy to Codeberg Pages
+        uses: https://codeberg.org/git-pages/action@v2
+        with:
+          site: 'https://hadithmv.codeberg.page/'
+          token: ${{ forge.token }}
+          source: _site/
