@@ -218,3 +218,17 @@ Required because the mirror push force-updates `main` on every sync.
 | Pipeline runs `test` job on `ruby:2.7.1` and fails on bundler             | Auto DevOps firing on old mirrored **tags**, not your real config | Check Branches tab not Tags tab; disable Auto DevOps                                                                                   |
 | No pipeline appears at all, not even failed                               | Filename typo — missing leading dot                               | Confirm exact filename is `.gitlab-ci.yml`; check GitLab's **Pipeline Editor** — it says "Get up and running" if no config is detected |
 | `pages` job passes but `pages:deploy` stays "Running" for several minutes | Normal — first-time Pages provisioning                            | Wait; check back on Deploy → Pages                                                                                                     |
+
+...
+...
+
+ERRORS
+
+If GitLab Pages site is asking you to sign in because the project's Pages access control setting is restricted rather than set to public.
+
+How to Fix It
+Go to your project on GitLab.
+Open Settings and click on General.Scroll down to the Visibility, project features, permissions section.
+Find Pages access control and change it to Everyone or Everyone with access.Save changes and wait about 30 minutes for the update to apply.
+
+Reason: Gitlab recently enabled access control for Pages on GitLab.com
