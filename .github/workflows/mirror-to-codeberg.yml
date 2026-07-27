@@ -17,10 +17,11 @@ jobs:
         run: |
           rm -rf app androidApp-kt windowsApp-tauri codebase node_modules
 
-      - name: Push filtered content to Codeberg
+      - name: Create orphan commit and push to Codeberg
         run: |
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+          git checkout --orphan codeberg-mirror
           git add -A
-          git commit -m "Mirror: exclude app/ and build folders" --allow-empty
-          git push --force https://hadithmv:${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/pages.git HEAD:main
+          git commit -m "Mirror: exclude app/ and build folders"
+          git push --force https://hadithmv:${{ secrets.CODEBERG_TOKEN }}@codeberg.org/hadithmv/pages.git codeberg-mirror:main
