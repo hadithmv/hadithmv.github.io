@@ -768,7 +768,12 @@ export function initQuranUI(ctx) {
     _buildLoadedColMap();
     var list = document.getElementById("qrnContentList");
     var allCols = getAllAvailableColumns();
-    var html = "";
+    var html = '<div class="quran-content-presets">';
+    html += '<button class="quran-preset-btn" data-preset="main">' + t("qrnPresetMain") + '</button>';
+    html += '<button class="quran-preset-btn" data-preset="all">' + t("qrnPresetAll") + '</button>';
+    html += '<button class="quran-preset-btn" data-preset="arabic">' + t("qrnPresetArabic") + '</button>';
+    html += '<button class="quran-preset-btn" data-preset="reset">' + t("qrnPresetReset") + '</button>';
+    html += '</div>';
     for (var j = 0; j < allCols.length; j++) {
       var col = allCols[j];
       var key = col.sourceBook + ":" + col.sourceCol;
@@ -791,13 +796,64 @@ export function initQuranUI(ctx) {
           this.disabled = true;
           label.textContent = t("loading");
           loadAndInsertColumn(sourceBook, sourceCol).finally(function () {
-            // renderQuranContentList() already rebuilds on success;
-            // restore inline state on failure / no-op
             cb.disabled = false;
             label.textContent = origText;
           });
         } else {
           hideLoadedColumn(sourceBook, sourceCol);
+        }
+      });
+    });
+    // Preset buttons
+    list.querySelectorAll(".quran-preset-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var preset = this.dataset.preset;
+        var hc = ctx.getHiddenColumns();
+        if (preset === "all") {
+          // Show all — load + unhide every available column
+          var remaining = allCols.length;
+          allCols.forEach(function (col) {
+            loadAndInsertColumn(col.sourceBook, col.sourceCol).then(function () {
+              remaining--;
+              if (remaining === 0) { ctx.rebuildAll(); renderQuranContentList(); }
+            });
+          });
+          return;
+        }
+        // For other presets: hide all external columns first
+        Object.keys(_loadedColMap).forEach(function (k) {
+          var idx = _loadedColMap[k];
+          if (idx === undefined) return;
+          var parts = k.split(":");
+          var sb = parts.slice(0, -1).join(":");
+          if (sb !== "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" && sb !== metadata.bookCode) {
+            if (hc.indexOf(idx) === -1) hc.push(idx);
+          }
+        });
+        if (preset === "main" || preset === "reset") {
+          // Main / Reset: current book only, no externals
+          ctx.rebuildAll();
+          renderQuranContentList();
+        } else if (preset === "arabic") {
+          // Show Arabic tafsir columns (match by sourceBook key)
+          var arabicBooks = {};
+          allCols.forEach(function (col) {
+            if (col.sourceBook.indexOf("ar-") !== -1 || col.sourceBook.indexOf("AR-") !== -1 || col.displayDV.indexOf("تفسير") !== -1 || col.displayDV.indexOf("ترجمة") !== -1) {
+              arabicBooks[col.sourceBook] = true;
+            }
+          });
+          var arabicCols = [];
+          allCols.forEach(function (col) {
+            if (arabicBooks[col.sourceBook]) arabicCols.push(col);
+          });
+          var remaining = arabicCols.length;
+          if (remaining === 0) { ctx.rebuildAll(); renderQuranContentList(); return; }
+          arabicCols.forEach(function (col) {
+            loadAndInsertColumn(col.sourceBook, col.sourceCol).then(function () {
+              remaining--;
+              if (remaining === 0) { ctx.rebuildAll(); renderQuranContentList(); }
+            });
+          });
         }
       });
     });

@@ -159,7 +159,11 @@ const STRINGS = {
   labelSettings: { dv: "ސެޓިންގްސް", en: "Settings", ar: "الإعدادات" },
   settingsAppearance: { dv: "ފެންނަ ގޮތް", en: "Appearance", ar: "المظهر" },
   settingsFont: { dv: "ފޮންޓް", en: "Font", ar: "الخط" },
-  btnOpenFont: { dv: "🔤 ފޮންޓް ބަދަލު ކުރޭ…", en: "🔤 Change font…", ar: "🔤 تغيير الخط…" },
+  btnOpenFont: {
+    dv: "🔤 ފޮންޓް ބަދަލު ކުރޭ…",
+    en: "🔤 Change font…",
+    ar: "🔤 تغيير الخط…",
+  },
   btnOpenFontShort: { dv: "ބަދަލުކުރޭ", en: "Change", ar: "تغيير" },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
@@ -196,6 +200,12 @@ const STRINGS = {
     en: "Complete",
     ar: "اكتمل",
   },
+
+  // ── Quran content presets ──
+  qrnPresetMain: { dv: "މައި", en: "Main", ar: "الأساسي" },
+  qrnPresetAll: { dv: "ހުރިހާ", en: "All", ar: "الكل" },
+  qrnPresetArabic: { dv: "އަރަބި", en: "Arabic", ar: "عربي" },
+  qrnPresetReset: { dv: "ރީސެޓް", en: "Reset", ar: "ضبط" },
 
   // ── Tag labels ──
   tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
@@ -277,10 +287,26 @@ const STRINGS = {
   qrnSurah: { dv: "ސޫރަތް:", en: "Surah:", ar: "سورة:" },
   qrnAyah: { dv: "އާޔަތް:", en: "Ayah:", ar: "آية:" },
   qrnJuz: { dv: "ޖުޒް:", en: "Juz:", ar: "جزء:" },
-  qrnContent: { dv: "ގުރްއާން ފޮތްތައް ▾", en: "Quran Books ▾", ar: "كتب القرآن ▾" },
-  qrnToggleAyahNum: { dv: "އާޔަތް ނަންބަރު", en: "Ayah number", ar: "رقم الآية" },
-  qrnToggleBraces: { dv: "ގުރުއާން ބްރެކެޓް", en: "Quranic braces", ar: "أقواس قرآنية" },
-  qrnSurahSearch: { dv: "…ސޫރަތް ހޯދާ", en: "Search surah…", ar: "…ابحث عن سورة" },
+  qrnContent: {
+    dv: "ގުރްއާން ފޮތްތައް ▾",
+    en: "Quran Books ▾",
+    ar: "كتب القرآن ▾",
+  },
+  qrnToggleAyahNum: {
+    dv: "އާޔަތް ނަންބަރު",
+    en: "Ayah number",
+    ar: "رقم الآية",
+  },
+  qrnToggleBraces: {
+    dv: "ގުރުއާން ބްރެކެޓް",
+    en: "Quranic braces",
+    ar: "أقواس قرآنية",
+  },
+  qrnSurahSearch: {
+    dv: "…ސޫރަތް ހޯދާ",
+    en: "Search surah…",
+    ar: "…ابحث عن سورة",
+  },
 
   // ── Dashboard pins / history ──
   dashPinsBtn: { dv: "📌 ޕިންތައް", en: "📌 Pins", ar: "📌 دبابيس" },

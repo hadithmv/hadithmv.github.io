@@ -6,6 +6,8 @@ QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,3,ބިސްމި,Basma
 QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,4,އާޔަތް (އިމްލާއީ ރަސްމު),Ayah (Imlai Script)
 QRN-DATA-baseFile-2-ayahUthmani,0,އާޔަތް (އުޘްމާނީ ރަސްމު),Ayah (Uthmani Script)
 QRN-hadithmv,0,ޙަދީޘްއެމްވީ ތަރުޖަމާ,Hadithmv Translation
+QRN-rasmee-alt,0,ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Translation (transliterated)
+QRN-rasmee-og,0,ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Translation (original)
 QRN-bakurube,0,ބަކުރުބެ ލަފުޒީ ތަރުޖަމާ,Bakurube Word-by-Word
 QRN-bakurube,1,ބަކުރުބެ ތަރުޖަމާ,Bakurube Translation
 QRN-jaufarFaiz,0,ޖަޢުފަރުގެ ތަފްސީރު,Jaufar's Tafsir
