@@ -3,8 +3,15 @@ QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,0,ޖުޒް,Juz
 QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,1,ސޫރަތް,Surah
 QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,2,އާޔަތް #,Ayah #
 QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,3,ބިސްމި,Basmalah
-QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,4,އާޔަތް (ރަސްމު އިމްލާއީ),Ayah (Imlai Script)
-QRN-DATA-baseFile-2-ayahUthmani,0,އާޔަތް (ރަސްމު އުޘްމާނީ),Ayah (Uthmani Script)
+QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,4,އާޔަތް (އިމްލާއީ ރަސްމު),Ayah (Imlai Script)
+QRN-DATA-baseFile-2-ayahUthmani,0,އާޔަތް (އުޘްމާނީ ރަސްމު),Ayah (Uthmani Script)
 QRN-hadithmv,0,ޙަދީޘްއެމްވީ ތަރުޖަމާ,Hadithmv Translation
 QRN-bakurube,0,ބަކުރުބެ ލަފުޒީ ތަރުޖަމާ,Bakurube Word-by-Word
 QRN-bakurube,1,ބަކުރުބެ ތަރުޖަމާ,Bakurube Translation
+QRN-jaufarFaiz,0,ޖަޢުފަރުގެ ތަފްސީރު,Jaufar's Tafsir
+QRN-jaufarFaiz,1,ޖަޢުފަރުގެ ފުޓްނޯޓުތައް,Jaufar's Footnotes
+QRN-soabuniAshari-HDN,1,ޞގެ ތަފްސީރު,S Tafsir
+QRN-soabuniAshari-HDN,2,ޞގެ ނޯޓުގެ ސުރުހީ,S Tafsir Note Title
+QRN-soabuniAshari-HDN,3,ޞގެނޯޓު,S Tafsir Note
+QRN-mukhtasarAR,0,مختصر التفسير,Tafsir Mukhtasar
+QRN-muyassarAR,0,التفسير الميسر,Tafsir Muyassar
