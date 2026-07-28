@@ -229,6 +229,10 @@ Fetches `QRN-DATA-registry-bookToggle.csv` — a registry of all available Quran
 
 Looks up a human-readable label from the column registry. Falls back to `"bookCode:colIndex"`.
 
+### Content presets
+
+`QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran.js` define which source books (by book code) are included in the Main and Arabic preset buttons in the content dropdown. Edit these arrays to change which books are shown. Reset clears all externals; All shows everything.
+
 ### `getBookLabel(colIndex)`
 
 Returns the book-level title (from `02-registry-bookNames.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.

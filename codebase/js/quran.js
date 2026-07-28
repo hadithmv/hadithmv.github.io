@@ -21,6 +21,24 @@ export function isQuranBook(bookCode) {
   return QRN_RE.test(bookCode) && !QRN_DATA_RE.test(bookCode);
 }
 
+// ── Content preset definitions ──────────────────────────────
+// Book codes (sourceBook from QRN-DATA-registry-bookToggle.csv)
+// that should be toggled on when the user clicks the preset button.
+//
+// Example:
+//   var QRN_PRESET_MAIN    = ["QRN-hadithmv","QRN-rasmee-alt"];
+//   var QRN_PRESET_ARABIC  = ["QRN-muyassarAR", "QRN-mukhtasarAR"];
+//
+// Leave empty if no books belong to that preset.
+var QRN_PRESET_MAIN = [
+  "QRN-hadithmv",
+  "QRN-rasmee-alt",
+  "QRN-bakurube",
+  "QRN-jaufarFaiz",
+  "QRN-soabuniAshari-HDN",
+];
+var QRN_PRESET_ARABIC = ["QRN-muyassarAR", "QRN-mukhtasarAR"];
+
 export function isQuranDataSource(bookCode) {
   return QRN_DATA_RE.test(bookCode);
 }
@@ -35,15 +53,22 @@ var _surahNamesCache = null;
 var _colRegistryCache = null;
 
 function fetchCSV(path) {
-  return fetch(path).then(function (r) {
-    if (!r.ok) throw Error("Failed to load " + path);
-    return r.text();
-  }).then(function (text) {
-    var rows = parseCSV(text);
-    return rows.filter(function (row) {
-      return Array.isArray(row) && row.some(function (v) { return v !== null && v !== ""; });
+  return fetch(path)
+    .then(function (r) {
+      if (!r.ok) throw Error("Failed to load " + path);
+      return r.text();
+    })
+    .then(function (text) {
+      var rows = parseCSV(text);
+      return rows.filter(function (row) {
+        return (
+          Array.isArray(row) &&
+          row.some(function (v) {
+            return v !== null && v !== "";
+          })
+        );
+      });
     });
-  });
 }
 
 // showToast is now on window (common.js)
@@ -51,16 +76,23 @@ function fetchCSV(path) {
 // Base data — juz, surah, ayah, basmalah, imlai text
 // ═══════════════════════════════════════════════════════════════
 
-var BASE_HEADERS = ["juzNo-HDN", "surahNo-HDN", "ayahNo-HDN", "basmalah", "ayahImlai"];
+var BASE_HEADERS = [
+  "juzNo-HDN",
+  "surahNo-HDN",
+  "ayahNo-HDN",
+  "basmalah",
+  "ayahImlai",
+];
 
 export function loadQuranBaseData() {
   if (_baseDataCache) return Promise.resolve(_baseDataCache);
-  return fetchCSV("../data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv")
-    .then(function (rows) {
-      if (rows.length > 0) rows.shift(); // strip header row
-      _baseDataCache = rows; // 6236 data rows
-      return rows;
-    });
+  return fetchCSV(
+    "../data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv",
+  ).then(function (rows) {
+    if (rows.length > 0) rows.shift(); // strip header row
+    _baseDataCache = rows; // 6236 data rows
+    return rows;
+  });
 }
 
 export function getBaseHeaders() {
@@ -73,12 +105,13 @@ export function getBaseHeaders() {
 
 export function loadUthmaniData() {
   if (_uthmaniDataCache) return Promise.resolve(_uthmaniDataCache);
-  return fetchCSV("../data/QRN-DATA-baseFile-2-ayahUthmani.csv")
-    .then(function (rows) {
+  return fetchCSV("../data/QRN-DATA-baseFile-2-ayahUthmani.csv").then(
+    function (rows) {
       if (rows.length > 0) rows.shift(); // strip header row (now has ayahUthmani header)
       _uthmaniDataCache = rows;
       return rows;
-    });
+    },
+  );
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -87,8 +120,8 @@ export function loadUthmaniData() {
 
 export function loadSurahNames() {
   if (_surahNamesCache) return Promise.resolve(_surahNamesCache);
-  return fetchCSV("../data/QRN-DATA-registry-surahSelector.csv")
-    .then(function (rows) {
+  return fetchCSV("../data/QRN-DATA-registry-surahSelector.csv").then(
+    function (rows) {
       if (rows.length === 0) return [];
       var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount
       _surahNamesCache = rows.map(function (r) {
@@ -97,11 +130,12 @@ export function loadSurahNames() {
           nameAR: r[1] || "",
           nameDV: r[2] || "",
           nameEN: r[3] || "",
-          ayahCount: parseInt(r[4], 10)
+          ayahCount: parseInt(r[4], 10),
         };
       });
       return _surahNamesCache;
-    });
+    },
+  );
 }
 
 export function getSurahNames() {
@@ -141,7 +175,13 @@ export function isAyahTextColumn(header) {
   return AYAH_TEXT_COLS.test((header || "").trim());
 }
 
-export function decorateAyah(text, ayahNo, showBraces, showAyahNum, numBrackets) {
+export function decorateAyah(
+  text,
+  ayahNo,
+  showBraces,
+  showAyahNum,
+  numBrackets,
+) {
   var result = text;
   var numStr = showAyahNum ? " " + toArabicNumeral(ayahNo) : "";
   if (showBraces && showAyahNum && numBrackets) {
@@ -162,19 +202,18 @@ export function decorateAyah(text, ayahNo, showBraces, showAyahNum, numBrackets)
 // ═══════════════════════════════════════════════════════════════
 
 export function loadQuranBookCSV(bookCode) {
-  return fetchCSV("../data/" + bookCode + ".csv")
-    .then(function (rows) {
-      if (rows.length === 0) return { header: [], data: [] };
-      var header = rows.shift();
-      return { header: header, data: rows };
-    });
+  return fetchCSV("../data/" + bookCode + ".csv").then(function (rows) {
+    if (rows.length === 0) return { header: [], data: [] };
+    var header = rows.shift();
+    return { header: header, data: rows };
+  });
 }
 
 export function mergeQuranData(bookCode) {
   return Promise.all([
     loadQuranBaseData(),
     loadQuranBookCSV(bookCode),
-    loadSurahNames()
+    loadSurahNames(),
   ]).then(function (results) {
     var baseRows = results[0];
     var bookData = results[1];
@@ -209,8 +248,8 @@ export function mergeQuranData(bookCode) {
 
 export function loadColumnRegistry() {
   if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
-  return fetchCSV("../data/QRN-DATA-registry-bookToggle.csv")
-    .then(function (rows) {
+  return fetchCSV("../data/QRN-DATA-registry-bookToggle.csv").then(
+    function (rows) {
       if (rows.length === 0) return [];
       rows.shift(); // strip header
       _colRegistryCache = rows.map(function (r) {
@@ -218,11 +257,12 @@ export function loadColumnRegistry() {
           sourceBook: r[0] || "",
           sourceCol: parseInt(r[1], 10) || 0,
           displayDV: r[2] || "",
-          displayEN: r[3] || ""
+          displayEN: r[3] || "",
         };
       });
       return _colRegistryCache;
-    });
+    },
+  );
 }
 
 export function getColumnDisplayName(sourceBook, sourceCol) {
@@ -237,7 +277,9 @@ export function getColumnDisplayName(sourceBook, sourceCol) {
 
 // Map: colIndex → {sourceBook, sourceCol}
 var _columnSourceMap = null;
-export function getColumnSourceMap() { return _columnSourceMap; }
+export function getColumnSourceMap() {
+  return _columnSourceMap;
+}
 export function rebuildColumnSourceMap(loadedColMap) {
   _columnSourceMap = {};
   for (var key in loadedColMap) {
@@ -253,7 +295,11 @@ export function rebuildColumnSourceMap(loadedColMap) {
 export function getBookLabel(colIndex) {
   if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
   var info = _columnSourceMap[colIndex];
-  if (info.sourceBook === "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai") return null;
+  if (
+    info.sourceBook ===
+    "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai"
+  )
+    return null;
   return getBookTitleSync(info.sourceBook) || info.sourceBook;
 }
 
@@ -262,7 +308,11 @@ export function hasExternalColumns(currentBookCode) {
   if (!_columnSourceMap) return false;
   for (var idx in _columnSourceMap) {
     var info = _columnSourceMap[idx];
-    if (info.sourceBook !== "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" && info.sourceBook !== currentBookCode) {
+    if (
+      info.sourceBook !==
+        "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" &&
+      info.sourceBook !== currentBookCode
+    ) {
       return true;
     }
   }
@@ -282,7 +332,7 @@ export var quranState = {
   currentAyah: 1,
   currentJuz: 1,
   showAyahNum: true,
-  showBraces: true
+  showBraces: true,
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -290,7 +340,8 @@ export var quranState = {
 // ═══════════════════════════════════════════════════════════════
 
 export function getRowsForSurah(surahNo, baseData) {
-  var start = -1, end = -1;
+  var start = -1,
+    end = -1;
   for (var i = 0; i < baseData.length; i++) {
     var s = parseInt(baseData[i][1], 10);
     if (s === surahNo) {
@@ -304,7 +355,8 @@ export function getRowsForSurah(surahNo, baseData) {
 }
 
 export function getRowsForJuz(juzNo, baseData) {
-  var start = -1, end = -1;
+  var start = -1,
+    end = -1;
   for (var i = 0; i < baseData.length; i++) {
     var j = parseInt(baseData[i][0], 10);
     if (j === juzNo) {
@@ -319,7 +371,10 @@ export function getRowsForJuz(juzNo, baseData) {
 
 export function findAyahRow(surahNo, ayahNo, baseData) {
   for (var i = 0; i < baseData.length; i++) {
-    if (parseInt(baseData[i][1], 10) === surahNo && parseInt(baseData[i][2], 10) === ayahNo) {
+    if (
+      parseInt(baseData[i][1], 10) === surahNo &&
+      parseInt(baseData[i][2], 10) === ayahNo
+    ) {
       return i;
     }
   }
@@ -339,11 +394,20 @@ function normaliseForSearchQuery(str) {
     .replace(/[أإآ]/g, "ا")
     .replace(/ى/g, "ي")
     .replace(/ؤ/g, "و")
-    .replace(/ޘ/g, "ސ").replace(/ޙ/g, "ހ").replace(/ޚ/g, "ހ")
-    .replace(/ޛ/g, "ޒ").replace(/ޜ/g, "ޒ").replace(/ޝ/g, "ސ")
-    .replace(/ޞ/g, "ސ").replace(/ޟ/g, "ދ").replace(/ޠ/g, "ތ")
-    .replace(/ޡ/g, "ޒ").replace(/ޢ/g, "އ").replace(/ޣ/g, "ގ")
-    .replace(/ޤ/g, "ގ").replace(/ޥ/g, "ވ");
+    .replace(/ޘ/g, "ސ")
+    .replace(/ޙ/g, "ހ")
+    .replace(/ޚ/g, "ހ")
+    .replace(/ޛ/g, "ޒ")
+    .replace(/ޜ/g, "ޒ")
+    .replace(/ޝ/g, "ސ")
+    .replace(/ޞ/g, "ސ")
+    .replace(/ޟ/g, "ދ")
+    .replace(/ޠ/g, "ތ")
+    .replace(/ޡ/g, "ޒ")
+    .replace(/ޢ/g, "އ")
+    .replace(/ޣ/g, "ގ")
+    .replace(/ޤ/g, "ގ")
+    .replace(/ޥ/g, "ވ");
 }
 
 export function buildSurahListHTML(query, currentSurah) {
@@ -356,16 +420,30 @@ export function buildSurahListHTML(query, currentSurah) {
   for (var i = 0; i < names.length; i++) {
     var s = names[i];
     if (nq) {
-      var haystack = s.nameAR + " " + s.nameDV + " " + s.nameEN + " " + s.surahNo;
+      var haystack =
+        s.nameAR + " " + s.nameDV + " " + s.nameEN + " " + s.surahNo;
       if (normaliseForSearchQuery(haystack).indexOf(nq) === -1) continue;
     }
     var active = s.surahNo === currentSurah ? " active" : "";
-    html += '<div class="quran-surah-item' + active + '" data-surah="' + s.surahNo + '">' +
-      '<span class="quran-surah-item-no">' + s.surahNo + '</span>' +
-      '<span class="quran-surah-item-ar">' + s.nameAR + '</span>' +
-      '<span class="quran-surah-item-dv">' + s.nameDV + '</span>' +
-      '<span class="quran-surah-item-en">' + s.nameEN + '</span>' +
-      '</div>';
+    html +=
+      '<div class="quran-surah-item' +
+      active +
+      '" data-surah="' +
+      s.surahNo +
+      '">' +
+      '<span class="quran-surah-item-no">' +
+      s.surahNo +
+      "</span>" +
+      '<span class="quran-surah-item-ar">' +
+      s.nameAR +
+      "</span>" +
+      '<span class="quran-surah-item-dv">' +
+      s.nameDV +
+      "</span>" +
+      '<span class="quran-surah-item-en">' +
+      s.nameEN +
+      "</span>" +
+      "</div>";
   }
   return html;
 }
@@ -374,10 +452,13 @@ export function buildSurahListHTML(query, currentSurah) {
 // Column index helpers (used by reader.js during render & scroll)
 // ═══════════════════════════════════════════════════════════════
 
-var _juzIdx = -1, _surahIdx = -1, _ayahIdx = -1;
+var _juzIdx = -1,
+  _surahIdx = -1,
+  _ayahIdx = -1;
 
 export function findQuranColIndices(headerRow) {
-  if (_juzIdx >= 0) return { juzIdx: _juzIdx, surahIdx: _surahIdx, ayahIdx: _ayahIdx };
+  if (_juzIdx >= 0)
+    return { juzIdx: _juzIdx, surahIdx: _surahIdx, ayahIdx: _ayahIdx };
   if (!headerRow) return { juzIdx: -1, surahIdx: -1, ayahIdx: -1 };
   for (var j = 0; j < headerRow.length; j++) {
     var h = (headerRow[j] || "").trim().toLowerCase().replace(/-hdn$/i, "");
@@ -458,19 +539,31 @@ export function initQuranUI(ctx) {
   // Load toggle state
   var showAyahNum = LS.get("quranShowAyahNum", true);
   var showBraces = LS.get("quranShowBraces", true);
-  document.getElementById("qrnToggleAyahNum").classList.toggle("active", showAyahNum);
-  document.getElementById("qrnToggleBraces").classList.toggle("active", showBraces);
+  document
+    .getElementById("qrnToggleAyahNum")
+    .classList.toggle("active", showAyahNum);
+  document
+    .getElementById("qrnToggleBraces")
+    .classList.toggle("active", showBraces);
 
   updateQuranNavDisplay();
 
   // ── Surah navigation ──
-  document.getElementById("qrnSurahPrev").addEventListener("click", function () {
-    if (quranState.currentSurah > 1) goToQuranSurah(quranState.currentSurah - 1);
-  });
-  document.getElementById("qrnSurahNext").addEventListener("click", function () {
-    if (quranState.currentSurah < 114) goToQuranSurah(quranState.currentSurah + 1);
-  });
-  document.getElementById("qrnSurahBtn").addEventListener("click", openSurahSelector);
+  document
+    .getElementById("qrnSurahPrev")
+    .addEventListener("click", function () {
+      if (quranState.currentSurah > 1)
+        goToQuranSurah(quranState.currentSurah - 1);
+    });
+  document
+    .getElementById("qrnSurahNext")
+    .addEventListener("click", function () {
+      if (quranState.currentSurah < 114)
+        goToQuranSurah(quranState.currentSurah + 1);
+    });
+  document
+    .getElementById("qrnSurahBtn")
+    .addEventListener("click", openSurahSelector);
 
   // ── Ayah navigation ──
   var ayahInput = document.getElementById("qrnAyahInput");
@@ -490,7 +583,8 @@ export function initQuranUI(ctx) {
     var max = parseInt(ayahInput.max, 10) || 7;
     var html = "";
     for (var i = 1; i <= max; i++) {
-      html += '<div class="quran-content-item" data-v="' + i + '">' + i + '</div>';
+      html +=
+        '<div class="quran-content-item" data-v="' + i + '">' + i + "</div>";
     }
     ayahDD.innerHTML = html;
     window.openDropdown(ayahDD, ayahInput, 2);
@@ -519,9 +613,20 @@ export function initQuranUI(ctx) {
     if (v >= 1) goToQuranAyah(v);
   });
   var _justSelected = false;
-  ayahInput.addEventListener("click", function (e) { e.stopPropagation(); if (!_justSelected) openAyahDropdown(); _justSelected = false; });
-  ayahInput.addEventListener("focus", function () { this.select(); if (!_justSelected) openAyahDropdown(); _justSelected = false; });
-  ayahDD.addEventListener("click", function (e) { e.stopPropagation(); _justSelected = true; });
+  ayahInput.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (!_justSelected) openAyahDropdown();
+    _justSelected = false;
+  });
+  ayahInput.addEventListener("focus", function () {
+    this.select();
+    if (!_justSelected) openAyahDropdown();
+    _justSelected = false;
+  });
+  ayahDD.addEventListener("click", function (e) {
+    e.stopPropagation();
+    _justSelected = true;
+  });
 
   // ── Juz navigation ──
   var juzInput = document.getElementById("qrnJuzInput");
@@ -540,7 +645,8 @@ export function initQuranUI(ctx) {
   function openJuzDropdown() {
     var html = "";
     for (var i = 1; i <= 30; i++) {
-      html += '<div class="quran-content-item" data-v="' + i + '">' + i + '</div>';
+      html +=
+        '<div class="quran-content-item" data-v="' + i + '">' + i + "</div>";
     }
     juzDD.innerHTML = html;
     window.openDropdown(juzDD, juzInput, 2);
@@ -567,16 +673,29 @@ export function initQuranUI(ctx) {
     if (v >= 1 && v <= 30) goToQuranJuz(v);
   });
   var _justSelectedJuz = false;
-  juzInput.addEventListener("click", function (e) { e.stopPropagation(); if (!_justSelectedJuz) openJuzDropdown(); _justSelectedJuz = false; });
-  juzInput.addEventListener("focus", function () { this.select(); if (!_justSelectedJuz) openJuzDropdown(); _justSelectedJuz = false; });
-  juzDD.addEventListener("click", function (e) { e.stopPropagation(); _justSelectedJuz = true; });
+  juzInput.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (!_justSelectedJuz) openJuzDropdown();
+    _justSelectedJuz = false;
+  });
+  juzInput.addEventListener("focus", function () {
+    this.select();
+    if (!_justSelectedJuz) openJuzDropdown();
+    _justSelectedJuz = false;
+  });
+  juzDD.addEventListener("click", function (e) {
+    e.stopPropagation();
+    _justSelectedJuz = true;
+  });
 
   // ── Content dropdown ──
   trapWheel(document.getElementById("qrnContentDropdown"));
-  document.getElementById("qrnContentBtn").addEventListener("click", function (e) {
-    e.stopPropagation();
-    toggleQuranContentDropdown();
-  });
+  document
+    .getElementById("qrnContentBtn")
+    .addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggleQuranContentDropdown();
+    });
 
   // ── Display options dropdown ──
   var qrnDisplayBtn = document.getElementById("qrnDisplayBtn");
@@ -584,9 +703,16 @@ export function initQuranUI(ctx) {
   trapWheel(qrnDisplayDD);
   qrnDisplayBtn.addEventListener("click", function (e) {
     e.stopPropagation();
-    if (qrnDisplayDD.style.display === "block") { qrnDisplayDD.style.display = "none"; return; }
+    if (qrnDisplayDD.style.display === "block") {
+      qrnDisplayDD.style.display = "none";
+      return;
+    }
     window.openDropdown(qrnDisplayDD, qrnDisplayBtn);
-    qrnDisplayDD.style.maxWidth = Math.min(220, window.innerWidth - qrnDisplayBtn.getBoundingClientRect().left - 16) + "px";
+    qrnDisplayDD.style.maxWidth =
+      Math.min(
+        220,
+        window.innerWidth - qrnDisplayBtn.getBoundingClientRect().left - 16,
+      ) + "px";
   });
 
   var ayahNumCB = document.getElementById("qrnToggleAyahNum");
@@ -599,7 +725,7 @@ export function initQuranUI(ctx) {
 
   function updateNumBracketsRow() {
     var row = document.getElementById("qrnNumBracketsRow");
-    row.style.display = (bracesCB.checked && ayahNumCB.checked) ? "" : "none";
+    row.style.display = bracesCB.checked && ayahNumCB.checked ? "" : "none";
   }
 
   ayahNumCB.addEventListener("change", function () {
@@ -618,29 +744,55 @@ export function initQuranUI(ctx) {
   });
 
   // ── Surah selector overlay ──
-  document.getElementById("qrnSurahClose").addEventListener("click", closeSurahSelector);
-  document.getElementById("qrnSurahOverlay").addEventListener("click", function (e) {
-    if (e.target === this) closeSurahSelector();
-  });
-  document.getElementById("qrnSurahSearch").addEventListener("input", function () {
-    renderSurahList(this.value);
-  });
+  document
+    .getElementById("qrnSurahClose")
+    .addEventListener("click", closeSurahSelector);
+  document
+    .getElementById("qrnSurahOverlay")
+    .addEventListener("click", function (e) {
+      if (e.target === this) closeSurahSelector();
+    });
+  document
+    .getElementById("qrnSurahSearch")
+    .addEventListener("input", function () {
+      renderSurahList(this.value);
+    });
 
   // ── Outside click closes all Quran dropdowns ──
   document.addEventListener("click", function (e) {
     var dd = document.getElementById("qrnContentDropdown");
     var btn = document.getElementById("qrnContentBtn");
-    if (dd && dd.style.display === "block" && !dd.contains(e.target) && e.target !== btn) {
+    if (
+      dd &&
+      dd.style.display === "block" &&
+      !dd.contains(e.target) &&
+      e.target !== btn
+    ) {
       dd.style.display = "none";
     }
-    if (ayahDD && ayahDD.style.display === "block" && !ayahDD.contains(e.target) && e.target !== ayahInput) {
+    if (
+      ayahDD &&
+      ayahDD.style.display === "block" &&
+      !ayahDD.contains(e.target) &&
+      e.target !== ayahInput
+    ) {
       ayahDD.style.display = "none";
     }
-    if (juzDD && juzDD.style.display === "block" && !juzDD.contains(e.target) && e.target !== juzInput) {
+    if (
+      juzDD &&
+      juzDD.style.display === "block" &&
+      !juzDD.contains(e.target) &&
+      e.target !== juzInput
+    ) {
       juzDD.style.display = "none";
     }
     var dd2 = document.getElementById("qrnDisplayDropdown");
-    if (dd2 && dd2.style.display === "block" && !dd2.contains(e.target) && e.target !== qrnDisplayBtn) {
+    if (
+      dd2 &&
+      dd2.style.display === "block" &&
+      !dd2.contains(e.target) &&
+      e.target !== qrnDisplayBtn
+    ) {
       dd2.style.display = "none";
     }
   });
@@ -673,7 +825,10 @@ export function initQuranUI(ctx) {
     var rowIdx = findAyahRowInFiltered(quranState.currentSurah, ayahNo);
     if (rowIdx >= 0) {
       ctx.goTo(rowIdx);
-      quranState.currentJuz = getRowJuz(ctx.getFilteredData()[rowIdx], headerRow);
+      quranState.currentJuz = getRowJuz(
+        ctx.getFilteredData()[rowIdx],
+        headerRow,
+      );
     }
     updateQuranNavDisplay();
   }
@@ -684,9 +839,11 @@ export function initQuranUI(ctx) {
     document.getElementById("qrnJuzInput").value = juzNo;
     var jIdx = _juzIdx;
     if (jIdx >= 0) {
-      ctx.setFilteredData(allData.filter(function (row) {
-        return parseInt(row[jIdx], 10) === juzNo;
-      }));
+      ctx.setFilteredData(
+        allData.filter(function (row) {
+          return parseInt(row[jIdx], 10) === juzNo;
+        }),
+      );
     }
     var fd = ctx.getFilteredData();
     if (fd.length > 0) {
@@ -712,9 +869,11 @@ export function initQuranUI(ctx) {
 
   function applyQuranSurahFilter() {
     var sn = quranState.currentSurah;
-    ctx.setFilteredData(allData.filter(function (row) {
-      return parseInt(row[1], 10) === sn;
-    }));
+    ctx.setFilteredData(
+      allData.filter(function (row) {
+        return parseInt(row[1], 10) === sn;
+      }),
+    );
     ctx.rebuildAll();
   }
 
@@ -726,7 +885,9 @@ export function initQuranUI(ctx) {
     overlay.style.display = "flex";
     document.getElementById("qrnSurahSearch").value = "";
     renderSurahList("");
-    setTimeout(function () { document.getElementById("qrnSurahSearch").focus(); }, 50);
+    setTimeout(function () {
+      document.getElementById("qrnSurahSearch").focus();
+    }, 50);
   }
 
   function closeSurahSelector() {
@@ -749,7 +910,9 @@ export function initQuranUI(ctx) {
 
   // Stop wheel events on dropdowns from scrolling the horizontal nav row
   function trapWheel(el) {
-    el.addEventListener("wheel", function (e) { e.stopPropagation(); });
+    el.addEventListener("wheel", function (e) {
+      e.stopPropagation();
+    });
   }
 
   function toggleQuranContentDropdown() {
@@ -769,21 +932,43 @@ export function initQuranUI(ctx) {
     var list = document.getElementById("qrnContentList");
     var allCols = getAllAvailableColumns();
     var html = '<div class="quran-content-presets">';
-    html += '<button class="quran-preset-btn" data-preset="main">' + t("qrnPresetMain") + '</button>';
-    html += '<button class="quran-preset-btn" data-preset="all">' + t("qrnPresetAll") + '</button>';
-    html += '<button class="quran-preset-btn" data-preset="arabic">' + t("qrnPresetArabic") + '</button>';
-    html += '<button class="quran-preset-btn" data-preset="reset">' + t("qrnPresetReset") + '</button>';
-    html += '</div>';
+    html +=
+      '<button class="quran-preset-btn" data-preset="main">' +
+      t("qrnPresetMain") +
+      "</button>";
+    html +=
+      '<button class="quran-preset-btn" data-preset="all">' +
+      t("qrnPresetAll") +
+      "</button>";
+    html +=
+      '<button class="quran-preset-btn" data-preset="arabic">' +
+      t("qrnPresetArabic") +
+      "</button>";
+    html +=
+      '<button class="quran-preset-btn" data-preset="reset">' +
+      t("qrnPresetReset") +
+      "</button>";
+    html += "</div>";
     for (var j = 0; j < allCols.length; j++) {
       var col = allCols[j];
       var key = col.sourceBook + ":" + col.sourceCol;
       var colIdx = _loadedColMap[key];
       var isLoaded = colIdx !== undefined;
       var hiddenColumns = ctx.getHiddenColumns();
-      var checked = isLoaded && hiddenColumns.indexOf(colIdx) === -1 ? "checked" : "";
-      html += '<label class="quran-content-item">' +
-        '<input type="checkbox" data-source="' + col.sourceBook + '" data-col="' + col.sourceCol + '" ' + checked + '>' +
-        '<span>' + (col.displayDV || col.displayEN) + '</span></label>';
+      var checked =
+        isLoaded && hiddenColumns.indexOf(colIdx) === -1 ? "checked" : "";
+      html +=
+        '<label class="quran-content-item">' +
+        '<input type="checkbox" data-source="' +
+        col.sourceBook +
+        '" data-col="' +
+        col.sourceCol +
+        '" ' +
+        checked +
+        ">" +
+        "<span>" +
+        (col.displayDV || col.displayEN) +
+        "</span></label>";
     }
     list.innerHTML = html;
     list.querySelectorAll("input[type=checkbox]").forEach(function (cb) {
@@ -810,51 +995,41 @@ export function initQuranUI(ctx) {
         var preset = this.dataset.preset;
         var hc = ctx.getHiddenColumns();
         if (preset === "all") {
-          // Show all — load + unhide every available column
-          var remaining = allCols.length;
           allCols.forEach(function (col) {
-            loadAndInsertColumn(col.sourceBook, col.sourceCol).then(function () {
-              remaining--;
-              if (remaining === 0) { ctx.rebuildAll(); renderQuranContentList(); }
-            });
+            loadAndInsertColumn(col.sourceBook, col.sourceCol);
           });
+          ctx.rebuildAll();
+          renderQuranContentList();
           return;
         }
-        // For other presets: hide all external columns first
+        // Hide all external columns
         Object.keys(_loadedColMap).forEach(function (k) {
           var idx = _loadedColMap[k];
           if (idx === undefined) return;
           var parts = k.split(":");
           var sb = parts.slice(0, -1).join(":");
-          if (sb !== "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" && sb !== metadata.bookCode) {
+          if (
+            sb !==
+              "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" &&
+            sb !== metadata.bookCode
+          ) {
             if (hc.indexOf(idx) === -1) hc.push(idx);
           }
         });
-        if (preset === "main" || preset === "reset") {
-          // Main / Reset: current book only, no externals
+        if (preset === "reset") {
           ctx.rebuildAll();
           renderQuranContentList();
-        } else if (preset === "arabic") {
-          // Show Arabic tafsir columns (match by sourceBook key)
-          var arabicBooks = {};
-          allCols.forEach(function (col) {
-            if (col.sourceBook.indexOf("ar-") !== -1 || col.sourceBook.indexOf("AR-") !== -1 || col.displayDV.indexOf("تفسير") !== -1 || col.displayDV.indexOf("ترجمة") !== -1) {
-              arabicBooks[col.sourceBook] = true;
-            }
-          });
-          var arabicCols = [];
-          allCols.forEach(function (col) {
-            if (arabicBooks[col.sourceBook]) arabicCols.push(col);
-          });
-          var remaining = arabicCols.length;
-          if (remaining === 0) { ctx.rebuildAll(); renderQuranContentList(); return; }
-          arabicCols.forEach(function (col) {
-            loadAndInsertColumn(col.sourceBook, col.sourceCol).then(function () {
-              remaining--;
-              if (remaining === 0) { ctx.rebuildAll(); renderQuranContentList(); }
-            });
-          });
+          return;
         }
+        // Load preset-specific books
+        var targets = preset === "main" ? QRN_PRESET_MAIN : QRN_PRESET_ARABIC;
+        targets.forEach(function (sb) {
+          allCols.forEach(function (col) {
+            if (col.sourceBook === sb) loadAndInsertColumn(sb, col.sourceCol);
+          });
+        });
+        ctx.rebuildAll();
+        renderQuranContentList();
       });
     });
   }
@@ -867,19 +1042,27 @@ export function initQuranUI(ctx) {
     var saved = {};
     for (var k in _loadedColMap) {
       var parts = k.split(":");
-      if (parts[0] !== "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" && parts[0] !== metadata.bookCode) {
+      if (
+        parts[0] !==
+          "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" &&
+        parts[0] !== metadata.bookCode
+      ) {
         saved[k] = _loadedColMap[k];
       }
     }
     _loadedColMap = {};
-    for (var sk in saved) { _loadedColMap[sk] = saved[sk]; }
+    for (var sk in saved) {
+      _loadedColMap[sk] = saved[sk];
+    }
     // Map base columns by header name
     var baseNames = ["juzno", "surahno", "ayahno", "basmalah", "ayahimlai"];
     for (var i = 0; i < headerRow.length; i++) {
       var hdr = (headerRow[i] || "").replace(/-hdn$/i, "").trim().toLowerCase();
       for (var b = 0; b < baseNames.length; b++) {
         if (hdr === baseNames[b]) {
-          _loadedColMap["QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai:" + b] = i;
+          _loadedColMap[
+            "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai:" + b
+          ] = i;
         }
       }
     }
@@ -888,10 +1071,18 @@ export function initQuranUI(ctx) {
     var bookColIdx = 0;
     for (var j2 = baseNames.length; j2 < headerRow.length; j2++) {
       var taken = false;
-      for (var mk in _loadedColMap) { if (_loadedColMap[mk] === j2) { taken = true; break; } }
+      for (var mk in _loadedColMap) {
+        if (_loadedColMap[mk] === j2) {
+          taken = true;
+          break;
+        }
+      }
       if (taken) continue;
       for (var c = 0; c < allCols.length; c++) {
-        if (allCols[c].sourceBook === metadata.bookCode && allCols[c].sourceCol === bookColIdx) {
+        if (
+          allCols[c].sourceBook === metadata.bookCode &&
+          allCols[c].sourceCol === bookColIdx
+        ) {
           _loadedColMap[metadata.bookCode + ":" + bookColIdx] = j2;
           bookColIdx++;
           break;
@@ -912,7 +1103,10 @@ export function initQuranUI(ctx) {
       return Promise.resolve();
     }
     return fetch("../data/" + sourceBook + ".csv")
-      .then(function (r) { if (!r.ok) throw Error("Failed to load " + sourceBook); return r.text(); })
+      .then(function (r) {
+        if (!r.ok) throw Error("Failed to load " + sourceBook);
+        return r.text();
+      })
       .then(function (text) {
         var rows = parseCSV(text);
         if (rows.length === 0) return;
@@ -922,7 +1116,10 @@ export function initQuranUI(ctx) {
         var insertAt = headerRow.length;
         headerRow.splice(insertAt, 0, colName);
         for (var r = 0; r < allData.length; r++) {
-          var val = (rows[r] && rows[r][sourceCol] != null) ? String(rows[r][sourceCol]).trim() : "";
+          var val =
+            rows[r] && rows[r][sourceCol] != null
+              ? String(rows[r][sourceCol]).trim()
+              : "";
           allData[r].splice(insertAt, 0, val);
         }
         _loadedColMap[key] = insertAt;
@@ -932,7 +1129,8 @@ export function initQuranUI(ctx) {
         if (hp !== -1) hc.splice(hp, 1);
         ctx.rebuildAll();
         renderQuranContentList();
-      }).catch(function () {
+      })
+      .catch(function () {
         showToast("Could not load “" + sourceBook + "”");
       });
   }

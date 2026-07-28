@@ -318,7 +318,7 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`).
+Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran.js`.
 
 ### Quran navigation
 

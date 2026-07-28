@@ -31,11 +31,11 @@ A thin progress bar runs along the bottom of the top bar. For Quran books it tra
 
 ### Below the top bar
 
-| Row | What it does |
-|---|---|
+| Row            | What it does                                                                                                                                                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Search bar** | Find text inside the book. Supports wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~`), negation (`-word`), and exact column matching (`col:2:word`). The `ab` button toggles whole‑word mode for all terms. |
-| **Toolbar** | Copy the current row, hide Arabic diacritics, share a link, switch between card and table view, reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow. |
-| **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The subtitle and tag badges are on the same row — scroll sideways if it's too wide. |
+| **Toolbar**    | Copy the current row, hide Arabic diacritics, share a link, switch between card and table view, reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow.                     |
+| **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The subtitle and tag badges are on the same row — scroll sideways if it's too wide.                                                              |
 
 ### Reading the Quran
 
@@ -47,28 +47,30 @@ When you open a Quran book (code starting with `QRN-`), extra controls appear:
 
 #### Adding columns from other Quran books
 
-Click the **ގުރްއާން ފޮތްތައް** (Quran Books) button to see available columns from other Quran editions and translations. Check a column to add it — all columns from that book appear below the current ayah text. Uncheck to hide.
+Click the **ގުރްއާން ފޮތްތައް** (Quran Books) button to see available columns from other Quran books and translations. Check a column to add it — all columns from that book appear below the current ayah text. Uncheck to hide.
+
+Buttons at the top of the list quickly switch between preset configurations: **Main** (commonly used translations), **All** (every available book and column), **Arabic** (arabic only books), and **Reset** (revert to just the current book).
 
 When columns from one or more other books are active, each book's content is prefixed with a bold label showing the book's display name (e.g. **ދިވެހި ތަރުޖަމާ:**). This makes it easy to tell which translation or tafsir each block of text comes from.
 
 ### Keyboard shortcuts
 
-| Key | Action |
-|---|---|
-| `←` / `→` | Previous / next row |
-| `Home` / `End` | First / last row |
-| `/` or `Ctrl+F` | Focus the search bar |
-| `Ctrl+Shift+F` | Open advanced search |
-| `z` | Toggle focus mode |
-| `t` | Toggle diacritics (tashkeel) |
-| `v` | Toggle card / table view |
-| `s` | Copy share link |
-| `e` | Open export menu |
-| `Ctrl+,` | Open settings |
-| `Ctrl+B` | Back to book list |
-| `Escape` | Close sidebar / modal / search results |
-| Swipe right | Next row (mobile) |
-| Swipe left | Previous row (mobile) |
+| Key             | Action                                 |
+| --------------- | -------------------------------------- |
+| `←` / `→`       | Previous / next row                    |
+| `Home` / `End`  | First / last row                       |
+| `/` or `Ctrl+F` | Focus the search bar                   |
+| `Ctrl+Shift+F`  | Open advanced search                   |
+| `z`             | Toggle focus mode                      |
+| `t`             | Toggle diacritics (tashkeel)           |
+| `v`             | Toggle card / table view               |
+| `s`             | Copy share link                        |
+| `e`             | Open export menu                       |
+| `Ctrl+,`        | Open settings                          |
+| `Ctrl+B`        | Back to book list                      |
+| `Escape`        | Close sidebar / modal / search results |
+| Swipe right     | Next row (mobile)                      |
+| Swipe left      | Previous row (mobile)                  |
 
 ### Focus mode
 
@@ -96,12 +98,12 @@ Open with the blue ☰ button. From here you can:
 
 Open from the sidebar (⚙ Settings). You can change:
 
-| Setting | Options |
-|---|---|
-| **Theme** | Light, Dark, or Sepia |
-| **Widescreen** | Use the full width of your screen |
-| **Font size** | − / + buttons to make text smaller or larger |
-| **Font** | Hadithmv (custom merged font) or System font. Option names are always in English. |
-| **Language** | Dhivehi, English, or Arabic — changes all buttons and labels |
+| Setting        | Options                                                                           |
+| -------------- | --------------------------------------------------------------------------------- |
+| **Theme**      | Light, Dark, or Sepia                                                             |
+| **Widescreen** | Use the full width of your screen                                                 |
+| **Font size**  | − / + buttons to make text smaller or larger                                      |
+| **Font**       | Hadithmv (custom merged font) or System font. Option names are always in English. |
+| **Language**   | Dhivehi, English, or Arabic — changes all buttons and labels                      |
 
 All settings are saved automatically and remembered when you return.
