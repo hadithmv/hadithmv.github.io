@@ -1756,7 +1756,7 @@ initializePageWithMetadata(async function (metadata) {
           if ((cb = document.getElementById("qrnToggleAyahNum"))) cb.checked = true;
           if ((cb = document.getElementById("qrnToggleNumBrackets"))) cb.checked = false;
           var row = document.getElementById("qrnNumBracketsRow");
-          if (row) row.style.display = "none";
+          if (row) row.style.display = (document.getElementById("qrnToggleBraces").checked && document.getElementById("qrnToggleAyahNum").checked) ? "" : "none";
         }
         // Exit focus mode
         setFocus(false);
@@ -1936,7 +1936,7 @@ initializePageWithMetadata(async function (metadata) {
         if ((cb = document.getElementById("qrnToggleAyahNum"))) cb.checked = true;
         if ((cb = document.getElementById("qrnToggleNumBrackets"))) cb.checked = false;
         var row = document.getElementById("qrnNumBracketsRow");
-        if (row) row.style.display = "none";
+        if (row) row.style.display = (document.getElementById("qrnToggleBraces").checked && document.getElementById("qrnToggleAyahNum").checked) ? "" : "none";
         searchInput.value = "";
         applySearch("");
         setFocus(false);
