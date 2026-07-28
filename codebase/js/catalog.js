@@ -743,7 +743,7 @@ function setupDashboardControls() {
 }
 
 // Re-render dashboard on settings reset (if visible)
-document.addEventListener("catalogreset", function () {
+document.addEventListener("dashboardReset", function () {
   if (_lastBookNames && _lastBookNames.length > 0) {
     renderPins();
     renderHistory();

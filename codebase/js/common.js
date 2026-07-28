@@ -236,7 +236,7 @@ window.MODAL_IDS.forEach(wireModal);
     });
   })();
 
-  // Reset settings
+  // Reset settings — delegates to font/reader resets, then adds its own
   document.getElementById("btnResetSettings").addEventListener("click", function () {
     var html = document.documentElement;
     html.removeAttribute("data-theme");
@@ -247,25 +247,18 @@ window.MODAL_IDS.forEach(wireModal);
     localStorage.removeItem("widescreen");
     var wsBtn = document.getElementById("btnWidescreen");
     if (wsBtn) { wsBtn.classList.remove("active"); wsBtn.textContent = "☐"; }
-    html.style.setProperty("--reader-font-size", DEFAULT_FONT_SIZE);
-    html.style.setProperty("--reader-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.88 * 100) / 100 + "rem");
-    html.style.setProperty("--panel-font-size", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 100) / 100 + "rem");
-    html.style.setProperty("--panel-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 0.9 * 100) / 100 + "rem");
-    localStorage.removeItem("fontSize");
-    var fsv = document.getElementById("fontSizeVal");
-    if (fsv) fsv.textContent = DEFAULT_FONT_SIZE;
-    html.removeAttribute("data-font-system");
-    localStorage.setItem("fontSystem", "0");
-    var ffSel = document.getElementById("selFontFamily");
-    if (ffSel) ffSel.value = "hadithmv";
-    ["reader:hideTashkeel","reader:hiddenColumns","reader:searchHistory"].forEach(function (k) {
-      localStorage.removeItem(k);
-    });
+    // Delegate font + reader resets
+    var btnRF = document.getElementById("btnResetFont");
+    if (btnRF) btnRF.click();
+    var btnRR = document.getElementById("btnResetReader");
+    if (btnRR) btnRR.click();
+    // Clear LS keys that the delegated buttons don't touch
+    localStorage.removeItem("reader:searchHistory");
     localStorage.removeItem("focus");
+    // Clear pins & history
     localStorage.removeItem("pinnedBooks");
     localStorage.removeItem("readHistory");
-    document.dispatchEvent(new CustomEvent("readerset"));
-    document.dispatchEvent(new CustomEvent("catalogreset"));
+    document.dispatchEvent(new CustomEvent("dashboardReset"));
     localStorage.removeItem("lang");
     var sel = document.getElementById("selLanguage");
     if (sel) sel.value = "dv";
@@ -298,7 +291,7 @@ window.MODAL_IDS.forEach(wireModal);
     localStorage.setItem("fontSystem", "0");
     var ffSel = document.getElementById("selFontFamily");
     if (ffSel) ffSel.value = "hadithmv";
-    document.dispatchEvent(new CustomEvent("readerset"));
+    document.dispatchEvent(new CustomEvent("readerReset"));
   });
   // Backdrop click + Escape handled by unified wireModal
 })();

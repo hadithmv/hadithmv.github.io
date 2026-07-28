@@ -164,7 +164,7 @@ initializePageWithMetadata(async function (metadata) {
       const advSearchRows = document.getElementById("advancedSearchRows");
       const btnTashkeel = document.getElementById("btnTashkeel");
       const btnCopy = document.getElementById("btnCopy");
-      const btnReset = document.getElementById("btnReset");
+      const btnResetReader = document.getElementById("btnResetReader");
       const columnToggles = document.getElementById("columnToggles");
       const columnTogglesGrp = document.getElementById("columnTogglesGroup");
       const readerContent = document.getElementById("readerContent");
@@ -1724,15 +1724,19 @@ initializePageWithMetadata(async function (metadata) {
         });
       });
 
-      // ── Toolbar: reset ──────────────────────────────────────
-      btnReset.addEventListener("click", function () {
+      // ── Toolbar: reset view ─────────────────────────────────
+      btnResetReader.addEventListener("click", function () {
         // Clear search
         searchInput.value = "";
         applySearch("");
-        // Reset rows per page
-        // Show all columns
+        // Reset to -HDN convention only
         hiddenColumns = [];
-        LS.set("hiddenColumns", []);
+        if (headerRow) {
+          for (var i = 0; i < headerRow.length; i++) {
+            if ((headerRow[i] || "").toLowerCase().endsWith("-hdn")) hiddenColumns.push(i);
+          }
+        }
+        LS.set("hiddenColumns", hiddenColumns);
         buildColumnToggles();
         // Show tashkeel
         hideTashkeel = false;
@@ -1742,7 +1746,20 @@ initializePageWithMetadata(async function (metadata) {
         // Reset table mode to default for this book
         isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600;
         if (btnViewToggle) btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
-        // Go to page 1 without scrolling
+        // Reset Quran display settings
+        if (quranBook) {
+          LS.set("quranShowBraces", true);
+          LS.set("quranShowAyahNum", true);
+          LS.set("quranShowNumBrackets", false);
+          var cb;
+          if ((cb = document.getElementById("qrnToggleBraces"))) cb.checked = true;
+          if ((cb = document.getElementById("qrnToggleAyahNum"))) cb.checked = true;
+          if ((cb = document.getElementById("qrnToggleNumBrackets"))) cb.checked = false;
+          var row = document.getElementById("qrnNumBracketsRow");
+          if (row) row.style.display = "none";
+        }
+        // Exit focus mode
+        setFocus(false);
         rebuildAll();
       });
 
@@ -1897,13 +1914,29 @@ initializePageWithMetadata(async function (metadata) {
       })();
 
       // ── Settings reset from modal → re-render ─────────────
-      document.addEventListener("readerset", function () {
+      document.addEventListener("readerReset", function () {
         ROWS_PER_CHUNK = 25;
         hideTashkeel = false;
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
+        // Reset hidden columns — only keep -HDN convention
         hiddenColumns = [];
+        if (headerRow) {
+          for (var i = 0; i < headerRow.length; i++) {
+            if ((headerRow[i] || "").toLowerCase().endsWith("-hdn")) hiddenColumns.push(i);
+          }
+        }
         buildColumnToggles();
+        // Reset Quran display settings
+        LS.set("quranShowBraces", true);
+        LS.set("quranShowAyahNum", true);
+        LS.set("quranShowNumBrackets", false);
+        var cb;
+        if ((cb = document.getElementById("qrnToggleBraces"))) cb.checked = true;
+        if ((cb = document.getElementById("qrnToggleAyahNum"))) cb.checked = true;
+        if ((cb = document.getElementById("qrnToggleNumBrackets"))) cb.checked = false;
+        var row = document.getElementById("qrnNumBracketsRow");
+        if (row) row.style.display = "none";
         searchInput.value = "";
         applySearch("");
         setFocus(false);

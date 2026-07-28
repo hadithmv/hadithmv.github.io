@@ -411,7 +411,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 ### HTML & DOM
 
-**IDs.** Element IDs use camelCase — e.g. `btnReset`, `searchInput`, `readerContent`, `pinsDropdown`. No kebab‑case or snake_case.
+**IDs.** Element IDs use camelCase — e.g. `btnResetReader`, `searchInput`, `readerContent`. No kebab‑case or snake_case.
 
 **Tooltips.** Every `<button>`, `<a>`, and interactive element carries a `title` tooltip describing its action. If the element has a keyboard shortcut, the tooltip includes the key in parentheses — e.g. `title="Toggle focus mode (z key)"`. Tooltips are **always in English** and never translated.
 
@@ -468,6 +468,8 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 Any new button or action that has a keyboard shortcut documents it in the tooltip (see above) and in the [Keyboard](#keyboard) table. Shortcuts are kept discoverable — if you add a shortcut, add the tooltip.
 
 ### State
+
+**Reset flow.** Settings modal delegates to `btnResetFont` + `btnResetReader` + clears remaining LS keys + dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic.
 
 **Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) table. This table is the single inventory for porting to desktop/mobile apps — keep it current.
 
