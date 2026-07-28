@@ -127,7 +127,7 @@ Write-Info "$($rows.Count) books in 02-registry-bookNames.csv"
 Write-Section "Scanning for new books"
 $added = 0
 Get-ChildItem $dataDir -Filter *.csv | Where-Object {
-    $_.Name -notin @("02-registry-bookNames.csv", "01-registry-bookTags.csv")
+    $_.Name -notin @("02-registry-bookNames.csv", "01-registry-bookTags.csv", "QRN-DATA-registry-bookToggle.csv", "QRN-DATA-registry-surahSelector.csv")
 } | ForEach-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {
