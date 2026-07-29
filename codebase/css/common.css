@@ -388,7 +388,6 @@ body {
   border-color: var(--color-nav-btn-text);
 }
 
-
 /* ---- Settings modal ---- */
 .modal-overlay {
   position: fixed;
@@ -505,7 +504,12 @@ body:has(#settingsOverlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: 2.2;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -632,7 +636,6 @@ body:has(#settingsOverlay.open) {
   color: var(--color-text-subtle);
   line-height: 1.8;
 }
-
 
 /* ---- Shared states ---- */
 .loading {
@@ -818,7 +821,9 @@ body:has(#settingsOverlay.open) {
 .search-input {
   flex: 1;
   min-width: 0;
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family:
+    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  border: 1px solid var(--color-card-hover-border);
   border-radius: 8px;
   background: var(--color-reader-bg);
   color: var(--color-text);
@@ -876,9 +881,16 @@ body:has(#settingsOverlay.open) {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 .toolbar-btn:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -1091,7 +1103,6 @@ body:has(#settingsOverlay.open) {
     color 0.3s ease;
 }
 
-
 /* ---- Font modal ---- */
 .font-modal {
   max-width: 340px;
@@ -1129,7 +1140,12 @@ body:has(#settingsOverlay.open) {
   font-weight: 600;
   color: var(--color-text-subtle);
   border-bottom: 1px solid var(--color-border);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 .pins-history-body .dash-dropdown-item > * {
   padding: 5px 8px;
@@ -1137,7 +1153,12 @@ body:has(#settingsOverlay.open) {
   font-weight: 600;
   color: var(--color-text);
   white-space: nowrap;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 .pins-history-body .dash-dropdown-item:hover > * {
   background: var(--color-nav-btn-hover-bg);
@@ -1198,7 +1219,12 @@ body:has(#settingsOverlay.open) {
   border-top: 1px solid var(--color-border);
   border-radius: 0 0 4px 4px;
   cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family:
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif;
   text-align: center;
   opacity: 0.8;
   transition: opacity 0.15s ease;

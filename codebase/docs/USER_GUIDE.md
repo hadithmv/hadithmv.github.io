@@ -6,7 +6,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 
 When you open the site, you see the **book list**. You can:
 
-- **Search** — type in the search bar at the top. It searches across all languages (Dhivehi, Arabic, English) and book codes. It works with or without Arabic diacritics (tashkeel).
+- **Search** — type in the search bar at the top (auto‑focused on desktop). It searches across all languages (Dhivehi, Arabic, English) and book codes. It works with or without Arabic diacritics (tashkeel).
 
 - **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — only books matching ALL selected tags are shown.
 

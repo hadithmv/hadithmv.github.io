@@ -740,6 +740,9 @@ function setupDashboardControls() {
       if (bhd) bhd.click();
     }
   });
+
+  // Auto-focus search on desktop
+  if (window.innerWidth > 600) si.focus();
 }
 
 // Re-render dashboard on settings reset (if visible)
