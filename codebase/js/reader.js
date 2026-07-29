@@ -784,7 +784,8 @@ initializePageWithMetadata(async function (metadata) {
         if (total <= 1) return "";
         // Number input is O(1) — a <select> with one <option> per row is O(n) and
         // kills performance on large books (5 000+ <option> elements rendered twice).
-        return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:58px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
+        var w = Math.max(58, String(total).length * 18 + 10);
+        return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:${w}px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
       }
 
       var _lastPagUpdate = 0;
@@ -2011,8 +2012,7 @@ initializePageWithMetadata(async function (metadata) {
           }
           pct = last > first ? Math.round(((vRow - first) / (last - first)) * 100) : 0;
         } else {
-          var scrollH = document.documentElement.scrollHeight - window.innerHeight;
-          pct = scrollH > 0 ? Math.round((window.scrollY / scrollH) * 100) : 0;
+          pct = filteredData.length > 1 ? Math.round((visiblePageIndex() / (filteredData.length - 1)) * 100) : 0;
         }
         document.getElementById("readerProgressFill").style.width = pct + "%";
         // Milestone toasts at 25%, 50%, 75%, 100% — reset when scrolling back
