@@ -2,7 +2,7 @@ bookCode,titleAR,titleDV,titleEN
 AQD-DFK-aqidatuSalafSoabuni,عقيدة السلف لأبي عثمان الصابوني,އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ,Aqidatu Salaf Soabuni
 AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nawaqidul Islam
 AQD-qawaidulArbau,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau
-AQD-QRNUL-ushrulAkhir-ahkam,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,"Explanation of the Last Tenth of the Quran, with Important Matters for the Muslim"
+AQD-QRUL-ushrulAkhir-ahkam,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,"Explanation of the Last Tenth of the Quran, with Important Matters for the Muslim"
 AQD-usooluThalaatha,الأصول الثلاثة,ތިން އުސޫލު,Usoolu Thalaatha
 DFK-AKLQ-ATHR-akhbaruShuyukh,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Akhbaru Shuyukh
 DFK-AKLQ-ATHR-QRUL-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Akhlaq Hamalathil Quran
@@ -33,7 +33,7 @@ IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام...,...އިސ�
 IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,Rasoolul Islam Muhammad
 KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv
 KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Kunnaasha Muhammed Maldheefi
-QRN-bakurube,ترجمة بكر بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Bakurube Translation
+QRN-bakurube,ترجمة باكرو بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Bakurube Translation
 QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran with Imlai Script
 QRN-DATA-baseFile-2-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran with Uthamni Script
 QRN-hadithmv,ترجمة حديث إم في,ޙަދީޘްއެމްވީގެ ތަރުޖަމާ,Quran Hadithmv Translation
@@ -49,4 +49,5 @@ RDF-AQD-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ �
 RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Radheef Eegaal
 RDF-hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary
 RDF-nanfoiyComb,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Radheef Nanfoiy (Comb)
+RDF-QRUL-W2W-bakurube,معجم ألفاظ القران (مبني على ترجمة باكرو بي),ގުރްއާނުގެ ލަފްޒުތަކުގެ މާނަ (ބަކުރުބޭގެ ތަރުޖަމާގެ މައްޗަށް ބިނާކުރެވިފަ),Dictionary of Quranic Words (based on Bakurube's Translation)
 RDF-rasmee,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Radheef Rasmee
