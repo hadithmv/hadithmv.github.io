@@ -1347,7 +1347,7 @@ initializePageWithMetadata(async function (metadata) {
           var chrome = document.getElementById("collapsibleReaderPanel");
           var top = (topBar ? topBar.offsetHeight : 62);
           if (chrome && chrome.offsetHeight > 0) top += chrome.offsetHeight;
-          document.documentElement.style.setProperty("--rdf-header-top", (top - 1) + "px");
+          document.documentElement.style.setProperty("--rdf-header-top", top + "px");
         });
       }
       function setFocus(on) {
