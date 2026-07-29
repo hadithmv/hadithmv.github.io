@@ -532,14 +532,14 @@ ShareX
       - icons in context menu: on
 
 - anydesk
-  - installation (click the purple second card in dashboard)
+  - install anydesk; on this device (click the purple second card in dashboard)
+    - create desktop icon: off
     - install anydesk printer: off
-    - accept and install
-  - settings, unlock
-    - security, access
-      - unattended access
-        - set password
-        - allow other devices to save login: off?
+      - accept and install
+  - settings, access, unlock
+    - unattended access
+      - set password
+      - allow other devices to save login: off?
 
 - advanced systemcare
   - when running a care scan, set to auto fix

@@ -126,9 +126,15 @@ Content loads in chunks: 25 rows (card mode) or 30 rows (table mode), with 50 ro
 
 First (`<<`) / Prev (`<`) / a number input showing current row / Next (`>`) / Last (`>>`). The input shows `total / [current]` and accepts direct row-number entry. All buttons and the input share the same height. Pagination updates are throttled to ~8 fps and skip DOM writes when values haven't changed.
 
-### Table mode (RDF view)
+### View modes
 
-When toggled via the View button (`v` key), the reader switches from vertical cards to a horizontal `<table>` with `table-layout: auto`. Columns size to content — narrow columns for short text, wide for long text. The first column (row number) has a 60px minimum width and `white-space: nowrap`; other columns have no fixed width, letting the browser distribute space naturally.
+The reader supports three visual layouts, selected via a dropdown in the toolbar or cycled with the `v` key:
+
+**Card mode** (default for most books) — Each row renders as a vertical stack of `<div class="reader-field">` cards, with a diamond ornament divider between rows. Fields are ordered by column index (left to right in the CSV header), with CSS classes applied based on column-header prefix (`head`, `kitab`, `bab`, `matn`, `sharh`, `foot`). Arabic‑Dhivehi transitions and matn‑sharh transitions get visual spacers.
+
+**Table mode** — Available for all books. Renders as an HTML `<table>` with `table-layout: auto`, a sticky `<thead>`, and a synchronized top scrollbar. Columns size to content — the first column (row number) has a 60px minimum width and `white-space: nowrap`. RDF‑prefixed books default to table on desktop (>600px); other books default to card.
+
+**Parallel text mode** — Two‑column grid layout that groups fields by language: columns whose headers end in `dv` go in the right column; columns whose headers end in `ar` (or are Quran ayah‑text columns) go in the left column. Neutral columns (no language suffix, e.g. `#`, bare `foot`) span full width. On mobile (≤600px) the columns stack vertically. The classification logic uses the same header‑suffix conventions already present in `renderRowHTML` (line 416‑423).
 
 **Horizontal scrollbar.** When column content exceeds the viewport width, a sticky horizontal scrollbar appears above the table. It sits below the reader chrome (`position: sticky; top: var(--rdf-header-top) + 2px; z-index: 6`) so it remains visible during vertical scrolling. Arrow buttons (`▶` back / `◀` forward) flank the scrollbar and scroll one column width (150px) per click with a custom `requestAnimationFrame` ease-out animation. Shift+wheel on the table area also drives horizontal scroll. The scrollbar row is hidden entirely when the table fits without overflow.
 
@@ -147,7 +153,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | Copy            | **Standard books:** `titleDV - titleAR` header, then row text with `ـ` divider before `foot` columns, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. **Quran books:** no book header; decorated ayah text, `[name surahNo : ayahNo]` reference, then columns grouped by source book with one book-level label per book. `navigator.clipboard.writeText()` with `execCommand` fallback. |
 | Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                      |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
-| View toggle     | Switches between vertical card mode and horizontal table mode. RDF-prefixed books default to table on desktop (>600px), card on mobile. Applies to all books.                                                                                                                                                        |
+| View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `v` key cycles through modes.                                                                                                                                                        |
 | Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
 | Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
@@ -244,7 +250,7 @@ The settings reset button clears all of the above except `lang`.
 | `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
 | `z`             | Reader                 | Toggle focus mode (same as ↕/▼ button) |
 | `t`             | Reader                 | Toggle tashkeel                        |
-| `v`             | Reader                 | Toggle card/table view                 |
+| `v`             | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
 | `p`             | Reader                 | Toggle bookmark (pin)                  |
 | `s`             | Reader                 | Share link                             |
 | `e`             | Reader                 | Open export dropdown                   |

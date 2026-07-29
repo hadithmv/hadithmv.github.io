@@ -12,7 +12,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Sort** — use the dropdown on the right to sort books A→Z or Z→A.
 
-- **Switch view** — click the Table/Card button to toggle between a card grid and a table with all book details.
+- **Switch view** — click the 📖 View dropdown in the reader toolbar to choose between Card, Table, or Parallel Text view. The `v` key cycles through modes.
 
 - **Reset** — the ↺ Reset button clears all filters, search, view mode, pins, and history.
 
@@ -34,7 +34,7 @@ A thin progress bar runs along the bottom of the top bar. For Quran books it tra
 | Row            | What it does                                                                                                                                                                                                           |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Search bar** | Find text inside the book. Supports wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~`), negation (`-word`), and exact column matching (`col:2:word`). The `ab` button toggles whole‑word mode for all terms. |
-| **Toolbar**    | Copy the current row, hide Arabic diacritics, share a link, switch between card and table view, reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow.                     |
+| **Toolbar**    | Copy the current row, hide Arabic diacritics, share a link, switch view mode (Card / Table / Parallel), reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow.                     |
 | **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The subtitle and tag badges are on the same row — scroll sideways if it's too wide.                                                              |
 
 ### Reading the Quran
@@ -53,6 +53,18 @@ Buttons at the top of the list quickly switch between preset configurations: **M
 
 When columns from one or more other books are active, each book's content is prefixed with a bold label showing the book's display name (e.g. **ދިވެހި ތަރުޖަމާ:**). This makes it easy to tell which translation or tafsir each block of text comes from.
 
+### Parallel Text View
+
+Click the 📖 **View dropdown** in the toolbar and select **↔️ Parallel** (or press `v` until it activates). This switches to a two‑column layout:
+
+- **Right column** — Dhivehi text: columns whose headers end in `dv` (e.g. `matnDV`, `bodyDV`, `wordDV`).
+- **Left column** — Arabic text: columns whose headers end in `ar` (e.g. `matnAR`, `bodyAR`, `wordAR`) plus Quran ayah text (`ayahImlai`/`ayahUthmani`).
+- **Full‑width** — Neutral columns without a language suffix (row numbers, bare `foot`, etc.) span both columns.
+
+Each column preserves the original field styling (matn, sharh, headers, footnotes) so the reading experience is consistent. On mobile screens (≤600px) the columns stack vertically for readability.
+
+This view is especially useful for Quran reading — you see the Arabic ayah on the left and all loaded Dhivehi translations/tafsirs stacked on the right in a clean side‑by‑side arrangement.
+
 ### Keyboard shortcuts
 
 | Key             | Action                                 |
@@ -63,7 +75,7 @@ When columns from one or more other books are active, each book's content is pre
 | `Ctrl+Shift+F`  | Open advanced search                   |
 | `z`             | Toggle focus mode                      |
 | `t`             | Toggle diacritics (tashkeel)           |
-| `v`             | Toggle card / table view               |
+| `v`             | Cycle view mode (Card → Table → Parallel) |
 | `s`             | Copy share link                        |
 | `e`             | Open export menu                       |
 | `Ctrl+,`        | Open settings                          |

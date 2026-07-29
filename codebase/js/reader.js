@@ -351,14 +351,60 @@ initializePageWithMetadata(async function (metadata) {
         return t;
       }
 
-      var isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600;
-      var btnViewToggle = document.getElementById("btnViewToggle");
-      btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
-      btnViewToggle.addEventListener("click", function () {
-        isTableMode = !isTableMode;
-        btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
-        rebuildAll();
-      });
+      var viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
+      var _tableAvailable = true;
+
+      function updateViewModeUI() {
+        var trigger = document.getElementById("btnViewMode");
+        if (trigger) {
+          trigger.textContent = t("btnViewMode") + " ▾";
+        }
+        // highlight active option
+        var opts = document.querySelectorAll("#viewModeDropdown .view-mode-option");
+        for (var oi = 0; oi < opts.length; oi++) {
+          var optMode = opts[oi].getAttribute("data-mode");
+          opts[oi].classList.toggle("active", optMode === viewMode);
+          if (optMode === "table") opts[oi].style.display = _tableAvailable ? "" : "none";
+        }
+      }
+
+      // ── View mode dropdown ──
+      var btnViewMode = document.getElementById("btnViewMode");
+      var viewModeDropdown = document.getElementById("viewModeDropdown");
+      if (btnViewMode && viewModeDropdown) {
+        btnViewMode.addEventListener("click", function (e) {
+          e.stopPropagation();
+          window.closeAllDropdowns();
+          if (viewModeDropdown.style.display === "none" || !viewModeDropdown.style.display) {
+            var r = btnViewMode.getBoundingClientRect();
+            viewModeDropdown.style.position = "fixed";
+            viewModeDropdown.style.top = (r.bottom + 4) + "px";
+            viewModeDropdown.style.left = r.left + "px";
+            viewModeDropdown.style.display = "block";
+          } else {
+            viewModeDropdown.style.display = "none";
+          }
+        });
+        document.addEventListener("click", function (e) {
+          if (!viewModeDropdown.contains(e.target) && e.target !== btnViewMode) {
+            viewModeDropdown.style.display = "none";
+          }
+        });
+        var modeOptions = viewModeDropdown.querySelectorAll(".view-mode-option");
+        for (var mi = 0; mi < modeOptions.length; mi++) {
+          modeOptions[mi].addEventListener("click", function (e) {
+            e.stopPropagation();
+            var mode = this.getAttribute("data-mode");
+            if (mode !== viewMode) {
+              viewMode = mode;
+              updateViewModeUI();
+              rebuildAll();
+            }
+            viewModeDropdown.style.display = "none";
+          });
+        }
+      }
+      updateViewModeUI();
 
       // ── Quran helpers ──────────────────────────────────────
       function getAyahNoFromRow(row) {
@@ -444,9 +490,128 @@ initializePageWithMetadata(async function (metadata) {
         return h;
       }
 
+      function renderParallelRowHTML(row, rowNum) {
+        var h = "";
+        // Row number (neutral — full width above)
+        if (hasRowNums && hiddenColumns.indexOf(0) === -1) {
+          h += '<div class="reader-row-num">#' + rowNum + '</div>';
+        }
+
+        // Collect visible non-empty fields
+        var fields = [];
+        var fieldStart = hasRowNums ? 1 : 0;
+        for (var fi = fieldStart; fi < row.length; fi++) {
+          if (hiddenColumns.indexOf(fi) !== -1) continue;
+          var fv = row[fi];
+          if (fv !== null && fv !== undefined && String(fv).trim() !== "") {
+            fields.push({ value: String(fv).trim().replace(/\r\n/g, "\n").replace(/\n{2,}/g, "\n"), index: fi });
+          }
+        }
+
+        var query = searchInput.value.trim();
+
+        // Helper: classify a column as AR, DV, or neutral
+        function classify(colIdx) {
+          var hdr = (headerRow && headerRow[colIdx]) ? headerRow[colIdx].toLowerCase() : "";
+          if (quranBook && isAyahTextColumn(hdr)) return "ar";
+          if (hdr.endsWith("ar")) return "ar";
+          if (hdr.endsWith("dv")) return "dv";
+          return "neutral";
+        }
+
+        // Helper: render one field's display HTML
+        function fieldHTML(rawVal, colIdx) {
+          var hdr = (headerRow && headerRow[colIdx]) ? headerRow[colIdx].toLowerCase() : "";
+          var d;
+          if (quranBook && isAyahTextColumn(hdr)) {
+            var ayahNo = getAyahNoFromRow(row);
+            var showBraces = LS.get("quranShowBraces", true);
+            var showAyahNum = LS.get("quranShowAyahNum", true);
+            d = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get("quranShowNumBrackets", false)), query));
+          } else {
+            d = markupTashkeel(highlightMatches(rawVal, query));
+          }
+          if (metadata.bookCode && metadata.bookCode.toUpperCase().startsWith("KNSH-") && hdr.startsWith("body")) {
+            var nlIdx = d.indexOf("\n");
+            if (nlIdx !== -1) d = '<span class="knhs-body-header">' + d.slice(0, nlIdx) + '</span>' + d.slice(nlIdx);
+          }
+          return d;
+        }
+
+        // Partition fields into AR, DV, neutral (pre/post)
+        var arF = [], dvF = [], preN = [], postN = [];
+        var seenLang = false;
+        for (var pi = 0; pi < fields.length; pi++) {
+          var cl = classify(fields[pi].index);
+          if (cl === "neutral") {
+            (seenLang ? postN : preN).push(fields[pi]);
+          } else {
+            seenLang = true;
+            (cl === "ar" ? arF : dvF).push(fields[pi]);
+          }
+        }
+
+        var lastExtBook = "";
+
+        // Render a group of fields with optional book labels
+        function renderFieldGroup(fg) {
+          var gh = "";
+          for (var gi = 0; gi < fg.length; gi++) {
+            var gIdx = fg[gi].index;
+            var gHdr = (headerRow && headerRow[gIdx]) ? headerRow[gIdx].toLowerCase() : "";
+            var gDisplay = fieldHTML(fg[gi].value, gIdx);
+            // Quran book labels
+            if (quranBook && hasExternalColumns(metadata.bookCode)) {
+              var gLabel = getBookLabel(gIdx);
+              if (gLabel && gLabel !== lastExtBook) {
+                gh += '<div class="reader-quran-book-label">' + gLabel + ':</div>';
+                lastExtBook = gLabel;
+              } else if (!gLabel) { lastExtBook = ""; }
+            }
+            if (gHdr.startsWith("foot") && fg.length > 1) {
+              gh += '<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>';
+              gh += '<div class="reader-field reader-footnotes" dir="auto">' + gDisplay + '</div>';
+            } else {
+              var gCls = "reader-field";
+              if (gHdr.startsWith("head")) gCls += " reader-field-header";
+              else if (gHdr.startsWith("kitab")) gCls += " reader-field-kitab";
+              else if (gHdr.startsWith("bab")) gCls += " reader-field-bab";
+              else if (gHdr.startsWith("matn")) gCls += " reader-field-matn";
+              else if (gHdr.startsWith("sharh")) gCls += " reader-field-sharh";
+              gh += '<div class="' + gCls + '" dir="auto">' + gDisplay + '</div>';
+            }
+          }
+          return gh;
+        }
+
+        // Pre-language neutral fields (full width above)
+        h += renderFieldGroup(preN);
+
+        // Side-by-side language columns
+        // RTL grid: first child → right side, second child → left side
+        // User wants DV on right, AR on left
+        if (arF.length > 0 || dvF.length > 0) {
+          h += '<div class="parallel-columns">';
+          // DV column (right — first child in RTL grid)
+          h += '<div class="parallel-dv-col">';
+          h += dvF.length > 0 ? renderFieldGroup(dvF) : '<div class="parallel-empty"></div>';
+          h += '</div>';
+          // AR column (left — second child in RTL grid)
+          h += '<div class="parallel-ar-col">';
+          h += arF.length > 0 ? renderFieldGroup(arF) : '<div class="parallel-empty"></div>';
+          h += '</div>';
+          h += '</div>';
+        }
+
+        // Post-language neutral fields (full width below)
+        h += renderFieldGroup(postN);
+
+        return h;
+      }
+
       function renderChunkHTML(startIdx, endIdx) {
         var h = "";
-        if (isTableMode) {
+        if (viewMode === "table") {
           h = '<table class="rdf-table"><tbody>';
           for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
             var row = filteredData[i];
@@ -465,12 +630,13 @@ initializePageWithMetadata(async function (metadata) {
           }
           h += '</tbody></table>';
         } else {
+          var renderFn = viewMode === "parallel" ? renderParallelRowHTML : renderRowHTML;
           for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
             if (i > startIdx) h += `<div class="reader-divider"></div>`;
             var row = filteredData[i];
             var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
             h += `<div class="reader-chunk" data-row="${i}">`;
-            h += renderRowHTML(row, rowNum);
+            h += renderFn(row, rowNum);
             h += `</div>`;
           }
         }
@@ -506,11 +672,11 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function loadInitial() {
-        var initialRows = isTableMode ? 50 : ROWS_PER_CHUNK * 3;
+        var initialRows = viewMode === "table" ? 50 : ROWS_PER_CHUNK * 3;
         var end = Math.min(initialRows, filteredData.length);
         loadedStart = 0;
         loadedEnd = end;
-        if (isTableMode) {
+        if (viewMode === "table") {
           var thead = "";
           if (headerRow) {
             thead = "<thead><tr>";
@@ -692,9 +858,9 @@ initializePageWithMetadata(async function (metadata) {
 
       function appendNext() {
         if (loadedEnd >= filteredData.length) return;
-        var chunkSize = isTableMode ? 30 : ROWS_PER_CHUNK;
+        var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
         var nextEnd = Math.min(loadedEnd + chunkSize, filteredData.length);
-        if (isTableMode) {
+        if (viewMode === "table") {
           var body = document.getElementById("rdfBody");
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
           requestAnimationFrame(function () {
@@ -710,9 +876,9 @@ initializePageWithMetadata(async function (metadata) {
 
       function prependPrev() {
         if (loadedStart <= 0) return;
-        var chunkSize = isTableMode ? 30 : ROWS_PER_CHUNK;
+        var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
         var nextStart = Math.max(0, loadedStart - chunkSize);
-        if (isTableMode) {
+        if (viewMode === "table") {
           var body = document.getElementById("rdfBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
           requestAnimationFrame(function () {
@@ -1744,9 +1910,10 @@ initializePageWithMetadata(async function (metadata) {
         LS.set("hideTashkeel", false);
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
-        // Reset table mode to default for this book
-        isTableMode = metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600;
-        if (btnViewToggle) btnViewToggle.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+        // Reset view mode to default for this book
+        viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
+        _tableAvailable = true;
+        updateViewModeUI();
         // Reset Quran display settings
         if (quranBook) {
           LS.set("quranShowBraces", true);
@@ -1874,8 +2041,16 @@ initializePageWithMetadata(async function (metadata) {
         }
         if (e.key === "v" && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
-          var vtBtn = document.getElementById("btnViewToggle");
-          if (vtBtn) vtBtn.click();
+          // Cycle: card → table → parallel → card (skip table if not available)
+          if (viewMode === "card") {
+            viewMode = _tableAvailable ? "table" : "parallel";
+          } else if (viewMode === "table") {
+            viewMode = "parallel";
+          } else {
+            viewMode = "card";
+          }
+          updateViewModeUI();
+          rebuildAll();
         }
         if (e.key === "p" && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
@@ -1951,8 +2126,7 @@ initializePageWithMetadata(async function (metadata) {
         var btn = document.getElementById("btnFocus");
         var on = document.documentElement.hasAttribute("data-focus");
         if (btn) btn.textContent = on ? "▼" : "↕";
-        var vtBtn = document.getElementById("btnViewToggle");
-        if (vtBtn) vtBtn.textContent = t(isTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+        updateViewModeUI();
         if (filteredData.length > 0) rebuildAll();
       });
 

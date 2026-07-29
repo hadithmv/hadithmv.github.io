@@ -364,6 +364,74 @@
   background: var(--color-nav-btn-hover-bg);
 }
 
+/* ── View mode dropdown ── */
+.view-mode-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 60;
+  margin-top: 4px;
+  padding: 6px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+}
+
+.view-mode-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 5px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  text-align: right;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+}
+
+.view-mode-option:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.vm-check {
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+  font-size: 0.8em;
+  color: var(--color-accent, #2563eb);
+  visibility: hidden;
+}
+
+.view-mode-option.active .vm-check {
+  visibility: visible;
+}
+
+/* ── Parallel text view ── */
+.parallel-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  direction: rtl;
+  margin: 8px 0;
+}
+
+.parallel-ar-col,
+.parallel-dv-col {
+  min-width: 0;
+}
+
+.parallel-empty {
+  min-height: 1em;
+}
+
 /* ── Tashkeel hide mode ── */
 .hide-tashkeel .tashkeel {
   display: none;
@@ -1063,5 +1131,10 @@
   #pageSubRow {
     justify-content: flex-start !important;
     margin: 0 !important;
+  }
+  /* Parallel view: stack columns vertically on mobile */
+  .parallel-columns {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }

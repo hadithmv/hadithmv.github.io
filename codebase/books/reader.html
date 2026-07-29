@@ -518,14 +518,20 @@
               >
                 📌 ޕިން
               </button>
-              <button
-                id="btnViewToggle"
-                class="toolbar-btn"
-                title="Toggle card / table view (v key)"
-                data-i18n="btnViewToggleText"
-              >
-                📖 ޓޭބަލް
-              </button>
+              <div class="toolbar-group" style="position: relative" id="viewModeGroup">
+                <button
+                  id="btnViewMode"
+                  class="toolbar-btn"
+                  title="Change view mode (v key)"
+                >
+                  📖 ވިއު ▾
+                </button>
+                <div id="viewModeDropdown" class="view-mode-dropdown" style="display:none">
+                  <label data-mode="card" class="view-mode-option"><span class="vm-check">✓</span> 📄 ކާޑް</label>
+                  <label data-mode="table" class="view-mode-option"><span class="vm-check">✓</span> ▦ ޓޭބަލް</label>
+                  <label data-mode="parallel" class="view-mode-option"><span class="vm-check">✓</span> ↔️ ދެފަރާތް</label>
+                </div>
+              </div>
               <button
                 id="btnResetReader"
                 class="toolbar-btn"
