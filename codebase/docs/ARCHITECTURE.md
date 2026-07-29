@@ -64,7 +64,7 @@ The reader's page‑header tag badges link to `index.html?tags=CODE`, letting re
 │  Tags: [📌 ޕިން (3)] [Aqidah ✕] [Hadith] [Fiqh] …          │
 │  Books: 12                                                  │
 ├─ Sort row ─────────────────────────────────────────────────┤
-│  📌 Pins ▾   🕐 History ▾   ↺ Reset   ☰≡ View   Sort: A-Z │
+│  📌 Pins ▾   🕐 History ▾   ↺ Reset   📖 View   Sort: A-Z  │
 ├─ Card grid ────────────────────────────────────────────────┤
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐                  │
 │  │ 📌 Aqidah │  │  Hadith  │  │  Quran   │                  │
@@ -219,7 +219,7 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `fontSystem` | `common.js` | `"1"` or `"0"` | `"1"` = system font, `"0"` = Hadithmv |
 | `lang` | `i18n.js` | `"dv"` / `"en"` / `"ar"` | UI language |
 | `focus` | `reader.js` | `"1"` or `"0"` | Focus reading mode |
-| `reader:rowsPerPage` | `reader.js` | number (JSON) | Rows per page |
+
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
 | `reader:hiddenColumns` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns |
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
@@ -242,7 +242,8 @@ The settings reset button clears all of the above except `lang`.
 | Key             | Context                | Action                                 |
 | --------------- | ---------------------- | -------------------------------------- |
 | `←` / `→`       | Reader                 | Previous / next row                    |
-| Swipe left/right | Reader (mobile)     | Previous / next row |
+| Swipe right | Reader (mobile)     | Next row |
+| Swipe left  | Reader (mobile)     | Previous row |
 | `Home` / `End`  | Reader                 | First / last row                       |
 | `↑` / `↓`       | Search focused         | Navigate results                       |
 | `Enter`         | Search focused         | Select result                          |
@@ -316,7 +317,7 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 | File | Role | Columns |
 |------|------|---------|
-| `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base data (always loaded) | `juzNo, surahNo, ayahNo, basmalah, ayahImlai` |
+| `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base data (always loaded) | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai` |
 | `QRN-DATA-baseFile-2-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
 | `QRN-DATA-registry-surahSelector.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount` |
 | `QRN-DATA-registry-bookToggle.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |

@@ -72,12 +72,12 @@ Returns the data CSV path: `"../data/" + bookCode + ".csv"`.
 
 ### `extractTags(bookCode)`
 
-Splits the book code on `-`, strips known tag prefixes and suffix flags (`-HDN`, `-DRAFT`), resolves remaining segments against the tag registry. Returns `Array<{code, label, color, bg}>`.
+Splits the book code on `-`, strips known tag prefixes and suffix flags (`-HDN`, `-DSC`), resolves remaining segments against the tag registry. Returns `Array<{code, label, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
 
 ```js
 extractTags("AQD-DFK-sharhuSunnahBarbahari");
-// [{code:"AQD", label:"Aqidah", color:"#4f46e5", bg:"#eef2ff"},
-//  {code:"DFK", label:"DFK",    color:"#7c3aed", bg:"#f5f3ff"}]
+// [{code:"AQD", label:"Aqidah", palette: 0},
+//  {code:"DFK", label:"DFK",    palette: 1}]
 ```
 
 ### Dashboard state
@@ -303,7 +303,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
 | `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
-| `window.closeAllDropdowns()` | Closes all 7 registered dropdowns at once. |
+| `window.closeAllDropdowns()` | Closes all 8 registered dropdowns at once. |
 | `window.openDropdown(dd, anchorEl, gap)` | Closes other dropdowns, positions `dd` below `anchorEl` with the given gap (default 4px), and shows it. Used by all dropdown toggles. |
 | `trapWheel(el)` (quran.js) | Stops wheel events on `el` from propagating — prevents dropdown scroll from hijacking the horizontal `.quran-nav` row. |
 

@@ -106,7 +106,7 @@ async function loadTagDefinitions() {
  * to populate the cache, or the function returns no tags (graceful fallback).
  *
  * @param {string} bookCode - e.g. "AQD-DFK-sharhuSunnahBarbahari"
- * @returns {Array<{code: string, label: string, color: string, bg: string}>}
+ * @returns {Array<{code: string, label: string, palette: number}>}
  */
 function extractTags(bookCode) {
   if (!bookCode) return [];

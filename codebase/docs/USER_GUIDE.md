@@ -12,7 +12,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Sort** — use the dropdown on the right to sort books A→Z or Z→A.
 
-- **Switch view** — click the 📖 View dropdown in the reader toolbar to choose between Card, Table, or Parallel Text view. The `v` key cycles through modes.
+- **Switch view** — click the 📖 View dropdown in the reader toolbar to choose between Card, Table (available for all books), or Parallel Text view. The `v` key cycles through modes.
 
 - **Reset** — the ↺ Reset button clears all filters, search, view mode, pins, and history.
 
