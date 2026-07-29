@@ -1,4 +1,6 @@
 /* ---- Dashboard ---- */
+#topBar { max-width: 1000px; }
+
 #dashboardWrapper {
   max-width: 1000px;
   margin: 84px auto 40px;
