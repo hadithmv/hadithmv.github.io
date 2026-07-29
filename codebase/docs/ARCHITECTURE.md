@@ -18,12 +18,12 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `css/tableView.css`          | Reader: table view mode, top scrollbar, sentinels                          |
 | `css/quran.css`              | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
-| `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard               |
+| `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
 | `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, export, keyboard, dropdowns, focus mode |
-| `js/quran.js`                | Quran: data loading, decoration, nav, column registry, UI setup            |
-| `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`                     |
-| `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history         |
+| `js/quran.js`                | Quran: data loading, decoration, nav, column registry, column classification helpers, UI setup |
+| `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
+| `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
 | `js/epub.js`                 | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand               |
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
@@ -229,9 +229,9 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `reader:quranShowBraces` | `quran.js` | boolean (JSON) | Show Quranic braces decoration |
 | `reader:quranShowNumBrackets` | `quran.js` | boolean (JSON) | Brackets around number only (not ayah text) |
 
-The settings reset button clears all of the above except `lang`.
+The settings reset button clears all of the above except `lang`. Keys prefixed with `reader:` are scoped to the reader page and are not touched by dashboard-level operations. Dashboard keys (`pinnedBooks`, `readHistory`) are separate — the prefix convention prevents accidental cross-contamination.
 
-> **When adding new persisted state**, add a row to this table. This is the single reference for porting to desktop, mobile, or other platforms.
+> **When adding new persisted state**, add a row to this table, add the key to `window.LS_KEYS` in common.js, and use a `reader:` prefix for reader‑specific keys. All modules reference `window.LS_KEYS` instead of raw strings. This is the single reference for porting to desktop, mobile, or other platforms.
 
 ### Internationalisation
 

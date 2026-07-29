@@ -66,6 +66,41 @@ export function parseCSV(text) {
 }
 
 /**
+ * Fetch a CSV file, parse it, and filter out empty rows.
+ */
+export async function fetchCSV(path) {
+  var resp = await fetch(path);
+  if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
+  var text = await resp.text();
+  var rows = parseCSV(text);
+  return rows.filter(function (r) { return Array.isArray(r) && r.some(function (c) { return c !== null && c !== ""; }); });
+}
+
+/**
+ * Parse CSV text into an array of objects using the first row as headers.
+ */
+export function parseCSVWithHeader(text) {
+  var rows = parseCSV(text);
+  if (rows.length === 0) return [];
+  var headers = rows[0].map(function (h) { return h.trim(); });
+  return rows.slice(1).map(function (row) {
+    var obj = {};
+    headers.forEach(function (h, i) { obj[h] = (row[i] || "").trim(); });
+    return obj;
+  });
+}
+
+/**
+ * Fetch a CSV file and parse it into objects using the first row as headers.
+ */
+export async function loadCSVData(path) {
+  var resp = await fetch(path);
+  if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
+  var text = await resp.text();
+  return parseCSVWithHeader(text);
+}
+
+/**
  * Convert a 2D array back to CSV text.
  */
 export function unparseCSV(rows) {

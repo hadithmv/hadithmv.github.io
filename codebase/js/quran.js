@@ -6,9 +6,10 @@
  * Imported by reader.js when a QRN-prefixed book is detected.
  */
 
-import { parseCSV } from "./csv.js";
+import { parseCSV, fetchCSV } from "./csv.js";
 import { loadBookNames, getBookTitleSync } from "./catalog.js";
 import { t, currentLang } from "./i18n.js";
+import { normaliseForSearch } from "./search.js";
 
 // ═══════════════════════════════════════════════════════════════
 // Detection
@@ -51,25 +52,6 @@ var _baseDataCache = null;
 var _uthmaniDataCache = null;
 var _surahNamesCache = null;
 var _colRegistryCache = null;
-
-function fetchCSV(path) {
-  return fetch(path)
-    .then(function (r) {
-      if (!r.ok) throw Error("Failed to load " + path);
-      return r.text();
-    })
-    .then(function (text) {
-      var rows = parseCSV(text);
-      return rows.filter(function (row) {
-        return (
-          Array.isArray(row) &&
-          row.some(function (v) {
-            return v !== null && v !== "";
-          })
-        );
-      });
-    });
-}
 
 // showToast is now on window (common.js)
 // ═══════════════════════════════════════════════════════════════
@@ -173,6 +155,38 @@ var AYAH_TEXT_COLS = /^ayah(imlai|uthmani)$/i;
 
 export function isAyahTextColumn(header) {
   return AYAH_TEXT_COLS.test((header || "").trim());
+}
+
+// ── Column classification helpers ────────────────────────────
+// Shared across card/parallel/table renderers and all export formats.
+
+/** Returns the reader-field-* CSS class suffix for a column header, or "". */
+export function columnFieldClass(hdr) {
+  if (hdr.startsWith("head")) return "reader-field-header";
+  if (hdr.startsWith("kitab")) return "reader-field-kitab";
+  if (hdr.startsWith("bab")) return "reader-field-bab";
+  if (hdr.startsWith("matn")) return "reader-field-matn";
+  if (hdr.startsWith("sharh")) return "reader-field-sharh";
+  return "";
+}
+
+/** Returns the td-* class for table mode, or "". */
+export function columnTdClass(hdr) {
+  if (hdr.startsWith("matn")) return ' class="td-matn"';
+  if (hdr.startsWith("sharh")) return ' class="td-sharh"';
+  return "";
+}
+
+export function isFootnoteColumn(hdr) { return hdr.startsWith("foot"); }
+export function isArDvTransition(prevHdr, currHdr) { return prevHdr.endsWith("ar") && currHdr.endsWith("dv"); }
+export function isMatnSharhTransition(prevHdr, currHdr) { return prevHdr.startsWith("matn") && currHdr.startsWith("sharh"); }
+
+/** Classify a column as "ar", "dv", or "neutral" for parallel text view. */
+export function classifyColumnLang(hdr, isQuranBook) {
+  if (isQuranBook && isAyahTextColumn(hdr)) return "ar";
+  if (hdr.endsWith("ar")) return "ar";
+  if (hdr.endsWith("dv")) return "dv";
+  return "neutral";
 }
 
 export function decorateAyah(
@@ -385,36 +399,11 @@ export function findAyahRow(surahNo, ayahNo, baseData) {
 // Surah list HTML (used by the surah selector overlay)
 // ═══════════════════════════════════════════════════════════════
 
-function normaliseForSearchQuery(str) {
-  // Strip Arabic tashkeel, normalise alif, map Thaana thikijehi
-  return str
-    .toLowerCase()
-    .replace(/[ؐ-ًؚ-ٰٟۖ-ۭ]/g, "")
-    .replace(/ـ/g, "")
-    .replace(/[أإآ]/g, "ا")
-    .replace(/ى/g, "ي")
-    .replace(/ؤ/g, "و")
-    .replace(/ޘ/g, "ސ")
-    .replace(/ޙ/g, "ހ")
-    .replace(/ޚ/g, "ހ")
-    .replace(/ޛ/g, "ޒ")
-    .replace(/ޜ/g, "ޒ")
-    .replace(/ޝ/g, "ސ")
-    .replace(/ޞ/g, "ސ")
-    .replace(/ޟ/g, "ދ")
-    .replace(/ޠ/g, "ތ")
-    .replace(/ޡ/g, "ޒ")
-    .replace(/ޢ/g, "އ")
-    .replace(/ޣ/g, "ގ")
-    .replace(/ޤ/g, "ގ")
-    .replace(/ޥ/g, "ވ");
-}
-
 export function buildSurahListHTML(query, currentSurah) {
   var names = getSurahNames();
   var nq = "";
   if (query && query.trim()) {
-    nq = normaliseForSearchQuery(query.trim());
+    nq = normaliseForSearch(query.trim());
   }
   var html = "";
   for (var i = 0; i < names.length; i++) {
@@ -422,7 +411,7 @@ export function buildSurahListHTML(query, currentSurah) {
     if (nq) {
       var haystack =
         s.nameAR + " " + s.nameDV + " " + s.nameEN + " " + s.surahNo;
-      if (normaliseForSearchQuery(haystack).indexOf(nq) === -1) continue;
+      if (normaliseForSearch(haystack).indexOf(nq) === -1) continue;
     }
     var active = s.surahNo === currentSurah ? " active" : "";
     html +=

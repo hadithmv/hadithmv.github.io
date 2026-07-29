@@ -9,8 +9,8 @@
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
-import { parseCSV, unparseCSV } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah } from "./quran.js";
+import { parseCSV, unparseCSV, fetchCSV } from "./csv.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -18,16 +18,8 @@ initializePageWithMetadata(async function (metadata) {
   var quranBook = isQuranBook(metadata.bookCode);
 
   function loadStandardBook() {
-    return fetch(metadata.csvPath)
-      .then(function (r) { if (!r.ok) throw Error("Failed to load " + metadata.csvPath); return r.text(); })
-      .then(function (text) {
-        var data = parseCSV(text);
-        data = data.filter(
-          function (row) {
-            return Array.isArray(row) &&
-              row.some(function (value) { return value !== null && value !== ""; });
-          }
-        );
+    return fetchCSV(metadata.csvPath)
+      .then(function (data) {
         if (data.length === 0) return { data: data, headerRow: null, hasRowNums: false };
         var headerRow = data.shift();
         var firstCol = (headerRow[0] || "").trim();
@@ -210,9 +202,11 @@ initializePageWithMetadata(async function (metadata) {
       buildColumnToggles();
 
       // Shared: close all dropdowns (columns, export, Quran ayah/juz/content/display, surah overlay)
+      var _ddIds = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnContentDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
+      var _ddAnchors = {}; // id → anchor element
+
       window.closeAllDropdowns = function () {
-        var ids = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnContentDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
-        ids.forEach(function (id) {
+        _ddIds.forEach(function (id) {
           var el = document.getElementById(id);
           if (el) el.style.display = "none";
         });
@@ -228,6 +222,17 @@ initializePageWithMetadata(async function (metadata) {
         dd.style.display = "block";
       };
 
+      // Wire the outside-click-to-close handler for a dropdown
+      window.registerDropdown = function (id, dd, anchor) {
+        if (_ddIds.indexOf(id) === -1) _ddIds.push(id);
+        _ddAnchors[id] = anchor;
+        document.addEventListener("click", function (e) {
+          if (!dd.contains(e.target) && e.target !== anchor) {
+            dd.style.display = "none";
+          }
+        });
+      };
+
       // Column dropdown toggle
       var btnColDropdown = document.getElementById("btnColDropdown");
       var columnDropdown = document.getElementById("columnDropdown");
@@ -239,11 +244,7 @@ initializePageWithMetadata(async function (metadata) {
           columnDropdown.style.display = "none";
         }
       });
-      document.addEventListener("click", function (e) {
-        if (!columnDropdown.contains(e.target) && e.target !== btnColDropdown) {
-          columnDropdown.style.display = "none";
-        }
-      });
+      window.registerDropdown("columnDropdown", columnDropdown, btnColDropdown);
 
       // ── Tashkeel helpers ────────────────────────────────────
       // Unicode ranges for Arabic diacritics / tashkeel
@@ -251,12 +252,6 @@ initializePageWithMetadata(async function (metadata) {
 
       function markupTashkeel(text) {
         return text.replace(TASHKEEL_RE, '<span class="tashkeel">$&</span>');
-      }
-
-      // ── Search highlight ───────────────────────────────────
-
-      function escapeHTML(str) {
-        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
       }
 
       // ── Infinite-scroll render ──────────────────────────────
@@ -327,14 +322,10 @@ initializePageWithMetadata(async function (metadata) {
           }
           if (i > 0) {
             var prevHdr0 = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
-            if (prevHdr0.endsWith("ar") && colHeader0.endsWith("dv")) {
-              t += "\n";
-            }
-            if (prevHdr0.startsWith("matn") && colHeader0.startsWith("sharh")) {
-              t += "· · ·\n\n";
-            }
+            if (isArDvTransition(prevHdr0, colHeader0)) { t += "\n"; }
+            if (isMatnSharhTransition(prevHdr0, colHeader0)) { t += "· · ·\n\n"; }
           }
-          if (!colHeader0.startsWith("foot")) {
+          if (!isFootnoteColumn(colHeader0)) {
             if (colHeader0.startsWith("head")) {
               t += fields[i].value + "\n───────────\n\n";
             } else if (colHeader0.startsWith("kitab")) {
@@ -385,11 +376,7 @@ initializePageWithMetadata(async function (metadata) {
             viewModeDropdown.style.display = "none";
           }
         });
-        document.addEventListener("click", function (e) {
-          if (!viewModeDropdown.contains(e.target) && e.target !== btnViewMode) {
-            viewModeDropdown.style.display = "none";
-          }
-        });
+        window.registerDropdown("viewModeDropdown", viewModeDropdown, btnViewMode);
         var modeOptions = viewModeDropdown.querySelectorAll(".view-mode-option");
         for (var mi = 0; mi < modeOptions.length; mi++) {
           modeOptions[mi].addEventListener("click", function (e) {
@@ -461,29 +448,18 @@ initializePageWithMetadata(async function (metadata) {
           }
           if (i > 0) {
             var prevHdr = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
-            if (prevHdr.endsWith("ar") && colHeader.endsWith("dv")) {
+            if (isArDvTransition(prevHdr, colHeader)) {
               h += `<div class="reader-ar-dv-spacer"></div>`;
             }
-            if (prevHdr.startsWith("matn") && colHeader.startsWith("sharh")) {
+            if (isMatnSharhTransition(prevHdr, colHeader)) {
               h += `<div class="reader-matn-sharh-separator"></div>`;
             }
           }
-          if (colHeader.startsWith("foot") && fields.length > 1) {
+          if (isFootnoteColumn(colHeader) && fields.length > 1) {
             h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
             h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
-            var fieldClass = "reader-field";
-            if (colHeader.startsWith("head")) {
-              fieldClass += " reader-field-header";
-            } else if (colHeader.startsWith("kitab")) {
-              fieldClass += " reader-field-kitab";
-            } else if (colHeader.startsWith("bab")) {
-              fieldClass += " reader-field-bab";
-            } else if (colHeader.startsWith("matn")) {
-              fieldClass += " reader-field-matn";
-            } else if (colHeader.startsWith("sharh")) {
-              fieldClass += " reader-field-sharh";
-            }
+            var fieldClass = "reader-field" + (columnFieldClass(colHeader) ? " " + columnFieldClass(colHeader) : "");
             h += `<div class="${fieldClass}" dir="auto">${display}</div>`;
           }
         }
@@ -513,10 +489,7 @@ initializePageWithMetadata(async function (metadata) {
         // Helper: classify a column as AR, DV, or neutral
         function classify(colIdx) {
           var hdr = (headerRow && headerRow[colIdx]) ? headerRow[colIdx].toLowerCase() : "";
-          if (quranBook && isAyahTextColumn(hdr)) return "ar";
-          if (hdr.endsWith("ar")) return "ar";
-          if (hdr.endsWith("dv")) return "dv";
-          return "neutral";
+          return classifyColumnLang(hdr, quranBook);
         }
 
         // Helper: render one field's display HTML
@@ -568,16 +541,11 @@ initializePageWithMetadata(async function (metadata) {
                 lastExtBook = gLabel;
               } else if (!gLabel) { lastExtBook = ""; }
             }
-            if (gHdr.startsWith("foot") && fg.length > 1) {
+            if (isFootnoteColumn(gHdr) && fg.length > 1) {
               gh += '<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>';
               gh += '<div class="reader-field reader-footnotes" dir="auto">' + gDisplay + '</div>';
             } else {
-              var gCls = "reader-field";
-              if (gHdr.startsWith("head")) gCls += " reader-field-header";
-              else if (gHdr.startsWith("kitab")) gCls += " reader-field-kitab";
-              else if (gHdr.startsWith("bab")) gCls += " reader-field-bab";
-              else if (gHdr.startsWith("matn")) gCls += " reader-field-matn";
-              else if (gHdr.startsWith("sharh")) gCls += " reader-field-sharh";
+              var gCls = "reader-field" + (columnFieldClass(gHdr) ? " " + columnFieldClass(gHdr) : "");
               gh += '<div class="' + gCls + '" dir="auto">' + gDisplay + '</div>';
             }
           }
@@ -622,8 +590,7 @@ initializePageWithMetadata(async function (metadata) {
               var display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
               var tdClass = "";
               var tdHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
-              if (tdHdr.startsWith("matn")) tdClass = ' class="td-matn"';
-              else if (tdHdr.startsWith("sharh")) tdClass = ' class="td-sharh"';
+              tdClass = columnTdClass(tdHdr);
               h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
             }
             h += '</tr>';
@@ -662,8 +629,7 @@ initializePageWithMetadata(async function (metadata) {
               display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
             }
             var tdClass = "";
-            if (tdHdr.startsWith("matn")) tdClass = ' class="td-matn"';
-            else if (tdHdr.startsWith("sharh")) tdClass = ' class="td-sharh"';
+            tdClass = columnTdClass(tdHdr);
             h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
           }
           h += '</tr>';
@@ -1429,15 +1395,7 @@ initializePageWithMetadata(async function (metadata) {
       document.getElementById("btnShare").addEventListener("click", function () {
         var vRow = visiblePageIndex();
         var url = window.location.origin + window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
-        navigator.clipboard.writeText(url).then(function () {
-          showToast(t("toastShared"));
-        }).catch(function () {
-          var ta = document.createElement("textarea");
-          ta.value = url; ta.style.position = "fixed"; ta.style.left = "-9999px";
-          document.body.appendChild(ta); ta.select();
-          try { document.execCommand("copy"); showToast(t("toastShared")); } catch (_) {}
-          document.body.removeChild(ta);
-        });
+        window.copyToClipboard(url, "toastShared");
       });
 
       // ── Toolbar: pin toggle ──────────────────────────────────
@@ -1482,27 +1440,7 @@ initializePageWithMetadata(async function (metadata) {
         var body = buildClipboardText(vRow, vRow + 1);
         var text = quranBook ? body : (clipboardHeader + "\n\n" + body);
         if (!text.trim()) return;
-        navigator.clipboard
-          .writeText(text)
-          .then(function () {
-            showToast(t("toastCopied"));
-          })
-          .catch(function () {
-            // Fallback for older browsers / non-HTTPS
-            const ta = document.createElement("textarea");
-            ta.value = text;
-            ta.style.position = "fixed";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.select();
-            try {
-              document.execCommand("copy");
-              showToast(t("toastCopied"));
-            } catch (_) {
-              showToast(t("toastCopyFailed"));
-            }
-            document.body.removeChild(ta);
-          });
+        window.copyToClipboard(text, "toastCopied", "toastCopyFailed");
       });
 
 
@@ -1547,11 +1485,7 @@ initializePageWithMetadata(async function (metadata) {
           exportDropdown.style.display = "none";
         }
       });
-      document.addEventListener("click", function (e) {
-        if (!exportDropdown.contains(e.target) && e.target !== btnExport) {
-          exportDropdown.style.display = "none";
-        }
-      });
+      window.registerDropdown("exportDropdown", exportDropdown, btnExport);
 
       function downloadFile(content, filename, mime) {
         var blob = new Blob([content], { type: mime });

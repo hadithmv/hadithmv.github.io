@@ -19,6 +19,19 @@
 | `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
 | `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
 | `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()`, progress milestones |
+| `js/csv.js` | CSV parsing, serialisation, and fetch helpers |
+
+## csv.js
+
+Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `reader.js`, and `quran.js`.
+
+| Function | Description |
+|---|---|
+| `parseCSV(text)` | Parses CSV text into a 2D array. Handles quoted fields, commas inside quotes, multiline values, and `\r\n` / `\r` / `\n` line endings. |
+| `unparseCSV(rows)` | Converts a 2D array back to CSV text. Quotes fields containing commas, double‑quotes, or newlines. |
+| `fetchCSV(path)` | Fetches a CSV file, parses it, and returns a 2D array with empty rows filtered out. |
+| `parseCSVWithHeader(text)` | Parses CSV text into an array of objects using the first row as keys. Trims both headers and values. |
+| `loadCSVData(path)` | Fetches a CSV file and parses it into objects via `parseCSVWithHeader`. Convenience wrapper for registry files. |
 
 ## catalog.js
 
@@ -96,7 +109,11 @@ extractTags("AQD-DFK-sharhuSunnahBarbahari");
 
 ## search.js
 
-Pure logic. No DOM dependencies. Imported by both `catalog.js` and `reader.js`.
+Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran.js`, `xlsx.js`, and `epub.js`.
+
+### `escapeHTML(str)` / `escapeXML(str)`
+
+HTML‑entity escaping. `escapeHTML` escapes `&`, `<`, `>`. `escapeXML` also escapes `"` and `'` (needed by xlsx.js and epub.js for XML output).
 
 ### `normaliseForSearch(str)`
 
@@ -194,6 +211,18 @@ Processes all `data-i18n` attributes in the DOM and sets initial language from `
 
 Shows a brief toast message at the bottom of the screen. Single shared implementation in `common.js` — used by reader, quran, and catalog modules. Auto-dismisses after 2.5s.
 
+### `window.copyToClipboard(text, successKey, failKey?)`
+
+Copies text to the clipboard. Tries `navigator.clipboard.writeText()` first; falls back to a hidden textarea + `execCommand("copy")` for older browsers. Shows a toast with the given i18n keys for success/failure.
+
+### `window.LS_KEYS`
+
+Centralised object of all localStorage key strings. Keys include `theme`, `fontSize`, `fontSystem`, `widescreen`, `lang`, `focus`, `pinnedBooks`, `readHistory`, `readerPrefix`, and several `reader:*-prefixed` keys. Defined in common.js; available globally. All modules reference these instead of raw strings.
+
+### `window.createModal(id, titleId, bodyId, extraClass?)`
+
+Creates a modal overlay dynamically (for modals not in static HTML). Appends to body, registers with `window.MODAL_IDS`, wires backdrop-click and close-button via `wireModal`. Returns the overlay element. Used by catalog.js for the pins/history modal.
+
 ### Unified modal layer
 
 All modals (settings, font, pins/history) share the same open/close/Escape pattern.
@@ -255,7 +284,20 @@ Wraps ayah text in `﴿ ﴾` braces and appends the ayah number (as Arabic numer
 
 ### `isAyahTextColumn(header)`
 
-Returns `true` if the column header is an ayah text column (`ayahimlai`, `ayahuthmani`, or `ayahtext`).
+Returns `true` if the column header is an ayah text column (`ayahimlai`, `ayahuthmani`).
+
+### Column classification helpers
+
+Shared across card/parallel/table renderers and all export formats. Imported by `reader.js` and `epub.js`.
+
+| Function | Returns | Description |
+|---|---|---|
+| `columnFieldClass(hdr)` | `""` or CSS class | Maps header prefix (`head`/`kitab`/`bab`/`matn`/`sharh`) to `reader-field-*` class |
+| `columnTdClass(hdr)` | `""` or HTML attr | Maps header prefix to ` class="td-matn"` / ` class="td-sharh"` for table mode |
+| `isFootnoteColumn(hdr)` | boolean | `true` if header starts with `foot` |
+| `isArDvTransition(prev, curr)` | boolean | `true` if `prev` ends with `ar` and `curr` ends with `dv` |
+| `isMatnSharhTransition(prev, curr)` | boolean | `true` if `prev` starts with `matn` and `curr` starts with `sharh` |
+| `classifyColumnLang(hdr, isQuran)` | `"ar"` / `"dv"` / `"neutral"` | Language classification for parallel text view |
 
 ### `findQuranColIndices(headerRow)`
 
@@ -303,9 +345,22 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
 | `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
-| `window.closeAllDropdowns()` | Closes all 8 registered dropdowns at once. |
+| `renderRowHTML(row, rowNum)` | Card‑view row renderer — builds vertical `<div>` stack with field classes and spacers. |
+| `renderParallelRowHTML(row, rowNum)` | Parallel‑view row renderer — partitions fields by language suffix (`ar`/`dv`) into a two‑column grid. |
+| `rowText(row, rowNum)` | Formats a row for clipboard copy — decorated ayah text for Quran, header‑aware formatting for other books. |
+| `updateViewModeUI()` | Syncs the 📖 View dropdown trigger button and check‑marks with the current `viewMode`. |
+| `window.closeAllDropdowns()` | Closes all registered dropdowns at once. |
 | `window.openDropdown(dd, anchorEl, gap)` | Closes other dropdowns, positions `dd` below `anchorEl` with the given gap (default 4px), and shows it. Used by all dropdown toggles. |
+| `window.registerDropdown(id, dd, anchor)` | Registers a dropdown ID and wires its outside‑click‑to‑close handler. The ID is added to the shared close list automatically. |
 | `trapWheel(el)` (quran.js) | Stops wheel events on `el` from propagating — prevents dropdown scroll from hijacking the horizontal `.quran-nav` row. |
+
+### Events
+
+| Event | Dispatched by | Listened by | Purpose |
+|---|---|---|---|
+| `readerReset` | `common.js` (btnResetSettings) | `reader.js` | Delegates reader‑specific reset to the reader module (view mode, hidden columns, tashkeel, Quran display) without tight coupling. |
+| `dashboardReset` | `common.js` (btnResetSettings) | `catalog.js` | Delegates dashboard‑specific reset (pins, history, search, filters) without tight coupling. |
+| `languagechange` | `i18n.js` | All modules | Triggers UI re‑render when the user changes language. |
 
 ### Clipboard format
 

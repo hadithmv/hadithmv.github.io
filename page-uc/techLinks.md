@@ -2054,6 +2054,13 @@ zh9528.file-size
 
 ---
 
+## VSCode Settings
+
+- settings ui
+  - word wrap: on
+
+---
+
 <!-- TOC --><a name="node"></a>
 
 ## Node

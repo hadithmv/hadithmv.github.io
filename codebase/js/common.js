@@ -3,15 +3,35 @@
  * - Theme, font, i18n, sidebar, settings modal, keyboard shortcuts.
  */
 
+import { initI18n, setLanguage, t } from "../js/i18n.js";
+
+// ── Shared localStorage keys ─────────────────────────────────
+window.LS_KEYS = {
+  theme: "theme",
+  fontSize: "fontSize",
+  fontSystem: "fontSystem",
+  widescreen: "widescreen",
+  lang: "lang",
+  focus: "focus",
+  pinnedBooks: "pinnedBooks",
+  readHistory: "readHistory",
+  readerPrefix: "reader:",
+  readerSearchHistory: "reader:searchHistory",
+  readerHideTashkeel: "reader:hideTashkeel",
+  readerHiddenColumns: "reader:hiddenColumns",
+  readerQuranShowAyahNum: "reader:quranShowAyahNum",
+  readerQuranShowBraces: "reader:quranShowBraces",
+  readerQuranShowNumBrackets: "reader:quranShowNumBrackets",
+};
+
 // ── Theme (blocking — inline in <head>, replicated here for reader page) ─
 (function () {
-  var t = localStorage.getItem("theme");
+  var t = localStorage.getItem(window.LS_KEYS.theme);
   if (t && t !== "light")
     document.documentElement.setAttribute("data-theme", t);
 })();
 
 // ── i18n init ───────────────────────────────────────────────
-import { initI18n, setLanguage, t } from "../js/i18n.js";
 
 initI18n();
 
@@ -154,6 +174,20 @@ window.showToast = function (msg) {
   el._timeout = setTimeout(function () { el.classList.remove("show"); }, 2500);
 };
 
+// ── Shared clipboard ────────────────────────────────────────
+window.copyToClipboard = function (text, successKey, failKey) {
+  var done = function () { showToast(t(successKey)); };
+  var fail = function () { showToast(t(failKey || "toastCopyFailed")); };
+  navigator.clipboard.writeText(text).then(done).catch(function () {
+    // Fallback for older browsers / non-HTTPS
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); done(); } catch (_) { fail(); }
+    document.body.removeChild(ta);
+  });
+};
+
 // ── Unified modal layer ────────────────────────────────────
 // All modals use the same open/close/escape pattern.
 // Each modal registers its overlay ID here.
@@ -188,6 +222,26 @@ function wireModal(id) {
   if (closeBtn) closeBtn.addEventListener("click", function () { window.closeModal(id); });
 }
 window.MODAL_IDS.forEach(wireModal);
+
+// Create a modal overlay dynamically (for modals not in static HTML).
+// Returns the overlay element. Registers with MODAL_IDS and wires close handlers.
+window.createModal = function (id, titleId, bodyId, extraClass) {
+  if (document.getElementById(id)) return document.getElementById(id);
+  var overlay = document.createElement("div");
+  overlay.id = id;
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = '<div class="modal' + (extraClass ? " " + extraClass : "") + '" role="dialog">' +
+    '<div class="modal-header">' +
+      '<h2 id="' + titleId + '"></h2>' +
+      '<button class="modal-close" title="Close (Escape key)">✕</button>' +
+    '</div>' +
+    '<div id="' + bodyId + '" class="pins-history-body"></div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  window.MODAL_IDS.push(id);
+  wireModal(id);
+  return overlay;
+};
 
 // ── Settings modal ──────────────────────────────────────────
 (function () {
@@ -256,8 +310,8 @@ window.MODAL_IDS.forEach(wireModal);
     localStorage.removeItem("reader:searchHistory");
     localStorage.removeItem("focus");
     // Clear pins & history
-    localStorage.removeItem("pinnedBooks");
-    localStorage.removeItem("readHistory");
+    localStorage.removeItem(window.LS_KEYS.pinnedBooks);
+    localStorage.removeItem(window.LS_KEYS.readHistory);
     document.dispatchEvent(new CustomEvent("dashboardReset"));
     localStorage.removeItem("lang");
     var sel = document.getElementById("selLanguage");

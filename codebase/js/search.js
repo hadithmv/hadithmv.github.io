@@ -56,6 +56,11 @@ export function escapeHTML(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+/** XML mode — also escapes quotes and apostrophes. */
+export function escapeXML(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
+
 // ── Highlight matching ──────────────────────────────────────
 
 /**
@@ -317,7 +322,7 @@ var _historySaveTimer = null;
 function _loadHistory() {
   if (_searchHistory) return _searchHistory;
   try {
-    _searchHistory = JSON.parse(localStorage.getItem("reader:searchHistory") || "[]");
+    _searchHistory = JSON.parse(localStorage.getItem(window.LS_KEYS.readerSearchHistory) || "[]");
   } catch (e) {
     _searchHistory = [];
   }
@@ -325,7 +330,7 @@ function _loadHistory() {
 }
 
 function _saveHistory() {
-  try { localStorage.setItem("reader:searchHistory", JSON.stringify(_searchHistory)); } catch (e) {}
+  try { localStorage.setItem(window.LS_KEYS.readerSearchHistory, JSON.stringify(_searchHistory)); } catch (e) {}
 }
 
 export function getSearchHistory() {

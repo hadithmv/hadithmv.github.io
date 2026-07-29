@@ -10,6 +10,8 @@
  *
  * ZIP uses store (no compression) — fast to build, small enough for
  * text-heavy spreadsheets.  Inline strings avoid a shared-strings table.
+
+import { escapeXML as xmlEsc } from "./search.js";
  */
 
 // ── CRC-32 (table-driven) ────────────────────────────────────────
@@ -115,12 +117,6 @@ export function zipStore(files) {
  */
 export function createXLSX(rows, sheetName) {
   var enc = new TextEncoder();
-
-  // XML entity escaping
-  function xmlEsc(s) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
-  }
 
   // 0→A, 1→B, … 25→Z, 26→AA …
   function colRef(n) {

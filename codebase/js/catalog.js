@@ -6,18 +6,7 @@
 
 import { tagLabel, t, currentLang } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
-import { parseCSV } from "./csv.js";
-
-function parseCSVWithHeader(text) {
-  var rows = parseCSV(text);
-  if (rows.length === 0) return [];
-  var headers = rows[0].map(function (h) { return h.trim(); });
-  return rows.slice(1).map(function (row) {
-    var obj = {};
-    headers.forEach(function (h, i) { obj[h] = (row[i] || "").trim(); });
-    return obj;
-  });
-}
+import { parseCSV, parseCSVWithHeader, loadCSVData } from "./csv.js";
 
 let bookNamesCache = null;
 let tagDefinitionsCache = null;
@@ -59,13 +48,7 @@ async function loadTagDefinitions() {
   }
 
   try {
-    const response = await fetch("../data/01-registry-bookTags.csv");
-    if (!response.ok) {
-      throw new Error(`Failed to load tags (HTTP ${response.status})`);
-    }
-    const csv = await response.text();
-
-    var result = parseCSVWithHeader(csv);
+    var result = await loadCSVData("../data/01-registry-bookTags.csv");
 
     // Generate palette CSS with enough slots (tags + headroom)
     var tagCount = 0;
@@ -137,17 +120,8 @@ export async function loadBookNames() {
   }
 
   try {
-    const response = await fetch("../data/02-registry-bookNames.csv");
-    if (!response.ok) {
-      throw new Error(
-        `Failed to load book registry (HTTP ${response.status})`,
-      );
-    }
-    const csv = await response.text();
-
-    var result = parseCSVWithHeader(csv);
-    bookNamesCache = result;
-    return result;
+    bookNamesCache = await loadCSVData("../data/02-registry-bookNames.csv");
+    return bookNamesCache;
   } catch (error) {
     console.error("Error loading bookNames.csv:", error);
     return [];
@@ -187,8 +161,8 @@ export function getCsvPath(bookCode) {
 }
 
 // ── Pins & History (localStorage) ──────────────────────────
-const PINNED_KEY = "pinnedBooks";
-const HISTORY_KEY = "readHistory";
+const PINNED_KEY = window.LS_KEYS.pinnedBooks;
+const HISTORY_KEY = window.LS_KEYS.readHistory;
 const MAX_PINS = 10;
 const MAX_HISTORY = 10;
 
@@ -281,26 +255,7 @@ function bookDisplayName(bookCode) {
 // ── Pins & History modal ──────────────────────────────────
 
 function _ensureModal() {
-  if (document.getElementById("pinsHistoryModalOverlay")) return;
-  var overlay = document.createElement("div");
-  overlay.id = "pinsHistoryModalOverlay";
-  overlay.className = "modal-overlay";
-  overlay.innerHTML = '<div class="modal pins-history-modal" role="dialog">' +
-    '<div class="modal-header">' +
-      '<h2 id="pinsHistoryModalTitle"></h2>' +
-      '<button class="modal-close" title="Close (Escape key)">✕</button>' +
-    '</div>' +
-    '<div id="pinsHistoryModalBody" class="pins-history-body"></div>' +
-    '</div>';
-  document.body.appendChild(overlay);
-  // Unified modal wiring
-  window.MODAL_IDS.push("pinsHistoryModalOverlay");
-  overlay.addEventListener("click", function (e) {
-    if (e.target === overlay) window.closeModal("pinsHistoryModalOverlay");
-  });
-  overlay.querySelector(".modal-close").addEventListener("click", function () {
-    window.closeModal("pinsHistoryModalOverlay");
-  });
+  window.createModal("pinsHistoryModalOverlay", "pinsHistoryModalTitle", "pinsHistoryModalBody", "pins-history-modal");
 }
 
 window.openPinsModal = function () {

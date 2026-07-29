@@ -9,14 +9,10 @@
  */
 
 import { zipStore } from "./xlsx.js";
+import { escapeXML as xmlEsc } from "./search.js";
+import { columnFieldClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran.js";
 
 var enc = new TextEncoder();
-
-// ── XML entity escaping ──────────────────────────────────────────
-function xmlEsc(s) {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
-}
 
 /**
  * Create an EPUB 3 e-book Blob.
@@ -68,25 +64,21 @@ export function createEPUB(rows, meta, opts) {
       var colHeader = (opts.headerRow && opts.headerRow[j]) ? opts.headerRow[j].toLowerCase() : "";
       // AR→DV break: blank line between last AR-ending col and first DV-ending col
       if (prevNonEmpty >= 0) {
-        var prevHdrEPUB = (opts.headerRow && opts.headerRow[prevNonEmpty]) ? opts.headerRow[prevNonEmpty].toLowerCase() : "";
-        if (prevHdrEPUB.endsWith("ar") && colHeader.endsWith("dv")) {
-          body += '<p class="spacer">&nbsp;</p>\n';
-        }
+        var prevHdrE = (opts.headerRow && opts.headerRow[prevNonEmpty]) ? opts.headerRow[prevNonEmpty].toLowerCase() : "";
+        if (isArDvTransition(prevHdrE, colHeader)) { body += '<p class="spacer">&nbsp;</p>\n'; }
       }
-      if (colHeader.startsWith("foot") && nonEmpty.length > 1) {
+      if (isFootnoteColumn(colHeader) && nonEmpty.length > 1) {
         body += '<div class="divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>\n';
       }
       // Matn → Sharh separator
       if (prevNonEmpty >= 0) {
-        var prevHdrMS = (opts.headerRow && opts.headerRow[prevNonEmpty]) ? opts.headerRow[prevNonEmpty].toLowerCase() : "";
-        if (prevHdrMS.startsWith("matn") && colHeader.startsWith("sharh")) {
-          body += '<div class="ms-sep">· · ·</div>\n';
-        }
+        var prevHdrM = (opts.headerRow && opts.headerRow[prevNonEmpty]) ? opts.headerRow[prevNonEmpty].toLowerCase() : "";
+        if (isMatnSharhTransition(prevHdrM, colHeader)) { body += '<div class="ms-sep">· · ·</div>\n'; }
       }
       // Heading hierarchy for header/kitab/bab/matn/sharh columns
       var tag = "p";
       var cls = "";
-      if (!colHeader.startsWith("foot")) {
+      if (!isFootnoteColumn(colHeader)) {
         if (colHeader.startsWith("head")) { tag = "p"; cls = ' class="header"'; }
         else if (colHeader.startsWith("kitab")) { tag = "p"; cls = ' class="kitab"'; }
         else if (colHeader.startsWith("bab"))  { tag = "p"; cls = ' class="bab"'; }
