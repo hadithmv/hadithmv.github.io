@@ -38,6 +38,25 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
 | `data/QRN-DATA-baseFile-2-ayahUthmani.csv`     | Quran text in Uthmani script                                     |
 
+## Where to find things
+
+Key functions and where they're defined. Many are re-exported through barrel modules (quran-ui.js → quran-data.js, catalog.js → pins-history.js).
+
+| What | Module | Notes |
+|---|---|---|
+| Book metadata / dashboard | `catalog.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
+| CSV parsing | `csv.js` | `parseCSV`, `fetchCSV`, `parseCSVWithHeader`, `loadCSVData` |
+| Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
+| i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
+| Search engine | `search.js` | `normaliseForSearch`, `parseQuery`, `escapeHTML`, `escapeXML` |
+| Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
+| Quran nav / dropdowns | `quran-ui.js` | `initQuranUI(ctx)` — re-exports quran-data.js |
+| Reader core | `reader.js` | Rendering, pagination, toolbar, keyboard, progress bar |
+| Export formats | `export.js` | `initExports(ctx)` — TXT, MD, PDF, EPUB, etc. |
+| Pins & history | `pins-history.js` | `addPin`, `addReadHistory`, `openPinsModal`, `openHistoryModal` |
+| `window.openDropdown` / `closeAllDropdowns` / `registerDropdown` | `reader.js` | Shared dropdown helpers |
+| `window.showToast` | `common.js` | Single toast implementation |
+
 ## Request flow
 
 ```text
@@ -315,6 +334,40 @@ Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the fi
 - When adding a new suffix flag, add it to `$suffixFlags` in `03-update-bookRegistry.ps1` so `titleEN` is generated correctly
 - `KNSH-` prefix → first line of `body*` columns styled as a heading; `titleEN` gets a `Kunnaasha ` prefix
 - `RDF-` prefix (without `AQD-`) → `titleEN` gets a `Radheef ` prefix
+
+## Data model at a glance
+
+```text
+02-registry-bookNames.csv         01-registry-bookTags.csv
+┌─────────────────────────┐       ┌──────────────────┐
+│ bookCode, titleDV/AR/EN │       │ code, label      │
+│ Defines every book      │       │ e.g. AQD→Aqidah  │
+└──────────┬──────────────┘       └────────┬─────────┘
+           │                              │
+           └──────────┬───────────────────┘
+                      │
+              catalog.js / pins-history.js
+                      │
+          ┌───────────┴───────────┐
+          │                       │
+     Dashboard (index)      Reader (reader.html)
+     book grid / table      ?book=CODE → loads CSV
+          │                       │
+          │              ┌────────┴────────┐
+          │         Standard book     Quran book (QRN-)
+          │         {bookCode}.csv    QRN-DATA-baseFile-*.csv
+          │                          + QRN-{translation}.csv
+          │                          (merged by row index)
+          │
+    localStorage
+    ├── pinnedBooks, readHistory  (pins-history.js)
+    ├── reader:searchHistory      (search.js)
+    ├── reader:hiddenColumns,     (reader.js)
+    │   reader:hideTashkeel, etc.
+    ├── theme, fontSize, lang,    (common.js)
+    │   contentWidth, focus
+    └── window.LS_KEYS            (canonical key registry)
+```
 
 ## Quran data model
 

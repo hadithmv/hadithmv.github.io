@@ -14,6 +14,27 @@ import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSur
 import { initExports } from "./export.js";
 
 initializePageWithMetadata(async function (metadata) {
+  // ═══════════════════════════════════════════════════════════════
+  // SECTIONS (in order):
+  //   L16-60    Book loading (standard CSV or Quran merge)
+  //   L61-108   Page header, tag badges, language-aware titles
+  //   L109-140  Persisted settings (LS wrapper, -HDN column init)
+  //   L141-248  Reader state, column toggles, dropdown infrastructure
+  //   L249-260  Tashkeel helpers
+  //   L261-353  Clipboard formatting (rowText)
+  //   L354-398  View mode dropdown (card / table / parallel)
+  //   L399-470  Card row renderer (renderRowHTML)
+  //   L471-585  Parallel row renderer (renderParallelRowHTML)
+  //   L586-645  Chunk + table-row renderers
+  //   L646-918  Infinite scroll, pagination, table scrollbar
+  //   L919-1080 Search UI (results, history, advanced search)
+  //   L1081-1468 Toolbar (tashkeel, share, pin, copy, focus)
+  //   L1469-1481 Export (delegated to export.js via initExports ctx)
+  //   L1482-1545 Reset view
+  //   L1546-1660 Keyboard shortcuts
+  //   L1661-1690 Touch swipe
+  //   L1691-1849 Progress bar, scroll counter, URL sync, history
+  // ═══════════════════════════════════════════════════════════════
   document.title = metadata.titleEN || metadata.bookCode;
 
   var quranBook = isQuranBook(metadata.bookCode);
@@ -128,7 +149,12 @@ initializePageWithMetadata(async function (metadata) {
       let hideTashkeel = LS.get("hideTashkeel", false);
       let hiddenColumns = LS.get("hiddenColumns", []);
 
-      // Columns whose header ends with "-HDN" start hidden every session
+      // ── -HDN convention ──────────────────────────────────────
+      // Any CSV column header ending in "-HDN" (case-insensitive) is hidden by
+      // default — the reader starts with those columns toggled off. Users can
+      // turn them back on via the column dropdown. Used for technical/metadata
+      // columns (juzNo-HDN, surahNo-HDN, ayahNo-HDN) and books with -HDN suffix.
+      // If you name a new CSV column `something-HDN`, it automatically starts hidden.
       if (headerRow) {
         // Remove stale indices from localStorage that don't exist in current header
         hiddenColumns = hiddenColumns.filter(function (idx) { return idx < headerRow.length; });
