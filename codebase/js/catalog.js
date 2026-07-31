@@ -125,7 +125,7 @@ export async function loadBookNames() {
     return _bookNamesCache;
   } catch (error) {
     console.error("Error loading bookNames.csv:", error);
-    return [];
+    return null; // null signals fetch failure (vs empty registry)
   }
 }
 
@@ -136,6 +136,7 @@ export async function loadBookNames() {
  */
 export async function getPageMetadata(bookCode) {
   const bookNames = await loadBookNames();
+  if (!bookNames) return null;
   return bookNames.find((entry) => entry.bookCode === bookCode) || null;
 }
 
@@ -191,6 +192,13 @@ export async function initializePageWithMetadata(callback) {
 
   if (!bookCode) {
     const bookNames = await loadBookNames();
+    if (!bookNames) {
+      // Fetch failed — show error, don't render an empty dashboard
+      document.getElementById("loadingMessage").style.display = "none";
+      document.getElementById("errorMessage").style.display = "block";
+      document.getElementById("errorMessage").textContent = "Failed to load the book registry. Please check your connection and try again.";
+      return;
+    }
     // Read ?tags= from URL for pre-filtered dashboard links
     var urlTags = urlParams.get("tags");
     if (urlTags) { _dashFilter.tags = urlTags.split(","); }

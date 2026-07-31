@@ -348,7 +348,7 @@ try {
 /** Return the translated string for a key in the current language. */
 export function t(key) {
   const entry = STRINGS[key];
-  if (!entry) return key;
+  if (!entry) { console.warn("i18n: missing key \"" + key + "\""); return key; }
   return entry[_currentLang] || entry.en || key;
 }
 
