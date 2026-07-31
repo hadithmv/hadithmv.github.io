@@ -642,14 +642,17 @@ Use `var(--color-accent)` everywhere. Never reference the hardcoded hex directly
 
 ## Error states
 
-All errors show visible messages in English:
+All errors show visible messages in English. Silent failures are minimised:
 
-| Error                  | Source                   |
-| ---------------------- | ------------------------ |
-| Registry fails to load | `catalog.js` → dashboard |
-| Book code not found    | `catalog.js` → reader    |
-| CSV empty or fails     | `reader.js` → reader     |
-| CSV parse warnings     | Console (non‑fatal)      |
+| Error | Source | Behaviour |
+|---|---|---|
+| Registry fails to load | `catalog.js` → dashboard | Shows "Failed to load the book registry" instead of empty dashboard |
+| Book code not found | `catalog.js` → reader | Shows error message |
+| CSV empty or fails | `reader.js` → reader | `.catch()` on the fetch chain shows error |
+| Async export fails (PNG/Excel/EPUB) | `export.js` | Toast with format name, dropdown stays open for retry |
+| Missing i18n key | `i18n.js` `t()` | `console.warn` with key name, falls back to raw key string |
+| localStorage write fails | All modules | Silently caught (intentional — better to degrade than crash) |
+| CSV parse warnings | Console | Non‑fatal |
 
 ## Adding content
 

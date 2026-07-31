@@ -110,8 +110,8 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from ca
 | `isPinned(bookCode)` | Returns `true` if the book is currently pinned. |
 | `addReadHistory(bookCode, row, label?)` | Prepends an entry to reading history (max 10). |
 | `clearPins()` / `clearReadHistory()` | Clears all pins or history. |
-| `window.openPinsModal()` | Opens the pins modal overlay with reorder/remove/click-to-jump. |
-| `window.openHistoryModal()` | Opens the history modal with timestamps and clear-all. |
+| `openPinsModal()` | Opens the pins modal overlay with reorder/remove/click-to-jump. Also on `window` for legacy callers. |
+| `openHistoryModal()` | Opens the history modal with timestamps and clear-all. Also on `window` for legacy callers. |
 | `closePinsHistoryModal()` | Closes the pins/history modal. |
 
 ---

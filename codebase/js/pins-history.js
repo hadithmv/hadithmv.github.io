@@ -96,7 +96,7 @@ function _ensureModal() {
   window.createModal("pinsHistoryModalOverlay", "pinsHistoryModalTitle", "pinsHistoryModalBody", "pins-history-modal");
 }
 
-window.openPinsModal = function () {
+export function openPinsModal() {
   _ensureModal();
   document.getElementById("pinsHistoryModalTitle").textContent = t("dashPinsBtn");
   var body = document.getElementById("pinsHistoryModalBody");
@@ -129,7 +129,7 @@ window.openPinsModal = function () {
   _wirePinsHistoryModal();
 };
 
-window.openHistoryModal = function () {
+export function openHistoryModal() {
   _ensureModal();
   document.getElementById("pinsHistoryModalTitle").textContent = t("dashHistoryBtn");
   var body = document.getElementById("pinsHistoryModalBody");
@@ -157,6 +157,10 @@ window.openHistoryModal = function () {
   window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();
 };
+
+// Also expose on window for legacy callers (sidebar links, dashboard buttons)
+window.openPinsModal = openPinsModal;
+window.openHistoryModal = openHistoryModal;
 
 export function closePinsHistoryModal() {
   window.closeModal("pinsHistoryModalOverlay");

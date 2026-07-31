@@ -180,16 +180,17 @@ export function initExports(ctx) {
                 document.body.appendChild(a); a.click();
                 document.body.removeChild(a); URL.revokeObjectURL(u);
                 document.body.removeChild(wrapper);
+                exportDropdown.style.display = "none";
               }, "image/png");
             };
+            img.onerror = function () { window.showToast("PNG export failed"); };
             img.src = "data:image/svg+xml," + encodeURIComponent(svg);
           };
+          reader.onerror = function () { window.showToast("PNG export failed"); };
           reader.readAsDataURL(blob);
-        });
-        exportDropdown.style.display = "none";
+        }).catch(function () { window.showToast("PNG export failed"); });
         return;
       } else if (fmt === "excel") {
-        exportDropdown.style.display = "none";
         import("./xlsx.js").then(function(mod) {
           var xlsxBlob = mod.createXLSX(rowsWithHeader, baseName);
           var u = URL.createObjectURL(xlsxBlob);
@@ -197,10 +198,10 @@ export function initExports(ctx) {
           a.href = u; a.download = baseName + ".xlsx";
           document.body.appendChild(a); a.click();
           document.body.removeChild(a); URL.revokeObjectURL(u);
-        });
+          exportDropdown.style.display = "none";
+        }).catch(function () { window.showToast("Excel export failed"); });
         return;
       } else if (fmt === "epub") {
-        exportDropdown.style.display = "none";
         fetch("../font/merged-300.woff2")
           .then(function(r) { return r.ok ? r.arrayBuffer() : null; })
           .then(function(fontBuf) {
@@ -222,8 +223,9 @@ export function initExports(ctx) {
               a.href = u; a.download = baseName + ".epub";
               document.body.appendChild(a); a.click();
               document.body.removeChild(a); URL.revokeObjectURL(u);
+              exportDropdown.style.display = "none";
             });
-          });
+          }).catch(function () { window.showToast("EPUB export failed"); });
         return;
       } else if (fmt === "yaml") {
         var y = "# " + (meta.titleEN || baseName) + "\n# " + meta.titleDV + " - " + meta.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
