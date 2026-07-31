@@ -10,7 +10,7 @@
 
 import { zipStore } from "./xlsx.js";
 import { escapeXML as xmlEsc } from "./search.js";
-import { columnFieldClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran.js";
+import { columnFieldClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran-ui.js";
 
 var enc = new TextEncoder();
 

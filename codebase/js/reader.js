@@ -10,7 +10,7 @@ import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, a
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
 import { parseCSV, fetchCSV } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
 
 initializePageWithMetadata(async function (metadata) {

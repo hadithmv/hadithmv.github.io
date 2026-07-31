@@ -22,7 +22,8 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
 | `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, keyboard, dropdowns, focus mode |
 | `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
-| `js/quran.js`                | Quran: data loading, decoration, nav, column registry, column classification helpers, UI setup |
+| `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
+| `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
@@ -230,9 +231,9 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
 | `pinnedBooks` | `catalog.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). Row auto‑updates as user reads |
 | `readHistory` | `catalog.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
-| `reader:quranShowAyahNum` | `quran.js` | boolean (JSON) | Show ayah number decoration |
-| `reader:quranShowBraces` | `quran.js` | boolean (JSON) | Show Quranic braces decoration |
-| `reader:quranShowNumBrackets` | `quran.js` | boolean (JSON) | Brackets around number only (not ayah text) |
+| `reader:quranShowAyahNum` | `quran-data.js` | boolean (JSON) | Show ayah number decoration |
+| `reader:quranShowBraces` | `quran-data.js` | boolean (JSON) | Show Quranic braces decoration |
+| `reader:quranShowNumBrackets` | `quran-data.js` | boolean (JSON) | Brackets around number only (not ayah text) |
 
 The settings reset button clears all of the above except `lang`. Keys prefixed with `reader:` are scoped to the reader page and are not touched by dashboard-level operations. Dashboard keys (`pinnedBooks`, `readHistory`) are separate — the prefix convention prevents accidental cross-contamination.
 
@@ -330,7 +331,7 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran.js`.
+Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
 ### Quran navigation
 
@@ -472,7 +473,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 **Dropdowns.** All dropdowns use the shared helpers on `window`:
 - `window.openDropdown(dd, anchorEl, gap)` — closes other dropdowns, positions `dd` below `anchorEl`, shows it. Default gap 4px.
 - `window.closeAllDropdowns()` — hides all 7 registered dropdowns.
-- `trapWheel(el)` (quran.js) — prevents wheel events on a dropdown from scrolling the horizontal nav row behind it.
+- `trapWheel(el)` (quran-ui.js) — prevents wheel events on a dropdown from scrolling the horizontal nav row behind it.
 - Dropdowns with scrollable lists (`.search-results`, `.quran-content-list`, `.quran-surah-list`) use `overscroll-behavior: contain` to prevent scroll chaining at boundaries.
 
 ### Keyboard shortcuts

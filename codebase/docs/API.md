@@ -15,7 +15,8 @@
 | `js/catalog.js` | Book registry, tag resolution, dashboard rendering, pins/history modal |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
 | `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
-| `js/quran.js` | Quran data: loading, decoration, navigation, column registry, source labels |
+| `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
+| `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
 | `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
 | `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
@@ -24,7 +25,7 @@
 
 ## csv.js
 
-Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran.js`, and `export.js`.
+Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `quran-ui.js`, and `export.js`.
 
 | Function | Description |
 |---|---|
@@ -66,7 +67,7 @@ Looks up a single book by code (async). Returns the metadata object or `null`.
 
 ### `getBookTitleSync(bookCode)`
 
-Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran.js` for source-book labels.
+Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran-data.js` for source-book labels.
 
 ### `window.openPinsModal()`
 
@@ -110,7 +111,7 @@ extractTags("AQD-DFK-sharhuSunnahBarbahari");
 
 ## search.js
 
-Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran.js`, `xlsx.js`, and `epub.js`.
+Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `quran-ui.js`, `xlsx.js`, and `epub.js`.
 
 ### `escapeHTML(str)` / `escapeXML(str)`
 
@@ -239,9 +240,13 @@ All modals (settings, font, pins/history) share the same open/close/Escape patte
 
 ---
 
-## quran.js
+## quran-data.js
 
-Quran-specific data loading, ayah decoration, navigation, and column management. Imported by `reader.js` when a `QRN-` prefixed book is opened.
+Pure data/logic — no DOM dependencies. Detection, CSV loading, data merging, ayah decoration, column classification, registry lookups. Imported by `quran-ui.js`, `reader.js`, and `epub.js`.
+
+## quran-ui.js
+
+DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re‑exports everything from `quran-data.js` (barrel pattern). Imported by `reader.js` when a `QRN-` prefixed book is opened.
 
 ### `loadQuranBaseData()`
 
@@ -261,7 +266,7 @@ Looks up a human-readable label from the column registry. Falls back to `"bookCo
 
 ### Content presets
 
-`QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran.js` define which source books (by book code) are included in the Main and Arabic preset buttons in the content dropdown. Edit these arrays to change which books are shown. Reset clears all externals; All shows everything.
+`QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js` define which source books (by book code) are included in the Main and Arabic preset buttons in the content dropdown. Edit these arrays to change which books are shown. Reset clears all externals; All shows everything.
 
 ### `getBookLabel(colIndex)`
 
@@ -334,7 +339,7 @@ Shared mutable state object:
 
 ## reader.js
 
-Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`. Key internal functions:
+Consumes `quran-ui.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`. Key internal functions:
 
 | Function | Description |
 |---|---|
@@ -353,7 +358,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`
 | `window.closeAllDropdowns()` | Closes all registered dropdowns at once. |
 | `window.openDropdown(dd, anchorEl, gap)` | Closes other dropdowns, positions `dd` below `anchorEl` with the given gap (default 4px), and shows it. Used by all dropdown toggles. |
 | `window.registerDropdown(id, dd, anchor)` | Registers a dropdown ID and wires its outside‑click‑to‑close handler. The ID is added to the shared close list automatically. |
-| `trapWheel(el)` (quran.js) | Stops wheel events on `el` from propagating — prevents dropdown scroll from hijacking the horizontal `.quran-nav` row. |
+| `trapWheel(el)` (quran-ui.js) | Stops wheel events on `el` from propagating — prevents dropdown scroll from hijacking the horizontal `.quran-nav` row. |
 
 ### Events
 
@@ -373,7 +378,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`
 
 ## epub.js
 
-Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `xlsx.js`, `escapeXML` from `search.js`, and column helpers from `quran.js`.
+Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `xlsx.js`, `escapeXML` from `search.js`, and column helpers from `quran-ui.js`.
 
 ### `createEPUB(rows, meta, opts)`
 
