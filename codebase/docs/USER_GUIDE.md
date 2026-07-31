@@ -14,7 +14,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Switch view** — click the 📖 Table/Card button to toggle between a card grid and a table with all book details.
 
-- **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a panel of your saved positions and recently read books. Both are also accessible from the sidebar.
+- **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal of your saved positions and recently read books. Both are also accessible from the sidebar.
 
 - **Reset** — the ↺ Reset button clears all filters, search, view mode, pins, and history.
 
@@ -78,6 +78,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 | `z`             | Toggle focus mode                      |
 | `t`             | Toggle diacritics (tashkeel)           |
 | `v`             | Cycle view mode (Card → Table → Parallel) |
+| `p`             | Toggle bookmark (pin)                  |
 | `s`             | Copy share link                        |
 | `e`             | Open export menu                       |
 | `Ctrl+,`        | Open settings                          |

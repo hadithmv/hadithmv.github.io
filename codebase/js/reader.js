@@ -1,9 +1,9 @@
 /**
  * Reader Module
  *
- * Book viewer: loads CSV data via fetch + parseCSV, renders vertical reading cards,
- * provides pagination, full-text search, copy-to-clipboard, tashkeel toggle,
- * rows-per-page control, and per-column visibility toggles.
+ * Book viewer: loads CSV data, renders card / table / parallel text views,
+ * provides infinite scroll, pagination, full-text search, copy-to-clipboard,
+ * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";

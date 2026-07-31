@@ -12,7 +12,8 @@
 | Module | Purpose |
 |---|---|
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
-| `js/catalog.js` | Book registry, tag resolution, dashboard rendering, pins/history modal |
+| `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
+| `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
 | `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
@@ -69,18 +70,6 @@ Looks up a single book by code (async). Returns the metadata object or `null`.
 
 Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran-data.js` for source-book labels.
 
-### `window.openPinsModal()`
-
-Opens a modal overlay listing all pinned books with their position labels (surah references for Quran books, row numbers otherwise). Supports reordering, removal, and click-to-jump. Accessible from the dashboard toolbar and the reader sidebar.
-
-### `window.openHistoryModal()`
-
-Same modal, showing the last 10 books visited with timestamps. Supports removal and clear-all.
-
-### `addPin(bookCode, row, label?)`, `addReadHistory(bookCode, row, label?)`
-
-Optional third parameter `label` stores a human-readable position string (e.g. `"البَقَرَة 5:2"`) for Quran books. Shown in the pins/history modal instead of the raw row number.
-
 ### `getCsvPath(bookCode)`
 
 Returns the data CSV path: `"../data/" + bookCode + ".csv"`.
@@ -109,9 +98,27 @@ extractTags("AQD-DFK-sharhuSunnahBarbahari");
 
 ---
 
+## pins-history.js
+
+Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from catalog.js. Imported by `catalog.js` (re‑exports `addPin`, `removePin`, `isPinned`, `addReadHistory` for reader.js).
+
+| Function | Description |
+|---|---|
+| `getPinnedBooks()` / `getReadHistory()` | Returns the full pins/history arrays from localStorage. |
+| `addPin(bookCode, row, label?)` | Adds or updates a pin. Optional `label` stores a human‑readable position (e.g. `"البَقَرَة 5:2"`). |
+| `removePin(bookCode)` | Removes a pin by book code. |
+| `isPinned(bookCode)` | Returns `true` if the book is currently pinned. |
+| `addReadHistory(bookCode, row, label?)` | Prepends an entry to reading history (max 10). |
+| `clearPins()` / `clearReadHistory()` | Clears all pins or history. |
+| `window.openPinsModal()` | Opens the pins modal overlay with reorder/remove/click-to-jump. |
+| `window.openHistoryModal()` | Opens the history modal with timestamps and clear-all. |
+| `closePinsHistoryModal()` | Closes the pins/history modal. |
+
+---
+
 ## search.js
 
-Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `quran-ui.js`, `xlsx.js`, and `epub.js`.
+Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `xlsx.js`, `epub.js`, and `export.js`.
 
 ### `escapeHTML(str)` / `escapeXML(str)`
 
@@ -223,7 +230,7 @@ Centralised object of all localStorage key strings. Keys include `theme`, `fontS
 
 ### `window.createModal(id, titleId, bodyId, extraClass?)`
 
-Creates a modal overlay dynamically (for modals not in static HTML). Appends to body, registers with `window.MODAL_IDS`, wires backdrop-click and close-button via `wireModal`. Returns the overlay element. Used by catalog.js for the pins/history modal.
+Creates a modal overlay dynamically (for modals not in static HTML). Appends to body, registers with `window.MODAL_IDS`, wires backdrop-click and close-button via `wireModal`. Returns the overlay element. Used by `pins-history.js` for the pins/history modal.
 
 ### Unified modal layer
 
@@ -246,7 +253,7 @@ Pure data/logic — no DOM dependencies. Detection, CSV loading, data merging, a
 
 ## quran-ui.js
 
-DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re‑exports everything from `quran-data.js` (barrel pattern). Imported by `reader.js` when a `QRN-` prefixed book is opened.
+DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re‑exports everything from `quran-data.js` (barrel pattern). Statically imported by `reader.js`. Re‑exports everything from `quran-data.js` (barrel pattern).
 
 ### `loadQuranBaseData()`
 

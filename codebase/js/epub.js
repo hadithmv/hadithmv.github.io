@@ -1,7 +1,8 @@
 /**
  * Tiny EPUB 3 writer (~4 KB)
  *
- * Generates valid .epub e-books with zero dependencies.
+ * Generates valid .epub e-books. Imports zipStore from xlsx.js,
+ * escapeXML from search.js, and column helpers from quran-ui.js.
  * Lazy-loaded only when the user exports to EPUB.
  *
  * EPUB is a ZIP of XHTML + XML metadata.  Reuses zipStore() from xlsx.js.

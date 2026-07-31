@@ -1,7 +1,8 @@
 /**
  * Tiny XLSX writer (~2.5 KB)
  *
- * Generates valid .xlsx (Office Open XML) spreadsheets with zero dependencies.
+ * Generates valid .xlsx (Office Open XML) spreadsheets.
+ * Imports escapeXML from search.js. Also provides zipStore() for epub.js.
  * Lazy-loaded only when the user exports to Excel — never loaded otherwise.
  *
  * XLSX is a ZIP of XML files:
