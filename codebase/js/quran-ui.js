@@ -25,10 +25,9 @@ export {
 
 import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
   getAllAvailableColumns, rebuildColumnSourceMap, quranState,
-  getRowJuz, getRowSurah, findQuranColIndices,
+  getRowJuz, getRowSurah, findQuranColIndices, loadQuranBookCSV,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
 
-import { parseCSV } from "./csv.js";
 import { normaliseForSearch } from "./search.js";
 import { t } from "./i18n.js";
 
@@ -607,15 +606,13 @@ export function initQuranUI(ctx) {
       ctx.rebuildAll();
       return Promise.resolve();
     }
-    return fetch("../data/" + sourceBook + ".csv")
-      .then(function (r) {
-        if (!r.ok) throw Error("Failed to load " + sourceBook);
-        return r.text();
-      })
-      .then(function (text) {
-        var rows = parseCSV(text);
+    // loadQuranBookCSV keeps a one-entry parse cache — inserting several
+    // columns from the same book fetches and parses that book's CSV once.
+    return loadQuranBookCSV(sourceBook)
+      .then(function (book) {
+        var rows = book.data;
+        var csvHeader = book.header;
         if (rows.length === 0) return;
-        var csvHeader = rows.shift();
         if (sourceCol >= csvHeader.length) return;
         var colName = csvHeader[sourceCol];
         var insertAt = headerRow.length;

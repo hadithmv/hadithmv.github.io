@@ -32,7 +32,7 @@ Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `read
 |---|---|
 | `parseCSV(text)` | Parses CSV text into a 2D array. Handles quoted fields, commas inside quotes, multiline values, and `\r\n` / `\r` / `\n` line endings. |
 | `unparseCSV(rows)` | Converts a 2D array back to CSV text. Quotes fields containing commas, double‑quotes, or newlines. |
-| `fetchCSV(path)` | Fetches a CSV file, parses it, and returns a 2D array with empty rows filtered out. |
+| `fetchCSV(path)` | Fetches a CSV file, parses it, and returns a 2D array with empty rows filtered out. Single pass — `parseCSV` already skips empty rows, so no intermediate row array is built, and the raw text is released as soon as parsing completes. |
 | `parseCSVWithHeader(text)` | Parses CSV text into an array of objects using the first row as keys. Trims both headers and values. |
 | `loadCSVData(path)` | Fetches a CSV file and parses it into objects via `parseCSVWithHeader`. Convenience wrapper for registry files. |
 
@@ -274,6 +274,10 @@ Fetches and caches `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.
 ### `mergeQuranData(bookCode)`
 
 Loads base data + the current book's CSV + surah names, then merges into a single `{headerRow, allData}`. Base columns come first, then book-specific columns appended.
+
+### `loadQuranBookCSV(bookCode)`
+
+Fetches and parses one translation/tafsir book CSV into `{header, data}`. Keeps a one‑entry cache (most recent book only): the content dropdown inserts columns one at a time, but the registry lists each book's columns together, so consecutive inserts from the same book reuse the cache instead of re‑fetching and re‑parsing the whole file per column. Memory stays bounded — only one book's parsed rows are retained at a time.
 
 ### `loadColumnRegistry()`
 

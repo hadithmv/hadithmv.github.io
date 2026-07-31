@@ -72,8 +72,10 @@ export async function fetchCSV(path) {
   var resp = await fetch(path);
   if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
   var text = await resp.text();
-  var rows = parseCSV(text);
-  return rows.filter(function (r) { return Array.isArray(r) && r.some(function (c) { return c !== null && c !== ""; }); });
+  // parseCSV already skips empty rows — no second filter pass or throwaway
+  // array. The `text` string is a local, so it is garbage-collected as soon
+  // as this returns (the decoded row arrays are the only thing retained).
+  return parseCSV(text);
 }
 
 /**

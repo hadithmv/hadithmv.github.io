@@ -190,11 +190,21 @@ export function decorateAyah(
 // Data merging
 // ═══════════════════════════════════════════════════════════════
 
+// One-entry parse cache: the content dropdown inserts columns one at a time,
+// but the registry lists each book's columns together — so consecutive
+// inserts from the same book reuse this instead of re-fetching and re-parsing
+// the whole CSV per column. Bounded: only the most recent book is retained.
+var _bookCsvCache = null; // { bookCode, header, data }
+
 export function loadQuranBookCSV(bookCode) {
+  if (_bookCsvCache && _bookCsvCache.bookCode === bookCode) {
+    return Promise.resolve(_bookCsvCache);
+  }
   return fetchCSV("../data/" + bookCode + ".csv").then(function (rows) {
     if (rows.length === 0) return { header: [], data: [] };
     var header = rows.shift();
-    return { header: header, data: rows };
+    _bookCsvCache = { bookCode: bookCode, header: header, data: rows };
+    return _bookCsvCache;
   });
 }
 

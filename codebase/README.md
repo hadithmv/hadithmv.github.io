@@ -120,7 +120,9 @@ All rows inside the collapsible panel use uniform 10px spacing via flex column g
 ### Search
 
 - Real-time "find and jump" — search highlights matches in a dropdown, clicking jumps to that row without filtering the dataset
+- Query syntax: wildcards (`*`, `?`), whole-word (`.word`), fuzzy (`~word~`), negation (`-word`), column-scoped (`col:N:word`), regex (`/pattern/`)
 - Tashkeel-insensitive: strips Arabic diacritics and Thaana fili before matching, normalises Arabic letter variants (أ إ آ → ا, ى → ي) and Thaana thikijehi (ޘ → ސ, etc.)
+- Fast on big books: cells are normalised once at load (precomputed cache), queries are compiled once per keystroke, and the input is debounced (120 ms) — a full scan of a 50k-row book runs in a few milliseconds
 - Results dropdown with highlighted snippets (~300 chars of context), highlighting maps back to original text with tashkeel intact
 - Click or Enter to jump; ↑/↓ to navigate; Escape to close
 - Red bold ✕ clear button resets to full content
@@ -150,8 +152,8 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 ### Dashboard
 
-- **📌 Pins** — dropdown button in sort row; shows bookmarked books; ▲▼ reorder arrows, ✕ to remove, "Clear all"; max 10; click entry to open at bookmarked page. A `📌 ޕިން` pins filter chip appears in the tag row (click to show only pinned books). Pinned books show a `📌 ޕިން` badge on their card.
-- **🕐 History** — dropdown button in sort row; auto-logged on every page read; shows book name + relative time ("3m ago"); ✕ to remove, "Clear all"; max 10; one entry per book (latest position)
+- **📌 Pins** — button in sort row; opens a modal listing bookmarked books as a table (▲▼ reorder arrows, page, ✕ to remove, "Clear all"; max 10); click an entry to open at the bookmarked page. A `📌 ޕިން` pins filter chip appears in the tag row (click to show only pinned books). Pinned books show a `📌 ޕިން` badge on their card. Also accessible from the sidebar.
+- **🕐 History** — button in sort row; opens a modal listing recently read books as a table (book, page, relative time like "3m ago", ✕ to remove, "Clear all"; max 10; one entry per book, latest position). Also accessible from the sidebar.
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = AND), active chips show ✕ to remove, each chip shows book count. The URL updates with `?tags=A,B` so filtered views are shareable. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering. Tag badges in the book reader header link back to the dashboard pre‑filtered by that tag.
@@ -212,8 +214,8 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `s` | Reader | Share link |
 | `e` | Reader | Open export dropdown |
 | `Escape` | Dashboard | Clear search & blur |
-| `p` | Dashboard | Toggle pins dropdown |
-| `h` | Dashboard | Toggle history dropdown |
+| `p` | Dashboard | Open pins modal |
+| `h` | Dashboard | Open history modal |
 | `Ctrl+,` | Anywhere | Open settings |
 | `Ctrl+b` | Anywhere | Back to book list |
 | `Escape` | Anywhere | Close sidebar / modal / search results |
