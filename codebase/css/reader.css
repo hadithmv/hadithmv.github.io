@@ -124,13 +124,7 @@
 }
 
 
-/* ---- Widescreen mode ---- */
-[data-widescreen] #pageHeader,
-[data-widescreen] #readerWrapper,
-[data-widescreen] #dashboardWrapper {
-  max-width: none;
-}
-
+/* ---- Widescreen (full-width) mode ---- */
 [data-widescreen] #readerContent {
   border-radius: 0;
   border-left: none;

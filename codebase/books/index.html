@@ -67,8 +67,12 @@
         <a href="index.html" class="sidebar-link" data-i18n="navDashboard"
           >← ފޮތްތަކުގެ ލިސްޓް</a
         >
-        <a id="sidebarPins" class="sidebar-link" style="cursor:pointer">📌 ޕިންތައް</a>
-        <a id="sidebarHistory" class="sidebar-link" style="cursor:pointer">🕐 ހިސްޓަރީ</a>
+        <a id="sidebarPins" class="sidebar-link" style="cursor: pointer"
+          >📌 ޕިންތައް</a
+        >
+        <a id="sidebarHistory" class="sidebar-link" style="cursor: pointer"
+          >🕐 ހިސްޓަރީ</a
+        >
       </nav>
 
       <div class="sidebar-divider"></div>
@@ -149,12 +153,22 @@
             </select>
           </div>
           <div class="modal-row">
-            <span data-i18n="btnWidescreen">🖥️ ފުޅާ ސްކްރީން</span>
-            <button id="btnWidescreen" class="modal-toggle">☐</button>
+            <span class="modal-label" data-i18n="labelWidth">ފުޅާމިން</span>
+            <select id="selWidth" class="modal-select">
+              <option value="600px">600px</option>
+              <option value="800px" selected>800px</option>
+              <option value="1000px">1000px</option>
+              <option value="1200px">1200px</option>
+              <option value="none" data-i18n="labelWidthFull">ފުލް ސްކްރީން</option>
+            </select>
           </div>
           <div class="modal-row">
             <span class="modal-label" data-i18n="settingsLanguage">ބަސް</span>
-            <select id="selLanguage" class="modal-select" title="Change language">
+            <select
+              id="selLanguage"
+              class="modal-select"
+              title="Change language"
+            >
               <option value="dv">ދިވެހި</option>
               <option value="en">English</option>
               <option value="ar">العربية</option>
@@ -162,7 +176,13 @@
           </div>
           <div class="modal-row">
             <span class="modal-label" data-i18n="settingsFont">ފޮންޓް</span>
-            <button id="btnOpenFontModal" class="modal-select" data-i18n="btnOpenFontShort">ބަދަލުކުރޭ</button>
+            <button
+              id="btnOpenFontModal"
+              class="modal-select"
+              data-i18n="btnOpenFontShort"
+            >
+              ބަދަލުކުރޭ
+            </button>
           </div>
         </div>
       </div>
@@ -172,21 +192,50 @@
       <div id="fontModal" class="modal font-modal" role="dialog">
         <div class="modal-header">
           <h2 class="modal-title" data-i18n="settingsFont">ފޮންޓް</h2>
-          <button id="btnResetFont" class="modal-reset-sm" data-i18n="btnReset" title="Reset font to defaults">↺ ރީސެޓް</button>
-          <button id="fontModalClose" class="modal-close" title="Close (Escape key)">✕</button>
+          <button
+            id="btnResetFont"
+            class="modal-reset-sm"
+            data-i18n="btnReset"
+            title="Reset font to defaults"
+          >
+            ↺ ރީސެޓް
+          </button>
+          <button
+            id="fontModalClose"
+            class="modal-close"
+            title="Close (Escape key)"
+          >
+            ✕
+          </button>
         </div>
         <div class="modal-body">
           <div class="modal-row">
             <span data-i18n="labelFontSize">ފޮންޓް ސައިޒު</span>
             <div class="font-size-row">
-              <button id="btnFontDown" class="font-adj-btn" title="Decrease font size">−</button>
+              <button
+                id="btnFontDown"
+                class="font-adj-btn"
+                title="Decrease font size"
+              >
+                −
+              </button>
               <span id="fontSizeVal" class="font-size-val">1.25rem</span>
-              <button id="btnFontUp" class="font-adj-btn" title="Increase font size">+</button>
+              <button
+                id="btnFontUp"
+                class="font-adj-btn"
+                title="Increase font size"
+              >
+                +
+              </button>
             </div>
           </div>
           <div class="modal-row">
             <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
-            <select id="selFontFamily" class="sidebar-select" style="width:auto">
+            <select
+              id="selFontFamily"
+              class="sidebar-select"
+              style="width: auto"
+            >
               <option value="hadithmv">Hadithmv font</option>
               <option value="system">System font</option>
             </select>
@@ -220,33 +269,59 @@
         <div id="collapsibleDashboardPanel">
           <div id="dashboardPanelTags"></div>
           <div id="dashboardPanelFunctions">
-          <span id="dashboardResultCount" class="search-info"></span>
-          <div style="display: flex; gap: 6px; align-items: stretch; position: relative">
-            <button
-              id="dashboardReset"
-              class="toolbar-btn"
-              data-i18n="btnResetText"
-              title="Reset all filters"
+            <span id="dashboardResultCount" class="search-info"></span>
+            <div
+              style="
+                display: flex;
+                gap: 6px;
+                align-items: stretch;
+                position: relative;
+              "
             >
-              ↺ ރީސެޓް
-            </button>
-            <button
-              id="dashboardViewToggle"
-              class="toolbar-btn"
-              data-i18n="btnViewToggleText"
-              title="Toggle card / table view"
-            >
-              📖 ޓޭބަލް
-            </button>
-            <select id="dashboardSort" class="toolbar-select" title="Sort books">
-              <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
-              <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
-            </select>
-            <button id="btnPinsDropdown" class="toolbar-btn" title="Pinned books (p key)" data-i18n="dashPinsBtn">📌 ޕިންތައް</button>
-            <button id="btnHistoryDropdown" class="toolbar-btn" title="Reading history (h key)" data-i18n="dashHistoryBtn">🕐 ހިސްޓަރީ</button>
+              <button
+                id="dashboardReset"
+                class="toolbar-btn"
+                data-i18n="btnResetText"
+                title="Reset all filters"
+              >
+                ↺ ރީސެޓް
+              </button>
+              <button
+                id="dashboardViewToggle"
+                class="toolbar-btn"
+                data-i18n="btnViewToggleText"
+                title="Toggle card / table view"
+              >
+                📖 ޓޭބަލް
+              </button>
+              <select
+                id="dashboardSort"
+                class="toolbar-select"
+                title="Sort books"
+              >
+                <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
+                <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
+              </select>
+              <button
+                id="btnPinsDropdown"
+                class="toolbar-btn"
+                title="Pinned books (p key)"
+                data-i18n="dashPinsBtn"
+              >
+                📌 ޕިންތައް
+              </button>
+              <button
+                id="btnHistoryDropdown"
+                class="toolbar-btn"
+                title="Reading history (h key)"
+                data-i18n="dashHistoryBtn"
+              >
+                🕐 ހިސްޓަރީ
+              </button>
+            </div>
           </div>
         </div>
-        </div><!-- /#collapsibleDashboardPanel -->
+        <!-- /#collapsibleDashboardPanel -->
       </div>
       <div id="bookGrid" class="book-grid"></div>
     </div>

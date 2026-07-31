@@ -1,8 +1,8 @@
 /* ---- Dashboard ---- */
-#topBar { max-width: 1000px; }
+#topBar { max-width: var(--content-width, 800px); }
 
 #dashboardWrapper {
-  max-width: 1000px;
+  max-width: var(--content-width, 800px);
   margin: 72px auto 40px;
   padding: 0 20px;
   font-family:

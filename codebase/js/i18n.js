@@ -42,7 +42,7 @@ const STRINGS = {
   },
   btnViewToggleText: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
   btnViewToggleCard: { dv: "📖 ކާޑް", en: "📖 Card", ar: "📖 بطاقة" },
-  btnViewMode: { dv: "📖 ވިއު", en: "📖 View", ar: "📖 عرض" },
+  btnViewMode: { dv: "📖 ފެންނަ ގޮތް", en: "📖 View", ar: "📖 عرض" },
   viewModeCard: { dv: "📄 ކާޑް", en: "📄 Card", ar: "📄 بطاقة" },
   viewModeTable: { dv: "▦ ޓޭބަލް", en: "▦ Table", ar: "▦ جدول" },
   viewModeParallel: { dv: "↔️ ދެފަރާތް", en: "↔️ Parallel", ar: "↔️ متوازي" },
@@ -153,10 +153,15 @@ const STRINGS = {
   navFaq: { dv: "❓ ސުވާލުތައް", en: "❓ FAQ", ar: "❓ الأسئلة الشائعة" },
   navHelp: { dv: "🛟 އެހީ", en: "🛟 Help", ar: "🛟 مساعدة" },
   navContact: { dv: "📧 ގުޅުން", en: "📧 Contact", ar: "📧 اتصل بنا" },
-  btnWidescreen: {
-    dv: "🖥️ ފުޅާ ސްކްރީން",
-    en: "🖥️ Widescreen",
-    ar: "🖥️ شاشة عريضة",
+  labelWidth: {
+    dv: "ފުޅާމިން",
+    en: "Width",
+    ar: "العرض",
+  },
+  labelWidthFull: {
+    dv: "↔️ ފުލް ސްކްރީން",
+    en: "↔️ Full Screen",
+    ar: "↔️ ملء الشاشة",
   },
   labelTheme: { dv: "ތީމް", en: "Theme", ar: "المظهر" },
   btnLang: { dv: "🌐 ބަސް", en: "🌐 Language", ar: "🌐 اللغة" },

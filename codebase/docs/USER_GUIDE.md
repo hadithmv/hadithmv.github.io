@@ -118,7 +118,7 @@ Open from the sidebar (⚙ Settings). You can change:
 | Setting        | Options                                                                           |
 | -------------- | --------------------------------------------------------------------------------- |
 | **Theme**      | Light, Dark, or Sepia                                                             |
-| **Widescreen** | Use the full width of your screen                                                 |
+| **Width**      | Content area width — 600px, 800px, 1000px, 1200px, or Full                         |
 | **Font size**  | − / + buttons to make text smaller or larger                                      |
 | **Font**       | Hadithmv (custom merged font) or System font. Option names are always in English. |
 | **Language**   | Dhivehi, English, or Arabic — changes all buttons and labels                      |

@@ -772,7 +772,7 @@ body:has(#settingsOverlay.open) {
    ============================================================ */
 
 #readerWrapper {
-  max-width: 800px;
+  max-width: var(--content-width, 800px);
   margin: 62px auto 60px;
   padding: 0;
   font-family:
@@ -951,7 +951,7 @@ body:has(#settingsOverlay.open) {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 800px;
+  max-width: var(--content-width, 800px);
   padding: 10px 20px;
   box-sizing: border-box;
   z-index: 101;
@@ -964,9 +964,6 @@ body:has(#settingsOverlay.open) {
   border-bottom: 2px solid var(--color-card-hover-border);
 }
 
-[data-widescreen] #topBar {
-  max-width: none;
-}
 
 #topBar > * {
   flex-shrink: 0;

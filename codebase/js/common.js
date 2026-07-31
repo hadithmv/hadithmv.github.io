@@ -10,7 +10,7 @@ window.LS_KEYS = {
   theme: "theme",
   fontSize: "fontSize",
   fontSystem: "fontSystem",
-  widescreen: "widescreen",
+  contentWidth: "contentWidth",
   lang: "lang",
   focus: "focus",
   pinnedBooks: "pinnedBooks",
@@ -289,26 +289,26 @@ window.setFocus = function (on) {
     });
   })();
 
-  // Widescreen toggle
+  // Content width dropdown
   (function () {
-    var btn = document.getElementById("btnWidescreen");
-    if (!btn) return;
+    var sel = document.getElementById("selWidth");
+    if (!sel) return;
     var html = document.documentElement;
-    function set(on) {
-      if (on) {
+    function apply(val) {
+      html.style.setProperty("--content-width", val);
+      if (val === "none") {
         html.setAttribute("data-widescreen", "");
-        btn.classList.add("active"); btn.textContent = "☑";
       } else {
         html.removeAttribute("data-widescreen");
-        btn.classList.remove("active"); btn.textContent = "☐";
       }
     }
-    if (localStorage.getItem("widescreen")) set(true); else btn.textContent = "☐";
-    btn.addEventListener("click", function () {
-      var on = !html.hasAttribute("data-widescreen");
-      set(on);
-      if (on) localStorage.setItem("widescreen", "1");
-      else localStorage.removeItem("widescreen");
+    // Restore saved or use default
+    var saved = (function () { try { return localStorage.getItem("contentWidth"); } catch (_) { return null; } })();
+    if (saved) { sel.value = saved; apply(saved); }
+    sel.addEventListener("change", function () {
+      var val = this.value;
+      apply(val);
+      try { localStorage.setItem("contentWidth", val); } catch (_) {}
     });
   })();
 
@@ -320,9 +320,10 @@ window.setFocus = function (on) {
     var thSel = document.getElementById("selTheme");
     if (thSel) thSel.value = "light";
     html.removeAttribute("data-widescreen");
-    localStorage.removeItem("widescreen");
-    var wsBtn = document.getElementById("btnWidescreen");
-    if (wsBtn) { wsBtn.classList.remove("active"); wsBtn.textContent = "☐"; }
+    html.style.removeProperty("--content-width");
+    localStorage.removeItem("contentWidth");
+    var wsSel = document.getElementById("selWidth");
+    if (wsSel) wsSel.value = "800px";
     // Delegate font + reader resets
     var btnRF = document.getElementById("btnResetFont");
     if (btnRF) btnRF.click();

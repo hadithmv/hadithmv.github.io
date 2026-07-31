@@ -102,7 +102,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 
 Columns are rendered in header order. A blank line separates the last `*AR` column from the first `*DV` column (AR‑ending → DV‑ending headers). A `ـــــــــــ` tatweel divider appears before any column whose header starts with `foot` (case‑insensitive — matches `foot`, `footAR`, `footDV`). Columns starting with `head`/`kitab`/`bab` render as large/medium/small bold headings respectively.
 
-The sticky `#collapsibleReaderPanel` extends to the full width of `#readerWrapper` (800px). `#readerContent` has its own side padding. In widescreen mode, `#topBar` and `#readerWrapper` both drop `max-width` to stretch full width. The topBar and panel both use a `::before` pseudo-element for full-bleed background. Panel rows are horizontally centered. Search inputs cap at `max-width: 500px` so they don't stretch endlessly on wide screens.
+The sticky `#collapsibleReaderPanel` extends to the full width of `#readerWrapper`. `#readerContent` has its own side padding. Content width is controlled by the `--content-width` CSS variable (default 800px), set from the Settings → Width dropdown. At full width (`none`) the `data-widescreen` attribute also removes border-radius. The topBar and panel both use a `::before` pseudo-element for full-bleed background. Panel rows are horizontally centered. Search inputs cap at `max-width: 500px` so they don't stretch endlessly on wide screens.
 
 Column header prefix → CSS class / visual treatment:
 
@@ -196,7 +196,7 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, widescreen toggle), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings including reader state, pins, and history and restores CSS variable defaults. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
+Opened from the sidebar. Cards for Appearance (theme dropdown, content width dropdown), Font (size ±, family dropdown: Hadithmv/System — always English), and Language (select dropdown). Reset button in the modal header clears all settings including reader state, pins, and history and restores CSS variable defaults. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
 
 ### Font scaling
 
@@ -218,7 +218,7 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | Key | Where used | Shape | Notes |
 |-----|-----------|-------|-------|
 | `theme` | `common.js` | `"dark"` / `"sepia"` / `""` (light) | Applied before paint to avoid flash |
-| `widescreen` | `common.js` | `"1"` or absent | Toggle state |
+| `contentWidth` | `common.js` | CSS value (`"800px"`, `"none"`, etc.) | Content area max‑width |
 | `fontSize` | `common.js` | CSS value like `"1.25rem"` | Reader font size |
 | `fontSystem` | `common.js` | `"1"` or `"0"` | `"1"` = system font, `"0"` = Hadithmv |
 | `lang` | `i18n.js` | `"dv"` / `"en"` / `"ar"` | UI language |
@@ -589,4 +589,4 @@ All errors show visible messages in English:
 - **RTL‑native** — nav and content flow right‑to‑left for Arabic/Dhivehi
 - **Trilingual UI** — Dhivehi, English, Arabic
 - **Infinite scroll** — seamless reading, no page breaks
-- **All settings persisted** — theme, language, widescreen, font size, font family, hidden columns, tashkeel
+- **All settings persisted** — theme, language, content width, font size, font family, hidden columns, tashkeel

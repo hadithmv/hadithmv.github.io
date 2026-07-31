@@ -76,8 +76,12 @@
         <a href="index.html" class="sidebar-link" data-i18n="navDashboard"
           >← ފޮތްތަކުގެ ލިސްޓް</a
         >
-        <a id="sidebarPins" class="sidebar-link" style="cursor:pointer">📌 ޕިންތައް</a>
-        <a id="sidebarHistory" class="sidebar-link" style="cursor:pointer">🕐 ހިސްޓަރީ</a>
+        <a id="sidebarPins" class="sidebar-link" style="cursor: pointer"
+          >📌 ޕިންތައް</a
+        >
+        <a id="sidebarHistory" class="sidebar-link" style="cursor: pointer"
+          >🕐 ހިސްޓަރީ</a
+        >
       </nav>
       <div class="sidebar-divider"></div>
       <nav class="sidebar-nav">
@@ -150,8 +154,14 @@
             </select>
           </div>
           <div class="modal-row">
-            <span data-i18n="btnWidescreen">🖥️ ފުޅާ ސްކްރީން</span>
-            <button id="btnWidescreen" class="modal-toggle">☐</button>
+            <span class="modal-label" data-i18n="labelWidth">ފުޅާމިން</span>
+            <select id="selWidth" class="modal-select">
+              <option value="600px">600px</option>
+              <option value="800px" selected>800px</option>
+              <option value="1000px">1000px</option>
+              <option value="1200px">1200px</option>
+              <option value="none" data-i18n="labelWidthFull">ފުލް ސްކްރީން</option>
+            </select>
           </div>
           <div class="modal-row">
             <span class="modal-label" data-i18n="settingsLanguage">ބަސް</span>
@@ -518,18 +528,32 @@
               >
                 📌 ޕިން
               </button>
-              <div class="toolbar-group" style="position: relative" id="viewModeGroup">
+              <div
+                class="toolbar-group"
+                style="position: relative"
+                id="viewModeGroup"
+              >
                 <button
                   id="btnViewMode"
                   class="toolbar-btn"
                   title="Change view mode (v key)"
                 >
-                  📖 ވިއު ▾
+                  📖 ފެންނަ ގޮތް ▾
                 </button>
-                <div id="viewModeDropdown" class="view-mode-dropdown" style="display:none">
-                  <label data-mode="card" class="view-mode-option"><span class="vm-check">✓</span> 📄 ކާޑް</label>
-                  <label data-mode="table" class="view-mode-option"><span class="vm-check">✓</span> ▦ ޓޭބަލް</label>
-                  <label data-mode="parallel" class="view-mode-option"><span class="vm-check">✓</span> ↔️ ދެފަރާތް</label>
+                <div
+                  id="viewModeDropdown"
+                  class="view-mode-dropdown"
+                  style="display: none"
+                >
+                  <label data-mode="card" class="view-mode-option"
+                    ><span class="vm-check">✓</span> 📄 ކާޑް</label
+                  >
+                  <label data-mode="table" class="view-mode-option"
+                    ><span class="vm-check">✓</span> ▦ ޓޭބަލް</label
+                  >
+                  <label data-mode="parallel" class="view-mode-option"
+                    ><span class="vm-check">✓</span> ↔️ ދެފަރާތް</label
+                  >
                 </div>
               </div>
               <button

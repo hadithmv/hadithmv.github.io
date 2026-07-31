@@ -217,7 +217,7 @@ Copies text to the clipboard. Tries `navigator.clipboard.writeText()` first; fal
 
 ### `window.LS_KEYS`
 
-Centralised object of all localStorage key strings. Keys include `theme`, `fontSize`, `fontSystem`, `widescreen`, `lang`, `focus`, `pinnedBooks`, `readHistory`, `readerPrefix`, and several `reader:*-prefixed` keys. Defined in common.js; available globally. All modules reference these instead of raw strings.
+Centralised object of all localStorage key strings. Keys include `theme`, `fontSize`, `fontSystem`, `contentWidth`, `lang`, `focus`, `pinnedBooks`, `readHistory`, `readerPrefix`, and several `reader:*-prefixed` keys. Defined in common.js; available globally. All modules reference these instead of raw strings.
 
 ### `window.createModal(id, titleId, bodyId, extraClass?)`
 
