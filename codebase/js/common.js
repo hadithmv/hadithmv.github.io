@@ -243,6 +243,28 @@ window.createModal = function (id, titleId, bodyId, extraClass) {
   return overlay;
 };
 
+// ── Shared focus mode ───────────────────────────────────────
+// Toggles data-focus on <html>, updates btnFocus, persists to LS.
+// Dispatches "focuschange" event so pages can react (e.g. recalc layout).
+window.setFocus = function (on) {
+  var html = document.documentElement;
+  var btn = document.getElementById("btnFocus");
+  if (on) {
+    html.setAttribute("data-focus", "");
+    if (btn) { btn.classList.add("active"); btn.textContent = "▼"; }
+  } else {
+    html.removeAttribute("data-focus");
+    if (btn) { btn.classList.remove("active"); btn.textContent = "↕"; }
+  }
+  try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
+  window.dispatchEvent(new CustomEvent("focuschange", { detail: { on: on } }));
+};
+
+// Restore focus state on load
+(function () {
+  try { if (localStorage.getItem("focus") === "1") window.setFocus(true); } catch (_) {}
+})();
+
 // ── Settings modal ──────────────────────────────────────────
 (function () {
   var overlay = document.getElementById("settingsOverlay");

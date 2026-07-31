@@ -3,7 +3,7 @@
 
 #dashboardWrapper {
   max-width: 1000px;
-  margin: 84px auto 40px;
+  margin: 72px auto 40px;
   padding: 0 20px;
   font-family:
     system-ui,
@@ -14,13 +14,32 @@
     sans-serif;
 }
 
+/* ---- Focus mode: collapse tags + functions, keep search visible ---- */
+[data-focus] #dashboardPanel {
+  grid-template-rows: auto 0fr;
+  margin-bottom: 12px;
+  gap: 0;
+}
+
 /* ---- Dashboard controls ---- */
 #dashboardPanel {
   margin-bottom: 24px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  direction: rtl;
+  gap: 10px;
+  transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              margin-bottom 0.3s ease,
+              gap 0.3s ease;
+}
+
+/* ── Collapsible section (tags + functions) ── */
+#collapsibleDashboardPanel {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  direction: rtl;
 }
 
 #dashboardPanelSearch {

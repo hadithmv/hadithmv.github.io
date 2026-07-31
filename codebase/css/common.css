@@ -952,7 +952,7 @@ body:has(#settingsOverlay.open) {
   transform: translateX(-50%);
   width: 100%;
   max-width: 800px;
-  padding: 10px 16px 10px 0;
+  padding: 10px 20px;
   box-sizing: border-box;
   z-index: 101;
   display: flex;

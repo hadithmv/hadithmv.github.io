@@ -1455,23 +1455,12 @@ initializePageWithMetadata(async function (metadata) {
           document.documentElement.style.setProperty("--rdf-header-top", top + "px");
         });
       }
-      function setFocus(on) {
-        var html = document.documentElement;
-        var btn = document.getElementById("btnFocus");
-        if (on) {
-          html.setAttribute("data-focus", "");
-          if (btn) { btn.classList.add("active"); btn.textContent = "▼"; }
-        } else {
-          html.removeAttribute("data-focus");
-          if (btn) { btn.classList.remove("active"); btn.textContent = "↕"; }
-        }
-        try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
-        // Wait for chrome collapse/expand transition (~300ms) then recalc
+      // Reader-specific post-focus recalculation
+      window.addEventListener("focuschange", function () {
         setTimeout(function () { updateRdfHeaderTop(); updateScrollPadding(); }, 350);
-      }
-      if ((function(){try{return localStorage.getItem("focus")==="1"}catch(_){return false}})()) setFocus(true);
+      });
       btnFocus.addEventListener("click", function () {
-        setFocus(!document.documentElement.hasAttribute("data-focus"));
+        window.setFocus(!document.documentElement.hasAttribute("data-focus"));
       });
 
       // ── Toolbar: export ─────────────────────────────────────
@@ -1861,7 +1850,7 @@ initializePageWithMetadata(async function (metadata) {
           if (row) row.style.display = (document.getElementById("qrnToggleBraces").checked && document.getElementById("qrnToggleAyahNum").checked) ? "" : "none";
         }
         // Exit focus mode
-        setFocus(false);
+        window.setFocus(false);
         rebuildAll();
       });
 
@@ -1967,7 +1956,7 @@ initializePageWithMetadata(async function (metadata) {
         }
         if (e.key === "z" && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
-          setFocus(!document.documentElement.hasAttribute("data-focus"));
+          window.setFocus(!document.documentElement.hasAttribute("data-focus"));
         }
         if (e.key === "t" && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
@@ -2049,7 +2038,7 @@ initializePageWithMetadata(async function (metadata) {
         if (row) row.style.display = (document.getElementById("qrnToggleBraces").checked && document.getElementById("qrnToggleAyahNum").checked) ? "" : "none";
         searchInput.value = "";
         applySearch("");
-        setFocus(false);
+        window.setFocus(false);
         rebuildAll();
       });
 

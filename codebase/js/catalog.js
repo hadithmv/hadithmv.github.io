@@ -677,6 +677,10 @@ function setupDashboardControls() {
       e.preventDefault();
       si.focus();
     }
+    if (e.key === "z" && !isInput && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      window.setFocus(!document.documentElement.hasAttribute("data-focus"));
+    }
     if (e.key === "Escape" && isInput && e.target === si) {
       si.value = "";
       _dashFilter.search = "";
@@ -695,6 +699,15 @@ function setupDashboardControls() {
       if (bhd) bhd.click();
     }
   });
+
+  // ── Focus mode ─────────────────────────────────────────────
+  var dashBtnFocus = document.getElementById("btnFocus");
+  if (dashBtnFocus) {
+    dashBtnFocus.style.display = "";
+    dashBtnFocus.addEventListener("click", function () {
+      window.setFocus(!document.documentElement.hasAttribute("data-focus"));
+    });
+  }
 
   // Auto-focus search on desktop
   if (window.innerWidth > 600) si.focus();
