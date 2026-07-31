@@ -88,7 +88,10 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 
 ### Focus mode
 
-Press `z` or click the green ↕ button to hide everything except the book text. Press again to return.
+Press `z` or click the green ↕ button to hide everything except the essential content. Press again to return.
+
+- **On the reader page** — the search bar, toolbar, pagination, and Quran nav collapse, leaving only the book text.
+- **On the dashboard** — the tag chips and sort/filter row collapse, leaving the search bar and book grid visible.
 
 ### Sharing & Copying
 

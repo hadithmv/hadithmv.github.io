@@ -339,7 +339,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 |---|---|
 | `applySearch(query)` | Runs the search engine, updates results dropdown and match count |
 | `renderSearchHistory()` | Populates and positions the history dropdown |
-| `setFocus(on)` | Toggles focus mode, animates chrome via CSS Grid |
+| `window.setFocus(on)` | (common.js) Toggles `data-focus` on `<html>`, updates `#btnFocus`, persists to LS, dispatches `focuschange` event. Shared across both pages. |
 | `goTo(rowIdx)` | Scrolls to a specific row, lazy‑loading chunks as needed |
 | `loadInitial()` | Renders the first chunk of rows |
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
@@ -361,6 +361,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 | `readerReset` | `common.js` (btnResetSettings) | `reader.js` | Delegates reader‑specific reset to the reader module (view mode, hidden columns, tashkeel, Quran display) without tight coupling. |
 | `dashboardReset` | `common.js` (btnResetSettings) | `catalog.js` | Delegates dashboard‑specific reset (pins, history, search, filters) without tight coupling. |
 | `languagechange` | `i18n.js` | All modules | Triggers UI re‑render when the user changes language. |
+| `focuschange` | `common.js` (`window.setFocus`) | reader.js, catalog.js | Fires after focus mode toggles. Reader uses it to recalc `--rdf-header-top` and scroll padding; dashboard uses it for optional layout adjustments. |
 
 ### Clipboard format
 

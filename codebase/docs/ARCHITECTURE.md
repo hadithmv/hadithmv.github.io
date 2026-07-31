@@ -184,7 +184,11 @@ The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with
 
 ### Focus mode
 
-Toggled via the green ↕/▼ button in the topBar or `z` key. Collapses the chrome smoothly via CSS Grid `grid-template-rows: 1fr → 0fr` transition (no max-height stutter). Chrome padding and border also hidden. Bottom nav hidden. Only the topBar and reader content remain.
+Toggled via the green ↕/▼ button in the topBar or `z` key. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
+
+**Reader:** Collapses `#collapsibleReaderPanel` smoothly via CSS Grid `grid-template-rows: 1fr → 0fr` transition. Chrome padding and border also hidden. Only the topBar and reader content remain.
+
+**Dashboard:** Collapses `#collapsibleDashboardPanel` (tags + functions) via `max-height` transition. The search bar stays visible. The book grid remains fully interactive.
 
 ### Themes
 
@@ -218,7 +222,7 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `fontSize` | `common.js` | CSS value like `"1.25rem"` | Reader font size |
 | `fontSystem` | `common.js` | `"1"` or `"0"` | `"1"` = system font, `"0"` = Hadithmv |
 | `lang` | `i18n.js` | `"dv"` / `"en"` / `"ar"` | UI language |
-| `focus` | `reader.js` | `"1"` or `"0"` | Focus reading mode |
+| `focus` | `common.js` | `"1"` or `"0"` | Focus mode (shared across reader and dashboard) |
 
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
 | `reader:hiddenColumns` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns |
@@ -249,7 +253,7 @@ The settings reset button clears all of the above except `lang`. Keys prefixed w
 | `Enter`         | Search focused         | Select result                          |
 | `/` or `Ctrl+f` | Anywhere               | Focus search bar                       |
 | `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
-| `z`             | Reader                 | Toggle focus mode (same as ↕/▼ button) |
+| `z`             | Anywhere               | Toggle focus mode (same as ↕/▼ button) |
 | `t`             | Reader                 | Toggle tashkeel                        |
 | `v`             | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
 | `p`             | Reader                 | Toggle bookmark (pin)                  |
