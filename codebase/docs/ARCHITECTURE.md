@@ -21,7 +21,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
 | `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, keyboard, dropdowns, focus mode |
-| `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, XML, Word) — lazy‑loaded via ctx pattern |
+| `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
 | `js/quran.js`                | Quran: data loading, decoration, nav, column registry, column classification helpers, UI setup |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
@@ -156,7 +156,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
 | View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `v` key cycles through modes.                                                                                                                                                        |
 | Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
-| Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
+| Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
 
 #### Export formats

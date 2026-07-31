@@ -24,7 +24,7 @@
 
 ## csv.js
 
-Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `reader.js`, and `quran.js`.
+Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran.js`, and `export.js`.
 
 | Function | Description |
 |---|---|
@@ -334,7 +334,7 @@ Shared mutable state object:
 
 ## reader.js
 
-Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key internal functions:
+Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`. Key internal functions:
 
 | Function | Description |
 |---|---|
@@ -373,7 +373,7 @@ Consumes `quran.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`. Key interna
 
 ## epub.js
 
-Lazy-loaded module — only fetched when the user chooses EPUB export. Zero dependencies (reuses `zipStore` from `xlsx.js`).
+Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `xlsx.js`, `escapeXML` from `search.js`, and column helpers from `quran.js`.
 
 ### `createEPUB(rows, meta, opts)`
 
@@ -403,7 +403,7 @@ import("./epub.js").then(mod => {
 
 ## xlsx.js
 
-Lazy-loaded module — only fetched when the user chooses Excel export. Zero dependencies. Also provides the shared ZIP layer for `epub.js`.
+Lazy-loaded module — only fetched when the user chooses Excel export. Imports `escapeXML` from `search.js`. Also provides the shared ZIP layer for `epub.js`.
 
 ### `zipStore(files)`
 
