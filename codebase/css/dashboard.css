@@ -302,6 +302,10 @@
 }
 
 .pin-badge {
+  /* Keep text centered even when the flex row stretches the badge to
+     match the taller .tag-badge pills next to it */
+  display: inline-flex;
+  align-items: center;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: 1.4;
