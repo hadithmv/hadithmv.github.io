@@ -8,7 +8,20 @@
  * Imported by reader.js when a QRN-prefixed book is detected.
  */
 
-export * from "./quran-data.js";
+// Explicit re-exports from quran-data.js (avoids silent name collisions of export *)
+export {
+  isQuranBook, isQuranDataSource, QRN_PRESET_MAIN, QRN_PRESET_ARABIC,
+  loadQuranBaseData, getBaseHeaders, loadUthmaniData, loadSurahNames,
+  getSurahNames, getSurahInfo, toArabicNumeral, AYAH_TEXT_COLS,
+  isAyahTextColumn, decorateAyah, loadQuranBookCSV, mergeQuranData,
+  loadColumnRegistry, getColumnDisplayName, getColumnSourceMap,
+  rebuildColumnSourceMap, getBookLabel, hasExternalColumns,
+  getAllAvailableColumns, quranState, getRowsForSurah, getRowsForJuz,
+  findAyahRow, buildSurahListHTML, findQuranColIndices,
+  getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,
+  columnFieldClass, columnTdClass, isFootnoteColumn,
+  isArDvTransition, isMatnSharhTransition, classifyColumnLang,
+} from "./quran-data.js";
 
 import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, loadColumnRegistry, getSurahNames,
   getSurahInfo, getAllAvailableColumns, getColumnDisplayName, getBookLabel,

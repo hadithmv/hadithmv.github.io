@@ -490,6 +490,12 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Variable style.** `var` is used for function‑scoped variables throughout the codebase. `let` and `const` appear only in newer, self‑contained additions.
 
+**Closure state (reader.js).** The reader's ~1 800‑line closure centralises shared mutable state in a `STATE` object at the top. Convenience aliases (`var filteredData = STATE.filteredData`) are read‑only — mutations MUST write back: `STATE.filteredData = filteredData`. This pattern makes shared state visible at a glance without rewriting every reference to `STATE.*`. The ctx‑object pattern used by `export.js` and `quran-ui.js` is the same idea applied to extracted modules.
+
+**Window globals.** `window.*` functions used by BOTH pages live in `common.js` (`setFocus`, `showToast`, `copyToClipboard`, etc.). Reader‑only helpers (`openDropdown`, `closeAllDropdowns`, `registerDropdown`) stay in `reader.js`. Pins/history helpers (`openPinsModal`, `openHistoryModal`) live in `pins-history.js`. Rule: before adding `window.X = …`, ask *does it serve both pages?* YES → common.js, NO → owning module. A comment in `common.js:1‑20` documents the full inventory.
+
+**Explicit re‑exports over `export *`.** Barrel modules (quran-ui.js) use explicit named re‑exports instead of `export *`. Adding a function to the source module requires adding it to the re‑export list — silent name collisions are impossible.
+
 **Naming conventions.**
 
 | Scope | Convention | Examples |

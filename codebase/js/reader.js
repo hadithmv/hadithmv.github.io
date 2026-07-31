@@ -60,9 +60,50 @@ initializePageWithMetadata(async function (metadata) {
 
   (quranBook ? loadQuranBook() : loadStandardBook())
     .then(function (result) {
+      // ═══════════════════════════════════════════════════════════════
+      // SHARED MUTABLE STATE — every function in this closure reads or
+      // writes some of these. Keep them grouped here so you can see what
+      // is shared at a glance. New closure variables should either go
+      // here (if mutable + shared) or be a local const (if read-only).
+      //
+      // Convenience aliases (e.g. `var filteredData = STATE.filteredData`)
+      // are READ-ONLY — use them for reading but write back to STATE
+      // whenever the value changes:  STATE.filteredData = filteredData;
+      // ═══════════════════════════════════════════════════════════════
+      var STATE = {
+        // Data
+        allData: null,
+        filteredData: null,
+
+        // View
+        viewMode: (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card",
+        _tableAvailable: true,
+
+        // Columns
+        hiddenColumns: [],
+        hideTashkeel: false,
+        headerRow: null,
+        hasRowNums: false,
+
+        // Scroll / pagination
+        loadedStart: -1,
+        loadedEnd: -1,
+
+        // Search
+        selectedResultIdx: -1,
+        wholeWordMode: false,
+        advConditions: [],
+
+        // Progress
+        _lastMilestone: 0,
+        _lastHistoryRow: 0,
+      };
+      // Read-only from result
       var data = result.data;
-      var headerRow = result.headerRow;
-      var hasRowNums = result.hasRowNums;
+      STATE.headerRow = result.headerRow;
+      STATE.hasRowNums = result.hasRowNums;
+      var headerRow = STATE.headerRow;
+      var hasRowNums = STATE.hasRowNums;
 
       if (data.length === 0) {
         showError("No data found in CSV file: " + metadata.csvPath);
@@ -146,8 +187,10 @@ initializePageWithMetadata(async function (metadata) {
       };
 
       var ROWS_PER_CHUNK = 25;
-      let hideTashkeel = LS.get("hideTashkeel", false);
-      let hiddenColumns = LS.get("hiddenColumns", []);
+      STATE.hideTashkeel = LS.get("hideTashkeel", false);
+      STATE.hiddenColumns = LS.get("hiddenColumns", []);
+      var hideTashkeel = STATE.hideTashkeel;
+      var hiddenColumns = STATE.hiddenColumns;
 
       // ── -HDN convention ──────────────────────────────────────
       // Any CSV column header ending in "-HDN" (case-insensitive) is hidden by
@@ -167,12 +210,13 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Reader state ────────────────────────────────────────
-      const allData = data;
+      STATE.allData = data;
       // Books ending with -DSC display rows in reverse (last-to-first)
       if (metadata.bookCode && metadata.bookCode.toUpperCase().endsWith("-DSC")) {
-        allData.reverse();
+        STATE.allData.reverse();
       }
-      let filteredData = allData;
+      var allData = STATE.allData;
+      var filteredData = STATE.filteredData = STATE.allData;
 
       // DOM refs
       const searchInput = document.getElementById("searchInput");
@@ -369,8 +413,8 @@ initializePageWithMetadata(async function (metadata) {
         return t;
       }
 
-      var viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
-      var _tableAvailable = true;
+      var viewMode = STATE.viewMode;      // canonical: STATE.viewMode
+      var _tableAvailable = STATE._tableAvailable;
 
       function updateViewModeUI() {
         var trigger = document.getElementById("btnViewMode");
@@ -412,7 +456,7 @@ initializePageWithMetadata(async function (metadata) {
             e.stopPropagation();
             var mode = this.getAttribute("data-mode");
             if (mode !== viewMode) {
-              viewMode = mode;
+              STATE.viewMode = viewMode = mode;
               updateViewModeUI();
               rebuildAll();
             }
@@ -681,6 +725,8 @@ initializePageWithMetadata(async function (metadata) {
             }
             thead += "</tr></thead>";
           }
+          // ── Table DOM structure (IDs referenced by setupTableScroll, appendNext, prependPrev) ──
+          // DO NOT rename: #rdfTopScroll, #rdfScrollBack, #rdfScrollFwd, #rdfTableWrap, #rdfBody, #sentinelBottom
           readerContent.innerHTML =
             `<div class="rdf-top-scroll" id="rdfTopScroll"><button class="rdf-scroll-arrow" id="rdfScrollBack" title="Back to beginning">▶</button><div class="rdf-top-scroll-inner"><div class="rdf-top-scroll-spacer" id="rdfTopScrollInner"></div></div><button class="rdf-scroll-arrow" id="rdfScrollFwd" title="More columns">◀</button></div>` +
             `<div class="rdf-table-wrap" id="rdfTableWrap"><table class="rdf-table">${thead}<tbody id="rdfBody"></tbody></table></div>` +
@@ -1524,8 +1570,8 @@ initializePageWithMetadata(async function (metadata) {
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
         // Reset view mode to default for this book
-        viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
-        _tableAvailable = true;
+        STATE.viewMode = viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
+        STATE._tableAvailable = _tableAvailable = true;
         updateViewModeUI();
         // Reset Quran display settings
         if (quranBook) {
@@ -1656,11 +1702,11 @@ initializePageWithMetadata(async function (metadata) {
           e.preventDefault();
           // Cycle: card → table → parallel → card (skip table if not available)
           if (viewMode === "card") {
-            viewMode = _tableAvailable ? "table" : "parallel";
+            STATE.viewMode = viewMode = _tableAvailable ? "table" : "parallel";
           } else if (viewMode === "table") {
-            viewMode = "parallel";
+            STATE.viewMode = viewMode = "parallel";
           } else {
-            viewMode = "card";
+            STATE.viewMode = viewMode = "card";
           }
           updateViewModeUI();
           rebuildAll();

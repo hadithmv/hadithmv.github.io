@@ -1,6 +1,20 @@
 /**
  * Common initialisation shared by both dashboard and reader pages.
- * - Theme, font, i18n, sidebar, settings modal, keyboard shortcuts.
+ *
+ * ── window.* conventions ──────────────────────────────────────
+ * Functions on `window` used by BOTH pages MUST be defined here.
+ *   window.setFocus, window.showToast, window.copyToClipboard,
+ *   window.LS_KEYS, window.createModal, window.MODAL_IDS,
+ *   window.openModal, window.closeModal, window.closeAllModals
+ *
+ * Functions on `window` used ONLY by the reader page live in reader.js:
+ *   window.openDropdown, window.closeAllDropdowns, window.registerDropdown
+ *
+ * Functions on `window` for pins/history live in pins-history.js:
+ *   window.openPinsModal, window.openHistoryModal
+ *
+ * Rule: before adding a new `window.X = …`, ask: does it serve both pages?
+ *   YES → common.js    NO → the owning module
  */
 
 import { initI18n, setLanguage, t } from "../js/i18n.js";
