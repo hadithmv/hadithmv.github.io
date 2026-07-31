@@ -13,7 +13,8 @@
 |---|---|
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
 | `js/catalog.js` | Book registry, tag resolution, dashboard rendering, pins/history modal |
-| `js/reader.js` | Book viewer: CSV parsing, rendering, pagination, export |
+| `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
+| `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
 | `js/quran.js` | Quran data: loading, decoration, navigation, column registry, source labels |
 | `js/search.js` | Search engine: normalisation, parsing, matching, history |
 | `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |

@@ -20,7 +20,8 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
 | `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering                      |
-| `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, export, keyboard, dropdowns, focus mode |
+| `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, keyboard, dropdowns, focus mode |
+| `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, XML, Word) — lazy‑loaded via ctx pattern |
 | `js/quran.js`                | Quran: data loading, decoration, nav, column registry, column classification helpers, UI setup |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
@@ -434,7 +435,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Variable style.** `var` is used for function‑scoped variables throughout the codebase. `let` and `const` appear only in newer, self‑contained additions.
 
-**New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `reader.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
+**New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `js/export.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
 
 ### i18n
 
@@ -528,10 +529,11 @@ Use the tag code as a prefix in any `bookCode` (e.g. `FQH-usululFiqh`) — badge
 
 ### Add a new export format
 
-In `js/reader.js`, add an `else if (fmt === "...")` block inside the export click handler. Data formats use `rowsWithHeader`; rich‑text formats use `rows`:
+In `js/export.js`, add an `else if (fmt === "...")` block inside the export click handler. Data formats use `ctx.allData` with `ctx.headerRow` prepended; rich‑text formats use `ctx.allData` directly:
 ```js
 } else if (fmt === "newfmt") {
-  content = myFormatBuilder(rowsWithHeader);   // include headers
+  var rowsWithHdr = ctx.headerRow ? [ctx.headerRow].concat(ctx.allData) : ctx.allData;
+  content = myFormatBuilder(rowsWithHdr);   // include headers
   filename = baseName + ".ext";
   mime = "application/x-myformat";
 }

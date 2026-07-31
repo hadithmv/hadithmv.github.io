@@ -10,9 +10,9 @@
  *
  * ZIP uses store (no compression) — fast to build, small enough for
  * text-heavy spreadsheets.  Inline strings avoid a shared-strings table.
+ */
 
 import { escapeXML as xmlEsc } from "./search.js";
- */
 
 // ── CRC-32 (table-driven) ────────────────────────────────────────
 function crc32(data) {
