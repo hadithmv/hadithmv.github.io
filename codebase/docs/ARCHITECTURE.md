@@ -437,6 +437,20 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Variable style.** `var` is used for function‑scoped variables throughout the codebase. `let` and `const` appear only in newer, self‑contained additions.
 
+**Naming conventions.**
+
+| Scope | Convention | Examples |
+|---|---|---|
+| Files | kebab-case | `quran-data.js`, `pins-history.js`, `reader.js` |
+| Functions | camelCase | `renderRowHTML`, `buildClipboardText` |
+| Constants (module‑level) | UPPER_SNAKE | `MAX_PINS`, `ROWS_PER_CHUNK`, `DEFAULT_FONT_SIZE` |
+| Private module‑level state | `_camelCase` | `_bookNamesCache`, `_loadedColMap`, `_searchHistory`, `_lastBookNames` |
+| DOM element IDs | camelCase | `readerContent`, `btnExport`, `dashboardPanelSearch` |
+| CSS classes | kebab-case + namespace | `reader-field-matn`, `dash-table`, `quran-nav-btn` |
+| Shared CSS utilities | `dd-` prefix | `.dd-item`, `.dd-menu`, `.dd-check` |
+| Custom events | single lowercase word | `readerReset`, `focuschange`, `languagechange` |
+| LocalStorage keys | `reader:` prefix for reader | `reader:hiddenColumns`, `reader:searchHistory` |
+
 **New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `js/export.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
 
 ### i18n

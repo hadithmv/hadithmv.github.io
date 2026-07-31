@@ -9,8 +9,8 @@ import { tagLabel, t, currentLang } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
 import { parseCSV, parseCSVWithHeader, loadCSVData } from "./csv.js";
 
-let bookNamesCache = null;
-let tagDefinitionsCache = null;
+let _bookNamesCache = null;
+let _tagDefinitionsCache = null;
 
 // ---------------------------------------------------------------------------
 // Tag definitions — loaded from 01-registry-bookTags.csv
@@ -44,8 +44,8 @@ function injectPaletteCSS(slotCount) {
  * @returns {Promise<Object>} Map of tag code → {label, palette}
  */
 async function loadTagDefinitions() {
-  if (tagDefinitionsCache) {
-    return tagDefinitionsCache;
+  if (_tagDefinitionsCache) {
+    return _tagDefinitionsCache;
   }
 
   try {
@@ -59,25 +59,25 @@ async function loadTagDefinitions() {
     injectPaletteCSS(Math.max(tagCount + 8, 20));
 
     // Build lookup map — assign sequential palette slot to each tag (skipping PIN)
-    tagDefinitionsCache = {};
+    _tagDefinitionsCache = {};
     var palIdx = 0;
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
       if (row.code) {
         var code = row.code;
         var palette = (code === "PIN") ? -1 : palIdx++;
-        tagDefinitionsCache[code] = {
+        _tagDefinitionsCache[code] = {
           label: row.label || code,
           palette: palette
         };
       }
     }
-    return tagDefinitionsCache;
+    return _tagDefinitionsCache;
   } catch (error) {
     console.error("Error loading 01-registry-bookTags.csv:", error);
     // Cache the empty result so we don't retry endlessly
-    tagDefinitionsCache = {};
-    return tagDefinitionsCache;
+    _tagDefinitionsCache = {};
+    return _tagDefinitionsCache;
   }
 }
 
@@ -96,7 +96,7 @@ function extractTags(bookCode) {
   if (!bookCode) return [];
   const parts = bookCode.split("-");
   const tagCodes = parts.slice(0, -1);
-  const defs = tagDefinitionsCache || {};
+  const defs = _tagDefinitionsCache || {};
   return tagCodes
     .filter((code) => defs[code])
     .map((code) => ({
@@ -116,13 +116,13 @@ function extractTags(bookCode) {
  * @returns {Promise<Array>} Array of book metadata objects (empty on error)
  */
 export async function loadBookNames() {
-  if (bookNamesCache) {
-    return bookNamesCache;
+  if (_bookNamesCache) {
+    return _bookNamesCache;
   }
 
   try {
-    bookNamesCache = await loadCSVData("../data/02-registry-bookNames.csv");
-    return bookNamesCache;
+    _bookNamesCache = await loadCSVData("../data/02-registry-bookNames.csv");
+    return _bookNamesCache;
   } catch (error) {
     console.error("Error loading bookNames.csv:", error);
     return [];
@@ -141,8 +141,8 @@ export async function getPageMetadata(bookCode) {
 
 /** Sync lookup — cache must already be populated (it is after page init). */
 export function getBookTitleSync(bookCode) {
-  if (!bookNamesCache) return null;
-  var entry = bookNamesCache.find(function (e) { return e.bookCode === bookCode; });
+  if (!_bookNamesCache) return null;
+  var entry = _bookNamesCache.find(function (e) { return e.bookCode === bookCode; });
   return entry ? (entry.titleDV || entry.titleEN || bookCode) : null;
 }
 
