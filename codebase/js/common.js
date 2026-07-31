@@ -246,10 +246,10 @@ window.createModal = function (id, titleId, bodyId, extraClass) {
   overlay.className = "modal-overlay";
   overlay.innerHTML = '<div class="modal' + (extraClass ? " " + extraClass : "") + '" role="dialog">' +
     '<div class="modal-header">' +
-      '<h2 id="' + titleId + '"></h2>' +
+      '<h2 id="' + titleId + '" class="modal-title"></h2>' +
       '<button class="modal-close" title="Close (Escape key)">✕</button>' +
     '</div>' +
-    '<div id="' + bodyId + '" class="pins-history-body"></div>' +
+    '<div id="' + bodyId + '" class="modal-body pins-history-body"></div>' +
     '</div>';
   document.body.appendChild(overlay);
   window.MODAL_IDS.push(id);

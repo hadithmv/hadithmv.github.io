@@ -409,7 +409,7 @@ body {
   opacity: 1;
 }
 
-body:has(#settingsOverlay.open) {
+body:has(.modal-overlay.open) {
   overflow: hidden;
 }
 
@@ -1170,36 +1170,47 @@ body:has(#settingsOverlay.open) {
 
 /* ---- Pins / History modal ---- */
 .pins-history-modal {
-  max-width: 520px;
+  width: min(520px, 92vw);
   max-height: 80vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 .pins-history-body {
   overflow-y: auto;
   flex: 1;
+  min-height: 0;
 }
 .pins-history-body .dd-grid {
   display: grid;
   align-items: center;
-  gap: 2px 4px;
+  gap: 2px 6px;
 }
 .pins-history-body[data-mode="pins"] .dd-grid {
-  grid-template-columns: 20px 34px 1fr auto auto;
+  grid-template-columns: 36px 72px minmax(0, 1fr) auto auto;
 }
 .pins-history-body[data-mode="history"] .dd-grid {
-  grid-template-columns: 1fr auto auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
 }
 .pins-history-body .dd-header,
 .pins-history-body .dash-dropdown-item {
   display: contents;
 }
-.pins-history-body .dd-header > * {
-  padding: 4px 8px;
-  font-size: 0.7rem;
-  font-weight: 600;
+/* Header cells listed explicitly so this rule (specificity 0,3,0) beats the
+   .dd-col-* rules (0,2,0), which otherwise win by declaration order. */
+.pins-history-body .dd-header > .dd-col-idx,
+.pins-history-body .dd-header > .dd-col-sort,
+.pins-history-body .dd-header > .dd-col-book,
+.pins-history-body .dd-header > .dd-col-page,
+.pins-history-body .dd-header > .dd-col-time,
+.pins-history-body .dd-header > .dd-col-remove {
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: var(--color-text-subtle);
-  border-bottom: 1px solid var(--color-border);
+  background: var(--color-nav-btn-bg);
+  border-radius: 6px;
+  white-space: nowrap;
   font-family:
     "Hadithmv",
     "Faruma",
@@ -1207,8 +1218,12 @@ body:has(#settingsOverlay.open) {
     -apple-system,
     sans-serif;
 }
+.pins-history-body .dd-header > .dd-col-sort {
+  padding-left: 6px;
+  padding-right: 6px;
+}
 .pins-history-body .dash-dropdown-item > * {
-  padding: 5px 8px;
+  padding: 7px 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
@@ -1222,6 +1237,12 @@ body:has(#settingsOverlay.open) {
 }
 .pins-history-body .dash-dropdown-item:hover > * {
   background: var(--color-nav-btn-hover-bg);
+}
+.pins-history-body .dash-dropdown-item > .dd-col-book {
+  border-radius: 0 6px 6px 0;
+}
+.pins-history-body .dash-dropdown-item > .dd-col-remove {
+  border-radius: 6px 0 0 6px;
 }
 .pins-history-body .dd-col-idx {
   text-align: center;
@@ -1261,10 +1282,12 @@ body:has(#settingsOverlay.open) {
   text-decoration: underline;
 }
 .pins-history-body .dd-empty {
-  padding: 16px;
+  padding: 16px 12px;
   text-align: center;
   color: var(--color-text-subtle);
   font-size: var(--panel-font-size, 0.85rem);
+  border: 1px dashed var(--color-border);
+  border-radius: 10px;
 }
 .dd-clear-all {
   display: block;
