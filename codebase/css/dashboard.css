@@ -124,7 +124,8 @@
 /* Dashboard table view */
 .dash-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: 1rem;
   direction: rtl;
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
@@ -139,8 +140,18 @@
   text-align: right;
   white-space: nowrap;
   position: sticky;
-  top: 64px;
-  z-index: 1;
+  top: 58px;
+  z-index: 10;
+}
+.dash-table th {
+  padding: 10px 12px;
+  background: var(--color-nav-btn-bg);
+  border-bottom: 2px solid var(--color-card-hover-border);
+  font-weight: 700;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  text-align: right;
+  white-space: nowrap;
 }
 .dash-table td {
   padding: 10px 12px;
