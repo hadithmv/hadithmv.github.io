@@ -130,6 +130,7 @@ Normalises text for comparison:
 - Strips Arabic tashkeel and tatweel
 - Normalises alif variants (`أ إ آ` → `ا`), ya (`ى` → `ي`), waw‑hamza (`ؤ` → `و`)
 - Normalises Thaana thikijehi (`ޘ→ސ`, `ޙ→ހ`, etc.)
+- Implemented as a single regex pass with a per‑char lookup (was ~30 sequential replaces) — the hottest function in the app, so it is built for speed
 
 Used by both dashboard search and book search.
 
@@ -165,7 +166,19 @@ parseQuery("الله -رسول .سلام col:2:بسم");
 
 ### `rowMatchesQuery(row, parsed)`
 
-Checks if a data row (array of cell values) matches a parsed query. Include terms use AND logic; exclude terms filter out matches.
+Checks if a data row (array of cell values) matches a parsed query. Include terms use AND logic; exclude terms filter out matches. Accepts either a raw `parseQuery` result or a compiled one (`compileQuery`).
+
+### `compileQuery(parsed)`
+
+Compiles a parsed query once — normalises each term and precompiles its regex — so a full‑dataset scan never re‑normalises terms or rebuilds `RegExp`s per cell. Returns the same shape as `parseQuery` plus `compiled: true`. Feed it to `rowMatchesQuery` / `rowMatchesQueryNorm` / `buildSnippets`.
+
+### `rowMatchesQueryNorm(row, normRow, compiled)`
+
+Norm‑aware variant of `rowMatchesQuery`: matches against the precomputed normalised cells from `buildNormData()` and a compiled query. Pass `normRow = null` to fall back to on‑the‑fly normalisation (identical behaviour to `rowMatchesQuery`).
+
+### `buildNormData(rows)`
+
+Precomputes a parallel structure of normalised cells for every row (null/undefined cells stay `null`). Built once at book load in `reader.js` and reused by every search keystroke — this is what keeps full‑scan searches fast on big books. The Quran on‑demand column loader keeps it in sync via the `quran-ui.js` ctx bridge.
 
 ### `matchTerm(text, term, wholeWord)`
 
@@ -175,9 +188,9 @@ Tests a single term against a text string. Handles wildcards, whole‑word bound
 
 Wraps occurrences of the query in `<mark>` tags. Uses normalised matching to handle tashkeel/thikijehi — positions are mapped back to the original text.
 
-### `buildSnippets(row, parsed, queryForHighlight)`
+### `buildSnippets(row, parsed, queryForHighlight, normRow?)`
 
-Finds matching cells in a row using `rowMatchesQuery`, then builds highlighted snippets (~300 chars around each match). Returns `Array<string>`.
+Finds matching cells in a row, then builds highlighted snippets (~300 chars around each match). Returns `Array<string>`. `parsed` may be a raw or compiled query; `normRow` is the optional precomputed normalised cell row (from `buildNormData`) to skip re‑normalisation.
 
 ### Search history
 

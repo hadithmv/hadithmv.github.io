@@ -5,8 +5,9 @@
  * fuzzy matching, whole‑word, regex, and column‑scoped queries.
  * Used by both the book reader and the dashboard search.
  *
- * Exports: normaliseForSearch, parseQuery, rowMatchesQuery, matchTerm,
- *          highlightMatches, buildSnippets, escapeHTML, addSearchHistory,
+ * Exports: normaliseForSearch, parseQuery, compileQuery, rowMatchesQuery,
+ *          rowMatchesQueryNorm, matchTerm, buildNormData, highlightMatches,
+ *          buildSnippets, escapeHTML, addSearchHistory,
  *          getSearchHistory, clearSearchHistory, MAX_HISTORY
  */
 
@@ -16,34 +17,33 @@
  * Strip Arabic tashkeel, unify alif/ya/waw variants,
  * normalise Thaana thikijehi → base letters.
  */
+// Single regex pass + per-char lookup — one full scan instead of ~30
+// sequential replaces. This is the hottest function in the app: it runs
+// on every search keystroke, every highlight, and once per cell when
+// buildNormData() precomputes the search cache.
+var NORM_RE = /[ؐ-ًؚ-ٰٟۖ-ۭـ]|[أإآ]|ى|ؤ|[ޘޝޞ]|[ޙޚ]|[ޛޜޡ]|[ޟ]|[ޠ]|[ޢ]|[ޣޤ]|[ޥ]/g;
+
 export function normaliseForSearch(str) {
   if (!str) return "";
   var s = str.toLowerCase();
-  // Arabic tashkeel + tatweel
-  s = s.replace(/[ؐ-ًؚ-ٰٟۖ-ۭ]/g, "");
-  s = s.replace(/ـ/g, "");
-  // Alif → plain alif
-  s = s.replace(/[أإآ]/g, "ا");
-  // Ya → ya
-  s = s.replace(/ى/g, "ي");
-  // Waw-hamza → waw
-  s = s.replace(/ؤ/g, "و");
-  // Thaana thikijehi → base Thaana
-  s = s.replace(/ޘ/g, "ސ");
-  s = s.replace(/ޙ/g, "ހ");
-  s = s.replace(/ޚ/g, "ހ");
-  s = s.replace(/ޛ/g, "ޒ");
-  s = s.replace(/ޜ/g, "ޒ");
-  s = s.replace(/ޝ/g, "ސ");
-  s = s.replace(/ޞ/g, "ސ");
-  s = s.replace(/ޟ/g, "ދ");
-  s = s.replace(/ޠ/g, "ތ");
-  s = s.replace(/ޡ/g, "ޒ");
-  s = s.replace(/ޢ/g, "އ");
-  s = s.replace(/ޣ/g, "ގ");
-  s = s.replace(/ޤ/g, "ގ");
-  s = s.replace(/ޥ/g, "ވ");
-  return s;
+  return s.replace(NORM_RE, function (ch) {
+    // Alif → plain alif
+    if (ch === "أ" || ch === "إ" || ch === "آ") return "ا";
+    // Ya → ya
+    if (ch === "ى") return "ي";
+    // Waw-hamza → waw
+    if (ch === "ؤ") return "و";
+    // Thaana thikijehi → base Thaana
+    if (ch === "ޘ" || ch === "ޝ" || ch === "ޞ") return "ސ";
+    if (ch === "ޙ" || ch === "ޚ") return "ހ";
+    if (ch === "ޛ" || ch === "ޜ" || ch === "ޡ") return "ޒ";
+    if (ch === "ޟ") return "ދ";
+    if (ch === "ޠ") return "ތ";
+    if (ch === "ޢ") return "އ";
+    if (ch === "ޣ" || ch === "ޤ") return "ގ";
+    if (ch === "ޥ") return "ވ";
+    return ""; // tashkeel / tatweel
+  });
 }
 
 // ── HTML helpers ────────────────────────────────────────────
@@ -102,38 +102,52 @@ export function highlightMatches(text, query) {
 // ── Matching engine ─────────────────────────────────────────
 
 /**
- * Check if `text` matches a single `term` with modifiers.
+ * Compile a term once: normalised text, fuzzy flag, and the compiled
+ * regex. The old path re-normalised the term and rebuilt the RegExp for
+ * EVERY cell — O(rows × cols) term normalisations per keystroke.
  */
-export function matchTerm(text, term, wholeWord) {
-  var nt = normaliseForSearch(text);
+function compileTerm(term, wholeWord, fuzzyFlag) {
   var nterm = normaliseForSearch(term);
-  if (!nterm) return false;
-
-  // Fuzzy: ~term or term~
-  var fuzzy = false;
+  var fuzzy = !!fuzzyFlag;
   var fuzzyTerm = nterm;
+  // Fuzzy: ~term or term~. parseQuery strips the markers and sets the flag;
+  // direct callers of matchTerm may pass them inside the term string instead.
   if (nterm[0] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(1); }
   if (nterm[nterm.length - 1] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(0, -1); }
-  if (fuzzy) return fuzzyMatch(nt, fuzzyTerm, 2);
+  var re = null;
+  if (!fuzzy) {
+    // Build regex from term (support * and ? wildcards)
+    var pattern = "";
+    for (var i = 0; i < nterm.length; i++) {
+      var ch = nterm[i];
+      if (ch === "*") pattern += ".*";
+      else if (ch === "?") pattern += ".";
+      else pattern += escapeRegex(ch);
+    }
+    var flags = "iu";
+    if (wholeWord) {
+      pattern = "(^|[^\\p{L}])(" + pattern + ")([^\\p{L}]|$)";
+    }
+    try { re = new RegExp(pattern, flags); } catch (e) { re = null; }
+  }
+  return { nterm: nterm, fuzzy: fuzzy, fuzzyTerm: fuzzyTerm, re: re };
+}
 
-  // Build regex from term (support * and ? wildcards)
-  var pattern = "";
-  for (var i = 0; i < nterm.length; i++) {
-    var ch = nterm[i];
-    if (ch === "*") pattern += ".*";
-    else if (ch === "?") pattern += ".";
-    else pattern += escapeRegex(ch);
-  }
+/** Match a pre-normalised cell against a compiled term. */
+function matchCompiled(normText, term) {
+  if (!term.nterm) return false;
+  if (term.fuzzy) return fuzzyMatch(normText, term.fuzzyTerm, 2);
+  if (term.re) return term.re.test(normText);
+  return normText.indexOf(term.nterm) !== -1;
+}
 
-  var flags = "iu";
-  if (wholeWord) {
-    pattern = "(^|[^\\p{L}])(" + pattern + ")([^\\p{L}]|$)";
-  }
-  try {
-    return new RegExp(pattern, flags).test(nt);
-  } catch (e) {
-    return nt.indexOf(nterm) !== -1;
-  }
+/**
+ * Check if `text` matches a single `term` with modifiers.
+ * Per-call convenience wrapper — the hot paths use compileTerm +
+ * matchCompiled so nothing is re-normalised or recompiled per cell.
+ */
+export function matchTerm(text, term, wholeWord) {
+  return matchCompiled(normaliseForSearch(text), compileTerm(term, wholeWord));
 }
 
 function fuzzyMatch(text, pattern, maxDist) {
@@ -223,6 +237,46 @@ export function parseQuery(query) {
   return result;
 }
 
+// ── Compiled queries ────────────────────────────────────────
+
+/**
+ * Compile a parsed query so a scan needs no re-normalisation and no
+ * regex rebuild. Same shape as parseQuery's result (plus `compiled: true`);
+ * pass it to rowMatchesQuery / rowMatchesQueryNorm / buildSnippets.
+ */
+export function compileQuery(parsed) {
+  var compiled = { regex: parsed.regex, include: [], exclude: [], compiled: true };
+  for (var i = 0; i < parsed.include.length; i++) {
+    var inc = parsed.include[i];
+    compiled.include.push({ col: inc.col, term: compileTerm(inc.term, inc.wholeWord, inc.fuzzy) });
+  }
+  for (var j = 0; j < parsed.exclude.length; j++) {
+    var exc = parsed.exclude[j];
+    compiled.exclude.push({ col: exc.col, term: compileTerm(exc.term, exc.wholeWord, exc.fuzzy) });
+  }
+  return compiled;
+}
+
+/**
+ * True when a single cell (at column `idx`) passes a compiled query —
+ * the per-cell test buildSnippets uses. Column-scoped terms only count
+ * when the term's column IS this cell's column (missing columns never match).
+ */
+function matchesCell(compiled, normCell, idx) {
+  if (compiled.regex) return compiled.regex.test(normCell);
+  for (var i = 0; i < compiled.include.length; i++) {
+    var t = compiled.include[i];
+    if (t.col !== null && t.col !== idx) return false;
+    if (!matchCompiled(normCell, t.term)) return false;
+  }
+  for (var j = 0; j < compiled.exclude.length; j++) {
+    var e = compiled.exclude[j];
+    if (e.col !== null && e.col !== idx) continue;
+    if (matchCompiled(normCell, e.term)) return false;
+  }
+  return true;
+}
+
 // ── Row matching ────────────────────────────────────────────
 
 /**
@@ -230,27 +284,70 @@ export function parseQuery(query) {
  * Row is an array of cell values.
  */
 export function rowMatchesQuery(row, parsed) {
-  if (parsed.regex) {
-    return row.some(function (cell) {
-      return cell != null && parsed.regex.test(normaliseForSearch(String(cell)));
+  var compiled = parsed && parsed.compiled ? parsed : compileQuery(parsed);
+  return rowMatchesQueryNorm(row, null, compiled);
+}
+
+/**
+ * Precomputed-normalisation variant: `normRow` is the parallel structure
+ * from buildNormData() — pass null to fall back to on-the-fly normalisation
+ * (same behaviour as rowMatchesQuery). `compiled` comes from compileQuery().
+ */
+export function rowMatchesQueryNorm(row, normRow, compiled) {
+  if (compiled.regex) {
+    return row.some(function (cell, i) {
+      var nc = normRow ? normRow[i] : (cell != null ? normaliseForSearch(String(cell)) : null);
+      return nc != null && compiled.regex.test(nc);
     });
   }
 
-  for (var i = 0; i < parsed.include.length; i++) {
-    var inc = parsed.include[i];
+  for (var i = 0; i < compiled.include.length; i++) {
+    var inc = compiled.include[i];
     var cols = inc.col !== null ? [row[inc.col]] : row;
-    if (!cols.some(function (cell) {
-      return cell != null && matchTerm(String(cell), inc.term, inc.wholeWord);
-    })) return false;
+    var matched = false;
+    for (var j = 0; j < cols.length; j++) {
+      var cell = cols[j];
+      var nc = normRow
+        ? (inc.col !== null ? normRow[inc.col] : normRow[j])
+        : (cell != null ? normaliseForSearch(String(cell)) : null);
+      if (nc != null && matchCompiled(nc, inc.term)) { matched = true; break; }
+    }
+    if (!matched) return false;
   }
-  for (var j = 0; j < parsed.exclude.length; j++) {
-    var exc = parsed.exclude[j];
+  for (var k = 0; k < compiled.exclude.length; k++) {
+    var exc = compiled.exclude[k];
     var excCols = exc.col !== null ? [row[exc.col]] : row;
-    if (excCols.some(function (cell) {
-      return cell != null && matchTerm(String(cell), exc.term, exc.wholeWord);
-    })) return false;
+    for (var l = 0; l < excCols.length; l++) {
+      var eCell = excCols[l];
+      var eNc = normRow
+        ? (exc.col !== null ? normRow[exc.col] : normRow[l])
+        : (eCell != null ? normaliseForSearch(String(eCell)) : null);
+      if (eNc != null && matchCompiled(eNc, exc.term)) return false;
+    }
   }
   return true;
+}
+
+// ── Precomputed normalisation ───────────────────────────────
+
+/**
+ * Build a parallel structure of normalised cells for every row — the
+ * search/highlight path then never re-normalises per keystroke.
+ * null/undefined cells stay null (missing cells); empty strings
+ * normalise to "" so wildcard-only queries still behave as before.
+ */
+export function buildNormData(rows) {
+  var out = new Array(rows.length);
+  for (var i = 0; i < rows.length; i++) {
+    var r = rows[i];
+    var nr = new Array(r.length);
+    for (var j = 0; j < r.length; j++) {
+      var c = r[j];
+      nr[j] = (c === null || c === undefined) ? null : normaliseForSearch(String(c));
+    }
+    out[i] = nr;
+  }
+  return out;
 }
 
 // ── Snippet builder ─────────────────────────────────────────
@@ -259,15 +356,17 @@ export function rowMatchesQuery(row, parsed) {
  * Build highlighted snippets for a row, using the same search engine
  * so highlighting matches filtering exactly.
  */
-export function buildSnippets(row, parsed, queryForHighlight) {
+export function buildSnippets(row, parsed, queryForHighlight, normRow) {
+  // `parsed` may be a raw parseQuery result or a compiled one; `normRow`
+  // is the precomputed normalised cell structure (optional).
+  var compiled = parsed && parsed.compiled ? parsed : compileQuery(parsed);
   var matchingCells = [];
   for (var i = 0; i < row.length; i++) {
     var cell = row[i];
     if (cell === null || cell === undefined) continue;
-    var testRow = [];
-    testRow[i] = cell;
-    if (rowMatchesQuery(testRow, parsed)) {
-      matchingCells.push({ text: String(cell) });
+    var normCell = normRow ? normRow[i] : normaliseForSearch(String(cell));
+    if (matchesCell(compiled, normCell, i)) {
+      matchingCells.push({ text: String(cell), norm: normCell });
     }
   }
   if (matchingCells.length === 0) return [];
@@ -275,11 +374,11 @@ export function buildSnippets(row, parsed, queryForHighlight) {
   var results = [];
   for (var m = 0; m < matchingCells.length; m++) {
     var str = matchingCells[m].text;
-    var nstr = normaliseForSearch(str);
+    var nstr = matchingCells[m].norm;
     var bestPos = -1, bestLen = 0;
-    for (var t = 0; t < parsed.include.length; t++) {
-      var term = parsed.include[t];
-      var nterm = normaliseForSearch(term.term);
+    for (var t = 0; t < compiled.include.length; t++) {
+      var term = compiled.include[t];
+      var nterm = term.term.nterm;
       if (!nterm) continue;
       var pos = nstr.indexOf(nterm);
       if (pos !== -1 && (bestPos === -1 || pos < bestPos)) {

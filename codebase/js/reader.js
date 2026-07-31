@@ -8,7 +8,7 @@
 
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search.js";
+import { normaliseForSearch, parseQuery, compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search.js";
 import { fetchCSV } from "./csv.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
@@ -203,6 +203,11 @@ initializePageWithMetadata(async function (metadata) {
       }
       var allData = STATE.allData;
       var filteredData = STATE.filteredData = STATE.allData;
+      // Precomputed normalised copies of every cell (parallel to allData).
+      // Search and snippet building read these instead of re-normalising
+      // every cell on every keystroke — the main win on big books.
+      // Kept in sync with quran-ui.js column insertion via the ctx bridge.
+      var normAllData = buildNormData(allData);
 
       // DOM refs
       const searchInput = document.getElementById("searchInput");
@@ -1041,20 +1046,22 @@ initializePageWithMetadata(async function (metadata) {
       let selectedResultIdx = -1; // index within searchResults DOM children
 
 
-      function buildSnippets(row, q) {
-        var parsed = parseQueryWithMode(q);
-        return buildSnippetsFromSearch(row, parsed, q);
+      function buildSnippets(row, q, compiled, normRow) {
+        var parsed = compiled || parseQueryWithMode(q);
+        return buildSnippetsFromSearch(row, parsed, q, normRow);
       }
 
       function buildAdvResultsHTML(query, rows, realIdxMap) {
         var MAX = 30;
         var q = query.trim();
         if (!q || rows.length === 0) return "";
+        // Compile once for the whole result set — not once per row
+        var compiled = parseQueryWithMode(q);
         var html = ""; var count = 0;
         for (var i = 0; i < rows.length && count < MAX; i++) {
           var row = rows[i];
           var rowNum = row[0] || (realIdxMap[i] + 1);
-          var snippets = buildSnippets(row, q);
+          var snippets = buildSnippets(row, q, compiled, normAllData[realIdxMap[i]]);
           if (snippets.length === 0) {
             // Fallback: show first non-empty cell
             for (var c = 0; c < row.length; c++) {
@@ -1076,12 +1083,17 @@ initializePageWithMetadata(async function (metadata) {
         const MAX = 50;
         const q = query.trim();
         if (!q || filteredData.length === 0) return "";
+        // Compile once for the whole result set — not once per row
+        var compiled = parseQueryWithMode(q);
         let html = "";
         let count = 0;
         for (let i = 0; i < filteredData.length && count < MAX; i++) {
           const row = filteredData[i];
           const rowNum = row[0] || allData.indexOf(row) + 1;
-          var snippets = buildSnippets(row, q);
+          // filteredData is allData normally, but the Quran surah filter
+          // swaps in a subset — index alignment only holds for allData.
+          var normRow = filteredData === allData ? normAllData[i] : normAllData[allData.indexOf(row)];
+          var snippets = buildSnippets(row, q, compiled, normRow);
           for (var s = 0; s < snippets.length && count < MAX; s++) {
             html +=
               '<div class="search-result" data-idx="' +
@@ -1123,6 +1135,7 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function applySearch(query) {
+        clearTimeout(_searchDebounceTimer); // don't re-run a stale keystroke
         var q = query.trim();
         if (!q) {
           filteredData = allData;
@@ -1133,9 +1146,9 @@ initializePageWithMetadata(async function (metadata) {
           return;
         }
 
-        var parsed = parseQueryWithMode(q);
-        var tempFiltered = allData.filter(function (row) {
-          return rowMatchesQuery(row, parsed);
+        var compiled = compileQuery(parseQueryWithMode(q));
+        var tempFiltered = allData.filter(function (row, ri) {
+          return rowMatchesQueryNorm(row, normAllData[ri], compiled);
         });
 
         addSearchHistory(q);
@@ -1239,9 +1252,15 @@ initializePageWithMetadata(async function (metadata) {
         if (!this.value.trim()) renderSearchHistory();
         else searchResults.style.display = "";
       });
+      // Debounce: one full scan per pause in typing, not one per keystroke.
+      // applySearch() clears any pending timer, so explicit applies (clear
+      // button, history click, whole-word toggle) can't be raced by a stale one.
+      var _searchDebounceTimer = null;
       searchInput.addEventListener("input", function () {
         searchHistoryEl.style.display = "none";
-        applySearch(this.value);
+        clearTimeout(_searchDebounceTimer);
+        var val = this.value;
+        _searchDebounceTimer = setTimeout(function () { applySearch(val); }, 120);
       });
       searchClear.addEventListener("click", function () {
         searchInput.value = "";
@@ -1328,15 +1347,17 @@ initializePageWithMetadata(async function (metadata) {
 
       function applyAdvancedSearch() {
         var rows = allData; // always filter against full data
-        var result = rows.filter(function(row) {
+        // Normalise each condition's value once — not once per row
+        var normQs = advConditions.map(function (c) { return normaliseForSearch(c.val || ""); });
+        var result = rows.filter(function(row, ri) {
+          var normRow = normAllData[ri];
           // Evaluate all conditions with AND/OR logic
-          var matches = advConditions.map(function(c) {
-            var cellVal = (row[c.col] !== null && row[c.col] !== undefined) ? String(row[c.col]) : "";
+          var matches = advConditions.map(function(c, ci) {
+            var ncell = (normRow && normRow[c.col] != null) ? normRow[c.col] : "";
             var op = OPERATORS.find(function(o){return o.id===c.op;});
             if (!op) return true;
-            if (op.needsValue === false) return op.fn(normaliseForSearch(cellVal));
-            var q = c.val || "";
-            return op.fn(normaliseForSearch(cellVal), normaliseForSearch(q));
+            if (op.needsValue === false) return op.fn(ncell);
+            return op.fn(ncell, normQs[ci]);
           });
           // Combine: first condition sets the baseline, subsequent use logic
           var result = matches[0];
@@ -1733,6 +1754,7 @@ initializePageWithMetadata(async function (metadata) {
           metadata: metadata,
           headerRow: headerRow,
           allData: allData,
+          normAllData: normAllData, // parallel normalised cells — kept in sync on column insert
           getFilteredData: function () { return filteredData; },
           setFilteredData: function (v) { filteredData = v; },
           getHiddenColumns: function () { return hiddenColumns; },

@@ -29,6 +29,7 @@ import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
 
 import { parseCSV } from "./csv.js";
+import { normaliseForSearch } from "./search.js";
 import { t } from "./i18n.js";
 
 export function initQuranUI(ctx) {
@@ -625,6 +626,9 @@ export function initQuranUI(ctx) {
               ? String(rows[r][sourceCol]).trim()
               : "";
           allData[r].splice(insertAt, 0, val);
+          // Keep the reader's precomputed norm cache in sync (same index)
+          var normRow = ctx.normAllData && ctx.normAllData[r];
+          if (normRow) normRow.splice(insertAt, 0, val ? normaliseForSearch(val) : "");
         }
         _loadedColMap[key] = insertAt;
         rebuildColumnSourceMap(_loadedColMap);

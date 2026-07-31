@@ -24,9 +24,10 @@ js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
   catalog.js          ← Metadata loader, tag extraction, dashboard rendering
   reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
-  quran.js             ← Quran: data, decoration, nav, column registry, all UI
+  quran-data.js        ← Quran: data, decoration, column registry
+  quran-ui.js          ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
   csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
-  search.js            ← Search engine: normalisation, parsing, matching, history
+  search.js            ← Search engine: normalisation, compiled queries, norm cache, matching, history
   i18n.js              ← Translations (dv/en/ar)
   xlsx.js              ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
   epub.js              ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
