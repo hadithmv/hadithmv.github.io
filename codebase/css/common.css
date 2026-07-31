@@ -1181,35 +1181,29 @@ body:has(.modal-overlay.open) {
   flex: 1;
   min-height: 0;
 }
-.pins-history-body .dd-grid {
-  display: grid;
-  align-items: center;
-  gap: 2px 6px;
+.pins-history-body .dd-table {
+  width: 100%;
+  border-collapse: separate;
+  /* vertical spacing only: header bar and rows float as solid bars,
+     2px apart, with cells touching horizontally */
+  border-spacing: 0 2px;
+  table-layout: fixed;
 }
-.pins-history-body[data-mode="pins"] .dd-grid {
-  grid-template-columns: 36px 72px minmax(0, 1fr) auto auto;
-}
-.pins-history-body[data-mode="history"] .dd-grid {
-  grid-template-columns: minmax(0, 1fr) auto auto auto;
-}
-.pins-history-body .dd-header,
-.pins-history-body .dash-dropdown-item {
-  display: contents;
-}
-/* Header cells listed explicitly so this rule (specificity 0,3,0) beats the
-   .dd-col-* rules (0,2,0), which otherwise win by declaration order. */
-.pins-history-body .dd-header > .dd-col-idx,
-.pins-history-body .dd-header > .dd-col-sort,
-.pins-history-body .dd-header > .dd-col-book,
-.pins-history-body .dd-header > .dd-col-page,
-.pins-history-body .dd-header > .dd-col-time,
-.pins-history-body .dd-header > .dd-col-remove {
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(1) { width: 36px; }
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(2) { width: 80px; }
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 84px; }
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 84px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 84px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 110px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 84px; }
+.pins-history-body .dd-table th {
   padding: 8px 10px;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--color-text-subtle);
   background: var(--color-nav-btn-bg);
-  border-radius: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   font-family:
     "Hadithmv",
@@ -1218,15 +1212,23 @@ body:has(.modal-overlay.open) {
     -apple-system,
     sans-serif;
 }
-.pins-history-body .dd-header > .dd-col-sort {
-  padding-left: 6px;
-  padding-right: 6px;
+/* Round only the outer corners of the header bar and the hover bar
+   (first column is the rightmost in RTL) */
+.pins-history-body .dd-table th:first-child,
+.pins-history-body .dd-table td:first-child {
+  border-radius: 0 6px 6px 0;
 }
-.pins-history-body .dash-dropdown-item > * {
+.pins-history-body .dd-table th:last-child,
+.pins-history-body .dd-table td:last-child {
+  border-radius: 6px 0 0 6px;
+}
+.pins-history-body .dd-table td {
   padding: 7px 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   font-family:
     "Hadithmv",
@@ -1235,43 +1237,30 @@ body:has(.modal-overlay.open) {
     -apple-system,
     sans-serif;
 }
-.pins-history-body .dash-dropdown-item:hover > * {
+.pins-history-body .dd-table tbody tr:hover td {
   background: var(--color-nav-btn-hover-bg);
 }
-.pins-history-body .dash-dropdown-item > .dd-col-book {
-  border-radius: 0 6px 6px 0;
-}
-.pins-history-body .dash-dropdown-item > .dd-col-remove {
-  border-radius: 6px 0 0 6px;
-}
-.pins-history-body .dd-col-idx {
+.pins-history-body .dd-table .dd-col-idx {
   text-align: center;
+}
+.pins-history-body .dd-table td.dd-col-idx {
   font-size: 0.7rem;
   color: var(--color-text-subtle);
 }
-.pins-history-body .dd-col-sort {
-  display: inline-flex;
-  gap: 0;
-  justify-content: center;
-}
-.pins-history-body .dd-col-book {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  min-width: 0;
-}
-.pins-history-body .dd-col-page {
+.pins-history-body .dd-table .dd-col-sort {
   text-align: center;
-  font-size: var(--panel-font-size, 0.85rem);
-  color: var(--color-text-subtle);
-  white-space: nowrap;
 }
-.pins-history-body .dd-col-time {
+.pins-history-body .dd-table .dd-col-page {
+  text-align: center;
+}
+.pins-history-body .dd-table .dd-col-time {
   text-align: right;
-  color: var(--color-text-subtle);
-  white-space: nowrap;
 }
-.pins-history-body .dd-col-remove {
+.pins-history-body .dd-table td.dd-col-page,
+.pins-history-body .dd-table td.dd-col-time {
+  color: var(--color-text-subtle);
+}
+.pins-history-body .dd-table .dd-col-remove {
   text-align: center;
 }
 .pins-history-body .dd-link {
@@ -1392,4 +1381,19 @@ body:has(.modal-overlay.open) {
   .modal-header {
     padding: 16px 16px 8px;
   }
+  /* Compact the pins/history table on small screens so the book column keeps room */
+  .pins-history-body .dd-table th {
+    font-size: 0.68rem;
+    padding: 6px 8px;
+  }
+  .pins-history-body .dd-table td {
+    padding: 6px 8px;
+  }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1) { width: 30px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2) { width: 68px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 68px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 68px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 68px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 88px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 68px; }
 }

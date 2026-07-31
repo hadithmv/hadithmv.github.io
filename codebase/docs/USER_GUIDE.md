@@ -28,7 +28,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Switch view** — click the 📖 Table/Card button to toggle between a card grid and a table with all book details.
 
-- **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal of your saved positions and recently read books. Both are also accessible from the sidebar.
+- **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal with a table of your saved positions (with reorder arrows, page, and remove) or of your recently read books (with page, time, and remove). Both are also accessible from the sidebar.
 
 - **Reset** — the ↺ Reset button clears all filters, search, view mode, pins, and history.
 

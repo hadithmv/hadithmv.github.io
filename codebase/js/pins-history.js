@@ -105,23 +105,29 @@ export function openPinsModal() {
   if (pins.length === 0) {
     body.innerHTML = '<div class="dd-empty">' + t("pinsEmpty") + '</div>';
   } else {
-    var html = '<div class="dd-grid">';
-    html += '<div class="dd-header"><span class="dd-col-idx">' + t("ddColIdx") + '</span><span class="dd-col-sort">' + t("ddColSort") + '</span><span class="dd-col-book">' + t("ddColBook") + '</span><span class="dd-col-page">' + t("ddColPage") + '</span><span class="dd-col-remove">' + t("ddColRemove") + '</span></div>';
+    var html = '<table class="dd-table">';
+    html += '<thead><tr>';
+    html += '<th class="dd-col-idx">' + t("ddColIdx") + '</th>';
+    html += '<th class="dd-col-sort">' + t("ddColSort") + '</th>';
+    html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
+    html += '<th class="dd-col-page">' + t("ddColPage") + '</th>';
+    html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
+    html += '</tr></thead><tbody>';
     for (var i = 0; i < pins.length; i++) {
       var p = pins[i];
       var name = bookDisplayName(p.bookCode);
-      html += '<div class="dash-dropdown-item" data-code="' + p.bookCode + '">';
-      html += '<span class="dd-col-idx">' + (i + 1) + '</span>';
-      html += '<span class="dd-col-sort">';
+      html += '<tr class="dd-row" data-code="' + p.bookCode + '">';
+      html += '<td class="dd-col-idx">' + (i + 1) + '</td>';
+      html += '<td class="dd-col-sort">';
       html += '<span class="chip-arrow' + (i === 0 ? ' chip-arrow-disabled' : '') + '" data-dir="-1" title="Move up">▲</span>';
       html += '<span class="chip-arrow' + (i === pins.length - 1 ? ' chip-arrow-disabled' : '') + '" data-dir="1" title="Move down">▼</span>';
-      html += '</span>';
-      html += '<a class="dd-col-book dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a>';
-      html += '<span class="dd-col-page">' + (p.label || p.row) + '</span>';
-      html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
-      html += '</div>';
+      html += '</td>';
+      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a></td>';
+      html += '<td class="dd-col-page">' + (p.label || p.row) + '</td>';
+      html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';
+      html += '</tr>';
     }
-    html += '</div><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
+    html += '</tbody></table><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
     document.getElementById("pinsClearAll").addEventListener("click", function () { clearPins(); window.openPinsModal(); });
   }
@@ -138,19 +144,24 @@ export function openHistoryModal() {
   if (history.length === 0) {
     body.innerHTML = '<div class="dd-empty">' + t("historyEmpty") + '</div>';
   } else {
-    var html = '<div class="dd-grid">';
-    html += '<div class="dd-header"><span class="dd-col-book">' + t("ddColBook") + '</span><span class="dd-col-page">' + t("ddColPage") + '</span><span class="dd-col-time">' + t("ddColTime") + '</span><span class="dd-col-remove">' + t("ddColRemove") + '</span></div>';
+    var html = '<table class="dd-table">';
+    html += '<thead><tr>';
+    html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
+    html += '<th class="dd-col-page">' + t("ddColPage") + '</th>';
+    html += '<th class="dd-col-time">' + t("ddColTime") + '</th>';
+    html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
+    html += '</tr></thead><tbody>';
     for (var i = 0; i < history.length; i++) {
       var h = history[i];
       var name = bookDisplayName(h.bookCode);
-      html += '<div class="dash-dropdown-item" data-code="' + h.bookCode + '">';
-      html += '<a class="dd-col-book dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a>';
-      html += '<span class="dd-col-page">' + (h.label || h.row) + '</span>';
-      html += '<span class="dd-col-time">' + timeAgo(h.timestamp) + '</span>';
-      html += '<span class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></span>';
-      html += '</div>';
+      html += '<tr class="dd-row" data-code="' + h.bookCode + '">';
+      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a></td>';
+      html += '<td class="dd-col-page">' + (h.label || h.row) + '</td>';
+      html += '<td class="dd-col-time">' + timeAgo(h.timestamp) + '</td>';
+      html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';
+      html += '</tr>';
     }
-    html += '</div><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
+    html += '</tbody></table><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
     document.getElementById("historyClearAll").addEventListener("click", function () { clearReadHistory(); window.openHistoryModal(); });
   }
@@ -188,7 +199,7 @@ function _wirePinsHistoryModal() {
   body.querySelectorAll(".chip-x[data-action='remove']").forEach(function (x) {
     x.addEventListener("click", function (e) {
       e.stopPropagation();
-      var item = x.closest(".dash-dropdown-item");
+      var item = x.closest(".dd-row");
       if (item) {
         if (item.querySelector(".dd-col-sort")) {
           removePin(item.dataset.code); window.openPinsModal();
@@ -201,7 +212,7 @@ function _wirePinsHistoryModal() {
   body.querySelectorAll(".chip-arrow:not(.chip-arrow-disabled)").forEach(function (arrow) {
     arrow.addEventListener("click", function (e) {
       e.stopPropagation();
-      var item = arrow.closest(".dash-dropdown-item");
+      var item = arrow.closest(".dd-row");
       if (item) { movePin(item.dataset.code, parseInt(arrow.dataset.dir, 10)); window.openPinsModal(); }
     });
   });

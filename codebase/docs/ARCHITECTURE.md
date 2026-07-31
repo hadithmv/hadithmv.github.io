@@ -77,7 +77,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history dropdowns, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Pins auto‑update their row position as the user reads (piggybacking on the history timer, debounced 2s). Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. Pins and history are persisted in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Pins auto‑update their row position as the user reads (piggybacking on the history timer, debounced 2s). Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
 
 The reader's page‑header tag badges link to `index.html?tags=CODE`, letting readers jump to the dashboard filtered by that category.
 
@@ -86,7 +86,7 @@ The reader's page‑header tag badges link to `index.html?tags=CODE`, letting re
 │  Tags: [📌 ޕިން (3)] [Aqidah ✕] [Hadith] [Fiqh] …          │
 │  Books: 12                                                  │
 ├─ Sort row ─────────────────────────────────────────────────┤
-│  📌 Pins ▾   🕐 History ▾   ↺ Reset   📖 View   Sort: A-Z  │
+│  📌 Pins    🕐 History    ↺ Reset   📖 View   Sort: A-Z  │
 ├─ Card grid ────────────────────────────────────────────────┤
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐                  │
 │  │ 📌 Aqidah │  │  Hadith  │  │  Quran   │                  │
@@ -285,8 +285,8 @@ The settings reset button clears all of the above and resets language to Dhivehi
 | `Ctrl+b`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
 | `Escape`        | Dashboard search       | Clear search & blur                    |
-| `p`             | Dashboard              | Toggle pins dropdown                   |
-| `h`             | Dashboard              | Toggle history dropdown                |
+| `p`             | Dashboard              | Open pins modal                        |
+| `h`             | Dashboard              | Open history modal                     |
 
 Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips, badges, book cards, table rows, toolbar buttons, and page titles all carry `title` tooltips describing their action or category.
 
@@ -506,7 +506,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 | Private module‑level state | `_camelCase` | `_bookNamesCache`, `_loadedColMap`, `_searchHistory`, `_lastBookNames` |
 | DOM element IDs | camelCase | `readerContent`, `btnExport`, `dashboardPanelSearch` |
 | CSS classes | kebab-case + namespace | `reader-field-matn`, `dash-table`, `quran-nav-btn` |
-| Shared CSS utilities | `dd-` prefix | `.dd-item`, `.dd-menu`, `.dd-check` |
+| Shared CSS utilities | `dd-` prefix | `.dd-item`, `.dd-menu`, `.dd-check` (dropdowns); `.dd-table`, `.dd-row`, `.dd-col-*` (pins/history modal table, scoped under `.pins-history-body`) |
 | Custom events | single lowercase word | `readerReset`, `focuschange`, `languagechange` |
 | LocalStorage keys | `reader:` prefix for reader | `reader:hiddenColumns`, `reader:searchHistory` |
 
@@ -542,7 +542,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 
-**Modals.** All modals use the unified layer in `common.js`: `window.openModal(id)`, `window.closeModal(id)`, `window.closeAllModals()`. Each modal's overlay ID is registered in `window.MODAL_IDS`. Backdrop click and `.modal-close` button are auto-wired via `wireModal()`. New modals push their ID to the array and wire themselves on creation.
+**Modals.** All modals use the unified layer in `common.js`: `window.openModal(id)`, `window.closeModal(id)`, `window.closeAllModals()`. Each modal's overlay ID is registered in `window.MODAL_IDS`. Backdrop click and `.modal-close` button are auto-wired via `wireModal()`. New modals push their ID to the array and wire themselves on creation. Dynamically-created modals (`createModal`) emit the same `.modal-header` / `.modal-title` / `.modal-close` / `.modal-body` structure as the static modals, so styling stays unified. Body scroll is locked while any modal is open (`body:has(.modal-overlay.open)`). The pins/history modal renders its list as a semantic `<table class="dd-table">` (`<thead>`/`<tbody>`, `dd-col-*` classes per column, `table-layout: fixed` column widths) styled in `common.css` — identical on the dashboard and reader pages.
 
 **Dropdowns.** All dropdowns use shared helpers and shared CSS classes for visual consistency:
 

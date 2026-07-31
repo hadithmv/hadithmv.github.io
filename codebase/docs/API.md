@@ -229,7 +229,7 @@ Centralised object of all localStorage key strings. Keys include `theme`, `fontS
 
 ### `window.createModal(id, titleId, bodyId, extraClass?)`
 
-Creates a modal overlay dynamically (for modals not in static HTML). Appends to body, registers with `window.MODAL_IDS`, wires backdrop-click and close-button via `wireModal`. Returns the overlay element. Used by `pins-history.js` for the pins/history modal.
+Creates a modal overlay dynamically (for modals not in static HTML). Appends to body, registers with `window.MODAL_IDS`, wires backdrop-click and close-button via `wireModal`. The generated overlay carries the standard `.modal-title` / `.modal-body` classes, matching the static modals. Returns the overlay element. Used by `pins-history.js` for the pins/history modal.
 
 ### Unified modal layer
 
