@@ -2,6 +2,20 @@
 
 Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and English.
 
+## Features at a glance
+
+| Category | Features |
+|---|---|
+| **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
+| **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, scroll‑to‑top |
+| **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), full‑text search with wildcards/fuzzy/negation/regex/column‑scope, whole‑word toggle, history dropdown, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%) and completion animation, scroll counter, URL position sync |
+| **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
+| **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), reorder via ▲▼, reading history with relative timestamps, clear‑all, sidebar access from both pages |
+| **Export** | TXT, MD, JSON, CSV, TSV, Excel, EPUB (embedded font), PDF (print), PNG (canvas render), HTML, HTML Table, Word, YAML, TOON, XML |
+| **Customisation** | Three themes (Light / Dark / Sepia), adjustable font size ±, font family (Hadithmv / System), content width (600/800/1000/1200/full), three UI languages (Dhivehi / English / Arabic) |
+| **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `z` focus mode, `t` tashkeel, `v` cycle view mode, `p` toggle pin, `s` share link, `e` export, `/` or `Ctrl+F` search, `Ctrl+Shift+F` advanced search, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
+| **Design** | RTL‑first layout, responsive (single 600px breakpoint), no external dependencies, all colours via CSS custom properties for theming |
+
 ## Finding a Book
 
 When you open the site, you see the **book list**. You can:
