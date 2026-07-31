@@ -10,28 +10,26 @@
 
 // Explicit re-exports from quran-data.js (avoids silent name collisions of export *)
 export {
-  isQuranBook, isQuranDataSource, QRN_PRESET_MAIN, QRN_PRESET_ARABIC,
-  loadQuranBaseData, getBaseHeaders, loadUthmaniData, loadSurahNames,
+  isQuranBook, QRN_PRESET_MAIN, QRN_PRESET_ARABIC,
+  loadQuranBaseData, loadSurahNames,
   getSurahNames, getSurahInfo, toArabicNumeral, AYAH_TEXT_COLS,
   isAyahTextColumn, decorateAyah, loadQuranBookCSV, mergeQuranData,
-  loadColumnRegistry, getColumnDisplayName, getColumnSourceMap,
+  loadColumnRegistry,
   rebuildColumnSourceMap, getBookLabel, hasExternalColumns,
-  getAllAvailableColumns, quranState, getRowsForSurah, getRowsForJuz,
-  findAyahRow, buildSurahListHTML, findQuranColIndices,
+  getAllAvailableColumns, quranState,
+  buildSurahListHTML, findQuranColIndices,
   getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,
   columnFieldClass, columnTdClass, isFootnoteColumn,
   isArDvTransition, isMatnSharhTransition, classifyColumnLang,
 } from "./quran-data.js";
 
-import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, loadColumnRegistry, getSurahNames,
-  getSurahInfo, getAllAvailableColumns, getColumnDisplayName, getBookLabel,
-  hasExternalColumns, getColumnSourceMap, rebuildColumnSourceMap, quranState,
-  isAyahTextColumn, decorateAyah, toArabicNumeral, getRowsForSurah,
-  findAyahRow, getRowJuz, getRowSurah, findQuranColIndices,
+import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
+  getAllAvailableColumns, rebuildColumnSourceMap, quranState,
+  getRowJuz, getRowSurah, findQuranColIndices,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
 
 import { parseCSV } from "./csv.js";
-import { t, currentLang } from "./i18n.js";
+import { t } from "./i18n.js";
 
 export function initQuranUI(ctx) {
   var readerPanelQuran = document.getElementById("readerPanelQuran");
@@ -341,10 +339,9 @@ export function initQuranUI(ctx) {
   }
 
   function goToQuranJuz(juzNo) {
-    findQuranColIndices(headerRow);
+    var jIdx = findQuranColIndices(headerRow).juzIdx;
     quranState.currentJuz = juzNo;
     document.getElementById("qrnJuzInput").value = juzNo;
-    var jIdx = _juzIdx;
     if (jIdx >= 0) {
       ctx.setFilteredData(
         allData.filter(function (row) {

@@ -6,9 +6,9 @@
  * Imported by quran-ui.js, reader.js, and epub.js.
  */
 
-import { parseCSV, fetchCSV } from "./csv.js";
-import { loadBookNames, getBookTitleSync } from "./catalog.js";
-import { t, currentLang } from "./i18n.js";
+import { fetchCSV } from "./csv.js";
+import { getBookTitleSync } from "./catalog.js";
+import { currentLang } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
 
 // ═══════════════════════════════════════════════════════════════
@@ -40,20 +40,14 @@ export var QRN_PRESET_MAIN = [
 ];
 export var QRN_PRESET_ARABIC = ["QRN-muyassarAR", "QRN-mukhtasarAR"];
 
-export function isQuranDataSource(bookCode) {
-  return QRN_DATA_RE.test(bookCode);
-}
-
 // ═══════════════════════════════════════════════════════════════
 // Caches
 // ═══════════════════════════════════════════════════════════════
 
 var _baseDataCache = null;
-var _uthmaniDataCache = null;
 var _surahNamesCache = null;
 var _colRegistryCache = null;
 
-// showToast is now on window (common.js)
 // ═══════════════════════════════════════════════════════════════
 // Base data — juz, surah, ayah, basmalah, imlai text
 // ═══════════════════════════════════════════════════════════════
@@ -75,25 +69,6 @@ export function loadQuranBaseData() {
     _baseDataCache = rows; // 6236 data rows
     return rows;
   });
-}
-
-export function getBaseHeaders() {
-  return BASE_HEADERS.slice();
-}
-
-// ═══════════════════════════════════════════════════════════════
-// Uthmani script data (loaded on demand)
-// ═══════════════════════════════════════════════════════════════
-
-export function loadUthmaniData() {
-  if (_uthmaniDataCache) return Promise.resolve(_uthmaniDataCache);
-  return fetchCSV("../data/QRN-DATA-baseFile-2-ayahUthmani.csv").then(
-    function (rows) {
-      if (rows.length > 0) rows.shift(); // strip header row (now has ayahUthmani header)
-      _uthmaniDataCache = rows;
-      return rows;
-    },
-  );
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -279,21 +254,8 @@ export function loadColumnRegistry() {
   );
 }
 
-export function getColumnDisplayName(sourceBook, sourceCol) {
-  var reg = _colRegistryCache || [];
-  for (var i = 0; i < reg.length; i++) {
-    if (reg[i].sourceBook === sourceBook && reg[i].sourceCol === sourceCol) {
-      return reg[i].displayDV || reg[i].displayEN;
-    }
-  }
-  return sourceBook + ":" + sourceCol;
-}
-
 // Map: colIndex → {sourceBook, sourceCol}
 var _columnSourceMap = null;
-export function getColumnSourceMap() {
-  return _columnSourceMap;
-}
 export function rebuildColumnSourceMap(loadedColMap) {
   _columnSourceMap = {};
   for (var key in loadedColMap) {
@@ -352,48 +314,6 @@ export var quranState = {
 // ═══════════════════════════════════════════════════════════════
 // Surah / ayah / juz range helpers (work against base data)
 // ═══════════════════════════════════════════════════════════════
-
-export function getRowsForSurah(surahNo, baseData) {
-  var start = -1,
-    end = -1;
-  for (var i = 0; i < baseData.length; i++) {
-    var s = parseInt(baseData[i][1], 10);
-    if (s === surahNo) {
-      if (start === -1) start = i;
-      end = i + 1;
-    } else if (start !== -1) {
-      break;
-    }
-  }
-  return { start: start, end: end };
-}
-
-export function getRowsForJuz(juzNo, baseData) {
-  var start = -1,
-    end = -1;
-  for (var i = 0; i < baseData.length; i++) {
-    var j = parseInt(baseData[i][0], 10);
-    if (j === juzNo) {
-      if (start === -1) start = i;
-      end = i + 1;
-    } else if (start !== -1) {
-      break;
-    }
-  }
-  return { start: start, end: end };
-}
-
-export function findAyahRow(surahNo, ayahNo, baseData) {
-  for (var i = 0; i < baseData.length; i++) {
-    if (
-      parseInt(baseData[i][1], 10) === surahNo &&
-      parseInt(baseData[i][2], 10) === ayahNo
-    ) {
-      return i;
-    }
-  }
-  return -1;
-}
 
 // ═══════════════════════════════════════════════════════════════
 // Surah list HTML (used by the surah selector overlay)

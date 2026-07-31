@@ -8,9 +8,9 @@
 
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY } from "./search.js";
-import { parseCSV, fetchCSV } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, getRowsForSurah, findAyahRow, toArabicNumeral, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
+import { normaliseForSearch, parseQuery, rowMatchesQuery, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search.js";
+import { fetchCSV } from "./csv.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
 
 initializePageWithMetadata(async function (metadata) {
@@ -77,26 +77,12 @@ initializePageWithMetadata(async function (metadata) {
 
         // View
         viewMode: (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card",
-        _tableAvailable: true,
 
         // Columns
         hiddenColumns: [],
         hideTashkeel: false,
         headerRow: null,
         hasRowNums: false,
-
-        // Scroll / pagination
-        loadedStart: -1,
-        loadedEnd: -1,
-
-        // Search
-        selectedResultIdx: -1,
-        wholeWordMode: false,
-        advConditions: [],
-
-        // Progress
-        _lastMilestone: 0,
-        _lastHistoryRow: 0,
       };
       // Read-only from result
       var data = result.data;
@@ -274,7 +260,6 @@ initializePageWithMetadata(async function (metadata) {
 
       // Shared: close all dropdowns (columns, export, Quran ayah/juz/content/display, surah overlay)
       var _ddIds = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnContentDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
-      var _ddAnchors = {}; // id → anchor element
 
       window.closeAllDropdowns = function () {
         _ddIds.forEach(function (id) {
@@ -296,7 +281,6 @@ initializePageWithMetadata(async function (metadata) {
       // Wire the outside-click-to-close handler for a dropdown
       window.registerDropdown = function (id, dd, anchor) {
         if (_ddIds.indexOf(id) === -1) _ddIds.push(id);
-        _ddAnchors[id] = anchor;
         document.addEventListener("click", function (e) {
           if (!dd.contains(e.target) && e.target !== anchor) {
             dd.style.display = "none";
@@ -414,7 +398,6 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       var viewMode = STATE.viewMode;      // canonical: STATE.viewMode
-      var _tableAvailable = STATE._tableAvailable;
 
       function updateViewModeUI() {
         var trigger = document.getElementById("btnViewMode");
@@ -426,9 +409,6 @@ initializePageWithMetadata(async function (metadata) {
         for (var ci = 0; ci < cbs.length; ci++) {
           cbs[ci].checked = (cbs[ci].getAttribute("data-mode") === viewMode);
         }
-        // Show/hide table option
-        var tableOpt = document.querySelector('#viewModeDropdown [data-mode="table"]');
-        if (tableOpt) tableOpt.style.display = _tableAvailable ? "" : "none";
       }
 
       // ── View mode dropdown ──
@@ -652,33 +632,14 @@ initializePageWithMetadata(async function (metadata) {
 
       function renderChunkHTML(startIdx, endIdx) {
         var h = "";
-        if (viewMode === "table") {
-          h = '<table class="rdf-table"><tbody>';
-          for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
-            var row = filteredData[i];
-            h += '<tr class="reader-chunk" data-row="' + i + '">';
-            for (var j = 0; j < row.length; j++) {
-              if (hiddenColumns.indexOf(j) !== -1) { h += '<td></td>'; continue; }
-              var v = (row[j] != null ? String(row[j]).trim() : "");
-              var display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
-              var tdClass = "";
-              var tdHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
-              tdClass = columnTdClass(tdHdr);
-              h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
-            }
-            h += '</tr>';
-          }
-          h += '</tbody></table>';
-        } else {
-          var renderFn = viewMode === "parallel" ? renderParallelRowHTML : renderRowHTML;
-          for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
-            if (i > startIdx) h += `<div class="reader-divider"></div>`;
-            var row = filteredData[i];
-            var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
-            h += `<div class="reader-chunk" data-row="${i}">`;
-            h += renderFn(row, rowNum);
-            h += `</div>`;
-          }
+        var renderFn = viewMode === "parallel" ? renderParallelRowHTML : renderRowHTML;
+        for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
+          if (i > startIdx) h += `<div class="reader-divider"></div>`;
+          var row = filteredData[i];
+          var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
+          h += `<div class="reader-chunk" data-row="${i}">`;
+          h += renderFn(row, rowNum);
+          h += `</div>`;
         }
         return h;
       }
@@ -697,7 +658,7 @@ initializePageWithMetadata(async function (metadata) {
               var ayahNo = getAyahNoFromRow(row);
               var showBraces = LS.get("quranShowBraces", true);
               var showAyahNum = LS.get("quranShowAyahNum", true);
-              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum), searchInput.value.trim()));
+              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get("quranShowNumBrackets", false)), searchInput.value.trim()));
             } else {
               display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
             }
@@ -1195,8 +1156,6 @@ initializePageWithMetadata(async function (metadata) {
           } else {
             // Show results without filtering — clicking jumps to real row
             var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
-            var origFiltered = filteredData;
-            filteredData = tempFiltered;
             searchResults.innerHTML = buildAdvResultsHTML(query, tempFiltered, realIdxMap);
             searchResults.style.display = "";
             selectedResultIdx = -1;
@@ -1209,7 +1168,6 @@ initializePageWithMetadata(async function (metadata) {
                 searchInput.blur();
               });
             });
-            filteredData = origFiltered;
           }
         }
 
@@ -1369,9 +1327,8 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function applyAdvancedSearch() {
-        var rows = filteredData.length === 0 ? allData : allData; // always filter against full data
+        var rows = allData; // always filter against full data
         var result = rows.filter(function(row) {
-          if (advConditions.length === 0) return true;
           // Evaluate all conditions with AND/OR logic
           var matches = advConditions.map(function(c) {
             var cellVal = (row[c.col] !== null && row[c.col] !== undefined) ? String(row[c.col]) : "";
@@ -1551,7 +1508,9 @@ initializePageWithMetadata(async function (metadata) {
       });
 
       // ── Toolbar: reset view ─────────────────────────────────
-      btnResetReader.addEventListener("click", function () {
+      // Shared reset block — used by the toolbar Reset button and by the
+      // settings-modal "Reset settings" (dispatches the readerReset event).
+      function resetReaderDefaults() {
         // Clear search
         searchInput.value = "";
         applySearch("");
@@ -1569,10 +1528,6 @@ initializePageWithMetadata(async function (metadata) {
         LS.set("hideTashkeel", false);
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
-        // Reset view mode to default for this book
-        STATE.viewMode = viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
-        STATE._tableAvailable = _tableAvailable = true;
-        updateViewModeUI();
         // Reset Quran display settings
         if (quranBook) {
           LS.set("quranShowBraces", true);
@@ -1588,6 +1543,13 @@ initializePageWithMetadata(async function (metadata) {
         // Exit focus mode
         window.setFocus(false);
         rebuildAll();
+      }
+
+      btnResetReader.addEventListener("click", function () {
+        // Reset view mode to default for this book
+        STATE.viewMode = viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
+        updateViewModeUI();
+        resetReaderDefaults();
       });
 
       // ── Navigation: buttons ─────────────────────────────────
@@ -1700,9 +1662,9 @@ initializePageWithMetadata(async function (metadata) {
         }
         if (e.key === "v" && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
-          // Cycle: card → table → parallel → card (skip table if not available)
+          // Cycle: card → table → parallel → card
           if (viewMode === "card") {
-            STATE.viewMode = viewMode = _tableAvailable ? "table" : "parallel";
+            STATE.viewMode = viewMode = "table";
           } else if (viewMode === "table") {
             STATE.viewMode = viewMode = "parallel";
           } else {
@@ -1751,31 +1713,7 @@ initializePageWithMetadata(async function (metadata) {
       // ── Settings reset from modal → re-render ─────────────
       document.addEventListener("readerReset", function () {
         ROWS_PER_CHUNK = 25;
-        hideTashkeel = false;
-        btnTashkeel.classList.remove("active");
-        readerContent.classList.remove("hide-tashkeel");
-        // Reset hidden columns — only keep -HDN convention
-        hiddenColumns = [];
-        if (headerRow) {
-          for (var i = 0; i < headerRow.length; i++) {
-            if ((headerRow[i] || "").toLowerCase().endsWith("-hdn")) hiddenColumns.push(i);
-          }
-        }
-        buildColumnToggles();
-        // Reset Quran display settings
-        LS.set("quranShowBraces", true);
-        LS.set("quranShowAyahNum", true);
-        LS.set("quranShowNumBrackets", false);
-        var cb;
-        if ((cb = document.getElementById("qrnToggleBraces"))) cb.checked = true;
-        if ((cb = document.getElementById("qrnToggleAyahNum"))) cb.checked = true;
-        if ((cb = document.getElementById("qrnToggleNumBrackets"))) cb.checked = false;
-        var row = document.getElementById("qrnNumBracketsRow");
-        if (row) row.style.display = (document.getElementById("qrnToggleBraces").checked && document.getElementById("qrnToggleAyahNum").checked) ? "" : "none";
-        searchInput.value = "";
-        applySearch("");
-        window.setFocus(false);
-        rebuildAll();
+        resetReaderDefaults();
       });
 
       // ── Language change → re-render ───────────────────────

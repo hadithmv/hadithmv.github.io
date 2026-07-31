@@ -140,10 +140,6 @@ function fuzzyMatch(text, pattern, maxDist) {
   var tLen = text.length;
   var pLen = pattern.length;
   if (Math.abs(tLen - pLen) > maxDist) return false;
-  for (var start = 0; start <= tLen - pLen + maxDist; start++) {
-    var sub = text.slice(start, start + pLen + maxDist);
-    if (levenshtein(sub, pattern, maxDist) <= maxDist) return true;
-  }
   for (var s = 0; s < tLen - pLen + maxDist + 1; s++) {
     if (levenshtein(text.slice(s, Math.min(s + pLen + maxDist, tLen)), pattern, maxDist) <= maxDist) return true;
   }

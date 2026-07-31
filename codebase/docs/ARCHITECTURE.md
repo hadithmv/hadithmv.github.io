@@ -257,7 +257,7 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 
 The settings reset button clears all of the above and resets language to Dhivehi. Keys prefixed with `reader:` are scoped to the reader page and are not touched by dashboard-level operations. Dashboard keys (`pinnedBooks`, `readHistory`) are separate — the prefix convention prevents accidental cross-contamination.
 
-> **When adding new persisted state**, add a row to this table, add the key to `window.LS_KEYS` in common.js, and use a `reader:` prefix for reader‑specific keys. All modules reference `window.LS_KEYS` instead of raw strings. This is the single reference for porting to desktop, mobile, or other platforms.
+> **When adding new persisted state**, add a row to this table, add the key to `window.LS_KEYS` in common.js, and use a `reader:` prefix for reader‑specific keys. Prefer `window.LS_KEYS` over raw string literals for any key listed here (some older call sites still use the raw strings directly). This is the single reference for porting to desktop, mobile, or other platforms.
 
 ### Internationalisation
 

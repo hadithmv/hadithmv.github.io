@@ -11,15 +11,15 @@
 
 import { zipStore } from "./xlsx.js";
 import { escapeXML as xmlEsc } from "./search.js";
-import { columnFieldClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran-ui.js";
+import { isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran-ui.js";
 
 var enc = new TextEncoder();
 
 /**
  * Create an EPUB 3 e-book Blob.
  * @param {Array<Array<*>>} rows      — 2D array of cell values (null/undefined → empty)
- * @param {{bookCode,titleEN,titleDV,titleAR,tags:string[]}} meta — book metadata
- * @param {{siteURL,versionText,fontData?:Uint8Array,headerRow?:Array<string>}} opts
+ * @param {{bookCode,titleEN,titleDV,titleAR}} meta — book metadata
+ * @param {{siteURL,fontData?:Uint8Array,headerRow?:Array<string>}} opts
  * @returns {Blob}  application/epub+zip
  */
 export function createEPUB(rows, meta, opts) {

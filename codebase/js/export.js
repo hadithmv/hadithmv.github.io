@@ -144,8 +144,6 @@ export function initExports(ctx) {
             var fontData = reader.result;
             var clone = chunk.cloneNode(true);
             var wrapper = document.createElement("div");
-            wrapper.style.cssText = "position:absolute;left:0;top:0;width:600px;font-family:Hadithmv,'Traditional Arabic',serif;direction:rtl;text-align:right;background:" + bg + ";color:" + fg;
-            var footerText = meta.titleDV + "<br>" + meta.titleAR + "<br>" + siteURL + "<br>Hadithmv · " + versionText;
             wrapper.style.cssText = "position:absolute;left:0;top:0;width:600px;font-family:Hadithmv,'Traditional Arabic',serif;direction:rtl;text-align:right;background:" + bg + ";color:" + fg + ";padding:0";
             var contentDiv = document.createElement("div");
             contentDiv.style.cssText = "padding:32px 32px 0 32px;font-size:17pt;line-height:2.3;text-align:right;direction:rtl";
@@ -210,11 +208,9 @@ export function initExports(ctx) {
                 bookCode: meta.bookCode,
                 titleEN: meta.titleEN,
                 titleDV: meta.titleDV,
-                titleAR: meta.titleAR,
-                tags: ctx.pageTags.map(function(t) { return t.code; })
+                titleAR: meta.titleAR
               }, {
                 siteURL: siteURL,
-                versionText: versionText,
                 fontData: fontBuf ? new Uint8Array(fontBuf) : null,
                 headerRow: ctx.headerRow
               });

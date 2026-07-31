@@ -112,7 +112,6 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from ca
 | `clearPins()` / `clearReadHistory()` | Clears all pins or history. |
 | `openPinsModal()` | Opens the pins modal overlay with reorder/remove/click-to-jump. Also on `window` for legacy callers. |
 | `openHistoryModal()` | Opens the history modal with timestamps and clear-all. Also on `window` for legacy callers. |
-| `closePinsHistoryModal()` | Closes the pins/history modal. |
 
 ---
 
@@ -226,7 +225,7 @@ Copies text to the clipboard. Tries `navigator.clipboard.writeText()` first; fal
 
 ### `window.LS_KEYS`
 
-Centralised object of all localStorage key strings. Keys include `theme`, `fontSize`, `fontSystem`, `contentWidth`, `lang`, `focus`, `pinnedBooks`, `readHistory`, `readerPrefix`, and several `reader:*-prefixed` keys. Defined in common.js; available globally. All modules reference these instead of raw strings.
+Centralised object of all localStorage key strings. Keys include `theme`, `fontSize`, `fontSystem`, `contentWidth`, `lang`, `focus`, `pinnedBooks`, `readHistory`, `readerPrefix`, and several `reader:*-prefixed` keys. Defined in common.js; available globally. Prefer these over raw string literals for any listed key (some older call sites still use the raw strings directly).
 
 ### `window.createModal(id, titleId, bodyId, extraClass?)`
 
@@ -253,7 +252,7 @@ Pure data/logic — no DOM dependencies. Detection, CSV loading, data merging, a
 
 ## quran-ui.js
 
-DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re‑exports everything from `quran-data.js` (barrel pattern). Statically imported by `reader.js`. Re‑exports everything from `quran-data.js` (barrel pattern).
+DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re-exports the `quran-data.js` symbols (barrel pattern). Statically imported by `reader.js`.
 
 ### `loadQuranBaseData()`
 
@@ -267,10 +266,6 @@ Loads base data + the current book's CSV + surah names, then merges into a singl
 
 Fetches `QRN-DATA-registry-bookToggle.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
-### `getColumnDisplayName(sourceBook, sourceCol)`
-
-Looks up a human-readable label from the column registry. Falls back to `"bookCode:colIndex"`.
-
 ### Content presets
 
 `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js` define which source books (by book code) are included in the Main and Arabic preset buttons in the content dropdown. Edit these arrays to change which books are shown. Reset clears all externals; All shows everything.
@@ -282,10 +277,6 @@ Returns the book-level title (from `02-registry-bookNames.csv`) for the source b
 ### `hasExternalColumns(currentBookCode)`
 
 Returns `true` when any column from a book other than `currentBookCode` or the base data is loaded. The renderer uses this to decide whether to show source-book labels.
-
-### `getColumnSourceMap()`
-
-Returns the full `colIndex → {sourceBook, sourceCol}` mapping for all loaded columns.
 
 ### `rebuildColumnSourceMap(loadedColMap)`
 
@@ -329,8 +320,6 @@ Syncs the surah/ayah/juz inputs and labels with `quranState`.
 | Function | Description |
 |---|---|
 | `getSurahInfo(surahNo)` | Returns `{nameAR, nameDV, nameEN, ayahCount}` |
-| `getRowsForSurah(surahNo, baseData)` | Returns all rows for a surah |
-| `findAyahRow(surahNo, ayahNo, baseData)` | Finds a specific ayah within the base data |
 | `buildSurahListHTML(query, currentSurah)` | Renders searchable surah selector HTML |
 | `toArabicNumeral(n)` | Converts a number to Arabic-Indic numerals (١٢٣) |
 
@@ -392,8 +381,8 @@ Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `
 Generates a valid EPUB 3 e-book Blob. Each book row becomes a chapter. The Hadithmv font is optionally embedded for offline reading.
 
 - `rows` — 2D array of cell values
-- `meta` — `{bookCode, titleEN, titleDV, titleAR, tags}`
-- `opts` — `{siteURL, versionText, fontData?: Uint8Array}`
+- `meta` — `{bookCode, titleEN, titleDV, titleAR}`
+- `opts` — `{siteURL, fontData?: Uint8Array}`
 - Returns `Blob` with MIME type `application/epub+zip`
 
 Structure: `mimetype` (first, uncompressed) · `META-INF/container.xml` · `OEBPS/content.opf` (Dublin Core metadata) · `OEBPS/nav.xhtml` (EPUB 3 TOC) · `OEBPS/cover.xhtml` · `OEBPS/chXXX.xhtml` (one per row) · `OEBPS/styles.css` · `OEBPS/fonts/hadithmv.woff2` (if embedded).
@@ -404,9 +393,8 @@ import("./epub.js").then(mod => {
     bookCode: "AQD-nawaqidulIslam",
     titleEN: "Nawaqid ul-Islam",
     titleDV: "ނަވާޤިޟުލް އިސްލާމް",
-    titleAR: "نواقض الإسلام",
-    tags: ["AQD"]
-  }, { siteURL, versionText, fontData: new Uint8Array(fontBuf) });
+    titleAR: "نواقض الإسلام"
+  }, { siteURL, fontData: new Uint8Array(fontBuf) });
   // download blob…
 });
 ```

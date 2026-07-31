@@ -6,7 +6,7 @@
  * Extracted from catalog.js.
  */
 
-import { t, currentLang } from "./i18n.js";
+import { t } from "./i18n.js";
 import { getBookTitleSync } from "./catalog.js";
 
 // ── Storage ─────────────────────────────────────────────────
@@ -161,10 +161,6 @@ export function openHistoryModal() {
 // Also expose on window for legacy callers (sidebar links, dashboard buttons)
 window.openPinsModal = openPinsModal;
 window.openHistoryModal = openHistoryModal;
-
-export function closePinsHistoryModal() {
-  window.closeModal("pinsHistoryModalOverlay");
-}
 
 // ── Sidebar wiring (reader + dashboard) ─────────────────────
 (function () {

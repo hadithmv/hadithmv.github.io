@@ -5,9 +5,9 @@
  * All configuration lives in CSV files — no hardcoded data.
  */
 
-import { tagLabel, t, currentLang } from "./i18n.js";
+import { tagLabel, t } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
-import { parseCSV, parseCSVWithHeader, loadCSVData } from "./csv.js";
+import { loadCSVData } from "./csv.js";
 
 let _bookNamesCache = null;
 let _tagDefinitionsCache = null;
@@ -163,7 +163,7 @@ export function getCsvPath(bookCode) {
 }
 
 
-import { isPinned, getPinnedBooks, addPin, removePin, addReadHistory, openPinsModal, openHistoryModal, renderPins, renderHistory, clearPins, closePinsHistoryModal } from "./pins-history.js";
+import { isPinned, getPinnedBooks, addPin, removePin, addReadHistory, clearReadHistory, renderPins, renderHistory, clearPins } from "./pins-history.js";
 
 // Re-export for reader.js
 export { addPin, removePin, isPinned, addReadHistory };

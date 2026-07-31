@@ -367,21 +367,6 @@ export function setLanguage(lang) {
   applyDocumentLang();
 }
 
-/**
- * Cycle to the next language: dv → en → ar → dv.
- * Returns the new language code.
- */
-export function cycleLanguage() {
-  const idx = LANG_ORDER.indexOf(_currentLang);
-  const next = LANG_ORDER[(idx + 1) % LANG_ORDER.length];
-  _currentLang = next;
-  try {
-    localStorage.setItem("lang", next);
-  } catch (_) {}
-  applyDocumentLang();
-  return next;
-}
-
 /** Apply data-lang attribute and re-translate all [data-i18n] elements. */
 function applyDocumentLang() {
   document.documentElement.setAttribute("data-lang", _currentLang);
