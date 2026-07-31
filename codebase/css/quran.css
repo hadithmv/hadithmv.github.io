@@ -124,17 +124,9 @@
 
 /* ---- Quran content dropdown ---- */
 .quran-content-dropdown {
-  top: 100%;
   right: 0;
-  margin-top: 4px;
-  padding: 8px;
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
   min-width: 200px;
   max-width: 280px;
-  z-index: 60;
   direction: rtl;
 }
 .quran-content-list {
@@ -181,22 +173,7 @@
   color: #991b1b;
 }
 .quran-content-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
   font-size: 0.95rem;
-  color: var(--color-text);
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: "Hadithmv", "Faruma", system-ui, sans-serif;
-}
-.quran-content-item:hover {
-  background: var(--color-nav-btn-hover-bg);
-}
-.quran-content-item input[type="checkbox"] {
-  accent-color: var(--color-nav-btn-text);
-  margin: 0;
 }
 
 /* ---- Surah selector overlay ---- */

@@ -542,17 +542,17 @@
                 </button>
                 <div
                   id="viewModeDropdown"
-                  class="view-mode-dropdown"
+                  class="view-mode-dropdown dd-menu"
                   style="display: none"
                 >
-                  <label data-mode="card" class="view-mode-option"
-                    ><span class="vm-check">✓</span> 📄 ކާޑް</label
+                  <label data-mode="card" class="view-mode-option dd-item"
+                    ><input type="checkbox" data-mode="card"> 📄 ކާޑް</label
                   >
-                  <label data-mode="table" class="view-mode-option"
-                    ><span class="vm-check">✓</span> ▦ ޓޭބަލް</label
+                  <label data-mode="table" class="view-mode-option dd-item"
+                    ><input type="checkbox" data-mode="table"> ▦ ޓޭބަލް</label
                   >
-                  <label data-mode="parallel" class="view-mode-option"
-                    ><span class="vm-check">✓</span> ↔️ ދެފަރާތް</label
+                  <label data-mode="parallel" class="view-mode-option dd-item"
+                    ><input type="checkbox" data-mode="parallel"> ↔️ ދެފަރާތް</label
                   >
                 </div>
               </div>
@@ -725,7 +725,7 @@
             </button>
             <div
               id="qrnContentDropdown"
-              class="quran-content-dropdown"
+              class="quran-content-dropdown dd-menu"
               style="display: none; position: absolute"
             >
               <div id="qrnContentList" class="quran-content-list"></div>
@@ -741,7 +741,7 @@
             </button>
             <div
               id="qrnDisplayDropdown"
-              class="quran-content-dropdown"
+              class="quran-content-dropdown dd-menu"
               style="
                 display: none;
                 position: absolute;
@@ -749,17 +749,17 @@
                 min-width: 200px;
               "
             >
-              <label class="quran-content-item">
+              <label class="quran-content-item dd-item">
                 <input type="checkbox" id="qrnToggleBraces" checked /><span
                   >﴿ ﴾ އާޔަތް ބްރެކެޓް</span
                 >
               </label>
-              <label class="quran-content-item">
+              <label class="quran-content-item dd-item">
                 <input type="checkbox" id="qrnToggleAyahNum" checked /><span
                   >١٢٣ އާޔަތް ނަންބަރު</span
                 >
               </label>
-              <label class="quran-content-item" id="qrnNumBracketsRow">
+              <label class="quran-content-item dd-item" id="qrnNumBracketsRow">
                 <input type="checkbox" id="qrnToggleNumBrackets" /><span
                   >﴿١٢٣﴾ ނަންބަރު ބްރެކެޓްތެރޭ</span
                 >

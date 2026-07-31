@@ -351,13 +351,14 @@ initializePageWithMetadata(async function (metadata) {
         if (trigger) {
           trigger.textContent = t("btnViewMode") + " ▾";
         }
-        // highlight active option
-        var opts = document.querySelectorAll("#viewModeDropdown .view-mode-option");
-        for (var oi = 0; oi < opts.length; oi++) {
-          var optMode = opts[oi].getAttribute("data-mode");
-          opts[oi].classList.toggle("active", optMode === viewMode);
-          if (optMode === "table") opts[oi].style.display = _tableAvailable ? "" : "none";
+        // Check only the current mode's checkbox, uncheck others
+        var cbs = document.querySelectorAll('#viewModeDropdown input[type="checkbox"]');
+        for (var ci = 0; ci < cbs.length; ci++) {
+          cbs[ci].checked = (cbs[ci].getAttribute("data-mode") === viewMode);
         }
+        // Show/hide table option
+        var tableOpt = document.querySelector('#viewModeDropdown [data-mode="table"]');
+        if (tableOpt) tableOpt.style.display = _tableAvailable ? "" : "none";
       }
 
       // ── View mode dropdown ──
@@ -373,6 +374,7 @@ initializePageWithMetadata(async function (metadata) {
             viewModeDropdown.style.top = (r.bottom + 4) + "px";
             viewModeDropdown.style.left = r.left + "px";
             viewModeDropdown.style.display = "block";
+            updateViewModeUI();
           } else {
             viewModeDropdown.style.display = "none";
           }

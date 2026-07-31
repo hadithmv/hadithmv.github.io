@@ -12,7 +12,7 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 | `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
-| `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, dropdown grid, tag colors |
+| `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors |
 | `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override quran.css on specificity ties. |
 | `css/search.css`             | Reader: search bar, results dropdown, advanced search                      |
 | `css/tableView.css`          | Reader: table view mode, top scrollbar, sentinels                          |
@@ -470,11 +470,18 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Modals.** All modals use the unified layer in `common.js`: `window.openModal(id)`, `window.closeModal(id)`, `window.closeAllModals()`. Each modal's overlay ID is registered in `window.MODAL_IDS`. Backdrop click and `.modal-close` button are auto-wired via `wireModal()`. New modals push their ID to the array and wire themselves on creation.
 
-**Dropdowns.** All dropdowns use the shared helpers on `window`:
+**Dropdowns.** All dropdowns use shared helpers and shared CSS classes for visual consistency:
+
+*Container:* `.dd-menu` (common.css) — `position: absolute; padding, background, border, border-radius, box-shadow, z-index`. Applied alongside page‑specific positioning (e.g. `.view-mode-dropdown`, `.quran-content-dropdown`).
+
+*Items:* `.dd-item` (common.css) — flex row, `padding: 6px 10px`, `font-size: var(--panel-font-size)`, hover highlight, checkbox/radio accent colour. Used by view‑mode, Quran content, and display‑options dropdowns.
+
+*Helpers:*
 - `window.openDropdown(dd, anchorEl, gap)` — closes other dropdowns, positions `dd` below `anchorEl`, shows it. Default gap 4px.
-- `window.closeAllDropdowns()` — hides all 7 registered dropdowns.
+- `window.closeAllDropdowns()` — hides all registered dropdowns.
+- `window.registerDropdown(id, dd, anchor)` — wires outside‑click‑to‑close for a dropdown and adds its ID to the shared list.
 - `trapWheel(el)` (quran-ui.js) — prevents wheel events on a dropdown from scrolling the horizontal nav row behind it.
-- Dropdowns with scrollable lists (`.search-results`, `.quran-content-list`, `.quran-surah-list`) use `overscroll-behavior: contain` to prevent scroll chaining at boundaries.
+- Dropdowns with scrollable lists use `overscroll-behavior: contain` to prevent scroll chaining at boundaries.
 
 ### Keyboard shortcuts
 

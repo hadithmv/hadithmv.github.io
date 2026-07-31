@@ -917,6 +917,60 @@ body:has(#settingsOverlay.open) {
   letter-spacing: 0.04em;
 }
 
+/* ── Shared dropdown item style ───────────────────────────── */
+.dd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: right;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+}
+.dd-item:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.dd-item .dd-check {
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+  font-size: 0.8em;
+  color: var(--color-accent, #2563eb);
+  visibility: hidden;
+  flex-shrink: 0;
+}
+.dd-item.active .dd-check {
+  visibility: visible;
+}
+.dd-item input[type="checkbox"],
+.dd-item input[type="radio"] {
+  accent-color: var(--color-nav-btn-text);
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* ── Shared dropdown container ────────────────────────────── */
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  margin-top: 4px;
+  padding: 6px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  z-index: 60;
+}
+
 .toolbar-select {
   box-sizing: border-box;
   height: auto;

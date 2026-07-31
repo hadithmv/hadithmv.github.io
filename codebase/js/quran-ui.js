@@ -78,7 +78,7 @@ export function initQuranUI(ctx) {
     var html = "";
     for (var i = 1; i <= max; i++) {
       html +=
-        '<div class="quran-content-item" data-v="' + i + '">' + i + "</div>";
+        '<div class="quran-content-item dd-item" data-v="' + i + '">' + i + "</div>";
     }
     ayahDD.innerHTML = html;
     window.openDropdown(ayahDD, ayahInput, 2);
@@ -140,7 +140,7 @@ export function initQuranUI(ctx) {
     var html = "";
     for (var i = 1; i <= 30; i++) {
       html +=
-        '<div class="quran-content-item" data-v="' + i + '">' + i + "</div>";
+        '<div class="quran-content-item dd-item" data-v="' + i + '">' + i + "</div>";
     }
     juzDD.innerHTML = html;
     window.openDropdown(juzDD, juzInput, 2);
@@ -452,7 +452,7 @@ export function initQuranUI(ctx) {
       var checked =
         isLoaded && hiddenColumns.indexOf(colIdx) === -1 ? "checked" : "";
       html +=
-        '<label class="quran-content-item">' +
+        '<label class="quran-content-item dd-item">' +
         '<input type="checkbox" data-source="' +
         col.sourceBook +
         '" data-col="' +

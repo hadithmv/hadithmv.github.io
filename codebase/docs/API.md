@@ -354,7 +354,7 @@ Consumes `quran-ui.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.
 | `renderRowHTML(row, rowNum)` | Card‑view row renderer — builds vertical `<div>` stack with field classes and spacers. |
 | `renderParallelRowHTML(row, rowNum)` | Parallel‑view row renderer — partitions fields by language suffix (`ar`/`dv`) into a two‑column grid. |
 | `rowText(row, rowNum)` | Formats a row for clipboard copy — decorated ayah text for Quran, header‑aware formatting for other books. |
-| `updateViewModeUI()` | Syncs the 📖 View dropdown trigger button and check‑marks with the current `viewMode`. |
+| `updateViewModeUI()` | Syncs the 📖 View dropdown trigger button and checkboxes with the current `viewMode` (mutual exclusion). |
 | `window.closeAllDropdowns()` | Closes all registered dropdowns at once. |
 | `window.openDropdown(dd, anchorEl, gap)` | Closes other dropdowns, positions `dd` below `anchorEl` with the given gap (default 4px), and shows it. Used by all dropdown toggles. |
 | `window.registerDropdown(id, dd, anchor)` | Registers a dropdown ID and wires its outside‑click‑to‑close handler. The ID is added to the shared close list automatically. |
