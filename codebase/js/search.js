@@ -64,6 +64,26 @@ export function escapeXML(str) {
 // ── Highlight matching ──────────────────────────────────────
 
 /**
+ * Map a run of the normalised string back to original characters —
+ * the per-char hot path of highlighting. Identity comparison is the
+ * fast path: chars that pass through normalisation unchanged are matched
+ * with one char compare + branch, so only the minority that actually
+ * differ (tashkeel, thikijehi, case) pay a normalisation call.
+ * `ntOffset`/`targetLen` address a run of `nt` (e.g. the query's
+ * normalised text at a given position).
+ */
+function mapNormToOrig(lower, nt, start, ntOffset, targetLen) {
+  var matched = 0;
+  var i = start;
+  while (matched < targetLen && i < lower.length) {
+    if (lower[i] === nt[ntOffset + matched]) matched++;
+    else if (normaliseForSearch(lower[i]) === nt[ntOffset + matched]) matched++;
+    i++;
+  }
+  return i;
+}
+
+/**
  * Wrap occurrences of `query` in <mark> tags.
  * Uses normalised matching to handle tashkeel / thikijehi.
  */
@@ -72,6 +92,9 @@ export function highlightMatches(text, query) {
   var nq = normaliseForSearch(query);
   var nt = normaliseForSearch(text);
   if (!nq) return text;
+  // Lowercase once: normalisation is case-folding + char mapping, so
+  // identity against `nt` catches most chars without any normalisation call.
+  var lower = text.toLowerCase();
   var result = "";
   var lastEnd = 0;
   var pos = 0;
@@ -79,17 +102,8 @@ export function highlightMatches(text, query) {
     var idx = nt.indexOf(nq, pos);
     if (idx === -1) break;
     var matchLen = nq.length;
-    var origStart = 0, normIdx = 0;
-    while (normIdx < idx && origStart < text.length) {
-      if (normaliseForSearch(text[origStart]) === nt[normIdx]) normIdx++;
-      origStart++;
-    }
-    var origEnd = origStart;
-    var matchedNorm = 0;
-    while (matchedNorm < matchLen && origEnd < text.length) {
-      if (normaliseForSearch(text[origEnd]) === nt[idx + matchedNorm]) matchedNorm++;
-      origEnd++;
-    }
+    var origStart = mapNormToOrig(lower, nt, 0, 0, idx);
+    var origEnd = mapNormToOrig(lower, nt, origStart, idx, matchLen);
     result += escapeHTML(text.slice(lastEnd, origStart));
     result += "<mark>" + escapeHTML(text.slice(origStart, origEnd)) + "</mark>";
     lastEnd = origEnd;
@@ -386,16 +400,9 @@ export function buildSnippets(row, parsed, queryForHighlight, normRow) {
       }
     }
     if (bestPos === -1) { bestPos = 0; bestLen = Math.min(str.length, 80); }
-    var origStart = 0, normIdx = 0;
-    while (normIdx < bestPos && origStart < str.length) {
-      if (normaliseForSearch(str[origStart]) === (nstr[normIdx] || "")) normIdx++;
-      origStart++;
-    }
-    var origEnd = origStart, matchedNorm = 0;
-    while (matchedNorm < bestLen && origEnd < str.length) {
-      if (normaliseForSearch(str[origEnd]) === (nstr[bestPos + matchedNorm] || "")) matchedNorm++;
-      origEnd++;
-    }
+    var lower = str.toLowerCase();
+    var origStart = mapNormToOrig(lower, nstr, 0, 0, bestPos);
+    var origEnd = mapNormToOrig(lower, nstr, origStart, bestPos, bestLen);
     var start = Math.max(0, origStart - 150);
     var end = Math.min(str.length, origEnd + 150);
     var snip =
