@@ -524,6 +524,63 @@ body:has(.modal-overlay.open) {
   border-color: var(--color-card-hover-border);
 }
 
+/* Destructive variant for the "Clear pins & history" settings button
+   (declared after .modal-select so it wins the specificity tie) */
+.modal-danger-btn {
+  color: #dc2626;
+  background: transparent;
+  border-color: #dc2626;
+}
+.modal-danger-btn:hover {
+  background: #fef2f2;
+}
+[data-theme="dark"] .modal-danger-btn {
+  color: #f87171;
+  border-color: #7f1d1d;
+}
+[data-theme="dark"] .modal-danger-btn:hover {
+  background: #3b0a0a;
+}
+
+/* ── Confirm dialog (window.confirmModal) ── */
+.confirm-modal {
+  width: min(360px, 92vw);
+}
+.confirm-message {
+  margin: 0 0 16px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  line-height: 1.8;
+}
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.confirm-btn {
+  padding: 6px 16px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+}
+.confirm-cancel {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-nav-btn-text);
+}
+.confirm-yes {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+}
+.confirm-yes:hover {
+  filter: brightness(0.92);
+}
+
 .modal-row {
   display: flex;
   align-items: center;

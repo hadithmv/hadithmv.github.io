@@ -10,7 +10,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 | **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, scroll‑to‑top |
 | **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), full‑text search with wildcards/fuzzy/negation/regex/column‑scope, whole‑word toggle, search‑history dropdown, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%) and completion animation, scroll counter, URL position sync |
 | **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand with reorderable columns, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
-| **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), reorder via ▲▼, reading history with relative timestamps, clear‑all, sidebar access from both pages |
+| **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), reorder via ▲▼, reading history with relative timestamps, confirmed clear‑all, sidebar access from both pages |
 | **Export** | TXT, MD, JSON, CSV, TSV, Excel, EPUB (embedded font), PDF (print), PNG (canvas render), HTML, HTML Table, Word, YAML, TOON, XML |
 | **Customisation** | Three themes (Light / Dark / Sepia), adjustable font size ±, font family (Hadithmv / System), content width (600/800/1000/1200/full), three UI languages (Dhivehi / English / Arabic) |
 | **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `z` focus mode, `t` tashkeel, `v` cycle view mode, `p` toggle pin, `s` share link, `e` export, `/` or `Ctrl+F` search, `Ctrl+Shift+F` advanced search, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
@@ -30,7 +30,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal with a table of your saved positions (with reorder arrows, page, and remove) or of your recently read books (with page, time, and remove). Both are also accessible from the sidebar.
 
-- **Reset** — the ↺ Reset button clears all filters, search, view mode, pins, and history.
+- **Reset** — the ↺ Reset button clears all filters, search, and view mode. Pins and history are **not** affected — they only clear via the confirmed "Clear all" buttons in the pins/history modals, or the "Clear pins & history" button in Settings.
 
 Click any book card or table row to open it.
 
@@ -137,5 +137,6 @@ Open from the sidebar (⚙ Settings). You can change:
 | **Font size**  | − / + buttons to make text smaller or larger                                      |
 | **Font**       | Hadithmv (custom merged font) or System font. Option names are always in English. |
 | **Language**   | Dhivehi, English, or Arabic — changes all buttons and labels                      |
+| **Pins & history** | "Clear pins & history" button — asks for confirmation first. |
 
-All settings are saved automatically and remembered when you return.
+All settings are saved automatically and remembered when you return. The ↺ Reset button in the settings header resets the settings above but does **not** clear pins or reading history — those only clear through the confirmed clear buttons.

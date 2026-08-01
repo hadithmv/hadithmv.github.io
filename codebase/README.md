@@ -152,14 +152,14 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 ### Dashboard
 
-- **📌 Pins** — button in sort row; opens a modal listing bookmarked books as a table (▲▼ reorder arrows, page, ✕ to remove, "Clear all"; max 10); click an entry to open at the bookmarked page. A `📌 ޕިން` pins filter chip appears in the tag row (click to show only pinned books). Pinned books show a `📌 ޕިން` badge on their card. Also accessible from the sidebar.
-- **🕐 History** — button in sort row; opens a modal listing recently read books as a table (book, page, relative time like "3m ago", ✕ to remove, "Clear all"; max 10; one entry per book, latest position). Also accessible from the sidebar.
+- **📌 Pins** — button in sort row; opens a modal listing bookmarked books as a table (▲▼ reorder arrows, page, ✕ to remove, confirmed "Clear all"; max 10); click an entry to open at the bookmarked page. A `📌 ޕިން` pins filter chip appears in the tag row (click to show only pinned books). Pinned books show a `📌 ޕިން` badge on their card. Also accessible from the sidebar.
+- **🕐 History** — button in sort row; opens a modal listing recently read books as a table (book, page, relative time like "3m ago", ✕ to remove, confirmed "Clear all"; max 10; one entry per book, latest position). Also accessible from the sidebar.
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = OR — a book shows if it carries any selected tag), active chips show ✕ to remove, each chip shows book count. The URL updates with `?tags=A,B` so filtered views are shareable. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering. Tag badges in the book reader header link back to the dashboard pre‑filtered by that tag.
 - Sort dropdown — A→Z / Z←A (arrows follow reading direction)
 - Table/Card view toggle — card grid or full-width table with clickable rows
-- ↺ Reset button — clears all filters, search, view mode, pins, and history
+- ↺ Reset button — clears all filters, search, and view mode (pins & history are preserved)
 - Card grid flows right-to-left (`direction: rtl`)
 - All controls work together: search + tags + sort combined
 
@@ -167,7 +167,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 - Blue ☰ hamburger button (always visible, opens right-side drawer)
 - Navigation: Book list, GitHub, FAQ, Help, Contact
-- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector; ↺ Reset all settings clears pins and history too
+- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector, plus a confirmed "Clear pins & history" button; ↺ Reset all settings does NOT touch pins or history
 - Scroll to top
 - App version and creator credit
 

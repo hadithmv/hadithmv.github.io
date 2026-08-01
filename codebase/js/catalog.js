@@ -163,7 +163,7 @@ export function getCsvPath(bookCode) {
 }
 
 
-import { isPinned, getPinnedBooks, addPin, removePin, addReadHistory, clearReadHistory, renderPins, renderHistory, clearPins } from "./pins-history.js";
+import { isPinned, getPinnedBooks, addPin, removePin, addReadHistory, renderPins, renderHistory } from "./pins-history.js";
 
 // Re-export for reader.js
 export { addPin, removePin, isPinned, addReadHistory };
@@ -456,10 +456,8 @@ function setupDashboardControls() {
     sc.style.display = "none";
     ss.value = "az";
     history.replaceState(null, "", window.location.pathname);
-    clearPins();
-    clearReadHistory();
-    renderPins();
-    renderHistory();
+    // NOTE: pins & history survive the dashboard reset — they only clear via
+    // the modals' confirmed "Clear all" or the settings button.
     renderDashboard(_lastBookNames);
     si.focus();
   });

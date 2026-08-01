@@ -257,6 +257,28 @@ window.createModal = function (id, titleId, bodyId, extraClass) {
   return overlay;
 };
 
+// Reusable confirm dialog on the unified modal layer.
+// Title/message/confirm-button come from i18n keys; onConfirm runs only
+// when the user presses the confirm button (Escape / backdrop / Cancel = no).
+window.confirmModal = function (titleKey, messageKey, confirmKey, onConfirm) {
+  var overlay = window.createModal("confirmOverlay", "confirmModalTitle", "confirmModalBody", "confirm-modal");
+  document.getElementById("confirmModalTitle").textContent = t(titleKey);
+  document.getElementById("confirmModalBody").innerHTML =
+    '<p class="confirm-message">' + t(messageKey) + "</p>" +
+    '<div class="confirm-actions">' +
+      '<button type="button" class="confirm-btn confirm-cancel" id="confirmCancel">' + t("confirmCancel") + "</button>" +
+      '<button type="button" class="confirm-btn confirm-yes" id="confirmYes">' + t(confirmKey) + "</button>" +
+    "</div>";
+  document.getElementById("confirmYes").addEventListener("click", function () {
+    window.closeModal("confirmOverlay");
+    onConfirm();
+  });
+  document.getElementById("confirmCancel").addEventListener("click", function () {
+    window.closeModal("confirmOverlay");
+  });
+  window.openModal("confirmOverlay");
+};
+
 // ── Shared focus mode ───────────────────────────────────────
 // Toggles data-focus on <html>, updates btnFocus, persists to LS.
 // Dispatches "focuschange" event so pages can react (e.g. recalc layout).
@@ -346,15 +368,26 @@ window.setFocus = function (on) {
     // Clear LS keys that the delegated buttons don't touch
     localStorage.removeItem("reader:searchHistory");
     localStorage.removeItem("focus");
-    // Clear pins & history
-    localStorage.removeItem(window.LS_KEYS.pinnedBooks);
-    localStorage.removeItem(window.LS_KEYS.readHistory);
+    // NOTE: pins & history are NOT cleared here — they only clear via the
+    // explicit "Clear pins & history" button below (with confirmation).
     document.dispatchEvent(new CustomEvent("dashboardReset"));
     localStorage.removeItem("lang");
     var sel = document.getElementById("selLanguage");
     if (sel) sel.value = "dv";
     window.closeModal("settingsOverlay");
   });
+
+  // ── Clear pins & history (destructive — confirm first) ──
+  var btnClearPH = document.getElementById("btnClearPinsHistory");
+  if (btnClearPH) {
+    btnClearPH.addEventListener("click", function () {
+      window.confirmModal("settingsPinsHistory", "confirmAreYouSure", "dashboardClearAll", function () {
+        try { localStorage.removeItem(window.LS_KEYS.pinnedBooks); } catch (_) {}
+        try { localStorage.removeItem(window.LS_KEYS.readHistory); } catch (_) {}
+        document.dispatchEvent(new CustomEvent("dashboardReset"));
+      });
+    });
+  }
 })();
 
 // ── Font modal ───────────────────────────────────────────────

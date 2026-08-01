@@ -129,7 +129,12 @@ export function openPinsModal() {
     }
     html += '</tbody></table><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
-    document.getElementById("pinsClearAll").addEventListener("click", function () { clearPins(); window.openPinsModal(); });
+    document.getElementById("pinsClearAll").addEventListener("click", function () {
+      window.confirmModal("dashPinsBtn", "confirmAreYouSure", "dashboardClearAll", function () {
+        clearPins();
+        window.openPinsModal();
+      });
+    });
   }
   window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();
@@ -163,7 +168,12 @@ export function openHistoryModal() {
     }
     html += '</tbody></table><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
-    document.getElementById("historyClearAll").addEventListener("click", function () { clearReadHistory(); window.openHistoryModal(); });
+    document.getElementById("historyClearAll").addEventListener("click", function () {
+      window.confirmModal("dashHistoryBtn", "confirmAreYouSure", "dashboardClearAll", function () {
+        clearReadHistory();
+        window.openHistoryModal();
+      });
+    });
   }
   window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();

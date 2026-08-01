@@ -98,6 +98,27 @@ const STRINGS = {
     en: "↺ Reset all settings",
     ar: "↺ إعادة ضبط جميع الإعدادات",
   },
+  settingsPinsHistory: {
+    dv: "ޕިން އަދި ހިސްޓަރީ",
+    en: "Pins & history",
+    ar: "العلامات والسجل",
+  },
+  settingsClearPinsHistory: {
+    dv: "ޕިން އަދި ހިސްޓަރީ ފޮހެލާ",
+    en: "Clear pins & history",
+    ar: "مسح العلامات والسجل",
+  },
+  confirmCancel: {
+    dv: "ކެންސަލް",
+    en: "Cancel",
+    ar: "إلغاء",
+  },
+  // Generic confirm body — the dialog title names what is being cleared
+  confirmAreYouSure: {
+    dv: "ފޮހެލަން ބޭނުންވާކަން ޔަގީންތޯ؟ މި ކަން އަނބުރާ ނުގެނެވޭނެ.",
+    en: "Are you sure? This cannot be undone.",
+    ar: "هل أنت متأكد؟ لا يمكن التراجع عن هذا.",
+  },
   labelRowsPerPage: {
     dv: "އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:",
     en: "Show pages at once:",
@@ -297,9 +318,9 @@ const STRINGS = {
   qrnAyah: { dv: "އާޔަތް:", en: "Ayah:", ar: "آية:" },
   qrnJuz: { dv: "ޖުޒް:", en: "Juz:", ar: "جزء:" },
   qrnContent: {
-    dv: "ގުރްއާން ފޮތްތައް ▾",
-    en: "Quran Books ▾",
-    ar: "كتب القرآن ▾",
+    dv: "ގުރްއާން ފޮތްތައް",
+    en: "Quran Books",
+    ar: "كتب القرآن",
   },
   qrnToggleAyahNum: {
     dv: "އާޔަތް ނަންބަރު",
@@ -348,7 +369,10 @@ try {
 /** Return the translated string for a key in the current language. */
 export function t(key) {
   const entry = STRINGS[key];
-  if (!entry) { console.warn("i18n: missing key \"" + key + "\""); return key; }
+  if (!entry) {
+    console.warn('i18n: missing key "' + key + '"');
+    return key;
+  }
   return entry[_currentLang] || entry.en || key;
 }
 
