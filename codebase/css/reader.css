@@ -398,7 +398,7 @@
 /* ── Copy feedback toast ── */
 .copy-toast {
   position: fixed;
-  bottom: 50px;
+  bottom: 64px; /* clears the taller desktop scroll pill (bottom: 10px) */
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 20px;
@@ -994,6 +994,9 @@
     font-size: var(--panel-font-size-mobile, 0.78rem);
     padding: 4px 14px;
     min-width: 120px;
+  }
+  .copy-toast {
+    bottom: 50px; /* compact pill is shorter — toast can sit lower again */
   }
 
   #readerContent {

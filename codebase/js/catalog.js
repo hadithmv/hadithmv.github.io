@@ -667,7 +667,6 @@ function setupDashboardControls() {
       // NOTE: pins & history survive the dashboard reset — they only clear via
       // the modals' confirmed "Clear all" or the settings button.
       renderDashboard(_lastBookNames);
-      si.focus();
     });
 
   // ── Functions row horizontal scroll (arrows + wheel, reader-toolbar style) ──
