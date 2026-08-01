@@ -467,6 +467,14 @@ function renderDashboard(bookNames) {
   var grid = document.getElementById("bookGrid");
   if (!grid) return;
 
+  // Empty state — no books match the current search/tags. Render a message
+  // instead of a blank grid (or a header-only table, which looks broken).
+  if (visible.length === 0) {
+    grid.style.display = "";
+    grid.innerHTML = '<div class="dash-empty">' + t("dashboardNoMatch") + "</div>";
+    return;
+  }
+
   if (_dashTableMode) {
     grid.style.display = "block";
     grid.innerHTML =

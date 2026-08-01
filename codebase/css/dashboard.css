@@ -441,6 +441,15 @@
   color: var(--color-text-subtle);
 }
 
+/* Empty state — shown when no books match the current search/tag filters */
+.dash-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

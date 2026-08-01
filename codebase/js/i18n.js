@@ -274,6 +274,11 @@ const STRINGS = {
     ar: "متابعة القراءة:",
   },
   dashboardPinsLabel: { dv: "ޕިންތައް:", en: "Pins:", ar: "تثبيت:" },
+  dashboardNoMatch: {
+    dv: "އެއްވެސް ފޮތެއް ނުފެނުނު",
+    en: "No books found",
+    ar: "لا توجد كتب",
+  },
   dashboardHistoryLabel: { dv: "ހިސްޓަރީ:", en: "History:", ar: "السجل:" },
   dashboardClearAll: {
     dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕",
