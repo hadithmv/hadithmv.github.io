@@ -77,7 +77,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. The sort row is one continuous line that scrolls horizontally when it doesn't fit (reader-toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto-hide at the extremes, wheel redirects to horizontal). The table view (`dash-table`) is wrapped in `.dash-table-wrap` — `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page when they don't fit. Inside the collapsible dashboard panel (above the tags), a **continue-reading card** appears when no search/tag/pins filter is active, built from the most recent history entry — book title, saved position (a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number), and relative time; clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome. Pins and history are persisted in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Pins auto‑update their row position as the user reads (piggybacking on the history timer, debounced 2s). Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. The sort row is one continuous line that scrolls horizontally when it doesn't fit (reader-toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto-hide at the extremes, wheel redirects to horizontal — see the RTL scroll‑direction convention under "Horizontal scrolling & RTL" before touching the arrow signs). The table view (`dash-table`) is wrapped in `.dash-table-wrap` — `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page when they don't fit. Inside the collapsible dashboard panel (above the tags), a **continue-reading card** appears when no search/tag/pins filter is active, built from the most recent history entry — book title, saved position (a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number), and relative time; clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome. Pins and history are persisted in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Pins auto‑update their row position as the user reads (piggybacking on the history timer, debounced 2s). Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
 
 The reader's page‑header tag badges link to `index.html?tags=CODE`, letting readers jump to the dashboard filtered by that category.
 
@@ -447,9 +447,10 @@ Quran clipboard format: no book header line. Decorated ayah text, `[surahName su
 The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrolling in non‑obvious ways:
 
 **RTL scroll conventions differ by browser:**
-- Chrome: `scrollLeft = 0` at the rightmost (start), goes **positive** when scrolling left toward end
-- Firefox: `scrollLeft = 0` at the rightmost (start), goes **negative** when scrolling left toward end
-- Always use `Math.abs(scrollLeft)` for position checks. Always test scroll behavior in both browsers.
+
+- Chrome: `scrollLeft ∈ [0, max]` — the **start** (rightmost) sits at `max`, the **end** (leftmost) at `0`; scrolling toward the end *decreases* it
+- Firefox: `scrollLeft ∈ [-max, 0]` — the **start** (rightmost) sits at `0`, the **end** (leftmost) at `-max`; scrolling toward the end *decreases* it
+- **Both engines: scrolling toward the end always DECREASES the signed `scrollLeft`; toward the start INCREASES it.** Always use `Math.abs(scrollLeft)` for position checks, and always test scroll behavior in both browsers.
 
 **RTL start/end terminology:**
 - **Start** = beginning of content = right side in RTL
@@ -467,7 +468,9 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 - The scrollable row is constrained to the content area by `flex:1; min-width:0`.
 - `overflow:hidden` on the wrap clips content to the content area — row content CANNOT bleed into the arrow padding.
 - DO NOT wrap a hidden (`display:none`) element — it has 0 dimensions and breaks layout. Wrap only after the element is visible.
-- Click handlers: start arrow (►) → `scrollLeft -= 200` (toward start/right). End arrow (◄) → `scrollLeft += 200` (toward end/left).
+- Click handlers: start arrow (►) → `scrollLeft += step` (toward start/right). End arrow (◄) → `scrollLeft -= step` (toward end/left). Wheel‑down also scrolls toward the end: `scrollLeft -= deltaY`.
+- **Don't re‑derive the signs — copy the reader's proven wiring**: `rdfScrollBack` (▶) → `+COL_STEP`, `rdfScrollFwd` (◀) → `-COL_STEP` in `reader.js`; the dashboard copy lives in `catalog.js` (the sort row's arrows). The dashboard's `updateArrows()` uses `Math.abs(scrollLeft)` for the auto‑hide checks.
+- **Exception — the reader TABLE's wheel is NOT comparable**: `tableWrap`'s wheel handler does `topScroll.scrollLeft += amount` on the *mirrored top scrollbar*, and the table follows via `translateX` from the absolute fraction (`syncTableTransform`, `Math.abs`). Different mechanism, opposite sign — do not "fix" it to match the rule above.
 - Visibility: start arrow hidden when `abs(scrollLeft) < 1`. End arrow hidden when `abs(scrollLeft) > maxScroll - 2`.
 
 **Sticky‑arrow pattern** (alternative, used for quranNav):
