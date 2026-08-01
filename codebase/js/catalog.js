@@ -214,23 +214,45 @@ export async function initializePageWithMetadata(callback) {
   const urlParams = new URLSearchParams(window.location.search);
   const bookCode = urlParams.get("book");
 
-  if (!bookCode) {
-    const bookNames = await loadBookNames();
+  // Load the registry and render the dashboard. On fetch failure, show the
+  // error with a Retry button that re-runs this — controls are only wired
+  // after a successful load, so re-running never double-wires listeners.
+  async function loadDashboard() {
+    var bookNames = await loadBookNames();
+    var retryBtn = document.getElementById("retryRegistry");
     if (!bookNames) {
-      // Fetch failed — show error, don't render an empty dashboard
+      // Fetch failed — show error + Retry, don't render an empty dashboard
       document.getElementById("loadingMessage").style.display = "none";
       document.getElementById("errorMessage").style.display = "block";
       document.getElementById("errorMessage").textContent =
         "Failed to load the book registry. Please check your connection and try again.";
+      if (retryBtn) retryBtn.style.display = "";
       return;
     }
+    if (retryBtn) retryBtn.style.display = "none";
+    document.getElementById("errorMessage").style.display = "none";
+    renderDashboard(bookNames);
+    setupDashboardControls();
+  }
+
+  var retryBtnEl = document.getElementById("retryRegistry");
+  if (retryBtnEl) {
+    retryBtnEl.addEventListener("click", function () {
+      document.getElementById("errorMessage").style.display = "none";
+      retryBtnEl.style.display = "none";
+      var lm = document.getElementById("loadingMessage");
+      if (lm) lm.style.display = "";
+      loadDashboard();
+    });
+  }
+
+  if (!bookCode) {
     // Read ?tags= from URL for pre-filtered dashboard links
     var urlTags = urlParams.get("tags");
     if (urlTags) {
       _dashFilter.tags = urlTags.split(",");
     }
-    renderDashboard(bookNames);
-    setupDashboardControls();
+    await loadDashboard();
     return;
   }
 

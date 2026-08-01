@@ -232,7 +232,8 @@ All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translati
 
 ## Error handling
 
-All errors show visible messages in English — see [Architecture → Error states](docs/ARCHITECTURE.md#error-states).
+All errors show visible messages in English, with a ⚠️ Error: prefix on error boxes and ⚠️ on failure toasts — see [Architecture → Error states](docs/ARCHITECTURE.md#error-states).
+- Registry-load failure → error message with a ↺ Retry button (re-fetches without a page refresh)
 - CSV parse warnings → logged to browser console (non-fatal)
 
 ## Dependencies

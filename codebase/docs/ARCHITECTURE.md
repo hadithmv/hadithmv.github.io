@@ -656,14 +656,14 @@ Use `var(--color-accent)` everywhere. Never reference the hardcoded hex directly
 
 ## Error states
 
-All errors show visible messages in English. Silent failures are minimised:
+All errors show visible messages in English. Error boxes carry a central `⚠️ Error:` prefix (`.error::before` — one rule covers every box; the red background alone is invisible to screen readers). Failure toasts use `window.showErrorToast` (⚠️‑prefixed, language‑neutral). Silent failures are minimised:
 
 | Error | Source | Behaviour |
 |---|---|---|
-| Registry fails to load | `catalog.js` → dashboard | Shows "Failed to load the book registry" instead of empty dashboard |
+| Registry fails to load | `catalog.js` → dashboard | Shows "Failed to load the book registry" with a ↺ Retry button (`loadDashboard()` re-runs; controls are wired only after success, so no duplicate listeners) instead of an empty dashboard |
 | Book code not found | `catalog.js` → reader | Shows error message |
 | CSV empty or fails | `reader.js` → reader | `.catch()` on the fetch chain shows error |
-| Async export fails (PNG/Excel/EPUB) | `export.js` | Toast with format name, dropdown stays open for retry |
+| Export fails (PNG/Excel/EPUB) | `export.js` | ⚠️ toast with format name; the Export button is disabled with a "Preparing…" label while working and restored on failure, so the user can click again |
 | Missing i18n key | `i18n.js` `t()` | `console.warn` with key name, falls back to raw key string |
 | localStorage write fails | All modules | Silently caught (intentional — better to degrade than crash) |
 | CSV parse warnings | Console | Non‑fatal |

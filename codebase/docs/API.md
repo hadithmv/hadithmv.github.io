@@ -232,6 +232,10 @@ Processes all `data-i18n` attributes in the DOM and sets initial language from `
 
 Shows a brief toast message at the bottom of the screen. Single shared implementation in `common.js` — used by reader, quran, and catalog modules. Auto-dismisses after 2.5s.
 
+### `window.showErrorToast(msg)`
+
+Failure variant of `showToast` — prepends a ⚠️ marker (language‑neutral, so it works with translated messages too). Use this for every failure toast; success toasts stay plain.
+
 ### `window.copyToClipboard(text, successKey, failKey?)`
 
 Copies text to the clipboard. Tries `navigator.clipboard.writeText()` first; falls back to a hidden textarea + `execCommand("copy")` for older browsers. Shows a toast with the given i18n keys for success/failure.

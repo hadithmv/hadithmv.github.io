@@ -188,10 +188,17 @@ window.showToast = function (msg) {
   el._timeout = setTimeout(function () { el.classList.remove("show"); }, 2500);
 };
 
+// ── Shared toast ────────────────────────────────────────────
+
+// Failure toast — the ⚠️ marks it as an error (success toasts stay plain)
+window.showErrorToast = function (msg) {
+  showToast("⚠️ " + msg);
+};
+
 // ── Shared clipboard ────────────────────────────────────────
 window.copyToClipboard = function (text, successKey, failKey) {
   var done = function () { showToast(t(successKey)); };
-  var fail = function () { showToast(t(failKey || "toastCopyFailed")); };
+  var fail = function () { showErrorToast(t(failKey || "toastCopyFailed")); };
   navigator.clipboard.writeText(text).then(done).catch(function () {
     // Fallback for older browsers / non-HTTPS
     var ta = document.createElement("textarea");

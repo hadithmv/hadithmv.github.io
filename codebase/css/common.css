@@ -789,6 +789,13 @@ body:has(.modal-overlay.open) {
   background-color: var(--color-error-bg);
   border-radius: 4px;
   margin: 20px;
+  margin-top: 82px; /* clear the fixed topBar (62px) + 20px breathing room */
+}
+/* Errors are English-only (app convention) — a single central prefix covers
+   every .error box; the red background alone is invisible to screen readers */
+.error::before {
+  content: "⚠️ Error: ";
+  font-weight: 700;
 }
 
 #pageTags .tag-badge,

@@ -200,12 +200,12 @@ export function initExports(ctx) {
                 setExportBusy(false);
               }, "image/png");
             };
-            img.onerror = function () { window.showToast("PNG export failed"); setExportBusy(false); };
+            img.onerror = function () { window.showErrorToast("PNG export failed"); setExportBusy(false); };
             img.src = "data:image/svg+xml," + encodeURIComponent(svg);
           };
-          reader.onerror = function () { window.showToast("PNG export failed"); setExportBusy(false); };
+          reader.onerror = function () { window.showErrorToast("PNG export failed"); setExportBusy(false); };
           reader.readAsDataURL(blob);
-        }).catch(function () { window.showToast("PNG export failed"); setExportBusy(false); });
+        }).catch(function () { window.showErrorToast("PNG export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "excel") {
         import("./xlsx.js").then(function(mod) {
@@ -216,7 +216,7 @@ export function initExports(ctx) {
           document.body.appendChild(a); a.click();
           document.body.removeChild(a); URL.revokeObjectURL(u);
           setExportBusy(false);
-        }).catch(function () { window.showToast("Excel export failed"); setExportBusy(false); });
+        }).catch(function () { window.showErrorToast("Excel export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "epub") {
         fetch("../font/merged-300.woff2")
@@ -240,7 +240,7 @@ export function initExports(ctx) {
               document.body.removeChild(a); URL.revokeObjectURL(u);
               setExportBusy(false);
             });
-          }).catch(function () { window.showToast("EPUB export failed"); setExportBusy(false); });
+          }).catch(function () { window.showErrorToast("EPUB export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "yaml") {
         var y = "# " + (meta.titleEN || baseName) + "\n# " + meta.titleDV + " - " + meta.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";

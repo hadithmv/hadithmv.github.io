@@ -692,7 +692,7 @@ export function initQuranUI(ctx) {
         renderQuranContentList();
       })
       .catch(function () {
-        showToast("Could not load “" + sourceBook + "”");
+        window.showErrorToast("Could not load “" + sourceBook + "”");
       });
   }
 
