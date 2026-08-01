@@ -138,19 +138,10 @@
   direction: rtl;
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
 }
-.dash-table th {
-  padding: 10px 12px;
-  background: var(--color-nav-btn-bg);
-  border-bottom: 2px solid var(--color-card-hover-border);
-  font-weight: 700;
-  font-size: var(--panel-font-size, 0.85rem);
-  color: var(--color-text-muted);
-  text-align: right;
-  white-space: nowrap;
-  position: sticky;
-  top: 58px;
-  z-index: 10;
-}
+/* No position: sticky on the dashboard header — the .dash-table-wrap scroll
+   container makes sticky measure against the wrapper (pushing the thead down
+   58px over the first rows). The header scrolls with the page like a plain
+   table. */
 .dash-table th {
   padding: 10px 12px;
   background: var(--color-nav-btn-bg);
