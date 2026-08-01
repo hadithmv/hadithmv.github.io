@@ -140,7 +140,7 @@ All rows inside the collapsible panel use uniform 10px spacing via flex column g
 
 - Real-time "find and jump" — search highlights matches in a dropdown, clicking jumps to that row without filtering the dataset
 - Query syntax: wildcards (`*`, `?`), whole-word (`.word`), fuzzy (`~word~`), negation (`-word`), column-scoped (`col:N:word`), regex (`/pattern/`)
-- Tashkeel-insensitive: strips Arabic diacritics and Thaana fili before matching, normalises Arabic letter variants (أ إ آ → ا, ى → ي) and Thaana thikijehi (ޘ → ސ, etc.)
+- Tashkeel-insensitive: strips Arabic diacritics and Thaana fili (vowel marks) before matching, normalises Arabic letter variants (أ إ آ → ا, ى → ي) and Thaana thikijehi (Arabic‑derived letters → their base forms, e.g. ޘ → ސ)
 - Fast on big books: cells are normalised once at load (precomputed cache), queries are compiled once per keystroke, and the input is debounced (120 ms) — a full scan of a 50k-row book runs in a few milliseconds
 - Results dropdown with highlighted snippets (~300 chars of context), highlighting maps back to original text with tashkeel intact
 - Click or Enter to jump; ↑/↓ to navigate; Escape to close

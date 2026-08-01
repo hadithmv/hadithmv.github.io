@@ -2,6 +2,17 @@
 
 Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and English.
 
+## A few terms
+
+- **RTL** — right‑to‑left text direction (Arabic, Dhivehi); the whole app lays out this way.
+- **Row = page** — each row in a book's data is one "page". The pagination bar's numbers are row numbers — a 45,331‑row book is like a 45,331‑page book.
+- **Tashkeel** — Arabic diacritics (short vowels); toggling hides/shows them without changing the letters.
+- **Surah** — a chapter of the Quran (114 in total).
+- **Ayah** — a verse of the Quran.
+- **Juz** — one of 30 equal divisions of the Quran.
+- **Basmalah** — the opening phrase بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ that begins every surah.
+- **Imlai / Uthmani script** — two written forms of the Quranic text: Imlai is the modern transliterated spelling, Uthmani the classical orthography.
+
 ## Features at a glance
 
 | Category | Features |
