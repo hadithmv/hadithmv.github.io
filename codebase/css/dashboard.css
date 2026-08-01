@@ -122,6 +122,14 @@
 }
 
 /* Dashboard table view */
+/* Horizontal scroll wrapper — the table refuses to shrink below its content,
+   so when the four columns don't fit (narrow screens) this scrolls instead
+   of overflowing the page. On mobile it becomes a two-axis scroll box so the
+   sticky header keeps working inside it (top: 0 of the box). */
+.dash-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .dash-table {
   width: 100%;
   border-collapse: separate;
@@ -178,16 +186,72 @@
   padding: 5px 10px;
 }
 
+/* Functions row — one continuous line that scrolls horizontally when it
+   doesn't fit (reader-toolbar pattern): wrap provides arrow space, the
+   inner .dash-functions-scroll does the scrolling. */
 #dashboardPanelFunctions {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
   gap: 8px;
   direction: rtl;
+  position: relative;
+  padding: 0 30px; /* room for the edge arrows */
+  overflow: hidden;
 }
-#dashboardPanelFunctions > div {
-  flex-wrap: wrap;
+.dash-functions-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.dash-functions-scroll::-webkit-scrollbar {
+  display: none;
+}
+/* Edge arrows (reader-toolbar style) */
+#dashboardPanelFunctions .scroll-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+#dashboardPanelFunctions .scroll-arrow-start {
+  right: 2px;
+  left: auto;
+}
+#dashboardPanelFunctions .scroll-arrow-end {
+  left: 2px;
+  right: auto;
+}
+#dashboardPanelFunctions .scroll-arrow:hover {
+  color: var(--color-text);
+}
+#dashboardPanelFunctions .scroll-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+/* The actions row (reset, view toggle, sort, pins, history) — never wraps;
+   the parent row scrolls horizontally instead. */
+.dash-functions-row {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 6px;
+  position: relative;
 }
 #dashboardSort,
 #dashboardViewToggle,

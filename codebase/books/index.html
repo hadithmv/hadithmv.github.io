@@ -281,56 +281,65 @@
           <div id="dashboardContinue"></div>
           <div id="dashboardPanelTags"></div>
           <div id="dashboardPanelFunctions">
-            <span id="dashboardResultCount" class="search-info"></span>
-            <div
-              style="
-                display: flex;
-                gap: 6px;
-                align-items: stretch;
-                position: relative;
-              "
+            <button
+              class="scroll-arrow scroll-arrow-start hidden"
+              id="dashFuncScrollStart"
+              title="Scroll to start"
             >
-              <button
-                id="dashboardReset"
-                class="toolbar-btn"
-                data-i18n="btnResetText"
-                title="Reset all filters"
-              >
-                ↺ ރީސެޓް
-              </button>
-              <button
-                id="dashboardViewToggle"
-                class="toolbar-btn"
-                data-i18n="btnViewToggleText"
-                title="Toggle card / table view"
-              >
-                📖 ޓޭބަލް
-              </button>
-              <select
-                id="dashboardSort"
-                class="toolbar-select"
-                title="Sort books"
-              >
-                <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
-                <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
-              </select>
-              <button
-                id="btnPinsDropdown"
-                class="toolbar-btn"
-                title="Pinned books (p key)"
-                data-i18n="dashPinsBtn"
-              >
-                📌 ޕިންތައް
-              </button>
-              <button
-                id="btnHistoryDropdown"
-                class="toolbar-btn"
-                title="Reading history (h key)"
-                data-i18n="dashHistoryBtn"
-              >
-                🕐 ހިސްޓަރީ
-              </button>
+              ▶
+            </button>
+            <div class="dash-functions-scroll">
+              <span id="dashboardResultCount" class="search-info"></span>
+              <div class="dash-functions-row">
+                <button
+                  id="dashboardReset"
+                  class="toolbar-btn"
+                  data-i18n="btnResetText"
+                  title="Reset all filters"
+                >
+                  ↺ ރީސެޓް
+                </button>
+                <button
+                  id="dashboardViewToggle"
+                  class="toolbar-btn"
+                  data-i18n="btnViewToggleText"
+                  title="Toggle card / table view"
+                >
+                  📖 ޓޭބަލް
+                </button>
+                <button
+                  id="btnPinsDropdown"
+                  class="toolbar-btn"
+                  title="Pinned books (p key)"
+                  data-i18n="dashPinsBtn"
+                >
+                  📌 ޕިންތައް
+                </button>
+                <button
+                  id="btnHistoryDropdown"
+                  class="toolbar-btn"
+                  title="Reading history (h key)"
+                  data-i18n="dashHistoryBtn"
+                >
+                  🕐 ހިސްޓަރީ
+                </button>
+                <select
+                  id="dashboardSort"
+                  class="toolbar-select"
+                  title="Sort books"
+                >
+                  <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
+                  <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
+                </select>
+              </div>
             </div>
+            <button
+              class="scroll-arrow scroll-arrow-end hidden"
+              id="dashFuncScrollEnd"
+              title="Scroll to end"
+            >
+              ◀
+            </button>
           </div>
         </div>
         <!-- /#collapsibleDashboardPanel -->

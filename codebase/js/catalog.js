@@ -470,7 +470,7 @@ function renderDashboard(bookNames) {
   if (_dashTableMode) {
     grid.style.display = "block";
     grid.innerHTML =
-      '<table class="dash-table"><thead><tr>' +
+      '<div class="dash-table-wrap"><table class="dash-table"><thead><tr>' +
       "<th>" +
       t("dashColTitleAR") +
       "</th>" +
@@ -529,7 +529,7 @@ function renderDashboard(bookNames) {
           );
         })
         .join("") +
-      "</tbody></table>";
+      "</tbody></table></div>";
 
     // Make rows clickable
     grid.querySelectorAll(".dash-table tbody tr").forEach(function (tr) {
@@ -669,6 +669,56 @@ function setupDashboardControls() {
       renderDashboard(_lastBookNames);
       si.focus();
     });
+
+  // ── Functions row horizontal scroll (arrows + wheel, reader-toolbar style) ──
+  (function () {
+    var wrap = document.getElementById("dashboardPanelFunctions");
+    var scroller = wrap && wrap.querySelector(".dash-functions-scroll");
+    if (!scroller) return;
+    var startBtn = document.getElementById("dashFuncScrollStart");
+    var endBtn = document.getElementById("dashFuncScrollEnd");
+    var STEP = 240;
+
+    function updateArrows() {
+      var max = scroller.scrollWidth - scroller.clientWidth;
+      var cur = Math.abs(scroller.scrollLeft); // Chrome/FF RTL both normalise here
+      if (startBtn) startBtn.classList.toggle("hidden", cur < 2);
+      if (endBtn) endBtn.classList.toggle("hidden", cur > max - 2);
+    }
+
+    function smoothScrollBy(delta) {
+      var start = scroller.scrollLeft;
+      var startTime = performance.now();
+      function easeOut(k) { return 1 - Math.pow(1 - k, 3); }
+      function animate(now) {
+        var k = Math.min((now - startTime) / 250, 1);
+        scroller.scrollLeft = start + delta * easeOut(k);
+        if (k < 1) requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    // RTL scroll direction: content start is rightmost; scrolling toward the
+    // end (leftward) decreases the signed scrollLeft in both engines. Same
+    // convention as the reader toolbar: fwd (◀) = -STEP, back (▶) = +STEP.
+    if (startBtn) startBtn.addEventListener("click", function () { smoothScrollBy(STEP); });
+    if (endBtn) endBtn.addEventListener("click", function () { smoothScrollBy(-STEP); });
+    scroller.addEventListener("scroll", updateArrows);
+    window.addEventListener("resize", updateArrows);
+    // Wheel over the row → horizontal scroll (same as the reader chrome);
+    // wheel-down scrolls toward the end, matching the ◀ arrow
+    wrap.addEventListener(
+      "wheel",
+      function (e) {
+        if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          e.preventDefault();
+          scroller.scrollLeft -= e.deltaX || e.deltaY;
+        }
+      },
+      { passive: false }
+    );
+    updateArrows();
+  })();
 
   // Keyboard shortcuts (dashboard only — guards check for visible wrapper)
   document.addEventListener("keydown", function (e) {

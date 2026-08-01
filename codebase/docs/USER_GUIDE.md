@@ -24,9 +24,9 @@ When you open the site, you see the **book list**. You can:
 
 - **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — books matching ANY of the selected tags are shown (OR).
 
-- **Sort** — use the dropdown on the right to sort books A→Z or Z→A.
+- **Sort** — use the dropdown on the right to sort books A→Z or Z→A. The whole sort row stays on one line — scroll it sideways (◀▶ arrows or mouse wheel) if it's too wide for the screen.
 
-- **Switch view** — click the 📖 Table/Card button to toggle between a card grid and a table with all book details.
+- **Switch view** — click the 📖 Table/Card button to toggle between a card grid and a table with all book details. On narrow screens the table scrolls sideways when it doesn't fit.
 
 - **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal with a table of your saved positions (with reorder arrows, page, and remove) or of your recently read books (with page, time, and remove). Both are also accessible from the sidebar.
 

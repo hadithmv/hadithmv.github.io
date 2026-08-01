@@ -158,8 +158,8 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = OR — a book shows if it carries any selected tag), active chips show ✕ to remove, each chip shows book count. The URL updates with `?tags=A,B` so filtered views are shareable. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering. Tag badges in the book reader header link back to the dashboard pre‑filtered by that tag.
-- Sort dropdown — A→Z / Z←A (arrows follow reading direction)
-- Table/Card view toggle — card grid or full-width table with clickable rows
+- Sort dropdown — A→Z / Z←A (arrows follow reading direction). The whole sort row stays on one line — on narrow screens it scrolls horizontally via ◀▶ edge arrows or the mouse wheel (same as the reader toolbar)
+- Table/Card view toggle — card grid or full-width table with clickable rows; the table scrolls sideways (hidden scrollbar) when its four columns don't fit the screen
 - ↺ Reset button — clears all filters, search, and view mode (pins & history are preserved)
 - Card grid flows right-to-left (`direction: rtl`)
 - All controls work together: search + tags + sort combined
