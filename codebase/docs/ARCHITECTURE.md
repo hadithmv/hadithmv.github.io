@@ -206,6 +206,11 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 
 The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with `padding: 0 30px` that provides space for absolutely‑positioned ◀▶ arrow buttons at the edges. The row itself handles horizontal scrolling (`overflow-x: auto`, hidden scrollbar). Mouse wheel over the wrap is redirected to horizontal scroll on the row. When the row overflows, direction‑aware arrow buttons appear at the edges: ◀ at the end (scrolls toward end), ▶ at the start (scrolls toward start). Arrows are hidden at the appropriate extremes. Both arrow clicks and mouse‑wheel redirection animate smoothly via the same `requestAnimationFrame` loop with an ease‑out‑cubic curve (300ms). Arrow visibility updates on scroll, resize, and after the reader wrapper becomes visible.
 
+**Position readouts — there are TWO, easily confused:**
+
+- **Pagination strip** (top, in `updatePagination` → `pageSelectHTML`, `#pageNumbers`): the `ސަފްހާ:` label plus the total/current page input. **No percentage — do not add one here.**
+- **Scroll pill** (bottom‑center, `#scrollCounter`, rendered in the scroll handler): `total / current` plus the muted `sc-pct` reading percentage (e.g. `27%`), using the same `pct` variable the milestone toasts use. **This is where the percentage lives** — a user‑explicit preference. Both variants (standard and the Quran surah : ayah form) carry the `sc-pct` span.
+
 ### Focus mode
 
 Toggled via the green ↕/▼ button in the topBar or `z` key. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.

@@ -574,6 +574,15 @@
   white-space: nowrap;
   padding-inline-start: 2px;
 }
+/* Reading progress in the scroll pill — muted grey like before, but sized
+   up so it's easy to see, and clearly separated from the numbers
+   (margin-inline-start = toward the numbers in RTL) */
+.sc-pct {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  margin-inline-start: 28px;
+}
 
 .page-num {
   box-sizing: border-box;
@@ -916,9 +925,9 @@
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 4px 12px;
-  font-size: var(--panel-font-size, 0.85rem);
-  min-width: 90px;
+  padding: 5px 18px;
+  font-size: 1rem;
+  min-width: 140px;
   text-align: center;
   font-weight: 600;
   font-family:
@@ -979,6 +988,12 @@
     font-size: var(--panel-font-size-mobile, 0.78rem);
     line-height: 2.2;
     padding: 0.35em 0.65em;
+  }
+  /* Desktop gets a larger scroll pill; mobile keeps the compact size */
+  .scroll-counter {
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+    padding: 4px 14px;
+    min-width: 120px;
   }
 
   #readerContent {

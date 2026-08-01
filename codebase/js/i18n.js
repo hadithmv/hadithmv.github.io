@@ -230,6 +230,11 @@ const STRINGS = {
     en: "Complete",
     ar: "اكتمل",
   },
+  surahCompleted: {
+    dv: "ސޫރަތް ނިމުނީ!",
+    en: "Surah completed!",
+    ar: "اكتملت السورة!",
+  },
 
   // ── Quran content presets ──
   qrnPresetMain: { dv: "މައި", en: "Main", ar: "الأساسي" },

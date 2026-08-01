@@ -182,7 +182,7 @@ The browser URL silently updates as you scroll (`?book=CODE&row=N`). Copy the ad
 
 ### Scroll counter
 
-A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / current row). Appears while scrolling, fades after 2 seconds.
+A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / current row) plus a muted reading percentage (e.g. `27%`). Appears while scrolling, fades after 2 seconds.
 
 ### Mobile
 

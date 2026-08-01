@@ -1816,7 +1816,18 @@ initializePageWithMetadata(async function (metadata) {
         if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; showToast("📖 75%"); }
         if (pct >= 100 && _lastMilestone < 100) {
           _lastMilestone = 100;
-          showToast("✅ 100% " + t("qrnCompleted") + " 📖");
+          if (quranBook && filteredData.length > 0) {
+            // Quran progress is surah-level — name the surah just finished
+            var doneRow = filteredData[vRow];
+            findQuranColIndices(headerRow);
+            var doneSurah = getRowSurah(doneRow, headerRow);
+            var doneInfo = getSurahInfo(doneSurah);
+            var lang = currentLang();
+            var doneName = doneInfo ? (lang === "en" ? doneInfo.nameEN : doneInfo.nameAR) : "";
+            showToast("✅ " + (doneName ? doneName + " " : "") + t("surahCompleted") + " 📖");
+          } else {
+            showToast("✅ 100% " + t("qrnCompleted") + " 📖");
+          }
           document.getElementById("readerProgressFill").classList.add("done");
           var ring = document.createElement("div");
           ring.className = "completion-border";
@@ -1832,10 +1843,10 @@ initializePageWithMetadata(async function (metadata) {
             var scAyah = getAyahNoFromRowQuran(scRow, headerRow);
             var scInfo = getSurahInfo(scSurah);
             var scName = scInfo ? scInfo.nameAR : "";
-            scrollCounter.innerHTML = scName + ' <span class="sc-n">' + scSurah + '</span> : <span class="sc-n">' + scAyah + '</span>';
+            scrollCounter.innerHTML = scName + ' <span class="sc-n">' + scSurah + '</span> : <span class="sc-n">' + scAyah + '</span> <span class="sc-pct">' + pct + '%</span>';
           } else {
             var total = filteredData.length;
-            scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span>';
+            scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span> <span class="sc-pct">' + pct + '%</span>';
           }
           scrollCounter.classList.add("show");
           clearTimeout(scrollTimer);
