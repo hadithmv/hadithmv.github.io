@@ -208,7 +208,7 @@ The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with
 
 **Position readouts — there are TWO, easily confused:**
 
-- **Pagination strip** (top, in `updatePagination` → `pageSelectHTML`, `#pageNumbers`): the `ސަފްހާ:` label plus the total/current page input. **No percentage — do not add one here.**
+- **Pagination strip** (top, in `updatePagination` → `pageSelectHTML`, `#pageNumbers`): the `ސަފްހާ:` label plus the total/current page input. **No percentage — do not add one here.** The input is typing‑only: native number spinners are hidden (`.page-strip-sel`), arrow keys don't step it (keydown `preventDefault`), and `updatePagination` **never rebuilds `#pageNumbers` while the input is focused** — rebuilding would destroy focus and wipe the typed digits (focusing the box can itself trigger a scroll → `updatePagination`). Enter/blur commits via the `change` handler → `goTo`. The reader's ←/→ navigation is RTL: **left = next row, right = previous row** (do not "fix" it back to LTR).
 - **Scroll pill** (bottom‑center, `#scrollCounter`, rendered in the scroll handler): `total / current` plus the muted `sc-pct` reading percentage (e.g. `27%`), using the same `pct` variable the milestone toasts use. **This is where the percentage lives** — a user‑explicit preference. Both variants (standard and the Quran surah : ayah form) carry the `sc-pct` span.
 
 ### Focus mode

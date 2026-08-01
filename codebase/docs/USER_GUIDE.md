@@ -53,13 +53,13 @@ A thin progress bar runs along the bottom of the top bar. For Quran books it tra
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Search bar** | Find text inside the book. Supports wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~`), negation (`-word`), and exact column matching (`col:2:word`). The `ab` button toggles whole‑word mode for all terms. |
 | **Toolbar**    | Copy the current row, hide Arabic diacritics, share a link, switch view mode (Card / Table / Parallel), reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow.                     |
-| **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The subtitle and tag badges are on the same row — scroll sideways if it's too wide.                                                              |
+| **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The page selector is a number box — type a page and press Enter (arrow keys don't step it). The subtitle and tag badges are on the same row — scroll sideways if it's too wide.                                                              |
 
 ### Reading the Quran
 
 When you open a Quran book (code starting with `QRN-`), extra controls appear:
 
-- **Surah navigation** — Previous/next surah buttons or click the surah name to search all 114 surahs.
+- **Surah navigation** — Previous/next surah buttons or click the surah name to search all 114 surahs (a "no surahs found" message appears if nothing matches).
 - **Ayah navigation** — Click the ayah input to see all ayahs in the current surah, or type a number and press Enter.
 - **Juz navigation** — Same as ayah, for juz (1–30).
 

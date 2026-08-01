@@ -996,12 +996,6 @@ initializePageWithMetadata(async function (metadata) {
           updateQuranNavDisplay();
         }
 
-        var selHTML = pageSelectHTML(cur, total);
-        var label = t("pageOf");
-        document.getElementById("pageNumbers").innerHTML = selHTML;
-        var pl = document.getElementById("pageLabel");
-        if (pl) pl.textContent = label;
-
         var atFirst = visibleRow === 0;
         var atLast = visibleRow >= filteredData.length - 1;
         [
@@ -1012,6 +1006,20 @@ initializePageWithMetadata(async function (metadata) {
         ].forEach(function (id, i) {
           document.getElementById(id).disabled = i < 2 ? atFirst : atLast;
         });
+
+        // While the user is typing in the page strip, DON'T rebuild it —
+        // replacing the input destroys focus and wipes the typed digits
+        // (focusing the box can itself trigger a scroll → updatePagination).
+        var stripFocused = document.activeElement &&
+          document.activeElement.classList &&
+          document.activeElement.classList.contains("page-strip-sel");
+        if (stripFocused) return;
+
+        var selHTML = pageSelectHTML(cur, total);
+        var label = t("pageOf");
+        document.getElementById("pageNumbers").innerHTML = selHTML;
+        var pl = document.getElementById("pageLabel");
+        if (pl) pl.textContent = label;
 
         // Wire page strip selects
         document.querySelectorAll(".page-strip-sel").forEach(function (psi) {
