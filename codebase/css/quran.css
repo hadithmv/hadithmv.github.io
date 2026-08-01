@@ -139,6 +139,13 @@
 }
 
 .quran-content-presets {
+  /* Pin the presets row to the top of the scrollable column list —
+     only the column items below scroll away. Opaque card background so
+     items scrolling underneath don't show through. */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-card-bg);
   display: flex;
   gap: 6px;
   margin-bottom: 8px;
