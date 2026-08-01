@@ -41,7 +41,7 @@ Click any book card or table row to open it.
 ### Top bar
 
 - **↩ Return** (red) — goes back to the book list
-- **↕ Focus** (green) — toggles distraction‑free reading mode. Click again or press `z` to exit.
+- **↕ Focus** (green) — toggles distraction‑free reading mode. Click again or press `Alt+Z` to exit.
 - **Title** — the book title in the centre. Scrolls if too long.
 - **☰ Menu** (blue) — opens the sidebar with navigation, pins, history, and settings.
 
@@ -73,7 +73,7 @@ When columns from one or more other books are active, each book's content is pre
 
 ### Parallel Text View
 
-Click the 📖 **View dropdown** in the toolbar and select **↔️ Parallel** (or press `v` until it activates). This switches to a two‑column layout:
+Click the 📖 **View dropdown** in the toolbar and select **↔️ Parallel** (or press `Alt+V` until it activates). This switches to a two‑column layout:
 
 - **Right column** — Dhivehi text: columns whose headers end in `dv` (e.g. `matnDV`, `bodyDV`, `wordDV`).
 - **Left column** — Arabic text: columns whose headers end in `ar` (e.g. `matnAR`, `bodyAR`, `wordAR`) plus Quran ayah text (`ayahImlai`/`ayahUthmani`).

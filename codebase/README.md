@@ -193,7 +193,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 ### Focus mode
 
-Toggled from the green ↕ button in the topBar or `z` key. Collapses the entire chrome smoothly via CSS Grid transition (no max-height stutter). Padding and border also hidden. Only the topBar and reader content remain. Button shows ▼ when active.
+Toggled from the green ↕ button in the topBar or the `Alt+Z` key (reader) / `z` key (dashboard). Collapses the entire chrome smoothly via CSS Grid transition (no max-height stutter). Padding and border also hidden. Only the topBar and reader content remain. Button shows ▼ when active.
 
 ### Sharing
 
@@ -227,12 +227,12 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `Enter` | Search focused | Select search result |
 | `/` or `Ctrl+f` | Anywhere | Focus search bar |
 | `Ctrl+Shift+f` | Anywhere | Open advanced search |
-| `z` | Reader | Toggle focus mode (green ↕/▼ button) |
-| `t` | Reader | Toggle tashkeel (diacritics) |
-| `v` | Reader | Toggle card / table view |
-| `p` | Reader | Toggle bookmark (pin) |
-| `s` | Reader | Share link |
-| `e` | Reader | Open export dropdown |
+| `Alt+Z` | Reader | Toggle focus mode (green ↕/▼ button) |
+| `Alt+T` | Reader | Toggle tashkeel (diacritics) |
+| `Alt+V` | Reader | Toggle card / table view |
+| `Alt+P` | Reader | Toggle bookmark (pin) |
+| `Alt+S` | Reader | Share link |
+| `Alt+E` | Reader | Open export dropdown |
 | `Escape` | Dashboard | Clear search & blur |
 | `p` | Dashboard | Open pins modal |
 | `h` | Dashboard | Open history modal |

@@ -216,7 +216,7 @@ First (`<<`) / Prev (`<`) / a number input showing current row / Next (`>`) / La
 
 ### View modes
 
-The reader supports three visual layouts, selected via a dropdown in the toolbar or cycled with the `v` key:
+The reader supports three visual layouts, selected via a dropdown in the toolbar or cycled with the `Alt+V` key:
 
 **Card mode** (default for most books) — Each row renders as a vertical stack of `<div class="reader-field">` cards, with a diamond ornament divider between rows. Fields are ordered by column index (left to right in the CSV header), with CSS classes applied based on column-header prefix (`head`, `kitab`, `bab`, `matn`, `sharh`, `foot`). Arabic‑Dhivehi transitions and matn‑sharh transitions get visual spacers.
 
@@ -243,7 +243,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | Copy            | **Standard books:** `titleDV - titleAR` header, then row text with `ـ` divider before `foot` columns, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. **Quran books:** no book header; decorated ayah text, `[name surahNo : ayahNo]` reference, then columns grouped by source book with one book-level label per book. `navigator.clipboard.writeText()` with `execCommand` fallback. |
 | Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                      |
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
-| View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `v` key cycles through modes.                                                                                                                                                        |
+| View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `Alt+V` cycles through modes.                                                                                                                                                        |
 | Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
 | Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). PNG exports only the current visible row (2×) — see the format table. Text formats assemble the whole book as a single string + Blob in memory (fine at current book sizes, ~8MB max). All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
@@ -340,7 +340,7 @@ The settings reset button clears all of the above and resets language to Dhivehi
 
 | Key             | Context                | Action                                 |
 | --------------- | ---------------------- | -------------------------------------- |
-| `←` / `→`       | Reader                 | Previous / next row                    |
+| `←` / `→`       | Reader                 | Next / previous row (RTL: content flows right→left) |
 | Swipe right | Reader (mobile)     | Next row |
 | Swipe left  | Reader (mobile)     | Previous row |
 | `Home` / `End`  | Reader                 | First / last row                       |
@@ -348,7 +348,7 @@ The settings reset button clears all of the above and resets language to Dhivehi
 | `Enter`         | Search focused         | Select result                          |
 | `/` or `Ctrl+f` | Anywhere               | Focus search bar                       |
 | `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
-| `Alt+z`         | Anywhere               | Toggle focus mode (same as ↕/▼ button) |
+| `Alt+z`         | Reader                 | Toggle focus mode (same as ↕/▼ button) |
 | `Alt+t`         | Reader                 | Toggle tashkeel                        |
 | `Alt+v`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
 | `Alt+p`         | Reader                 | Toggle bookmark (pin)                  |
@@ -358,8 +358,9 @@ The settings reset button clears all of the above and resets language to Dhivehi
 | `Ctrl+b`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
 | `Escape`        | Dashboard search       | Clear search & blur                    |
-| `Alt+p`         | Dashboard              | Open pins modal                        |
-| `Alt+h`         | Dashboard              | Open history modal                     |
+| `z`             | Dashboard              | Toggle focus mode                      |
+| `p`             | Dashboard              | Open pins modal                        |
+| `h`             | Dashboard              | Open history modal                     |
 
 Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips, badges, book cards, table rows, toolbar buttons, and page titles all carry `title` tooltips describing their action or category.
 
