@@ -105,7 +105,7 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from ca
 | Function | Description |
 |---|---|
 | `getPinnedBooks()` / `getReadHistory()` | Returns the full pins/history arrays from localStorage. |
-| `addPin(bookCode, row, label?)` | Adds or updates a pin. Optional `label` stores a human‑readable position (e.g. `"البَقَرَة 5:2"`). |
+| `addPin(bookCode, row, label?)` | Adds or updates a pin. **One entry per book** — calling it for an already‑pinned book updates the existing entry's row/label rather than adding a second. In practice this path is exercised by the reader's position auto‑update while reading; the reader's 📌 button itself TOGGLES (calls `removePin` when already pinned). Returns `false` when the pin cap (10) is reached. Optional `label` stores a human‑readable position (e.g. `"البَقَرَة 5:2"`). |
 | `removePin(bookCode)` | Removes a pin by book code. |
 | `isPinned(bookCode)` | Returns `true` if the book is currently pinned. |
 | `addReadHistory(bookCode, row, label?)` | Prepends an entry to reading history (max 10). |
