@@ -387,9 +387,11 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content dropdown uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
+Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
 **Column loading.** `loadQuranBookCSV()` keeps a one‑entry parse cache (most recent book only): each translation CSV is fetched and parsed at most once per session, so inserting several columns from the same book — or a preset hitting multiple books — does not re‑download or re‑parse the whole file per column. The registry groups each book's columns together, so consecutive inserts hit the cache.
+
+**Column ordering.** The content modal (unified `createModal` layer) shows a reorderable table — checkboxes and ▲▼ buttons per row, presets fixed above a scrollable list. `_colOrder` (registry order by default) is the single source of truth for reader column order: `applyColumnOrder()` (pure, in `quran-data.js`) rebuilds header, rows, the norm cache, and hidden indices from it, so loaded columns appear in the list's order rather than insertion order. Base columns are fixed first; moving a loaded column reorders the reader immediately. The `-1` marker in the loaded map tags a pending insert until the rebuild assigns its real index.
 
 ### Quran navigation
 
@@ -398,7 +400,7 @@ A navigation row (`readerPanelQuran`) appears inside the collapsible reader pane
   - **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
   - **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
   - **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30)
-  - **Content dropdown**: checkboxes for all columns from the registry; changes apply immediately
+  - **Content modal**: checkboxes + ▲▼ reorder for all columns from the registry; changes apply immediately (see Column ordering above)
   - **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration (braces, ayah number, number-position)
   - `﴿ ﴾` — wraps ayah in Quranic braces
   - `١٢٣` — appends ayah number in Arabic numerals

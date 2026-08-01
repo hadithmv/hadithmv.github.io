@@ -26,6 +26,7 @@ export {
 import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
   getAllAvailableColumns, rebuildColumnSourceMap, quranState,
   getRowJuz, getRowSurah, findQuranColIndices, loadQuranBookCSV,
+  applyColumnOrder, BASE_HEADERS,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
 
 import { normaliseForSearch } from "./search.js";
@@ -193,13 +194,11 @@ export function initQuranUI(ctx) {
     _justSelectedJuz = true;
   });
 
-  // ── Content dropdown ──
-  trapWheel(document.getElementById("qrnContentDropdown"));
+  // ── Content modal ──
   document
     .getElementById("qrnContentBtn")
-    .addEventListener("click", function (e) {
-      e.stopPropagation();
-      toggleQuranContentDropdown();
+    .addEventListener("click", function () {
+      openQuranContentModal();
     });
 
   // ── Display options dropdown ──
@@ -265,16 +264,6 @@ export function initQuranUI(ctx) {
 
   // ── Outside click closes all Quran dropdowns ──
   document.addEventListener("click", function (e) {
-    var dd = document.getElementById("qrnContentDropdown");
-    var btn = document.getElementById("qrnContentBtn");
-    if (
-      dd &&
-      dd.style.display === "block" &&
-      !dd.contains(e.target) &&
-      e.target !== btn
-    ) {
-      dd.style.display = "none";
-    }
     if (
       ayahDD &&
       ayahDD.style.display === "block" &&
@@ -410,7 +399,7 @@ export function initQuranUI(ctx) {
     });
   }
 
-  // ── Content dropdown ──
+  // ── Content modal ──
 
   // Stop wheel events on dropdowns from scrolling the horizontal nav row
   function trapWheel(el) {
@@ -419,60 +408,150 @@ export function initQuranUI(ctx) {
     });
   }
 
-  function toggleQuranContentDropdown() {
-    var dd = document.getElementById("qrnContentDropdown");
-    if (dd.style.display === "block") {
-      dd.style.display = "none";
-      return;
+  // Ordered list of every available column (registry order by default).
+  // The reader shows loaded columns in this order — the modal's ▲▼ buttons
+  // reorder it, and inserted columns land at their list position.
+  var _colOrder = [];
+  (function () {
+    var all = getAllAvailableColumns();
+    for (var i = 0; i < all.length; i++) {
+      _colOrder.push(all[i].sourceBook + ":" + all[i].sourceCol);
     }
+  })();
+  var _pendingColumnValues = {}; // key → {name, values, normValues} awaiting applyColumnOrder
+
+  function colLabelFor(key) {
+    var all = getAllAvailableColumns();
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].sourceBook + ":" + all[i].sourceCol === key) {
+        return all[i].displayDV || all[i].displayEN;
+      }
+    }
+    return key;
+  }
+  function isBaseKey(key) {
+    return key.indexOf("QRN-DATA-baseFile-1-") === 0;
+  }
+
+  // Create the modal once — the unified layer wires backdrop, close, Escape.
+  window.createModal("qrnContentOverlay", "qrnContentModalTitle", "qrnContentModalBody", "quran-content-modal");
+  document.getElementById("qrnContentModalBody").innerHTML =
+    '<div class="quran-content-presets">' +
+      '<button class="quran-preset-btn" data-preset="main"></button>' +
+      '<button class="quran-preset-btn" data-preset="all"></button>' +
+      '<button class="quran-preset-btn" data-preset="arabic"></button>' +
+      '<button class="quran-preset-btn" data-preset="reset"></button>' +
+    '</div>' +
+    '<div class="quran-content-table-wrap"><table class="quran-content-table">' +
+      '<thead><tr>' +
+        '<th class="quran-col-check">✓</th>' +
+        '<th class="quran-col-label" id="qrnColThColumn"></th>' +
+        '<th class="quran-col-move" id="qrnColThOrder"></th>' +
+      '</tr></thead>' +
+      '<tbody id="qrnContentList"></tbody>' +
+    '</table></div>';
+
+  function updateQuranContentLabels() {
+    document.getElementById("qrnContentModalTitle").textContent = t("qrnContent");
+    document.getElementById("qrnColThColumn").textContent = t("advColumn");
+    document.getElementById("qrnColThOrder").textContent = t("ddColSort");
+    document.querySelectorAll("#qrnContentOverlay .quran-preset-btn").forEach(function (btn) {
+      var key = "qrnPreset" + btn.dataset.preset.charAt(0).toUpperCase() + btn.dataset.preset.slice(1);
+      btn.textContent = t(key);
+    });
+  }
+  updateQuranContentLabels();
+  document.addEventListener("languagechange", updateQuranContentLabels);
+
+  // Preset buttons are static in the modal — wire once
+  document.querySelectorAll("#qrnContentOverlay .quran-preset-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var preset = this.dataset.preset;
+      var hc = ctx.getHiddenColumns();
+      if (preset === "all") {
+        var all = getAllAvailableColumns();
+        all.forEach(function (col) {
+          loadAndInsertColumn(col.sourceBook, col.sourceCol);
+        });
+        ctx.rebuildAll();
+        renderQuranContentList();
+        return;
+      }
+      // Hide all external columns
+      Object.keys(_loadedColMap).forEach(function (k) {
+        var idx = _loadedColMap[k];
+        if (idx === undefined) return;
+        var parts = k.split(":");
+        var sb = parts.slice(0, -1).join(":");
+        if (
+          sb !==
+            "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" &&
+          sb !== metadata.bookCode
+        ) {
+          if (hc.indexOf(idx) === -1) hc.push(idx);
+        }
+      });
+      if (preset === "reset") {
+        ctx.rebuildAll();
+        renderQuranContentList();
+        return;
+      }
+      // Load preset-specific books
+      var targets = preset === "main" ? QRN_PRESET_MAIN : QRN_PRESET_ARABIC;
+      targets.forEach(function (sb) {
+        var all2 = getAllAvailableColumns();
+        all2.forEach(function (col) {
+          if (col.sourceBook === sb) loadAndInsertColumn(sb, col.sourceCol);
+        });
+      });
+      ctx.rebuildAll();
+      renderQuranContentList();
+    });
+  });
+
+  function openQuranContentModal() {
+    window.closeAllDropdowns();
     renderQuranContentList();
-    var btn = document.getElementById("qrnContentBtn");
-    window.openDropdown(dd, btn);
-    dd.style.left = Math.max(8, btn.getBoundingClientRect().left) + "px";
+    window.openModal("qrnContentOverlay");
+  }
+
+  function moveColumn(key, dir) {
+    var idx = _colOrder.indexOf(key);
+    var tgt = idx + dir;
+    if (idx < 0 || tgt < 0 || tgt >= _colOrder.length) return;
+    // Base (structural) columns stay fixed at the front
+    if (isBaseKey(key) || isBaseKey(_colOrder[tgt])) return;
+    var tmp = _colOrder[idx];
+    _colOrder[idx] = _colOrder[tgt];
+    _colOrder[tgt] = tmp;
+    if (_loadedColMap[key] !== undefined) rebuildColumnOrder();
+    renderQuranContentList();
   }
 
   function renderQuranContentList() {
-    _buildLoadedColMap();
     var list = document.getElementById("qrnContentList");
-    var allCols = getAllAvailableColumns();
-    var html = '<div class="quran-content-presets">';
-    html +=
-      '<button class="quran-preset-btn" data-preset="main">' +
-      t("qrnPresetMain") +
-      "</button>";
-    html +=
-      '<button class="quran-preset-btn" data-preset="all">' +
-      t("qrnPresetAll") +
-      "</button>";
-    html +=
-      '<button class="quran-preset-btn" data-preset="arabic">' +
-      t("qrnPresetArabic") +
-      "</button>";
-    html +=
-      '<button class="quran-preset-btn" data-preset="reset">' +
-      t("qrnPresetReset") +
-      "</button>";
-    html += "</div>";
-    for (var j = 0; j < allCols.length; j++) {
-      var col = allCols[j];
-      var key = col.sourceBook + ":" + col.sourceCol;
+    var hc = ctx.getHiddenColumns();
+    var html = "";
+    for (var i = 0; i < _colOrder.length; i++) {
+      var key = _colOrder[i];
+      var parts = key.split(":");
+      var sourceBook = parts.slice(0, -1).join(":");
+      var sourceCol = parseInt(parts[parts.length - 1], 10);
       var colIdx = _loadedColMap[key];
       var isLoaded = colIdx !== undefined;
-      var hiddenColumns = ctx.getHiddenColumns();
-      var checked =
-        isLoaded && hiddenColumns.indexOf(colIdx) === -1 ? "checked" : "";
+      var checked = isLoaded && hc.indexOf(colIdx) === -1 ? "checked" : "";
+      var base = isBaseKey(key);
       html +=
-        '<label class="quran-content-item dd-item">' +
-        '<input type="checkbox" data-source="' +
-        col.sourceBook +
-        '" data-col="' +
-        col.sourceCol +
-        '" ' +
-        checked +
-        ">" +
-        "<span>" +
-        (col.displayDV || col.displayEN) +
-        "</span></label>";
+        '<tr class="quran-content-item" data-key="' + key + '">' +
+        '<td class="quran-col-check"><input type="checkbox" data-source="' +
+        sourceBook + '" data-col="' + sourceCol + '" ' + checked + "></td>" +
+        '<td class="quran-col-label"><span>' + colLabelFor(key) + "</span></td>" +
+        '<td class="quran-col-move">' +
+        '<span class="chip-arrow' + (base || i === 0 ? " chip-arrow-disabled" : "") +
+        '" data-action="move-up" title="Move up">▲</span>' +
+        '<span class="chip-arrow' + (base || i === _colOrder.length - 1 ? " chip-arrow-disabled" : "") +
+        '" data-action="move-down" title="Move down">▼</span>' +
+        "</td></tr>";
     }
     list.innerHTML = html;
     list.querySelectorAll("input[type=checkbox]").forEach(function (cb) {
@@ -480,7 +559,7 @@ export function initQuranUI(ctx) {
         var sourceBook = this.dataset.source;
         var sourceCol = parseInt(this.dataset.col, 10);
         if (this.checked) {
-          var label = this.parentNode.querySelector("span");
+          var label = this.closest("tr").querySelector(".quran-col-label span");
           var origText = label.textContent;
           this.disabled = true;
           label.textContent = t("loading");
@@ -493,47 +572,11 @@ export function initQuranUI(ctx) {
         }
       });
     });
-    // Preset buttons
-    list.querySelectorAll(".quran-preset-btn").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var preset = this.dataset.preset;
-        var hc = ctx.getHiddenColumns();
-        if (preset === "all") {
-          allCols.forEach(function (col) {
-            loadAndInsertColumn(col.sourceBook, col.sourceCol);
-          });
-          ctx.rebuildAll();
-          renderQuranContentList();
-          return;
-        }
-        // Hide all external columns
-        Object.keys(_loadedColMap).forEach(function (k) {
-          var idx = _loadedColMap[k];
-          if (idx === undefined) return;
-          var parts = k.split(":");
-          var sb = parts.slice(0, -1).join(":");
-          if (
-            sb !==
-              "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" &&
-            sb !== metadata.bookCode
-          ) {
-            if (hc.indexOf(idx) === -1) hc.push(idx);
-          }
-        });
-        if (preset === "reset") {
-          ctx.rebuildAll();
-          renderQuranContentList();
-          return;
-        }
-        // Load preset-specific books
-        var targets = preset === "main" ? QRN_PRESET_MAIN : QRN_PRESET_ARABIC;
-        targets.forEach(function (sb) {
-          allCols.forEach(function (col) {
-            if (col.sourceBook === sb) loadAndInsertColumn(sb, col.sourceCol);
-          });
-        });
-        ctx.rebuildAll();
-        renderQuranContentList();
+    // Reorder buttons (disabled ones are skipped)
+    list.querySelectorAll(".chip-arrow:not(.chip-arrow-disabled)").forEach(function (ar) {
+      ar.addEventListener("click", function () {
+        var tr = this.closest("tr");
+        moveColumn(tr.dataset.key, this.dataset.action === "move-up" ? -1 : 1);
       });
     });
   }
@@ -541,6 +584,10 @@ export function initQuranUI(ctx) {
   // ── On‑demand column loading ──
 
   var _loadedColMap = {};
+
+  // Initial mapping only — after the first user action (insert/move),
+  // applyColumnOrder() owns the map and keeps it in sync with headerRow.
+  _buildLoadedColMap();
 
   function _buildLoadedColMap() {
     var saved = {};
@@ -614,30 +661,64 @@ export function initQuranUI(ctx) {
         var csvHeader = book.header;
         if (rows.length === 0) return;
         if (sourceCol >= csvHeader.length) return;
-        var colName = csvHeader[sourceCol];
-        var insertAt = headerRow.length;
-        headerRow.splice(insertAt, 0, colName);
+        // Stash the column's values; rebuildColumnOrder() places it at its
+        // position in the list order instead of appending to the reader.
+        var vals = [];
+        var normVals = [];
         for (var r = 0; r < allData.length; r++) {
-          var val =
+          var v =
             rows[r] && rows[r][sourceCol] != null
               ? String(rows[r][sourceCol]).trim()
               : "";
-          allData[r].splice(insertAt, 0, val);
-          // Keep the reader's precomputed norm cache in sync (same index)
-          var normRow = ctx.normAllData && ctx.normAllData[r];
-          if (normRow) normRow.splice(insertAt, 0, val ? normaliseForSearch(val) : "");
+          vals.push(v);
+          normVals.push(v ? normaliseForSearch(v) : "");
         }
-        _loadedColMap[key] = insertAt;
-        rebuildColumnSourceMap(_loadedColMap);
-        var hc = ctx.getHiddenColumns();
-        var hp = hc.indexOf(insertAt);
-        if (hp !== -1) hc.splice(hp, 1);
-        ctx.rebuildAll();
+        _loadedColMap[key] = -1; // loaded marker; real index assigned by the rebuild
+        _pendingColumnValues[key] = {
+          name: csvHeader[sourceCol],
+          values: vals,
+          normValues: normVals,
+        };
+        rebuildColumnOrder();
         renderQuranContentList();
       })
       .catch(function () {
         showToast("Could not load “" + sourceBook + "”");
       });
+  }
+
+  /**
+   * Rebuild the reader's column layout from _colOrder (the modal's order).
+   * Handles both reorders and freshly inserted columns (via _pendingColumnValues).
+   * Applies the result in place — reader.js holds the same array references,
+   * so headerRow / allData / norm rows / hiddenColumns are mutated, not replaced.
+   */
+  function rebuildColumnOrder() {
+    var res = applyColumnOrder({
+      baseCount: BASE_HEADERS.length,
+      headerRow: headerRow,
+      allData: allData,
+      normAllData: ctx.normAllData,
+      loadedMap: _loadedColMap,
+      hiddenColumns: ctx.getHiddenColumns(),
+      order: _colOrder,
+      pending: _pendingColumnValues,
+    });
+    headerRow.length = 0;
+    for (var i = 0; i < res.headerRow.length; i++) headerRow.push(res.headerRow[i]);
+    for (var r = 0; r < allData.length; r++) allData[r] = res.allData[r];
+    if (ctx.normAllData) {
+      for (var r2 = 0; r2 < ctx.normAllData.length; r2++) {
+        ctx.normAllData[r2] = res.normAllData[r2];
+      }
+    }
+    _loadedColMap = res.loadedMap;
+    var hc = ctx.getHiddenColumns();
+    hc.length = 0;
+    for (var h = 0; h < res.hiddenColumns.length; h++) hc.push(res.hiddenColumns[h]);
+    _pendingColumnValues = {};
+    rebuildColumnSourceMap(_loadedColMap);
+    ctx.rebuildAll();
   }
 
   function hideLoadedColumn(sourceBook, sourceCol) {

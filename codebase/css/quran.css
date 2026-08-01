@@ -124,34 +124,91 @@
   padding-inline-start: 2px;
 }
 
-/* ---- Quran content dropdown ---- */
+/* Shared by the ayah / juz / display dropdowns */
 .quran-content-dropdown {
   right: 0;
   min-width: 200px;
   max-width: 280px;
   direction: rtl;
 }
-.quran-content-list {
-  max-height: 260px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  margin-bottom: 6px;
-}
 
+/* ---- Quran content modal ---- */
+.quran-content-modal {
+  width: min(480px, 92vw);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.quran-content-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+/* Presets row sits above the scroll area — structurally fixed */
 .quran-content-presets {
-  /* Pin the presets row to the top of the scrollable column list —
-     only the column items below scroll away. Opaque card background so
-     items scrolling underneath don't show through. */
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--color-card-bg);
   display: flex;
   gap: 6px;
   margin-bottom: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.quran-content-table-wrap {
+  overflow-y: auto;
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+.quran-content-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 2px;
+}
+.quran-content-table tr:hover td {
+  background: var(--color-nav-btn-hover-bg);
+}
+.quran-content-table td {
+  padding: 7px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.quran-content-table .quran-col-check {
+  width: 32px;
+  text-align: center;
+}
+.quran-content-table .quran-col-check input[type="checkbox"] {
+  accent-color: var(--color-nav-btn-text);
+  margin: 0;
+  cursor: pointer;
+}
+.quran-content-table .quran-col-label {
+  max-width: 240px;
+}
+.quran-content-table .quran-col-move {
+  width: 64px;
+  text-align: center;
+  white-space: nowrap;
+}
+.quran-content-table .chip-arrow {
+  cursor: pointer;
+  padding: 0 3px;
+  opacity: 0.8;
+  user-select: none;
+}
+.quran-content-table .chip-arrow:hover {
+  opacity: 1;
+}
+.quran-content-table .chip-arrow-disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
 }
 .quran-preset-btn {
   padding: 5px 12px;
@@ -181,8 +238,47 @@
   background: #fee2e2;
   color: #991b1b;
 }
-.quran-content-item {
-  font-size: 0.95rem;
+.quran-content-table .quran-content-item td:first-child {
+  border-radius: 0 6px 6px 0;
+}
+.quran-content-table .quran-content-item td:last-child {
+  border-radius: 6px 0 0 6px;
+}
+.quran-content-table thead th {
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  background: var(--color-nav-btn-bg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+.quran-content-table thead th:first-child {
+  border-radius: 0 6px 6px 0;
+}
+.quran-content-table thead th:last-child {
+  border-radius: 6px 0 0 6px;
+}
+.quran-content-table thead .quran-col-check,
+.quran-content-table thead .quran-col-move {
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .quran-content-table td {
+    padding: 6px 8px;
+  }
+  .quran-content-table thead th {
+    font-size: 0.68rem;
+    padding: 6px 8px;
+  }
+  .quran-content-table .quran-col-label {
+    max-width: 160px;
+  }
+  .quran-content-table .quran-col-move {
+    width: 56px;
+  }
 }
 
 /* ---- Surah selector overlay ---- */

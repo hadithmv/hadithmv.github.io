@@ -52,7 +52,9 @@ var _colRegistryCache = null;
 // Base data — juz, surah, ayah, basmalah, imlai text
 // ═══════════════════════════════════════════════════════════════
 
-var BASE_HEADERS = [
+// The 5 structural columns every Quran reader starts with — always first,
+// never reorderable.
+export var BASE_HEADERS = [
   "juzNo-HDN",
   "surahNo-HDN",
   "ayahNo-HDN",
@@ -239,6 +241,108 @@ export function mergeQuranData(bookCode) {
 
     return { headerRow: headerRow, allData: merged };
   });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Column ordering — the reader's column layout is always rebuilt
+// from an ordered list of column keys (the content modal's order)
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Rebuild a reader's column layout from an ordered list of column keys.
+ * Pure data logic — the quran-ui modal feeds it state and applies the
+ * result in place (reader.js holds the same array references).
+ *
+ * state:
+ *   baseCount     — BASE_HEADERS.length (structural columns, fixed first)
+ *   headerRow     — current header array
+ *   allData       — current rows
+ *   normAllData   — parallel normalised rows (optional)
+ *   loadedMap     — key → current column index (-1 marks a pending insert)
+ *   hiddenColumns — current hidden indices
+ *   order         — ordered list of ALL available column keys
+ *   pending       — freshly inserted columns: key → {name, values, normValues}
+ *
+ * Returns a fresh { headerRow, allData, normAllData, loadedMap, hiddenColumns }.
+ */
+export function applyColumnOrder(state) {
+  var baseCount = state.baseCount;
+  var oldMap = state.loadedMap;
+  var oldHeader = state.headerRow;
+  var order = state.order;
+  var pending = state.pending || {};
+  var hidden = state.hiddenColumns;
+  var rows = state.allData;
+  var normRows = state.normAllData || null;
+
+  // Loaded keys in list order (pending inserts included). Base keys are
+  // structural — they keep their fixed front positions and are NOT re-listed.
+  var ordered = [];
+  for (var i = 0; i < order.length; i++) {
+    var k = order[i];
+    if (oldMap[k] !== undefined && (oldMap[k] < 0 || oldMap[k] >= baseCount)) {
+      ordered.push(k);
+    }
+  }
+
+  var newHeader = oldHeader.slice(0, baseCount);
+  for (var j = 0; j < ordered.length; j++) {
+    var kj = ordered[j];
+    var pj = pending[kj];
+    newHeader.push(pj ? pj.name : oldHeader[oldMap[kj]]);
+  }
+
+  var newAll = new Array(rows.length);
+  var newNorm = normRows ? new Array(rows.length) : null;
+  for (var r = 0; r < rows.length; r++) {
+    var row = rows[r];
+    var nrow = normRows ? normRows[r] : null;
+    var nr = new Array(baseCount + ordered.length);
+    var nn = newNorm ? new Array(baseCount + ordered.length) : null;
+    for (var c = 0; c < baseCount; c++) {
+      nr[c] = row[c];
+      if (nn) nn[c] = nrow[c];
+    }
+    for (var j2 = 0; j2 < ordered.length; j2++) {
+      var k2 = ordered[j2];
+      var p2 = pending[k2];
+      var at = baseCount + j2;
+      if (p2) {
+        nr[at] = p2.values[r];
+        if (nn) nn[at] = p2.normValues[r];
+      } else {
+        nr[at] = row[oldMap[k2]];
+        if (nn) nn[at] = nrow[oldMap[k2]];
+      }
+    }
+    newAll[r] = nr;
+    if (nn) newNorm[r] = nn;
+  }
+
+  // Remap loaded/hidden indices. Base columns keep their fixed positions;
+  // everything else follows the list order.
+  var newMap = {};
+  var newHidden = [];
+  for (var b = 0; b < baseCount; b++) {
+    for (var kb in oldMap) {
+      if (oldMap[kb] === b) { newMap[kb] = b; break; }
+    }
+    if (hidden.indexOf(b) !== -1) newHidden.push(b);
+  }
+  for (var j3 = 0; j3 < ordered.length; j3++) {
+    var k3 = ordered[j3];
+    var idx = baseCount + j3;
+    newMap[k3] = idx;
+    if (oldMap[k3] !== -1 && hidden.indexOf(oldMap[k3]) !== -1) newHidden.push(idx);
+  }
+
+  return {
+    headerRow: newHeader,
+    allData: newAll,
+    normAllData: newNorm,
+    loadedMap: newMap,
+    hiddenColumns: newHidden,
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════

@@ -9,7 +9,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 | **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
 | **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, scroll‑to‑top |
 | **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), full‑text search with wildcards/fuzzy/negation/regex/column‑scope, whole‑word toggle, search‑history dropdown, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%) and completion animation, scroll counter, URL position sync |
-| **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
+| **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand with reorderable columns, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
 | **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), reorder via ▲▼, reading history with relative timestamps, clear‑all, sidebar access from both pages |
 | **Export** | TXT, MD, JSON, CSV, TSV, Excel, EPUB (embedded font), PDF (print), PNG (canvas render), HTML, HTML Table, Word, YAML, TOON, XML |
 | **Customisation** | Three themes (Light / Dark / Sepia), adjustable font size ±, font family (Hadithmv / System), content width (600/800/1000/1200/full), three UI languages (Dhivehi / English / Arabic) |
@@ -63,9 +63,9 @@ When you open a Quran book (code starting with `QRN-`), extra controls appear:
 
 #### Adding columns from other Quran books
 
-Click the **ގުރްއާން ފޮތްތައް** (Quran Books) button to see available columns from other Quran books and translations. Check a column to add it — all columns from that book appear below the current ayah text. Uncheck to hide.
+Click the **ގުރްއާން ފޮތްތައް** (Quran Books) button to open a modal listing every available column from other Quran books and translations. Check a column to add it, uncheck to hide. **The reader shows loaded columns in the order of this list** — use the ▲▼ arrows on each row to reorder (base columns — juz/surah/ayah numbers, basmalah, ayah text — stay fixed at the front). A column's new position applies immediately to the reader.
 
-Buttons at the top of the list quickly switch between preset configurations: **Main** (commonly used translations), **All** (every available book and column), **Arabic** (arabic only books), and **Reset** (revert to just the current book).
+Buttons above the list quickly switch between preset configurations: **Main** (commonly used translations), **All** (every available book and column), **Arabic** (arabic only books), and **Reset** (revert to just the current book).
 
 When columns from one or more other books are active, each book's content is prefixed with a bold label showing the book's display name (e.g. **ދިވެހި ތަރުޖަމާ:**). This makes it easy to tell which translation or tafsir each block of text comes from.
 

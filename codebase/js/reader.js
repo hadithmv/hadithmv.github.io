@@ -264,7 +264,7 @@ initializePageWithMetadata(async function (metadata) {
       buildColumnToggles();
 
       // Shared: close all dropdowns (columns, export, Quran ayah/juz/content/display, surah overlay)
-      var _ddIds = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnContentDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
+      var _ddIds = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
 
       window.closeAllDropdowns = function () {
         _ddIds.forEach(function (id) {

@@ -277,7 +277,18 @@ Loads base data + the current book's CSV + surah names, then merges into a singl
 
 ### `loadQuranBookCSV(bookCode)`
 
-Fetches and parses one translation/tafsir book CSV into `{header, data}`. Keeps a one‑entry cache (most recent book only): the content dropdown inserts columns one at a time, but the registry lists each book's columns together, so consecutive inserts from the same book reuse the cache instead of re‑fetching and re‑parsing the whole file per column. Memory stays bounded — only one book's parsed rows are retained at a time.
+Fetches and parses one translation/tafsir book CSV into `{header, data}`. Keeps a one‑entry cache (most recent book only): the content modal inserts columns one at a time, but the registry lists each book's columns together, so consecutive inserts from the same book reuse the cache instead of re‑fetching and re‑parsing the whole file per column. Memory stays bounded — only one book's parsed rows are retained at a time.
+
+### `applyColumnOrder(state)`
+
+Pure column‑layout rebuild — the heart of the content modal's reorder feature. Takes `{baseCount, headerRow, allData, normAllData?, loadedMap, hiddenColumns, order, pending?}` and returns a fresh `{headerRow, allData, normAllData, loadedMap, hiddenColumns}` where:
+
+- Base columns (first `baseCount`) keep their fixed front positions
+- Loaded columns appear in `order` (the modal's list order) — not insertion order
+- `loadedMap` entries with value `-1` are pending inserts carried by `pending` (key → `{name, values, normValues}`), placed at their list position
+- Hidden indices are remapped to follow their columns
+
+`quran-ui.js` applies the result in place (the reader holds the same array references) and rebuilds the reader.
 
 ### `loadColumnRegistry()`
 
@@ -285,7 +296,11 @@ Fetches `QRN-DATA-registry-bookToggle.csv` — a registry of all available Quran
 
 ### Content presets
 
-`QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js` define which source books (by book code) are included in the Main and Arabic preset buttons in the content dropdown. Edit these arrays to change which books are shown. Reset clears all externals; All shows everything.
+`QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js` define which source books (by book code) are included in the Main and Arabic preset buttons in the content modal. Edit these arrays to change which books are shown. Reset clears all externals; All shows everything.
+
+### Content modal ordering
+
+The content modal (`quran-ui.js`) lists every available column in `_colOrder` (registry order by default) with checkboxes and ▲▼ reorder buttons. The reader's column layout is always rebuilt from this order via `applyColumnOrder` — so loaded columns appear in the list's order, not the order they were added. Base columns (juz/surah/ayah numbers, basmalah, ayah text) are fixed at the front; only their checkboxes are active. Moving a loaded column reorders the reader immediately; moving an unloaded one sets where it lands when checked. The modal is created once via `window.createModal` with the unified modal layer (backdrop, close, Escape).
 
 ### `getBookLabel(colIndex)`
 
