@@ -2057,7 +2057,8 @@ zh9528.file-size
 ## VSCode Settings
 
 - settings ui
-  - word wrap: on
+  - editor word wrap: on
+  - diff editor word wrap: on
 
 ---
 

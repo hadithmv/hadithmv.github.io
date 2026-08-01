@@ -35,6 +35,20 @@ export function initExports(ctx) {
     URL.revokeObjectURL(url);
   }
 
+  // Busy state for the export button — large exports (54k rows, EPUB+font)
+  // take seconds; without feedback users double-click and get duplicates.
+  function setExportBusy(on) {
+    if (on) {
+      btnExport.disabled = true;
+      btnExport.dataset.origText = btnExport.textContent;
+      btnExport.textContent = ctx.t("exportPreparing");
+    } else {
+      btnExport.disabled = false;
+      if (btnExport.dataset.origText) btnExport.textContent = btnExport.dataset.origText;
+      delete btnExport.dataset.origText;
+    }
+  }
+
   exportDropdown.querySelectorAll(".export-option").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var fmt = this.dataset.format;
@@ -47,6 +61,10 @@ export function initExports(ctx) {
       var versionFull = ctx.t("appVersion");
       var versionText = versionFull.replace(/ \(.*\)/, "");
       var exportHeader = (meta.titleEN || meta.bookCode) + "\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + siteURL + "\nHadithmv\n" + versionText + "\n\n" + "──────────\n\n";
+
+      // Close the dropdown and show the busy label immediately
+      exportDropdown.style.display = "none";
+      setExportBusy(true);
 
       if (fmt === "txt") {
         content = exportHeader + ctx.buildClipboardText(0, rows.length);
@@ -131,13 +149,14 @@ export function initExports(ctx) {
         w.document.write(pdfHTML);
         w.document.close();
         w.onload = function () { w.print(); };
+        setExportBusy(false);
       } else if (fmt === "png") {
         var vRow = ctx.visiblePageIndex();
         var rc = document.getElementById("readerContent");
         var bg = getComputedStyle(rc).backgroundColor;
         var fg = getComputedStyle(rc).color;
         var chunk = rc.querySelector('.reader-chunk[data-row="' + vRow + '"]');
-        if (!chunk) { exportDropdown.style.display = "none"; return; }
+        if (!chunk) { setExportBusy(false); return; }
         fetch("../font/merged-300.woff2").then(function(r){return r.blob();}).then(function(blob){
           var reader = new FileReader();
           reader.onload = function() {
@@ -178,15 +197,15 @@ export function initExports(ctx) {
                 document.body.appendChild(a); a.click();
                 document.body.removeChild(a); URL.revokeObjectURL(u);
                 document.body.removeChild(wrapper);
-                exportDropdown.style.display = "none";
+                setExportBusy(false);
               }, "image/png");
             };
-            img.onerror = function () { window.showToast("PNG export failed"); };
+            img.onerror = function () { window.showToast("PNG export failed"); setExportBusy(false); };
             img.src = "data:image/svg+xml," + encodeURIComponent(svg);
           };
-          reader.onerror = function () { window.showToast("PNG export failed"); };
+          reader.onerror = function () { window.showToast("PNG export failed"); setExportBusy(false); };
           reader.readAsDataURL(blob);
-        }).catch(function () { window.showToast("PNG export failed"); });
+        }).catch(function () { window.showToast("PNG export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "excel") {
         import("./xlsx.js").then(function(mod) {
@@ -196,8 +215,8 @@ export function initExports(ctx) {
           a.href = u; a.download = baseName + ".xlsx";
           document.body.appendChild(a); a.click();
           document.body.removeChild(a); URL.revokeObjectURL(u);
-          exportDropdown.style.display = "none";
-        }).catch(function () { window.showToast("Excel export failed"); });
+          setExportBusy(false);
+        }).catch(function () { window.showToast("Excel export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "epub") {
         fetch("../font/merged-300.woff2")
@@ -219,9 +238,9 @@ export function initExports(ctx) {
               a.href = u; a.download = baseName + ".epub";
               document.body.appendChild(a); a.click();
               document.body.removeChild(a); URL.revokeObjectURL(u);
-              exportDropdown.style.display = "none";
+              setExportBusy(false);
             });
-          }).catch(function () { window.showToast("EPUB export failed"); });
+          }).catch(function () { window.showToast("EPUB export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "yaml") {
         var y = "# " + (meta.titleEN || baseName) + "\n# " + meta.titleDV + " - " + meta.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
@@ -355,7 +374,7 @@ export function initExports(ctx) {
         mime = "application/msword";
       }
       if (content) downloadFile(content, filename, mime);
-      exportDropdown.style.display = "none";
+      setExportBusy(false);
     });
   });
 }

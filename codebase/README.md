@@ -224,7 +224,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 ### Exports
 
-All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`js/xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`js/epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures only the currently visible row (2× resolution) with the Hadithmv font embedded — one row, not the whole book.
+All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`js/xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`js/epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures only the currently visible row (2× resolution) with the Hadithmv font embedded — one row, not the whole book. While an export is preparing, the Export button shows a "Preparing…" label and is disabled — large exports (54k rows, EPUB + font) take seconds, and the busy state prevents duplicate downloads from double-clicks.
 
 ### Internationalisation
 

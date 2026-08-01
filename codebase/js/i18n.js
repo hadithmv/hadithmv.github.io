@@ -32,6 +32,11 @@ const STRINGS = {
   btnCopyText: { dv: "📋 ކޮޕީ", en: "📋 Copy", ar: "📋 نسخ" },
   btnTashkeelText: { dv: "◉ ފިލި", en: "◉ Diacritics", ar: "◉ تشكيل" },
   btnExportText: { dv: "📥 އެކްސްޕޯޓް", en: "📥 Export", ar: "📥 تصدير" },
+  exportPreparing: {
+    dv: "ތައްޔާރުވަނީ…",
+    en: "Preparing…",
+    ar: "…جارٍ التحضير",
+  },
   btnShareText: { dv: "🔗 ޝެއަރ", en: "🔗 Share", ar: "🔗 مشاركة" },
   btnBookmarkText: { dv: "📌 ޕިން", en: "📌 Pin", ar: "📌 تثبيت" },
   btnBookmarkPinned: { dv: "📌 ޕިންވެފަ", en: "📌 Pinned", ar: "📌 مثبت" },
