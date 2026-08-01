@@ -117,6 +117,22 @@ No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag 
 - **Pin auto‑update** — while the user reads a **pinned** book, the reader's scroll handler (debounced 2 s, guarded by `isPinned` + `_lastHistoryRow`) calls `addPin(bookCode, vRow + 1, pinLabel(...))`, piggybacking on the same timer as the history auto‑log; the URL position sync is a separate 500 ms debounce
 - **`?tags=A,B`** — pre‑filters by tag codes; clicking a tag chip updates the URL via `history.replaceState`, so filtered views are bookmarkable and shareable
 
+The dashboard panel's DOM nesting (each level is a flex container):
+
+```text
+#dashboardPanel
+├── #dashboardPanelSearch
+└── #collapsibleDashboardPanel          ← collapses in focus mode
+    ├── #dashboardContinue              ← continue-reading card (unfiltered only)
+    ├── #dashboardPanelTags             ← tag chips
+    └── #dashboardPanelFunctions        ← wrap: arrows + scroll
+        ├── ▶ .scroll-arrow-start
+        ├── .dash-functions-scroll      ← the scroll container
+        │   ├── #dashboardResultCount
+        │   └── .dash-functions-row     ← reset · view · pins · history · sort
+        └── ◀ .scroll-arrow-end
+```
+
 The reader's page‑header tag badges link to `index.html?tags=CODE`, letting readers jump to the dashboard filtered by that category.
 
 ```text
@@ -181,6 +197,18 @@ foot, footDV        reader-footnotes        0.9rem muted colour
 ### Infinite scroll
 
 Content loads in chunks: 25 rows (card mode) or 30 rows (table mode), with 50 rows in the initial table load. Sentinel elements at top and bottom trigger `IntersectionObserver` to prepend/append more rows when scrolling near edges. Pagination updates based on the most visible row (detected via `document.elementFromPoint()` for O(1) lookup, with a linear-scan fallback).
+
+```text
+┌─ sentinelTop ──────────────────┐   scrolled near the top → prependPrev()
+│ [chunk] [chunk] [chunk]        │   inserts chunks ABOVE, scroll position
+│ [chunk] [chunk] [chunk]        │   is preserved (scrollTop adjusted)
+│ [chunk] [chunk] [chunk]        │   ← loadedStart … loadedEnd (loaded window)
+│ [chunk] [chunk] [chunk]        │
+└─ sentinelBottom ───────────────┘   scrolled near the bottom → appendNext()
+                                     appends chunks BELOW
+```
+
+The DOM never holds the whole book — only the loaded window around the viewport (25–50 rows per chunk, one or two chunks past each edge).
 
 ### Pagination
 
@@ -432,9 +460,36 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
+```text
+QRN-DATA-baseFile-1 (6,236 rows)         QRN-bakurube.csv (6,236 rows)
+┌────────────┬─────────────┬───────────┐ ┌──────────────────────────────┐
+│ juzNo-HDN  │ surahNo-HDN │ ayahImlai │ │ wordAR        wordDV         │
+│ ayahNo-HDN │ basmalah    │ …         │ │ …             …             │
+└────────────┴─────────────┴───────────┘ └──────────────────────────────┘
+      └────────── merge by row index (mergeQuranData) ──────────┘
+┌────────────┬─────────────┬───────────┬──────────────────────────────┐
+│ 5 base columns (fixed)   │ ayahImlai │ wordAR        wordDV         │  ← reader columns
+└────────────┴─────────────┴───────────┴──────────────────────────────┘
+```
+
+Every translation CSV must have the same number of rows, in the same ayah order, as the base file — row *N* of the translation merges into row *N* of the reader.
+
 **Column loading.** `loadQuranBookCSV()` keeps a one‑entry parse cache (most recent book only): each translation CSV is fetched and parsed at most once per session, so inserting several columns from the same book — or a preset hitting multiple books — does not re‑download or re‑parse the whole file per column. The registry groups each book's columns together, so consecutive inserts hit the cache.
 
 **Column ordering.** The content modal (unified `createModal` layer) shows a reorderable table — checkboxes and ▲▼ buttons per row, presets fixed above a scrollable list. `_colOrder` (registry order by default) is the single source of truth for reader column order: `applyColumnOrder()` (pure, in `quran-data.js`) rebuilds header, rows, the norm cache, and hidden indices from it, so loaded columns appear in the list's order rather than insertion order. Base columns are fixed first; moving a loaded column reorders the reader immediately. The `-1` marker in the loaded map tags a pending insert until the rebuild assigns its real index.
+
+```text
+_colOrder (all available columns, list order)
+   │  keep only loaded keys (map value ≥ 0; -1 = pending insert w/ stashed values)
+   ▼
+ordered loaded keys
+   │  applyColumnOrder({headerRow, allData, normAllData, loadedMap, hiddenColumns, order, pending})
+   ▼
+fresh header, rows, norm rows, hidden indices
+   │  applied in place — reader.js shares the same array references
+   ▼
+reader shows columns in list order
+```
 
 **Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in 8 places: `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`, `applyQuranSurahFilter`). Reordering those columns would silently break surah navigation, ayah jumps, copy references, and pin labels. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all 8 sites plus `findQuranColIndices` cache invalidation.
 
@@ -631,6 +686,20 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 Any new button or action that has a keyboard shortcut documents it in the tooltip (see above) and in the [Keyboard](#keyboard) table. Shortcuts are kept discoverable — if you add a shortcut, add the tooltip.
 
 ### State
+
+**In‑memory state — who owns what (closures are the hard part to track):**
+
+| State | Lives in | What changes it |
+|---|---|---|
+| `STATE` (allData, filteredData, viewMode, hiddenColumns, hideTashkeel) | `reader.js` init closure | load, search, column toggles, view mode, tashkeel, reset |
+| `normAllData` | `reader.js` closure | built at load; kept in sync by `quran-ui.js` column inserts (via ctx) |
+| `_loadedColMap` / `_colOrder` / `_pendingColumnValues` | `quran-ui.js` init closure | content modal checkboxes / ▲▼; `applyColumnOrder()` rebuilds the map |
+| `_dashFilter` / `_dashTableMode` | `catalog.js` module scope | dashboard search / tags / sort / reset / view toggle |
+| `_bookNamesCache` / `_tagDefinitionsCache` | `catalog.js` module scope | first load only (null = failed fetch) |
+| `_bookCsvCache` (one‑entry) | `quran-data.js` module scope | `loadQuranBookCSV` |
+| `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache` | `quran-data.js` module scope | first load only |
+| `quranState` (exported) | `quran-data.js` | nav updates, scroll sync, ayah decoration |
+| `_modalLastFocused` | `common.js` module scope | `openModal` / `closeModal` (focus restore) |
 
 **Reset flow.** Settings modal delegates to `btnResetFont` + `btnResetReader` + clears remaining LS keys + dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic.
 
