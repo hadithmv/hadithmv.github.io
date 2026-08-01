@@ -87,7 +87,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 
 | Key             | Action                                 |
 | --------------- | -------------------------------------- |
-| `←` / `→`       | Previous / next row                    |
+| `←` / `→`       | Next / previous row (RTL: content flows right→left) |
 | `Home` / `End`  | First / last row                       |
 | `/` or `Ctrl+F` | Focus the search bar                   |
 | `Ctrl+Shift+F`  | Open advanced search                   |

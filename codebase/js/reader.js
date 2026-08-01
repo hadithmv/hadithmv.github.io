@@ -1016,6 +1016,13 @@ initializePageWithMetadata(async function (metadata) {
         // Wire page strip selects
         document.querySelectorAll(".page-strip-sel").forEach(function (psi) {
           if (String(psi.value) !== String(cur)) psi.value = cur;
+          // No arrow stepping in the input — it is for typing a target page;
+          // the arrow keys belong to reading navigation (handled globally)
+          psi.addEventListener("keydown", function (e) {
+            if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight") {
+              e.preventDefault();
+            }
+          });
           psi.addEventListener("change", function () {
             var v = parseInt(this.value, 10);
             if (!isNaN(v) && v >= 1) goTo(v - 1);
@@ -1643,13 +1650,15 @@ initializePageWithMetadata(async function (metadata) {
         if (window.isTypingTarget(e)) return;
 
         var vRow = visiblePageIndex();
+        // RTL convention: content flows right→left, so the LEFT arrow goes to
+        // the next row and the RIGHT arrow goes to the previous row
         if (e.key === "ArrowLeft") {
           e.preventDefault();
-          goTo(vRow - 1);
+          goTo(vRow + 1);
         }
         if (e.key === "ArrowRight") {
           e.preventDefault();
-          goTo(vRow + 1);
+          goTo(vRow - 1);
         }
         if (e.key === "Home") {
           e.preventDefault();

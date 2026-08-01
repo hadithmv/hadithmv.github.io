@@ -203,7 +203,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 | Key | Context | Action |
 |---|---|---|
-| `←` / `→` | Reader | Previous / next row |
+| `←` / `→` | Reader | Next / previous row (RTL: content flows right→left) |
 | `Home` / `End` | Reader | First / last row |
 | `↑` / `↓` | Search focused | Navigate search results |
 | `Enter` | Search focused | Select search result |

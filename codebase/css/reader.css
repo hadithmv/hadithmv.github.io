@@ -584,6 +584,20 @@
   margin-inline-start: 28px;
 }
 
+/* Hide the page strip's native number spinners — stepping ±1 through
+   thousands of pages is useless; users type the target page instead.
+   (Quran ayah/juz inputs keep theirs: stepping ±1 is useful there.)
+   Keyboard ↑/↓ still steps while the input is focused. */
+.page-strip-sel::-webkit-outer-spin-button,
+.page-strip-sel::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.page-strip-sel {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .page-num {
   box-sizing: border-box;
   width: 42px;
