@@ -254,8 +254,8 @@ All modals (settings, font, pins/history) share the same open/close/Escape patte
 
 | Function | Description |
 |---|---|
-| `window.openModal(id)` | Closes all other modals, then opens the one with the given overlay ID. |
-| `window.closeModal(id)` | Closes a specific modal by overlay ID. |
+| `window.openModal(id)` | Closes all other modals, then opens the one with the given overlay ID. Moves focus into the modal (first focusable) and remembers the trigger so close restores it. |
+| `window.closeModal(id)` | Closes a specific modal by overlay ID and restores focus to the element that opened it. |
 | `window.closeAllModals()` | Closes every registered modal. |
 | `window.MODAL_IDS` | Array of registered modal overlay IDs. Pins/history self-registers on first open. |
 

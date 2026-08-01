@@ -221,15 +221,67 @@ window.closeAllModals = function () {
   });
 };
 
+// Element that had focus before the current modal opened — restored on close
+// so keyboard/screen-reader users land back where they started.
+var _modalLastFocused = null;
+
 window.closeModal = function (id) {
   var el = document.getElementById(id);
-  if (el) el.classList.remove("open");
+  if (!el) return;
+  el.classList.remove("open");
+  if (_modalLastFocused && document.contains(_modalLastFocused)) {
+    try { _modalLastFocused.focus(); } catch (_) {}
+  }
+  _modalLastFocused = null;
 };
+
+function focusablesIn(overlay) {
+  return overlay.querySelectorAll(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  );
+}
+
+// Focus the first focusable (the modal's close ✕ is first in the header) —
+// opening must move focus INTO the dialog, not leave it on the trigger.
+function focusFirstInModal(overlay) {
+  var focusables = focusablesIn(overlay);
+  if (focusables.length > 0) {
+    try { focusables[0].focus(); } catch (_) {}
+  }
+}
+
+// Tab/Shift+Tab cycle within the topmost open modal instead of wandering
+// behind the overlay.
+document.addEventListener("keydown", function (e) {
+  if (e.key !== "Tab") return;
+  for (var i = window.MODAL_IDS.length - 1; i >= 0; i--) {
+    var overlay = document.getElementById(window.MODAL_IDS[i]);
+    if (!overlay || !overlay.classList.contains("open")) continue;
+    var focusables = focusablesIn(overlay);
+    if (focusables.length === 0) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+    var active = document.activeElement;
+    if (e.shiftKey) {
+      if (active === first || !overlay.contains(active)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else if (active === last || !overlay.contains(active)) {
+      e.preventDefault();
+      first.focus();
+    }
+    return;
+  }
+});
 
 window.openModal = function (id) {
   window.closeAllModals();
   var el = document.getElementById(id);
-  if (el) el.classList.add("open");
+  if (!el) return;
+  _modalLastFocused = document.activeElement;
+  el.classList.add("open");
+  focusFirstInModal(el);
 };
 
 // Shared backdrop + close-button wiring for any modal
@@ -314,8 +366,7 @@ window.setFocus = function (on) {
   if (!overlay) return;
 
   document.getElementById("btnSettings").addEventListener("click", function () {
-    window.closeAllModals();
-    overlay.classList.add("open");
+    window.openModal("settingsOverlay");
   });
 
   // Theme select
@@ -462,18 +513,18 @@ document.addEventListener("keydown", function (e) {
   var typing = window.isTypingTarget(e);
   if (e.key === "," && !typing && (e.ctrlKey || e.metaKey)) {
     e.preventDefault();
-    var so = document.getElementById("settingsOverlay");
-    if (so) so.classList.add("open");
+    window.openModal("settingsOverlay");
   }
   if (e.key === "b" && !typing && (e.ctrlKey || e.metaKey)) {
     e.preventDefault();
     window.location.href = "index.html";
   }
   if (e.key === "Escape") {
-    // Close any open modal (order matters: close innermost first)
+    // Close any open modal via closeModal (order matters: innermost first)
+    // so focus is restored to whatever opened it
     for (var i = window.MODAL_IDS.length - 1; i >= 0; i--) {
       var el = document.getElementById(window.MODAL_IDS[i]);
-      if (el && el.classList.contains("open")) { el.classList.remove("open"); return; }
+      if (el && el.classList.contains("open")) { window.closeModal(window.MODAL_IDS[i]); return; }
     }
   }
 });

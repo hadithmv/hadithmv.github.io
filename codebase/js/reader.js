@@ -1678,7 +1678,7 @@ initializePageWithMetadata(async function (metadata) {
         }
         if (e.key === "," && (e.ctrlKey || e.metaKey)) {
           e.preventDefault();
-          document.getElementById("settingsOverlay").classList.add("open");
+          window.openModal("settingsOverlay");
         }
         if (e.key === "e" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
