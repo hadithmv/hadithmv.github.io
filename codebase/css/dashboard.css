@@ -332,47 +332,58 @@
    Lives in the collapsible dashboard panel (collapses in focus mode with
    the rest of the chrome), dashed red accent — deliberately NOT a book card. */
 .dash-continue {
+  /* One size/weight/family for every piece — the bar must read as a single
+     sentence: red lead word, bold title, muted details. */
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4px 16px;
+  gap: 0;
   padding: 6px 14px;
   border-radius: 10px;
   border: 1px dashed var(--color-card-hover-border);
   background: var(--color-nav-btn-bg);
   text-decoration: none;
-  color: inherit;
+  color: var(--color-text);
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   transition: border-color 0.15s ease, background 0.15s ease;
+}
+/* Join the pieces into one continuous reading: "label · title · pos · time" */
+.dash-continue > span + span::before {
+  content: "·";
+  margin: 0 8px;
+  color: var(--color-text-subtle);
+  opacity: 0.5;
+}
+/* No span text can ever break to a second line — only the title is allowed
+   to shrink (ellipsis); the rest keep their full width. */
+.dash-continue > span {
+  white-space: nowrap;
+}
+.dash-continue-label,
+.dash-continue-pos,
+.dash-continue-time {
+  flex-shrink: 0;
 }
 .dash-continue:hover {
   border-color: #dc2626;
   background: var(--color-nav-btn-hover-bg);
 }
 .dash-continue-label {
-  font-size: 0.75rem;
-  font-weight: 700;
   color: #dc2626;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-weight: 700;
 }
 .dash-continue-title {
-  font-size: var(--panel-font-size, 0.85rem);
+  /* No truncation — the title always shows in full; on narrow screens the
+     whole pieces flow to the next line like words in a sentence. */
   font-weight: 700;
-  color: var(--color-text);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 .dash-continue-pos {
-  font-size: 0.8rem;
-  font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 .dash-continue-time {
-  font-size: 0.75rem;
   color: var(--color-text-subtle);
-  margin-inline-start: auto;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
 }
 
 .book-grid {
@@ -388,8 +399,7 @@
     padding: 0 12px;
   }
   #dashboardPanel {
-    margin-bottom: 12px;
-    gap: 6px;
+    margin-bottom: 6px;
   }
   .search-input {
     font-size: var(--panel-font-size, 0.85rem);

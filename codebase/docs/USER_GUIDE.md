@@ -32,7 +32,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Reset** — the ↺ Reset button clears all filters, search, and view mode. Pins and history are **not** affected — they only clear via the confirmed "Clear all" buttons in the pins/history modals, or the "Clear pins & history" button in Settings.
 
-When no filters are active, a **Continue reading** bar sits above the book list (in the collapsible panel with the tags and sort controls) — the most recently read book, with its saved position (a surah reference for Quran books, otherwise the row number) and how long ago you read it. Click it to resume exactly where you left off. It disappears while search or tag filters are active, and in focus mode (`z`).
+When no filters are active, a **Continue reading** bar sits above the book list (in the collapsible panel with the tags and sort controls) — the most recently read book, with its saved position (a surah reference like ބަޤަރާ 2 : 60 for Quran books, otherwise "Page N") and how long ago you read it. Click it to resume exactly where you left off. It disappears while search or tag filters are active, and in focus mode (`z`).
 
 Click any book card or table row to open it.
 
