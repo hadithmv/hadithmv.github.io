@@ -500,21 +500,6 @@ reader shows columns in list order
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
 4. Register the book in `02-registry-bookNames.csv` — or just run `data/03-update-bookRegistry.ps1`, which derives `titleEN` from the book code, sorts the registry, and adds unregistered CSVs found in `data/`.
 
-### Quran navigation
-
-A navigation row (`readerPanelQuran`) appears inside the collapsible reader panel for QRN books:
-
-  - **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
-  - **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
-  - **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30)
-  - **Content modal**: checkboxes + ▲▼ reorder for all columns from the registry; changes apply immediately (see Column ordering above)
-  - **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration (braces, ayah number, number-position)
-  - `﴿ ﴾` — wraps ayah in Quranic braces
-  - `١٢٣` — appends ayah number in Arabic numerals
-  - `﴿١٢٣﴾` — number-only brackets: `text ﴿١﴾` instead of `﴿text ١﴾`
-
-Navigation syncs on scroll: the visible ayah's surah, ayah, and juz update automatically. Changing any selector updates the others (e.g. changing surah recalculates juz).
-
 ### Ayah decoration
 
 Columns `ayahImlai` and `ayahUthmani` are rendered with configurable decoration:
@@ -527,13 +512,30 @@ Columns `ayahImlai` and `ayahUthmani` are rendered with configurable decoration:
 | ☐ | ☑ | — | `text ١` |
 | ☐ | ☐ | — | `text` |
 
+## Quran reader
+
+QRN‑specific UI — everything the reader adds for Quran books. Pure data logic lives in "Quran data model" above; the module split mirrors the code (`quran-data.js` pure vs `quran-ui.js` DOM).
+
+### Quran navigation
+
+A navigation row (`readerPanelQuran`) appears inside the collapsible reader panel for QRN books:
+
+  - **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
+  - **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
+  - **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30)
+  - **Content modal**: checkboxes + ▲▼ reorder for all columns from the registry; changes apply immediately (see "Column ordering" under Merging)
+  - **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration (braces, ayah number, number-position)
+  - `﴿ ﴾` — wraps ayah in Quranic braces
+  - `١٢٣` — appends ayah number in Arabic numerals
+  - `﴿١٢٣﴾` — number-only brackets: `text ﴿١﴾` instead of `﴿text ١﴾`
+
+Navigation syncs on scroll: the visible ayah's surah, ayah, and juz update automatically. Changing any selector updates the others (e.g. changing surah recalculates juz).
+
 ### Clipboard
 
 Quran clipboard format: no book header line. Decorated ayah text, `[surahName surahNo : ayahNo]` reference, then columns grouped by source book — each book gets one label (from `02-registry-bookNames.csv`) above its first column, no per-column headings.
 
-### Performance
-
-`table-layout: auto` lets columns size to content. `border-collapse: separate` avoids the expensive collapsing-border algorithm. `contain: layout style` on `.rdf-table` isolates layout. `content-visibility: auto` is explicitly excluded from `<tr>` (breaks table layout). The table wrapper uses `overflow-x: clip` (fallback: `hidden`) so sticky `<th>` elements aren't trapped by a scroll container. A sticky horizontal scrollbar at the top of the table provides horizontal scrolling for wide tables.
+(Table‑mode performance is documented under Reader UI → View modes → **Performance** — it is shared with the reader table, not Quran‑specific.)
 
 ## Development conventions
 
