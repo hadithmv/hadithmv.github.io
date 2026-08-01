@@ -179,7 +179,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
 | View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `v` key cycles through modes.                                                                                                                                                        |
 | Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
-| Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). All include book title, URL, Hadithmv, version, and proper formatting. |
+| Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). PNG exports only the current visible row (2×) — see the format table. Text formats assemble the whole book as a single string + Blob in memory (fine at current book sizes, ~8MB max). All include book title, URL, Hadithmv, version, and proper formatting. |
 | Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
 
 #### Export formats
@@ -200,7 +200,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | TOON      | Structured  | —           | —             | Hadithmv compact notation            |
 | XML       | Structured  | —           | —             | `<book>` / `<row>` / `<colN>`        |
 | PDF       | Rich text   | No          | —             | Print‑only (window print)            |
-| PNG       | Screenshot  | —           | —             | Canvas render of visible card        |
+| PNG       | Screenshot  | —           | —             | Canvas render of the current visible row (2×) — one row only, never the whole book |
 
 **Rule:** data formats (CSV, TSV, Excel, JSON, HTML Table) include the CSV header row. Rich‑text and structured formats do not.
 
