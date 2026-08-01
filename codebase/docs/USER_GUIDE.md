@@ -22,7 +22,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Search** — type in the search bar at the top (auto‑focused on desktop). It searches across all languages (Dhivehi, Arabic, English) and book codes. It works with or without Arabic diacritics (tashkeel).
 
-- **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — only books matching ALL selected tags are shown.
+- **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — books matching ANY of the selected tags are shown (OR).
 
 - **Sort** — use the dropdown on the right to sort books A→Z or Z→A.
 

@@ -271,11 +271,11 @@ function renderDashboard(bookNames) {
     });
   }
 
-  // Apply tag filter
+  // Apply tag filter — OR: a book shows when it carries ANY selected tag
   if (_dashFilter.tags.length > 0) {
     visible = visible.filter(function (b) {
       var bookTags = extractTags(b.bookCode).map(function (t) { return t.code; });
-      return _dashFilter.tags.every(function (tc) { return bookTags.indexOf(tc) !== -1; });
+      return _dashFilter.tags.some(function (tc) { return bookTags.indexOf(tc) !== -1; });
     });
   }
 
