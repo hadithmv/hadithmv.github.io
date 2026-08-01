@@ -281,6 +281,15 @@
   }
 }
 
+/* Empty state — surah search matched nothing */
+.qrn-surah-empty {
+  text-align: center;
+  padding: 30px 10px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
 /* ---- Surah selector overlay ---- */
 .quran-surah-overlay {
   position: fixed;

@@ -237,6 +237,11 @@ const STRINGS = {
   },
 
   // ── Quran content presets ──
+  qrnNoMatch: {
+    dv: "އެއްވެސް ސޫރަތެއް ނުފެނުނު",
+    en: "No surahs found",
+    ar: "لا توجد سور",
+  },
   qrnPresetMain: { dv: "މައި", en: "Main", ar: "الأساسي" },
   qrnPresetAll: { dv: "ހުރިހާ", en: "All", ar: "الكل" },
   qrnPresetArabic: { dv: "އަރަބި", en: "Arabic", ar: "عربي" },

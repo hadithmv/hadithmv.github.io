@@ -732,12 +732,7 @@ function setupDashboardControls() {
     var wrap = document.getElementById("dashboardWrapper");
     if (!wrap || wrap.style.display === "none") return;
     // Don't intercept when typing in an input
-    var tag = (e.target.tagName || "").toLowerCase();
-    var isInput =
-      tag === "input" ||
-      tag === "textarea" ||
-      tag === "select" ||
-      e.target.isContentEditable;
+    var isInput = window.isTypingTarget(e);
     if (
       (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) &&
       !isInput
@@ -745,7 +740,7 @@ function setupDashboardControls() {
       e.preventDefault();
       si.focus();
     }
-    if (e.key === "z" && !isInput && !e.ctrlKey && !e.metaKey) {
+    if (e.key === "z" && !isInput && e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
       window.setFocus(!document.documentElement.hasAttribute("data-focus"));
     }
@@ -756,12 +751,12 @@ function setupDashboardControls() {
       renderDashboard(_lastBookNames);
       si.blur();
     }
-    if (e.key === "p" && !isInput && !e.ctrlKey && !e.metaKey) {
+    if (e.key === "p" && !isInput && e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
       var bpd = document.getElementById("btnPinsDropdown");
       if (bpd) bpd.click();
     }
-    if (e.key === "h" && !isInput && !e.ctrlKey && !e.metaKey) {
+    if (e.key === "h" && !isInput && e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
       var bhd = document.getElementById("btnHistoryDropdown");
       if (bhd) bhd.click();

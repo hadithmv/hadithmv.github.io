@@ -1462,7 +1462,7 @@ initializePageWithMetadata(async function (metadata) {
           btnBookmark.classList.remove("active");
           btnBookmark.innerHTML = t("btnBookmarkText");
         }
-        btnBookmark.title = pinned ? "Remove bookmark (p key)" : "Bookmark current page (p key)";
+        btnBookmark.title = pinned ? "Remove bookmark (Alt+P)" : "Bookmark current page (Alt+P)";
       }
       function pinLabel(vRow) {
         if (!quranBook || filteredData.length === 0) return null;
@@ -1638,7 +1638,9 @@ initializePageWithMetadata(async function (metadata) {
           return;
         }
 
-        if (document.activeElement && document.activeElement.classList.contains("page-strip-sel")) return;
+        // Don't fire navigation/action shortcuts while typing in any input
+        // (search input and page-strip input are both covered by this guard)
+        if (window.isTypingTarget(e)) return;
 
         var vRow = visiblePageIndex();
         if (e.key === "ArrowLeft") {
@@ -1661,7 +1663,7 @@ initializePageWithMetadata(async function (metadata) {
           e.preventDefault();
           document.getElementById("settingsOverlay").classList.add("open");
         }
-        if (e.key === "e" && !e.ctrlKey && !e.metaKey) {
+        if (e.key === "e" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           document.getElementById("btnExport").click();
         }
@@ -1669,19 +1671,19 @@ initializePageWithMetadata(async function (metadata) {
           e.preventDefault();
           window.location.href = "index.html";
         }
-        if (e.key === "s" && !e.ctrlKey && !e.metaKey) {
+        if (e.key === "s" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           document.getElementById("btnShare").click();
         }
-        if (e.key === "z" && !e.ctrlKey && !e.metaKey) {
+        if (e.key === "z" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           window.setFocus(!document.documentElement.hasAttribute("data-focus"));
         }
-        if (e.key === "t" && !e.ctrlKey && !e.metaKey) {
+        if (e.key === "t" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           btnTashkeel.click();
         }
-        if (e.key === "v" && !e.ctrlKey && !e.metaKey) {
+        if (e.key === "v" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           // Cycle: card → table → parallel → card
           if (viewMode === "card") {
@@ -1694,7 +1696,7 @@ initializePageWithMetadata(async function (metadata) {
           updateViewModeUI();
           rebuildAll();
         }
-        if (e.key === "p" && !e.ctrlKey && !e.metaKey) {
+        if (e.key === "p" && e.altKey && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           if (btnBookmark) btnBookmark.click();
         }

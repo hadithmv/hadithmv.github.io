@@ -13,7 +13,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 | **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), reorder via ▲▼, reading history with relative timestamps, confirmed clear‑all, sidebar access from both pages |
 | **Export** | TXT, MD, JSON, CSV, TSV, Excel, EPUB (embedded font), PDF (print), PNG (current row), HTML, HTML Table, Word, YAML, TOON, XML |
 | **Customisation** | Three themes (Light / Dark / Sepia), adjustable font size ±, font family (Hadithmv / System), content width (600/800/1000/1200/full), three UI languages (Dhivehi / English / Arabic) |
-| **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `z` focus mode, `t` tashkeel, `v` cycle view mode, `p` toggle pin, `s` share link, `e` export, `/` or `Ctrl+F` search, `Ctrl+Shift+F` advanced search, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
+| **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `Alt+Z` focus mode, `Alt+T` tashkeel, `Alt+V` cycle view mode, `Alt+P` toggle pin, `Alt+S` share link, `Alt+E` export, `/` or `Ctrl+F` search, `Ctrl+Shift+F` advanced search, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
 | **Design** | RTL‑first layout, responsive (single 600px breakpoint), no external dependencies, all colours via CSS custom properties for theming |
 
 ## Finding a Book
@@ -91,12 +91,12 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 | `Home` / `End`  | First / last row                       |
 | `/` or `Ctrl+F` | Focus the search bar                   |
 | `Ctrl+Shift+F`  | Open advanced search                   |
-| `z`             | Toggle focus mode                      |
-| `t`             | Toggle diacritics (tashkeel)           |
-| `v`             | Cycle view mode (Card → Table → Parallel) |
-| `p`             | Toggle bookmark (pin)                  |
-| `s`             | Copy share link                        |
-| `e`             | Open export menu                       |
+| `Alt+Z`         | Toggle focus mode                      |
+| `Alt+T`         | Toggle diacritics (tashkeel)           |
+| `Alt+V`         | Cycle view mode (Card → Table → Parallel) |
+| `Alt+P`         | Toggle bookmark (pin)                  |
+| `Alt+S`         | Copy share link                        |
+| `Alt+E`         | Open export menu                       |
 | `Ctrl+,`        | Open settings                          |
 | `Ctrl+B`        | Back to book list                      |
 | `Escape`        | Close sidebar / modal / search results |
@@ -105,7 +105,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 
 ### Focus mode
 
-Press `z` or click the green ↕ button to hide everything except the essential content. Press again to return.
+Press `Alt+Z` or click the green ↕ button to hide everything except the essential content. Press again to return.
 
 - **On the reader page** — the search bar, toolbar, pagination, and Quran nav collapse, leaving only the book text.
 - **On the dashboard** — the tag chips and sort/filter row collapse, leaving the search bar and book grid visible.

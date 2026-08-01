@@ -434,14 +434,31 @@ window.setFocus = function (on) {
   });
 })();
 
+// ── Shared typing-target guard ───────────────────────────────
+// True when the event target is an editable element. Shortcut handlers
+// must not fire while the user is typing (Escape/arrows/Enter are
+// handled case-by-case where input-appropriate).
+window.isTypingTarget = function (e) {
+  var tag = ((e.target && e.target.tagName) || "").toLowerCase();
+  return (
+    tag === "input" ||
+    tag === "textarea" ||
+    tag === "select" ||
+    (e.target && e.target.isContentEditable)
+  );
+};
+
 // ── Keyboard shortcuts (global) ─────────────────────────────
 document.addEventListener("keydown", function (e) {
-  if (e.key === "," && (e.ctrlKey || e.metaKey)) {
+  // Combos below must never hijack keys while typing in an input;
+  // Escape stays active (closing a modal is wanted even mid-typing).
+  var typing = window.isTypingTarget(e);
+  if (e.key === "," && !typing && (e.ctrlKey || e.metaKey)) {
     e.preventDefault();
     var so = document.getElementById("settingsOverlay");
     if (so) so.classList.add("open");
   }
-  if (e.key === "b" && (e.ctrlKey || e.metaKey)) {
+  if (e.key === "b" && !typing && (e.ctrlKey || e.metaKey)) {
     e.preventDefault();
     window.location.href = "index.html";
   }

@@ -213,7 +213,7 @@ The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with
 
 ### Focus mode
 
-Toggled via the green ↕/▼ button in the topBar or `z` key. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
+Toggled via the green ↕/▼ button in the topBar or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
 
 **Reader:** Collapses `#collapsibleReaderPanel` smoothly via CSS Grid `grid-template-rows: 1fr → 0fr` transition. Chrome padding and border also hidden. Only the topBar and reader content remain.
 
@@ -282,18 +282,18 @@ The settings reset button clears all of the above and resets language to Dhivehi
 | `Enter`         | Search focused         | Select result                          |
 | `/` or `Ctrl+f` | Anywhere               | Focus search bar                       |
 | `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
-| `z`             | Anywhere               | Toggle focus mode (same as ↕/▼ button) |
-| `t`             | Reader                 | Toggle tashkeel                        |
-| `v`             | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
-| `p`             | Reader                 | Toggle bookmark (pin)                  |
-| `s`             | Reader                 | Share link                             |
-| `e`             | Reader                 | Open export dropdown                   |
+| `Alt+z`         | Anywhere               | Toggle focus mode (same as ↕/▼ button) |
+| `Alt+t`         | Reader                 | Toggle tashkeel                        |
+| `Alt+v`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
+| `Alt+p`         | Reader                 | Toggle bookmark (pin)                  |
+| `Alt+s`         | Reader                 | Share link                             |
+| `Alt+e`         | Reader                 | Open export dropdown                   |
 | `Ctrl+,`        | Anywhere               | Open settings                          |
 | `Ctrl+b`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
 | `Escape`        | Dashboard search       | Clear search & blur                    |
-| `p`             | Dashboard              | Open pins modal                        |
-| `h`             | Dashboard              | Open history modal                     |
+| `Alt+p`         | Dashboard              | Open pins modal                        |
+| `Alt+h`         | Dashboard              | Open history modal                     |
 
 Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips, badges, book cards, table rows, toolbar buttons, and page titles all carry `title` tooltips describing their action or category.
 
@@ -494,7 +494,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **IDs.** Element IDs use camelCase — e.g. `btnResetReader`, `searchInput`, `readerContent`. No kebab‑case or snake_case.
 
-**Tooltips.** Every `<button>`, `<a>`, and interactive element carries a `title` tooltip describing its action. If the element has a keyboard shortcut, the tooltip includes the key in parentheses — e.g. `title="Toggle focus mode (z key)"`. Tooltips are **always in English** and never translated.
+**Tooltips.** Every `<button>`, `<a>`, and interactive element carries a `title` tooltip describing its action. If the element has a keyboard shortcut, the tooltip includes the key in parentheses — e.g. `title="Toggle focus mode (Alt+Z)"`. Tooltips are **always in English** and never translated.
 
 **Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
 

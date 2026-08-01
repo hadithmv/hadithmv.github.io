@@ -75,7 +75,9 @@ export function initQuranUI(ctx) {
   var ayahInput = document.getElementById("qrnAyahInput");
   var ayahDD = document.createElement("div");
   ayahDD.id = "qrnAyahDropdown";
-  ayahDD.className = "quran-content-dropdown";
+  // dd-menu carries the opaque card background — without it the dropdown
+  // is transparent and page text shows through behind its items
+  ayahDD.className = "quran-content-dropdown dd-menu";
   ayahDD.style.display = "none";
   ayahDD.style.position = "absolute";
   ayahDD.style.left = "0";
@@ -138,7 +140,9 @@ export function initQuranUI(ctx) {
   var juzInput = document.getElementById("qrnJuzInput");
   var juzDD = document.createElement("div");
   juzDD.id = "qrnJuzDropdown";
-  juzDD.className = "quran-content-dropdown";
+  // dd-menu carries the opaque card background — without it the dropdown
+  // is transparent and page text shows through behind its items
+  juzDD.className = "quran-content-dropdown dd-menu";
   juzDD.style.display = "none";
   juzDD.style.position = "absolute";
   juzDD.style.left = "0";
@@ -389,7 +393,12 @@ export function initQuranUI(ctx) {
 
   function renderSurahList(query) {
     var list = document.getElementById("qrnSurahList");
-    list.innerHTML = buildSurahListHTML(query, quranState.currentSurah);
+    var html = buildSurahListHTML(query, quranState.currentSurah);
+    // Empty state — the query matched no surah (no query = full list, never empty)
+    if (!html && query && query.trim()) {
+      html = '<div class="qrn-surah-empty">' + t("qrnNoMatch") + "</div>";
+    }
+    list.innerHTML = html;
     list.querySelectorAll(".quran-surah-item").forEach(function (el) {
       el.addEventListener("click", function () {
         var surahNo = parseInt(this.dataset.surah, 10);

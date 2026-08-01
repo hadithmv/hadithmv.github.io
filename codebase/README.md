@@ -133,7 +133,7 @@ All rows inside the collapsible panel use uniform 10px spacing via flex column g
 
 | Control | Description |
 |---|---|
-| 📌 Pin | Bookmark current book + page (p key) |
+| 📌 Pin | Bookmark current book + page (Alt+P) |
 | 📋 Copy | Copy current row as formatted plain text |
 | 🔗 Share | Copy deep link to current book + row |
 | ◉ Hide diacritics | Toggle Arabic tashkeel visibility |
@@ -228,7 +228,7 @@ All text formats include book title, URL, Hadithmv, and version. TOON uses the e
 
 ### Internationalisation
 
-All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. **Tooltips and error messages are English-only and never translated.** Every button should have a tooltip; if it has a keyboard shortcut, the shortcut is noted in the tooltip (e.g. `title="Toggle focus (z key)"`).
+All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. **Tooltips and error messages are English-only and never translated.** Every button should have a tooltip; if it has a keyboard shortcut, the shortcut is noted in the tooltip (e.g. `title="Toggle focus (Alt+Z)"`).
 
 ## Error handling
 
