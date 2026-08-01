@@ -4,6 +4,38 @@ Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CS
 
 > **Other docs:** [User Guide](USER_GUIDE.md) for readers · [API Reference](API.md) for developers
 
+## The big picture
+
+Hadithmv is a **static, CSV‑driven viewer**: no server, no build step, no database — every screen renders from CSV files fetched at runtime in the browser. Adding a book or a translation never requires code changes; it requires a CSV and a registry row.
+
+The data flow is one chain:
+
+```text
+data/*.csv → fetch + parseCSV → in‑memory rows → render (dashboard grid / reader / Quran merge)
+```
+
+- **Dashboard** reads two small registry CSVs (books, tags) and renders the collection.
+- **Reader** fetches one book CSV and renders it with infinite scroll.
+- **Quran reader** merges a base ayah file with per‑translation book CSVs by row index.
+
+Everything is client‑side: search is in‑memory, pins/history/settings live in `localStorage`, and the UI is RTL‑first (see the RTL notes under "Horizontal scrolling & RTL" — there is **no root `dir="rtl"`**).
+
+**Single source of truth:** behavior facts are described ONCE in this document. The User Guide and README summarize and link here — they never restate behavior in their own words (restating in three places is how facts drift apart and contradict each other).
+
+## Where to look (cheat sheet)
+
+| Task | Where |
+|---|---|
+| Change the toolbar / reader chrome | `books/reader.html` + `js/reader.js` + `css/reader.css` |
+| Add a regular book | README → "Add a new book" |
+| Add a Quran translation | "Adding a new Quran translation" below |
+| Change themes / colours | `css/common.css` `--color-*` variables (3 themes) |
+| Add a UI string | `js/i18n.js` (`dv`/`en`/`ar`), then the button gets `data-i18n` |
+| Wire a new modal | `common.js` `createModal()` + `MODAL_IDS` (must open via `openModal`) |
+| Change search behaviour | `js/search.js` (engine) + `js/reader.js` (wiring) |
+| Bump the version | `js/i18n.js` `appVersion`, commit "Update to vX.Y.Z" |
+| Verify changes | "Verification habits" at the bottom |
+
 ## Files
 
 | File                         | Purpose                                                                    |
@@ -77,7 +109,13 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. The sort row is one continuous line that scrolls horizontally when it doesn't fit (reader-toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto-hide at the extremes, wheel redirects to horizontal — see the RTL scroll‑direction convention under "Horizontal scrolling & RTL" before touching the arrow signs). Pins auto‑update their row position while the user reads a **pinned** book: the reader's scroll handler, debounced 2 s, calls `addPin(bookCode, vRow + 1, pinLabel(...))` only when the visible row actually changed (guarded by `isPinned` + `_lastHistoryRow` in `reader.js`), piggybacking on the same timer as the history auto‑log; the URL position sync is a separate 500 ms debounce. The table view (`dash-table`) is wrapped in `.dash-table-wrap` — `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page when they don't fit. Inside the collapsible dashboard panel (above the tags), a **continue-reading card** appears when no search/tag/pins filter is active, built from the most recent history entry — book title, saved position (a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number), and relative time; clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome. Pins and history are persisted in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Supports `?tags=A,B` to pre‑filter by tag codes; clicking a tag chip updates the URL via `history.replaceState` so filtered views are bookmarkable and shareable.
+No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. Pins and history persist in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Key behaviors:
+
+- **Sort row** — one continuous line that scrolls horizontally when it doesn't fit (reader‑toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto‑hide at the extremes, wheel redirects to horizontal — see "Horizontal scrolling & RTL" before touching the arrow signs)
+- **Table view** — `dash-table` wrapped in `.dash-table-wrap`: `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page
+- **Continue‑reading card** — inside the collapsible dashboard panel (above the tags), appears when no search/tag/pins filter is active, built from the most recent history entry (book title, saved position — a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number — and relative time); clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome
+- **Pin auto‑update** — while the user reads a **pinned** book, the reader's scroll handler (debounced 2 s, guarded by `isPinned` + `_lastHistoryRow`) calls `addPin(bookCode, vRow + 1, pinLabel(...))`, piggybacking on the same timer as the history auto‑log; the URL position sync is a separate 500 ms debounce
+- **`?tags=A,B`** — pre‑filters by tag codes; clicking a tag chip updates the URL via `history.replaceState`, so filtered views are bookmarkable and shareable
 
 The reader's page‑header tag badges link to `index.html?tags=CODE`, letting readers jump to the dashboard filtered by that category.
 
@@ -567,7 +605,13 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 
-**Modals.** All modals use the unified layer in `common.js`: `window.openModal(id)`, `window.closeModal(id)`, `window.closeAllModals()`. Each modal's overlay ID is registered in `window.MODAL_IDS`. Backdrop click and `.modal-close` button are auto-wired via `wireModal()`. New modals push their ID to the array and wire themselves on creation. Dynamically-created modals (`createModal`) emit the same `.modal-header` / `.modal-title` / `.modal-close` / `.modal-body` structure as the static modals, so styling stays unified. `window.confirmModal(titleKey, messageKey, confirmKey, onConfirm)` shows a confirm dialog on the same layer (Cancel/Escape/backdrop = no; confirm button = yes, then `onConfirm()` runs). **Focus management** (accessibility): `openModal` moves focus to the modal's first focusable (the ✕ close button) and remembers the trigger; `closeModal` — including the unified Escape handler — restores focus to it; a global Tab handler cycles focus within the topmost open modal so it can't wander behind the overlay. Every modal must open via `openModal` (not `classList.add("open")` directly) or it misses focus handling — the sidebar, advanced-search overlay, and surah selector are separate overlay systems outside this layer. Body scroll is locked while any modal is open (`body:has(.modal-overlay.open)`). The pins/history modal renders its list as a semantic `<table class="dd-table">` (`<thead>`/`<tbody>`, `dd-col-*` classes per column, `table-layout: fixed` column widths) styled in `common.css` — identical on the dashboard and reader pages. The Quran content modal follows the same pattern with its own table.
+**Modals.** All modals use the unified layer in `common.js`:
+
+- **API** — `window.openModal(id)`, `window.closeModal(id)`, `window.closeAllModals()`; each overlay ID is registered in `window.MODAL_IDS`. Backdrop click and `.modal-close` are auto‑wired via `wireModal()`; new modals push their ID and wire themselves on creation.
+- **Creation** — dynamic modals use `createModal(id, titleId, bodyId, extraClass)` and emit the same `.modal-header` / `.modal-title` / `.modal-close` / `.modal-body` structure as the static modals, so styling stays unified. `window.confirmModal(titleKey, messageKey, confirmKey, onConfirm)` shows a confirm dialog on the same layer (Cancel/Escape/backdrop = no; confirm button = yes, then `onConfirm()` runs).
+- **Focus management** (accessibility) — `openModal` moves focus to the modal's first focusable (the ✕ close button) and remembers the trigger; `closeModal` — including the unified Escape handler — restores focus to it; a global Tab handler cycles focus within the topmost open modal so it can't wander behind the overlay. **Every modal must open via `openModal`** (not `classList.add("open")` directly) or it misses focus handling — the sidebar, advanced‑search overlay, and surah selector are separate overlay systems outside this layer.
+- **Body scroll** is locked while any modal is open (`body:has(.modal-overlay.open)`).
+- **List modals** — the pins/history modal renders its list as a semantic `<table class="dd-table">` (`<thead>`/`<tbody>`, `dd-col-*` classes per column, `table-layout: fixed` column widths) styled in `common.css` — identical on the dashboard and reader pages. The Quran content modal follows the same pattern with its own table.
 
 **Dropdowns.** All dropdowns use shared helpers and shared CSS classes for visual consistency:
 
