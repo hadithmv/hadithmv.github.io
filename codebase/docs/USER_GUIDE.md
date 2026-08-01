@@ -6,7 +6,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 
 | Category | Features |
 |---|---|
-| **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
+| **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, continue‑reading card (resume your last book), pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
 | **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, scroll‑to‑top |
 | **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), full‑text search with wildcards/fuzzy/negation/regex/column‑scope, whole‑word toggle, search‑history dropdown, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%) and completion animation, scroll counter, URL position sync |
 | **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand with reorderable columns, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
@@ -31,6 +31,8 @@ When you open the site, you see the **book list**. You can:
 - **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal with a table of your saved positions (with reorder arrows, page, and remove) or of your recently read books (with page, time, and remove). Both are also accessible from the sidebar.
 
 - **Reset** — the ↺ Reset button clears all filters, search, and view mode. Pins and history are **not** affected — they only clear via the confirmed "Clear all" buttons in the pins/history modals, or the "Clear pins & history" button in Settings.
+
+When no filters are active, a **Continue reading** bar sits above the book list (in the collapsible panel with the tags and sort controls) — the most recently read book, with its saved position (a surah reference for Quran books, otherwise the row number) and how long ago you read it. Click it to resume exactly where you left off. It disappears while search or tag filters are active, and in focus mode (`z`).
 
 Click any book card or table row to open it.
 

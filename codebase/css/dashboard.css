@@ -328,6 +328,53 @@
   border-color: #7f1d1d;
 }
 
+/* ── Continue-reading card ──
+   Lives in the collapsible dashboard panel (collapses in focus mode with
+   the rest of the chrome), dashed red accent — deliberately NOT a book card. */
+.dash-continue {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px dashed var(--color-card-hover-border);
+  background: var(--color-nav-btn-bg);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.dash-continue:hover {
+  border-color: #dc2626;
+  background: var(--color-nav-btn-hover-bg);
+}
+.dash-continue-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #dc2626;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+.dash-continue-title {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 700;
+  color: var(--color-text);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+.dash-continue-pos {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+.dash-continue-time {
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  margin-inline-start: auto;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

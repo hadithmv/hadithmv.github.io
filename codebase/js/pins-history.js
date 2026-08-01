@@ -74,7 +74,7 @@ export function removeHistoryEntry(bookCode) {
 export function clearReadHistory() { setReadHistory([]); }
 
 // ── Helpers ─────────────────────────────────────────────────
-function timeAgo(ts) {
+export function timeAgo(ts) {
   var diff = Date.now() - ts;
   var sec = Math.floor(diff / 1000);
   if (sec < 60) return t("relativeJustNow");

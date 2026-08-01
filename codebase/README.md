@@ -154,6 +154,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 - **📌 Pins** — button in sort row; opens a modal listing bookmarked books as a table (▲▼ reorder arrows, page, ✕ to remove, confirmed "Clear all"; max 10); click an entry to open at the bookmarked page. A `📌 ޕިން` pins filter chip appears in the tag row (click to show only pinned books). Pinned books show a `📌 ޕިން` badge on their card. Also accessible from the sidebar.
 - **🕐 History** — button in sort row; opens a modal listing recently read books as a table (book, page, relative time like "3m ago", ✕ to remove, confirmed "Clear all"; max 10; one entry per book, latest position). Also accessible from the sidebar.
+- **Continue reading** — in the collapsible panel above the book list, the unfiltered view shows the most recent book from history (title, saved position, relative time); click it to resume exactly where you left off. Hidden while search/tag filters are active and in focus mode.
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = OR — a book shows if it carries any selected tag), active chips show ✕ to remove, each chip shows book count. The URL updates with `?tags=A,B` so filtered views are shareable. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering. Tag badges in the book reader header link back to the dashboard pre‑filtered by that tag.

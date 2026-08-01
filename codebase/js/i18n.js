@@ -263,6 +263,11 @@ const STRINGS = {
   dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
   dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
   dashboardTagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
+  continueReading: {
+    dv: "އެންމެ ފަހުން ކިޔަމުން ދިޔައީ:",
+    en: "Continue reading:",
+    ar: "متابعة القراءة:",
+  },
   dashboardPinsLabel: { dv: "ޕިންތައް:", en: "Pins:", ar: "تثبيت:" },
   dashboardHistoryLabel: { dv: "ހިސްޓަރީ:", en: "History:", ar: "السجل:" },
   dashboardClearAll: {
