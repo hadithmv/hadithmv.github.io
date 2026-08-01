@@ -400,6 +400,13 @@ Base data columns are always present. Book-specific columns are merged by row in
 
 **Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in 8 places: `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`, `applyQuranSurahFilter`). Reordering those columns would silently break surah navigation, ayah jumps, copy references, and pin labels. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all 8 sites plus `findQuranColIndices` cache invalidation.
 
+**Adding a new Quran translation (walkthrough):**
+
+1. Create `data/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-baseFile-1-…` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
+2. Register each column in `data/QRN-DATA-registry-bookToggle.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
+3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
+4. Register the book in `02-registry-bookNames.csv` — or just run `data/03-update-bookRegistry.ps1`, which derives `titleEN` from the book code, sorts the registry, and adds unregistered CSVs found in `data/`.
+
 ### Quran navigation
 
 A navigation row (`readerPanelQuran`) appears inside the collapsible reader panel for QRN books:
@@ -671,6 +678,17 @@ All errors show visible messages in English. Error boxes carry a central `⚠️
 | Missing i18n key | `i18n.js` `t()` | `console.warn` with key name, falls back to raw key string |
 | localStorage write fails | All modules | Silently caught (intentional — better to degrade than crash) |
 | CSV parse warnings | Console | Non‑fatal |
+
+## Verification habits
+
+The app has no test suite or build step — changes are verified by hand:
+
+- **JS syntax**: `node --check --input-type=module < js/file.js` (files are ES modules; plain `node --check` treats them as CommonJS and fails on `import`)
+- **CSS sanity**: brace balance (`{`/`}` counts must match) after every CSS edit
+- **Dangling references**: grep for removed IDs/classes/i18n keys across `js/`, `books/`, `css/`
+- **Behaviour equivalence** (search‑engine changes): copy the old module from `git show HEAD:codebase/js/…` and compare outputs on Arabic/Thaana test corpora (see the search‑performance notes)
+- **Browser caching**: GitHub Pages serves without cache‑busting — always hard‑refresh (Ctrl+F5) after changes; stale CSS is the most common "it didn't work" cause
+- **RTL**: arrow‑key stepping, scroll directions, and sticky headers behave differently per browser and per element `dir` — test number inputs and scroll rows in both Chrome and Firefox
 
 ## Adding content
 

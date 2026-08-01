@@ -89,6 +89,24 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 
 **No book selected?** The dashboard shows all registered books as a card grid.
 
+## Running locally
+
+The site is fully static — no build step, no dependencies. Serve the `codebase/` folder over HTTP (the data loads via `fetch`, which `file://` blocks):
+
+```bash
+cd codebase
+python -m http.server 8000
+# or: npx serve .
+```
+
+Then open `http://localhost:8000/books/index.html`.
+
+## Deploying
+
+This repo **is** the GitHub Pages site (`hadithmv.github.io`) — pushing to `main` deploys automatically. The app lives at `hadithmv.github.io/codebase/books/`.
+
+**Version ritual:** the version string (e.g. `v6.9.85 (Web)`) lives in `js/i18n.js` under `appVersion` (shown in the sidebar footer and export headers). Bump it whenever you ship a release, and title the release commit `Update to vX.Y.Z`.
+
 ## Features
 
 ### Reading view
