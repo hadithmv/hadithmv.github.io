@@ -109,7 +109,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 ```text
 ┌─ Fixed topBar (z-index 101, opaque bg) ───────────────────═┐
 │  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
-│  ═══ progress bar (surah-level for QRN, milestones, green border at 100%) │
+│  ═══ progress bar (surah-level for QRN, milestone toasts, green border + surah-completed toast at 100%) │
 ├─ Sticky collapsibleReaderPanel (z-index 50) ─────────────────┤
 │  readerPanelSearch       🔎 Advanced  [input]  ✕  (N)        │
 │  readerPanelFunctions    📋 📌 ◉ 🔗 ↕ ↺ 📥 …               │
