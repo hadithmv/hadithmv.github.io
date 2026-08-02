@@ -98,7 +98,7 @@ initializePageWithMetadata(async function (metadata) {
 
       // Language-aware page header
       const pageTagsContainer = document.getElementById("pageTags");
-      const pageTags = extractTags(metadata.bookCode);
+      const pageTags = extractTags(metadata.bookCode, metadata);
 
       function renderPageTags() {
         var lang = currentLang();

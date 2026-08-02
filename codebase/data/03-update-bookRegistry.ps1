@@ -134,7 +134,7 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
         $enTitle = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
         Write-Add "$code"
         Write-Info "titleEN → $enTitle"
-        $rows += "$code,,,$enTitle"
+        $rows += "$code,,,$enTitle,"
         $added++
     }
 }
@@ -157,11 +157,14 @@ if ($missing -eq 0) { Write-Info "all registered books have CSV files" }
 Write-Section "Filling missing titleEN"
 $updated = 0
 $newRows = foreach ($row in $rows) {
-    $cols = $row -split ",", 4
+    # No split limit — the trailing `tags` column (comma-separated codes)
+    # must be preserved, not dropped on rewrite
+    $cols = $row -split ","
     $code = $cols[0].Trim()
     $titleAR = if ($cols.Count -gt 1) { $cols[1].Trim() } else { "" }
     $titleDV = if ($cols.Count -gt 2) { $cols[2].Trim() } else { "" }
     $titleEN = if ($cols.Count -gt 3) { $cols[3].Trim() } else { "" }
+    $tags = if ($cols.Count -gt 4) { (($cols[4..($cols.Count - 1)]) | ForEach-Object { $_.Trim() }) -join "," } else { "" }
 
     if (-not $titleEN) {
         $derived = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
@@ -172,7 +175,7 @@ $newRows = foreach ($row in $rows) {
         }
     }
 
-    "$code,$titleAR,$titleDV,$titleEN"
+    "$code,$titleAR,$titleDV,$titleEN,$tags"
 }
 if ($updated -eq 0) { Write-Info "all titles already filled" }
 

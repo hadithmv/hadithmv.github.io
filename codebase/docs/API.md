@@ -60,7 +60,7 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadBookNames()`
 
-Fetches and caches `02-registry-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`). Returns `[]` on error.
+Fetches and caches `02-registry-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
 
 ### `getPageMetadata(bookCode)`
 
@@ -74,14 +74,14 @@ Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Require
 
 Returns the data CSV path: `"../data/" + bookCode + ".csv"`.
 
-### `extractTags(bookCode)`
+### `extractTags(bookCode, entry?)`
 
-Splits the book code on `-`, strips known tag prefixes and suffix flags (`-HDN`, `-DSC`), resolves remaining segments against the tag registry. Returns `Array<{code, label, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
+Returns a book's tags: the PRIMARY is the first registered prefix segment of the `bookCode`; SECONDARY tags come from the registry entry's `tags` column (comma‑separated codes). Pass the registry row (`entry`) whenever available (catalog and reader both have it in scope). Returns `Array<{code, label, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
 
 ```js
-extractTags("AQD-DFK-sharhuSunnahBarbahari");
-// [{code:"AQD", label:"Aqidah", palette: 0},
-//  {code:"DFK", label:"DFK",    palette: 1}]
+extractTags("HDT-muwattaMalik", { tags: "DRFT" });
+// [{code:"HDT", label:"Hadith", palette: 0},
+//  {code:"DRFT", label:"Draft", palette: 1}]
 ```
 
 ### Dashboard state
@@ -471,7 +471,7 @@ No JSON endpoints. All data is CSV — one source of truth, no duplication. If y
 ```http
 GET data/02-registry-bookNames.csv
 ```
-Columns: `bookCode,titleAR,titleDV,titleEN`. One row per registered book.
+Columns: `bookCode,titleAR,titleDV,titleEN,tags`. One row per registered book. The `tags` column holds secondary tag codes (comma‑separated); the primary tag is the first segment of `bookCode`.
 
 ### Tag definitions
 

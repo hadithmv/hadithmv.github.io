@@ -96,28 +96,39 @@ async function loadTagDefinitions() {
 }
 
 /**
- * Extract tag codes from a bookCode.
- * Tags are all leading segments separated by '-', excluding the last segment
- * (which is the actual book name). Only tags registered in tags.csv are returned.
+ * Extract tags for a book: the PRIMARY tag is the first registered prefix
+ * segment of the bookCode (e.g. "HDT" in "HDT-muwattaMalik"); SECONDARY tags
+ * come from the registry entry's `tags` column (comma-separated codes).
  *
  * Reads from the cached tag definitions — call loadTagDefinitions() first
  * to populate the cache, or the function returns no tags (graceful fallback).
  *
- * @param {string} bookCode - e.g. "AQD-DFK-sharhuSunnahBarbahari"
+ * @param {string} bookCode - e.g. "HDT-muwattaMalik"
+ * @param {Object} [entry] - the registry row (from 02-registry-bookNames.csv);
+ *   provides the `tags` column. Pass it whenever available.
  * @returns {Array<{code: string, label: string, palette: number}>}
  */
-function extractTags(bookCode) {
+function extractTags(bookCode, entry) {
   if (!bookCode) return [];
-  const parts = bookCode.split("-");
-  const tagCodes = parts.slice(0, -1);
   const defs = _tagDefinitionsCache || {};
-  return tagCodes
-    .filter((code) => defs[code])
-    .map((code) => ({
-      code,
-      label: defs[code].label,
-      palette: defs[code].palette,
-    }));
+  const codes = [];
+  // Primary: first registered prefix segment (the new codes carry exactly one)
+  const parts = bookCode.split("-");
+  for (const p of parts) {
+    if (defs[p]) { codes.push(p); break; }
+  }
+  // Secondary: the registry entry's tags column
+  if (entry && entry.tags) {
+    entry.tags.split(",").forEach((t) => {
+      const code = t.trim();
+      if (code && defs[code] && codes.indexOf(code) === -1) codes.push(code);
+    });
+  }
+  return codes.map((code) => ({
+    code,
+    label: defs[code].label,
+    palette: defs[code].palette,
+  }));
 }
 
 // ---------------------------------------------------------------------------
@@ -327,7 +338,7 @@ function renderDashboard(bookNames) {
   // Apply tag filter — OR: a book shows when it carries ANY selected tag
   if (_dashFilter.tags.length > 0) {
     visible = visible.filter(function (b) {
-      var bookTags = extractTags(b.bookCode).map(function (t) {
+      var bookTags = extractTags(b.bookCode, b).map(function (t) {
         return t.code;
       });
       return _dashFilter.tags.some(function (tc) {
@@ -360,7 +371,7 @@ function renderDashboard(bookNames) {
   });
   var tagCounts = {};
   allVisible.forEach(function (b) {
-    extractTags(b.bookCode).forEach(function (t) {
+    extractTags(b.bookCode, b).forEach(function (t) {
       if (!tagCounts[t.code])
         tagCounts[t.code] = { label: t.label, palette: t.palette, count: 0 };
       tagCounts[t.code].count++;
@@ -515,7 +526,7 @@ function renderDashboard(bookNames) {
       "</th></tr></thead><tbody>" +
       visible
         .map(function (book) {
-          var tags = extractTags(book.bookCode);
+          var tags = extractTags(book.bookCode, book);
           var pinnedBadge = isPinned(book.bookCode)
             ? '<span class="pin-badge" title="Pinned">📌 ޕިން</span>'
             : "";
@@ -571,7 +582,7 @@ function renderDashboard(bookNames) {
     grid.style.display = "";
     grid.innerHTML = visible
       .map(function (book) {
-        var tags = extractTags(book.bookCode);
+        var tags = extractTags(book.bookCode, book);
         var pinnedBadge = isPinned(book.bookCode)
           ? '<span class="pin-badge" title="Pinned">📌 ޕިން</span>'
           : "";

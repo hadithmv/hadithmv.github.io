@@ -40,7 +40,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| `data/02-registry-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN)                       |
+| `data/02-registry-bookNames.csv`      | Central registry of books (code, titles in AR/DV/EN, secondary `tags` column) |
 | `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
@@ -97,7 +97,7 @@ URL: ?book=AQD-nawaqidulIslam
         ▼
   catalog.js
     ├─ fetch ../data/02-registry-bookNames.csv  ──→  find row by bookCode
-    ├─ fetch ../data/01-registry-bookTags.csv ──→  resolve tag badges from prefix
+    ├─ fetch ../data/01-registry-bookTags.csv ──→  resolve tag badges (primary prefix + tags column)
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
         │
         ▼
@@ -370,16 +370,17 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 | Column     | Description                                         |
 | ---------- | --------------------------------------------------- |
-| `bookCode` | Unique identifier, doubles as the data CSV filename |
+| `bookCode` | Unique identifier, doubles as the data CSV filename. Format: `PRIMARY-bookName[-SUFFIX]` — the **primary tag** is the first segment, registered in `01-registry-bookTags.csv` (a book may have no primary). `-HDN` / `-DSC` are suffix flags, not tags |
 | `titleAR`  | Arabic title                                        |
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
+| `tags`     | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column |
 
 ### 01-registry-bookTags.csv
 
 | Column  | Description                                              |
 | ------- | -------------------------------------------------------- |
-| `code`  | Tag code — matches a hyphen‑separated prefix in bookCode |
+| `code`  | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
 | `label` | Display name for the badge                               |
 
 Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`). A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just `code,label` — no colour‑picking, no limit on tag count. The PIN entry exists only to document the pin chip colour; it uses hardcoded red and is not part of the rotation.
@@ -390,15 +391,16 @@ First row is always the header row. For a representative sample, see `AQD-nawaqi
 
 ## Tag system
 
-Tag codes are hyphen‑separated prefix segments of `bookCode`, excluding the final segment. Suffix flags like `-HDN` are stripped before extracting the book name (and also hide the book from the dashboard). At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader. Each code is looked up in `01-registry-bookTags.csv`. Unknown codes silently ignored.
+Every book has a **primary tag** (the first registered prefix segment of its `bookCode`) and zero or more **secondary tags** (the `tags` column in `02-registry-bookNames.csv`, comma‑separated codes). `extractTags(bookCode, entry)` reads both: the primary from the code, the secondaries from the registry row's `tags` column. Tags drive the dashboard chips, counts, `?tags=` filter, and badges on cards and the reader header. Each code is looked up in `01-registry-bookTags.csv`; unknown codes are silently ignored.
 
-| bookCode                        | Tags             | Book Name             |
-| ------------------------------- | ---------------- | --------------------- |
-| `AQD-nawaqidulIslam`            | Aqidah           | nawaqidulIslam        |
-| `AQD-qawaidulArbau`             | Aqidah           | qawaidulArbau         |
-| `HDT-umdathulAhkam`             | Hadith           | umdathulAhkam         |
-| `AQD-DFK-sharhuSunnahBarbahari` | Aqidah, DFK      | sharhuSunnahBarbahari |
-| `DRFT-AQD-aqidahNawawi`         | ⚠️ Draft, Aqidah | aqidahNawawi          |
+| bookCode                    | `tags` column | Tags (primary + secondary) | Book Name       |
+| --------------------------- | ------------- | -------------------------- | --------------- |
+| `AQD-nawaqidulIslam`        | *(empty)*     | Aqidah                     | nawaqidulIslam  |
+| `HDT-muwattaMalik`          | `DRFT`        | Hadith, ⚠️ Draft           | muwattaMalik    |
+| `AQD-sharhuSunnahBarbahari` | `DFK`         | Aqidah, DFK                | sharhuSunnahBarbahari |
+| `RDF-asmaullahilHusna`      | `AQD`         | Radheef, Aqidah            | asmaullahilHusna |
+
+Suffix flags (`-HDN`, `-DSC`) are stripped from the tail before extracting the book name; `-HDN` also hides the book from the dashboard. At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader.
 
 **Naming conventions:**
 
@@ -641,20 +643,19 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 ### Data & CSV
 
-**Book code format.** `TAG1-TAG2-bookName-SUFFIX`. Tag prefixes are matched against `01-registry-bookTags.csv`. After stripping known tags and suffix flags, the remaining segment is the book name.
+**Book code format.** `PRIMARY-bookName[-SUFFIX]`. The FIRST segment is the primary tag, matched against `01-registry-bookTags.csv`; after stripping it and the suffix flags, the remaining segment is the book name. Secondary tags live in the `tags` column of `02-registry-bookNames.csv`, NOT in the code.
 
 ```text
-"DRFT-AQD-sharhuSunnahBarbahari-HDN"
-  │    │          │                │
-  │    │          │                └─ Suffix flag: hide from dashboard
-  │    │          └─ Book name (after stripping tags & suffixes)
-  │    └─ Tag prefix → "Aqidah" badge
-  └─ Tag prefix → "⚠️ Draft" badge
+"HDT-muwattaMalik"        +  registry: bookCode,titleAR,titleDV,titleEN,tags
+  │         │                                       ... ,HDT-muwattaMalik,...,...,...,DRFT
+  │         └─ Book name (after stripping primary tag & suffix flags)
+  └─ Primary tag → "Hadith" badge        tags column → "⚠️ Draft" badge (secondary)
 
-"AQD-nawaqidulIslam"
-  │        │
+"AQD-aqidatuNawawi-HDN"
+  │        │           │
+  │        │           └─ Suffix flag: hide from dashboard
   │        └─ Book name
-  └─ Tag prefix → "Aqidah" badge
+  └─ Primary tag → "Aqidah" badge
 ```
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
@@ -735,9 +736,9 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
    #,headAR,bodyAR,headDV,bodyDV,foot
    1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
    ```
-2. Add a line to `data/02-registry-bookNames.csv`:
+2. Add a line to `data/02-registry-bookNames.csv` (the `tags` column is optional — secondary tags only):
    ```csv
-   FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh
+   FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh,
    ```
 3. Run `data/03-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
 
@@ -748,7 +749,7 @@ Add one row to `data/01-registry-bookTags.csv`. Colours are auto‑generated —
 code,label
 FQH,Fiqh
 ```
-Use the tag code as a prefix in any `bookCode` (e.g. `FQH-usululFiqh`) — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
+Use the tag code as the primary prefix in a `bookCode` (e.g. `FQH-usululFiqh`) or as a secondary in the `tags` column of `02-registry-bookNames.csv` — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
 
 ### Add a new export format
 
@@ -817,7 +818,7 @@ The app has no test suite or build step — changes are verified by hand:
 ### New tag category
 
 1. Add a row to `data/01-registry-bookTags.csv` with `code,label`. Colours are auto‑generated — no need to pick hex values.
-1. Use the code as a prefix in any `bookCode` — badges render automatically.
+1. Use the code as the primary prefix in a `bookCode`, or add it to a book's `tags` column — badges render automatically.
 
 ## Key benefits
 

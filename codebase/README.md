@@ -6,7 +6,7 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/
-  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN)
+  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags column)
   01-registry-bookTags.csv      ← Tag definitions (code, label, colors)
   03-update-bookRegistry.ps1← Auto-generate titleEN, sync new books
   *.csv                ← Per-book content files
@@ -39,11 +39,11 @@ docs/                  ← User guide, architecture, API reference
 
 ### Add a new book
 
-1. Add a row to `data/02-registry-bookNames.csv`:
+1. Add a row to `data/02-registry-bookNames.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`:
 
    ```csv
-   bookCode,titleAR,titleDV,titleEN
-   FQH-usululFiqh,أصول الفقه,އުޞޫލުލް ފިޤްހު,Usul ul-Fiqh
+   bookCode,titleAR,titleDV,titleEN,tags
+   FQH-usululFiqh,أصول الفقه,އުޞޫލުލް ފިޤްހު,Usul ul-Fiqh,HDT
    ```
 
 1. Create the data file at `data/FQH-usululFiqh.csv`.
@@ -59,14 +59,14 @@ code,label
 FQH,Fiqh
 ```
 
-Books with a `FQH-` prefix will show a "Fiqh" badge. No code needed. Colours are auto‑generated using golden‑ratio HSL — no limit on tags, always distinct, dark‑mode built in.
+Books with a `FQH-` prefix (primary tag) or `FQH` in their `tags` column will show a "Fiqh" badge. No code needed. Colours are auto‑generated using golden‑ratio HSL — no limit on tags, always distinct, dark‑mode built in.
 
 ### Book code conventions
 
-Prefixes and suffixes control book behaviour — badges, visibility, row order, and more. See [Architecture → Naming conventions](docs/ARCHITECTURE.md#naming-conventions) for the full list. A quick summary:
+A book code carries exactly ONE tag — the primary — as its first segment (`HDT-muwattaMalik`); any further tags live in the `tags` column of the registry. Prefixes and suffixes control book behaviour — badges, visibility, row order, and more. See [Architecture → Naming conventions](docs/ARCHITECTURE.md#naming-conventions) for the full list. A quick summary:
 
-- `DRFT-` → draft badge · `-HDN` → hidden · `-DSC` → reversed rows · `KNSH-` → body heading style
-- Run `data/03-update-bookRegistry.ps1` to sync new books and generate `titleEN`
+- `DRFT-` → draft badge (or in `tags`) · `-HDN` → hidden · `-DSC` → reversed rows · `KNSH-` → body heading style
+- Run `data/03-update-bookRegistry.ps1` to sync new books and generate `titleEN` (it preserves the `tags` column)
 
 ## Data CSV format
 
