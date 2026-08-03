@@ -186,6 +186,18 @@ $sorted = $newRows | Sort-Object { ($_ -split ",")[0].Trim() }
 $output = @($header) + $sorted
 $output -join "`r`n" | Out-File $csvPath -Encoding UTF8 -NoNewline
 
+# ── Sort tag registry alphabetically by code ──────────────────
+# Keeps 01-registry-bookTags.csv tidy on every run, like the book
+# registry above. Note: palette slot assignment follows file order —
+# sorting shifts the auto-generated colours (they are not stored anywhere).
+Write-Section "Sorting tag registry"
+$tagLines = Get-Content $tagsPath
+$tagHeader = $tagLines[0]
+$tagRows = $tagLines[1..($tagLines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
+$tagSorted = $tagRows | Sort-Object { ($_ -split ",")[0].Trim() }
+@($tagHeader) + $tagSorted | Out-File $tagsPath -Encoding UTF8 -NoNewline
+Write-Info "$($tagSorted.Count) tags sorted"
+
 $total = $sorted.Count
 Write-Host "`n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
 Write-Host "  📊 $total books total" -ForegroundColor White
