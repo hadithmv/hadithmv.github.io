@@ -20,14 +20,14 @@ HDT-arbaoonAajurry,الأربعون للآجري,އާޖުއްރީގެ ސާޅީސ
 HDT-arbaoonNawawi,الأربعون النووية,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Forty Hadith,REV
 HDT-bulughulMaram,بلوغ المرام,ބުލޫޣުލް މަރާމް,Attainment of the Objective,DRFT
 HDT-bulughulMaram-FULL-HDN,بلوغ المرام,ބުލޫޣުލް މަރާމް,Attainment of the Objective,DRFT
-HDT-HBK-adabulMufrad,الأدب المفرد,އަދަބުލް މުފްރަދު,Adabul Mufrad,DRFT
-HDT-HBK-jamiuTirmidhi,جامع الترمذي,ޖާމިޢުއް ތިރްމިޛީ,Jamiu Tirmidhi,DRFT
-HDT-HBK-musnadAhmed,مسند أحمد,މުސްނަދު އަޙްމަދު,Musnad Ahmed,DRFT
-HDT-HBK-sahihBukhari,صحيح البخاري,ޞަޙީޙު ބުޚާރީ,Sahih Bukhari,DRFT
-HDT-HBK-sahihMuslim,صحيح مسلم,ޞަޙީޙު މުސްލިމް,Sahih Muslim,DRFT
-HDT-HBK-sunanAbiDawud,سنن أبي داود,ސުނަން އަބީ ދާއޫދު,Sunan Abi Dawud,DRFT
-HDT-HBK-sunanIbnMajah,سنن ابن ماجه,ސުނަން އިބްނު މާޖަހް,Sunan Ibn Majah,DRFT
-HDT-HBK-sunanNasai,سنن النسائي,ސުނަން ނަސާއީ,Sunan Nasai,DRFT
+HDT-HBK-adabulMufrad,الأدب المفرد,އަދަބުލް މުފްރަދު,Adabul Mufrad,INC
+HDT-HBK-jamiuTirmidhi,جامع الترمذي,ޖާމިޢުއް ތިރްމިޛީ,Jamiu Tirmidhi,INC
+HDT-HBK-musnadAhmed,مسند أحمد,މުސްނަދު އަޙްމަދު,Musnad Ahmed,INC
+HDT-HBK-sahihBukhari,صحيح البخاري,ޞަޙީޙު ބުޚާރީ,Sahih Bukhari,INC
+HDT-HBK-sahihMuslim,صحيح مسلم,ޞަޙީޙު މުސްލިމް,Sahih Muslim,INC
+HDT-HBK-sunanAbiDawud,سنن أبي داود,ސުނަން އަބީ ދާއޫދު,Sunan Abi Dawud,INC
+HDT-HBK-sunanIbnMajah,سنن ابن ماجه,ސުނަން އިބްނު މާޖަހް,Sunan Ibn Majah,INC
+HDT-HBK-sunanNasai,سنن النسائي,ސުނަން ނަސާއީ,Sunan Nasai,INC
 HDT-HMSC-all,الجامع في الأحاديث,އެއްކުރަމުންދާ ޙަދީޘްތައް,Collection of Hadith,DRFT
 HDT-HMSC-kutubAlbani,كتب الألباني,އަލްބާނީގެ ފޮތްތައް,Books of Albani,DRFT
 HDT-muwattaMalik,موطأ مالك,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT
@@ -37,7 +37,7 @@ IH-islamDeenRusulullah,الإسلام دين رسل الله,އިސްލާމް ދ
 IH-islamDeenulFitrah,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",
 IH-manKhalaqaniWaLimaza,من خلقني؟ ولماذا؟,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟,Who Created Me? And Why?,
 IH-mukhtasarTauhidilAsmaWaSifat,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"DRFT,AQD"
-IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام...,...އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam...,
+IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام,އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam,
 IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,
 KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,
 KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,
@@ -51,7 +51,7 @@ QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީ�
 QRN-rasmee-alt,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),
 QRN-rasmee-og,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),
 QRN-soabuniAshari-HDN,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,
-QRUL-ushrulAkhir-ahkamThahimmulMuslim,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,"Explanation of the Last Tenth of the Quran,with Important Matters for the Muslim","AQD,REV"
+QRUL-ushrulAkhir-ahkamThahimmulMuslim,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,"Explanation of Last Tenth of Quran, with Important Matters for the Muslim","AQD,REV"
 RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,
 RDF-all,الجامع في المعاجم,އެއްކުރަމުންދާ ރަދީފުތައް,Collection of Dictionaries,
 RDF-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,AQD
