@@ -174,7 +174,10 @@ initializePageWithMetadata(async function (metadata) {
 
       var ROWS_PER_CHUNK = 25;
       STATE.hideTashkeel = LS.get("hideTashkeel", false);
-      STATE.hiddenColumns = LS.get("hiddenColumns", []);
+      // Per-book key: a global hiddenColumns list leaks indices from the
+      // previous book into the next (e.g. bodyAR stays hidden because column
+      // 2 was hidden in the last book). Reset fixes it — now it can't happen.
+      STATE.hiddenColumns = LS.get("hiddenColumns:" + metadata.bookCode, []);
       var hideTashkeel = STATE.hideTashkeel;
       var hiddenColumns = STATE.hiddenColumns;
 
@@ -254,7 +257,7 @@ initializePageWithMetadata(async function (metadata) {
               hiddenColumns.splice(pos, 1);
               btn.classList.remove("off");
             }
-            LS.set("hiddenColumns", hiddenColumns);
+            LS.set("hiddenColumns:" + metadata.bookCode, hiddenColumns);
             rebuildAll();
           });
           columnToggles.appendChild(btn);
@@ -1557,7 +1560,7 @@ initializePageWithMetadata(async function (metadata) {
             if ((headerRow[i] || "").toLowerCase().endsWith("-hdn")) hiddenColumns.push(i);
           }
         }
-        LS.set("hiddenColumns", hiddenColumns);
+        LS.set("hiddenColumns:" + metadata.bookCode, hiddenColumns);
         buildColumnToggles();
         // Show tashkeel
         hideTashkeel = false;

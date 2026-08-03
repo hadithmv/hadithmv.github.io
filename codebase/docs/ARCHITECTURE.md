@@ -246,7 +246,7 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 | View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `Alt+V` cycles through modes.                                                                                                                                                        |
 | Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
 | Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). PNG exports only the current visible row (2×) — see the format table. Text formats assemble the whole book as a single string + Blob in memory (fine at current book sizes, ~8MB max). All include book title, URL, Hadithmv, version, and proper formatting. |
-| Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted.                                                                                                                                                                                                            |
+| Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted per book (`reader:hiddenColumns:{bookCode}`).                                                                                                                                                                                                            |
 
 #### Export formats
 
@@ -320,7 +320,7 @@ All client-side state is stored in `localStorage`. No sessionStorage, cookies, o
 | `focus` | `common.js` | `"1"` or `"0"` | Focus mode (shared across reader and dashboard) |
 
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
-| `reader:hiddenColumns` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns |
+| `reader:hiddenColumns:{bookCode}` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns — **keyed per book** (a global key leaked hidden indices across books; see the `-HDN` convention) |
 | `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
 | `pinnedBooks` | `pins-history.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). **One entry per book.** The reader's 📌 button toggles (pin / unpin); while pinned, the entry's row auto‑updates as the user reads (the 2 s scroll debounce calls `addPin` on the pinned book — see the dashboard section). Any future multi‑pin feature must change this model |
 | `readHistory` | `pins-history.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
@@ -438,7 +438,7 @@ Suffix flags (`-HDN`, `-DSC`) are stripped from the tail before extracting the b
     localStorage
     ├── pinnedBooks, readHistory  (pins-history.js)
     ├── reader:searchHistory      (search.js)
-    ├── reader:hiddenColumns,     (reader.js)
+    ├── reader:hiddenColumns:{bookCode} (reader.js)
     │   reader:hideTashkeel, etc.
     ├── theme, fontSize, lang,    (common.js)
     │   contentWidth, focus
@@ -631,7 +631,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 | CSS classes | kebab-case + namespace | `reader-field-matn`, `dash-table`, `quran-nav-btn` |
 | Shared CSS utilities | `dd-` prefix | `.dd-item`, `.dd-menu`, `.dd-check` (dropdowns); `.dd-table`, `.dd-row`, `.dd-col-*` (pins/history modal table, scoped under `.pins-history-body`) |
 | Custom events | single lowercase word | `readerReset`, `focuschange`, `languagechange` |
-| LocalStorage keys | `reader:` prefix for reader | `reader:hiddenColumns`, `reader:searchHistory` |
+| LocalStorage keys | `reader:` prefix for reader | `reader:hiddenColumns:{bookCode}`, `reader:searchHistory` |
 
 **New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `js/export.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
 
