@@ -103,16 +103,6 @@ const STRINGS = {
     en: "↺ Reset all settings",
     ar: "↺ إعادة ضبط جميع الإعدادات",
   },
-  settingsPinsHistory: {
-    dv: "ޕިން އަދި ހިސްޓަރީ",
-    en: "Pins & history",
-    ar: "العلامات والسجل",
-  },
-  settingsClearPinsHistory: {
-    dv: "ޕިން އަދި ހިސްޓަރީ ފޮހެލާ",
-    en: "Clear pins & history",
-    ar: "مسح العلامات والسجل",
-  },
   confirmCancel: {
     dv: "ކެންސަލް",
     en: "Cancel",
@@ -123,6 +113,11 @@ const STRINGS = {
     dv: "ފޮހެލަން ބޭނުންވާކަން ޔަގީންތޯ؟ މި ކަން އަނބުރާ ނުގެނެވޭނެ.",
     en: "Are you sure? This cannot be undone.",
     ar: "هل أنت متأكد؟ لا يمكن التراجع عن هذا.",
+  },
+  confirmResetAll: {
+    dv: "ހުރިހާ ސެޓިންގްސް، ޕިން އަދި ހިސްޓަރީ ރީސެޓްކުރަން ޔަގީންތޯ؟ މި ކަން އަނބުރާ ނުގެނެވޭނެ.",
+    en: "Reset all settings, pins, and history? This cannot be undone.",
+    ar: "إعادة ضبط جميع الإعدادات والعلامات والسجل؟ لا يمكن التراجع عن هذا.",
   },
   labelRowsPerPage: {
     dv: "އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:",

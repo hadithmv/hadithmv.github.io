@@ -41,7 +41,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Pins & History** — click 📌 Pins or 🕐 History in the sort row to open a modal with a table of your saved positions (with reorder arrows, page, and remove) or of your recently read books (with page, time, and remove). Both are also accessible from the sidebar.
 
-- **Reset** — the ↺ Reset button clears all filters, search, and view mode. Pins and history are **not** affected — they only clear via the confirmed "Clear all" buttons in the pins/history modals, or the "Clear pins & history" button in Settings.
+- **Reset** — the ↺ Reset button clears all filters, search, and view mode. Pins and history are **preserved** here — they clear only via the confirmed "Clear all" buttons in the pins/history modals, or the settings modal's ↺ Reset all settings (which asks for confirmation and clears *everything*).
 
 When no filters are active, a **Continue reading** bar sits above the book list (in the collapsible panel with the tags and sort controls) — the most recently read book, with its saved position (a surah reference like ބަޤަރާ 2 : 60 for Quran books, otherwise "Page N") and how long ago you read it. Click it to resume exactly where you left off. It disappears while search or tag filters are active, and in focus mode (`z`).
 
@@ -150,6 +150,5 @@ Open from the sidebar (⚙ Settings). You can change:
 | **Font size**  | − / + buttons to make text smaller or larger                                      |
 | **Font**       | Hadithmv (custom merged font) or System font. Option names are always in English. |
 | **Language**   | Dhivehi, English, or Arabic — changes all buttons and labels                      |
-| **Pins & history** | "Clear pins & history" button — asks for confirmation first. |
 
-All settings are saved automatically and remembered when you return. The ↺ Reset button in the settings header resets the settings above but does **not** clear pins or reading history — those only clear through the confirmed clear buttons.
+All settings are saved automatically and remembered when you return. The ↺ **Reset all settings** button in the settings header is a factory reset: it clears everything — settings, pins, and reading history — and asks for confirmation first. (The dashboard's ↺ Reset and the reader's ↺ Reset are view-only resets: they leave pins and history untouched.)

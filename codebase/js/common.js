@@ -408,45 +408,37 @@ window.setFocus = function (on) {
   })();
 
   // Reset settings — delegates to font/reader resets, then adds its own
+  // Factory reset: settings + pins + history, confirmed first (destructive)
   document.getElementById("btnResetSettings").addEventListener("click", function () {
-    var html = document.documentElement;
-    html.removeAttribute("data-theme");
-    localStorage.setItem("theme", "");
-    var thSel = document.getElementById("selTheme");
-    if (thSel) thSel.value = "light";
-    html.removeAttribute("data-widescreen");
-    html.style.removeProperty("--content-width");
-    localStorage.removeItem("contentWidth");
-    var wsSel = document.getElementById("selWidth");
-    if (wsSel) wsSel.value = "800px";
-    // Delegate font + reader resets
-    var btnRF = document.getElementById("btnResetFont");
-    if (btnRF) btnRF.click();
-    var btnRR = document.getElementById("btnResetReader");
-    if (btnRR) btnRR.click();
-    // Clear LS keys that the delegated buttons don't touch
-    localStorage.removeItem("reader:searchHistory");
-    localStorage.removeItem("focus");
-    // NOTE: pins & history are NOT cleared here — they only clear via the
-    // explicit "Clear pins & history" button below (with confirmation).
-    document.dispatchEvent(new CustomEvent("dashboardReset"));
-    localStorage.removeItem("lang");
-    var sel = document.getElementById("selLanguage");
-    if (sel) sel.value = "dv";
-    window.closeModal("settingsOverlay");
-  });
-
-  // ── Clear pins & history (destructive — confirm first) ──
-  var btnClearPH = document.getElementById("btnClearPinsHistory");
-  if (btnClearPH) {
-    btnClearPH.addEventListener("click", function () {
-      window.confirmModal("settingsPinsHistory", "confirmAreYouSure", "dashboardClearAll", function () {
-        try { localStorage.removeItem(window.LS_KEYS.pinnedBooks); } catch (_) {}
-        try { localStorage.removeItem(window.LS_KEYS.readHistory); } catch (_) {}
-        document.dispatchEvent(new CustomEvent("dashboardReset"));
-      });
+    window.confirmModal("btnResetSettings", "confirmResetAll", "btnReset", function () {
+      var html = document.documentElement;
+      html.removeAttribute("data-theme");
+      localStorage.setItem("theme", "");
+      var thSel = document.getElementById("selTheme");
+      if (thSel) thSel.value = "light";
+      html.removeAttribute("data-widescreen");
+      html.style.removeProperty("--content-width");
+      localStorage.removeItem("contentWidth");
+      var wsSel = document.getElementById("selWidth");
+      if (wsSel) wsSel.value = "800px";
+      // Delegate font + reader resets
+      var btnRF = document.getElementById("btnResetFont");
+      if (btnRF) btnRF.click();
+      var btnRR = document.getElementById("btnResetReader");
+      if (btnRR) btnRR.click();
+      // Clear LS keys that the delegated buttons don't touch
+      localStorage.removeItem("reader:searchHistory");
+      localStorage.removeItem("focus");
+      // Pins & history — part of the full reset (confirmed above)
+      try { localStorage.removeItem(window.LS_KEYS.pinnedBooks); } catch (_) {}
+      try { localStorage.removeItem(window.LS_KEYS.readHistory); } catch (_) {}
+      document.dispatchEvent(new CustomEvent("dashboardReset"));
+      localStorage.removeItem("lang");
+      var sel = document.getElementById("selLanguage");
+      if (sel) sel.value = "dv";
+      window.closeModal("settingsOverlay");
     });
-  }
+  });
 })();
 
 // ── Font modal ───────────────────────────────────────────────

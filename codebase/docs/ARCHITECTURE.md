@@ -291,7 +291,7 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 ### Settings modal
 
-Opened from the sidebar. Cards for Appearance (theme dropdown, content width dropdown), Font (size ±, family dropdown: Hadithmv/System — always English), Language (select dropdown), and a confirmed "Clear pins & history" button. Reset button in the modal header clears all settings including reader state and restores CSS variable defaults — pins and history are deliberately NOT touched (they only clear via the confirmed clear buttons in the pins/history modals or the settings button). Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
+Opened from the sidebar. Cards for Appearance (theme dropdown, content width dropdown), Font (size ±, family dropdown: Hadithmv/System — always English), Language (select dropdown). The ↺ Reset button in the modal header is a **confirmed factory reset** — it clears settings, pins, and history (message: "Reset all settings, pins, and history? This cannot be undone."). The dashboard and reader resets are view-only and preserve pins/history. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
 
 ### Font scaling
 
@@ -705,7 +705,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | `quranState` (exported) | `quran-data.js` | nav updates, scroll sync, ayah decoration |
 | `_modalLastFocused` | `common.js` module scope | `openModal` / `closeModal` (focus restore) |
 
-**Reset flow.** Settings modal delegates to `btnResetFont` + `btnResetReader` + clears remaining LS keys + dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic.
+**Reset flow.** The settings modal's ↺ Reset is a **confirmed factory reset** (`confirmResetAll` message): on confirm it delegates to `btnResetFont` + `btnResetReader`, clears remaining LS keys, **clears pins and history**, and dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic. The dashboard and reader resets stay view-only (pins/history preserved).
 
 **Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) table. This table is the single inventory for porting to desktop/mobile apps — keep it current.
 

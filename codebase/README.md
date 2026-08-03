@@ -187,7 +187,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 - Blue ☰ hamburger button (always visible, opens right-side drawer)
 - Navigation: Book list, GitHub, FAQ, Help, Contact
-- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector, plus a confirmed "Clear pins & history" button; ↺ Reset all settings does NOT touch pins or history
+- Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector; ↺ Reset all settings is a confirmed factory reset — settings, pins, and history (the dashboard and reader resets are view-only and preserve pins/history)
 - Scroll to top
 - App version and creator credit
 
