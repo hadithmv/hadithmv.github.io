@@ -9,7 +9,7 @@
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search.js";
-import { fetchCSV } from "./csv.js";
+import { fetchCSV, fetchBookCSVCached } from "./csv.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
 
@@ -40,7 +40,9 @@ initializePageWithMetadata(async function (metadata) {
   var quranBook = isQuranBook(metadata.bookCode);
 
   function loadStandardBook() {
-    return fetchCSV(metadata.csvPath)
+    // On-device cache (IndexedDB): repeat visits skip download + parse;
+    // metadata.version (registry content hash) guards staleness.
+    return fetchBookCSVCached(metadata.bookCode, metadata.version || "", metadata.csvPath)
       .then(function (data) {
         if (data.length === 0) return { data: data, headerRow: null, hasRowNums: false };
         var headerRow = data.shift();
@@ -1799,6 +1801,29 @@ initializePageWithMetadata(async function (metadata) {
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {
         setTimeout(function () { goTo(sharedRow - 1); }, 200);
+      }
+      // ?q=TERM — deep link that opens the book with the term pre-highlighted
+      // (library-search results link here with &row=). Reuses the normal search
+      // path: fill the input and run applySearch so the results dropdown and
+      // highlight state are active, then jump to the target row — or the first
+      // match when no &row= is given.
+      var sharedQuery = new URLSearchParams(window.location.search).get("q");
+      if (sharedQuery) {
+        searchInput.value = sharedQuery;
+        applySearch(sharedQuery);
+        var compiledQ = compileQuery(parseQueryWithMode(sharedQuery));
+        var firstMatchRow = -1;
+        for (var qr = 0; qr < allData.length; qr++) {
+          if (rowMatchesQueryNorm(allData[qr], normAllData[qr], compiledQ)) {
+            firstMatchRow = qr;
+            break;
+          }
+        }
+        if (firstMatchRow >= 0) {
+          rebuildAll(); // re-render with the term highlighted (input value set above)
+          var qTarget = sharedRow >= 1 && sharedRow <= filteredData.length ? sharedRow - 1 : firstMatchRow;
+          setTimeout(function () { goTo(qTarget); }, 200);
+        }
       }
       // Scroll-driven pagination update
       var scrollCounter = document.getElementById("scrollCounter");

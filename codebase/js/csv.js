@@ -102,6 +102,76 @@ export async function loadCSVData(path) {
   return parseCSVWithHeader(text);
 }
 
+// ── On-device book cache (IndexedDB) ─────────────────────────
+// Parsed book CSVs are stored on the device so repeat visits skip the
+// download + parse entirely. The registry's `version` column (content hash
+// of each book CSV) guards staleness: if the file changed, the hash differs
+// and the cache is refreshed. Every failure path degrades to a plain fetch.
+
+var _idbPromise = null;
+
+function openCacheDB() {
+  if (_idbPromise) return _idbPromise;
+  _idbPromise = new Promise(function (resolve) {
+    if (!("indexedDB" in window)) return resolve(null);
+    var req = indexedDB.open("hadithmv", 1);
+    req.onupgradeneeded = function () {
+      req.result.createObjectStore("books", { keyPath: "bookCode" });
+    };
+    req.onsuccess = function () { resolve(req.result); };
+    req.onerror = function () { resolve(null); };
+  });
+  return _idbPromise;
+}
+
+function idbGet(bookCode) {
+  return openCacheDB().then(function (db) {
+    if (!db) return null;
+    return new Promise(function (resolve) {
+      var tx = db.transaction("books", "readonly").objectStore("books").get(bookCode);
+      tx.onsuccess = function () { resolve(tx.result || null); };
+      tx.onerror = function () { resolve(null); };
+    });
+  });
+}
+
+function idbPut(bookCode, version, rows) {
+  return openCacheDB().then(function (db) {
+    if (!db) return;
+    return new Promise(function (resolve) {
+      var tx = db.transaction("books", "readwrite").objectStore("books").put({
+        bookCode: bookCode,
+        version: version,
+        rows: rows,
+      });
+      tx.onsuccess = function () { resolve(); };
+      tx.onerror = function () { resolve(); };
+    });
+  });
+}
+
+/**
+ * Fetch a book CSV through the on-device cache.
+ * `version` is the registry's content-hash column; empty string bypasses the
+ * cache (no trust). Returns the parsed 2D array — same shape as fetchCSV.
+ * IndexedDB returns a fresh structured-clone per read, so callers may mutate
+ * the result (e.g. shift() the header) without corrupting the stored copy.
+ */
+export async function fetchBookCSVCached(bookCode, version, path) {
+  if (version) {
+    var cached = await idbGet(bookCode);
+    if (cached && cached.version === version) {
+      return cached.rows;
+    }
+  }
+  var rows = await fetchCSV(path);
+  if (version) {
+    // Fire-and-forget: don't delay first render on the write
+    idbPut(bookCode, version, rows).catch(function () {});
+  }
+  return rows;
+}
+
 /**
  * Convert a 2D array back to CSV text.
  */

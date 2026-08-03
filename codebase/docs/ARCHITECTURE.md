@@ -59,6 +59,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
 | `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
+| `js/library-search.js`       | Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
 | `js/epub.js`                 | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand               |
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
@@ -69,6 +70,8 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `data/QRN-DATA-registry-bookToggle.csv`         | Registry of all available Quran columns (source, labels, defaults) |
 | `data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
 | `data/QRN-DATA-baseFile-2-ayahUthmani.csv`     | Quran text in Uthmani script                                     |
+| `data/04-rebuild-index.mjs`  | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
+| `data/04-search-index.json`  | Generated word-level search index — the one machine-generated data file (see "Library search") |
 
 ## Where to find things
 
@@ -81,6 +84,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
 | Search engine | `search.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
+| Library search | `library-search.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
 | Quran nav / dropdowns | `quran-ui.js` | `initQuranUI(ctx)` — re-exports quran-data.js |
 | Reader core | `reader.js` | Rendering, pagination, toolbar, keyboard, progress bar |
@@ -232,7 +236,7 @@ The reader supports three visual layouts, selected via a dropdown in the toolbar
 
 ### Search
 
-Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — strips Arabic diacritics, normalises alif/ya/waw variants, strips Thaana fili (vowel marks), and normalises Thaana thikijehi (Arabic‑derived letters) to base Thaana. Results dropdown with highlighted snippets mapped back to original text. Keyboard‑navigable (↑/↓/Enter/Escape). Advanced search modal for column/condition/value filters with AND/OR logic. Same normalisation used for dashboard search.
+Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — strips Arabic diacritics, normalises alif/ya/waw variants, and normalises Thaana thikijehi (Arabic‑derived letters) to base Thaana. **Thaana fili (vowel marks) are deliberately PRESERVED** — unlike Arabic diacritics they distinguish words (ކަތި ≠ ކުތި), so stripping them would cause false matches. Results dropdown with highlighted snippets mapped back to original text. Keyboard‑navigable (↑/↓/Enter/Escape). Advanced search modal for column/condition/value filters with AND/OR logic. Same normalisation used for dashboard search. A `?q=TERM` URL param (used by library-search deep links) fills the search input on load, runs the search — so the dropdown lists every match and rendered rows show the term highlighted — and jumps to the `&row=` target, or the first match when no row is given.
 
 **Performance.** Normalisation is a single regex pass (per‑char lookup instead of ~30 sequential replaces). At book load `reader.js` precomputes a parallel structure of normalised cells (`buildNormData()`), and each search compiles its query once (`compileQuery()`) — so a full scan over 50k+ rows matches against precomputed strings with precompiled regexes, and never re‑normalises a cell or a term. The search input is debounced (120 ms), so only pauses in typing trigger a scan. Highlighting (`highlightMatches` / `buildSnippets`) maps normalised match positions back to original text with an identity fast path (`mapNormToOrig`): characters that pass through normalisation unchanged are matched with a single compare, so only the minority (tashkeel, thikijehi, case) pay a normalisation call. The Quran on‑demand column loader keeps the norm cache in sync via the `initQuranUI` ctx bridge.
 
@@ -308,7 +312,7 @@ All panel buttons and inputs use `em`-based `height`, `padding`, and `line-heigh
 
 ### Persisted state
 
-All client-side state is stored in `localStorage`. No sessionStorage, cookies, or IndexedDB are used. In‑memory caches (`bookNamesCache`, `tagDefinitionsCache`) are populated at startup and never written to disk.
+Settings and small state live in `localStorage` (table below). **IndexedDB** is used for exactly two things, both validated against a content-hash version stamp: the **on‑device book cache** in `csv.js` (`fetchBookCSVCached`) — parsed book CSVs stored keyed by `bookCode`, validated against the registry `version` hash — and the **search index cache** in `library-search.js` (the separate `hadithmvSearch` DB, keyed by a fixed id, validated against the index's own `meta.version` hash). Cache hit + version match → read locally with zero download/parse; mismatch or empty version → fetch, parse, refresh the cache. Every failure path degrades to a plain fetch. Only book CSVs and the search index are cached (registries are small and change often). No sessionStorage or cookies. In‑memory caches (`bookNamesCache`, `tagDefinitionsCache`) are populated at startup and never written to disk.
 
 | Key | Where used | Shape | Notes |
 |-----|-----------|-------|-------|
@@ -375,6 +379,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
 | `tags`     | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column |
+| `version`  | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `03-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
 
 ### 01-registry-bookTags.csv
 
@@ -702,6 +707,8 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | `_bookNamesCache` / `_tagDefinitionsCache` | `catalog.js` module scope | first load only (null = failed fetch) |
 | `_bookCsvCache` (one‑entry) | `quran-data.js` module scope | `loadQuranBookCSV` |
 | `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache` | `quran-data.js` module scope | first load only |
+| `_indexPromise` | `library-search.js` module scope | first `loadSearchIndex()` call; cleared on failure so retries work |
+| `_dashFilter.libSearch` / `_libSearchTimer` | `catalog.js` | library-search mode toggle / debounced input |
 | `quranState` (exported) | `quran-data.js` | nav updates, scroll sync, ayah decoration |
 | `_modalLastFocused` | `common.js` module scope | `openModal` / `closeModal` (focus restore) |
 
@@ -830,3 +837,34 @@ The app has no test suite or build step — changes are verified by hand:
 - **Trilingual UI** — Dhivehi, English, Arabic
 - **Infinite scroll** — seamless reading, no page breaks
 - **All settings persisted** — theme, language, content width, font size, font family, hidden columns, tashkeel
+
+## Library search (cross-book)
+
+"Search in books" on the dashboard — search across every book at once via a machine‑generated word index, instead of downloading and scanning book files in the browser.
+
+### The index
+
+`data/04-rebuild-index.mjs` (Node — run `node data/04-rebuild-index.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/04-search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
+
+Current size: 62 books, 226k rows, ~485k unique words — 40MB raw, ~12.8MB gzipped (Pages compresses JSON automatically). Whole‑word matching only — substring, fuzzy, and regex stay in‑book (see "What's deliberately different" below).
+
+### The loader
+
+`js/library-search.js` — a pure module (no DOM). `loadSearchIndex()` fetches the index with a conditional request (`cache: "no-cache"` → a cheap 304 when unchanged), parses only the meta head to read the version (the full 40MB `JSON.parse` happens only on version change), and serves the parsed words from the on‑device IndexedDB copy (`hadithmvSearch` DB — deliberately separate from the book cache in csv.js so the two modules never contend on a version bump). Failed loads are retryable. `searchLibrary(index, query, scopeBookCodes)` normalises + tokenises the query (same `tokenizeText` as the build), looks up each word's postings, ANDs them at row level, intersects with the scope (book codes — the dashboard passes visible books ∩ tag chips), and returns per‑book `{bookCode, count, firstRow}` sorted by match count.
+
+### The UI
+
+Dashboard: a `🔎 Search in books` toggle next to the search bar switches the input from title‑filtering to library search (debounced 150ms). The existing tag chips scope the search (OR — a book is searched if it carries any selected tag); `-HDN` books are excluded from scopes; results group by book (tag badges, localized titles, match count), ranked by count, and deep‑link to `reader.html?book=X&row=N&q=TERM` (first match, term pre‑highlighted — the proven pins/history path plus the `?q=` param below). Each result has a ▾ **peek** (per‑book preview): it fetches that ONE book — through the IndexedDB book cache, instant once opened before — runs the same compiled-query scan, and shows the first 8 matching rows as highlighted snippets with a "Show next N" pager (the scan produces all matches up front, so paging is just slicing); every snippet deep‑links to its exact row. Peek results are cached per book+query so collapse/re‑open and re‑searching don't refetch. The index itself loads lazily on the first library search (with a "Searching…" state and a ⚠️ Error + ↺ Retry path); ✕ / Escape / ↺ Reset return to the grid view.
+
+### What's deliberately different from in-book search
+
+- **Whole-word only.** The index matches whole normalised words — `رحم` does NOT find الرحمن (in-book substring search does). No wildcards/fuzzy/regex/column scoping cross-book.
+- **AND across words.** A result row contains every query word (in-book queries are substring-based, which is a different match model).
+- **Book-level results; snippets on demand.** The index stores rows, not text — results show book summaries with counts, and the per-book peek (above) fetches the book on demand to show actual highlighted snippets, so content previews exist without making the search itself download anything. A click lands on the first matching row with the term pre-highlighted (the `?q=` param below) and the search dropdown listing every match; the reader's own search covers further in-book precision.
+- **Snapshot semantics.** The index is built from a point-in-time scan; the `meta.version` hash invalidates stale cached copies.
+
+### Planned (not yet built)
+
+These are agreed designs, written down so they survive. None of this exists in the code yet.
+
+- **Substring (n‑gram) index variant** — 3‑4 char chunks + stored words, 30‑80MB vs 10‑20MB word‑level — if whole‑word matching ever proves limiting.

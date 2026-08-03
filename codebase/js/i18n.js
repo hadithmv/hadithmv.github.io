@@ -287,6 +287,38 @@ const STRINGS = {
     en: "No books found",
     ar: "لا توجد كتب",
   },
+  libSearchBtn: {
+    dv: "🔎 ފޮތްތަކުގައި ހޯދާ",
+    en: "🔎 Search in books",
+    ar: "🔎 البحث في الكتب",
+  },
+  libSearchPlaceholder: {
+    dv: "ފޮތްތަކުގެ ތެރެއިން ހޯދާ…",
+    en: "Search inside books…",
+    ar: "ابحث داخل الكتب…",
+  },
+  libSearching: { dv: "ހޯދަމުން…", en: "Searching…", ar: "جارٍ البحث…" },
+  libSearchHint: {
+    dv: "ފޮތްތަކުގެ ތެރެއިން ހޯދުމަށް ލިޔޭ",
+    en: "Type to search inside all books",
+    ar: "اكتب للبحث داخل جميع الكتب",
+  },
+  libNoResults: {
+    dv: "އެއްވެސް ނަތީޖާއެއް ނެތް",
+    en: "No results",
+    ar: "لا توجد نتائج",
+  },
+  libBookMatches: { dv: "{n} ނަތީޖާ", en: "{n} matches", ar: "{n} نتيجة" },
+  libResultSummary: {
+    dv: "{a} ނަތީޖާ، {b} ފޮތެއްގައި",
+    en: "{a} matches in {b} books",
+    ar: "{a} نتيجة في {b} كتاب",
+  },
+  libShowNext: {
+    dv: "އިތުރު {n} ނަތީޖާ ދެއްކުން",
+    en: "Show next {n} matches",
+    ar: "عرض {n} نتيجة أخرى",
+  },
   dashboardHistoryLabel: { dv: "ހިސްޓަރީ:", en: "History:", ar: "السجل:" },
   dashboardClearAll: {
     dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕",

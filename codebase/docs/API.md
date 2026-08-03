@@ -33,6 +33,7 @@ Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `read
 | `parseCSV(text)` | Parses CSV text into a 2D array. Handles quoted fields, commas inside quotes, multiline values, and `\r\n` / `\r` / `\n` line endings. |
 | `unparseCSV(rows)` | Converts a 2D array back to CSV text. Quotes fields containing commas, double‑quotes, or newlines. |
 | `fetchCSV(path)` | Fetches a CSV file, parses it, and returns a 2D array with empty rows filtered out. Single pass — `parseCSV` already skips empty rows, so no intermediate row array is built, and the raw text is released as soon as parsing completes. |
+| `fetchBookCSVCached(bookCode, version, path)` | Fetches a book CSV through the on‑device IndexedDB cache (`hadithmv` DB, `books` store, keyed by `bookCode`). Cache hit + `version` match (registry content hash) → returns the stored rows with zero download/parse; mismatch or empty `version` → fetch + parse + refresh (write is fire‑and‑forget). Every failure degrades to a plain fetch. IndexedDB returns a structured clone per read, so callers may mutate the result safely. |
 | `parseCSVWithHeader(text)` | Parses CSV text into an array of objects using the first row as keys. Trims both headers and values. |
 | `loadCSVData(path)` | Fetches a CSV file and parses it into objects via `parseCSVWithHeader`. Convenience wrapper for registry files. |
 
@@ -73,6 +74,10 @@ Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Require
 ### `getCsvPath(bookCode)`
 
 Returns the data CSV path: `"../data/" + bookCode + ".csv"`.
+
+### `getBookVersionSync(bookCode)`
+
+Synchronous version lookup — returns the registry's `version` hash for a book ("" when the cache isn't populated or the book is missing). Used by the reader and Quran loader to validate the IndexedDB cache.
 
 ### `extractTags(bookCode, entry?)`
 
@@ -203,6 +208,24 @@ Finds matching cells in a row, then builds highlighted snippets (~300 chars arou
 | `MAX_HISTORY` | Max entries (20) |
 
 Saved to `localStorage` under `reader:searchHistory`.
+
+---
+
+## library-search.js
+
+Cross-book search: loads the machine-generated word index (`data/04-search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the dashboard (`catalog.js`) and by the index build script (`data/04-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
+
+### `loadSearchIndex()`
+
+Returns `Promise<{meta, words}>`. Fetches the index with a conditional request (`cache: "no-cache"` → a cheap 304 when the file is unchanged), parses only the meta head to read the version, and serves the parsed words from the on-device IndexedDB copy (`hadithmvSearch` DB) when the version matches; the full 40MB `JSON.parse` + store happen only on version change (or first load). Failed loads are retryable — the promise is cleared on failure so a later call tries again.
+
+### `searchLibrary(index, query, scopeBookCodes?)`
+
+Pure query against a parsed index. Normalises + tokenises the query (whole words only, AND across words at row level), intersects with `scopeBookCodes` (omit for every book in the index), and returns per-book results `Array<{bookCode, count, firstRow}>` sorted by match count descending — `[]` when the query has no searchable terms or nothing matched. `count` is the number of matching rows; `firstRow` is the first one, as a **1-based data position** (the reader's `?row=` contract — the index stores positions, not CSV `#` values, which are not always sequential) for deep links. Word lookup is exact — `رحم` does not find الرحمن (substring matching stays in-book).
+
+### `tokenizeText(normText)`
+
+Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (combining marks) stay part of the word; pure-number tokens are dropped. Shared with the index build script: the query side and the build side MUST agree on what a word is.
 
 ---
 

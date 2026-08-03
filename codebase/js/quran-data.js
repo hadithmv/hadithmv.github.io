@@ -6,8 +6,8 @@
  * Imported by quran-ui.js, reader.js, and epub.js.
  */
 
-import { fetchCSV } from "./csv.js";
-import { getBookTitleSync } from "./catalog.js";
+import { fetchCSV, fetchBookCSVCached } from "./csv.js";
+import { getBookTitleSync, getBookVersionSync } from "./catalog.js";
 import { currentLang } from "./i18n.js";
 import { normaliseForSearch } from "./search.js";
 
@@ -202,7 +202,7 @@ export function loadQuranBookCSV(bookCode) {
   if (_bookCsvCache && _bookCsvCache.bookCode === bookCode) {
     return Promise.resolve(_bookCsvCache);
   }
-  return fetchCSV("../data/" + bookCode + ".csv").then(function (rows) {
+  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/" + bookCode + ".csv").then(function (rows) {
     if (rows.length === 0) return { header: [], data: [] };
     var header = rows.shift();
     _bookCsvCache = { bookCode: bookCode, header: header, data: rows };

@@ -6,9 +6,11 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/
-  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags column)
+  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
   01-registry-bookTags.csv      ← Tag definitions (code, label, colors)
   03-update-bookRegistry.ps1← Auto-generate titleEN, sync new books
+  04-rebuild-index.mjs      ← Node script: builds 04-search-index.json (rerun after book changes)
+  04-search-index.json      ← Generated word-level search index (word → books → rows)
   *.csv                ← Per-book content files
 books/
   index.html           ← Dashboard — book list, search, tag filter, table/card view
@@ -28,6 +30,7 @@ js/
   quran-ui.js          ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
   csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
   search.js            ← Search engine: normalisation, compiled queries, norm cache, matching, history
+  library-search.js    ← Cross-book search: index loader (IndexedDB-cached) + query engine
   i18n.js              ← Translations (dv/en/ar)
   xlsx.js              ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
   epub.js              ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
@@ -140,7 +143,7 @@ All rows inside the collapsible panel use uniform 10px spacing via flex column g
 
 - Real-time "find and jump" — search highlights matches in a dropdown, clicking jumps to that row without filtering the dataset
 - Query syntax: wildcards (`*`, `?`), whole-word (`.word`), fuzzy (`~word~`), negation (`-word`), column-scoped (`col:N:word`), regex (`/pattern/`)
-- Tashkeel-insensitive: strips Arabic diacritics and Thaana fili (vowel marks) before matching, normalises Arabic letter variants (أ إ آ → ا, ى → ي) and Thaana thikijehi (Arabic‑derived letters → their base forms, e.g. ޘ → ސ)
+- Tashkeel-insensitive: strips Arabic diacritics before matching, normalises Arabic letter variants (أ إ آ → ا, ى → ي) and Thaana thikijehi (Arabic‑derived letters → their base forms, e.g. ޘ → ސ). **Thaana fili (vowel marks) are deliberately preserved** — they distinguish words (ކަތި ≠ ކުތި), unlike Arabic diacritics
 - Fast on big books: cells are normalised once at load (precomputed cache), queries are compiled once per keystroke, and the input is debounced (120 ms) — a full scan of a 50k-row book runs in a few milliseconds
 - Results dropdown with highlighted snippets (~300 chars of context), highlighting maps back to original text with tashkeel intact
 - Click or Enter to jump; ↑/↓ to navigate; Escape to close
@@ -175,6 +178,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 - **🕐 History** — button in sort row; opens a modal listing recently read books as a table (book, page, relative time like "3m ago", ✕ to remove, confirmed "Clear all"; max 10; one entry per book, latest position). Also accessible from the sidebar.
 - **Continue reading** — in the collapsible panel above the book list, the unfiltered view shows the most recent book from history (title, saved position, relative time); click it to resume exactly where you left off. Hidden while search/tag filters are active and in focus mode.
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
+- **🔎 Search in books** — toggle next to the search bar switches to cross-book search: the query runs against a machine-generated word index (whole-word, AND across words); the tag chips scope the search; results group by book with match counts and deep-link to the first matching row with the term pre-highlighted (`reader.html?book=X&row=N&q=TERM`); each result has a ▾ preview showing the first matching rows as highlighted snippets (paged with "Show next N"), every snippet linking to its exact row
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = OR — a book shows if it carries any selected tag), active chips show ✕ to remove, each chip shows book count. The URL updates with `?tags=A,B` so filtered views are shareable. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering. Tag badges in the book reader header link back to the dashboard pre‑filtered by that tag.
 - Sort dropdown — A→Z / Z←A (arrows follow reading direction). The whole sort row stays on one line — on narrow screens it scrolls horizontally via ◀▶ edge arrows or the mouse wheel (same as the reader toolbar)

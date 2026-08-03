@@ -134,7 +134,7 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
         $enTitle = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
         Write-Add "$code"
         Write-Info "titleEN → $enTitle"
-        $rows += "$code,,,$enTitle,"
+        $rows += "$code,,,$enTitle,,"
         $added++
     }
 }
@@ -165,6 +165,13 @@ $newRows = foreach ($row in $rows) {
     $titleDV = if ($cols.Count -gt 2) { $cols[2].Trim() } else { "" }
     $titleEN = if ($cols.Count -gt 3) { $cols[3].Trim() } else { "" }
     $tags = if ($cols.Count -gt 4) { (($cols[4..($cols.Count - 1)]) | ForEach-Object { $_.Trim() }) -join "," } else { "" }
+    # Version = content hash (first 12 hex chars) of the book CSV — the app
+    # validates its IndexedDB cache against this; empty = don't trust cache
+    $version = ""
+    $csvFile = Join-Path $dataDir "$code.csv"
+    if (Test-Path $csvFile) {
+        $version = (Get-FileHash $csvFile -Algorithm SHA256).Hash.Substring(0, 12)
+    }
 
     if (-not $titleEN) {
         $derived = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
@@ -175,7 +182,7 @@ $newRows = foreach ($row in $rows) {
         }
     }
 
-    "$code,$titleAR,$titleDV,$titleEN,$tags"
+    "$code,$titleAR,$titleDV,$titleEN,$tags,$version"
 }
 if ($updated -eq 0) { Write-Info "all titles already filled" }
 
