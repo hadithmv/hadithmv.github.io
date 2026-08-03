@@ -195,7 +195,10 @@ $tagLines = Get-Content $tagsPath
 $tagHeader = $tagLines[0]
 $tagRows = $tagLines[1..($tagLines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
 $tagSorted = $tagRows | Sort-Object { ($_ -split ",")[0].Trim() }
-@($tagHeader) + $tagSorted | Out-File $tagsPath -Encoding UTF8 -NoNewline
+# MUST join before Out-File -NoNewline: an array piped to Out-File with
+# -NoNewline is written as one concatenated line (no separators) — the
+# same pitfall the book registry avoids by joining first.
+(@($tagHeader) + $tagSorted) -join "`r`n" | Out-File $tagsPath -Encoding UTF8 -NoNewline
 Write-Info "$($tagSorted.Count) tags sorted"
 
 $total = $sorted.Count

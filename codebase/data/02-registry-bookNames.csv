@@ -1,53 +1,63 @@
 bookCode,titleAR,titleDV,titleEN,tags
-AQD-aqidatuNawawi-HDN,عقيدة النووي,ނަވަވީގެ އަގީދާ,Aqidatu Nawawi,DRFT
-AQD-aqidatuRaziyain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Aqidatu Raziyain,DRFT
-AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nawaqidul Islam,
-AQD-qawaidulArbau,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau,
-AQD-sharhuSunnahBarbahari-hmv,شرح السنة للبربهاري,ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Sharhu Sunnah Barbahari,DRFT
-AQD-usooluSiththa,الأصول الستة,ހަ އުސޫލު,Usoolu Siththa,DRFT
-AQD-usooluSunnahAhmed,أصول السنة لأحمد,އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Usoolu Sunnah Ahmed,DRFT
-AQD-usooluThalaatha,الأصول الثلاثة,ތިން އުސޫލު,Usoolu Thalaatha,
-DFK-akhbaruShuyukh,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Akhbaru Shuyukh,"ATHR,AKLQ"
-DFK-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Akhlaq Hamalathil Quran,"ATHR,QRUL,AKLQ"
-DFK-aqidatuSalafSoabuni,عقيدة السلف لأبي عثمان الصابوني,އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ,Aqidatu Salaf Soabuni,AQD
-DFK-intisarLiAshabilHadith,الانتصار لأصحاب الحديث للسمعاني,ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,Intisar Li Ashabil Hadith,AQD
-DFK-kalimathulIkhlas,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Kalimathul Ikhlas,AQD
-DFK-kitabulEmanAbiUbaid,كتاب الإيمان لأبي عبيد,އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Kitabul Eman Abi Ubaid,AQD
-DFK-kitabulIlmAbiKhaithama,كتاب العلم لأبي خيثمة,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Kitabul Ilm Abi Khaithama,ATHR
-DFK-sharhuSunnahBarbahari,شرح السنة للبربهاري (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Sharhu Sunnah Barbahari (DFK),AQD
-DFK-talkhisKitabiShariah,تلخيص العقيدة من كتاب الشريعة للآجري,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Talkhis Kitabi Shariah,AQD
-HDT-arbaoonAajurry,الأربعون للآجري,އާޖުއްރީގެ ސާޅީސް ޙަދީޘް,Arbaoon Aajurry,DRFT
-HDT-arbaoonNawawi,الأربعون النووية,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Arbaoon Nawawi,REV
-HDT-bulughulMaram,بلوغ المرام,ބުލޫޣުލް މަރާމް,Bulughul Maram,DRFT
-HDT-bulughulMaram-FULL-HDN,بلوغ المرام,ބުލޫޣުލް މަރާމް,Bulughul Maram Full,DRFT
+AQD-aqidatuNawawi-HDN,عقيدة النووي,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT
+AQD-aqidatuRaziyain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT
+AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,
+AQD-qawaidulArbau,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Four Principles,
+AQD-sharhuSunnahBarbahari-hmv,شرح السنة للبربهاري,ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah,DRFT
+AQD-usooluSiththa,الأصول الستة,ހަ އުސޫލު,Six Principles,DRFT
+AQD-usooluSunnahAhmed,أصول السنة لأحمد,އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah,DRFT
+AQD-usooluThalaatha,الأصول الثلاثة,ތިން އުސޫލު,Three Principles,
+DFK-akhbaruShuyukh,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Accounts and Character of the Scholars,"ATHR,AKLQ"
+DFK-akhlaqHamalathilQuran,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Character of the Bearers of the Quran,"ATHR,QRUL,AKLQ"
+DFK-aqidatuSalafSoabuni,عقيدة السلف لأبي عثمان الصابوني,އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ,Aqidah of the Salaf,AQD
+DFK-intisarLiAshabilHadith,الانتصار لأصحاب الحديث للسمعاني,ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,In Defense of the People of Hadith,AQD
+DFK-kalimathulIkhlas,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Statement of Sincerity,AQD
+DFK-kitabulEmanAbiUbaid,كتاب الإيمان لأبي عبيد,އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Book of Faith,AQD
+DFK-kitabulIlmAbiKhaithama,كتاب العلم لأبي خيثمة,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge,ATHR
+DFK-sharhuSunnahBarbahari,شرح السنة للبربهاري (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (DFK),AQD
+DFK-talkhisKitabiShariah,تلخيص العقيدة من كتاب الشريعة للآجري,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Summary of Aqidah from Aajurry's Shari'ah,AQD
+HDT-arbaoonAajurry,الأربعون للآجري,އާޖުއްރީގެ ސާޅީސް ޙަދީޘް,Forty Hadith,DRFT
+HDT-arbaoonNawawi,الأربعون النووية,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Forty Hadith,REV
+HDT-bulughulMaram,بلوغ المرام,ބުލޫޣުލް މަރާމް,Attainment of the Objective,DRFT
+HDT-bulughulMaram-FULL-HDN,بلوغ المرام,ބުލޫޣުލް މަރާމް,Attainment of the Objective,DRFT
+HDT-HBK-adabulMufrad,الأدب المفرد,އަދަބުލް މުފްރަދު,Adabul Mufrad,DRFT
+HDT-HBK-jamiuTirmidhi,جامع الترمذي,ޖާމިޢުއް ތިރްމިޛީ,Jamiu Tirmidhi,DRFT
+HDT-HBK-musnadAhmed,مسند أحمد,މުސްނަދު އަޙްމަދު,Musnad Ahmed,DRFT
+HDT-HBK-sahihBukhari,صحيح البخاري,ޞަޙީޙު ބުޚާރީ,Sahih Bukhari,DRFT
+HDT-HBK-sahihMuslim,صحيح مسلم,ޞަޙީޙު މުސްލިމް,Sahih Muslim,DRFT
+HDT-HBK-sunanAbiDawud,سنن أبي داود,ސުނަން އަބީ ދާއޫދު,Sunan Abi Dawud,DRFT
+HDT-HBK-sunanIbnMajah,سنن ابن ماجه,ސުނަން އިބްނު މާޖަހް,Sunan Ibn Majah,DRFT
+HDT-HBK-sunanNasai,سنن النسائي,ސުނަން ނަސާއީ,Sunan Nasai,DRFT
+HDT-HMSC-all,الجامع في الأحاديث,އެއްކުރަމުންދާ ޙަދީޘްތައް,Collection of Hadith,DRFT
+HDT-HMSC-kutubAlbani,كتب الألباني,އަލްބާނީގެ ފޮތްތައް,Books of Albani,DRFT
 HDT-muwattaMalik,موطأ مالك,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT
 HDT-umdathulAhkam,عمدة الأحكام,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,
-IH-huquqDaathIlaihalFitra,حقوق دعت إليها الفطرة,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް,Huquq Daath Ilaihal Fitra,
-IH-islamDeenRusulullah,الإسلام دين رسل الله,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam Deen Rusulullah,
-IH-islamDeenulFitrah,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,Islam Deenul Fitrah,
-IH-manKhalaqaniWaLimaza,من خلقني؟ ولماذا؟,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟,Man Khalaqani Wa Limaza,
-IH-mukhtasarTauhidilAsmaWaSifat,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Mukhtasar Tauhidil Asma Wa Sifat,"DRFT,AQD"
-IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام...,...އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,Nubza Mujazah Anil Islam,
-IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,Rasoolul Islam Muhammad,
+IH-huquqDaathIlaihalFitra,حقوق دعت إليها الفطرة,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް,Rights Advocated by Human Nature,
+IH-islamDeenRusulullah,الإسلام دين رسل الله,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,
+IH-islamDeenulFitrah,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",
+IH-manKhalaqaniWaLimaza,من خلقني؟ ولماذا؟,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟,Who Created Me? And Why?,
+IH-mukhtasarTauhidilAsmaWaSifat,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"DRFT,AQD"
+IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام...,...އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam...,
+IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,
 KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,
-KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Kunnaasha Muhammed Maldheefi,
-QRN-bakurube,ترجمة باكرو بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Bakurube Translation,
-QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran with Imlai Script,
-QRN-DATA-baseFile-2-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran with Uthamni Script,
-QRN-hadithmv,ترجمة حديث إم في,ޙަދީޘްއެމްވީގެ ތަރުޖަމާ,Quran Hadithmv Translation,
-QRN-jaufarFaiz,تفسير القرآن لجعفر,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Quran Jaufar Faiz Tafsir,
-QRN-mukhtasarAR,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Quran Tafsir Mukhtasar (arabic only),
-QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Quran Tafsir Muyassar (arabic only),
-QRN-rasmee-alt,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Quran Official Translation (transliterated),
-QRN-rasmee-og,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Quran Official Translation (original),
-QRN-soabuniAshari-HDN,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Soabuni al-Ashari's Tafsir al-Waadih al-Muyassar,
-QRUL-ushrulAkhir-ahkamThahimmulMuslim,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,"Explanation of the Last Tenth of the Quran,with Important Matters for the Muslim",AQD
-RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Radheef Ahmad Fahmy Didi,
-RDF-all,الجامع في المعاجم,ހުރިހާ ރަދީފުތައް,Radheef All,
-RDF-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Asmaullahil Husna,AQD
-RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Radheef Eegaal,
+KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,
+QRN-bakurube,ترجمة باكرو بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Translation of Bakurube,
+QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,
+QRN-DATA-baseFile-2-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,
+QRN-hadithmv,ترجمة حديث إم في,ޙަދީޘްއެމްވީގެ ތަރުޖަމާ,Quran Translation of Hadithmv,DRFT
+QRN-jaufarFaiz,تفسير القرآن لجعفر,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,
+QRN-mukhtasarAR,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir,
+QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir,
+QRN-rasmee-alt,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),
+QRN-rasmee-og,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),
+QRN-soabuniAshari-HDN,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,
+QRUL-ushrulAkhir-ahkamThahimmulMuslim,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,"Explanation of the Last Tenth of the Quran,with Important Matters for the Muslim","AQD,REV"
+RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,
+RDF-all,الجامع في المعاجم,އެއްކުރަމުންދާ ރަދީފުތައް,Collection of Dictionaries,
+RDF-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,AQD
+RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Eegaal Dictionary,
 RDF-hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,
-RDF-nanfoiyComb,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Radheef Nanfoiy (Comb),
-RDF-rasmee,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Radheef Rasmee,
+RDF-nanfoiyComb,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,
+RDF-rasmee,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Official Dhivehi Dictionary,
 RDF-W2W-bakurube,معجم ألفاظ القران (مبني على ترجمة باكرو بي),ގުރްއާނުގެ ލަފްޒުތަކުގެ މާނަ (ބަކުރުބޭގެ ތަރުޖަމާގެ މައްޗަށް ބިނާކުރެވިފަ),Dictionary of Quranic Words (based on Bakurube's Translation),QRUL
-ZKR-hisnulMuslim,حصن المسلم,މުސްލިމުންގެ ކިއްލާ,Hisnul Muslim,DRFT
+ZKR-hisnulMuslim,حصن المسلم,މުސްލިމުންގެ ކިއްލާ,Fortress of the Muslim,DRFT

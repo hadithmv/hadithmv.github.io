@@ -1028,7 +1028,9 @@ ShareX
   - search: search box
   - widgets: off
 - ux
-  - file explorer settings; view file name extensions + hidden files
+  - file explorer
+    - view, show: file name extensions + hidden items
+    - ..., options, view, advanced file settings, nnavigation pane: expand to open folder: off
   - enable biometrics / pin
 
 ---

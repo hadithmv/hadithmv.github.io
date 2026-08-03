@@ -267,6 +267,7 @@ const STRINGS = {
   tagKNSH: { dv: "ކުންނާޝާ", en: "Kunnaasha", ar: "الكناشة " },
   tagREV: { dv: "މުރާޖާ", en: "Revision", ar: "مراجعة " },
   tagNEW: { dv: "އާ", en: "New", ar: "جديد " },
+  tagINC: { dv: "⚠️ ނުނިމޭ...", en: "Incomplete...", ar: "غير مكتمل... " },
 
   // ── Dashboard ──
   dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
