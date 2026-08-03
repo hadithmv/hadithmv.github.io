@@ -32,7 +32,8 @@ window.LS_KEYS = {
   readerPrefix: "reader:",
   readerSearchHistory: "reader:searchHistory",
   readerHideTashkeel: "reader:hideTashkeel",
-  readerHiddenColumns: "reader:hiddenColumns",
+  // NOTE: hidden columns are per-book (reader:hiddenColumns:{bookCode}),
+  // built dynamically in reader.js — no static constant
   readerQuranShowAyahNum: "reader:quranShowAyahNum",
   readerQuranShowBraces: "reader:quranShowBraces",
   readerQuranShowNumBrackets: "reader:quranShowNumBrackets",
