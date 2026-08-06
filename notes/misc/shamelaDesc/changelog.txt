@@ -1,0 +1,180 @@
+Here is the complete English translation of the release notes for **Al-Maktaba Al-Shamela** (Version 4 update log):
+
+---
+
+### **Rajab 1441**
+
+**[First Release of Al-Shamela v4]:**
+*   **Adding new books, revising, and reviewing books:** Done exclusively for this fourth version and no longer for the old Version 3.
+*   **Running the search engine:** Takes some time during the initial launch of Al-Shamela (first time only).
+*   **Clicking the main screen image:** Left-clicking opens the book selection screen; right-clicking opens the search screen.
+*   **Similar screens (Book Selection, Search, Live Update, etc.):** Because they share unified capabilities, you can select a book to browse it, add it to a search scope, or download it via Live Update—all by category, author, or title search. Hence, the screens look similar.
+*   **Live Update button (far left of top toolbar):** Pressing it opens the update window. If a number is displayed on the button, it indicates the count of available new books. Hovering over the icon displays a tooltip showing the first 10 books (chronologically). Clicking the button takes you to the Live Update screen.
+    *   A **green checkmark** means all books are downloaded and no new books are available on the website.
+    *   A **gray checkmark** icon was added later to indicate that all books are downloaded except those in the Ignore List.
+*   **PDF button (next to the update button):** Its appearance indicates scanned (PDF) books are available; click to download them. If hidden, all scanned books are already downloaded.
+*   **Downloading scanned books:** Performed from within the program (using the PDF button), and they are automatically linked to their corresponding text editions.
+
+---
+
+**[Control Panel]:**
+Enables you to:
+*   Completely delete specific books from the library, or delete only their scanned (PDF) versions.
+*   Manage Favorites: You can maintain multiple Favorites lists, each treated as a full library categorized into custom subfolders. Books can be assigned to multiple folders. During search, folders from Favorites can be included as search scopes.
+*   Full Control over Favorites: Create folders, add books, rename books within Favorites, and use drag-and-drop to reorder and nest folders.
+
+---
+
+**[Search]:**
+*   **General Search button:** Searches book texts only. Searching the Holy Quran is done from the Quran Display screen; searching book metadata and author info is done from the Book & Author Info screen; searching within the current open book is done from the right pane of the Book View screen.
+*   **Default number of search boxes:** Customizable in Options. Each box represents an exact contiguous phrase. You can add more search boxes by clicking the arrow beneath them.
+*   **Search is root/stem-based by default (ignores prefixes/suffixes):** To search with prefixes or suffixes, use an asterisk (`*`) before, after, or within a word. This applies to single words or words within phrases. Examples:
+    *   `[*رجل]` matches: رجل / الرجل / مرجل
+    *   `[رجل*]` matches: رجل / رجلان / رجلهم
+    *   `[*رجل*]` matches: رجل / الرجلان / الرجل / مرجل / رجلان / رجلهم
+*   **General Search defaults to all books:** (Except those added to the Ignore List). You do not need to select specific books or scopes unless you want to restrict the search.
+*   **Three Search Logic Tabs: (AND), (OR), (NOT):**
+    *   **(AND):** Requires all phrases in this tab to be present.
+    *   **(OR):** Requires at least one phrase in this tab to be present.
+    *   **(NOT):** Requires all phrases in this tab to be absent.
+    *   *Note:* Entering phrases across multiple tabs requires fulfilling all active tab conditions simultaneously. Tab titles highlight in red when active to remind you of active search criteria from previous queries.
+*   **Searching for separate words (not exact phrases):** Enter each word in a separate search box.
+
+---
+
+**[Descriptive Search Scope]:**
+*   **Selecting a category, author, or Favorites folder:** If you select a category/author and click *"Select all books of this category/author"*, individual books are not added to the scope; instead, their **description** is added. Any books added to the library in the future matching that description will automatically be included in your search scope.
+*   **Selecting multiple consecutive authors (chronologically):** The program treats this as a time period rather than individual authors, adding a descriptive scope for that specific era. Selecting non-consecutive authors adds only those specific authors.
+*   **Current Search Scope:** Appears on the left side of the search screen (whether composed of individual books, descriptive scopes, or both). You can remove individual items, clear the scope entirely, or search within the book titles of the current scope.
+*   **Scope Indicators:** Books included via a descriptive scope appear in **green text**. Books selected individually show a **checkmark** next to their name.
+*   **Saving Scopes:** You can save the current scope under a custom name, reorder saved scopes, rename, or delete them via a dedicated tab in the Search screen.
+*   **Saving Searches:** Because the library is constantly expanding, saving raw search results is impractical. Instead, saving from the Results screen saves the **search parameters** (phrases and scopes). Recalling a saved search in the future will automatically include newly added books that match the descriptive scope.
+*   **Saving Incomplete Searches:** You can save a search before it finishes running without losing unrendered results, as only the query parameters and scope are saved.
+*   **Post-Search Filtering:** Filtering options appear at the bottom of the results screen to narrow down results by specific categories or centuries.
+
+---
+
+### **Sha'ban 1441**
+
+*   **UI Fixes and Enhancements:** Improved usability, including a resizable divider above the search results table and distinct color highlighting for books included via descriptive scopes.
+*   **Copy with Citation:** Accessible via three methods: top toolbar button, right-click context menu, or shortcut `Ctrl + Shift + C`.
+*   **Tab Header Context Menu:** Right-click any tab to close other tabs, close all tabs, etc.
+*   **Restored Classic Keyboard Shortcuts:** Re-implemented shortcuts from Shamela 3 (e.g., Quran screen shortcut and all general navigation shortcuts).
+
+---
+
+### **Ramadan 1441**
+
+*   **Bug Fixes:** Resolved program crashes during book downloads and fixed issues causing download failures.
+
+---
+
+### **Dhu al-Qi'dah 1441**
+
+*   **Display Fix:** Resolved small icons and layout scaling issues on high-resolution (4K/HiDPI) displays.
+*   **Multiple Instances:** Ability to run multiple instances of the same Shamela executable simultaneously (only the primary instance will process downloads and updates).
+*   **Window State Persistence:** Automatically saves main window size and position upon exit to restore on the next launch.
+*   **Screen State Persistence:** Option in settings to save the state of Book Selection, Search, Control Panel, and Update screens upon closing.
+*   **Live Update Enhancements:** Faster download speeds for text and scanned books via multi-threaded downloads.
+*   **Resumable Downloads:** Interrupted downloads (text or PDF) automatically resume from where they stopped.
+*   **Update Visual Indicators:** Star icons and distinct colors differentiate brand-new books from updates to existing books, with single-click batch downloads for new/updated items.
+*   **PDF Pre-download Info:** Displays PDF file sizes before downloading and shows active download progress.
+*   **Publish Date:** Added book publication dates within Shamela on book cards.
+*   **Library Statistics:** View total counts of books and authors from the Book and Author Info screen.
+
+---
+
+### **Dhu al-Hijjah 1441**
+
+*   **Quran Font Updates:** Updated Uthmani script fonts to the latest releases (KFGQPC and Amiri).
+*   **Automatic Font Registration:** Shamela now registers its custom fonts in Windows automatically, enabling their use in external applications like Microsoft Word.
+*   **Exporting Books to Text:** Export volumes into HTML/webpage format, which can be opened and edited directly in MS Word.
+*   **Downloads History List:** Dedicated tab in the Book Selection and Search screens displaying recently downloaded or updated books.
+*   **Copy Full Page:** Copying text without selecting a specific snippet automatically copies the entire page text.
+*   **Repair Stuck Downloads Button:** A dedicated button (top-left of Update screen) clears the download cache to resolve stuck downloads.
+*   **Manual Update Re-check:** Click the green checkmark button at any time to manually check for new updates (automatic checks occur only once upon launching the application).
+*   **In-Book Search:** Searching within an open book now automatically jumps to the first match following the current page.
+*   **Quick Title Search Shortcut (Double-Shift):** Press `Shift` twice quickly from anywhere in the program to open the Book Title Search window with the cursor active in the input field.
+
+---
+
+### **Rabi' al-Thani 1442**
+
+*   **Tafsir Comparison Feature:** Added a side-by-side exegesis comparison tool within the Quran screen.
+*   **Batch Exporting:** Moved the "Export Book" button to the Control Panel, allowing multiple books to be exported simultaneously.
+*   **Numeral Formatting:** Option to match interface number formats to system regional settings (does not affect original printed book text numerals).
+*   **Improved Text Selection:** Dragging selects whole words by default. To select partial words, start selection from the end of the text segment and drag backward.
+*   **Paragraph Navigation Shortcuts:** `Ctrl` + `Up/Down Arrows` navigates between paragraphs; `Ctrl` + `Shift` + `Up/Down` selects entire paragraphs.
+*   **Non-contiguous Text Selection:** Hold `Ctrl` while selecting multiple separate text snippets to copy them together.
+*   **Text Zooming:** Adjust text size using `Ctrl` + `+`/`-` or `Ctrl` + `Mouse Scroll`.
+*   **Custom Verse Copying Options:** Configure verse copying settings (font size, matching document font styles to prevent formatting breakage). The settings button is located next to the Copy button in the Quran screen.
+
+---
+
+### **Jumada al-Ula 1442**
+
+*   **Bug Fixes:** Resolved user-reported issues involving text copying errors and screen scaling bugs on specific devices.
+*   **Persistent Text Zoom:** Text scaling (`Ctrl` + `Scroll` or `Ctrl` + `+/-`) is now preserved across windows (Book View, Search, etc.) until closed.
+*   **Reset Zoom Shortcut:** Press `Ctrl` + `0` to instantly reset text size to default (standard browser shortcut).
+*   **Current Book Title Bar:** Displays a persistent title bar showing the active book's name.
+*   **ContextMenu Addition:** Added "Search in Shamela" alongside "Search in Google" in the right-click menu when highlighting text.
+
+---
+
+### **Ramadan 1442**
+
+*   **RAM & Search Performance Optimization:** Faster search speeds and resolved 3 major issues:
+    1.  False asterisk (`*`) syntax error messages during searches.
+    2.  Errors obstructing Live Update book imports.
+    3.  Failure of the search engine to initialize.
+*   **Quran Quick Search:** Added a top search bar in the Quran screen for instant verse searching.
+*   **Quran View Settings:** Remembers last-used script type (Uthmani vs. Modern Orthography) and last-read verse position.
+*   **Verse Citation Formatting:** Option to set citation font size equal to verse text size.
+*   **Dynamic Number Formatting on Copy:** Copied text containing numbers dynamically adjusts to the target application's number layout.
+*   **Font Repair Tool:** Added a button in Font Options to re-register fonts in Windows and reset font options to default.
+*   **Custom Page Background Colors:** Automatically changes background color based on pagination type (print-matched vs. auto-numbered), with custom colors for each.
+*   **Resume Reading Option:** Option to open a book at its last read position from any screen (Favorites, Authors, Categories, etc.).
+*   **Downloads/Recent List Limit:** Option to customize maximum items displayed in Recent/Downloads lists (or set to 0 to clear).
+*   **Numbered Search Fields:** Option to display index numbers on search input boxes.
+*   **PDF Integrity Check:** Validates downloaded PDF files and automatically purges corrupted files.
+*   **Taskbar Pinning:** Shamela can now be safely pinned to and launched directly from the Windows Taskbar.
+*   **UI Adjustments:** Fixed element alignment issues when resizing search screens.
+*   **Resizable Splitters:** Added draggable splitters across various windows (e.g., Search screen left panel).
+
+---
+
+### **Dhu al-Qi'dah 1442**
+
+*   **Search Exclusion List:** Ignore specific books directly from the Search screen so they are excluded even when selecting full categories or author collections (moved from Control Panel for ease of access).
+*   **Download Exclusion List:**
+    *   Add specific books to an ignore list in Live Updates so they no longer appear in update prompts.
+    *   If all non-ignored books are downloaded, update icons display in gray.
+    *   Separate exclusion lists maintained for text books and PDF books.
+*   **PDF Download History:** Added a PDF download history list alongside the text download history.
+*   **Custom PDF Directory:** Set a custom storage directory for scanned PDF books (e.g., external hard drive).
+*   **Display Author Name Beside Title:** Option to display author names next to book titles across lists, allowing combined title/author searches in a single input field.
+*   **Text Copy Cleanup Options:** Toggle options to strip diacritics (Tashkeel), remove footnote numbers, and remove brackets around citation markers when copying.
+*   **Remember Info Card State:** Saves preference for showing/hiding the book information card across list views.
+*   **Line Spacing Control:** Added line spacing adjustments in Font Options for custom fonts requiring extra vertical space.
+*   **PDF Download Fix:** Resolved PDF download failures caused by regional blocks on international cloud storage hosts.
+*   **Export Fix:** Resolved errors preventing specific books from exporting to text files.
+*   **Selection Fix:** Prevents accidental selection of adjacent words when spaces are included in highlighting.
+*   **Amiri Font Render Fix:** Fixed text overlapping issues when displaying the Quran in Amiri font.
+
+---
+
+### **Muharram 1443**
+
+*   **Hadith Analysis Suite:** Added *Takhreej* (Hadith cross-referencing), narrator highlighting, narrator biographies, and *Isnad* (chain of narrators) tree diagrams (with options to copy full or partial trees).
+*   **Split-Screen View:** Option in Settings to display Hadith tools vertically or horizontally alongside text.
+*   **Ongoing Integration:** Books are being updated progressively to support these tools (e.g., *Sahih al-Bukhari - Al-Sultaniyya Edition*).
+
+---
+
+### **Jumada al-Ula 1443**
+
+*   **Screen Reader Compatibility:** Enhanced accessibility for visually impaired users (with further enhancements planned in subsequent releases).
+*   **Accelerated PDF Downloads:** Faster download speeds for multi-volume scanned books.
+*   **Unified List Search:** Added a button next to book list search boxes allowing concurrent searches across book titles, authors, and info cards.
+*   **Custom Punctuation Color:** Set dedicated colors for text punctuation marks (or match main text color to disable punctuation highlighting).
+*   **Default Subheadings in Search Results:** Option to automatically display book section/chapter subheadings in search results views.

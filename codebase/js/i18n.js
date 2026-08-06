@@ -165,6 +165,11 @@ const STRINGS = {
     en: "Book list",
     ar: "قائمة الكتب",
   },
+  navSearch: {
+    dv: "🔎 ފޮތްތަކުގައި ހޯދާ",
+    en: "🔎 Search in books",
+    ar: "🔎 البحث في الكتب",
+  },
   navScrollTop: {
     dv: "⬆ މައްޗަށް",
     en: "⬆ Scroll to top",

@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hadithmv</title>
+    <title>Search</title>
     <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/library-search.css" />
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (t && t !== "light")
+          document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
   </head>
 
   <body>
@@ -14,7 +21,6 @@
         id="backToDashboard"
         title="Back to book list (Ctrl+b)"
         onclick="window.location.href = 'index.html'"
-        style="display: none"
       >
         ↩
       </button>
@@ -247,137 +253,33 @@
       </div>
     </div>
 
-    <!-- Dashboard Container (shown when no book is selected) -->
-    <div id="dashboardWrapper" style="display: none">
-      <div id="dashboardPanel">
-        <div id="dashboardPanelSearch">
-          <button
-            id="dashboardSearchClear"
-            class="search-clear"
-            title="Clear search"
-            style="display: none"
-          >
-            ✕
-          </button>
-          <input
-            id="dashboardSearch"
-            type="search"
-            class="search-input"
-            data-i18n="dashboardSearchPlaceholder"
-            placeholder="Search books…"
-            dir="rtl"
-            title="Search books by title or code (/ or Ctrl+f)"
-          />
-          <a
-            id="dashboardLibSearch"
-            href="library-search.html"
-            class="toolbar-btn"
-            data-i18n="libSearchBtn"
-            title="Search inside all books (selected tag chips carry over)"
-          >
-            🔎 ފޮތްތަކުގައި ހޯދާ
-          </a>
-        </div>
-        <div id="collapsibleDashboardPanel">
-          <div id="dashboardContinue"></div>
-          <div id="dashboardPanelTags"></div>
-          <div id="dashboardPanelFunctions">
-            <button
-              class="scroll-arrow scroll-arrow-start hidden"
-              id="dashFuncScrollStart"
-              title="Scroll to start"
-            >
-              ▶
-            </button>
-            <div class="dash-functions-scroll">
-              <span id="dashboardResultCount" class="search-info"></span>
-              <div class="dash-functions-row">
-                <button
-                  id="dashboardReset"
-                  class="toolbar-btn"
-                  data-i18n="btnResetText"
-                  title="Reset all filters"
-                >
-                  ↺ ރީސެޓް
-                </button>
-                <button
-                  id="dashboardViewToggle"
-                  class="toolbar-btn"
-                  data-i18n="btnViewToggleText"
-                  title="Toggle card / table view"
-                >
-                  📖 ޓޭބަލް
-                </button>
-                <button
-                  id="btnPinsDropdown"
-                  class="toolbar-btn"
-                  title="Pinned books (Alt+P)"
-                  data-i18n="dashPinsBtn"
-                >
-                  📌 ޕިންތައް
-                </button>
-                <button
-                  id="btnHistoryDropdown"
-                  class="toolbar-btn"
-                  title="Reading history (Alt+H)"
-                  data-i18n="dashHistoryBtn"
-                >
-                  🕐 ހިސްޓަރީ
-                </button>
-                <select
-                  id="dashboardSort"
-                  class="toolbar-select"
-                  title="Sort books"
-                >
-                  <option value="az" data-i18n="dashboardSortAZ">A → Z</option>
-                  <option value="za" data-i18n="dashboardSortZA">Z ← A</option>
-                </select>
-              </div>
-            </div>
-            <button
-              class="scroll-arrow scroll-arrow-end hidden"
-              id="dashFuncScrollEnd"
-              title="Scroll to end"
-            >
-              ◀
-            </button>
-          </div>
-        </div>
-        <!-- /#collapsibleDashboardPanel -->
+    <!-- Library search (cross-book) -->
+    <div id="libWrapper">
+      <div id="libSearchPanel">
+        <button
+          id="libSearchClear"
+          class="search-clear"
+          title="Clear search"
+          style="display: none"
+        >
+          ✕
+        </button>
+        <input
+          id="libSearchInput"
+          type="search"
+          class="search-input"
+          data-i18n="libSearchPlaceholder"
+          placeholder="ފޮތްތަކުގެ ތެރެއިން ހޯދާ…"
+          dir="rtl"
+          title="Search inside all books (/ or Ctrl+f)"
+        />
       </div>
-      <div id="bookGrid" class="book-grid"></div>
+      <div id="libTagsRow"></div>
+      <div id="libCount" class="search-info"></div>
+      <div id="libResults"></div>
     </div>
-
-    <!-- Loading State -->
-    <div id="loadingMessage" class="skeleton" dir="rtl">
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>
-    </div>
-
-    <!-- Error State -->
-    <div id="errorMessage" class="error" style="display: none"></div>
-    <button id="retryRegistry" class="retry-btn" style="display: none">↺ Retry</button>
 
     <script type="module" src="../js/common.js"></script>
-    <script type="module">
-      import { initializePageWithMetadata } from "../js/catalog.js";
-      initializePageWithMetadata(function (metadata) {
-        // Dashboard got a ?book= link — redirect to the reader
-        window.location.replace("reader.html" + window.location.search);
-      });
-    </script>
+    <script type="module" src="../js/library-search-page.js"></script>
   </body>
 </html>

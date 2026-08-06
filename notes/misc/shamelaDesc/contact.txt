@@ -1,0 +1,30 @@
+This is an **"About" / Information pop-up window** from the popular Islamic digital library desktop application, **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+---
+
+### **Detailed Content Breakdown**
+
+1. **Title Bar:**
+   * **Top Left:** An envelope icon with text reading `"راسل المكتبة الشاملة"` (*Email / Contact Al-Maktaba Al-Shamela*).
+   * **Top Right:** A standard window close button (`X`).
+
+2. **Main Header & Logo:**
+   * **Title (Red text):** **المكتبة الشاملة** (*Al-Maktaba Al-Shamela* / *The Comprehensive Library*).
+   * **Graphic:** An icon of an open book being written in with a blue pen.
+
+3. **Description Paragraph:**
+   * **Arabic:** `"برنامج مجاني يهدف لجمع ما يحتاجه طالب العلم من كتب وبحوث في العلوم الشرعية وما يتعلق بها من علوم الآلة في صيغة نصية قابلة للبحث والنسخ"`
+   * **English Translation:** *"A free software aimed at gathering what a student of knowledge needs in terms of books and research in Islamic sciences and related instrumental sciences, in a searchable and copyable text format."*
+
+4. **Contact Box:**
+   * **Text:** `"للتواصل وإبداء الملاحظات أو إرسال الكتب"` (*For contacting, providing feedback, or sending books*)
+   * **Email:** `mail@shamela.ws`
+
+5. **Statistics Section (Blue Text):**
+   * **Right side:** `عدد الكتب: ٨٥٩٥` (*Number of Books: 8,595*)
+   * **Left side:** `عدد المؤلفين: ٣١٨٨` (*Number of Authors: 3,188*)
+
+6. **Footer Links & Release Info:**
+   * **Left:** Website URL: `https://shamela.ws`
+   * **Center:** `"جديد الإصدار"` (*Release Updates / What's New*)
+   * **Right:** `"محرم ١٤٤٨"` (*Release Date: Muharram 1448 AH*)

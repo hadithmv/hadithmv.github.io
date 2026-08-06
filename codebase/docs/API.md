@@ -6,6 +6,7 @@
 |---|---|---|
 | `books/index.html` | Inline module → `catalog.js` | `common.js` |
 | `books/reader.html` | `reader.js` | `common.js` |
+| `books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
 
 ## Modules
 
@@ -15,6 +16,7 @@
 | `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
+| `js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
 | `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
 | `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
@@ -58,6 +60,10 @@ initializePageWithMetadata(async function (metadata) {
   // metadata.csvPath    — "../data/content/AQD-qawaidulArbau.csv"
 });
 ```
+
+### `loadTagDefinitions()`
+
+Loads and caches `01-registry-bookTags.csv` → `Map<code, {label, palette}>` (palette is a golden‑ratio HSL slot index). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
 
 ### `loadBookNames()`
 
@@ -213,7 +219,7 @@ Saved to `localStorage` under `reader:searchHistory`.
 
 ## library-search.js
 
-Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the dashboard (`catalog.js`) and by the index build script (`data/06-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/06-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
 
 ### `loadSearchIndex()`
 
@@ -226,6 +232,18 @@ Pure query against a parsed index. Normalises + tokenises the query (whole words
 ### `tokenizeText(normText)`
 
 Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (combining marks) stay part of the word; pure-number tokens are dropped. Shared with the index build script: the query side and the build side MUST agree on what a word is.
+
+---
+
+## library-search-page.js
+
+The `books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
+
+- **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B` activates tag chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
+- **Flow** — reads params → awaits `loadTagDefinitions()` + `loadBookNames()` (catalog.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
+- **Empty-scope guard** — active tags matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
+- **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+b` back are handled by common.js.
+- **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old catalog.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
 
 ---
 

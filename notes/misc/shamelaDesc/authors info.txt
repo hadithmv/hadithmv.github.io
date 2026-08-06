@@ -1,0 +1,79 @@
+This is a screenshot of the popular Arabic Islamic digital library desktop software, **Al-Maktaba Al-Shamela (المكتبة الشاملة)**, displaying a biographical entry for the pre-Islamic Arabic poet **Amr ibn Qami'ah (عمرو بن قميئة)**.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. **Main Content Window (Center Left)**
+Displays the biography and historical details of **Amr ibn Qami'ah**:
+* **Name & Dates:** 
+  * `عمرو بن قميئة (540 م)`
+  * `عَمْرو بن قَمِيئَة (نحو 180 - 85 ق هـ = نحو 448 - 540 م)` (approx. 180–85 BH / 448–540 AD)
+* **Full Lineage:** 
+  * `عمرو بن قميئة بن ذريح بن سعد بن مالك الثعلبي البكري الوائلي النزاري`
+* **Biography Points:**
+  * **Prominent pre-Islamic poet:** (`شاعر جاهلي مقدم.`)
+  * **Life summary:** He grew up as an orphan, lived in Al-Hira for a time, accompanied Hujr (the father of the poet Imru' al-Qais), and later traveled with Imru' al-Qais on his journey to Caesar. He died along the way, earning him the nickname **"Al-Da'i'" (The Lost One)** (`فكان يقال له «الضائع»`).
+  * **Style:** Known for his broad imagination in poetry (`وكان واسع الخيال في شعره.`).
+  * **Literary Mention:** Imru' al-Qais famously lamented his death in verse (`وفيه يقول امرؤ القيس: «بكى صاحبي لما رأى الدر دونه...»`).
+  * **Works:** Possesses a published Diwan (poetry collection).
+* **Footnote / Citations (Bottom of text):** Lists classic reference works containing his biography, including *Kitab al-Aghani* (v. 16, p. 158), *Al-Amidi*, *Al-Shi'r wa al-Shu'ara*, *Al-Lubab*, and others.
+
+---
+
+#### 2. **Right Sidebar (Author List & Index)**
+* **Header:** Displays `بيانات المؤلفين والكتب` (Authors and Books Data) with a total of **3,188 authors** (`عدد المؤلفين: 3188`).
+* **Author Table:** Chronologically lists classic poets/authors by their death year:
+  1. **Amr ibn Qami'ah** (540 AD)
+  2. **Imru' al-Qais** (545 AD)
+  3. **Al-Afwah al-Awdi** (560 AD)
+  4. **Tarafa ibn al-Abd** (564 AD)
+  5. **Al-Harith ibn Hilliza** (~570 AD)
+  6. **Salama ibn Jandal** (~600 AD)
+  7. **Qays ibn al-Khatim** (~620 AD)
+  * ... followed by others such as Amir ibn al-Tufail, Labid ibn Rabi'ah, Mu'awiya I, etc.
+
+---
+
+#### 3. **Bottom Panel (Search Controls)**
+* Options for morphology search (`بحث صرْفي`), root matching, exact phrase matching, and filtering options for searching within specific categories or book collections.
+
+...
+
+This screenshot shows the **Book Information Card (بطاقة الكتاب)** in *Al-Maktaba Al-Shamela (المكتبة الشاملة)*, specifically for the book **"Diwan Amr ibn Qami'ah" (ديوان عمرو بن قميئة)**. 
+
+Compared to the previous screenshot (which showed the author's biography), this view displays the bibliographic metadata and catalog listing for this specific publication.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. **Main Book Card (Center Screen)**
+Displays publication and editing details for the digitized work:
+* **Book Title:** `ديوان عمرو بن قميئة` (Diwan of Amr ibn Qami'ah)
+* **Author:** `عمرو بن قميئة` (d. 540 AD)
+* **Category / Section:** `القسم: الشعر ودواوينه` (Poetry & Collections)
+* **Editor / Annotator:** `عني بتحقيقه وشرحه: د. خليل إبراهيم العطية [ت 1419 هـ]` (Edited and explained by Dr. Khalil Ibrahim Al-Attiyah, d. 1419 AH)
+* **Publisher:** `الناشر: دار صادر - بيروت، لبنان` (Dar Sader – Beirut, Lebanon)
+* **Edition:** `الطبعة: الثانية، 1994 م` (2nd Edition, 1994 AD)
+* **Page Count:** `عدد الصفحات: 82` (82 pages)
+* **Digitization Notes:** 
+  * Prepared by *Rabitah Al-Nussakh* / *Center of Scientific Elites*, sponsored by the *Sulaiman Al-Rajhi Charitable Foundation*.
+  * `[ترقيم الكتاب موافق للمطبوع]`: The digital page numbering matches the physical printed book edition.
+  * **Publish Date on Shamela:** `27 Rajab 1440 AH`
+
+---
+
+#### 2. **Right Sidebar (Books List)**
+* **Selected Tab:** **Books (`الكتب`)** tab (previously it was set to Authors).
+* **Total Books in Library:** `عدد الكتب: 8595` (8,595 books).
+* **Book Index List:** Shows a chronological index of books (primarily poetry collections and classical works), starting with:
+  1. `ديوان عمرو بن قميئة (ت 540 م)` *(Currently selected)*
+  2. `ديوان امرئ القيس` (Diwan of Imru' al-Qais, d. 545 AD)
+  3. `ديوان الأفوه الأودي` (Diwan of Al-Afwah al-Awdi, d. 560 AD)
+  4. `ديوان طرفة بن العبد` (Diwan of Tarafa ibn al-Abd, d. 564 AD)
+  5. `ديوان الحارث بن حلزة` (Diwan of Al-Harith ibn Hilliza, ~570 AD)
+  * ... continuing through major classical texts, Tafsir works (e.g., *Tafsir Mujahid*), and historical treatises.
+
+...
+

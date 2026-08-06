@@ -1,0 +1,210 @@
+This image shows a screenshot of the **Al-Maktaba Al-Shamela** (*المكتبة الشاملة*) software interface, a widely used digital library desktop application for Arabic and Islamic texts.
+
+Here is a breakdown of the key components visible in the screenshot:
+
+---
+
+### 1. **Header & Navigation Bar (Top)**
+* **Tabs:** Multiple search and book tabs are open at the top (e.g., `بحث: الكتب`, `بحث: الترغيب والترهيب`).
+* **Title Bar:** Displays the current active title: 
+  * **"مسائل نافع بن الأزرق = غريب القرآن في شعر العرب"** (*Masa’il Nafi’ ibn al-Azraq = Ghareeb al-Qur’an fi Shi’r al-’Arab*).
+* **Toolbar:** Controls for printing, searching, bookmarking, settings, and page layout on the top right.
+
+---
+
+### 2. **Main Reading Window (Upper Middle)**
+* **Content:** Displays page **20** (*المقدمة* / Introduction) of the selected book.
+* **Text Subject:** Discusses details of the original manuscript preserved in the Egyptian National Library (*دار الكتب المصرية*), describing its calligraphic style (Naskh), dimensions ($26 \times 15$ cm), 29 lines per page, and the methodology used for editing/publishing the text.
+* **Highlighted Term:** The word **"الكتب"** (Books) is highlighted in red because it is the current search query.
+* **Footnotes:** Citations at the bottom referencing Quranic verses (*Surah Al-Zukhruf: 3*, *Surah Ash-Shu'ara: 195*).
+* **Page Slider:** A toolbar below the text containing page navigation arrows, a slider bar, and a field indicating the page number (**الصفحة 20**).
+
+---
+
+### 3. **Sidebar / Table of Contents (Right Panel)**
+* A tree-structure index showing the outline of the book, for   * **العناوين** *(Headings / Titles)*
+  * Top entries: Dedication (*الإهداء*), Introduction (*المقدمة*).
+  * Numbered linguistic/Quranic vocabulary entries arranged by root words (e.g., `(1) ع ر و [عزين]`, `(2) و س ل [الوسيلة]`, `(3) ن هـ ج [منهاجا]`, etc.).
+
+---
+
+### 4. **Search Results Table (Bottom Panel)**
+* A grid displaying search hits across the library database for the query **"الكتب"**:
+  * **Columns (from right to left):**
+    1. **مسلسل** (Index / Row Number): 1 through 9 visible.
+    2. **الكتاب** (Book Title): Displays sources such as *Masa'il Nafi' ibn al-Azraq*, *Tafsir Mujahid*, and *Tafsir al-Ahlam*.
+    3. **النص** (Text Snippet): Highlights the context where the searched word appears.
+    4. **الباب** (Chapter/Section): Indicates chapters like *المقدمة*, *سورة المائدة*, *سورة الحج*, *سورة المؤمنون*, etc.
+    5. **الصفحة** (Page Number): Corresponding page numbers (20, 21, 48, 310, 483, etc.).
+* **Bottom Status Bar:** 
+  * Shows **النتائج: 201493** (Total Results: 201,493 hits).
+  * Filter options for sections (*جميع الأقسام*) and historical centuries (*جميع القرون*).
+
+...
+
+Here are the key differences between this new screenshot and the previous one:
+
+---
+
+### 1. **Right Sidebar: Table of Contents vs. Advanced Search Panel (Main Difference)**
+* **Previous Picture:** The right sidebar displayed the **Book's Table of Contents / Index Tree** (showing chapters like *الإهداء*, *المقدمة*, and numbered vocabulary roots like `(1) ع ر و [عزين]`).
+* **New Picture:** The right sidebar has been switched to the **Search Options / Advanced Search Panel** (*لوحة خيارات البحث*), which is actually about 'search within the book' which contains:
+  * **Search Scope Checkboxes:** *المتن* (Main text - checked), *الحواشي* (Footnotes - checked), *التعليقات* (Comments - checked), *العناوين* (Titles - unchecked).
+  * **Text Filtering Options:** Checkboxes for morphology (*بحث صرفي*), prefixes/suffixes (*بحث باللواصق*), hamza rules (*مراعاة الهمزات*), diacritics (*مراعاة التشكيل*), and numbers (*مراعاة الأرقام*).
+  * **Logical Operators & Input Fields:** Radio buttons for `و` (AND), `أو` (OR), `ليس` (NOT), phrase ordering options (*مرتبة*, *متقاربة*), and 5 stacked text input boxes for multi-term searches.
+
+---
+
+### 2. **Text Scroll Position in Main Reading View**
+* In the central reading pane, the text has been **scrolled up slightly**, revealing one additional sentence at the very top that wasn't visible before:
+  > *"اعتمد الأستاذ الفاضل محمد عبد الباقي الترتيب الألفبائي في ترتيب المسائل."*
+
+---
+
+### **What remains unchanged:**
+* **Book & Page:** Still on page 20 of *مسائل نافع بن الأزرق = غريب القرآن في شعر العرب*.
+* **Highlighted Word:** The term **"الكتب"** is still highlighted in red.
+* **Bottom Panel:** The bottom search result table and result count (201,493 results) are identical.
+
+...
+
+Here are the main differences in this new screenshot compared to the previous one:
+
+---
+
+### 1. **Right Sidebar: Category Books List ("كتب من نفس القسم")**
+* **Previous Picture:** The right sidebar contained the **Advanced Search Options** panel (search options like checkboxes, logical operators, and text input boxes).
+* **New Picture:** The right sidebar has changed to show the **"Books from the Same Category"** (*كتب من نفس القسم*) list panel. 
+  * **Selected Category:** **علوم القرآن وأصول التفسير** (*Quranic Sciences & Principles of Exegesis*).
+  * **Quick Filter Bar:** Includes a search input box (*أدخل ثلاثة أحرف على الأقل للبحث* - "Enter at least 3 letters to search").
+  * **Book List:** Displays books belonging to this category, arranged with death dates of authors (*توفى*), including:
+    * *مسائل نافع بن الأزرق = غريب القرآن في شعر العرب (ت 68)* (Currently opened/selected)
+    * *الناسخ والمنسوخ - قتادة (ت 117)*
+    * *الناسخ والمنسوخ وتنزيل القرآن - المنسوب للزهري (ت 124)*
+    * *معاني القرآن للفراء (ت 207)*
+    * *مجاز القرآن (ت 209)*
+    * *غريب القرآن لابن قتيبة* and others.
+
+---
+
+### **What remains unchanged:**
+* **Central Reading View:** Still showing page **20** with the highlighted term **"الكتب"**.
+* **Bottom Panel:** Search results grid and status bar remain identical (**201,493 results**).
+* **Top Navigation:** Identical tabs and main toolbar.
+
+...
+
+Here are the main differences in this new screenshot compared to the previous ones:
+
+---
+
+### 1. **Right Sidebar: Author Info & Author's Books Panel ("كتب المؤلف")**
+* **Previous Picture:** The right sidebar showed a list of books within the same category (*علوم القرآن وأصول التفسير*).
+* **New Picture:** The right sidebar has been switched to the **Author's Profile & Books Panel** (*كتب المؤلف*), activated by the author/person icon at the top right:
+  * **Author Biography (Top Half):** Displays biographical information about the author, **Abdullah ibn Abbas** (*عبد الله بن عباس - 68 هـ*):
+    * Lifespan: $3 \text{ B.H.} - 68 \text{ A.H.} \ (619 - 687 \text{ CE})$.
+    * Bio snippet: Describes him as the great companion (*حبر الأمة، الصحابي الجليل*), born in Mecca, companion of the Prophet Muhammad, and narrator of authentic Hadiths.
+  * **Author's Bibliography (Bottom Half):** Lists the books authored by him available in the library database (currently showing *مسائل نافع بن الأزرق = غريب القرآن في شعر العرب*).
+
+---
+
+### **What remains unchanged:**
+* **Central Reading View:** Displays page **20** of *مسائل نافع بن الأزرق* with the word **"الكتب"** highlighted in red.
+* **Bottom Panel:** The search results grid and result count (**201,493 results**) remain identical.
+* **Top Bar:** All open search tabs and main application icons remain unchanged.
+
+...
+
+This cropped image shows a small UI popup menu from **Al-Maktaba Al-Shamela** (*المكتبة الشاملة*):
+
+### **Text Content:**
+* **`الجزء/ الصفحة`** (*Volume / Page*): A field label indicating part/page reference navigation or settings.
+* **Dropdown Menu Options:**
+  1. **`المقدمة`** (*The Introduction*): Currently selected/highlighted in blue.
+  2. **`الكتاب`** (*The Book / Main Body*): The second option in the list.
+
+### **Function in the App:**
+This dropdown lets the user choose the section scope—switching between the **Introduction** (*المقدمة*) and the main body of **The Book** (*الكتاب*) when jumping to, copying, or configuring page and volume citations (*الجزء/الصفحة*).
+
+...
+
+This image shows the **Personal Comment / Annotation Panel** (*نافذة التعليقات الشخصية*) in **Al-Maktaba Al-Shamela**:
+
+---
+
+### **Key UI Elements:**
+
+1. **Comment Text Box (Top beige box with blue border):**
+   * A dedicated text area where users can type custom notes or commentary for the open page (currently contains a single letter `"a"`).
+   * **Side Controls (on the left edge):**
+     * **Pushpin Icon:** Pins the comment box open while reading.
+     * **Undo/Redo Arrows:** Reverts or restores text edits.
+     * **Floppy Disk Icon:** Saves the written comment (*حفظ التعليق*).
+
+2. **Bottom Toolbar & Navigation:**
+   * **`التعليق` Tooltip (Bottom Left):** Points to the speech bubble button, which toggles this comment box open or closed.
+   * **Page Location:** Displays that the comment is attached to page **`13`** (`۱۳`) of **`المقدمة`** (*The Introduction*), labeled **`الجزء/ الصفحة`** (*Volume / Page*).
+   * **Navigation Slider:** A blue slider and arrows to switch between pages.
+
+3. **Bottom Table Header:**
+   * Shows column headers **`الباب`** (*Section*) and **`النص`** (*Text*) for the search results panel below.
+
+---
+
+### **Purpose:**
+This tool allows researchers to attach personal study notes, thoughts, or references directly to specific pages of books in the digital library for future reference.
+
+...
+
+This cropped image shows a tooltip / popup menu in **Al-Maktaba Al-Shamela**:
+
+---
+
+### **Text & UI Elements:**
+* **Arabic Text:** **`عرض الكتاب في تبويب جديد`** (*Open/Display book in a new tab*)
+* **Keyboard Shortcut:** **`Ctrl+D`**
+* **Icon:** The button highlighted in light blue at the top left shows two overlapping document pages (the duplicate tab icon).
+
+---
+
+### **Functionality:**
+Clicking this icon (or pressing **`Ctrl+D`**) duplicates the currently opened book into a new tab within the program. This allows researchers to view two different pages or sections of the same book at the same time side-by-side in separate tabs.
+
+...
+
+This cropped image shows a tooltip / popup menu in **Al-Maktaba Al-Shamela**:
+
+---
+
+### **Text & UI Elements:**
+* **Arabic Text:** **`عرض الكتاب في تبويب جديد`** (*Open/Display book in a new tab*)
+* **Keyboard Shortcut:** **`Ctrl+D`**
+* **Icon:** The button highlighted in light blue at the top left shows two overlapping document pages (the duplicate tab icon).
+
+---
+
+### **Functionality:**
+Clicking this icon (or pressing **`Ctrl+D`**) duplicates the currently opened book into a new tab within the program. This allows researchers to view two different pages or sections of the same book at the same time side-by-side in separate tabs.
+
+...
+
+This cropped image shows the **Copy with Citation** feature in **Al-Maktaba Al-Shamela**:
+
+---
+
+### **Text & UI Elements:**
+* **Tooltip Text:** **`نسخ مع العزو`** (*Copy with Citation / Copy with Attribution*)
+* **Keyboard Shortcut:** **`Ctrl+Shift+C`**
+* **Highlighted Icon:** The middle icon featuring the stylized Arabic letter **`ش`** highlighted in blue.
+* **Top Toolbar Controls:**
+  * **`بحث في الصفحة`** (*Search within the current page*) text field.
+  * Document and copy action buttons next to it.
+* **Background Reading Text:** Shows text from the current page (*... الترغيب والتر... عسقلاني. وعلى مصنف عبد*).
+
+---
+
+### **Functionality:**
+Clicking this icon (or pressing **`Ctrl+Shift+C`**) copies the selected text to your clipboard along with its full bibliographic reference automatically formatted at the end—including the **Book Title, Author, Volume, and Page Number**—making it quick and easy to cite sources in academic writing.
+
+...
+

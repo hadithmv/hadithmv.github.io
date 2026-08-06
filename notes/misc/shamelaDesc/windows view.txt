@@ -1,0 +1,23 @@
+This is a screenshot of the **Tab and Window View Options** dropdown menu in **Al-Maktaba Al-Shamela** (المكتبة الشاملة). It opens when clicking the tab management icon (stacked rectangles) on the top right toolbar.
+
+---
+
+### **Menu Breakdown & Options:**
+
+#### **1. Window Layout (Dividing Viewports):**
+* **مساحتان رأسيا** *(Two vertical spaces)* — Splits the screen vertically to view two tabs side-by-side.
+* **مساحتان أفقيا** *(Two horizontal spaces)* — Splits the screen horizontally to view two tabs top-and-bottom.
+* **مساحة واحدة** *(Single space)* — Returns to a single full window view *(currently greyed out/disabled)*.
+
+---
+
+#### **2. Tab Window Management:**
+* **فصل التبويب مستقلا** *(Detach tab independently)* — Undocks the current tab into its own standalone window.
+* **إرجاع التبويبات المنفصلة** *(Reattach detached tabs)* — Brings back detached windows into the main program tab bar *(currently greyed out/disabled)*.
+
+---
+
+#### **3. Closing Tabs & Keyboard Shortcuts:**
+* **إغلاق التبويب الحالي** (`Esc`) — Closes the active tab.
+* **إغلاق جميع التبويبات** (`Shift` + `Esc`) — Closes all open tabs at once.
+* **إغلاق التبويبات الأخرى** — Closes all tabs except the currently active one.

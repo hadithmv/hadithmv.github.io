@@ -1,0 +1,224 @@
+/* ---- Library search page (books/library-search.html) ---- */
+#topBar { max-width: var(--content-width, 800px); }
+
+#libWrapper {
+  max-width: var(--content-width, 800px);
+  margin: 72px auto 40px;
+  padding: 0 20px;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+/* ---- Focus mode: collapse tags + count, keep search visible ---- */
+[data-focus] #libTagsRow,
+[data-focus] #libCount {
+  display: none;
+}
+
+/* ---- Search panel ---- */
+#libSearchPanel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  direction: rtl;
+}
+#libSearchPanel .search-input {
+  flex: 1;
+  font-size: var(--panel-font-size, 0.85rem);
+}
+
+/* ---- Tag chips row ---- */
+#libTagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  direction: rtl;
+  margin-top: 10px;
+}
+
+#libCount {
+  margin-top: 12px;
+}
+#libResults {
+  margin-top: 14px;
+}
+
+/* Retry button under the index-load error — lets the user re-attempt
+   without a full page refresh */
+.retry-btn {
+  display: block;
+  margin: 12px auto 0;
+  padding: 6px 18px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+.retry-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+
+/* Empty state — shown when no books match the current search/tag filters */
+.dash-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+
+/* ── Library results ── */
+.lib-results {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  direction: rtl;
+}
+.lib-result {
+  padding: 20px 24px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px var(--color-shadow-card);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+.lib-result:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 12px -3px var(--color-shadow-card-hover),
+    0 4px 6px -2px var(--color-shadow-card);
+  border-color: var(--color-card-hover-border);
+}
+.lib-result-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.lib-result-link {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: inherit;
+}
+/* Same per-language font stacks + panel-font-size scaling as the book cards */
+.lib-result .lib-title-ar {
+  font-size: calc(var(--panel-font-size, 0.85rem) * 1.4);
+  color: var(--color-text);
+  direction: rtl;
+  text-align: right;
+  font-weight: 700;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
+}
+.lib-result .lib-title-dv {
+  font-size: calc(var(--panel-font-size, 0.85rem) * 1.15);
+  color: var(--color-text-muted);
+  direction: rtl;
+  text-align: right;
+  font-family: "Hadithmv", "Faruma", "MV Boli", sans-serif;
+}
+.lib-result .lib-title-en {
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: "Hadithmv", system-ui, -apple-system, sans-serif;
+}
+.lib-result-meta {
+  color: var(--color-text-muted);
+  font-size: calc(var(--panel-font-size, 0.85rem) * 0.95);
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+}
+.lib-peek-toggle {
+  flex-shrink: 0;
+  padding: 2px 10px;
+}
+.lib-peek {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  border-top: 1px dashed var(--color-border);
+  padding-top: 10px;
+}
+.lib-peek-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.lib-peek-loading {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 6px;
+}
+.lib-peek-item {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--color-nav-btn-bg);
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  font-family: "Hadithmv", "Faruma", "MV Boli", sans-serif;
+}
+.lib-peek-item:hover {
+  border-color: var(--color-card-hover-border);
+}
+.lib-peek-num {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  font-size: 0.8em;
+}
+.lib-peek-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+.lib-peek-more {
+  align-self: center;
+  margin-top: 10px;
+}
+
+@media (max-width: 600px) {
+  #libWrapper {
+    margin: 60px auto 12px;
+    padding: 0 12px;
+  }
+  .lib-result {
+    padding: 14px 16px;
+  }
+  .lib-result .lib-title-ar {
+    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * 1.4);
+  }
+  .lib-result .lib-title-dv {
+    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * 1.1);
+  }
+  .lib-result .lib-title-en,
+  .lib-result-meta {
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+  }
+  .lib-peek-item {
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+}

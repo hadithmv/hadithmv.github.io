@@ -1,0 +1,247 @@
+This is a screenshot of the popular desktop software **Al-Maktaba Al-Shamela** (المكتبة الشاملة - *The Comprehensive Library*), widely used for searching and browsing digital Arabic and Islamic texts.
+
+### Key Elements in the Screenshot:
+
+1. **Window Title & Function:**
+   * **Title:** *اختيار كتاب - المكتبة الشاملة* ("Select a Book - The Comprehensive Library").
+
+2. **Top Search Bar:**
+   * Contains the placeholder text: *يمكن البحث بزء من اسم الكتاب أو المؤلف أو كليهما* ("Search can be done using a part of the book title, author name, or both").
+
+3. **Right Navigation Panel:**
+   * **الكتب (Books):** Currently selected tab (highlighted in blue).
+   * **التصنيف (Categories/Classifications)**
+   * **المؤلفون (Authors)**
+   * **المفضلة (Favorites)**
+   * **مؤخرا (Recent)**
+   * **التنزيلات (Downloads)**
+
+4. **Main Content Area (Table):**
+   * **Table Columns:**
+     * **الكتاب (Book Title):** Lists classical Arabic texts, predominantly pre-Islamic (*Jahiliyyah*) and early Islamic poetry collections (*Diwans*), as well as early *Tafsir* (Quranic exegesis) books.
+     * **المؤلف (Author):** Lists the author's name along with their year of death (indicated by **ت** for *توفي* / died, with **م** for CE or Hijri years).
+
+5. **Selected Item:**
+   * **Highlighted row:** **ديوان سلامة بن جندل** (*Diwan of Salama ibn Jandal*), written by **سلامة بن جندل (ت نحو 600 م)** (*Salama ibn Jandal, d. ~600 CE*).
+
+6. **List Highlights (arranged roughly chronologically by author's death date):**
+   * *Diwan Imru' al-Qais* (d. 545 CE)
+   * *Diwan Tarafa ibn al-Abd* (d. 564 CE)
+   * *Diwan al-Harith ibn Hilliza* (d. ~570 CE)
+   * *Diwan Labid ibn Rabi'a* (d. 41 AH)
+   * *Tafsir Mujahid* (d. 104 AH)
+   * *Tafsir al-Ahlam* by Ibn Sirin (d. 110 AH)
+   * *Diwan Jarir* (d. 110 AH)
+
+...
+
+This screenshot shows the **Categories view (التصنيف)** inside the **Al-Maktaba Al-Shamela** software interface, where books are organized by Islamic academic field and subject matter.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. Filter Toolbar (Top)
+Allows users to refine search and display criteria:
+* **المطبوعات (Printed Publications):** Filter by printed books (**كتب**) or journals (**مجلات**), with options to filter by whether text matches the physical print layout (*يوافق المطبوع / لا يوافق المطبوع*).
+* **غير المطبوعات (Non-Printed Materials):** Filter by manuscripts (**مخطوطات**), academic theses (**رسائل جامعية**), digital e-books (**إلكترونية**), or audio transcriptions (**تفريغات**).
+
+---
+
+#### 2. Categories List (Middle Right Panel)
+Displays broad Islamic disciplines along with the total count of books (**العدد**) available in each:
+* **Highlighted Category:** **العقيدة** (*Aqeedah* / Creed) containing **808 books**.
+* **Other Visible Categories:**
+  * **الفرق والردود** (Sects & Refutations) – 151
+  * **التفسير** (Quranic Exegesis) – 274
+  * **علوم القرآن وأصول التفسير** (Quranic Sciences & Exegesis Principles) – 312
+  * **التجويد والقراءات** (Tajweed & Recitations) – 152
+  * **كتب السنة** (Hadith Collections) – 1,243
+  * **شروح الحديث** (Hadith Commentaries) – 265
+  * **علوم الحديث** / **أصول الفقه** / **الفقه الحنفي/المالكي/الشافعي** (Hadith Sciences, Principles of Fiqh, and School-specific Jurisprudence).
+
+---
+
+#### 3. Books List (Middle Left Panel)
+Displays the books contained within the currently selected category (**العقيدة** / Creed), sorted chronologically by the author's year of death (*ت = توفي*):
+
+* **Currently Selected Book:** 
+  * **الفقه الأبسط** (*Al-Fiqh al-Absat*) by **أبو حنيفة** (*Abu Hanifa*, d. 150 AH).
+
+* **Other Early Aqeedah Texts Listed:**
+  * **الفقه الأكبر** (*Al-Fiqh al-Akbar*) by Abu Hanifa (d. 150 AH)
+  * **كتاب الأصنام** (*Kitab al-Asnam* / Book of Idols) by Ibn al-Kalbi (d. 204 AH)
+  * **الإيمان** (*Kitab al-Eman*) by Abu Ubayd al-Qasim ibn Sallam (d. 224 AH - multiple editions listed)
+  * **الإيمان** by Abu Bakr ibn Abi Shaybah (d. 235 AH)
+  * **الحيدة والاعتذار** by Abd al-Aziz al-Kinani (d. 240 AH)
+  * **أصول السنة** (*Usul al-Sunnah*) and refutations of Jahmiyyah by Ahmad ibn Hanbal (d. 241 AH)
+  * **ماهية العقل** by Al-Harith al-Muhasibi (d. 243 AH)
+  * **شرح السنة** by Al-Muzani (d. 264 AH)
+  * Works by Harb al-Kirmani (d. 280 AH) and Uthman ibn Sa'id al-Darimi (d. 280 AH).
+
+...
+
+This screenshot shows the **Authors view (المؤلفون)** inside **Al-Maktaba Al-Shamela**. In this mode, the interface displays a master directory of authors on the right, and selecting an author populates their specific books on the left.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. Right Navigation Panel
+* **المؤلفون (Authors):** Currently active tab (highlighted in gray with the icon showing two people).
+
+---
+
+#### 2. Authors Directory (Middle-Right Panel)
+Includes an author-specific search box at the top and a table structured into three columns:
+* **المؤلف (Author):** Author's name.
+* **الوفاة (Death Year):** Year of death (in CE (**م**) for pre-Islamic authors, or Hijri years for Islamic scholars).
+* **الكتب (Books Count):** Number of books available by that author in the library database (showing `1` for each author listed here).
+
+* **Currently Selected Author:** 
+  * **عمرو بن قميئة** (*Amr ibn Qami'ah*)
+  * **Death Year:** **540 م** (540 CE)
+  * **Books Available:** 1
+
+* **Other Authors Visible in Chronological Order:**
+  * **امرؤ القيس** (*Imru' al-Qais*, d. 545 CE)
+  * **طرفك بن العبد** (*Tarafa ibn al-Abd*, d. 564 CE)
+  * **عامر بن الطفيل** (*Amir ibn al-Tufayl*, d. 11 AH)
+  * **معاوية بن أبي سفيان** (*Mu'awiyah ibn Abi Sufyan*, d. 60 AH)
+  * **عبد الله بن عباس** (*Abdullah ibn Abbas*, d. 68 AH)
+  * **الحسن البصري** (*Al-Hasan al-Basri*, d. 110 AH)
+
+---
+
+#### 3. Author's Books Panel (Left Panel)
+Shows the available works belonging to the author currently selected on the right (**عمرو بن قميئة**):
+* **Single Book Listed:** **ديوان عمرو بن قميئة (ت 540 م)** (*Diwan of Amr ibn Qami'ah, d. 540 CE*).
+
+...
+
+This screenshot shows the **Favorites view (المفضلة)** inside **Al-Maktaba Al-Shamela**. This feature allows users to save and organize their custom lists of frequently used books into folders.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. Right Navigation Panel
+* **المفضلة (Favorites):** Currently active tab (highlighted in gray with the bookmark icon).
+
+---
+
+#### 2. Favorites Folder Tree (Middle-Right Panel)
+* **Header / Dropdown:** Displays **مفضلة** (*Favorites*).
+* **Folders:** Displays a root directory folder labeled **مجلد** (*Folder*). 
+* Currently, no sub-folders or custom categories have been created.
+
+---
+
+#### 3. Favorites Book List (Left Panel)
+* **Search Bar:** Includes a search input at the top (*يمكن البحث بجزء من اسم الكتاب أو المؤلف أو كليهما* - "Search can be done using part of the book title, author name, or both").
+* **Table Headers:** **الكتاب** (*Book Title*) and **المؤلف** (*Author Name*).
+* **Empty State:** The table area is currently blank because no books have been saved to this favorites folder yet.
+
+...
+
+This screenshot shows the **Recently Opened view (مؤخرا)** inside **Al-Maktaba Al-Shamela**. This tab displays a history log of books that the user has recently accessed or opened.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. Right Navigation Panel
+* **مؤخرا (Recent / History):** Currently active tab (highlighted in gray with a clock icon).
+
+---
+
+#### 2. Top Search Bar
+* An active search box allowing the user to filter through their recently opened books (*يمكن البحث بجزء من اسم الكتاب أو المؤلف أو كليهما* - "Search can be done using part of the book title, author name, or both").
+
+---
+
+#### 3. Recent Books History List
+Displays the recently accessed book(s) under two columns: **الكتاب** (*Book Title*) and **المؤلف** (*Author Name*).
+
+* **Recently Opened Item:**
+  * **Book Title:** **المحمدون من الشعراء** (*Al-Muhammadun min al-Shu'ara'* – "Poets Named Muhammad")
+  * **Author:** **جمال الدين القفطي (ت 646)** (*Jamal al-Din al-Qifti, d. 646 AH*)
+
+...
+
+This screenshot shows a close-up of the **Search Scope Settings Menu** inside **Al-Maktaba Al-Shamela**. 
+
+This dropdown menu opens when clicking the gear icon (**⚙**) next to the search bar to customize which metadata fields the search query will scan.
+
+---
+
+### Menu Options Breakdown:
+
+* **Header:** **البحث في** (*Search In*)
+
+1. **اسم الكتاب** (*Book Title*)
+   * Limits the search strictly to matching book titles. *(Currently unchecked)*
+
+2. **اسم الكتاب واسم المؤلف** (*Book Title and Author Name*)
+   * Searches across both book titles and author names. *(Currently **selected / checked** ✔)*
+
+3. **اسم الكتاب واسم المؤلف والبطاقة** (*Book Title, Author Name, and Book Card/Metadata*)
+   * Expands the search to include book titles, author names, and the book's full bibliographic metadata/card (*بطاقة الكتاب*). *(Currently unchecked)*
+
+...
+
+This screenshot shows the **Book Information / Preview split view** inside **Al-Maktaba Al-Shamela** when a book's metadata card (**بطاقة الكتاب**) is toggled open.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. Top Pane (Book Selection List)
+* **Active Tab:** **الكتب** (*Books*), highlighted on the right navigation bar.
+* **Book Card Toggle:** On the top-left corner, the **بطاقة الكتاب** (*Book Card*) button is activated to display the lower preview pane.
+* **Selected Item:** **ديوان سلامة بن جندل** (*Diwan of Salama ibn Jandal*, d. ~600 CE).
+
+---
+
+#### 2. Bottom Pane (Bibliographic Metadata Card / بطاقة الكتاب)
+Displays full publication details and catalog info for the currently selected book. It features two toggle tabs at the top right: **الكتاب** (*Book*) and **المؤلف** (*Author*).
+
+* **Title Header:** **ديوان سلامة بن جندل (سلامة بن جندل)**
+* **القسم (Category):** **الشعر ودواوينه** (*Poetry & Poetry Collections*)
+* **الكتاب (Book Title):** **ديوان سلامة بن جندل**
+* **صنعه (Compiled/Arranged by):** **محمد بن الحسن الأحول** (*Muhammad ibn al-Hasan al-Ahwal*)
+* **قدم له ووضع هوامشه (Foreword & Annotations by):** **راجي الأسمر** (*Raji al-Asmar*)
+* **الناشر (Publisher):** **دار الكتاب العربي - بيروت** (*Dar al-Kitab al-Arabi – Beirut*)
+
+...
+
+This screenshot shows the **Author Biography / Preview view** within **Al-Maktaba Al-Shamela**, specifically when switching the lower metadata card to the **المؤلف (Author)** tab.
+
+---
+
+### Key Sections of the Interface:
+
+#### 1. Top Pane (Book Selection List)
+* **Active Tab:** **الكتب** (*Books*), selected on the right sidebar.
+* **Selected Book:** **ديوان سلامة بن جندل** (*Diwan of Salama ibn Jandal*, d. ~600 CE).
+
+---
+
+#### 2. Middle Pane (Author Card / بطاقة المؤلف)
+When switching from the **الكتاب** (*Book*) tab to the **المؤلف** (*Author*) tab (highlighted in gray):
+
+* **Author Title:** **سلامة بن جندل (نحو 600 م)** (*Salama ibn Jandal, d. ~600 CE*)
+* **Biographical / Date Information:** 
+  * **سَلَامَة بن جَنُدْل (... - نحو 23 ق هـ = ... - نحو 600 م)**
+  * Displays vocalized name spelling (*سَلَامَة بن جَنُدْل*) and biographical date conversion (**~23 BH** / Before Hijra = **~600 CE**).
+
+---
+
+#### 3. Bottom Pane (Selected Author's Works)
+* **Search Input:** Includes a filter input field with placeholder text (*أدخل ثلاثة أحرف على الأقل للبحث* – "Enter at least three characters to search").
+* **Author's Book List:** Displays all works in the library authored by this specific individual:
+  * **ديوان سلامة بن جندل** (*Diwan of Salama ibn Jandal*).
+
+...
+
+

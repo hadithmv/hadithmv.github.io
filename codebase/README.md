@@ -18,6 +18,7 @@ data/
 books/
   index.html           ← Dashboard — book list, search, tag filter, table/card view
   reader.html          ← Book viewer — loaded via ?book=CODE
+  library-search.html  ← Cross-book search page — shareable ?q=/?tags= URLs
 css/
   common.css           ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
   reader.css           ← Reader page: focus mode, toolbar, pagination, content, responsive
@@ -25,6 +26,7 @@ css/
   tableView.css        ← Reader: table view mode, top scrollbar, sentinels
   quran.css            ← Reader: Quran navigation row, dropdowns, surah overlay
   dashboard.css        ← Dashboard: grid, cards, controls, table view
+  library-search.css   ← Library search page: results, peek previews
 js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
   catalog.js          ← Metadata loader, tag extraction, dashboard rendering
@@ -34,6 +36,7 @@ js/
   csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
   search.js            ← Search engine: normalisation, compiled queries, norm cache, matching, history
   library-search.js    ← Cross-book search: index loader (IndexedDB-cached) + query engine
+  library-search-page.js ← Library search page UI: chips, results, peek previews
   i18n.js              ← Translations (dv/en/ar)
   xlsx.js              ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
   epub.js              ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
@@ -181,7 +184,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 - **🕐 History** — button in sort row; opens a modal listing recently read books as a table (book, page, relative time like "3m ago", ✕ to remove, confirmed "Clear all"; max 10; one entry per book, latest position). Also accessible from the sidebar.
 - **Continue reading** — in the collapsible panel above the book list, the unfiltered view shows the most recent book from history (title, saved position, relative time); click it to resume exactly where you left off. Hidden while search/tag filters are active and in focus mode.
 - Search bar — real-time filter across titleDV, titleAR, titleEN, and bookCode
-- **🔎 Search in books** — toggle next to the search bar switches to cross-book search: the query runs against a machine-generated word index (whole-word, AND across words); the tag chips scope the search; results group by book with match counts and deep-link to the first matching row with the term pre-highlighted (`reader.html?book=X&row=N&q=TERM`); each result has a ▾ preview showing the first matching rows as highlighted snippets (paged with "Show next N"), every snippet linking to its exact row
+- **🔎 Search in books** — button next to the search bar opens the library search page (`library-search.html`), carrying the current search text as `?q=` and any selected tag chips as `?tags=`; there the query runs against a machine-generated word index (whole-word, AND across words); the tag chips scope the search; results group by book with match counts and deep-link to the first matching row with the term pre-highlighted (`reader.html?book=X&row=N&q=TERM`); each result has a ▾ preview showing the first matching rows as highlighted snippets (paged with "Show next N"), every snippet linking to its exact row. Also reachable from the sidebar on every page; the URL stays shareable (`?q=…&tags=…`)
 - `Tags:` / `ޓެގުތައް:` label before tag chips, `Books:` / `ފޮތްތައް:` label before result count
 - Tag chips — click to filter by tag (multiple = OR — a book shows if it carries any selected tag), active chips show ✕ to remove, each chip shows book count. The URL updates with `?tags=A,B` so filtered views are shareable. A `📌 ޕިން` chip (red) precedes the category tags for pinned-books filtering. Tag badges in the book reader header link back to the dashboard pre‑filtered by that tag.
 - Sort dropdown — A→Z / Z←A (arrows follow reading direction). The whole sort row stays on one line — on narrow screens it scrolls horizontally via ◀▶ edge arrows or the mouse wheel (same as the reader toolbar)
@@ -193,7 +196,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 ### Sidebar (☰)
 
 - Blue ☰ hamburger button (always visible, opens right-side drawer)
-- Navigation: Book list, GitHub, FAQ, Help, Contact
+- Navigation: Book list, Search in books, Pins, History, GitHub, FAQ, Help, Contact
 - Settings modal: Theme (Light / Dark / Sepia), Widescreen, Font size ±, Font family dropdown, Language selector; ↺ Reset all settings is a confirmed factory reset — settings, pins, and history (the dashboard and reader resets are view-only and preserve pins/history)
 - Scroll to top
 - App version and creator credit

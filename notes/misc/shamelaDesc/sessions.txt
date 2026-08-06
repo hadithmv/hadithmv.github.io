@@ -1,0 +1,52 @@
+This is a screenshot of the **"المحفوظات" (Saved Items / History)** window from **Al-Maktaba Al-Shamela** (المكتبة الشاملة), a widely used Islamic electronic library software.
+
+---
+
+### **1. Navigation & Header Options**
+* **Window Title:** `المحفوظات - المكتبة الشاملة` *(Saved Items - Al-Maktaba Al-Shamela)*
+* **Top Tabs:**
+  1. **جلسات العمل السابقة** *(Previous Work Sessions)* — **Currently Selected**
+  2. **جلسات العمل المحفوظة** *(Saved Work Sessions)*
+  3. **نتائج البحث المحفوظة** *(Saved Search Results)*
+* **Action Buttons (top right toolbar):**
+  * **حذف جلسات العمل المحددة من القائمة** *(Delete selected work sessions from the list)*
+  * **تفريغ القائمة** *(Clear list)*
+
+---
+
+### **2. Main Content Area**
+The window displays a history log of previously opened search queries (`بحث:`) and books (`كتاب:`), grouped by session based on the number of open tabs.
+
+#### **Session 1: `[عدد التبويبات: ١٧]` (Number of Tabs: 17)**
+Contains the following search queries and items:
+1. **بحث:** `بينا أنا نائم أتاني رجلان فأخذ بضبعي فأتيا بي جبلا وعرا...` *(Hadith search)*
+2. **بحث:** `بينا أنا نائم أتاني رجلان فأخذ بضبعي...` *(Duplicate search)*
+3. **بحث:** `الترغيب والترهيب` *(Search for the book/topic "At-Targhib wa At-Tarhib")*
+4. **بحث:** `مَنْ بَاعَ جِلْدَ أُضْحِيَّتِهِ فَلَا أُضْحِيَّةَ لَهُ` *(Hadith about selling sacrifice skins)*
+5. **بحث:** `وإِنَّ اللهَ يُحاسِبُهم حِسابًا شدِيدًا ويعذِّبُهم عذابًا أَلِيمًا`
+6. **بحث:** `الغِنَى غِنَى القَلْبِ والفَقْرُ فَقْرُ القَلْب` *(Hadith: "True wealth is wealth of the heart")*
+7. **بحث:** `مَن قَرَأَ سُورَةَ الكَهْفِ يَوْمَ الجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ ما بَيْنَ الجُمُعَتَيْنِ` *(Hadith on reciting Surah Al-Kahf on Friday)*
+8. **بحث:** `حضره الموتُ دعا بثيابٍ جُدُدٍ فلبسها ثُمَّ قال`
+9. **بحث:** `استَحْيُوا من اللهِ حَقَّ الحياءِ...` *(Hadith on modesty before Allah)*
+10. **بحث:** `من لم يشكِرِ القليلَ لم يشكُرِ الكَثيرَ ومن لم يشكِرِ النَّاسَ` *(Hadith on gratitude)*
+11. **بحث:** `من قرأَ عشرَ آياتٍ في ليلةٍ لم يُكتَبْ من الغافلين` *(Hadith on reciting 10 verses)*
+12. **بحث:** `من حافظ على هؤلاء الصلوات المكتوبات لم يكتب`
+13. **بحث:** `لا يقوم لهما الدُّنيا فيقولان بمَ كُسينا هذا...`
+14. **بحث:** `المُمَّتَّبِعُ السُّنَّةَ كَالقَابِضِ عَلَى الجَمْرِ...` *(Hadith: "The follower of the Sunnah is like holding hot coals...")*
+15. **بحث:** `شَكَوْتُ إِلَى وَكِيعٍ سُوءَ حِفْظِي` *(Poetic verse by Imam Al-Shafi'i)*
+16. **كتاب:** `المحمدون من الشعراء` *(Book title search)*
+17. **بحث:** `الكتب` *(General search: Books)*
+
+#### **Session 2: `[عدد التبويبات: ١٦]` (Number of Tabs: 16)**
+Shows an earlier session starting with similar search queries repeated at the bottom of the scroll view.
+
+...
+
+### **Key Details:**
+* **Window Title:** `المحفوظات - المكتبة الشاملة` *(Saved Items - Al-Maktaba Al-Shamela)*
+* **Selected Tab:** **نتائج البحث المحفوظة** *(Saved Search Results)* — Highlighted on the left.
+* **Other Available Tabs:**
+  * **جلسات العمل المحفوظة** *(Saved Work Sessions)*
+  * **جلسات العمل السابقة** *(Previous Work Sessions)*
+* **Main Area Status:** **Empty / Blank** — Indicates that no search results have been manually saved or stored under this specific section yet.
+

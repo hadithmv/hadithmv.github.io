@@ -33,6 +33,8 @@ When you open the site, you see the **book list**. You can:
 
 - **Search** — type in the search bar at the top (auto‑focused on desktop). It searches across all languages (Dhivehi, Arabic, English) and book codes. It works with or without Arabic diacritics (tashkeel). If nothing matches your search or tag combination, a "no books found" message appears where the grid would be.
 
+- **Search in books** — the 🔎 button next to the search bar opens the library search page, carrying your search text along. There you search all books at once — whole words, all languages — with tag chips to scope the search and per‑book results that expand (▾) to preview the matching lines before you open them. Every result links into the book with the term pre‑highlighted, and the page URL stays shareable (`?q=…&tags=…`). Also reachable from the sidebar on every page.
+
 - **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — books matching ANY of the selected tags are shown (OR).
 
 - **Sort** — use the dropdown on the right to sort books A→Z or Z→A. The whole sort row stays on one line — scroll it sideways (◀▶ arrows or mouse wheel) if it's too wide for the screen.

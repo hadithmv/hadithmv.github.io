@@ -1,0 +1,267 @@
+This image shows the user interface of **Al-Maktaba Al-Shamela** (المكتبة الشاملة), a widely used Arabic digital library software designed for searching, reading, and researching classical Islamic texts, Arabic poetry, tafsir, hadith, and historical literature.
+
+Here is a detailed breakdown of the components in the screenshot:
+
+---
+
+### **1. Navigation Toolbar (Far Right)**
+A vertical menu bar with navigation tabs for filtering or browsing the library:
+* **الكتب** *(Books)* – *Currently active tab*
+* **التصنيف** *(Categories / Classifications)*
+* **المؤلفون** *(Authors)*
+* **فترة** *(Historical Periods)*
+* **المفضلة** *(Favorites)*
+* **مؤخرا** *(Recently opened)*
+* **تنزيلات** *(Downloads)*
+* **المجالات** *(Fields / Domains)*
+* **السجلات** *(Search / Reading Logs)*
+
+---
+
+### **2. Main Content Area: Book Selection List (Center/Right)**
+* **Filter Bar (Top):** Allows searching by typing a book title, author's name, or both (`يمكن البحث بجزء من اسم الكتاب أو المؤلف أو كليهما`).
+* **Table Columns:**
+  * **الكتاب** *(Book Title)*: Displays titles such as various *Diwans* (poetry collections of pre-Islamic and early Islamic poets like Amr ibn Qami'ah, Imru' al-Qais, Al-Afwah al-Awdi, Tarafa ibn al-Abd), as well as *Tafsir* (exegesis) works (e.g., Tafsir Mujahid, Tafsir Ibn Sirin).
+  * **المؤلف** *(Author)*: Displays author names alongside their year of death (e.g., `ت ٥٤٠ م` for death in 540 AD / CE).
+* **Selection Checkboxes:** Located to the right of each book entry to select specific titles for search.
+* **Bottom Bar:** Options to select all (`اختيار الكتب المحددة`), deselect all (`إلغاء الكتب المحددة`), or ignore filters (`تجاهل`).
+
+---
+
+### **3. Search Options & Query Panel (Left)**
+This pane configures detailed search parameters and query terms:
+
+* **Search Scope (`البحث في`):**
+  * **المتن** *(Main Text)* – *Checked*
+  * **الحواشي** *(Footnotes)* – *Checked*
+  * **التعليقات** *(Comments)*
+  * **العناوين** *(Headings / Titles)*
+
+* **Text Matching Options:**
+  * **بحث صرفي** *(Morphological / Root-based search)*
+  * **بحث باللواصق** *(Search with affixes)*
+  * **مراعاة الهمزات** *(Match Hamzas)*
+  * **مراعاة التشكيل** *(Match diacritics / vocalization)*
+  * **مراعاة الأرقام** *(Match numbers)*
+
+* **Logic Operators & Conditions:**
+  * Logical operations: **و** *(AND)*, **أو** *(OR)*, **ليس** *(NOT)*.
+  * Options for term conditions: **يلزم وجود كل العبارات** *(All terms required)*, **مرتبة** *(In order)*, **متقاربة** *(Proximity search)*.
+  * Numbered text input fields (1 through 5) to type search keywords.
+
+* **Bottom Status Bar:**
+  * `مجال البحث الحالي: جميع الكتب` *(Current search scope: All books)*.
+
+...
+
+Compared to the previous image, this new screenshot shows the software switched to the **Category / Classification View** (**التصنيف**). Here are the key differences and new features visible in this picture:
+
+---
+
+### **1. Active Navigation Tab**
+* **Switched Tab:** On the far-right sidebar, the **التصنيف** (*Classification / Categories*) icon is now highlighted in blue instead of **الكتب** (*Books*).
+
+---
+
+### **2. New Category (Section) Selector Pane**
+* A new list panel titled **القسم** *(Section / Category)* and **العدد** *(Book Count)* appears next to the book list:
+  * The category **العقيدة** *(Islamic Creed / Aqeedah)* is currently selected (highlighted in blue, showing a count of **808** books).
+  * Other visible categories include: *Sects & Refutations* (الفرق والردود), *Quranic Exegesis* (التفسير), *Hadith Collections* (كتب السنة), *Fiqh Schools* (Hanafi, Maliki, Shafi'i, Hanbali), etc.
+
+---
+
+### **3. Media & Publication Type Filters (Top Bar)**
+A comprehensive filter row has been added above the book table to narrow down book types:
+* **المطبوعات** *(Printed Texts)*:
+  * Options for **كتب** *(Books)* and **مجلات** *(Journals / Periodicals)*.
+  * Print-page matching toggles: **يوافق المطبوع** *(Matches print pagination)* and **لا يوافق المطبوع** *(Doesn't match print pagination)*.
+* **غير المطبوعات** *(Non-Printed Texts)*:
+  * Toggles for **مخطوطات** *(Manuscripts)*, **رسائل جامعية** *(Academic Theses / Dissertations)*, **إلكترونية** *(Digital-only)*, and **تفريغات** *(Audio Transcriptions)*.
+
+---
+
+### **4. Categorized Book Listing**
+* The main book list now exclusively shows books belonging to the selected **العقيدة** category (e.g., *Al-Fiqh Al-Akbar* by Abu Hanifa, *Kitab Al-Asnam* by Ibn Al-Kalbi, *Usul Al-Sunnah* by Ahmad ibn Hanbal, *Al-Radd 'ala Al-Jahmiyyah*).
+
+---
+
+### **5. Category Control Buttons (Bottom)**
+* New control options have been added at the bottom-right for managing category selections:
+  * **اختيار الأقسام المحددة** *(Select Selected Categories)*
+  * **إلغاء الأقسام المحددة** *(Deselect Selected Categories)*
+
+*(Note: The search criteria panel on the left side remains unchanged from the previous view).*
+
+...
+
+Compared to the previous image, this new screenshot shows the software switched to the **Category / Classification View** (**التصنيف**). Here are the key differences and new features visible in this picture:
+
+---
+
+### **1. Active Navigation Tab**
+* **Switched Tab:** On the far-right sidebar, the **التصنيف** (*Classification / Categories*) icon is now highlighted in blue instead of **الكتب** (*Books*).
+
+---
+
+### **2. New Category (Section) Selector Pane**
+* A new list panel titled **القسم** *(Section / Category)* and **العدد** *(Book Count)* appears next to the book list:
+  * The category **العقيدة** *(Islamic Creed / Aqeedah)* is currently selected (highlighted in blue, showing a count of **808** books).
+  * Other visible categories include: *Sects & Refutations* (الفرق والردود), *Quranic Exegesis* (التفسير), *Hadith Collections* (كتب السنة), *Fiqh Schools* (Hanafi, Maliki, Shafi'i, Hanbali), etc.
+
+---
+
+### **3. Media & Publication Type Filters (Top Bar)**
+A comprehensive filter row has been added above the book table to narrow down book types:
+* **المطبوعات** *(Printed Texts)*:
+  * Options for **كتب** *(Books)* and **مجلات** *(Journals / Periodicals)*.
+  * Print-page matching toggles: **يوافق المطبوع** *(Matches print pagination)* and **لا يوافق المطبوع** *(Doesn't match print pagination)*.
+* **غير المطبوعات** *(Non-Printed Texts)*:
+  * Toggles for **مخطوطات** *(Manuscripts)*, **رسائل جامعية** *(Academic Theses / Dissertations)*, **إلكترونية** *(Digital-only)*, and **تفريغات** *(Audio Transcriptions)*.
+
+---
+
+### **4. Categorized Book Listing**
+* The main book list now exclusively shows books belonging to the selected **العقيدة** category (e.g., *Al-Fiqh Al-Akbar* by Abu Hanifa, *Kitab Al-Asnam* by Ibn Al-Kalbi, *Usul Al-Sunnah* by Ahmad ibn Hanbal, *Al-Radd 'ala Al-Jahmiyyah*).
+
+---
+
+### **5. Category Control Buttons (Bottom)**
+* New control options have been added at the bottom-right for managing category selections:
+  * **اختيار الأقسام المحددة** *(Select Selected Categories)*
+  * **إلغاء الأقسام المحددة** *(Deselect Selected Categories)*
+
+*(Note: The search criteria panel on the left side remains unchanged from the previous view).*
+
+
+...
+
+In this third screenshot, the software has been switched to the **Authors View** (**المؤلفون**). Here is what is different in this picture:
+
+---
+
+### **1. Active Navigation Tab**
+* **Switched Tab:** On the far-right vertical menu, the **المؤلفون** *(Authors)* icon is now highlighted in blue (previously set to *Books* in pic 1 and *Classification* in pic 2).
+
+---
+
+### **2. Author Selection Pane (Right Column)**
+A dedicated author navigation panel has replaced the category panel:
+* **Search Field:** A search bar at the top of the column allows searching specifically by an author's name.
+* **Columns:**
+  * **المؤلف** *(Author)*: Lists authors chronologically (e.g., *Amr ibn Qami'ah*, *Imru' al-Qais*, *Tarafa ibn al-Abd*, *Abdullah ibn Abbas*, *Jarir*, *Ibn Sirin*).
+  * **الوفاة** *(Year of Death)*: Shows their year of death in CE/AH (e.g., `٥٤٠ م`, `٥٤٥ م`, `٦٨`, `١١٠`).
+  * **الكتب** *(Book Count)*: Shows the number of books available in the database for each author (currently showing `1` for each listed author).
+
+---
+
+### **3. Filtered Center Book Pane**
+* **Author-Specific Selection:** The author **عمرو بن قميئة** *(Amr ibn Qami'ah)* is selected in the right panel.
+* **Filtered Result:** The central area now exclusively shows the book(s) authored by him: **ديوان عمرو بن قميئة (ت ٥٤٠ م)**.
+
+---
+
+### **4. Author Control Buttons (Bottom Right)**
+New buttons have been added to manage author selections in bulk:
+* **اختيار المؤلفين المحددين** *(Select Selected Authors)*
+* **إلغاء المؤلفين المحددين** *(Deselect Selected Authors)*
+
+---
+
+*(The left search criteria panel remains consistent across all three screenshots).*
+
+...
+
+In this fourth screenshot, the software has been switched to the **Time Period View** (**فترة**). Here are the key differences and new features visible in this picture:
+
+---
+
+### **1. Active Navigation Tab**
+* **Switched Tab:** On the far-right sidebar, the **فترة** *(Period)* icon (calendar symbol) is now highlighted in blue.
+
+---
+
+### **2. Time Period Selection Panels**
+The middle area is divided into two time-filtering modules allowing users to scope search results according to specific historical eras (Hijri calendar):
+
+#### **A. الفترة بالقرن (Period by Century)** – *Right Module*
+* Allows defining a date range by century using two selection columns:
+  * **(من)** *(From)* – Starting century.
+  * **(إلى)** *(To)* – Ending century.
+* Options range from **قبل القرن الأول الهجري** *(Before the 1st Hijri century)* through centuries **1 AH** up to **14 AH** and **القرن الحالي** *(Current Century)*.
+* **Button:** **إضافة للمجال** *(Add to scope)* under `[الفترة بالقرن]` to apply the selected century range to the search scope.
+
+#### **B. الفترة بالعام (Period by Year)** – *Left Module*
+* Allows specifying exact years for fine-tuned historical filtering using two columns:
+  * **(من)** *(From)* – Starting year.
+  * **(إلى)** *(To)* – Ending year.
+* Scrollable list starting from **قبل العام الأول الهجري** *(Before 1 AH)*, `1 هـ`, `2 هـ`, `3 هـ`, up to specific Hijri years, along with direct text input boxes at the bottom to type custom years.
+* **Button:** **إضافة للمجال** *(Add to scope)* under `[الفترة بالعام]` to apply the specific year range to the search scope.
+
+---
+
+*(The left-hand search criteria panel remains consistent with the previous screenshots).*
+
+...
+
+This image is a zoomed-in, cropped view focusing on the **Search Logic & Query Input section** from the left pane of the Shamela Library interface.
+
+Here are the specific features and changes shown in this close-up:
+
+---
+
+### **1. Active Logical Operator: "NOT" (`ليس`)**
+* The **ليس** *(NOT)* tab is selected (underlined in blue), as opposed to **و** *(AND)* or **أو** *(OR)*.
+* **Condition Text:** Selecting *NOT* automatically updates the rule description text to:
+  * **يلزم غياب كل العبارات** *(All phrases must be absent / excluded from search results)*.
+
+---
+
+### **2. Tooltip: "Add Search Box" (`إضافة مربع بحث`)**
+* At the bottom-right of the text input area, the cursor is hovering over an icon button with an arrow up/plus sign, triggering a pop-up tooltip:
+  * **إضافة مربع بحث** *(Add a search box)*.
+
+---
+
+### **3. Expanded Input Fields & Scrollbar**
+* **6th Input Field Added:** Clicking the "Add search box" button has added a 6th input line (marked `٦`), expanding beyond the original 5 boxes.
+* **Scrollbar:** A vertical scrollbar now appears on the left side of the text fields to allow scrolling through the added search boxes.
+
+...
+
+This image is a zoomed-in crop showing the tooltip for the button located immediately to the right of the "Add search box" icon.
+
+### **Details shown:**
+* **Active Icon:** The document/page icon (highlighted in light blue).
+* **Tooltip Text:** **مسح حقول البحث** *(Clear search fields)*.
+
+### **Function:**
+Clicking this button clears all typed text/keywords out of all active search boxes in the left pane at once, resetting them back to blank.
+
+...
+
+This cropped screenshot shows a dropdown context menu opened by clicking the small folder/arrow button located at the top-left of the query fields section.
+
+Here is a breakdown of the menu options and their functions:
+
+---
+
+### **1. Top Option**
+* **إضافة مجموعة جديدة** *(Add a new group)*: Allows adding an additional search group block to build complex, multi-stage search logic.
+
+---
+
+### **2. Logical Operator Guide & Selection**
+The middle section explains and allows selecting the boolean condition for search terms:
+* **و : يلزم وجود كل العبارات** *(AND : All phrases must be present)*
+* **أو : يلزم وجود عبارة أو أكثر** *(OR : At least one phrase must be present)*
+* **ليس : يلزم غياب كل العبارات** *(NOT : All phrases must be absent)*
+
+---
+
+### **3. Bottom Option**
+* **استعادة المجموعات الافتراضية** *(Restore default groups)*: Resets the search group structure and logical rules back to their default configuration.
+
+...
+
+
+

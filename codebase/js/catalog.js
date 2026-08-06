@@ -6,18 +6,8 @@
  */
 
 import { tagLabel, t } from "./i18n.js";
-import {
-  normaliseForSearch,
-  escapeHTML,
-  parseQuery,
-  compileQuery,
-  rowMatchesQueryNorm,
-  buildNormData,
-  buildSnippets,
-  highlightMatches,
-} from "./search.js";
-import { loadCSVData, fetchBookCSVCached } from "./csv.js";
-import { loadSearchIndex, searchLibrary } from "./library-search.js";
+import { normaliseForSearch } from "./search.js";
+import { loadCSVData } from "./csv.js";
 
 let _bookNamesCache = null;
 let _tagDefinitionsCache = null;
@@ -67,7 +57,7 @@ function injectPaletteCSS(slotCount) {
  * Cached after first load; safe to call multiple times.
  * @returns {Promise<Object>} Map of tag code → {label, palette}
  */
-async function loadTagDefinitions() {
+export async function loadTagDefinitions() {
   if (_tagDefinitionsCache) {
     return _tagDefinitionsCache;
   }
@@ -313,349 +303,12 @@ export async function initializePageWithMetadata(callback) {
  * @param {Array} bookNames - Array of book metadata objects
  */
 let _lastBookNames = null;
-let _dashFilter = { search: "", tags: [], sort: "az", pinsOnly: false, libSearch: false };
+let _dashFilter = { search: "", tags: [], sort: "az", pinsOnly: false };
 let _dashTableMode = false;
 
-// ── Library search (cross-book) mode ─────────────────────────
-// "Search in books" runs the query against the machine-generated word index
-// (js/library-search.js) instead of filtering titles. Tag chips still scope
-// the search; results group by book and deep-link to the first match.
-
-var _libSearchTimer = null;
-
-/** Substitute {k} placeholders in an i18n template string. */
-function tpl(key, map) {
-  var s = t(key);
-  for (var k in map) s = s.replace("{" + k + "}", map[k]);
-  return s;
-}
-
-function inLibSearch() {
-  return _dashFilter.libSearch;
-}
-
-/** Re-render whichever view is active — card/table grid or library results. */
+/** Re-render the dashboard view (cards/table). */
 function refreshView() {
-  if (inLibSearch()) runLibrarySearch();
-  else renderDashboard(_lastBookNames);
-}
-
-/** Keep the toggle button and input placeholder in sync with the mode. */
-function updateLibModeUI() {
-  var libBtn = document.getElementById("dashboardLibSearch");
-  var si = document.getElementById("dashboardSearch");
-  if (libBtn) libBtn.classList.toggle("active", inLibSearch());
-  if (si)
-    si.placeholder = inLibSearch()
-      ? t("libSearchPlaceholder")
-      : t("dashboardSearchPlaceholder");
-}
-
-/**
- * Book codes eligible for a library search: visible books (-HDN excluded)
- * carrying any active tag chip (OR — same semantics as the grid).
- */
-function computeLibScope() {
-  var visible = (_lastBookNames || []).filter(function (b) {
-    return !b.bookCode.endsWith("-HDN");
-  });
-  if (_dashFilter.tags.length > 0) {
-    visible = visible.filter(function (b) {
-      var codes = extractTags(b.bookCode, b).map(function (x) {
-        return x.code;
-      });
-      return _dashFilter.tags.some(function (tc) {
-        return codes.indexOf(tc) !== -1;
-      });
-    });
-  }
-  return visible.map(function (b) {
-    return b.bookCode;
-  });
-}
-
-/** Run the library search and render results (caller debounces). */
-function runLibrarySearch() {
-  if (!inLibSearch()) return; // stale debounce fired after mode switched off
-  var grid = document.getElementById("bookGrid");
-  var rc = document.getElementById("dashboardResultCount");
-  var q = (_dashFilter.search || "").trim();
-  if (!q) {
-    grid.style.display = "";
-    grid.innerHTML = '<div class="dash-empty">' + t("libSearchHint") + "</div>";
-    if (rc) rc.textContent = "";
-    return;
-  }
-  grid.style.display = "";
-  grid.innerHTML = '<div class="dash-empty">' + t("libSearching") + "</div>";
-  if (rc) rc.textContent = "";
-  loadSearchIndex()
-    .then(function (index) {
-      if (!inLibSearch()) return; // user exited while the index loaded
-      renderLibraryResults(grid, rc, searchLibrary(index, q, computeLibScope()), q);
-    })
-    .catch(function () {
-      if (!inLibSearch()) return;
-      grid.style.display = "";
-      grid.innerHTML =
-        '<div class="dash-empty">⚠️ Error: Failed to load the search index. ' +
-        '<button id="libSearchRetry" class="retry-btn">↺ Retry</button></div>';
-      var rb = document.getElementById("libSearchRetry");
-      if (rb) rb.addEventListener("click", runLibrarySearch);
-    });
-}
-
-// ── Result peek (expand to preview matching rows inline) ─────
-// Clicking ▾ on a result fetches THAT book (through the on-device IndexedDB
-// cache — instant once opened before), runs the reader's exact search
-// machinery over it, and shows the first few matching rows as highlighted
-// snippets with a "Show next" pager. Each snippet deep-links to its row.
-
-var PEEK_BATCH = 8;
-var _peekCache = {}; // bookCode → q → {q, allData, normAllData, compiled, matches, pos, hasRowNums}
-
-/** Load the book + compute all matching positions (cached per book+query). */
-function peekEnsureData(bookCode, q) {
-  var cached = _peekCache[bookCode] && _peekCache[bookCode][q];
-  if (cached && cached.q === q) return Promise.resolve(cached);
-  return fetchBookCSVCached(
-    bookCode,
-    getBookVersionSync(bookCode),
-    getCsvPath(bookCode),
-  ).then(function (rows) {
-    if (!rows || rows.length < 2) throw new Error("Book has no content");
-    var allData = rows.slice(1);
-    var normAllData = buildNormData(allData);
-    var compiled = compileQuery(parseQuery(q));
-    var matches = [];
-    for (var i = 0; i < allData.length; i++) {
-      if (rowMatchesQueryNorm(allData[i], normAllData[i], compiled)) {
-        matches.push(i);
-      }
-    }
-    var entry = {
-      q: q,
-      allData: allData,
-      normAllData: normAllData,
-      compiled: compiled,
-      matches: matches,
-      pos: 0,
-      hasRowNums:
-        (rows[0][0] || "").trim() === "#" || (rows[0][0] || "").trim() === "",
-    };
-    _peekCache[key] = entry;
-    return entry;
-  });
-}
-
-/** One matching row as a highlighted, clickable snippet. */
-function peekItemHTML(entry, q, bookCode, position) {
-  var row = entry.allData[position];
-  var label = entry.hasRowNums ? row[0] || position + 1 : position + 1;
-  var snippets = buildSnippets(
-    row,
-    entry.compiled,
-    q,
-    entry.normAllData[position],
-  );
-  var text = snippets[0] || "";
-  if (!text) {
-    // Fallback: first non-row-number cell, raw highlight
-    var cell = "";
-    for (var c = 0; c < row.length; c++) {
-      if (entry.hasRowNums && c === 0) continue;
-      if (row[c]) { cell = row[c]; break; }
-    }
-    text = highlightMatches(String(cell).slice(0, 240), q);
-  }
-  return (
-    '<a class="lib-peek-item" href="reader.html?book=' +
-    bookCode +
-    "&row=" +
-    (position + 1) +
-    "&q=" +
-    encodeURIComponent(q) +
-    '" title="' +
-    bookCode +
-    " row " +
-    (position + 1) +
-    '">' +
-    '<span class="lib-peek-num">#' +
-    label +
-    "</span>" +
-    '<span class="lib-peek-text">' +
-    text +
-    "</span></a>"
-  );
-}
-
-/** Append the next batch of matches into the peek, update the pager. */
-function peekRenderBatch(peekEl, entry, q, bookCode) {
-  var items = peekEl.querySelector(".lib-peek-items");
-  var moreBtn = peekEl.querySelector(".lib-peek-more");
-  if (!items) return;
-  var batch = entry.matches.slice(entry.pos, entry.pos + PEEK_BATCH);
-  entry.pos += batch.length;
-  var html = "";
-  for (var i = 0; i < batch.length; i++) {
-    html += peekItemHTML(entry, q, bookCode, batch[i]);
-  }
-  items.insertAdjacentHTML("beforeend", html);
-  if (moreBtn) {
-    if (entry.pos >= entry.matches.length) {
-      moreBtn.style.display = "none";
-    } else {
-      moreBtn.style.display = "";
-      moreBtn.textContent = tpl("libShowNext", {
-        n: Math.min(PEEK_BATCH, entry.matches.length - entry.pos),
-      });
-    }
-  }
-}
-
-/** Load + render the first peek batch into an open peek. */
-function openPeek(root, bookCode, q) {
-  var peek = root.querySelector(".lib-peek");
-  var items = peek.querySelector(".lib-peek-items");
-  var moreBtn = peek.querySelector(".lib-peek-more");
-  if (moreBtn) moreBtn.style.display = "none";
-  if (items.childElementCount > 0) return; // already rendered (collapse/re-open)
-  items.innerHTML = '<div class="lib-peek-loading">' + t("libSearching") + "</div>";
-  peekEnsureData(bookCode, q)
-    .then(function (entry) {
-      if (!root.classList.contains("peek-open")) return; // closed while loading
-      entry.pos = 0;
-      items.innerHTML = "";
-      peekRenderBatch(peek, entry, q, bookCode);
-    })
-    .catch(function () {
-      if (!root.classList.contains("peek-open")) return;
-      items.innerHTML =
-        '<div class="lib-peek-loading">⚠️ Error: Failed to load the book. ' +
-        '<button class="retry-btn" data-peek-retry="1">↺ Retry</button></div>';
-      var rb = items.querySelector("[data-peek-retry]");
-      if (rb)
-        rb.addEventListener("click", function () {
-          items.innerHTML = "";
-          openPeek(root, bookCode, q);
-        });
-    });
-}
-
-function togglePeek(root, bookCode, q) {
-  var peek = root.querySelector(".lib-peek");
-  var toggle = root.querySelector(".lib-peek-toggle");
-  var open = root.classList.toggle("peek-open");
-  if (toggle) toggle.textContent = open ? "▴" : "▾";
-  if (open) {
-    peek.style.display = "";
-    openPeek(root, bookCode, q);
-  } else {
-    peek.style.display = "none";
-  }
-}
-
-/** Render grouped-by-book results into the grid area. */
-function renderLibraryResults(grid, rc, results, q) {
-  if (!results || results.length === 0) {
-    grid.style.display = "";
-    grid.innerHTML = '<div class="dash-empty">' + t("libNoResults") + "</div>";
-    if (rc) rc.textContent = "";
-    return;
-  }
-  var total = 0;
-  for (var i = 0; i < results.length; i++) total += results[i].count;
-  if (rc)
-    rc.textContent = tpl("libResultSummary", { a: total, b: results.length });
-  grid.style.display = "";
-  grid.innerHTML =
-    '<div class="lib-results">' +
-    results
-      .map(function (r) {
-        var meta = (_lastBookNames || []).find(function (b) {
-          return b.bookCode === r.bookCode;
-        });
-        var tags = meta ? extractTags(meta.bookCode, meta) : [];
-        var tagHtml =
-          tags.length > 0
-            ? '<div class="card-tags">' +
-              tags
-                .map(function (tg) {
-                  return (
-                    '<span class="tag-badge' +
-                    (tg.palette >= 0 ? " tag-palette-" + tg.palette : "") +
-                    '" title="Category: ' +
-                    tagLabel(tg.code, tg.label, "en") +
-                    '">' +
-                    tagLabel(tg.code, tg.label) +
-                    "</span>"
-                  );
-                })
-                .join("") +
-              "</div>"
-            : "";
-        var link =
-          "reader.html?book=" +
-          r.bookCode +
-          "&row=" +
-          r.firstRow +
-          "&q=" +
-          encodeURIComponent(q);
-        return (
-          '<div class="lib-result" data-book="' +
-          r.bookCode +
-          '" data-q="' +
-          escapeHTML(q) +
-          '">' +
-          '<div class="lib-result-top">' +
-          '<a class="lib-result-link" href="' +
-          link +
-          '" title="' +
-          r.bookCode +
-          '">' +
-          tagHtml +
-          '<div class="lib-title-ar">' +
-          escapeHTML(meta ? meta.titleAR || "" : "") +
-          "</div>" +
-          '<div class="lib-title-dv">' +
-          escapeHTML(meta ? meta.titleDV || "" : "") +
-          "</div>" +
-          '<div class="lib-title-en">' +
-          escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
-          "</div>" +
-          '<div class="lib-result-meta">' +
-          tpl("libBookMatches", { n: r.count }) +
-          "</div>" +
-          "</a>" +
-          '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>' +
-          "</div>" +
-          '<div class="lib-peek" style="display:none">' +
-          '<div class="lib-peek-items"></div>' +
-          '<button class="toolbar-btn lib-peek-more" style="display:none"></button>' +
-          "</div>" +
-          "</div>"
-        );
-      })
-      .join("") +
-    "</div>";
-
-  // Wire peek toggles + paging (rows are static HTML at this point)
-  grid.querySelectorAll(".lib-result").forEach(function (root) {
-    var bookCode = root.dataset.book;
-    var peekQ = root.dataset.q;
-    var toggle = root.querySelector(".lib-peek-toggle");
-    if (toggle)
-      toggle.addEventListener("click", function () {
-        togglePeek(root, bookCode, peekQ);
-      });
-    var more = root.querySelector(".lib-peek-more");
-    if (more)
-      more.addEventListener("click", function () {
-        var entry = _peekCache[bookCode] && _peekCache[bookCode][peekQ];
-        if (entry)
-          peekRenderBatch(root.querySelector(".lib-peek"), entry, peekQ, bookCode);
-      });
-  });
+  renderDashboard(_lastBookNames);
 }
 
 function renderDashboard(bookNames) {
@@ -1000,12 +653,7 @@ function setupDashboardControls() {
   si.addEventListener("input", function () {
     _dashFilter.search = this.value;
     sc.style.display = this.value ? "" : "none";
-    if (inLibSearch()) {
-      clearTimeout(_libSearchTimer);
-      _libSearchTimer = setTimeout(runLibrarySearch, 150);
-    } else {
-      renderDashboard(_lastBookNames);
-    }
+    renderDashboard(_lastBookNames);
   });
   sc.addEventListener("click", function () {
     si.value = "";
@@ -1019,19 +667,21 @@ function setupDashboardControls() {
     refreshView();
   });
 
-  // ── Library search toggle ("search in books") ──────────────
+  // ── Library search jump ("search in books") ────────────────
+  // The button is an anchor to library-search.html; carry the search box
+  // text (?q=) and any selected tag chips (?tags=) over so the page starts
+  // searching with the same scope. Pins are NOT carried (the page has none).
   var libBtn = document.getElementById("dashboardLibSearch");
   if (libBtn) {
-    libBtn.addEventListener("click", function () {
-      _dashFilter.libSearch = !_dashFilter.libSearch;
-      updateLibModeUI();
-      if (inLibSearch()) {
-        clearTimeout(_libSearchTimer);
-        runLibrarySearch();
-      } else {
-        clearTimeout(_libSearchTimer);
-        renderDashboard(_lastBookNames);
-      }
+    libBtn.addEventListener("click", function (e) {
+      var params = new URLSearchParams();
+      var q = (si.value || "").trim();
+      if (q) params.set("q", q);
+      if (_dashFilter.tags.length > 0)
+        params.set("tags", _dashFilter.tags.join(","));
+      var qs = params.toString();
+      e.preventDefault();
+      window.location.href = qs ? "library-search.html?" + qs : "library-search.html";
     });
   }
   tc.addEventListener("click", function (e) {
@@ -1086,13 +736,11 @@ function setupDashboardControls() {
         tags: [],
         sort: "az",
         pinsOnly: false,
-        libSearch: false,
       };
       _dashTableMode = false;
       si.value = "";
       sc.style.display = "none";
       ss.value = "az";
-      updateLibModeUI();
       history.replaceState(null, "", window.location.pathname);
       // NOTE: pins & history survive the dashboard reset — they only clear via
       // the modals' confirmed "Clear all" or the settings button.
@@ -1210,7 +858,6 @@ document.addEventListener("dashboardReset", function () {
 // Re-render dashboard on language change (if visible)
 document.addEventListener("languagechange", function () {
   if (_lastBookNames && _lastBookNames.length > 0) {
-    updateLibModeUI();
     refreshView();
   }
 });

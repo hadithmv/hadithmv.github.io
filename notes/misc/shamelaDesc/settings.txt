@@ -1,0 +1,372 @@
+This image shows the **Options / Settings window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة), a popular Islamic digital library software, presented in Arabic.
+
+Here is a detailed breakdown of the interface:
+
+---
+
+### **1. Header**
+* **Title:** "الخيارات - المكتبة الشاملة" (*Options - Al-Maktaba Al-Shamela*) on the top left.
+* **Close Button:** A standard 'X' button on the top right.
+
+---
+
+### **2. Navigation Menu (Right Sidebar)**
+The sidebar lists different settings categories, each accompanied by an icon:
+1. **المظهر** (*Appearance*) – **Currently selected** (highlighted in light blue).
+2. **ألوان** (*Colors*)
+3. **خطوط** (*Fonts*)
+4. **خط القرآن الكريم** (*Quran Font*)
+5. **النسخ والعزو** (*Copying & Citation settings*)
+6. **عرض الكتاب** (*Book Display settings*)
+7. **إعدادات أخرى** (*Other Settings*)
+8. **مجلد المصورات** (*PDF/Scanned Images Directory*)
+9. **التعليقات** (*Comments/Notes*)
+
+---
+
+### **3. Main Settings Panel (Appearance / المظهر)**
+Because **المظهر** (Appearance) is selected, the main panel displays visual theme options:
+
+* **Top-Left Button:** 
+  * **المظهر الافتراضي** (*Default Appearance*) – Resets theme settings back to default.
+
+* **Theme Radio Options:**
+  * **مظهر النظام** (*System Theme*)
+  * **المظهر الداكن** (*Dark Theme*)
+  * **المظهر الفاتح** (*Light Theme*) – **Selected**
+
+* **Sub-options (under "In Light Theme" / في المظهر الفاتح):**
+  * ☑ **استخدم التصميم الحديث** (*Use Modern Design*) – Checked
+  * ☑ **استخدم الأيقونات الحديثة** (*Use Modern Icons*) – Checked
+
+---
+
+### **4. Action Buttons (Bottom Left)**
+* **تطبيق** (*Apply*) – Applies changes without closing the window.
+* **موافق** (*OK*) – Saves changes and closes the window.
+* **إلغاء** (*Cancel*) – Closes the window without saving changes.
+
+...
+
+This image shows the **Colors (ألوان) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+Here is a detailed breakdown of this interface:
+
+---
+
+### **1. Top Section & Theme Status**
+* **Selected Category:** **ألوان** (*Colors*) – Highlighted in the right sidebar.
+* **Status Label:** "ألوان المظهر الحالي: فاتح" (*Current theme colors: Light*).
+* **Top-Left Button:** **استعادة جميع الألوان الافتراضية** (*Restore all default colors*) – Resets all customized text and background colors back to factory defaults.
+
+---
+
+### **2. Text & Interface Element Color List (Upper Panel)**
+This section allows users to customize colors for specific elements within the reader. The list includes:
+
+1. **لون العناوين** (*Headers color*) – **Currently selected** (Dark Red / `#800000`)
+2. **لون كلمات البحث** (*Search words color*) – Red
+3. **لون النص** (*Text color*) – Black
+4. **لون المتون** (*Main text / Matn color*) – Dark Blue
+5. **لون الحواشي** (*Footnotes color*) – Dark Grey
+6. **لون التعليقات** (*Comments color*) – Black
+7. **لون علامات الترقيم** (*Punctuation marks color*) – Dark Red
+8. **لون تمييز رجال السند** (*Narrators highlight color*) – Blue
+9. **لون خلفية النص - الترقيم يوافق المطبوع** (*Text background - Matching printed pagination*) – Cream/Off-white
+10. **لون خلفية النص - الترقيم آلي** (*Text background - Automatic pagination*) – White
+11. **لون خلفية التعليق** (*Comment background color*) – Cream/Off-white
+
+* **Button below list:** **استعادة الافتراضي** (*Restore default*) – Resets only the selected element's color to its original setting.
+
+---
+
+### **3. Color Picker & Palette Controls (Lower Panel)**
+
+* **الألوان الأساسية** (*Basic Colors*): A palette of 32 pre-set standard colors.
+* **Spectrum Picker:** A visual box showing color gradients (Hue/Saturation) along with a vertical Lightness slider on the right.
+* **Color Preview Box:** A large dark red block displaying the currently selected color.
+* **Color Values (RGB & HSL):**
+  * **أحمر** (*Red*): `128` | **التدرج** (*Hue*): `0`
+  * **أخضر** (*Green*): `0` | **الإشباع** (*Saturation*): `255`
+  * **أزرق** (*Blue*): `0` | **الإضاءة** (*Lightness*): `128`
+  * **Hex Code Field:** `#800000`
+* **الألوان المخصصة** (*Custom Colors*): 16 empty user-saved slots.
+  * **Button:** **إضافة للألوان المخصصة** (*Add to custom colors*).
+
+---
+
+### **4. Bottom Action Bar**
+* **معاينة** (*Preview*) – Disabled/Greyed out here.
+* **تطبيق** (*Apply*)
+* **موافق** (*OK*)
+* **إلغاء** (*Cancel*)
+
+...
+
+This image shows the **Fonts (خطوط) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+Here is a detailed breakdown of this interface:
+
+---
+
+### **1. Header Area & Utility Buttons**
+* **Selected Category:** **خطوط** (*Fonts*) – Highlighted in the right sidebar.
+* **Top-Right Button:** **تسجيل الخطوط** (*Register / Install Fonts*) – Allows the user to load or register external font files into the application.
+* **Top-Left Button:** **استعادة جميع الخطوط الافتراضية** (*Restore all default fonts*) – Resets font choices across the entire software back to system defaults.
+
+---
+
+### **2. Target Text Elements List (Upper Panel)**
+This section allows users to select which specific part of the user interface or reader text they want to customize:
+
+1. **خط النص** (*Body text font*) – **Currently selected**
+2. **خط المتون** (*Main text / Matn font*)
+3. **خط الحواشي** (*Footnotes font*)
+4. **خط التعليقات** (*Comments font*)
+5. **خط بطاقة الكتاب** (*Book card / info font*)
+6. **خط شجرة العناوين** (*Titles tree / Table of Contents font*)
+7. **خط جدول نتائج البحث** (*Search results table font*)
+8. **خط قوائم الكتب ونحوها** (*Book lists and menus font*)
+
+* **Button below "A" icon:** **استعادة الافتراضي** (*Restore default*) – Resets only the selected element's font setting back to default.
+
+---
+
+### **3. Font Settings & Customization (Middle Panel)**
+
+* **Line Spacing:** **تباعد الأسطر** set to `0.9`.
+* **Selection Columns:**
+  * **الخط** (*Font Family*): Currently set to **Traditional Naskh** (selected from a list including *Simplified Arabic, Tahoma, Times New Roman, Segoe UI*, etc.).
+  * **نمط الخط** (*Font Style*): Currently set to **Bold** (options include *Bold*, *Regular*).
+  * **الحجم** (*Font Size*): Currently set to **18** (selectable sizes range from 6 to 20+).
+
+---
+
+### **4. Preview & Script Selection (Lower Panel)**
+* **نموذج** (*Sample Preview Box*): Displays a live sample of the selected font settings using the Quranic phrase:
+  > **"قل هو الله أحد"** (*Say, He is Allah, [who is] One*)
+* **شكل الخط** (*Script / Writing System Dropdown*): Set to **Arabic**.
+
+---
+
+### **5. Bottom Action Bar**
+* **معاينة** (*Preview*) – Disabled / Greyed out.
+* **تطبيق** (*Apply*)
+* **موافق** (*OK*)
+* **إلغاء** (*Cancel*)
+
+...
+
+This image shows the **Holy Quran Font (خط القرآن الكريم) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+This section allows users to customize the font sizes and line spacing specifically for Quranic text displayed in different Arabic script styles and citations.
+
+---
+
+### **1. Header Control**
+* **Selected Category:** **خط القرآن الكريم** (*Holy Quran Font*) – Highlighted in the right sidebar.
+* **Top-Left Button:** **استعادة الافتراضي** (*Restore Default*) – Resets all Quranic font and line-spacing settings back to factory defaults.
+
+---
+
+### **2. Font Settings Panel**
+
+The panel is divided into four main settings rows:
+
+1. **حجم خط المجمع** (*King Fahd Quran Complex Font Size – Uthmani Script*)
+   * **Font Size:** `20`
+   * **Line Spacing (**تباعد الأسطر**):** `1.1`
+
+2. **حجم الخط الأميري** (*Amiri Font Size – Classical Naskh Script*)
+   * **Font Size:** `17`
+   * **Line Spacing (**تباعد الأسطر**):** `1.2`
+
+3. **حجم الرسم الإملائي** (*Standard Orthographic Script Font Size – Modern Spelling*)
+   * **Font Size:** `19`
+   * **Line Spacing (**تباعد الأسطر**):** `1.0`
+
+4. **حجم خط عزو الآيات** (*Verse Citation / Reference Font Size*)
+   * **Font Size:** `14`
+
+...
+
+This image shows the **Copying and Citation (النسخ والعزو) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+This section controls how text copied from the library is formatted, including source citations, brackets, diacritics, and placement.
+
+---
+
+### **1. Top Control**
+* **Selected Category:** **النسخ والعزو** (*Copying and Citation*) – Highlighted in the right sidebar.
+* **Top-Left Button:** **استعادة الافتراضي** (*Restore Default*) – Resets all citation and copying options back to default settings.
+
+---
+
+### **2. Settings Sections & Options**
+
+#### **A. العزو (Citation Formatting)**
+* ☑ **إحاطة مصدر العزو بـ «علامتي تنصيص»** (*Enclose citation source in guillemets/quotes « »*) – **Checked**
+* ☑ **إحاطة رقم العزو بـ (هلالين)** (*Enclose citation volume/page number in parentheses ( )*) – **Checked**
+* ☐ **إحاطة العزو كاملا بـ [معكوفين]** (*Enclose the entire citation in square brackets [ ]*) – **Unchecked**
+
+---
+
+#### **B. مكان وضع العزو (Citation Placement)**
+* ☑ **وضع العزو قبل النص** (*Place citation before the copied text*) – **Checked**
+* ☑ **وضع العزو في سطر مستقل** (*Place citation on its own line*) – **Checked**
+
+---
+
+#### **C. النص المنسوخ (Copied Text Options)**
+* ☑ **إحاطة النص المنسوخ بـ «علامتي تنصيص»** (*Enclose copied text in guillemets/quotes « »*) – **Checked**
+* ☐ **حذف التشكيل من النص المنسوخ** (*Remove diacritics / Harakat from copied text*) – **Unchecked**
+* ☑ **حذف أرقام الحواشي من النص المنسوخ** (*Remove footnote reference numbers from copied text*) – **Checked**
+* ☐ **نسخ النص بالتنسيق** (*Copy text with rich text formatting*) – **Unchecked**
+
+---
+
+### **3. مثال (Example Preview Box)**
+At the bottom, a live preview box demonstrates how copied text will look when pasted into another program based on the current checked options:
+
+> **«الكمال في أسماء الرجال» (5 / 93):**  
+> **«[2767] سالم بن سُرَج -بالسين المهملة، والجيم- أبو النُّعْمان، ويقال: سالم بن النعمان، ويقال: ابن خَرَّبُوذ المدني، مولى أُمّ صَبِيّة.**  
+> **قال الحاكم: من قال ابن سُرَج؛ عَرَّبَهُ؛ ابن خَرَّبُوذ؛ أراد به الإكاف بالفارسيّة»**
+
+...
+
+This image shows the **Book Display (عرض الكتاب) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+This section controls how book content, scanned page images (PDFs), and side-by-side research service panels are presented in the reader interface.
+
+---
+
+### **1. Top Control**
+* **Selected Category:** **عرض الكتاب** (*Book Display*) – Highlighted in the right sidebar.
+* **Top-Left Button:** **استعادة الافتراضي** (*Restore Default*) – Resets book view settings back to default.
+
+---
+
+### **2. Display Settings**
+
+* ☐ **عرض المصورات افتراضيا إذا كانت متاحة** (*Display scanned pages/PDFs by default if available*) – **Unchecked**
+
+---
+
+### **3. Services Display Orientation (عرض الخدمات)**
+
+* **Note:** *يطبق هذا على التبويبات الجديدة فقط وليس الحالية* (*This applies to new tabs only, not currently open ones*).
+
+This section sets whether secondary research panels split the screen vertically or horizontally:
+
+1. **المصورات** (*Scanned Pages / PDFs*): **عموديا** (*Vertically*)
+2. **التخريج** (*Hadith Graduation / Takhreej*): **عموديا** (*Vertically*)
+3. **التراجم** (*Biographies / Tarajam*): **أفقيا** (*Horizontally*)
+4. **شجرة الأسانيد** (*Chain of Transmission / Isnad Tree*): **أفقيا** (*Horizontally*)
+
+...
+
+This image shows the **Other Settings (إعدادات أخرى) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+This panel contains miscellaneous configuration options divided into Search, Download, and General System behaviors.
+
+---
+
+### **1. Top Control**
+* **Selected Category:** **إعدادات أخرى** (*Other Settings*) – Highlighted in the right sidebar.
+* **Top-Left Button:** **استعادة الافتراضي** (*Restore Default*) – Resets all settings in this section back to factory defaults.
+
+---
+
+### **2. Settings Sections & Options**
+
+#### **A. خيارات البحث (Search Options)**
+* ☑ **عرض الإكمال التلقائي في مربعات البحث** (*Show auto-complete in search boxes*) – **Checked**
+* ☑ **اعرض نتيجة البحث بمجرد الانتقال لها بدون الحاجة للنقر عليها** (*Display search result automatically upon navigation without clicking*) – **Checked**
+* ☑ **إظهار لائحة العناوين الجانبية افتراضيا مع الكتاب في نتائج البحث** (*Show side table of contents by default alongside books in search results*) – **Checked**
+* ☑ **ترقيم مربعات البحث** (*Number search input boxes*) – **Checked**
+* **عدد مربعات البحث** (*Number of search boxes*): Set to `0`
+
+---
+
+#### **B. خيارات التحميل (Download Options)**
+* ☐ **تحميل تلقائي للكتب** (*Automatic download for books*) – **Unchecked**
+* ☐ **تحميل المصورات يتبع تحميل النصوص تلقائيا** (*Automatically download PDF/scanned pages following text download*) – **Unchecked**
+
+---
+
+#### **C. متفرقات (Miscellaneous)**
+* **تذكر آخر موضع في الكتاب من:** (*Remember last reading position from:*):
+  * ☑ **شاشة مؤخرا** (*Recently opened screen*) – **Checked**
+  * ☑ **شاشة المفضلة** (*Favorites screen*) – **Checked**
+  * ☐ **الشاشات الأخرى** (*Other screens*) – **Unchecked**
+
+* **إنشاء اختصار للشاملة:** (*Create shortcut for Shamela:*):
+  * ☑ **على سطح المكتب** (*On Desktop*) – **Checked**
+  * ☑ **في قائمة ابدأ** (*In Start Menu*) – **Checked**
+
+* ☑ **عند بدء تشغيل البرنامج: قم باسترجاع التبويبات المفتوحة آخر مرة** (*On startup: Restore previously open tabs*) – **Checked**
+* ☑ **عند بدء تشغيل البرنامج: تغيير لوحة المفاتيح إلى العربية** (*On startup: Automatically switch keyboard input to Arabic*) – **Checked**
+* ☑ **الأرقام في خانات النص بالبرنامج تأخذ دائما الأشكال (1 2 3) بغض النظر عن إعدادات النظام** (*Numbers in text fields always use Arabic digits [1 2 3] regardless of system locale settings*) – **Checked**
+* **الحد الأقصى للكلمات في رأس التبويب** (*Maximum words displayed in tab headers*): Set to `0`
+
+...
+
+This image shows the **Scanned Images Directory (مجلد المصورات) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+This section manages the storage location path for downloaded PDF files and scanned pages linked to books in the library.
+
+---
+
+### **1. Top Control**
+* **Selected Category:** **مجلد المصورات** (*Scanned Images Directory / PDF Folder*) – Highlighted in the right sidebar.
+* **Top-Left Button:** **استعادة الافتراضي** (*Restore Default*) – Resets the directory path back to the default system folder.
+
+---
+
+### **2. Important Guidelines (Bullet Points)**
+* • **تغيير المجلد لا يؤدي إلى نسخ أو نقل أي ملفات**  
+  (*Changing the folder location does not automatically copy or move any existing files.*)
+* • **ينبغي نقل الملفات الموجودة بنفسك إلى المجلد الجديد**  
+  (*You must manually move existing files to the new directory yourself.*)
+
+---
+
+### **3. Folder Path Controls (مجلد المصورات)**
+
+* **Path Input Field:** **المجلد الحالي هو المجلد الافتراضي** (*The current folder is the default folder*)
+* **Buttons:**
+  * **فتح** (*Open*) – Opens the current PDF folder in Windows File Explorer.
+  * **تغيير** (*Change*) – Opens a browser dialog to choose a new storage directory.
+
+* **Blue Action Link (bottom left):**  
+  * **فحص المصورات** (*Check / Verify Scanned Files*) – Scans the designated folder to detect, link, or index available PDF files.
+
+...
+
+This image shows the **Comments / Notes (التعليقات) tab** within the **Options window** of **Al-Maktaba Al-Shamela** (المكتبة الشاملة).
+
+This section manages the export and import of user-written margin notes, annotations, and comments across books in the library.
+
+---
+
+### **1. Navigation & Header**
+* **Selected Category:** **التعليقات** (*Comments / Notes*) – Highlighted at the bottom of the right sidebar.
+* **Section Title:** **تبادل التعليقات** (*Comments Exchange / Sharing Notes*) accompanied by a speech bubble icon.
+
+---
+
+### **2. Guidelines (Bullet Points)**
+* • **يمكنك حفظ التعليقات على جميع الكتب في ملف**  
+  (*You can save/export all notes and comments across all books into a single file.*)
+* • **ثم يمكنك الاحتفاظ بهذا الملف أو إضافته إلى نسخة أخرى من الشاملة**  
+  (*You can then keep this file as a backup or import it into another instance/copy of Al-Shamela.*)
+
+---
+
+### **3. Action Buttons (Bottom Left)**
+
+* **حفظ التعليقات** (*Save Comments / Export Notes*) – Generates a backup file containing all user annotations.
+* **إضافة التعليقات** (*Add Comments / Import Notes*) – Imports and merges comments from an external backup file into the library.
+
+...
+

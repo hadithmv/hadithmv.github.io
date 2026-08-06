@@ -1,0 +1,47 @@
+This image is a full-screen screenshot of **Al-Maktaba Al-Shamela (المكتبة الشاملة)**, a widely used electronic Islamic library software program for Windows.
+
+Here is a detailed breakdown of what is shown:
+
+---
+
+### **1. Main Display Area (Center)**
+* **Active Tab:** **"القرآن الكريم"** (*The Holy Quran*).
+* **Text Displayed:** The complete text of **Surah Al-Fatiha (سورة الفاتحة)**, the opening chapter of the Quran, displayed in standard Uthmani script with full diacritical marks (*Tashkeel*) and numbered verse markers (Ayahs 1–7):
+  1. *Bismillāhi r-raḥmāni r-raḥīm* (1)
+  2. *Al-ḥamdu lillāhi rabbi l-ʿālamīn* (2)
+  3. *Ar-raḥmāni r-raḥīm* (3)
+  4. *Māliki yawmi d-dīn* (4)
+  5. *Iyyāka naʿbudu wa-iyyāka nastaʿīn* (5)
+  6. *Ihdinā ṣ-ṣirāṭa l-mustaqīm* (6)
+  7. *Ṣirāṭa l-ladhīna anʿamta ʿalayhim ghayri l-maghḍūbi ʿalayhim wa-lā ḍ-ḍāllīn* (7)
+
+---
+
+### **2. Right Sidebar (Navigation & Tafsir)**
+* **Tafsir (Explanations) Panel:** A scrollable list of prominent Quranic commentary books linked to the current text, including:
+  * *Tafsir Al-Tustari*
+  * *Tafsir Al-Tabari (Jami' al-Bayan)*
+  * *Zad Al-Masir* (Ibn Al-Jawzi)
+  * *Tafsir Ibn Kathir*
+  * *Tafsir Ibn Kamal Pasha*
+  * *Al-Jadwal fi I'rab Al-Quran*
+  * *Al-Tafsir Al-Waseet*
+  * *Al-Tafsir Al-Munir* (Al-Zuhayli)
+* **Surah Selector (Far Right):** List of chapters starting from `[1] الفاتحة` (Al-Fatiha) down through the surahs of the Quran.
+* **Page/Juz Navigation (Bottom Right):** Controls to quickly navigate by **Juz** (Part 1), **Hizb** (1st Hizb), **Rub'** (1st Quarter), and page numbers.
+
+---
+
+### **3. Search Panel (Bottom)**
+* **Search Filters (Bottom Right):** Checkboxes for advanced Arabic search parameters, such as:
+  * Morphological search (*بحث صرفي*)
+  * Affix matching (*بحث باللواحق*)
+  * Diacritics matching (*مراعاة التشكيل*)
+  * Hamza matching (*مراعاة الهمزات*)
+* **Search Results Area (Bottom Left):** A empty table ready to display search results with column headers for *Surah*, *Ayah*, *Page*, *Text*, and *Serial Number*.
+
+---
+
+### **4. Top Bar & Navigation**
+* **Application Title (Top Left):** *المكتبة الشاملة* (Al-Maktaba Al-Shamela) logo with export options (PDF) and global search field.
+* **Tab Navigation Bar:** Shows multiple open tabs, including search tabs for specific Hadiths/phrases (`...بحث: بَيْنَا أَنَا... صَوْمُهُمْ`, `...بحث: مَنْ بَاعَ`).
