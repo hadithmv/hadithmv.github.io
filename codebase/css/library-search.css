@@ -42,8 +42,11 @@
   margin-top: 10px;
 }
 
+/* Direction comes from dir="auto" (RTL in dv/ar, LTR in en); the alignment
+   is pinned left so the summary keeps a fixed position in every language. */
 #libCount {
   margin-top: 12px;
+  text-align: left;
 }
 #libResults {
   margin-top: 14px;

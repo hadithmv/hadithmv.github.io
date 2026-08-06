@@ -316,7 +316,7 @@ const STRINGS = {
   },
   libBookMatches: { dv: "{n} ނަތީޖާ", en: "{n} matches", ar: "{n} نتيجة" },
   libResultSummary: {
-    dv: "{a} ނަތީޖާ، {b} ފޮތެއްގައި",
+    dv: "{b} ފޮތެއްގައި، {a} ނަތީޖާ",
     en: "{a} matches in {b} books",
     ar: "{a} نتيجة في {b} كتاب",
   },
