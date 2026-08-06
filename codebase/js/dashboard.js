@@ -190,10 +190,10 @@ function renderDashboard(bookNames) {
       '" data-tag="__pins__" title="' +
       (pinsActive ? "Remove filter: Pinned" : "Filter by pinned") +
       '" style="color:' +
-      (pinsActive ? "#fff" : "#dc2626") +
+      (pinsActive ? "#fff" : "var(--color-danger-text)") +
       ";background:" +
-      (pinsActive ? "#dc2626" : "#fef2f2") +
-      ';border-color:#dc2626">' +
+      (pinsActive ? "var(--color-danger-text)" : "var(--color-danger-bg)") +
+      ';border-color:var(--color-danger-text)">' +
       (pinsActive ? '<span class="chip-x">✕</span>' : "") +
       "📌 " +
       t("dashPinsChip") +

@@ -3,8 +3,8 @@
 
 #dashboardWrapper {
   max-width: var(--content-width, 800px);
-  margin: 72px auto 40px;
-  padding: 0 20px;
+  margin: var(--page-margin, 72px auto 40px);
+  padding: var(--page-padding, 0 20px);
   font-family:
     system-ui,
     -apple-system,
@@ -68,15 +68,13 @@ a.toolbar-btn {
 }
 
 /* Pins chip dark-mode overrides (inline styles are light-themed) */
-[data-theme="dark"] .dash-tag-chip[data-tag="__pins__"] {
-  color: var(--color-danger-text, #f87171) !important;
-  background: var(--color-danger-bg, #3b0a0a) !important;
-  border-color: var(--color-danger-border, #7f1d1d) !important;
-}
+/* Only the active chip still needs an override — the JS chip styles now use
+   the danger vars, which resolve per theme. Active stays saturated red in
+   every theme (like #fff): white text needs the contrast. */
 [data-theme="dark"] .dash-tag-chip[data-tag="__pins__"].active {
   color: #fff !important;
-  background: var(--color-danger-text, #dc2626) !important;
-  border-color: var(--color-danger-text, #dc2626) !important;
+  background: #dc2626 !important;
+  border-color: #dc2626 !important;
 }
 
 /* Dashboard table view */
@@ -251,7 +249,7 @@ a.toolbar-btn {
   flex-direction: column;
   justify-content: space-between;
   min-height: 160px;
-  box-shadow: 0 1px 3px var(--color-shadow-card);
+  box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -260,9 +258,8 @@ a.toolbar-btn {
 
 .book-card:hover {
   transform: translateY(-4px);
-  box-shadow:
-    0 10px 15px -3px var(--color-shadow-card-hover),
-    0 4px 6px -2px var(--color-shadow-card);
+  box-shadow: var(--shadow-card-hover, 0 10px 15px -3px var(--color-shadow-card-hover),
+    0 4px 6px -2px var(--color-shadow-card));
   border-color: var(--color-card-hover-border);
 }
 
@@ -426,8 +423,8 @@ a.toolbar-btn {
 
 @media (max-width: 600px) {
   #dashboardWrapper {
-    margin: 60px auto 12px;
-    padding: 0 12px;
+    margin: var(--page-margin-mobile, 60px auto 12px);
+    padding: var(--page-padding-mobile, 0 12px);
   }
   #dashboardPanel {
     margin-bottom: 6px;

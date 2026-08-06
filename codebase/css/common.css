@@ -52,6 +52,9 @@
   /* Error boxes alias the danger family — one red everywhere */
   --color-error-bg: var(--color-danger-bg);
   --color-error-text: var(--color-danger-text);
+  /* Copy-toast chip — fixed dark in light/sepia, inverts in dark */
+  --color-toast-bg: #1a202c;
+  --color-toast-text: #fff;
 
   /* ---- Control sizing (standard documented in docs/ARCHITECTURE.md) ----
      Every boxed control: 35px tall at every breakpoint; line-height is
@@ -72,6 +75,16 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-pill: 20px;
+  /* Card shadows — shapes only; the shadow colours stay per-theme
+     (--color-shadow-card/-hover). Card and result hovers share one lift. */
+  --shadow-card: 0 1px 3px var(--color-shadow-card);
+  --shadow-card-hover: 0 10px 15px -3px var(--color-shadow-card-hover),
+    0 4px 6px -2px var(--color-shadow-card);
+  /* Page chrome — the dashboard/library wrapper layout */
+  --page-margin: 72px auto 40px;
+  --page-padding: 0 20px;
+  --page-margin-mobile: 60px auto 12px;
+  --page-padding-mobile: 0 12px;
 }
 
 /* ---- Theme: sepia ---- */
@@ -117,6 +130,9 @@
   --color-danger-border-hover: #9a6a5a;
   --color-error-bg: var(--color-danger-bg);
   --color-error-text: var(--color-danger-text);
+  /* Copy-toast chip — fixed dark in light/sepia, inverts in dark */
+  --color-toast-bg: #1a202c;
+  --color-toast-text: #fff;
 }
 
 /* ---- Theme: dark ---- */
@@ -162,6 +178,9 @@
   --color-danger-border-hover: #f87171;
   --color-error-bg: var(--color-danger-bg);
   --color-error-text: var(--color-danger-text);
+  /* Copy-toast chip — fixed dark in light/sepia, inverts in dark */
+  --color-toast-bg: #e2e8f0;
+  --color-toast-text: #0f172a;
 }
 
 /* ---- Search highlight ---- */

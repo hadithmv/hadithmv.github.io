@@ -3,8 +3,8 @@
 
 #libWrapper {
   max-width: var(--content-width, 800px);
-  margin: 72px auto 40px;
-  padding: 0 20px;
+  margin: var(--page-margin, 72px auto 40px);
+  padding: var(--page-padding, 0 20px);
   font-family:
     system-ui,
     -apple-system,
@@ -96,7 +96,7 @@
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg, 12px);
-  box-shadow: 0 1px 3px var(--color-shadow-card);
+  box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -104,9 +104,8 @@
 }
 .lib-result:hover {
   transform: translateY(-2px);
-  box-shadow:
-    0 8px 12px -3px var(--color-shadow-card-hover),
-    0 4px 6px -2px var(--color-shadow-card);
+  box-shadow: var(--shadow-card-hover, 0 10px 15px -3px var(--color-shadow-card-hover),
+    0 4px 6px -2px var(--color-shadow-card));
   border-color: var(--color-card-hover-border);
 }
 .lib-result-top {
@@ -207,8 +206,8 @@
 
 @media (max-width: 600px) {
   #libWrapper {
-    margin: 60px auto 12px;
-    padding: 0 12px;
+    margin: var(--page-margin-mobile, 60px auto 12px);
+    padding: var(--page-padding-mobile, 0 12px);
   }
   .lib-result {
     padding: 14px 16px;

@@ -416,19 +416,14 @@
     system-ui,
     -apple-system,
     sans-serif;
-  color: #fff;
-  background: #1a202c;
+  color: var(--color-toast-text, #fff);
+  background: var(--color-toast-bg, #1a202c);
   border-radius: var(--radius-md, 8px);
   z-index: 200;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
   direction: rtl;
-}
-
-[data-theme="dark"] .copy-toast {
-  background: #e2e8f0;
-  color: #0f172a;
 }
 
 .copy-toast.show {
