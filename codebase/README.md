@@ -37,8 +37,8 @@ js/
   quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
   csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
   search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
-  library-search.js             ← Cross-book search: index loader (IndexedDB-cached) + query engine
-  library-search-page.js        ← Library search page UI: chips, results, peek previews
+  library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine
+  library-search.js             ← Library search page UI: chips, results, peek previews
   i18n.js                       ← Translations (dv/en/ar)
   xlsx.js                       ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
   epub.js                       ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export

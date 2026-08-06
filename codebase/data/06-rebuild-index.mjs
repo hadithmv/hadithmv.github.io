@@ -15,9 +15,9 @@ import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { parseCSV } from "../js/csv.js";
 import { normaliseForSearch } from "../js/search-utils.js";
-// Same tokeniser the query side uses (js/library-search.js) — build and
+// Same tokeniser the query side uses (js/library-search-engine.js) — build and
 // query MUST agree on what a word is, or lookups would silently miss.
-import { tokenizeText } from "../js/library-search.js";
+import { tokenizeText } from "../js/library-search-engine.js";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY = path.join(DIR, "02-registry-bookNames.csv");

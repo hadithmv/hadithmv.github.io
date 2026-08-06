@@ -6,7 +6,7 @@
 |---|---|---|
 | `books/index.html` | Inline module → `dashboard.js` | `common.js` |
 | `books/reader.html` | `reader.js` | `common.js` |
-| `books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
+| `books/library-search.html` | `library-search.js` (self-initialising) | `common.js` |
 
 ## Modules
 
@@ -17,7 +17,7 @@
 | `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
-| `js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
+| `js/library-search.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
 | `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
 | `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
@@ -228,9 +228,9 @@ Saved to `localStorage` under `reader:searchHistory`.
 
 ---
 
-## library-search.js
+## library-search-engine.js
 
-Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/06-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search.js`) and by the index build script (`data/06-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
 
 ### `loadSearchIndex()`
 
@@ -246,7 +246,7 @@ Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (co
 
 ---
 
-## library-search-page.js
+## library-search.js
 
 The `books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
 
