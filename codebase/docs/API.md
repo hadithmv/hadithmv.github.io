@@ -20,7 +20,7 @@
 | `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
 | `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
-| `js/search.js` | Search engine: normalisation, parsing, matching, history |
+| `js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
 | `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
 | `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
 | `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()`, progress milestones |
@@ -126,7 +126,7 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from ca
 
 ---
 
-## search.js
+## search-utils.js
 
 Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `xlsx.js`, `epub.js`, and `export.js`.
 
@@ -412,7 +412,7 @@ Shared mutable state object:
 
 ## reader.js
 
-Consumes `quran-ui.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`. Key internal functions:
+Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`. Key internal functions:
 
 | Function | Description |
 |---|---|
@@ -451,7 +451,7 @@ Consumes `quran-ui.js`, `search.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.
 
 ## epub.js
 
-Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `xlsx.js`, `escapeXML` from `search.js`, and column helpers from `quran-ui.js`.
+Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `xlsx.js`, `escapeXML` from `search-utils.js`, and column helpers from `quran-ui.js`.
 
 ### `createEPUB(rows, meta, opts)`
 
@@ -480,7 +480,7 @@ import("./epub.js").then(mod => {
 
 ## xlsx.js
 
-Lazy-loaded module — only fetched when the user chooses Excel export. Imports `escapeXML` from `search.js`. Also provides the shared ZIP layer for `epub.js`.
+Lazy-loaded module — only fetched when the user chooses Excel export. Imports `escapeXML` from `search-utils.js`. Also provides the shared ZIP layer for `epub.js`.
 
 ### `zipStore(files)`
 

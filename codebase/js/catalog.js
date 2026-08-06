@@ -6,7 +6,7 @@
  */
 
 import { tagLabel, t } from "./i18n.js";
-import { normaliseForSearch } from "./search.js";
+import { normaliseForSearch } from "./search-utils.js";
 import { loadCSVData } from "./csv.js";
 
 let _bookNamesCache = null;

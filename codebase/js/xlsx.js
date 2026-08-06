@@ -2,7 +2,7 @@
  * Tiny XLSX writer (~2.5 KB)
  *
  * Generates valid .xlsx (Office Open XML) spreadsheets.
- * Imports escapeXML from search.js. Also provides zipStore() for epub.js.
+ * Imports escapeXML from search-utils.js. Also provides zipStore() for epub.js.
  * Lazy-loaded only when the user exports to Excel — never loaded otherwise.
  *
  * XLSX is a ZIP of XML files:
@@ -13,7 +13,7 @@
  * text-heavy spreadsheets.  Inline strings avoid a shared-strings table.
  */
 
-import { escapeXML as xmlEsc } from "./search.js";
+import { escapeXML as xmlEsc } from "./search-utils.js";
 
 // ── CRC-32 (table-driven) ────────────────────────────────────────
 function crc32(data) {

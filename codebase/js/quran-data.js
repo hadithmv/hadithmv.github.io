@@ -9,7 +9,7 @@
 import { fetchCSV, fetchBookCSVCached } from "./csv.js";
 import { getBookTitleSync, getBookVersionSync } from "./catalog.js";
 import { currentLang } from "./i18n.js";
-import { normaliseForSearch } from "./search.js";
+import { normaliseForSearch } from "./search-utils.js";
 
 // ═══════════════════════════════════════════════════════════════
 // Detection

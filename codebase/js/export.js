@@ -7,7 +7,7 @@
  */
 
 import { unparseCSV } from "./csv.js";
-import { escapeHTML } from "./search.js";
+import { escapeHTML } from "./search-utils.js";
 
 export function initExports(ctx) {
   var btnExport = document.getElementById("btnExport");

@@ -11,37 +11,37 @@ data/
   03-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
   04-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
   05-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
-  06-rebuild-index.mjs      ← Node script: builds search-index.json (rerun after book changes)
-  search-index.json         ← Generated word-level search index (word → books → rows)
-  content/                  ← Per-book content files (incl. Quran base data)
-    *.csv                ← One file per book
+  06-rebuild-index.mjs          ← Node script: builds search-index.json (rerun after book changes)
+  search-index.json             ← Generated word-level search index (word → books → rows)
+  content/                      ← Per-book content files (incl. Quran base data)
+    *.csv                       ← One file per book
 books/
-  index.html           ← Dashboard — book list, search, tag filter, table/card view
-  reader.html          ← Book viewer — loaded via ?book=CODE
-  library-search.html  ← Cross-book search page — shareable ?q=/?tags= URLs
+  index.html                    ← Dashboard — book list, search, tag filter, table/card view
+  reader.html                   ← Book viewer — loaded via ?book=CODE
+  library-search.html           ← Cross-book search page — shareable ?q=/?tags= URLs
 css/
-  common.css             ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
-  reader.css             ← Reader page: focus mode, toolbar, pagination, content, responsive
-  reader-search.css      ← Reader: search bar, results dropdown, advanced search
-  reader-table-view.css  ← Reader: table view mode, top scrollbar, sentinels
-  quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
-  dashboard.css          ← Dashboard: grid, cards, controls, table view
-  library-search.css     ← Library search page: results, peek previews
+  common.css                    ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
+  reader.css                    ← Reader page: focus mode, toolbar, pagination, content, responsive
+  reader-search.css             ← Reader: search bar, results dropdown, advanced search
+  reader-table-view.css         ← Reader: table view mode, top scrollbar, sentinels
+  quran.css                     ← Reader: Quran navigation row, dropdowns, surah overlay
+  dashboard.css                 ← Dashboard: grid, cards, controls, table view
+  library-search.css            ← Library search page: results, peek previews
 js/
-  common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
-  catalog.js          ← Metadata loader, tag extraction, dashboard rendering
-  reader.js            ← Book viewer: render, toolbar, keyboard, export, clipboard
-  quran-data.js        ← Quran: data, decoration, column registry
-  quran-ui.js          ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
-  csv.js               ← Tiny CSV parser (~1 KB), replaces PapaParse
-  search.js            ← Search engine: normalisation, compiled queries, norm cache, matching, history
-  library-search.js    ← Cross-book search: index loader (IndexedDB-cached) + query engine
-  library-search-page.js ← Library search page UI: chips, results, peek previews
-  i18n.js              ← Translations (dv/en/ar)
-  xlsx.js              ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
-  epub.js              ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
-font/                  ← Custom merged font (Arabic + Thaana + Latin)
-docs/                  ← User guide, architecture, API reference
+  common.js                     ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
+  catalog.js                    ← Metadata loader, tag extraction, dashboard rendering
+  reader.js                     ← Book viewer: render, toolbar, keyboard, export, clipboard
+  quran-data.js                 ← Quran: data, decoration, column registry
+  quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
+  csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
+  search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
+  library-search.js             ← Cross-book search: index loader (IndexedDB-cached) + query engine
+  library-search-page.js        ← Library search page UI: chips, results, peek previews
+  i18n.js                       ← Translations (dv/en/ar)
+  xlsx.js                       ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
+  epub.js                       ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
+font/                           ← Custom merged font (Arabic + Thaana + Latin)
+docs/                           ← User guide, architecture, API reference
 ```
 
 ## Quick start

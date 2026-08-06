@@ -4,7 +4,7 @@
  * Run:  node data/06-rebuild-index.mjs
  *
  * For each registered book: parse the CSV, normalise every cell with the
- * same normalisation the app's search uses (search.js), tokenise into words,
+ * same normalisation the app's search uses (search-utils.js), tokenise into words,
  * and record (bookCode, row) for each word. -HDN columns and the row-number
  * column are excluded. The result feeds the planned cross-book search.
  */
@@ -14,7 +14,7 @@ import crypto from "node:crypto";
 import zlib from "node:zlib";
 import { fileURLToPath } from "node:url";
 import { parseCSV } from "../js/csv.js";
-import { normaliseForSearch } from "../js/search.js";
+import { normaliseForSearch } from "../js/search-utils.js";
 // Same tokeniser the query side uses (js/library-search.js) — build and
 // query MUST agree on what a word is, or lookups would silently miss.
 import { tokenizeText } from "../js/library-search.js";

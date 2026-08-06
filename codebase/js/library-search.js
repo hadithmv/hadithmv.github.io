@@ -13,7 +13,7 @@
  * Pure module — no DOM. Exports: loadSearchIndex, searchLibrary, tokenizeText
  */
 
-import { normaliseForSearch } from "./search.js";
+import { normaliseForSearch } from "./search-utils.js";
 
 var INDEX_PATH = "../data/search-index.json";
 

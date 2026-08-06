@@ -29,7 +29,7 @@ import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
   applyColumnOrder, BASE_HEADERS,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
 
-import { normaliseForSearch } from "./search.js";
+import { normaliseForSearch } from "./search-utils.js";
 import { t } from "./i18n.js";
 
 export function initQuranUI(ctx) {

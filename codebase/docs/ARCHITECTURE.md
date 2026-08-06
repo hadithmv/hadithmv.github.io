@@ -32,7 +32,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | Change themes / colours | `css/common.css` `--color-*` variables (3 themes) |
 | Add a UI string | `js/i18n.js` (`dv`/`en`/`ar`), then the button gets `data-i18n` |
 | Wire a new modal | `common.js` `createModal()` + `MODAL_IDS` (must open via `openModal`) |
-| Change search behaviour | `js/search.js` (engine) + `js/reader.js` (wiring) |
+| Change search behaviour | `js/search-utils.js` (engine) + `js/reader.js` (wiring) |
 | Bump the version | `js/i18n.js` `appVersion`, commit "Update to vX.Y.Z" |
 | Verify changes | "Verification habits" at the bottom |
 
@@ -60,7 +60,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
 | `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
-| `js/search.js`               | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
+| `js/search-utils.js`         | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/library-search.js`       | Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | `js/library-search-page.js`  | Library search page UI: `?q=`/`?tags=`, chips, results, peek previews      |
 | `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
@@ -86,8 +86,8 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | CSV parsing | `csv.js` | `parseCSV`, `fetchCSV`, `parseCSVWithHeader`, `loadCSVData` |
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
-| Search engine | `search.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
-| In-book search UI | `reader.js` (UI) + `search.js` (shared toolkit) | search bar, dropdown results, advanced search; styles in `reader-search.css` |
+| Search engine | `search-utils.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
+| In-book search UI | `reader.js` (UI) + `search-utils.js` (shared toolkit) | search bar, dropdown results, advanced search; styles in `reader-search.css` |
 | Library search | `library-search.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | Library search page | `library-search-page.js` | self-initialising — `?q=`/`?tags=`, chip scoping, peek previews |
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
@@ -330,7 +330,7 @@ Settings and small state live in `localStorage` (table below). **IndexedDB** is 
 
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
 | `reader:hiddenColumns:{bookCode}` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns — **keyed per book** (a global key leaked hidden indices across books; see the `-HDN` convention) |
-| `reader:searchHistory` | `search.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
+| `reader:searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
 | `pinnedBooks` | `pins-history.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). **One entry per book.** The reader's 📌 button toggles (pin / unpin); while pinned, the entry's row auto‑updates as the user reads (the 2 s scroll debounce calls `addPin` on the pinned book — see the dashboard section). Any future multi‑pin feature must change this model |
 | `readHistory` | `pins-history.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
 | `reader:quranShowAyahNum` | `reader.js` | boolean (JSON) | Show ayah number decoration |
@@ -465,7 +465,7 @@ Suffix flags (`-HDN`, `-DSC`) are stripped from the tail before extracting the b
           │
     localStorage
     ├── pinnedBooks, readHistory  (pins-history.js)
-    ├── reader:searchHistory      (search.js)
+    ├── reader:searchHistory      (search-utils.js)
     ├── reader:hiddenColumns:{bookCode} (reader.js)
     │   reader:hideTashkeel, etc.
     ├── theme, fontSize, lang,    (common.js)

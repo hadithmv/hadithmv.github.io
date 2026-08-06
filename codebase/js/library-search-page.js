@@ -29,7 +29,7 @@ import {
   buildNormData,
   buildSnippets,
   highlightMatches,
-} from "./search.js";
+} from "./search-utils.js";
 
 // ── Page state ───────────────────────────────────────────────
 var _bookNames = null; // full registry (incl. -HDN books)

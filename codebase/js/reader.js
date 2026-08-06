@@ -8,7 +8,7 @@
 
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./catalog.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { normaliseForSearch, parseQuery, compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search.js";
+import { normaliseForSearch, parseQuery, compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search-utils.js";
 import { fetchCSV, fetchBookCSVCached } from "./csv.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
