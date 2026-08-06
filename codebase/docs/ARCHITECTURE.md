@@ -877,6 +877,27 @@ The app has no test suite or build step — changes are verified by hand:
 
 `data/06-rebuild-searchIndex.mjs` (Node — run `node data/06-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
 
+The file's shape — real excerpt (`bookIds` truncated, three of one word's postings shown):
+
+```json
+{
+  "meta": {
+    "version": "5c9f6bc7140eba42",
+    "built": "2026-08-06T15:08:57.409Z",
+    "bookIds": ["AQD-aqidatuNawawi-HDN", "AQD-aqidatuRaziyain", "…"],
+    "books": 62,
+    "rows": 226076,
+    "words": 484751
+  },
+  "words": {
+    "المقدمة": { "0": "1,26,82,87,90-91", "7": "1-3", "9": "1-11", "…": "…" },
+    "…": "…"
+  }
+}
+```
+
+Posting keys are indices into `meta.bookIds` — `"7": "1-3"` reads "data positions 1–3 of `meta.bookIds[7]`" (`AQD-usooluThalaatha`). `rows` counts scanned rows across books; `words` counts unique tokens.
+
 Current size: 62 books, 226k rows, ~485k unique words — 40MB raw, ~12.8MB gzipped (Pages compresses JSON automatically). Whole‑word matching only — substring, fuzzy, and regex stay in‑book (see "What's deliberately different" below).
 
 ### The loader

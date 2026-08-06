@@ -88,10 +88,13 @@ The first row of each book's CSV is always the header row. If column 0 is `#` or
 For a representative sample, see [`data/content/AQD-nawaqidulIslam.csv`](data/content/AQD-nawaqidulIslam.csv) — it's small and covers the common column patterns (`headAR`, `bodyAR`, `headDV`, `bodyDV`, `foot`).
 
 ```csv
-#,section,arabic_text,dhivehi_text,notes
-1,Introduction,بسم الله...,ބިސްމި...,—
-2,Chapter 1,الحمد لله...,އަލްޙަމްދު...,—
+#,headAR,bodyAR,headDV,bodyDV,foot
+1,[الشرك في عبادة الله],"بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+اعْلَمْ أَنَّ مِنْ أَعْظَمِ نَوَاقِضِ الإِسْلَامِ عَشَرَةً…",[ﷲ އަށް އަޅުކަން ކުރުމުގައި ޝަރީކު ކުރުން],…
+2,[من جعل بينه وبين الله وسائط],الثَّانِي: مَنْ جَعَلَ بَيْنَهُ وَبَيْنَ اللَّهِ وَسَائِطَ…,[މެދުވެރިން],…
 ```
+
+Note the first row's `bodyAR` cell spans two lines — quoted cells may contain newlines; the reader collapses consecutive blank lines inside them.
 
 ## How it works
 
