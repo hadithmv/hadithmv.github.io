@@ -11,7 +11,7 @@ data/
   03-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
   04-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
   05-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
-  06-rebuild-index.mjs          ← Node script: builds search-index.json (rerun after book changes)
+  06-rebuild-searchIndex.mjs    ← Node script: builds search-index.json (rerun after book changes)
   search-index.json             ← Generated word-level search index (word → books → rows)
   content/                      ← Per-book content files (incl. Quran base data)
     *.csv                       ← One file per book
@@ -40,8 +40,10 @@ js/
   library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine
   library-search.js             ← Library search page UI: chips, results, peek previews
   i18n.js                       ← Translations (dv/en/ar)
-  xlsx.js                       ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
-  epub.js                       ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
+  export.js                     ← Export feature: formats menu, downloads, lazy-loaded writers
+  export-xlsx.js                ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
+  export-epub.js                ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
+  export-zip.js                 ← Minimal ZIP writer (store), shared by the XLSX + EPUB writers
 font/                           ← Custom merged font (Arabic + Thaana + Latin)
 docs/                           ← User guide, architecture, API reference
 ```
@@ -254,7 +256,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 ### Exports
 
-All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`js/xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`js/epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures only the currently visible row (2× resolution) with the Hadithmv font embedded — one row, not the whole book. While an export is preparing, the Export button shows a "Preparing…" label and is disabled — large exports (54k rows, EPUB + font) take seconds, and the busy state prevents duplicate downloads from double-clicks.
+All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`js/export-xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`js/export-epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures only the currently visible row (2× resolution) with the Hadithmv font embedded — one row, not the whole book. While an export is preparing, the Export button shows a "Preparing…" label and is disabled — large exports (54k rows, EPUB + font) take seconds, and the busy state prevents duplicate downloads from double-clicks.
 
 ### Internationalisation
 
@@ -271,8 +273,9 @@ All errors show visible messages in English, with a ⚠️ Error: prefix on erro
 Zero external dependencies. No CDN, no build step:
 
 - `js/csv.js` — tiny CSV parser (~1 KB), handles quoted fields and multiline values
-- `js/xlsx.js` — inline XLSX writer (~2.5 KB), lazy-loaded only when exporting to Excel
-- `js/epub.js` — inline EPUB 3 e-book writer (~4 KB), lazy-loaded only when exporting to EPUB
+- `js/export-xlsx.js` — inline XLSX writer (~2.5 KB), lazy-loaded only when exporting to Excel
+- `js/export-epub.js` — inline EPUB 3 e-book writer (~4 KB), lazy-loaded only when exporting to EPUB
+- `js/export-zip.js` — minimal store-only ZIP writer (~1.5 KB), shared by the XLSX and EPUB writers
 
 ## Documentation
 

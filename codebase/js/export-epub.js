@@ -1,15 +1,15 @@
 /**
  * Tiny EPUB 3 writer (~4 KB)
  *
- * Generates valid .epub e-books. Imports zipStore from xlsx.js,
+ * Generates valid .epub e-books. Imports zipStore from export-zip.js,
  * escapeXML from search-utils.js, and column helpers from quran-ui.js.
  * Lazy-loaded only when the user exports to EPUB.
  *
- * EPUB is a ZIP of XHTML + XML metadata.  Reuses zipStore() from xlsx.js.
+ * EPUB is a ZIP of XHTML + XML metadata.  Reuses zipStore() from export-zip.js.
  * Each book row becomes a chapter.  Font can be embedded for offline reading.
  */
 
-import { zipStore } from "./xlsx.js";
+import { zipStore } from "./export-zip.js";
 import { escapeXML as xmlEsc } from "./search-utils.js";
 import { isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran-ui.js";
 

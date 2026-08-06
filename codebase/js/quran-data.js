@@ -3,7 +3,7 @@
  *
  * Pure data/logic: detection, loading, merging, ayah decoration, column classification.
  * 
- * Imported by quran-ui.js, reader.js, and epub.js.
+ * Imported by quran-ui.js, reader.js, and export-epub.js.
  */
 
 import { fetchCSV, fetchBookCSVCached } from "./csv.js";

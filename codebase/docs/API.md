@@ -22,8 +22,9 @@
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
 | `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
 | `js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
-| `js/xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
-| `js/epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
+| `js/export-xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
+| `js/export-epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
+| `js/export-zip.js` | Minimal store-only ZIP writer, `zipStore()` — shared by the XLSX + EPUB writers |
 | `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()`, progress milestones |
 | `js/csv.js` | CSV parsing, serialisation, and fetch helpers |
 
@@ -139,11 +140,11 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from ca
 
 ## search-utils.js
 
-Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `xlsx.js`, `epub.js`, and `export.js`.
+Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `export-xlsx.js`, `export-epub.js`, and `export.js`.
 
 ### `escapeHTML(str)` / `escapeXML(str)`
 
-HTML‑entity escaping. `escapeHTML` escapes `&`, `<`, `>`. `escapeXML` also escapes `"` and `'` (needed by xlsx.js and epub.js for XML output).
+HTML‑entity escaping. `escapeHTML` escapes `&`, `<`, `>`. `escapeXML` also escapes `"` and `'` (needed by export-xlsx.js and export-epub.js for XML output).
 
 ### `normaliseForSearch(str)`
 
@@ -230,7 +231,7 @@ Saved to `localStorage` under `reader:searchHistory`.
 
 ## library-search-engine.js
 
-Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search.js`) and by the index build script (`data/06-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search.js`) and by the index build script (`data/06-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is).
 
 ### `loadSearchIndex()`
 
@@ -317,7 +318,7 @@ All modals (settings, font, pins/history) share the same open/close/Escape patte
 
 ## quran-data.js
 
-Pure data/logic — no DOM dependencies. Detection, CSV loading, data merging, ayah decoration, column classification, registry lookups. Imported by `quran-ui.js`, `reader.js`, and `epub.js`.
+Pure data/logic — no DOM dependencies. Detection, CSV loading, data merging, ayah decoration, column classification, registry lookups. Imported by `quran-ui.js`, `reader.js`, and `export-epub.js`.
 
 ## quran-ui.js
 
@@ -380,7 +381,7 @@ Returns `true` if the column header is an ayah text column (`ayahimlai`, `ayahut
 
 ### Column classification helpers
 
-Shared across card/parallel/table renderers and all export formats. Imported by `reader.js` and `epub.js`.
+Shared across card/parallel/table renderers and all export formats. Imported by `reader.js` and `export-epub.js`.
 
 | Function | Returns | Description |
 |---|---|---|
@@ -460,9 +461,9 @@ Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `catalog.js`, `csv.js`, `e
 
 ---
 
-## epub.js
+## export-epub.js
 
-Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `xlsx.js`, `escapeXML` from `search-utils.js`, and column helpers from `quran-ui.js`.
+Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `export-zip.js`, `escapeXML` from `search-utils.js`, and column helpers from `quran-ui.js`.
 
 ### `createEPUB(rows, meta, opts)`
 
@@ -476,7 +477,7 @@ Generates a valid EPUB 3 e-book Blob. Each book row becomes a chapter. The Hadit
 Structure: `mimetype` (first, uncompressed) · `META-INF/container.xml` · `OEBPS/content.opf` (Dublin Core metadata) · `OEBPS/nav.xhtml` (EPUB 3 TOC) · `OEBPS/cover.xhtml` · `OEBPS/chXXX.xhtml` (one per row) · `OEBPS/styles.css` · `OEBPS/fonts/hadithmv.woff2` (if embedded).
 
 ```js
-import("./epub.js").then(mod => {
+import("./export-epub.js").then(mod => {
   const blob = mod.createEPUB(allData, {
     bookCode: "AQD-nawaqidulIslam",
     titleEN: "Nawaqid ul-Islam",
@@ -489,13 +490,9 @@ import("./epub.js").then(mod => {
 
 ---
 
-## xlsx.js
+## export-xlsx.js
 
-Lazy-loaded module — only fetched when the user chooses Excel export. Imports `escapeXML` from `search-utils.js`. Also provides the shared ZIP layer for `epub.js`.
-
-### `zipStore(files)`
-
-Store-only ZIP writer. Takes `[{name: string, data: Uint8Array}]`, returns `Uint8Array`.
+Lazy-loaded module — only fetched when the user chooses Excel export. Imports `escapeXML` from `search-utils.js` and `zipStore` from `export-zip.js`.
 
 ### `createXLSX(rows, sheetName)`
 
@@ -508,11 +505,19 @@ Generates a valid `.xlsx` (Office Open XML) spreadsheet Blob.
 Uses inline strings (no shared-strings table) and store-only ZIP (no compression). The ZIP bundles five XML files: `[Content_Types].xml`, `_rels/.rels`, `xl/workbook.xml`, `xl/_rels/workbook.xml.rels`, `xl/worksheets/sheet1.xml`.
 
 ```js
-import("./xlsx.js").then(mod => {
+import("./export-xlsx.js").then(mod => {
   const blob = mod.createXLSX(allData, "MySheet");
   // download blob…
 });
 ```
+
+## export-zip.js
+
+Minimal store-only ZIP writer — shared by the XLSX and EPUB writers (EPUB is a ZIP of XHTML + XML metadata). Lazy-loaded with whichever writer needs it.
+
+### `zipStore(files)`
+
+Store-only ZIP writer. Takes `[{name: string, data: Uint8Array}]`, returns `Uint8Array`.
 
 ## Data API (HTTP GET)
 

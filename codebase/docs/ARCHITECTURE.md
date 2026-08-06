@@ -64,8 +64,9 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/search-utils.js`         | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/library-search-engine.js`| Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | `js/library-search.js`       | Library search page UI: `?q=`/`?tags=`, chips, results, peek previews      |
-| `js/xlsx.js`                 | XLSX writer + shared ZIP layer — `zipStore()`, `createXLSX()`, lazy‑loaded |
-| `js/epub.js`                 | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand               |
+| `js/export-xlsx.js`          | XLSX writer — createXLSX(), inline strings, lazy-loaded |
+| `js/export-epub.js`          | EPUB 3 e-book writer — createEPUB(), embedded font, lazy-loaded |
+| `js/export-zip.js`           | Minimal store-only ZIP writer — zipStore(), shared by the XLSX + EPUB writers |
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/content/*.csv`        | Per-book content files                                                     |
@@ -74,7 +75,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `data/05-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts |
 | `data/content/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
 | `data/content/QRN-DATA-baseFile-2-ayahUthmani.csv` | Quran text in Uthmani script                                     |
-| `data/06-rebuild-index.mjs`  | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
+| `data/06-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
 | `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
 
 ## Where to find things
@@ -249,35 +250,35 @@ Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — str
 
 ### Toolbar
 
-| Control         | Implementation                                                                                                                                                                                                                                                                   |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Copy            | **Standard books:** `titleDV - titleAR` header, then row text with `ـ` divider before `foot` columns, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. **Quran books:** no book header; decorated ayah text, `[name surahNo : ayahNo]` reference, then columns grouped by source book with one book-level label per book. `navigator.clipboard.writeText()` with `execCommand` fallback. |
-| Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                      |
-| Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                               |
-| View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `Alt+V` cycles through modes.                                                                                                                                                        |
-| Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                             |
-| Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/xlsx.js` (lazy-loaded). EPUB uses `js/epub.js` (lazy-loaded, embedded font). PNG exports only the current visible row (2×) — see the format table. Text formats assemble the whole book as a single string + Blob in memory (fine at current book sizes, ~8MB max). All include book title, URL, Hadithmv, version, and proper formatting. |
-| Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted per book (`reader:hiddenColumns:{bookCode}`).                                                                                                                                                                                                            |
+| Control         | Implementation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                                                                   |
+| Copy            | **Standard books:** `titleDV - titleAR` header, then row text with `ـ` divider before `foot` columns, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. **Quran books:** no book header; decorated ayah text, `[name surahNo : ayahNo]` reference, then columns grouped by source book with one book-level label per book. `navigator.clipboard.writeText()` with `execCommand` fallback.                                                                                   |
+| Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Hide diacritics | Wraps Unicode diacritic ranges in `<span class="tashkeel">`. Toggle adds `.hide‑tashkeel` class → `display: none`.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| View toggle     | Dropdown (📖 View) offering Card, Table, and Parallel Text layouts. Table is available for all books; RDF books default to table on desktop. Parallel view groups AR‑suffixed and DV‑suffixed columns side‑by‑side. `Alt+V` cycles through modes.                                                                                                                                                                                                                                                                                  |
+| Reset           | Clears search, unhides all columns, shows tashkeel, exits focus mode, clears `reader:` localStorage.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Export          | Dropdown: TXT, MD, JSON, CSV, TSV, YAML, TOON, XML, Excel, EPUB, Word, PDF, PNG, HTML, HTML Table. TSV is tab-separated. TOON uses expanded list per spec. Excel uses `js/export-xlsx.js` (lazy-loaded). EPUB uses `js/export-epub.js` (lazy-loaded, embedded font). PNG exports only the current visible row (2×) — see the format table. Text formats assemble the whole book as a single string + Blob in memory (fine at current book sizes, ~8MB max). All include book title, URL, Hadithmv, version, and proper formatting. |
+| Hide columns    | Dropdown with per‑column toggle buttons. `hiddenColumns[]` persisted per book (`reader:hiddenColumns:{bookCode}`).                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 #### Export formats
 
-| Format     | Type        | Header row? | Module        | Notes                                |
-|-----------|-------------|-------------|---------------|--------------------------------------|
-| TXT       | Rich text   | No          | —             | Formatted like clipboard copy        |
-| MD        | Rich text   | No          | —             | Markdown with `##` per row           |
-| JSON      | Data        | Yes         | —             | Array of arrays, header first        |
-| CSV       | Data        | Yes         | —             | `unparseCSV()`                       |
-| TSV       | Data        | Yes         | —             | Tab‑separated                        |
-| Excel     | Data        | Yes         | `xlsx.js`     | Lazy‑loaded, inline strings          |
-| HTML      | Rich text   | No          | —             | Book reader view, styled paragraphs  |
-| HTML Table| Data        | Yes         | —             | `<table>` with `<thead>`             |
-| Word      | Rich text   | No          | —             | HTML saved as `.doc`                 |
-| EPUB      | Rich text   | No          | `epub.js`     | Lazy‑loaded, embedded font           |
-| YAML      | Structured  | —           | —             | `id` + `fields` per row              |
-| TOON      | Structured  | —           | —             | Hadithmv compact notation            |
-| XML       | Structured  | —           | —             | `<book>` / `<row>` / `<colN>`        |
-| PDF       | Rich text   | No          | —             | Print‑only (window print)            |
-| PNG       | Screenshot  | —           | —             | Canvas render of the current visible row (2×) — one row only, never the whole book |
+| Format     | Type        | Header row? | Module            | Notes                                |
+|-----------|-------------|-------------|------------------|--------------------------------------|
+| TXT       | Rich text   | No          | —                 | Formatted like clipboard copy        |
+| MD        | Rich text   | No          | —                 | Markdown with `##` per row           |
+| JSON      | Data        | Yes         | —                 | Array of arrays, header first        |
+| CSV       | Data        | Yes         | —                 | `unparseCSV()`                       |
+| TSV       | Data        | Yes         | —                 | Tab‑separated                        |
+| Excel     | Data        | Yes         | `export-xlsx.js`  | Lazy‑loaded, inline strings          |
+| HTML      | Rich text   | No          | —                 | Book reader view, styled paragraphs  |
+| HTML Table| Data        | Yes         | —                 | `<table>` with `<thead>`             |
+| Word      | Rich text   | No          | —                 | HTML saved as `.doc`                 |
+| EPUB      | Rich text   | No          | `export-epub.js`  | Lazy‑loaded, embedded font           |
+| YAML      | Structured  | —           | —                 | `id` + `fields` per row              |
+| TOON      | Structured  | —           | —                 | Hadithmv compact notation            |
+| XML       | Structured  | —           | —                 | `<book>` / `<row>` / `<colN>`        |
+| PDF       | Rich text   | No          | —                 | Print‑only (window print)            |
+| PNG       | Screenshot  | —           | —                 | Canvas render of the current visible row (2×) — one row only, never the whole book |
 
 **Rule:** data formats (CSV, TSV, Excel, JSON, HTML Table) include the CSV header row. Rich‑text and structured formats do not.
 
@@ -639,7 +640,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 ### JavaScript
 
-**Module pattern.** All JS files are ES modules (`<script type="module">`). Heavy modules (`epub.js`, `xlsx.js`) use dynamic `import()` — they are only fetched when the user triggers an export, keeping the initial bundle small.
+**Module pattern.** All JS files are ES modules (`<script type="module">`). Heavy modules (`export-epub.js`, `export-xlsx.js`, `export-zip.js`) use dynamic `import()` — they are only fetched when the user triggers an export, keeping the initial bundle small.
 
 **Variable style.** `var` is used for function‑scoped variables throughout the codebase. `let` and `const` appear only in newer, self‑contained additions.
 
@@ -690,7 +691,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain — book registries first (`01-`, `02-`), the script that maintains them (`03-update-*`), then the Quran registries (`04-`, `05-`), then the global index builder (`06-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`) — single-word entities show no case mixing (`rebuild-index`). `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain — book registries first (`01-`, `02-`), the script that maintains them (`03-update-*`), then the Quran registries (`04-`, `05-`), then the global index builder (`06-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`, `rebuild-searchIndex`) — single-word entities show no case mixing. `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 **CSS load order.** In `reader.html`, `reader-quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 
@@ -794,7 +795,7 @@ In `js/export.js`, add an `else if (fmt === "...")` block inside the export clic
   mime = "application/x-myformat";
 }
 ```
-Heavy modules use dynamic `import()` so they only load on demand (see `xlsx.js` and `epub.js`).
+Heavy modules use dynamic `import()` so they only load on demand (see `export-xlsx.js` and `export-epub.js`).
 
 ### Add a new i18n key
 
@@ -870,7 +871,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### The index
 
-`data/06-rebuild-index.mjs` (Node — run `node data/06-rebuild-index.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
+`data/06-rebuild-searchIndex.mjs` (Node — run `node data/06-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
 
 Current size: 62 books, 226k rows, ~485k unique words — 40MB raw, ~12.8MB gzipped (Pages compresses JSON automatically). Whole‑word matching only — substring, fuzzy, and regex stay in‑book (see "What's deliberately different" below).
 

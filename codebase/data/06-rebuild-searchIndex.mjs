@@ -1,7 +1,7 @@
 /**
  * Builds data/search-index.json — word-level postings across every book.
  *
- * Run:  node data/06-rebuild-index.mjs
+ * Run:  node data/06-rebuild-searchIndex.mjs
  *
  * For each registered book: parse the CSV, normalise every cell with the
  * same normalisation the app's search uses (search-utils.js), tokenise into words,

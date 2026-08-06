@@ -208,7 +208,7 @@ export function initExports(ctx) {
         }).catch(function () { window.showErrorToast("PNG export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "excel") {
-        import("./xlsx.js").then(function(mod) {
+        import("./export-xlsx.js").then(function(mod) {
           var xlsxBlob = mod.createXLSX(rowsWithHeader, baseName);
           var u = URL.createObjectURL(xlsxBlob);
           var a = document.createElement("a");
@@ -222,7 +222,7 @@ export function initExports(ctx) {
         fetch("../font/merged-300.woff2")
           .then(function(r) { return r.ok ? r.arrayBuffer() : null; })
           .then(function(fontBuf) {
-            return import("./epub.js").then(function(mod) {
+            return import("./export-epub.js").then(function(mod) {
               var epubBlob = mod.createEPUB(rows, {
                 bookCode: meta.bookCode,
                 titleEN: meta.titleEN,
