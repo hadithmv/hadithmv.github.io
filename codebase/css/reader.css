@@ -52,11 +52,16 @@
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   outline: none;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
   transition: background 0.15s ease, border-color 0.15s ease;
+}
+/* Inputs in panel rows are softer than the buttons beside them —
+   matches the md radius of .search-input everywhere else */
+.readerPanel-inner input {
+  border-radius: var(--radius-md, 8px);
 }
 .readerPanel-inner button:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -147,7 +152,7 @@
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition: background 0.15s ease;
   font-family:
@@ -268,7 +273,7 @@
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -297,7 +302,7 @@
   padding: 6px;
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   box-shadow: 0 4px 12px var(--color-shadow-card-hover);
   max-width: 140px;
 }
@@ -327,7 +332,7 @@
   padding: 4px;
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   box-shadow: 0 4px 12px var(--color-shadow-card-hover);
   min-width: 130px;
   max-height: 320px;
@@ -350,7 +355,7 @@
   color: var(--color-text);
   background: none;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   transition: background 0.1s ease;
 }
@@ -413,7 +418,7 @@
     sans-serif;
   color: #fff;
   background: #1a202c;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   z-index: 200;
   pointer-events: none;
   opacity: 0;
@@ -612,7 +617,7 @@
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-card-hover-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   text-align: center;
   font-family:
@@ -675,7 +680,6 @@
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
   outline: none;
   transition: border-color 0.15s ease;
   -moz-appearance: textfield;
@@ -960,7 +964,7 @@
   color: var(--color-text);
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 20px;
+  border-radius: var(--radius-pill, 20px);
   z-index: 100;
   opacity: 0;
   pointer-events: none;

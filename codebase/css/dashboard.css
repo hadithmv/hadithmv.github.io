@@ -173,7 +173,7 @@ a.toolbar-btn {
   color: var(--color-text-muted);
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   z-index: 2;
   transition: color 0.15s ease, opacity 0.15s ease;
@@ -220,7 +220,7 @@ a.toolbar-btn {
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -243,7 +243,7 @@ a.toolbar-btn {
 .book-card {
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg, 12px);
   padding: 24px;
   text-decoration: none;
   color: inherit;
@@ -313,7 +313,7 @@ a.toolbar-btn {
   font-weight: 600;
   line-height: 1.4;
   padding: 0 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   border: 1px solid #dc2626;
   background: #fef2f2;
   color: #dc2626;
@@ -343,7 +343,7 @@ a.toolbar-btn {
   gap: 0;
   min-height: var(--control-height, 35px);
   padding: 0 14px;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 8px);
   border: 1px dashed var(--color-card-hover-border);
   background: var(--color-nav-btn-bg);
   text-decoration: none;
@@ -405,7 +405,7 @@ a.toolbar-btn {
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
 }
 .retry-btn:hover {

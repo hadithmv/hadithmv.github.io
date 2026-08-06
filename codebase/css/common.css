@@ -34,13 +34,23 @@
 
   /* ---- Control sizing (standard documented in docs/ARCHITECTURE.md) ----
      Every boxed control: 35px tall at every breakpoint; line-height is
-     height minus the 2px of 1px borders (border-box), so text centers. */
+     height minus the 2px of 1px borders (border-box), so text centers.
+     Radius tiers: sm = buttons/selects, md = inputs/chips/badges,
+     lg = cards/modals, pill = toast. */
   --control-height: 35px;
   --control-line-height: calc(var(--control-height) - 2px);
   /* Row spacing: gap between controls in one row; margin between a row or
      panel and the next block. */
   --control-gap: 6px;
   --section-gap: 10px;
+  /* Panel font sizes (were fallback-only) — change here, not at use sites. */
+  --panel-font-size: 0.85rem;
+  --panel-font-size-mobile: 0.78rem;
+  /* Radius tiers */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 20px;
 }
 
 /* ---- Theme: sepia ---- */
@@ -147,7 +157,7 @@ body {
   color: #1d4ed8;
   background: #eff6ff;
   border: 1px solid #bfdbfe;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -255,7 +265,7 @@ body {
   color: var(--color-text-muted);
   background: none;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -282,7 +292,7 @@ body {
   font-weight: 600;
   color: var(--color-text);
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   transition: background 0.15s ease;
 }
 
@@ -315,7 +325,7 @@ body {
   color: var(--color-text);
   background: none;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition: background 0.15s ease;
 }
@@ -380,7 +390,7 @@ body {
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -426,7 +436,7 @@ body:has(.modal-overlay.open) {
 .modal {
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg, 12px);
   width: 340px;
   max-width: 92vw;
   max-height: 85vh;
@@ -465,7 +475,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-muted);
   background: none;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -487,7 +497,7 @@ body:has(.modal-overlay.open) {
 .modal-card {
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-radius: var(--radius-lg, 12px);
   padding: 16px;
 }
 
@@ -523,7 +533,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   outline: none;
   transition: border-color 0.15s ease;
@@ -574,7 +584,7 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   border: 1px solid var(--color-border);
   cursor: pointer;
 }
@@ -616,7 +626,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   font-family:
     "Hadithmv",
@@ -645,7 +655,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-error-text);
   background: none;
   border: 1px solid var(--color-error-text);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   font-family:
     "Hadithmv",
@@ -797,7 +807,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-error-text);
   padding: 20px;
   background-color: var(--color-error-bg);
-  border-radius: 4px;
+  border-radius: var(--radius-md, 8px);
   margin: 20px;
   margin-top: 82px; /* clear the fixed topBar (62px) + 20px breathing room */
 }
@@ -816,7 +826,7 @@ body:has(.modal-overlay.open) {
   line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.78rem);
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   border: 1px solid var(--color-border);
   color: var(--tag-color, var(--color-nav-btn-text));
@@ -880,7 +890,7 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
-  border-radius: 6px;
+  border-radius: var(--radius-md, 8px);
   text-decoration: none;
   cursor: pointer;
   color: var(--tag-color, var(--color-text));
@@ -945,7 +955,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   outline: none;
   transition: border-color 0.15s ease;
@@ -967,7 +977,7 @@ body:has(.modal-overlay.open) {
   font-family:
     "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   border: 1px solid var(--color-card-hover-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   background: var(--color-reader-bg);
   color: var(--color-text);
 }
@@ -1028,7 +1038,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   font-family:
     "Hadithmv",
@@ -1077,7 +1087,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   background: none;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   text-align: right;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
@@ -1114,7 +1124,7 @@ body:has(.modal-overlay.open) {
   padding: 6px;
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-md, 8px);
   box-shadow: 0 4px 12px var(--color-shadow-card-hover);
   z-index: 60;
 }
@@ -1137,7 +1147,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   outline: none;
   transition: border-color 0.15s ease;
@@ -1189,7 +1199,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 8px);
   color: #15803d;
   background: #f0fdf4;
   border-color: #bbf7d0;
@@ -1240,7 +1250,7 @@ body:has(.modal-overlay.open) {
   color: #b91c1c;
   background: #fef2f2;
   border: 1px solid #fecaca;
-  border-radius: 10px;
+  border-radius: var(--radius-md, 8px);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1283,7 +1293,7 @@ body:has(.modal-overlay.open) {
   color: #15803d;
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   transition:
     background 0.3s ease,
@@ -1426,7 +1436,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-subtle);
   font-size: var(--panel-font-size, 0.85rem);
   border: 1px dashed var(--color-border);
-  border-radius: 10px;
+  border-radius: var(--radius-md, 8px);
 }
 .dd-clear-all {
   display: block;
@@ -1532,7 +1542,7 @@ body:has(.modal-overlay.open) {
   }
   .modal {
     width: 92vw;
-    border-radius: 12px;
+    border-radius: var(--radius-md, 8px);
   }
   .modal-body {
     padding: 0 16px 16px;
