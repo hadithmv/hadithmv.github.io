@@ -35,7 +35,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Search in books** — the 🔎 button next to the search bar opens the library search page, carrying your search text along. There you search all books at once — whole words, all languages — with tag chips to scope the search and per‑book results that expand (▾) to preview the matching lines before you open them. Every result links into the book with the term pre‑highlighted, and the page URL stays shareable (`?q=…&tags=…`). Also reachable from the sidebar on every page.
 
-- **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — books matching ANY of the selected tags are shown (OR).
+- **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — books matching ANY of the selected tags are shown (OR). An **All** chip (highlighted when no tags are selected) clears every selected tag at once.
 
 - **Sort** — use the dropdown on the right to sort books A→Z or Z→A. The whole sort row stays on one line — scroll it sideways (◀▶ arrows or mouse wheel) if it's too wide for the screen.
 
@@ -45,7 +45,7 @@ When you open the site, you see the **book list**. You can:
 
 - **Reset** — the ↺ Reset button clears all filters, search, and view mode. Pins and history are **preserved** here — they clear only via the confirmed "Clear all" buttons in the pins/history modals, or the settings modal's ↺ Reset all settings (which asks for confirmation and clears *everything*).
 
-When no filters are active, a **Continue reading** bar sits above the book list (in the collapsible panel with the tags and sort controls) — the most recently read book, with its saved position (a surah reference like ބަޤަރާ 2 : 60 for Quran books, otherwise "Page N") and how long ago you read it. Click it to resume exactly where you left off. It disappears while search or tag filters are active, and in focus mode (`z`).
+A **Continue reading** bar sits above the book list (in the collapsible panel with the tags and sort controls) — the most recently read book, with its saved position (a surah reference like ބަޤަރާ 2 : 60 for Quran books, otherwise "Page N") and how long ago you read it. Click it to resume exactly where you left off. It stays visible with any search text or tag filter — it's a resume shortcut, independent of the book grid. Focus mode (`z`) collapses the panel with it.
 
 Click any book card or table row to open it.
 

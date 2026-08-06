@@ -89,6 +89,18 @@ function renderChips() {
       tagCounts[tg.code].count++;
     });
   });
+  var tagsActive = _selectedTags.length > 0;
+  var allChipHTML =
+    '<span class="dash-tag-chip' +
+    (tagsActive ? "" : " active") +
+    '" data-tag="__all__" title="' +
+    (tagsActive ? "Clear all tag filters" : "Showing all books") +
+    '">' +
+    t("tagFilterAll") +
+    " <small>(" +
+    visible.length +
+    ")</small></span>";
+
   var html = Object.keys(tagCounts)
     .sort()
     .map(function (code) {
@@ -116,17 +128,20 @@ function renderChips() {
     })
     .join("");
   el.tagsRow.innerHTML =
-    (html ? '<span class="dash-label">' + t("dashboardTagsLabel") + "</span> " : "") +
-    html;
+    '<span class="dash-label">' + t("dashboardTagsLabel") + "</span> " + allChipHTML + html;
 }
 
 function onChipsClick(e) {
   var chip = e.target.closest(".dash-tag-chip");
   if (!chip) return;
   var tag = chip.dataset.tag;
-  var idx = _selectedTags.indexOf(tag);
-  if (idx === -1) _selectedTags.push(tag);
-  else _selectedTags.splice(idx, 1);
+  if (tag === "__all__") {
+    _selectedTags = [];
+  } else {
+    var idx = _selectedTags.indexOf(tag);
+    if (idx === -1) _selectedTags.push(tag);
+    else _selectedTags.splice(idx, 1);
+  }
   syncUrl();
   renderChips();
   if (_q) runSearch();

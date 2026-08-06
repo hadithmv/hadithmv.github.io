@@ -282,6 +282,7 @@ const STRINGS = {
   dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
   dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
   dashboardTagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
+  tagFilterAll: { dv: "ހުރިހާ", en: "All", ar: "الكل" },
   continueReading: {
     dv: "އެންމެ ފަހުން ކިޔަމުން ދިޔައީ:",
     en: "Continue reading:",

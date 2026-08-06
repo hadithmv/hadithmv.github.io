@@ -202,6 +202,18 @@ function renderDashboard(bookNames) {
       ")</small></span>";
   }
 
+  var tagsActive = _dashFilter.tags.length > 0;
+  var allChipHTML =
+    '<span class="dash-tag-chip' +
+    (tagsActive ? "" : " active") +
+    '" data-tag="__all__" title="' +
+    (tagsActive ? "Clear all tag filters" : "Showing all books") +
+    '">' +
+    t("tagFilterAll") +
+    " <small>(" +
+    allVisible.length +
+    ")</small></span>";
+
   var chipsHTML = Object.keys(tagCounts)
     .sort()
     .map(function (code) {
@@ -229,11 +241,12 @@ function renderDashboard(bookNames) {
     })
     .join("");
   document.getElementById("dashboardPanelTags").innerHTML =
-    pinsChipHTML + chipsHTML
+    pinsChipHTML + allChipHTML + chipsHTML
       ? '<span class="dash-label">' +
         t("dashboardTagsLabel") +
         "</span> " +
         pinsChipHTML +
+        allChipHTML +
         chipsHTML
       : "";
 
@@ -250,14 +263,12 @@ function renderDashboard(bookNames) {
 
   // ── Continue-reading card ──
   // Lives inside the collapsible dashboard panel (so focus mode collapses it
-  // with the rest of the chrome), only in the unfiltered view, for the most
-  // recent history entry whose book is still registered and visible.
+  // with the rest of the chrome). Always shown in every view — search text,
+  // tag filters and pins do NOT hide it (a resume shortcut, independent of
+  // the grid) — for the most recent history entry whose book is still
+  // registered and visible.
   var continueHTML = "";
-  if (
-    !_dashFilter.search.trim() &&
-    _dashFilter.tags.length === 0 &&
-    !_dashFilter.pinsOnly
-  ) {
+  {
     var hist = getReadHistory();
     if (hist.length > 0) {
       var h0 = hist[0];
@@ -473,6 +484,8 @@ function setupDashboardControls() {
     var tag = chip.dataset.tag;
     if (tag === "__pins__") {
       _dashFilter.pinsOnly = !_dashFilter.pinsOnly;
+    } else if (tag === "__all__") {
+      _dashFilter.tags = [];
     } else {
       var idx = _dashFilter.tags.indexOf(tag);
       if (idx === -1) _dashFilter.tags.push(tag);

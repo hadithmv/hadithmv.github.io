@@ -127,7 +127,7 @@ No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `ca
 - **Table view** — `dash-table` wrapped in `.dash-table-wrap`: `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page
 - **Continue‑reading card** — inside the collapsible dashboard panel (above the tags), appears when no search/tag/pins filter is active, built from the most recent history entry (book title, saved position — a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number — and relative time); clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome
 - **Pin auto‑update** — while the user reads a **pinned** book, the reader's scroll handler (debounced 2 s, guarded by `isPinned` + `_lastHistoryRow`) calls `addPin(bookCode, vRow + 1, pinLabel(...))`, piggybacking on the same timer as the history auto‑log; the URL position sync is a separate 500 ms debounce
-- **`?tags=A,B`** — pre‑filters by tag codes; clicking a tag chip updates the URL via `history.replaceState`, so filtered views are bookmarkable and shareable
+- **`?tags=A,B`** — pre‑filters by tag codes; clicking a tag chip updates the URL via `history.replaceState`, so filtered views are bookmarkable and shareable. An `All` chip (active when no tags are selected) clears the tag filter
 
 The dashboard panel's DOM nesting (each level is a flex container):
 
@@ -135,7 +135,7 @@ The dashboard panel's DOM nesting (each level is a flex container):
 #dashboardPanel
 ├── #dashboardPanelSearch
 └── #collapsibleDashboardPanel          ← collapses in focus mode
-    ├── #dashboardContinue              ← continue-reading card (unfiltered only)
+    ├── #dashboardContinue              ← continue-reading card (any view, when history exists)
     ├── #dashboardPanelTags             ← tag chips
     └── #dashboardPanelFunctions        ← wrap: arrows + scroll
         ├── ▶ .scroll-arrow-start
