@@ -99,7 +99,7 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/05-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort both registries (books by `bookCode`, tags by `code`)
+- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort both registries (books by `bookCode`, tags by `code`)
 
 ---
 
@@ -319,7 +319,7 @@ Pure column‑layout rebuild — the heart of the content modal's reorder featur
 
 ### `loadColumnRegistry()`
 
-Fetches `03-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+Fetches `04-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
 ### Content presets
 
