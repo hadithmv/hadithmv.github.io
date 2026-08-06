@@ -46,10 +46,10 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=` URLs     |
 | `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors |
-| `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override quran.css on specificity ties. |
+| `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override reader-quran.css on specificity ties. |
 | `css/reader-search.css`      | Reader: search bar, results dropdown, advanced search                      |
 | `css/reader-table-view.css`  | Reader: table view mode, top scrollbar, sentinels                          |
-| `css/quran.css`              | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
+| `css/reader-quran.css`       | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `css/library-search.css`     | Library search page: results, peek previews                                |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
@@ -690,7 +690,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain — book registries first (`01-`, `02-`), the script that maintains them (`03-update-*`), then the Quran registries (`04-`, `05-`), then the global index builder (`06-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`) — single-word entities show no case mixing (`rebuild-index`). `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
-**CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
+**CSS load order.** In `reader.html`, `reader-quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 
 **Modals.** All modals use the unified layer in `common.js`:
 

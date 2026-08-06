@@ -24,7 +24,7 @@ css/
   reader.css                    ← Reader page: focus mode, toolbar, pagination, content, responsive
   reader-search.css             ← Reader: search bar, results dropdown, advanced search
   reader-table-view.css         ← Reader: table view mode, top scrollbar, sentinels
-  quran.css                     ← Reader: Quran navigation row, dropdowns, surah overlay
+  reader-quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
   dashboard.css                 ← Dashboard: grid, cards, controls, table view
   library-search.css            ← Library search page: results, peek previews
 js/
