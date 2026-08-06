@@ -85,6 +85,16 @@
   --page-padding: 0 20px;
   --page-margin-mobile: 60px auto 12px;
   --page-padding-mobile: 0 12px;
+  /* Font stacks — one var per family, exact canon (docs/ARCHITECTURE.md).
+     A use site is always `var(--font-*, <canonical>)`; the only literal
+     font-family in the app is the @font-face name below. */
+  --font-mixed: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  --font-latin: system-ui, -apple-system, sans-serif;
+  --font-arabic: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
+  --font-arabic-thaana: "Hadithmv", "Traditional Arabic", "Scheherazade New",
+    "Faruma", serif;
+  --font-thaana: "Hadithmv", "Faruma", "MV Boli", sans-serif;
+  --font-mono: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
 }
 
 /* ---- Theme: sepia ---- */
@@ -235,10 +245,7 @@ body {
   transition:
     background 0.15s ease,
     border-color 0.15s ease;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   margin-left: auto;
 }
 
@@ -281,12 +288,7 @@ body {
   transition: transform 0.25s ease;
   overflow-y: auto;
   overscroll-behavior: contain;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   direction: rtl;
 }
 
@@ -368,12 +370,7 @@ body {
   margin-bottom: 4px;
   font-size: 0.9rem;
   font-weight: 600;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: none;
   border: none;
@@ -418,10 +415,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 8px;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 /* Sidebar theme button */
@@ -433,12 +427,7 @@ body {
   padding: 10px 14px;
   font-size: 0.9rem;
   font-weight: 600;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -496,12 +485,7 @@ body:has(.modal-overlay.open) {
   overscroll-behavior: contain;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
   direction: rtl;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 .modal-header {
@@ -560,12 +544,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-subtle);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 .modal-select {
@@ -576,12 +555,7 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -616,7 +590,7 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   line-height: 1.8;
 }
 .confirm-actions {
@@ -628,7 +602,7 @@ body:has(.modal-overlay.open) {
   padding: 6px 16px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   border-radius: var(--radius-sm, 6px);
   border: 1px solid var(--color-border);
   cursor: pointer;
@@ -673,12 +647,7 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   transition: background 0.15s ease;
   white-space: nowrap;
 }
@@ -702,12 +671,7 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-error-text);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   transition: opacity 0.15s ease;
   margin-right: auto;
   margin-left: 8px;
@@ -721,7 +685,7 @@ body:has(.modal-overlay.open) {
 [data-font-system] #readerContent,
 [data-font-system] .reader-field,
 [data-font-system] .reader-footnotes {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 [data-font-system] .book-card .title-ar,
@@ -735,7 +699,7 @@ body:has(.modal-overlay.open) {
 [data-font-system] .nav-counter-bottom,
 [data-font-system] .sidebar,
 [data-font-system] .search-result-snippet {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 /* Sidebar footer */
@@ -753,12 +717,7 @@ body:has(.modal-overlay.open) {
   padding: 100px 40px 40px;
   font-size: 1.3rem;
   color: var(--color-loading);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 /* Skeleton loading lines */
@@ -864,12 +823,7 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   color: var(--tag-color, var(--color-nav-btn-text));
   background: var(--tag-bg, var(--color-nav-btn-bg));
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
   transition:
     background 0.15s ease,
@@ -906,12 +860,7 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 #pageTags .tag-badge,
@@ -928,12 +877,7 @@ body:has(.modal-overlay.open) {
   cursor: pointer;
   color: var(--tag-color, var(--color-text));
   background: var(--tag-bg, var(--color-nav-btn-bg));
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
   border: 1px solid transparent;
 }
@@ -956,7 +900,7 @@ body:has(.modal-overlay.open) {
   max-width: var(--content-width, 800px);
   margin: 62px auto 60px;
   padding: 0;
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
 }
 
 /* Sidebar settings selects */
@@ -977,12 +921,7 @@ body:has(.modal-overlay.open) {
   padding: 8px 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1005,8 +944,7 @@ body:has(.modal-overlay.open) {
   height: var(--control-height, 35px);
   padding: 0 0.75em;
   line-height: var(--control-line-height, 33px);
-  font-family:
-    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   border: 1px solid var(--color-card-hover-border);
   border-radius: var(--radius-md, 8px);
   background: var(--color-reader-bg);
@@ -1043,12 +981,7 @@ body:has(.modal-overlay.open) {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text-muted);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
 }
 
@@ -1071,12 +1004,7 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
   transition:
     background 0.15s ease,
@@ -1097,12 +1025,7 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   letter-spacing: 0.04em;
 }
 
@@ -1121,7 +1044,7 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   text-align: right;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   transition: background 0.1s ease;
   box-sizing: border-box;
 }
@@ -1171,10 +1094,7 @@ body:has(.modal-overlay.open) {
   text-align-last: center;
   -moz-appearance: textfield;
   appearance: textfield;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -1245,7 +1165,7 @@ body:has(.modal-overlay.open) {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-text);
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   text-align: center;
   white-space: nowrap;
   overflow-x: auto;
@@ -1261,10 +1181,7 @@ body:has(.modal-overlay.open) {
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   color: var(--color-danger-text, #dc2626);
   background: var(--color-danger-bg, #fef2f2);
   border: 1px solid var(--color-danger-border, #fecaca);
@@ -1300,12 +1217,7 @@ body:has(.modal-overlay.open) {
     background 0.3s ease,
     border-color 0.3s ease,
     color 0.3s ease;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
 }
 
@@ -1366,12 +1278,7 @@ body:has(.modal-overlay.open) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 /* Round only the outer corners of the header bar and the hover bar
    (first column is the rightmost in RTL) */
@@ -1391,12 +1298,7 @@ body:has(.modal-overlay.open) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 .pins-history-body .dd-table tbody tr:hover td {
   background: var(--color-nav-btn-hover-bg);
@@ -1452,12 +1354,7 @@ body:has(.modal-overlay.open) {
   border-top: 1px solid var(--color-border);
   border-radius: 0 0 4px 4px;
   cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   text-align: center;
   opacity: 0.8;
   transition: opacity 0.15s ease;

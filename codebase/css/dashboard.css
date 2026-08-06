@@ -5,7 +5,7 @@
   max-width: var(--content-width, 800px);
   margin: var(--page-margin, 72px auto 40px);
   padding: var(--page-padding, 0 20px);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 /* ---- Focus mode: collapse tags + functions, keep search visible ---- */
@@ -86,7 +86,7 @@ a.toolbar-btn {
   border-spacing: 0;
   font-size: 1rem;
   direction: rtl;
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
 }
 /* No position: sticky on the dashboard header — the .dash-table-wrap scroll
    container makes sticky measure against the wrapper (pushing the thead down
@@ -203,12 +203,7 @@ a.toolbar-btn {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -223,12 +218,7 @@ a.toolbar-btn {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 /* ---- Book cards ---- */
@@ -264,7 +254,7 @@ a.toolbar-btn {
   text-align: right;
   font-weight: 700;
   margin-bottom: 8px;
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
+  font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
 }
 
 .book-card .title-dv {
@@ -273,7 +263,7 @@ a.toolbar-btn {
   direction: rtl;
   text-align: right;
   margin-bottom: 12px;
-  font-family: "Hadithmv", "Faruma", "MV Boli", sans-serif;
+  font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
 }
 
 .book-card .title-en {
@@ -308,12 +298,7 @@ a.toolbar-btn {
   border: 1px solid var(--color-danger-text, #dc2626);
   background: var(--color-danger-bg, #fef2f2);
   color: var(--color-danger-text, #dc2626);
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
 }
 
@@ -336,7 +321,7 @@ a.toolbar-btn {
   color: var(--color-text);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 /* Join the pieces into one continuous reading: "label · title · pos · time" */
@@ -387,7 +372,7 @@ a.toolbar-btn {
   line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -405,7 +390,7 @@ a.toolbar-btn {
   padding: 40px 20px;
   color: var(--color-text-muted);
   font-size: 1rem;
-  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 .book-grid {

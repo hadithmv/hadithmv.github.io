@@ -24,12 +24,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
   transition: background 0.15s ease;
 }
@@ -62,7 +57,7 @@
   flex: 1;
   min-width: 0;
   color: var(--color-text);
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -119,12 +114,7 @@
 
 .adv-search-row select,
 .adv-search-row input {
-  font-family:
-    "Hadithmv",
-    "Faruma",
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -150,10 +140,7 @@
   background: none;
   border: 1px solid var(--color-error-text);
   cursor: pointer;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 .adv-remove-btn:hover {
@@ -200,10 +187,7 @@
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 700;
   color: var(--color-text-subtle);
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   min-width: 28px;
   direction: ltr;
   text-align: left;
@@ -219,7 +203,7 @@
   font-size: 1.1rem;
   line-height: 1.6;
   color: var(--color-text);
-  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
