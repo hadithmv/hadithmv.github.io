@@ -9,8 +9,8 @@ data/
   01-registry-bookTags.csv      ← Tag definitions (code, label, colors)
   02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
   03-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
-  04-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
-  05-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
+  04-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
+  05-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
   06-rebuild-searchIndex.mjs    ← Node script: builds search-index.json (rerun after book changes)
   search-index.json             ← Generated word-level search index (word → books → rows)
   content/                      ← Per-book content files (incl. Quran base data)

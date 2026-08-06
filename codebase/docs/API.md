@@ -349,7 +349,7 @@ Pure column‑layout rebuild — the heart of the content modal's reorder featur
 
 ### `loadColumnRegistry()`
 
-Fetches `04-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+Fetches `05-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
 ### Content presets
 
