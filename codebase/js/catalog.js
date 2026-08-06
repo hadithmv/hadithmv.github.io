@@ -205,7 +205,7 @@ export { extractTags };
  * @returns {string} Path to the CSV file in data folder
  */
 export function getCsvPath(bookCode) {
-  return `../data/${bookCode}.csv`;
+  return `../data/content/${bookCode}.csv`;
 }
 
 import {
@@ -412,16 +412,11 @@ function runLibrarySearch() {
 // snippets with a "Show next" pager. Each snippet deep-links to its row.
 
 var PEEK_BATCH = 8;
-var _peekCache = {}; // "bookCode q" → {q, allData, normAllData, compiled, matches, pos, hasRowNums}
-
-function peekKey(bookCode, q) {
-  return bookCode + " " + q;
-}
+var _peekCache = {}; // bookCode → q → {q, allData, normAllData, compiled, matches, pos, hasRowNums}
 
 /** Load the book + compute all matching positions (cached per book+query). */
 function peekEnsureData(bookCode, q) {
-  var key = peekKey(bookCode, q);
-  var cached = _peekCache[key];
+  var cached = _peekCache[bookCode] && _peekCache[bookCode][q];
   if (cached && cached.q === q) return Promise.resolve(cached);
   return fetchBookCSVCached(
     bookCode,
@@ -656,7 +651,7 @@ function renderLibraryResults(grid, rc, results, q) {
     var more = root.querySelector(".lib-peek-more");
     if (more)
       more.addEventListener("click", function () {
-        var entry = _peekCache[peekKey(bookCode, peekQ)];
+        var entry = _peekCache[bookCode] && _peekCache[bookCode][peekQ];
         if (entry)
           peekRenderBatch(root.querySelector(".lib-peek"), entry, peekQ, bookCode);
       });

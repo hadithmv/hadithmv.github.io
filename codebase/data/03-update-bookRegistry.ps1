@@ -2,12 +2,12 @@
 #   - Reads known tag codes from 01-registry-bookTags.csv
 #   - Strips prefix tags and suffix flags from bookCode to derive titleEN
 #   - Converts camelCase to Title Case (e.g. "aqidahNawawi" → "Aqidah Nawawi")
-#   - Scans data/ for CSV files not yet registered and adds them
+#   - Scans data/content/ for CSV files not yet registered and adds them
 #   - Sorts alphabetically by bookCode
 
 $csvPath = Join-Path $PSScriptRoot "02-registry-bookNames.csv"
 $tagsPath = Join-Path $PSScriptRoot "01-registry-bookTags.csv"
-$dataDir = $PSScriptRoot
+$dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
 
 # ── Helpers for coloured output ──────────────────────────────
 function Write-Section($text) {

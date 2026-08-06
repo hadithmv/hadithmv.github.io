@@ -55,7 +55,7 @@ initializePageWithMetadata(async function (metadata) {
   // metadata.titleEN    — "Qawaidul Arbau"
   // metadata.titleAR    — "القواعد الأربع"
   // metadata.titleDV    — "ހަތަރު ގަވާއިދު"
-  // metadata.csvPath    — "../data/AQD-qawaidulArbau.csv"
+  // metadata.csvPath    — "../data/content/AQD-qawaidulArbau.csv"
 });
 ```
 
@@ -73,7 +73,7 @@ Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Require
 
 ### `getCsvPath(bookCode)`
 
-Returns the data CSV path: `"../data/" + bookCode + ".csv"`.
+Returns the data CSV path: `"../data/content/" + bookCode + ".csv"`.
 
 ### `getBookVersionSync(bookCode)`
 
@@ -506,7 +506,7 @@ Columns: `code,label`. Colours are auto‑generated client‑side using golden�
 ### Book content
 
 ```http
-GET data/{bookCode}.csv
+GET data/content/{bookCode}.csv
 ```
 First row is the column header. Column 0 is `#` (row numbers) or regular content. Headers ending in `*AR` are Arabic, `*DV` are Dhivehi. Standard CSV: comma‑delimited, quoted fields, `\r\n` line endings.
 

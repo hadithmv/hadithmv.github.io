@@ -11,7 +11,7 @@ Hadithmv is a **static, CSV‑driven viewer**: no server, no build step, no data
 The data flow is one chain:
 
 ```text
-data/*.csv → fetch + parseCSV → in‑memory rows → render (dashboard grid / reader / Quran merge)
+data/content/*.csv → fetch + parseCSV → in‑memory rows → render (dashboard grid / reader / Quran merge)
 ```
 
 - **Dashboard** reads two small registry CSVs (books, tags) and renders the collection.
@@ -64,12 +64,12 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/epub.js`                 | EPUB 3 e-book writer — `createEPUB()`, lazy-loaded on demand               |
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
-| `data/*.csv`                 | Per-book content files                                                     |
+| `data/content/*.csv`        | Per-book content files                                                     |
 | `data/03-update-bookRegistry.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
 | `data/QRN-DATA-registry-surahSelector.csv`      | 114 surah names in AR/DV/EN with ayah counts                      |
 | `data/QRN-DATA-registry-bookToggle.csv`         | Registry of all available Quran columns (source, labels, defaults) |
-| `data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
-| `data/QRN-DATA-baseFile-2-ayahUthmani.csv`     | Quran text in Uthmani script                                     |
+| `data/content/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
+| `data/content/QRN-DATA-baseFile-2-ayahUthmani.csv` | Quran text in Uthmani script                                     |
 | `data/04-rebuild-index.mjs`  | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
 | `data/04-search-index.json`  | Generated word-level search index — the one machine-generated data file (see "Library search") |
 
@@ -106,7 +106,7 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   reader.js
-    ├─ parseCSV(../data/AQD-nawaqidulIslam.csv)
+    ├─ parseCSV(../data/content/AQD-nawaqidulIslam.csv)
     ├─ first row = header; col 0 = # or blank → row numbers
     ├─ build column toggle buttons
     ├─ loadInitial() → first chunk of rows
@@ -390,7 +390,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`). A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just `code,label` — no colour‑picking, no limit on tag count. The PIN entry exists only to document the pin chip colour; it uses hardcoded red and is not part of the rotation.
 
-### data/{bookCode}.csv
+### data/content/{bookCode}.csv
 
 First row is always the header row. For a representative sample, see `AQD-nawaqidulIslam.csv` — a small file covering the common column patterns (`headAR`, `bodyAR`, `headDV`, `bodyDV`, `foot`). If column 0 is `#` or blank it's treated as row numbers (hidden from content, shown as `#N` labels in the card view). Otherwise column 0 is regular content. Column headers ending with `-HDN` (case-insensitive) are hidden by default — the reader starts with those columns toggled off (they can still be turned back on via the column dropdown). Consecutive blank lines within a cell are collapsed to a single line break; both `\r\n` (Windows) and `\n` (Unix) line endings are normalised before collapsing.
 
@@ -503,10 +503,10 @@ reader shows columns in list order
 
 **Adding a new Quran translation (walkthrough):**
 
-1. Create `data/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-baseFile-1-…` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
+1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-baseFile-1-…` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
 2. Register each column in `data/QRN-DATA-registry-bookToggle.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
-4. Register the book in `02-registry-bookNames.csv` — or just run `data/03-update-bookRegistry.ps1`, which derives `titleEN` from the book code, sorts the registry, and adds unregistered CSVs found in `data/`.
+4. Register the book in `02-registry-bookNames.csv` — or just run `data/03-update-bookRegistry.ps1`, which derives `titleEN` from the book code, sorts the registry, and adds unregistered CSVs found in `data/content/`.
 
 ### Ayah decoration
 
@@ -738,7 +738,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 ### Add a new book
 
-1. Create `data/FQH-usululFiqh.csv` with a header row and content:
+1. Create `data/content/FQH-usululFiqh.csv` with a header row and content:
    ```csv
    #,headAR,bodyAR,headDV,bodyDV,foot
    1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
@@ -819,7 +819,7 @@ The app has no test suite or build step — changes are verified by hand:
 ### New book
 
 1. Add a row to `data/02-registry-bookNames.csv`.
-1. Create `data/{bookCode}.csv` with a header row as the first row.
+1. Create `data/content/{bookCode}.csv` with a header row as the first row.
 1. Open the viewer — it appears automatically.
 
 ### New tag category

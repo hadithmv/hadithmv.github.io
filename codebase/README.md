@@ -11,7 +11,9 @@ data/
   03-update-bookRegistry.ps1← Auto-generate titleEN, sync new books
   04-rebuild-index.mjs      ← Node script: builds 04-search-index.json (rerun after book changes)
   04-search-index.json      ← Generated word-level search index (word → books → rows)
-  *.csv                ← Per-book content files
+  QRN-DATA-registry-*.csv   ← Quran registries (surah names, column toggles)
+  content/                  ← Per-book content files (incl. Quran base data)
+    *.csv                ← One file per book
 books/
   index.html           ← Dashboard — book list, search, tag filter, table/card view
   reader.html          ← Book viewer — loaded via ?book=CODE
@@ -49,7 +51,7 @@ docs/                  ← User guide, architecture, API reference
    FQH-usululFiqh,أصول الفقه,އުޞޫލުލް ފިޤްހު,Usul ul-Fiqh,HDT
    ```
 
-1. Create the data file at `data/FQH-usululFiqh.csv`.
+1. Create the data file at `data/content/FQH-usululFiqh.csv`.
 
 1. Open `books/index.html?book=FQH-usululFiqh` — the book appears. The dashboard at `books/index.html` picks it up automatically.
 
@@ -75,7 +77,7 @@ A book code carries exactly ONE tag — the primary — as its first segment (`H
 
 The first row of each book's CSV is always the header row. If column 0 is `#` or blank, it's treated as row numbers (hidden from content, shown as `#N` labels in card view). Otherwise column 0 is regular content. Header names label the column toggle buttons.
 
-For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqidulIslam.csv) — it's small and covers the common column patterns (`headAR`, `bodyAR`, `headDV`, `bodyDV`, `foot`).
+For a representative sample, see [`data/content/AQD-nawaqidulIslam.csv`](data/content/AQD-nawaqidulIslam.csv) — it's small and covers the common column patterns (`headAR`, `bodyAR`, `headDV`, `bodyDV`, `foot`).
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes
@@ -87,7 +89,7 @@ For a representative sample, see [`data/AQD-nawaqidulIslam.csv`](data/AQD-nawaqi
 
 1. The page reads `?book=CODE` from the URL.
 1. `catalog.js` loads `02-registry-bookNames.csv` and `01-registry-bookTags.csv` for metadata and badges.
-1. `reader.js` loads `data/{bookCode}.csv` via `fetch` + `parseCSV`.
+1. `reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 
 **No book selected?** The dashboard shows all registered books as a card grid.

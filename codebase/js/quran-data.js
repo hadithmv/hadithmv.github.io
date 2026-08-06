@@ -65,7 +65,7 @@ export var BASE_HEADERS = [
 export function loadQuranBaseData() {
   if (_baseDataCache) return Promise.resolve(_baseDataCache);
   return fetchCSV(
-    "../data/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv",
+    "../data/content/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv",
   ).then(function (rows) {
     if (rows.length > 0) rows.shift(); // strip header row
     _baseDataCache = rows; // 6236 data rows
@@ -202,7 +202,7 @@ export function loadQuranBookCSV(bookCode) {
   if (_bookCsvCache && _bookCsvCache.bookCode === bookCode) {
     return Promise.resolve(_bookCsvCache);
   }
-  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/" + bookCode + ".csv").then(function (rows) {
+  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/content/" + bookCode + ".csv").then(function (rows) {
     if (rows.length === 0) return { header: [], data: [] };
     var header = rows.shift();
     _bookCsvCache = { bookCode: bookCode, header: header, data: rows };

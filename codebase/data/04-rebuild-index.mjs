@@ -46,7 +46,7 @@ const bookIdx = header.indexOf("bookCode");
 for (const entry of registryRows.slice(1)) {
   const bookCode = entry[bookIdx];
   if (!bookCode) continue;
-  const csvPath = path.join(DIR, bookCode + ".csv");
+  const csvPath = path.join(DIR, "content", bookCode + ".csv");
   if (!fs.existsSync(csvPath)) {
     console.warn("skip (no file):", bookCode);
     continue;
