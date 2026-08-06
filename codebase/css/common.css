@@ -32,6 +32,27 @@
   --color-mark-bg: #fef08a;
   --color-mark-text: inherit;
 
+  /* Semantic accent families — same role in every theme; never hardcode.
+     accent: active menu button + dropdown checkmark (blue)
+     focus:  the focus-mode buttons (green)
+     danger: destructive buttons, pins, continue bar, error text (red) */
+  --color-accent: #2563eb;
+  --color-accent-bg: #eff6ff;
+  --color-accent-bg-hover: #eff6ff;
+  --color-accent-border: #bfdbfe;
+  --color-accent-border-hover: #93c5fd;
+  --color-focus-text: #15803d;
+  --color-focus-bg: #f0fdf4;
+  --color-focus-border: #bbf7d0;
+  --color-focus-border-hover: #4ade80;
+  --color-danger-text: #dc2626;
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
+  --color-danger-border-hover: #fca5a5;
+  /* Error boxes alias the danger family — one red everywhere */
+  --color-error-bg: var(--color-danger-bg);
+  --color-error-text: var(--color-danger-text);
+
   /* ---- Control sizing (standard documented in docs/ARCHITECTURE.md) ----
      Every boxed control: 35px tall at every breakpoint; line-height is
      height minus the 2px of 1px borders (border-box), so text centers.
@@ -81,6 +102,21 @@
   --color-theme-toggle-text: #5c4a30;
   --color-mark-bg: #f0c060;
   --color-mark-text: #3d2e1c;
+  --color-accent: #3b5f8a;
+  --color-accent-bg: #e8e0d5;
+  --color-accent-bg-hover: #ddd4c5;
+  --color-accent-border: #c4b99a;
+  --color-accent-border-hover: #8a7a55;
+  --color-focus-text: #3d6b35;
+  --color-focus-bg: #e6efe0;
+  --color-focus-border: #b4c8a8;
+  --color-focus-border-hover: #7a9a6a;
+  --color-danger-text: #8b3a3a;
+  --color-danger-bg: #f0e4dc;
+  --color-danger-border: #c8a8a0;
+  --color-danger-border-hover: #9a6a5a;
+  --color-error-bg: var(--color-danger-bg);
+  --color-error-text: var(--color-danger-text);
 }
 
 /* ---- Theme: dark ---- */
@@ -111,6 +147,21 @@
   --color-theme-toggle-text: #94a3b8;
   --color-mark-bg: #854d0e;
   --color-mark-text: #fef9c3;
+  --color-accent: #93c5fd;
+  --color-accent-bg: #1e3a5f;
+  --color-accent-bg-hover: #1e3a5f;
+  --color-accent-border: #1e3a5f;
+  --color-accent-border-hover: #60a5fa;
+  --color-focus-text: #86efac;
+  --color-focus-bg: #14532d;
+  --color-focus-border: #14532d;
+  --color-focus-border-hover: #4ade80;
+  --color-danger-text: #f87171;
+  --color-danger-bg: #3b0a0a;
+  --color-danger-border: #7f1d1d;
+  --color-danger-border-hover: #f87171;
+  --color-error-bg: var(--color-danger-bg);
+  --color-error-text: var(--color-danger-text);
 }
 
 /* ---- Search highlight ---- */
@@ -154,9 +205,9 @@ body {
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
-  color: #1d4ed8;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
+  color: var(--color-accent, #2563eb);
+  background: var(--color-accent-bg, #eff6ff);
+  border: 1px solid var(--color-accent-border, #bfdbfe);
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   display: flex;
@@ -173,26 +224,8 @@ body {
 }
 
 .menu-btn:hover {
-  background: #eff6ff;
-  border-color: #93c5fd;
-}
-[data-theme="dark"] .menu-btn {
-  color: #93c5fd;
-  background: #1e3a5f;
-  border-color: #1e3a5f;
-}
-[data-theme="dark"] .menu-btn:hover {
-  background: #1e3a5f;
-  border-color: #60a5fa;
-}
-[data-theme="sepia"] .menu-btn {
-  color: #3b5f8a;
-  background: #e8e0d5;
-  border-color: #c4b99a;
-}
-[data-theme="sepia"] .menu-btn:hover {
-  background: #ddd4c5;
-  border-color: #8a7a55;
+  background: var(--color-accent-bg, #eff6ff);
+  border-color: var(--color-accent-border-hover, #93c5fd);
 }
 
 /* ---- Sidebar overlay ---- */
@@ -547,19 +580,12 @@ body:has(.modal-overlay.open) {
 /* Destructive variant for the "Clear pins & history" settings button
    (declared after .modal-select so it wins the specificity tie) */
 .modal-danger-btn {
-  color: #dc2626;
+  color: var(--color-danger-text, #dc2626);
   background: transparent;
-  border-color: #dc2626;
+  border-color: var(--color-danger-text, #dc2626);
 }
 .modal-danger-btn:hover {
-  background: #fef2f2;
-}
-[data-theme="dark"] .modal-danger-btn {
-  color: #f87171;
-  border-color: #7f1d1d;
-}
-[data-theme="dark"] .modal-danger-btn:hover {
-  background: #3b0a0a;
+  background: var(--color-danger-bg, #fef2f2);
 }
 
 /* ── Confirm dialog (window.confirmModal) ── */
@@ -593,8 +619,8 @@ body:has(.modal-overlay.open) {
   color: var(--color-nav-btn-text);
 }
 .confirm-yes {
-  background: #dc2626;
-  border-color: #dc2626;
+  background: var(--color-danger-text, #dc2626);
+  border-color: var(--color-danger-text, #dc2626);
   color: #fff;
 }
 .confirm-yes:hover {
@@ -995,7 +1021,7 @@ body:has(.modal-overlay.open) {
   font-size: 1rem;
   font-weight: 900;
   line-height: 1;
-  color: #dc2626;
+  color: var(--color-danger-text, #dc2626);
   background: none;
   border: none;
   border-radius: 50%;
@@ -1004,7 +1030,7 @@ body:has(.modal-overlay.open) {
 }
 
 .search-clear:hover {
-  background: #fef2f2;
+  background: var(--color-danger-bg, #fef2f2);
 }
 
 .search-info {
@@ -1200,25 +1226,12 @@ body:has(.modal-overlay.open) {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md, 8px);
-  color: #15803d;
-  background: #f0fdf4;
-  border-color: #bbf7d0;
+  color: var(--color-focus-text, #15803d);
+  background: var(--color-focus-bg, #f0fdf4);
+  border-color: var(--color-focus-border, #bbf7d0);
 }
-[data-theme="dark"] #topBar .nav-focus-btn {
-  color: #86efac;
-  background: #14532d;
-  border-color: #14532d;
-}
-[data-theme="dark"] #topBar .nav-focus-btn:hover {
-  border-color: #4ade80;
-}
-[data-theme="sepia"] #topBar .nav-focus-btn {
-  color: #3d6b35;
-  background: #e6efe0;
-  border-color: #b4c8a8;
-}
-[data-theme="sepia"] #topBar .nav-focus-btn:hover {
-  border-color: #7a9a6a;
+#topBar .nav-focus-btn:hover {
+  border-color: var(--color-focus-border-hover, #4ade80);
 }
 
 #topBar #pageTitle {
@@ -1247,9 +1260,9 @@ body:has(.modal-overlay.open) {
     system-ui,
     -apple-system,
     sans-serif;
-  color: #b91c1c;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  color: var(--color-danger-text, #dc2626);
+  background: var(--color-danger-bg, #fef2f2);
+  border: 1px solid var(--color-danger-border, #fecaca);
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   display: flex;
@@ -1261,25 +1274,8 @@ body:has(.modal-overlay.open) {
 }
 
 #backToDashboard:hover {
-  background: #fef2f2;
-  border-color: #fca5a5;
-}
-[data-theme="dark"] #backToDashboard {
-  color: #fca5a5;
-  background: #450a0a;
-  border-color: #450a0a;
-}
-[data-theme="dark"] #backToDashboard:hover {
-  background: #450a0a;
-  border-color: #f87171;
-}
-[data-theme="sepia"] #backToDashboard {
-  color: #8b3a3a;
-  background: #f0e4dc;
-  border-color: #c8a8a0;
-}
-[data-theme="sepia"] #backToDashboard:hover {
-  border-color: #9a6a5a;
+  background: var(--color-danger-bg, #fef2f2);
+  border-color: var(--color-danger-border-hover, #fca5a5);
 }
 
 /* Focus button (shared — appears on topBar, shown via JS) */
@@ -1290,9 +1286,9 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
-  color: #15803d;
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  color: var(--color-focus-text, #15803d);
+  background: var(--color-focus-bg, #f0fdf4);
+  border: 1px solid var(--color-focus-border, #bbf7d0);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   transition:
@@ -1309,14 +1305,14 @@ body:has(.modal-overlay.open) {
 }
 
 .nav-focus-btn:hover {
-  background: #f0fdf4;
-  border-color: #86efac;
+  background: var(--color-focus-bg, #f0fdf4);
+  border-color: var(--color-focus-border-hover, #4ade80);
 }
 
 .nav-focus-btn.active {
-  background: #15803d;
+  background: var(--color-focus-text, #15803d);
   color: #fff;
-  border-color: #15803d;
+  border-color: var(--color-focus-text, #15803d);
   transition:
     background 0.3s ease,
     border-color 0.3s ease,
@@ -1445,7 +1441,7 @@ body:has(.modal-overlay.open) {
   padding: 5px 8px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  color: #e53e3e;
+  color: var(--color-danger-text, #dc2626);
   background: none;
   border: 1px solid transparent;
   border-top: 1px solid var(--color-border);
@@ -1482,7 +1478,7 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-subtle);
 }
 .pins-history-body .chip-x:hover {
-  color: #dc2626;
+  color: var(--color-danger-text, #dc2626);
 }
 
 /* ---- Responsive ---- */

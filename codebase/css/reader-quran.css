@@ -213,7 +213,7 @@
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 12px;
-  font-size: 0.85rem;
+  font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
   border: none;

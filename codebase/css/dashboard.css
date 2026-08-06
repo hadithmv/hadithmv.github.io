@@ -69,14 +69,14 @@ a.toolbar-btn {
 
 /* Pins chip dark-mode overrides (inline styles are light-themed) */
 [data-theme="dark"] .dash-tag-chip[data-tag="__pins__"] {
-  color: #f87171 !important;
-  background: #3b0a0a !important;
-  border-color: #7f1d1d !important;
+  color: var(--color-danger-text, #f87171) !important;
+  background: var(--color-danger-bg, #3b0a0a) !important;
+  border-color: var(--color-danger-border, #7f1d1d) !important;
 }
 [data-theme="dark"] .dash-tag-chip[data-tag="__pins__"].active {
   color: #fff !important;
-  background: #dc2626 !important;
-  border-color: #dc2626 !important;
+  background: var(--color-danger-text, #dc2626) !important;
+  border-color: var(--color-danger-text, #dc2626) !important;
 }
 
 /* Dashboard table view */
@@ -314,9 +314,9 @@ a.toolbar-btn {
   line-height: 1.4;
   padding: 0 10px;
   border-radius: var(--radius-md, 8px);
-  border: 1px solid #dc2626;
-  background: #fef2f2;
-  color: #dc2626;
+  border: 1px solid var(--color-danger-text, #dc2626);
+  background: var(--color-danger-bg, #fef2f2);
+  color: var(--color-danger-text, #dc2626);
   font-family:
     "Hadithmv",
     "Faruma",
@@ -324,11 +324,6 @@ a.toolbar-btn {
     -apple-system,
     sans-serif;
   white-space: nowrap;
-}
-[data-theme="dark"] .pin-badge {
-  color: #f87171;
-  background: #3b0a0a;
-  border-color: #7f1d1d;
 }
 
 /* ── Continue-reading card ──
@@ -371,11 +366,11 @@ a.toolbar-btn {
   flex-shrink: 0;
 }
 .dash-continue:hover {
-  border-color: #dc2626;
+  border-color: var(--color-danger-text, #dc2626);
   background: var(--color-nav-btn-hover-bg);
 }
 .dash-continue-label {
-  color: #dc2626;
+  color: var(--color-danger-text, #dc2626);
   font-weight: 700;
 }
 .dash-continue-title {
