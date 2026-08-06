@@ -48,7 +48,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors |
 | `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override quran.css on specificity ties. |
 | `css/search.css`             | Reader: search bar, results dropdown, advanced search                      |
-| `css/tableView.css`          | Reader: table view mode, top scrollbar, sentinels                          |
+| `css/reader-table-view.css`  | Reader: table view mode, top scrollbar, sentinels                          |
 | `css/quran.css`              | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `css/library-search.css`     | Library search page: results, peek previews                                |
@@ -343,6 +343,24 @@ The settings reset button clears all of the above and resets language to Dhivehi
 ### Internationalisation
 
 `js/i18n.js` exports `t(key)`, `setLanguage(lang)`, `initI18n()`. Static HTML uses `data-i18n` attributes; dynamic text calls `t()`. A `languagechange` CustomEvent triggers re‑render. Language persisted to `localStorage`.
+
+### Directionality (RTL / LTR)
+
+Two independent direction systems coexist, and confusing them is the root of most RTL bugs:
+
+1. **UI chrome** — follows the selected UI language (dv/ar → RTL, en → LTR). `<html>` carries no `dir`; direction is set per element, so the default is LTR and every RTL element is an explicit decision.
+2. **Content fields** — each field has its own language regardless of the UI language (book titles, reader rows). The reader already sets `dir` per field; `.title-*` / `.lib-title-*` rules carry their own `direction`.
+
+Chrome elements follow this decision table:
+
+| Situation                                                   | Mechanism                                                    |
+| ----------------------------------------------------------- | ------------------------------------------------------------ |
+| Layout container holding RTL chrome (input, chips rows)     | `direction: rtl` on the container                            |
+| Single chrome line, language-dependent (summary, count)     | `dir="auto"`; pin `text-align` when position matters         |
+| Fixed-language content field (ar/dv/en titles, reader rows) | explicit per-field direction (already the reader's pattern)  |
+| All-Thaana or all-Arabic text                               | nothing needed — strong-RTL renders correctly in any context |
+
+Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single word or phrase renders with correct glyphs even inside an LTR line — a wrong base direction shows up only as a reversed reading order (the eye enters at the right edge) or a mis-anchored line, neither visible at a glance. `dir="auto"` resolves the base direction from the first strong character, which is why it is the default for single-line chrome text that mixes scripts with digits (e.g. `libResultSummary`). Note that `text-align: start` follows the resolved direction — pin `text-align` explicitly wherever the line's position must be stable. `applyDocumentLang` sets both `lang` and `data-lang` on `<html>`, enabling `:lang()` selectors if generic CSS direction rules are ever needed.
 
 ### Keyboard
 
@@ -669,7 +687,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain — book registries first (`01-`, `02-`), the script that maintains them (`03-update-*`), then the Quran registries (`04-`, `05-`), then the global index builder (`06-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain — book registries first (`01-`, `02-`), the script that maintains them (`03-update-*`), then the Quran registries (`04-`, `05-`), then the global index builder (`06-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`) — single-word entities show no case mixing (`rebuild-index`). `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 **CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 
@@ -817,6 +835,7 @@ The app has no test suite or build step — changes are verified by hand:
 - **Behaviour equivalence** (search‑engine changes): copy the old module from `git show HEAD:codebase/js/…` and compare outputs on Arabic/Thaana test corpora (see the search‑performance notes)
 - **Browser caching**: GitHub Pages serves without cache‑busting — always hard‑refresh (Ctrl+F5) after changes; stale CSS is the most common "it didn't work" cause
 - **RTL**: arrow‑key stepping, scroll directions, and sticky headers behave differently per browser and per element `dir` — test number inputs and scroll rows in both Chrome and Firefox
+- **Direction sanity**: after any change that adds or rewords visible text, switch to dv and to en — each line must read from the correct edge (right in dv/ar, left in en) and must not jump position (pin `text-align` when it matters)
 
 ## Adding content
 

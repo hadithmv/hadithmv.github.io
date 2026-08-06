@@ -20,13 +20,13 @@ books/
   reader.html          ← Book viewer — loaded via ?book=CODE
   library-search.html  ← Cross-book search page — shareable ?q=/?tags= URLs
 css/
-  common.css           ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
-  reader.css           ← Reader page: focus mode, toolbar, pagination, content, responsive
-  search.css           ← Reader: search bar, results dropdown, advanced search
-  tableView.css        ← Reader: table view mode, top scrollbar, sentinels
-  quran.css            ← Reader: Quran navigation row, dropdowns, surah overlay
-  dashboard.css        ← Dashboard: grid, cards, controls, table view
-  library-search.css   ← Library search page: results, peek previews
+  common.css             ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
+  reader.css             ← Reader page: focus mode, toolbar, pagination, content, responsive
+  search.css             ← Reader: search bar, results dropdown, advanced search
+  reader-table-view.css  ← Reader: table view mode, top scrollbar, sentinels
+  quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
+  dashboard.css          ← Dashboard: grid, cards, controls, table view
+  library-search.css     ← Library search page: results, peek previews
 js/
   common.js            ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
   catalog.js          ← Metadata loader, tag extraction, dashboard rendering

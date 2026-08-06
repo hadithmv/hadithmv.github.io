@@ -452,8 +452,9 @@ export function setLanguage(lang) {
   applyDocumentLang();
 }
 
-/** Apply data-lang attribute and re-translate all [data-i18n] elements. */
+/** Apply lang + data-lang attributes and re-translate all [data-i18n] elements. */
 function applyDocumentLang() {
+  document.documentElement.lang = _currentLang;
   document.documentElement.setAttribute("data-lang", _currentLang);
   document.querySelectorAll("[data-i18n]").forEach(function (el) {
     const key = el.getAttribute("data-i18n");
