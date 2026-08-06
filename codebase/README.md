@@ -6,12 +6,13 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/
-  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
   01-registry-bookTags.csv      ← Tag definitions (code, label, colors)
-  03-update-bookRegistry.ps1← Auto-generate titleEN, sync new books
-  04-rebuild-index.mjs      ← Node script: builds 04-search-index.json (rerun after book changes)
-  04-search-index.json      ← Generated word-level search index (word → books → rows)
-  QRN-DATA-registry-*.csv   ← Quran registries (surah names, column toggles)
+  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
+  03-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
+  04-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
+  05-update-bookRegistry.ps1← Auto-generate titleEN, sync new books
+  06-rebuild-index.mjs      ← Node script: builds search-index.json (rerun after book changes)
+  search-index.json         ← Generated word-level search index (word → books → rows)
   content/                  ← Per-book content files (incl. Quran base data)
     *.csv                ← One file per book
 books/
@@ -71,7 +72,7 @@ Books with a `FQH-` prefix (primary tag) or `FQH` in their `tags` column will sh
 A book code carries exactly ONE tag — the primary — as its first segment (`HDT-muwattaMalik`); any further tags live in the `tags` column of the registry. Prefixes and suffixes control book behaviour — badges, visibility, row order, and more. See [Architecture → Naming conventions](docs/ARCHITECTURE.md#naming-conventions) for the full list. A quick summary:
 
 - `DRFT-` → draft badge (or in `tags`) · `-HDN` → hidden · `-DSC` → reversed rows · `KNSH-` → body heading style
-- Run `data/03-update-bookRegistry.ps1` to sync new books and generate `titleEN` (it preserves the `tags` column)
+- Run `data/05-update-bookRegistry.ps1` to sync new books and generate `titleEN` (it preserves the `tags` column)
 
 ## Data CSV format
 

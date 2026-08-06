@@ -23,7 +23,7 @@ export function isQuranBook(bookCode) {
 }
 
 // ── Content preset definitions ──────────────────────────────
-// Book codes (sourceBook from QRN-DATA-registry-bookToggle.csv)
+// Book codes (sourceBook from 03-registry-quranColumns.csv)
 // that should be toggled on when the user clicks the preset button.
 //
 // Example:
@@ -79,7 +79,7 @@ export function loadQuranBaseData() {
 
 export function loadSurahNames() {
   if (_surahNamesCache) return Promise.resolve(_surahNamesCache);
-  return fetchCSV("../data/QRN-DATA-registry-surahSelector.csv").then(
+  return fetchCSV("../data/04-registry-quranSurahs.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount
@@ -351,7 +351,7 @@ export function applyColumnOrder(state) {
 
 export function loadColumnRegistry() {
   if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
-  return fetchCSV("../data/QRN-DATA-registry-bookToggle.csv").then(
+  return fetchCSV("../data/03-registry-quranColumns.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       rows.shift(); // strip header

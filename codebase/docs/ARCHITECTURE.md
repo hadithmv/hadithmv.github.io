@@ -65,13 +65,13 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/content/*.csv`        | Per-book content files                                                     |
-| `data/03-update-bookRegistry.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
-| `data/QRN-DATA-registry-surahSelector.csv`      | 114 surah names in AR/DV/EN with ayah counts                      |
-| `data/QRN-DATA-registry-bookToggle.csv`         | Registry of all available Quran columns (source, labels, defaults) |
+| `data/05-update-bookRegistry.ps1` | Auto-generates titleEN from bookCode, adds new books                       |
+| `data/04-registry-quranSurahs.csv`     | 114 surah names in AR/DV/EN with ayah counts                      |
+| `data/03-registry-quranColumns.csv`    | Registry of all available Quran columns (source, labels, defaults) |
 | `data/content/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base Quran data: juz/surah/ayah numbers + Imlai text |
 | `data/content/QRN-DATA-baseFile-2-ayahUthmani.csv` | Quran text in Uthmani script                                     |
-| `data/04-rebuild-index.mjs`  | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
-| `data/04-search-index.json`  | Generated word-level search index — the one machine-generated data file (see "Library search") |
+| `data/06-rebuild-index.mjs`  | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
+| `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
 
 ## Where to find things
 
@@ -379,7 +379,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
 | `tags`     | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column |
-| `version`  | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `03-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
+| `version`  | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `05-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
 
 ### 01-registry-bookTags.csv
 
@@ -412,7 +412,7 @@ Suffix flags (`-HDN`, `-DSC`) are stripped from the tail before extracting the b
 - `DRFT-` prefix → book gets a ⚠️ Draft badge, still visible on dashboard
 - `-HDN` suffix → book hidden from dashboard
 - `-DSC` suffix → rows displayed in reverse order; stripped from derived `titleEN`
-- When adding a new suffix flag, add it to `$suffixFlags` in `03-update-bookRegistry.ps1` so `titleEN` is generated correctly
+- When adding a new suffix flag, add it to `$suffixFlags` in `05-update-bookRegistry.ps1` so `titleEN` is generated correctly
 - `KNSH-` prefix → first line of `body*` columns styled as a heading; `titleEN` gets a `Kunnaasha ` prefix
 - `RDF-` prefix (without `AQD-`) → `titleEN` gets a `Radheef ` prefix
 
@@ -460,13 +460,13 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 |------|------|---------|
 | `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv` | Base data (always loaded) | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai` |
 | `QRN-DATA-baseFile-2-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
-| `QRN-DATA-registry-surahSelector.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount` |
-| `QRN-DATA-registry-bookToggle.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
+| `04-registry-quranSurahs.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount` |
+| `03-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
 | `QRN-{name}.csv` | Book-specific columns | Varies per book |
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `QRN-DATA-registry-bookToggle.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
+Base data columns are always present. Book-specific columns are merged by row index. The `03-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
 ```text
 QRN-DATA-baseFile-1 (6,236 rows)         QRN-bakurube.csv (6,236 rows)
@@ -504,9 +504,9 @@ reader shows columns in list order
 **Adding a new Quran translation (walkthrough):**
 
 1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-baseFile-1-…` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
-2. Register each column in `data/QRN-DATA-registry-bookToggle.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
+2. Register each column in `data/03-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
-4. Register the book in `02-registry-bookNames.csv` — or just run `data/03-update-bookRegistry.ps1`, which derives `titleEN` from the book code, sorts the registry, and adds unregistered CSVs found in `data/content/`.
+4. Register the book in `02-registry-bookNames.csv` — or just run `data/05-update-bookRegistry.ps1`, which derives `titleEN` from the book code, sorts the registry, and adds unregistered CSVs found in `data/content/`.
 
 ### Ayah decoration
 
@@ -665,7 +665,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Data files use numeric prefixes, then a category: `01-registry-*` for tag/book registries, `02-registry-*` for the book list, `QRN-DATA-registry-*` for Quran metadata, `QRN-DATA-baseFile-{N}-*` for Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries (book tags, book names, Quran columns, surah names), `05-update-*` for the registry-maintenance script, `06-rebuild-*` for the index builder — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 **CSS load order.** In `reader.html`, `quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 
@@ -747,7 +747,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
    ```csv
    FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh,
    ```
-3. Run `data/03-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
+3. Run `data/05-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
 
 ### Add a new tag category
 
@@ -844,7 +844,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### The index
 
-`data/04-rebuild-index.mjs` (Node — run `node data/04-rebuild-index.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/04-search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
+`data/06-rebuild-index.mjs` (Node — run `node data/06-rebuild-index.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
 
 Current size: 62 books, 226k rows, ~485k unique words — 40MB raw, ~12.8MB gzipped (Pages compresses JSON automatically). Whole‑word matching only — substring, fuzzy, and regex stay in‑book (see "What's deliberately different" below).
 

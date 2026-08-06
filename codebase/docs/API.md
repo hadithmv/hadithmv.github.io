@@ -99,7 +99,7 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort both registries (books by `bookCode`, tags by `code`)
+- Run `data/05-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort both registries (books by `bookCode`, tags by `code`)
 
 ---
 
@@ -213,7 +213,7 @@ Saved to `localStorage` under `reader:searchHistory`.
 
 ## library-search.js
 
-Cross-book search: loads the machine-generated word index (`data/04-search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the dashboard (`catalog.js`) and by the index build script (`data/04-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the dashboard (`catalog.js`) and by the index build script (`data/06-rebuild-index.mjs` imports `tokenizeText` so build and query agree on what a word is).
 
 ### `loadSearchIndex()`
 
@@ -319,7 +319,7 @@ Pure column‑layout rebuild — the heart of the content modal's reorder featur
 
 ### `loadColumnRegistry()`
 
-Fetches `QRN-DATA-registry-bookToggle.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+Fetches `03-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
 ### Content presets
 
