@@ -47,7 +47,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=` URLs     |
 | `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors |
 | `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override quran.css on specificity ties. |
-| `css/search.css`             | Reader: search bar, results dropdown, advanced search                      |
+| `css/reader-search.css`      | Reader: search bar, results dropdown, advanced search                      |
 | `css/reader-table-view.css`  | Reader: table view mode, top scrollbar, sentinels                          |
 | `css/quran.css`              | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
@@ -87,6 +87,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
 | Search engine | `search.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
+| In-book search UI | `reader.js` (UI) + `search.js` (shared toolkit) | search bar, dropdown results, advanced search; styles in `reader-search.css` |
 | Library search | `library-search.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | Library search page | `library-search-page.js` | self-initialising — `?q=`/`?tags=`, chip scoping, peek previews |
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |

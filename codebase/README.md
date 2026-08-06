@@ -22,7 +22,7 @@ books/
 css/
   common.css             ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
   reader.css             ← Reader page: focus mode, toolbar, pagination, content, responsive
-  search.css             ← Reader: search bar, results dropdown, advanced search
+  reader-search.css      ← Reader: search bar, results dropdown, advanced search
   reader-table-view.css  ← Reader: table view mode, top scrollbar, sentinels
   quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
   dashboard.css          ← Dashboard: grid, cards, controls, table view
