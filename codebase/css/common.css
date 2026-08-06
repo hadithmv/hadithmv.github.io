@@ -31,6 +31,16 @@
   --color-theme-toggle-text: #475569;
   --color-mark-bg: #fef08a;
   --color-mark-text: inherit;
+
+  /* ---- Control sizing (standard documented in docs/ARCHITECTURE.md) ----
+     Every boxed control: 35px tall at every breakpoint; line-height is
+     height minus the 2px of 1px borders (border-box), so text centers. */
+  --control-height: 35px;
+  --control-line-height: calc(var(--control-height) - 2px);
+  /* Row spacing: gap between controls in one row; margin between a row or
+     panel and the next block. */
+  --control-gap: 6px;
+  --section-gap: 10px;
 }
 
 /* ---- Theme: sepia ---- */
@@ -129,8 +139,8 @@ body {
 
 /* ---- Hamburger menu button ---- */
 .menu-btn {
-  width: 40px;
-  height: 40px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
@@ -237,8 +247,8 @@ body {
 }
 
 .sidebar-close {
-  width: 32px;
-  height: 32px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1rem;
   line-height: 1;
@@ -447,8 +457,8 @@ body:has(.modal-overlay.open) {
 }
 
 .modal-close {
-  width: 32px;
-  height: 32px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1rem;
   line-height: 1;
@@ -499,11 +509,11 @@ body:has(.modal-overlay.open) {
 .modal-select {
   box-sizing: border-box;
   width: 180px;
-  height: auto;
-  padding: 6px 10px;
+  height: var(--control-height, 35px);
+  padding: 0 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 2.2;
+  line-height: var(--control-line-height, 33px);
   font-family:
     "Hadithmv",
     "Faruma",
@@ -557,7 +567,7 @@ body:has(.modal-overlay.open) {
 .confirm-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--control-gap, 8px);
 }
 .confirm-btn {
   padding: 6px 16px;
@@ -800,7 +810,10 @@ body:has(.modal-overlay.open) {
 
 /* Shared tag-chip filter (dashboard + library-search page) */
 .dash-tag-chip {
-  padding: 5px 10px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 10px;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.78rem);
   font-weight: 600;
   border-radius: 8px;
@@ -862,10 +875,11 @@ body:has(.modal-overlay.open) {
 .tag-badge {
   display: inline-block;
   box-sizing: border-box;
-  padding: 0.35em 0.75em;
+  height: var(--control-height, 35px);
+  padding: 0 0.75em;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 2.2;
+  line-height: var(--control-line-height, 33px);
   border-radius: 6px;
   text-decoration: none;
   cursor: pointer;
@@ -887,7 +901,7 @@ body:has(.modal-overlay.open) {
 #pageTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   align-items: center;
 }
 
@@ -908,7 +922,7 @@ body:has(.modal-overlay.open) {
 .sidebar-select-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   margin-bottom: 4px;
 }
 
@@ -946,6 +960,10 @@ body:has(.modal-overlay.open) {
   flex: 1;
   min-width: 0;
   max-width: 500px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 0.75em;
+  line-height: var(--control-line-height, 33px);
   font-family:
     "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   border: 1px solid var(--color-card-hover-border);
@@ -954,10 +972,15 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
 }
 
+.search-input::placeholder {
+  color: var(--color-text-subtle);
+  opacity: 1;
+}
+
 .search-clear {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1rem;
   font-weight: 900;
@@ -992,13 +1015,14 @@ body:has(.modal-overlay.open) {
 .toolbar-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
 }
 
 .toolbar-btn {
   box-sizing: border-box;
-  height: auto;
-  padding: 0.35em 0.75em;
+  height: var(--control-height, 35px);
+  padding: 0 0.75em;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-nav-btn-text);
@@ -1097,8 +1121,9 @@ body:has(.modal-overlay.open) {
 
 .toolbar-select {
   box-sizing: border-box;
-  height: auto;
+  height: var(--control-height, 35px);
   padding: 0 8px;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   text-align: center;
@@ -1136,7 +1161,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   direction: ltr;
   background-color: var(--color-bg);
   border-bottom: 2px solid var(--color-card-hover-border);
@@ -1156,8 +1181,8 @@ body:has(.modal-overlay.open) {
 }
 
 #topBar .nav-focus-btn {
-  width: 40px;
-  height: 40px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
@@ -1203,8 +1228,8 @@ body:has(.modal-overlay.open) {
 }
 
 #backToDashboard {
-  width: 40px;
-  height: 40px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1.2rem;
   line-height: 1;
@@ -1250,10 +1275,11 @@ body:has(.modal-overlay.open) {
 /* Focus button (shared — appears on topBar, shown via JS) */
 .nav-focus-btn {
   box-sizing: border-box;
-  padding: 7px 10px;
+  height: var(--control-height, 35px);
+  padding: 0 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 1.4;
+  line-height: var(--control-line-height, 33px);
   color: #15803d;
   background: #f0fdf4;
   border: 1px solid #bbf7d0;
@@ -1454,8 +1480,8 @@ body:has(.modal-overlay.open) {
   .menu-btn {
     top: 16px;
     right: 16px;
-    width: 32px;
-    height: 32px;
+    width: var(--control-height, 35px);
+    height: var(--control-height, 35px);
     font-size: 1rem;
   }
 
@@ -1467,21 +1493,21 @@ body:has(.modal-overlay.open) {
   /* Shared component mobile sizing (dashboard + library-search pages) */
   .dash-tag-chip {
     font-size: var(--panel-font-size-mobile, 0.72rem);
-    padding: 3px 7px;
+    padding: 0 7px;
   }
   .search-info {
     font-size: var(--panel-font-size-mobile, 0.75rem);
   }
 
   #backToDashboard {
-    width: 32px;
-    height: 32px;
+    width: var(--control-height, 35px);
+    height: var(--control-height, 35px);
     font-size: 1rem;
   }
 
   #topBar {
     padding: 10px 20px;
-    gap: 6px;
+    gap: var(--control-gap, 8px);
     direction: ltr;
     justify-content: space-between;
   }
@@ -1495,8 +1521,8 @@ body:has(.modal-overlay.open) {
   }
 
   #topBar .nav-focus-btn {
-    width: 32px;
-    height: 32px;
+    width: var(--control-height, 35px);
+    height: var(--control-height, 35px);
     padding: 0 !important;
     font-size: 1rem !important;
   }

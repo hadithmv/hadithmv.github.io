@@ -24,7 +24,7 @@
 #libSearchPanel {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--control-gap, 8px);
   direction: rtl;
 }
 #libSearchPanel .search-input {
@@ -36,10 +36,10 @@
 #libTagsRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   align-items: center;
   direction: rtl;
-  margin-top: 10px;
+  margin-top: var(--section-gap, 12px);
 }
 
 /* Direction comes from dir="auto" (RTL in dv/ar, LTR in en); the alignment
@@ -49,7 +49,7 @@
   text-align: left;
 }
 #libResults {
-  margin-top: 14px;
+  margin-top: var(--section-gap, 12px);
 }
 
 /* Retry button under the index-load error — lets the user re-attempt
@@ -57,7 +57,10 @@
 .retry-btn {
   display: block;
   margin: 12px auto 0;
-  padding: 6px 18px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 18px;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
@@ -199,7 +202,7 @@
 }
 .lib-peek-more {
   align-self: center;
-  margin-top: 10px;
+  margin-top: var(--section-gap, 12px);
 }
 
 @media (max-width: 600px) {

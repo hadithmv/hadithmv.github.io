@@ -32,7 +32,7 @@
   flex-direction: column;
 }
 .readerPanel-inner > * + * {
-  margin-top: 10px;
+  margin-top: var(--section-gap, 12px);
 }
 
 .readerPanel-row {
@@ -44,11 +44,11 @@
 .readerPanel-inner input,
 .readerPanel-inner select {
   box-sizing: border-box;
-  height: auto;
-  padding: 0.35em 0.75em;
+  height: var(--control-height, 35px);
+  padding: 0 0.75em;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 2.2;
+  line-height: var(--control-line-height, 33px);
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -76,10 +76,7 @@
 .readerPanel-inner .search-input {
   flex: 1;
   min-width: 0;
-  height: auto;
-  padding: 0.35em 0.75em;
   font-size: var(--panel-font-size, 0.85rem);
-  line-height: 2.2;
   text-align: right;
   background: var(--color-reader-bg);
   direction: rtl;
@@ -120,7 +117,7 @@
 .subrow-left {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
 }
 
 
@@ -135,13 +132,14 @@
 .font-size-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: var(--control-gap, 8px);
+  margin-bottom: var(--section-gap, 12px);
 }
 
 .font-adj-btn {
-  width: 30px;
-  height: 30px;
+  box-sizing: border-box;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1rem;
   font-weight: 700;
@@ -215,7 +213,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -223,7 +221,7 @@
 .subrow-right {
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: var(--control-gap, 8px);
 }
 
 #pageSubRow #pageTags {
@@ -236,7 +234,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   padding: 0;
   margin: 0;
   flex-wrap: nowrap;
@@ -251,11 +249,14 @@
 .column-toggles {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
 }
 
 .col-toggle {
-  padding: 3px 7px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 7px;
+  line-height: var(--control-line-height, 33px);
   font-size: 0.72rem;
   font-weight: 600;
   font-family:
@@ -503,7 +504,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: var(--section-gap, 12px);
   padding: 0;
   margin: 0;
   flex-wrap: nowrap;
@@ -516,13 +517,13 @@
 .nav-pages {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
 }
 
 .nav-goto {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   flex-shrink: 0;
 }
 
@@ -530,10 +531,12 @@
 .nav-pages {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
 }
 
 .nav-btn {
+  height: var(--control-height, 35px);
+  line-height: var(--control-line-height, 33px);
   color: var(--color-nav-btn-text);
   cursor: pointer;
   font-family: system-ui, -apple-system, sans-serif;
@@ -548,7 +551,7 @@
 
 /* Edge buttons — slightly wider */
 .nav-edge {
-  padding: 7px 10px;
+  padding: 0 10px;
   letter-spacing: -0.1em;
 }
 
@@ -557,7 +560,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   direction: ltr;
 }
 
@@ -601,10 +604,11 @@
 .page-num {
   box-sizing: border-box;
   width: 42px;
-  padding: 7px 0;
+  height: var(--control-height, 35px);
+  padding: 0;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 700;
-  line-height: 1.4;
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-card-hover-border);
@@ -638,7 +642,7 @@
 .nav-goto {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   flex-shrink: 0;
 }
 
@@ -656,8 +660,11 @@
 }
 
 .page-input {
+  box-sizing: border-box;
   width: 58px;
-  padding: 7px 6px;
+  height: var(--control-height, 35px);
+  padding: 0 6px;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   text-align: center;
@@ -986,22 +993,15 @@
   .toolbar-btn,
   .nav-btn,
   .quran-nav-btn {
-    height: auto;
-    padding: 0.35em 0.65em;
+    padding: 0 0.65em;
     font-size: var(--panel-font-size-mobile, 0.78rem);
-    line-height: 2.2;
   }
   .quran-nav-input {
-    height: auto;
-    padding: 0.35em 0.4em;
+    padding: 0 0.4em;
     font-size: var(--panel-font-size-mobile, 0.78rem);
-    line-height: 2.2;
   }
   .readerPanel-inner .search-input {
-    height: auto;
     font-size: var(--panel-font-size-mobile, 0.78rem);
-    line-height: 2.2;
-    padding: 0.35em 0.65em;
   }
   /* Desktop gets a larger scroll pill; mobile keeps the compact size */
   .scroll-counter {
@@ -1029,19 +1029,14 @@
     font-size: 1rem;
   }
 
-  .search-input {
-    font-size: 1rem;
-    padding: 7px 8px;
-  }
-
   .search-advanced-btn {
-    padding: 7px 8px;
+    padding: 0 8px;
     font-size: var(--panel-font-size, 0.85rem);
   }
 
   .reader-nav {
     flex-wrap: nowrap;
-    gap: 6px;
+    gap: var(--control-gap, 8px);
   }
 
   .nav-pages {
@@ -1065,21 +1060,21 @@
 
   .page-input {
     width: 50px;
-    padding: 4px 4px;
+    padding: 0 4px;
     font-size: var(--panel-font-size, 0.85rem);
   }
 
   .reader-toolbar {
-    gap: 6px;
+    gap: var(--control-gap, 8px);
   }
 
   .col-toggle {
-    padding: 2px 5px;
+    padding: 0 5px;
     font-size: 0.68rem;
   }
 
   .search-advanced-btn {
-    padding: 7px 6px;
+    padding: 0 6px;
     font-size: var(--panel-font-size, 0.85rem);
   }
 

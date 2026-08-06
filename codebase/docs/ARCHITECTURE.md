@@ -581,6 +581,8 @@ Quran clipboard format: no book header line. Decorated ayah text, `[surahName su
 
 **CSS variables.** Never hardcode a colour. Every colour comes from a CSS custom property defined in `:root` (light), `[data-theme="sepia"]`, and `[data-theme="dark"]`. If you add a new colour variable, you must define it in all three theme blocks — light, sepia, and dark. New components must be tested in all three themes to confirm they are readable and look correct. The variable naming pattern is `--color-<role>` (e.g. `--color-text`, `--color-border`, `--color-nav-btn-bg`).
 
+**Control sizing & spacing.** Every boxed control — search inputs, buttons, selects, chips, badges, and the square icon buttons — is `var(--control-height, 35px)` tall at every breakpoint, with `line-height: var(--control-line-height, 33px)` (height minus the 2px of 1px borders; controls are border-box). Controls in one row sit `var(--control-gap, 6px)` apart; rows and panels are separated by `var(--section-gap, 10px)`. All four are defined once in `:root` (common.css) — change the standard there, never at use sites. Menu items, table cells, cards, and grids are deliberately outside the scale.
+
 **Responsive.** Single breakpoint at `max-width: 600px`. Mobile gets reduced padding, smaller font sizes, and larger tap targets. The reader font size is user‑adjustable via the settings modal and stored in `localStorage`.
 
 **Font.** A single merged WOFF2 font (`font/merged-300.woff2`) covers Arabic, Thaana, and Latin glyphs. `font-family` stacks always list `"Hadithmv"` first, then platform fallbacks. Never load external fonts.

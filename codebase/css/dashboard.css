@@ -24,7 +24,7 @@
 
 /* ---- Dashboard controls ---- */
 #dashboardPanel {
-  margin-bottom: 12px;
+  margin-bottom: var(--section-gap, 12px);
   display: flex;
   flex-direction: column;
   direction: rtl;
@@ -35,8 +35,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 10px;
+  gap: var(--section-gap, 12px);
+  margin-top: var(--section-gap, 12px);
   max-height: 300px;
   transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.2s ease,
@@ -47,7 +47,7 @@
 #dashboardPanelSearch {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--control-gap, 8px);
 }
 #dashboardPanelSearch .search-input {
   flex: 1;
@@ -62,7 +62,7 @@ a.toolbar-btn {
 #dashboardPanelTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   align-items: center;
   direction: rtl;
 }
@@ -132,7 +132,7 @@ a.toolbar-btn {
 .dash-table .dash-table-tags .tag-badge {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  padding: 5px 10px;
+  padding: 0 10px;
 }
 
 /* Functions row — one continuous line that scrolls horizontally when it
@@ -141,7 +141,7 @@ a.toolbar-btn {
 #dashboardPanelFunctions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--control-gap, 8px);
   direction: rtl;
   position: relative;
   padding: 0 30px; /* room for the edge arrows */
@@ -151,7 +151,7 @@ a.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--control-gap, 8px);
   flex: 1;
   min-width: 0;
   overflow-x: auto;
@@ -199,18 +199,18 @@ a.toolbar-btn {
   display: flex;
   align-items: stretch;
   flex-wrap: nowrap;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   position: relative;
 }
 #dashboardSort,
 #dashboardViewToggle,
 #dashboardReset {
   box-sizing: border-box;
-  /* padding: 7px 10px; */
-  padding: 0.1em 0.6em 0.25em 0.6em;
+  height: var(--control-height, 35px);
+  padding: 0 0.6em;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 2.2;
+  line-height: var(--control-line-height, 33px);
   font-family:
     "Hadithmv",
     "Faruma",
@@ -298,7 +298,7 @@ a.toolbar-btn {
 .book-card .card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   margin-bottom: 12px;
 }
 
@@ -307,10 +307,12 @@ a.toolbar-btn {
      match the taller .tag-badge pills next to it */
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: 1.4;
-  padding: 5px 10px;
+  padding: 0 10px;
   border-radius: 8px;
   border: 1px solid #dc2626;
   background: #fef2f2;
@@ -339,7 +341,8 @@ a.toolbar-btn {
   align-items: center;
   flex-wrap: wrap;
   gap: 0;
-  padding: 6px 14px;
+  min-height: var(--control-height, 35px);
+  padding: 0 14px;
   border-radius: 10px;
   border: 1px dashed var(--color-card-hover-border);
   background: var(--color-nav-btn-bg);
@@ -392,7 +395,10 @@ a.toolbar-btn {
 .retry-btn {
   display: block;
   margin: 12px auto 0;
-  padding: 6px 18px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 18px;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
@@ -431,16 +437,9 @@ a.toolbar-btn {
   #dashboardPanel {
     margin-bottom: 6px;
   }
-  .search-input {
-    font-size: var(--panel-font-size, 0.85rem);
-    height: 30px;
-    line-height: 30px;
-  }
   .toolbar-select {
-    height: auto;
     font-size: var(--panel-font-size-mobile, 0.78rem);
-    line-height: 2.2;
-    padding: 0.35em 0.5em;
+    padding: 0 0.5em;
   }
   .book-grid {
     gap: 12px;

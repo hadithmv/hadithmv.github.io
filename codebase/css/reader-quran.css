@@ -5,7 +5,7 @@
 .quran-nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   padding: 9px 0 0;
   flex-wrap: nowrap;
   overflow-x: auto;
@@ -51,17 +51,17 @@
 .quran-nav-group {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--control-gap, 8px);
   flex-shrink: 0;
 }
 
 .quran-nav-btn {
   box-sizing: border-box;
-  height: auto;
-  padding: 0.35em 0.75em;
+  height: var(--control-height, 35px);
+  padding: 0 0.75em;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 2.2;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -93,11 +93,11 @@
 .quran-nav-input {
   box-sizing: border-box;
   width: 50px;
-  height: auto;
-  padding: 0.35em 0.35em;
+  height: var(--control-height, 35px);
+  padding: 0 0.35em;
+  line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: 2.2;
   text-align: center;
   color: var(--color-text);
   background: var(--color-reader-bg);
@@ -149,8 +149,8 @@
 /* Presets row sits above the scroll area — structurally fixed */
 .quran-content-presets {
   display: flex;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: var(--control-gap, 8px);
+  margin-bottom: var(--section-gap, 12px);
   padding-bottom: 8px;
   border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
@@ -211,9 +211,12 @@
   pointer-events: none;
 }
 .quran-preset-btn {
-  padding: 5px 12px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 12px;
   font-size: 0.85rem;
   font-weight: 600;
+  line-height: var(--control-line-height, 33px);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -315,13 +318,16 @@
 .quran-surah-header {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--control-gap, 8px);
   padding: 16px;
   border-bottom: 1px solid var(--color-border);
 }
 .quran-surah-search {
   flex: 1;
-  padding: 8px 12px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 12px;
+  line-height: var(--control-line-height, 33px);
   font-size: 1rem;
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
   color: var(--color-text);
@@ -334,8 +340,8 @@
   color: var(--color-text-subtle);
 }
 .quran-surah-close {
-  width: 32px;
-  height: 32px;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
   padding: 0;
   font-size: 1rem;
   line-height: 1;
