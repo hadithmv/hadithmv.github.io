@@ -263,6 +263,7 @@ const STRINGS = {
   tagREV: { dv: "މުރާޖާ", en: "Revision", ar: "مراجعة " },
   tagNEW: { dv: "އާ", en: "New", ar: "جديد " },
   tagINC: { dv: "⚠️ ނުނިމޭ...", en: "Incomplete...", ar: "غير مكتمل... " },
+  tagRAW: { dv: "⚠️ ރޯ", en: "Raw", ar: "خام" },
 
   // ── Dashboard ──
   dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
