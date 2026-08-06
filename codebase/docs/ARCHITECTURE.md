@@ -587,7 +587,7 @@ Besides the role palette there are three **semantic accent families**, each defi
 
 **Responsive.** Single breakpoint at `max-width: 600px`. Mobile gets reduced padding, smaller font sizes, and larger tap targets. The reader font size is user‑adjustable via the settings modal and stored in `localStorage`.
 
-**Font.** A single merged WOFF2 font (`font/merged-300.woff2`) covers Arabic, Thaana, and Latin glyphs. `font-family` stacks always list `"Hadithmv"` first, then platform fallbacks. Never load external fonts.
+**Font.** A single merged WOFF2 font (`font/merged-300.woff2`) covers Arabic, Thaana, and Latin glyphs. `font-family` stacks always list `"Hadithmv"` first, then platform fallbacks. Never load external fonts. Each family has exactly one canonical spelling — copy these verbatim: mixed UI `"Hadithmv", "Faruma", system-ui, -apple-system, sans-serif`; Latin-only `system-ui, -apple-system, sans-serif`; Arabic-only `"Hadithmv", "Traditional Arabic", "Scheherazade New", serif`; Arabic+Thaana `"Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif`; Thaana titles `"Hadithmv", "Faruma", "MV Boli", sans-serif`; mono `"Consolas", "DejaVu Sans Mono", "Courier New", monospace`.
 
 ### Horizontal scrolling & RTL
 

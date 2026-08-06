@@ -210,7 +210,7 @@
   font-size: var(--panel-font-size, 0.85rem);
   line-height: 2.2;
   color: var(--color-text-muted);
-  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   white-space: nowrap;
 }
 

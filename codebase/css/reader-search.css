@@ -62,7 +62,7 @@
   flex: 1;
   min-width: 0;
   color: var(--color-text);
-  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -219,7 +219,7 @@
   font-size: 1.1rem;
   line-height: 1.6;
   color: var(--color-text);
-  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;

@@ -721,13 +721,7 @@ body:has(.modal-overlay.open) {
 [data-font-system] #readerContent,
 [data-font-system] .reader-field,
 [data-font-system] .reader-footnotes {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 [data-font-system] .book-card .title-ar,
@@ -741,13 +735,7 @@ body:has(.modal-overlay.open) {
 [data-font-system] .nav-counter-bottom,
 [data-font-system] .sidebar,
 [data-font-system] .search-result-snippet {
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 /* Sidebar footer */
@@ -968,9 +956,7 @@ body:has(.modal-overlay.open) {
   max-width: var(--content-width, 800px);
   margin: 62px auto 60px;
   padding: 0;
-  font-family:
-    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", "MV Boli",
-    serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
 }
 
 /* Sidebar settings selects */
@@ -1259,7 +1245,7 @@ body:has(.modal-overlay.open) {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--color-text);
-  font-family: "Hadithmv", "Traditional Arabic", serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   text-align: center;
   white-space: nowrap;
   overflow-x: auto;

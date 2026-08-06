@@ -5,13 +5,7 @@
   max-width: var(--content-width, 800px);
   margin: var(--page-margin, 72px auto 40px);
   padding: var(--page-padding, 0 20px);
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 /* ---- Focus mode: collapse tags + functions, keep search visible ---- */
@@ -92,7 +86,7 @@ a.toolbar-btn {
   border-spacing: 0;
   font-size: 1rem;
   direction: rtl;
-  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
 }
 /* No position: sticky on the dashboard header — the .dash-table-wrap scroll
    container makes sticky measure against the wrapper (pushing the thead down
