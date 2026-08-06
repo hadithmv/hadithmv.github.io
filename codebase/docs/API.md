@@ -4,7 +4,7 @@
 
 | Page | Entry point | Loads |
 |---|---|---|
-| `books/index.html` | Inline module → `catalog.js` | `common.js` |
+| `books/index.html` | Inline module → `dashboard.js` | `common.js` |
 | `books/reader.html` | `reader.js` | `common.js` |
 | `books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
 
@@ -13,7 +13,8 @@
 | Module | Purpose |
 |---|---|
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
-| `js/catalog.js` | Book registry, tag resolution, dashboard rendering |
+| `js/catalog.js` | Book registry, tag resolution, page bootstrap |
+| `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
 | `js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
@@ -43,9 +44,9 @@ Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `read
 
 ### `initializePageWithMetadata(callback)`
 
-Main entry point. Reads `?book=CODE` from the URL.
+Reader-page entry point (books/reader.html). Reads `?book=CODE` from the URL.
 
-- No `?book=` → renders the dashboard
+- No `?book=` → returns (the dashboard is initialized by `dashboard.js`)
 - Book found → calls `callback(metadata)`
 - Book not found → shows error
 
@@ -95,17 +96,27 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 //  {code:"DRFT", label:"Draft", palette: 1}]
 ```
 
-### Dashboard state
-
-- `_dashFilter` — `{ search, tags[], sort }` — current filter state
-- `_dashTableMode` — `boolean` — card grid vs table view
-- `setupDashboardControls()` — wires search, tag chips, sort, and view toggle DOM events
+Dashboard state and rendering moved to `dashboard.js` when the module was split out of catalog.js — see below.
 
 ### Naming conventions
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
 - Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort both registries (books by `bookCode`, tags by `code`)
+
+---
+
+## dashboard.js
+
+Dashboard page UI (books/index.html) — built on the metadata layer in `catalog.js`. Split out of catalog.js so the metadata module keeps no dashboard UI.
+
+| Function | Description |
+|---|---|
+| `initializeDashboard()` | Page entry point. `?book=` links redirect to the reader; otherwise preloads tag definitions, applies `?tags=` deep-link filters, loads the registry, then renders. On registry fetch failure, shows the error with a ↺ Retry button (re-runs the load; controls are wired only after a successful load, so no duplicate listeners). |
+| `renderDashboard(bookNames)` | Renders the card grid or table view, tag chips with counts, result count, and the continue-reading card. |
+| `setupDashboardControls()` | Wires search, tag chips, sort, view toggle, pins/history modals, the library-search jump, scroll arrows, and keyboard shortcuts. |
+
+Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. Re-renders on `dashboardReset` and `languagechange` (when visible).
 
 ---
 
@@ -438,9 +449,9 @@ Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `catalog.js`, `csv.js`, `e
 | Event | Dispatched by | Listened by | Purpose |
 |---|---|---|---|
 | `readerReset` | `common.js` (btnResetSettings) | `reader.js` | Delegates reader‑specific reset to the reader module (view mode, hidden columns, tashkeel, Quran display) without tight coupling. |
-| `dashboardReset` | `common.js` (btnResetSettings) | `catalog.js` | Delegates dashboard‑specific reset (pins, history, search, filters) without tight coupling. |
+| `dashboardReset` | `common.js` (btnResetSettings) | `dashboard.js` | Delegates dashboard‑specific reset (pins, history, search, filters) without tight coupling. |
 | `languagechange` | `i18n.js` | All modules | Triggers UI re‑render when the user changes language. |
-| `focuschange` | `common.js` (`window.setFocus`) | reader.js, catalog.js | Fires after focus mode toggles. Reader uses it to recalc `--rdf-header-top` and scroll padding; dashboard uses it for optional layout adjustments. |
+| `focuschange` | `common.js` (`window.setFocus`) | reader.js, dashboard.js | Fires after focus mode toggles. Reader uses it to recalc `--rdf-header-top` and scroll padding; dashboard uses it for optional layout adjustments. |
 
 ### Clipboard format
 

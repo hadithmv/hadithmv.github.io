@@ -53,7 +53,8 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `css/library-search.css`     | Library search page: results, peek previews                                |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
-| `js/catalog.js`              | Metadata loading, tag extraction, dashboard rendering |
+| `js/catalog.js`              | Book metadata: registry + tag loaders, tag extraction, page bootstrap |
+| `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
 | `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
 | `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, keyboard, dropdowns, focus mode |
 | `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
@@ -82,7 +83,8 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 
 | What | Module | Notes |
 |---|---|---|
-| Book metadata / dashboard | `catalog.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
+| Book metadata | `catalog.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
+| Dashboard UI | `dashboard.js` | `initializeDashboard`, `renderDashboard`, `setupDashboardControls` |
 | CSV parsing | `csv.js` | `parseCSV`, `fetchCSV`, `parseCSVWithHeader`, `loadCSVData` |
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
@@ -118,7 +120,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `catalog.js` → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. Pins and history persist in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Key behaviors:
+No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `catalog.js` for the registry) → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. Pins and history persist in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Key behaviors:
 
 - **Sort row** — one continuous line that scrolls horizontally when it doesn't fit (reader‑toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto‑hide at the extremes, wheel redirects to horizontal — see "Horizontal scrolling & RTL" before touching the arrow signs)
 - **Table view** — `dash-table` wrapped in `.dash-table-wrap`: `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page
@@ -454,7 +456,7 @@ Suffix flags (`-HDN`, `-DSC`) are stripped from the tail before extracting the b
                       │
           ┌───────────┴───────────┐
           │                       │
-     Dashboard (index)      Reader (reader.html)
+     dashboard.js (index)   Reader (reader.html)
      book grid / table      ?book=CODE → loads CSV
           │                       │
           │              ┌────────┴────────┐
@@ -611,7 +613,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 - `overflow:hidden` on the wrap clips content to the content area — row content CANNOT bleed into the arrow padding.
 - DO NOT wrap a hidden (`display:none`) element — it has 0 dimensions and breaks layout. Wrap only after the element is visible.
 - Click handlers: start arrow (►) → `scrollLeft += step` (toward start/right). End arrow (◄) → `scrollLeft -= step` (toward end/left). Wheel‑down also scrolls toward the end: `scrollLeft -= deltaY`.
-- **Don't re‑derive the signs — copy the reader's proven wiring**: `rdfScrollBack` (▶) → `+COL_STEP`, `rdfScrollFwd` (◀) → `-COL_STEP` in `reader.js`; the dashboard copy lives in `catalog.js` (the sort row's arrows). The dashboard's `updateArrows()` uses `Math.abs(scrollLeft)` for the auto‑hide checks.
+- **Don't re‑derive the signs — copy the reader's proven wiring**: `rdfScrollBack` (▶) → `+COL_STEP`, `rdfScrollFwd` (◀) → `-COL_STEP` in `reader.js`; the dashboard copy lives in `dashboard.js` (the sort row's arrows). The dashboard's `updateArrows()` uses `Math.abs(scrollLeft)` for the auto‑hide checks.
 - **Exception — the reader TABLE's wheel is NOT comparable**: `tableWrap`'s wheel handler does `topScroll.scrollLeft += amount` on the *mirrored top scrollbar*, and the table follows via `translateX` from the absolute fraction (`syncTableTransform`, `Math.abs`). Different mechanism, opposite sign — do not "fix" it to match the rule above.
 - Visibility: start arrow hidden when `abs(scrollLeft) < 1`. End arrow hidden when `abs(scrollLeft) > maxScroll - 2`.
 
@@ -726,7 +728,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | `STATE` (allData, filteredData, viewMode, hiddenColumns, hideTashkeel) | `reader.js` init closure | load, search, column toggles, view mode, tashkeel, reset |
 | `normAllData` | `reader.js` closure | built at load; kept in sync by `quran-ui.js` column inserts (via ctx) |
 | `_loadedColMap` / `_colOrder` / `_pendingColumnValues` | `quran-ui.js` init closure | content modal checkboxes / ▲▼; `applyColumnOrder()` rebuilds the map |
-| `_dashFilter` / `_dashTableMode` | `catalog.js` module scope | dashboard search / tags / sort / reset / view toggle |
+| `_dashFilter` / `_dashTableMode` | `dashboard.js` module scope | dashboard search / tags / sort / reset / view toggle |
 | `_bookNamesCache` / `_tagDefinitionsCache` | `catalog.js` module scope | first load only (null = failed fetch) |
 | `_bookCsvCache` (one‑entry) | `quran-data.js` module scope | `loadQuranBookCSV` |
 | `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache` | `quran-data.js` module scope | first load only |
@@ -818,7 +820,7 @@ All errors show visible messages in English. Error boxes carry a central `⚠️
 
 | Error | Source | Behaviour |
 |---|---|---|
-| Registry fails to load | `catalog.js` → dashboard | Shows "Failed to load the book registry" with a ↺ Retry button (`loadDashboard()` re-runs; controls are wired only after success, so no duplicate listeners) instead of an empty dashboard |
+| Registry fails to load | `dashboard.js` → dashboard | Shows "Failed to load the book registry" with a ↺ Retry button (`loadDashboard()` re-runs; controls are wired only after success, so no duplicate listeners) instead of an empty dashboard |
 | Book code not found | `catalog.js` → reader | Shows error message |
 | CSV empty or fails | `reader.js` → reader | `.catch()` on the fetch chain shows error |
 | Export fails (PNG/Excel/EPUB) | `export.js` | ⚠️ toast with format name; the Export button is disabled with a "Preparing…" label while working and restored on failure, so the user can click again |

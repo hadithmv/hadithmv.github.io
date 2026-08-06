@@ -29,7 +29,9 @@ css/
   library-search.css            ← Library search page: results, peek previews
 js/
   common.js                     ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
-  catalog.js                    ← Metadata loader, tag extraction, dashboard rendering
+  catalog.js                    ← Book metadata: registry + tag loaders, page bootstrap
+  pins-history.js               ← Pins & history: localStorage, modals, sidebar wiring
+  dashboard.js                  ← Dashboard UI: card/table grid, search, tags, sort, keyboard
   reader.js                     ← Book viewer: render, toolbar, keyboard, export, clipboard
   quran-data.js                 ← Quran: data, decoration, column registry
   quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
