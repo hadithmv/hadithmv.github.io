@@ -19,7 +19,7 @@ import {
   extractTags,
   getBookVersionSync,
   getCsvPath,
-} from "./catalog.js";
+} from "./book-data.js";
 import { fetchBookCSVCached } from "./csv.js";
 import {
   escapeHTML,

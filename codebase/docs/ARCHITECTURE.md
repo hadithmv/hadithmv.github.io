@@ -53,7 +53,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
 | `css/library-search.css`     | Library search page: results, peek previews                                |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
-| `js/catalog.js`              | Book metadata: registry + tag loaders, tag extraction, page bootstrap |
+| `js/book-data.js`            | Book metadata: registry + tag loaders, tag extraction, page bootstrap |
 | `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
 | `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
 | `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, keyboard, dropdowns, focus mode |
@@ -80,11 +80,11 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 
 ## Where to find things
 
-Key functions and where they're defined. Many are re-exported through barrel modules (quran-ui.js → quran-data.js, catalog.js → pins-history.js).
+Key functions and where they're defined. Many are re-exported through barrel modules (quran-ui.js → quran-data.js, book-data.js → pins-history.js).
 
 | What | Module | Notes |
 |---|---|---|
-| Book metadata | `catalog.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
+| Book metadata | `book-data.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
 | Dashboard UI | `dashboard.js` | `initializeDashboard`, `renderDashboard`, `setupDashboardControls` |
 | CSV parsing | `csv.js` | `parseCSV`, `fetchCSV`, `parseCSVWithHeader`, `loadCSVData` |
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
@@ -107,7 +107,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 URL: ?book=AQD-nawaqidulIslam
         │
         ▼
-  catalog.js
+  book-data.js
     ├─ fetch ../data/02-registry-bookNames.csv  ──→  find row by bookCode
     ├─ fetch ../data/01-registry-bookTags.csv ──→  resolve tag badges (primary prefix + tags column)
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
@@ -121,7 +121,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `catalog.js` for the registry) → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. Pins and history persist in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Key behaviors:
+No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `book-data.js` for the registry) → search bar, tag chips, sort row (with pins/history modal buttons, reset, view toggle, sort select), card grid of all books. Pins and history persist in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Key behaviors:
 
 - **Sort row** — one continuous line that scrolls horizontally when it doesn't fit (reader‑toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto‑hide at the extremes, wheel redirects to horizontal — see "Horizontal scrolling & RTL" before touching the arrow signs)
 - **Table view** — `dash-table` wrapped in `.dash-table-wrap`: `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page
@@ -453,7 +453,7 @@ Suffix flags (`-HDN`, `-DSC`) are stripped from the tail before extracting the b
            │                              │
            └──────────┬───────────────────┘
                       │
-              catalog.js / pins-history.js
+              book-data.js / pins-history.js
                       │
           ┌───────────┴───────────┐
           │                       │
@@ -730,7 +730,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | `normAllData` | `reader.js` closure | built at load; kept in sync by `quran-ui.js` column inserts (via ctx) |
 | `_loadedColMap` / `_colOrder` / `_pendingColumnValues` | `quran-ui.js` init closure | content modal checkboxes / ▲▼; `applyColumnOrder()` rebuilds the map |
 | `_dashFilter` / `_dashTableMode` | `dashboard.js` module scope | dashboard search / tags / sort / reset / view toggle |
-| `_bookNamesCache` / `_tagDefinitionsCache` | `catalog.js` module scope | first load only (null = failed fetch) |
+| `_bookNamesCache` / `_tagDefinitionsCache` | `book-data.js` module scope | first load only (null = failed fetch) |
 | `_bookCsvCache` (one‑entry) | `quran-data.js` module scope | `loadQuranBookCSV` |
 | `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache` | `quran-data.js` module scope | first load only |
 | `_indexPromise` | `library-search-engine.js` module scope | first `loadSearchIndex()` call; cleared on failure so retries work |
@@ -822,7 +822,7 @@ All errors show visible messages in English. Error boxes carry a central `⚠️
 | Error | Source | Behaviour |
 |---|---|---|
 | Registry fails to load | `dashboard.js` → dashboard | Shows "Failed to load the book registry" with a ↺ Retry button (`loadDashboard()` re-runs; controls are wired only after success, so no duplicate listeners) instead of an empty dashboard |
-| Book code not found | `catalog.js` → reader | Shows error message |
+| Book code not found | `book-data.js` → reader | Shows error message |
 | CSV empty or fails | `reader.js` → reader | `.catch()` on the fetch chain shows error |
 | Export fails (PNG/Excel/EPUB) | `export.js` | ⚠️ toast with format name; the Export button is disabled with a "Preparing…" label while working and restored on failure, so the user can click again |
 | Missing i18n key | `i18n.js` `t()` | `console.warn` with key name, falls back to raw key string |

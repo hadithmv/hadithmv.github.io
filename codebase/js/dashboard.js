@@ -2,12 +2,12 @@
  * Dashboard Module
  * The book catalog view (books/index.html): card/table grid, search, tag
  * chips, sort, pins & history modals, keyboard, focus mode, continue-reading.
- * Pure page module — the metadata layer lives in catalog.js (imported here).
+ * Pure page module — the metadata layer lives in book-data.js (imported here).
  */
 
 import { tagLabel, t } from "./i18n.js";
 import { normaliseForSearch } from "./search-utils.js";
-import { loadTagDefinitions, loadBookNames, extractTags } from "./catalog.js";
+import { loadTagDefinitions, loadBookNames, extractTags } from "./book-data.js";
 import {
   isPinned,
   getPinnedBooks,
@@ -18,7 +18,7 @@ import {
 } from "./pins-history.js";
 
 // ---------------------------------------------------------------------------
-// Page initialisation (dashboard only — reader bootstrap lives in catalog.js)
+// Page initialisation (dashboard only — reader bootstrap lives in book-data.js)
 // ---------------------------------------------------------------------------
 
 /**

@@ -13,7 +13,7 @@
 | Module | Purpose |
 |---|---|
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
-| `js/catalog.js` | Book registry, tag resolution, page bootstrap |
+| `js/book-data.js` | Book registry, tag resolution, page bootstrap |
 | `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
@@ -30,7 +30,7 @@
 
 ## csv.js
 
-Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `quran-ui.js`, and `export.js`.
+Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `book-data.js`, `reader.js`, `quran-data.js`, `quran-ui.js`, and `export.js`.
 
 | Function | Description |
 |---|---|
@@ -41,7 +41,7 @@ Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `catalog.js`, `read
 | `parseCSVWithHeader(text)` | Parses CSV text into an array of objects using the first row as keys. Trims both headers and values. |
 | `loadCSVData(path)` | Fetches a CSV file and parses it into objects via `parseCSVWithHeader`. Convenience wrapper for registry files. |
 
-## catalog.js
+## book-data.js
 
 ### `initializePageWithMetadata(callback)`
 
@@ -52,7 +52,7 @@ Reader-page entry point (books/reader.html). Reads `?book=CODE` from the URL.
 - Book not found → shows error
 
 ```js
-import { initializePageWithMetadata } from "../js/catalog.js";
+import { initializePageWithMetadata } from "../js/book-data.js";
 
 initializePageWithMetadata(async function (metadata) {
   // metadata.bookCode   — "AQD-qawaidulArbau"
@@ -89,7 +89,7 @@ Synchronous version lookup — returns the registry's `version` hash for a book 
 
 ### `extractTags(bookCode, entry?)`
 
-Returns a book's tags: the PRIMARY is the first registered prefix segment of the `bookCode`; SECONDARY tags come from the registry entry's `tags` column (comma‑separated codes). Pass the registry row (`entry`) whenever available (catalog and reader both have it in scope). Returns `Array<{code, label, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
+Returns a book's tags: the PRIMARY is the first registered prefix segment of the `bookCode`; SECONDARY tags come from the registry entry's `tags` column (comma‑separated codes). Pass the registry row (`entry`) whenever available (book-data and reader both have it in scope). Returns `Array<{code, label, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
 
 ```js
 extractTags("HDT-muwattaMalik", { tags: "DRFT" });
@@ -97,7 +97,7 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 //  {code:"DRFT", label:"Draft", palette: 1}]
 ```
 
-Dashboard state and rendering moved to `dashboard.js` when the module was split out of catalog.js — see below.
+Dashboard state and rendering moved to `dashboard.js` when the module was split out of book-data.js — see below.
 
 ### Naming conventions
 
@@ -109,7 +109,7 @@ Dashboard state and rendering moved to `dashboard.js` when the module was split 
 
 ## dashboard.js
 
-Dashboard page UI (books/index.html) — built on the metadata layer in `catalog.js`. Split out of catalog.js so the metadata module keeps no dashboard UI.
+Dashboard page UI (books/index.html) — built on the metadata layer in `book-data.js`. Split out of book-data.js so the metadata module keeps no dashboard UI.
 
 | Function | Description |
 |---|---|
@@ -123,7 +123,7 @@ Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current
 
 ## pins-history.js
 
-Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from catalog.js. Imported by `catalog.js` (re‑exports `addPin`, `removePin`, `isPinned`, `addReadHistory` for reader.js).
+Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from book-data.js. Imported by `book-data.js` (re‑exports `addPin`, `removePin`, `isPinned`, `addReadHistory` for reader.js).
 
 | Function | Description |
 |---|---|
@@ -140,7 +140,7 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from ca
 
 ## search-utils.js
 
-Pure logic. No DOM dependencies. Imported by `catalog.js`, `reader.js`, `quran-data.js`, `export-xlsx.js`, `export-epub.js`, and `export.js`.
+Pure logic. No DOM dependencies. Imported by `book-data.js`, `reader.js`, `quran-data.js`, `export-xlsx.js`, `export-epub.js`, and `export.js`.
 
 ### `escapeHTML(str)` / `escapeXML(str)`
 
@@ -252,10 +252,10 @@ Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (co
 The `books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
 
 - **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B` activates tag chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
-- **Flow** — reads params → awaits `loadTagDefinitions()` + `loadBookNames()` (catalog.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
+- **Flow** — reads params → awaits `loadTagDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
 - **Empty-scope guard** — active tags matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
 - **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+b` back are handled by common.js.
-- **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old catalog.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
+- **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old book-data.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
 
 ---
 
@@ -283,7 +283,7 @@ Processes all `data-i18n` attributes in the DOM and sets initial language from `
 
 ### `window.showToast(msg)`
 
-Shows a brief toast message at the bottom of the screen. Single shared implementation in `common.js` — used by reader, quran, and catalog modules. Auto-dismisses after 2.5s.
+Shows a brief toast message at the bottom of the screen. Single shared implementation in `common.js` — used by reader, quran, and book-data modules. Auto-dismisses after 2.5s.
 
 ### `window.showErrorToast(msg)`
 
@@ -424,7 +424,7 @@ Shared mutable state object:
 
 ## reader.js
 
-Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `catalog.js`, `csv.js`, `export.js`. Key internal functions:
+Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, `export.js`. Key internal functions:
 
 | Function | Description |
 |---|---|

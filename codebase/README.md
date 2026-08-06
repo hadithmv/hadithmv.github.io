@@ -29,7 +29,7 @@ css/
   library-search.css            ← Library search page: results, peek previews
 js/
   common.js                     ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
-  catalog.js                    ← Book metadata: registry + tag loaders, page bootstrap
+  book-data.js                  ← Book metadata: registry + tag loaders, page bootstrap
   pins-history.js               ← Pins & history: localStorage, modals, sidebar wiring
   dashboard.js                  ← Dashboard UI: card/table grid, search, tags, sort, keyboard
   reader.js                     ← Book viewer: render, toolbar, keyboard, export, clipboard
@@ -96,7 +96,7 @@ For a representative sample, see [`data/content/AQD-nawaqidulIslam.csv`](data/co
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `catalog.js` loads `02-registry-bookNames.csv` and `01-registry-bookTags.csv` for metadata and badges.
+1. `book-data.js` loads `02-registry-bookNames.csv` and `01-registry-bookTags.csv` for metadata and badges.
 1. `reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 

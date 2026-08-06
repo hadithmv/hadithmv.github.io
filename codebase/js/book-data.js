@@ -1,5 +1,5 @@
 /**
- * Catalog Module
+ * Book Data Module
  * Book registry, tag extraction, page metadata and bootstrap.
  * Loads metadata from 02-registry-bookNames.csv and 01-registry-bookTags.csv.
  * All configuration lives in CSV files — no hardcoded data.

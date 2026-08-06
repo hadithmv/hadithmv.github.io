@@ -102,7 +102,7 @@ mark {
 }
 
 /* ---- Tag colours (JS-generated via golden-ratio HSL) ---- */
-/* Inline --tag-color / --tag-bg custom properties are set by catalog.js */
+/* Inline --tag-color / --tag-bg custom properties are set by book-data.js */
 /* No fixed palette — unlimited tags, always perceptually distinct.   */
 
 /* ---- Body ---- */

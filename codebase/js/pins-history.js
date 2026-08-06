@@ -3,11 +3,11 @@
  *
  * Bookmark pins (saved reading positions) and reading history log.
  * Storage CRUD + modal UI + sidebar wiring.
- * Extracted from catalog.js.
+ * Extracted from book-data.js.
  */
 
 import { t } from "./i18n.js";
-import { getBookTitleSync } from "./catalog.js";
+import { getBookTitleSync } from "./book-data.js";
 
 // ── Storage ─────────────────────────────────────────────────
 const PINNED_KEY = window.LS_KEYS.pinnedBooks;
