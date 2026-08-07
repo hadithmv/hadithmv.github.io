@@ -111,7 +111,7 @@ for (const entry of registryRows.slice(1)) {
     // any column literally named `#` (some books keep it after the source
     // column) — it stays "(row numbers)" in the report, never "(excluded)".
     if (hdr === "#" || (hdr === "" && c === 0)) {
-      skipped.push((csvHeader[c] || "#") + " (row numbers)");
+      skipped.push(csvHeader[c] || "#");
       continue;
     }
     if (hdr.endsWith("-hdn")) {
@@ -120,7 +120,7 @@ for (const entry of registryRows.slice(1)) {
       continue;
     }
     if (excludedList && excludedList.indexOf(hdr) !== -1) {
-      skipped.push((csvHeader[c] || "#" + c) + " (excluded)");
+      skipped.push(csvHeader[c] || "#" + c);
       continue;
     }
     colIdx.push(c);
@@ -174,6 +174,7 @@ for (const entry of registryRows.slice(1)) {
     rows: dataRows.length,
     postings: bookPostings[bookCode] || 0,
     indexed: colNames,
+    skippedCount: skipped.length,
     skipped: skippedNames,
   });
 }
@@ -269,18 +270,18 @@ if (reportWarnings.length > 0) {
   md += "\n";
 }
 md += "## Books\n\n";
-md += "| Id | Book | Rows | Postings | Indexed | Skipped |\n|---|---|---|---|---|---|\n";
+md += "| Id | Book | Rows | Postings | Indexed | Skipped count | Skipped |\n|---|---|---|---|---|---|---|\n";
 for (const e of reportEntries) {
   const id = e.id === undefined ? "-" : e.id + 1;
   md +=
     "| " + id + " | " + e.code + " | " + fmt(e.rows) + " | " + fmt(e.postings) +
-    " | " + e.indexed + " | " + (e.skipped || "—") + " |\n";
+    " | " + e.indexed + " | " + e.skippedCount + " | " + (e.skipped || "—") + " |\n";
 }
 if (booksExcluded > 0) {
   md += "\n## Excluded Books\n\n";
-  md += "| Id | Book | Rows |\n|---|---|---|\n";
+  md += "| Book | Rows |\n|---|---|\n";
   for (const e of excludedEntries) {
-    md += "| - | " + e.code + " | " + fmt(e.rows) + " |\n";
+    md += "| " + e.code + " | " + fmt(e.rows) + " |\n";
   }
 }
 md += "\n## Postings by Column — Largest First\n\n";

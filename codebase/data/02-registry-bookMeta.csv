@@ -13,7 +13,7 @@ DFK-aqidatuSalafSoabuni,عقيدة السلف لأبي عثمان الصابون
 DFK-intisarLiAshabilHadith,الانتصار لأصحاب الحديث للسمعاني,ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,In Defense of the People of Hadith,AQD,"headAR,headDV,footDV",1bff041cf757
 DFK-kalimathulIkhlas,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Statement of Sincerity,AQD,"headAR,footAR,footDV",e838d1f09c5f
 DFK-kitabulEmanAbiUbaid,كتاب الإيمان لأبي عبيد,އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Book of Faith,AQD,"headAR,footAR,headDV,footDV",fd980da25962
-DFK-kitabulIlmAbiKhaithama,كتاب العلم لأبي خيثمة,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge,ATHR,"footAR,footDV",b1240fcb2cb2
+DFK-kitabulIlmAbiKhaithama,كتاب العلم لأبي خيثمة,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge,ATHR,"footAR,footDV",318e51dc67a7
 DFK-sharhuSunnahBarbahari,شرح السنة للبربهاري (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (DFK),AQD,foot,81bc26bc4f83
 DFK-talkhisKitabiShariah,تلخيص العقيدة من كتاب الشريعة للآجري,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Summary of Aqidah from Aajurry's Shari'ah,AQD,"headDV,foot,pNo",0ba94d586bd6
 HDT-arbaoonAajurry,الأربعون للآجري,އާޖުއްރީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Aajurry,DRFT,"headAR,headDV,foot",2e68b6339e36
@@ -39,8 +39,8 @@ IH-manKhalaqaniWaLimaza,من خلقني؟ ولماذا؟,އަހަރެން އުފ
 IH-mukhtasarTauhidilAsmaWaSifat,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"DRFT,AQD",,da0401cf0085
 IH-nubzaMujazahAnilIslam,رسالة موجزة عن الإسلام,އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam,,,f299ab92dcf0
 IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,,,54b56495cc81
-KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,"author,date,source-HDN,foot",eac2334bfd5f
-KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,date,487b1abb869e
+KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,ENTIRE-BOOK,eac2334bfd5f
+KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,ENTIRE-BOOK,487b1abb869e
 QRN-bakurube,ترجمة باكرو بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Translation of Bakurube,,ayahW2W,e88c49beb5af
 QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,,ENTIRE-BOOK,3f37b13659eb
 QRN-DATA-baseFile-2-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,ENTIRE-BOOK,f6d678780ee3
