@@ -1,5 +1,5 @@
 bookCode,titleAR,titleDV,titleEN,tags,excludeColumns,version
-AQD-aqidatuNawawi-HDN,عقيدة النووي,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT,entireBook,9ebcc269d59c
+AQD-aqidatuNawawi-HDN,عقيدة النووي,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT,ENTIRE-BOOK,9ebcc269d59c
 AQD-aqidatuRaziyain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT,foot,c988b016c0b8
 AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,,"headAR,headDV,foot",3ba811e5c078
 AQD-qawaidulArbau,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Four Principles,,"headAR,headDV,foot",4e6391a64c9c
@@ -42,22 +42,22 @@ IH-rasoolulIslamMuhammad,رسول الإسلام محمد ﷺ,އިސްލާމް �
 KNSH-hadithmv-DSC,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,"author,date,source-HDN,foot",eac2334bfd5f
 KNSH-muhammedMaldheefi-DSC,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,date,487b1abb869e
 QRN-bakurube,ترجمة باكرو بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Translation of Bakurube,,ayahW2W,e88c49beb5af
-QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,,"juzNo,surahNo,ayahNo,basmalah",3f37b13659eb
-QRN-DATA-baseFile-2-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,,f6d678780ee3
+QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,,ENTIRE-BOOK,3f37b13659eb
+QRN-DATA-baseFile-2-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,ENTIRE-BOOK,f6d678780ee3
 QRN-hadithmv,ترجمة حديث إم في,ޙަދީޘްއެމްވީގެ ތަރުޖަމާ,Quran Translation of Hadithmv,DRFT,,f4841616e8de
 QRN-jaufarFaiz,تفسير القرآن لجعفر,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,,foot,a288de66b903
-QRN-mukhtasarAR,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir,,ayahAR,1b81c5ef7a51
-QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir,,ayahAR,f794e0d3ca33
+QRN-mukhtasarAR,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir,,ENTIRE-BOOK,1b81c5ef7a51
+QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir,,ENTIRE-BOOK,f794e0d3ca33
 QRN-rasmee-alt,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),,,7cbc1ee406fc
-QRN-rasmee-og,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ayahDV,21f3d936cb85
+QRN-rasmee-og,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ENTIRE-BOOK,21f3d936cb85
 QRN-soabuniAshari-HDN,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,,"translation,title,note",63a477371447
 QRUL-ushrulAkhir-ahkamThahimmulMuslim,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,Explanation of Last Tenth of Quran - with Important Matters for the Muslim,"AQD,REV",bodyAR,87f6ac2c5491
-RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,,94cbeb318fc6
-RDF-all,الجامع في المعاجم,އެއްކުރަމުންދާ ރަދީފުތައް,Collection of Dictionaries,,,353a068c6062
-RDF-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,AQD,,2148e41322c3
-RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Eegaal Dictionary,,,044974339cbe
-RDF-hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,,,91a3ddfae454
-RDF-nanfoiyComb,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,,,3f20fe23a9fc
-RDF-rasmee,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Official Dhivehi Dictionary,,,2d0d4046436f
-RDF-W2W-bakurube,معجم ألفاظ القران (مبني على ترجمة باكرو بي),ގުރްއާނުގެ ލަފްޒުތަކުގެ މާނަ (ބަކުރުބޭގެ ތަރުޖަމާގެ މައްޗަށް ބިނާކުރެވިފަ),Dictionary of Quranic Words (based on Bakurube's Translation),QRUL,,315d1f354bb7
-ZKR-hisnulMuslim,حصن المسلم,މުސްލިމުންގެ ކިއްލާ,Fortress of the Muslim,DRFT,,2cfdae8445ff
+RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,ENTIRE-BOOK,94cbeb318fc6
+RDF-all,الجامع في المعاجم,އެއްކުރަމުންދާ ރަދީފުތައް,Collection of Dictionaries,,ENTIRE-BOOK,353a068c6062
+RDF-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,AQD,ENTIRE-BOOK,2148e41322c3
+RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Eegaal Dictionary,,ENTIRE-BOOK,044974339cbe
+RDF-hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,,ENTIRE-BOOK,91a3ddfae454
+RDF-nanfoiyComb,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,,ENTIRE-BOOK,3f20fe23a9fc
+RDF-rasmee,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Official Dhivehi Dictionary,,ENTIRE-BOOK,2d0d4046436f
+RDF-W2W-bakurube,معجم ألفاظ القران (مبني على ترجمة باكرو بي),ގުރްއާނުގެ ލަފްޒުތަކުގެ މާނަ (ބަކުރުބޭގެ ތަރުޖަމާގެ މައްޗަށް ބިނާކުރެވިފަ),Dictionary of Quranic Words (based on Bakurube's Translation),QRUL,ENTIRE-BOOK,315d1f354bb7
+ZKR-hisnulMuslim,حصن المسلم,މުސްލިމުންގެ ކިއްލާ,Fortress of the Muslim,DRFT,"headAR,footAR,headDV,footDV",2cfdae8445ff

@@ -7,7 +7,8 @@
  * same normalisation the app's search uses (search-utils.js), tokenise into words,
  * and record (bookCode, row) for each word. -HDN columns and the row-number
  * column are excluded; an optional `excludeColumns` column in the registry
- * skips the listed columns. A per-book report of indexed and skipped columns
+ * skips the listed columns — the magic value `ENTIRE-BOOK` skips the whole
+ * book. A per-book report of indexed and skipped columns
  * is printed while building and written to data/search-index-report.md
  * (policy table, warnings, postings by column). The result feeds the
  * cross-book search (js/library-search-engine.js).
@@ -56,6 +57,8 @@ const bookIdx = header.indexOf("bookCode");
 const excludeColIdx = header.indexOf("excludeColumns");
 
 let booksWithExclusions = 0;
+let booksExcluded = 0; // books skipped entirely via the ENTIRE-BOOK magic token
+const excludedEntries = []; // report rows for data/search-index-report.md
 
 for (const entry of registryRows.slice(1)) {
   const bookCode = entry[bookIdx];
@@ -78,6 +81,17 @@ for (const entry of registryRows.slice(1)) {
   const excludedList = excludedRaw
     ? excludedRaw.toLowerCase().split(",").map((s) => s.trim()).filter(Boolean)
     : null;
+  // Magic token: exclude the WHOLE book — no postings, never searchable, but
+  // the book stays registered and readable (dashboard/reader are unaffected).
+  // Other names in the same cell are ignored (the token wins).
+  const hasEntireBook = excludedList && excludedList.indexOf("entire-book") !== -1;
+  if (hasEntireBook) {
+    booksExcluded++;
+    booksScanned++;
+    console.log(bookCode + ": ENTIRE-BOOK — excluded from index");
+    excludedEntries.push({ code: bookCode, rows: dataRows.length });
+    continue;
+  }
   if (excludedList) {
     booksWithExclusions++;
     for (const name of excludedList) {
@@ -195,6 +209,7 @@ const out = JSON.stringify({
     built: new Date().toISOString(),
     bookIds: bookIds, // postings use numeric ids; resolve back through this
     books: booksScanned,
+    excluded: booksExcluded, // books skipped via excludeColumns: ENTIRE-BOOK
     rows: rowsScanned,
     words: Object.keys(words).length,
   },
@@ -203,7 +218,7 @@ const out = JSON.stringify({
 
 fs.writeFileSync(OUT, out, "utf8");
 console.log("\nindex written:", OUT);
-console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| excludeColumns:", booksWithExclusions);
+console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| excludeColumns:", booksWithExclusions, "| excluded books:", booksExcluded);
 console.log("raw size:", (fs.statSync(OUT).size / 1024 / 1024).toFixed(1) + " MB");
 console.log("gzip size:", (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1) + " MB");
 
@@ -217,7 +232,8 @@ md +=
   fmt(Object.keys(words).length) + " unique words · " +
   (fs.statSync(OUT).size / 1024 / 1024).toFixed(1) + " MiB raw · " +
   (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1) + " MiB gzip · " +
-  booksWithExclusions + " excludeColumns entries\n\n";
+  booksWithExclusions + " excludeColumns entries · " +
+  booksExcluded + " book" + (booksExcluded === 1 ? "" : "s") + " excluded\n\n";
 if (reportWarnings.length > 0) {
   md += "## Warnings\n\n";
   for (const w of reportWarnings) md += "- " + w + "\n";
@@ -230,6 +246,13 @@ for (const e of reportEntries) {
   md +=
     "| " + id + " | " + e.code + " | " + fmt(e.rows) + " | " + fmt(e.postings) +
     " | " + e.indexed + " | " + (e.skipped || "—") + " |\n";
+}
+if (booksExcluded > 0) {
+  md += "\n## Excluded books\n\n";
+  md += "| Id | Book | Rows |\n|---|---|---|\n";
+  for (const e of excludedEntries) {
+    md += "| - | " + e.code + " | " + fmt(e.rows) + " |\n";
+  }
 }
 md += "\n## Postings by column — largest first\n\n";
 md += "| Id | Book | Column | Postings | Share |\n|---|---|---|---|---|\n";
@@ -251,6 +274,7 @@ md += "\n## Notes\n\n";
 md += "- `-HDN` books and columns are hidden from the dashboard and search scope.\n";
 md += "- `# (row numbers)` is the CSV's position column — never indexed.\n";
 md += "- An `excludeColumns` registry entry skips the listed columns.\n";
+md += "- `excludeColumns: ENTIRE-BOOK` skips the whole book — it stays in the dashboard and reader but is never searchable.\n";
 md += "- Ids are 1-based positions in `meta.bookIds` (what postings in search-index.json reference).\n";
 const REPORT = path.join(DIR, "search-index-report.md");
 fs.writeFileSync(REPORT, md, "utf8");
