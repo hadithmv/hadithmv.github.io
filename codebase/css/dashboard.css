@@ -284,7 +284,6 @@ a.toolbar-btn {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 8px);
-  margin-top: var(--section-gap, 10px);
   margin-bottom: 12px;
 }
 
