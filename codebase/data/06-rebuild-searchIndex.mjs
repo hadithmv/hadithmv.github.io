@@ -30,6 +30,8 @@ const OUT = path.join(DIR, "search-index.json");
 const index = {};
 const bookIds = []; // bookCode per numeric id — postings stay compact
 const bookIdOf = {}; // bookCode → id
+const bookPostings = {}; // bookCode → posting count (for the report)
+const reportEntries = []; // per-book rows for data/search-index-report.md
 let booksScanned = 0;
 let rowsScanned = 0;
 let wordsIndexed = 0;
@@ -86,7 +88,10 @@ for (const entry of registryRows.slice(1)) {
   const skipped = []; // display names of skipped columns
   for (let c = 0; c < csvHeader.length; c++) {
     const hdr = (csvHeader[c] || "").trim().toLowerCase();
-    if (hasRowNums && c === 0) continue; // row-number column
+    if (hasRowNums && c === 0) {
+      skipped.push((csvHeader[c] || "#") + " (row numbers)");
+      continue;
+    }
     if (hdr.endsWith("-hdn")) {
       // hidden columns are never searchable — the reader can't show the text
       skipped.push(csvHeader[c] || "#" + c);
@@ -125,14 +130,23 @@ for (const entry of registryRows.slice(1)) {
         addWord(w, bid, rowNum);
         wordsIndexed++;
       }
+      bookPostings[bookCode] = (bookPostings[bookCode] || 0) + words.length;
     }
     rowsScanned++;
   }
   booksScanned++;
   // One report line per book — eyeball the whole indexing policy at a glance
   const colNames = colIdx.map((c) => csvHeader[c] || "#" + c).join(", ");
-  const skipNote = skipped.length > 0 ? " | skipped: " + skipped.join(", ") : "";
+  const skippedNames = skipped.join(", ");
+  const skipNote = skippedNames ? " | skipped: " + skippedNames : "";
   console.log(bookCode + ": " + dataRows.length + " rows | indexed: " + colNames + skipNote);
+  reportEntries.push({
+    code: bookCode,
+    rows: dataRows.length,
+    postings: bookPostings[bookCode] || 0,
+    indexed: colNames,
+    skipped: skippedNames,
+  });
 }
 
 // Pack rows as sorted ranges ("1-5,8,12") to shrink the file
@@ -181,3 +195,21 @@ console.log("\nindex written:", OUT);
 console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| indexColumns overrides:", booksWithOverride);
 console.log("raw size:", (fs.statSync(OUT).size / 1024 / 1024).toFixed(1) + " MB");
 console.log("gzip size:", (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1) + " MB");
+
+// ── Report file — the same policy as a diffable markdown table ──
+let md = "# Search index report\n\n";
+md +=
+  "Built " + new Date().toISOString() +
+  " · version `" + version + "` · " +
+  booksScanned + " books · " + rowsScanned + " rows · " + wordsIndexed + " postings · " +
+  Object.keys(words).length + " unique words · " +
+  (fs.statSync(OUT).size / 1024 / 1024).toFixed(1) + " MiB raw · " +
+  (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1) + " MiB gzip · " +
+  booksWithOverride + " indexColumns overrides\n\n";
+md += "| Book | Rows | Postings | Indexed | Skipped |\n|---|---|---|---|---|\n";
+for (const e of reportEntries) {
+  md += "| " + e.code + " | " + e.rows + " | " + e.postings + " | " + e.indexed + " | " + e.skipped + " |\n";
+}
+const REPORT = path.join(DIR, "search-index-report.md");
+fs.writeFileSync(REPORT, md, "utf8");
+console.log("report written:", REPORT);
