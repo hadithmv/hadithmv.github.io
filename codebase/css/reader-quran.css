@@ -297,7 +297,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-modal, 300);
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-scrim, rgba(0, 0, 0, 0.4));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -311,7 +311,7 @@
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-modal, 0 16px 48px var(--color-shadow-modal));
   direction: rtl;
 }
 .quran-surah-header {

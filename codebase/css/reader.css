@@ -3,8 +3,8 @@
   display: grid;
   grid-template-rows: 1fr;
   transition:
-    grid-template-rows var(--t-panel, 0.3s) cubic-bezier(0.4, 0, 0.2, 1),
-    opacity var(--t-pop, 0.2s) cubic-bezier(0.4, 0, 0.2, 1);
+    grid-template-rows var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
+    opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
   position: sticky;
   top: 58px;
   z-index: var(--z-toolbar, 50);

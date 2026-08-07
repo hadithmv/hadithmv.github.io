@@ -32,7 +32,7 @@
   gap: var(--section-gap, 12px);
   margin-top: var(--section-gap, 12px);
   max-height: 300px;
-  transition: max-height var(--t-panel, 0.3s) cubic-bezier(0.4, 0, 0.2, 1),
+  transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
               opacity var(--t-pop, 0.2s) ease,
               margin-top var(--t-panel, 0.3s) ease,
               gap var(--t-panel, 0.3s) ease;
@@ -226,7 +226,7 @@ a.toolbar-btn {
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg, 12px);
-  padding: 24px;
+  padding: var(--card-padding, 24px);
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -421,7 +421,7 @@ a.toolbar-btn {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
   .book-card {
-    padding: 16px;
+    padding: var(--card-padding-mobile, 16px);
     min-height: 120px;
   }
   .book-card .title-ar,

@@ -27,6 +27,8 @@
   --color-shadow-sm: rgba(0, 0, 0, 0.04);
   --color-shadow-card: rgba(0, 0, 0, 0.05);
   --color-shadow-card-hover: rgba(0, 0, 0, 0.1);
+  --color-shadow-modal: rgba(0, 0, 0, 0.18);
+  --color-scrim: rgba(0, 0, 0, 0.4);
   --color-theme-toggle-bg: #f1f5f9;
   --color-theme-toggle-text: #475569;
   --color-mark-bg: #fef08a;
@@ -87,11 +89,17 @@
   --shadow-card: 0 1px 3px var(--color-shadow-card);
   --shadow-card-hover: 0 10px 15px -3px var(--color-shadow-card-hover),
     0 4px 6px -2px var(--color-shadow-card);
+  /* Modal shadow — every modal/selector panel shares one shape; the colour
+     is per-theme --color-shadow-modal (stronger in dark mode). */
+  --shadow-modal: 0 16px 48px var(--color-shadow-modal);
   /* Page chrome — the dashboard/library wrapper layout */
   --page-margin: 72px auto 40px;
   --page-padding: 0 20px;
   --page-margin-mobile: 60px auto 12px;
   --page-padding-mobile: 0 12px;
+  /* Card padding — book cards and library results share one padding */
+  --card-padding: 24px;
+  --card-padding-mobile: 16px;
   /* Z-index ladder — one token per layer (docs/ARCHITECTURE.md). The ladder
      is the in-sync unit: renumber tokens here, never a single site. */
   --z-under: -1;
@@ -108,14 +116,15 @@
   --z-toast: 200; /* equals the sidebar — they never overlap; move together */
   --z-modal: 300;
   --z-celebrate: 9998;
-  /* Transition durations — one token per interaction tier; easings stay
-     literal at the use site */
+  /* Transition durations — one token per interaction tier; the shared panel
+     easing is --ease-panel, plain `ease` stays literal at the use site */
   --t-fast: 0.1s;
   --t-hover: 0.15s;
   --t-pop: 0.2s;
   --t-drawer: 0.25s;
   --t-panel: 0.3s;
   --t-slow: 0.5s;
+  --ease-panel: cubic-bezier(0.4, 0, 0.2, 1);
   /* Font stacks — one var per family, exact canon (docs/ARCHITECTURE.md).
      A use site is always `var(--font-*, <canonical>)`; the only literal
      font-family in the app is the @font-face name below. */
@@ -152,6 +161,8 @@
   --color-shadow-sm: rgba(0, 0, 0, 0.04);
   --color-shadow-card: rgba(0, 0, 0, 0.05);
   --color-shadow-card-hover: rgba(0, 0, 0, 0.1);
+  --color-shadow-modal: rgba(0, 0, 0, 0.18);
+  --color-scrim: rgba(0, 0, 0, 0.4);
   --color-theme-toggle-bg: #efe0c8;
   --color-theme-toggle-text: #5c4a30;
   --color-mark-bg: #f0c060;
@@ -200,6 +211,8 @@
   --color-shadow-sm: rgba(0, 0, 0, 0.2);
   --color-shadow-card: rgba(0, 0, 0, 0.2);
   --color-shadow-card-hover: rgba(0, 0, 0, 0.35);
+  --color-shadow-modal: rgba(0, 0, 0, 0.5);
+  --color-scrim: rgba(0, 0, 0, 0.55);
   --color-theme-toggle-bg: #1e293b;
   --color-theme-toggle-text: #94a3b8;
   --color-mark-bg: #854d0e;
@@ -485,7 +498,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: var(--z-modal, 300);
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-scrim, rgba(0, 0, 0, 0.4));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -514,7 +527,7 @@ body:has(.modal-overlay.open) {
   max-height: 85vh;
   overflow-y: auto;
   overscroll-behavior: contain;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-modal, 0 16px 48px var(--color-shadow-modal));
   direction: rtl;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
