@@ -639,7 +639,7 @@ function setupDashboardControls() {
   }
 
   // Auto-focus search on desktop
-  if (window.innerWidth > 600) si.focus();
+  if (window.innerWidth > window.MOBILE_BP) si.focus();
 }
 
 // Re-render dashboard on settings reset (if visible)

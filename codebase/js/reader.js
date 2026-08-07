@@ -78,7 +78,7 @@ initializePageWithMetadata(async function (metadata) {
         filteredData: null,
 
         // View
-        viewMode: (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card",
+        viewMode: (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > window.MOBILE_BP) ? "table" : "card",
 
         // Columns
         hiddenColumns: [],
@@ -1588,7 +1588,7 @@ initializePageWithMetadata(async function (metadata) {
 
       btnResetReader.addEventListener("click", function () {
         // Reset view mode to default for this book
-        STATE.viewMode = viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > 600) ? "table" : "card";
+        STATE.viewMode = viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > window.MOBILE_BP) ? "table" : "card";
         updateViewModeUI();
         resetReaderDefaults();
       });

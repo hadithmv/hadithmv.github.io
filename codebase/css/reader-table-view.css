@@ -12,7 +12,7 @@
 .rdf-top-scroll {
   position: sticky;
   top: calc(var(--rdf-header-top, 62px) + 2px);
-  z-index: 6;
+  z-index: var(--z-sticky, 6);
   display: flex;
   align-items: center;
   margin: 0 -36px;
@@ -53,7 +53,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: color var(--t-hover, 0.15s) ease;
 }
 .rdf-scroll-arrow:hover {
   color: var(--color-text);
@@ -97,12 +97,12 @@
 }
 
 .rdf-table thead {
-  z-index: 10;
+  z-index: var(--z-table-head, 10);
 }
 .rdf-table th {
   position: sticky;
   top: var(--rdf-header-top, 62px);
-  z-index: 10;
+  z-index: var(--z-table-head, 10);
   padding: 8px 10px;
   background: var(--color-nav-btn-bg);
   border-bottom: 2px solid var(--color-divider-ornament);
@@ -113,7 +113,7 @@
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text);
   text-align: right;
-  z-index: 5;
+  z-index: var(--z-base, 5);
   white-space: nowrap;
 }
 .rdf-table th:first-child {

@@ -92,6 +92,30 @@
   --page-padding: 0 20px;
   --page-margin-mobile: 60px auto 12px;
   --page-padding-mobile: 0 12px;
+  /* Z-index ladder — one token per layer (docs/ARCHITECTURE.md). The ladder
+     is the in-sync unit: renumber tokens here, never a single site. */
+  --z-under: -1;
+  --z-arrow: 2;
+  --z-base: 5;
+  --z-sticky: 6;
+  --z-table-head: 10;
+  --z-toolbar: 50;
+  --z-dropdown: 60;
+  --z-pill: 100;
+  --z-topbar: 101;
+  --z-sidebar-overlay: 199;
+  --z-sidebar: 200;
+  --z-toast: 200; /* equals the sidebar — they never overlap; move together */
+  --z-modal: 300;
+  --z-celebrate: 9998;
+  /* Transition durations — one token per interaction tier; easings stay
+     literal at the use site */
+  --t-fast: 0.1s;
+  --t-hover: 0.15s;
+  --t-pop: 0.2s;
+  --t-drawer: 0.25s;
+  --t-panel: 0.3s;
+  --t-slow: 0.5s;
   /* Font stacks — one var per family, exact canon (docs/ARCHITECTURE.md).
      A use site is always `var(--font-*, <canonical>)`; the only literal
      font-family in the app is the @font-face name below. */
@@ -250,8 +274,8 @@ body {
   align-items: center;
   justify-content: center;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   margin-left: auto;
 }
@@ -265,11 +289,11 @@ body {
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  z-index: 199;
+  z-index: var(--z-sidebar-overlay, 199);
   background: rgba(0, 0, 0, 0.35);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity var(--t-drawer, 0.25s) ease;
 }
 
 .sidebar-overlay.open {
@@ -285,14 +309,14 @@ body {
   bottom: 0;
   width: 280px;
   max-width: 85vw;
-  z-index: 200;
+  z-index: var(--z-sidebar, 200);
   background: var(--color-card-bg);
   border-left: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   padding: 24px;
   transform: translateX(100%);
-  transition: transform 0.25s ease;
+  transition: transform var(--t-drawer, 0.25s) ease;
   overflow-y: auto;
   overscroll-behavior: contain;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
@@ -329,8 +353,8 @@ body {
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
 }
 
 .sidebar-close:hover {
@@ -354,7 +378,7 @@ body {
   color: var(--color-text);
   text-decoration: none;
   border-radius: var(--radius-md, 8px);
-  transition: background 0.15s ease;
+  transition: background var(--t-hover, 0.15s) ease;
 }
 
 .sidebar-link:hover {
@@ -383,7 +407,7 @@ body {
   border: none;
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background var(--t-hover, 0.15s) ease;
 }
 
 .sidebar-settings-toggle:hover {
@@ -398,7 +422,7 @@ body {
   margin-left: auto;
   font-size: 0.7rem;
   color: var(--color-text-subtle);
-  transition: transform 0.2s ease;
+  transition: transform var(--t-pop, 0.2s) ease;
 }
 
 /* Settings panel */
@@ -441,8 +465,8 @@ body {
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
 }
 
 .sidebar-theme-btn:hover {
@@ -460,7 +484,7 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 300;
+  z-index: var(--z-modal, 300);
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -468,8 +492,8 @@ body {
   visibility: hidden;
   opacity: 0;
   transition:
-    opacity 0.2s ease,
-    visibility 0.2s ease;
+    opacity var(--t-pop, 0.2s) ease,
+    visibility var(--t-pop, 0.2s) ease;
 }
 
 .modal-overlay.open {
@@ -521,8 +545,8 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
 }
 
 .modal-close:hover {
@@ -569,7 +593,7 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--t-hover, 0.15s) ease;
   text-align: right;
   white-space: nowrap;
 }
@@ -655,7 +679,7 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  transition: background 0.15s ease;
+  transition: background var(--t-hover, 0.15s) ease;
   white-space: nowrap;
 }
 
@@ -679,7 +703,7 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  transition: opacity 0.15s ease;
+  transition: opacity var(--t-hover, 0.15s) ease;
   margin-right: auto;
   margin-left: 8px;
 }
@@ -833,9 +857,9 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
   user-select: none;
 }
 .dash-tag-chip:hover {
@@ -935,7 +959,7 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--t-hover, 0.15s) ease;
 }
 
 .sidebar-select:focus {
@@ -976,7 +1000,7 @@ body:has(.modal-overlay.open) {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background var(--t-hover, 0.15s) ease;
 }
 
 .search-clear:hover {
@@ -1014,8 +1038,8 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
 }
 .toolbar-btn:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -1052,7 +1076,7 @@ body:has(.modal-overlay.open) {
   cursor: pointer;
   text-align: right;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  transition: background 0.1s ease;
+  transition: background var(--t-fast, 0.1s) ease;
   box-sizing: border-box;
 }
 .dd-item:hover {
@@ -1087,7 +1111,7 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   box-shadow: 0 4px 12px var(--color-shadow-card-hover);
-  z-index: 60;
+  z-index: var(--z-dropdown, 60);
 }
 
 .toolbar-select {
@@ -1108,7 +1132,7 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--t-hover, 0.15s) ease;
 }
 
 .toolbar-select:focus {
@@ -1125,7 +1149,7 @@ body:has(.modal-overlay.open) {
   max-width: var(--content-width, 800px);
   padding: 10px 20px;
   box-sizing: border-box;
-  z-index: 101;
+  z-index: var(--z-topbar, 101);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1198,8 +1222,8 @@ body:has(.modal-overlay.open) {
   align-items: center;
   justify-content: center;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
 }
 
 #backToDashboard:hover {
@@ -1221,9 +1245,9 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease;
+    background var(--t-panel, 0.3s) ease,
+    border-color var(--t-panel, 0.3s) ease,
+    color var(--t-panel, 0.3s) ease;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
 }
@@ -1238,9 +1262,9 @@ body:has(.modal-overlay.open) {
   color: #fff;
   border-color: var(--color-focus-text, #15803d);
   transition:
-    background 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease;
+    background var(--t-panel, 0.3s) ease,
+    border-color var(--t-panel, 0.3s) ease,
+    color var(--t-panel, 0.3s) ease;
 }
 
 /* ---- Font modal ---- */
@@ -1364,7 +1388,7 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   text-align: center;
   opacity: 0.8;
-  transition: opacity 0.15s ease;
+  transition: opacity var(--t-hover, 0.15s) ease;
 }
 .dd-clear-all:hover {
   opacity: 1;

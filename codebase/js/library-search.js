@@ -538,7 +538,7 @@ async function init() {
   else showEmpty("libSearchHint");
 
   // Auto-focus search on desktop
-  if (window.innerWidth > 600) el.input.focus();
+  if (window.innerWidth > window.MOBILE_BP) el.input.focus();
 }
 
 init();

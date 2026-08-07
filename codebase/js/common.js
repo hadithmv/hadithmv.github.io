@@ -39,6 +39,12 @@ window.LS_KEYS = {
   readerQuranShowNumBrackets: "reader:quranShowNumBrackets",
 };
 
+// ── Shared constants ────────────────────────────────────────
+// The mobile breakpoint — sync pair with the CSS `@media (max-width: 600px)`
+// literals (docs/ARCHITECTURE.md "Responsive"): custom properties cannot be
+// used in media conditions, so the two must match by convention.
+window.MOBILE_BP = 600;
+
 // ── Theme (blocking — inline in <head>, replicated here for reader page) ─
 (function () {
   var t = localStorage.getItem(window.LS_KEYS.theme);

@@ -3,11 +3,11 @@
   display: grid;
   grid-template-rows: 1fr;
   transition:
-    grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    grid-template-rows var(--t-panel, 0.3s) cubic-bezier(0.4, 0, 0.2, 1),
+    opacity var(--t-pop, 0.2s) cubic-bezier(0.4, 0, 0.2, 1);
   position: sticky;
   top: 58px;
-  z-index: 50;
+  z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding: 10px 0;
   border-bottom: 2px solid var(--color-card-hover-border);
@@ -22,7 +22,7 @@
   left: -50vw;
   right: -50vw;
   background: inherit;
-  z-index: -1;
+  z-index: var(--z-under, -1);
 }
 #collapsibleReaderPanel > .readerPanel-inner {
   overflow: hidden;
@@ -56,7 +56,7 @@
   outline: none;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background var(--t-hover, 0.15s) ease, border-color var(--t-hover, 0.15s) ease;
 }
 /* Inputs in panel rows are softer than the buttons beside them —
    matches the md radius of .search-input everywhere else */
@@ -154,7 +154,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background var(--t-hover, 0.15s) ease;
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
@@ -265,9 +265,9 @@
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
   white-space: nowrap;
 }
 
@@ -286,7 +286,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 60;
+  z-index: var(--z-dropdown, 60);
   margin-top: 4px;
   padding: 6px;
   background: var(--color-card-bg);
@@ -316,7 +316,7 @@
 .export-dropdown {
   position: absolute;
   top: 100%;
-  z-index: 60;
+  z-index: var(--z-dropdown, 60);
   margin-top: 4px;
   padding: 4px;
   background: var(--color-card-bg);
@@ -341,7 +341,7 @@
   border: none;
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  transition: background 0.1s ease;
+  transition: background var(--t-fast, 0.1s) ease;
 }
 
 .export-option:hover {
@@ -398,10 +398,10 @@
   color: var(--color-toast-text, #fff);
   background: var(--color-toast-bg, #1a202c);
   border-radius: var(--radius-md, 8px);
-  z-index: 200;
+  z-index: var(--z-toast, 200);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity var(--t-pop, 0.2s) ease;
   direction: rtl;
 }
 
@@ -446,8 +446,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.15s ease;
-  z-index: 5;
+  transition: color var(--t-hover, 0.15s) ease;
+  z-index: var(--z-base, 5);
 }
 .scroll-arrow-start {
   left: 2px;
@@ -636,7 +636,7 @@
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color var(--t-hover, 0.15s) ease;
   -moz-appearance: textfield;
 }
 
@@ -711,7 +711,7 @@
   top: 0; bottom: 0;
   left: -50vw; right: -50vw;
   background: inherit;
-  z-index: -1;
+  z-index: var(--z-under, -1);
 }
 
 #readerProgressBar {
@@ -727,7 +727,7 @@
   height: 100%;
   width: 0%;
   background: var(--color-nav-btn-text);
-  transition: width 0.3s ease-out, background 0.5s ease;
+  transition: width var(--t-panel, 0.3s) ease-out, background var(--t-slow, 0.5s) ease;
 }
 #readerProgressFill.done {
   background: #10b981;
@@ -736,7 +736,7 @@
 .completion-border {
   position: fixed;
   inset: 0;
-  z-index: 9998;
+  z-index: var(--z-celebrate, 9998);
   pointer-events: none;
   border: 0px solid #059669;
   animation: border-glow 5s ease-in-out forwards;
@@ -892,10 +892,10 @@
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill, 20px);
-  z-index: 100;
+  z-index: var(--z-pill, 100);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--t-panel, 0.3s) ease;
   box-shadow: 0 2px 8px var(--color-shadow-card);
   direction: rtl;
 }

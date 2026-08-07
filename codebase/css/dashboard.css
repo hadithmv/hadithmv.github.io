@@ -32,10 +32,10 @@
   gap: var(--section-gap, 12px);
   margin-top: var(--section-gap, 12px);
   max-height: 300px;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.2s ease,
-              margin-top 0.3s ease,
-              gap 0.3s ease;
+  transition: max-height var(--t-panel, 0.3s) cubic-bezier(0.4, 0, 0.2, 1),
+              opacity var(--t-pop, 0.2s) ease,
+              margin-top var(--t-panel, 0.3s) ease,
+              gap var(--t-panel, 0.3s) ease;
 }
 
 #dashboardPanelSearch {
@@ -110,7 +110,7 @@ a.toolbar-btn {
 }
 .dash-table tbody tr {
   cursor: pointer;
-  transition: background 0.1s ease;
+  transition: background var(--t-fast, 0.1s) ease;
 }
 .dash-table tbody tr:hover td {
   background: var(--color-nav-btn-hover-bg);
@@ -167,8 +167,8 @@ a.toolbar-btn {
   border: none;
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  z-index: 2;
-  transition: color 0.15s ease, opacity 0.15s ease;
+  z-index: var(--z-arrow, 2);
+  transition: color var(--t-hover, 0.15s) ease, opacity var(--t-hover, 0.15s) ease;
 }
 #dashboardPanelFunctions .scroll-arrow-start {
   right: 2px;
@@ -234,9 +234,9 @@ a.toolbar-btn {
   min-height: 160px;
   box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    transform var(--t-pop, 0.2s) ease,
+    box-shadow var(--t-pop, 0.2s) ease,
+    border-color var(--t-pop, 0.2s) ease;
 }
 
 .book-card:hover {
@@ -326,7 +326,7 @@ a.toolbar-btn {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color var(--t-hover, 0.15s) ease, background var(--t-hover, 0.15s) ease;
 }
 /* Join the pieces into one continuous reading: "label · title · pos · time" */
 .dash-continue > span + span::before {
