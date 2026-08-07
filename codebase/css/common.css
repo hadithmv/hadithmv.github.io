@@ -70,6 +70,13 @@
   /* Panel font sizes (were fallback-only) — change here, not at use sites. */
   --panel-font-size: 0.85rem;
   --panel-font-size-mobile: 0.78rem;
+  /* Title scale — Arabic and Dhivehi title lines (cards + search results)
+     render at this × the panel font size; English titles stay at base. */
+  --title-scale: 1.2;
+  /* Title gap — spacing between the Arabic/Dhivehi title lines
+     (cards + results); a little extra before the English caption */
+  --title-gap: 4px;
+  --title-gap-caption: calc(var(--title-gap) * 2);
   /* Radius tiers */
   --radius-sm: 6px;
   --radius-md: 8px;

@@ -231,7 +231,6 @@ a.toolbar-btn {
   color: inherit;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   min-height: 160px;
   box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
   transition:
@@ -247,22 +246,28 @@ a.toolbar-btn {
   border-color: var(--color-card-hover-border);
 }
 
+/* Title pair — Arabic and Dhivehi at --title-scale (same size);
+   the English caption stays at base; ar/dv sit --title-gap apart,
+   --title-gap-caption before the caption */
+.book-card .title-ar,
+.book-card .title-dv {
+  font-size: calc(var(--panel-font-size, 0.85rem) * var(--title-scale, 1.2));
+}
+
 .book-card .title-ar {
-  font-size: calc(var(--panel-font-size, 0.85rem) * 1.65);
   color: var(--color-text);
   direction: rtl;
   text-align: right;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: var(--title-gap, 4px);
   font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
 }
 
 .book-card .title-dv {
-  font-size: calc(var(--panel-font-size, 0.85rem) * 1.3);
   color: var(--color-text-muted);
   direction: rtl;
   text-align: right;
-  margin-bottom: 12px;
+  margin-bottom: var(--title-gap-caption, 8px);
   font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
 }
 
@@ -272,7 +277,6 @@ a.toolbar-btn {
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: auto;
 }
 
 /* ---- Tags ---- */
@@ -280,6 +284,7 @@ a.toolbar-btn {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 8px);
+  margin-top: var(--section-gap, 10px);
   margin-bottom: 12px;
 }
 
@@ -420,13 +425,9 @@ a.toolbar-btn {
     padding: 16px;
     min-height: 120px;
   }
-  .book-card .title-ar {
-    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * 1.5);
-    margin-bottom: 4px;
-  }
+  .book-card .title-ar,
   .book-card .title-dv {
-    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * 1.2);
-    margin-bottom: 8px;
+    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2));
   }
   .book-card .title-en {
     font-size: var(--panel-font-size-mobile, 0.78rem);

@@ -112,24 +112,27 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
   text-decoration: none;
   color: inherit;
 }
 /* Same per-language font stacks + panel-font-size scaling as the book cards */
+.lib-result .lib-title-ar,
+.lib-result .lib-title-dv {
+  font-size: calc(var(--panel-font-size, 0.85rem) * var(--title-scale, 1.2));
+}
 .lib-result .lib-title-ar {
-  font-size: calc(var(--panel-font-size, 0.85rem) * 1.4);
   color: var(--color-text);
   direction: rtl;
   text-align: right;
   font-weight: 700;
+  margin-bottom: var(--title-gap, 4px);
   font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
 }
 .lib-result .lib-title-dv {
-  font-size: calc(var(--panel-font-size, 0.85rem) * 1.15);
   color: var(--color-text-muted);
   direction: rtl;
   text-align: right;
+  margin-bottom: var(--title-gap-caption, 8px);
   font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
 }
 .lib-result .lib-title-en {
@@ -206,11 +209,9 @@
   .lib-result {
     padding: 14px 16px;
   }
-  .lib-result .lib-title-ar {
-    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * 1.4);
-  }
+  .lib-result .lib-title-ar,
   .lib-result .lib-title-dv {
-    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * 1.1);
+    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2));
   }
   .lib-result .lib-title-en,
   .lib-result-meta {
