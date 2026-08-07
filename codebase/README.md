@@ -7,7 +7,7 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 ```text
 data/
   01-registry-bookTags.csv      ← Tag definitions (code, label, colors)
-  02-registry-bookNames.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
+  02-registry-bookMeta.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
   03-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
   04-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
   05-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
@@ -52,7 +52,7 @@ docs/                           ← User guide, architecture, API reference
 
 ### Add a new book
 
-1. Add a row to `data/02-registry-bookNames.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`:
+1. Add a row to `data/02-registry-bookMeta.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`:
 
    ```csv
    bookCode,titleAR,titleDV,titleEN,tags
@@ -99,7 +99,7 @@ Note the first row's `bodyAR` cell spans two lines — quoted cells may contain 
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `book-data.js` loads `02-registry-bookNames.csv` and `01-registry-bookTags.csv` for metadata and badges.
+1. `book-data.js` loads `02-registry-bookMeta.csv` and `01-registry-bookTags.csv` for metadata and badges.
 1. `reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 

@@ -69,7 +69,7 @@ Loads and caches `01-registry-bookTags.csv` → `Map<code, {label, palette}>` (p
 
 ### `loadBookNames()`
 
-Fetches and caches `02-registry-bookNames.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
+Fetches and caches `02-registry-bookMeta.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
 
 ### `getPageMetadata(bookCode)`
 
@@ -361,7 +361,7 @@ The content modal (`quran-ui.js`) lists every available column in `_colOrder` (r
 
 ### `getBookLabel(colIndex)`
 
-Returns the book-level title (from `02-registry-bookNames.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
+Returns the book-level title (from `02-registry-bookMeta.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
 
 ### `hasExternalColumns(currentBookCode)`
 
@@ -457,7 +457,7 @@ Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, 
 ### Clipboard format
 
 - **Standard books** — header line `titleDV - titleAR` followed by row text with column separators (AR/DV spacer, matn/sharh divider, footnote divider).
-- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-registry-bookNames.csv`) above each book's columns. Per-column headers are omitted.
+- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-registry-bookMeta.csv`) above each book's columns. Per-column headers are omitted.
 
 ---
 
@@ -526,7 +526,7 @@ No JSON endpoints. All data is CSV — one source of truth, no duplication. If y
 ### Book registry
 
 ```http
-GET data/02-registry-bookNames.csv
+GET data/02-registry-bookMeta.csv
 ```
 Columns: `bookCode,titleAR,titleDV,titleEN,tags`. One row per registered book. The `tags` column holds secondary tag codes (comma‑separated); the primary tag is the first segment of `bookCode`.
 
@@ -570,7 +570,7 @@ with urllib.request.urlopen(url) as r:
 
 ```bash
 # curl into any CSV tool
-curl -s https://hadithmv.github.io/codebase/data/02-registry-bookNames.csv | csvlook
+curl -s https://hadithmv.github.io/codebase/data/02-registry-bookMeta.csv | csvlook
 ```
 
 No authentication, no rate limiting, no CORS — static files on GitHub Pages.

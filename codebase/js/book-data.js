@@ -1,7 +1,7 @@
 /**
  * Book Data Module
  * Book registry, tag extraction, page metadata and bootstrap.
- * Loads metadata from 02-registry-bookNames.csv and 01-registry-bookTags.csv.
+ * Loads metadata from 02-registry-bookMeta.csv and 01-registry-bookTags.csv.
  * All configuration lives in CSV files — no hardcoded data.
  * The dashboard UI built on this metadata lives in dashboard.js.
  */
@@ -103,7 +103,7 @@ export async function loadTagDefinitions() {
  * to populate the cache, or the function returns no tags (graceful fallback).
  *
  * @param {string} bookCode - e.g. "HDT-muwattaMalik"
- * @param {Object} [entry] - the registry row (from 02-registry-bookNames.csv);
+ * @param {Object} [entry] - the registry row (from 02-registry-bookMeta.csv);
  *   provides the `tags` column. Pass it whenever available.
  * @returns {Array<{code: string, label: string, palette: number}>}
  */
@@ -145,7 +145,7 @@ export async function loadBookNames() {
   }
 
   try {
-    _bookNamesCache = await loadCSVData("../data/02-registry-bookNames.csv");
+    _bookNamesCache = await loadCSVData("../data/02-registry-bookMeta.csv");
     return _bookNamesCache;
   } catch (error) {
     console.error("Error loading bookNames.csv:", error);

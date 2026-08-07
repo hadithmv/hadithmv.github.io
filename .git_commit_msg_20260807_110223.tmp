@@ -1,0 +1,7 @@
+Update to v6.9.85, Update 3 files
+
+2026-08-07 11:02
+
+- Update: codebase/data/06-rebuild-searchIndex.mjs
+- Update: codebase/data/search-index-report.md
+- Update: codebase/data/search-index.json

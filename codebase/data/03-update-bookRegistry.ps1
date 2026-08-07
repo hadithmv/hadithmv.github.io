@@ -1,11 +1,10 @@
-# Update and sort bookNames.csv
-#   - Reads known tag codes from 01-registry-bookTags.csv
-#   - Strips prefix tags and suffix flags from bookCode to derive titleEN
-#   - Converts camelCase to Title Case (e.g. "aqidahNawawi" → "Aqidah Nawawi")
+# Update and sort 02-registry-bookMeta.csv
 #   - Scans data/content/ for CSV files not yet registered and adds them
+#     (titles left empty — all three titles are hand-authored)
+#   - Recomputes each book's version hash from its content CSV
 #   - Sorts alphabetically by bookCode
 
-$csvPath = Join-Path $PSScriptRoot "02-registry-bookNames.csv"
+$csvPath = Join-Path $PSScriptRoot "02-registry-bookMeta.csv"
 $tagsPath = Join-Path $PSScriptRoot "01-registry-bookTags.csv"
 $dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
 
@@ -14,79 +13,13 @@ function Write-Section($text) {
     Write-Host "`n━━━ $text ━━━" -ForegroundColor Cyan
 }
 function Write-Add($text) { Write-Host "  ✅ $text" -ForegroundColor Green }
-function Write-Update($text) { Write-Host "  📝 $text" -ForegroundColor Yellow }
 function Write-Rename($text) { Write-Host "  🔄 $text" -ForegroundColor Magenta }
 function Write-Skip($text) { Write-Host "  ⏭️  $text" -ForegroundColor DarkGray }
 function Write-Info($text) { Write-Host "    $text" -ForegroundColor Gray }
 
 Write-Host "`n📚 Hadithmv — Update Book Metadata" -ForegroundColor White
 
-# ── Load known tag codes from 01-registry-bookTags.csv ────────────────
-Write-Section "Loading tags"
-$knownTags = @{}
-if (Test-Path $tagsPath) {
-    $tagList = @()
-    Get-Content $tagsPath | Select-Object -Skip 1 | ForEach-Object {
-        $line = $_.Trim()
-        if ($line) {
-            $code = ($line -split ",")[0].Trim()
-            if ($code) { $knownTags[$code] = $true; $tagList += $code }
-        }
-    }
-    Write-Info "$($tagList.Count) tags: $($tagList -join ', ')"
-}
-else {
-    Write-Skip "01-registry-bookTags.csv not found"
-}
-
-# Known suffix flags to strip from end of bookCode
-$suffixFlags = @("HDN", "DSC")
-
-# ── Helper: prefix based on tags ─────────────────────────────
-function Get-TitlePrefix($code) {
-    $parts = $code -split '-'
-    $tags = @()
-    foreach ($p in $parts) {
-        if ($knownTags.ContainsKey($p)) { $tags += $p }
-        else { break }
-    }
-    if ($tags -contains "KNSH") { return "Kunnaasha " }
-    if ($tags -contains "RDF" -and $tags -notcontains "AQD") { return "Radheef " }
-    return ""
-}
-
-# ── Helper: camelCase → Title Case ───────────────────────────
-function ConvertTo-TitleCase($name) {
-    $spaced = $name -creplace '(?<=[a-z])(?=[A-Z])', ' '
-    $words = $spaced -split ' ' | Where-Object { $_ }
-    $titled = ($words | ForEach-Object {
-            if ($_.Length -gt 0) {
-                $_.Substring(0, 1).ToUpper() + $_.Substring(1).ToLower()
-            }
-            else { $_ }
-        }) -join ' '
-    return $titled
-}
-
-# ── Helper: extract book name from bookCode ──────────────────
-function Get-BookName($code) {
-    $parts = $code -split '-'
-    $start = 0
-    $end = $parts.Count - 1
-
-    while ($start -lt $parts.Count -and $knownTags.ContainsKey($parts[$start])) {
-        $start++
-    }
-    while ($end -ge $start -and $suffixFlags -contains $parts[$end]) {
-        $end--
-    }
-
-    if ($start -le $end) {
-        $nameParts = $parts[$start..$end]
-        return ($nameParts -join '')
-    }
-    return ""
-}
+# Titles (AR/DV/EN) are hand-authored — the script never derives them.
 
 # ── Clean up " - Sheet1" / " - Worksheet" suffixes ────────────
 Write-Section "Cleaning filenames"
@@ -121,20 +54,18 @@ foreach ($row in $rows) {
     $code = ($row -split ",")[0].Trim()
     if ($code) { $registered[$code] = $true }
 }
-Write-Info "$($rows.Count) books in 02-registry-bookNames.csv"
+Write-Info "$($rows.Count) books in 02-registry-bookMeta.csv"
 
 # ── Find new CSV files ────────────────────────────────────────
 Write-Section "Scanning for new books"
 $added = 0
 Get-ChildItem $dataDir -Filter *.csv | Where-Object {
-    $_.Name -notin @("01-registry-bookTags.csv", "02-registry-bookNames.csv", "04-registry-quranSurahs.csv", "05-registry-quranColumns.csv")
+    $_.Name -notin @("01-registry-bookTags.csv", "02-registry-bookMeta.csv", "04-registry-quranSurahs.csv", "05-registry-quranColumns.csv")
 } | ForEach-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {
-        $enTitle = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
         Write-Add "$code"
-        Write-Info "titleEN → $enTitle"
-        $rows += "$code,,,$enTitle,,"
+        $rows += "$code,,,,,,"  # code + 6 empty fields (titles, tags, excludeColumns); the version is swapped in below
         $added++
     }
 }
@@ -153,48 +84,29 @@ foreach ($row in $rows) {
 }
 if ($missing -eq 0) { Write-Info "all registered books have CSV files" }
 
-# ── Update titleEN for existing rows (if empty) ──────────────
-Write-Section "Filling missing titleEN"
-$updated = 0
+# ── Recompute versions for all rows ──────────────────────────
+Write-Section "Updating versions"
 $newRows = foreach ($row in $rows) {
-    # No split limit — everything after titleDV is the `tail` (tags, which may
-    # be comma-separated and quoted; then indexColumns; then version) and must
-    # be preserved verbatim, not dropped on rewrite
-    $cols = $row -split ","
-    $code = $cols[0].Trim()
-    $titleAR = if ($cols.Count -gt 1) { $cols[1].Trim() } else { "" }
-    $titleDV = if ($cols.Count -gt 2) { $cols[2].Trim() } else { "" }
-    $titleEN = if ($cols.Count -gt 3) { $cols[3].Trim() } else { "" }
-    $tail = if ($cols.Count -gt 4) { (($cols[4..($cols.Count - 1)]) | ForEach-Object { $_.Trim() }) -join "," } else { "" }
+    # Book code = first token only — codes never contain commas. Everything
+    # after it may be quoted and comma-containing (titles, tags, excludeColumns),
+    # so the row is NEVER split and rebuilt — that mangles quoted fields
+    # (e.g. ", with" inside a title loses its space).
+    $code = ($row -split ",")[0].Trim()
     # Version = content hash (first 12 hex chars) of the book CSV — the app
-    # validates its IndexedDB cache against this; empty = don't trust cache
+    # validates its IndexedDB cache against this; empty = don't trust cache.
+    # Lowercased to match the registry's committed casing (the client compares
+    # version strings case-sensitively).
     $version = ""
     $csvFile = Join-Path $dataDir "$code.csv"
     if (Test-Path $csvFile) {
-        $version = (Get-FileHash $csvFile -Algorithm SHA256).Hash.Substring(0, 12)
+        $version = (Get-FileHash $csvFile -Algorithm SHA256).Hash.Substring(0, 12).ToLower()
     }
-    # Swap the freshly computed version into the tail. The version is always
-    # the LAST token (12 hex, comma-free); tags and indexColumns before it may
-    # contain commas and are preserved verbatim.
-    $tailParts = $tail -split ","
-    if ($tailParts.Count -gt 1) {
-        $tail = ((($tailParts[0..($tailParts.Count - 2)]) | ForEach-Object { $_.Trim() }) -join ",") + ",$version"
-    } else {
-        $tail = $version
-    }
-
-    if (-not $titleEN) {
-        $derived = (Get-TitlePrefix $code) + (ConvertTo-TitleCase (Get-BookName $code))
-        if ($derived) {
-            Write-Update "$code  →  $derived"
-            $titleEN = $derived
-            $updated++
-        }
-    }
-
-    "$code,$titleAR,$titleDV,$titleEN,$tail"
+    # Swap the freshly computed version into the LAST field (12 hex, or empty
+    # for a new row). Everything else in the row is preserved verbatim. The
+    # pattern cannot match inside quoted cells — a closing quote isn't hex — so
+    # the match position is always the true version field.
+    $row -replace ",[0-9a-fA-F]{0,12}$", ",$version"
 }
-if ($updated -eq 0) { Write-Info "all titles already filled" }
 
 # ── Sort alphabetically by bookCode ───────────────────────────
 $sorted = $newRows | Sort-Object { ($_ -split ",")[0].Trim() }
@@ -222,10 +134,9 @@ $total = $sorted.Count
 Write-Host "`n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
 Write-Host "  📊 $total books total" -ForegroundColor White
 if ($added -gt 0) { Write-Host "  ✅ $added added" -ForegroundColor Green }
-if ($updated -gt 0) { Write-Host "  📝 $updated titles filled" -ForegroundColor Yellow }
 if ($renamed -gt 0) { Write-Host "  🔄 $renamed files renamed" -ForegroundColor Magenta }
 if ($missing -gt 0) { Write-Host "  ⚠️  $missing missing CSV files" -ForegroundColor Red }
-if ($added -eq 0 -and $updated -eq 0 -and $renamed -eq 0 -and $missing -eq 0) {
+if ($added -eq 0 -and $renamed -eq 0 -and $missing -eq 0) {
     Write-Host "  ✨ already up to date" -ForegroundColor Green
 }
 Write-Host ""
