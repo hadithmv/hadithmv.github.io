@@ -129,7 +129,7 @@
   font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
 }
 .lib-result .lib-title-dv {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   direction: rtl;
   text-align: right;
   margin-bottom: var(--title-gap-caption, 8px);

@@ -264,7 +264,7 @@ a.toolbar-btn {
 }
 
 .book-card .title-dv {
-  color: var(--color-text-muted);
+  color: var(--color-text);
   direction: rtl;
   text-align: right;
   margin-bottom: var(--title-gap-caption, 8px);
