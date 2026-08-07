@@ -179,23 +179,6 @@ a.toolbar-btn {
   gap: var(--control-gap, 8px);
   position: relative;
 }
-#dashboardSort,
-#dashboardViewToggle,
-#dashboardReset {
-  box-sizing: border-box;
-  height: var(--control-height, 35px);
-  padding: 0 0.6em;
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  line-height: var(--control-line-height, 33px);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
-  white-space: nowrap;
-}
 #dashboardSort {
   padding-right: 6px;
 }
@@ -208,27 +191,11 @@ a.toolbar-btn {
 
 /* ---- Book cards ---- */
 .book-card {
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg, 12px);
-  padding: var(--card-padding, 24px);
   text-decoration: none;
   color: inherit;
   display: flex;
   flex-direction: column;
   min-height: 160px;
-  box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
-  transition:
-    transform var(--t-pop, 0.2s) ease,
-    box-shadow var(--t-pop, 0.2s) ease,
-    border-color var(--t-pop, 0.2s) ease;
-}
-
-.book-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover, 0 10px 15px -3px var(--color-shadow-card-hover),
-    0 4px 6px -2px var(--color-shadow-card));
-  border-color: var(--color-card-hover-border);
 }
 
 /* Title pair — Arabic and Dhivehi at --title-scale (same size);

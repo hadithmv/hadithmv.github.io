@@ -17,7 +17,7 @@
  *   YES → common.js    NO → the owning module
  */
 
-import { initI18n, setLanguage, t } from "../js/i18n.js";
+import { initI18n, setLanguage, t, tagLabel } from "../js/i18n.js";
 
 // ── Shared localStorage keys ─────────────────────────────────
 window.LS_KEYS = {
@@ -44,6 +44,41 @@ window.LS_KEYS = {
 // literals (docs/ARCHITECTURE.md "Responsive"): custom properties cannot be
 // used in media conditions, so the two must match by convention.
 window.MOBILE_BP = 600;
+
+// ── Tag chip markup (shared by dashboard + library-search pages) ──
+// Both pages render the same filter-chip row; the templates must not drift.
+window.tagAllChipHtml = function (tagsActive, count) {
+  return (
+    '<span class="dash-tag-chip' +
+    (tagsActive ? "" : " active") +
+    '" data-tag="__all__" title="' +
+    (tagsActive ? "Clear all tag filters" : "Showing all books") +
+    '">' +
+    t("tagFilterAll") +
+    " <small>(" +
+    count +
+    ")</small></span>"
+  );
+};
+window.tagChipHtml = function (code, label, palette, active, count) {
+  var chipTitle = active ? "Remove filter: " + label : "Filter by " + label;
+  var palClass = palette >= 0 ? " tag-palette-" + palette : "";
+  return (
+    '<span class="dash-tag-chip' +
+    (active ? " active" : "") +
+    palClass +
+    '" data-tag="' +
+    code +
+    '" title="' +
+    chipTitle +
+    '">' +
+    (active ? '<span class="chip-x">✕</span>' : "") +
+    tagLabel(code, label) +
+    " <small>(" +
+    count +
+    ")</small></span>"
+  );
+};
 
 // ── Theme (blocking — inline in <head>, replicated here for reader page) ─
 (function () {

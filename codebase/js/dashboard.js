@@ -203,40 +203,18 @@ function renderDashboard(bookNames) {
   }
 
   var tagsActive = _dashFilter.tags.length > 0;
-  var allChipHTML =
-    '<span class="dash-tag-chip' +
-    (tagsActive ? "" : " active") +
-    '" data-tag="__all__" title="' +
-    (tagsActive ? "Clear all tag filters" : "Showing all books") +
-    '">' +
-    t("tagFilterAll") +
-    " <small>(" +
-    allVisible.length +
-    ")</small></span>";
+  var allChipHTML = window.tagAllChipHtml(tagsActive, allVisible.length);
 
   var chipsHTML = Object.keys(tagCounts)
     .sort()
     .map(function (code) {
       var tc = tagCounts[code];
-      var active = _dashFilter.tags.indexOf(code) !== -1;
-      var chipTitle = active
-        ? "Remove filter: " + tc.label
-        : "Filter by " + tc.label;
-      var palClass = tc.palette >= 0 ? " tag-palette-" + tc.palette : "";
-      return (
-        '<span class="dash-tag-chip' +
-        (active ? " active" : "") +
-        palClass +
-        '" data-tag="' +
-        code +
-        '" title="' +
-        chipTitle +
-        '">' +
-        (active ? '<span class="chip-x">✕</span>' : "") +
-        tagLabel(code, tc.label) +
-        " <small>(" +
-        tc.count +
-        ")</small></span>"
+      return window.tagChipHtml(
+        code,
+        tc.label,
+        tc.palette,
+        _dashFilter.tags.indexOf(code) !== -1,
+        tc.count
       );
     })
     .join("");
@@ -416,7 +394,7 @@ function renderDashboard(bookNames) {
         return (
           '<a href="reader.html?book=' +
           book.bookCode +
-          '" class="book-card" title="' +
+          '" class="card book-card" title="' +
           book.bookCode +
           '">' +
           tagHtml +

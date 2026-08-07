@@ -53,23 +53,6 @@
   gap: 14px;
   direction: rtl;
 }
-.lib-result {
-  padding: var(--card-padding, 24px);
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg, 12px);
-  box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
-  transition:
-    transform var(--t-pop, 0.2s) ease,
-    box-shadow var(--t-pop, 0.2s) ease,
-    border-color var(--t-pop, 0.2s) ease;
-}
-.lib-result:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-hover, 0 10px 15px -3px var(--color-shadow-card-hover),
-    0 4px 6px -2px var(--color-shadow-card));
-  border-color: var(--color-card-hover-border);
-}
 .lib-result-top {
   display: flex;
   align-items: flex-start;
