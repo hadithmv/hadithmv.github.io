@@ -6,7 +6,10 @@
  * For each registered book: parse the CSV, normalise every cell with the
  * same normalisation the app's search uses (search-utils.js), tokenise into words,
  * and record (bookCode, row) for each word. -HDN columns and the row-number
- * column are excluded. The result feeds the planned cross-book search.
+ * column are excluded; an optional `indexColumns` column in the registry
+ * narrows a book to exactly the listed columns. A per-book report of indexed
+ * and skipped columns is printed while building. The result feeds the
+ * cross-book search (js/library-search-engine.js).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -42,6 +45,12 @@ function addWord(word, bookId, row) {
 const registryRows = parseCSV(fs.readFileSync(REGISTRY, "utf8"));
 const header = registryRows[0];
 const bookIdx = header.indexOf("bookCode");
+// Optional registry column: comma-separated header names to index. When set
+// for a book, ONLY those columns are indexed (the row-number and -HDN columns
+// are still always skipped). Absent/empty = all columns indexed.
+const indexColIdx = header.indexOf("indexColumns");
+
+let booksWithOverride = 0;
 
 for (const entry of registryRows.slice(1)) {
   const bookCode = entry[bookIdx];
@@ -58,6 +67,41 @@ for (const entry of registryRows.slice(1)) {
   const firstCol = (csvHeader[0] || "").trim();
   const hasRowNums = firstCol === "#" || firstCol === "";
 
+  // Effective column set for this book, computed once from the header
+  const allowedRaw = indexColIdx !== -1 ? (entry[indexColIdx] || "").trim() : "";
+  const allowedList = allowedRaw
+    ? allowedRaw.toLowerCase().split(",").map((s) => s.trim()).filter(Boolean)
+    : null;
+  if (allowedList) {
+    booksWithOverride++;
+    for (const name of allowedList) {
+      if (!csvHeader.some((h) => (h || "").trim().toLowerCase() === name)) {
+        console.warn(
+          "warn: indexColumns lists '" + name + "' but " + bookCode + " has no such column"
+        );
+      }
+    }
+  }
+  const colIdx = []; // column indices actually indexed
+  const skipped = []; // display names of skipped columns
+  for (let c = 0; c < csvHeader.length; c++) {
+    const hdr = (csvHeader[c] || "").trim().toLowerCase();
+    if (hasRowNums && c === 0) continue; // row-number column
+    if (hdr.endsWith("-hdn")) {
+      // hidden columns are never searchable — the reader can't show the text
+      skipped.push(csvHeader[c] || "#" + c);
+      continue;
+    }
+    if (allowedList && allowedList.indexOf(hdr) === -1) {
+      skipped.push(csvHeader[c] || "#" + c);
+      continue;
+    }
+    colIdx.push(c);
+  }
+  if (colIdx.length === 0) {
+    console.warn("warn: " + bookCode + " indexes no columns");
+  }
+
   for (let r = 0; r < dataRows.length; r++) {
     const row = dataRows[r];
     // 1-based DATA POSITION, not the CSV's # column — the reader's ?row=
@@ -66,10 +110,7 @@ for (const entry of registryRows.slice(1)) {
     // value would deep-link to the wrong row. Display labels use the #
     // column; links use positions.
     const rowNum = r + 1;
-    for (let c = 0; c < row.length; c++) {
-      if (hasRowNums && c === 0) continue; // row-number column
-      const hdr = (csvHeader[c] || "").trim().toLowerCase();
-      if (hdr.endsWith("-hdn")) continue; // hidden columns are not searchable
+    for (const c of colIdx) {
       const cell = row[c];
       if (cell === null || cell === undefined) continue;
       const norm = normaliseForSearch(String(cell));
@@ -88,7 +129,10 @@ for (const entry of registryRows.slice(1)) {
     rowsScanned++;
   }
   booksScanned++;
-  if (booksScanned % 10 === 0) console.log("scanned", booksScanned, "books…");
+  // One report line per book — eyeball the whole indexing policy at a glance
+  const colNames = colIdx.map((c) => csvHeader[c] || "#" + c).join(", ");
+  const skipNote = skipped.length > 0 ? " | skipped: " + skipped.join(", ") : "";
+  console.log(bookCode + ": " + dataRows.length + " rows | indexed: " + colNames + skipNote);
 }
 
 // Pack rows as sorted ranges ("1-5,8,12") to shrink the file
@@ -134,6 +178,6 @@ const out = JSON.stringify({
 
 fs.writeFileSync(OUT, out, "utf8");
 console.log("\nindex written:", OUT);
-console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length);
+console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| indexColumns overrides:", booksWithOverride);
 console.log("raw size:", (fs.statSync(OUT).size / 1024 / 1024).toFixed(1) + " MB");
 console.log("gzip size:", (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1) + " MB");

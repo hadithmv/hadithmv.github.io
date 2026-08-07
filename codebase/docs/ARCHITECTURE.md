@@ -405,6 +405,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `titleDV`  | Dhivehi title                                       |
 | `titleEN`  | English title (used for `<title>` and page heading) |
 | `tags`     | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column |
+| `indexColumns` | **Optional** — comma‑separated header names for the cross‑book index (case‑insensitive). Set = ONLY those columns are indexed (`-HDN` and row‑number still win). Empty = all columns. Build-only |
 | `version`  | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `03-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
 
 ### 01-registry-bookTags.csv
@@ -877,7 +878,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### The index
 
-`data/06-rebuild-searchIndex.mjs` (Node — run `node data/06-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
+`data/06-rebuild-searchIndex.mjs` (Node — run `node data/06-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; an optional `indexColumns` registry column (comma‑separated header names) narrows a book to exactly those columns — `-HDN` and the row‑number column still win over the list. The build prints **one report line per book** (row count, indexed columns, skipped columns) so the whole indexing policy is eyeballable at a glance and an `indexColumns` entry that matches no column warns. Rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
 
 The file's shape — real excerpt (`bookIds` truncated, three of one word's postings shown):
 
@@ -900,7 +901,7 @@ The file's shape — real excerpt (`bookIds` truncated, three of one word's post
 
 Posting keys are indices into `meta.bookIds` — `"7": "1-3"` reads "data positions 1–3 of `meta.bookIds[7]`" (`AQD-usooluThalaatha`). `rows` counts scanned rows across books; `words` counts unique tokens.
 
-Current size: 62 books, 226k rows, ~485k unique words — 40MB raw, ~12.8MB gzipped (Pages compresses JSON automatically). Whole‑word matching only — substring, fuzzy, and regex stay in‑book (see "What's deliberately different" below).
+Current size: 62 books, 226k rows, ~485k unique words — 39.7MB raw, 12.7MB gzipped. GitHub Pages on‑the‑fly gzips JSON for clients that accept it: a browser's `fetch()` (which always sends `Accept-Encoding: gzip, deflate, br`) receives `Content-Encoding: gzip` and ~13.8MB instead of the 41.6MB raw file, decompressed transparently by the browser — so the loader's `resp.text()` is unaffected. (Probing with `curl -I` without an `Accept-Encoding` header shows the raw size and no `Content-Encoding`; that's a client‑side header, not a server config.) The full file still re‑downloads whenever `meta.version` changes. Whole‑word matching only — substring, fuzzy, and regex stay in‑book (see "What's deliberately different" below).
 
 ### The loader
 

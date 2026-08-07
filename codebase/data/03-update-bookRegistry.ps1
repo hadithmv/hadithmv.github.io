@@ -157,20 +157,30 @@ if ($missing -eq 0) { Write-Info "all registered books have CSV files" }
 Write-Section "Filling missing titleEN"
 $updated = 0
 $newRows = foreach ($row in $rows) {
-    # No split limit — the trailing `tags` column (comma-separated codes)
-    # must be preserved, not dropped on rewrite
+    # No split limit — everything after titleDV is the `tail` (tags, which may
+    # be comma-separated and quoted; then indexColumns; then version) and must
+    # be preserved verbatim, not dropped on rewrite
     $cols = $row -split ","
     $code = $cols[0].Trim()
     $titleAR = if ($cols.Count -gt 1) { $cols[1].Trim() } else { "" }
     $titleDV = if ($cols.Count -gt 2) { $cols[2].Trim() } else { "" }
     $titleEN = if ($cols.Count -gt 3) { $cols[3].Trim() } else { "" }
-    $tags = if ($cols.Count -gt 4) { (($cols[4..($cols.Count - 1)]) | ForEach-Object { $_.Trim() }) -join "," } else { "" }
+    $tail = if ($cols.Count -gt 4) { (($cols[4..($cols.Count - 1)]) | ForEach-Object { $_.Trim() }) -join "," } else { "" }
     # Version = content hash (first 12 hex chars) of the book CSV — the app
     # validates its IndexedDB cache against this; empty = don't trust cache
     $version = ""
     $csvFile = Join-Path $dataDir "$code.csv"
     if (Test-Path $csvFile) {
         $version = (Get-FileHash $csvFile -Algorithm SHA256).Hash.Substring(0, 12)
+    }
+    # Swap the freshly computed version into the tail. The version is always
+    # the LAST token (12 hex, comma-free); tags and indexColumns before it may
+    # contain commas and are preserved verbatim.
+    $tailParts = $tail -split ","
+    if ($tailParts.Count -gt 1) {
+        $tail = ((($tailParts[0..($tailParts.Count - 2)]) | ForEach-Object { $_.Trim() }) -join ",") + ",$version"
+    } else {
+        $tail = $version
     }
 
     if (-not $titleEN) {
@@ -182,7 +192,7 @@ $newRows = foreach ($row in $rows) {
         }
     }
 
-    "$code,$titleAR,$titleDV,$titleEN,$tags,$version"
+    "$code,$titleAR,$titleDV,$titleEN,$tail"
 }
 if ($updated -eq 0) { Write-Info "all titles already filled" }
 
