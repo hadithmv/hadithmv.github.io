@@ -46,38 +46,6 @@
   margin-top: var(--section-gap, 12px);
 }
 
-/* Retry button under the index-load error — lets the user re-attempt
-   without a full page refresh */
-.retry-btn {
-  display: block;
-  margin: 12px auto 0;
-  box-sizing: border-box;
-  height: var(--control-height, 35px);
-  padding: 0 18px;
-  line-height: var(--control-line-height, 33px);
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
-}
-.retry-btn:hover {
-  background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
-}
-
-/* Empty state — shown when no books match the current search/tag filters */
-.dash-empty {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-}
-
 /* ── Library results ── */
 .lib-results {
   display: flex;

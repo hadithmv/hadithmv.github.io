@@ -16,38 +16,6 @@
   display: none;
 }
 
-.quran-sticky-arrow {
-  flex-shrink: 0;
-  padding: 0;
-  font-size: 0.65rem;
-  line-height: 1;
-  color: var(--color-text-muted);
-  background: var(--color-bg);
-  border: none;
-  cursor: pointer;
-  z-index: var(--z-base, 5);
-  position: sticky;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.quran-sticky-arrow:hover {
-  color: var(--color-text);
-}
-.quran-sticky-arrow.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-.quran-sticky-start {
-  right: 0;
-  padding: 0 12px;
-}
-.quran-sticky-end {
-  left: 0;
-  padding: 0 12px;
-}
-
 .quran-nav-group {
   display: flex;
   align-items: center;

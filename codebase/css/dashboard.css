@@ -159,16 +159,8 @@ a.toolbar-btn {
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
-  padding: 0;
-  font-size: 0.65rem;
-  line-height: 1;
-  color: var(--color-text-muted);
-  background: transparent;
-  border: none;
   border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
   z-index: var(--z-arrow, 2);
-  transition: color var(--t-hover, 0.15s) ease, opacity var(--t-hover, 0.15s) ease;
 }
 #dashboardPanelFunctions .scroll-arrow-start {
   right: 2px;
@@ -177,13 +169,6 @@ a.toolbar-btn {
 #dashboardPanelFunctions .scroll-arrow-end {
   left: 2px;
   right: auto;
-}
-#dashboardPanelFunctions .scroll-arrow:hover {
-  color: var(--color-text);
-}
-#dashboardPanelFunctions .scroll-arrow.hidden {
-  opacity: 0;
-  pointer-events: none;
 }
 /* The actions row (reset, view toggle, sort, pins, history) — never wraps;
    the parent row scrolls horizontally instead. */
@@ -363,38 +348,6 @@ a.toolbar-btn {
 }
 .dash-continue-time {
   color: var(--color-text-subtle);
-}
-
-/* Retry button under the registry-load error — lets the user re-attempt
-   without a full page refresh */
-.retry-btn {
-  display: block;
-  margin: 12px auto 0;
-  box-sizing: border-box;
-  height: var(--control-height, 35px);
-  padding: 0 18px;
-  line-height: var(--control-line-height, 33px);
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
-}
-.retry-btn:hover {
-  background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
-}
-
-/* Empty state — shown when no books match the current search/tag filters */
-.dash-empty {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 .book-grid {

@@ -91,19 +91,9 @@
   opacity: 1;
   font-weight: 700;
 }
-/* Scroll arrows — narrower, no border */
+/* Scroll arrows in the reader panel — narrower than toolbar buttons */
 .readerPanel-inner .scroll-arrow {
   height: 24px;
-  padding: 0;
-  font-size: 0.65rem;
-  line-height: 1;
-  background: transparent;
-  border: none;
-  color: var(--color-text-muted);
-}
-.readerPanel-inner .scroll-arrow:hover {
-  color: var(--color-text);
-  background: transparent;
 }
 
 [data-focus] #collapsibleReaderPanel {
@@ -436,17 +426,9 @@
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
-  padding: 0;
-  font-size: 0.65rem;
-  line-height: 1;
-  color: var(--color-text-muted);
-  background: transparent;
-  border: none;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color var(--t-hover, 0.15s) ease;
   z-index: var(--z-base, 5);
 }
 .scroll-arrow-start {
@@ -467,14 +449,6 @@
 [dir="rtl"] .scroll-arrow-end {
   right: auto;
   left: 2px;
-}
-
-.h-scroll-wrap .scroll-arrow:hover {
-  color: var(--color-text);
-}
-.h-scroll-wrap .scroll-arrow.hidden {
-  opacity: 0;
-  pointer-events: none;
 }
 
 /* ---- Navigation bar ---- */

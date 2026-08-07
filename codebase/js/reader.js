@@ -699,7 +699,7 @@ initializePageWithMetadata(async function (metadata) {
           // ── Table DOM structure (IDs referenced by setupTableScroll, appendNext, prependPrev) ──
           // DO NOT rename: #rdfTopScroll, #rdfScrollBack, #rdfScrollFwd, #rdfTableWrap, #rdfBody, #sentinelBottom
           readerContent.innerHTML =
-            `<div class="rdf-top-scroll" id="rdfTopScroll"><button class="rdf-scroll-arrow" id="rdfScrollBack" title="Back to beginning">▶</button><div class="rdf-top-scroll-inner"><div class="rdf-top-scroll-spacer" id="rdfTopScrollInner"></div></div><button class="rdf-scroll-arrow" id="rdfScrollFwd" title="More columns">◀</button></div>` +
+            `<div class="rdf-top-scroll" id="rdfTopScroll"><button class="scroll-arrow" id="rdfScrollBack" title="Back to beginning">▶</button><div class="rdf-top-scroll-inner"><div class="rdf-top-scroll-spacer" id="rdfTopScrollInner"></div></div><button class="scroll-arrow" id="rdfScrollFwd" title="More columns">◀</button></div>` +
             `<div class="rdf-table-wrap" id="rdfTableWrap"><table class="rdf-table">${thead}<tbody id="rdfBody"></tbody></table></div>` +
             `<div id="sentinelBottom" class="reader-sentinel"></div>`;
           document.getElementById("rdfBody").innerHTML = renderTableRows(0, end);

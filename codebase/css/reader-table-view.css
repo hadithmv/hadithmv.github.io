@@ -44,19 +44,9 @@
 }
 
 /* Arrow buttons flanking the scrollbar */
-.rdf-scroll-arrow {
-  flex-shrink: 0;
+.rdf-top-scroll .scroll-arrow {
   padding: 0 4px;
   font-size: 0.7rem;
-  line-height: 1;
-  color: var(--color-text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color var(--t-hover, 0.15s) ease;
-}
-.rdf-scroll-arrow:hover {
-  color: var(--color-text);
 }
 
 .rdf-table {
