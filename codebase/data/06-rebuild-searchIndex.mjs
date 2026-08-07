@@ -8,8 +8,9 @@
  * and record (bookCode, row) for each word. -HDN columns and the row-number
  * column are excluded; an optional `indexColumns` column in the registry
  * narrows a book to exactly the listed columns. A per-book report of indexed
- * and skipped columns is printed while building. The result feeds the
- * cross-book search (js/library-search-engine.js).
+ * and skipped columns is printed while building and written to
+ * data/search-index-report.md (policy table, warnings, postings by column).
+ * The result feeds the cross-book search (js/library-search-engine.js).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -31,7 +32,9 @@ const index = {};
 const bookIds = []; // bookCode per numeric id — postings stay compact
 const bookIdOf = {}; // bookCode → id
 const bookPostings = {}; // bookCode → posting count (for the report)
+const colPostings = {}; // bookCode → { column → posting count } (for the report)
 const reportEntries = []; // per-book rows for data/search-index-report.md
+const reportWarnings = []; // build warnings, mirrored into the report file
 let booksScanned = 0;
 let rowsScanned = 0;
 let wordsIndexed = 0;
@@ -60,6 +63,7 @@ for (const entry of registryRows.slice(1)) {
   const csvPath = path.join(DIR, "content", bookCode + ".csv");
   if (!fs.existsSync(csvPath)) {
     console.warn("skip (no file):", bookCode);
+    reportWarnings.push("skip (no file): " + bookCode);
     continue;
   }
   const rows = parseCSV(fs.readFileSync(csvPath, "utf8"));
@@ -78,9 +82,9 @@ for (const entry of registryRows.slice(1)) {
     booksWithOverride++;
     for (const name of allowedList) {
       if (!csvHeader.some((h) => (h || "").trim().toLowerCase() === name)) {
-        console.warn(
-          "warn: indexColumns lists '" + name + "' but " + bookCode + " has no such column"
-        );
+        const msg = "indexColumns lists '" + name + "' but " + bookCode + " has no such column";
+        console.warn("warn: " + msg);
+        reportWarnings.push(msg);
       }
     }
   }
@@ -104,7 +108,9 @@ for (const entry of registryRows.slice(1)) {
     colIdx.push(c);
   }
   if (colIdx.length === 0) {
-    console.warn("warn: " + bookCode + " indexes no columns");
+    const msg = bookCode + " indexes no columns";
+    console.warn("warn: " + msg);
+    reportWarnings.push(msg);
   }
 
   for (let r = 0; r < dataRows.length; r++) {
@@ -118,6 +124,7 @@ for (const entry of registryRows.slice(1)) {
     for (const c of colIdx) {
       const cell = row[c];
       if (cell === null || cell === undefined) continue;
+      const colName = csvHeader[c] || "#" + c;
       const norm = normaliseForSearch(String(cell));
       if (!norm) continue;
       let bid = bookIdOf[bookCode];
@@ -131,6 +138,9 @@ for (const entry of registryRows.slice(1)) {
         wordsIndexed++;
       }
       bookPostings[bookCode] = (bookPostings[bookCode] || 0) + words.length;
+      let bookCols = colPostings[bookCode];
+      if (!bookCols) bookCols = colPostings[bookCode] = {};
+      bookCols[colName] = (bookCols[colName] || 0) + words.length;
     }
     rowsScanned++;
   }
@@ -141,6 +151,7 @@ for (const entry of registryRows.slice(1)) {
   const skipNote = skippedNames ? " | skipped: " + skippedNames : "";
   console.log(bookCode + ": " + dataRows.length + " rows | indexed: " + colNames + skipNote);
   reportEntries.push({
+    id: bookIdOf[bookCode], // 0-based id in meta.bookIds; undefined if nothing was indexed
     code: bookCode,
     rows: dataRows.length,
     postings: bookPostings[bookCode] || 0,
@@ -206,10 +217,35 @@ md +=
   (fs.statSync(OUT).size / 1024 / 1024).toFixed(1) + " MiB raw · " +
   (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1) + " MiB gzip · " +
   booksWithOverride + " indexColumns overrides\n\n";
-md += "| Book | Rows | Postings | Indexed | Skipped |\n|---|---|---|---|---|\n";
-for (const e of reportEntries) {
-  md += "| " + e.code + " | " + e.rows + " | " + e.postings + " | " + e.indexed + " | " + e.skipped + " |\n";
+if (reportWarnings.length > 0) {
+  md += "## Warnings\n\n";
+  for (const w of reportWarnings) md += "- " + w + "\n";
+  md += "\n";
 }
+md += "| Id | Book | Rows | Postings | Indexed | Skipped |\n|---|---|---|---|---|---|\n";
+for (const e of reportEntries) {
+  const id = e.id === undefined ? "-" : e.id + 1;
+  md += "| " + id + " | " + e.code + " | " + e.rows + " | " + e.postings + " | " + e.indexed + " | " + e.skipped + " |\n";
+}
+md += "\n## Postings by column\n\n";
+md += "| Book | Column | Postings | Share |\n|---|---|---|---|\n";
+const colEntries = [];
+for (const [bookCode, cols] of Object.entries(colPostings)) {
+  for (const [column, count] of Object.entries(cols)) {
+    colEntries.push({ book: bookCode, column: column, postings: count });
+  }
+}
+colEntries.sort((a, b) => b.postings - a.postings || (a.book < b.book ? -1 : a.book > b.book ? 1 : 0));
+for (const e of colEntries) {
+  md +=
+    "| " + e.book + " | " + e.column + " | " + e.postings +
+    " | " + ((e.postings / wordsIndexed) * 100).toFixed(1) + "% |\n";
+}
+md +=
+  "\nNotes: `-HDN` books and columns are hidden from the dashboard and search scope. " +
+  "`# (row numbers)` is the CSV's position column — never indexed. " +
+  "An `indexColumns` registry entry narrows a book to exactly the listed columns. " +
+  "Ids are 1-based positions in `meta.bookIds` (what postings in search-index.json reference).\n";
 const REPORT = path.join(DIR, "search-index-report.md");
 fs.writeFileSync(REPORT, md, "utf8");
 console.log("report written:", REPORT);

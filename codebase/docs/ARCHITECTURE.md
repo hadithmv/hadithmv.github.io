@@ -77,7 +77,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `data/content/QRN-DATA-baseFile-2-ayahUthmani.csv` | Quran text in Uthmani script                                     |
 | `data/06-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
 | `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
-| `data/search-index-report.md` | Generated per-build policy report — one line per book (rows, postings, indexed/skipped columns); commit it to diff policy changes across versions |
+| `data/search-index-report.md` | Generated per-build policy report — one row per book (index id, rows, postings, indexed/skipped columns), warnings, and a postings-by-column breakdown sorted by size; commit it to diff policy changes across versions |
 
 ## Where to find things
 
