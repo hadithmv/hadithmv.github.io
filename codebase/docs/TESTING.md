@@ -67,6 +67,47 @@ Before touching product code, run this sequence:
   loads are not hangs. Version-gated cache is per-profile, so timing between
   runs varies — use waitFor loops over fixed sleeps.
 
+## Traps from adjacent workflows
+
+Not headless-battery traps, but the same class of failure — a measurement or
+audit step that looks like a product problem. Same rule: classify before
+blaming the product.
+
+- **GitHub Pages gzip fools size analysis.** Pages gzips for clients that send
+  `Accept-Encoding: gzip, deflate, br` (all browsers do); a bare `curl -I`
+  sends no header, gets raw bytes and no `Content-Encoding`, and looks exactly
+  like "server doesn't compress". Verified 2026-08-07: search-index.json is
+  13.77MB over the wire vs 41.65MB raw. Correct: probe with
+  `-H "Accept-Encoding: gzip"` (or `--compressed`) and read `Content-Encoding`;
+  the browser's `resp.text()` is unaffected — decompression is transparent.
+- **`git mv` moves names, not data.** After any rename/swap of data files,
+  verify bytes against the git blob (`git show HEAD:<path> | sha256sum` vs the
+  working file), and read verification output literally — an earlier check
+  echoed the header from the file *named* "04-registry-quranSurahs.csv" and it
+  was misread as proof. Also check `git status --porcelain` for **untracked
+  strays at the old path**: an editor with the old file open can re-save and
+  recreate it after a `git mv` (seen 2026-08-07 with 02-registry-bookNames.csv
+  — content was byte-identical; close the old tab in the editor).
+- **Registry regeneration must be idempotent.** `data/03-update-bookRegistry.ps1`
+  rewrites **both** registries on every run (recomputes version hashes,
+  re-sorts tags, which shifts palette colours — documented behavior). After any
+  change to the script, run it twice and compare hashes — a byte-stable second
+  run proves idempotency. The version swap replaces only the trailing 12-hex
+  token on the raw row; never split quoted fields — a split mangles quoted
+  comma-bearing cells (a quoted titleEN `, with` lost its space) and an
+  uppercase-versions run forced a one-time cache re-download for every visitor
+  (versions compare case-sensitively at csv.js:163). The editor re-saves 02 as
+  LF over script output — check file mtimes before trusting a "before" hash.
+- **Dead-CSS audits must catch JS-generated classes.** Static audits against
+  HTML miss classes only present in JS strings — the Tier 2 sweep deleted two
+  live rules (`.modal-overlay` base, `.card` surface; `class="card book-card"`
+  in dashboard.js:408, `class="card lib-result"` in library-search-page.js:381;
+  both restored verbatim from HEAD). Correct procedure: (1) grep the bare class
+  token with word boundaries across `books/*.html` **and** `js/*.js`;
+  (2) watch pairs where a `.open`/`.hover`/`.active` variant survives but its
+  base was deleted — the base is almost certainly still live; (3) re-serve and
+  eyeball index + reader + library-search after any CSS sweep.
+
 ## Assertion rules
 
 1. **Derive, never hardcode**: expected values come from the data files via
@@ -80,3 +121,22 @@ Before touching product code, run this sequence:
    any later diff that survives it is a genuine regression.
 4. **Wait for state, then assert**: `waitFor` on the thing being measured
    (rows rendered, result count changed, `th` count), never `sleep` alone.
+
+## Keeping this guide alive
+
+The table and traps below are only as good as the last false alarm they
+caught. When a check fails and the root cause turns out to be **not the
+product**, record it in the same session, while the context is fresh:
+
+- **Test-setup problem** → add a line to *Harness traps* with the exact
+  symptom (e.g. the mojibake signature «Ø§Ù„Ù†Ø§Ø³»), or to *Traps from
+  adjacent workflows* when it's a measurement/audit step rather than the
+  battery, so the next person recognizes it in seconds instead of
+  re-diagnosing.
+- **Pre-existing behavior** → add a row to *Known non-errors* with all three
+  columns — observation, why it is not a bug, and what to assert instead. A
+  row without the "correct assertion" column is just a rumor.
+- **Expectation genuinely changed** (the product intentionally behaves
+  differently now) → update the affected checks in `../tools/hmv-qrn-smoke.mjs`
+  in the same change; prefer a comment over silently deleting a check, so
+  `git log` on the battery explains why the expectation moved.

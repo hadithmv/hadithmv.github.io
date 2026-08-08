@@ -2,7 +2,7 @@
 
 Metadata-driven, single-page viewer for Islamic texts. Configuration lives in CSV files. UI supports Dhivehi, English, and Arabic.
 
-> **Other docs:** [User Guide](USER_GUIDE.md) for readers · [API Reference](API.md) for developers · [Testing Guide](TESTING.md) for verification workflow and known non-errors
+> **Other docs:** [User Guide](USER_GUIDE.md) for readers · [API Reference](API.md) for developers · [Testing Guide](TESTING.md) for verification workflow, known non-errors, and measurement/audit traps
 
 ## The big picture
 
@@ -799,7 +799,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | Keyboard shortcuts | README, USER_GUIDE | — |
 | Feature overview | README | — |
 | API signatures and Data API | API.md | — |
-| Verification workflow, smoke battery, known non-errors | TESTING.md | tools/ |
+| Verification workflow, smoke battery, known non-errors, measurement/audit traps | TESTING.md | tools/ |
 | Reader instructions | USER_GUIDE | — |
 
 **When adding a new fact,** put it in the right column above. If you're not sure, default to ARCHITECTURE — it's the canonical developer reference. The other docs link to it; they don't repeat it.
