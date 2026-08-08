@@ -163,7 +163,7 @@ const STRINGS = {
     en: "Book list",
     ar: "قائمة الكتب",
   },
-  navSearch: {
+  searchBooks: {
     dv: "🔎 ފޮތްތަކުގައި ހޯދާ",
     en: "🔎 Search in books",
     ar: "🔎 البحث في الكتب",
@@ -288,11 +288,6 @@ const STRINGS = {
     dv: "އެއްވެސް ފޮތެއް ނުފެނުނު",
     en: "No books found",
     ar: "لا توجد كتب",
-  },
-  libSearchBtn: {
-    dv: "🔎 ފޮތްތަކުގައި ހޯދާ",
-    en: "🔎 Search in books",
-    ar: "🔎 البحث في الكتب",
   },
   libSearchPlaceholder: {
     dv: "ފޮތްތަކުގެ ތެރެއިން ހޯދާ…",

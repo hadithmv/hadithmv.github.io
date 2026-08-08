@@ -429,7 +429,7 @@ function renderDashboard(bookNames) {
 function setupDashboardControls() {
   var si = document.getElementById("dashboardSearch");
   var sc = document.getElementById("dashboardSearchClear");
-  var ss = document.getElementById("dashboardSort");
+  var ss = document.getElementById("selDashboardSort");
   var tc = document.getElementById("dashboardPanelTags");
   if (!si) return;
 
@@ -650,7 +650,7 @@ document.addEventListener("dashboardReset", function () {
 // Re-render dashboard on language change (if visible)
 document.addEventListener("languagechange", function () {
   // The sort options re-translate — re-reserve the select's width
-  window.reserveWidestText(document.getElementById("dashboardSort"));
+  window.reserveWidestText(document.getElementById("selDashboardSort"));
   if (_lastBookNames && _lastBookNames.length > 0) {
     refreshView();
   }
