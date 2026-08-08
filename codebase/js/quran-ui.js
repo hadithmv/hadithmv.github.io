@@ -21,13 +21,15 @@ export {
   getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,
   columnFieldClass, columnTdClass, isFootnoteColumn,
   isArDvTransition, isMatnSharhTransition, classifyColumnLang,
-  QRN_BASE_FILE, QRN_BASE_PREFIX,
+  QRN_BASE_FILE, QRN_BASE_STRUCT, isBaseSourceBook,
+  getSurahStartRow, getJuzStartRow,
 } from "./quran-data.js";
 
 import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
   getAllAvailableColumns, rebuildColumnSourceMap, quranState,
   getRowJuz, getRowSurah, findQuranColIndices, loadQuranBookCSV,
-  applyColumnOrder, BASE_HEADERS, QRN_BASE_FILE, QRN_BASE_PREFIX,
+  applyColumnOrder, BASE_HEADERS, QRN_BASE_FILE, QRN_BASE_STRUCT,
+  isBaseSourceBook, getSurahStartRow, getJuzStartRow,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
 
 import { normaliseForSearch } from "./search-utils.js";
@@ -340,15 +342,13 @@ export function initQuranUI(ctx) {
   }
 
   function goToQuranJuz(juzNo) {
-    var jIdx = findQuranColIndices(headerRow).juzIdx;
     quranState.currentJuz = juzNo;
     document.getElementById("qrnJuzInput").value = juzNo;
-    if (jIdx >= 0) {
-      ctx.setFilteredData(
-        allData.filter(function (row) {
-          return parseInt(row[jIdx], 10) === juzNo;
-        }),
-      );
+    // The juz table's start rows make this a slice instead of a 6236-row scan.
+    var start = getJuzStartRow(juzNo);
+    if (start >= 0) {
+      var end = juzNo < 30 ? getJuzStartRow(juzNo + 1) : allData.length;
+      ctx.setFilteredData(allData.slice(start, end));
     }
     var fd = ctx.getFilteredData();
     if (fd.length > 0) {
@@ -374,11 +374,12 @@ export function initQuranUI(ctx) {
 
   function applyQuranSurahFilter() {
     var sn = quranState.currentSurah;
-    ctx.setFilteredData(
-      allData.filter(function (row) {
-        return parseInt(row[1], 10) === sn;
-      }),
-    );
+    // The surah start-row table makes this a slice instead of a 6236-row scan.
+    var start = getSurahStartRow(sn);
+    var info = getSurahInfo(sn);
+    if (start >= 0 && info) {
+      ctx.setFilteredData(allData.slice(start, start + info.ayahCount));
+    }
     ctx.rebuildAll();
   }
 
@@ -447,7 +448,8 @@ export function initQuranUI(ctx) {
     return key;
   }
   function isBaseKey(key) {
-    return key.indexOf(QRN_BASE_PREFIX) === 0;
+    return key.indexOf(QRN_BASE_STRUCT + ":") === 0 ||
+      key.indexOf(QRN_BASE_FILE + ":") === 0;
   }
 
   // Create the modal once — the unified layer wires backdrop, close, Escape.
@@ -500,7 +502,7 @@ export function initQuranUI(ctx) {
         if (idx === undefined) return;
         var parts = k.split(":");
         var sourceBook = parts.slice(0, -1).join(":");
-        if (sourceBook !== QRN_BASE_FILE && sourceBook !== metadata.bookCode) {
+        if (!isBaseSourceBook(sourceBook) && sourceBook !== metadata.bookCode) {
           if (hiddenCols.indexOf(idx) === -1) hiddenCols.push(idx);
         }
       });
@@ -606,7 +608,7 @@ export function initQuranUI(ctx) {
     var saved = {};
     for (var k in _loadedColMap) {
       var parts = k.split(":");
-      if (parts[0] !== QRN_BASE_FILE && parts[0] !== metadata.bookCode) {
+      if (!isBaseSourceBook(parts[0]) && parts[0] !== metadata.bookCode) {
         saved[k] = _loadedColMap[k];
       }
     }
@@ -614,13 +616,16 @@ export function initQuranUI(ctx) {
     for (var sk in saved) {
       _loadedColMap[sk] = saved[sk];
     }
-    // Map base columns by header name
+    // Map base columns by header name. Keys must match
+    // 05-registry-quranColumns.csv (sourceBook:colIdx): the structural
+    // columns belong to the QRN-BASE-STRUCT pseudo-book, the imlai text to
+    // the 1-column imlai book.
     var baseNames = ["juzno", "surahno", "ayahno", "basmalah", "ayahimlai"];
     for (var i = 0; i < headerRow.length; i++) {
       var hdr = (headerRow[i] || "").replace(/-hdn$/i, "").trim().toLowerCase();
       for (var b = 0; b < baseNames.length; b++) {
         if (hdr === baseNames[b]) {
-          _loadedColMap[QRN_BASE_FILE + ":" + b] = i;
+          _loadedColMap[(b < 4 ? QRN_BASE_STRUCT : QRN_BASE_FILE) + ":" + (b < 4 ? b : 0)] = i;
         }
       }
     }
@@ -651,6 +656,9 @@ export function initQuranUI(ctx) {
   }
 
   function loadAndInsertColumn(sourceBook, sourceCol) {
+    // QRN-BASE-STRUCT has no CSV file — structural columns are always
+    // pre-seeded in _loadedColMap at init, so this is unreachable today.
+    if (sourceBook === QRN_BASE_STRUCT) return Promise.resolve();
     var key = sourceBook + ":" + sourceCol;
     var hiddenColumns = ctx.getHiddenColumns();
     if (_loadedColMap[key] !== undefined) {

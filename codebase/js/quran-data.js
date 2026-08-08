@@ -47,9 +47,10 @@ export var QRN_PRESET_ARABIC = ["QRN-muyassarAR", "QRN-mukhtasarAR"];
 var _baseDataCache = null;
 var _surahNamesCache = null;
 var _colRegistryCache = null;
+var _juzTableCache = null;
 
 // ═══════════════════════════════════════════════════════════════
-// Base data — juz, surah, ayah, basmalah, imlai text
+// Base data — derived structure + imlai text
 // ═══════════════════════════════════════════════════════════════
 
 // The 5 structural columns every Quran reader starts with — always first,
@@ -63,18 +64,112 @@ export var BASE_HEADERS = [
 ];
 
 // The base Quran book's code — its columns are structural (never hidden or
-// reordered). QRN_BASE_PREFIX matches column keys that belong to it
-// (key format "{bookCode}:{colIdx}").
-export var QRN_BASE_FILE = "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai";
-export var QRN_BASE_PREFIX = "QRN-DATA-baseFile-1-";
+// reordered). QRN_BASE_STRUCT is a synthetic pseudo-book: the four structural
+// columns (juz/surah/ayah/basmalah) have no CSV file of their own — they are
+// derived at load from 04-registry-quranSurahs.csv + 07-registry-quranJuz.csv.
+export var QRN_BASE_FILE = "QRN-DATA-baseFile-1-ayahImlai";
+export var QRN_BASE_STRUCT = "QRN-BASE-STRUCT";
 
+// True for the base book and the derived structural pseudo-book.
+export function isBaseSourceBook(bookCode) {
+  return bookCode === QRN_BASE_FILE || bookCode === QRN_BASE_STRUCT;
+}
+
+// 0-based start row of each surah/juz within the 6236 base rows (and hence
+// within every merged row set — the merge never reorders or drops rows).
+var _surahStartRows = null;
+var _juzStartRows = null;
+
+export function getSurahStartRow(surahNo) {
+  return _surahStartRows ? _surahStartRows[surahNo] : -1;
+}
+
+export function getJuzStartRow(juzNo) {
+  return _juzStartRows ? _juzStartRows[juzNo] : -1;
+}
+
+// 30-row juz start table (07-registry-quranJuz.csv).
+export function loadJuzTable() {
+  if (_juzTableCache) return Promise.resolve(_juzTableCache);
+  return fetchCSVRows("../data/07-registry-quranJuz.csv").then(function (rows) {
+    if (rows.length > 0) rows.shift(); // strip header row
+    _juzTableCache = rows.map(function (r) {
+      return {
+        juzNo: parseInt(r[0], 10),
+        startSurah: parseInt(r[1], 10),
+        startAyah: parseInt(r[2], 10),
+      };
+    });
+    return _juzTableCache;
+  });
+}
+
+// Builds the 6236 x 5 base rows. The structural columns are derived, never
+// stored: surah/ayah from cumulative ayahCounts, juz from the juz table,
+// basmalah by rule (first ayah of surah, except surahs 1 and 9). The imlai
+// text comes from the 1-column QRN-DATA-baseFile-1-ayahImlai book, fetched
+// through the version-gated cache like any other book.
 export function loadQuranBaseData() {
   if (_baseDataCache) return Promise.resolve(_baseDataCache);
-  return fetchCSVRows(
-    "../data/content/" + QRN_BASE_FILE + ".csv",
-  ).then(function (rows) {
-    if (rows.length > 0) rows.shift(); // strip header row
-    _baseDataCache = rows; // 6236 data rows
+  return Promise.all([
+    loadSurahNames(),
+    loadJuzTable(),
+    loadQuranBookCSV(QRN_BASE_FILE),
+  ]).then(function (results) {
+    var surahs = results[0];
+    var juzTable = results[1];
+    var imlaiRows = results[2].allData || [];
+
+    // Start rows from cumulative ayahCounts and the juz table.
+    var surahStarts = [];
+    var juzStarts = [];
+    var rowIdx = 0;
+    for (var s = 0; s < surahs.length; s++) {
+      surahStarts[surahs[s].surahNo] = rowIdx;
+      rowIdx += surahs[s].ayahCount;
+    }
+    for (var j = 0; j < juzTable.length; j++) {
+      juzStarts[juzTable[j].juzNo] =
+        surahStarts[juzTable[j].startSurah] + (juzTable[j].startAyah - 1);
+    }
+
+    // One pass derives all 5 columns. The juz pointer only advances, so the
+    // while loop is amortized O(1) per row (at most 30 advances total).
+    var total = rowIdx; // == 6236
+    var rows = new Array(total);
+    var surahPtr = 0;
+    var ayahInSurah = 1;
+    var juzPtr = 0;
+    for (var r = 0; r < total; r++) {
+      while (
+        juzPtr + 1 < juzTable.length &&
+        juzStarts[juzTable[juzPtr + 1].juzNo] <= r
+      ) {
+        juzPtr++;
+      }
+      var info = surahs[surahPtr];
+      var basmalah =
+        ayahInSurah === 1 && info.surahNo !== 1 && info.surahNo !== 9
+          ? info.basmalah || ""
+          : "";
+      rows[r] = [
+        String(juzTable[juzPtr].juzNo),
+        String(info.surahNo),
+        String(ayahInSurah),
+        basmalah,
+        (imlaiRows[r] || [])[0] || "", // imlai CSV row = one cell
+      ];
+      if (ayahInSurah >= info.ayahCount) {
+        surahPtr++;
+        ayahInSurah = 1;
+      } else {
+        ayahInSurah++;
+      }
+    }
+
+    _surahStartRows = surahStarts;
+    _juzStartRows = juzStarts;
+    _baseDataCache = rows;
     return rows;
   });
 }
@@ -88,7 +183,7 @@ export function loadSurahNames() {
   return fetchCSVRows("../data/04-registry-quranSurahs.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
-      var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount
+      var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount,basmalah
       _surahNamesCache = rows.map(function (r) {
         return {
           surahNo: parseInt(r[0], 10),
@@ -96,6 +191,7 @@ export function loadSurahNames() {
           nameDV: r[2] || "",
           nameEN: r[3] || "",
           ayahCount: parseInt(r[4], 10),
+          basmalah: r[5] || "",
         };
       });
       return _surahNamesCache;
@@ -391,7 +487,7 @@ export function rebuildColumnSourceMap(loadedColMap) {
 export function getColumnSourceBookTitle(colIndex) {
   if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
   var info = _columnSourceMap[colIndex];
-  if (info.sourceBook === QRN_BASE_FILE) return null;
+  if (isBaseSourceBook(info.sourceBook)) return null;
   return getBookTitleSync(info.sourceBook) || info.sourceBook;
 }
 
@@ -400,7 +496,7 @@ export function hasExternalColumns(currentBookCode) {
   if (!_columnSourceMap) return false;
   for (var idx in _columnSourceMap) {
     var info = _columnSourceMap[idx];
-    if (info.sourceBook !== QRN_BASE_FILE && info.sourceBook !== currentBookCode) {
+    if (!isBaseSourceBook(info.sourceBook) && info.sourceBook !== currentBookCode) {
       return true;
     }
   }

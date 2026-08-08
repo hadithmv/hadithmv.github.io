@@ -329,7 +329,11 @@ DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, 
 
 ### `loadQuranBaseData()`
 
-Fetches and caches `QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv`. Returns `Array` of rows (juz, surah, ayah numbers + Imlai text).
+Memoized. Derives the base structure — `[juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai]` per row, 6,236 rows — at load time from three sources: Imlai text via `loadQuranBookCSV(QRN-DATA-baseFile-1-ayahImlai.csv)` (version-gated IndexedDB cache), surah spans and the per-surah basmalah from `04-registry-quranSurahs.csv`, juz cut points from `07-registry-quranJuz.csv`. Structural cells are `String`-typed to match CSV byte semantics. Also fills the O(1) lookup tables behind `getSurahStartRow` / `getJuzStartRow`.
+
+### `getSurahStartRow(surahNo)` / `getJuzStartRow(juzNo)`
+
+O(1) lookups into the start-row tables built by `loadQuranBaseData`; return `-1` before the base data is loaded. A juz range's end is the next juz's start row (or `allData.length` after juz 30); a surah's end is its start plus its `ayahCount`. Slice indices equal base-row indices — merge never reorders rows, so these work even with book columns inserted.
 
 ### `mergeQuranData(bookCode)`
 
