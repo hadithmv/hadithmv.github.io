@@ -91,9 +91,22 @@
   opacity: 1;
   font-weight: 700;
 }
-/* Scroll arrows in the reader panel — narrower than toolbar buttons */
-.reader-panel-inner .scroll-arrow {
+/* Scroll arrows in the reader panel — narrow, boxless glyphs. The shared
+   `.reader-panel-inner button` box rule above would paint a button behind
+   them; this (more specific) override restores the shared arrow look. */
+.reader-panel-inner .horizontal-scroll-wrap .scroll-arrow {
   height: 24px;
+  padding: 0;
+  font-size: 0.65rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: transparent;
+  border: none;
+}
+.reader-panel-inner .horizontal-scroll-wrap .scroll-arrow:hover {
+  color: var(--color-text);
+  background: transparent;
+  border: none;
 }
 
 [data-focus] #collapsibleReaderPanel {
