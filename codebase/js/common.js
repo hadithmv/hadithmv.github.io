@@ -93,6 +93,14 @@ window.initTagsCollapse = function (collapseId, toggleId) {
   var collapse = document.getElementById(collapseId);
   var toggle = document.getElementById(toggleId);
   if (!collapse || !toggle) return null;
+  var label = toggle.querySelector(".dash-tags-toggle-label");
+
+  function syncLabel() {
+    var expanded = collapse.classList.contains("expanded");
+    toggle.title = expanded ? "Less tags" : "More tags";
+    if (label)
+      label.textContent = t(expanded ? "tagsShowFewer" : "tagsShowMore");
+  }
 
   function refresh() {
     // The overflow check only works while clamped — measure collapsed, then
@@ -103,14 +111,13 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     if (wasExpanded) collapse.classList.add("expanded");
     toggle.style.display = overflows ? "" : "none";
     toggle.classList.toggle("expanded", overflows && wasExpanded);
-    toggle.title =
-      overflows && wasExpanded ? "Show fewer tags" : "Show more tags";
+    syncLabel();
   }
 
   toggle.addEventListener("click", function () {
-    var expanded = collapse.classList.toggle("expanded");
-    toggle.classList.toggle("expanded", expanded);
-    toggle.title = expanded ? "Show fewer tags" : "Show more tags";
+    collapse.classList.toggle("expanded");
+    toggle.classList.toggle("expanded");
+    syncLabel();
   });
   window.addEventListener("resize", refresh);
   refresh();

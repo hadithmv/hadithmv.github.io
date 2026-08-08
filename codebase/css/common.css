@@ -949,28 +949,40 @@ body:has(.modal-overlay.open) {
   max-height: 400px;
 }
 .dash-tags-toggle {
+  /* LTR: the chevron hugs the row's left edge in every language; the label's
+     own bidi handles its text flow. */
+  direction: ltr;
   align-self: flex-start;
   flex: 0 0 auto;
-  width: var(--control-height, 35px);
   height: var(--control-height, 35px);
-  padding: 0;
-  font-size: 1.2rem;
-  line-height: 1;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--control-gap, 6px);
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  white-space: nowrap;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   transition:
-    transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
     background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease,
     color var(--t-hover, 0.15s) ease;
 }
 .dash-tags-toggle:hover {
   background: var(--color-nav-btn-hover-bg);
-  color: var(--color-nav-btn-hover-text);
+  border-color: var(--color-card-hover-border);
 }
-.dash-tags-toggle.expanded {
+.dash-tags-toggle-arrow {
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+}
+.dash-tags-toggle.expanded .dash-tags-toggle-arrow {
   transform: rotate(180deg); /* ▾ → ▴ */
 }
 
