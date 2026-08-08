@@ -5,15 +5,9 @@
   transition:
     grid-template-rows var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
     opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
-  /* Sticky — locks at --topbar-clearance (topbar + 6px gap), the same y as
-     the wrapper's desktop top margin, so the top gap never disappears on
-     scroll and the panel never rides up (mobile overrides to flush, below) */
-  position: sticky;
-  top: var(--topbar-clearance, 64px);
-  z-index: var(--z-toolbar, 50);
-  background: var(--color-bg);
-  padding: var(--panel-pad, 10px) 0;
-  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
+  /* Sticky contract + padding are shared — .sticky-panel in common.css;
+     mobile overrides the pin to flush, focus mode zeroes the padding, below.
+     This page's extras: grid collapse animation, overflow clip. */
   overflow: hidden;
 }
 /* Extend chrome background to full viewport width */

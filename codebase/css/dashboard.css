@@ -17,21 +17,13 @@
 }
 
 /* ---- Dashboard controls ---- */
+/* Sticky contract + padding are shared — .sticky-panel in common.css.
+   Only the dashboard-specific bits live here. */
 #dashboardPanel {
   margin-bottom: var(--section-gap, 6px);
   display: flex;
   flex-direction: column;
   direction: rtl;
-  /* Sticky — locks at --topbar-clearance (topbar + the 6px top gap), the
-     same y as the resting position: the top gap mirrors the 6px below the
-     panel and never disappears while scrolling. Painted background hides
-     scrolled content; the bottom border marks the panel edge. */
-  position: sticky;
-  top: var(--topbar-clearance, 64px);
-  z-index: var(--z-toolbar, 50);
-  background: var(--color-bg);
-  padding-bottom: var(--panel-pad, 10px);
-  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
 }
 
 /* ── Collapsible section (tags + functions) ── */

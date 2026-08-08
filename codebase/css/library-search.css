@@ -15,17 +15,8 @@
 }
 
 /* ---- Search panel ---- */
-/* Sticky wrapper — search + tag chips lock at --topbar-clearance (topbar +
-   the 6px top gap), the same y as the resting position, so the top gap
-   stays visible while results scroll. */
-#libPanel {
-  position: sticky;
-  top: var(--topbar-clearance, 64px);
-  z-index: var(--z-toolbar, 50);
-  background: var(--color-bg);
-  padding-bottom: var(--panel-pad, 10px);
-  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
-}
+/* #libPanel is styled entirely by .sticky-panel (common.css) — the shared
+   contract plus --panel-pad framing; mobile overrides the pin below. */
 #libSearchPanel {
   display: flex;
   align-items: center;

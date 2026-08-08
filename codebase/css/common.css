@@ -1267,6 +1267,23 @@ body:has(.modal-overlay.open) {
   border-color: var(--color-card-hover-border);
 }
 
+/* ---- Sticky chrome panels ---- */
+/* The shared contract for every sticky panel that locks under the topbar
+   (reader toolbar, dashboard panel, library-search panel): pins at
+   --topbar-clearance, paints the page background so scrolled content never
+   shows through, carries the shared bottom border, and frames its rows with
+   --panel-pad (the same air on every page: border → pad → first row).
+   Page stylesheets add the panel-specific bits (display, transitions,
+   collapse rules); focus/mobile overrides replace the padding via ids. */
+.sticky-panel {
+  position: sticky;
+  top: var(--topbar-clearance, 64px);
+  z-index: var(--z-toolbar, 50);
+  background: var(--color-bg);
+  padding: var(--panel-pad, 10px) 0;
+  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
+}
+
 /* ---- Shared top bar ---- */
 #topBar {
   position: fixed;
