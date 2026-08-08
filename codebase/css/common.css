@@ -926,35 +926,24 @@ body:has(.modal-overlay.open) {
 
 /* Collapsible chip row — dashboard + library search share the chip row; when
    the chips overflow one row the row clamps and a chevron button expands it.
-   The toggle rides INSIDE the box as the last item: collapsed it floats over
-   the box's left padding (RTL row end, level with row 1 — the chips stop at
-   the padding), and expanded it rejoins the flow as the last item, so every
-   row spans the full width and the button sits at the end of the last row.
-   Motion is the panel expand/collapse curve. */
+   The toggle lives in-flow right before the "Tags:" label (initTagsCollapse
+   re-inserts it there on every chips render), so it never moves when the box
+   expands: line 1 is toggle + label + chips, the rows below span the full
+   width. Motion is the panel expand/collapse curve. */
 .dash-tags-collapse {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 6px);
   align-items: center;
   overflow: hidden;
-  /* flex-basis 0 is required for the chevron to share the first line: flex
-     line-breaking uses flex base sizes, and the chips' single-line width
-     (all chips in a row) would otherwise claim line 1 and push the toggle
-     to its own row. Grow fills the leftover width; the chips wrap inside. */
   flex: 1 1 0%;
   min-width: 0;
   /* Hug the chips: without this the box grows to the full row width, and in
-     RTL the unused width collects beside the toggle (a wide window leaves a
-     huge empty band). Capped at the chips' single-line width the box fills
+     RTL the unused width collects at the row start (a wide window leaves a
+     huge empty band). Capped at the items' single-line width the box fills
      exactly — and when the chips fit one row, nothing overflows and the
-     toggle hides itself. Line-breaking still uses the 0 base size, so the
-     toggle always shares the first line. */
+     toggle hides itself. */
   max-width: max-content;
-  /* Collapsed, the toggle floats over this padding — its measured width is
-     set as --tags-toggle-space by initTagsCollapse, so row 1 stops right at
-     the button; expanded rows ignore it. */
-  padding-inline-end: var(--tags-toggle-space, 0px);
-  position: relative;
   max-height: calc(var(--control-height, 35px));
   transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
@@ -962,16 +951,11 @@ body:has(.modal-overlay.open) {
   /* A concrete target the transition can run to — far beyond the ~2-4 rows
      the 15 tags wrap to, so the clamp never clips an expanded row. */
   max-height: 400px;
-  padding-inline-end: 0;
 }
 .dash-tags-toggle {
-  /* Collapsed: floats over the box's left padding (RTL row end), level with
-     row 1 — the chips stop at the padding the toggle covers. Expanded: back
-     in the flow as the last item, i.e. the left end of the last row. */
-  position: absolute;
-  top: 0;
-  left: 0;
-  /* LTR: the chevron hugs the row's left edge in every language; the label's
+  /* In-flow before the Tags: label (initTagsCollapse keeps it there across
+     chips re-renders) — the button never moves when the row expands. LTR:
+     the chevron hugs the button's left side in every language; the label's
      own bidi handles its text flow. */
   direction: ltr;
   flex: 0 0 auto;
@@ -998,13 +982,16 @@ body:has(.modal-overlay.open) {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
 }
-.dash-tags-collapse.expanded .dash-tags-toggle {
-  position: static;
-}
 .dash-tags-toggle-arrow {
   font-size: 1.5rem;
   line-height: 1;
   transition: transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+}
+.dash-tags-toggle-label {
+  /* inline-block so the min-width syncLabel reserves (the wider of the
+     More/Less strings) applies — the button never changes width when the
+     label swaps, so the chips don't shift. */
+  display: inline-block;
 }
 .dash-tags-toggle.expanded .dash-tags-toggle-arrow {
   transform: rotate(180deg); /* ▾ → ▴ */

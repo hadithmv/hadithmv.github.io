@@ -83,41 +83,45 @@ window.tagChipHtml = function (code, label, palette, active, count) {
 /**
  * Collapsible chip row — shared by the dashboard and library-search pages.
  * Clamps the chip row to one line and shows a chevron toggle only when the
- * chips overflow; the toggle expands/collapses and stays level with the first
- * row. Returns a refresh() that re-measures after the chips re-render. The
- * expanded state lives on the collapse element's class, so it survives
- * re-renders (the chips' innerHTML is rewritten, the box is not) and resets
- * on reload.
+ * chips overflow; the toggle expands/collapses and lives in-flow right before
+ * the "Tags:" label, so it never moves when the row grows. Returns a
+ * refresh() that re-measures after the chips re-render. The expanded state
+ * lives on the collapse element's class, so it survives re-renders (the
+ * chips' innerHTML is rewritten, the box is not) and resets on reload.
  */
 window.initTagsCollapse = function (collapseId, toggleId) {
   var collapse = document.getElementById(collapseId);
   var toggle = document.getElementById(toggleId);
   if (!collapse || !toggle) return null;
   var label = toggle.querySelector(".dash-tags-toggle-label");
-  // The toggle rides inside the box as the last item: collapsed it floats
-  // over the box's left padding (row 1 stops at it), expanded it flows at
-  // the end of the last row and every row spans the full width.
-  collapse.appendChild(toggle);
+  // The toggle is a normal flow item inside the box, right before the Tags:
+  // label (which the pages render as the box's first child). Being at the
+  // start of the rows means it never relocates when the box expands — line 1
+  // is toggle + label + chips, the rows below span the full width.
 
   function syncLabel() {
     var expanded = collapse.classList.contains("expanded");
     toggle.title = expanded ? "Less tags" : "More tags";
-    if (label)
-      label.textContent = t(expanded ? "tagsShowFewer" : "tagsShowMore");
-  }
-
-  function setToggleSpace() {
-    // The chips stop at the toggle's width (the row gap is added in CSS);
-    // 0 while the toggle is hidden.
-    collapse.style.setProperty(
-      "--tags-toggle-space",
-      (toggle.style.display === "none" ? 0 : toggle.offsetWidth) + "px"
-    );
+    if (!label) return;
+    // Reserve the wider of the two label strings (More ↔ Less) so the button
+    // keeps its width when the label swaps — the chips never shift.
+    var more = t("tagsShowMore");
+    var fewer = t("tagsShowFewer");
+    label.textContent = more;
+    var w1 = label.offsetWidth;
+    label.textContent = fewer;
+    var w2 = label.offsetWidth;
+    label.style.minWidth = (w1 > w2 ? w1 : w2) + "px";
+    label.textContent = expanded ? fewer : more;
   }
 
   function refresh() {
-    // Chip re-renders (innerHTML) wipe the toggle — put it back if needed.
-    if (toggle.parentElement !== collapse) collapse.appendChild(toggle);
+    // Chip re-renders (innerHTML) wipe the toggle — re-insert it right before
+    // the label if needed. (With no chips there is no label; the toggle then
+    // stays where the HTML put it and stays hidden below.)
+    var tagLabel = collapse.querySelector(".dash-label");
+    if (tagLabel && toggle.parentElement !== collapse)
+      collapse.insertBefore(toggle, tagLabel);
     // The overflow check only works while clamped — measure collapsed, then
     // restore whatever state the user had.
     var wasExpanded = collapse.classList.contains("expanded");
@@ -126,7 +130,6 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     if (wasExpanded) collapse.classList.add("expanded");
     toggle.style.display = overflows ? "" : "none";
     toggle.classList.toggle("expanded", overflows && wasExpanded);
-    setToggleSpace();
     syncLabel();
   }
 
@@ -134,9 +137,6 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     collapse.classList.toggle("expanded");
     toggle.classList.toggle("expanded");
     syncLabel();
-    // The label just swapped (More ↔ Less) — refresh the space the chips
-    // stop at so collapsing lands the row flush with the button.
-    setToggleSpace();
   });
   window.addEventListener("resize", refresh);
   refresh();
