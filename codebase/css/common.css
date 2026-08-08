@@ -50,6 +50,21 @@
   /* Copy-toast chip — fixed dark in light/sepia, inverts in dark */
   --color-toast-bg: #1a202c;
   --color-toast-text: #fff;
+  /* Quran preset buttons (content modal) — one pair per preset; saturated
+     enough to read at a glance, muted in sepia, dimmed in dark */
+  --color-preset-main-bg: #dbeafe;
+  --color-preset-main-text: #1e40af;
+  --color-preset-all-bg: #d1fae5;
+  --color-preset-all-text: #065f46;
+  --color-preset-arabic-bg: #fef3c7;
+  --color-preset-arabic-text: #92400e;
+  --color-preset-reset-bg: #fee2e2;
+  --color-preset-reset-text: #991b1b;
+  /* Completion state — progress fill and celebration border */
+  --color-success: #10b981;
+  --color-success-border: #059669;
+  /* Contrast white on saturated solids (active chips, confirm buttons) */
+  --color-on-solid: #fff;
 
   /* ---- Control sizing (standard documented in docs/ARCHITECTURE.md) ----
      Every boxed control: 35px tall at every breakpoint; line-height is
@@ -210,6 +225,17 @@
   /* Copy-toast chip — fixed dark in light/sepia, inverts in dark */
   --color-toast-bg: #1a202c;
   --color-toast-text: #fff;
+  --color-preset-main-bg: #d8e2ec;
+  --color-preset-main-text: #3b5f8a;
+  --color-preset-all-bg: #dde8dc;
+  --color-preset-all-text: #3d6b35;
+  --color-preset-arabic-bg: #e8e0d5;
+  --color-preset-arabic-text: #8a7a55;
+  --color-preset-reset-bg: #f0e4dc;
+  --color-preset-reset-text: #8b3a3a;
+  --color-success: #3d7a5c;
+  --color-success-border: #2e5f46;
+  --color-on-solid: #fff;
 }
 
 /* ---- Theme: dark ---- */
@@ -253,6 +279,17 @@
   /* Copy-toast chip — fixed dark in light/sepia, inverts in dark */
   --color-toast-bg: #e2e8f0;
   --color-toast-text: #0f172a;
+  --color-preset-main-bg: #1e3a5f;
+  --color-preset-main-text: #93c5fd;
+  --color-preset-all-bg: #14532d;
+  --color-preset-all-text: #86efac;
+  --color-preset-arabic-bg: #854d0e;
+  --color-preset-arabic-text: #fef9c3;
+  --color-preset-reset-bg: #3b0a0a;
+  --color-preset-reset-text: #f87171;
+  --color-success: #34d399;
+  --color-success-border: #10b981;
+  --color-on-solid: #fff;
 }
 
 /* ---- Search highlight ---- */
@@ -570,7 +607,7 @@ body:has(.modal-overlay.open) {
 .confirm-yes {
   background: var(--color-danger-text, #dc2626);
   border-color: var(--color-danger-text, #dc2626);
-  color: #fff;
+  color: var(--color-on-solid, #fff);
 }
 .confirm-yes:hover {
   filter: brightness(0.92);
@@ -809,7 +846,7 @@ body:has(.modal-overlay.open) {
 }
 .tag-chip.active {
   background: var(--tag-color, var(--color-nav-btn-text));
-  color: #fff;
+  color: var(--color-on-solid, #fff);
   border-color: var(--tag-color, var(--color-nav-btn-text));
 }
 .tag-chip .chip-x {
@@ -1328,7 +1365,7 @@ body:has(.modal-overlay.open) {
 
 .nav-focus-btn.active {
   background: var(--color-focus-text, #15803d);
-  color: #fff;
+  color: var(--color-on-solid, #fff);
   border-color: var(--color-focus-text, #15803d);
   transform: rotate(180deg); /* ▾ → ▴, same animation as the tags toggle arrow */
   transition:

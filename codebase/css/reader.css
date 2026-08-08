@@ -504,7 +504,7 @@
   transition: width var(--t-panel, 0.3s) ease-out, background var(--t-slow, 0.5s) ease;
 }
 #readerProgressFill.done {
-  background: #10b981;
+  background: var(--color-success, #10b981);
 }
 
 .completion-border {
@@ -512,7 +512,7 @@
   inset: 0;
   z-index: var(--z-celebrate, 9998);
   pointer-events: none;
-  border: 0px solid #059669;
+  border: 0px solid var(--color-success-border, #059669);
   animation: border-glow 5s ease-in-out forwards;
 }
 @keyframes border-glow {

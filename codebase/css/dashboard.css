@@ -72,9 +72,9 @@ a.toolbar-btn {
 /* Pins chip dark-mode overrides (inline styles are light-themed) */
 /* Only the active chip still needs an override — the JS chip styles now use
    the danger vars, which resolve per theme. Active stays saturated red in
-   every theme (like #fff): white text needs the contrast. */
+   every theme (white = --color-on-solid): white text needs the contrast. */
 [data-theme="dark"] .tag-chip[data-tag="pins"].active {
-  color: #fff !important;
+  color: var(--color-on-solid, #fff) !important;
   background: #dc2626 !important;
   border-color: #dc2626 !important;
 }

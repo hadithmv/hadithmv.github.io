@@ -873,7 +873,7 @@ initializePageWithMetadata(async function (metadata) {
         }, { passive: false });
 
         // Refresh when columns are toggled
-        window.refreshTableScrollWidth = function () {
+        var refreshTableScrollWidth = function () {
           var colWidth = applyTableWidth();
           requestAnimationFrame(function () {
             refreshScrollWidth(colWidth);
@@ -889,7 +889,7 @@ initializePageWithMetadata(async function (metadata) {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
           requestAnimationFrame(function () {
-            if (window.refreshTableScrollWidth) window.refreshTableScrollWidth();
+            if (refreshTableScrollWidth) refreshTableScrollWidth();
           });
         } else {
           var sentinel = document.getElementById("sentinelBottom");
@@ -907,7 +907,7 @@ initializePageWithMetadata(async function (metadata) {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
           requestAnimationFrame(function () {
-            if (window.refreshTableScrollWidth) window.refreshTableScrollWidth();
+            if (refreshTableScrollWidth) refreshTableScrollWidth();
           });
         } else {
           var prevH = readerContent.scrollHeight;
@@ -1803,7 +1803,7 @@ initializePageWithMetadata(async function (metadata) {
       });
       updateTableHeaderTop();
       expandIfOverflowing();
-      window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); if (window.refreshTableScrollWidth) window.refreshTableScrollWidth(); });
+      window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); if (refreshTableScrollWidth) refreshTableScrollWidth(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {

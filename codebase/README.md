@@ -149,7 +149,7 @@ This repo **is** the GitHub Pages site (`hadithmv.github.io`) — pushing to `ma
 
 ### Chrome layout
 
-All rows inside the collapsible panel use uniform 10px spacing via flex column gap. Toolbar and pagination rows are wrapped in `.h-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements use `em`-based padding and `line-height: 2.2`, sized via `--panel-font-size` CSS variable (tied to the reader font size control).
+All rows inside the collapsible panel use uniform 10px spacing via flex column gap. Toolbar and pagination rows are wrapped in `.horizontal-scroll-wrap` containers with padded space for absolutely-positioned arrow buttons. Rows scroll horizontally (`overflow-x: auto`, hidden scrollbar); mouse wheel is redirected to horizontal scroll. All interactive elements use `em`-based padding and `line-height: 2.2`, sized via `--panel-font-size` CSS variable (tied to the reader font size control).
 
 ### Search
 

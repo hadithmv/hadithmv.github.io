@@ -168,20 +168,20 @@
   filter: brightness(0.9);
 }
 .quran-preset-btn[data-preset="main"] {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--color-preset-main-bg, #dbeafe);
+  color: var(--color-preset-main-text, #1e40af);
 }
 .quran-preset-btn[data-preset="all"] {
-  background: #d1fae5;
-  color: #065f46;
+  background: var(--color-preset-all-bg, #d1fae5);
+  color: var(--color-preset-all-text, #065f46);
 }
 .quran-preset-btn[data-preset="arabic"] {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--color-preset-arabic-bg, #fef3c7);
+  color: var(--color-preset-arabic-text, #92400e);
 }
 .quran-preset-btn[data-preset="reset"] {
-  background: #fee2e2;
-  color: #991b1b;
+  background: var(--color-preset-reset-bg, #fee2e2);
+  color: var(--color-preset-reset-text, #991b1b);
 }
 .quran-content-table .quran-content-item td:first-child {
   border-radius: 0 6px 6px 0;
