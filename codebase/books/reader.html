@@ -136,14 +136,14 @@
           <h2 class="modal-title" data-i18n="labelSettings">ސެޓިންގްސް</h2>
           <button
             id="btnResetSettings"
-            class="modal-reset-sm"
+            class="modal-reset-small"
             data-i18n="btnReset"
             title="Reset all settings"
           >
             ↺ ރީސެޓް
           </button>
           <button
-            id="modalClose"
+            id="settingsModalClose"
             class="modal-close"
             title="Close (Escape key)"
           >
@@ -186,7 +186,7 @@
             <button
               id="btnOpenFontModal"
               class="modal-select"
-              data-i18n="btnOpenFontShort"
+              data-i18n="btnOpenFontText"
             >
               ބަދަލުކުރޭ
             </button>
@@ -201,7 +201,7 @@
           <h2 class="modal-title" data-i18n="settingsFont">ފޮންޓް</h2>
           <button
             id="btnResetFont"
-            class="modal-reset-sm"
+            class="modal-reset-small"
             data-i18n="btnReset"
             title="Reset font to defaults"
           >
@@ -221,7 +221,7 @@
             <div class="font-size-row">
               <button
                 id="btnFontDown"
-                class="font-adj-btn"
+                class="font-adjust-button"
                 title="Decrease font size"
               >
                 −
@@ -229,7 +229,7 @@
               <span id="fontSizeVal" class="font-size-val">1.25rem</span>
               <button
                 id="btnFontUp"
-                class="font-adj-btn"
+                class="font-adjust-button"
                 title="Increase font size"
               >
                 +
@@ -269,7 +269,7 @@
           <div id="advancedSearchRows"></div>
           <button
             id="btnAddCondition"
-            class="modal-reset-sm"
+            class="modal-reset-small"
             style="
               width: 100%;
               margin-top: 8px;
@@ -284,23 +284,7 @@
           <div style="display: flex; gap: 8px; margin-top: 12px">
             <button
               id="btnApplyAdvancedSearch"
-              style="
-                flex: 1;
-                padding: 4px 10px;
-                font-size: 0.78rem;
-                font-weight: 600;
-                color: var(--color-bg);
-                background: var(--color-text);
-                border: 1px solid var(--color-text);
-                border-radius: 6px;
-                cursor: pointer;
-                font-family:
-                  Hadithmv,
-                  Faruma,
-                  system-ui,
-                  -apple-system,
-                  sans-serif;
-              "
+              class="advanced-apply-btn"
               title="Run advanced search"
               data-i18n="btnApplySearch"
             >
@@ -308,7 +292,7 @@
             </button>
             <button
               id="btnClearAdvancedSearch"
-              class="modal-reset-sm"
+              class="modal-reset-small"
               style="flex: 1"
               title="Reset all conditions"
               data-i18n="btnReset"
@@ -340,20 +324,11 @@
     <div id="errorMessage" class="error" style="display: none"></div>
 
     <div id="readerWrapper" style="display: none">
-      <div id="pageHeader" style="display: none"></div>
+      <div id="readerPageHeader" style="display: none"></div>
       <div
-        id="searchHistory"
-        class="search-results"
-        style="
-          display: none;
-          position: absolute;
-          z-index: 55;
-          max-height: 320px;
-          overflow-y: auto;
-          overflow-x: hidden;
-          direction: rtl;
-          overscroll-behavior: contain;
-        "
+        id="searchHistoryDropdown"
+        class="search-results search-history-dropdown"
+        style="display: none"
       ></div>
       <div
         id="columnDropdown"
@@ -367,78 +342,78 @@
         class="export-dropdown"
         style="display: none; position: absolute; z-index: 60"
       >
-        <button class="export-option" data-format="txt" title="Plain text">
+        <button class="export-option dd-item" data-format="txt" title="Plain text">
           TXT
         </button>
-        <button class="export-option" data-format="word" title="Word document">
+        <button class="export-option dd-item" data-format="word" title="Word document">
           Word
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="pdf"
           title="PDF for printing"
         >
           PDF
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="png"
           title="PNG screenshot of current page"
         >
           Image
         </button>
-        <button class="export-option" data-format="epub" title="EPUB e-book">
+        <button class="export-option dd-item" data-format="epub" title="EPUB e-book">
           EPUB
         </button>
-        <button class="export-option" data-format="md" title="Markdown">
+        <button class="export-option dd-item" data-format="md" title="Markdown">
           MD
         </button>
-        <button class="export-option" data-format="json" title="JSON data">
+        <button class="export-option dd-item" data-format="json" title="JSON data">
           JSON
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="csv"
           title="Comma-separated values"
         >
           CSV
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="tsv"
           title="Tab-separated values"
         >
           TSV
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="excel"
           title="Excel spreadsheet"
         >
           Excel
         </button>
-        <button class="export-option" data-format="html" title="HTML web page">
+        <button class="export-option dd-item" data-format="html" title="HTML web page">
           HTML Book
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="html-table"
           title="HTML table with all columns"
         >
           HTML Table
         </button>
-        <button class="export-option" data-format="yaml" title="YAML data">
+        <button class="export-option dd-item" data-format="yaml" title="YAML data">
           YAML
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="toon"
           title="TOON compact notation"
         >
           TOON
         </button>
         <button
-          class="export-option"
+          class="export-option dd-item"
           data-format="xml"
           title="XML structured data"
         >
@@ -468,7 +443,7 @@
               >
             </button>
             <input
-              id="searchInput"
+              id="readerSearchInput"
               type="search"
               class="search-input"
               title="Search (/ or Ctrl+F. * wildcard, ? char, -exclude, ~fuzzy~, .wholeword, /regex/)"
@@ -478,7 +453,7 @@
               autocomplete="off"
             />
             <button
-              id="searchClear"
+              id="readerSearchClear"
               class="search-clear"
               title="Clear search"
               style="display: none"
@@ -486,13 +461,13 @@
               ✕
             </button>
             <span
-              id="searchInfo"
+              id="readerResultCount"
               class="search-info"
               style="display: none"
             ></span>
           </div>
           <div
-            id="searchResults"
+            id="searchResultsDropdown"
             class="search-results"
             style="display: none"
           ></div>
@@ -566,7 +541,7 @@
                 id="btnResetReader"
                 class="toolbar-btn"
                 title="Reset view: show all columns, clear search, exit focus"
-                data-i18n="btnResetText"
+                data-i18n="btnReset"
               >
                 ↺ ރީސެޓް
               </button>
@@ -585,10 +560,10 @@
                 style="display: none; position: relative"
               >
                 <button
-                  id="btnColDropdown"
+                  id="btnColumnDropdown"
                   class="toolbar-btn"
                   title="Show/hide columns"
-                  data-i18n="labelHideColumns"
+                  data-i18n="labelColumns"
                 >
                   ކޮލަމް ފޮރުވާ ▾
                 </button>
@@ -601,39 +576,39 @@
             dir="rtl"
           >
             <div class="nav-pages">
-              <span id="pageLabel" class="page-of-label"></span>
+              <span id="readerPageLabel" class="page-of-label"></span>
               <button
-                id="firstBtn"
+                id="btnFirst"
                 class="nav-btn nav-edge"
                 title="First page (Home key)"
               >
                 <<
               </button>
               <button
-                id="prevBtn"
+                id="btnPrev"
                 class="nav-btn"
                 title="Previous page (→ arrow key)"
               >
                 &lt;
               </button>
-              <span id="pageNumbers" class="page-numbers"></span>
+              <span id="readerPageNumbers" class="page-numbers"></span>
               <button
-                id="nextBtn"
+                id="btnNext"
                 class="nav-btn"
                 title="Next page (← arrow key)"
               >
                 &gt;
               </button>
               <button
-                id="lastBtn"
+                id="btnLast"
                 class="nav-btn nav-edge"
                 title="Last page (End key)"
               >
                 &gt;&gt;
               </button>
             </div>
-            <span id="pageSubRow" style="display: none"
-              ><span id="pageSubtitle"></span><span id="pageTags"></span
+            <span id="readerPageSubRow" style="display: none"
+              ><span id="readerPageSubtitle"></span><span id="readerPageTags"></span
             ></span>
           </nav>
         </div>
@@ -758,8 +733,8 @@
                   >١٢٣ އާޔަތް ނަންބަރު</span
                 >
               </label>
-              <label class="quran-content-item dd-item" id="qrnNumBracketsRow">
-                <input type="checkbox" id="qrnToggleNumBrackets" /><span
+              <label class="quran-content-item dd-item" id="qrnNumberBracketsRow">
+                <input type="checkbox" id="qrnToggleNumberBrackets" /><span
                   >﴿١٢٣﴾ ނަންބަރު ބްރެކެޓްތެރޭ</span
                 >
               </label>
@@ -782,7 +757,7 @@
               />
               <button
                 id="qrnSurahClose"
-                class="quran-surah-close"
+                class="modal-close"
                 title="Close"
               >
                 ✕
@@ -840,7 +815,7 @@
           (function step(now) {
             var p = Math.min(1, (now - t0) / duration);
             row.scrollLeft = start + delta * easeOutCubic(p);
-            updateArrows(row.closest(".h-scroll-wrap"));
+            updateArrows(row.closest(".horizontal-scroll-wrap"));
             if (p < 1) requestAnimationFrame(step);
           })(t0);
         }
@@ -849,7 +824,7 @@
         document.querySelectorAll(".reader-panel-row").forEach(function (row) {
           var rtl = isRTL(row),
             wrap = document.createElement("div");
-          wrap.className = "h-scroll-wrap";
+          wrap.className = "horizontal-scroll-wrap";
           if (rtl) wrap.dir = "rtl";
           var b1 = document.createElement("button"),
             b2 = document.createElement("button");
@@ -882,7 +857,7 @@
         document.addEventListener(
           "wheel",
           function (e) {
-            var wrap = e.target.closest(".h-scroll-wrap");
+            var wrap = e.target.closest(".horizontal-scroll-wrap");
             if (!wrap || !wrap._row) return;
             var row = wrap._row;
             if (!hasOverflow(row)) return;
@@ -893,8 +868,8 @@
         );
 
         // Called by reader.js after #readerWrapper becomes visible
-        window._initScrollArrows = function () {
-          document.querySelectorAll(".h-scroll-wrap").forEach(function (wrap) {
+        window.initScrollArrows = function () {
+          document.querySelectorAll(".horizontal-scroll-wrap").forEach(function (wrap) {
             if (!wrap._row) return;
             // Double-rAF so layout is fully settled after display:none → block
             requestAnimationFrame(function () {

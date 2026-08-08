@@ -42,6 +42,9 @@ export function tokenizeText(normText) {
 
 var IDB_NAME = "hadithmvSearch";
 var IDB_VERSION = 1;
+var IDB_STORE = "index"; // store name
+var IDB_KEY_PATH = "id"; // record keyPath
+var IDB_ENTRY_ID = "index"; // fixed record id
 var _dbPromise = null;
 
 function openSearchDB() {
@@ -50,8 +53,8 @@ function openSearchDB() {
     if (!("indexedDB" in window)) return resolve(null);
     var req = indexedDB.open(IDB_NAME, IDB_VERSION);
     req.onupgradeneeded = function () {
-      if (!req.result.objectStoreNames.contains("index")) {
-        req.result.createObjectStore("index", { keyPath: "id" });
+      if (!req.result.objectStoreNames.contains(IDB_STORE)) {
+        req.result.createObjectStore(IDB_STORE, { keyPath: IDB_KEY_PATH });
       }
     };
     req.onsuccess = function () { resolve(req.result); };
@@ -64,7 +67,7 @@ function idbGetIndex() {
   return openSearchDB().then(function (db) {
     if (!db) return null;
     return new Promise(function (resolve) {
-      var tx = db.transaction("index", "readonly").objectStore("index").get("index");
+      var tx = db.transaction(IDB_STORE, "readonly").objectStore(IDB_STORE).get(IDB_ENTRY_ID);
       tx.onsuccess = function () { resolve(tx.result || null); };
       tx.onerror = function () { resolve(null); };
     });
@@ -75,8 +78,8 @@ function idbPutIndex(version, words) {
   return openSearchDB().then(function (db) {
     if (!db) return;
     return new Promise(function (resolve) {
-      var tx = db.transaction("index", "readwrite").objectStore("index").put({
-        id: "index",
+      var tx = db.transaction(IDB_STORE, "readwrite").objectStore(IDB_STORE).put({
+        id: IDB_ENTRY_ID,
         version: version,
         words: words,
       });
@@ -192,10 +195,10 @@ export function searchLibrary(index, query, scopeBookCodes) {
   var terms = tokenizeText(normaliseForSearch(query || ""));
   if (terms.length === 0) return [];
 
-  var W = index.words;
+  var words = index.words;
   var postings = [];
   for (var i = 0; i < terms.length; i++) {
-    var posting = W[terms[i]];
+    var posting = words[terms[i]];
     if (!posting) return []; // a term exists nowhere → no row can contain all terms
     postings.push(posting);
   }

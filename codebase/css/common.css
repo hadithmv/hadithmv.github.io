@@ -400,95 +400,6 @@ body {
   background: var(--color-border);
 }
 
-/* Sidebar settings toggle */
-.sidebar-settings-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  margin-bottom: 4px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-text);
-  background: none;
-  border: none;
-  border-radius: var(--radius-md, 8px);
-  cursor: pointer;
-  transition: background var(--t-hover, 0.15s) ease;
-}
-
-.sidebar-settings-toggle:hover {
-  background: var(--color-nav-btn-hover-bg);
-}
-
-.settings-toggle-icon {
-  font-size: 1rem;
-}
-
-.settings-arrow {
-  margin-left: auto;
-  font-size: 0.7rem;
-  color: var(--color-text-subtle);
-  transition: transform var(--t-pop, 0.2s) ease;
-}
-
-/* Settings panel */
-.settings-panel {
-  padding: 0 4px 12px;
-}
-
-.settings-group {
-  padding: 10px 0;
-  border-top: 1px solid var(--color-border);
-}
-
-.settings-group:first-child {
-  border-top: none;
-}
-
-.settings-group-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--color-text-subtle);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 8px;
-  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
-}
-
-/* Sidebar theme button */
-.sidebar-theme-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md, 8px);
-  cursor: pointer;
-  transition:
-    background var(--t-hover, 0.15s) ease,
-    border-color var(--t-hover, 0.15s) ease;
-}
-
-.sidebar-theme-btn:hover {
-  background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
-}
-
-.sidebar-theme-btn.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
-}
-
 /* ---- Settings modal ---- */
 .modal-overlay {
   position: fixed;
@@ -568,23 +479,6 @@ body:has(.modal-overlay.open) {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.modal-card {
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg, 12px);
-  padding: 16px;
-}
-
-.modal-card-title {
-  margin: 0 0 12px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--color-text-subtle);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 .modal-select {
@@ -678,31 +572,7 @@ body:has(.modal-overlay.open) {
   font-weight: 500;
 }
 
-.modal-toggle {
-  padding: 6px 14px;
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  color: var(--color-text);
-  background: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  transition: background var(--t-hover, 0.15s) ease;
-  white-space: nowrap;
-}
-
-.modal-toggle:hover {
-  background: var(--color-nav-btn-hover-bg);
-}
-
-.modal-toggle.active {
-  background: var(--color-nav-btn-text);
-  color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
-}
-
-.modal-reset-sm {
+.modal-reset-small {
   padding: 4px 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
@@ -717,8 +587,50 @@ body:has(.modal-overlay.open) {
   margin-left: 8px;
 }
 
-.modal-reset-sm:hover {
+.modal-reset-small:hover {
   opacity: 0.7;
+}
+
+/* ── Shared card title trio (book cards + library results) ── */
+/* Arabic and Dhivehi at --title-scale (same size); the English caption
+   stays at base; ar/dv sit --title-gap apart, --title-gap-caption
+   before the caption */
+.book-card .title-ar,
+.lib-result .title-ar,
+.book-card .title-dv,
+.lib-result .title-dv {
+  font-size: calc(var(--panel-font-size, 0.85rem) * var(--title-scale, 1.2));
+}
+
+.book-card .title-ar,
+.lib-result .title-ar {
+  color: var(--color-text);
+  direction: rtl;
+  text-align: right;
+  font-weight: 700;
+  margin-bottom: var(--title-gap, 4px);
+  font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
+}
+
+.book-card .title-dv,
+.lib-result .title-dv {
+  color: var(--color-text);
+  direction: rtl;
+  text-align: right;
+  margin-bottom: var(--title-gap-caption, 8px);
+  font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
+}
+
+.book-card .title-en,
+.lib-result .title-en {
+  direction: ltr; /* English caption — LTR even when right-aligned */
+  text-align: right;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 /* System font override */
@@ -730,13 +642,11 @@ body:has(.modal-overlay.open) {
 
 [data-font-system] .book-card .title-ar,
 [data-font-system] .book-card .title-dv,
-[data-font-system] #pageHeader h1,
-[data-font-system] #pageHeader p,
+[data-font-system] .lib-result .title-ar,
+[data-font-system] .lib-result .title-dv,
+[data-font-system] #readerPageHeader h1,
+[data-font-system] #readerPageHeader p,
 [data-font-system] .toolbar-btn,
-[data-font-system] .toolbar-label,
-[data-font-system] .page-label,
-[data-font-system] .nav-counter,
-[data-font-system] .nav-counter-bottom,
 [data-font-system] .sidebar,
 [data-font-system] .search-result-snippet {
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
@@ -1054,7 +964,6 @@ body:has(.modal-overlay.open) {
   border-color: var(--color-card-hover-border);
 }
 
-#pageTags .tag-badge,
 .tag-badge {
   display: inline-block;
   box-sizing: border-box;
@@ -1076,7 +985,7 @@ body:has(.modal-overlay.open) {
   border-color: transparent;
 }
 
-#pageTags {
+#readerPageTags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 6px);
@@ -1200,14 +1109,6 @@ body:has(.modal-overlay.open) {
   box-shadow: inset 0 0 0 1px var(--color-card-hover-border);
 }
 
-.toolbar-label {
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  color: var(--color-text-subtle);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  letter-spacing: 0.04em;
-}
-
 /* ── Shared dropdown item style ───────────────────────────── */
 .dd-item {
   display: flex;
@@ -1229,18 +1130,6 @@ body:has(.modal-overlay.open) {
 }
 .dd-item:hover {
   background: var(--color-nav-btn-hover-bg);
-}
-.dd-item .dd-check {
-  display: inline-block;
-  width: 16px;
-  text-align: center;
-  font-size: 0.8em;
-  color: var(--color-accent, #2563eb);
-  visibility: hidden;
-  flex-shrink: 0;
-}
-.dd-item.active .dd-check {
-  visibility: visible;
 }
 .dd-item input[type="checkbox"],
 .dd-item input[type="radio"] {
@@ -1312,10 +1201,6 @@ body:has(.modal-overlay.open) {
   border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
 }
 
-
-#topBar > * {
-  flex-shrink: 0;
-}
 
 #topBar > * {
   flex-shrink: 0;
@@ -1437,7 +1322,7 @@ body:has(.modal-overlay.open) {
   margin-bottom: var(--section-gap, 6px);
 }
 
-.font-adj-btn {
+.font-adjust-button {
   box-sizing: border-box;
   width: var(--control-height, 35px);
   height: var(--control-height, 35px);
@@ -1454,7 +1339,7 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
-.font-adj-btn:hover {
+.font-adjust-button:hover {
   background: var(--color-nav-btn-hover-bg);
 }
 
@@ -1588,18 +1473,23 @@ body:has(.modal-overlay.open) {
 .dd-clear-all:hover {
   opacity: 1;
 }
-.pins-history-body .chip-arrow {
+/* Shared by the pins/history table arrows and the quran content-modal
+   reorder arrows (each context keeps its own padding/color overrides) */
+.chip-arrow {
   cursor: pointer;
+  user-select: none;
+}
+.chip-arrow-disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+.pins-history-body .chip-arrow {
   padding: 0 2px;
   color: var(--color-text-subtle);
 }
 .pins-history-body .chip-arrow:hover {
   color: var(--color-text);
-}
-.pins-history-body .chip-arrow-disabled {
-  opacity: 0.25;
-  cursor: default;
-  pointer-events: none;
 }
 .pins-history-body .chip-x {
   cursor: pointer;
@@ -1611,6 +1501,17 @@ body:has(.modal-overlay.open) {
 
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
+  .book-card .title-ar,
+  .lib-result .title-ar,
+  .book-card .title-dv,
+  .lib-result .title-dv {
+    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2));
+  }
+  .book-card .title-en,
+  .lib-result .title-en {
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+  }
+
   .menu-btn {
     top: 16px;
     right: 16px;

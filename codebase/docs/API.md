@@ -36,10 +36,10 @@ Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `book-data.js`, `re
 |---|---|
 | `parseCSV(text)` | Parses CSV text into a 2D array. Handles quoted fields, commas inside quotes, multiline values, and `\r\n` / `\r` / `\n` line endings. |
 | `unparseCSV(rows)` | Converts a 2D array back to CSV text. Quotes fields containing commas, double‑quotes, or newlines. |
-| `fetchCSV(path)` | Fetches a CSV file, parses it, and returns a 2D array with empty rows filtered out. Single pass — `parseCSV` already skips empty rows, so no intermediate row array is built, and the raw text is released as soon as parsing completes. |
+| `fetchCSVRows(path)` | Fetches a CSV file, parses it, and returns a 2D array with empty rows filtered out. Single pass — `parseCSV` already skips empty rows, so no intermediate row array is built, and the raw text is released as soon as parsing completes. |
 | `fetchBookCSVCached(bookCode, version, path)` | Fetches a book CSV through the on‑device IndexedDB cache (`hadithmv` DB, `books` store, keyed by `bookCode`). Cache hit + `version` match (registry content hash) → returns the stored rows with zero download/parse; mismatch or empty `version` → fetch + parse + refresh (write is fire‑and‑forget). Every failure degrades to a plain fetch. IndexedDB returns a structured clone per read, so callers may mutate the result safely. |
 | `parseCSVWithHeader(text)` | Parses CSV text into an array of objects using the first row as keys. Trims both headers and values. |
-| `loadCSVData(path)` | Fetches a CSV file and parses it into objects via `parseCSVWithHeader`. Convenience wrapper for registry files. |
+| `fetchCSVObjects(path)` | Fetches a CSV file and parses it into objects via `parseCSVWithHeader`. Convenience wrapper for registry files. |
 
 ## book-data.js
 

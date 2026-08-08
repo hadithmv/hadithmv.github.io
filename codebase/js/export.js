@@ -73,15 +73,15 @@ export function initExports(ctx) {
       } else if (fmt === "md") {
         content = "# " + (meta.titleEN || meta.bookCode) + "\n\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + siteURL + "\n\nHadithmv\n" + versionText + "\n\n---\n\n";
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
-          content += "## " + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "\n\n";
+          var row = rows[i];
+          content += "## " + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "\n\n";
           var exportStart0 = ctx.hasRowNums ? 1 : 0;
           var mdPrevHdr = "";
-          for (var j = exportStart0; j < r.length; j++) {
-            if (r[j] && String(r[j]).trim()) {
+          for (var j = exportStart0; j < row.length; j++) {
+            if (row[j] && String(row[j]).trim()) {
               var mdHdr = (ctx.headerRow && ctx.headerRow[j]) ? ctx.headerRow[j].toLowerCase() : "";
               if (mdPrevHdr.startsWith("matn") && mdHdr.startsWith("sharh")) content += "· · ·\n\n";
-              content += String(r[j]).trim() + "\n\n";
+              content += String(row[j]).trim() + "\n\n";
               mdPrevHdr = mdHdr;
             }
           }
@@ -112,11 +112,11 @@ export function initExports(ctx) {
         pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + siteURL + " - " + versionText + "</p>";
         pdfHTML += "<h1>" + meta.titleDV + "</h1><p style='text-align:center'>" + meta.titleAR + "</p>";
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
-          pdfHTML += "<h2>" + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "</h2>";
+          var row = rows[i];
+          pdfHTML += "<h2>" + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
           var fields = [];
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < r.length; j++) {
-            if (r[j] && String(r[j]).trim()) fields.push({ value: String(r[j]).trim(), index: j });
+          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
+            if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
           }
           for (var j = 0; j < fields.length; j++) {
             var colHeader2 = (ctx.headerRow && ctx.headerRow[fields[j].index]) ? ctx.headerRow[fields[j].index].toLowerCase() : "";
@@ -145,10 +145,10 @@ export function initExports(ctx) {
           pdfHTML += "<hr>";
         }
         pdfHTML += "</body></html>";
-        var w = window.open("", "_blank");
-        w.document.write(pdfHTML);
-        w.document.close();
-        w.onload = function () { w.print(); };
+        var win = window.open("", "_blank");
+        win.document.write(pdfHTML);
+        win.document.close();
+        win.onload = function () { win.print(); };
         setExportBusy(false);
       } else if (fmt === "png") {
         var vRow = ctx.visiblePageIndex();
@@ -157,7 +157,7 @@ export function initExports(ctx) {
         var fg = getComputedStyle(rc).color;
         var chunk = rc.querySelector('.reader-chunk[data-row="' + vRow + '"]');
         if (!chunk) { setExportBusy(false); return; }
-        fetch("../font/merged-300.woff2").then(function(r){return r.blob();}).then(function(blob){
+        fetch("../font/merged-300.woff2").then(function(response){return response.blob();}).then(function(fontBlob){
           var reader = new FileReader();
           reader.onload = function() {
             var fontData = reader.result;
@@ -190,12 +190,12 @@ export function initExports(ctx) {
               canvasCtx.fillStyle = bg;
               canvasCtx.fillRect(0, 0, rect.width, rect.height);
               canvasCtx.drawImage(img, 0, 0);
-              canvas.toBlob(function (b) {
-                var u = URL.createObjectURL(b);
+              canvas.toBlob(function (blob) {
+                var blobUrl = URL.createObjectURL(blob);
                 var a = document.createElement("a");
-                a.href = u; a.download = baseName + ".png";
+                a.href = blobUrl; a.download = baseName + ".png";
                 document.body.appendChild(a); a.click();
-                document.body.removeChild(a); URL.revokeObjectURL(u);
+                document.body.removeChild(a); URL.revokeObjectURL(blobUrl);
                 document.body.removeChild(wrapper);
                 setExportBusy(false);
               }, "image/png");
@@ -204,23 +204,23 @@ export function initExports(ctx) {
             img.src = "data:image/svg+xml," + encodeURIComponent(svg);
           };
           reader.onerror = function () { window.showErrorToast("PNG export failed"); setExportBusy(false); };
-          reader.readAsDataURL(blob);
+          reader.readAsDataURL(fontBlob);
         }).catch(function () { window.showErrorToast("PNG export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "excel") {
         import("./export-xlsx.js").then(function(mod) {
           var xlsxBlob = mod.createXLSX(rowsWithHeader, baseName);
-          var u = URL.createObjectURL(xlsxBlob);
+          var blobUrl = URL.createObjectURL(xlsxBlob);
           var a = document.createElement("a");
-          a.href = u; a.download = baseName + ".xlsx";
+          a.href = blobUrl; a.download = baseName + ".xlsx";
           document.body.appendChild(a); a.click();
-          document.body.removeChild(a); URL.revokeObjectURL(u);
+          document.body.removeChild(a); URL.revokeObjectURL(blobUrl);
           setExportBusy(false);
         }).catch(function () { window.showErrorToast("Excel export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "epub") {
         fetch("../font/merged-300.woff2")
-          .then(function(r) { return r.ok ? r.arrayBuffer() : null; })
+          .then(function(response) { return response.ok ? response.arrayBuffer() : null; })
           .then(function(fontBuf) {
             return import("./export-epub.js").then(function(mod) {
               var epubBlob = mod.createEPUB(rows, {
@@ -233,11 +233,11 @@ export function initExports(ctx) {
                 fontData: fontBuf ? new Uint8Array(fontBuf) : null,
                 headerRow: ctx.headerRow
               });
-              var u = URL.createObjectURL(epubBlob);
+              var blobUrl = URL.createObjectURL(epubBlob);
               var a = document.createElement("a");
-              a.href = u; a.download = baseName + ".epub";
+              a.href = blobUrl; a.download = baseName + ".epub";
               document.body.appendChild(a); a.click();
-              document.body.removeChild(a); URL.revokeObjectURL(u);
+              document.body.removeChild(a); URL.revokeObjectURL(blobUrl);
               setExportBusy(false);
             });
           }).catch(function () { window.showErrorToast("EPUB export failed"); setExportBusy(false); });
@@ -245,11 +245,11 @@ export function initExports(ctx) {
       } else if (fmt === "yaml") {
         var y = "# " + (meta.titleEN || baseName) + "\n# " + meta.titleDV + " - " + meta.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
-          y += "- id: " + (ctx.hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "\n  fields:\n";
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < r.length; j++) {
-            if (r[j] != null && String(r[j]).trim()) {
-              y += "    - |\n      " + String(r[j]).trim().replace(/\n/g, "\n      ") + "\n";
+          var row = rows[i];
+          y += "- id: " + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "\n  fields:\n";
+          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
+            if (row[j] != null && String(row[j]).trim()) {
+              y += "    - |\n      " + String(row[j]).trim().replace(/\n/g, "\n      ") + "\n";
             }
           }
         }
@@ -257,13 +257,13 @@ export function initExports(ctx) {
       } else if (fmt === "toon") {
         var to = "[" + rows.length + "]:\n";
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
+          var row = rows[i];
           var vals = [];
-          for (var j = 0; j < r.length; j++) {
-            if (r[j] == null || String(r[j]).trim() === "") {
+          for (var j = 0; j < row.length; j++) {
+            if (row[j] == null || String(row[j]).trim() === "") {
               vals.push("null");
             } else {
-              var v = String(r[j]).trim();
+              var v = String(row[j]).trim();
               vals.push(/[\s,:"\\\[\]{}]/.test(v) || v === "true" || v === "false" || v === "null" || /^-?\d+(?:\.\d+)?(?:e[+\-]?\d+)?$/i.test(v) ? JSON.stringify(v) : v);
             }
           }
@@ -275,17 +275,17 @@ export function initExports(ctx) {
         htmlExport += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
         htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
-          htmlExport += '<h2>#' + (ctx.hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + '</h2>';
+          var row = rows[i];
+          htmlExport += '<h2>#' + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + '</h2>';
           var expPrevHdr = "";
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < r.length; j++) {
-            if (r[j] != null && String(r[j]).trim()) {
+          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
+            if (row[j] != null && String(row[j]).trim()) {
               var expHdr = (ctx.headerRow && ctx.headerRow[j]) ? ctx.headerRow[j].toLowerCase() : "";
               if (expPrevHdr.startsWith("matn") && expHdr.startsWith("sharh")) htmlExport += '<div class="ms-sep">· · ·</div>';
               if (expHdr.startsWith("sharh")) {
-                htmlExport += '<p class="sharh">' + String(r[j]).trim() + '</p>';
+                htmlExport += '<p class="sharh">' + String(row[j]).trim() + '</p>';
               } else {
-                htmlExport += '<p>' + String(r[j]).trim() + '</p>';
+                htmlExport += '<p>' + String(row[j]).trim() + '</p>';
               }
               expPrevHdr = expHdr;
             }
@@ -321,11 +321,11 @@ export function initExports(ctx) {
         xml += '  <meta><url>' + siteURL + '</url><version>' + versionText + '</version></meta>\n';
         xml += '  <rows>\n';
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
-          xml += '    <row id="' + (ctx.hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + '">\n';
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < r.length; j++) {
-            if (r[j] != null && String(r[j]).trim()) {
-              xml += '      <col' + j + '>' + escapeHTML(String(r[j]).trim()) + '</col' + j + '>\n';
+          var row = rows[i];
+          xml += '    <row id="' + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + '">\n';
+          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
+            if (row[j] != null && String(row[j]).trim()) {
+              xml += '      <col' + j + '>' + escapeHTML(String(row[j]).trim()) + '</col' + j + '>\n';
             }
           }
           xml += '    </row>\n';
@@ -337,11 +337,11 @@ export function initExports(ctx) {
         content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
         content += "<h1>" + meta.titleDV + " - " + meta.titleAR + "</h1>";
         for (var i = 0; i < rows.length; i++) {
-          var r = rows[i];
-          content += "<h2>" + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (r[0] || (i + 1)) : (i + 1)) + "</h2>";
+          var row = rows[i];
+          content += "<h2>" + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
           var fields = [];
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < r.length; j++) {
-            if (r[j] && String(r[j]).trim()) fields.push({ value: String(r[j]).trim(), index: j });
+          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
+            if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
           }
           for (var j = 0; j < fields.length; j++) {
             var colHeader3 = (ctx.headerRow && ctx.headerRow[fields[j].index]) ? ctx.headerRow[fields[j].index].toLowerCase() : "";

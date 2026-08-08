@@ -6,7 +6,7 @@
  * Imported by quran-ui.js, reader.js, and export-epub.js.
  */
 
-import { fetchCSV, fetchBookCSVCached } from "./csv.js";
+import { fetchCSVRows, fetchBookCSVCached } from "./csv.js";
 import { getBookTitleSync, getBookVersionSync } from "./book-data.js";
 import { currentLang } from "./i18n.js";
 import { normaliseForSearch } from "./search-utils.js";
@@ -62,10 +62,16 @@ export var BASE_HEADERS = [
   "ayahImlai",
 ];
 
+// The base Quran book's code — its columns are structural (never hidden or
+// reordered). QRN_BASE_PREFIX matches column keys that belong to it
+// (key format "{bookCode}:{colIdx}").
+export var QRN_BASE_FILE = "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai";
+export var QRN_BASE_PREFIX = "QRN-DATA-baseFile-1-";
+
 export function loadQuranBaseData() {
   if (_baseDataCache) return Promise.resolve(_baseDataCache);
-  return fetchCSV(
-    "../data/content/QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai.csv",
+  return fetchCSVRows(
+    "../data/content/" + QRN_BASE_FILE + ".csv",
   ).then(function (rows) {
     if (rows.length > 0) rows.shift(); // strip header row
     _baseDataCache = rows; // 6236 data rows
@@ -79,7 +85,7 @@ export function loadQuranBaseData() {
 
 export function loadSurahNames() {
   if (_surahNamesCache) return Promise.resolve(_surahNamesCache);
-  return fetchCSV("../data/04-registry-quranSurahs.csv").then(
+  return fetchCSVRows("../data/04-registry-quranSurahs.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount
@@ -196,16 +202,16 @@ export function decorateAyah(
 // but the registry lists each book's columns together — so consecutive
 // inserts from the same book reuse this instead of re-fetching and re-parsing
 // the whole CSV per column. Bounded: only the most recent book is retained.
-var _bookCsvCache = null; // { bookCode, header, data }
+var _bookCsvCache = null; // { bookCode, headerRow, allData }
 
 export function loadQuranBookCSV(bookCode) {
   if (_bookCsvCache && _bookCsvCache.bookCode === bookCode) {
     return Promise.resolve(_bookCsvCache);
   }
   return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/content/" + bookCode + ".csv").then(function (rows) {
-    if (rows.length === 0) return { header: [], data: [] };
-    var header = rows.shift();
-    _bookCsvCache = { bookCode: bookCode, header: header, data: rows };
+    if (rows.length === 0) return { headerRow: [], allData: [] };
+    var headerRow = rows.shift();
+    _bookCsvCache = { bookCode: bookCode, headerRow: headerRow, allData: rows };
     return _bookCsvCache;
   });
 }
@@ -219,11 +225,11 @@ export function mergeQuranData(bookCode) {
     var baseRows = results[0];
     var bookData = results[1];
 
-    // Build synthetic header
+    // Build synthetic headerRow
     var headerRow = BASE_HEADERS.slice();
-    if (bookData.header) {
-      for (var i = 0; i < bookData.header.length; i++) {
-        headerRow.push(bookData.header[i]);
+    if (bookData.headerRow) {
+      for (var i = 0; i < bookData.headerRow.length; i++) {
+        headerRow.push(bookData.headerRow[i]);
       }
     }
 
@@ -231,9 +237,9 @@ export function mergeQuranData(bookCode) {
     var merged = [];
     for (var r = 0; r < baseRows.length; r++) {
       var mrow = baseRows[r].slice(); // copy base columns
-      if (bookData.data && bookData.data[r]) {
-        for (var c = 0; c < bookData.data[r].length; c++) {
-          mrow.push(bookData.data[r][c] || "");
+      if (bookData.allData && bookData.allData[r]) {
+        for (var c = 0; c < bookData.allData[r].length; c++) {
+          mrow.push(bookData.allData[r][c] || "");
         }
       }
       merged.push(mrow);
@@ -287,9 +293,9 @@ export function applyColumnOrder(state) {
 
   var newHeader = oldHeader.slice(0, baseCount);
   for (var j = 0; j < ordered.length; j++) {
-    var kj = ordered[j];
-    var pj = pending[kj];
-    newHeader.push(pj ? pj.name : oldHeader[oldMap[kj]]);
+    var colKey = ordered[j];
+    var pendingCol = pending[colKey];
+    newHeader.push(pendingCol ? pendingCol.name : oldHeader[oldMap[colKey]]);
   }
 
   var newAll = new Array(rows.length);
@@ -297,26 +303,26 @@ export function applyColumnOrder(state) {
   for (var r = 0; r < rows.length; r++) {
     var row = rows[r];
     var nrow = normRows ? normRows[r] : null;
-    var nr = new Array(baseCount + ordered.length);
-    var nn = newNorm ? new Array(baseCount + ordered.length) : null;
+    var newRow = new Array(baseCount + ordered.length);
+    var newNormRow = newNorm ? new Array(baseCount + ordered.length) : null;
     for (var c = 0; c < baseCount; c++) {
-      nr[c] = row[c];
-      if (nn) nn[c] = nrow[c];
+      newRow[c] = row[c];
+      if (newNormRow) newNormRow[c] = nrow[c];
     }
     for (var j2 = 0; j2 < ordered.length; j2++) {
-      var k2 = ordered[j2];
-      var p2 = pending[k2];
+      var colKey2 = ordered[j2];
+      var pendingCol2 = pending[colKey2];
       var at = baseCount + j2;
-      if (p2) {
-        nr[at] = p2.values[r];
-        if (nn) nn[at] = p2.normValues[r];
+      if (pendingCol2) {
+        newRow[at] = pendingCol2.values[r];
+        if (newNormRow) newNormRow[at] = pendingCol2.normValues[r];
       } else {
-        nr[at] = row[oldMap[k2]];
-        if (nn) nn[at] = nrow[oldMap[k2]];
+        newRow[at] = row[oldMap[colKey2]];
+        if (newNormRow) newNormRow[at] = nrow[oldMap[colKey2]];
       }
     }
-    newAll[r] = nr;
-    if (nn) newNorm[r] = nn;
+    newAll[r] = newRow;
+    if (newNormRow) newNorm[r] = newNormRow;
   }
 
   // Remap loaded/hidden indices. Base columns keep their fixed positions;
@@ -330,10 +336,10 @@ export function applyColumnOrder(state) {
     if (hidden.indexOf(b) !== -1) newHidden.push(b);
   }
   for (var j3 = 0; j3 < ordered.length; j3++) {
-    var k3 = ordered[j3];
+    var colKey3 = ordered[j3];
     var idx = baseCount + j3;
-    newMap[k3] = idx;
-    if (oldMap[k3] !== -1 && hidden.indexOf(oldMap[k3]) !== -1) newHidden.push(idx);
+    newMap[colKey3] = idx;
+    if (oldMap[colKey3] !== -1 && hidden.indexOf(oldMap[colKey3]) !== -1) newHidden.push(idx);
   }
 
   return {
@@ -351,7 +357,7 @@ export function applyColumnOrder(state) {
 
 export function loadColumnRegistry() {
   if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
-  return fetchCSV("../data/05-registry-quranColumns.csv").then(
+  return fetchCSVRows("../data/05-registry-quranColumns.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       rows.shift(); // strip header
@@ -382,14 +388,10 @@ export function rebuildColumnSourceMap(loadedColMap) {
 }
 
 // Get the human-readable label for any non-base book column
-export function getBookLabel(colIndex) {
+export function getColumnSourceBookTitle(colIndex) {
   if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
   var info = _columnSourceMap[colIndex];
-  if (
-    info.sourceBook ===
-    "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai"
-  )
-    return null;
+  if (info.sourceBook === QRN_BASE_FILE) return null;
   return getBookTitleSync(info.sourceBook) || info.sourceBook;
 }
 
@@ -398,11 +400,7 @@ export function hasExternalColumns(currentBookCode) {
   if (!_columnSourceMap) return false;
   for (var idx in _columnSourceMap) {
     var info = _columnSourceMap[idx];
-    if (
-      info.sourceBook !==
-        "QRN-DATA-baseFile-1-juzNo_surahNo_ayahNo_basmalah_ayahImlai" &&
-      info.sourceBook !== currentBookCode
-    ) {
+    if (info.sourceBook !== QRN_BASE_FILE && info.sourceBook !== currentBookCode) {
       return true;
     }
   }

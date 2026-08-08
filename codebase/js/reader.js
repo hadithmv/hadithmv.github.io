@@ -9,8 +9,8 @@
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { normaliseForSearch, parseQuery, compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search-utils.js";
-import { fetchCSV, fetchBookCSVCached } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getBookLabel, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
+import { fetchBookCSVCached } from "./csv.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
 
 initializePageWithMetadata(async function (metadata) {
@@ -38,6 +38,12 @@ initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
 
   var quranBook = isQuranBook(metadata.bookCode);
+
+  // Radheef books (RDF-*) default to table view on desktop — their rows are
+  // single-field entries that read better as a table.
+  function isRadheefBook(bookCode) {
+    return !!bookCode && bookCode.indexOf("RDF-") === 0;
+  }
 
   function loadStandardBook() {
     // On-device cache (IndexedDB): repeat visits skip download + parse;
@@ -78,7 +84,7 @@ initializePageWithMetadata(async function (metadata) {
         filteredData: null,
 
         // View
-        viewMode: (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > window.MOBILE_BP) ? "table" : "card",
+        viewMode: (isRadheefBook(metadata.bookCode) && window.innerWidth > window.MOBILE_BP) ? "table" : "card",
 
         // Columns
         hiddenColumns: [],
@@ -99,28 +105,28 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // Language-aware page header
-      const pageTagsContainer = document.getElementById("pageTags");
+      const pageTagsContainer = document.getElementById("readerPageTags");
       const pageTags = extractTags(metadata.bookCode, metadata);
 
       function renderPageTags() {
         var lang = currentLang();
-        pageTagsContainer.innerHTML = pageTags.map(function (t) {
+        pageTagsContainer.innerHTML = pageTags.map(function (tag) {
           var label;
           if (lang === "dv") {
-            label = tagLabel(t.code, t.label, "dv") + " · " + tagLabel(t.code, t.label, "ar");
+            label = tagLabel(tag.code, tag.label, "dv") + " · " + tagLabel(tag.code, tag.label, "ar");
           } else {
-            label = tagLabel(t.code, t.label);
+            label = tagLabel(tag.code, tag.label);
           }
-          var palClass = (t.palette >= 0) ? ' tag-palette-' + t.palette : '';
-          return '<a href="index.html?tags=' + t.code + '" class="tag-badge' + palClass + '" title="Show all ' + tagLabel(t.code, t.label, "en") + ' books">' + label + '</a>';
+          var palClass = (tag.palette >= 0) ? ' tag-palette-' + tag.palette : '';
+          return '<a href="index.html?tags=' + tag.code + '" class="tag-badge' + palClass + '" title="Show all ' + tagLabel(tag.code, tag.label, "en") + ' books">' + label + '</a>';
         }).join("");
       }
 
       function updatePageHeader() {
         var lang = currentLang();
         var pageTitle = document.getElementById("pageTitle");
-        var pageSubtitle = document.getElementById("pageSubtitle");
-        var pageSubRow = document.getElementById("pageSubRow");
+        var pageSubtitle = document.getElementById("readerPageSubtitle");
+        var pageSubRow = document.getElementById("readerPageSubRow");
 
         if (lang === "en") {
           pageTitle.textContent = metadata.titleEN || metadata.bookCode;
@@ -161,7 +167,10 @@ initializePageWithMetadata(async function (metadata) {
       const LS = {
         get(key, fallback) {
           try {
-            const v = localStorage.getItem("reader:" + key);
+            // Accept full "reader:"-prefixed keys (window.LS_KEYS constants)
+            // or bare keys (e.g. per-book "hiddenColumns:") — never double-prefix.
+            const fullKey = key.indexOf("reader:") === 0 ? key : "reader:" + key;
+            const v = localStorage.getItem(fullKey);
             return v !== null ? JSON.parse(v) : fallback;
           } catch (_) {
             return fallback;
@@ -169,13 +178,14 @@ initializePageWithMetadata(async function (metadata) {
         },
         set(key, val) {
           try {
-            localStorage.setItem("reader:" + key, JSON.stringify(val));
+            const fullKey = key.indexOf("reader:") === 0 ? key : "reader:" + key;
+            localStorage.setItem(fullKey, JSON.stringify(val));
           } catch (_) {}
         },
       };
 
       var ROWS_PER_CHUNK = 25;
-      STATE.hideTashkeel = LS.get("hideTashkeel", false);
+      STATE.hideTashkeel = LS.get(window.LS_KEYS.readerHideTashkeel, false);
       // Per-book key: a global hiddenColumns list leaks indices from the
       // previous book into the next (e.g. bodyAR stays hidden because column
       // 2 was hidden in the last book). Reset fixes it — now it can't happen.
@@ -215,10 +225,10 @@ initializePageWithMetadata(async function (metadata) {
       var normAllData = buildNormData(allData);
 
       // DOM refs
-      const searchInput = document.getElementById("searchInput");
-      const searchClear = document.getElementById("searchClear");
-      const searchInfo = document.getElementById("searchInfo");
-      const searchResults = document.getElementById("searchResults");
+      const searchInput = document.getElementById("readerSearchInput");
+      const readerSearchClear = document.getElementById("readerSearchClear");
+      const readerResultCount = document.getElementById("readerResultCount");
+      const searchResultsEl = document.getElementById("searchResultsDropdown");
       const advSearchOverlay = document.getElementById("advancedSearchOverlay");
       const advSearchRows = document.getElementById("advancedSearchRows");
       const btnTashkeel = document.getElementById("btnTashkeel");
@@ -247,7 +257,7 @@ initializePageWithMetadata(async function (metadata) {
         for (let i = 0; i < maxCols; i++) {
           const btn = document.createElement("button");
           btn.className =
-            "col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
+            "toolbar-btn col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
           btn.textContent = colLabel(i);
           btn.title = "Toggle column " + colLabel(i);
           btn.addEventListener("click", function () {
@@ -269,7 +279,7 @@ initializePageWithMetadata(async function (metadata) {
       buildColumnToggles();
 
       // Shared: close all dropdowns (columns, export, Quran ayah/juz/content/display, surah overlay)
-      var _ddIds = ["columnDropdown", "exportDropdown", "searchHistory", "qrnAyahDropdown", "qrnJuzDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
+      var _ddIds = ["columnDropdown", "exportDropdown", "searchHistoryDropdown", "qrnAyahDropdown", "qrnJuzDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
 
       window.closeAllDropdowns = function () {
         _ddIds.forEach(function (id) {
@@ -299,17 +309,17 @@ initializePageWithMetadata(async function (metadata) {
       };
 
       // Column dropdown toggle
-      var btnColDropdown = document.getElementById("btnColDropdown");
+      var btnColumnDropdown = document.getElementById("btnColumnDropdown");
       var columnDropdown = document.getElementById("columnDropdown");
-      btnColDropdown.addEventListener("click", function (e) {
+      btnColumnDropdown.addEventListener("click", function (e) {
         e.stopPropagation();
         if (columnDropdown.style.display === "none" || !columnDropdown.style.display) {
-          window.openDropdown(columnDropdown, btnColDropdown);
+          window.openDropdown(columnDropdown, btnColumnDropdown);
         } else {
           columnDropdown.style.display = "none";
         }
       });
-      window.registerDropdown("columnDropdown", columnDropdown, btnColDropdown);
+      window.registerDropdown("columnDropdown", columnDropdown, btnColumnDropdown);
 
       // ── Tashkeel helpers ────────────────────────────────────
       // Unicode ranges for Arabic diacritics / tashkeel
@@ -335,12 +345,12 @@ initializePageWithMetadata(async function (metadata) {
             if (hiddenColumns.indexOf(ci) !== -1) continue;
             var ch = (headerRow && headerRow[ci]) ? headerRow[ci].toLowerCase() : "";
             if (isAyahTextColumn(ch)) {
-              var av = (row[ci] != null ? String(row[ci]).trim() : "");
-              if (av) {
-                var cb = LS.get("quranShowBraces", true);
-                var cn = LS.get("quranShowAyahNum", true);
-                var cnb = LS.get("quranShowNumBrackets", false);
-                qt += decorateAyah(av, ayahNo, cb, cn, cnb);
+              var ayahValue = (row[ci] != null ? String(row[ci]).trim() : "");
+              if (ayahValue) {
+                var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
+                var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
+                var showNumBrackets = LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false);
+                qt += decorateAyah(ayahValue, ayahNo, showBraces, showAyahNum, showNumBrackets);
                 break;
               }
             }
@@ -351,24 +361,24 @@ initializePageWithMetadata(async function (metadata) {
           var lastBook = "";
           for (var cj = 0; cj < row.length; cj++) {
             if (hiddenColumns.indexOf(cj) !== -1) continue;
-            var ch2 = (headerRow && headerRow[cj]) ? headerRow[cj].toLowerCase().replace(/-hdn$/i, "").trim() : "";
+            var colHeader2 = (headerRow && headerRow[cj]) ? headerRow[cj].toLowerCase().replace(/-hdn$/i, "").trim() : "";
             // Skip base columns
-            if (ch2 === "juzno" || ch2 === "surahno" || ch2 === "ayahno" || ch2 === "basmalah" || isAyahTextColumn(ch2)) continue;
-            var cv = (row[cj] != null ? String(row[cj]).trim() : "");
-            if (!cv) continue;
-            var bookLabel = getBookLabel(cj) || metadata.titleDV;
-            if (bookLabel && bookLabel !== lastBook) {
-              qt += bookLabel + ":\n";
-              lastBook = bookLabel;
+            if (colHeader2 === "juzno" || colHeader2 === "surahno" || colHeader2 === "ayahno" || colHeader2 === "basmalah" || isAyahTextColumn(colHeader2)) continue;
+            var cellValue = (row[cj] != null ? String(row[cj]).trim() : "");
+            if (!cellValue) continue;
+            var colSourceTitle = getColumnSourceBookTitle(cj) || metadata.titleDV;
+            if (colSourceTitle && colSourceTitle !== lastBook) {
+              qt += colSourceTitle + ":\n";
+              lastBook = colSourceTitle;
             }
-            qt += cv + "\n\n";
+            qt += cellValue + "\n\n";
           }
           return qt;
         }
         // ── Standard clipboard format ──
-        var t = "";
+        var text = "";
         if (hasRowNums && hiddenColumns.indexOf(0) === -1) {
-          t += `#${rowNum}\n\n`;
+          text += `#${rowNum}\n\n`;
         }
         var fields = [];
         var fieldStart = hasRowNums ? 1 : 0;
@@ -383,28 +393,28 @@ initializePageWithMetadata(async function (metadata) {
         for (var i = 0; i < fields.length; i++) {
           var colHeader0 = (headerRow && headerRow[fields[i].index]) ? headerRow[fields[i].index].toLowerCase() : "";
           if (colHeader0.startsWith("foot") && fields.length > 1) {
-            t += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
+            text += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
           }
           if (i > 0) {
             var prevHdr0 = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
-            if (isArDvTransition(prevHdr0, colHeader0)) { t += "\n"; }
-            if (isMatnSharhTransition(prevHdr0, colHeader0)) { t += "· · ·\n\n"; }
+            if (isArDvTransition(prevHdr0, colHeader0)) { text += "\n"; }
+            if (isMatnSharhTransition(prevHdr0, colHeader0)) { text += "· · ·\n\n"; }
           }
           if (!isFootnoteColumn(colHeader0)) {
             if (colHeader0.startsWith("head")) {
-              t += fields[i].value + "\n───────────\n\n";
+              text += fields[i].value + "\n───────────\n\n";
             } else if (colHeader0.startsWith("kitab")) {
-              t += "Kitab: " + fields[i].value + "\n\n";
+              text += "Kitab: " + fields[i].value + "\n\n";
             } else if (colHeader0.startsWith("bab")) {
-              t += "  Bab: " + fields[i].value + "\n\n";
+              text += "  Bab: " + fields[i].value + "\n\n";
             } else {
-              t += fields[i].value + "\n\n";
+              text += fields[i].value + "\n\n";
             }
           } else {
-            t += fields[i].value + "\n\n";
+            text += fields[i].value + "\n\n";
           }
         }
-        return t;
+        return text;
       }
 
       var viewMode = STATE.viewMode;      // canonical: STATE.viewMode
@@ -486,9 +496,9 @@ initializePageWithMetadata(async function (metadata) {
           var display;
           if (quranBook && isAyahTextColumn(colHeader)) {
             var ayahNo = getAyahNoFromRow(row);
-            var showBraces = LS.get("quranShowBraces", true);
-            var showAyahNum = LS.get("quranShowAyahNum", true);
-            display = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get("quranShowNumBrackets", false)), query));
+            var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
+            var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
+            display = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), query));
           } else {
             display = markupTashkeel(highlightMatches(rawVal, query));
           }
@@ -501,11 +511,11 @@ initializePageWithMetadata(async function (metadata) {
           }
           // Quran: insert source-book label when crossing into a new book (only if external books are loaded)
           if (quranBook && hasExternalColumns(metadata.bookCode)) {
-            var bookLabel = getBookLabel(colIdx);
-            if (bookLabel && bookLabel !== lastExtBook) {
-              h += '<div class="reader-quran-book-label">' + bookLabel + ':</div>';
-              lastExtBook = bookLabel;
-            } else if (!bookLabel) {
+            var colSourceTitle = getColumnSourceBookTitle(colIdx);
+            if (colSourceTitle && colSourceTitle !== lastExtBook) {
+              h += '<div class="reader-quran-book-label">' + colSourceTitle + ':</div>';
+              lastExtBook = colSourceTitle;
+            } else if (!colSourceTitle) {
               lastExtBook = "";
             }
           }
@@ -561,9 +571,9 @@ initializePageWithMetadata(async function (metadata) {
           var d;
           if (quranBook && isAyahTextColumn(hdr)) {
             var ayahNo = getAyahNoFromRow(row);
-            var showBraces = LS.get("quranShowBraces", true);
-            var showAyahNum = LS.get("quranShowAyahNum", true);
-            d = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get("quranShowNumBrackets", false)), query));
+            var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
+            var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
+            d = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), query));
           } else {
             d = markupTashkeel(highlightMatches(rawVal, query));
           }
@@ -598,11 +608,11 @@ initializePageWithMetadata(async function (metadata) {
             var gDisplay = fieldHTML(fg[gi].value, gIdx);
             // Quran book labels
             if (quranBook && hasExternalColumns(metadata.bookCode)) {
-              var gLabel = getBookLabel(gIdx);
-              if (gLabel && gLabel !== lastExtBook) {
-                gh += '<div class="reader-quran-book-label">' + gLabel + ':</div>';
-                lastExtBook = gLabel;
-              } else if (!gLabel) { lastExtBook = ""; }
+              var groupLabel = getColumnSourceBookTitle(gIdx);
+              if (groupLabel && groupLabel !== lastExtBook) {
+                gh += '<div class="reader-quran-book-label">' + groupLabel + ':</div>';
+                lastExtBook = groupLabel;
+              } else if (!groupLabel) { lastExtBook = ""; }
             }
             if (isFootnoteColumn(gHdr) && fg.length > 1) {
               gh += '<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>';
@@ -662,18 +672,18 @@ initializePageWithMetadata(async function (metadata) {
           for (var j = 0; j < row.length; j++) {
             if (hiddenColumns.indexOf(j) !== -1) continue;
             var v = (row[j] != null ? String(row[j]).trim() : "");
-            var tdHdr = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
+            var colHeader = (headerRow && headerRow[j]) ? headerRow[j].toLowerCase() : "";
             var display;
-            if (quranBook && isAyahTextColumn(tdHdr)) {
+            if (quranBook && isAyahTextColumn(colHeader)) {
               var ayahNo = getAyahNoFromRow(row);
-              var showBraces = LS.get("quranShowBraces", true);
-              var showAyahNum = LS.get("quranShowAyahNum", true);
-              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get("quranShowNumBrackets", false)), searchInput.value.trim()));
+              var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
+              var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
+              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), searchInput.value.trim()));
             } else {
               display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
             }
             var tdClass = "";
-            tdClass = columnTdClass(tdHdr);
+            tdClass = columnTdClass(colHeader);
             h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
           }
           h += '</tr>';
@@ -717,24 +727,24 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function buildClipboardText(startIdx, endIdx) {
-        var t = "";
+        var text = "";
         for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
-          if (i > startIdx) t += "\n──────────\n\n";
+          if (i > startIdx) text += "\n──────────\n\n";
           var row = filteredData[i];
           var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
-          t += rowText(row, rowNum);
+          text += rowText(row, rowNum);
         }
-        return t.trim();
+        return text.trim();
       }
 
       function expandIfOverflowing() {
         // Defer read to rAF to avoid forced sync layout during row insertion
         requestAnimationFrame(function () {
-          var rw = document.getElementById("readerWrapper");
-          var rc = document.getElementById("readerContent");
-          if (!rw || !rc) return;
-          if (rc.scrollWidth > rw.clientWidth) {
-            rw.style.maxWidth = (window.innerWidth - 20) + "px";
+          var wrapperEl = document.getElementById("readerWrapper");
+          var contentEl = document.getElementById("readerContent");
+          if (!wrapperEl || !contentEl) return;
+          if (contentEl.scrollWidth > wrapperEl.clientWidth) {
+            wrapperEl.style.maxWidth = (window.innerWidth - 20) + "px";
           }
         });
       }
@@ -831,12 +841,12 @@ initializePageWithMetadata(async function (metadata) {
           var target = start + delta;
           var duration = 250; // ms
           var startTime = performance.now();
-          function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+          function easeOut(progress) { return 1 - Math.pow(1 - progress, 3); }
           function animate(now) {
             var elapsed = now - startTime;
-            var t = Math.min(elapsed / duration, 1);
-            topScroll.scrollLeft = start + delta * easeOut(t);
-            if (t < 1) requestAnimationFrame(animate);
+            var progress = Math.min(elapsed / duration, 1);
+            topScroll.scrollLeft = start + delta * easeOut(progress);
+            if (progress < 1) requestAnimationFrame(animate);
           }
           requestAnimationFrame(animate);
         }
@@ -863,10 +873,10 @@ initializePageWithMetadata(async function (metadata) {
         }, { passive: false });
 
         // Refresh when columns are toggled
-        window.__refreshTableScrollWidth = function () {
-          var cw = applyTableWidth();
+        window.refreshTableScrollWidth = function () {
+          var colWidth = applyTableWidth();
           requestAnimationFrame(function () {
-            refreshScrollWidth(cw);
+            refreshScrollWidth(colWidth);
           });
         };
       }
@@ -879,7 +889,7 @@ initializePageWithMetadata(async function (metadata) {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
           requestAnimationFrame(function () {
-            if (window.__refreshTableScrollWidth) window.__refreshTableScrollWidth();
+            if (window.refreshTableScrollWidth) window.refreshTableScrollWidth();
           });
         } else {
           var sentinel = document.getElementById("sentinelBottom");
@@ -897,7 +907,7 @@ initializePageWithMetadata(async function (metadata) {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
           requestAnimationFrame(function () {
-            if (window.__refreshTableScrollWidth) window.__refreshTableScrollWidth();
+            if (window.refreshTableScrollWidth) window.refreshTableScrollWidth();
           });
         } else {
           var prevH = readerContent.scrollHeight;
@@ -1007,10 +1017,10 @@ initializePageWithMetadata(async function (metadata) {
         var atFirst = visibleRow === 0;
         var atLast = visibleRow >= filteredData.length - 1;
         [
-          "firstBtn",
-          "prevBtn",
-          "nextBtn",
-          "lastBtn",
+          "btnFirst",
+          "btnPrev",
+          "btnNext",
+          "btnLast",
         ].forEach(function (id, i) {
           document.getElementById(id).disabled = i < 2 ? atFirst : atLast;
         });
@@ -1026,8 +1036,8 @@ initializePageWithMetadata(async function (metadata) {
         var selHTML = pageSelectHTML(cur, total);
         // Mobile swaps the full "Page:" label for the single-letter short form
         var label = t(window.matchMedia("(max-width: 600px)").matches ? "pageOfShort" : "pageOf");
-        document.getElementById("pageNumbers").innerHTML = selHTML;
-        var pl = document.getElementById("pageLabel");
+        document.getElementById("readerPageNumbers").innerHTML = selHTML;
+        var pl = document.getElementById("readerPageLabel");
         if (pl) pl.textContent = label;
 
         // Wire page strip selects
@@ -1067,7 +1077,7 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Search ──────────────────────────────────────────────
-      let selectedResultIdx = -1; // index within searchResults DOM children
+      let selectedResultIdx = -1; // index within searchResultsEl DOM children
 
 
       function buildSnippets(row, q, compiled, normRow) {
@@ -1143,12 +1153,12 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       function updateSearchResults(query) {
-        searchResults.innerHTML = buildResultsHTML(query);
-        searchResults.style.display =
+        searchResultsEl.innerHTML = buildResultsHTML(query);
+        searchResultsEl.style.display =
           query.trim() && filteredData.length > 0 ? "" : "none";
         selectedResultIdx = -1;
         // Wire clicks
-        searchResults
+        searchResultsEl
           .querySelectorAll(".search-result[data-idx]")
           .forEach(function (el) {
             el.addEventListener("click", function () {
@@ -1163,9 +1173,9 @@ initializePageWithMetadata(async function (metadata) {
         var q = query.trim();
         if (!q) {
           filteredData = allData;
-          searchClear.style.display = "none";
-          searchInfo.style.display = "none";
-          searchResults.style.display = "none";
+          readerSearchClear.style.display = "none";
+          readerResultCount.style.display = "none";
+          searchResultsEl.style.display = "none";
           rebuildAll();
           return;
         }
@@ -1176,27 +1186,27 @@ initializePageWithMetadata(async function (metadata) {
         });
 
         addSearchHistory(q);
-        searchClear.style.display = "";
-        searchInfo.style.display = "";
-        searchInfo.textContent =
+        readerSearchClear.style.display = "";
+        readerResultCount.style.display = "";
+        readerResultCount.textContent =
           tempFiltered.length === 0
             ? t("noResults")
             : t("resultCount") + ": " + tempFiltered.length;
         if (tempFiltered.length === 0) {
           readerContent.innerHTML =
-            '<div class="reader-no-results">' + t("noMatchesMsg") + ': "' +
+            '<div class="empty-state">' + t("noMatchesMsg") + ': "' +
             query +
             '"</div>';
-          searchResults.style.display = "none";
+          searchResultsEl.style.display = "none";
             loadedStart = loadedEnd = -1;
             updatePagination();
           } else {
             // Show results without filtering — clicking jumps to real row
             var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
-            searchResults.innerHTML = buildAdvResultsHTML(query, tempFiltered, realIdxMap);
-            searchResults.style.display = "";
+            searchResultsEl.innerHTML = buildAdvResultsHTML(query, tempFiltered, realIdxMap);
+            searchResultsEl.style.display = "";
             selectedResultIdx = -1;
-            searchResults.querySelectorAll(".search-result[data-real]").forEach(function (el) {
+            searchResultsEl.querySelectorAll(".search-result[data-real]").forEach(function (el) {
               el.addEventListener("click", function () {
                 filteredData = allData;
                 searchInput.value = query;
@@ -1215,8 +1225,8 @@ initializePageWithMetadata(async function (metadata) {
       function parseQueryWithMode(query) {
         var result = parseQuery(query);
         if (wholeWordMode) {
-          result.include.forEach(function (t) { t.wholeWord = true; });
-          result.exclude.forEach(function (t) { t.wholeWord = true; });
+          result.include.forEach(function (token) { token.wholeWord = true; });
+          result.exclude.forEach(function (token) { token.wholeWord = true; });
         }
         return result;
       }
@@ -1229,11 +1239,11 @@ initializePageWithMetadata(async function (metadata) {
       });
 
       // Search history dropdown
-      var searchHistoryEl = document.getElementById("searchHistory");
+      var searchHistoryEl = document.getElementById("searchHistoryDropdown");
 
       function renderSearchHistory() {
-        var history = getSearchHistory();
-        if (history.length === 0) {
+        var searchHistoryItems = getSearchHistory();
+        if (searchHistoryItems.length === 0) {
           searchHistoryEl.style.display = "none";
           return;
         }
@@ -1241,7 +1251,7 @@ initializePageWithMetadata(async function (metadata) {
         window.openDropdown(searchHistoryEl, searchInput, 0);
         var sbRect = searchInput.getBoundingClientRect();
         searchHistoryEl.style.right = (window.innerWidth - sbRect.right) + "px";
-        searchHistoryEl.innerHTML = history.map(function (h, i) {
+        searchHistoryEl.innerHTML = searchHistoryItems.map(function (term, i) {
           return '<div class="search-history-item" data-idx="' + i + '">' +
             '<span class="hist-text">' + escapeHTML(h) + '</span>' +
             '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
@@ -1252,7 +1262,7 @@ initializePageWithMetadata(async function (metadata) {
         searchHistoryEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
           item.addEventListener("click", function (e) {
             if (e.target.classList.contains("hist-remove")) return;
-            searchInput.value = history[parseInt(this.dataset.idx)];
+            searchInput.value = searchHistoryItems[parseInt(this.dataset.idx)];
             applySearch(searchInput.value);
             searchHistoryEl.style.display = "none";
           });
@@ -1274,7 +1284,7 @@ initializePageWithMetadata(async function (metadata) {
 
       searchInput.addEventListener("focus", function () {
         if (!this.value.trim()) renderSearchHistory();
-        else searchResults.style.display = "";
+        else searchResultsEl.style.display = "";
       });
       // Debounce: one full scan per pause in typing, not one per keystroke.
       // applySearch() clears any pending timer, so explicit applies (clear
@@ -1286,7 +1296,7 @@ initializePageWithMetadata(async function (metadata) {
         var val = this.value;
         _searchDebounceTimer = setTimeout(function () { applySearch(val); }, 120);
       });
-      searchClear.addEventListener("click", function () {
+      readerSearchClear.addEventListener("click", function () {
         searchInput.value = "";
         applySearch("");
         searchInput.focus();
@@ -1294,8 +1304,8 @@ initializePageWithMetadata(async function (metadata) {
       // Close results when clicking outside
       document.addEventListener("click", function (e) {
         if (btnWholeWord.contains(e.target) || btnAdvancedSearch.contains(e.target)) return;
-        if (!searchResults.contains(e.target) && e.target !== searchInput) {
-          searchResults.style.display = "none";
+        if (!searchResultsEl.contains(e.target) && e.target !== searchInput) {
+          searchResultsEl.style.display = "none";
         }
       });
       // Re-open when focusing search with an active query
@@ -1330,13 +1340,13 @@ initializePageWithMetadata(async function (metadata) {
         });
         var needVal = OPERATORS.find(function(o){return o.id===condition.op;});
         var valDisplay = (needVal && needVal.needsValue === false) ? 'style="display:none"' : '';
-        var logicHTML = idx === 0 ? '' : '<select class="adv-logic-select" data-idx="' + idx + '" data-field="logic" title="Combine with previous condition"><option value="AND"' + (condition.logic==='AND'?' selected':'') + '>' + t("advLogicAND") + '</option><option value="OR"' + (condition.logic==='OR'?' selected':'') + '>' + t("advLogicOR") + '</option></select>';
-        return '<div class="adv-search-row" data-idx="' + idx + '">' +
+        var logicHTML = idx === 0 ? '' : '<select class="adv-logic-select" data-idx="' + idx + '" data-field="logic" title="Combine with previous condition"><option value="AND"' + (condition.logic==='AND'?' selected':'') + '>' + t("advancedLogicAND") + '</option><option value="OR"' + (condition.logic==='OR'?' selected':'') + '>' + t("advancedLogicOR") + '</option></select>';
+        return '<div class="advanced-search-row" data-idx="' + idx + '">' +
           logicHTML +
           '<select data-field="col" title="Column to search in">' + colOpts + '</select>' +
           '<select data-field="op" title="Match type">' + opOpts + '</select>' +
-          '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advValue") + '" title="Text to search for" ' + valDisplay + ' />' +
-          '<button class="adv-remove-btn" data-i18n="advRemove" title="Remove this condition">✕</button>' +
+          '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advancedValue") + '" title="Text to search for" ' + valDisplay + ' />' +
+          '<button class="advanced-remove-btn" data-i18n="advancedRemove" title="Remove this condition">✕</button>' +
           '</div>';
       }
 
@@ -1353,7 +1363,7 @@ initializePageWithMetadata(async function (metadata) {
         if (advConditions.length === 0) addCondition();
         advSearchRows.innerHTML = advConditions.map(function(c, i) { return renderConditionRow(c, i); }).join("");
         // Wire events
-        advSearchRows.querySelectorAll(".adv-search-row").forEach(function(row) {
+        advSearchRows.querySelectorAll(".advanced-search-row").forEach(function(row) {
           var idx = parseInt(row.dataset.idx);
           row.querySelector("select[data-field=col]").addEventListener("change", function(){ advConditions[idx].col = parseInt(this.value); });
           row.querySelector("select[data-field=op]").addEventListener("change", function(){
@@ -1365,7 +1375,7 @@ initializePageWithMetadata(async function (metadata) {
           });
           row.querySelector("input[data-field=val]").addEventListener("input", function(){ advConditions[idx].val = this.value; });
           row.querySelector("select[data-field=logic]") && row.querySelector("select[data-field=logic]").addEventListener("change", function(){ advConditions[idx].logic = this.value; });
-          row.querySelector(".adv-remove-btn").addEventListener("click", function(){ removeCondition(idx); });
+          row.querySelector(".advanced-remove-btn").addEventListener("click", function(){ removeCondition(idx); });
         });
       }
 
@@ -1395,16 +1405,16 @@ initializePageWithMetadata(async function (metadata) {
         var tempFiltered = result;
         advSearchOverlay.classList.remove("open");
         if (tempFiltered.length === 0) {
-          searchInfo.style.display = "";
-          searchInfo.textContent = t("noResults");
-          searchClear.style.display = "";
-          readerContent.innerHTML = '<div class="reader-no-results">' + t("noMatchesMsg") + '</div>';
+          readerResultCount.style.display = "";
+          readerResultCount.textContent = t("noResults");
+          readerSearchClear.style.display = "";
+          readerContent.innerHTML = '<div class="empty-state">' + t("noMatchesMsg") + '</div>';
           loadedStart = loadedEnd = -1;
           updatePagination();
         } else {
-          searchInfo.style.display = "";
-          searchInfo.textContent = t("resultCount") + ": " + tempFiltered.length;
-          searchClear.style.display = "";
+          readerResultCount.style.display = "";
+          readerResultCount.textContent = t("resultCount") + ": " + tempFiltered.length;
+          readerSearchClear.style.display = "";
           var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
           var q = advConditions.length > 0 ? advConditions[0].val : "";
           var resHTML = q ? buildAdvResultsHTML(q, tempFiltered, realIdxMap) : "";
@@ -1456,7 +1466,7 @@ initializePageWithMetadata(async function (metadata) {
       // ── Toolbar: tashkeel toggle ────────────────────────────
       btnTashkeel.addEventListener("click", function () {
         hideTashkeel = !hideTashkeel;
-        LS.set("hideTashkeel", hideTashkeel);
+        LS.set(window.LS_KEYS.readerHideTashkeel, hideTashkeel);
         if (hideTashkeel) {
           readerContent.classList.add("hide-tashkeel");
           btnTashkeel.classList.add("active");
@@ -1523,7 +1533,7 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Toolbar: focus mode ──────────────────────────────────
       var btnFocus = document.getElementById("btnFocus");
-      function updateRdfHeaderTop() {
+      function updateTableHeaderTop() {
         requestAnimationFrame(function () {
           var topBar = document.getElementById("topBar");
           var chrome = document.getElementById("collapsibleReaderPanel");
@@ -1534,7 +1544,7 @@ initializePageWithMetadata(async function (metadata) {
       }
       // Reader-specific post-focus recalculation
       window.addEventListener("focuschange", function () {
-        setTimeout(function () { updateRdfHeaderTop(); updateScrollPadding(); }, 350);
+        setTimeout(function () { updateTableHeaderTop(); updateScrollPadding(); }, 350);
       });
       btnFocus.addEventListener("click", function () {
         window.setFocus(!document.documentElement.hasAttribute("data-focus"));
@@ -1570,19 +1580,19 @@ initializePageWithMetadata(async function (metadata) {
         buildColumnToggles();
         // Show tashkeel
         hideTashkeel = false;
-        LS.set("hideTashkeel", false);
+        LS.set(window.LS_KEYS.readerHideTashkeel, false);
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
         // Reset Quran display settings
         if (quranBook) {
-          LS.set("quranShowBraces", true);
-          LS.set("quranShowAyahNum", true);
-          LS.set("quranShowNumBrackets", false);
-          var cb;
-          if ((cb = document.getElementById("qrnToggleBraces"))) cb.checked = true;
-          if ((cb = document.getElementById("qrnToggleAyahNum"))) cb.checked = true;
-          if ((cb = document.getElementById("qrnToggleNumBrackets"))) cb.checked = false;
-          var row = document.getElementById("qrnNumBracketsRow");
+          LS.set(window.LS_KEYS.readerQuranShowBraces, true);
+          LS.set(window.LS_KEYS.readerQuranShowAyahNum, true);
+          LS.set(window.LS_KEYS.readerQuranShowNumBrackets, false);
+          var cbEl;
+          if ((cbEl = document.getElementById("qrnToggleBraces"))) cbEl.checked = true;
+          if ((cbEl = document.getElementById("qrnToggleAyahNum"))) cbEl.checked = true;
+          if ((cbEl = document.getElementById("qrnToggleNumberBrackets"))) cbEl.checked = false;
+          var row = document.getElementById("qrnNumberBracketsRow");
           if (row) row.style.display = (document.getElementById("qrnToggleBraces").checked && document.getElementById("qrnToggleAyahNum").checked) ? "" : "none";
         }
         // Exit focus mode
@@ -1592,17 +1602,17 @@ initializePageWithMetadata(async function (metadata) {
 
       btnResetReader.addEventListener("click", function () {
         // Reset view mode to default for this book
-        STATE.viewMode = viewMode = (metadata.bookCode && metadata.bookCode.indexOf("RDF-") === 0 && window.innerWidth > window.MOBILE_BP) ? "table" : "card";
+        STATE.viewMode = viewMode = (isRadheefBook(metadata.bookCode) && window.innerWidth > window.MOBILE_BP) ? "table" : "card";
         updateViewModeUI();
         resetReaderDefaults();
       });
 
       // ── Navigation: buttons ─────────────────────────────────
       [
-        "firstBtn",
-        "prevBtn",
-        "nextBtn",
-        "lastBtn",
+        "btnFirst",
+        "btnPrev",
+        "btnNext",
+        "btnLast",
       ].forEach(function (id) {
         const delta =
           id.indexOf("first") === 0
@@ -1625,7 +1635,7 @@ initializePageWithMetadata(async function (metadata) {
       document.addEventListener("keydown", function onKey(e) {
         // Search-results navigation (when search input is focused)
         if (document.activeElement === searchInput) {
-          var items = searchResults.querySelectorAll(
+          var items = searchResultsEl.querySelectorAll(
             ".search-result[data-idx]",
           );
           if (e.key === "ArrowDown" || e.key === "ArrowUp") {
@@ -1655,7 +1665,7 @@ initializePageWithMetadata(async function (metadata) {
             return;
           }
           if (e.key === "Escape") {
-            searchResults.style.display = "none";
+            searchResultsEl.style.display = "none";
             selectedResultIdx = -1;
             return;
           }
@@ -1795,9 +1805,9 @@ initializePageWithMetadata(async function (metadata) {
       document.addEventListener("languagechange", function () {
         if (quranBook) updateQuranNavDisplay();
       });
-      updateRdfHeaderTop();
+      updateTableHeaderTop();
       expandIfOverflowing();
-      window.addEventListener("resize", function () { updateRdfHeaderTop(); expandIfOverflowing(); if (window.__refreshTableScrollWidth) window.__refreshTableScrollWidth(); });
+      window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); if (window.refreshTableScrollWidth) window.refreshTableScrollWidth(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {
@@ -1891,10 +1901,10 @@ initializePageWithMetadata(async function (metadata) {
             var scAyah = getAyahNoFromRowQuran(scRow, headerRow);
             var scInfo = getSurahInfo(scSurah);
             var scName = scInfo ? scInfo.nameAR : "";
-            scrollCounter.innerHTML = scName + ' <span class="sc-n">' + scSurah + '</span> : <span class="sc-n">' + scAyah + '</span> <span class="sc-pct">' + pct + '%</span>';
+            scrollCounter.innerHTML = scName + ' <span class="scroll-counter-num">' + scSurah + '</span> : <span class="scroll-counter-num">' + scAyah + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
           } else {
             var total = filteredData.length;
-            scrollCounter.innerHTML = '<span class="sc-n">' + total + '</span> / <span class="sc-n">' + (vRow + 1) + '</span> <span class="sc-pct">' + pct + '%</span>';
+            scrollCounter.innerHTML = '<span class="scroll-counter-num">' + total + '</span> / <span class="scroll-counter-num">' + (vRow + 1) + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
           }
           scrollCounter.classList.add("show");
           clearTimeout(scrollTimer);
@@ -1928,7 +1938,7 @@ initializePageWithMetadata(async function (metadata) {
       document.getElementById("readerWrapper").style.display = "block";
       updateScrollPadding();
       // Scroll arrows can't detect overflow while #readerWrapper was hidden
-      if (window._initScrollArrows) window._initScrollArrows();
+      if (window.initScrollArrows) window.initScrollArrows();
     }).catch(function (err) {
       showError("Error loading CSV: " + err);
     });

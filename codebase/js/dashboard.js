@@ -7,7 +7,7 @@
 
 import { tagLabel, t } from "./i18n.js";
 import { normaliseForSearch } from "./search-utils.js";
-import { loadTagDefinitions, loadBookNames, extractTags } from "./book-data.js";
+import { loadTagDefinitions, loadBookRegistry, extractTags } from "./book-data.js";
 import {
   isPinned,
   getPinnedBooks,
@@ -58,7 +58,7 @@ export async function initializeDashboard() {
   }
 
   async function loadDashboard() {
-    var bookNames = await loadBookNames();
+    var bookNames = await loadBookRegistry();
     if (!bookNames) {
       // Fetch failed — show error + Retry, don't render an empty dashboard
       document.getElementById("loadingMessage").style.display = "none";
@@ -136,11 +136,11 @@ function renderDashboard(bookNames) {
   // Apply tag filter — OR: a book shows when it carries ANY selected tag
   if (_dashFilter.tags.length > 0) {
     visible = visible.filter(function (b) {
-      var bookTags = extractTags(b.bookCode, b).map(function (t) {
-        return t.code;
+      var bookTags = extractTags(b.bookCode, b).map(function (tag) {
+        return tag.code;
       });
-      return _dashFilter.tags.some(function (tc) {
-        return bookTags.indexOf(tc) !== -1;
+      return _dashFilter.tags.some(function (tagCode) {
+        return bookTags.indexOf(tagCode) !== -1;
       });
     });
   }
@@ -169,10 +169,10 @@ function renderDashboard(bookNames) {
   });
   var tagCounts = {};
   allVisible.forEach(function (b) {
-    extractTags(b.bookCode, b).forEach(function (t) {
-      if (!tagCounts[t.code])
-        tagCounts[t.code] = { label: t.label, palette: t.palette, count: 0 };
-      tagCounts[t.code].count++;
+    extractTags(b.bookCode, b).forEach(function (tag) {
+      if (!tagCounts[tag.code])
+        tagCounts[tag.code] = { label: tag.label, palette: tag.palette, count: 0 };
+      tagCounts[tag.code].count++;
     });
   });
   // Pins filter chip
@@ -188,7 +188,7 @@ function renderDashboard(bookNames) {
     pinsChipHTML =
       '<span class="tag-chip' +
       (pinsActive ? " active" : "") +
-      '" data-tag="__pins__" title="' +
+      '" data-tag="pins" title="' +
       (pinsActive ? "Remove filter: Pinned" : "Filter by pinned") +
       '" style="color:' +
       (pinsActive ? "#fff" : "var(--color-danger-text)") +
@@ -197,7 +197,7 @@ function renderDashboard(bookNames) {
       ';border-color:var(--color-danger-text)">' +
       (pinsActive ? '<span class="chip-x">✕</span>' : "") +
       "📌 " +
-      t("dashPinsChip") +
+      t("dashboardPinsChip") +
       " <small>(" +
       pinnedVisible.length +
       ")</small></span>";
@@ -209,13 +209,13 @@ function renderDashboard(bookNames) {
   var chipsHTML = Object.keys(tagCounts)
     .sort()
     .map(function (code) {
-      var tc = tagCounts[code];
+      var tagCount = tagCounts[code];
       return window.tagChipHtml(
         code,
-        tc.label,
-        tc.palette,
+        tagCount.label,
+        tagCount.palette,
         _dashFilter.tags.indexOf(code) !== -1,
-        tc.count
+        tagCount.count
       );
     })
     .join("");
@@ -236,10 +236,10 @@ function renderDashboard(bookNames) {
 
   // Update view toggle button text — reserve the wider of Card/Table so the
   // functions row doesn't shift when the label swaps
-  var vt = document.getElementById("dashboardViewToggle");
-  if (vt) {
-    window.reserveWidestText(vt, [t("btnViewToggleText"), t("btnViewToggleCard")]);
-    vt.textContent = t(_dashTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+  var viewToggleBtn = document.getElementById("dashboardViewToggle");
+  if (viewToggleBtn) {
+    window.reserveWidestText(viewToggleBtn, [t("btnViewToggleTable"), t("btnViewToggleCard")]);
+    viewToggleBtn.textContent = t(_dashTableMode ? "btnViewToggleCard" : "btnViewToggleTable");
   }
 
   // ── Continue-reading card ──
@@ -310,16 +310,16 @@ function renderDashboard(bookNames) {
     grid.innerHTML =
       '<div class="dash-table-wrap"><table class="dash-table"><thead><tr>' +
       "<th>" +
-      t("dashColTitleAR") +
+      t("dashboardColTitleAR") +
       "</th>" +
       "<th>" +
-      t("dashColTitleDV") +
+      t("dashboardColTitleDV") +
       "</th>" +
       "<th>" +
-      t("dashColTitleEN") +
+      t("dashboardColTitleEN") +
       "</th>" +
       "<th>" +
-      t("dashColTags") +
+      t("dashboardColTags") +
       "</th></tr></thead><tbody>" +
       visible
         .map(function (book) {
@@ -332,14 +332,14 @@ function renderDashboard(bookNames) {
               ? '<div class="dash-table-tags">' +
                 pinnedBadge +
                 tags
-                  .map(function (t) {
+                  .map(function (tag) {
                     return (
                       '<span class="tag-badge' +
-                      (t.palette >= 0 ? " tag-palette-" + t.palette : "") +
+                      (tag.palette >= 0 ? " tag-palette-" + tag.palette : "") +
                       '" title="Category: ' +
-                      tagLabel(t.code, t.label, "en") +
+                      tagLabel(tag.code, tag.label, "en") +
                       '">' +
-                      tagLabel(t.code, t.label) +
+                      tagLabel(tag.code, tag.label) +
                       "</span>"
                     );
                   })
@@ -388,14 +388,14 @@ function renderDashboard(bookNames) {
             ? '<div class="card-tags">' +
               pinnedBadge +
               tags
-                .map(function (t) {
+                .map(function (tag) {
                   return (
                     '<span class="tag-badge' +
-                    (t.palette >= 0 ? " tag-palette-" + t.palette : "") +
+                    (tag.palette >= 0 ? " tag-palette-" + tag.palette : "") +
                     '" title="Category: ' +
-                    tagLabel(t.code, t.label, "en") +
+                    tagLabel(tag.code, tag.label, "en") +
                     '">' +
-                    tagLabel(t.code, t.label) +
+                    tagLabel(tag.code, tag.label) +
                     "</span>"
                   );
                 })
@@ -427,32 +427,32 @@ function renderDashboard(bookNames) {
 
 // ── Wire dashboard controls ──────────────────────────────────
 function setupDashboardControls() {
-  var si = document.getElementById("dashboardSearch");
-  var sc = document.getElementById("dashboardSearchClear");
-  var ss = document.getElementById("selDashboardSort");
-  var tc = document.getElementById("dashboardPanelTags");
-  if (!si) return;
+  var searchInput = document.getElementById("dashboardSearchInput");
+  var searchClear = document.getElementById("dashboardSearchClear");
+  var sortSelect = document.getElementById("dashboardSortSelect");
+  var tagsPanel = document.getElementById("dashboardPanelTags");
+  if (!searchInput) return;
 
-  si.addEventListener("input", function () {
+  searchInput.addEventListener("input", function () {
     _dashFilter.search = this.value;
-    sc.style.display = this.value ? "" : "none";
+    searchClear.style.display = this.value ? "" : "none";
     renderDashboard(_lastBookNames);
   });
-  sc.addEventListener("click", function () {
-    si.value = "";
+  searchClear.addEventListener("click", function () {
+    searchInput.value = "";
     _dashFilter.search = "";
-    sc.style.display = "none";
+    searchClear.style.display = "none";
     refreshView();
-    si.focus();
+    searchInput.focus();
   });
-  ss.addEventListener("change", function () {
+  sortSelect.addEventListener("change", function () {
     _dashFilter.sort = this.value;
     refreshView();
   });
   // Native selects size to the selected option — reserve the widest option so
   // the row doesn't shift when the sort changes (the Arabic options differ in
   // width; re-measured on language change below)
-  window.reserveWidestText(ss);
+  window.reserveWidestText(sortSelect);
   // Tag row collapse — the chevron appears only when the chips overflow one
   // row; refresh re-measures after every chips re-render (search/reset/lang).
   _refreshTags = window.initTagsCollapse("dashboardTagsCollapse", "dashboardTagsToggle");
@@ -465,7 +465,7 @@ function setupDashboardControls() {
   if (libBtn) {
     libBtn.addEventListener("click", function (e) {
       var params = new URLSearchParams();
-      var q = (si.value || "").trim();
+      var q = (searchInput.value || "").trim();
       if (q) params.set("q", q);
       if (_dashFilter.tags.length > 0)
         params.set("tags", _dashFilter.tags.join(","));
@@ -474,13 +474,13 @@ function setupDashboardControls() {
       window.location.href = qs ? "library-search.html?" + qs : "library-search.html";
     });
   }
-  tc.addEventListener("click", function (e) {
+  tagsPanel.addEventListener("click", function (e) {
     var chip = e.target.closest(".tag-chip");
     if (!chip) return;
     var tag = chip.dataset.tag;
-    if (tag === "__pins__") {
+    if (tag === "pins") {
       _dashFilter.pinsOnly = !_dashFilter.pinsOnly;
-    } else if (tag === "__all__") {
+    } else if (tag === window.TAG_ALL) {
       _dashFilter.tags = [];
     } else {
       var idx = _dashFilter.tags.indexOf(tag);
@@ -513,16 +513,16 @@ function setupDashboardControls() {
 
   // Escape handled centrally in common.js
 
-  var vt = document.getElementById("dashboardViewToggle");
-  if (vt)
-    vt.addEventListener("click", function () {
+  var viewToggleBtn = document.getElementById("dashboardViewToggle");
+  if (viewToggleBtn)
+    viewToggleBtn.addEventListener("click", function () {
       _dashTableMode = !_dashTableMode;
       refreshView();
     });
 
-  var dr = document.getElementById("dashboardReset");
-  if (dr)
-    dr.addEventListener("click", function () {
+  var resetBtn = document.getElementById("dashboardReset");
+  if (resetBtn)
+    resetBtn.addEventListener("click", function () {
       _dashFilter = {
         search: "",
         tags: [],
@@ -530,9 +530,9 @@ function setupDashboardControls() {
         pinsOnly: false,
       };
       _dashTableMode = false;
-      si.value = "";
-      sc.style.display = "none";
-      ss.value = "az";
+      searchInput.value = "";
+      searchClear.style.display = "none";
+      sortSelect.value = "az";
       history.replaceState(null, "", window.location.pathname);
       // NOTE: pins & history survive the dashboard reset — they only clear via
       // the modals' confirmed "Clear all" or the settings button.
@@ -544,8 +544,8 @@ function setupDashboardControls() {
     var wrap = document.getElementById("dashboardPanelFunctions");
     var scroller = wrap && wrap.querySelector(".dash-functions-scroll");
     if (!scroller) return;
-    var startBtn = document.getElementById("dashboardFuncScrollStart");
-    var endBtn = document.getElementById("dashboardFuncScrollEnd");
+    var startBtn = document.getElementById("dashboardFunctionScrollStart");
+    var endBtn = document.getElementById("dashboardFunctionScrollEnd");
     var STEP = 240;
 
     function updateArrows() {
@@ -600,28 +600,28 @@ function setupDashboardControls() {
       !isInput
     ) {
       e.preventDefault();
-      si.focus();
+      searchInput.focus();
     }
     if (e.key === "z" && !isInput && e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
       window.setFocus(!document.documentElement.hasAttribute("data-focus"));
     }
-    if (e.key === "Escape" && isInput && e.target === si) {
-      si.value = "";
+    if (e.key === "Escape" && isInput && e.target === searchInput) {
+      searchInput.value = "";
       _dashFilter.search = "";
-      sc.style.display = "none";
+      searchClear.style.display = "none";
       refreshView();
-      si.blur();
+      searchInput.blur();
     }
     if (e.key === "p" && !isInput && e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
-      var bpd = document.getElementById("btnPinsDropdown");
-      if (bpd) bpd.click();
+      var pinsBtn = document.getElementById("btnPinsDropdown");
+      if (pinsBtn) pinsBtn.click();
     }
     if (e.key === "h" && !isInput && e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
-      var bhd = document.getElementById("btnHistoryDropdown");
-      if (bhd) bhd.click();
+      var historyBtn = document.getElementById("btnHistoryDropdown");
+      if (historyBtn) historyBtn.click();
     }
   });
 
@@ -635,7 +635,7 @@ function setupDashboardControls() {
   }
 
   // Auto-focus search on desktop
-  if (window.innerWidth > window.MOBILE_BP) si.focus();
+  if (window.innerWidth > window.MOBILE_BP) searchInput.focus();
 }
 
 // Re-render dashboard on settings reset (if visible)
@@ -650,7 +650,7 @@ document.addEventListener("dashboardReset", function () {
 // Re-render dashboard on language change (if visible)
 document.addEventListener("languagechange", function () {
   // The sort options re-translate — re-reserve the select's width
-  window.reserveWidestText(document.getElementById("selDashboardSort"));
+  window.reserveWidestText(document.getElementById("dashboardSortSelect"));
   if (_lastBookNames && _lastBookNames.length > 0) {
     refreshView();
   }

@@ -60,7 +60,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
 | `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
 | `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
-| `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
+| `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSVRows()`, `parseCSVWithHeader()`, `fetchCSVObjects()` |
 | `js/search-utils.js`         | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/library-search-engine.js`| Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | `js/library-search-page.js`       | Library search page UI: `?q=`/`?tags=`, chips, results, peek previews      |
@@ -87,7 +87,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 |---|---|---|
 | Book metadata | `book-data.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
 | Dashboard UI | `dashboard.js` | `initializeDashboard`, `renderDashboard`, `setupDashboardControls` |
-| CSV parsing | `csv.js` | `parseCSV`, `fetchCSV`, `parseCSVWithHeader`, `loadCSVData` |
+| CSV parsing | `csv.js` | `parseCSV`, `fetchCSVRows`, `parseCSVWithHeader`, `fetchCSVObjects` |
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
 | Search engine | `search-utils.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
@@ -357,7 +357,7 @@ The settings reset button clears all of the above and resets language to Dhivehi
 Two independent direction systems coexist, and confusing them is the root of most RTL bugs:
 
 1. **UI chrome** — follows the selected UI language (dv/ar → RTL, en → LTR). `<html>` carries no `dir`; direction is set per element, so the default is LTR and every RTL element is an explicit decision.
-2. **Content fields** — each field has its own language regardless of the UI language (book titles, reader rows). The reader already sets `dir` per field; `.title-*` / `.lib-title-*` rules carry their own `direction`.
+2. **Content fields** — each field has its own language regardless of the UI language (book titles, reader rows). The reader already sets `dir` per field; `.title-*` rules carry their own `direction` (shared by book cards and library results).
 
 Chrome elements follow this decision table:
 

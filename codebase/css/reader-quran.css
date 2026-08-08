@@ -143,18 +143,14 @@
   white-space: nowrap;
 }
 .quran-content-table .chip-arrow {
-  cursor: pointer;
   padding: 0 3px;
   opacity: 0.8;
-  user-select: none;
 }
 .quran-content-table .chip-arrow:hover {
   opacity: 1;
 }
 .quran-content-table .chip-arrow-disabled {
-  opacity: 0.25;
-  cursor: default;
-  pointer-events: none;
+  opacity: 0.25; /* beats the (more specific) .chip-arrow opacity above */
 }
 .quran-preset-btn {
   box-sizing: border-box;
@@ -231,7 +227,7 @@
 }
 
 /* Empty state — surah search matched nothing */
-.qrn-surah-empty {
+.quran-surah-empty {
   text-align: center;
   padding: 30px 10px;
   color: var(--color-text-muted);
@@ -285,22 +281,7 @@
 .quran-surah-search::placeholder {
   color: var(--color-text-subtle);
 }
-.quran-surah-close {
-  width: var(--control-height, 35px);
-  height: var(--control-height, 35px);
-  padding: 0;
-  font-size: 1rem;
-  line-height: 1;
-  color: var(--color-text-muted);
-  background: none;
-  border: none;
-  border-radius: var(--radius-md, 8px);
-  cursor: pointer;
-}
-.quran-surah-close:hover {
-  background: var(--color-nav-btn-bg);
-  color: var(--color-text);
-}
+/* Close button (shared .modal-close in common.css) */
 .quran-surah-list {
   overflow-y: auto;
   overscroll-behavior: contain;

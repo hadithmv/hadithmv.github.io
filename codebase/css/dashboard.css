@@ -46,12 +46,12 @@
               gap var(--t-panel, 0.3s) ease;
 }
 
-#dashboardPanelSearch {
+#dashboardSearchPanel {
   display: flex;
   align-items: center;
   gap: var(--control-gap, 6px);
 }
-#dashboardPanelSearch .search-input {
+#dashboardSearchPanel .search-input {
   flex: 1;
   font-size: var(--panel-font-size, 0.85rem);
 }
@@ -73,7 +73,7 @@ a.toolbar-btn {
 /* Only the active chip still needs an override — the JS chip styles now use
    the danger vars, which resolve per theme. Active stays saturated red in
    every theme (like #fff): white text needs the contrast. */
-[data-theme="dark"] .tag-chip[data-tag="__pins__"].active {
+[data-theme="dark"] .tag-chip[data-tag="pins"].active {
   color: #fff !important;
   background: #dc2626 !important;
   border-color: #dc2626 !important;
@@ -187,7 +187,7 @@ a.toolbar-btn {
   gap: var(--control-gap, 6px);
   position: relative;
 }
-#dashboardSort {
+#dashboardSortSelect {
   padding-right: 6px;
 }
 #dashboardResultCount {
@@ -206,40 +206,7 @@ a.toolbar-btn {
   min-height: 160px;
 }
 
-/* Title pair — Arabic and Dhivehi at --title-scale (same size);
-   the English caption stays at base; ar/dv sit --title-gap apart,
-   --title-gap-caption before the caption */
-.book-card .title-ar,
-.book-card .title-dv {
-  font-size: calc(var(--panel-font-size, 0.85rem) * var(--title-scale, 1.2));
-}
-
-.book-card .title-ar {
-  color: var(--color-text);
-  direction: rtl;
-  text-align: right;
-  font-weight: 700;
-  margin-bottom: var(--title-gap, 4px);
-  font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
-}
-
-.book-card .title-dv {
-  color: var(--color-text);
-  direction: rtl;
-  text-align: right;
-  margin-bottom: var(--title-gap-caption, 8px);
-  font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
-}
-
-.book-card .title-en {
-  direction: ltr; /* English caption — LTR even when right-aligned */
-  text-align: right;
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
+/* Title trio (shared with library results) lives in common.css */
 
 /* ---- Tags ---- */
 .book-card .card-tags {
@@ -353,13 +320,6 @@ a.toolbar-btn {
   .book-card {
     padding: var(--card-padding-mobile, 12px);
     min-height: 120px;
-  }
-  .book-card .title-ar,
-  .book-card .title-dv {
-    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2));
-  }
-  .book-card .title-en {
-    font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   .dash-table {
     font-size: var(--panel-font-size, 0.85rem);

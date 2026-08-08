@@ -16,11 +16,6 @@ const STRINGS = {
     en: "Search this book…",
     ar: "…ابحث في هذا الكتاب",
   },
-  searchClearTitle: {
-    dv: "ހޯދުން ފޮހެލޭ",
-    en: "Clear search",
-    ar: "مسح البحث",
-  },
 
   // ── Toolbar ──
   btnAdvancedSearchText: {
@@ -44,18 +39,10 @@ const STRINGS = {
     en: "Link copied!",
     ar: "تم نسخ الرابط!",
   },
-  btnViewToggleText: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
+  btnViewToggleTable: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
   btnViewToggleCard: { dv: "📖 ކާޑް", en: "📖 Card", ar: "📖 بطاقة" },
   btnViewMode: { dv: "📖 ފެންނަ ގޮތް", en: "📖 View", ar: "📖 عرض" },
-  viewModeCard: { dv: "📄 ކާޑް", en: "📄 Card", ar: "📄 بطاقة" },
-  viewModeTable: { dv: "▦ ޓޭބަލް", en: "▦ Table", ar: "▦ جدول" },
-  viewModeParallel: { dv: "↔️ ދެފަރާތް", en: "↔️ Parallel", ar: "↔️ متوازي" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
-  btnAdvancedSearch: {
-    dv: "🔎 އެޑްވާންސްޑް ހޯދުން",
-    en: "🔎 Advanced",
-    ar: "🔎 بحث متقدم",
-  },
   advancedSearchTitle: {
     dv: "އެޑްވާންސްޑް ހޯދުން",
     en: "Advanced Search",
@@ -67,10 +54,9 @@ const STRINGS = {
     ar: "+ إضافة شرط",
   },
   btnApplySearch: { dv: "ހޯދާ", en: "Search", ar: "بحث" },
-  advColumn: { dv: "ކޮލަމް", en: "Column", ar: "عمود" },
-  advCondition: { dv: "ޝަރުތު", en: "Condition", ar: "شرط" },
-  advValue: { dv: "ލިޔުން", en: "Value", ar: "قيمة" },
-  advRemove: { dv: "✕", en: "✕", ar: "✕" },
+  advancedColumn: { dv: "ކޮލަމް", en: "Column", ar: "عمود" },
+  advancedValue: { dv: "ލިޔުން", en: "Value", ar: "قيمة" },
+  advancedRemove: { dv: "✕", en: "✕", ar: "✕" },
   condEquals: { dv: "= ސީދާ ހުރީ", en: "= equals", ar: "= يساوي" },
   condNot: { dv: "≠ މި ނުލާ", en: "≠ not", ar: "≠ لا يساوي" },
   condStarts: { dv: "◁ މީގެން ފެށޭ", en: "◁ starts with", ar: "◁ يبدأ بـ" },
@@ -116,20 +102,10 @@ const STRINGS = {
     en: "Reset all settings, pins, and history? This cannot be undone.",
     ar: "إعادة ضبط جميع الإعدادات والعلامات والسجل؟ لا يمكن التراجع عن هذا.",
   },
-  labelRowsPerPage: {
-    dv: "އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:",
-    en: "Show pages at once:",
-    ar: "عرض الصفحات:",
-  },
-  labelHideColumns: {
+  labelColumns: {
     dv: "ކޮލަމް ▾",
     en: "Columns ▾",
     ar: "أعمدة ▾",
-  },
-  labelPageNo: {
-    dv: "މި ސަފްހާގެ ނަންބަރު:",
-    en: "Current page no.:",
-    ar: "رقم الصفحة الحالية:",
   },
   // ── Pagination ──
   pageOf: { dv: "ސަފްހާ:", en: "Page:", ar: "صفحة:" },
@@ -156,7 +132,6 @@ const STRINGS = {
   },
 
   // ── Sidebar ──
-  menuTitle: { dv: "މެނޫ", en: "Menu", ar: "القائمة" },
   sidebarTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
   navDashboard: {
     dv: "ފޮތްތަކުގެ ލިސްޓް",
@@ -188,11 +163,9 @@ const STRINGS = {
     ar: "↔️ ملء الشاشة",
   },
   labelTheme: { dv: "ތީމް", en: "Theme", ar: "المظهر" },
-  btnLang: { dv: "🌐 ބަސް", en: "🌐 Language", ar: "🌐 اللغة" },
   labelSettings: { dv: "ސެޓިންގްސް", en: "Settings", ar: "الإعدادات" },
-  settingsAppearance: { dv: "ފެންނަ ގޮތް", en: "Appearance", ar: "المظهر" },
   settingsFont: { dv: "ފޮންޓް", en: "Font", ar: "الخط" },
-  btnOpenFontShort: { dv: "ފޮންޓް ސެޓިންގްސް", en: "Font settings", ar: "إعدادات الخط" },
+  btnOpenFontText: { dv: "ފޮންޓް ސެޓިންގްސް", en: "Font settings", ar: "إعدادات الخط" },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },
@@ -264,7 +237,6 @@ const STRINGS = {
   tagRAW: { dv: "⚠️ ރޯ", en: "Raw", ar: "خام" },
 
   // ── Dashboard ──
-  dashboardTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
   dashboardSearchPlaceholder: {
     dv: "ފޮތް ހޯދާ…",
     en: "Search books…",
@@ -272,7 +244,6 @@ const STRINGS = {
   },
   dashboardSortAZ: { dv: "އ ← ޒ", en: "A → Z", ar: "أ ← ز " },
   dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
-  dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
   dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
   tagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
   tagsShowMore: { dv: "އިތުރު ޓެގުތައް", en: "More tags", ar: "المزيد من الوسوم" },
@@ -283,7 +254,6 @@ const STRINGS = {
     en: "Continue reading:",
     ar: "متابعة القراءة:",
   },
-  dashboardPinsLabel: { dv: "ޕިންތައް:", en: "Pins:", ar: "تثبيت:" },
   dashboardNoMatch: {
     dv: "އެއްވެސް ފޮތެއް ނުފެނުނު",
     en: "No books found",
@@ -316,7 +286,6 @@ const STRINGS = {
     en: "Show next {n} matches",
     ar: "عرض {n} نتيجة أخرى",
   },
-  dashboardHistoryLabel: { dv: "ހިސްޓަރީ:", en: "History:", ar: "السجل:" },
   dashboardClearAll: {
     dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕",
     en: "Clear all&nbsp;&nbsp;✕",
@@ -329,8 +298,8 @@ const STRINGS = {
   ddColTime: { dv: "ވަގުތު", en: "Time", ar: "وقت" },
   ddColRemove: { dv: "ފޮހެލާ", en: "Remove", ar: "حذف" },
   ddColIdx: { dv: "#", en: "#", ar: "#" },
-  advLogicAND: { dv: "އަދި", en: "AND", ar: "و" },
-  advLogicOR: { dv: "ނުވަތަ", en: "OR", ar: "أو" },
+  advancedLogicAND: { dv: "އަދި", en: "AND", ar: "و" },
+  advancedLogicOR: { dv: "ނުވަތަ", en: "OR", ar: "أو" },
   pinsEmpty: {
     dv: "ޕިންކޮށްފައިވާ ފޮތެއް ނެތް",
     en: "No pinned books",
@@ -355,19 +324,18 @@ const STRINGS = {
     en: "✕   Clear history",
     ar: "✕   مسح السجل",
   },
-  dashColBookCode: { dv: "ކޯޑް", en: "Code", ar: "رمز" },
-  dashColTitleAR: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
-  dashColTitleDV: {
+  dashboardColTitleAR: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
+  dashboardColTitleDV: {
     dv: "ދިވެހި ނަން",
     en: "Dhivehi name",
     ar: "الاسم الديفهي",
   },
-  dashColTitleEN: {
+  dashboardColTitleEN: {
     dv: "އިނގިރޭސި ނަން",
     en: "English name",
     ar: "الاسم الإنجليزي",
   },
-  dashColTags: { dv: "ޓޭގް", en: "Tags", ar: "وسوم" },
+  dashboardColTags: { dv: "ޓޭގް", en: "Tags", ar: "وسوم" },
 
   // ── Quran navigation ──
   qrnSurah: { dv: "ސޫރަތް:", en: "Surah:", ar: "سورة:" },
@@ -395,9 +363,9 @@ const STRINGS = {
   },
 
   // ── Dashboard pins / history ──
-  dashPinsBtn: { dv: "📌 ޕިންތައް", en: "📌 Pins", ar: "📌 دبابيس" },
-  dashHistoryBtn: { dv: "🕐 ހިސްޓަރީ", en: "🕐 History", ar: "🕐 السجل" },
-  dashPinsChip: { dv: "ޕިން", en: "Pins", ar: "دبابيس" },
+  dashboardPinsBtn: { dv: "📌 ޕިންތައް", en: "📌 Pins", ar: "📌 دبابيس" },
+  dashboardHistoryBtn: { dv: "🕐 ހިސްޓަރީ", en: "🕐 History", ar: "🕐 السجل" },
+  dashboardPinsChip: { dv: "ޕިން", en: "Pins", ar: "دبابيس" },
 };
 
 /** Translate a tag code. Pass lang to override current language. Falls back to the CSV label. */

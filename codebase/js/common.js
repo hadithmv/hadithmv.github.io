@@ -44,6 +44,7 @@ window.LS_KEYS = {
 // literals (docs/ARCHITECTURE.md "Responsive"): custom properties cannot be
 // used in media conditions, so the two must match by convention.
 window.MOBILE_BP = 600;
+window.TAG_ALL = "__all__"; // the "All tags" chip's data-tag value
 
 // ── Tag chip markup (shared by dashboard + library-search pages) ──
 // Both pages render the same filter-chip row; the templates must not drift.
@@ -51,7 +52,7 @@ window.tagAllChipHtml = function (tagsActive, count) {
   return (
     '<span class="tag-chip' +
     (tagsActive ? "" : " active") +
-    '" data-tag="__all__" title="' +
+    '" data-tag="' + window.TAG_ALL + '" title="' +
     (tagsActive ? "Clear all tag filters" : "Showing all books") +
     '">' +
     t("tagFilterAll") +
@@ -162,9 +163,9 @@ window.initTagsCollapse = function (collapseId, toggleId) {
 
 // ── Theme (blocking — inline in <head>, replicated here for reader page) ─
 (function () {
-  var t = localStorage.getItem(window.LS_KEYS.theme);
-  if (t && t !== "light")
-    document.documentElement.setAttribute("data-theme", t);
+  var theme = localStorage.getItem(window.LS_KEYS.theme);
+  if (theme && theme !== "light")
+    document.documentElement.setAttribute("data-theme", theme);
 })();
 
 // ── i18n init ───────────────────────────────────────────────
@@ -200,11 +201,11 @@ function applyFontSize(idx) {
   html.style.setProperty("--panel-font-size-mobile", mobilePanelPx + "rem");
   var val = document.getElementById("fontSizeVal");
   if (val) val.textContent = size;
-  try { localStorage.setItem("fontSize", size); } catch (_) {}
+  try { localStorage.setItem(window.LS_KEYS.fontSize, size); } catch (_) {}
 }
 
 (function () {
-  var saved = (function () { try { return localStorage.getItem("fontSize"); } catch (_) { return null; } })();
+  var saved = (function () { try { return localStorage.getItem(window.LS_KEYS.fontSize); } catch (_) { return null; } })();
   var val = document.getElementById("fontSizeVal");
   var size = (saved && FONT_SIZES.indexOf(saved) !== -1) ? saved : DEFAULT_FONT_SIZE;
   html.style.setProperty("--reader-font-size", size);
@@ -223,7 +224,7 @@ function applyFontSize(idx) {
   var sel = document.getElementById("selFontFamily");
   if (!sel) return;
   var saved = (function () {
-    try { return localStorage.getItem("fontSystem") === "1" ? "system" : "hadithmv"; }
+    try { return localStorage.getItem(window.LS_KEYS.fontSystem) === "1" ? "system" : "hadithmv"; }
     catch (_) { return "hadithmv"; }
   })();
   sel.value = saved;
@@ -232,10 +233,10 @@ function applyFontSize(idx) {
     var val = this.value;
     if (val === "system") {
       html.setAttribute("data-font-system", "");
-      localStorage.setItem("fontSystem", "1");
+      localStorage.setItem(window.LS_KEYS.fontSystem, "1");
     } else {
       html.removeAttribute("data-font-system");
-      localStorage.setItem("fontSystem", "0");
+      localStorage.setItem(window.LS_KEYS.fontSystem, "0");
     }
   });
 })();
@@ -473,13 +474,13 @@ window.setFocus = function (on) {
     html.removeAttribute("data-focus");
     if (btn) { btn.classList.remove("active"); }
   }
-  try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
+  try { localStorage.setItem(window.LS_KEYS.focus, on ? "1" : "0"); } catch (_) {}
   window.dispatchEvent(new CustomEvent("focuschange", { detail: { on: on } }));
 };
 
 // Restore focus state on load
 (function () {
-  try { if (localStorage.getItem("focus") === "1") window.setFocus(true); } catch (_) {}
+  try { if (localStorage.getItem(window.LS_KEYS.focus) === "1") window.setFocus(true); } catch (_) {}
 })();
 
 // ── Settings modal ──────────────────────────────────────────
@@ -501,7 +502,7 @@ window.setFocus = function (on) {
       var val = this.value;
       if (val === "light") document.documentElement.removeAttribute("data-theme");
       else document.documentElement.setAttribute("data-theme", val);
-      localStorage.setItem("theme", val === "light" ? "" : val);
+      localStorage.setItem(window.LS_KEYS.theme, val === "light" ? "" : val);
     });
   })();
 
@@ -519,12 +520,12 @@ window.setFocus = function (on) {
       }
     }
     // Restore saved or use default
-    var saved = (function () { try { return localStorage.getItem("contentWidth"); } catch (_) { return null; } })();
+    var saved = (function () { try { return localStorage.getItem(window.LS_KEYS.contentWidth); } catch (_) { return null; } })();
     if (saved) { sel.value = saved; apply(saved); }
     sel.addEventListener("change", function () {
       var val = this.value;
       apply(val);
-      try { localStorage.setItem("contentWidth", val); } catch (_) {}
+      try { localStorage.setItem(window.LS_KEYS.contentWidth, val); } catch (_) {}
     });
   })();
 
@@ -534,27 +535,27 @@ window.setFocus = function (on) {
     window.confirmModal("btnResetSettings", "confirmResetAll", "btnReset", function () {
       var html = document.documentElement;
       html.removeAttribute("data-theme");
-      localStorage.setItem("theme", "");
-      var thSel = document.getElementById("selTheme");
-      if (thSel) thSel.value = "light";
+      localStorage.setItem(window.LS_KEYS.theme, "");
+      var themeSelect = document.getElementById("selTheme");
+      if (themeSelect) themeSelect.value = "light";
       html.removeAttribute("data-widescreen");
       html.style.removeProperty("--content-width");
-      localStorage.removeItem("contentWidth");
-      var wsSel = document.getElementById("selWidth");
-      if (wsSel) wsSel.value = "800px";
+      localStorage.removeItem(window.LS_KEYS.contentWidth);
+      var widthSelect = document.getElementById("selWidth");
+      if (widthSelect) widthSelect.value = "800px";
       // Delegate font + reader resets
-      var btnRF = document.getElementById("btnResetFont");
-      if (btnRF) btnRF.click();
-      var btnRR = document.getElementById("btnResetReader");
-      if (btnRR) btnRR.click();
+      var resetFontBtn = document.getElementById("btnResetFont");
+      if (resetFontBtn) resetFontBtn.click();
+      var resetReaderBtn = document.getElementById("btnResetReader");
+      if (resetReaderBtn) resetReaderBtn.click();
       // Clear LS keys that the delegated buttons don't touch
-      localStorage.removeItem("reader:searchHistory");
-      localStorage.removeItem("focus");
+      localStorage.removeItem(window.LS_KEYS.readerSearchHistory);
+      localStorage.removeItem(window.LS_KEYS.focus);
       // Pins & history — part of the full reset (confirmed above)
       try { localStorage.removeItem(window.LS_KEYS.pinnedBooks); } catch (_) {}
       try { localStorage.removeItem(window.LS_KEYS.readHistory); } catch (_) {}
       document.dispatchEvent(new CustomEvent("dashboardReset"));
-      localStorage.removeItem("lang");
+      localStorage.removeItem(window.LS_KEYS.lang);
       var sel = document.getElementById("selLanguage");
       if (sel) sel.value = "dv";
       window.closeModal("settingsOverlay");
@@ -580,13 +581,13 @@ window.setFocus = function (on) {
     html.style.setProperty("--reader-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.88 * 100) / 100 + "rem");
     html.style.setProperty("--panel-font-size", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 100) / 100 + "rem");
     html.style.setProperty("--panel-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 0.9 * 100) / 100 + "rem");
-    localStorage.removeItem("fontSize");
-    var fsv = document.getElementById("fontSizeVal");
-    if (fsv) fsv.textContent = DEFAULT_FONT_SIZE;
+    localStorage.removeItem(window.LS_KEYS.fontSize);
+    var fontSizeVal = document.getElementById("fontSizeVal");
+    if (fontSizeVal) fontSizeVal.textContent = DEFAULT_FONT_SIZE;
     html.removeAttribute("data-font-system");
-    localStorage.setItem("fontSystem", "0");
-    var ffSel = document.getElementById("selFontFamily");
-    if (ffSel) ffSel.value = "hadithmv";
+    localStorage.setItem(window.LS_KEYS.fontSystem, "0");
+    var fontFamilySelect = document.getElementById("selFontFamily");
+    if (fontFamilySelect) fontFamilySelect.value = "hadithmv";
     document.dispatchEvent(new CustomEvent("readerReset"));
   });
   // Backdrop click + Escape handled by unified wireModal
@@ -598,7 +599,7 @@ window.setFocus = function (on) {
   if (!sel) return;
   // Restore saved
   try {
-    var saved = localStorage.getItem("lang");
+    var saved = localStorage.getItem(window.LS_KEYS.lang);
     if (saved) sel.value = saved;
   } catch (_) {}
   sel.addEventListener("change", function () {

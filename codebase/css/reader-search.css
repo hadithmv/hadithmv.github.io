@@ -86,7 +86,7 @@
   color: var(--color-error-text);
 }
 
-.adv-search-row {
+.advanced-search-row {
   display: flex;
   align-items: center;
   gap: var(--control-gap, 6px);
@@ -98,9 +98,9 @@
   flex-wrap: wrap;
 }
 
-.adv-search-row select,
-.adv-search-row input,
-.adv-remove-btn {
+.advanced-search-row select,
+.advanced-search-row input,
+.advanced-remove-btn {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 8px;
@@ -112,15 +112,15 @@
   vertical-align: middle;
 }
 
-.adv-search-row select,
-.adv-search-row input {
+.advanced-search-row select,
+.advanced-search-row input {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
 }
 
-.adv-search-row select {
+.advanced-search-row select {
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
@@ -130,12 +130,12 @@
   background-position: left 6px center;
 }
 
-.adv-search-row input {
+.advanced-search-row input {
   flex: 1;
   min-width: 80px;
 }
 
-.adv-remove-btn {
+.advanced-remove-btn {
   color: var(--color-error-text);
   background: none;
   border: 1px solid var(--color-error-text);
@@ -143,8 +143,21 @@
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
-.adv-remove-btn:hover {
+.advanced-remove-btn:hover {
   opacity: 0.7;
+}
+/* Solid (inverted) apply button — full row width inside the form */
+.advanced-apply-btn {
+  flex: 1;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-bg);
+  background: var(--color-text);
+  border: 1px solid var(--color-text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
 /* ---- Search results dropdown ---- */
@@ -159,6 +172,14 @@
   border-radius: var(--radius-md, 8px);
   box-shadow: 0 4px 12px var(--color-shadow-card-hover);
   z-index: var(--z-dropdown, 60);
+}
+
+/* Search history — deltas over .search-results; positioned by
+   window.openDropdown (fixed) + a JS-set right edge */
+.search-history-dropdown {
+  max-height: 320px;
+  overflow-x: hidden;
+  direction: rtl;
 }
 
 .search-result {
@@ -191,12 +212,6 @@
   min-width: 28px;
   direction: ltr;
   text-align: left;
-}
-
-.search-result-sep {
-  color: var(--color-text-subtle);
-  font-weight: 700;
-  margin: 0 4px;
 }
 
 .search-result-snippet {

@@ -6,7 +6,7 @@
  * The dashboard UI built on this metadata lives in dashboard.js.
  */
 
-import { loadCSVData } from "./csv.js";
+import { fetchCSVObjects } from "./csv.js";
 
 let _bookNamesCache = null;
 let _tagDefinitionsCache = null;
@@ -62,7 +62,7 @@ export async function loadTagDefinitions() {
   }
 
   try {
-    var result = await loadCSVData("../data/01-registry-bookTags.csv");
+    var result = await fetchCSVObjects("../data/01-registry-bookTags.csv");
 
     // Generate palette CSS with enough slots (tags + headroom)
     var tagCount = 0;
@@ -135,20 +135,20 @@ function extractTags(bookCode, entry) {
 // ---------------------------------------------------------------------------
 
 /**
- * Load bookNames.csv and parse it using parseCSV.
+ * Load the book registry (02-registry-bookMeta.csv) and parse it using parseCSV.
  * Uses a cache so the file is only fetched once per page load.
  * @returns {Promise<Array>} Array of book metadata objects (empty on error)
  */
-export async function loadBookNames() {
+export async function loadBookRegistry() {
   if (_bookNamesCache) {
     return _bookNamesCache;
   }
 
   try {
-    _bookNamesCache = await loadCSVData("../data/02-registry-bookMeta.csv");
+    _bookNamesCache = await fetchCSVObjects("../data/02-registry-bookMeta.csv");
     return _bookNamesCache;
   } catch (error) {
-    console.error("Error loading bookNames.csv:", error);
+    console.error("Error loading 02-registry-bookMeta.csv:", error);
     return null; // null signals fetch failure (vs empty registry)
   }
 }
@@ -159,7 +159,7 @@ export async function loadBookNames() {
  * @returns {Promise<Object|null>} The metadata object or null if not found
  */
 export async function getPageMetadata(bookCode) {
-  const bookNames = await loadBookNames();
+  const bookNames = await loadBookRegistry();
   if (!bookNames) return null;
   return bookNames.find((entry) => entry.bookCode === bookCode) || null;
 }

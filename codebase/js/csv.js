@@ -68,7 +68,7 @@ export function parseCSV(text) {
 /**
  * Fetch a CSV file, parse it, and filter out empty rows.
  */
-export async function fetchCSV(path) {
+export async function fetchCSVRows(path) {
   var resp = await fetch(path);
   if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
   var text = await resp.text();
@@ -95,7 +95,7 @@ export function parseCSVWithHeader(text) {
 /**
  * Fetch a CSV file and parse it into objects using the first row as headers.
  */
-export async function loadCSVData(path) {
+export async function fetchCSVObjects(path) {
   var resp = await fetch(path);
   if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
   var text = await resp.text();
@@ -108,15 +108,17 @@ export async function loadCSVData(path) {
 // of each book CSV) guards staleness: if the file changed, the hash differs
 // and the cache is refreshed. Every failure path degrades to a plain fetch.
 
+var IDB_NAME = "hadithmv";
+var BOOKS_STORE = "books";
 var _idbPromise = null;
 
 function openCacheDB() {
   if (_idbPromise) return _idbPromise;
   _idbPromise = new Promise(function (resolve) {
     if (!("indexedDB" in window)) return resolve(null);
-    var req = indexedDB.open("hadithmv", 1);
+    var req = indexedDB.open(IDB_NAME, 1);
     req.onupgradeneeded = function () {
-      req.result.createObjectStore("books", { keyPath: "bookCode" });
+      req.result.createObjectStore(BOOKS_STORE, { keyPath: "bookCode" });
     };
     req.onsuccess = function () { resolve(req.result); };
     req.onerror = function () { resolve(null); };
@@ -128,7 +130,7 @@ function idbGet(bookCode) {
   return openCacheDB().then(function (db) {
     if (!db) return null;
     return new Promise(function (resolve) {
-      var tx = db.transaction("books", "readonly").objectStore("books").get(bookCode);
+      var tx = db.transaction(BOOKS_STORE, "readonly").objectStore(BOOKS_STORE).get(bookCode);
       tx.onsuccess = function () { resolve(tx.result || null); };
       tx.onerror = function () { resolve(null); };
     });
@@ -153,7 +155,7 @@ function idbPut(bookCode, version, rows) {
 /**
  * Fetch a book CSV through the on-device cache.
  * `version` is the registry's content-hash column; empty string bypasses the
- * cache (no trust). Returns the parsed 2D array — same shape as fetchCSV.
+ * cache (no trust). Returns the parsed 2D array — same shape as fetchCSVRows.
  * IndexedDB returns a fresh structured-clone per read, so callers may mutate
  * the result (e.g. shift() the header) without corrupting the stored copy.
  */
@@ -164,7 +166,7 @@ export async function fetchBookCSVCached(bookCode, version, path) {
       return cached.rows;
     }
   }
-  var rows = await fetchCSV(path);
+  var rows = await fetchCSVRows(path);
   if (version) {
     // Fire-and-forget: don't delay first render on the write
     idbPut(bookCode, version, rows).catch(function () {});

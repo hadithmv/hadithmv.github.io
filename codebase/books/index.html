@@ -132,14 +132,14 @@
           <h2 class="modal-title" data-i18n="labelSettings">ސެޓިންގްސް</h2>
           <button
             id="btnResetSettings"
-            class="modal-reset-sm"
+            class="modal-reset-small"
             data-i18n="btnReset"
             title="Reset all settings"
           >
             ↺ ރީސެޓް
           </button>
           <button
-            id="modalClose"
+            id="settingsModalClose"
             class="modal-close"
             title="Close (Escape key)"
           >
@@ -182,7 +182,7 @@
             <button
               id="btnOpenFontModal"
               class="modal-select"
-              data-i18n="btnOpenFontShort"
+              data-i18n="btnOpenFontText"
             >
               ބަދަލުކުރޭ
             </button>
@@ -197,7 +197,7 @@
           <h2 class="modal-title" data-i18n="settingsFont">ފޮންޓް</h2>
           <button
             id="btnResetFont"
-            class="modal-reset-sm"
+            class="modal-reset-small"
             data-i18n="btnReset"
             title="Reset font to defaults"
           >
@@ -217,7 +217,7 @@
             <div class="font-size-row">
               <button
                 id="btnFontDown"
-                class="font-adj-btn"
+                class="font-adjust-button"
                 title="Decrease font size"
               >
                 −
@@ -225,7 +225,7 @@
               <span id="fontSizeVal" class="font-size-val">1.25rem</span>
               <button
                 id="btnFontUp"
-                class="font-adj-btn"
+                class="font-adjust-button"
                 title="Increase font size"
               >
                 +
@@ -250,7 +250,7 @@
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
       <div id="dashboardPanel">
-        <div id="dashboardPanelSearch">
+        <div id="dashboardSearchPanel">
           <button
             id="dashboardSearchClear"
             class="search-clear"
@@ -260,7 +260,7 @@
             ✕
           </button>
           <input
-            id="dashboardSearch"
+            id="dashboardSearchInput"
             type="search"
             class="search-input"
             data-i18n="dashboardSearchPlaceholder"
@@ -298,7 +298,7 @@
           <div id="dashboardPanelFunctions">
             <button
               class="scroll-arrow scroll-arrow-start hidden"
-              id="dashboardFuncScrollStart"
+              id="dashboardFunctionScrollStart"
               title="Scroll to start"
             >
               ▶
@@ -317,7 +317,7 @@
                 <button
                   id="dashboardViewToggle"
                   class="toolbar-btn"
-                  data-i18n="btnViewToggleText"
+                  data-i18n="btnViewToggleTable"
                   title="Toggle card / table view"
                 >
                   📖 ޓޭބަލް
@@ -326,7 +326,7 @@
                   id="btnPinsDropdown"
                   class="toolbar-btn"
                   title="Pinned books (Alt+P)"
-                  data-i18n="dashPinsBtn"
+                  data-i18n="dashboardPinsBtn"
                 >
                   📌 ޕިންތައް
                 </button>
@@ -334,12 +334,12 @@
                   id="btnHistoryDropdown"
                   class="toolbar-btn"
                   title="Reading history (Alt+H)"
-                  data-i18n="dashHistoryBtn"
+                  data-i18n="dashboardHistoryBtn"
                 >
                   🕐 ހިސްޓަރީ
                 </button>
                 <select
-                  id="selDashboardSort"
+                  id="dashboardSortSelect"
                   class="toolbar-select"
                   title="Sort books"
                 >
@@ -350,7 +350,7 @@
             </div>
             <button
               class="scroll-arrow scroll-arrow-end hidden"
-              id="dashboardFuncScrollEnd"
+              id="dashboardFunctionScrollEnd"
               title="Scroll to end"
             >
               ◀

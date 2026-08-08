@@ -5,10 +5,10 @@
  * fuzzy matching, whole‑word, regex, and column‑scoped queries.
  * Used by both the book reader and the dashboard search.
  *
- * Exports: normaliseForSearch, parseQuery, compileQuery, rowMatchesQuery,
- *          rowMatchesQueryNorm, matchTerm, buildNormData, highlightMatches,
- *          buildSnippets, escapeHTML, addSearchHistory,
- *          getSearchHistory, clearSearchHistory, MAX_HISTORY
+ * Exports: normaliseForSearch, escapeHTML, escapeXML, highlightMatches,
+ *          parseQuery, compileQuery, rowMatchesQuery, rowMatchesQueryNorm,
+ *          buildNormData, buildSnippets, addSearchHistory, getSearchHistory,
+ *          removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY
  */
 
 // ── Text normalisation ──────────────────────────────────────
@@ -125,7 +125,7 @@ function compileTerm(term, wholeWord, fuzzyFlag) {
   var fuzzy = !!fuzzyFlag;
   var fuzzyTerm = nterm;
   // Fuzzy: ~term or term~. parseQuery strips the markers and sets the flag;
-  // direct callers of matchTerm may pass them inside the term string instead.
+  // the inline markers are also handled here so raw terms work either way.
   if (nterm[0] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(1); }
   if (nterm[nterm.length - 1] === "~") { fuzzy = true; fuzzyTerm = nterm.slice(0, -1); }
   var re = null;
@@ -153,15 +153,6 @@ function matchCompiled(normText, term) {
   if (term.fuzzy) return fuzzyMatch(normText, term.fuzzyTerm, 2);
   if (term.re) return term.re.test(normText);
   return normText.indexOf(term.nterm) !== -1;
-}
-
-/**
- * Check if `text` matches a single `term` with modifiers.
- * Per-call convenience wrapper — the hot paths use compileTerm +
- * matchCompiled so nothing is re-normalised or recompiled per cell.
- */
-export function matchTerm(text, term, wholeWord) {
-  return matchCompiled(normaliseForSearch(text), compileTerm(term, wholeWord));
 }
 
 function fuzzyMatch(text, pattern, maxDist) {
@@ -310,8 +301,8 @@ export function rowMatchesQuery(row, parsed) {
 export function rowMatchesQueryNorm(row, normRow, compiled) {
   if (compiled.regex) {
     return row.some(function (cell, i) {
-      var nc = normRow ? normRow[i] : (cell != null ? normaliseForSearch(String(cell)) : null);
-      return nc != null && compiled.regex.test(nc);
+      var normCell = normRow ? normRow[i] : (cell != null ? normaliseForSearch(String(cell)) : null);
+      return normCell != null && compiled.regex.test(normCell);
     });
   }
 
@@ -321,10 +312,10 @@ export function rowMatchesQueryNorm(row, normRow, compiled) {
     var matched = false;
     for (var j = 0; j < cols.length; j++) {
       var cell = cols[j];
-      var nc = normRow
+      var normCell = normRow
         ? (inc.col !== null ? normRow[inc.col] : normRow[j])
         : (cell != null ? normaliseForSearch(String(cell)) : null);
-      if (nc != null && matchCompiled(nc, inc.term)) { matched = true; break; }
+      if (normCell != null && matchCompiled(normCell, inc.term)) { matched = true; break; }
     }
     if (!matched) return false;
   }
@@ -333,10 +324,10 @@ export function rowMatchesQueryNorm(row, normRow, compiled) {
     var excCols = exc.col !== null ? [row[exc.col]] : row;
     for (var l = 0; l < excCols.length; l++) {
       var eCell = excCols[l];
-      var eNc = normRow
+      var excNormCell = normRow
         ? (exc.col !== null ? normRow[exc.col] : normRow[l])
         : (eCell != null ? normaliseForSearch(String(eCell)) : null);
-      if (eNc != null && matchCompiled(eNc, exc.term)) return false;
+      if (excNormCell != null && matchCompiled(excNormCell, exc.term)) return false;
     }
   }
   return true;
@@ -354,12 +345,12 @@ export function buildNormData(rows) {
   var out = new Array(rows.length);
   for (var i = 0; i < rows.length; i++) {
     var r = rows[i];
-    var nr = new Array(r.length);
+    var normCells = new Array(r.length);
     for (var j = 0; j < r.length; j++) {
       var c = r[j];
-      nr[j] = (c === null || c === undefined) ? null : normaliseForSearch(String(c));
+      normCells[j] = (c === null || c === undefined) ? null : normaliseForSearch(String(c));
     }
-    out[i] = nr;
+    out[i] = normCells;
   }
   return out;
 }
@@ -388,21 +379,21 @@ export function buildSnippets(row, parsed, queryForHighlight, normRow) {
   var results = [];
   for (var m = 0; m < matchingCells.length; m++) {
     var str = matchingCells[m].text;
-    var nstr = matchingCells[m].norm;
+    var normStr = matchingCells[m].norm;
     var bestPos = -1, bestLen = 0;
     for (var t = 0; t < compiled.include.length; t++) {
       var term = compiled.include[t];
       var nterm = term.term.nterm;
       if (!nterm) continue;
-      var pos = nstr.indexOf(nterm);
+      var pos = normStr.indexOf(nterm);
       if (pos !== -1 && (bestPos === -1 || pos < bestPos)) {
         bestPos = pos; bestLen = nterm.length;
       }
     }
     if (bestPos === -1) { bestPos = 0; bestLen = Math.min(str.length, 80); }
     var lower = str.toLowerCase();
-    var origStart = mapNormToOrig(lower, nstr, 0, 0, bestPos);
-    var origEnd = mapNormToOrig(lower, nstr, origStart, bestPos, bestLen);
+    var origStart = mapNormToOrig(lower, normStr, 0, 0, bestPos);
+    var origEnd = mapNormToOrig(lower, normStr, origStart, bestPos, bestLen);
     var start = Math.max(0, origStart - 150);
     var end = Math.min(str.length, origEnd + 150);
     var snip =

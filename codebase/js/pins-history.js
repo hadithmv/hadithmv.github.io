@@ -61,12 +61,12 @@ function setReadHistory(arr) {
   try { localStorage.setItem(HISTORY_KEY, JSON.stringify(arr)); } catch (_) {}
 }
 export function addReadHistory(bookCode, row, label) {
-  var h = getReadHistory().filter(function (e) { return e.bookCode !== bookCode; });
+  var historyItems = getReadHistory().filter(function (e) { return e.bookCode !== bookCode; });
   var entry = { bookCode: bookCode, row: row, timestamp: Date.now() };
   if (label) entry.label = label;
-  h.unshift(entry);
-  if (h.length > MAX_HISTORY) h.pop();
-  setReadHistory(h);
+  historyItems.unshift(entry);
+  if (historyItems.length > MAX_HISTORY) historyItems.pop();
+  setReadHistory(historyItems);
 }
 export function removeHistoryEntry(bookCode) {
   setReadHistory(getReadHistory().filter(function (e) { return e.bookCode !== bookCode; }));
@@ -101,7 +101,7 @@ function _ensureModal() {
 
 export function openPinsModal() {
   _ensureModal();
-  document.getElementById("pinsHistoryModalTitle").textContent = t("dashPinsBtn");
+  document.getElementById("pinsHistoryModalTitle").textContent = t("dashboardPinsBtn");
   var body = document.getElementById("pinsHistoryModalBody");
   body.setAttribute("data-mode", "pins");
   var pins = getPinnedBooks();
@@ -133,7 +133,7 @@ export function openPinsModal() {
     html += '</tbody></table><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
     document.getElementById("pinsClearAll").addEventListener("click", function () {
-      window.confirmModal("dashPinsBtn", "confirmAreYouSure", "dashboardClearAll", function () {
+      window.confirmModal("dashboardPinsBtn", "confirmAreYouSure", "dashboardClearAll", function () {
         clearPins();
         window.openPinsModal();
       });
@@ -145,7 +145,7 @@ export function openPinsModal() {
 
 export function openHistoryModal() {
   _ensureModal();
-  document.getElementById("pinsHistoryModalTitle").textContent = t("dashHistoryBtn");
+  document.getElementById("pinsHistoryModalTitle").textContent = t("dashboardHistoryBtn");
   var body = document.getElementById("pinsHistoryModalBody");
   body.setAttribute("data-mode", "history");
   var history = getReadHistory();
@@ -160,19 +160,19 @@ export function openHistoryModal() {
     html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
     html += '</tr></thead><tbody>';
     for (var i = 0; i < history.length; i++) {
-      var h = history[i];
-      var name = bookDisplayName(h.bookCode);
-      html += '<tr class="dd-row" data-code="' + h.bookCode + '">';
-      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + h.bookCode + '&row=' + h.row + '">' + name + '</a></td>';
-      html += '<td class="dd-col-page">' + (h.label || h.row) + '</td>';
-      html += '<td class="dd-col-time">' + timeAgo(h.timestamp) + '</td>';
+      var entry = history[i];
+      var name = bookDisplayName(entry.bookCode);
+      html += '<tr class="dd-row" data-code="' + entry.bookCode + '">';
+      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + entry.bookCode + '&row=' + entry.row + '">' + name + '</a></td>';
+      html += '<td class="dd-col-page">' + (entry.label || entry.row) + '</td>';
+      html += '<td class="dd-col-time">' + timeAgo(entry.timestamp) + '</td>';
       html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';
       html += '</tr>';
     }
     html += '</tbody></table><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
     document.getElementById("historyClearAll").addEventListener("click", function () {
-      window.confirmModal("dashHistoryBtn", "confirmAreYouSure", "dashboardClearAll", function () {
+      window.confirmModal("dashboardHistoryBtn", "confirmAreYouSure", "dashboardClearAll", function () {
         clearReadHistory();
         window.openHistoryModal();
       });
@@ -188,16 +188,16 @@ window.openHistoryModal = openHistoryModal;
 
 // ── Sidebar wiring (reader + dashboard) ─────────────────────
 (function () {
-  var sp = document.getElementById("sidebarPins");
-  if (sp) sp.addEventListener("click", function () {
+  var sidebarPinsBtn = document.getElementById("sidebarPins");
+  if (sidebarPinsBtn) sidebarPinsBtn.addEventListener("click", function () {
     var sidebar = document.getElementById("sidebar");
     if (sidebar) sidebar.classList.remove("open");
     var sOverlay = document.getElementById("sidebarOverlay");
     if (sOverlay) sOverlay.classList.remove("open");
     window.openPinsModal();
   });
-  var sh = document.getElementById("sidebarHistory");
-  if (sh) sh.addEventListener("click", function () {
+  var sidebarHistoryBtn = document.getElementById("sidebarHistory");
+  if (sidebarHistoryBtn) sidebarHistoryBtn.addEventListener("click", function () {
     var sidebar = document.getElementById("sidebar");
     if (sidebar) sidebar.classList.remove("open");
     var sOverlay = document.getElementById("sidebarOverlay");

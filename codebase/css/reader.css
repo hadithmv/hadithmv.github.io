@@ -109,12 +109,6 @@
   box-shadow: none;
 }
 
-.subrow-left {
-  display: flex;
-  align-items: baseline;
-  gap: var(--control-gap, 6px);
-}
-
 
 /* ---- Widescreen (full-width) mode ---- */
 [data-widescreen] #readerContent {
@@ -123,36 +117,25 @@
   border-right: none;
 }
 
-.font-family-label {
-  font-size: var(--panel-font-size, 0.85rem);
-  color: var(--color-text-subtle);
-  margin-right: 0;
-  margin-left: auto;
-}
-
 
 /* ---- Page header ---- */
-#pageHeader {
+#readerPageHeader {
   max-width: 800px;
   margin: 0 auto;
   padding: 8px 20px 16px;
   border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
 }
 
-#pageHeader {
+#readerPageHeader {
   position: relative;
 }
 
-.back-link:hover {
-  color: var(--color-text);
-}
-
-#pageHeader h1 {
+#readerPageHeader h1 {
   margin: 0 0 10px 0;
   font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
 }
 
-#pageSubtitle {
+#readerPageSubtitle {
   font-size: var(--panel-font-size, 0.85rem);
   line-height: 2.2;
   color: var(--color-text-muted);
@@ -160,7 +143,7 @@
   white-space: nowrap;
 }
 
-#pageSubRow {
+#readerPageSubRow {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -169,13 +152,7 @@
   white-space: nowrap;
 }
 
-.subrow-right {
-  display: flex;
-  align-items: baseline;
-  gap: var(--control-gap, 6px);
-}
-
-#pageSubRow #pageTags {
+#readerPageSubRow #readerPageTags {
   margin-top: 0;
 }
 
@@ -196,36 +173,11 @@
   display: none;
 }
 
-/* Column toggle buttons */
+/* Column toggle buttons (shared .toolbar-btn base in common.css) */
 .column-toggles {
   display: flex;
   align-items: center;
   gap: var(--control-gap, 6px);
-}
-
-.col-toggle {
-  box-sizing: border-box;
-  height: var(--control-height, 35px);
-  padding: 0 7px;
-  line-height: var(--control-line-height, 33px);
-  font-size: 0.72rem;
-  font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
-  transition:
-    background var(--t-hover, 0.15s) ease,
-    border-color var(--t-hover, 0.15s) ease,
-    color var(--t-hover, 0.15s) ease;
-  white-space: nowrap;
-}
-
-.col-toggle:hover {
-  background: var(--color-nav-btn-hover-bg);
-  border-color: var(--color-card-hover-border);
 }
 
 .col-toggle.off {
@@ -280,24 +232,10 @@
   overflow-y: auto;
 }
 
-.export-option {
-  display: block;
-  width: 100%;
+/* Export options (shared .dd-item base in common.css) — deltas over it */
+.export-dropdown .export-option {
   padding: 6px 12px;
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
   text-align: right;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  color: var(--color-text);
-  background: none;
-  border: none;
-  border-radius: var(--radius-sm, 6px);
-  cursor: pointer;
-  transition: background var(--t-fast, 0.1s) ease;
-}
-
-.export-option:hover {
-  background: var(--color-nav-btn-hover-bg);
 }
 
 /* ── View mode dropdown ── */
@@ -331,12 +269,6 @@
 }
 
 /* ── Multi-row page separator ── */
-.reader-page-sep {
-  border: none;
-  border-top: 1px dashed var(--color-divider);
-  margin: 28px 0;
-}
-
 /* ── Copy feedback toast ── */
 .copy-toast {
   position: fixed;
@@ -363,7 +295,7 @@
 
 /* ---- Horizontal scroll wrapper (toolbar & nav) ---- */
 
-.h-scroll-wrap {
+.horizontal-scroll-wrap {
   display: flex;
   align-items: center;
   position: relative;
@@ -371,18 +303,18 @@
   overflow: hidden;
 }
 /* The row itself scrolls — wrap just provides arrow space */
-.h-scroll-wrap .reader-panel-row {
+.horizontal-scroll-wrap .reader-panel-row {
   overflow-x: auto;
   scrollbar-width: none;
   flex: 1;
   min-width: 0;
   margin: 0;
 }
-.h-scroll-wrap .reader-panel-row::-webkit-scrollbar {
+.horizontal-scroll-wrap .reader-panel-row::-webkit-scrollbar {
   display: none;
 }
 
-.h-scroll-wrap .scroll-arrow {
+.horizontal-scroll-wrap .scroll-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -401,7 +333,7 @@
 }
 
 /* Quran row arrows sit higher — nudge down */
-.h-scroll-wrap:has(.quran-nav) .scroll-arrow {
+.horizontal-scroll-wrap:has(.quran-nav) .scroll-arrow {
   padding-top: 6px;
 }
 [dir="rtl"] .scroll-arrow-start {
@@ -433,13 +365,6 @@
   display: flex;
   align-items: center;
   gap: var(--control-gap, 6px);
-}
-
-.nav-goto {
-  display: flex;
-  align-items: center;
-  gap: var(--control-gap, 6px);
-  flex-shrink: 0;
 }
 
 /* Left side: page buttons */
@@ -490,7 +415,7 @@
 /* Reading progress in the scroll pill — muted grey like before, but sized
    up so it's easy to see, and clearly separated from the numbers
    (margin-inline-start = toward the numbers in RTL) */
-.sc-pct {
+.scroll-counter-pct {
   font-size: 0.95em;
   font-weight: 600;
   color: var(--color-text-subtle);
@@ -533,110 +458,7 @@
   background: var(--color-nav-btn-hover-bg);
   color: var(--color-nav-btn-hover-text);
 }
-.page-ellipsis {
-  min-width: 34px;
-  text-align: center;
-  font-size: var(--panel-font-size, 0.85rem);
-  color: var(--color-text-subtle);
-  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
-  user-select: none;
-}
-
 /* Right side: page jump */
-.nav-goto {
-  display: flex;
-  align-items: center;
-  gap: var(--control-gap, 6px);
-  flex-shrink: 0;
-}
-
-.page-label {
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  color: var(--color-text-subtle);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  letter-spacing: 0.05em;
-}
-
-.page-input {
-  box-sizing: border-box;
-  width: 58px;
-  height: var(--control-height, 35px);
-  padding: 0 6px;
-  line-height: var(--control-line-height, 33px);
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  text-align: center;
-  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
-  color: var(--color-text);
-  background: var(--color-reader-bg);
-  border: 1px solid var(--color-border);
-  outline: none;
-  transition: border-color var(--t-hover, 0.15s) ease;
-  -moz-appearance: textfield;
-}
-
-.page-input::-webkit-inner-spin-button,
-.page-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.page-input:focus {
-  border-color: var(--color-card-hover-border);
-}
-
-.nav-counter {
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  white-space: nowrap;
-  display: inline-block;
-  width: 170px;
-  text-align: center;
-  direction: ltr;
-}
-
-.nav-counter-bottom {
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  white-space: nowrap;
-  display: inline-block;
-  width: 170px;
-  text-align: center;
-  direction: ltr;
-}
-
-.counter-nums {
-  display: inline-block;
-  min-width: 60px;
-  text-align: center;
-}
-
-.c-n {
-  display: inline-block;
-  width: 2.2em;
-  text-align: center;
-}
-
-.nav-sep {
-  color: var(--color-border);
-  font-weight: 300;
-  user-select: none;
-}
-
-.focus-page-indicator {
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  color: var(--color-text-subtle);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  white-space: nowrap;
-  direction: ltr;
-}
-
 /* ---- Reader content ---- */
 
 #topBar { border-bottom: none; }
@@ -697,13 +519,7 @@
   color: var(--color-text);
 }
 
-.reader-no-results {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-}
+/* Empty state (shared with dashboard) lives in common.css */
 
 /* Skip painting off-screen chunks — huge scroll perf boost for large books */
 /* NOTE: NOT applied to table rows (tr.reader-chunk) because content-visibility
@@ -836,7 +652,7 @@
   direction: rtl;
 }
 
-.sc-n {
+.scroll-counter-num {
   display: inline-block;
   min-width: 2ch;
   text-align: center;
@@ -919,17 +735,6 @@
     gap: 2px;
   }
 
-  .nav-counter,
-  .nav-counter-bottom {
-    font-size: var(--panel-font-size, 0.85rem);
-  }
-
-  .page-input {
-    width: 50px;
-    padding: 0 4px;
-    font-size: var(--panel-font-size, 0.85rem);
-  }
-
   .reader-toolbar {
     gap: var(--control-gap, 6px);
   }
@@ -946,11 +751,11 @@
 
   /* The page label stays visible on mobile as the short "ސ:" form (picked
      in reader.js via pageOfShort) — only the long label is desktop-only */
-  #pageSubRow {
+  #readerPageSubRow {
     margin: 0 8px !important;
     justify-content: center;
   }
-  #pageSubtitle {
+  #readerPageSubtitle {
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   .btn-text {
@@ -967,7 +772,7 @@
   #readerWrapper {
     margin-top: var(--topbar-clearance, 64px);
   }
-  #pageSubRow {
+  #readerPageSubRow {
     justify-content: flex-start !important;
     margin: 0 !important;
   }

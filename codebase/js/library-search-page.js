@@ -15,7 +15,7 @@ import { tagLabel, t } from "./i18n.js";
 import { loadSearchIndex, searchLibrary } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
-  loadBookNames,
+  loadBookRegistry,
   extractTags,
   getBookVersionSync,
   getCsvPath,
@@ -50,14 +50,14 @@ var el = {
 };
 
 /** Substitute {k} placeholders in an i18n template string. */
-function tpl(key, map) {
+function fillTemplate(key, map) {
   var s = t(key);
   for (var k in map) s = s.replace("{" + k + "}", map[k]);
   return s;
 }
 
 // ── URL sync (?q= / ?tags= — shareable links) ────────────────
-function readUrlParams() {
+function readURLParams() {
   var params = new URLSearchParams(window.location.search);
   _q = (params.get("q") || "").trim();
   var tagsParam = params.get("tags");
@@ -68,7 +68,7 @@ function readUrlParams() {
 }
 
 /** Keep ?q= and ?tags= in the address bar — the URL stays shareable. */
-function syncUrl() {
+function syncURL() {
   var params = new URLSearchParams();
   if (_q) params.set("q", _q);
   if (_selectedTags.length > 0) params.set("tags", _selectedTags.join(","));
@@ -115,16 +115,16 @@ function onChipsClick(e) {
   var chip = e.target.closest(".tag-chip");
   if (!chip) return;
   var tag = chip.dataset.tag;
-  if (tag === "__all__") {
+  if (tag === window.TAG_ALL) {
     _selectedTags = [];
   } else {
     var idx = _selectedTags.indexOf(tag);
     if (idx === -1) _selectedTags.push(tag);
     else _selectedTags.splice(idx, 1);
   }
-  syncUrl();
+  syncURL();
   renderChips();
-  if (_q) runSearch();
+  if (_q) runSearchAndRender();
 }
 
 // ── Search ───────────────────────────────────────────────────
@@ -158,9 +158,9 @@ function showEmpty(messageKey) {
 }
 
 /** Run the search and render results (caller debounces). */
-function runSearch() {
+function runSearchAndRender() {
   _q = (el.input.value || "").trim();
-  syncUrl();
+  syncURL();
   if (!_q) {
     showEmpty("libSearchHint");
     return;
@@ -182,8 +182,8 @@ function runSearch() {
       el.results.innerHTML =
         '<div class="empty-state">⚠️ Error: Failed to load the search index. ' +
         '<button id="libSearchRetry" class="retry-btn">↺ Retry</button></div>';
-      var rb = document.getElementById("libSearchRetry");
-      if (rb) rb.addEventListener("click", runSearch);
+      var retryBtn = document.getElementById("libSearchRetry");
+      if (retryBtn) retryBtn.addEventListener("click", runSearchAndRender);
     });
 }
 
@@ -285,7 +285,7 @@ function peekRenderBatch(peekEl, entry, q, bookCode) {
       moreBtn.style.display = "none";
     } else {
       moreBtn.style.display = "";
-      moreBtn.textContent = tpl("libShowNext", {
+      moreBtn.textContent = fillTemplate("libShowNext", {
         n: Math.min(PEEK_BATCH, entry.matches.length - entry.pos),
       });
     }
@@ -312,9 +312,9 @@ function openPeek(root, bookCode, q) {
       items.innerHTML =
         '<div class="lib-peek-loading">⚠️ Error: Failed to load the book. ' +
         '<button class="retry-btn" data-peek-retry="1">↺ Retry</button></div>';
-      var rb = items.querySelector("[data-peek-retry]");
-      if (rb)
-        rb.addEventListener("click", function () {
+      var retryBtn = items.querySelector("[data-peek-retry]");
+      if (retryBtn)
+        retryBtn.addEventListener("click", function () {
           items.innerHTML = "";
           openPeek(root, bookCode, q);
         });
@@ -343,7 +343,7 @@ function renderResults(results, q) {
   var total = 0;
   for (var i = 0; i < results.length; i++) total += results[i].count;
   el.count.style.display = "";
-  el.count.textContent = tpl("libResultSummary", { a: total, b: results.length });
+  el.count.textContent = fillTemplate("libResultSummary", { a: total, b: results.length });
   el.results.innerHTML =
     '<div class="lib-results">' +
     results
@@ -390,17 +390,17 @@ function renderResults(results, q) {
           r.bookCode +
           '">' +
           tagHtml +
-          '<div class="lib-title-ar">' +
+          '<div class="title-ar">' +
           escapeHTML(meta ? meta.titleAR || "" : "") +
           "</div>" +
-          '<div class="lib-title-dv">' +
+          '<div class="title-dv">' +
           escapeHTML(meta ? meta.titleDV || "" : "") +
           "</div>" +
-          '<div class="lib-title-en">' +
+          '<div class="title-en">' +
           escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
           "</div>" +
           '<div class="lib-result-meta">' +
-          tpl("libBookMatches", { n: r.count }) +
+          fillTemplate("libBookMatches", { n: r.count }) +
           "</div>" +
           "</a>" +
           '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>' +
@@ -441,11 +441,11 @@ async function init() {
   el.tagsRow = document.getElementById("libTagsRow");
   el.tagsCollapse = document.getElementById("libTagsCollapse");
   el.tagsToggle = document.getElementById("libTagsToggle");
-  el.count = document.getElementById("libCount");
+  el.count = document.getElementById("libResultCount");
   el.results = document.getElementById("libResults");
   if (!el.input) return;
 
-  readUrlParams();
+  readURLParams();
   el.input.value = _q;
   el.clear.style.display = _q ? "" : "none";
 
@@ -453,7 +453,7 @@ async function init() {
   el.clear.addEventListener("click", function () {
     el.input.value = "";
     _q = "";
-    syncUrl();
+    syncURL();
     el.clear.style.display = "none";
     showEmpty("libSearchHint");
     el.input.focus();
@@ -463,7 +463,7 @@ async function init() {
   el.input.addEventListener("input", function () {
     el.clear.style.display = this.value ? "" : "none";
     clearTimeout(_searchTimer);
-    _searchTimer = setTimeout(runSearch, 150);
+    _searchTimer = setTimeout(runSearchAndRender, 150);
   });
 
   // Tag chips (scoping)
@@ -473,7 +473,7 @@ async function init() {
   // Language change → re-render chips + results
   document.addEventListener("languagechange", function () {
     renderChips();
-    if (_q) runSearch();
+    if (_q) runSearchAndRender();
   });
 
   // Focus mode button (collapse chips + count, keep the search visible)
@@ -504,7 +504,7 @@ async function init() {
     if (e.key === "Escape" && isInput && e.target === el.input) {
       el.input.value = "";
       _q = "";
-      syncUrl();
+      syncURL();
       el.clear.style.display = "none";
       showEmpty("libSearchHint");
       el.input.blur();
@@ -513,11 +513,11 @@ async function init() {
 
   // Registries feed the chips + scoping + result titles
   await loadTagDefinitions();
-  _bookNames = await loadBookNames();
+  _bookNames = await loadBookRegistry();
   renderChips();
 
   // Run the shared ?q= search (or show the hint)
-  if (_q) runSearch();
+  if (_q) runSearchAndRender();
   else showEmpty("libSearchHint");
 
   // Auto-focus search on desktop
