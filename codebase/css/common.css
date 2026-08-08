@@ -453,6 +453,25 @@ body {
   background: var(--color-nav-btn-hover-bg);
 }
 
+/* Sidebar actions are <button> (Pins, History, Settings, Scroll-to-top); a
+   reset makes them render exactly like the link rows around them */
+button.sidebar-link {
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  text-align: start;
+  cursor: pointer;
+  appearance: none;
+}
+
+/* Keyboard focus — theme focus-green ring instead of the browser default,
+   same accent as the focus-mode buttons */
+.sidebar-link:focus-visible {
+  outline: 2px solid var(--color-focus-border-hover, #4ade80);
+  outline-offset: 2px;
+}
+
 .sidebar-divider {
   height: 1px;
   margin: 8px 4px;
@@ -1579,9 +1598,10 @@ body:has(.modal-overlay.open) {
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
 
+  /* No top/right offsets here — the button is a plain flex child of #topBar
+     (margin-left: auto). Stale offsets became live once the mobile hit-area
+     rule made #topBar button position: relative, floating it out of place. */
   .menu-btn {
-    top: 16px;
-    right: 16px;
     width: var(--control-height, 35px);
     height: var(--control-height, 35px);
     font-size: 1rem;

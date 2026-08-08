@@ -110,8 +110,7 @@ Whole-repo mode (run directly in Claude Code)
 
 Read docs/ARCHITECTURE.md first, then audit the repo against it: find every place the code contradicts its own documented conventions (ES5 style, kebab-case classes, camelCase region-prefixed ids, var(--token, fallback) usage, LF endings). List the violations with file:line, ranked by how likely they are to bite later.
 
-Find the best and worst decisions in this codebase, judged on your own criteria. Be specific and argue each one; for the worst, say what you'd change today with zero regression risk.
-
+Find the best and worst decisions in this codebase, judged on your own criteria. Be specific and argue each one; for the worst, say what you'd change
 ... 
 ...
 
