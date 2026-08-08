@@ -234,12 +234,13 @@ function renderDashboard(bookNames) {
   document.getElementById("dashboardResultCount").textContent =
     t("dashboardBooksLabel") + " " + visible.length;
 
-  // Update view toggle button text
+  // Update view toggle button text — reserve the wider of Card/Table so the
+  // functions row doesn't shift when the label swaps
   var vt = document.getElementById("dashboardViewToggle");
-  if (vt)
-    vt.textContent = t(
-      _dashTableMode ? "btnViewToggleCard" : "btnViewToggleText",
-    );
+  if (vt) {
+    window.reserveWidestText(vt, [t("btnViewToggleText"), t("btnViewToggleCard")]);
+    vt.textContent = t(_dashTableMode ? "btnViewToggleCard" : "btnViewToggleText");
+  }
 
   // ── Continue-reading card ──
   // Lives inside the collapsible dashboard panel (so focus mode collapses it
@@ -448,6 +449,10 @@ function setupDashboardControls() {
     _dashFilter.sort = this.value;
     refreshView();
   });
+  // Native selects size to the selected option — reserve the widest option so
+  // the row doesn't shift when the sort changes (the Arabic options differ in
+  // width; re-measured on language change below)
+  window.reserveWidestText(ss);
   // Tag row collapse — the chevron appears only when the chips overflow one
   // row; refresh re-measures after every chips re-render (search/reset/lang).
   _refreshTags = window.initTagsCollapse("dashTagsCollapse", "dashTagsToggle");
@@ -644,6 +649,8 @@ document.addEventListener("dashboardReset", function () {
 
 // Re-render dashboard on language change (if visible)
 document.addEventListener("languagechange", function () {
+  // The sort options re-translate — re-reserve the select's width
+  window.reserveWidestText(document.getElementById("dashboardSort"));
   if (_lastBookNames && _lastBookNames.length > 0) {
     refreshView();
   }

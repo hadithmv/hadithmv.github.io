@@ -242,8 +242,8 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `Home` / `End` | Reader | First / last row |
 | `↑` / `↓` | Search focused | Navigate search results |
 | `Enter` | Search focused | Select search result |
-| `/` or `Ctrl+f` | Anywhere | Focus search bar |
-| `Ctrl+Shift+f` | Anywhere | Open advanced search |
+| `/` or `Ctrl+F` | Anywhere | Focus search bar |
+| `Ctrl+Shift+F` | Anywhere | Open advanced search |
 | `Alt+Z` | Reader | Toggle focus mode (green ▾/▴ button) |
 | `Alt+T` | Reader | Toggle tashkeel (diacritics) |
 | `Alt+V` | Reader | Toggle card / table view |
@@ -254,7 +254,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `p` | Dashboard | Open pins modal |
 | `h` | Dashboard | Open history modal |
 | `Ctrl+,` | Anywhere | Open settings |
-| `Ctrl+b` | Anywhere | Back to book list |
+| `Ctrl+B` | Anywhere | Back to book list |
 | `Escape` | Anywhere | Close sidebar / modal / search results |
 
 ### Exports
@@ -263,7 +263,7 @@ All text formats include book title, URL, Hadithmv, and version. TOON uses the e
 
 ### Internationalisation
 
-All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. **Tooltips and error messages are English-only and never translated.** Every button should have a tooltip; if it has a keyboard shortcut, the shortcut is noted in the tooltip (e.g. `title="Toggle focus (Alt+Z)"`).
+All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. **Tooltips and error messages are English-only and never translated.** Every button should have a tooltip; if it has a keyboard shortcut, the shortcut is noted in the tooltip with the key in title case (e.g. `title="Toggle focus (Alt+Z)"`, `Ctrl+B`, `Ctrl+Shift+F`).
 
 ## Error handling
 

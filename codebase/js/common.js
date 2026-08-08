@@ -80,6 +80,29 @@ window.tagChipHtml = function (code, label, palette, active, count) {
   );
 };
 
+// Reserve the widest of the given strings on an element (min-width) so it
+// never changes size when its text swaps between them — the neighbors stay
+// put. Restores the current text; re-call after language/font changes so the
+// measurements stay current (the normal re-render paths do this). For a
+// native <select> the strings are optional — the helper cycles the options
+// themselves by index, so the option elements are never touched.
+window.reserveWidestText = function (el, strings) {
+  if (!el) return;
+  var sel = el.tagName === "SELECT";
+  if (!sel && (!strings || !strings.length)) return;
+  var cur = sel ? el.selectedIndex : el.textContent;
+  var max = 0;
+  var n = sel ? el.options.length : strings.length;
+  for (var i = 0; i < n; i++) {
+    if (sel) el.selectedIndex = i;
+    else el.textContent = strings[i];
+    if (el.offsetWidth > max) max = el.offsetWidth;
+  }
+  el.style.minWidth = max + "px";
+  if (sel) el.selectedIndex = cur;
+  else el.textContent = cur;
+};
+
 /**
  * Collapsible chip row — shared by the dashboard and library-search pages.
  * Clamps the chip row to one line and shows a chevron toggle only when the
@@ -103,16 +126,10 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     var expanded = collapse.classList.contains("expanded");
     toggle.title = expanded ? "Less tags" : "More tags";
     if (!label) return;
-    // Reserve the wider of the two label strings (More ↔ Less) so the button
-    // keeps its width when the label swaps — the chips never shift.
-    var more = t("tagsShowMore");
-    var fewer = t("tagsShowFewer");
-    label.textContent = more;
-    var w1 = label.offsetWidth;
-    label.textContent = fewer;
-    var w2 = label.offsetWidth;
-    label.style.minWidth = (w1 > w2 ? w1 : w2) + "px";
-    label.textContent = expanded ? fewer : more;
+    // More ↔ Less swap — reserve the wider string so the button never changes
+    // width and the chips don't shift.
+    window.reserveWidestText(label, [t("tagsShowMore"), t("tagsShowFewer")]);
+    label.textContent = t(expanded ? "tagsShowFewer" : "tagsShowMore");
   }
 
   function refresh() {

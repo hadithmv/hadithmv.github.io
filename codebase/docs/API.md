@@ -254,7 +254,7 @@ The `books/library-search.html` page module — self-initialising (runs `init()`
 - **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B` activates tag chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
 - **Flow** — reads params → awaits `loadTagDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
 - **Empty-scope guard** — active tags matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
-- **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+b` back are handled by common.js.
+- **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+B` back are handled by common.js.
 - **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old book-data.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
 
 ---

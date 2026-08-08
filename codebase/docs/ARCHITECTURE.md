@@ -130,6 +130,7 @@ No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `bo
 - **Pin auto‑update** — while the user reads a **pinned** book, the reader's scroll handler (debounced 2 s, guarded by `isPinned` + `_lastHistoryRow`) calls `addPin(bookCode, vRow + 1, pinLabel(...))`, piggybacking on the same timer as the history auto‑log; the URL position sync is a separate 500 ms debounce
 - **`?tags=A,B`** — pre‑filters by tag codes; clicking a tag chip updates the URL via `history.replaceState`, so filtered views are bookmarkable and shareable. An `All` chip (active when no tags are selected) clears the tag filter
 - **Tag row collapse** — the chip row clamps to one line; a "▾ More tags" button (only when the chips overflow, re‑measured on every chips render and on resize) expands it to "▴ Less tags", label swapped by `tagsShowMore`/`tagsShowFewer`. The toggle lives **in‑flow as the first item of the collapse box, right before the "Tags:" label** (the pages render the label after it as the box's second child; `initTagsCollapse` re‑inserts the button before the label on every chips render) — being at the start of the rows, it never moves when the box expands: line 1 is toggle + label + chips and the rows below span the full width. The box grows to the row width (`flex: 1 1 0%`) so the chips wrap, but is capped at `max-width: max-content` so a wide window never leaves an empty band (when the chips fit one row, nothing overflows and the button hides itself). The expanded state lives on the collapse box's class, so chip re‑renders (search, reset, language) keep it; a reload starts collapsed. The library-search page shares the same component (`#libTagsCollapse`/`#libTagsToggle`), wired by `window.initTagsCollapse` in common.js
+- **Width reservation for swapping labels** — `window.reserveWidestText(el, strings)` (common.js) pins an element's `min-width` to the widest of the strings it swaps between (measured in the current language/font), so its neighbors never shift when the text changes. Used by the tag toggle (More ↔ Less), the dashboard view toggle (Card ↔ Table) and the sort select (the Arabic options differ in width); re‑measured on every call, so language/font changes are covered by the normal re‑render paths. **Use it for any button/label that swaps a small fixed set of strings**; it also works on native `<select>`s (cycles the options by index — strings optional there). Dynamic text (counts, page numbers) is a different sizing problem — don't reserve widths for it
 
 The dashboard panel's DOM nesting (each level is a flex container):
 
@@ -239,7 +240,7 @@ The reader supports three visual layouts, selected via a dropdown in the toolbar
 
 **Parallel text mode** — Two‑column grid layout that groups fields by language: columns whose headers end in `dv` go in the right column; columns whose headers end in `ar` (or are Quran ayah‑text columns) go in the left column. Neutral columns (no language suffix, e.g. `#`, bare `foot`) span full width. On mobile (≤600px) the columns stack vertically. The classification logic uses the same header‑suffix conventions (`isArDvTransition`, `isMatnSharhTransition`) already present in `renderRowHTML`.
 
-**Horizontal scrollbar.** When column content exceeds the viewport width, a sticky horizontal scrollbar appears above the table. It sits below the reader chrome (`position: sticky; top: var(--rdf-header-top) + 2px; z-index: 6`) so it remains visible during vertical scrolling. Arrow buttons (`▶` back / `◀` forward) flank the scrollbar and scroll one column width (150px) per click with a custom `requestAnimationFrame` ease-out animation. Shift+wheel on the table area also drives horizontal scroll. The scrollbar row is hidden entirely when the table fits without overflow.
+**Horizontal scrollbar.** When column content exceeds the viewport width, a sticky horizontal scrollbar appears above the table. It sits below the reader chrome (`position: sticky; top: var(--rdf-header-top) + 2px; z-index: 6`) so it remains visible during vertical scrolling. Arrow buttons (`▶` back / `◀` forward) flank the scrollbar and scroll one column width (150px) per click with a custom `requestAnimationFrame` ease-out animation. Shift+Wheel on the table area also drives horizontal scroll. The scrollbar row is hidden entirely when the table fits without overflow.
 
 **Sticky headers.** `<th>` elements use `position: sticky`. When the horizontal scrollbar is visible their `top` offset is increased by 19px to sit below the scrollbar; when hidden they sit directly below the chrome. The offset is set dynamically via JS.
 
@@ -379,16 +380,16 @@ Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single
 | `Home` / `End`  | Reader                 | First / last row                       |
 | `↑` / `↓`       | Search focused         | Navigate results                       |
 | `Enter`         | Search focused         | Select result                          |
-| `/` or `Ctrl+f` | Anywhere               | Focus search bar                       |
-| `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
-| `Alt+z`         | Reader                 | Toggle focus mode (same as ▾/▴ button) |
-| `Alt+t`         | Reader                 | Toggle tashkeel                        |
-| `Alt+v`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
-| `Alt+p`         | Reader                 | Toggle bookmark (pin)                  |
-| `Alt+s`         | Reader                 | Share link                             |
-| `Alt+e`         | Reader                 | Open export dropdown                   |
+| `/` or `Ctrl+F` | Anywhere               | Focus search bar                       |
+| `Ctrl+Shift+F`  | Anywhere               | Open advanced search                   |
+| `Alt+Z`         | Reader                 | Toggle focus mode (same as ▾/▴ button) |
+| `Alt+T`         | Reader                 | Toggle tashkeel                        |
+| `Alt+V`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
+| `Alt+P`         | Reader                 | Toggle bookmark (pin)                  |
+| `Alt+S`         | Reader                 | Share link                             |
+| `Alt+E`         | Reader                 | Open export dropdown                   |
 | `Ctrl+,`        | Anywhere               | Open settings                          |
-| `Ctrl+b`        | Anywhere               | Back to book list                      |
+| `Ctrl+B`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
 | `Escape`        | Dashboard search       | Clear search & blur                    |
 | `z`             | Dashboard              | Toggle focus mode                      |
@@ -645,7 +646,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **IDs.** Element IDs use camelCase — e.g. `btnResetReader`, `searchInput`, `readerContent`. No kebab‑case or snake_case.
 
-**Tooltips.** Every `<button>`, `<a>`, and interactive element carries a `title` tooltip describing its action. If the element has a keyboard shortcut, the tooltip includes the key in parentheses — e.g. `title="Toggle focus mode (Alt+Z)"`. Tooltips are **always in English** and never translated.
+**Tooltips.** Every `<button>`, `<a>`, and interactive element carries a `title` tooltip describing its action. If the element has a keyboard shortcut, the tooltip includes the key in parentheses — e.g. `title="Toggle focus mode (Alt+Z)"`. Keys are written in title case (`Ctrl+B`, `Ctrl+Shift+F`). Tooltips are **always in English** and never translated.
 
 **Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
 
