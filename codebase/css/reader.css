@@ -765,8 +765,6 @@
     font-size: var(--panel-font-size, 0.85rem);
   }
 
-  /* The page label stays visible on mobile as the short "ސ:" form (picked
-     in reader.js via pageOfShort) — only the long label is desktop-only */
   #readerPageSubRow {
     margin: 0 8px !important;
     justify-content: center;
@@ -785,8 +783,10 @@
     margin-bottom: 0;
     justify-content: flex-start;
   }
+  /* Phone widths: flush under the fixed topbar — the panel's sticky
+     threshold is 58px, so the resting margin matches it exactly */
   #readerWrapper {
-    margin-top: var(--topbar-clearance, 64px);
+    margin-top: calc(var(--topbar-clearance, 64px) - 6px);
   }
   #readerPageSubRow {
     justify-content: flex-start !important;

@@ -145,7 +145,6 @@ This repo **is** the GitHub Pages site (`hadithmv.github.io`) — pushing to `ma
 
 - First (`<<`) / Prev (`<`) / page select / Next (`>`) / Last (`>>`), all same height
 - Subtitle and tag badges on the same row (scrolls horizontally if too wide)
-- `ސަފްހާ:` label on the far right
 - Centered on mobile (bottom nav), right-aligned (top nav)
 
 ### Chrome layout
@@ -225,7 +224,6 @@ A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / cu
 - TopBar and chrome compress: buttons shrink to 32×32px, tighter padding
 - Toolbar and pagination rows scroll horizontally (hidden scrollbar, ◀▶ arrow buttons, wheel redirect)
 - Pagination nav right-aligned for scrollability
-- `ސ` short page label on mobile (full `ސަފްހާ:` label on desktop)
 - All chrome buttons share same height and font size (0.85rem, 7px padding)
 - Sidebar has `overscroll-behavior: contain` to prevent scroll bleed
 - Search bar prevented from going offscreen

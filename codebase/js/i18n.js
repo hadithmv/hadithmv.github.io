@@ -107,9 +107,6 @@ const STRINGS = {
     en: "Columns ▾",
     ar: "أعمدة ▾",
   },
-  // ── Pagination ──
-  pageOf: { dv: "ސަފްހާ:", en: "Page:", ar: "صفحة:" },
-  pageOfShort: { dv: "ސ:", en: "Pg:", ar: "ص:" },
   resultCount: { dv: "ނަތީޖާ", en: "match", ar: "نتيجة" },
   noResults: { dv: "ނަތީޖާ 0", en: "0 matches", ar: "٠ نتائج" },
   noMatchesMsg: {

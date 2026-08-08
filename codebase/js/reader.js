@@ -1034,11 +1034,7 @@ initializePageWithMetadata(async function (metadata) {
         if (stripFocused) return;
 
         var selHTML = pageSelectHTML(cur, total);
-        // Mobile swaps the full "Page:" label for the single-letter short form
-        var label = t(window.matchMedia("(max-width: 600px)").matches ? "pageOfShort" : "pageOf");
         document.getElementById("readerPageNumbers").innerHTML = selHTML;
-        var pl = document.getElementById("readerPageLabel");
-        if (pl) pl.textContent = label;
 
         // Wire page strip selects
         document.querySelectorAll(".page-strip-sel").forEach(function (psi) {
