@@ -119,18 +119,34 @@ function renderDashboard(bookNames) {
     return !b.bookCode.endsWith("-HDN");
   });
 
-  // Apply search filter
+  // Apply search filter — whitespace-separated tokens, each must match at
+  // least one field, in any order. Hyphens and whitespace are stripped from
+  // both sides, so "RDF-rasmee" and "rdfrasmee" find the same book.
   var q = _dashFilter.search.trim();
   if (q) {
-    var nq = normaliseForSearch(q);
-    visible = visible.filter(function (b) {
-      return (
-        normaliseForSearch(b.titleDV || "").indexOf(nq) !== -1 ||
-        normaliseForSearch(b.titleAR || "").indexOf(nq) !== -1 ||
-        normaliseForSearch(b.titleEN || "").indexOf(nq) !== -1 ||
-        normaliseForSearch(b.bookCode || "").indexOf(nq) !== -1
-      );
-    });
+    var tokens = q
+      .split(/\s+/)
+      .map(function (t) {
+        return normaliseForSearch(t).replace(/[\s-]/g, "");
+      })
+      .filter(function (t) {
+        return t;
+      });
+    if (tokens.length > 0) {
+      visible = visible.filter(function (b) {
+        var haystacks = [
+          normaliseForSearch(b.titleDV || "").replace(/[\s-]/g, ""),
+          normaliseForSearch(b.titleAR || "").replace(/[\s-]/g, ""),
+          normaliseForSearch(b.titleEN || "").replace(/[\s-]/g, ""),
+          normaliseForSearch(b.bookCode || "").replace(/[\s-]/g, ""),
+        ];
+        return tokens.every(function (t) {
+          return haystacks.some(function (h) {
+            return h.indexOf(t) !== -1;
+          });
+        });
+      });
+    }
   }
 
   // Apply tag filter — OR: a book shows when it carries ANY selected tag
