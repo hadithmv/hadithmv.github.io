@@ -98,11 +98,13 @@
      58px. --topbar-gap is the air between the topbar and the first content;
      --topbar-clearance derives the page top margin from both so the two can
      never disagree. --panel-pad is the vertical padding inside the sticky
-     panels, above their bottom border. */
+     panels, above their bottom border; --panel-edge is that bottom border,
+     shared by the topbar and every sticky panel. */
   --topbar-height: 58px;
   --topbar-gap: 6px; /* same value as the row gaps — one spacing, every level */
   --topbar-clearance: calc(var(--topbar-height) + var(--topbar-gap));
   --panel-pad: 10px;
+  --panel-edge: 2px solid var(--color-card-hover-border);
   /* Page chrome — the dashboard/library wrapper layout */
   --page-margin: var(--topbar-clearance) auto 40px;
   --page-padding: 0 20px;
@@ -1267,7 +1269,7 @@ body:has(.modal-overlay.open) {
   gap: var(--control-gap, 6px);
   direction: ltr;
   background-color: var(--color-bg);
-  border-bottom: 2px solid var(--color-card-hover-border);
+  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
 }
 
 

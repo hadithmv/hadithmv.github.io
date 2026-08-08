@@ -194,21 +194,16 @@ const STRINGS = {
   labelSettings: { dv: "ސެޓިންގްސް", en: "Settings", ar: "الإعدادات" },
   settingsAppearance: { dv: "ފެންނަ ގޮތް", en: "Appearance", ar: "المظهر" },
   settingsFont: { dv: "ފޮންޓް", en: "Font", ar: "الخط" },
-  btnOpenFont: {
-    dv: "🔤 ފޮންޓް ބަދަލު ކުރޭ…",
-    en: "🔤 Change font…",
-    ar: "🔤 تغيير الخط…",
-  },
   btnOpenFontShort: { dv: "ފޮންޓް ސެޓިންގްސް", en: "Font settings", ar: "إعدادات الخط" },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },
   fontHadithmv: {
-    dv: "ހަދީޘްއ�މްވީ ފޮންޓް",
-    en: "Hadithmv font",
+    dv: "ހަދީޘްއެމްވީ ފޮންޓް",
+    en: "Hadithmv Font",
     ar: "خط هاديث-ام-في",
   },
-  fontSystem: { dv: "ސިސްޓަމް ފޮންޓް", en: "System font", ar: "خط النظام" },
+  fontSystem: { dv: "ސިސްޓަމް ފޮންޓް", en: "System Font", ar: "خط النظام" },
 
   // ── Footer / meta ──
   appVersion: {

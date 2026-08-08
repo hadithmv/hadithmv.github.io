@@ -10,7 +10,7 @@
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding: var(--panel-pad, 10px) 0;
-  border-bottom: 2px solid var(--color-card-hover-border);
+  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
   overflow: hidden;
 }
 /* Extend chrome background to full viewport width */
@@ -136,7 +136,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 8px 20px 16px;
-  border-bottom: 2px solid var(--color-card-hover-border);
+  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
 }
 
 #pageHeader {

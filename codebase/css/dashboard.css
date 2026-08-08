@@ -29,7 +29,7 @@
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding-bottom: var(--panel-pad, 10px);
-  border-bottom: 2px solid var(--color-card-hover-border);
+  border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
 }
 
 /* ── Collapsible section (tags + functions) ── */
