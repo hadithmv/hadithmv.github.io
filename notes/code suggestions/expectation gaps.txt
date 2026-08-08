@@ -1,0 +1,23 @@
+The expectation gaps that would genuinely surprise users
+
+[no] 1. Multiple bookmarks per book. Today a pin is one per book — pinning a new position silently replaces the old one (pins-history.js:27-42). But the app's own docs sell pins as "bookmarked positions," and anyone reading a hadith book with ten useful spots would expect ten pins. This is the most expectation-breaking gap — and the fix is a data-model change (pins become [{bookCode, row, label}...] per book, modal groups or lists them). Medium effort, high value.
+
+[no] 2. Reopening a book resumes where you left off. The continue card solved the dashboard path, but clicking a book card in the grid still opens at row 1. Users who've read 20,000 rows of RDF-all and reopen it from the grid expect to land where they were — the history already stores the row, so this is a few lines in the reader init. (I flagged this as Tier-1 work earlier and we built the continue card instead — the underlying gap remains.)
+
+[...?] 3. Search without match-hopping. The reader search shows a results list, but there's no "next match / previous match" — the core study interaction for a hadith book. Users will press Enter expecting to jump to the first match (currently Enter only works when the results dropdown is focused). Medium effort, the biggest reading-flow gap.
+
+[... needed] 4. Searching inside books from the library. The dashboard search matches titles and codes only. A library user will type "ޞަލާތް" expecting every book containing it — and get nothing. This needs a precomputed content index shipped as data (the books are 100MB+ of CSV; a compressed word index is maybe 5-10MB) — genuinely valuable but the largest item on this list.
+
+[... needed] 5. The native share sheet on mobile. Share copies the link — but on a phone, users expect the OS share sheet (WhatsApp etc.). navigator.share() with a clipboard fallback is ~5 lines. Trivial.
+
+[... needed] 6. Offline reading / installable app. A Quran app on a phone is expected to work without a signal. The app is fully static — a service worker makes it installable and offline in a day or two of work. Medium.
+
+...
+
+[...?]Clicking the progress bar to seek — users will try it; it's inert today. Small.
+
+[...?]Text selection → copy/share just the selection — the copy button only does whole rows. Medium.
+
+[...?] System-theme auto-detect on first visit — matchMedia one-liner, users expect dark mode to follow the OS until they override it.
+
+[...?] Dashboard search in the URL — tag filters are shareable; a search query isn't. Small.

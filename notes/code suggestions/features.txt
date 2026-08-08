@@ -1,0 +1,24 @@
+...
+
+[...?] 3. Deep-link search queries (?book=X&q=term). The reader search is fast now but nothing in the URL. Reading q from the query string on load and running applySearch makes "look at this hadith" shareable the same way &row=N already is. Tiny.
+
+...
+
+[...?] 4. Next/previous match navigation in reader search. Search shows a results dropdown capped at 50, but there's no "jump to next match" — for studying a hadith book, hopping match-to-match is the core interaction. We know the match indices already; it's a small state machine + scroll.
+
+
+[...?] 6. Offline support (service worker). A Quran reader without internet is a real use case, GitHub Pages serves SWs fine, and the app is fully static so there's nothing dynamic to break. Medium effort, and the highest user-facing value of the bigger items — though it does need a cache-invalidation strategy.
+
+...
+
+[...??] IndexedDB cache of parsed books — kills the 70MB re-download when toggling Quran content every session, but it's async plumbing + invalidation, not a weekend tweak.
+
+[...??] Per-column Quran data files — the "fetch only what you asked" endgame; data-format change, only pays off when translations multiply.
+
+...
+
+[...???] Export chunking (the giant-string thing) — fine until books are 10x bigger.
+
+[...????] Search-history stats, reading streaks — cute, not valuable.
+
+...

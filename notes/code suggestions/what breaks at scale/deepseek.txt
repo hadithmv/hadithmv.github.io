@@ -1,0 +1,108 @@
+deepseek code suggestions, for scaling
+
+...
+
+1. In-book full-text search — breaks first, already straining
+
+The worst offender by far. Every keystroke in the reader search triggers a full scan of every row, every column, and every cell is re-normalised on the spot (reader.js:1242-1245 → search.js:232-254). normaliseForSearch (search.js:19-47) runs ~30 regex passes per string, so a single keystroke on the 54k-row book is already roughly 50k rows × 6 columns × (regex normalization + regex match). At 10x — a 500k-row book — that's a multi-second main-thread freeze per keypress, and there's no debounce at all. Then buildResultsHTML (reader.js:1075-1107) walks the full dataset a second time for snippets.
+
+[DONE] Precompute normalised text once per column at load (store a normalised copy alongside each row) — turns the per-keystroke cost into one pass of indexOf, no regex. Biggest single win.
+
+[DONE] Debounce/throttle the input handler (100–150 ms).
+
+??not done yet
+
+Move search into a Web Worker — the data arrays are transferable, the DOM never blocks.
+
+Cache per-keystroke results for identical query prefixes.
+
+??end
+
+...
+
+2. Memory at load — one giant book kills the tab
+
+The load path is: fetch → resp.text() (one 10–100 MB string) → parseCSV builds arrays of arrays. In-memory representation of Arabic CSV is typically 3–5× the file size, so today's 11 MB book ≈ 40–60 MB of heap; a 10x book (70–100 MB file) ≈ 300–500 MB — the tab dies on any phone. The Quran path makes it worse by design: mergeQuranData (quran-data.js:201-232) holds base + book + merged copies simultaneously, and the "All" content preset (quran-ui.js:501-507) already fetches and parses 9 books at once ≈ 60–70 MB just to show all translations. 10x the translation library → 600 MB+ of parallel downloads.
+
+Fixes:
+
+drop the raw string after parsing;
+
+and for the Quran, fetch only the columns actually requested rather than whole translation files.
+
+??not done yet
+
+parse in a worker;
+
+cache parsed books in IndexedDB after first visit (revisit = zero network, zero reparse — this fixes both memory and repeat latency);
+
+
+????done partially?
+
+What I deliberately did not do (with reasons):
+
+Worker-side parsing / streaming CSV — moves the parse off the main thread but doesn't reduce memory; only needed when a book actually approaches 70-100 MB.
+
+IndexedDB book cache — the big repeat-visit win (no re-download/re-parse), but it's a real feature with invalidation concerns; worth a separate decision when the library's heavy books grow.
+
+Per-column files / Range requests — the "true" column-only fetch; revisit if translations multiply.
+
+???end
+
+...
+
+3. First-load latency and bandwidth — no compression anywhere
+
+GitHub Pages serves files exactly as stored: Arabic UTF-8 CSV gzips ~4–5×, so today's users download ~4× more than necessary, and every book must fully download and parse before the first row renders. A 10x book = a 70–100 MB single fetch before anything appears.
+
+Fixes: 
+
+parse progressively so the first chunk renders as it arrives (the CSV is ordered; you only need row 1–25 to paint);
+
+???not done yet
+precompress every CSV as .csv.gz + DecompressionStream (async, streaming — no big win in code size); 
+
+the worker move in #2 fixes the "blank tab" problem for free.
+??end
+
+...
+
+4. The render hot path — highlightMatches re-normalises per character
+
+[DONE PARTIALLY] Every visible row re-renders through highlightMatches (search.js:70-100), which calls normaliseForSearch per character while mapping normalised offsets back to original text. Fine at 75 rows on screen; at 10x it contributes to scroll jank on every append/prepend (reader.js:861-896). Fix: run highlighting against the precomputed normalised columns (#1) and map offsets arithmetically. (Precomputing also fixes the per-row markupTashkeel + regex work in renderRowHTML.)
+
+????done partially
+
+What I deliberately did not do: thread the precomputed norm cache into the render path so even the per-field normaliseForSearch(text) pass disappears. That's one pass per field already (not per char), the render path only runs for the ~75 visible rows, and it would have churned the renderer's API for a small constant win. If you ever see actual scroll jank while searching on a 10x book, that's the next lever — but I don't think it's worth the complexity today.
+
+So: the full picture from my original list is now — #1 search scan: done (70x, verified), #2 memory: the cheap wins done (redundant copy removed, per-column re-fetch eliminated), #3 first-load: deliberately deferred (needs streaming/IndexedDB — only matters at true 10x), #4 render hot path: now genuinely complete. The remaining items on the original list were #5 (export — deferred, only breaks at 10x), #6 (repo/CDN — nothing to do yet), #7 (dashboard — fine to ~1000 books).
+
+??end
+
+...
+
+5. Export on huge books — PNG breaks hard
+
+export.js builds most formats as one giant in-memory string — fine at 54k rows, but at 500k rows the TXT/PDF/EPUB paths produce 100 MB+ strings and the PNG export hits the browser's canvas dimension cap (~16k px) even today on the biggest books. Fixes: chunked/streamed file building (Blob streams), and for PDF route through a print stylesheet instead of hand-built HTML pages.
+
+...
+
+??
+
+Every text format builds one giant string — TXT, MD, YAML, TOON, HTML, XML, Word all += the entire book into a single string, then downloadFile wraps it in new Blob([content]) — which is a second full copy. JSON does it via one JSON.stringify. At today's largest book (54k rows, ~8MB), that's an ~8-16MB peak — nothing. At 10x (500k rows, 70-100MB), you'd have a 100-250MB string plus its Blob copy — real mobile-tab-killing territory.
+
+PDF is the heaviest of all — it builds full-book HTML and hands it to window.open + w.print() (export.js:129-133). The browser must lay out the entire book for printing. Note: my earlier suggestion of "route through a print stylesheet" was actually describing what it already does — the problem isn't the approach, it's that a 100MB+ document at 10x will make the print window hang.
+
+EPUB — builds every chapter's XHTML plus the whole ZIP buffer in memory (epub.js → zipStore). Same class as the text formats; fine today, heavy at 10x.
+
+??
+
+Should something be done?
+At the current scale: no. The largest real-world export is ~8-15MB in memory. PNG is safe by design. PDF on 54k rows is a 7MB print document — browsers handle that fine.
+
+If books actually grow to 500k rows, the order of work would be:
+
+Chunked Blob building for the text formats — accumulate output in ~1MB parts and pass the parts array to new Blob(parts) instead of one string. Mechanical, kills the 2-3× peak, ~a day of touching every format's loop.
+PDF: a size guard with a warning first (the cheapest honest fix), then chunked printing if it ever matters — genuinely awkward in a print window, so I'd defer engineering.
+EPUB: stream chunks into the zip — moderate work, last priority.
+My recommendation: leave it alone until the data actually grows — the current code is fine for what exists, and the memory ceiling is a "10x" problem, not a "now" problem. The only thing I'd do differently today is correct my earlier note — which I've now done. If you want the chunked-Blob refactor as cheap insurance anyway, say the word and I'll do it.

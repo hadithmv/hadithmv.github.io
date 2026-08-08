@@ -1,0 +1,57 @@
+Code structure & unification
+
+"Are there any concepts, functions, logic patterns, etc. duplicated across files or stuff that should be unified into one shared module or something like that etc. ?"
+
+"Are there any files or stuff that have grown to cover too many responsibilities and should be split apart or something etc. ?"
+
+"Are there any small/related files or stuff that should be merged because they're always edited together or something etc?"
+
+"are there a naming convention (files, functions, variables, etc. ) that's inconsistent across the codebase or should be somehow changed etc?"
+
+"If I were handing this codebase to a new developer, what things would confuse them first, and what could be done about that etc?"
+
+... 
+
+Quality & risk
+
+"What's are most fragile parts of this code and stuff — the things most likely to break if I change something nearby etc, and what could be done about it etc?"
+
+"Are there any silent failure points etc — places where something could go wrong without an error or warning or something etc?"
+
+"Is there dead code, unused variables, leftover debug logic, etc. still in here or something like that etc?"
+
+"If this had to scale 10x or more or more, (more data, more users, more files, etc. ), what would break first and what could be done about it etc?"
+
+... 
+
+Features & improvements
+
+"What's are features that would be low-effort but high-value to add right now?"
+
+What's are features and stuff that could be added etc?"
+
+"What's are some things etc users would expect this to do that it currently doesn't etc?"
+
+"Is there a UX detail etc (loading states, empty states, error messages, etc) that's missing etc?"
+
+... 
+
+Docs — content
+
+"What's currently true about this code that isn't written down anywhere or something like that etc. ?"
+
+"If I disappeared or something for 6 months or mroe or less or something and came back, what would I need documented to get back up to speed fast etc?"
+
+"Are there assumptions or 'gotchas' in this code that live only in a person's head right now etc?"
+
+... 
+
+Docs — structure & clarity
+
+"Is the current doc structure and stuff (order of sections, headings, etc) the clearest way and stuff to present this, or would a different structure or something teach it faster etc.?"
+
+"Where would diagrams, flowcharts, tables and stuff etc. communicate things faster and stuff than the paragraph or stuff currently doing it etc? Or perhaps along with paragraphs or text etc. "
+
+"Are there code snippets, examples, etc. that are outdated or no longer match the actual code etc?"
+
+"Is there jargon, shorthand, and stuff etc. in the docs or stuff etc. that isn't explained anywhere etc.?"

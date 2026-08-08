@@ -1,0 +1,125 @@
+Here's a toolkit of audit prompts tuned to what this project actually is — static CSV-driven, vanilla JS, trilingual RTL, 41.6 MB search index, no build step. They're written to force the AI to prove claims (cite file:line, reproduce failures) rather than rubber-stamp. Grouped by what they dig up.
+
+...
+
+Security (the highest-value ones first)
+
+Audit all code paths where CSV data or URL parameters flow into innerHTML or template strings. The data is user-curated but the app renders it — show me every place a value from a CSV field or from the ?q=/?book=&row= URL params reaches the DOM, and determine whether any of them could inject HTML/JS. Quote each sink with file:line and give a concrete payload if one exists.
+
+Check the CSV/XLSX export code (export.js, export-epub.js) for spreadsheet formula injection:
+CSV cells starting with =, +, -, @ that Excel would evaluate. Also check whether the Dhivehi
+CSV export writes a UTF-8 BOM (Excel misreads Thaana without it).
+
+Is there anything in the CSV pipeline (registry → book files → search index) that trusts a hash
+or version field without verifying it? Trace what happens when data/bookRegistry.csv and the
+search index meta.version disagree — is there a degraded-but-safe path or a silent wrong result?
+
+... 
+
+Performance (this is your real bottleneck)
+
+The search index is ~41.6 MB of JSON. Walk the load path: when does it download, when does it
+parse, what happens on a low-memory phone? Identify the worst-case memory spike (JSON.parse of
+41 MB) and propose the cheapest realistic improvement — don't redesign, just tell me the
+highest-ratio fix (streaming parse? moving meta out of the index? splitting by book?).
+
+Find every place a cache is written that could silently never store — keys that don't match
+their read path, early returns before the write, async races. (We already found one: a peek
+cache wrote with an undefined key so it never cached.) Grep the whole js/ tree for cache
+write/read pairs and check each one matches.
+
+The reader fetches and parses whole book CSVs. Which books are the largest, and what does a
+cold open of the biggest book cost in bytes + parse time on a mid-range phone? Is there any
+part of or way a book CSV or data stuff could be loaded better or lazily or streamed or in parts etc?
+
+...
+
+Correctness under RTL / bidi (you've hit real bugs here)
+
+Audit every element that mixes Arabic, Thaana, and Latin in one line (book titles, search
+snippets, metadata rows) for bidi hazards: what happens when an English word is wrapped in
+RTL punctuation, or when a number sits between two RTL words? Give concrete strings that would
+render scrambled and where the fix would go (dir attributes, Unicode controls, or CSS).
+
+The scroll wrappers rely on justify-content: safe center and 2px inline-start insets to keep
+overflowed content reachable in RTL. Find any OTHER centered container with internal overflow
+that wasn't covered — including elements that become overflow containers only on mobile or
+only when text is long (pageTitle, search dropdowns, tag rows).
+
+...
+
+Data integrity & content quality
+
+The app's whole purpose is presenting hadith text. Audit the data layer for silent corruption
+risks: duplicate row ids within a book, rows where the id sequence has gaps, books whose
+registry version hash doesn't match a hash of their CSV content, and the 03-registry build
+script's idempotency (run twice → identical output?).
+
+Which fields in the CSVs are shown to users but never validated or normalized (whitespace,
+mixed quoting, missing columns)? Pick the three fields where a data typo would silently
+corrupt what the reader displays, and trace how a bad value flows from CSV to screen.
+
+...
+
+Maintainability / dead code (learned lessons)
+
+Do a dead-CSS audit of css/ — but first grep js/ for every class name the JS generates or
+toggles (we've had an audit wrongly delete .modal-overlay and .card because the generator
+lives in JS). For each candidate deletion, show the grep that proves it's safe.
+
+Check for drift between the docs (README.md, docs/ARCHITECTURE.md, docs/API.md, docs/USER_GUIDE.md)
+and the code: tokens defined in :root that the docs don't list, font sizes or control sizes
+documented with values that no longer exist, JS APIs documented with wrong names. We found a
+"32×32px buttons" claim that was years stale — find the rest of that class.
+
+Which files have the worst comment-to-code honesty ratio — comments describing behavior that
+no longer matches the code? List misleading comments with the evidence.
+
+... 
+
+Accessibility
+
+Audit focus management: do all modals trap focus and restore it on close? Can every control
+be reached and operated by keyboard alone (the scroll arrows, the peek expansion, the col
+toggle, the tag chips)? What's the state of aria-labels on icon-only buttons — list the ones
+that fail.
+
+How does a screen reader experience a Dhivehi title with an English caption? Check whether
+lang/dir are set per-language at the right level, and whether the language toggle re-announces
+dynamic content (search results, book grid changes).
+
+... 
+
+The "hostile reviewer" templates (use after the specific passes)
+
+You're a hostile reviewer whose job is to make this app fail. Try to: crash the reader with a
+malformed book code, produce a broken shared URL, cause the search to hang, break the i18n
+fallback chain, corrupt pins/history storage, and trigger a flash of unstyled content. For
+each attempt, show the exact steps, the code path, and whether it actually breaks. Report
+failures with file:line and test input.
+
+... 
+
+Read js/ and list the things you would DELETE if you owned this codebase — dead code, unreachable branches, defensive checks that can never fire, duplicated logic. For each, show the grep that proves it's unreachable, not just assert it.
+
+What are the five most likely ways this app will break in the next 12 months that have nothing to do with adding features? (Think: GitHub Pages cache behavior, browser changes, data growth, localStorage quota, font subset gaps.) Rank by probability × damage.
+
+... 
+
+Whole-repo mode (run directly in Claude Code)
+
+Read docs/ARCHITECTURE.md first, then audit the repo against it: find every place the code contradicts its own documented conventions (ES5 style, kebab-case classes, camelCase region-prefixed ids, var(--token, fallback) usage, LF endings). List the violations with file:line, ranked by how likely they are to bite later.
+
+Find the best and worst decisions in this codebase, judged on your own criteria. Be specific and argue each one; for the worst, say what you'd change today with zero regression risk.
+
+... 
+...
+
+How to make AI audits not lie to you
+
+The single biggest failure mode: an AI reads a few files and confidently asserts "no XSS / no dead code / all caches match". Three rules that fix it:
+
+Demand file:line evidence — every claim must be a quoted line, and forbid "looks fine" as an answer.
+Make it falsify, not confirm — "find the sink" outperforms "is this secure?"; "prove this is unreachable" outperforms "is there dead code?".
+Give it the failure class you already know about — the peek-cache bug, the wrongly-deleted CSS classes, the stale README numbers. AIs generalize from one example much better than from zero, and each pass teaches them the kind of bug this codebase grows.
+If you want, pick any three of these and I'll run them right now — a few will land on real findings, and whatever they find I'll verify before claiming anything.

@@ -1,0 +1,5 @@
+[...?] 6. PDF export + popup blockers — window.open silently fails if popups are blocked; no toast, no fallback. Tiny fix (check the window handle / show a "popups blocked" toast).
+
+...
+
+[NO] 7. No offline awareness. Everything fails with generic errors when the network drops mid-session (e.g. toggling a Quran column). A lightweight online/offline banner would contextualize every fetch failure. Medium.

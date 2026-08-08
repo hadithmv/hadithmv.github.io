@@ -1,0 +1,49 @@
+continue code suggestions, for scaling
+
+...
+
+- Precompute a normalised index once per book load (store stripped text alongside raw in each row object), so rowMatchesQuery does a cheap substring scan instead of re-normalising. Cheapest big win.
+
+- Debounce + throttle search (probably already partly done), but the real fix is the index.
+
+...
+
+- Parse lazily / stream. Instead of parseCSV(text) on the whole blob, do incremental parsing tied to the chunk system — parse only the chunk of rows needed. A line-oriented parser could yield rows on scroll.
+
+- Switch to a binary/serialised format (JSON arrays or even a custom indexed binary) — both parse faster than CSV and can hold pre-normalised fields.
+
+- For Quran, load and merge base data once and cache in IndexedDB or a service worker so subsequent book loads don't re-fetch 2+ base files.
+
+...
+
+- "Virtualised" / windowed rendering — this is the real fix. Discard DOM *and* data outside the viewport window; keep row numbers/deltas and re-fetch or re-parse only nearby chunk files on scroll. This converts O(entire book) memory into O(viewport).
+
+
+- Implement an on-demand fetch-per-chunk model so in-memory holds only the loaded window.
+- For export, stream/build incrementally (create blob per chunk, or write to a progressively-built file) instead of one giant in-memory string.
+
+- Offload heavy work (search, export, parsing) to a Web Worker to keep the main thread responsive.
+
+...
+
+- Introduce a real backend + database at some threshold: host data in a DB, expose paginated JSON APIs, build the search index server-side, add caching/CDN keyed by data version. This unlocks auth, multi-device sync of pins/history (currently lost per-browser).
+
+- Until then, split the registry into paginated/sharded files and cache aggressively in a service worker so returning users don't re-download.
+
+- Version the data files so the service worker can invalidate cache on content change rather than re-fetching everything.
+
+- Move content metadata (surah names, base Quran data) to a single merged/cached bundle instead of 2–4 separate files per Quran book.
+
+...
+
+## 5. Client-side export & XLSX/EPUB writers (breaks at scale)
+
+- If kept client-side: use streams/worker and cap/allow chunked export; or at minimum pre-aggregate shared strings in XLSX to reduce size.
+
+...
+
+- 15 hand-rolled export formats, three theme CSS blocks, manual RTL scroll handling (Chrome vs Firefox scrollLeft) — all highly custom. At 10x these aren't *performance* breaks but they make maintenance and onboarding the compounding bottleneck. The docs are excellent, but there's no test suite in the repo (books/, js/, no tests). As complexity grows 10x, regressions will multiply.
+
+- Add at least smoke/E2E and unit tests for search + export + CSV parsing (the three most intricate, regressions-prone subsystems) before scaling.
+
+...
