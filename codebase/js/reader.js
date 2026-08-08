@@ -696,13 +696,16 @@ initializePageWithMetadata(async function (metadata) {
             }
             thead += "</tr></thead>";
           }
-          // ── Table DOM structure (IDs referenced by setupTableScroll, appendNext, prependPrev) ──
-          // DO NOT rename: #rdfTopScroll, #rdfScrollBack, #rdfScrollFwd, #rdfTableWrap, #rdfBody, #sentinelBottom
+          // ── Table DOM structure (IDs wired through setupTableScroll, appendNext, prependPrev) ──
+          // Family was rdf* (Radheef shorthand — Radheef books default to table view); renamed to
+          // table* because this is the generic table view. Rename in lockstep across the three
+          // functions: #tableTopScroll, #tableScrollBack, #tableScrollFwd, #tableWrap, #tableBody,
+          // #sentinelBottom
           readerContent.innerHTML =
-            `<div class="rdf-top-scroll" id="rdfTopScroll"><button class="scroll-arrow" id="rdfScrollBack" title="Back to beginning">▶</button><div class="rdf-top-scroll-inner"><div class="rdf-top-scroll-spacer" id="rdfTopScrollInner"></div></div><button class="scroll-arrow" id="rdfScrollFwd" title="More columns">◀</button></div>` +
-            `<div class="rdf-table-wrap" id="rdfTableWrap"><table class="rdf-table">${thead}<tbody id="rdfBody"></tbody></table></div>` +
+            `<div class="table-top-scroll" id="tableTopScroll"><button class="scroll-arrow" id="tableScrollBack" title="Back to beginning">▶</button><div class="table-top-scroll-inner"><div class="table-top-scroll-spacer" id="tableTopScrollInner"></div></div><button class="scroll-arrow" id="tableScrollFwd" title="More columns">◀</button></div>` +
+            `<div class="table-wrap" id="tableWrap"><table class="reader-table">${thead}<tbody id="tableBody"></tbody></table></div>` +
             `<div id="sentinelBottom" class="reader-sentinel"></div>`;
-          document.getElementById("rdfBody").innerHTML = renderTableRows(0, end);
+          document.getElementById("tableBody").innerHTML = renderTableRows(0, end);
           setupTableScroll();
         } else {
           readerContent.innerHTML =
@@ -738,15 +741,15 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Top scrollbar + horizontal scroll setup ──────────────
       function setupTableScroll() {
-        var topScrollOuter = document.getElementById("rdfTopScroll");
-        var tableWrap = document.getElementById("rdfTableWrap");
-        var topSpacer = document.getElementById("rdfTopScrollInner");
+        var topScrollOuter = document.getElementById("tableTopScroll");
+        var tableWrap = document.getElementById("tableWrap");
+        var topSpacer = document.getElementById("tableTopScrollInner");
         // The scrollbar lives on the inner div (so padding on outer stays clean)
-        var topScroll = topScrollOuter ? topScrollOuter.querySelector(".rdf-top-scroll-inner") : null;
+        var topScroll = topScrollOuter ? topScrollOuter.querySelector(".table-top-scroll-inner") : null;
         if (!topScroll || !tableWrap) return;
 
         function getTable() {
-          return tableWrap.querySelector(".rdf-table");
+          return tableWrap.querySelector(".reader-table");
         }
 
         // Compute and apply table width: first col 60px, rest 150px each.
@@ -792,7 +795,7 @@ initializePageWithMetadata(async function (metadata) {
           tableWrap.style.overflowX = needed ? "" : "visible";
           // Adjust th sticky offset: only reserve space when scrollbar is visible
           var ths = table.querySelectorAll("thead th");
-          var thTop = needed ? "calc(var(--rdf-header-top, 64px) + 19px)" : "var(--rdf-header-top, 64px)";
+          var thTop = needed ? "calc(var(--table-header-top, 64px) + 19px)" : "var(--table-header-top, 64px)";
           for (var i = 0; i < ths.length; i++) {
             ths[i].style.setProperty("top", thTop);
           }
@@ -837,8 +840,8 @@ initializePageWithMetadata(async function (metadata) {
           }
           requestAnimationFrame(animate);
         }
-        var scrollFwdBtn = document.getElementById("rdfScrollFwd");
-        var scrollBackBtn = document.getElementById("rdfScrollBack");
+        var scrollFwdBtn = document.getElementById("tableScrollFwd");
+        var scrollBackBtn = document.getElementById("tableScrollBack");
         if (scrollFwdBtn) {
           scrollFwdBtn.addEventListener("click", function () {
             smoothScrollBy(-COL_STEP);
@@ -860,7 +863,7 @@ initializePageWithMetadata(async function (metadata) {
         }, { passive: false });
 
         // Refresh when columns are toggled
-        window.__rdfRefreshScrollWidth = function () {
+        window.__refreshTableScrollWidth = function () {
           var cw = applyTableWidth();
           requestAnimationFrame(function () {
             refreshScrollWidth(cw);
@@ -873,10 +876,10 @@ initializePageWithMetadata(async function (metadata) {
         var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
         var nextEnd = Math.min(loadedEnd + chunkSize, filteredData.length);
         if (viewMode === "table") {
-          var body = document.getElementById("rdfBody");
+          var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
           requestAnimationFrame(function () {
-            if (window.__rdfRefreshScrollWidth) window.__rdfRefreshScrollWidth();
+            if (window.__refreshTableScrollWidth) window.__refreshTableScrollWidth();
           });
         } else {
           var sentinel = document.getElementById("sentinelBottom");
@@ -891,10 +894,10 @@ initializePageWithMetadata(async function (metadata) {
         var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
         var nextStart = Math.max(0, loadedStart - chunkSize);
         if (viewMode === "table") {
-          var body = document.getElementById("rdfBody");
+          var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
           requestAnimationFrame(function () {
-            if (window.__rdfRefreshScrollWidth) window.__rdfRefreshScrollWidth();
+            if (window.__refreshTableScrollWidth) window.__refreshTableScrollWidth();
           });
         } else {
           var prevH = readerContent.scrollHeight;
@@ -1526,7 +1529,7 @@ initializePageWithMetadata(async function (metadata) {
           var chrome = document.getElementById("collapsibleReaderPanel");
           var top = (topBar ? topBar.offsetHeight : 62);
           if (chrome && chrome.offsetHeight > 0) top += chrome.offsetHeight;
-          document.documentElement.style.setProperty("--rdf-header-top", top + "px");
+          document.documentElement.style.setProperty("--table-header-top", top + "px");
         });
       }
       // Reader-specific post-focus recalculation
@@ -1794,7 +1797,7 @@ initializePageWithMetadata(async function (metadata) {
       });
       updateRdfHeaderTop();
       expandIfOverflowing();
-      window.addEventListener("resize", function () { updateRdfHeaderTop(); expandIfOverflowing(); if (window.__rdfRefreshScrollWidth) window.__rdfRefreshScrollWidth(); });
+      window.addEventListener("resize", function () { updateRdfHeaderTop(); expandIfOverflowing(); if (window.__refreshTableScrollWidth) window.__refreshTableScrollWidth(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {

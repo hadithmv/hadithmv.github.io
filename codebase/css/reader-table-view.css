@@ -2,16 +2,16 @@
    RDF Table — top scrollbar, table layout, sentinels, footnotes
    ============================================================ */
 /* RDF table mode */
-.rdf-table-wrap {
+.table-wrap {
   overflow-x: hidden; /* fallback */
   overflow-x: clip; /* clips overflow WITHOUT creating a scroll container → sticky th works */
   margin: 0 -36px;
   direction: rtl;
 }
 /* Top scrollbar — sits above the table, sticky so it stays visible on vertical scroll */
-.rdf-top-scroll {
+.table-top-scroll {
   position: sticky;
-  top: calc(var(--rdf-header-top, 64px) + 2px);
+  top: calc(var(--table-header-top, 64px) + 2px);
   z-index: var(--z-sticky, 6);
   display: flex;
   align-items: center;
@@ -20,36 +20,36 @@
   direction: rtl;
   background: var(--color-reader-bg);
 }
-.rdf-top-scroll-inner {
+.table-top-scroll-inner {
   flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
   min-width: 0;
 }
-.rdf-top-scroll-inner::-webkit-scrollbar {
+.table-top-scroll-inner::-webkit-scrollbar {
   height: 10px;
 }
-.rdf-top-scroll-inner::-webkit-scrollbar-thumb {
+.table-top-scroll-inner::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 5px;
 }
-.rdf-top-scroll-inner::-webkit-scrollbar-thumb:hover {
+.table-top-scroll-inner::-webkit-scrollbar-thumb:hover {
   background: var(--color-card-hover-border);
 }
-.rdf-top-scroll-inner::-webkit-scrollbar-track {
+.table-top-scroll-inner::-webkit-scrollbar-track {
   background: transparent;
 }
-.rdf-top-scroll-spacer {
+.table-top-scroll-spacer {
   height: 1px;
 }
 
 /* Arrow buttons flanking the scrollbar */
-.rdf-top-scroll .scroll-arrow {
+.table-top-scroll .scroll-arrow {
   padding: 0 4px;
   font-size: 0.7rem;
 }
 
-.rdf-table {
+.reader-table {
   width: 100%;
   table-layout: auto;
   border-collapse: separate;
@@ -61,7 +61,7 @@
   contain: layout style;
 }
 
-.rdf-table td {
+.reader-table td {
   padding: 6px 10px;
   border-bottom: 1px solid var(--color-border);
   border-right: 1px solid var(--color-border);
@@ -70,28 +70,28 @@
   overflow-wrap: break-word;
 }
 /* Left border on first column (rightmost in RTL) */
-.rdf-table td:first-child {
+.reader-table td:first-child {
   border-left: 1px solid var(--color-border);
   white-space: nowrap;
   width: 60px;
 }
 
 /* Sharh cells in table mode — smaller text + separator from matn */
-.rdf-table td.td-sharh {
+.reader-table td.td-sharh {
   font-size: 0.88em;
   border-inline-start: 2px dotted var(--color-divider-ornament);
 }
 
-.rdf-table tr:hover td {
+.reader-table tr:hover td {
   background: var(--color-nav-btn-hover-bg);
 }
 
-.rdf-table thead {
+.reader-table thead {
   z-index: var(--z-table-head, 10);
 }
-.rdf-table th {
+.reader-table th {
   position: sticky;
-  top: var(--rdf-header-top, 64px);
+  top: var(--table-header-top, 64px);
   z-index: var(--z-table-head, 10);
   padding: 8px 10px;
   background: var(--color-nav-btn-bg);
@@ -106,7 +106,7 @@
   z-index: var(--z-base, 5);
   white-space: nowrap;
 }
-.rdf-table th:first-child {
+.reader-table th:first-child {
   border-left: 1px solid var(--color-border);
   width: 60px;
 }

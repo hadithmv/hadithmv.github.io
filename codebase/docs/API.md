@@ -452,7 +452,7 @@ Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, 
 | `readerReset` | `common.js` (btnResetSettings) | `reader.js` | Delegates reader‑specific reset to the reader module (view mode, hidden columns, tashkeel, Quran display) without tight coupling. |
 | `dashboardReset` | `common.js` (btnResetSettings) | `dashboard.js` | Delegates dashboard‑specific reset (pins, history, search, filters) without tight coupling. |
 | `languagechange` | `i18n.js` | All modules | Triggers UI re‑render when the user changes language. |
-| `focuschange` | `common.js` (`window.setFocus`) | reader.js, dashboard.js | Fires after focus mode toggles. Reader uses it to recalc `--rdf-header-top` and scroll padding; dashboard uses it for optional layout adjustments. |
+| `focuschange` | `common.js` (`window.setFocus`) | reader.js, dashboard.js | Fires after focus mode toggles. Reader uses it to recalc `--table-header-top` and scroll padding; dashboard uses it for optional layout adjustments. |
 
 ### Clipboard format
 
