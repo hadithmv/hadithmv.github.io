@@ -35,8 +35,10 @@
   margin-top: var(--section-gap, 6px);
 }
 
+/* Center rows, but never clip their start when they overflow on narrow
+   screens: `safe center` falls back to start alignment when overflowing */
 .reader-panel-row {
-  justify-content: center;
+  justify-content: safe center;
 }
 
 /* ── Shared: all buttons + inputs inside panel rows ── */
@@ -174,7 +176,7 @@
 .reader-toolbar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: safe center; /* 8 buttons overflow phone width — safe keeps the start visible */
   gap: var(--control-gap, 6px);
   padding: 0;
   margin: 0;

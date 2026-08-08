@@ -1235,6 +1235,12 @@ body:has(.modal-overlay.open) {
   font-weight: 700;
   color: var(--color-text);
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  /* Centered when it fits; a long title overflowing on narrow screens is
+     start-aligned (RTL) so its beginning is visible instead of clipped */
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  justify-content: safe center;
   text-align: center;
   white-space: nowrap;
   overflow-x: auto;
