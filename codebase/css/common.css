@@ -1236,11 +1236,13 @@ body:has(.modal-overlay.open) {
   color: var(--color-text);
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   /* Centered when it fits; a long title overflowing on narrow screens is
-     start-aligned (RTL) so its beginning is visible instead of clipped */
+     start-aligned (RTL) so its beginning is visible instead of clipped.
+     2px start inset keeps scroll rounding from shaving the first glyph */
   display: flex;
   align-items: center;
   direction: rtl;
   justify-content: safe center;
+  padding-inline-start: 2px;
   text-align: center;
   white-space: nowrap;
   overflow-x: auto;
