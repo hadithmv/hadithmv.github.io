@@ -246,7 +246,7 @@ a.toolbar-btn {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 6px);
-  margin-bottom: 12px;
+  margin-bottom: var(--section-gap, 6px);
 }
 
 .pin-badge {
@@ -330,7 +330,7 @@ a.toolbar-btn {
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  gap: var(--grid-gap, 12px);
   direction: rtl;
 }
 
@@ -347,7 +347,7 @@ a.toolbar-btn {
     padding: 0 0.5em;
   }
   .book-grid {
-    gap: 12px;
+    gap: var(--grid-gap, 12px);
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
   .book-card {

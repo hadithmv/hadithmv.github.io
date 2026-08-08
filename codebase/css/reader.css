@@ -349,7 +349,7 @@
 .parallel-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: var(--grid-gap, 12px);
   direction: rtl;
   margin: 8px 0;
 }
@@ -1014,6 +1014,6 @@
   /* Parallel view: stack columns vertically on mobile */
   .parallel-columns {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: var(--grid-gap, 12px);
   }
 }

@@ -111,6 +111,10 @@
   /* Card padding — book cards and library results share one padding */
   --card-padding: 24px;
   --card-padding-mobile: 16px;
+  /* Grid gutters — card grids (dashboard) and parallel columns (reader) share
+     one value: 12px — double the control-gap rhythm, so surfaces stay
+     distinct. */
+  --grid-gap: 12px;
   /* Z-index ladder — one token per layer (docs/ARCHITECTURE.md). The ladder
      is the in-sync unit: renumber tokens here, never a single site. */
   --z-under: -1;
