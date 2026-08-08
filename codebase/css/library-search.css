@@ -87,6 +87,8 @@
   font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
 }
 .lib-result .lib-title-en {
+  direction: ltr; /* English caption — LTR even when right-aligned */
+  text-align: right;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 500;
   color: var(--color-text-muted);
