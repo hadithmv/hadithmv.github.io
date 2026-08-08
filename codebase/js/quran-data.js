@@ -23,7 +23,7 @@ export function isQuranBook(bookCode) {
 }
 
 // ── Content preset definitions ──────────────────────────────
-// Book codes (sourceBook from 05-registry-quranColumns.csv)
+// Book codes (sourceBook from 06-registry-quranColumns.csv)
 // that should be toggled on when the user clicks the preset button.
 //
 // Example:
@@ -66,7 +66,7 @@ export var BASE_HEADERS = [
 // The base Quran book's code — its columns are structural (never hidden or
 // reordered). QRN_BASE_STRUCT is a synthetic pseudo-book: the four structural
 // columns (juz/surah/ayah/basmalah) have no CSV file of their own — they are
-// derived at load from 04-registry-quranSurahs.csv + 07-registry-quranJuz.csv.
+// derived at load from 04-registry-quranSurahs.csv + 05-registry-quranJuz.csv.
 export var QRN_BASE_FILE = "QRN-DATA-baseFile-1-ayahImlai";
 export var QRN_BASE_STRUCT = "QRN-BASE-STRUCT";
 
@@ -88,10 +88,10 @@ export function getJuzStartRow(juzNo) {
   return _juzStartRows ? _juzStartRows[juzNo] : -1;
 }
 
-// 30-row juz start table (07-registry-quranJuz.csv).
+// 30-row juz start table (05-registry-quranJuz.csv).
 export function loadJuzTable() {
   if (_juzTableCache) return Promise.resolve(_juzTableCache);
-  return fetchCSVRows("../data/07-registry-quranJuz.csv").then(function (rows) {
+  return fetchCSVRows("../data/05-registry-quranJuz.csv").then(function (rows) {
     if (rows.length > 0) rows.shift(); // strip header row
     _juzTableCache = rows.map(function (r) {
       return {
@@ -453,7 +453,7 @@ export function applyColumnOrder(state) {
 
 export function loadColumnRegistry() {
   if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
-  return fetchCSVRows("../data/05-registry-quranColumns.csv").then(
+  return fetchCSVRows("../data/06-registry-quranColumns.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       rows.shift(); // strip header

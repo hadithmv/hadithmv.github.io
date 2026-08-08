@@ -60,7 +60,7 @@ the "keeping this guide alive" capture-at-discovery rule.
 - Version = SHA-256 of the content CSV, first 12 hex, **lowercase** (compared
   case-sensitively client-side).
 - After registry or book changes, regenerate the search index:
-  `node data/06-rebuild-searchIndex.mjs`.
+  `node data/07-rebuild-searchIndex.mjs`.
 - Renames/swaps move names, not data: after any `git mv`, verify bytes against
   the git blob (`git show HEAD:<path> | sha256sum`) and check
   `git status --porcelain` for untracked strays at the old path.

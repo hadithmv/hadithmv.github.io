@@ -1,7 +1,7 @@
 /**
  * Library Search Module
  * Cross-book search over the machine-generated word-level index
- * (data/search-index.json, built by data/06-rebuild-searchIndex.mjs).
+ * (data/search-index.json, built by data/07-rebuild-searchIndex.mjs).
  *
  * The index maps normalised words → { bookId → packed row ranges }. This
  * module loads it (IndexedDB-cached, validated against meta.version via a
@@ -18,7 +18,7 @@ import { normaliseForSearch } from "./search-utils.js";
 var INDEX_PATH = "../data/search-index.json";
 
 // ── Tokenisation (SHARED with the index build script) ────────
-// data/06-rebuild-searchIndex.mjs imports this function — the query side and the
+// data/07-rebuild-searchIndex.mjs imports this function — the query side and the
 // build side must always tokenise identically or lookups would miss.
 
 /**

@@ -75,11 +75,11 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `data/content/*.csv`        | Per-book content files                                                     |
 | `data/03-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the registries            |
 | `data/04-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
-| `data/05-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
-| `data/07-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
-| `data/content/QRN-DATA-baseFile-1-ayahImlai.csv` | Base Quran text: one Imlai ayah per row (structure derived from 04 + 07 at load) |
+| `data/06-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
+| `data/05-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
+| `data/content/QRN-DATA-baseFile-1-ayahImlai.csv` | Base Quran text: one Imlai ayah per row (structure derived from 04 + 05 at load) |
 | `data/content/QRN-DATA-baseFile-2-ayahUthmani.csv` | Quran text in Uthmani script                                     |
-| `data/06-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
+| `data/07-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
 | `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
 | `data/search-index-report.md` | Generated per-build policy report — one row per book (index id, rows, postings, indexed/skipped columns), warnings, and a postings-by-column breakdown sorted by size; commit it to diff policy changes across versions |
 
@@ -498,10 +498,10 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 |------|------|---------|
 | `QRN-DATA-baseFile-1-ayahImlai.csv` | Base Quran text (always loaded) | `ayahImlai` |
 | `QRN-DATA-baseFile-2-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
-| `QRN-BASE-STRUCT` (synthetic) | Derived base columns — built at load from 04 + 07, no file exists | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah` |
+| `QRN-BASE-STRUCT` (synthetic) | Derived base columns — built at load from 04 + 05, no file exists | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah` |
 | `04-registry-quranSurahs.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount, basmalah` |
-| `05-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
-| `07-registry-quranJuz.csv` | Juz cut points | `juzNo, startSurah, startAyah` |
+| `06-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
+| `05-registry-quranJuz.csv` | Juz cut points | `juzNo, startSurah, startAyah` |
 | `QRN-{name}.csv` | Book-specific columns | Varies per book |
 
 ### Deriving the base columns
@@ -509,10 +509,10 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 `QRN-DATA-baseFile-1-ayahImlai.csv` stores only the Imlai text — one column, one row per ayah (6,236 rows). The structural columns (juz, surah, ayah number, basmalah) are **derived at load time** by `loadQuranBaseData()` from two registry tables:
 
 - `04-registry-quranSurahs.csv` — per-surah `ayahCount` gives each surah's row span; the `basmalah` column holds the verse that opens every surah except 1 and 9.
-- `07-registry-quranJuz.csv` — the standard 30 juz cut points as `startSurah,startAyah` (juz 12 opens mid-surah at 11:6, juz 13 at 12:53).
+- `05-registry-quranJuz.csv` — the standard 30 juz cut points as `startSurah,startAyah` (juz 12 opens mid-surah at 11:6, juz 13 at 12:53).
 
 ```text
-04-registry-quranSurahs.csv    07-registry-quranJuz.csv    QRN-DATA-baseFile-1-ayahImlai.csv
+04-registry-quranSurahs.csv    05-registry-quranJuz.csv    QRN-DATA-baseFile-1-ayahImlai.csv
 114 surahs (ayahCount,         30 juz cut points           (1 col, 6,236 rows)
 basmalah per surah)            (startSurah, startAyah)
         └──────────────┬──────────────┘           │
@@ -524,7 +524,7 @@ The derivation is a single pass over 6,236 rows with advancing surah/juz pointer
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `05-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
+Base data columns are always present. Book-specific columns are merged by row index. The `06-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
 ```text
 QRN-DATA-baseFile-1-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,236 rows)
@@ -562,7 +562,7 @@ reader shows columns in list order
 **Adding a new Quran translation (walkthrough):**
 
 1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-baseFile-1-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
-2. Register each column in `data/05-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
+2. Register each column in `data/06-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
 4. Register the book in `02-registry-bookMeta.csv` — or just run `data/03-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts both registries. Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeColumns`) survive untouched.
 
@@ -918,7 +918,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### The index
 
-`data/06-rebuild-searchIndex.mjs` (Node — run `node data/06-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; an optional `excludeColumns` registry column (comma‑separated header names) skips those columns — `-HDN` and the row‑number column still win regardless; the magic value `ENTIRE-BOOK` skips the whole book (no postings, and it is listed under `## Excluded Books` in the report). The build prints **one report line per book** (row count, indexed columns, skipped columns) and writes the same info to `data/search-index-report.md` (markdown table with per-book postings — the policy as a diffable file, committed alongside the index) so the whole indexing policy is eyeballable at a glance, and an `excludeColumns` entry that matches no column warns. The build times itself — elapsed, per‑phase breakdown (index / pack / write), rows·postings per second, heap, node version — printed to the console and mirrored in the report's `## Build Stats` section. Rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
+`data/07-rebuild-searchIndex.mjs` (Node — run `node data/07-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; an optional `excludeColumns` registry column (comma‑separated header names) skips those columns — `-HDN` and the row‑number column still win regardless; the magic value `ENTIRE-BOOK` skips the whole book (no postings, and it is listed under `## Excluded Books` in the report). The build prints **one report line per book** (row count, indexed columns, skipped columns) and writes the same info to `data/search-index-report.md` (markdown table with per-book postings — the policy as a diffable file, committed alongside the index) so the whole indexing policy is eyeballable at a glance, and an `excludeColumns` entry that matches no column warns. The build times itself — elapsed, per‑phase breakdown (index / pack / write), rows·postings per second, heap, node version — printed to the console and mirrored in the report's `## Build Stats` section. Rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
 
 The file's shape — real excerpt (`bookIds` truncated, three of one word's postings shown):
 

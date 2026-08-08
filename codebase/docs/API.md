@@ -234,7 +234,7 @@ Saved to `localStorage` under `reader:searchHistory`.
 
 ## library-search-engine.js
 
-Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/06-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/07-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is).
 
 ### `loadSearchIndex()`
 
@@ -329,7 +329,7 @@ DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, 
 
 ### `loadQuranBaseData()`
 
-Memoized. Derives the base structure — `[juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai]` per row, 6,236 rows — at load time from three sources: Imlai text via `loadQuranBookCSV(QRN-DATA-baseFile-1-ayahImlai.csv)` (version-gated IndexedDB cache), surah spans and the per-surah basmalah from `04-registry-quranSurahs.csv`, juz cut points from `07-registry-quranJuz.csv`. Structural cells are `String`-typed to match CSV byte semantics. Also fills the O(1) lookup tables behind `getSurahStartRow` / `getJuzStartRow`.
+Memoized. Derives the base structure — `[juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai]` per row, 6,236 rows — at load time from three sources: Imlai text via `loadQuranBookCSV(QRN-DATA-baseFile-1-ayahImlai.csv)` (version-gated IndexedDB cache), surah spans and the per-surah basmalah from `04-registry-quranSurahs.csv`, juz cut points from `05-registry-quranJuz.csv`. Structural cells are `String`-typed to match CSV byte semantics. Also fills the O(1) lookup tables behind `getSurahStartRow` / `getJuzStartRow`.
 
 ### `getSurahStartRow(surahNo)` / `getJuzStartRow(juzNo)`
 
@@ -356,7 +356,7 @@ Pure column‑layout rebuild — the heart of the content modal's reorder featur
 
 ### `loadColumnRegistry()`
 
-Fetches `05-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+Fetches `06-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
 ### Content presets
 

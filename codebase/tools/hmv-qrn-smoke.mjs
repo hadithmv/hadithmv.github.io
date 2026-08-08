@@ -49,14 +49,14 @@ const imlai = parseCSV(fs.readFileSync(DATA + "content/QRN-DATA-baseFile-1-ayahI
 imlai.shift();
 const JSTARTS = [0, 148, 259, 385, 516, 640, 750, 899, 1041, 1200, 1327, 1478, 1648, 1802, 2029, 2214, 2483, 2673, 2875, 3214, 3385, 3563, 3732, 4089, 4264, 4510, 4705, 5104, 5241, 5672];
 
-const rows05 = parseCSV(fs.readFileSync(DATA + "05-registry-quranColumns.csv", "utf8"));
-rows05.shift();
-const base05 = rows05.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" || r[0] === "QRN-DATA-baseFile-1-ayahImlai"; })
+const rows06 = parseCSV(fs.readFileSync(DATA + "06-registry-quranColumns.csv", "utf8"));
+rows06.shift();
+const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" || r[0] === "QRN-DATA-baseFile-1-ayahImlai"; })
   .sort(function (a, b) {
     if (a[0] === b[0]) return parseInt(a[1], 10) - parseInt(b[1], 10);
     return a[0] === "QRN-BASE-STRUCT" ? -1 : 1;
   });
-const expLabels = base05.map(function (r) { return r[2]; });
+const expLabels = base06.map(function (r) { return r[2]; });
 const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
 rows02.shift();
 const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-baseFile-1-ayahImlai"; }) || [])[2] || "";
