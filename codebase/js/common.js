@@ -80,6 +80,43 @@ window.tagChipHtml = function (code, label, palette, active, count) {
   );
 };
 
+/**
+ * Collapsible chip row — shared by the dashboard and library-search pages.
+ * Clamps the chip row to one line and shows a chevron toggle only when the
+ * chips overflow; the toggle expands/collapses and stays level with the first
+ * row. Returns a refresh() that re-measures after the chips re-render. The
+ * expanded state lives on the collapse element's class, so it survives
+ * re-renders (the chips' innerHTML is rewritten, the box is not) and resets
+ * on reload.
+ */
+window.initTagsCollapse = function (collapseId, toggleId) {
+  var collapse = document.getElementById(collapseId);
+  var toggle = document.getElementById(toggleId);
+  if (!collapse || !toggle) return null;
+
+  function refresh() {
+    // The overflow check only works while clamped — measure collapsed, then
+    // restore whatever state the user had.
+    var wasExpanded = collapse.classList.contains("expanded");
+    collapse.classList.remove("expanded");
+    var overflows = collapse.scrollHeight > collapse.clientHeight;
+    if (wasExpanded) collapse.classList.add("expanded");
+    toggle.style.display = overflows ? "" : "none";
+    toggle.classList.toggle("expanded", overflows && wasExpanded);
+    toggle.title =
+      overflows && wasExpanded ? "Show fewer tags" : "Show more tags";
+  }
+
+  toggle.addEventListener("click", function () {
+    var expanded = collapse.classList.toggle("expanded");
+    toggle.classList.toggle("expanded", expanded);
+    toggle.title = expanded ? "Show fewer tags" : "Show more tags";
+  });
+  window.addEventListener("resize", refresh);
+  refresh();
+  return refresh;
+};
+
 // ── Theme (blocking — inline in <head>, replicated here for reader page) ─
 (function () {
   var t = localStorage.getItem(window.LS_KEYS.theme);

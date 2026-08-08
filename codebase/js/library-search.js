@@ -36,6 +36,7 @@ var _bookNames = null; // full registry (incl. -HDN books)
 var _q = ""; // current query (trimmed)
 var _selectedTags = []; // active tag chips (OR — same semantics as the grid)
 var _searchTimer = null; // input debounce
+var _refreshTags = null; // tag-row collapse refresh (common.js)
 
 var PEEK_BATCH = 8;
 var _peekCache = {}; // bookCode → q → {q, allData, normAllData, compiled, matches, pos, hasRowNums}
@@ -105,8 +106,9 @@ function renderChips() {
       );
     })
     .join("");
-  el.tagsRow.innerHTML =
+  el.tagsCollapse.innerHTML =
     '<span class="dash-label">' + t("dashboardTagsLabel") + "</span> " + allChipHTML + html;
+  if (_refreshTags) _refreshTags();
 }
 
 function onChipsClick(e) {
@@ -437,6 +439,8 @@ async function init() {
   el.input = document.getElementById("libSearchInput");
   el.clear = document.getElementById("libSearchClear");
   el.tagsRow = document.getElementById("libTagsRow");
+  el.tagsCollapse = document.getElementById("libTagsCollapse");
+  el.tagsToggle = document.getElementById("libTagsToggle");
   el.count = document.getElementById("libCount");
   el.results = document.getElementById("libResults");
   if (!el.input) return;
@@ -464,6 +468,7 @@ async function init() {
 
   // Tag chips (scoping)
   el.tagsRow.addEventListener("click", onChipsClick);
+  _refreshTags = window.initTagsCollapse("libTagsCollapse", "libTagsToggle");
 
   // Language change → re-render chips + results
   document.addEventListener("languagechange", function () {

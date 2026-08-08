@@ -924,6 +924,56 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 
+/* Collapsible chip row — dashboard + library search share the chip row; when
+   the chips overflow one row the row clamps and a chevron button expands it.
+   The toggle sits at the row end (left, RTL) and stays level with the first
+   row. Motion is the panel expand/collapse curve. */
+.dash-tags-collapse {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--control-gap, 6px);
+  align-items: center;
+  overflow: hidden;
+  /* flex-basis 0 is required for the chevron to share the first line: flex
+     line-breaking uses flex base sizes, and the chips' single-line width
+     (all chips in a row) would otherwise claim line 1 and push the toggle
+     to its own row. Grow fills the leftover width; the chips wrap inside. */
+  flex: 1 1 0%;
+  min-width: 0;
+  max-height: calc(var(--control-height, 35px));
+  transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+}
+.dash-tags-collapse.expanded {
+  /* A concrete target the transition can run to — far beyond the ~2-4 rows
+     the 15 tags wrap to, so the clamp never clips an expanded row. */
+  max-height: 400px;
+}
+.dash-tags-toggle {
+  align-self: flex-start;
+  flex: 0 0 auto;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
+  padding: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition:
+    transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
+    background var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
+}
+.dash-tags-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+  color: var(--color-nav-btn-hover-text);
+}
+.dash-tags-toggle.expanded {
+  transform: rotate(180deg); /* ▾ → ▴ */
+}
+
 /* ── Scroll arrows — shared core ──
    Edge arrows for horizontal scrollers (dashboard functions row, reader
    toolbar, RDF tables). Core: muted glyph button that darkens on hover;

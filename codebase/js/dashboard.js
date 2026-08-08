@@ -88,6 +88,7 @@ export async function initializeDashboard() {
 let _lastBookNames = null;
 let _dashFilter = { search: "", tags: [], sort: "az", pinsOnly: false };
 let _dashTableMode = false;
+let _refreshTags = null; // tag-row collapse refresh (common.js)
 
 /** Re-render the dashboard view (cards/table). */
 function refreshView() {
@@ -218,7 +219,7 @@ function renderDashboard(bookNames) {
       );
     })
     .join("");
-  document.getElementById("dashboardPanelTags").innerHTML =
+  document.getElementById("dashTagsCollapse").innerHTML =
     pinsChipHTML + allChipHTML + chipsHTML
       ? '<span class="dash-label">' +
         t("dashboardTagsLabel") +
@@ -227,6 +228,7 @@ function renderDashboard(bookNames) {
         allChipHTML +
         chipsHTML
       : "";
+  if (_refreshTags) _refreshTags();
 
   // Result count
   document.getElementById("dashboardResultCount").textContent =
@@ -438,6 +440,9 @@ function setupDashboardControls() {
     _dashFilter.sort = this.value;
     refreshView();
   });
+  // Tag row collapse — the chevron appears only when the chips overflow one
+  // row; refresh re-measures after every chips re-render (search/reset/lang).
+  _refreshTags = window.initTagsCollapse("dashTagsCollapse", "dashTagsToggle");
 
   // ── Library search jump ("search in books") ────────────────
   // The button is an anchor to library-search.html; carry the search box
