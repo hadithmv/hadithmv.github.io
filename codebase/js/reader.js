@@ -844,7 +844,7 @@ initializePageWithMetadata(async function (metadata) {
       // #region Navigation (goTo, scroll padding)
       function updateScrollPadding() {
         var topBar = document.getElementById("topBar");
-        var panel = document.getElementById("collapsibleReaderPanel");
+        var panel = document.getElementById("readerPanel");
         // Measured, not parsed: --topbar-clearance is a calc() token string, so
         // parseFloat can't resolve it — measure the panel's pinned bottom edge
         var offset = (panel && panel.offsetHeight > 0) ? panel.getBoundingClientRect().bottom : (topBar ? topBar.offsetHeight : 62) + 6;
@@ -963,7 +963,7 @@ initializePageWithMetadata(async function (metadata) {
       function updateTableHeaderTop() {
         requestAnimationFrame(function () {
           var topBar = document.getElementById("topBar");
-          var chrome = document.getElementById("collapsibleReaderPanel");
+          var chrome = document.getElementById("readerPanel");
           // The table area starts at the sticky panel's bottom edge; the panel
           // pins at its rest position, so the rect is the same at rest and while
           // scrolling. (--topbar-clearance is a calc() token — parseFloat can't

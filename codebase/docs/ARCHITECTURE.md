@@ -185,7 +185,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 ┌─ Fixed topBar (z-index 101, opaque bg) ───────────────────═┐
 │  ↩ Return  ▾ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
 │  ═══ progress bar (surah-level for QRN, milestone toasts, green border + surah-completed toast at 100%) │
-├─ Sticky collapsibleReaderPanel (z-index 50) ─────────────────┤
+├─ Sticky readerPanel shell (z-index 50) ──────────────────────┤
 │  readerPanelSearch       🔎 Advanced  [input]  ✕  (N)        │
 │  readerPanelFunctions    📋 📌 ◉ 🔗 ↕ ↺ 📥 …               │
 │  readerPanelPagination   << < [N] / [N] > >>  Tags …        │
@@ -199,7 +199,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 
 Columns are rendered in header order. A blank line separates the last `*AR` column from the first `*DV` column (AR‑ending → DV‑ending headers). A `ـــــــــــ` tatweel divider appears before any column whose header starts with `foot` (case‑insensitive — matches `foot`, `footAR`, `footDV`). Columns starting with `head`/`kitab`/`bab` render as large/medium/small bold headings respectively.
 
-The sticky `#collapsibleReaderPanel` extends to the full width of `#readerWrapper`. `#readerContent` has its own side padding. Content width is controlled by the `--content-width` CSS variable (default 800px), set from the Settings → Width dropdown. At full width (`none`) the `data-widescreen` attribute also removes border-radius. The topBar and panel both use a `::before` pseudo-element for full-bleed background. Panel rows are horizontally centered. Search inputs cap at `max-width: 500px` so they don't stretch endlessly on wide screens.
+The sticky `#readerPanel` shell extends to the full width of `#readerWrapper`; it contains the search row + results dropdown plus the collapsible `#collapsibleReaderPanel` (functions, pagination, Quran nav). `#readerContent` has its own side padding. Content width is controlled by the `--content-width` CSS variable (default 800px), set from the Settings → Width dropdown. At full width (`none`) the `data-widescreen` attribute also removes border-radius. The topBar and panel both use a `::before` pseudo-element for full-bleed background. Panel rows are horizontally centered. Search inputs cap at `max-width: 500px` so they don't stretch endlessly on wide screens.
 
 Column header prefix → CSS class / visual treatment:
 
@@ -302,7 +302,7 @@ The toolbar and pagination rows are wrapped in a `.horizontal-scroll-wrap` conta
 
 Toggled via the green ▾/▴ button in the topBar or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
 
-**Reader:** Collapses `#collapsibleReaderPanel` smoothly via CSS Grid `grid-template-rows: 1fr → 0fr` transition. Chrome padding and border also hidden. Only the topBar and reader content remain.
+**Reader:** Split like the dashboard for a shared structure, but focus hides the whole chrome: `#collapsibleReaderPanel` (functions, pagination, Quran nav) collapses via CSS Grid `grid-template-rows: 1fr → 0fr`, the search row + results dropdown snap off (`display: none`), and the shell sheds its padding and border. Only the topBar and reader content remain.
 
 **Dashboard:** Collapses `#collapsibleDashboardPanel` (tags + functions) via `max-height` transition. The search bar stays visible. The book grid remains fully interactive.
 

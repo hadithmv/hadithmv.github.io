@@ -1,17 +1,29 @@
-/* ---- Focus mode — slide chrome up ---- */
+/* ---- Reader chrome — split like the dashboard for a shared structure ----
+   The shell #readerPanel carries the sticky contract (.sticky-panel in
+   common.css) and holds the search row + results dropdown as siblings of the
+   collapsible toolbar. Unlike the dashboard, reader focus hides everything;
+   mobile overrides the pin below. */
+#readerPanel {
+  display: flex;
+  flex-direction: column;
+}
+/* Same gap the rows used to get from the fused block's row spacing */
+#readerPanel .search-results {
+  margin-top: var(--section-gap, 6px);
+}
 #collapsibleReaderPanel {
   display: grid;
   grid-template-rows: 1fr;
+  margin-top: var(--section-gap, 6px);
   transition:
     grid-template-rows var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
-    opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
-  /* Sticky contract + padding are shared — .sticky-panel in common.css;
-     mobile overrides the pin to flush, focus mode zeroes the padding, below.
-     This page's extras: grid collapse animation, overflow clip. */
+    opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
+    margin-top var(--t-panel, 0.3s) ease;
+  /* grid-0fr collapse needs exactly one child (.reader-panel-inner) */
   overflow: hidden;
 }
 /* Extend chrome background to full viewport width */
-#collapsibleReaderPanel::before {
+#readerPanel::before {
   content: "";
   position: absolute;
   top: 0;
@@ -39,9 +51,9 @@
 }
 
 /* ── Shared: all buttons + inputs inside panel rows ── */
-.reader-panel-inner button,
-.reader-panel-inner input,
-.reader-panel-inner select {
+.reader-panel-row button,
+.reader-panel-row input,
+.reader-panel-row select {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 0.75em;
@@ -59,25 +71,25 @@
 }
 /* Inputs in panel rows are softer than the buttons beside them —
    matches the md radius of .search-input everywhere else */
-.reader-panel-inner input {
+.reader-panel-row input {
   border-radius: var(--radius-md, 8px);
 }
-.reader-panel-inner button:hover {
+.reader-panel-row button:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
 }
-.reader-panel-inner button:disabled {
+.reader-panel-row button:disabled {
   opacity: 0.3;
   cursor: default;
 }
-.reader-panel-inner input {
+.reader-panel-row input {
   background: var(--color-reader-bg);
   text-align: center;
 }
-.reader-panel-inner input:focus {
+.reader-panel-row input:focus {
   border-color: var(--color-card-hover-border);
 }
-.reader-panel-inner .search-input {
+.reader-panel-row .search-input {
   flex: 1;
   min-width: 0;
   font-size: var(--panel-font-size, 0.85rem);
@@ -85,15 +97,15 @@
   background: var(--color-reader-bg);
   direction: rtl;
 }
-.reader-panel-inner .search-input::placeholder {
+.reader-panel-row .search-input::placeholder {
   color: var(--color-text-subtle);
   opacity: 1;
   font-weight: 700;
 }
 /* Scroll arrows in the reader panel — narrow, boxless glyphs. The shared
-   `.reader-panel-inner button` box rule above would paint a button behind
+   `.reader-panel-row button` box rule above would paint a button behind
    them; this (more specific) override restores the shared arrow look. */
-.reader-panel-inner .horizontal-scroll-wrap .scroll-arrow {
+.reader-panel-row .horizontal-scroll-wrap .scroll-arrow {
   height: 24px;
   padding: 0;
   font-size: var(--fs-micro, 0.68rem);
@@ -102,15 +114,26 @@
   background: transparent;
   border: none;
 }
-.reader-panel-inner .horizontal-scroll-wrap .scroll-arrow:hover {
+.reader-panel-row .horizontal-scroll-wrap .scroll-arrow:hover {
   color: var(--color-text);
   background: transparent;
   border: none;
 }
 
+/* Reader focus hides the WHOLE chrome — search row included (unlike the
+   dashboard, where search stays). The toolbar section animates via its own
+   grid; the search row + dropdown snap off, and the shell sheds its padding
+   and border so nothing of the panel remains. */
+[data-focus] #readerPanelSearch,
+[data-focus] #searchResultsDropdown {
+  display: none;
+}
 [data-focus] #collapsibleReaderPanel {
   grid-template-rows: 0fr;
   opacity: 0;
+  margin-top: 0;
+}
+[data-focus] #readerPanel {
   padding-top: 0;
   padding-bottom: 0;
   border-bottom: none;
@@ -475,7 +498,7 @@
 /* ---- Reader content ---- */
 
 #topBar { border-bottom: none; }
-/* Extend topBar background to full viewport width (matches collapsibleReaderPanel) */
+/* Extend topBar background to full viewport width (matches readerPanel) */
 #topBar::before {
   content: "";
   position: absolute;
@@ -683,9 +706,9 @@
 @media (max-width: 600px) {
   .quran-nav-label { display: none; }
 
-  .reader-panel-inner button,
-  .reader-panel-inner input,
-  .reader-panel-inner select,
+  .reader-panel-row button,
+  .reader-panel-row input,
+  .reader-panel-row select,
   .toolbar-btn,
   .nav-btn {
     padding: 0 0.65em;
@@ -695,7 +718,7 @@
     padding: 0 0.4em;
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
-  .reader-panel-inner .search-input {
+  .reader-panel-row .search-input {
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   /* Desktop gets a larger scroll pill; mobile keeps the compact size */
@@ -785,7 +808,7 @@
   #readerWrapper {
     margin-top: var(--topbar-height, 58px);
   }
-  #collapsibleReaderPanel {
+  #readerPanel {
     top: var(--topbar-height, 58px); /* mobile drops the gap — flush lock */
   }
   #readerPageSubRow {

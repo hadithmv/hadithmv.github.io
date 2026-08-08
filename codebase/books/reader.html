@@ -422,8 +422,11 @@
           XML
         </button>
       </div>
-      <div id="collapsibleReaderPanel" class="sticky-panel">
-        <div class="reader-panel-inner">
+      <!-- Reader chrome — split like the dashboard for a shared structure:
+           the shell #readerPanel holds the search row + results dropdown as
+           siblings of #collapsibleReaderPanel (functions, pagination, Quran
+           nav). Unlike the dashboard, reader focus hides everything. -->
+      <div id="readerPanel" class="sticky-panel">
           <div id="readerPanelSearch" class="reader-panel-row">
             <button
               id="btnAdvancedSearch"
@@ -473,6 +476,11 @@
             class="search-results"
             style="display: none"
           ></div>
+          <!-- Collapsible toolbar — functions, pagination and Quran nav.
+               Focus collapses this (grid 0fr — needs exactly one child, the
+               inner) and also hides the search row + dropdown above. -->
+          <div id="collapsibleReaderPanel">
+            <div class="reader-panel-inner">
           <div
             id="readerPanelFunctions"
             class="reader-panel-row reader-toolbar"
@@ -612,7 +620,6 @@
               ><span id="readerPageSubtitle"></span><span id="readerPageTags"></span
             ></span>
           </nav>
-        </div>
         <!-- Quran navigation row (hidden for non-Quran books) -->
         <div
           id="readerPanelQuran"
@@ -740,6 +747,8 @@
                 >
               </label>
             </div>
+          </div>
+        </div>
           </div>
         </div>
         <div
