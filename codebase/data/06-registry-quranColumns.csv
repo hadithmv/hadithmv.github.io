@@ -3,8 +3,8 @@ QRN-BASE-STRUCT,0,ޖުޒް,Juz
 QRN-BASE-STRUCT,1,ސޫރަތް,Surah
 QRN-BASE-STRUCT,2,އާޔަތް #,Ayah #
 QRN-BASE-STRUCT,3,ބިސްމި,Basmalah
-QRN-DATA-baseFile-1-ayahImlai,0,އާޔަތް (އިމްލާއީ ރަސްމު),Ayah (Imlai Script)
-QRN-DATA-baseFile-2-ayahUthmani,0,އާޔަތް (އުޘްމާނީ ރަސްމު),Ayah (Uthmani Script)
+QRN-DATA-ayahImlai,0,އާޔަތް (އިމްލާއީ ރަސްމު),Ayah (Imlai Script)
+QRN-DATA-ayahUthmani,0,އާޔަތް (އުޘްމާނީ ރަސްމު),Ayah (Uthmani Script)
 QRN-hadithmv,0,ޙަދީޘްއެމްވީ ތަރުޖަމާ,Hadithmv Translation
 QRN-rasmee-alt,0,ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Translation (transliterated)
 QRN-rasmee-og,0,ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Translation (original)

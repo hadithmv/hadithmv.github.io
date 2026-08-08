@@ -77,8 +77,8 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `data/04-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
 | `data/06-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
 | `data/05-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
-| `data/content/QRN-DATA-baseFile-1-ayahImlai.csv` | Base Quran text: one Imlai ayah per row (structure derived from 04 + 05 at load) |
-| `data/content/QRN-DATA-baseFile-2-ayahUthmani.csv` | Quran text in Uthmani script                                     |
+| `data/content/QRN-DATA-ayahImlai.csv`      | Base Quran text: one Imlai ayah per row (structure derived from 04 + 05 at load) |
+| `data/content/QRN-DATA-ayahUthmani.csv`   | Quran text in Uthmani script                                |
 | `data/07-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
 | `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
 | `data/search-index-report.md` | Generated per-build policy report — one row per book (index id, rows, postings, indexed/skipped columns), warnings, and a postings-by-column breakdown sorted by size; commit it to diff policy changes across versions |
@@ -474,7 +474,7 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
           │                       │
           │              ┌────────┴────────┐
           │         Standard book     Quran book (QRN-)
-          │         {bookCode}.csv    QRN-DATA-baseFile-*.csv
+          │         {bookCode}.csv    QRN-DATA-ayah*.csv
           │                          + QRN-{translation}.csv
           │                          (merged by row index)
           │
@@ -496,8 +496,8 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 | File | Role | Columns |
 |------|------|---------|
-| `QRN-DATA-baseFile-1-ayahImlai.csv` | Base Quran text (always loaded) | `ayahImlai` |
-| `QRN-DATA-baseFile-2-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
+| `QRN-DATA-ayahImlai.csv` | Base Quran text (always loaded) | `ayahImlai` |
+| `QRN-DATA-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
 | `QRN-BASE-STRUCT` (synthetic) | Derived base columns — built at load from 04 + 05, no file exists | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah` |
 | `04-registry-quranSurahs.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount, basmalah` |
 | `06-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
@@ -506,13 +506,13 @@ Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran 
 
 ### Deriving the base columns
 
-`QRN-DATA-baseFile-1-ayahImlai.csv` stores only the Imlai text — one column, one row per ayah (6,236 rows). The structural columns (juz, surah, ayah number, basmalah) are **derived at load time** by `loadQuranBaseData()` from two registry tables:
+`QRN-DATA-ayahImlai.csv` stores only the Imlai text — one column, one row per ayah (6,236 rows). The structural columns (juz, surah, ayah number, basmalah) are **derived at load time** by `loadQuranBaseData()` from two registry tables:
 
 - `04-registry-quranSurahs.csv` — per-surah `ayahCount` gives each surah's row span; the `basmalah` column holds the verse that opens every surah except 1 and 9.
 - `05-registry-quranJuz.csv` — the standard 30 juz cut points as `startSurah,startAyah` (juz 12 opens mid-surah at 11:6, juz 13 at 12:53).
 
 ```text
-04-registry-quranSurahs.csv    05-registry-quranJuz.csv    QRN-DATA-baseFile-1-ayahImlai.csv
+04-registry-quranSurahs.csv    05-registry-quranJuz.csv    QRN-DATA-ayahImlai.csv
 114 surahs (ayahCount,         30 juz cut points           (1 col, 6,236 rows)
 basmalah per surah)            (startSurah, startAyah)
         └──────────────┬──────────────┘           │
@@ -527,7 +527,7 @@ The derivation is a single pass over 6,236 rows with advancing surah/juz pointer
 Base data columns are always present. Book-specific columns are merged by row index. The `06-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
 ```text
-QRN-DATA-baseFile-1-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,236 rows)
+QRN-DATA-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,236 rows)
 ┌────────────┬─────────────┬───────────┐ ┌──────────────────────────────┐
 │ juzNo-HDN  │ surahNo-HDN │ ayahImlai │ │ wordAR        wordDV         │
 │ ayahNo-HDN │ basmalah    │ …         │ │ …             …             │
@@ -557,11 +557,11 @@ fresh header, rows, norm rows, hidden indices
 reader shows columns in list order
 ```
 
-**Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`). Reordering those columns would silently break copy references, pin labels, and scroll-sync surah tracking. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all sites plus `findQuranColIndices` cache invalidation. (These cells are now derived from 04 + 07 at load — see "Deriving the base columns" — but they still land in `row[0..4]` of every merged row, so the positional contract is unchanged. Surah/juz *navigation* no longer reads them: `applyQuranSurahFilter` and `goToQuranJuz` use the O(1) `getSurahStartRow` / `getJuzStartRow` accessors.)
+**Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`). Reordering those columns would silently break copy references, pin labels, and scroll-sync surah tracking. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all sites plus `findQuranColIndices` cache invalidation. (These cells are now derived from 04 + 05 at load — see "Deriving the base columns" — but they still land in `row[0..4]` of every merged row, so the positional contract is unchanged. Surah/juz *navigation* no longer reads them: `applyQuranSurahFilter` and `goToQuranJuz` use the O(1) `getSurahStartRow` / `getJuzStartRow` accessors.)
 
 **Adding a new Quran translation (walkthrough):**
 
-1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-baseFile-1-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
+1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
 2. Register each column in `data/06-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
 4. Register the book in `02-registry-bookMeta.csv` — or just run `data/03-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts both registries. Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeColumns`) survive untouched.
@@ -731,7 +731,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain with stable reference data first — book registries first (`01-` tags, `02-` books), the script that maintains them (`03-update-*`), then the Quran registries (`04-` surahs, `05-` columns), then the global index builder (`06-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`, `rebuild-searchIndex`) — single-word entities show no case mixing. `QRN-DATA-baseFile-{N}-*` names the Quran content sources. The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain with stable reference data first — book registries first (`01-` tags, `02-` books), the script that maintains them (`03-update-*`), then the Quran registries (`04-` surahs, `05-` juz, `06-` columns), then the global index builder (`07-rebuild-*`) — whose generated output `search-index.json` is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`, `rebuild-searchIndex`) — single-word entities show no case mixing. `QRN-DATA-ayahImlai` / `QRN-DATA-ayahUthmani` name the two Quran text sources (imlai and Uthmani scripts). The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 **CSS load order.** In `reader.html`, `reader-quran.css` loads before `reader.css`. This ensures reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls.
 

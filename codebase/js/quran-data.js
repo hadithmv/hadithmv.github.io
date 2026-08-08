@@ -67,7 +67,7 @@ export var BASE_HEADERS = [
 // reordered). QRN_BASE_STRUCT is a synthetic pseudo-book: the four structural
 // columns (juz/surah/ayah/basmalah) have no CSV file of their own — they are
 // derived at load from 04-registry-quranSurahs.csv + 05-registry-quranJuz.csv.
-export var QRN_BASE_FILE = "QRN-DATA-baseFile-1-ayahImlai";
+export var QRN_BASE_FILE = "QRN-DATA-ayahImlai";
 export var QRN_BASE_STRUCT = "QRN-BASE-STRUCT";
 
 // True for the base book and the derived structural pseudo-book.
@@ -107,7 +107,7 @@ export function loadJuzTable() {
 // Builds the 6236 x 5 base rows. The structural columns are derived, never
 // stored: surah/ayah from cumulative ayahCounts, juz from the juz table,
 // basmalah by rule (first ayah of surah, except surahs 1 and 9). The imlai
-// text comes from the 1-column QRN-DATA-baseFile-1-ayahImlai book, fetched
+// text comes from the 1-column QRN-DATA-ayahImlai book, fetched
 // through the version-gated cache like any other book.
 export function loadQuranBaseData() {
   if (_baseDataCache) return Promise.resolve(_baseDataCache);

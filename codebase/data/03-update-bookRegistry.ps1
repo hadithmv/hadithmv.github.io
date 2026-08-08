@@ -1,12 +1,16 @@
 # Update and sort 02-registry-bookMeta.csv
 #   - Scans data/content/ for CSV files not yet registered and adds them
 #     (titles left empty — all three titles are hand-authored)
+#   - Converts CRLF line endings in book CSVs to LF before hashing — exactly
+#     git's clean filter, so versions always describe the LF bytes that GitHub
+#     Pages actually serves (bare CRs inside quoted fields are data, kept)
 #   - Recomputes each book's version hash from its content CSV
-#   - Sorts alphabetically by bookCode
+#   - Sorts alphabetically by bookCode; writes both registries as LF, no BOM
 
 $csvPath = Join-Path $PSScriptRoot "02-registry-bookMeta.csv"
 $tagsPath = Join-Path $PSScriptRoot "01-registry-bookTags.csv"
 $dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
+$utf8 = New-Object System.Text.UTF8Encoding($false)  # no-BOM UTF-8 for registry reads/writes (PS 5.1's -Encoding UTF8 adds a BOM)
 
 # ── Helpers for coloured output ──────────────────────────────
 function Write-Section($text) {
@@ -45,7 +49,7 @@ if ($renamed -eq 0) { Write-Info "nothing to rename" }
 
 # ── Read existing registry ────────────────────────────────────
 Write-Section "Reading registry"
-$lines = Get-Content $csvPath
+$lines = [System.IO.File]::ReadAllLines($csvPath, $utf8)  # handles LF or CRLF; strips any BOM
 $header = $lines[0]
 $rows = $lines[1..($lines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
 
@@ -84,6 +88,37 @@ foreach ($row in $rows) {
 }
 if ($missing -eq 0) { Write-Info "all registered books have CSV files" }
 
+# ── Normalize line endings in book CSVs ─────────────────────────
+# Book blobs are LF; version hashes come from raw disk bytes — a CRLF-ized
+# file (Windows editor re-save) would make the version describe bytes that
+# GitHub Pages never serves, and line-ending-only re-saves would churn the
+# version. Convert CRLF→LF (byte-level, encoding-agnostic — preserves UTF-8
+# text, no BOM, no-trailing-newline, and bare CRs inside quoted fields, which
+# several blobs legitimately contain) before hashing; skip files without CRLF
+# so clean runs stay byte-identical (idempotency).
+Write-Section "Normalizing line endings"
+$normalized = 0
+# Latin-1 (28591) maps every byte 1:1 to a char, so decode → strip → re-encode
+# is byte-exact without touching the file's actual UTF-8, and Contains/Replace
+# are native — no per-byte PowerShell loop (a foreach over ~40 MB of bytes
+# takes minutes; this runs in seconds).
+$latin1 = [System.Text.Encoding]::GetEncoding(28591)
+Get-ChildItem $dataDir -Filter "*.csv" | ForEach-Object {
+    $text = $latin1.GetString([System.IO.File]::ReadAllBytes($_.FullName))
+    # Convert only CRLF line endings to LF — exactly what git's clean filter
+    # (core.autocrlf) does. Bare CRs inside quoted fields are DATA: several
+    # committed blobs contain them (RDF-ahmadFahmyDidi etc.), and a blanket
+    # 0x0D strip corrupts those files (verified 2026-08-09: 10 books affected,
+    # restored from the git blobs).
+    if ($text.Contains("`r`n")) {
+        $clean = $text.Replace("`r`n", "`n")
+        [System.IO.File]::WriteAllBytes($_.FullName, $latin1.GetBytes($clean))
+        Write-Add "$($_.Name) — converted $($text.Length - $clean.Length) CRLF endings to LF"
+        $normalized++
+    }
+}
+if ($normalized -eq 0) { Write-Info "all book CSVs already LF" }
+
 # ── Recompute versions for all rows ──────────────────────────
 Write-Section "Updating versions"
 $newRows = foreach ($row in $rows) {
@@ -113,21 +148,21 @@ $sorted = $newRows | Sort-Object { ($_ -split ",")[0].Trim() }
 
 # ── Write back ────────────────────────────────────────────────
 $output = @($header) + $sorted
-$output -join "`r`n" | Out-File $csvPath -Encoding UTF8 -NoNewline
+[System.IO.File]::WriteAllText($csvPath, ($output -join "`n"), $utf8)  # LF, no BOM, no trailing newline
 
 # ── Sort tag registry alphabetically by code ──────────────────
 # Keeps 01-registry-bookTags.csv tidy on every run, like the book
 # registry above. Note: palette slot assignment follows file order —
 # sorting shifts the auto-generated colours (they are not stored anywhere).
 Write-Section "Sorting tag registry"
-$tagLines = Get-Content $tagsPath
+$tagLines = [System.IO.File]::ReadAllLines($tagsPath, $utf8)
 $tagHeader = $tagLines[0]
 $tagRows = $tagLines[1..($tagLines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
 $tagSorted = $tagRows | Sort-Object { ($_ -split ",")[0].Trim() }
 # MUST join before Out-File -NoNewline: an array piped to Out-File with
 # -NoNewline is written as one concatenated line (no separators) — the
 # same pitfall the book registry avoids by joining first.
-(@($tagHeader) + $tagSorted) -join "`r`n" | Out-File $tagsPath -Encoding UTF8 -NoNewline
+[System.IO.File]::WriteAllText($tagsPath, ((@($tagHeader) + $tagSorted) -join "`n"), $utf8)
 Write-Info "$($tagSorted.Count) tags sorted"
 
 $total = $sorted.Count
@@ -136,7 +171,8 @@ Write-Host "  📊 $total books total" -ForegroundColor White
 if ($added -gt 0) { Write-Host "  ✅ $added added" -ForegroundColor Green }
 if ($renamed -gt 0) { Write-Host "  🔄 $renamed files renamed" -ForegroundColor Magenta }
 if ($missing -gt 0) { Write-Host "  ⚠️  $missing missing CSV files" -ForegroundColor Red }
-if ($added -eq 0 -and $renamed -eq 0 -and $missing -eq 0) {
+if ($normalized -gt 0) { Write-Host "  ✅ $normalized files normalized to LF" -ForegroundColor Green }
+if ($added -eq 0 -and $renamed -eq 0 -and $missing -eq 0 -and $normalized -eq 0) {
     Write-Host "  ✨ already up to date" -ForegroundColor Green
 }
 Write-Host ""

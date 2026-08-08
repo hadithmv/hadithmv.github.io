@@ -45,13 +45,13 @@ const surahStarts = [];
 let idx = 0;
 for (const r of rows04) { surahStarts[parseInt(r[0], 10)] = idx; idx += parseInt(r[4], 10); }
 
-const imlai = parseCSV(fs.readFileSync(DATA + "content/QRN-DATA-baseFile-1-ayahImlai.csv", "utf8"));
+const imlai = parseCSV(fs.readFileSync(DATA + "content/QRN-DATA-ayahImlai.csv", "utf8"));
 imlai.shift();
 const JSTARTS = [0, 148, 259, 385, 516, 640, 750, 899, 1041, 1200, 1327, 1478, 1648, 1802, 2029, 2214, 2483, 2673, 2875, 3214, 3385, 3563, 3732, 4089, 4264, 4510, 4705, 5104, 5241, 5672];
 
 const rows06 = parseCSV(fs.readFileSync(DATA + "06-registry-quranColumns.csv", "utf8"));
 rows06.shift();
-const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" || r[0] === "QRN-DATA-baseFile-1-ayahImlai"; })
+const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" || r[0] === "QRN-DATA-ayahImlai"; })
   .sort(function (a, b) {
     if (a[0] === b[0]) return parseInt(a[1], 10) - parseInt(b[1], 10);
     return a[0] === "QRN-BASE-STRUCT" ? -1 : 1;
@@ -59,7 +59,7 @@ const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" ||
 const expLabels = base06.map(function (r) { return r[2]; });
 const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
 rows02.shift();
-const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-baseFile-1-ayahImlai"; }) || [])[2] || "";
+const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-ayahImlai"; }) || [])[2] || "";
 
 async function main() {
   fs.rmSync(PROFILE, { recursive: true, force: true });
@@ -239,16 +239,16 @@ async function main() {
     var keys = rows.map(function (r) { return r.dataset.key; });
     return {
       struct: keys.filter(function (k) { return k.indexOf('QRN-BASE-STRUCT:') === 0; }).length,
-      imlai: keys.filter(function (k) { return k === 'QRN-DATA-baseFile-1-ayahImlai:0'; }).length,
+      imlai: keys.filter(function (k) { return k === 'QRN-DATA-ayahImlai:0'; }).length,
       total: keys.length,
       baseLabels: rows.filter(function (r) {
-        return r.dataset.key.indexOf('QRN-BASE-STRUCT:') === 0 || r.dataset.key === 'QRN-DATA-baseFile-1-ayahImlai:0';
+        return r.dataset.key.indexOf('QRN-BASE-STRUCT:') === 0 || r.dataset.key === 'QRN-DATA-ayahImlai:0';
       }).map(function (r) { return r.textContent.trim().replace(/[\u25B2\u25BC]/g, '').replace(/\s+/g, ' '); }),
       bodyText: document.body.innerText,
     };
   })()`);
   check("4 structural rows (QRN-BASE-STRUCT:0..3)", modal.struct === 4, String(modal.struct));
-  check("1 imlai row (QRN-DATA-baseFile-1-ayahImlai:0)", modal.imlai === 1, String(modal.imlai));
+  check("1 imlai row (QRN-DATA-ayahImlai:0)", modal.imlai === 1, String(modal.imlai));
   check("5 base rows total", modal.struct + modal.imlai === 5, String(modal.total) + " rows total");
   check("no QRN-BASE-STRUCT text anywhere", modal.bodyText.indexOf("QRN-BASE-STRUCT") === -1, "");
   check("base labels match 05 registry (dv)", JSON.stringify(modal.baseLabels) === JSON.stringify(expLabels), JSON.stringify(modal.baseLabels));
@@ -306,7 +306,7 @@ async function main() {
 
   // ── E. imlai book as a standard 1-column book ──────────────────────
   console.log("== E. imlai book standalone ==");
-  await goto(ROOT + "reader.html?book=QRN-DATA-baseFile-1-ayahImlai");
+  await goto(ROOT + "reader.html?book=QRN-DATA-ayahImlai");
   await waitFor(`(function () {
     var w = document.getElementById('readerWrapper');
     return w && getComputedStyle(w).display === 'block';

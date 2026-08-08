@@ -98,7 +98,22 @@ blaming the product.
   uppercase-versions run forced a one-time cache re-download for every visitor
   (versions compare case-sensitively at csv.js:163). The editor re-saves 02 as
   LF over script output — check file mtimes before trusting a "before" hash.
-- **Dead-CSS audits must catch JS-generated classes.** Static audits against
+- **`core.autocrlf` hides CRLF-tainted data files from git.** With
+  `core.autocrlf=true` (this repo), git normalizes CRLF→LF before hashing, so
+  a working file whose line endings were CRLF-ized (Windows editor re-save)
+  shows 0 changes in `git status`/`diff` while its disk bytes differ from
+  the committed blob — sha256sum of the file ≠ `git show HEAD:<path> |
+  sha256sum`. Verified 2026-08-09: 47/62 content CSVs were CRLF-tainted
+  (`QRN-*` and `RDF-*` fully — 6,236 CRs each — most others a few lines; `file`
+  samples the start and misses low CR counts, don't trust its "clean"
+  verdict). Consequences: `03-update-bookRegistry.ps1` computes versions with
+  `Get-FileHash` on raw disk bytes, so registry versions silently tracked the
+  CRLF bytes and no longer equal the deployed blob's hash — the client treats
+  the version as an opaque cache key (`csv.js:162`), so this is truthfulness
+  hygiene, not a cache bug, but line-ending-only re-saves churn versions and
+  force needless one-time re-downloads. Detection: `wc -c` vs
+  `tr -d '\r' | wc -c` (delta = CR count). Fix: `tr -d '\r'` is byte-safe;
+  then re-run 03 so versions match the LF blobs. Static audits against
   HTML miss classes only present in JS strings — the Tier 2 sweep deleted two
   live rules (`.modal-overlay` base, `.card` surface; `class="card book-card"`
   in dashboard.js:408, `class="card lib-result"` in library-search-page.js:381;
