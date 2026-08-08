@@ -23,7 +23,6 @@ const STRINGS = {
   },
 
   // ── Toolbar ──
-  btnFocusText: { dv: "ފޯކަސް", en: "Focus", ar: "تركيز" },
   btnAdvancedSearchText: {
     dv: "🔎 އެޑްވާންސްޑް",
     en: "🔎 Advanced",
@@ -52,8 +51,6 @@ const STRINGS = {
   viewModeTable: { dv: "▦ ޓޭބަލް", en: "▦ Table", ar: "▦ جدول" },
   viewModeParallel: { dv: "↔️ ދެފަރާތް", en: "↔️ Parallel", ar: "↔️ متوازي" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
-  btnFocusIn: { dv: "ފޯކަސް ▲", en: "Focus ▲", ar: "تركيز ▲" },
-  btnFocusOut: { dv: "ފޯކަސް ▼", en: "Full ▼", ar: "كامل ▼" },
   btnAdvancedSearch: {
     dv: "🔎 އެޑްވާންސްޑް ހޯދުން",
     en: "🔎 Advanced",
@@ -277,7 +274,7 @@ const STRINGS = {
   dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
   dashboardBooks: { dv: "ފޮތް", en: "books", ar: "كتب" },
   dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
-  dashboardTagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
+  tagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
   tagsShowMore: { dv: "އިތުރު ޓެގުތައް", en: "More tags", ar: "المزيد من الوسوم" },
   tagsShowFewer: { dv: "މަދު ޓެގުތައް", en: "Less tags", ar: "أقل من الوسوم" },
   tagFilterAll: { dv: "ހުރިހާ", en: "All", ar: "الكل" },

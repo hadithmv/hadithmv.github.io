@@ -186,7 +186,7 @@ function renderDashboard(bookNames) {
   if (pinnedVisible.length > 0) {
     var pinsActive = _dashFilter.pinsOnly;
     pinsChipHTML =
-      '<span class="dash-tag-chip' +
+      '<span class="tag-chip' +
       (pinsActive ? " active" : "") +
       '" data-tag="__pins__" title="' +
       (pinsActive ? "Remove filter: Pinned" : "Filter by pinned") +
@@ -219,10 +219,10 @@ function renderDashboard(bookNames) {
       );
     })
     .join("");
-  document.getElementById("dashTagsCollapse").innerHTML =
+  document.getElementById("dashboardTagsCollapse").innerHTML =
     pinsChipHTML + allChipHTML + chipsHTML
-      ? '<span class="dash-label">' +
-        t("dashboardTagsLabel") +
+      ? '<span class="tags-label">' +
+        t("tagsLabel") +
         "</span> " +
         pinsChipHTML +
         allChipHTML +
@@ -301,7 +301,7 @@ function renderDashboard(bookNames) {
   // instead of a blank grid (or a header-only table, which looks broken).
   if (visible.length === 0) {
     grid.style.display = "";
-    grid.innerHTML = '<div class="dash-empty">' + t("dashboardNoMatch") + "</div>";
+    grid.innerHTML = '<div class="empty-state">' + t("dashboardNoMatch") + "</div>";
     return;
   }
 
@@ -455,7 +455,7 @@ function setupDashboardControls() {
   window.reserveWidestText(ss);
   // Tag row collapse — the chevron appears only when the chips overflow one
   // row; refresh re-measures after every chips re-render (search/reset/lang).
-  _refreshTags = window.initTagsCollapse("dashTagsCollapse", "dashTagsToggle");
+  _refreshTags = window.initTagsCollapse("dashboardTagsCollapse", "dashboardTagsToggle");
 
   // ── Library search jump ("search in books") ────────────────
   // The button is an anchor to library-search.html; carry the search box
@@ -475,7 +475,7 @@ function setupDashboardControls() {
     });
   }
   tc.addEventListener("click", function (e) {
-    var chip = e.target.closest(".dash-tag-chip");
+    var chip = e.target.closest(".tag-chip");
     if (!chip) return;
     var tag = chip.dataset.tag;
     if (tag === "__pins__") {
@@ -544,8 +544,8 @@ function setupDashboardControls() {
     var wrap = document.getElementById("dashboardPanelFunctions");
     var scroller = wrap && wrap.querySelector(".dash-functions-scroll");
     if (!scroller) return;
-    var startBtn = document.getElementById("dashFuncScrollStart");
-    var endBtn = document.getElementById("dashFuncScrollEnd");
+    var startBtn = document.getElementById("dashboardFuncScrollStart");
+    var endBtn = document.getElementById("dashboardFuncScrollEnd");
     var STEP = 240;
 
     function updateArrows() {

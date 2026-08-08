@@ -24,25 +24,25 @@
   background: inherit;
   z-index: var(--z-under, -1);
 }
-#collapsibleReaderPanel > .readerPanel-inner {
+#collapsibleReaderPanel > .reader-panel-inner {
   overflow: hidden;
 }
-#collapsibleReaderPanel .readerPanel-inner {
+#collapsibleReaderPanel .reader-panel-inner {
   display: flex;
   flex-direction: column;
 }
-.readerPanel-inner > * + * {
+.reader-panel-inner > * + * {
   margin-top: var(--section-gap, 6px);
 }
 
-.readerPanel-row {
+.reader-panel-row {
   justify-content: center;
 }
 
 /* ── Shared: all buttons + inputs inside panel rows ── */
-.readerPanel-inner button,
-.readerPanel-inner input,
-.readerPanel-inner select {
+.reader-panel-inner button,
+.reader-panel-inner input,
+.reader-panel-inner select {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 0.75em;
@@ -60,25 +60,25 @@
 }
 /* Inputs in panel rows are softer than the buttons beside them —
    matches the md radius of .search-input everywhere else */
-.readerPanel-inner input {
+.reader-panel-inner input {
   border-radius: var(--radius-md, 8px);
 }
-.readerPanel-inner button:hover {
+.reader-panel-inner button:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
 }
-.readerPanel-inner button:disabled {
+.reader-panel-inner button:disabled {
   opacity: 0.3;
   cursor: default;
 }
-.readerPanel-inner input {
+.reader-panel-inner input {
   background: var(--color-reader-bg);
   text-align: center;
 }
-.readerPanel-inner input:focus {
+.reader-panel-inner input:focus {
   border-color: var(--color-card-hover-border);
 }
-.readerPanel-inner .search-input {
+.reader-panel-inner .search-input {
   flex: 1;
   min-width: 0;
   font-size: var(--panel-font-size, 0.85rem);
@@ -86,13 +86,13 @@
   background: var(--color-reader-bg);
   direction: rtl;
 }
-.readerPanel-inner .search-input::placeholder {
+.reader-panel-inner .search-input::placeholder {
   color: var(--color-text-subtle);
   opacity: 1;
   font-weight: 700;
 }
 /* Scroll arrows in the reader panel — narrower than toolbar buttons */
-.readerPanel-inner .scroll-arrow {
+.reader-panel-inner .scroll-arrow {
   height: 24px;
 }
 
@@ -371,14 +371,14 @@
   overflow: hidden;
 }
 /* The row itself scrolls — wrap just provides arrow space */
-.h-scroll-wrap .readerPanel-row {
+.h-scroll-wrap .reader-panel-row {
   overflow-x: auto;
   scrollbar-width: none;
   flex: 1;
   min-width: 0;
   margin: 0;
 }
-.h-scroll-wrap .readerPanel-row::-webkit-scrollbar {
+.h-scroll-wrap .reader-panel-row::-webkit-scrollbar {
   display: none;
 }
 
@@ -854,9 +854,9 @@
 @media (max-width: 600px) {
   .quran-nav-label { display: none; }
 
-  .readerPanel-inner button,
-  .readerPanel-inner input,
-  .readerPanel-inner select,
+  .reader-panel-inner button,
+  .reader-panel-inner input,
+  .reader-panel-inner select,
   .toolbar-btn,
   .nav-btn {
     padding: 0 0.65em;
@@ -866,7 +866,7 @@
     padding: 0 0.4em;
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
-  .readerPanel-inner .search-input {
+  .reader-panel-inner .search-input {
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   /* Desktop gets a larger scroll pill; mobile keeps the compact size */

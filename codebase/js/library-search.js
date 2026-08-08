@@ -107,12 +107,12 @@ function renderChips() {
     })
     .join("");
   el.tagsCollapse.innerHTML =
-    '<span class="dash-label">' + t("dashboardTagsLabel") + "</span> " + allChipHTML + html;
+    '<span class="tags-label">' + t("tagsLabel") + "</span> " + allChipHTML + html;
   if (_refreshTags) _refreshTags();
 }
 
 function onChipsClick(e) {
-  var chip = e.target.closest(".dash-tag-chip");
+  var chip = e.target.closest(".tag-chip");
   if (!chip) return;
   var tag = chip.dataset.tag;
   if (tag === "__all__") {
@@ -152,7 +152,7 @@ function computeScope() {
 }
 
 function showEmpty(messageKey) {
-  el.results.innerHTML = '<div class="dash-empty">' + t(messageKey) + "</div>";
+  el.results.innerHTML = '<div class="empty-state">' + t(messageKey) + "</div>";
   el.count.textContent = "";
   el.count.style.display = "none";
 }
@@ -173,14 +173,14 @@ function runSearch() {
     return;
   }
   el.count.style.display = "none";
-  el.results.innerHTML = '<div class="dash-empty">' + t("libSearching") + "</div>";
+  el.results.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
   loadSearchIndex()
     .then(function (index) {
       renderResults(searchLibrary(index, _q, scope), _q);
     })
     .catch(function () {
       el.results.innerHTML =
-        '<div class="dash-empty">⚠️ Error: Failed to load the search index. ' +
+        '<div class="empty-state">⚠️ Error: Failed to load the search index. ' +
         '<button id="libSearchRetry" class="retry-btn">↺ Retry</button></div>';
       var rb = document.getElementById("libSearchRetry");
       if (rb) rb.addEventListener("click", runSearch);

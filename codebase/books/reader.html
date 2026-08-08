@@ -240,7 +240,7 @@
             <span data-i18n="labelFontFamily">ފޮންޓް ވައްތަރު</span>
             <select
               id="selFontFamily"
-              class="sidebar-select"
+              class="font-select"
               style="width: auto"
             >
               <option value="hadithmv" data-i18n="fontHadithmv">Hadithmv Font</option>
@@ -446,8 +446,8 @@
         </button>
       </div>
       <div id="collapsibleReaderPanel">
-        <div class="readerPanel-inner">
-          <div id="readerPanelSearch" class="readerPanel-row">
+        <div class="reader-panel-inner">
+          <div id="readerPanelSearch" class="reader-panel-row">
             <button
               id="btnAdvancedSearch"
               class="search-advanced-btn"
@@ -498,7 +498,7 @@
           ></div>
           <div
             id="readerPanelFunctions"
-            class="readerPanel-row reader-toolbar"
+            class="reader-panel-row reader-toolbar"
             dir="rtl"
           >
             <div class="toolbar-group">
@@ -597,7 +597,7 @@
           </div>
           <nav
             id="readerPanelPagination"
-            class="readerPanel-row reader-nav"
+            class="reader-panel-row reader-nav"
             dir="rtl"
           >
             <div class="nav-pages">
@@ -640,7 +640,7 @@
         <!-- Quran navigation row (hidden for non-Quran books) -->
         <div
           id="readerPanelQuran"
-          class="readerPanel-row quran-nav"
+          class="reader-panel-row quran-nav"
           dir="rtl"
           style="display: none"
         >
@@ -846,7 +846,7 @@
         }
 
         // Wrap toolbar & nav rows — DOM ops work even in hidden subtrees.
-        document.querySelectorAll(".readerPanel-row").forEach(function (row) {
+        document.querySelectorAll(".reader-panel-row").forEach(function (row) {
           var rtl = isRTL(row),
             wrap = document.createElement("div");
           wrap.className = "h-scroll-wrap";

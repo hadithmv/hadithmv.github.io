@@ -140,7 +140,7 @@ The dashboard panel's DOM nesting (each level is a flex container):
 └── #collapsibleDashboardPanel          ← collapses in focus mode
     ├── #dashboardContinue              ← continue-reading card (any view, when history exists)
     ├── #dashboardPanelTags             ← tag chips
-    │   └── #dashTagsCollapse           ← ▾ toggle + Tags: label + chips, clamped to one row
+    │   └── #dashboardTagsCollapse        ← ▾ toggle + Tags: label + chips, clamped to one row
     └── #dashboardPanelFunctions        ← wrap: arrows + scroll
         ├── ▶ .scroll-arrow-start
         ├── .dash-functions-scroll      ← the scroll container
@@ -620,7 +620,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 ```
 .h-scroll-wrap (display:flex, position:relative, padding:0 30px)
   ├── button.scroll-arrow.scroll-arrow-start (►)  — absolute, left:2px
-  ├── .readerPanel-row   — flex:1, min-width:0, overflow-x:auto, hidden scrollbar
+  ├── .reader-panel-row   — flex:1, min-width:0, overflow-x:auto, hidden scrollbar
   └── button.scroll-arrow.scroll-arrow-end (◄)    — absolute, right:2px
 ```
 - Arrows sit in the padding area and are absolutely positioned.
@@ -642,7 +642,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 1. If it exists at page load and is visible → use `.h-scroll-wrap` pattern (add to the inline script's `querySelectorAll`).
 2. If it's created or shown dynamically → use the sticky‑arrow pattern, or wrap it in `.h-scroll-wrap` AFTER it becomes visible.
 3. Never set `wrap.style.padding = "0"` — the padding is always needed for arrow placement.
-4. Never create wrapper divs inside `.readerPanel-inner` at page load for hidden elements.
+4. Never create wrapper divs inside `.reader-panel-inner` at page load for hidden elements.
 
 ### HTML & DOM
 

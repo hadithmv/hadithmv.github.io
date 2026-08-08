@@ -73,7 +73,7 @@ a.toolbar-btn {
 /* Only the active chip still needs an override — the JS chip styles now use
    the danger vars, which resolve per theme. Active stays saturated red in
    every theme (like #fff): white text needs the contrast. */
-[data-theme="dark"] .dash-tag-chip[data-tag="__pins__"].active {
+[data-theme="dark"] .tag-chip[data-tag="__pins__"].active {
   color: #fff !important;
   background: #dc2626 !important;
   border-color: #dc2626 !important;

@@ -49,7 +49,7 @@ window.MOBILE_BP = 600;
 // Both pages render the same filter-chip row; the templates must not drift.
 window.tagAllChipHtml = function (tagsActive, count) {
   return (
-    '<span class="dash-tag-chip' +
+    '<span class="tag-chip' +
     (tagsActive ? "" : " active") +
     '" data-tag="__all__" title="' +
     (tagsActive ? "Clear all tag filters" : "Showing all books") +
@@ -64,7 +64,7 @@ window.tagChipHtml = function (code, label, palette, active, count) {
   var chipTitle = active ? "Remove filter: " + label : "Filter by " + label;
   var palClass = palette >= 0 ? " tag-palette-" + palette : "";
   return (
-    '<span class="dash-tag-chip' +
+    '<span class="tag-chip' +
     (active ? " active" : "") +
     palClass +
     '" data-tag="' +
@@ -116,7 +116,7 @@ window.initTagsCollapse = function (collapseId, toggleId) {
   var collapse = document.getElementById(collapseId);
   var toggle = document.getElementById(toggleId);
   if (!collapse || !toggle) return null;
-  var label = toggle.querySelector(".dash-tags-toggle-label");
+  var label = toggle.querySelector(".tags-toggle-label");
   // The toggle is a normal flow item inside the box, right before the Tags:
   // label (which the pages render as the box's first child). Being at the
   // start of the rows means it never relocates when the box expands — line 1
@@ -136,7 +136,7 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     // Chip re-renders (innerHTML) wipe the toggle — re-insert it right before
     // the label if needed. (With no chips there is no label; the toggle then
     // stays where the HTML put it and stays hidden below.)
-    var tagLabel = collapse.querySelector(".dash-label");
+    var tagLabel = collapse.querySelector(".tags-label");
     if (tagLabel && toggle.parentElement !== collapse)
       collapse.insertBefore(toggle, tagLabel);
     // The overflow check only works while clamped — measure collapsed, then

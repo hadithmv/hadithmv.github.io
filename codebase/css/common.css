@@ -851,7 +851,7 @@ body:has(.modal-overlay.open) {
 }
 
 /* Shared tag-chip filter (dashboard + library-search page) */
-.dash-tag-chip {
+.tag-chip {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 10px;
@@ -871,32 +871,32 @@ body:has(.modal-overlay.open) {
     color var(--t-hover, 0.15s) ease;
   user-select: none;
 }
-.dash-tag-chip:hover {
+.tag-chip:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
 }
-.dash-tag-chip.active {
+.tag-chip.active {
   background: var(--tag-color, var(--color-nav-btn-text));
   color: #fff;
   border-color: var(--tag-color, var(--color-nav-btn-text));
 }
-.dash-tag-chip .chip-x {
+.tag-chip .chip-x {
   margin-left: 6px;
   margin-right: 2px;
   font-size: 0.7rem;
 }
-.dash-tag-chip .chip-x:hover {
+.tag-chip .chip-x:hover {
   opacity: 0.7;
 }
 /* Dark mode: hide chip borders unless hovered/active */
-[data-theme="dark"] .dash-tag-chip {
+[data-theme="dark"] .tag-chip {
   border-color: transparent;
 }
-[data-theme="dark"] .dash-tag-chip:hover,
-[data-theme="dark"] .dash-tag-chip.active {
+[data-theme="dark"] .tag-chip:hover,
+[data-theme="dark"] .tag-chip.active {
   border-color: var(--tag-color, var(--color-border));
 }
-.dash-label {
+.tags-label {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-subtle);
@@ -909,7 +909,7 @@ body:has(.modal-overlay.open) {
    re-inserts it there on every chips render), so it never moves when the box
    expands: line 1 is toggle + label + chips, the rows below span the full
    width. Motion is the panel expand/collapse curve. */
-.dash-tags-collapse {
+.tags-collapse {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 6px);
@@ -926,12 +926,12 @@ body:has(.modal-overlay.open) {
   max-height: calc(var(--control-height, 35px));
   transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
-.dash-tags-collapse.expanded {
+.tags-collapse.expanded {
   /* A concrete target the transition can run to — far beyond the ~2-4 rows
      the 15 tags wrap to, so the clamp never clips an expanded row. */
   max-height: 400px;
 }
-.dash-tags-toggle {
+.tags-toggle {
   /* In-flow before the Tags: label (initTagsCollapse keeps it there across
      chips re-renders) — the button never moves when the row expands. LTR:
      the chevron hugs the button's left side in every language; the label's
@@ -957,22 +957,22 @@ body:has(.modal-overlay.open) {
     border-color var(--t-hover, 0.15s) ease,
     color var(--t-hover, 0.15s) ease;
 }
-.dash-tags-toggle:hover {
+.tags-toggle:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
 }
-.dash-tags-toggle-arrow {
+.tags-toggle-arrow {
   font-size: 1.5rem;
   line-height: 1;
   transition: transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
-.dash-tags-toggle-label {
+.tags-toggle-label {
   /* inline-block so the min-width syncLabel reserves (the wider of the
      More/Less strings) applies — the button never changes width when the
      label swaps, so the chips don't shift. */
   display: inline-block;
 }
-.dash-tags-toggle.expanded .dash-tags-toggle-arrow {
+.tags-toggle.expanded .tags-toggle-arrow {
   transform: rotate(180deg); /* ▾ → ▴ */
 }
 
@@ -1026,7 +1026,7 @@ body:has(.modal-overlay.open) {
 }
 
 /* Empty state — shown when no books match the current search/tag filters */
-.dash-empty {
+.empty-state {
   text-align: center;
   padding: 40px 20px;
   color: var(--color-text-muted);
@@ -1094,20 +1094,8 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
 }
 
-/* Sidebar settings selects */
-.sidebar-select-group {
-  display: flex;
-  align-items: center;
-  gap: var(--control-gap, 6px);
-  margin-bottom: 4px;
-}
-
-.sidebar-select-icon {
-  font-size: 1rem;
-  flex-shrink: 0;
-}
-
-.sidebar-select {
+/* Font-family select (settings → Font modal — always English) */
+.font-select {
   flex: 1;
   padding: 8px 10px;
   font-size: var(--panel-font-size, 0.85rem);
@@ -1122,7 +1110,7 @@ body:has(.modal-overlay.open) {
   transition: border-color var(--t-hover, 0.15s) ease;
 }
 
-.sidebar-select:focus {
+.font-select:focus {
   border-color: var(--color-card-hover-border);
 }
 
@@ -1637,7 +1625,7 @@ body:has(.modal-overlay.open) {
   }
 
   /* Shared component mobile sizing (dashboard + library-search pages) */
-  .dash-tag-chip {
+  .tag-chip {
     font-size: var(--panel-font-size-mobile, 0.72rem);
     padding: 0 7px;
   }
