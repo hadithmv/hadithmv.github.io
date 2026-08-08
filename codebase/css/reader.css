@@ -99,7 +99,7 @@
 .reader-panel-inner .horizontal-scroll-wrap .scroll-arrow {
   height: 24px;
   padding: 0;
-  font-size: 0.65rem;
+  font-size: var(--fs-micro, 0.68rem);
   line-height: 1;
   color: var(--color-text-muted);
   background: transparent;
@@ -314,7 +314,7 @@
   display: flex;
   align-items: center;
   position: relative;
-  padding: 0 30px; /* room for 24px arrows + 6px gap on each side */
+  padding: 0 var(--arrow-gutter, 30px); /* room for 24px arrows + 6px gap on each side */
   overflow: hidden;
 }
 /* The row itself scrolls — wrap just provides arrow space */
@@ -529,7 +529,7 @@
 #readerContent {
   background: var(--color-reader-bg);
   border: none;
-  padding: 12px 32px 32px;
+  padding: var(--reader-pad, 12px 32px 32px);
   line-height: 1.9;
   font-size: var(--reader-font-size, 1.25rem);
   color: var(--color-text);
@@ -608,7 +608,7 @@
 
 /* Heading hierarchy for header/kitab/bab columns */
 .reader-field-header {
-  font-size: 1.3rem;
+  font-size: var(--fs-heading, 1.3rem);
   font-weight: 700;
   line-height: 1.6;
   margin: 8px 0 12px;
@@ -617,21 +617,21 @@
 /* KNSH books: first line of body column styled as a heading */
 .knhs-body-header {
   display: block;
-  font-size: 1.15rem;
+  font-size: var(--fs-title, 1.15rem);
   font-weight: 700;
   line-height: 1.6;
   margin-bottom: 6px;
 }
 
 .reader-field-kitab {
-  font-size: 1.2rem;
+  font-size: var(--fs-title-lg, 1.2rem);
   font-weight: 600;
   line-height: 1.5;
   margin: 6px 0 6px;
 }
 
 .reader-field-bab {
-  font-size: 1.1rem;
+  font-size: var(--fs-title-sm, 1.1rem);
   font-weight: 600;
   line-height: 1.5;
   margin: 4px 0 8px;
@@ -712,7 +712,7 @@
   }
 
   #readerContent {
-    padding: 10px 24px 20px;
+    padding: var(--reader-pad-mobile, 10px 24px 20px);
     font-size: var(--reader-font-size-mobile, 1.1rem);
     line-height: 2;
   }
@@ -757,7 +757,7 @@
 
   .col-toggle {
     padding: 0 5px;
-    font-size: 0.68rem;
+    font-size: var(--fs-micro, 0.68rem);
   }
 
   .search-advanced-btn {
@@ -786,7 +786,7 @@
   /* Phone widths: flush under the fixed topbar — the panel's sticky
      threshold is 58px, so the resting margin matches it exactly */
   #readerWrapper {
-    margin-top: calc(var(--topbar-clearance, 64px) - 6px);
+    margin-top: var(--topbar-height, 58px);
   }
   #readerPageSubRow {
     justify-content: flex-start !important;

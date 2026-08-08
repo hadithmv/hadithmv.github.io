@@ -113,7 +113,7 @@
   background: var(--color-nav-btn-bg);
   text-decoration: none;
   color: inherit;
-  font-size: 0.9rem;
+  font-size: var(--fs-muted, 0.9rem);
   line-height: 1.8;
   font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
 }
@@ -137,7 +137,7 @@
 
 @media (max-width: 600px) {
   #libWrapper {
-    margin: var(--page-margin-mobile, 64px auto 12px);
+    margin: var(--page-margin-mobile, 58px auto 12px);
     padding: var(--page-padding-mobile, 0 12px);
   }
   .lib-result {
@@ -147,7 +147,7 @@
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   .lib-peek-item {
-    font-size: 0.82rem;
+    font-size: var(--fs-aux, 0.8rem);
     line-height: 1.7;
   }
 }

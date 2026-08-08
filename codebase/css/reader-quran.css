@@ -191,7 +191,7 @@
 }
 .quran-content-table thead th {
   padding: 8px 10px;
-  font-size: 0.8rem;
+  font-size: var(--fs-aux, 0.8rem);
   font-weight: 700;
   color: var(--color-text-subtle);
   background: var(--color-nav-btn-bg);
@@ -215,7 +215,7 @@
     padding: 6px 8px;
   }
   .quran-content-table thead th {
-    font-size: 0.68rem;
+    font-size: var(--fs-micro, 0.68rem);
     padding: 6px 8px;
   }
   .quran-content-table .quran-col-label {
@@ -231,7 +231,7 @@
   text-align: center;
   padding: 30px 10px;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
+  font-size: var(--fs-muted, 0.9rem);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 

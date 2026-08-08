@@ -303,7 +303,7 @@ a.toolbar-btn {
 
 @media (max-width: 600px) {
   #dashboardWrapper {
-    margin: var(--page-margin-mobile, 64px auto 12px);
+    margin: var(--page-margin-mobile, 58px auto 12px);
     padding: var(--page-padding-mobile, 0 12px);
   }
   #dashboardPanel {

@@ -46,7 +46,7 @@
 /* Arrow buttons flanking the scrollbar */
 .table-top-scroll .scroll-arrow {
   padding: 0 4px;
-  font-size: 0.7rem;
+  font-size: var(--fs-micro, 0.68rem);
 }
 
 .reader-table {
@@ -54,7 +54,7 @@
   table-layout: auto;
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 0.95rem;
+  font-size: var(--fs-text, 0.95rem);
   line-height: 1.8;
   direction: rtl;
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
@@ -118,7 +118,7 @@
 
 /* Footnotes / sources (last column) */
 .reader-footnotes {
-  font-size: 0.9rem;
+  font-size: var(--fs-muted, 0.9rem);
   color: var(--color-footnotes);
   line-height: 1.8;
 }

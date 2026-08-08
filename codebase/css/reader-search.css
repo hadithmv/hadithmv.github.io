@@ -46,7 +46,7 @@
   padding: 7px 28px 7px 14px;
   cursor: pointer;
   border-bottom: 1px solid var(--color-border);
-  font-size: 0.95rem;
+  font-size: var(--fs-text, 0.95rem);
   direction: rtl;
   overflow: hidden;
 }
@@ -215,7 +215,7 @@
 }
 
 .search-result-snippet {
-  font-size: 1.1rem;
+  font-size: var(--fs-title-sm, 1.1rem);
   line-height: 1.6;
   color: var(--color-text);
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);

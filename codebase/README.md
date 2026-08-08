@@ -182,7 +182,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 - Fixed bar with bottom border separator, always visible
 - Dashboard: shows "ހަދީޘްއެމްވީ" branding (centered) + ☰ hamburger
 - Reader: ↩ Return (red) + ▾ Focus (green) + Book Title (center) + ☰ Menu (blue)
-- All three buttons: 40×40px desktop, 32×32px mobile, tinted backgrounds
+- All three buttons: 35×35px at every breakpoint, tinted backgrounds
 
 ### Dashboard
 
@@ -221,7 +221,7 @@ A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / cu
 
 ### Mobile
 
-- TopBar and chrome compress: buttons shrink to 32×32px, tighter padding
+- TopBar and chrome compress: controls keep their 35px height, icon buttons square up to 35×35px, tighter padding
 - Toolbar and pagination rows scroll horizontally (hidden scrollbar, ◀▶ arrow buttons, wheel redirect)
 - Pagination nav right-aligned for scrollability
 - All chrome buttons share same height and font size (0.85rem, 7px padding)

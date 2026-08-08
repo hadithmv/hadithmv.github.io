@@ -65,6 +65,19 @@
   /* Panel font sizes (were fallback-only) — change here, not at use sites. */
   --panel-font-size: 0.85rem;
   --panel-font-size-mobile: 0.78rem;
+  /* Font-size scale — every distinct rem size in the app as a named tier
+     (the 1rem default baseline and em-relative sizes stay literal). Panel
+     text sits between --fs-aux and --fs-muted; retune a tier here, not at
+     use sites. */
+  --fs-micro: 0.68rem; /* arrows, tiny glyphs, dense table cells */
+  --fs-aux: 0.8rem;    /* compact table headers */
+  --fs-muted: 0.9rem;  /* meta/subtitle text, sidebar links */
+  --fs-text: 0.95rem;  /* reading surfaces: table body, snippets */
+  --fs-title-sm: 1.1rem; /* sub-headings (bab tier) */
+  --fs-title: 1.15rem;   /* page titles and heading tiers */
+  --fs-title-lg: 1.2rem; /* kitab tier headings */
+  --fs-heading: 1.3rem;  /* sidebar title, panel headings */
+  --fs-display: 1.5rem;  /* chevron glyphs */
   /* Title scale — Arabic and Dhivehi title lines (cards + search results)
      render at this × the panel font size; English titles stay at base. */
   --title-scale: 1.2;
@@ -98,11 +111,20 @@
   --topbar-clearance: calc(var(--topbar-height) + var(--topbar-gap));
   --panel-pad: 10px;
   --panel-edge: 2px solid var(--color-card-hover-border);
+  /* Error boxes clear the fixed topbar plus fixed breathing room */
+  --error-clearance: calc(var(--topbar-height) + 24px);
   /* Page chrome — the dashboard/library wrapper layout */
   --page-margin: var(--topbar-clearance) auto 40px;
   --page-padding: 0 20px;
-  --page-margin-mobile: var(--topbar-clearance) auto 12px;
+  /* Mobile: flush under the topbar (no gap) — every page starts at the
+     same y as the reader's resting position. Desktop keeps the 6px gap. */
+  --page-margin-mobile: var(--topbar-height) auto 12px;
   --page-padding-mobile: 0 12px;
+  /* Reader layout — gutter that reserves room for the wrap arrows on each
+     side of the horizontal-scroll-wrap, and the reader content padding */
+  --arrow-gutter: 30px;
+  --reader-pad: 12px 32px 32px;
+  --reader-pad-mobile: 10px 24px 20px;
   /* Card padding — book cards and library results share one padding */
   --card-padding: 16px;
   --card-padding-mobile: 12px;
@@ -272,7 +294,7 @@ body {
   width: var(--control-height, 35px);
   height: var(--control-height, 35px);
   padding: 0;
-  font-size: 1.2rem;
+  font-size: var(--fs-title-lg, 1.2rem);
   line-height: 1;
   color: var(--color-accent, #2563eb);
   background: var(--color-accent-bg, #eff6ff);
@@ -345,7 +367,7 @@ body {
 
 .sidebar-title {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: var(--fs-heading, 1.3rem);
   font-weight: 800;
   color: var(--color-text);
 }
@@ -382,7 +404,7 @@ body {
 .sidebar-link {
   display: block;
   padding: 10px 14px;
-  font-size: 0.9rem;
+  font-size: var(--fs-muted, 0.9rem);
   font-weight: 600;
   color: var(--color-text);
   text-decoration: none;
@@ -448,7 +470,7 @@ body:has(.modal-overlay.open) {
 
 .modal-title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: var(--fs-title-lg, 1.2rem);
   font-weight: 800;
   color: var(--color-text);
 }
@@ -559,7 +581,7 @@ body:has(.modal-overlay.open) {
   align-items: center;
   justify-content: space-between;
   padding: 6px 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-muted, 0.9rem);
   color: var(--color-text);
   gap: 12px;
 }
@@ -665,7 +687,7 @@ body:has(.modal-overlay.open) {
 .loading {
   text-align: center;
   padding: 100px 40px 40px;
-  font-size: 1.3rem;
+  font-size: var(--fs-heading, 1.3rem);
   color: var(--color-loading);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
@@ -751,7 +773,7 @@ body:has(.modal-overlay.open) {
   background-color: var(--color-error-bg);
   border-radius: var(--radius-md, 8px);
   margin: 20px;
-  margin-top: calc(var(--topbar-height) + 24px); /* clear the fixed topbar (58px) + 24px breathing room */
+  margin-top: var(--error-clearance, calc(var(--topbar-height) + 24px)); /* clear the fixed topbar + 24px breathing room */
 }
 /* Errors are English-only (app convention) — a single central prefix covers
    every .error box; the red background alone is invisible to screen readers */
@@ -793,7 +815,7 @@ body:has(.modal-overlay.open) {
 .tag-chip .chip-x {
   margin-left: 6px;
   margin-right: 2px;
-  font-size: 0.7rem;
+  font-size: var(--fs-micro, 0.68rem);
 }
 .tag-chip .chip-x:hover {
   opacity: 0.7;
@@ -872,7 +894,7 @@ body:has(.modal-overlay.open) {
   border-color: var(--color-card-hover-border);
 }
 .tags-toggle-arrow {
-  font-size: 1.5rem;
+  font-size: var(--fs-display, 1.5rem);
   line-height: 1;
   transition: transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
@@ -894,7 +916,7 @@ body:has(.modal-overlay.open) {
 .scroll-arrow {
   flex-shrink: 0;
   padding: 0;
-  font-size: 0.65rem;
+  font-size: var(--fs-micro, 0.68rem);
   line-height: 1;
   color: var(--color-text-muted);
   background: transparent;
@@ -1066,7 +1088,7 @@ body:has(.modal-overlay.open) {
 
 .search-info {
   flex-shrink: 0;
-  font-size: 0.9rem;
+  font-size: var(--fs-muted, 0.9rem);
   font-weight: 600;
   color: var(--color-text-muted);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
@@ -1214,7 +1236,7 @@ body:has(.modal-overlay.open) {
   width: var(--control-height, 35px);
   height: var(--control-height, 35px);
   padding: 0;
-  font-size: 1.2rem;
+  font-size: var(--fs-title-lg, 1.2rem);
   line-height: 1;
   display: flex;
   align-items: center;
@@ -1231,7 +1253,7 @@ body:has(.modal-overlay.open) {
 #topBar #pageTitle {
   flex: 1;
   margin: 0;
-  font-size: 1.15rem;
+  font-size: var(--fs-title, 1.15rem);
   font-weight: 700;
   color: var(--color-text);
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
@@ -1256,7 +1278,7 @@ body:has(.modal-overlay.open) {
   width: var(--control-height, 35px);
   height: var(--control-height, 35px);
   padding: 0;
-  font-size: 1.2rem;
+  font-size: var(--fs-title-lg, 1.2rem);
   line-height: 1;
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   color: var(--color-danger-text, #dc2626);
@@ -1282,7 +1304,7 @@ body:has(.modal-overlay.open) {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 10px;
-  font-size: 1.5rem; /* chevron glyph — same size family as the tags toggle arrow */
+  font-size: var(--fs-display, 1.5rem); /* chevron glyph — same size family as the tags toggle arrow */
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
   color: var(--color-focus-text, #15803d);
@@ -1390,7 +1412,7 @@ body:has(.modal-overlay.open) {
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 84px; }
 .pins-history-body .dd-table th {
   padding: 8px 10px;
-  font-size: 0.8rem;
+  font-size: var(--fs-aux, 0.8rem);
   font-weight: 700;
   color: var(--color-text-subtle);
   background: var(--color-nav-btn-bg);
@@ -1426,7 +1448,7 @@ body:has(.modal-overlay.open) {
   text-align: center;
 }
 .pins-history-body .dd-table td.dd-col-idx {
-  font-size: 0.7rem;
+  font-size: var(--fs-micro, 0.68rem);
   color: var(--color-text-subtle);
 }
 .pins-history-body .dd-table .dd-col-sort {
@@ -1530,16 +1552,16 @@ body:has(.modal-overlay.open) {
 
   .nav-focus-btn {
     padding: 5px 8px !important;
-    font-size: 1.5rem !important; /* chevron glyph stays full-size on mobile */
+    font-size: var(--fs-display, 1.5rem) !important; /* chevron glyph stays full-size on mobile */
   }
 
   /* Shared component mobile sizing (dashboard + library-search pages) */
   .tag-chip {
-    font-size: var(--panel-font-size-mobile, 0.72rem);
+    font-size: var(--panel-font-size-mobile, 0.78rem);
     padding: 0 7px;
   }
   .search-info {
-    font-size: var(--panel-font-size-mobile, 0.75rem);
+    font-size: var(--panel-font-size-mobile, 0.78rem);
   }
 
   #backToDashboard {
@@ -1567,7 +1589,7 @@ body:has(.modal-overlay.open) {
     width: var(--control-height, 35px);
     height: var(--control-height, 35px);
     padding: 0 !important;
-    font-size: 1.5rem !important;
+    font-size: var(--fs-display, 1.5rem) !important;
   }
 
   .sidebar {
@@ -1585,7 +1607,7 @@ body:has(.modal-overlay.open) {
   }
   /* Compact the pins/history table on small screens so the book column keeps room */
   .pins-history-body .dd-table th {
-    font-size: 0.68rem;
+    font-size: var(--fs-micro, 0.68rem);
     padding: 6px 8px;
   }
   .pins-history-body .dd-table td {
@@ -1598,4 +1620,29 @@ body:has(.modal-overlay.open) {
   .pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 68px; }
   .pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 88px; }
   .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 68px; }
+}
+
+/* Mobile touch targets — extend the hit area 3px on every side without
+   changing the visible control size (35px stays; 44px is the guideline).
+   A transparent ::after overlay: rows keep their density, and on rows that
+   scroll horizontally the vertical extension is clipped by overflow-x so
+   there the gain is horizontal only. */
+@media (max-width: 600px) {
+  #topBar button,
+  .toolbar-btn,
+  .nav-btn,
+  .col-toggle,
+  .search-advanced-btn {
+    position: relative;
+  }
+  #topBar button::after,
+  .toolbar-btn::after,
+  .nav-btn::after,
+  .col-toggle::after,
+  .search-advanced-btn::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: inherit;
+  }
 }
