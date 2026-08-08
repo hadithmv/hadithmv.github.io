@@ -126,10 +126,10 @@ No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `bo
 
 - **Sort row** — one continuous line that scrolls horizontally when it doesn't fit (reader‑toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto‑hide at the extremes, wheel redirects to horizontal — see "Horizontal scrolling & RTL" before touching the arrow signs)
 - **Table view** — `dash-table` wrapped in `.dash-table-wrap`: `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page
-- **Continue‑reading card** — inside the collapsible dashboard panel (above the tags), appears when no search/tag/pins filter is active, built from the most recent history entry (book title, saved position — a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number — and relative time); clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome
+- **Continue‑reading card** — inside the collapsible dashboard panel (above the tags), appears when no search/tag/pins filter is active, built from the most recent history entry (book title, saved position — a surah reference like `ބަޤަރާ 2 : 60` for Quran books, otherwise the localized "Page N" prefix + row number — and relative time); clicking resumes at `reader.html?book=X&row=N`. Because it lives in the collapsible panel, focus mode collapses it with the rest of the chrome. The "Page" prefix shortens to the single letter (`ސ`) below 600px via `ddColPageShort` — the pins/history table headers share the same `matchMedia` swap, and `timeAgo` drops its "ago" suffix (`ކުރިން`) below 600px via `relativeMinutesShort`/`relativeHoursShort`/`relativeDaysShort`
 - **Pin auto‑update** — while the user reads a **pinned** book, the reader's scroll handler (debounced 2 s, guarded by `isPinned` + `_lastHistoryRow`) calls `addPin(bookCode, vRow + 1, pinLabel(...))`, piggybacking on the same timer as the history auto‑log; the URL position sync is a separate 500 ms debounce
 - **`?tags=A,B`** — pre‑filters by tag codes; clicking a tag chip updates the URL via `history.replaceState`, so filtered views are bookmarkable and shareable. An `All` chip (active when no tags are selected) clears the tag filter
-- **Tag row collapse** — the chip row clamps to one line; a "▾ More tags" button (only when the chips overflow, re‑measured on every chips render and on resize) expands it to "▴ Less tags", label swapped by `tagsShowMore`/`tagsShowFewer`. The expanded state lives on the collapse box's class, so chip re‑renders (search, reset, language) keep it; a reload starts collapsed. The library-search page shares the same component (`#libTagsCollapse`/`#libTagsToggle`), wired by `window.initTagsCollapse` in common.js
+- **Tag row collapse** — the chip row clamps to one line; a "▾ More tags" button (only when the chips overflow, re‑measured on every chips render and on resize) expands it to "▴ Less tags", label swapped by `tagsShowMore`/`tagsShowFewer`. The toggle rides inside the collapse box as the last item: collapsed it floats over the box's left padding (its measured width set as `--tags-toggle-space`, so row 1 stops flush at the button), expanded it rejoins the flow, so every row spans the full width and the button sits at the end of the last row. The box grows to the row width (`flex: 1 1 0%`) so the chips wrap, but is capped at `max-width: max-content` so a wide window never leaves an empty band (when the chips fit one row, nothing overflows and the button hides itself). The expanded state lives on the collapse box's class, so chip re‑renders (search, reset, language) keep it; a reload starts collapsed. The library-search page shares the same component (`#libTagsCollapse`/`#libTagsToggle`), wired by `window.initTagsCollapse` in common.js
 
 The dashboard panel's DOM nesting (each level is a flex container):
 
@@ -178,7 +178,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 
 ```text
 ┌─ Fixed topBar (z-index 101, opaque bg) ───────────────────═┐
-│  ↩ Return  ↕ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
+│  ↩ Return  ▾ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
 │  ═══ progress bar (surah-level for QRN, milestone toasts, green border + surah-completed toast at 100%) │
 ├─ Sticky collapsibleReaderPanel (z-index 50) ─────────────────┤
 │  readerPanelSearch       🔎 Advanced  [input]  ✕  (N)        │
@@ -290,12 +290,12 @@ The toolbar and pagination rows are wrapped in a `.h-scroll-wrap` container with
 
 **Position readouts — there are TWO, easily confused:**
 
-- **Pagination strip** (top, in `updatePagination` → `pageSelectHTML`, `#pageNumbers`): the `ސަފްހާ:` label plus the total/current page input. **No percentage — do not add one here.** The input is typing‑only: native number spinners are hidden (`.page-strip-sel`), arrow keys don't step it (keydown `preventDefault`), and `updatePagination` **never rebuilds `#pageNumbers` while the input is focused** — rebuilding would destroy focus and wipe the typed digits (focusing the box can itself trigger a scroll → `updatePagination`). Enter/blur commits via the `change` handler → `goTo`. The reader's ←/→ navigation is RTL: **left = next row, right = previous row** (do not "fix" it back to LTR).
+- **Pagination strip** (top, in `updatePagination` → `pageSelectHTML`, `#pageNumbers`): the `ސަފްހާ:` label — shortened to `ސ:` below 600px via `pageOfShort`, chosen by a `matchMedia` check at render time — plus the total/current page input. **No percentage — do not add one here.** The input is typing‑only: native number spinners are hidden (`.page-strip-sel`), arrow keys don't step it (keydown `preventDefault`), and `updatePagination` **never rebuilds `#pageNumbers` while the input is focused** — rebuilding would destroy focus and wipe the typed digits (focusing the box can itself trigger a scroll → `updatePagination`). Enter/blur commits via the `change` handler → `goTo`. The reader's ←/→ navigation is RTL: **left = next row, right = previous row** (do not "fix" it back to LTR).
 - **Scroll pill** (bottom‑center, `#scrollCounter`, rendered in the scroll handler): `total / current` plus the muted `sc-pct` reading percentage (e.g. `27%`), using the same `pct` variable the milestone toasts use. **This is where the percentage lives** — a user‑explicit preference. Both variants (standard and the Quran surah : ayah form) carry the `sc-pct` span.
 
 ### Focus mode
 
-Toggled via the green ↕/▼ button in the topBar or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
+Toggled via the green ▾/▴ button in the topBar or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
 
 **Reader:** Collapses `#collapsibleReaderPanel` smoothly via CSS Grid `grid-template-rows: 1fr → 0fr` transition. Chrome padding and border also hidden. Only the topBar and reader content remain.
 
@@ -382,7 +382,7 @@ Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single
 | `Enter`         | Search focused         | Select result                          |
 | `/` or `Ctrl+f` | Anywhere               | Focus search bar                       |
 | `Ctrl+Shift+f`  | Anywhere               | Open advanced search                   |
-| `Alt+z`         | Reader                 | Toggle focus mode (same as ↕/▼ button) |
+| `Alt+z`         | Reader                 | Toggle focus mode (same as ▾/▴ button) |
 | `Alt+t`         | Reader                 | Toggle tashkeel                        |
 | `Alt+v`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
 | `Alt+p`         | Reader                 | Toggle bookmark (pin)                  |

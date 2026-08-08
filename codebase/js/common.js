@@ -94,6 +94,10 @@ window.initTagsCollapse = function (collapseId, toggleId) {
   var toggle = document.getElementById(toggleId);
   if (!collapse || !toggle) return null;
   var label = toggle.querySelector(".dash-tags-toggle-label");
+  // The toggle rides inside the box as the last item: collapsed it floats
+  // over the box's left padding (row 1 stops at it), expanded it flows at
+  // the end of the last row and every row spans the full width.
+  collapse.appendChild(toggle);
 
   function syncLabel() {
     var expanded = collapse.classList.contains("expanded");
@@ -102,7 +106,18 @@ window.initTagsCollapse = function (collapseId, toggleId) {
       label.textContent = t(expanded ? "tagsShowFewer" : "tagsShowMore");
   }
 
+  function setToggleSpace() {
+    // The chips stop at the toggle's width (the row gap is added in CSS);
+    // 0 while the toggle is hidden.
+    collapse.style.setProperty(
+      "--tags-toggle-space",
+      (toggle.style.display === "none" ? 0 : toggle.offsetWidth) + "px"
+    );
+  }
+
   function refresh() {
+    // Chip re-renders (innerHTML) wipe the toggle — put it back if needed.
+    if (toggle.parentElement !== collapse) collapse.appendChild(toggle);
     // The overflow check only works while clamped — measure collapsed, then
     // restore whatever state the user had.
     var wasExpanded = collapse.classList.contains("expanded");
@@ -111,6 +126,7 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     if (wasExpanded) collapse.classList.add("expanded");
     toggle.style.display = overflows ? "" : "none";
     toggle.classList.toggle("expanded", overflows && wasExpanded);
+    setToggleSpace();
     syncLabel();
   }
 
@@ -118,6 +134,9 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     collapse.classList.toggle("expanded");
     toggle.classList.toggle("expanded");
     syncLabel();
+    // The label just swapped (More ↔ Less) — refresh the space the chips
+    // stop at so collapsing lands the row flush with the button.
+    setToggleSpace();
   });
   window.addEventListener("resize", refresh);
   refresh();
@@ -425,17 +444,17 @@ window.confirmModal = function (titleKey, messageKey, confirmKey, onConfirm) {
 };
 
 // ── Shared focus mode ───────────────────────────────────────
-// Toggles data-focus on <html>, updates btnFocus, persists to LS.
+// Toggles data-focus on <html>, flips btnFocus's active state (glyph rotation is pure CSS), persists to LS.
 // Dispatches "focuschange" event so pages can react (e.g. recalc layout).
 window.setFocus = function (on) {
   var html = document.documentElement;
   var btn = document.getElementById("btnFocus");
   if (on) {
     html.setAttribute("data-focus", "");
-    if (btn) { btn.classList.add("active"); btn.textContent = "▼"; }
+    if (btn) { btn.classList.add("active"); }
   } else {
     html.removeAttribute("data-focus");
-    if (btn) { btn.classList.remove("active"); btn.textContent = "↕"; }
+    if (btn) { btn.classList.remove("active"); }
   }
   try { localStorage.setItem("focus", on ? "1" : "0"); } catch (_) {}
   window.dispatchEvent(new CustomEvent("focuschange", { detail: { on: on } }));

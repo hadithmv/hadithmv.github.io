@@ -182,7 +182,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 - Fixed bar with bottom border separator, always visible
 - Dashboard: shows "ހަދީޘްއެމްވީ" branding (centered) + ☰ hamburger
-- Reader: ↩ Return (red) + ↕ Focus (green) + Book Title (center) + ☰ Menu (blue)
+- Reader: ↩ Return (red) + ▾ Focus (green) + Book Title (center) + ☰ Menu (blue)
 - All three buttons: 40×40px desktop, 32×32px mobile, tinted backgrounds
 
 ### Dashboard
@@ -210,7 +210,7 @@ Overflow buttons are accessible via ◀▶ arrow buttons that appear at the row 
 
 ### Focus mode
 
-Toggled from the green ↕ button in the topBar or the `Alt+Z` key (reader) / `z` key (dashboard). Collapses the entire chrome smoothly via CSS Grid transition (no max-height stutter). Padding and border also hidden. Only the topBar and reader content remain. Button shows ▼ when active.
+Toggled from the green ▾ button in the topBar or the `Alt+Z` key (reader) / `z` key (dashboard). Collapses the entire chrome smoothly via CSS Grid transition (no max-height stutter). Padding and border also hidden. Only the topBar and reader content remain. Button shows ▴ (rotated) when active.
 
 ### Sharing
 
@@ -225,7 +225,7 @@ A subtle pill at the bottom-center of the screen shows `10 / 1` (total rows / cu
 - TopBar and chrome compress: buttons shrink to 32×32px, tighter padding
 - Toolbar and pagination rows scroll horizontally (hidden scrollbar, ◀▶ arrow buttons, wheel redirect)
 - Pagination nav right-aligned for scrollability
-- `ސަފްހާ:` label hidden
+- `ސ` short page label on mobile (full `ސަފްހާ:` label on desktop)
 - All chrome buttons share same height and font size (0.85rem, 7px padding)
 - Sidebar has `overscroll-behavior: contain` to prevent scroll bleed
 - Search bar prevented from going offscreen
@@ -244,7 +244,7 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 | `Enter` | Search focused | Select search result |
 | `/` or `Ctrl+f` | Anywhere | Focus search bar |
 | `Ctrl+Shift+f` | Anywhere | Open advanced search |
-| `Alt+Z` | Reader | Toggle focus mode (green ↕/▼ button) |
+| `Alt+Z` | Reader | Toggle focus mode (green ▾/▴ button) |
 | `Alt+T` | Reader | Toggle tashkeel (diacritics) |
 | `Alt+V` | Reader | Toggle card / table view |
 | `Alt+P` | Reader | Toggle bookmark (pin) |

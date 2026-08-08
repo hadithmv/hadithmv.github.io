@@ -944,10 +944,8 @@
     font-size: var(--panel-font-size, 0.85rem);
   }
 
-  .page-of-label {
-    display: none;
-  }
-
+  /* The page label stays visible on mobile as the short "ސ:" form (picked
+     in reader.js via pageOfShort) — only the long label is desktop-only */
   #pageSubRow {
     margin: 0 8px !important;
     justify-content: center;

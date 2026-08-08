@@ -78,12 +78,15 @@ export function timeAgo(ts) {
   var diff = Date.now() - ts;
   var sec = Math.floor(diff / 1000);
   if (sec < 60) return t("relativeJustNow");
+  // Mobile drops the "ago" suffix (ކުރިން) — short unit forms, same 600px
+  // matchMedia breakpoint as the rest of the chrome
+  var short = window.matchMedia("(max-width: 600px)").matches;
   var min = Math.floor(sec / 60);
-  if (min < 60) return min + " " + t("relativeMinutes");
+  if (min < 60) return min + " " + t(short ? "relativeMinutesShort" : "relativeMinutes");
   var hr = Math.floor(min / 60);
-  if (hr < 24) return hr + " " + t("relativeHours");
+  if (hr < 24) return hr + " " + t(short ? "relativeHoursShort" : "relativeHours");
   var dy = Math.floor(hr / 24);
-  return dy + " " + t("relativeDays");
+  return dy + " " + t(short ? "relativeDaysShort" : "relativeDays");
 }
 
 function bookDisplayName(bookCode) {
@@ -110,7 +113,7 @@ export function openPinsModal() {
     html += '<th class="dd-col-idx">' + t("ddColIdx") + '</th>';
     html += '<th class="dd-col-sort">' + t("ddColSort") + '</th>';
     html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
-    html += '<th class="dd-col-page">' + t("ddColPage") + '</th>';
+    html += '<th class="dd-col-page">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColPageShort" : "ddColPage") + '</th>';
     html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
     html += '</tr></thead><tbody>';
     for (var i = 0; i < pins.length; i++) {
@@ -152,7 +155,7 @@ export function openHistoryModal() {
     var html = '<table class="dd-table">';
     html += '<thead><tr>';
     html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
-    html += '<th class="dd-col-page">' + t("ddColPage") + '</th>';
+    html += '<th class="dd-col-page">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColPageShort" : "ddColPage") + '</th>';
     html += '<th class="dd-col-time">' + t("ddColTime") + '</th>';
     html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
     html += '</tr></thead><tbody>';

@@ -271,8 +271,16 @@ function renderDashboard(bookNames) {
           "</span>" +
           '<span class="dash-continue-pos">' +
           // Quran books carry a self-explanatory surah reference label;
-          // other books show the row number with the "Page" word
-          (h0.label || t("ddColPage") + " " + h0.row) +
+          // other books show the row number with the "Page" word — short
+          // form on mobile (matchMedia, same 600px breakpoint as the CSS)
+          (h0.label ||
+            t(
+              window.matchMedia("(max-width: 600px)").matches
+                ? "ddColPageShort"
+                : "ddColPage"
+            ) +
+              " " +
+              h0.row) +
           "</span>" +
           '<span class="dash-continue-time">' +
           timeAgo(h0.timestamp) +

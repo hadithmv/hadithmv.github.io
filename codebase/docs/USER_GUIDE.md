@@ -54,7 +54,7 @@ Click any book card or table row to open it.
 ### Top bar
 
 - **↩ Return** (red) — goes back to the book list
-- **↕ Focus** (green) — toggles distraction‑free reading mode. Click again or press `Alt+Z` to exit.
+- **▾ Focus** (green) — toggles distraction‑free reading mode. Click again or press `Alt+Z` to exit.
 - **Title** — the book title in the centre. Scrolls if too long.
 - **☰ Menu** (blue) — opens the sidebar with navigation, pins, history, and settings.
 
@@ -118,7 +118,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 
 ### Focus mode
 
-Press `Alt+Z` or click the green ↕ button to hide everything except the essential content. Press again to return.
+Press `Alt+Z` or click the green ▾ button to hide everything except the essential content. Press again to return.
 
 - **On the reader page** — the search bar, toolbar, pagination, and Quran nav collapse, leaving only the book text.
 - **On the dashboard** — the tag chips and sort/filter row collapse, leaving the search bar and book grid visible.

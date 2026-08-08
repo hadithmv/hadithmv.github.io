@@ -1021,7 +1021,8 @@ initializePageWithMetadata(async function (metadata) {
         if (stripFocused) return;
 
         var selHTML = pageSelectHTML(cur, total);
-        var label = t("pageOf");
+        // Mobile swaps the full "Page:" label for the single-letter short form
+        var label = t(window.matchMedia("(max-width: 600px)").matches ? "pageOfShort" : "pageOf");
         document.getElementById("pageNumbers").innerHTML = selHTML;
         var pl = document.getElementById("pageLabel");
         if (pl) pl.textContent = label;
@@ -1764,10 +1765,7 @@ initializePageWithMetadata(async function (metadata) {
       // ── Language change → re-render ───────────────────────
       document.addEventListener("languagechange", function () {
         buildColumnToggles();
-        // Update focus and view toggle button text
-        var btn = document.getElementById("btnFocus");
-        var on = document.documentElement.hasAttribute("data-focus");
-        if (btn) btn.textContent = on ? "▼" : "↕";
+        // Update view toggle button text (focus button glyph is static HTML, rotates via CSS)
         updateViewModeUI();
         if (filteredData.length > 0) rebuildAll();
       });

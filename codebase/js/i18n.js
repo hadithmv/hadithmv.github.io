@@ -136,6 +136,7 @@ const STRINGS = {
   },
   // ── Pagination ──
   pageOf: { dv: "ސަފްހާ:", en: "Page:", ar: "صفحة:" },
+  pageOfShort: { dv: "ސ:", en: "Pg:", ar: "ص:" },
   resultCount: { dv: "ނަތީޖާ", en: "match", ar: "نتيجة" },
   noResults: { dv: "ނަތީޖާ 0", en: "0 matches", ar: "٠ نتائج" },
   noMatchesMsg: {
@@ -281,7 +282,7 @@ const STRINGS = {
   tagsShowFewer: { dv: "މަދު ޓެގުތައް", en: "Less tags", ar: "أقل من الوسوم" },
   tagFilterAll: { dv: "ހުރިހާ", en: "All", ar: "الكل" },
   continueReading: {
-    dv: "އެންމެ ފަހުން ކިޔަމުން ދިޔައީ:",
+    dv: "ފަހުން ކިޔުނީ:",
     en: "Continue reading:",
     ar: "متابعة القراءة:",
   },
@@ -332,6 +333,7 @@ const STRINGS = {
   ddColSort: { dv: "ތަރުތީބު", en: "Sort", ar: "ترتيب" },
   ddColBook: { dv: "ފޮތް", en: "Book", ar: "كتاب" },
   ddColPage: { dv: "ސަފްހާ", en: "Page", ar: "صفحة" },
+  ddColPageShort: { dv: "ސ", en: "Pg", ar: "ص" },
   ddColTime: { dv: "ވަގުތު", en: "Time", ar: "وقت" },
   ddColRemove: { dv: "ފޮހެލާ", en: "Remove", ar: "حذف" },
   ddColIdx: { dv: "#", en: "#", ar: "#" },
@@ -353,6 +355,9 @@ const STRINGS = {
   relativeMinutes: { dv: "މިނެޓް ކުރިން", en: "m ago", ar: "د" },
   relativeHours: { dv: "ގަޑިއިރު ކުރިން", en: "h ago", ar: "س" },
   relativeDays: { dv: "ދުވަސް ކުރިން", en: "d ago", ar: "ي" },
+  relativeMinutesShort: { dv: "މިނެޓް", en: "m", ar: "د" },
+  relativeHoursShort: { dv: "ގަޑިއިރު", en: "h", ar: "س" },
+  relativeDaysShort: { dv: "ދުވަސް", en: "d", ar: "ي" },
   searchClearHistory: {
     dv: "✕   ހިސްޓަރީ ފޮހެލާ",
     en: "✕   Clear history",

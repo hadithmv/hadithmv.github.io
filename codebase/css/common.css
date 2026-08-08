@@ -926,8 +926,11 @@ body:has(.modal-overlay.open) {
 
 /* Collapsible chip row — dashboard + library search share the chip row; when
    the chips overflow one row the row clamps and a chevron button expands it.
-   The toggle sits at the row end (left, RTL) and stays level with the first
-   row. Motion is the panel expand/collapse curve. */
+   The toggle rides INSIDE the box as the last item: collapsed it floats over
+   the box's left padding (RTL row end, level with row 1 — the chips stop at
+   the padding), and expanded it rejoins the flow as the last item, so every
+   row spans the full width and the button sits at the end of the last row.
+   Motion is the panel expand/collapse curve. */
 .dash-tags-collapse {
   display: flex;
   flex-wrap: wrap;
@@ -940,6 +943,18 @@ body:has(.modal-overlay.open) {
      to its own row. Grow fills the leftover width; the chips wrap inside. */
   flex: 1 1 0%;
   min-width: 0;
+  /* Hug the chips: without this the box grows to the full row width, and in
+     RTL the unused width collects beside the toggle (a wide window leaves a
+     huge empty band). Capped at the chips' single-line width the box fills
+     exactly — and when the chips fit one row, nothing overflows and the
+     toggle hides itself. Line-breaking still uses the 0 base size, so the
+     toggle always shares the first line. */
+  max-width: max-content;
+  /* Collapsed, the toggle floats over this padding — its measured width is
+     set as --tags-toggle-space by initTagsCollapse, so row 1 stops right at
+     the button; expanded rows ignore it. */
+  padding-inline-end: var(--tags-toggle-space, 0px);
+  position: relative;
   max-height: calc(var(--control-height, 35px));
   transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
@@ -947,12 +962,18 @@ body:has(.modal-overlay.open) {
   /* A concrete target the transition can run to — far beyond the ~2-4 rows
      the 15 tags wrap to, so the clamp never clips an expanded row. */
   max-height: 400px;
+  padding-inline-end: 0;
 }
 .dash-tags-toggle {
+  /* Collapsed: floats over the box's left padding (RTL row end), level with
+     row 1 — the chips stop at the padding the toggle covers. Expanded: back
+     in the flow as the last item, i.e. the left end of the last row. */
+  position: absolute;
+  top: 0;
+  left: 0;
   /* LTR: the chevron hugs the row's left edge in every language; the label's
      own bidi handles its text flow. */
   direction: ltr;
-  align-self: flex-start;
   flex: 0 0 auto;
   height: var(--control-height, 35px);
   padding: 0 10px;
@@ -976,6 +997,9 @@ body:has(.modal-overlay.open) {
 .dash-tags-toggle:hover {
   background: var(--color-nav-btn-hover-bg);
   border-color: var(--color-card-hover-border);
+}
+.dash-tags-collapse.expanded .dash-tags-toggle {
+  position: static;
 }
 .dash-tags-toggle-arrow {
   font-size: 1.5rem;
@@ -1411,7 +1435,7 @@ body:has(.modal-overlay.open) {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 10px;
-  font-size: var(--panel-font-size, 0.85rem);
+  font-size: 1.5rem; /* chevron glyph — same size family as the tags toggle arrow */
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
   color: var(--color-focus-text, #15803d);
@@ -1422,7 +1446,8 @@ body:has(.modal-overlay.open) {
   transition:
     background var(--t-panel, 0.3s) ease,
     border-color var(--t-panel, 0.3s) ease,
-    color var(--t-panel, 0.3s) ease;
+    color var(--t-panel, 0.3s) ease,
+    transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   white-space: nowrap;
 }
@@ -1436,10 +1461,12 @@ body:has(.modal-overlay.open) {
   background: var(--color-focus-text, #15803d);
   color: #fff;
   border-color: var(--color-focus-text, #15803d);
+  transform: rotate(180deg); /* ▾ → ▴, same animation as the tags toggle arrow */
   transition:
     background var(--t-panel, 0.3s) ease,
     border-color var(--t-panel, 0.3s) ease,
-    color var(--t-panel, 0.3s) ease;
+    color var(--t-panel, 0.3s) ease,
+    transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 /* ---- Font modal ---- */
@@ -1640,7 +1667,7 @@ body:has(.modal-overlay.open) {
 
   .nav-focus-btn {
     padding: 5px 8px !important;
-    font-size: var(--panel-font-size, 0.85rem) !important;
+    font-size: 1.5rem !important; /* chevron glyph stays full-size on mobile */
   }
 
   /* Shared component mobile sizing (dashboard + library-search pages) */
@@ -1677,7 +1704,7 @@ body:has(.modal-overlay.open) {
     width: var(--control-height, 35px);
     height: var(--control-height, 35px);
     padding: 0 !important;
-    font-size: 1rem !important;
+    font-size: 1.5rem !important;
   }
 
   .sidebar {
