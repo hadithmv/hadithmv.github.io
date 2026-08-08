@@ -16,7 +16,10 @@
 | `js/book-data.js` | Book registry, tag resolution, page bootstrap |
 | `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
-| `js/reader.js` | Book viewer: CSV parsing, rendering, pagination |
+| `js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
+| `js/reader-position.js` | Reader position: pagination strip, visible-page detector, scroll block (progress, milestones, URL sync, read-history) |
+| `js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
+| `js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
 | `js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
 | `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
@@ -424,17 +427,14 @@ Shared mutable state object:
 
 ## reader.js
 
-Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, `export.js`. Key internal functions:
+Consumes `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, `export.js`. Key internal functions (search/position/scrollbar APIs live in their own modules below):
 
 | Function | Description |
 |---|---|
-| `applySearch(query)` | Runs the search engine, updates results dropdown and match count |
-| `renderSearchHistory()` | Populates and positions the history dropdown |
 | `window.setFocus(on)` | (common.js) Toggles `data-focus` on `<html>`, updates `#btnFocus`, persists to LS, dispatches `focuschange` event. Shared across both pages. |
 | `goTo(rowIdx)` | Scrolls to a specific row, lazy‑loading chunks as needed |
 | `loadInitial()` | Renders the first chunk of rows |
 | `rebuildAll()` | Re‑renders all visible rows (used after settings change) |
-| `updatePagination()` | Syncs pagination UI with current scroll position |
 | `renderPageTags()` | Renders tag badges in the reader header |
 | `renderRowHTML(row, rowNum)` | Card‑view row renderer — builds vertical `<div>` stack with field classes and spacers. |
 | `renderParallelRowHTML(row, rowNum)` | Parallel‑view row renderer — partitions fields by language suffix (`ar`/`dv`) into a two‑column grid. |
@@ -458,6 +458,56 @@ Consumes `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, 
 
 - **Standard books** — header line `titleDV - titleAR` followed by row text with column separators (AR/DV spacer, matn/sharh divider, footnote divider).
 - **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-registry-bookMeta.csv`) above each book's columns. Per-column headers are omitted.
+
+---
+
+## reader-position.js
+
+Reader position: the pagination strip, the visible-row detector, and the scroll-driven block (progress bar, milestone toasts, scroll counter, URL sync, read-history auto-log + pin update). Extracted from reader.js. Owns module-scope state set by `initPosition(ctx)`; reads core-owned values through ctx accessors. Imports `t`/`currentLang` (i18n), `addReadHistory`/`isPinned`/`addPin` (book-data), and quran-ui helpers.
+
+### `initPosition(ctx)`
+
+Registers the window scroll listener (`{ passive: true }`) and logs the initial read-history entry. ctx: `{ metadata, quranBook, headerRow, getFilteredData, pinLabel, goTo }` — `metadata`/`quranBook`/`headerRow` are direct refs (never rebound); `getFilteredData` is an accessor because search reassigns `filteredData`; `pinLabel`/`goTo` are callbacks. Called from reader.js's initial render **before** `loadInitial` — the table branch calls `updatePagination()`, so the module's ctx must exist by then.
+
+### `updatePagination()`
+
+Syncs the page strip, First/Prev/Next/Last buttons and the Quran nav row with the current scroll position. Throttled to ~8 fps; skips DOM writes when nothing changed; skips the page-strip rebuild while its number input is focused. Used by the toolbar call sites in reader.js and internally by the scroll handler.
+
+### `visiblePageIndex()`
+
+Visible row index: `elementFromPoint` fast path at viewport centre, linear-scan fallback. Exported for reader.js (toolbar buttons, export ctx) and used internally.
+
+## reader-search-ui.js
+
+In-book search UI: type-ahead results dropdown, search history, whole-word toggle, advanced search modal, arrow-key navigation while the search input is focused. Extracted from reader.js; imports `updatePagination` from reader-position.js and the search engine from search-utils.js.
+
+### `initSearchUI(ctx)`
+
+Wires the search input, whole-word toggle, history dropdown, advanced search modal and the search-nav `document` keydown listener (registered first, so it runs ahead of reader.js's global keydown while the input is focused). ctx: `{ allData, normAllData, maxCols, colLabel, getFilteredData, setFilteredData, getLoadedStart, setLoadedStart, getLoadedEnd, setLoadedEnd, rebuildAll, loadInitial, observeSentinels, goTo }` — `allData`/`normAllData`/`maxCols` direct refs (never rebound); the getter/setter pairs cover variables search reassigns (`filteredData`, `loadedStart`/`loadedEnd`).
+
+### `applySearch(query)`
+
+Runs the search engine, updates the results dropdown and match count. Used by reader.js's settings reset and the `?q=` deep-link block.
+
+### `renderAdvancedSearch()`
+
+Opens the advanced search modal with its condition rows (AND/OR, operators, values). Used by the Ctrl+Shift+F keyboard shortcut in reader.js.
+
+### `parseQueryWithMode(query)`
+
+Parses a raw query string into the internal query shape, including the whole-word marker. Used by reader.js's `?q=` deep-link block.
+
+## table-scroll-sync.js
+
+Table view's top scrollbar widget: mirrors its horizontal scroll onto the table (RTL-aware — Chrome and Firefox disagree on `scrollLeft` sign), smooth-scrolls one column per arrow click, supports shift+wheel. The widget DOM is created by reader.js's `loadInitial` (table branch), which calls `initTableScroll` right after. Imports nothing.
+
+### `initTableScroll(ctx)`
+
+Resolves the widget DOM (`#tableTopScroll`, `#tableWrap`, `#tableTopScrollInner`, arrow buttons) and wires scroll/click/wheel listeners. ctx: `{ headerRow, getHiddenColumns }` — the accessor because the settings reset rebinds `hiddenColumns` (a captured ref would go stale).
+
+### `refreshTableScrollWidth()`
+
+Recomputes table and spacer widths and scrollbar visibility after column toggles or window resize. Safe to call before init — the DOM lookups return null and the guards bail. Called by reader.js's resize listener and the append/prepend loaders.
 
 ---
 

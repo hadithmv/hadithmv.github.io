@@ -32,7 +32,10 @@ js/
   book-data.js                  ← Book metadata: registry + tag loaders, page bootstrap
   pins-history.js               ← Pins & history: localStorage, modals, sidebar wiring
   dashboard.js                  ← Dashboard UI: card/table grid, search, tags, sort, keyboard
-  reader.js                     ← Book viewer: render, toolbar, keyboard, export, clipboard
+  reader.js                     ← Book viewer core: render, loaders, goTo, toolbar, keyboard, deep links
+  reader-position.js            ← Reader position: pagination strip, progress bar, URL sync, read-history
+  reader-search-ui.js           ← In-book search: results, history, whole-word toggle, advanced search
+  table-scroll-sync.js          ← Table view: top scrollbar, width sync, arrow/wheel scrolling
   quran-data.js                 ← Quran: data, decoration, column registry
   quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
   csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse

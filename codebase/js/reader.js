@@ -6,35 +6,43 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, addReadHistory } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { normaliseForSearch, parseQuery, compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory } from "./search-utils.js";
+import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
+import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
+import { initPosition, updatePagination, visiblePageIndex } from "./reader-position.js";
+import { initSearchUI, applySearch, renderAdvancedSearch, parseQueryWithMode } from "./reader-search-ui.js";
 
 initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
-  // SECTIONS (in order):
-  //   L16-60    Book loading (standard CSV or Quran merge)
-  //   L61-108   Page header, tag badges, language-aware titles
-  //   L109-140  Persisted settings (LS wrapper, -HDN column init)
-  //   L141-248  Reader state, column toggles, dropdown infrastructure
-  //   L249-260  Tashkeel helpers
-  //   L261-353  Clipboard formatting (rowText)
-  //   L354-398  View mode dropdown (card / table / parallel)
-  //   L399-470  Card row renderer (renderRowHTML)
-  //   L471-585  Parallel row renderer (renderParallelRowHTML)
-  //   L586-645  Chunk + table-row renderers
-  //   L646-918  Infinite scroll, pagination, table scrollbar
-  //   L919-1080 Search UI (results, history, advanced search)
-  //   L1081-1468 Toolbar (tashkeel, share, pin, copy, focus)
-  //   L1469-1481 Export (delegated to export.js via initExports ctx)
-  //   L1482-1545 Reset view
-  //   L1546-1660 Keyboard shortcuts
-  //   L1661-1690 Touch swipe
-  //   L1691-1849 Progress bar, scroll counter, URL sync, history
+  // SECTIONS — fold with #region/#endregion; names are the anchors,
+  // line numbers below are approximate (freshness check pins the last).
+  //   Book loading (standard CSV or Quran merge)           L45-113
+  //   Page header, tag badges, language-aware titles       L116-174
+  //   Persisted settings (LS wrapper, -HDN column init)    L177-223
+  //   Reader state, column toggles, dropdown infrastructure L226-331
+  //   Tashkeel helpers                                     L334-341
+  //   Clipboard formatting (rowText)                       L344-431
+  //   View mode dropdown (card / table / parallel)         L434-482
+  //   Quran helpers                                        L485-489
+  //   Card row renderer (renderRowHTML)                    L492-559
+  //   Parallel row renderer (renderParallelRowHTML)        L562-672
+  //   Chunk + table-row renderers                          L675-715
+  //   Infinite scroll + table scrollbar                    L718-841
+  //   Navigation (goTo, scroll padding)                    L844-862
+  //   Search UI (wiring — module: reader-search-ui.js)     L865-886
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L889-1034
+  //   Keyboard shortcuts (incl. navigation buttons)        L1037-1140
+  //   Touch swipe                                          L1143-1163
+  //   Settings reset + language change                     L1166-1179
+  //   Quran UI (initQuranUI ctx)                           L1182-1198
+  //   Initial render (deep links, reveal)                  L1201-1264
+  //   Module-level helpers (showError)                     L1267-1273
   // ═══════════════════════════════════════════════════════════════
+  // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
 
   var quranBook = isQuranBook(metadata.bookCode);
@@ -103,7 +111,9 @@ initializePageWithMetadata(async function (metadata) {
         showError("No data found in CSV file: " + metadata.csvPath);
         return;
       }
+      // #endregion
 
+      // #region Page header, tag badges, language-aware titles
       // Language-aware page header
       const pageTagsContainer = document.getElementById("readerPageTags");
       const pageTags = extractTags(metadata.bookCode, metadata);
@@ -162,7 +172,9 @@ initializePageWithMetadata(async function (metadata) {
 
       // Clipboard header — book title line (always DV - AR)
       const clipboardHeader = metadata.titleDV + " - " + metadata.titleAR;
+      // #endregion
 
+      // #region Persisted settings (LS wrapper, -HDN column init)
       // ── Settings (persisted) ────────────────────────────────
       const LS = {
         get(key, fallback) {
@@ -209,7 +221,9 @@ initializePageWithMetadata(async function (metadata) {
           }
         }
       }
+      // #endregion
 
+      // #region Reader state, column toggles, dropdown infrastructure
       // ── Reader state ────────────────────────────────────────
       STATE.allData = data;
       // Books ending with -DSC display rows in reverse (last-to-first)
@@ -226,11 +240,6 @@ initializePageWithMetadata(async function (metadata) {
 
       // DOM refs
       const searchInput = document.getElementById("readerSearchInput");
-      const readerSearchClear = document.getElementById("readerSearchClear");
-      const readerResultCount = document.getElementById("readerResultCount");
-      const searchResultsEl = document.getElementById("searchResultsDropdown");
-      const advSearchOverlay = document.getElementById("advancedSearchOverlay");
-      const advSearchRows = document.getElementById("advancedSearchRows");
       const btnTashkeel = document.getElementById("btnTashkeel");
       const btnCopy = document.getElementById("btnCopy");
       const btnResetReader = document.getElementById("btnResetReader");
@@ -320,7 +329,9 @@ initializePageWithMetadata(async function (metadata) {
         }
       });
       window.registerDropdown("columnDropdown", columnDropdown, btnColumnDropdown);
+      // #endregion
 
+      // #region Tashkeel helpers
       // ── Tashkeel helpers ────────────────────────────────────
       // Unicode ranges for Arabic diacritics / tashkeel
       const TASHKEEL_RE = /[ً-ٟؐ-ؚۖ-ۭ]+/g;
@@ -328,8 +339,10 @@ initializePageWithMetadata(async function (metadata) {
       function markupTashkeel(text) {
         return text.replace(TASHKEEL_RE, '<span class="tashkeel">$&</span>');
       }
+      // #endregion
 
-      // ── Infinite-scroll render ──────────────────────────────
+      // #region Clipboard formatting (rowText)
+      // ── Clipboard formatting (rowText) ──────────────────────
       let loadedStart = -1, loadedEnd = -1;
 
       function rowText(row, rowNum) {
@@ -416,7 +429,9 @@ initializePageWithMetadata(async function (metadata) {
         }
         return text;
       }
+      // #endregion
 
+      // #region View mode dropdown (card / table / parallel)
       var viewMode = STATE.viewMode;      // canonical: STATE.viewMode
 
       function updateViewModeUI() {
@@ -465,12 +480,16 @@ initializePageWithMetadata(async function (metadata) {
         }
       }
       updateViewModeUI();
+      // #endregion
 
+      // #region Quran helpers
       // ── Quran helpers ──────────────────────────────────────
       function getAyahNoFromRow(row) {
         return getAyahNoFromRowQuran(row, headerRow);
       }
+      // #endregion
 
+      // #region Card row renderer (renderRowHTML)
       function renderRowHTML(row, rowNum) {
         var h = "";
         if (hasRowNums && hiddenColumns.indexOf(0) === -1) {
@@ -538,7 +557,9 @@ initializePageWithMetadata(async function (metadata) {
         }
         return h;
       }
+      // #endregion
 
+      // #region Parallel row renderer (renderParallelRowHTML)
       function renderParallelRowHTML(row, rowNum) {
         var h = "";
         // Row number (neutral — full width above)
@@ -649,7 +670,9 @@ initializePageWithMetadata(async function (metadata) {
 
         return h;
       }
+      // #endregion
 
+      // #region Chunk + table-row renderers
       function renderChunkHTML(startIdx, endIdx) {
         var h = "";
         var renderFn = viewMode === "parallel" ? renderParallelRowHTML : renderRowHTML;
@@ -690,7 +713,9 @@ initializePageWithMetadata(async function (metadata) {
         }
         return h;
       }
+      // #endregion
 
+      // #region Infinite scroll + table scrollbar
       function loadInitial() {
         var initialRows = viewMode === "table" ? 50 : ROWS_PER_CHUNK * 3;
         var end = Math.min(initialRows, filteredData.length);
@@ -706,7 +731,8 @@ initializePageWithMetadata(async function (metadata) {
             }
             thead += "</tr></thead>";
           }
-          // ── Table DOM structure (IDs wired through setupTableScroll, appendNext, prependPrev) ──
+          // ── Table DOM structure (IDs wired through initTableScroll in table-scroll-sync.js,
+          // and appendNext, prependPrev in this module) ──
           // Family was rdf* (Radheef shorthand — Radheef books default to table view); renamed to
           // table* because this is the generic table view. Rename in lockstep across the three
           // functions: #tableTopScroll, #tableScrollBack, #tableScrollFwd, #tableWrap, #tableBody,
@@ -716,7 +742,7 @@ initializePageWithMetadata(async function (metadata) {
             `<div class="table-wrap" id="tableWrap"><table class="reader-table">${thead}<tbody id="tableBody"></tbody></table></div>` +
             `<div id="sentinelBottom" class="reader-sentinel"></div>`;
           document.getElementById("tableBody").innerHTML = renderTableRows(0, end);
-          setupTableScroll();
+          initTableScroll({ headerRow: headerRow, getHiddenColumns: function () { return hiddenColumns; } });
         } else {
           readerContent.innerHTML =
             `<div id="sentinelTop" class="reader-sentinel"></div>` +
@@ -749,138 +775,6 @@ initializePageWithMetadata(async function (metadata) {
         });
       }
 
-      // ── Top scrollbar + horizontal scroll setup ──────────────
-      function setupTableScroll() {
-        var topScrollOuter = document.getElementById("tableTopScroll");
-        var tableWrap = document.getElementById("tableWrap");
-        var topSpacer = document.getElementById("tableTopScrollInner");
-        // The scrollbar lives on the inner div (so padding on outer stays clean)
-        var topScroll = topScrollOuter ? topScrollOuter.querySelector(".table-top-scroll-inner") : null;
-        if (!topScroll || !tableWrap) return;
-
-        function getTable() {
-          return tableWrap.querySelector(".reader-table");
-        }
-
-        // Compute and apply table width: first col 60px, rest 150px each.
-        // If total exceeds wrapper width, table overflows → scrollbar appears.
-        function applyTableWidth() {
-          var table = getTable();
-          if (!table) return 0;
-          var visCols = 0;
-          if (headerRow) {
-            for (var j = 0; j < headerRow.length; j++) {
-              if (hiddenColumns.indexOf(j) === -1) visCols++;
-            }
-          }
-          if (visCols === 0) return 0;
-          // Estimate: first col 60px, others 150px each (used only for overflow check)
-          var colWidth = 60 + (visCols - 1) * 150;
-          // Reset to CSS defaults — let table-layout:auto size columns to content
-          table.style.width = "";
-          var ths = table.querySelectorAll("thead th");
-          if (ths.length > 0) {
-            ths[0].style.width = "60px"; // row-number column stays narrow
-            for (var k = 1; k < ths.length; k++) {
-              ths[k].style.width = ""; // let browser size by content
-            }
-          }
-          return colWidth;
-        }
-
-        function refreshScrollWidth(colWidth) {
-          var table = getTable();
-          if (!table || !topSpacer) return;
-          // Force overflow width if columns demand it
-          var wrapW = tableWrap.clientWidth;
-          if (wrapW > 0 && colWidth > wrapW) {
-            table.style.width = colWidth + "px";
-          }
-          var w = parseInt(table.style.width) || table.scrollWidth;
-          topSpacer.style.width = (w || table.scrollWidth) + "px";
-          // Hide the whole scrollbar row when table fits without overflow
-          var needed = table.scrollWidth > tableWrap.clientWidth + 1;
-          topScrollOuter.style.display = needed ? "" : "none";
-          // Only clip overflow when scrollbar is needed (prevents edge clipping when table fits)
-          tableWrap.style.overflowX = needed ? "" : "visible";
-          // Adjust th sticky offset: only reserve space when scrollbar is visible
-          var ths = table.querySelectorAll("thead th");
-          var thTop = needed ? "calc(var(--table-header-top, 64px) + 19px)" : "var(--table-header-top, 64px)";
-          for (var i = 0; i < ths.length; i++) {
-            ths[i].style.setProperty("top", thTop);
-          }
-        }
-
-        function syncTableTransform() {
-          var table = getTable();
-          if (!table) return;
-          // Normalise RTL scroll position to a 0–1 fraction.
-          // Chrome: scrollLeft ∈ [0, maxScroll]   Firefox: scrollLeft ∈ [-maxScroll, 0]
-          var maxScroll = topScroll.scrollWidth - topScroll.clientWidth;
-          if (maxScroll <= 0) { table.style.transform = ""; return; }
-          var fraction = Math.abs(topScroll.scrollLeft) / maxScroll;
-          var tableOverflow = table.scrollWidth - tableWrap.clientWidth;
-          if (tableOverflow <= 0) { table.style.transform = ""; return; }
-          var offset = fraction * tableOverflow;
-          table.style.transform = "translateX(" + offset + "px)";
-        }
-
-        // Apply width first, then set up scroll width (deferred for layout)
-        var _colWidth = applyTableWidth();
-        requestAnimationFrame(function () {
-          refreshScrollWidth(_colWidth);
-        });
-
-        // Scroll the table when the top scrollbar moves
-        topScroll.addEventListener("scroll", syncTableTransform);
-
-        // Arrow buttons: smooth-scroll one column width per click
-        var COL_STEP = 150;
-        function smoothScrollBy(delta) {
-          var start = topScroll.scrollLeft;
-          var target = start + delta;
-          var duration = 250; // ms
-          var startTime = performance.now();
-          function easeOut(progress) { return 1 - Math.pow(1 - progress, 3); }
-          function animate(now) {
-            var elapsed = now - startTime;
-            var progress = Math.min(elapsed / duration, 1);
-            topScroll.scrollLeft = start + delta * easeOut(progress);
-            if (progress < 1) requestAnimationFrame(animate);
-          }
-          requestAnimationFrame(animate);
-        }
-        var scrollFwdBtn = document.getElementById("tableScrollFwd");
-        var scrollBackBtn = document.getElementById("tableScrollBack");
-        if (scrollFwdBtn) {
-          scrollFwdBtn.addEventListener("click", function () {
-            smoothScrollBy(-COL_STEP);
-          });
-        }
-        if (scrollBackBtn) {
-          scrollBackBtn.addEventListener("click", function () {
-            smoothScrollBy(COL_STEP);
-          });
-        }
-
-        // Shift+wheel on the wrapper → horizontal scroll
-        tableWrap.addEventListener("wheel", function (e) {
-          if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-            e.preventDefault();
-            var amount = e.deltaX || e.deltaY;
-            topScroll.scrollLeft += amount;
-          }
-        }, { passive: false });
-
-        // Refresh when columns are toggled
-        var refreshTableScrollWidth = function () {
-          var colWidth = applyTableWidth();
-          requestAnimationFrame(function () {
-            refreshScrollWidth(colWidth);
-          });
-        };
-      }
-
       function appendNext() {
         if (loadedEnd >= filteredData.length) return;
         var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
@@ -889,7 +783,7 @@ initializePageWithMetadata(async function (metadata) {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("beforeend", renderTableRows(loadedEnd, nextEnd));
           requestAnimationFrame(function () {
-            if (refreshTableScrollWidth) refreshTableScrollWidth();
+            refreshTableScrollWidth();
           });
         } else {
           var sentinel = document.getElementById("sentinelBottom");
@@ -907,7 +801,7 @@ initializePageWithMetadata(async function (metadata) {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
           requestAnimationFrame(function () {
-            if (refreshTableScrollWidth) refreshTableScrollWidth();
+            refreshTableScrollWidth();
           });
         } else {
           var prevH = readerContent.scrollHeight;
@@ -916,30 +810,6 @@ initializePageWithMetadata(async function (metadata) {
           readerContent.scrollTop += readerContent.scrollHeight - prevH;
         }
         loadedStart = nextStart;
-      }
-
-      function visiblePageIndex() {
-        // Fast path: use elementFromPoint at viewport centre (O(1) vs O(n) scan)
-        var viewMid = window.innerHeight / 2;
-        var el = document.elementFromPoint(window.innerWidth / 2, viewMid);
-        if (el) {
-          var row = el.closest('.reader-chunk');
-          if (row && row.dataset.row) return parseInt(row.dataset.row);
-        }
-        // Fallback: linear scan (rarely reached)
-        var chunks = readerContent.querySelectorAll(".reader-chunk");
-        if (chunks.length === 0) return 0;
-        var best = 0, bestTop = Infinity;
-        var viewH = window.innerHeight;
-        for (var i = 0; i < chunks.length; i++) {
-          var cr = chunks[i].getBoundingClientRect();
-          var mid = cr.top + cr.height / 2;
-          var dist = Math.abs(mid - viewMid);
-          if (dist < bestTop) { bestTop = dist; best = parseInt(chunks[i].dataset.row); }
-          // Early exit: once we've passed the viewport, remaining rows are further away
-          if (cr.top > viewH && dist > bestTop) break;
-        }
-        return best;
       }
 
       // IntersectionObserver for auto-load
@@ -969,90 +839,9 @@ initializePageWithMetadata(async function (metadata) {
         loadInitial();
         observeSentinels();
       }
+      // #endregion
 
-      // ── Pagination UI ───────────────────────────────────────
-      function pageSelectHTML(current, total) {
-        if (total <= 1) return "";
-        // Number input is O(1) — a <select> with one <option> per row is O(n) and
-        // kills performance on large books (5 000+ <option> elements rendered twice).
-        var w = Math.max(58, String(total).length * 18 + 10);
-        return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:${w}px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
-      }
-
-      var _lastPagUpdate = 0;
-      var _lastPagCur = -1;
-      var _lastPagTotal = -1;
-      function updatePagination() {
-        var now = performance.now();
-        if (now - _lastPagUpdate < 120) return; // throttle to ~8 fps — enough for page indicator
-        _lastPagUpdate = now;
-
-        const total = filteredData.length;
-        const visibleRow = visiblePageIndex();
-        const cur = visibleRow + 1; // 1-based row number
-
-        // Skip DOM updates if nothing changed
-        if (cur === _lastPagCur && total === _lastPagTotal) return;
-        _lastPagCur = cur;
-        _lastPagTotal = total;
-
-        // Sync Quran nav with scroll position
-        if (quranBook && visibleRow >= 0 && visibleRow < filteredData.length) {
-          var scrollRow = filteredData[visibleRow];
-          findQuranColIndices(headerRow);
-          var scrollSurah = getRowSurah(scrollRow, headerRow);
-          var scrollJuz = getRowJuz(scrollRow, headerRow);
-          if (scrollSurah !== quranState.currentSurah) {
-            quranState.currentSurah = scrollSurah;
-            quranState.currentAyah = 1;
-            var info = getSurahInfo(scrollSurah);
-            if (info) document.getElementById("qrnAyahInput").max = info.ayahCount;
-          }
-          quranState.currentJuz = scrollJuz;
-          var ayahNo = getAyahNoFromRowQuran(scrollRow, headerRow);
-          if (ayahNo > 0) quranState.currentAyah = ayahNo;
-          updateQuranNavDisplay();
-        }
-
-        var atFirst = visibleRow === 0;
-        var atLast = visibleRow >= filteredData.length - 1;
-        [
-          "btnFirst",
-          "btnPrev",
-          "btnNext",
-          "btnLast",
-        ].forEach(function (id, i) {
-          document.getElementById(id).disabled = i < 2 ? atFirst : atLast;
-        });
-
-        // While the user is typing in the page strip, DON'T rebuild it —
-        // replacing the input destroys focus and wipes the typed digits
-        // (focusing the box can itself trigger a scroll → updatePagination).
-        var stripFocused = document.activeElement &&
-          document.activeElement.classList &&
-          document.activeElement.classList.contains("page-strip-sel");
-        if (stripFocused) return;
-
-        var selHTML = pageSelectHTML(cur, total);
-        document.getElementById("readerPageNumbers").innerHTML = selHTML;
-
-        // Wire page strip selects
-        document.querySelectorAll(".page-strip-sel").forEach(function (psi) {
-          if (String(psi.value) !== String(cur)) psi.value = cur;
-          // No arrow stepping in the input — it is for typing a target page;
-          // the arrow keys belong to reading navigation (handled globally)
-          psi.addEventListener("keydown", function (e) {
-            if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "ArrowLeft" || e.key === "ArrowRight") {
-              e.preventDefault();
-            }
-          });
-          psi.addEventListener("change", function () {
-            var v = parseInt(this.value, 10);
-            if (!isNaN(v) && v >= 1) goTo(v - 1);
-          });
-        });
-      }
-
+      // #region Navigation (goTo, scroll padding)
       function updateScrollPadding() {
         var topBar = document.getElementById("topBar");
         var panel = document.getElementById("collapsibleReaderPanel");
@@ -1071,397 +860,37 @@ initializePageWithMetadata(async function (metadata) {
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
         updatePagination();
       }
+      // #endregion
 
+      // #region Search UI (wiring — module: reader-search-ui.js)
       // ── Search ──────────────────────────────────────────────
-      let selectedResultIdx = -1; // index within searchResultsEl DOM children
-
-
-      function buildSnippets(row, q, compiled, normRow) {
-        var parsed = compiled || parseQueryWithMode(q);
-        return buildSnippetsFromSearch(row, parsed, q, normRow);
-      }
-
-      function buildAdvResultsHTML(query, rows, realIdxMap) {
-        var MAX = 30;
-        var q = query.trim();
-        if (!q || rows.length === 0) return "";
-        // Compile once for the whole result set — not once per row
-        var compiled = parseQueryWithMode(q);
-        var html = ""; var count = 0;
-        for (var i = 0; i < rows.length && count < MAX; i++) {
-          var row = rows[i];
-          var rowNum = row[0] || (realIdxMap[i] + 1);
-          var snippets = buildSnippets(row, q, compiled, normAllData[realIdxMap[i]]);
-          if (snippets.length === 0) {
-            // Fallback: show first non-empty cell
-            for (var c = 0; c < row.length; c++) {
-              if (row[c] != null && String(row[c]).trim()) {
-                snippets = [highlightMatches(String(row[c]).trim().slice(0, 200), q)];
-                break;
-              }
-            }
-          }
-          for (var s = 0; s < snippets.length && count < MAX; s++) {
-            html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snippets[s] + '</span></div>';
-            count++;
-          }
-        }
-        return html;
-      }
-
-      function buildResultsHTML(query) {
-        const MAX = 50;
-        const q = query.trim();
-        if (!q || filteredData.length === 0) return "";
-        // Compile once for the whole result set — not once per row
-        var compiled = parseQueryWithMode(q);
-        let html = "";
-        let count = 0;
-        for (let i = 0; i < filteredData.length && count < MAX; i++) {
-          const row = filteredData[i];
-          const rowNum = row[0] || allData.indexOf(row) + 1;
-          // filteredData is allData normally, but the Quran surah filter
-          // swaps in a subset — index alignment only holds for allData.
-          var normRow = filteredData === allData ? normAllData[i] : normAllData[allData.indexOf(row)];
-          var snippets = buildSnippets(row, q, compiled, normRow);
-          for (var s = 0; s < snippets.length && count < MAX; s++) {
-            html +=
-              '<div class="search-result" data-idx="' +
-              i +
-              '">' +
-              '<span class="search-result-num">#' +
-              rowNum +
-              "</span>" +
-              '<span class="search-result-snippet">' +
-              snippets[s] +
-              "</span>" +
-              "</div>";
-            count++;
-          }
-        }
-        if (count >= MAX && count < filteredData.length) {
-          html +=
-            '<div class="search-result" style="color:var(--color-text-subtle);cursor:default">' +
-            t("andMore") +
-            "</div>";
-        }
-        return html;
-      }
-
-      function updateSearchResults(query) {
-        searchResultsEl.innerHTML = buildResultsHTML(query);
-        searchResultsEl.style.display =
-          query.trim() && filteredData.length > 0 ? "" : "none";
-        selectedResultIdx = -1;
-        // Wire clicks
-        searchResultsEl
-          .querySelectorAll(".search-result[data-idx]")
-          .forEach(function (el) {
-            el.addEventListener("click", function () {
-              goTo(parseInt(this.dataset.idx));
-              searchInput.blur();
-            });
-          });
-      }
-
-      function applySearch(query) {
-        clearTimeout(_searchDebounceTimer); // don't re-run a stale keystroke
-        var q = query.trim();
-        if (!q) {
-          filteredData = allData;
-          readerSearchClear.style.display = "none";
-          readerResultCount.style.display = "none";
-          searchResultsEl.style.display = "none";
-          rebuildAll();
-          return;
-        }
-
-        var compiled = compileQuery(parseQueryWithMode(q));
-        var tempFiltered = allData.filter(function (row, ri) {
-          return rowMatchesQueryNorm(row, normAllData[ri], compiled);
-        });
-
-        addSearchHistory(q);
-        readerSearchClear.style.display = "";
-        readerResultCount.style.display = "";
-        readerResultCount.textContent =
-          tempFiltered.length === 0
-            ? t("noResults")
-            : t("resultCount") + ": " + tempFiltered.length;
-        if (tempFiltered.length === 0) {
-          readerContent.innerHTML =
-            '<div class="empty-state">' + t("noMatchesMsg") + ': "' +
-            query +
-            '"</div>';
-          searchResultsEl.style.display = "none";
-            loadedStart = loadedEnd = -1;
-            updatePagination();
-          } else {
-            // Show results without filtering — clicking jumps to real row
-            var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
-            searchResultsEl.innerHTML = buildAdvResultsHTML(query, tempFiltered, realIdxMap);
-            searchResultsEl.style.display = "";
-            selectedResultIdx = -1;
-            searchResultsEl.querySelectorAll(".search-result[data-real]").forEach(function (el) {
-              el.addEventListener("click", function () {
-                filteredData = allData;
-                searchInput.value = query;
-                rebuildAll();
-                setTimeout(function () { goTo(parseInt(el.dataset.real)); }, 150);
-                searchInput.blur();
-              });
-            });
-          }
-        }
-
-      var wholeWordMode = false;
-      var btnWholeWord = document.getElementById("btnWholeWord");
-
-      // Wrapper around parseQuery to respect whole-word toggle
-      function parseQueryWithMode(query) {
-        var result = parseQuery(query);
-        if (wholeWordMode) {
-          result.include.forEach(function (token) { token.wholeWord = true; });
-          result.exclude.forEach(function (token) { token.wholeWord = true; });
-        }
-        return result;
-      }
-
-      btnWholeWord.style.display = "";
-      btnWholeWord.addEventListener("click", function () {
-        wholeWordMode = !wholeWordMode;
-        btnWholeWord.classList.toggle("active", wholeWordMode);
-        if (searchInput.value.trim()) applySearch(searchInput.value);
+      // Search, the whole-word toggle, the history dropdown, the advanced
+      // search modal and the search-results arrow navigation all live in
+      // reader-search-ui.js; wired here once, before the toolbar and the
+      // keyboard shortcuts.
+      initSearchUI({
+        allData: allData,
+        normAllData: normAllData,
+        maxCols: maxCols,
+        colLabel: colLabel,
+        getFilteredData: function () { return filteredData; },
+        setFilteredData: function (v) { filteredData = v; },
+        getLoadedStart: function () { return loadedStart; },
+        setLoadedStart: function (v) { loadedStart = v; },
+        getLoadedEnd: function () { return loadedEnd; },
+        setLoadedEnd: function (v) { loadedEnd = v; },
+        rebuildAll: rebuildAll,
+        loadInitial: loadInitial,
+        observeSentinels: observeSentinels,
+        goTo: goTo,
       });
+      // #endregion
 
-      // Search history dropdown
-      var searchHistoryEl = document.getElementById("searchHistoryDropdown");
-
-      function renderSearchHistory() {
-        var searchHistoryItems = getSearchHistory();
-        if (searchHistoryItems.length === 0) {
-          searchHistoryEl.style.display = "none";
-          return;
-        }
-        // Position below the search bar, full width
-        window.openDropdown(searchHistoryEl, searchInput, 0);
-        var sbRect = searchInput.getBoundingClientRect();
-        searchHistoryEl.style.right = (window.innerWidth - sbRect.right) + "px";
-        searchHistoryEl.innerHTML = searchHistoryItems.map(function (term, i) {
-          return '<div class="search-history-item" data-idx="' + i + '">' +
-            '<span class="hist-text">' + escapeHTML(h) + '</span>' +
-            '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
-        }).join("") +
-        '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
-        searchHistoryEl.style.display = "";
-        // Wire clicks
-        searchHistoryEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
-          item.addEventListener("click", function (e) {
-            if (e.target.classList.contains("hist-remove")) return;
-            searchInput.value = searchHistoryItems[parseInt(this.dataset.idx)];
-            applySearch(searchInput.value);
-            searchHistoryEl.style.display = "none";
-          });
-        });
-        searchHistoryEl.querySelectorAll(".hist-remove").forEach(function (x) {
-          x.addEventListener("click", function (e) {
-            e.stopPropagation();
-            removeSearchHistoryItem(parseInt(this.dataset.idx));
-            renderSearchHistory();
-          });
-        });
-        // Clear-all button
-        var clearAll = searchHistoryEl.querySelector(".search-history-clear");
-        if (clearAll) clearAll.addEventListener("click", function () {
-          clearSearchHistory();
-          searchHistoryEl.style.display = "none";
-        });
-      }
-
-      searchInput.addEventListener("focus", function () {
-        if (!this.value.trim()) renderSearchHistory();
-        else searchResultsEl.style.display = "";
-      });
-      // Debounce: one full scan per pause in typing, not one per keystroke.
-      // applySearch() clears any pending timer, so explicit applies (clear
-      // button, history click, whole-word toggle) can't be raced by a stale one.
-      var _searchDebounceTimer = null;
-      searchInput.addEventListener("input", function () {
-        searchHistoryEl.style.display = "none";
-        clearTimeout(_searchDebounceTimer);
-        var val = this.value;
-        _searchDebounceTimer = setTimeout(function () { applySearch(val); }, 120);
-      });
-      readerSearchClear.addEventListener("click", function () {
-        searchInput.value = "";
-        applySearch("");
-        searchInput.focus();
-      });
-      // Close results when clicking outside
-      document.addEventListener("click", function (e) {
-        if (btnWholeWord.contains(e.target) || btnAdvancedSearch.contains(e.target)) return;
-        if (!searchResultsEl.contains(e.target) && e.target !== searchInput) {
-          searchResultsEl.style.display = "none";
-        }
-      });
-      // Re-open when focusing search with an active query
-      searchInput.addEventListener("focus", function () {
-        if (this.value.trim() && filteredData.length > 0) {
-          updateSearchResults(this.value);
-        }
-      });
-
-      // ── Advanced Search ────────────────────────────────────
-      var OPERATORS = [
-        { id: "equals", fn: function(cellVal, q) { return cellVal === q; }, needsValue: true },
-        { id: "not", fn: function(cellVal, q) { return cellVal !== q; }, needsValue: true },
-        { id: "starts", fn: function(cellVal, q) { return cellVal.indexOf(q) === 0; }, needsValue: true },
-        { id: "notStarts", fn: function(cellVal, q) { return cellVal.indexOf(q) !== 0; }, needsValue: true },
-        { id: "contains", fn: function(cellVal, q) { return cellVal.indexOf(q) !== -1; }, needsValue: true },
-        { id: "notContains", fn: function(cellVal, q) { return cellVal.indexOf(q) === -1; }, needsValue: true },
-        { id: "ends", fn: function(cellVal, q) { return cellVal.endsWith(q); }, needsValue: true },
-        { id: "notEnds", fn: function(cellVal, q) { return !cellVal.endsWith(q); }, needsValue: true },
-        { id: "empty", fn: function(cellVal) { return cellVal === ""; }, needsValue: false },
-        { id: "notEmpty", fn: function(cellVal) { return cellVal !== ""; }, needsValue: false },
-      ];
-
-      function renderConditionRow(condition, idx) {
-        var colOpts = "";
-        for (var i = 0; i < maxCols; i++) {
-          colOpts += '<option value="' + i + '"' + (condition.col === i ? ' selected' : '') + '>' + colLabel(i) + '</option>';
-        }
-        var opOpts = "";
-        OPERATORS.forEach(function(op) {
-          opOpts += '<option value="' + op.id + '"' + (condition.op === op.id ? ' selected' : '') + '>' + t("cond" + op.id.charAt(0).toUpperCase() + op.id.slice(1)) + '</option>';
-        });
-        var needVal = OPERATORS.find(function(o){return o.id===condition.op;});
-        var valDisplay = (needVal && needVal.needsValue === false) ? 'style="display:none"' : '';
-        var logicHTML = idx === 0 ? '' : '<select class="adv-logic-select" data-idx="' + idx + '" data-field="logic" title="Combine with previous condition"><option value="AND"' + (condition.logic==='AND'?' selected':'') + '>' + t("advancedLogicAND") + '</option><option value="OR"' + (condition.logic==='OR'?' selected':'') + '>' + t("advancedLogicOR") + '</option></select>';
-        return '<div class="advanced-search-row" data-idx="' + idx + '">' +
-          logicHTML +
-          '<select data-field="col" title="Column to search in">' + colOpts + '</select>' +
-          '<select data-field="op" title="Match type">' + opOpts + '</select>' +
-          '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advancedValue") + '" title="Text to search for" ' + valDisplay + ' />' +
-          '<button class="advanced-remove-btn" data-i18n="advancedRemove" title="Remove this condition">✕</button>' +
-          '</div>';
-      }
-
-      var advConditions = [];
-      function addCondition() {
-        advConditions.push({ col: 0, op: "contains", val: "", logic: "AND" });
-        renderAdvancedSearch();
-      }
-      function removeCondition(idx) {
-        advConditions.splice(idx, 1);
-        renderAdvancedSearch();
-      }
-      function renderAdvancedSearch() {
-        if (advConditions.length === 0) addCondition();
-        advSearchRows.innerHTML = advConditions.map(function(c, i) { return renderConditionRow(c, i); }).join("");
-        // Wire events
-        advSearchRows.querySelectorAll(".advanced-search-row").forEach(function(row) {
-          var idx = parseInt(row.dataset.idx);
-          row.querySelector("select[data-field=col]").addEventListener("change", function(){ advConditions[idx].col = parseInt(this.value); });
-          row.querySelector("select[data-field=op]").addEventListener("change", function(){
-            advConditions[idx].op = this.value;
-            var opVal = this.value;
-            var needVal = OPERATORS.find(function(o){return o.id===opVal;});
-            var input = row.querySelector("input[data-field=val]");
-            input.style.display = (needVal && needVal.needsValue === false) ? "none" : "";
-          });
-          row.querySelector("input[data-field=val]").addEventListener("input", function(){ advConditions[idx].val = this.value; });
-          row.querySelector("select[data-field=logic]") && row.querySelector("select[data-field=logic]").addEventListener("change", function(){ advConditions[idx].logic = this.value; });
-          row.querySelector(".advanced-remove-btn").addEventListener("click", function(){ removeCondition(idx); });
-        });
-      }
-
-      function applyAdvancedSearch() {
-        var rows = allData; // always filter against full data
-        // Normalise each condition's value once — not once per row
-        var normQs = advConditions.map(function (c) { return normaliseForSearch(c.val || ""); });
-        var result = rows.filter(function(row, ri) {
-          var normRow = normAllData[ri];
-          // Evaluate all conditions with AND/OR logic
-          var matches = advConditions.map(function(c, ci) {
-            var ncell = (normRow && normRow[c.col] != null) ? normRow[c.col] : "";
-            var op = OPERATORS.find(function(o){return o.id===c.op;});
-            if (!op) return true;
-            if (op.needsValue === false) return op.fn(ncell);
-            return op.fn(ncell, normQs[ci]);
-          });
-          // Combine: first condition sets the baseline, subsequent use logic
-          var result = matches[0];
-          for (var i = 1; i < matches.length; i++) {
-            if (advConditions[i].logic === "AND") result = result && matches[i];
-            else result = result || matches[i];
-          }
-          return result;
-        });
-        // Show results inline — clicking jumps to row in full dataset
-        var tempFiltered = result;
-        advSearchOverlay.classList.remove("open");
-        if (tempFiltered.length === 0) {
-          readerResultCount.style.display = "";
-          readerResultCount.textContent = t("noResults");
-          readerSearchClear.style.display = "";
-          readerContent.innerHTML = '<div class="empty-state">' + t("noMatchesMsg") + '</div>';
-          loadedStart = loadedEnd = -1;
-          updatePagination();
-        } else {
-          readerResultCount.style.display = "";
-          readerResultCount.textContent = t("resultCount") + ": " + tempFiltered.length;
-          readerSearchClear.style.display = "";
-          var realIdxMap = tempFiltered.map(function(r) { return allData.indexOf(r); });
-          var q = advConditions.length > 0 ? advConditions[0].val : "";
-          var resHTML = q ? buildAdvResultsHTML(q, tempFiltered, realIdxMap) : "";
-          if (!resHTML) {
-            var limit = Math.min(tempFiltered.length, 30);
-            for (var i = 0; i < limit; i++) {
-              var row = tempFiltered[i];
-              var rowNum = row[0] || (realIdxMap[i] + 1);
-              var snip = String(row[1] || row[0] || "").slice(0, 120);
-              resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
-            }
-          }
-          readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + resHTML + '</div>';
-          loadedStart = loadedEnd = -1;
-          updatePagination();
-          var resultEls = readerContent.querySelectorAll(".search-result[data-real]");
-          resultEls.forEach(function (el) {
-            el.addEventListener("click", function (e) {
-              e.stopPropagation();
-              var targetRow = parseInt(el.dataset.real);
-              var sq = advConditions.length > 0 ? (advConditions[0].val || "") : "";
-              searchInput.value = sq;
-              filteredData = allData;
-              loadInitial();
-              observeSentinels();
-              setTimeout(function () { goTo(targetRow); }, 150);
-              searchInput.blur();
-            });
-          });
-        }
-      }
-
-      // Open advanced search
-      document.getElementById("btnAdvancedSearch").addEventListener("click", function () {
-        renderAdvancedSearch();
-        advSearchOverlay.classList.add("open");
-      });
-      document.getElementById("advancedSearchClose").addEventListener("click", function () {
-        advSearchOverlay.classList.remove("open");
-      });
-      advSearchOverlay.addEventListener("click", function (e) { if (e.target === advSearchOverlay) advSearchOverlay.classList.remove("open"); });
-      document.getElementById("btnAddCondition").addEventListener("click", addCondition);
-      document.getElementById("btnApplyAdvancedSearch").addEventListener("click", applyAdvancedSearch);
-      document.getElementById("btnClearAdvancedSearch").addEventListener("click", function () {
-        advConditions = [];
-        renderAdvancedSearch();
-      });
-
+      // #region Toolbar (tashkeel, share, pin, copy, focus, export, reset)
       // ── Toolbar: tashkeel toggle ────────────────────────────
       btnTashkeel.addEventListener("click", function () {
         hideTashkeel = !hideTashkeel;
+        STATE.hideTashkeel = hideTashkeel; // aliases are read-only views — write back
         LS.set(window.LS_KEYS.readerHideTashkeel, hideTashkeel);
         if (hideTashkeel) {
           readerContent.classList.add("hide-tashkeel");
@@ -1552,7 +981,6 @@ initializePageWithMetadata(async function (metadata) {
         headerRow: headerRow,
         hasRowNums: hasRowNums,
         metadata: metadata,
-        pageTags: pageTags,
         buildClipboardText: buildClipboardText,
         visiblePageIndex: visiblePageIndex,
         t: t,
@@ -1572,10 +1000,12 @@ initializePageWithMetadata(async function (metadata) {
             if ((headerRow[i] || "").toLowerCase().endsWith("-hdn")) hiddenColumns.push(i);
           }
         }
+        STATE.hiddenColumns = hiddenColumns; // aliases are read-only views — write back
         LS.set("hiddenColumns:" + metadata.bookCode, hiddenColumns);
         buildColumnToggles();
         // Show tashkeel
         hideTashkeel = false;
+        STATE.hideTashkeel = false; // aliases are read-only views — write back
         LS.set(window.LS_KEYS.readerHideTashkeel, false);
         btnTashkeel.classList.remove("active");
         readerContent.classList.remove("hide-tashkeel");
@@ -1602,7 +1032,9 @@ initializePageWithMetadata(async function (metadata) {
         updateViewModeUI();
         resetReaderDefaults();
       });
+      // #endregion
 
+      // #region Keyboard shortcuts (incl. navigation buttons)
       // ── Navigation: buttons ─────────────────────────────────
       [
         "btnFirst",
@@ -1629,45 +1061,8 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Keyboard ────────────────────────────────────────────
       document.addEventListener("keydown", function onKey(e) {
-        // Search-results navigation (when search input is focused)
-        if (document.activeElement === searchInput) {
-          var items = searchResultsEl.querySelectorAll(
-            ".search-result[data-idx]",
-          );
-          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-            e.preventDefault();
-            if (items.length === 0) return;
-            if (e.key === "ArrowDown")
-              selectedResultIdx = Math.min(
-                selectedResultIdx + 1,
-                items.length - 1,
-              );
-            else selectedResultIdx = Math.max(selectedResultIdx - 1, 0);
-            items.forEach(function (el, i) {
-              el.classList.toggle("active", i === selectedResultIdx);
-            });
-            if (selectedResultIdx >= 0)
-              items[selectedResultIdx].scrollIntoView({ block: "nearest" });
-            return;
-          }
-          if (
-            e.key === "Enter" &&
-            selectedResultIdx >= 0 &&
-            items[selectedResultIdx]
-          ) {
-            e.preventDefault();
-            goTo(parseInt(items[selectedResultIdx].dataset.idx));
-            searchInput.blur();
-            return;
-          }
-          if (e.key === "Escape") {
-            searchResultsEl.style.display = "none";
-            selectedResultIdx = -1;
-            return;
-          }
-          return;
-        }
-
+        // Search-results navigation while the search input is focused is
+        // handled in reader-search-ui.js (its keydown listener runs first)
         // Don't fire navigation/action shortcuts while typing in any input
         // (search input and page-strip input are both covered by this guard)
         if (window.isTypingTarget(e)) return;
@@ -1743,7 +1138,9 @@ initializePageWithMetadata(async function (metadata) {
           searchInput.select();
         }
       });
+      // #endregion
 
+      // #region Touch swipe
       // ── Touch swipe left/right → prev/next row ──────────────
       (function () {
         var startX = 0, startY = 0, swiping = false;
@@ -1764,7 +1161,9 @@ initializePageWithMetadata(async function (metadata) {
           else if (dx < 0 && vRow > 0) goTo(vRow - 1);
         });
       })();
+      // #endregion
 
+      // #region Settings reset + language change
       // ── Settings reset from modal → re-render ─────────────
       document.addEventListener("readerReset", function () {
         ROWS_PER_CHUNK = 25;
@@ -1778,7 +1177,9 @@ initializePageWithMetadata(async function (metadata) {
         updateViewModeUI();
         if (filteredData.length > 0) rebuildAll();
       });
+      // #endregion
 
+      // #region Quran UI (initQuranUI ctx)
       // ── Quran UI ───────────────────────────────────────────
       if (quranBook) {
         var quranCtx = {
@@ -1795,7 +1196,22 @@ initializePageWithMetadata(async function (metadata) {
         };
         initQuranUI(quranCtx);
       }
+      // #endregion
+
+      // #region Initial render (deep links, reveal)
       // ── Initial render ──────────────────────────────────────
+      // Position tracking (pagination strip, progress, scroll counter, URL
+      // sync, read-history) lives in reader-position.js — wired BEFORE
+      // loadInitial, because the table branch calls updatePagination() and
+      // the module needs its ctx by then (null ctx would throw).
+      initPosition({
+        metadata: metadata,
+        quranBook: quranBook,
+        headerRow: headerRow,
+        getFilteredData: function () { return filteredData; },
+        pinLabel: pinLabel,
+        goTo: goTo,
+      });
       loadInitial();
       observeSentinels();
       document.addEventListener("languagechange", function () {
@@ -1803,7 +1219,7 @@ initializePageWithMetadata(async function (metadata) {
       });
       updateTableHeaderTop();
       expandIfOverflowing();
-      window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); if (refreshTableScrollWidth) refreshTableScrollWidth(); });
+      window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); refreshTableScrollWidth(); });
       // Handle shared URL with &row= parameter
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {
@@ -1832,99 +1248,6 @@ initializePageWithMetadata(async function (metadata) {
           setTimeout(function () { goTo(qTarget); }, 200);
         }
       }
-      // Scroll-driven pagination update
-      var scrollCounter = document.getElementById("scrollCounter");
-      var scrollTimer;
-      var urlSyncTimer;
-      var historyTimer;
-      var _lastHistoryRow = 0;
-      var _lastMilestone = 0;
-
-      // Initial history log
-      var _initRow = visiblePageIndex() + 1;
-      addReadHistory(metadata.bookCode, _initRow, pinLabel(_initRow));
-      _lastHistoryRow = _initRow;
-
-      window.addEventListener("scroll", function () {
-        updatePagination();
-        // Progress bar — surah-level for Quran, global for other books
-        var pct;
-        if (quranBook && filteredData.length > 0) {
-          var vRow = visiblePageIndex();
-          var curSurah = parseInt(filteredData[vRow][1], 10) || 0;
-          var first = -1, last = 0;
-          for (var r = 0; r < filteredData.length; r++) {
-            var s = parseInt(filteredData[r][1], 10) || 0;
-            if (s === curSurah) { if (first === -1) first = r; last = r; }
-          }
-          pct = last > first ? Math.round(((vRow - first) / (last - first)) * 100) : 0;
-        } else {
-          pct = filteredData.length > 1 ? Math.round((visiblePageIndex() / (filteredData.length - 1)) * 100) : 0;
-        }
-        document.getElementById("readerProgressFill").style.width = pct + "%";
-        // Milestone toasts at 25%, 50%, 75%, 100% — reset when scrolling back
-        if (pct < 25) { _lastMilestone = 0; document.getElementById("readerProgressFill").classList.remove("done"); }
-        else if (pct < _lastMilestone) _lastMilestone = Math.floor(pct / 25) * 25;
-        if (pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; showToast("📖 25%"); }
-        if (pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; showToast("📖 50%"); }
-        if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; showToast("📖 75%"); }
-        if (pct >= 100 && _lastMilestone < 100) {
-          _lastMilestone = 100;
-          if (quranBook && filteredData.length > 0) {
-            // Quran progress is surah-level — name the surah just finished
-            var doneRow = filteredData[vRow];
-            findQuranColIndices(headerRow);
-            var doneSurah = getRowSurah(doneRow, headerRow);
-            var doneInfo = getSurahInfo(doneSurah);
-            var lang = currentLang();
-            var doneName = doneInfo ? (lang === "en" ? doneInfo.nameEN : doneInfo.nameAR) : "";
-            showToast("✅ " + (doneName ? doneName + " " : "") + t("surahCompleted") + " 📖");
-          } else {
-            showToast("✅ 100% " + t("qrnCompleted") + " 📖");
-          }
-          document.getElementById("readerProgressFill").classList.add("done");
-          var ring = document.createElement("div");
-          ring.className = "completion-border";
-          document.body.appendChild(ring);
-          setTimeout(function () { ring.remove(); }, 5000);
-        }
-        if (scrollCounter) {
-          var vRow = visiblePageIndex();
-          if (quranBook && filteredData.length > 0) {
-            var scRow = filteredData[vRow];
-            findQuranColIndices(headerRow);
-            var scSurah = getRowSurah(scRow, headerRow);
-            var scAyah = getAyahNoFromRowQuran(scRow, headerRow);
-            var scInfo = getSurahInfo(scSurah);
-            var scName = scInfo ? scInfo.nameAR : "";
-            scrollCounter.innerHTML = scName + ' <span class="scroll-counter-num">' + scSurah + '</span> : <span class="scroll-counter-num">' + scAyah + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
-          } else {
-            var total = filteredData.length;
-            scrollCounter.innerHTML = '<span class="scroll-counter-num">' + total + '</span> / <span class="scroll-counter-num">' + (vRow + 1) + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
-          }
-          scrollCounter.classList.add("show");
-          clearTimeout(scrollTimer);
-          scrollTimer = setTimeout(function () {
-            scrollCounter.classList.remove("show");
-          }, 2000);
-        }
-        // Sync URL with current position (debounced 500ms)
-        clearTimeout(urlSyncTimer);
-        urlSyncTimer = setTimeout(function () {
-          var newURL = window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
-          history.replaceState(null, "", newURL);
-        }, 500);
-        // History auto-log + pin update (debounced 2s, row must change)
-        if (vRow + 1 !== _lastHistoryRow) {
-          clearTimeout(historyTimer);
-          historyTimer = setTimeout(function () {
-            addReadHistory(metadata.bookCode, vRow + 1, pinLabel(vRow + 1));
-            if (isPinned(metadata.bookCode)) addPin(metadata.bookCode, vRow + 1, pinLabel(vRow + 1));
-            _lastHistoryRow = vRow + 1;
-          }, 2000);
-        }
-      }, { passive: true });
-
       // Reveal everything at once
       document.getElementById("loadingMessage").style.display = "none";
       document.getElementById("topBarBrand").style.display = "none";
@@ -1939,10 +1262,13 @@ initializePageWithMetadata(async function (metadata) {
       showError("Error loading CSV: " + err);
     });
 });
+// #endregion
 
+// #region Module-level helpers (showError)
 function showError(message) {
   document.getElementById("loadingMessage").style.display = "none";
   document.getElementById("errorMessage").textContent = message;
   document.getElementById("errorMessage").style.display = "block";
   console.error(message);
 }
+// #endregion

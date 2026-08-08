@@ -56,7 +56,10 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/book-data.js`            | Book metadata: registry + tag loaders, tag extraction, page bootstrap |
 | `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
 | `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
-| `js/reader.js`               | Book viewer: rendering, clipboard, toolbar, keyboard, dropdowns, focus mode |
+| `js/reader.js`               | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links  |
+| `js/reader-position.js`      | Reader position: pagination strip, progress, URL sync, history log      |
+| `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search         |
+| `js/table-scroll-sync.js`    | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll |
 | `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
 | `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
 | `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
@@ -91,12 +94,14 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
 | Search engine | `search-utils.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
-| In-book search UI | `reader.js` (UI) + `search-utils.js` (shared toolkit) | search bar, dropdown results, advanced search; styles in `reader-search.css` |
+| In-book search UI | `reader-search-ui.js` (UI) + `search-utils.js` (shared toolkit) | `initSearchUI(ctx)`, `applySearch(q)`, `renderAdvancedSearch()`, `parseQueryWithMode(q)` — search bar, dropdown results, history, whole-word toggle, advanced search; styles in `reader-search.css` |
 | Library search | `library-search-engine.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | Library search page | `library-search-page.js` | self-initialising — `?q=`/`?tags=`, chip scoping, peek previews |
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
 | Quran nav / dropdowns | `quran-ui.js` | `initQuranUI(ctx)` — re-exports quran-data.js |
-| Reader core | `reader.js` | Rendering, pagination, toolbar, keyboard, progress bar |
+| Reader core | `reader.js` | Rendering, loaders, `goTo`, STATE, toolbar, keyboard, deep links, focus mode |
+| Reader position | `reader-position.js` | `initPosition(ctx)`, `updatePagination()`, `visiblePageIndex()` — pagination strip, scroll block (progress, milestones, URL sync, read-history) |
+| Table scrollbar | `table-scroll-sync.js` | `initTableScroll(ctx)`, `refreshTableScrollWidth()` — top scrollbar, width sync, arrow/wheel scrolling |
 | Export formats | `export.js` | `initExports(ctx)` — TXT, MD, PDF, EPUB, etc. |
 | Pins & history | `pins-history.js` | `addPin`, `addReadHistory`, `openPinsModal`, `openHistoryModal` |
 | `window.openDropdown` / `closeAllDropdowns` / `registerDropdown` | `reader.js` | Shared dropdown helpers |
@@ -658,7 +663,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Variable style.** `var` is the default for mutable and shared closure state (function‑scoped, hoisted to the closure). `const` for read‑only DOM references and locals that never rebind. `let` only where a block‑scoped binding must rebind (loop accumulators, swap temporaries).
 
-**Closure state (reader.js).** The reader's ~1 800‑line closure centralises shared mutable state in a `STATE` object at the top. Convenience aliases (`var filteredData = STATE.filteredData`) are read‑only — mutations MUST write back: `STATE.filteredData = filteredData`. This pattern makes shared state visible at a glance without rewriting every reference to `STATE.*`. The ctx‑object pattern used by `export.js` and `quran-ui.js` is the same idea applied to extracted modules.
+**Closure state (reader.js).** The reader's 1 274‑line closure centralises shared mutable state in a `STATE` object at the top. Convenience aliases (`var filteredData = STATE.filteredData`) are read‑only — mutations MUST write back: `STATE.filteredData = filteredData`. This pattern makes shared state visible at a glance without rewriting every reference to `STATE.*`. The ctx‑object pattern used by `export.js`, `quran-ui.js`, `table-scroll-sync.js`, `reader-position.js` and `reader-search-ui.js` is the same idea applied to extracted modules: each extracted module owns module‑scope state (set by its `initX(ctx)` call — the `quranState` precedent), and ctx carries plain values, callback closures, and getter/setter accessors for anything core REBINDS (`filteredData`, `hiddenColumns`, `loadedStart`/`loadedEnd` — a captured ref would go stale). Utilities (`t`, search‑utils, book‑data) are imported directly, not passed via ctx.
 
 **Window globals.** `window.*` functions used by BOTH pages live in `common.js` (`setFocus`, `showToast`, `copyToClipboard`, etc.). Reader‑only helpers (`openDropdown`, `closeAllDropdowns`, `registerDropdown`) stay in `reader.js`. Pins/history helpers (`openPinsModal`, `openHistoryModal`) live in `pins-history.js`. Rule: before adding `window.X = …`, ask *does it serve both pages?* YES → common.js, NO → owning module. A comment in `common.js:1‑20` documents the full inventory.
 
@@ -750,6 +755,9 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | `_indexPromise` | `library-search-engine.js` module scope | first `loadSearchIndex()` call; cleared on failure so retries work |
 | `_q` / `_selectedTags` / `_searchTimer` / `_peekCache` | `library-search-page.js` module scope | `?q=`/`?tags=` state + chip scoping / debounced input / peek cache |
 | `quranState` (exported) | `quran-data.js` | nav updates, scroll sync, ayah decoration |
+| `ctx` + refs (`topScrollOuter`, `tableWrap`, `topSpacer`, `topScroll`) | `table-scroll-sync.js` module scope | set by `initTableScroll(ctx)` in loadInitial's table branch |
+| `ctx` + refs (`readerContent`, `metadata`, pagination/scroll/URL timers) | `reader-position.js` module scope | set by `initPosition(ctx)` in initial render; `updatePagination` / `visiblePageIndex` read it |
+| `ctx` + refs (search DOM, `wholeWordMode`, `selectedResultIdx`, `advConditions`) | `reader-search-ui.js` module scope | set by `initSearchUI(ctx)` in initial render; `applySearch` / `renderAdvancedSearch` read it |
 | `_modalLastFocused` | `common.js` module scope | `openModal` / `closeModal` (focus restore) |
 
 **Reset flow.** The settings modal's ↺ Reset is a **confirmed factory reset** (`confirmResetAll` message): on confirm it delegates to `btnResetFont` + `btnResetReader`, clears remaining LS keys, **clears pins and history**, and dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic. The dashboard and reader resets stay view-only (pins/history preserved).
@@ -848,8 +856,11 @@ All errors show visible messages in English. Error boxes carry a central `⚠️
 The app has no test suite or build step — changes are verified by hand:
 
 - **JS syntax**: `node --check --input-type=module < js/file.js` (files are ES modules; plain `node --check` treats them as CommonJS and fails on `import`)
+- **TOC freshness** (reader.js): the header banner's last `Lxxxx-Lyyyy` range must end on the file's last content line — the line number of the last line that is *not* an `#endregion` marker (the file ends with the last region's closing marker, so a plain count would undercount by the number of markers). One-liner: `$L = Get-Content js/reader.js; for ($i = $L.Count - 1; $i -ge 0; $i--) { if ($L[$i] -notmatch '^\s*// #endregion') { break } }; $i + 1` — the last TOC range end must equal that. (A `Where-Object … .Count` variant is WRONG here: with N interspersed markers it can only match by coincidence.)
+- **Region/TOC consistency** (reader.js): every `// #region <name>` appears in the TOC banner and every TOC entry is a real region — grep counts must match, names must match (region names are the anchors; line numbers drift). One-liner (works for single-space alignment, which a `(.+?) \s+` pattern silently misses): `$L = Get-Content js/reader.js; $t = ($L | Select-String '^  //   (.+?)\s+L\d+-\d+\s*$' | ForEach-Object { $_.Matches[0].Groups[1].Value }); $r = (Select-String -Path js/reader.js -Pattern '^\s*// #region (.+)$' | ForEach-Object { $_.Matches[0].Groups[1].Value }); "missing in TOC: $(@($r | Where-Object { $_ -notin $t }).Count)  no region: $(@($t | Where-Object { $_ -notin $r }).Count)"` — both counts must be 0.
 - **CSS sanity**: brace balance (`{`/`}` counts must match) after every CSS edit
 - **Dangling references**: grep for removed IDs/classes/i18n keys across `js/`, `books/`, `css/`
+- **Import/export resolution**: `node --check` only checks syntax — a wrong import name (`import { getAyahNoFromRowQuran }` where the module exports `getAyahNoFromRow`) is a runtime `SyntaxError` that only surfaces in the browser. Cross-check every `import { … } from "./x.js"` against `x.js`'s export declarations (match `export (async )?(function|var|const|let) <name>` and `export { … }` blocks — name-only, no aliases — and remember the target's own aliased re-exports, e.g. `quran-ui.js` re-exports `getAyahNoFromRow` but reader.js historically imports it as `getAyahNoFromRowQuran` via `as`).
 - **Behaviour equivalence** (search‑engine changes): copy the old module from `git show HEAD:codebase/js/…` and compare outputs on Arabic/Thaana test corpora (see the search‑performance notes)
 - **Browser caching**: GitHub Pages serves without cache‑busting — always hard‑refresh (Ctrl+F5) after changes; stale CSS is the most common "it didn't work" cause
 - **RTL**: arrow‑key stepping, scroll directions, and sticky headers behave differently per browser and per element `dir` — test number inputs and scroll rows in both Chrome and Firefox
