@@ -92,16 +92,22 @@
   /* Modal shadow — every modal/selector panel shares one shape; the colour
      is per-theme --color-shadow-modal (stronger in dark mode). */
   --shadow-modal: 0 16px 48px var(--color-shadow-modal);
-  /* Page chrome — the dashboard/library wrapper layout */
-  --page-margin: 72px auto 40px;
-  --page-padding: 0 20px;
-  --page-margin-mobile: 60px auto 12px;
-  --page-padding-mobile: 0 12px;
-  /* Bottom edge of the fixed topbar (#topBar) — sticky panels (reader,
-     dashboard, library search) hang off this offset. The topbar has no set
-     height (content-driven: 35px control + 2×10px padding ≈ 55px); 58px is
-     its measured bottom edge. */
+  /* Topbar chrome — the fixed #topBar has no set height (content-driven:
+     35px control + 2×10px padding + 2px border = 57px); the sticky panels
+     (reader, dashboard, library search) hang off its measured bottom edge,
+     58px. --topbar-gap is the air between the topbar and the first content;
+     --topbar-clearance derives the page top margin from both so the two can
+     never disagree. --panel-pad is the vertical padding inside the sticky
+     panels, above their bottom border. */
   --topbar-height: 58px;
+  --topbar-gap: 6px; /* same value as the row gaps — one spacing, every level */
+  --topbar-clearance: calc(var(--topbar-height) + var(--topbar-gap));
+  --panel-pad: 10px;
+  /* Page chrome — the dashboard/library wrapper layout */
+  --page-margin: var(--topbar-clearance) auto 40px;
+  --page-padding: 0 20px;
+  --page-margin-mobile: var(--topbar-clearance) auto 12px;
+  --page-padding-mobile: 0 12px;
   /* Card padding — book cards and library results share one padding */
   --card-padding: 24px;
   --card-padding-mobile: 16px;
@@ -850,7 +856,7 @@ body:has(.modal-overlay.open) {
   background-color: var(--color-error-bg);
   border-radius: var(--radius-md, 8px);
   margin: 20px;
-  margin-top: 82px; /* clear the fixed topBar (62px) + 20px breathing room */
+  margin-top: calc(var(--topbar-height) + 24px); /* clear the fixed topbar (58px) + 24px breathing room */
 }
 /* Errors are English-only (app convention) — a single central prefix covers
    every .error box; the red background alone is invisible to screen readers */
@@ -1025,7 +1031,7 @@ body:has(.modal-overlay.open) {
 
 #readerWrapper {
   max-width: var(--content-width, 800px);
-  margin: 62px auto 60px;
+  margin: var(--topbar-clearance, 64px) auto 60px;
   padding: 0;
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
 }

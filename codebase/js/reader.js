@@ -792,7 +792,7 @@ initializePageWithMetadata(async function (metadata) {
           tableWrap.style.overflowX = needed ? "" : "visible";
           // Adjust th sticky offset: only reserve space when scrollbar is visible
           var ths = table.querySelectorAll("thead th");
-          var thTop = needed ? "calc(var(--rdf-header-top, 62px) + 19px)" : "var(--rdf-header-top, 62px)";
+          var thTop = needed ? "calc(var(--rdf-header-top, 64px) + 19px)" : "var(--rdf-header-top, 64px)";
           for (var i = 0; i < ths.length; i++) {
             ths[i].style.setProperty("top", thTop);
           }

@@ -9,7 +9,7 @@
   top: var(--topbar-height, 58px);
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
-  padding: 10px 0;
+  padding: var(--panel-pad, 10px) 0;
   border-bottom: 2px solid var(--color-card-hover-border);
   overflow: hidden;
 }
@@ -1005,10 +1005,7 @@
     justify-content: flex-start;
   }
   #readerWrapper {
-    margin-top: 60px;
-  }
-  #collapsibleReaderPanel {
-    top: 52px;
+    margin-top: var(--topbar-clearance, 64px);
   }
   #pageSubRow {
     justify-content: flex-start !important;
