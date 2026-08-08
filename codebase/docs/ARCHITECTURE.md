@@ -63,7 +63,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSV()`, `parseCSVWithHeader()`, `loadCSVData()` |
 | `js/search-utils.js`         | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/library-search-engine.js`| Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
-| `js/library-search.js`       | Library search page UI: `?q=`/`?tags=`, chips, results, peek previews      |
+| `js/library-search-page.js`       | Library search page UI: `?q=`/`?tags=`, chips, results, peek previews      |
 | `js/export-xlsx.js`          | XLSX writer — createXLSX(), inline strings, lazy-loaded |
 | `js/export-epub.js`          | EPUB 3 e-book writer — createEPUB(), embedded font, lazy-loaded |
 | `js/export-zip.js`           | Minimal store-only ZIP writer — zipStore(), shared by the XLSX + EPUB writers |
@@ -93,7 +93,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Search engine | `search-utils.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
 | In-book search UI | `reader.js` (UI) + `search-utils.js` (shared toolkit) | search bar, dropdown results, advanced search; styles in `reader-search.css` |
 | Library search | `library-search-engine.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
-| Library search page | `library-search.js` | self-initialising — `?q=`/`?tags=`, chip scoping, peek previews |
+| Library search page | `library-search-page.js` | self-initialising — `?q=`/`?tags=`, chip scoping, peek previews |
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
 | Quran nav / dropdowns | `quran-ui.js` | `initQuranUI(ctx)` — re-exports quran-data.js |
 | Reader core | `reader.js` | Rendering, pagination, toolbar, keyboard, progress bar |
@@ -748,7 +748,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 | `_bookCsvCache` (one‑entry) | `quran-data.js` module scope | `loadQuranBookCSV` |
 | `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache` | `quran-data.js` module scope | first load only |
 | `_indexPromise` | `library-search-engine.js` module scope | first `loadSearchIndex()` call; cleared on failure so retries work |
-| `_q` / `_selectedTags` / `_searchTimer` / `_peekCache` | `library-search.js` module scope | `?q=`/`?tags=` state + chip scoping / debounced input / peek cache |
+| `_q` / `_selectedTags` / `_searchTimer` / `_peekCache` | `library-search-page.js` module scope | `?q=`/`?tags=` state + chip scoping / debounced input / peek cache |
 | `quranState` (exported) | `quran-data.js` | nav updates, scroll sync, ayah decoration |
 | `_modalLastFocused` | `common.js` module scope | `openModal` / `closeModal` (focus restore) |
 
@@ -916,7 +916,7 @@ Current size: 62 books, 226k rows, ~485k unique words — 39.7MB raw, 12.7MB gzi
 
 ### The UI
 
-The page (module `js/library-search.js`, styles `css/library-search.css`) reads `?q=` and `?tags=` from the URL (shareable links — typing, chip toggles, and clear keep the address bar in sync via `replaceState`). Tag chips scope the search (OR — a book is searched if it carries any selected tag); `-HDN` books are excluded from scopes; a scope that matches no books renders "No results" rather than falling through to an unscoped search (the engine treats `[]` as "every book"). Results group by book (tag badges, localized titles, match count), ranked by count, and deep‑link to `reader.html?book=X&row=N&q=TERM` (first match, term pre‑highlighted — the proven pins/history path plus the `?q=` param below). Each result has a ▾ **peek** (per‑book preview): it fetches that ONE book — through the IndexedDB book cache, instant once opened before — runs the same compiled-query scan, and shows the first 8 matching rows as highlighted snippets with a "Show next N" pager (the scan produces all matches up front, so paging is just slicing); every snippet deep‑links to its exact row. Peek results are cached per book+query so collapse/re‑open and re‑searching don't refetch. The index itself loads lazily on the first search (with a "Searching…" state and a ⚠️ Error + ↺ Retry path). On the dashboard, the 🔎 button is a plain jump to the page (carrying the box text as `?q=` and the selected tag chips as `?tags=`; pins are not carried); the dashboard search bar is title‑filtering only and no longer loads the index.
+The page (module `js/library-search-page.js`, styles `css/library-search.css`) reads `?q=` and `?tags=` from the URL (shareable links — typing, chip toggles, and clear keep the address bar in sync via `replaceState`). Tag chips scope the search (OR — a book is searched if it carries any selected tag); `-HDN` books are excluded from scopes; a scope that matches no books renders "No results" rather than falling through to an unscoped search (the engine treats `[]` as "every book"). Results group by book (tag badges, localized titles, match count), ranked by count, and deep‑link to `reader.html?book=X&row=N&q=TERM` (first match, term pre‑highlighted — the proven pins/history path plus the `?q=` param below). Each result has a ▾ **peek** (per‑book preview): it fetches that ONE book — through the IndexedDB book cache, instant once opened before — runs the same compiled-query scan, and shows the first 8 matching rows as highlighted snippets with a "Show next N" pager (the scan produces all matches up front, so paging is just slicing); every snippet deep‑links to its exact row. Peek results are cached per book+query so collapse/re‑open and re‑searching don't refetch. The index itself loads lazily on the first search (with a "Searching…" state and a ⚠️ Error + ↺ Retry path). On the dashboard, the 🔎 button is a plain jump to the page (carrying the box text as `?q=` and the selected tag chips as `?tags=`; pins are not carried); the dashboard search bar is title‑filtering only and no longer loads the index.
 
 ### What's deliberately different from in-book search
 

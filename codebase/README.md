@@ -38,7 +38,7 @@ js/
   csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
   search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
   library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine
-  library-search.js             ← Library search page UI: chips, results, peek previews
+  library-search-page.js         ← Library search page UI: chips, results, peek previews
   i18n.js                       ← Translations (dv/en/ar)
   export.js                     ← Export feature: formats menu, downloads, lazy-loaded writers
   export-xlsx.js                ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
