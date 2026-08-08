@@ -22,10 +22,12 @@
   display: flex;
   flex-direction: column;
   direction: rtl;
-  /* Sticky — reader-panel treatment: hangs below the fixed topbar, painted
-     background hides scrolled content, bottom border marks the panel edge. */
+  /* Sticky — locks at --topbar-clearance (topbar + the 6px top gap), the
+     same y as the resting position: the top gap mirrors the 6px below the
+     panel and never disappears while scrolling. Painted background hides
+     scrolled content; the bottom border marks the panel edge. */
   position: sticky;
-  top: var(--topbar-height, 58px);
+  top: var(--topbar-clearance, 64px);
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding-bottom: var(--panel-pad, 10px);
@@ -307,6 +309,7 @@ a.toolbar-btn {
     padding: var(--page-padding-mobile, 0 12px);
   }
   #dashboardPanel {
+    top: var(--topbar-height, 58px); /* mobile drops the gap — flush lock */
     margin-bottom: 6px;
   }
   .toolbar-select {

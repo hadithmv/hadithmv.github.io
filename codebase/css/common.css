@@ -115,15 +115,20 @@
   --shadow-modal: 0 16px 48px var(--color-shadow-modal);
   /* Topbar chrome — #topBar is pinned to --topbar-height (58px =
      35px control + 2×10px padding + 2px border + 1px slack), so its bottom
-     edge, the sticky panels' top (reader, dashboard, library search) and the
-     page top margins all agree by construction — no measurement drift.
-     --topbar-gap is the air between the topbar and the first content;
-     --topbar-clearance derives the page top margin from both so the two can
-     never disagree. --panel-pad is the vertical padding inside the sticky
-     panels, above their bottom border; --panel-edge is that bottom border,
-     shared by the topbar and every sticky panel. */
+     edge and the page top margins agree by construction — no measurement
+     drift. --topbar-gap is the air between the topbar and the first content,
+     the same value as the row gaps (--control-gap/--section-gap) — one
+     spacing at every level. --topbar-clearance is height + gap: the desktop
+     page top margin, and the offset the dashboard and library-search panels
+     lock at. Because a sticky panel locks at the same y as its resting
+     position, the top gap stays visible while scrolling and the panel never
+     rides up; the reader panel instead locks at --topbar-height (flush —
+     its resting position, no gap by design). --panel-pad is the vertical
+     padding inside the sticky panels, above their bottom border;
+     --panel-edge is that bottom border, shared by the topbar and every
+     sticky panel. */
   --topbar-height: 58px;
-  --topbar-gap: 6px; /* same value as the row gaps — one spacing, every level */
+  --topbar-gap: 6px;
   --topbar-clearance: calc(var(--topbar-height) + var(--topbar-gap));
   --panel-pad: 10px;
   --panel-edge: 2px solid var(--color-card-hover-border);
@@ -132,8 +137,9 @@
   /* Page chrome — the dashboard/library wrapper layout */
   --page-margin: var(--topbar-clearance) auto 40px;
   --page-padding: 0 20px;
-  /* Mobile: flush under the topbar (no gap) — every page starts at the
-     same y as the reader's resting position. Desktop keeps the 6px gap. */
+  /* Mobile: the gap is dropped — every page starts flush under the topbar
+     at the same y as the reader's resting position (panels lock at
+     --topbar-height, matching). */
   --page-margin-mobile: var(--topbar-height) auto 12px;
   --page-padding-mobile: 0 12px;
   /* Reader layout — gutter that reserves room for the wrap arrows on each
@@ -1279,6 +1285,22 @@ body:has(.modal-overlay.open) {
   direction: ltr;
   background-color: var(--color-bg);
   border-bottom: var(--panel-edge, 2px solid var(--color-card-hover-border));
+}
+
+/* The gap between the topbar and the sticky panels is open space (desktop
+   top margins). The topbar paints that strip — full viewport width, like
+   its background extension — so scrolled content never shows through it.
+   Anchored to --topbar-height, not 100%: the topbar is border-box, so 100%
+   of the padding box would land inside the 2px bottom border. */
+#topBar::after {
+  content: "";
+  position: absolute;
+  top: var(--topbar-height, 58px);
+  left: -50vw;
+  right: -50vw;
+  height: var(--topbar-gap, 6px);
+  background: inherit;
+  pointer-events: none;
 }
 
 

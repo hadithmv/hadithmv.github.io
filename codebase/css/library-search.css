@@ -15,11 +15,12 @@
 }
 
 /* ---- Search panel ---- */
-/* Sticky wrapper — search + tag chips hang below the fixed topbar while
-   results scroll (reader-panel treatment). */
+/* Sticky wrapper — search + tag chips lock at --topbar-clearance (topbar +
+   the 6px top gap), the same y as the resting position, so the top gap
+   stays visible while results scroll. */
 #libPanel {
   position: sticky;
-  top: var(--topbar-height, 58px);
+  top: var(--topbar-clearance, 64px);
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding-bottom: var(--panel-pad, 10px);
@@ -139,6 +140,9 @@
   #libWrapper {
     margin: var(--page-margin-mobile, 58px auto 12px);
     padding: var(--page-padding-mobile, 0 12px);
+  }
+  #libPanel {
+    top: var(--topbar-height, 58px); /* mobile drops the gap — flush lock */
   }
   .lib-result {
     padding: var(--card-padding-mobile, 12px);

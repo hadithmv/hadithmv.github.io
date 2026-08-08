@@ -5,8 +5,11 @@
   transition:
     grid-template-rows var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
     opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+  /* Sticky — locks at --topbar-clearance (topbar + 6px gap), the same y as
+     the wrapper's desktop top margin, so the top gap never disappears on
+     scroll and the panel never rides up (mobile overrides to flush, below) */
   position: sticky;
-  top: var(--topbar-height, 58px);
+  top: var(--topbar-clearance, 64px);
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding: var(--panel-pad, 10px) 0;
@@ -784,9 +787,12 @@
     justify-content: flex-start;
   }
   /* Phone widths: flush under the fixed topbar — the panel's sticky
-     threshold is 58px, so the resting margin matches it exactly */
+     threshold drops to 58px, matching the resting margin exactly */
   #readerWrapper {
     margin-top: var(--topbar-height, 58px);
+  }
+  #collapsibleReaderPanel {
+    top: var(--topbar-height, 58px); /* mobile drops the gap — flush lock */
   }
   #readerPageSubRow {
     justify-content: flex-start !important;
