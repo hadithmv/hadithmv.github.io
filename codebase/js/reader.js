@@ -32,15 +32,15 @@ initializePageWithMetadata(async function (metadata) {
   //   Parallel row renderer (renderParallelRowHTML)        L562-672
   //   Chunk + table-row renderers                          L675-715
   //   Infinite scroll + table scrollbar                    L718-841
-  //   Navigation (goTo, scroll padding)                    L844-862
-  //   Search UI (wiring — module: reader-search-ui.js)     L865-886
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L889-1034
-  //   Keyboard shortcuts (incl. navigation buttons)        L1037-1140
-  //   Touch swipe                                          L1143-1163
-  //   Settings reset + language change                     L1166-1179
-  //   Quran UI (initQuranUI ctx)                           L1182-1198
-  //   Initial render (deep links, reveal)                  L1201-1264
-  //   Module-level helpers (showError)                     L1267-1273
+  //   Navigation (goTo, scroll padding)                    L844-864
+  //   Search UI (wiring — module: reader-search-ui.js)     L867-888
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L891-1039
+  //   Keyboard shortcuts (incl. navigation buttons)        L1042-1145
+  //   Touch swipe                                          L1148-1168
+  //   Settings reset + language change                     L1171-1184
+  //   Quran UI (initQuranUI ctx)                           L1187-1203
+  //   Initial render (deep links, reveal)                  L1206-1272
+  //   Module-level helpers (showError)                     L1275-1281
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -845,7 +845,9 @@ initializePageWithMetadata(async function (metadata) {
       function updateScrollPadding() {
         var topBar = document.getElementById("topBar");
         var panel = document.getElementById("collapsibleReaderPanel");
-        var offset = (topBar ? topBar.offsetHeight : 62) + (panel ? panel.offsetHeight : 0);
+        // Measured, not parsed: --topbar-clearance is a calc() token string, so
+        // parseFloat can't resolve it — measure the panel's pinned bottom edge
+        var offset = (panel && panel.offsetHeight > 0) ? panel.getBoundingClientRect().bottom : (topBar ? topBar.offsetHeight : 62) + 6;
         document.documentElement.style.scrollPaddingTop = offset + "px";
       }
       function goTo(rowIdx) {
@@ -962,8 +964,11 @@ initializePageWithMetadata(async function (metadata) {
         requestAnimationFrame(function () {
           var topBar = document.getElementById("topBar");
           var chrome = document.getElementById("collapsibleReaderPanel");
-          var top = (topBar ? topBar.offsetHeight : 62);
-          if (chrome && chrome.offsetHeight > 0) top += chrome.offsetHeight;
+          // The table area starts at the sticky panel's bottom edge; the panel
+          // pins at its rest position, so the rect is the same at rest and while
+          // scrolling. (--topbar-clearance is a calc() token — parseFloat can't
+          // resolve it, so measure the DOM instead of reading the custom prop.)
+          var top = (chrome && chrome.offsetHeight > 0) ? chrome.getBoundingClientRect().bottom : (topBar ? topBar.offsetHeight : 62) + 6;
           document.documentElement.style.setProperty("--table-header-top", top + "px");
         });
       }
@@ -1217,7 +1222,6 @@ initializePageWithMetadata(async function (metadata) {
       document.addEventListener("languagechange", function () {
         if (quranBook) updateQuranNavDisplay();
       });
-      updateTableHeaderTop();
       expandIfOverflowing();
       window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); refreshTableScrollWidth(); });
       // Handle shared URL with &row= parameter
@@ -1255,6 +1259,10 @@ initializePageWithMetadata(async function (metadata) {
       document.getElementById("btnFocus").style.display = "";
       document.getElementById("pageTitle").style.display = "";
       document.getElementById("readerWrapper").style.display = "block";
+      // Measure the sticky chrome (topbar + collapsible panel) only now —
+      // while the wrapper was display:none the panel measured 0, so the
+      // bar/thead would pin behind the panel instead of below it
+      updateTableHeaderTop();
       updateScrollPadding();
       // Scroll arrows can't detect overflow while #readerWrapper was hidden
       if (window.initScrollArrows) window.initScrollArrows();

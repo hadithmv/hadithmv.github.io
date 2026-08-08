@@ -5,17 +5,21 @@
 .table-wrap {
   overflow-x: hidden; /* fallback */
   overflow-x: clip; /* clips overflow WITHOUT creating a scroll container → sticky th works */
-  margin: 0 -36px;
+  margin: 0 -32px; /* 32px = --reader-pad horizontal: table area = reader column, edge-to-edge */
   direction: rtl;
 }
 /* Top scrollbar — sits above the table, sticky so it stays visible on vertical scroll */
 .table-top-scroll {
   position: sticky;
-  top: calc(var(--table-header-top, 64px) + 2px);
+  top: var(--table-header-top, 64px);
   z-index: var(--z-sticky, 6);
   display: flex;
   align-items: center;
-  margin: 0 -36px;
+  /* -12px top: sits flush under the panel, covering #readerContent's
+     12px top padding (--reader-pad) — keep in sync if that changes.
+     -32px sides: same width as .table-wrap — aligned with the reader
+     column, so neither edge reaches the scrollbar or viewport edge */
+  margin: -12px -32px 0;
   padding: 3px 0 4px;
   direction: rtl;
   background: var(--color-reader-bg);

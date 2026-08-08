@@ -68,9 +68,12 @@ function refreshScrollWidth(colWidth) {
   topScrollOuter.style.display = needed ? "" : "none";
   // Only clip overflow when scrollbar is needed (prevents edge clipping when table fits)
   tableWrap.style.overflowX = needed ? "" : "visible";
-  // Adjust th sticky offset: only reserve space when scrollbar is visible
+  // Adjust th sticky offset: only reserve space when scrollbar is visible.
+  // Reserve = the scrollbar row's measured height (18px default — the wrapper
+  // is display:none on the first pass, so offsetHeight reads 0 then).
   var ths = table.querySelectorAll("thead th");
-  var thTop = needed ? "calc(var(--table-header-top, 64px) + 19px)" : "var(--table-header-top, 64px)";
+  var barH = topScrollOuter.offsetHeight || 18;
+  var thTop = needed ? "calc(var(--table-header-top, 64px) + " + barH + "px)" : "var(--table-header-top, 64px)";
   for (var i = 0; i < ths.length; i++) {
     ths[i].style.setProperty("top", thTop);
   }

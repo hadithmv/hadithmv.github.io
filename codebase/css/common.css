@@ -118,7 +118,8 @@
      edge and the page top margins agree by construction — no measurement
      drift. --topbar-gap is the air between the topbar and the first content,
      the same value as the row gaps (--control-gap/--section-gap) — one
-     spacing at every level. --topbar-clearance is height + gap: the desktop
+     spacing at every level; 0 = flush. --topbar-clearance is height + gap:
+     the desktop
      page top margin, and the offset the dashboard and library-search panels
      lock at. Because a sticky panel locks at the same y as its resting
      position, the top gap stays visible while scrolling and the panel never
@@ -128,7 +129,7 @@
      --panel-edge is that bottom border, shared by the topbar and every
      sticky panel. */
   --topbar-height: 58px;
-  --topbar-gap: 6px;
+  --topbar-gap: 0px;
   --topbar-clearance: calc(var(--topbar-height) + var(--topbar-gap));
   --panel-pad: 10px;
   --panel-edge: 2px solid var(--color-card-hover-border);
