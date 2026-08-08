@@ -109,8 +109,8 @@
   --page-margin-mobile: var(--topbar-clearance) auto 12px;
   --page-padding-mobile: 0 12px;
   /* Card padding — book cards and library results share one padding */
-  --card-padding: 24px;
-  --card-padding-mobile: 16px;
+  --card-padding: 16px;
+  --card-padding-mobile: 12px;
   /* Grid gutters — card grids (dashboard) and parallel columns (reader) share
      one value: 12px — double the control-gap rhythm, so surfaces stay
      distinct. */
@@ -986,7 +986,7 @@ body:has(.modal-overlay.open) {
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg, 12px);
-  padding: var(--card-padding, 24px);
+  padding: var(--card-padding, 16px);
   box-shadow: var(--shadow-card, 0 1px 3px var(--color-shadow-card));
   transition:
     transform var(--t-pop, 0.2s) ease,
@@ -1381,6 +1381,45 @@ body:has(.modal-overlay.open) {
 /* ---- Font modal ---- */
 .font-modal {
   max-width: 340px;
+}
+
+/* Font size controls — the font modal is shared by every page, so these
+   live in common.css, not a page stylesheet */
+.font-size-row {
+  display: flex;
+  align-items: center;
+  gap: var(--control-gap, 6px);
+  margin-bottom: var(--section-gap, 6px);
+}
+
+.font-adj-btn {
+  box-sizing: border-box;
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: background var(--t-hover, 0.15s) ease;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
+}
+
+.font-adj-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.font-size-val {
+  min-width: 52px;
+  text-align: center;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
 /* ---- Pins / History modal ---- */

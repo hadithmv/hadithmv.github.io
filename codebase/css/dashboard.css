@@ -351,7 +351,7 @@ a.toolbar-btn {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
   .book-card {
-    padding: var(--card-padding-mobile, 16px);
+    padding: var(--card-padding-mobile, 12px);
     min-height: 120px;
   }
   .book-card .title-ar,

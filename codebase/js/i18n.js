@@ -199,7 +199,7 @@ const STRINGS = {
     en: "🔤 Change font…",
     ar: "🔤 تغيير الخط…",
   },
-  btnOpenFontShort: { dv: "ބަދަލުކުރޭ", en: "Change", ar: "تغيير" },
+  btnOpenFontShort: { dv: "ފޮންޓް ސެޓިންގްސް", en: "Font settings", ar: "إعدادات الخط" },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },

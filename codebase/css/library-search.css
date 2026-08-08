@@ -170,7 +170,7 @@
     padding: var(--page-padding-mobile, 0 12px);
   }
   .lib-result {
-    padding: var(--card-padding-mobile, 16px);
+    padding: var(--card-padding-mobile, 12px);
   }
   .lib-result .lib-title-ar,
   .lib-result .lib-title-dv {
