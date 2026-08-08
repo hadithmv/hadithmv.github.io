@@ -66,9 +66,9 @@
   --control-height: 35px;
   --control-line-height: calc(var(--control-height) - 2px);
   /* Row spacing: gap between controls in one row; margin between a row or
-     panel and the next block. */
+     panel and the next block — the same value (6px), two roles. */
   --control-gap: 6px;
-  --section-gap: 10px;
+  --section-gap: 6px;
   /* Panel font sizes (were fallback-only) — change here, not at use sites. */
   --panel-font-size: 0.85rem;
   --panel-font-size-mobile: 0.78rem;
@@ -97,6 +97,11 @@
   --page-padding: 0 20px;
   --page-margin-mobile: 60px auto 12px;
   --page-padding-mobile: 0 12px;
+  /* Bottom edge of the fixed topbar (#topBar) — sticky panels (reader,
+     dashboard, library search) hang off this offset. The topbar has no set
+     height (content-driven: 35px control + 2×10px padding ≈ 55px); 58px is
+     its measured bottom edge. */
+  --topbar-height: 58px;
   /* Card padding — book cards and library results share one padding */
   --card-padding: 24px;
   --card-padding-mobile: 16px;
@@ -640,7 +645,7 @@ body:has(.modal-overlay.open) {
 .confirm-actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 .confirm-btn {
   padding: 6px 16px;
@@ -1010,7 +1015,7 @@ body:has(.modal-overlay.open) {
 #pageTags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   align-items: center;
 }
 
@@ -1029,7 +1034,7 @@ body:has(.modal-overlay.open) {
 .sidebar-select-group {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   margin-bottom: 4px;
 }
 
@@ -1111,7 +1116,7 @@ body:has(.modal-overlay.open) {
 .toolbar-group {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 
 .toolbar-btn {
@@ -1249,7 +1254,7 @@ body:has(.modal-overlay.open) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   direction: ltr;
   background-color: var(--color-bg);
   border-bottom: 2px solid var(--color-card-hover-border);
@@ -1542,7 +1547,7 @@ body:has(.modal-overlay.open) {
 
   #topBar {
     padding: 10px 20px;
-    gap: var(--control-gap, 8px);
+    gap: var(--control-gap, 6px);
     direction: ltr;
     justify-content: space-between;
   }

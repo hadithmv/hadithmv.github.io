@@ -255,26 +255,29 @@
 
     <!-- Library search (cross-book) -->
     <div id="libWrapper">
-      <div id="libSearchPanel">
-        <button
-          id="libSearchClear"
-          class="search-clear"
-          title="Clear search"
-          style="display: none"
-        >
-          ✕
-        </button>
-        <input
-          id="libSearchInput"
-          type="search"
-          class="search-input"
-          data-i18n="libSearchPlaceholder"
-          placeholder="ފޮތްތަކުގެ ތެރެއިން ހޯދާ…"
-          dir="rtl"
-          title="Search inside all books (/ or Ctrl+f)"
-        />
+      <!-- Sticky wrapper — search + tag chips stay pinned below the topbar -->
+      <div id="libPanel">
+        <div id="libSearchPanel">
+          <button
+            id="libSearchClear"
+            class="search-clear"
+            title="Clear search"
+            style="display: none"
+          >
+            ✕
+          </button>
+          <input
+            id="libSearchInput"
+            type="search"
+            class="search-input"
+            data-i18n="libSearchPlaceholder"
+            placeholder="ފޮތްތަކުގެ ތެރެއިން ހޯދާ…"
+            dir="rtl"
+            title="Search inside all books (/ or Ctrl+f)"
+          />
+        </div>
+        <div id="libTagsRow"></div>
       </div>
-      <div id="libTagsRow"></div>
       <div id="libCount" class="search-info" dir="auto"></div>
       <div id="libResults" class="lib-results"></div>
     </div>

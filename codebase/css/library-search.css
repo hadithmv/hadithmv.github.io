@@ -15,10 +15,20 @@
 }
 
 /* ---- Search panel ---- */
+/* Sticky wrapper — search + tag chips hang below the fixed topbar while
+   results scroll (reader-panel treatment). */
+#libPanel {
+  position: sticky;
+  top: var(--topbar-height, 58px);
+  z-index: var(--z-toolbar, 50);
+  background: var(--color-bg);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-card-hover-border);
+}
 #libSearchPanel {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   direction: rtl;
 }
 #libSearchPanel .search-input {
@@ -30,10 +40,10 @@
 #libTagsRow {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   align-items: center;
   direction: rtl;
-  margin-top: var(--section-gap, 12px);
+  margin-top: var(--section-gap, 6px);
 }
 
 /* Direction comes from dir="auto" (RTL in dv/ar, LTR in en); the alignment
@@ -43,7 +53,7 @@
   text-align: left;
 }
 #libResults {
-  margin-top: var(--section-gap, 12px);
+  margin-top: var(--section-gap, 6px);
 }
 
 /* ── Library results ── */
@@ -151,7 +161,7 @@
 }
 .lib-peek-more {
   align-self: center;
-  margin-top: var(--section-gap, 12px);
+  margin-top: var(--section-gap, 6px);
 }
 
 @media (max-width: 600px) {

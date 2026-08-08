@@ -6,7 +6,7 @@
     grid-template-rows var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
     opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
   position: sticky;
-  top: 58px;
+  top: var(--topbar-height, 58px);
   z-index: var(--z-toolbar, 50);
   background: var(--color-bg);
   padding: 10px 0;
@@ -32,7 +32,7 @@
   flex-direction: column;
 }
 .readerPanel-inner > * + * {
-  margin-top: var(--section-gap, 12px);
+  margin-top: var(--section-gap, 6px);
 }
 
 .readerPanel-row {
@@ -112,7 +112,7 @@
 .subrow-left {
   display: flex;
   align-items: baseline;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 
 
@@ -127,8 +127,8 @@
 .font-size-row {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
-  margin-bottom: var(--section-gap, 12px);
+  gap: var(--control-gap, 6px);
+  margin-bottom: var(--section-gap, 6px);
 }
 
 .font-adj-btn {
@@ -202,7 +202,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -210,7 +210,7 @@
 .subrow-right {
   display: flex;
   align-items: baseline;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 
 #pageSubRow #pageTags {
@@ -223,7 +223,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   padding: 0;
   margin: 0;
   flex-wrap: nowrap;
@@ -238,7 +238,7 @@
 .column-toggles {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 
 .col-toggle {
@@ -457,7 +457,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--section-gap, 12px);
+  gap: var(--section-gap, 6px);
   padding: 0;
   margin: 0;
   flex-wrap: nowrap;
@@ -470,13 +470,13 @@
 .nav-pages {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 
 .nav-goto {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   flex-shrink: 0;
 }
 
@@ -484,7 +484,7 @@
 .nav-pages {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 
 .nav-btn {
@@ -513,7 +513,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   direction: ltr;
 }
 
@@ -584,7 +584,7 @@
 .nav-goto {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   flex-shrink: 0;
 }
 
@@ -940,7 +940,7 @@
 
   .reader-nav {
     flex-wrap: nowrap;
-    gap: var(--control-gap, 8px);
+    gap: var(--control-gap, 6px);
   }
 
   .nav-pages {
@@ -969,7 +969,7 @@
   }
 
   .reader-toolbar {
-    gap: var(--control-gap, 8px);
+    gap: var(--control-gap, 6px);
   }
 
   .col-toggle {

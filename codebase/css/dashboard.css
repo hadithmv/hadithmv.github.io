@@ -18,10 +18,18 @@
 
 /* ---- Dashboard controls ---- */
 #dashboardPanel {
-  margin-bottom: var(--section-gap, 12px);
+  margin-bottom: var(--section-gap, 6px);
   display: flex;
   flex-direction: column;
   direction: rtl;
+  /* Sticky — reader-panel treatment: hangs below the fixed topbar, painted
+     background hides scrolled content, bottom border marks the panel edge. */
+  position: sticky;
+  top: var(--topbar-height, 58px);
+  z-index: var(--z-toolbar, 50);
+  background: var(--color-bg);
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-card-hover-border);
 }
 
 /* ── Collapsible section (tags + functions) ── */
@@ -29,8 +37,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: var(--section-gap, 12px);
-  margin-top: var(--section-gap, 12px);
+  gap: var(--section-gap, 6px);
+  margin-top: var(--section-gap, 6px);
   max-height: 300px;
   transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
               opacity var(--t-pop, 0.2s) ease,
@@ -41,7 +49,7 @@
 #dashboardPanelSearch {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
 }
 #dashboardPanelSearch .search-input {
   flex: 1;
@@ -56,7 +64,7 @@ a.toolbar-btn {
 #dashboardPanelTags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   align-items: center;
   direction: rtl;
 }
@@ -133,7 +141,7 @@ a.toolbar-btn {
 #dashboardPanelFunctions {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   direction: rtl;
   position: relative;
   padding: 0 30px; /* room for the edge arrows */
@@ -143,7 +151,7 @@ a.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   flex: 1;
   min-width: 0;
   overflow-x: auto;
@@ -176,7 +184,7 @@ a.toolbar-btn {
   display: flex;
   align-items: stretch;
   flex-wrap: nowrap;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   position: relative;
 }
 #dashboardSort {
@@ -237,7 +245,7 @@ a.toolbar-btn {
 .book-card .card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--control-gap, 8px);
+  gap: var(--control-gap, 6px);
   margin-bottom: 12px;
 }
 
