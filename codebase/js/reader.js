@@ -13,6 +13,7 @@ import { fetchBookCSVCached } from "./csv.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
+import { columnDisplayLabel } from "./column-labels.js";
 import { initPosition, updatePagination, visiblePageIndex } from "./reader-position.js";
 import { initSearchUI, applySearch, renderAdvancedSearch, parseQueryWithMode } from "./reader-search-ui.js";
 
@@ -20,27 +21,27 @@ initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
-  //   Book loading (standard CSV or Quran merge)           L45-113
-  //   Page header, tag badges, language-aware titles       L116-174
-  //   Persisted settings (LS wrapper, -HDN column init)    L177-223
-  //   Reader state, column toggles, dropdown infrastructure L226-331
-  //   Tashkeel helpers                                     L334-341
-  //   Clipboard formatting (rowText)                       L344-431
-  //   View mode dropdown (card / table / parallel)         L434-482
-  //   Quran helpers                                        L485-489
-  //   Card row renderer (renderRowHTML)                    L492-566
-  //   Parallel row renderer (renderParallelRowHTML)        L569-681
-  //   Chunk + table-row renderers                          L684-725
-  //   Infinite scroll + table scrollbar                    L728-851
-  //   Navigation (goTo, scroll padding)                    L854-874
-  //   Search UI (wiring — module: reader-search-ui.js)     L877-899
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L902-1054
-  //   Keyboard shortcuts (incl. navigation buttons)        L1057-1160
-  //   Touch swipe                                          L1163-1183
-  //   Settings reset + language change                     L1186-1199
-  //   Quran UI (initQuranUI ctx)                           L1202-1218
-  //   Initial render (deep links, reveal)                  L1221-1287
-  //   Module-level helpers (showError)                     L1290-1296
+  //   Book loading (standard CSV or Quran merge)           L46-114
+  //   Page header, tag badges, language-aware titles       L117-175
+  //   Persisted settings (LS wrapper, -HDN column init)    L178-224
+  //   Reader state, column toggles, dropdown infrastructure L227-333
+  //   Tashkeel helpers                                     L336-343
+  //   Clipboard formatting (rowText)                       L346-433
+  //   View mode dropdown (card / table / parallel)         L436-484
+  //   Quran helpers                                        L487-491
+  //   Card row renderer (renderRowHTML)                    L494-568
+  //   Parallel row renderer (renderParallelRowHTML)        L571-683
+  //   Chunk + table-row renderers                          L686-727
+  //   Infinite scroll + table scrollbar                    L730-853
+  //   Navigation (goTo, scroll padding)                    L856-876
+  //   Search UI (wiring — module: reader-search-ui.js)     L879-905
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L908-1060
+  //   Keyboard shortcuts (incl. navigation buttons)        L1063-1166
+  //   Touch swipe                                          L1169-1189
+  //   Settings reset + language change                     L1192-1205
+  //   Quran UI (initQuranUI ctx)                           L1208-1228
+  //   Initial render (deep links, reveal)                  L1231-1297
+  //   Module-level helpers (showError)                     L1300-1306
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -267,8 +268,9 @@ initializePageWithMetadata(async function (metadata) {
           const btn = document.createElement("button");
           btn.className =
             "toolbar-btn col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
-          btn.textContent = colLabel(i);
-          btn.title = "Toggle column " + colLabel(i);
+          var dispLabel = columnDisplayLabel(i, colLabel(i));
+          btn.textContent = dispLabel;
+          btn.title = "Toggle column " + dispLabel;
           btn.addEventListener("click", function () {
             const pos = hiddenColumns.indexOf(i);
             if (pos === -1) {
@@ -885,6 +887,10 @@ initializePageWithMetadata(async function (metadata) {
         normAllData: normAllData,
         maxCols: maxCols,
         colLabel: colLabel,
+        // Display label for the advanced-search column dropdown: registry
+        // (QRN) → derived from header tokens → raw header. Table/card
+        // headers keep raw identifiers; this is selection chrome only.
+        columnLabel: function (i) { return columnDisplayLabel(i, colLabel(i)); },
         getHiddenColumns: function () { return hiddenColumns; },
         getFilteredData: function () { return filteredData; },
         setFilteredData: function (v) { filteredData = v; },
@@ -1215,6 +1221,10 @@ initializePageWithMetadata(async function (metadata) {
           LS: LS
         };
         initQuranUI(quranCtx);
+        // initQuranUI builds the column source map (_columnSourceMap), which
+        // columnDisplayLabel reads for registry labels — rebuild the toggles
+        // now so QRN books show registry labels, not derived ones.
+        buildColumnToggles();
       }
       // #endregion
 

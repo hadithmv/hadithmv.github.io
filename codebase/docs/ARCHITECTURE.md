@@ -526,6 +526,8 @@ The derivation is a single pass over 6,236 rows with advancing surah/juz pointer
 
 Base data columns are always present. Book-specific columns are merged by row index. The `06-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
+**Two naming layers.** CSV headers are data identifiers AND the engine's classification keys (`ar`/`dv`/`en` suffixes for script/direction, `foot*` footnotes, `matn*`/`sharh*` card grouping, `-hdn` auto-hide). They are never translated — table/card headers show the raw identifier because it names the data, not the language. Only *selection chrome* (the advanced-search column dropdown, the column toggle buttons) gets friendly labels, resolved by `js/column-labels.js` in this order: (1) the column registry above — QRN books, per current language; (2) derived from the header's camelCase tokens via the token tables in `js/column-tokens.js` (labels in `js/i18n.js` as `col*` keys); (3) raw header text as fallback. `tools/hmv-header-scan.mjs` diffs every `data/content/*.csv` header against those same token tables and fails on unmapped tokens — adding a header without a token makes the scan exit 1, so the fallback never silently grows.
+
 ```text
 QRN-DATA-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,236 rows)
 ┌────────────┬─────────────┬───────────┐ ┌──────────────────────────────┐

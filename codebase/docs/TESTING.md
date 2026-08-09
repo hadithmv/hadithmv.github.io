@@ -5,7 +5,15 @@ The battery lives at `../tools/hmv-qrn-smoke.mjs` (run `node tools/hmv-qrn-smoke
 from the codebase root; paths resolve relative to the script, and
 `HMV_SMOKE_PORT` / `HMV_SMOKE_PROFILE` env vars override the defaults). The
 TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
-(`node tools/hmv-toc-scan.cjs`). Its job: when a check fails, you know
+(`node tools/hmv-toc-scan.cjs`). The column-label coverage scan lives at
+`../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
+every `data/content/*.csv` header and diffs it against the token tables in
+`js/column-tokens.js` (the same tables `js/column-labels.js` uses to derive
+display labels for the advanced-search column dropdown and the column
+toggles). An unknown token means that header would silently fall back to
+its raw identifier in the selection chrome — add a token (plus a `col*`
+entry in `js/i18n.js`) or list it in `DELIBERATE_RAW` with a reason. Its
+job: when a check fails, you know
 **in seconds** whether it is a product bug, a test-setup problem, or a
 pre-existing behavior that merely looks wrong — instead of spending an hour
 re-diagnosing each one.

@@ -497,6 +497,26 @@ export function getColumnSourceBook(colIndex) {
   return _columnSourceMap[colIndex].sourceBook;
 }
 
+// The full {sourceBook, sourceCol} pair a column was loaded from (null for
+// unmapped columns — regular books, or base data before the merge builds
+// the map). Consumed by js/column-labels.js to look up registry labels.
+export function getColumnSource(colIndex) {
+  if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
+  return _columnSourceMap[colIndex];
+}
+
+// Display labels for a (sourceBook, sourceCol) from the column registry
+// (06-registry-quranColumns.csv) — null when the registry has no row.
+export function getRegistryLabel(sourceBook, sourceCol) {
+  var regs = _colRegistryCache || [];
+  for (var i = 0; i < regs.length; i++) {
+    if (regs[i].sourceBook === sourceBook && regs[i].sourceCol === sourceCol) {
+      return regs[i];
+    }
+  }
+  return null;
+}
+
 // True when any column from a book other than current or base is loaded
 export function hasExternalColumns(currentBookCode) {
   if (!_columnSourceMap) return false;

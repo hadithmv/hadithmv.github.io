@@ -376,6 +376,68 @@ const STRINGS = {
   dashboardPinsBtn: { dv: "📌 ޕިންތައް", en: "📌 Pins", ar: "📌 دبابيس" },
   dashboardHistoryBtn: { dv: "🕐 ހިސްޓަރީ", en: "🕐 History", ar: "🕐 السجل" },
   dashboardPinsChip: { dv: "ޕިން", en: "Pins", ar: "دبابيس" },
+
+  // ── Column display labels (selection chrome only — the advanced-search
+  // column dropdown and the column toggle buttons). Table/card headers keep
+  // their raw CSV identifiers; these names are for the controls that pick
+  // columns. Keys are consumed by js/column-labels.js, which resolves a
+  // header like "bodyDV" into colBody + colLangDV ("Body (Dhivehi)").
+  colBody: { dv: "މައިލިޔުން", en: "Body", ar: "المتن" },
+  colHead: { dv: "ސުރުހީ", en: "Heading", ar: "العنوان" },
+  colWord: { dv: "ލަފްޒު", en: "Word", ar: "الكلمة" },
+  colFoot: { dv: "ފުޓްނޯޓު", en: "Footnote", ar: "الحاشية" },
+  colMatn: { dv: "މަތުނު", en: "Matn", ar: "المتن" },
+  colSharh: { dv: "ޝަރަހަ", en: "Commentary", ar: "الشرح" },
+  colMean: { dv: "މާނަ", en: "Meaning", ar: "المعنى" },
+  colKitab: { dv: "ފޮތް", en: "Book", ar: "الكتاب" },
+  colBab: { dv: "ބާބު", en: "Chapter", ar: "الباب" },
+  colTakhrij: { dv: "ތަޚްރީޖު", en: "Takhrij", ar: "التخريج" },
+  colSource: { dv: "މަސްދަރު", en: "Source", ar: "المصدر" },
+  colPageNo: { dv: "ސަފްހާ #", en: "Page #", ar: "رقم الصفحة" },
+  colRowNo: { dv: "ނަމްބަރު", en: "Row #", ar: "الرقم" },
+  colDate: { dv: "ތާރީޚު", en: "Date", ar: "التاريخ" },
+  colTime: { dv: "ޒަމާން", en: "Time", ar: "الزمن" },
+  colNote: { dv: "ނޯޓު", en: "Note", ar: "ملاحظة" },
+  colExample: { dv: "މިސާލު", en: "Example", ar: "المثال" },
+  colNumber: { dv: "ނަމްބަރު", en: "Number", ar: "الرقم" },
+  colTitle: { dv: "ސުރުހީ", en: "Title", ar: "العنوان" },
+  colTranslation: { dv: "ތަރުޖަމާ", en: "Translation", ar: "الترجمة" },
+  colTafsir: { dv: "ތަފްސީރު", en: "Tafsir", ar: "التفسير" },
+  colAyah: { dv: "އާޔަތް", en: "Ayah", ar: "آية" },
+  colImlai: { dv: "އިމްލާއީ ރަސްމު", en: "Imlai Script", ar: "الرسم الإملائي" },
+  colUthmani: {
+    dv: "އުޘްމާނީ ރަސްމު",
+    en: "Uthmani Script",
+    ar: "الرسم العثماني",
+  },
+  colJuz: { dv: "ޖުޒް", en: "Juz", ar: "الجزء" },
+  colSurah: { dv: "ސޫރަތް", en: "Surah", ar: "السورة" },
+  colAyahNo: { dv: "އާޔަތް #", en: "Ayah #", ar: "رقم الآية" },
+  colBasmalah: { dv: "ބިސްމި", en: "Basmalah", ar: "البسملة" },
+  colAuthor: { dv: "މުއައްލިފު", en: "Author", ar: "المؤلف" },
+  colCategory: { dv: "ބާވަތް", en: "Category", ar: "الفئة" },
+  colGender: { dv: "ޖިންސު", en: "Type", ar: "الجنس" },
+  colApprovedBy: { dv: "ފާސްކުރީ", en: "Approved By", ar: "المعتمد" },
+  colOriginLang: {
+    dv: "އަސްލު ބަސް",
+    en: "Origin Language",
+    ar: "اللغة الأصلية",
+  },
+  colW2W: { dv: "ލަފްޒީ", en: "Word by Word", ar: "كلمة بكلمة" },
+  colMainCount: { dv: "މައި ގިންތި", en: "Main Class", ar: "الطبقة الرئيسية" },
+  colLiteraryCount: {
+    dv: "އަދަބީ ގިންތި",
+    en: "Literary Class",
+    ar: "الطبقة الأدبية",
+  },
+  colDialect: { dv: "ބަހުރުވަ", en: "Dialect", ar: "اللهجة" },
+  colDegree: { dv: "ދަރަޖަ", en: "Degree", ar: "الدرجة" },
+  colArea: { dv: "ދާއިރާ", en: "Area", ar: "المنطقة" },
+  colAtoll: { dv: "އަތޮޅު", en: "Atoll", ar: "الأتول" },
+  colBaavaiy: { dv: "ބާވަތް", en: "Baavaiy", ar: "بافايي" },
+  colLangAR: { dv: "އަރަބި", en: "Arabic", ar: "العربية" },
+  colLangDV: { dv: "ދިވެހި", en: "Dhivehi", ar: "الديفهية" },
+  colLangEN: { dv: "އިނގިރޭސި", en: "English", ar: "الإنجليزية" },
 };
 
 /** Translate a tag code. Pass lang to override current language. Falls back to the CSV label. */

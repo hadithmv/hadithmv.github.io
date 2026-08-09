@@ -356,7 +356,7 @@ function renderConditionRow(condition, idx) {
   var colOpts = "";
   for (var i = 0; i < cols.length; i++) {
     var ci = cols[i];
-    colOpts += '<option value="' + ci + '"' + (condition.col === ci ? ' selected' : '') + '>' + ctx.colLabel(ci) + '</option>';
+    colOpts += '<option value="' + ci + '"' + (condition.col === ci ? ' selected' : '') + '>' + ctx.columnLabel(ci) + '</option>';
   }
   var opOpts = "";
   OPERATORS.forEach(function(op) {
