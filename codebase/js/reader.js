@@ -28,19 +28,19 @@ initializePageWithMetadata(async function (metadata) {
   //   Clipboard formatting (rowText)                       L344-431
   //   View mode dropdown (card / table / parallel)         L434-482
   //   Quran helpers                                        L485-489
-  //   Card row renderer (renderRowHTML)                    L492-559
-  //   Parallel row renderer (renderParallelRowHTML)        L562-672
-  //   Chunk + table-row renderers                          L675-715
-  //   Infinite scroll + table scrollbar                    L718-841
-  //   Navigation (goTo, scroll padding)                    L844-864
-  //   Search UI (wiring — module: reader-search-ui.js)     L867-888
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L891-1039
-  //   Keyboard shortcuts (incl. navigation buttons)        L1042-1145
-  //   Touch swipe                                          L1148-1168
-  //   Settings reset + language change                     L1171-1184
-  //   Quran UI (initQuranUI ctx)                           L1187-1203
-  //   Initial render (deep links, reveal)                  L1206-1272
-  //   Module-level helpers (showError)                     L1275-1281
+  //   Card row renderer (renderRowHTML)                    L492-566
+  //   Parallel row renderer (renderParallelRowHTML)        L569-681
+  //   Chunk + table-row renderers                          L684-725
+  //   Infinite scroll + table scrollbar                    L728-851
+  //   Navigation (goTo, scroll padding)                    L854-874
+  //   Search UI (wiring — module: reader-search-ui.js)     L877-898
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L901-1053
+  //   Keyboard shortcuts (incl. navigation buttons)        L1056-1159
+  //   Touch swipe                                          L1162-1182
+  //   Settings reset + language change                     L1185-1198
+  //   Quran UI (initQuranUI ctx)                           L1201-1217
+  //   Initial render (deep links, reveal)                  L1220-1286
+  //   Module-level helpers (showError)                     L1289-1295
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;

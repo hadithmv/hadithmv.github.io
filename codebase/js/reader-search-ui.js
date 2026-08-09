@@ -22,7 +22,6 @@ import { updatePagination } from "./reader-position.js";
 var ctx = null;
 var searchInput = null;
 var searchResultsEl = null;
-var readerSearchClear = null;
 var readerResultCount = null;
 var searchHistoryEl = null;
 var btnWholeWord = null;
@@ -148,7 +147,6 @@ export function applySearch(query) {
   var q = query.trim();
   if (!q) {
     ctx.setFilteredData(ctx.allData);
-    readerSearchClear.style.display = "none";
     readerResultCount.style.display = "none";
     searchResultsEl.style.display = "none";
     ctx.rebuildAll();
@@ -161,7 +159,6 @@ export function applySearch(query) {
   });
 
   addSearchHistory(q);
-  readerSearchClear.style.display = "";
   readerResultCount.style.display = "";
   readerResultCount.textContent =
     tempFiltered.length === 0
@@ -362,7 +359,6 @@ function applyAdvancedSearch() {
   if (tempFiltered.length === 0) {
     readerResultCount.style.display = "";
     readerResultCount.textContent = t("noResults");
-    readerSearchClear.style.display = "";
     readerContent.innerHTML = '<div class="empty-state">' + t("noMatchesMsg") + '</div>';
     ctx.setLoadedStart(-1);
     ctx.setLoadedEnd(-1);
@@ -370,7 +366,6 @@ function applyAdvancedSearch() {
   } else {
     readerResultCount.style.display = "";
     readerResultCount.textContent = t("resultCount") + ": " + tempFiltered.length;
-    readerSearchClear.style.display = "";
     var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
     var q = advConditions.length > 0 ? advConditions[0].val : "";
     var resHTML = q ? buildAdvResultsHTML(q, tempFiltered, realIdxMap) : "";
@@ -417,7 +412,6 @@ export function initSearchUI(initCtx) {
   ctx = initCtx;
   searchInput = document.getElementById("readerSearchInput");
   searchResultsEl = document.getElementById("searchResultsDropdown");
-  readerSearchClear = document.getElementById("readerSearchClear");
   readerResultCount = document.getElementById("readerResultCount");
   searchHistoryEl = document.getElementById("searchHistoryDropdown");
   btnWholeWord = document.getElementById("btnWholeWord");
@@ -438,18 +432,13 @@ export function initSearchUI(initCtx) {
     else searchResultsEl.style.display = "";
   });
   // Debounce: one full scan per pause in typing, not one per keystroke.
-  // applySearch() clears any pending timer, so explicit applies (clear
-  // button, history click, whole-word toggle) can't be raced by a stale one.
+  // applySearch() clears any pending timer, so explicit applies (history
+  // click, whole-word toggle) can't be raced by a stale one.
   searchInput.addEventListener("input", function () {
     searchHistoryEl.style.display = "none";
     clearTimeout(_searchDebounceTimer);
     var val = this.value;
     _searchDebounceTimer = setTimeout(function () { applySearch(val); }, 120);
-  });
-  readerSearchClear.addEventListener("click", function () {
-    searchInput.value = "";
-    applySearch("");
-    searchInput.focus();
   });
   // Close results when clicking outside
   document.addEventListener("click", function (e) {

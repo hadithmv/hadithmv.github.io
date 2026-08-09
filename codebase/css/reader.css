@@ -97,11 +97,6 @@
   background: var(--color-reader-bg);
   direction: rtl;
 }
-.reader-panel-row .search-input::placeholder {
-  color: var(--color-text-subtle);
-  opacity: 1;
-  font-weight: 700;
-}
 /* Scroll arrows in the reader panel — narrow, boxless glyphs. The shared
    `.reader-panel-row button` box rule above would paint a button behind
    them; this (more specific) override restores the shared arrow look. */

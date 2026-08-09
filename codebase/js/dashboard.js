@@ -444,22 +444,13 @@ function renderDashboard(bookNames) {
 // ── Wire dashboard controls ──────────────────────────────────
 function setupDashboardControls() {
   var searchInput = document.getElementById("dashboardSearchInput");
-  var searchClear = document.getElementById("dashboardSearchClear");
   var sortSelect = document.getElementById("dashboardSortSelect");
   var tagsPanel = document.getElementById("dashboardPanelTags");
   if (!searchInput) return;
 
   searchInput.addEventListener("input", function () {
     _dashFilter.search = this.value;
-    searchClear.style.display = this.value ? "" : "none";
     renderDashboard(_lastBookNames);
-  });
-  searchClear.addEventListener("click", function () {
-    searchInput.value = "";
-    _dashFilter.search = "";
-    searchClear.style.display = "none";
-    refreshView();
-    searchInput.focus();
   });
   sortSelect.addEventListener("change", function () {
     _dashFilter.sort = this.value;

@@ -437,7 +437,6 @@ function renderResults(results, q) {
 // ── Page initialisation ──────────────────────────────────────
 async function init() {
   el.input = document.getElementById("libSearchInput");
-  el.clear = document.getElementById("libSearchClear");
   el.tagsRow = document.getElementById("libTagsRow");
   el.tagsCollapse = document.getElementById("libTagsCollapse");
   el.tagsToggle = document.getElementById("libTagsToggle");
@@ -447,21 +446,9 @@ async function init() {
 
   readURLParams();
   el.input.value = _q;
-  el.clear.style.display = _q ? "" : "none";
-
-  // Clear button
-  el.clear.addEventListener("click", function () {
-    el.input.value = "";
-    _q = "";
-    syncURL();
-    el.clear.style.display = "none";
-    showEmpty("libSearchHint");
-    el.input.focus();
-  });
 
   // Debounced search while typing
   el.input.addEventListener("input", function () {
-    el.clear.style.display = this.value ? "" : "none";
     clearTimeout(_searchTimer);
     _searchTimer = setTimeout(runSearchAndRender, 150);
   });
@@ -505,7 +492,6 @@ async function init() {
       el.input.value = "";
       _q = "";
       syncURL();
-      el.clear.style.display = "none";
       showEmpty("libSearchHint");
       el.input.blur();
     }

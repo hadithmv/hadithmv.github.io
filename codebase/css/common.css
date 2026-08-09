@@ -1123,31 +1123,13 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-md, 8px);
   background: var(--color-reader-bg);
   color: var(--color-text);
+  font-weight: 600; /* semibold typed text — the shared search-row look */
 }
 
 .search-input::placeholder {
   color: var(--color-text-subtle);
   opacity: 1;
-}
-
-.search-clear {
-  flex-shrink: 0;
-  width: var(--control-height, 35px);
-  height: var(--control-height, 35px);
-  padding: 0;
-  font-size: 1rem;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--color-danger-text, #dc2626);
-  background: none;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background var(--t-hover, 0.15s) ease;
-}
-
-.search-clear:hover {
-  background: var(--color-danger-bg, #fef2f2);
+  font-weight: 700; /* bolder placeholder — same treatment on every page */
 }
 
 .search-info {
