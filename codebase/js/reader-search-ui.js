@@ -318,10 +318,45 @@ function onSearchKeydown(e) {
   }
 }
 
-function renderConditionRow(condition, idx) {
-  var colOpts = "";
+// Advanced-search column list — visible columns only. The dropdown
+// mirrors the table: hidden columns (per-book hiddenColumns) are not
+// searchable, and the columns toggle is the single source of truth for
+// what you can search — unhide a column and it appears here on the next
+// modal open. If every column is hidden the dropdown would be empty, so
+// that pathological case falls back to the full list.
+function visibleColumnIndices() {
+  var hidden = ctx.getHiddenColumns();
+  var out = [];
   for (var i = 0; i < ctx.maxCols; i++) {
-    colOpts += '<option value="' + i + '"' + (condition.col === i ? ' selected' : '') + '>' + ctx.colLabel(i) + '</option>';
+    if (hidden.indexOf(i) === -1) out.push(i);
+  }
+  if (out.length === 0) {
+    for (var j = 0; j < ctx.maxCols; j++) out.push(j);
+  }
+  return out;
+}
+// The default condition column: the first visible column with real
+// content. Structural flags (basmalah, -hdn auto-hidden headers) are
+// skipped so a fresh condition lands on the text column users mean —
+// e.g. the imlai column in the Quran book, not the juz counter.
+function defaultColumnIndex(cols) {
+  for (var i = 0; i < cols.length; i++) {
+    var label = (ctx.colLabel(cols[i]) || "").toLowerCase();
+    if (label === "basmalah" || label.endsWith("-hdn")) continue;
+    return cols[i];
+  }
+  return cols[0];
+}
+
+function renderConditionRow(condition, idx) {
+  var cols = visibleColumnIndices();
+  // A condition saved from an earlier open may point at a column that is
+  // hidden now — clamp it so the select and the search agree.
+  if (cols.indexOf(condition.col) === -1) condition.col = defaultColumnIndex(cols);
+  var colOpts = "";
+  for (var i = 0; i < cols.length; i++) {
+    var ci = cols[i];
+    colOpts += '<option value="' + ci + '"' + (condition.col === ci ? ' selected' : '') + '>' + ctx.colLabel(ci) + '</option>';
   }
   var opOpts = "";
   OPERATORS.forEach(function(op) {
@@ -340,7 +375,7 @@ function renderConditionRow(condition, idx) {
 }
 
 function addCondition() {
-  advConditions.push({ col: 0, op: "contains", val: "", logic: "AND" });
+  advConditions.push({ col: defaultColumnIndex(visibleColumnIndices()), op: "contains", val: "", logic: "AND" });
   renderAdvancedSearch();
 }
 function removeCondition(idx) {

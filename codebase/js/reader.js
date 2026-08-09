@@ -33,14 +33,14 @@ initializePageWithMetadata(async function (metadata) {
   //   Chunk + table-row renderers                          L684-725
   //   Infinite scroll + table scrollbar                    L728-851
   //   Navigation (goTo, scroll padding)                    L854-874
-  //   Search UI (wiring — module: reader-search-ui.js)     L877-898
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L901-1053
-  //   Keyboard shortcuts (incl. navigation buttons)        L1056-1159
-  //   Touch swipe                                          L1162-1182
-  //   Settings reset + language change                     L1185-1198
-  //   Quran UI (initQuranUI ctx)                           L1201-1217
-  //   Initial render (deep links, reveal)                  L1220-1286
-  //   Module-level helpers (showError)                     L1289-1295
+  //   Search UI (wiring — module: reader-search-ui.js)     L877-899
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L902-1054
+  //   Keyboard shortcuts (incl. navigation buttons)        L1057-1160
+  //   Touch swipe                                          L1163-1183
+  //   Settings reset + language change                     L1186-1199
+  //   Quran UI (initQuranUI ctx)                           L1202-1218
+  //   Initial render (deep links, reveal)                  L1221-1287
+  //   Module-level helpers (showError)                     L1290-1296
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -885,6 +885,7 @@ initializePageWithMetadata(async function (metadata) {
         normAllData: normAllData,
         maxCols: maxCols,
         colLabel: colLabel,
+        getHiddenColumns: function () { return hiddenColumns; },
         getFilteredData: function () { return filteredData; },
         setFilteredData: function (v) { filteredData = v; },
         getLoadedStart: function () { return loadedStart; },
