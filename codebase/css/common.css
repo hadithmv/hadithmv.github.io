@@ -1123,11 +1123,19 @@ body:has(.modal-overlay.open) {
      room inside the box. */
   line-height: 1;
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
-  border: 1px solid var(--color-card-hover-border);
+  /* Resting border is the panel border shade; focus steps it up to the
+     card-hover shade (see .search-input:focus) — the reader page's
+     treatment, shared so the ring-less focus looks the same everywhere */
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   background: var(--color-reader-bg);
   color: var(--color-text);
   font-weight: 600; /* semibold typed text — the shared search-row look */
+  outline: none;
+  transition: border-color var(--t-hover, 0.15s) ease;
+}
+.search-input:focus {
+  border-color: var(--color-card-hover-border);
 }
 
 .search-input::placeholder {

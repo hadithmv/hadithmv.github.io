@@ -447,16 +447,27 @@
                 >ab</span
               >
             </button>
-            <input
-              id="readerSearchInput"
-              type="search"
-              class="search-input"
-              title="Search (/ or Ctrl+F. * wildcard, ? char, -exclude, ~fuzzy~, .wholeword, /regex/)"
-              data-i18n="searchPlaceholder"
-              placeholder="މި ފޮތުން ހޯދާ…"
-              dir="rtl"
-              autocomplete="off"
-            />
+            <div class="search-input-wrap">
+              <input
+                id="readerSearchInput"
+                type="search"
+                class="search-input"
+                title="Search (/ or Ctrl+F. * wildcard, ? char, -exclude, ~fuzzy~, .wholeword, /regex/)"
+                data-i18n="searchPlaceholder"
+                placeholder="މި ފޮތުން ހޯދާ…"
+                dir="rtl"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                id="readerSearchClear"
+                class="search-clear-btn"
+                title="Clear search"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            </div>
           </div>
           <div
             id="searchResultsDropdown"

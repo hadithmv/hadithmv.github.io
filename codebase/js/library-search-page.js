@@ -196,6 +196,13 @@ function runSearchAndRender() {
     });
 }
 
+// ── Clear-search button ──────────────────────────────────────
+// Visible while the box has text (input, history-item click, deep-link init);
+// clicking it clears + resets to the hint state.
+function updateSearchClear() {
+  if (el.clearBtn) el.clearBtn.classList.toggle("visible", !!el.input.value);
+}
+
 // ── Search history dropdown ──────────────────────────────────
 // Same pattern as the reader's: every applied search commits (own key —
 // lib:searchHistory), the dropdown appears when the empty input is focused,
@@ -226,6 +233,7 @@ function renderSearchHistory() {
       // closes the dropdown right after it is hidden.
       e.stopPropagation();
       el.input.value = items[parseInt(this.dataset.idx)];
+      updateSearchClear();
       el.history.style.display = "none";
       runSearchAndRender(); // commits the re-applied query to history
     });
@@ -501,10 +509,12 @@ async function init() {
   el.count = document.getElementById("libResultCount");
   el.results = document.getElementById("libResults");
   el.history = document.getElementById("searchHistoryDropdown");
+  el.clearBtn = document.getElementById("libSearchClear");
   if (!el.input) return;
 
   readURLParams();
   el.input.value = _q;
+  updateSearchClear();
 
   // History dropdown: shown when the empty input is focused or clicked
   // (the box is auto-focused at load, so a plain click would otherwise never
@@ -519,10 +529,20 @@ async function init() {
   });
   window.registerDropdown("searchHistoryDropdown", el.history, el.input);
 
+  // Clear-search button — visible while the box has text; clears the search
+  // and resets to the hint state on click (replaces the native browser X).
+  if (el.clearBtn) el.clearBtn.addEventListener("click", function () {
+    el.input.value = "";
+    updateSearchClear();
+    runSearchAndRender();
+    el.input.focus();
+  });
+
   // Debounced search while typing
   el.input.addEventListener("input", function () {
     el.history.style.display = "none";
     clearTimeout(_searchTimer);
+    updateSearchClear();
     _searchTimer = setTimeout(runSearchAndRender, 150);
   });
 

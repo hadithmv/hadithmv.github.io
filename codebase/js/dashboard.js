@@ -490,6 +490,7 @@ function setupDashboardControls() {
           e.stopPropagation();
           searchInput.value = items[parseInt(this.dataset.idx, 10)];
           _dashFilter.search = searchInput.value;
+          updateSearchClear();
           addSearchHistory(_dashFilter.search, window.LS_KEYS.dashSearchHistory);
           searchHistoryEl.style.display = "none";
           refreshView();
@@ -526,9 +527,25 @@ function setupDashboardControls() {
   });
   window.registerDropdown("searchHistoryDropdown", searchHistoryEl, searchInput);
 
+  // Clear-search button — visible while the box has text; clears the filter
+  // and restores the full grid on click (replaces the native browser X).
+  var searchClearBtn = document.getElementById("dashboardSearchClear");
+  function updateSearchClear() {
+    if (searchClearBtn) searchClearBtn.classList.toggle("visible", !!searchInput.value);
+  }
+  if (searchClearBtn) searchClearBtn.addEventListener("click", function () {
+    searchInput.value = "";
+    _dashFilter.search = "";
+    searchHistoryEl.style.display = "none";
+    updateSearchClear();
+    refreshView();
+    searchInput.focus();
+  });
+
   searchInput.addEventListener("input", function () {
     searchHistoryEl.style.display = "none";
     _dashFilter.search = this.value;
+    updateSearchClear();
     // Record as the filter applies — same as the reader (applySearch), so
     // typing alone lands in history; no Enter needed. addSearchHistory's own
     // debounce absorbs the keystroke burst.

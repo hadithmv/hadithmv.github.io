@@ -256,16 +256,27 @@
     <div id="dashboardWrapper" style="display: none">
       <div id="dashboardPanel" class="sticky-panel">
         <div id="dashboardSearchPanel">
-          <input
-            id="dashboardSearchInput"
-            type="search"
-            class="search-input"
-            data-i18n="dashboardSearchPlaceholder"
-            placeholder="Search books…"
-            dir="rtl"
-            autocomplete="off"
-            title="Search books by title or code (/ or Ctrl+F)"
-          />
+          <div class="search-input-wrap">
+            <input
+              id="dashboardSearchInput"
+              type="search"
+              class="search-input"
+              data-i18n="dashboardSearchPlaceholder"
+              placeholder="Search books…"
+              dir="rtl"
+              autocomplete="off"
+              title="Search books by title or code (/ or Ctrl+F)"
+            />
+            <button
+              type="button"
+              id="dashboardSearchClear"
+              class="search-clear-btn"
+              title="Clear search"
+              aria-label="Clear search"
+            >
+              ✕
+            </button>
+          </div>
           <div
             id="searchHistoryDropdown"
             class="search-results search-history-dropdown"

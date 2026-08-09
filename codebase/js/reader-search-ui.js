@@ -260,6 +260,7 @@ function renderSearchHistory() {
       // closes the results dropdown that applySearch just opened.
       e.stopPropagation();
       searchInput.value = searchHistoryItems[parseInt(this.dataset.idx)];
+      updateSearchClear();
       applySearch(searchInput.value);
       searchHistoryEl.style.display = "none";
     });
@@ -504,6 +505,18 @@ export function initSearchUI(initCtx) {
   searchInput.addEventListener("click", function () {
     if (!this.value.trim()) renderSearchHistory();
   });
+  // Clear-search button — visible while the box has text; clears the search
+  // and resets the reader view on click (replaces the native browser X).
+  var searchClearBtn = document.getElementById("readerSearchClear");
+  function updateSearchClear() {
+    if (searchClearBtn) searchClearBtn.classList.toggle("visible", !!searchInput.value);
+  }
+  if (searchClearBtn) searchClearBtn.addEventListener("click", function () {
+    searchInput.value = "";
+    updateSearchClear();
+    applySearch("");
+    searchInput.focus();
+  });
   // Debounce: one full scan per pause in typing, not one per keystroke.
   // applySearch() clears any pending timer, so explicit applies (history
   // click, whole-word toggle) can't be raced by a stale one.
@@ -511,6 +524,7 @@ export function initSearchUI(initCtx) {
     searchHistoryEl.style.display = "none";
     clearTimeout(_searchDebounceTimer);
     var val = this.value;
+    updateSearchClear();
     _searchDebounceTimer = setTimeout(function () { applySearch(val); }, 120);
   });
   // Close results when clicking outside

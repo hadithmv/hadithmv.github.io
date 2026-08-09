@@ -38,6 +38,95 @@
   border-color: var(--color-nav-btn-text);
 }
 
+/* ---- Clear-search button ---- */
+/* The ✕ floats at the input's inline end (the left edge of the rtl box),
+   inside its bounds — part of the field, not a separate element beside it.
+   It fades in/out; while hidden it's fully out of the way (visibility:
+   hidden, no layout space). Replaces the tiny native browser X of
+   type=search inputs, which is hard to click. */
+.search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  /* the shared 500px cap now lives on the wrap — the input fills it exactly,
+     so the ✕ (anchored to the wrap's inline end) sits at the input's edge */
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+}
+.search-input-wrap .search-input {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  /* room for the ✕ inside the box (it sits at the inline end) */
+  padding-inline-end: 28px;
+}
+.search-clear-btn {
+  position: absolute;
+  inset-inline-end: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--t-pop, 0.15s) ease,
+    background var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
+}
+.search-clear-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.search-clear-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  color: var(--color-error-text);
+}
+/* The reader panel's shared `.reader-panel-row button` box rule (reader.css,
+   loaded after this file) would paint a bordered pill behind the ✕ — restore
+   the shared in-field look, same pattern as the scroll-arrow override there.
+   The `button.` prefix keeps the selector more specific than that rule's
+   hover variant, which also loses the cascade by source order. */
+.reader-panel-row button.search-clear-btn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: normal;
+  transition:
+    opacity var(--t-pop, 0.15s) ease,
+    background var(--t-hover, 0.15s) ease,
+    color var(--t-hover, 0.15s) ease;
+}
+.reader-panel-row button.search-clear-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  color: var(--color-error-text);
+}
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 /* Search history items */
 .search-history-item {
   display: flex;
