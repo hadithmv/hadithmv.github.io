@@ -28,6 +28,15 @@ var btnAdvancedSearch = null;
 var advSearchOverlay = null;
 var advSearchRows = null;
 var readerContent = null;
+var searchClearBtn = null;
+
+// Visible while the box has text. Module scope so every caller can reach it:
+// the input listener and clear button (inside initSearchUI) and the history
+// item-click (inside renderSearchHistory) — a nested declaration there would
+// be out of scope for the item click and throw.
+function updateSearchClear() {
+  if (searchClearBtn) searchClearBtn.classList.toggle("visible", !!searchInput.value);
+}
 
 let selectedResultIdx = -1; // index within searchResultsEl DOM children
 var wholeWordMode = false;
@@ -314,6 +323,7 @@ function onSearchKeydown(e) {
   }
   if (e.key === "Escape") {
     searchResultsEl.style.display = "none";
+    searchHistoryEl.style.display = "none";
     selectedResultIdx = -1;
     return;
   }
@@ -507,10 +517,7 @@ export function initSearchUI(initCtx) {
   });
   // Clear-search button — visible while the box has text; clears the search
   // and resets the reader view on click (replaces the native browser X).
-  var searchClearBtn = document.getElementById("readerSearchClear");
-  function updateSearchClear() {
-    if (searchClearBtn) searchClearBtn.classList.toggle("visible", !!searchInput.value);
-  }
+  searchClearBtn = document.getElementById("readerSearchClear");
   if (searchClearBtn) searchClearBtn.addEventListener("click", function () {
     searchInput.value = "";
     updateSearchClear();
@@ -534,6 +541,11 @@ export function initSearchUI(initCtx) {
       searchResultsEl.style.display = "none";
     }
   });
+  // Search-history dropdown — outside-click-to-close, same as the library
+  // and dashboard pages. (The results dropdown above keeps its own narrower
+  // handler: the whole-word / advanced buttons re-run the search and must
+  // not close it; history has no such reopen path, so the shared helper fits.)
+  window.registerDropdown("searchHistoryDropdown", searchHistoryEl, searchInput);
   // Re-open when focusing search with an active query
   searchInput.addEventListener("focus", function () {
     if (this.value.trim() && ctx.getFilteredData().length > 0) {
