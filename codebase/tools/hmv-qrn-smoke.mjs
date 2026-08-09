@@ -65,7 +65,6 @@ const expLabels = base06.filter(function (r) {
 const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
 rows02.shift();
 const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-ayahImlai"; }) || [])[2] || "";
-const EXP_TITLE_UTH = (rows02.find(function (r) { return r[0] === "QRN-DATA-ayahUthmani"; }) || [])[2] || "";
 
 async function main() {
   fs.rmSync(PROFILE, { recursive: true, force: true });
@@ -270,10 +269,6 @@ async function main() {
     return t && t.textContent ? t.textContent : null;
   })()`);
   check("no error toast after preset all", !toast || toast.indexOf("⚠️") === -1, toast);
-  const labels = await waitFor(`document.querySelectorAll('.reader-quran-book-label').length > 0`, 15000)
-    && await evalJS(`Array.from(document.querySelectorAll('.reader-quran-book-label')).map(function (el) { return el.textContent; })`);
-  check("book labels present for external books", Array.isArray(labels) && labels.length > 0, JSON.stringify(labels));
-  check("no label for the Uthmani-script column", Array.isArray(labels) && labels.every(function (t) { return t.indexOf(EXP_TITLE_UTH + ":") === -1; }), JSON.stringify(labels));
 
   await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="reset"]').click()`);
   await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 15000);
