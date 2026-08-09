@@ -112,8 +112,25 @@ blaming the product.
   the version as an opaque cache key (`csv.js:162`), so this is truthfulness
   hygiene, not a cache bug, but line-ending-only re-saves churn versions and
   force needless one-time re-downloads. Detection: `wc -c` vs
-  `tr -d '\r' | wc -c` (delta = CR count). Fix: `tr -d '\r'` is byte-safe;
-  then re-run 03 so versions match the LF blobs. Static audits against
+  `tr -d '\r' | wc -c` (delta = CR count) — but CRs come in two flavors and
+  the delta alone doesn't tell them apart. **Line-ending CRLF pairs are
+  editor taint; bare CRs (0x0D not followed by LF) inside quoted CSV fields
+  are legitimate data** — 10 files carry them (DFK-kitabulIlmAbiKhaithama 193,
+  HDT-bulughulMaram-FULL-HDN 128, HDT-bulughulMaram 59,
+  IH-huquqDaathIlaihalFitra 21, IH-mukhtasarTauhidilAsmaWaSifat 7,
+  HDT-arbaoonNawawi 6, DFK-sharhuSunnahBarbahari 2, HDT-HBK-sunanAbiDawud 1,
+  RDF-ahmadFahmyDidi 1, RDF-asmaullahilHusna 1; verified 2026-08-09), so a
+  blanket `tr -d '\r'` is **NOT byte-safe** — it corrupts those files. Fix:
+  strip only `\r\n` pairs (`sed 's/\r$//'`). 03-update-bookRegistry.ps1
+  self-heals: a byte-level `\r\n`→`\n` pass (Latin-1 round-trip, bare CRs
+  preserved) normalizes any tainted file before hashing, so versions describe
+  the LF form that will be deployed, not the tainted disk bytes. 8 files were
+  committed with CRLF line endings (DFK-sharhuSunnahBarbahari,
+  HDT-HBK-sunanAbiDawud, HDT-bulughulMaram, HDT-bulughulMaram-FULL-HDN,
+  IH-huquqDaathIlaihalFitra, IH-mukhtasarTauhidilAsmaWaSifat,
+  RDF-ahmadFahmyDidi, RDF-asmaullahilHusna); their disk files are LF now and
+  the registry versions are the LF-form hashes, so after the next commit
+  those 8 books re-download once per visitor, then stabilize. Static audits against
   HTML miss classes only present in JS strings — the Tier 2 sweep deleted two
   live rules (`.modal-overlay` base, `.card` surface; `class="card book-card"`
   in dashboard.js:408, `class="card lib-result"` in library-search-page.js:381;

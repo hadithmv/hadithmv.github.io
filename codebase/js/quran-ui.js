@@ -549,6 +549,11 @@ export function initQuranUI(ctx) {
     var html = "";
     for (var i = 0; i < _colOrder.length; i++) {
       var key = _colOrder[i];
+      // Juz/surah/ayah are fixed structural columns: auto-hidden (-HDN),
+      // never reorderable, and their checkbox is a no-op (loadAndInsertColumn
+      // early-returns for QRN_BASE_STRUCT) — don't offer them in the modal.
+      // Basmalah (QRN-BASE-STRUCT:3) and the imlai row stay: real toggles.
+      if (key === QRN_BASE_STRUCT + ":0" || key === QRN_BASE_STRUCT + ":1" || key === QRN_BASE_STRUCT + ":2") continue;
       var parts = key.split(":");
       var sourceBook = parts.slice(0, -1).join(":");
       var sourceCol = parseInt(parts[parts.length - 1], 10);

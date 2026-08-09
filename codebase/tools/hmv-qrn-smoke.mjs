@@ -10,8 +10,9 @@
 //    ayahImlai, translation; juz/surah/ayah auto-hidden via -HDN)
 //  - juz nav 1/2/12/13/30 lands the TABLE on the right first rows; surah
 //    nav 1/2/9/114; basmalah on 2:1/114:1, empty on 1:1/9:1
-//  - content modal: 5 base rows keyed QRN-BASE-STRUCT:0..3 + imlai:0 with
-//    05 labels, no "QRN-BASE-STRUCT" text anywhere
+//  - content modal: 2 base rows keyed QRN-BASE-STRUCT:3 (basmalah) + imlai:0
+//    with 05 labels, no "QRN-BASE-STRUCT" text anywhere (juz/surah/ayah are
+//    fixed structural columns, not offered in the modal)
 //  - PRESET_ALL loads books without an error toast; PRESET_RESET back to 3
 //  - search filters; settings Reset no error toast
 //  - imlai book renders as a standard 1-column book (no quran panel)
@@ -56,7 +57,11 @@ const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" ||
     if (a[0] === b[0]) return parseInt(a[1], 10) - parseInt(b[1], 10);
     return a[0] === "QRN-BASE-STRUCT" ? -1 : 1;
   });
-const expLabels = base06.map(function (r) { return r[2]; });
+// visible base rows only — juz/surah/ayah (QRN-BASE-STRUCT:0..2) are not
+// offered in the modal; basmalah (3) and imlai stay
+const expLabels = base06.filter(function (r) {
+  return !(r[0] === "QRN-BASE-STRUCT" && parseInt(r[1], 10) < 3);
+}).map(function (r) { return r[2]; });
 const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
 rows02.shift();
 const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-ayahImlai"; }) || [])[2] || "";
@@ -247,9 +252,9 @@ async function main() {
       bodyText: document.body.innerText,
     };
   })()`);
-  check("4 structural rows (QRN-BASE-STRUCT:0..3)", modal.struct === 4, String(modal.struct));
+  check("1 structural row (QRN-BASE-STRUCT:3 basmalah)", modal.struct === 1, String(modal.struct));
   check("1 imlai row (QRN-DATA-ayahImlai:0)", modal.imlai === 1, String(modal.imlai));
-  check("5 base rows total", modal.struct + modal.imlai === 5, String(modal.total) + " rows total");
+  check("2 base rows total", modal.struct + modal.imlai === 2, String(modal.total) + " rows total");
   check("no QRN-BASE-STRUCT text anywhere", modal.bodyText.indexOf("QRN-BASE-STRUCT") === -1, "");
   check("base labels match 05 registry (dv)", JSON.stringify(modal.baseLabels) === JSON.stringify(expLabels), JSON.stringify(modal.baseLabels));
 
