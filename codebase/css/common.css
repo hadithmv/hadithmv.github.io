@@ -1326,6 +1326,17 @@ body:has(.modal-overlay.open) {
   flex-shrink: 0;
 }
 
+/* Full-bleed chrome strips (#topBar::after, and the reader's #topBar::before /
+   #readerPanel::before) reach ±50vw beyond their boxes by design. Clip that
+   at the root so the strips never widen the page: without this the reader
+   page scrolls horizontally (scrollWidth 570 at a 375px viewport). `clip`
+   not `hidden` — it creates no scroll container, so the sticky panels keep
+   sticking against the viewport. */
+html,
+body {
+  overflow-x: clip;
+}
+
 #topBar button {
   flex-shrink: 0;
 }
