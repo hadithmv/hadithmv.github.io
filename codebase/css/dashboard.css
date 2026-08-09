@@ -251,12 +251,17 @@ a.toolbar-btn {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   transition: border-color var(--t-hover, 0.15s) ease, background var(--t-hover, 0.15s) ease;
 }
-/* Join the pieces into one continuous reading: "label · title · pos · time" */
+/* Join the pieces into one continuous reading: "label title · pos · time" */
 .dash-continue > span + span::before {
   content: "·";
   margin: 0 8px;
   color: var(--color-text-subtle);
   opacity: 0.5;
+}
+/* No dot between the lead word and the title — an empty box keeps the
+   spacing (margin from the rule above) while dropping the dot */
+.dash-continue > span + .dash-continue-title::before {
+  content: "";
 }
 /* No span text can ever break to a second line — only the title is allowed
    to shrink (ellipsis); the rest keep their full width. */
