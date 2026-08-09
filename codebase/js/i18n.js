@@ -325,9 +325,10 @@ const STRINGS = {
   relativeHoursShort: { dv: "ގަޑިއިރު", en: "h", ar: "س" },
   relativeDaysShort: { dv: "ދުވަސް", en: "d", ar: "ي" },
   searchClearHistory: {
-    dv: "✕   ހިސްޓަރީ ފޮހެލާ",
-    en: "✕   Clear history",
-    ar: "✕   مسح السجل",
+    // icon AFTER the text — natural reading order in both directions
+    dv: "ހިސްޓަރީ ފޮހެލާ ✕",
+    en: "Clear history ✕",
+    ar: "مسح السجل ✕",
   },
   dashboardColTitleAR: {
     dv: "އަރަބި ނަން",

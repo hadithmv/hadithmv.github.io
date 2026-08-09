@@ -538,7 +538,6 @@ function setupDashboardControls() {
       };
       _dashTableMode = false;
       searchInput.value = "";
-      searchClear.style.display = "none";
       sortSelect.value = "az";
       history.replaceState(null, "", window.location.pathname);
       // NOTE: pins & history survive the dashboard reset — they only clear via
@@ -616,7 +615,6 @@ function setupDashboardControls() {
     if (e.key === "Escape" && isInput && e.target === searchInput) {
       searchInput.value = "";
       _dashFilter.search = "";
-      searchClear.style.display = "none";
       refreshView();
       searchInput.blur();
     }

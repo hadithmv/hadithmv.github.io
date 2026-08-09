@@ -1117,7 +1117,11 @@ body:has(.modal-overlay.open) {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 0.75em;
-  line-height: var(--control-line-height, 33px);
+  /* line-height 33px in a 33px content box clips Thaana fili marks that paint
+     above the em box (the start of the term looks cut off). Shrinking the line
+     box to 1em keeps the text vertically centered while leaving the tall marks
+     room inside the box. */
+  line-height: 1;
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   border: 1px solid var(--color-card-hover-border);
   border-radius: var(--radius-md, 8px);

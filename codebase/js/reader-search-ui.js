@@ -22,7 +22,6 @@ import { updatePagination } from "./reader-position.js";
 var ctx = null;
 var searchInput = null;
 var searchResultsEl = null;
-var readerResultCount = null;
 var searchHistoryEl = null;
 var btnWholeWord = null;
 var btnAdvancedSearch = null;
@@ -33,6 +32,10 @@ var readerContent = null;
 let selectedResultIdx = -1; // index within searchResultsEl DOM children
 var wholeWordMode = false;
 var _searchDebounceTimer = null;
+// True match count from the last applySearch — the count header in the
+// results dropdown renders from this (the dropdown is where the count
+// lives now that the row span is gone).
+var _lastResultCount = 0;
 var advConditions = [];
 var OPERATORS = [
   { id: "equals", fn: function(cellVal, q) { return cellVal === q; }, needsValue: true },
@@ -121,9 +124,31 @@ function buildResultsHTML(query) {
 }
 
 function updateSearchResults(query) {
-  searchResultsEl.innerHTML = buildResultsHTML(query);
-  searchResultsEl.style.display =
-    query.trim() && ctx.getFilteredData().length > 0 ? "" : "none";
+  var q = query.trim();
+  var html = "";
+  if (q) {
+    // Count header first — the dropdown is the single home of the result
+    // count. _lastResultCount mirrors the last applySearch; the input
+    // value is unchanged here (any edit re-applies within the debounce).
+    html =
+      '<div class="search-count-header">' +
+      t("resultCount") +
+      ": " +
+      _lastResultCount +
+      "</div>";
+    if (_lastResultCount === 0) {
+      html +=
+        '<div class="search-no-matches">' +
+        t("noMatchesMsg") +
+        ': "' +
+        escapeHTML(q) +
+        '"</div>';
+    } else {
+      html += buildResultsHTML(query);
+    }
+  }
+  searchResultsEl.innerHTML = html;
+  searchResultsEl.style.display = q ? "" : "none";
   selectedResultIdx = -1;
   // Wire clicks
   searchResultsEl
@@ -147,7 +172,6 @@ export function applySearch(query) {
   var q = query.trim();
   if (!q) {
     ctx.setFilteredData(ctx.allData);
-    readerResultCount.style.display = "none";
     searchResultsEl.style.display = "none";
     ctx.rebuildAll();
     return;
@@ -157,26 +181,35 @@ export function applySearch(query) {
   var tempFiltered = ctx.allData.filter(function (row, ri) {
     return rowMatchesQueryNorm(row, ctx.normAllData[ri], compiled);
   });
+  _lastResultCount = tempFiltered.length;
 
   addSearchHistory(q);
-  readerResultCount.style.display = "";
-  readerResultCount.textContent =
-    tempFiltered.length === 0
-      ? t("noResults")
-      : t("resultCount") + ": " + tempFiltered.length;
   if (tempFiltered.length === 0) {
+    // The count lives in the dropdown now — show it even for zero hits,
+    // with a no-matches line under the header. The content empty-state
+    // stays as the persistent "nothing here" indicator.
+    searchResultsEl.innerHTML =
+      '<div class="search-count-header">' + t("resultCount") + ": 0</div>" +
+      '<div class="search-no-matches">' + t("noMatchesMsg") + ': "' +
+      escapeHTML(query) +
+      '"</div>';
+    searchResultsEl.style.display = "";
+    selectedResultIdx = -1;
     readerContent.innerHTML =
       '<div class="empty-state">' + t("noMatchesMsg") + ': "' +
-      query +
+      escapeHTML(query) +
       '"</div>';
-    searchResultsEl.style.display = "none";
       ctx.setLoadedStart(-1);
       ctx.setLoadedEnd(-1);
       updatePagination();
     } else {
       // Show results without filtering — clicking jumps to real row
       var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
-      searchResultsEl.innerHTML = buildAdvResultsHTML(query, tempFiltered, realIdxMap);
+      searchResultsEl.innerHTML =
+        '<div class="search-count-header">' + t("resultCount") + ": " +
+        tempFiltered.length +
+        "</div>" +
+        buildAdvResultsHTML(query, tempFiltered, realIdxMap);
       searchResultsEl.style.display = "";
       selectedResultIdx = -1;
       searchResultsEl.querySelectorAll(".search-result[data-real]").forEach(function (el) {
@@ -223,6 +256,9 @@ function renderSearchHistory() {
   searchHistoryEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
     item.addEventListener("click", function (e) {
       if (e.target.classList.contains("hist-remove")) return;
+      // Without this the same click bubbles to the outside-click handler and
+      // closes the results dropdown that applySearch just opened.
+      e.stopPropagation();
       searchInput.value = searchHistoryItems[parseInt(this.dataset.idx)];
       applySearch(searchInput.value);
       searchHistoryEl.style.display = "none";
@@ -357,15 +393,11 @@ function applyAdvancedSearch() {
   var tempFiltered = result;
   advSearchOverlay.classList.remove("open");
   if (tempFiltered.length === 0) {
-    readerResultCount.style.display = "";
-    readerResultCount.textContent = t("noResults");
     readerContent.innerHTML = '<div class="empty-state">' + t("noMatchesMsg") + '</div>';
     ctx.setLoadedStart(-1);
     ctx.setLoadedEnd(-1);
     updatePagination();
   } else {
-    readerResultCount.style.display = "";
-    readerResultCount.textContent = t("resultCount") + ": " + tempFiltered.length;
     var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
     var q = advConditions.length > 0 ? advConditions[0].val : "";
     var resHTML = q ? buildAdvResultsHTML(q, tempFiltered, realIdxMap) : "";
@@ -378,7 +410,9 @@ function applyAdvancedSearch() {
         resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
       }
     }
-    readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + resHTML + '</div>';
+    // Count line at the top of the inline block — the search-row span is
+    // gone, so this is where the advanced search shows its total.
+    readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + '<div class="search-count-header">' + t("resultCount") + ": " + tempFiltered.length + '</div>' + resHTML + '</div>';
     ctx.setLoadedStart(-1);
     ctx.setLoadedEnd(-1);
     updatePagination();
@@ -412,7 +446,6 @@ export function initSearchUI(initCtx) {
   ctx = initCtx;
   searchInput = document.getElementById("readerSearchInput");
   searchResultsEl = document.getElementById("searchResultsDropdown");
-  readerResultCount = document.getElementById("readerResultCount");
   searchHistoryEl = document.getElementById("searchHistoryDropdown");
   btnWholeWord = document.getElementById("btnWholeWord");
   btnAdvancedSearch = document.getElementById("btnAdvancedSearch");

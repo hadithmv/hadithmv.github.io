@@ -278,19 +278,18 @@ async function main() {
 
   // ── D. search + settings reset ─────────────────────────────────────
   console.log("== D. search / settings ==");
-  const rc0 = await evalJS(`(function () { var rc = document.getElementById('readerResultCount'); return rc ? rc.textContent : ''; })()`);
   await evalJS(`(function () {
     var inp = document.getElementById('readerSearchInput');
     inp.value = 'الناس';
     inp.dispatchEvent(new Event('input', { bubbles: true }));
   })()`);
-  await waitFor(`document.getElementById('readerResultCount').textContent !== ` + JSON.stringify(rc0), 10000);
+  await waitFor(`document.querySelector('#searchResultsDropdown .search-count-header') !== null`, 10000);
   await sleep(300);
   const res = await evalJS(`(function () {
-    var rc = document.getElementById('readerResultCount');
+    var h = document.querySelector('#searchResultsDropdown .search-count-header');
     return {
       rows: document.querySelectorAll('.reader-table tbody tr').length,
-      rc: rc ? rc.textContent.trim() : null,
+      rc: h ? h.textContent.trim() : null,
     };
   })()`);
   check("search filters rows", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
