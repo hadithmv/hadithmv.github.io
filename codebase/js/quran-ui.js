@@ -15,7 +15,7 @@ export {
   getSurahNames, getSurahInfo, toArabicNumeral, AYAH_TEXT_COLS,
   isAyahTextColumn, decorateAyah, loadQuranBookCSV, mergeQuranData,
   loadColumnRegistry,
-  rebuildColumnSourceMap, getColumnSourceBookTitle, hasExternalColumns,
+  rebuildColumnSourceMap, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns,
   getAllAvailableColumns, quranState,
   buildSurahListHTML, findQuranColIndices,
   getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,

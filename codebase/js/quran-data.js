@@ -491,6 +491,12 @@ export function getColumnSourceBookTitle(colIndex) {
   return getBookTitleSync(info.sourceBook) || info.sourceBook;
 }
 
+// The source book code a column belongs to (null for base data columns)
+export function getColumnSourceBook(colIndex) {
+  if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
+  return _columnSourceMap[colIndex].sourceBook;
+}
+
 // True when any column from a book other than current or base is loaded
 export function hasExternalColumns(currentBookCode) {
   if (!_columnSourceMap) return false;

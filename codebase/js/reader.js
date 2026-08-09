@@ -10,7 +10,7 @@ import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned } 
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
 import { initPosition, updatePagination, visiblePageIndex } from "./reader-position.js";
@@ -532,8 +532,12 @@ initializePageWithMetadata(async function (metadata) {
           if (quranBook && hasExternalColumns(metadata.bookCode)) {
             var colSourceTitle = getColumnSourceBookTitle(colIdx);
             if (colSourceTitle && colSourceTitle !== lastExtBook) {
-              h += '<div class="reader-quran-book-label">' + colSourceTitle + ':</div>';
-              lastExtBook = colSourceTitle;
+              // No label for the Uthmani-script column — redundant beside the
+              // base imlai column; every other book still labels its group.
+              if (getColumnSourceBook(colIdx) !== "QRN-DATA-ayahUthmani") {
+                h += '<div class="reader-quran-book-label">' + colSourceTitle + ':</div>';
+                lastExtBook = colSourceTitle;
+              }
             } else if (!colSourceTitle) {
               lastExtBook = "";
             }
@@ -627,12 +631,14 @@ initializePageWithMetadata(async function (metadata) {
             var gIdx = fg[gi].index;
             var gHdr = (headerRow && headerRow[gIdx]) ? headerRow[gIdx].toLowerCase() : "";
             var gDisplay = fieldHTML(fg[gi].value, gIdx);
-            // Quran book labels
+            // Quran book labels (skipped for the Uthmani-script column)
             if (quranBook && hasExternalColumns(metadata.bookCode)) {
               var groupLabel = getColumnSourceBookTitle(gIdx);
               if (groupLabel && groupLabel !== lastExtBook) {
-                gh += '<div class="reader-quran-book-label">' + groupLabel + ':</div>';
-                lastExtBook = groupLabel;
+                if (getColumnSourceBook(gIdx) !== "QRN-DATA-ayahUthmani") {
+                  gh += '<div class="reader-quran-book-label">' + groupLabel + ':</div>';
+                  lastExtBook = groupLabel;
+                }
               } else if (!groupLabel) { lastExtBook = ""; }
             }
             if (isFootnoteColumn(gHdr) && fg.length > 1) {

@@ -370,6 +370,10 @@ The content modal (`quran-ui.js`) lists every available column in `_colOrder` (r
 
 Returns the book-level title (from `02-registry-bookMeta.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
 
+### `getColumnSourceBook(colIndex)`
+
+Returns the source book code that column `colIndex` belongs to (or `null` for base data columns). The renderer uses this to skip the source-book label for the Uthmani-script column.
+
 ### `hasExternalColumns(currentBookCode)`
 
 Returns `true` when any column from a book other than `currentBookCode` or the base data is loaded. The renderer uses this to decide whether to show source-book labels.
