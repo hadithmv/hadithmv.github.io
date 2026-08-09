@@ -930,6 +930,10 @@ initializePageWithMetadata(async function (metadata) {
           btnBookmark.innerHTML = t("btnBookmarkText");
         }
         btnBookmark.title = pinned ? "Remove bookmark (Alt+P)" : "Bookmark current page (Alt+P)";
+        // The pin labels differ in width (ޕިން vs ޕިންވެފަ) — reserve the
+        // wider one so toggling never resizes the button. Idempotent;
+        // re-measures on language changes.
+        window.reserveWidestText(btnBookmark, [t("btnBookmarkText"), t("btnBookmarkPinned")]);
       }
       function pinLabel(vRow) {
         if (!quranBook || filteredData.length === 0) return null;
