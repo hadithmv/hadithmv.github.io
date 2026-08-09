@@ -29,6 +29,10 @@ import {
   buildNormData,
   buildSnippets,
   highlightMatches,
+  addSearchHistory,
+  getSearchHistory,
+  removeSearchHistoryItem,
+  clearSearchHistory,
 } from "./search-utils.js";
 
 // ── Page state ───────────────────────────────────────────────
@@ -37,6 +41,7 @@ var _q = ""; // current query (trimmed)
 var _selectedTags = []; // active tag chips (OR — same semantics as the grid)
 var _searchTimer = null; // input debounce
 var _refreshTags = null; // tag-row collapse refresh (common.js)
+var _skipHistoryOnFocus = false; // true only for the initial desktop auto-focus
 
 var PEEK_BATCH = 8;
 var _peekCache = {}; // bookCode → q → {q, allData, normAllData, compiled, matches, pos, hasRowNums}
@@ -44,6 +49,7 @@ var _peekCache = {}; // bookCode → q → {q, allData, normAllData, compiled, m
 var el = {
   input: null,
   clear: null,
+  history: null,
   tagsRow: null,
   count: null,
   results: null,
@@ -172,6 +178,9 @@ function runSearchAndRender() {
     showEmpty("libNoResults");
     return;
   }
+  // Record the query as it is applied — same as the reader (applySearch), so
+  // typing alone lands in history; no Enter needed.
+  addSearchHistory(_q, window.LS_KEYS.libSearchHistory);
   el.count.style.display = "none";
   el.results.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
   loadSearchIndex()
@@ -185,6 +194,55 @@ function runSearchAndRender() {
       var retryBtn = document.getElementById("libSearchRetry");
       if (retryBtn) retryBtn.addEventListener("click", runSearchAndRender);
     });
+}
+
+// ── Search history dropdown ──────────────────────────────────
+// Same pattern as the reader's: every applied search commits (own key —
+// lib:searchHistory), the dropdown appears when the empty input is focused,
+// items re-run on click, ✕ removes one, "Clear" empties all.
+function renderSearchHistory() {
+  var items = getSearchHistory(window.LS_KEYS.libSearchHistory);
+  if (items.length === 0) {
+    el.history.style.display = "none";
+    return;
+  }
+  // Position below the search bar, full width (openDropdown sets the left
+  // edge; pin the right edge too so the width tracks the input)
+  window.openDropdown(el.history, el.input, 0);
+  var sbRect = el.input.getBoundingClientRect();
+  el.history.style.right = (window.innerWidth - sbRect.right) + "px";
+  el.history.innerHTML = items.map(function (term, i) {
+    return '<div class="search-history-item" data-idx="' + i + '">' +
+      '<span class="hist-text">' + escapeHTML(term) + '</span>' +
+      '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
+  }).join("") +
+  '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
+  el.history.style.display = "";
+  // Wire clicks
+  el.history.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
+    item.addEventListener("click", function (e) {
+      if (e.target.classList.contains("hist-remove")) return;
+      // Without this the same click bubbles to the outside-click handler and
+      // closes the dropdown right after it is hidden.
+      e.stopPropagation();
+      el.input.value = items[parseInt(this.dataset.idx)];
+      el.history.style.display = "none";
+      runSearchAndRender(); // commits the re-applied query to history
+    });
+  });
+  el.history.querySelectorAll(".hist-remove").forEach(function (x) {
+    x.addEventListener("click", function (e) {
+      e.stopPropagation();
+      removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.libSearchHistory);
+      renderSearchHistory();
+    });
+  });
+  // Clear-all button
+  var clearAll = el.history.querySelector(".search-history-clear");
+  if (clearAll) clearAll.addEventListener("click", function () {
+    clearSearchHistory(window.LS_KEYS.libSearchHistory);
+    el.history.style.display = "none";
+  });
 }
 
 // ── Result peek (expand to preview matching rows inline) ─────
@@ -442,13 +500,28 @@ async function init() {
   el.tagsToggle = document.getElementById("libTagsToggle");
   el.count = document.getElementById("libResultCount");
   el.results = document.getElementById("libResults");
+  el.history = document.getElementById("searchHistoryDropdown");
   if (!el.input) return;
 
   readURLParams();
   el.input.value = _q;
 
+  // History dropdown: shown when the empty input is focused or clicked
+  // (the box is auto-focused at load, so a plain click would otherwise never
+  // fire a focus event), closed by outside-click (registerDropdown below),
+  // typing, or Escape.
+  el.input.addEventListener("focus", function () {
+    if (!this.value.trim() && !_skipHistoryOnFocus) renderSearchHistory();
+    _skipHistoryOnFocus = false;
+  });
+  el.input.addEventListener("click", function () {
+    if (!this.value.trim()) renderSearchHistory();
+  });
+  window.registerDropdown("searchHistoryDropdown", el.history, el.input);
+
   // Debounced search while typing
   el.input.addEventListener("input", function () {
+    el.history.style.display = "none";
     clearTimeout(_searchTimer);
     _searchTimer = setTimeout(runSearchAndRender, 150);
   });
@@ -488,10 +561,21 @@ async function init() {
       e.preventDefault();
       window.setFocus(!document.documentElement.hasAttribute("data-focus"));
     }
+    // Enter commits the query into the search history (the debounced
+    // search-as-you-type still runs on every pause — Enter just records it)
+    if (e.key === "Enter" && e.target === el.input) {
+      e.preventDefault();
+      clearTimeout(_searchTimer);
+      var q = el.input.value.trim();
+      if (!q) return;
+      el.history.style.display = "none";
+      runSearchAndRender();
+    }
     if (e.key === "Escape" && isInput && e.target === el.input) {
       el.input.value = "";
       _q = "";
       syncURL();
+      el.history.style.display = "none";
       showEmpty("libSearchHint");
       el.input.blur();
     }
@@ -506,8 +590,12 @@ async function init() {
   if (_q) runSearchAndRender();
   else showEmpty("libSearchHint");
 
-  // Auto-focus search on desktop
-  if (window.innerWidth > window.MOBILE_BP) el.input.focus();
+  // Auto-focus search on desktop — skip popping the history dropdown over a
+  // fresh page; it appears on any later focus of the empty input.
+  if (window.innerWidth > window.MOBILE_BP) {
+    _skipHistoryOnFocus = true;
+    el.input.focus();
+  }
 }
 
 init();

@@ -24,24 +24,24 @@ initializePageWithMetadata(async function (metadata) {
   //   Book loading (standard CSV or Quran merge)           L46-114
   //   Page header, tag badges, language-aware titles       L117-175
   //   Persisted settings (LS wrapper, -HDN column init)    L178-224
-  //   Reader state, column toggles, dropdown infrastructure L227-333
-  //   Tashkeel helpers                                     L336-343
-  //   Clipboard formatting (rowText)                       L346-433
-  //   View mode dropdown (card / table / parallel)         L436-484
-  //   Quran helpers                                        L487-491
-  //   Card row renderer (renderRowHTML)                    L494-568
-  //   Parallel row renderer (renderParallelRowHTML)        L571-683
-  //   Chunk + table-row renderers                          L686-727
-  //   Infinite scroll + table scrollbar                    L730-853
-  //   Navigation (goTo, scroll padding)                    L856-876
-  //   Search UI (wiring — module: reader-search-ui.js)     L879-905
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L908-1060
-  //   Keyboard shortcuts (incl. navigation buttons)        L1063-1166
-  //   Touch swipe                                          L1169-1189
-  //   Settings reset + language change                     L1192-1205
-  //   Quran UI (initQuranUI ctx)                           L1208-1228
-  //   Initial render (deep links, reveal)                  L1231-1297
-  //   Module-level helpers (showError)                     L1300-1306
+  //   Reader state, column toggles, dropdown infrastructure L227-313
+  //   Tashkeel helpers                                     L316-323
+  //   Clipboard formatting (rowText)                       L326-413
+  //   View mode dropdown (card / table / parallel)         L416-464
+  //   Quran helpers                                        L467-471
+  //   Card row renderer (renderRowHTML)                    L474-548
+  //   Parallel row renderer (renderParallelRowHTML)        L551-663
+  //   Chunk + table-row renderers                          L666-707
+  //   Infinite scroll + table scrollbar                    L710-833
+  //   Navigation (goTo, scroll padding)                    L836-856
+  //   Search UI (wiring — module: reader-search-ui.js)     L859-885
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L888-1040
+  //   Keyboard shortcuts (incl. navigation buttons)        L1043-1146
+  //   Touch swipe                                          L1149-1169
+  //   Settings reset + language change                     L1172-1185
+  //   Quran UI (initQuranUI ctx)                           L1188-1208
+  //   Initial render (deep links, reveal)                  L1211-1277
+  //   Module-level helpers (showError)                     L1280-1286
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -289,35 +289,15 @@ initializePageWithMetadata(async function (metadata) {
       }
       buildColumnToggles();
 
-      // Shared: close all dropdowns (columns, export, Quran ayah/juz/content/display, surah overlay)
-      var _ddIds = ["columnDropdown", "exportDropdown", "searchHistoryDropdown", "qrnAyahDropdown", "qrnJuzDropdown", "qrnDisplayDropdown", "qrnSurahOverlay"];
-
-      window.closeAllDropdowns = function () {
-        _ddIds.forEach(function (id) {
-          var el = document.getElementById(id);
-          if (el) el.style.display = "none";
-        });
-      };
-
-      // Shared: open a dropdown positioned below its anchor
-      window.openDropdown = function (dd, anchorEl, gap) {
-        window.closeAllDropdowns();
-        var r = anchorEl.getBoundingClientRect();
-        dd.style.position = "fixed";
-        dd.style.top = r.bottom + (gap || 4) + "px";
-        dd.style.left = r.left + "px";
-        dd.style.display = "block";
-      };
-
-      // Wire the outside-click-to-close handler for a dropdown
-      window.registerDropdown = function (id, dd, anchor) {
-        if (_ddIds.indexOf(id) === -1) _ddIds.push(id);
-        document.addEventListener("click", function (e) {
-          if (!dd.contains(e.target) && e.target !== anchor) {
-            dd.style.display = "none";
-          }
-        });
-      };
+      // Shared dropdown helpers (openDropdown / closeAllDropdowns /
+      // registerDropdown) live in common.js — the library-search page uses
+      // them too. Keep the page's close-all id list here; the quran-nav
+      // dropdowns are created later, so closeAllDropdowns resolves ids lazily.
+      ["columnDropdown", "exportDropdown", "searchHistoryDropdown",
+       "qrnAyahDropdown", "qrnJuzDropdown", "qrnDisplayDropdown",
+       "qrnSurahOverlay"].forEach(function (id) {
+        window.registerDropdownId(id);
+      });
 
       // Column dropdown toggle
       var btnColumnDropdown = document.getElementById("btnColumnDropdown");

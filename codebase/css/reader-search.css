@@ -74,6 +74,9 @@
   justify-content: center;
   padding: 8px 14px;
   cursor: pointer;
+  /* Explicit family like .hist-text — the row's text is Thaana ("Clear
+     history ✕") and the reader wrapper's font must not leak into it */
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-error-text);

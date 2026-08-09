@@ -343,7 +343,9 @@ Settings and small state live in `localStorage` (table below). **IndexedDB** is 
 
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
 | `reader:hiddenColumns:{bookCode}` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns — **keyed per book** (a global key leaked hidden indices across books; see the `-HDN` convention) |
-| `reader:searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent search queries (max 20) |
+| `reader:searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent in-book search queries (max 20) — the reader records on every applied search; key defaults when none is passed |
+| `lib:searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent cross-book search queries (max 20) — the library-search page records on every applied search / history-item click |
+| `dash:searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent dashboard (book list) search queries (max 20) — the index page records on every applied search / history-item click |
 | `pinnedBooks` | `pins-history.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). **One entry per book.** The reader's 📌 button toggles (pin / unpin); while pinned, the entry's row auto‑updates as the user reads (the 2 s scroll debounce calls `addPin` on the pinned book — see the dashboard section). Any future multi‑pin feature must change this model |
 | `readHistory` | `pins-history.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
 | `reader:quranShowAyahNum` | `reader.js` | boolean (JSON) | Show ayah number decoration |
@@ -481,6 +483,8 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
     localStorage
     ├── pinnedBooks, readHistory  (pins-history.js)
     ├── reader:searchHistory      (search-utils.js)
+    │   lib:searchHistory         (search-utils.js — library-search page)
+    │   dash:searchHistory        (search-utils.js — dashboard page)
     ├── reader:hiddenColumns:{bookCode} (reader.js)
     │   reader:hideTashkeel, etc.
     ├── theme, fontSize, lang,    (common.js)
@@ -699,12 +703,12 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 | Files | kebab-case | `quran-data.js`, `pins-history.js`, `reader.js` |
 | Functions | camelCase | `renderRowHTML`, `buildClipboardText` |
 | Constants (module‑level) | UPPER_SNAKE | `MAX_PINS`, `ROWS_PER_CHUNK`, `DEFAULT_FONT_SIZE` |
-| Private module‑level state | `_camelCase` | `_bookNamesCache`, `_loadedColMap`, `_searchHistory`, `_lastBookNames` |
+| Private module‑level state | `_camelCase` | `_bookNamesCache`, `_loadedColMap`, `_historyCache`, `_lastBookNames` |
 | DOM element IDs | camelCase | `readerContent`, `btnExport`, `dashboardPanelSearch` |
 | CSS classes | kebab-case + namespace | `reader-field-matn`, `dash-table`, `quran-nav-btn` |
 | Shared CSS utilities | `dd-` prefix | `.dd-item`, `.dd-menu`, `.dd-check` (dropdowns); `.dd-table`, `.dd-row`, `.dd-col-*` (pins/history modal table, scoped under `.pins-history-body`) |
 | Custom events | single lowercase word | `readerReset`, `focuschange`, `languagechange` |
-| LocalStorage keys | `reader:` prefix for reader | `reader:hiddenColumns:{bookCode}`, `reader:searchHistory` |
+| LocalStorage keys | `reader:` prefix for reader; `lib:` for library-search; `dash:` for the dashboard | `reader:hiddenColumns:{bookCode}`, `reader:searchHistory`, `lib:searchHistory`, `dash:searchHistory` |
 
 **New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `js/export.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
 

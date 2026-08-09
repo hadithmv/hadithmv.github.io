@@ -499,6 +499,11 @@ export function initSearchUI(initCtx) {
     if (!this.value.trim()) renderSearchHistory();
     else searchResultsEl.style.display = "";
   });
+  // Clicking an already-focused box fires no focus event — re-trigger here so
+  // the history dropdown also opens on a plain click of the empty input.
+  searchInput.addEventListener("click", function () {
+    if (!this.value.trim()) renderSearchHistory();
+  });
   // Debounce: one full scan per pause in typing, not one per keystroke.
   // applySearch() clears any pending timer, so explicit applies (history
   // click, whole-word toggle) can't be raced by a stale one.

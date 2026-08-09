@@ -5,9 +5,7 @@
  * Functions on `window` used by BOTH pages MUST be defined here.
  *   window.setFocus, window.showToast, window.copyToClipboard,
  *   window.LS_KEYS, window.createModal, window.MODAL_IDS,
- *   window.openModal, window.closeModal, window.closeAllModals
- *
- * Functions on `window` used ONLY by the reader page live in reader.js:
+ *   window.openModal, window.closeModal, window.closeAllModals,
  *   window.openDropdown, window.closeAllDropdowns, window.registerDropdown
  *
  * Functions on `window` for pins/history live in pins-history.js:
@@ -31,6 +29,8 @@ window.LS_KEYS = {
   readHistory: "readHistory",
   readerPrefix: "reader:",
   readerSearchHistory: "reader:searchHistory",
+  libSearchHistory: "lib:searchHistory",
+  dashSearchHistory: "dash:searchHistory",
   readerHideTashkeel: "reader:hideTashkeel",
   // NOTE: hidden columns are per-book (reader:hiddenColumns:{bookCode}),
   // built dynamically in reader.js — no static constant
@@ -45,6 +45,42 @@ window.LS_KEYS = {
 // used in media conditions, so the two must match by convention.
 window.MOBILE_BP = 600;
 window.TAG_ALL = "__all__"; // the "All tags" chip's data-tag value
+
+// ── Shared dropdown helpers (reader + library-search pages) ──
+var _ddIds = [];
+
+/** Close every registered dropdown (columns, export, Quran nav, search history). */
+window.closeAllDropdowns = function () {
+  _ddIds.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+};
+
+/** Position a dropdown below its anchor (fixed) and show it. */
+window.openDropdown = function (dd, anchorEl, gap) {
+  window.closeAllDropdowns();
+  var r = anchorEl.getBoundingClientRect();
+  dd.style.position = "fixed";
+  dd.style.top = r.bottom + (gap || 4) + "px";
+  dd.style.left = r.left + "px";
+  dd.style.display = "block";
+};
+
+/** Track a dropdown id for closeAllDropdowns (the element may not exist yet). */
+window.registerDropdownId = function (id) {
+  if (_ddIds.indexOf(id) === -1) _ddIds.push(id);
+};
+
+/** Track a dropdown + wire outside-click-to-close. */
+window.registerDropdown = function (id, dd, anchor) {
+  window.registerDropdownId(id);
+  document.addEventListener("click", function (e) {
+    if (!dd.contains(e.target) && e.target !== anchor) {
+      dd.style.display = "none";
+    }
+  });
+};
 
 // ── Tag chip markup (shared by dashboard + library-search pages) ──
 // Both pages render the same filter-chip row; the templates must not drift.
@@ -550,6 +586,8 @@ window.setFocus = function (on) {
       if (resetReaderBtn) resetReaderBtn.click();
       // Clear LS keys that the delegated buttons don't touch
       localStorage.removeItem(window.LS_KEYS.readerSearchHistory);
+      localStorage.removeItem(window.LS_KEYS.libSearchHistory);
+      localStorage.removeItem(window.LS_KEYS.dashSearchHistory);
       localStorage.removeItem(window.LS_KEYS.focus);
       // Pins & history — part of the full reset (confirmed above)
       try { localStorage.removeItem(window.LS_KEYS.pinnedBooks); } catch (_) {}

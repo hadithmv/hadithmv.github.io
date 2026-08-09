@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hadithmv</title>
     <link rel="stylesheet" href="../css/common.css" />
+    <!-- reader-search.css: shared with the reader page — supplies the
+         search-history dropdown styles (.search-results + .search-history-*) -->
+    <link rel="stylesheet" href="../css/reader-search.css" />
     <link rel="stylesheet" href="../css/dashboard.css" />
   </head>
 
@@ -260,8 +263,14 @@
             data-i18n="dashboardSearchPlaceholder"
             placeholder="Search books…"
             dir="rtl"
+            autocomplete="off"
             title="Search books by title or code (/ or Ctrl+F)"
           />
+          <div
+            id="searchHistoryDropdown"
+            class="search-results search-history-dropdown"
+            style="display: none"
+          ></div>
           <a
             id="dashboardLibSearch"
             href="library-search.html"

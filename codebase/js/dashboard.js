@@ -6,7 +6,14 @@
  */
 
 import { tagLabel, t } from "./i18n.js";
-import { normaliseForSearch } from "./search-utils.js";
+import {
+  normaliseForSearch,
+  escapeHTML,
+  addSearchHistory,
+  getSearchHistory,
+  removeSearchHistoryItem,
+  clearSearchHistory,
+} from "./search-utils.js";
 import { loadTagDefinitions, loadBookRegistry, extractTags } from "./book-data.js";
 import {
   isPinned,
@@ -444,12 +451,88 @@ function renderDashboard(bookNames) {
 // ── Wire dashboard controls ──────────────────────────────────
 function setupDashboardControls() {
   var searchInput = document.getElementById("dashboardSearchInput");
+  var searchHistoryEl = document.getElementById("searchHistoryDropdown");
+  var _skipHistoryOnFocus = false;
   var sortSelect = document.getElementById("dashboardSortSelect");
   var tagsPanel = document.getElementById("dashboardPanelTags");
   if (!searchInput) return;
 
+  // Search history dropdown — same pattern as the reader/library-search pages:
+  // every applied search commits to its own key (dash:searchHistory), focus
+  // or click of the empty box opens it, item click re-applies the filter, ✕
+  // removes one item, "Clear" empties all.
+  function renderSearchHistory() {
+    var items = getSearchHistory(window.LS_KEYS.dashSearchHistory);
+    if (items.length === 0) {
+      searchHistoryEl.style.display = "none";
+      return;
+    }
+    window.openDropdown(searchHistoryEl, searchInput, 0);
+    var sbRect = searchInput.getBoundingClientRect();
+    searchHistoryEl.style.right = window.innerWidth - sbRect.right + "px";
+    searchHistoryEl.innerHTML =
+      items
+        .map(function (term, i) {
+          return (
+            '<div class="search-history-item" data-idx="' + i + '">' +
+            '<span class="hist-text">' + escapeHTML(term) + "</span>" +
+            '<span class="hist-remove" data-idx="' + i + '">✕</span></div>'
+          );
+        })
+        .join("") +
+      '<div class="search-history-clear">' + t("searchClearHistory") + "</div>";
+    searchHistoryEl.style.display = "";
+    Array.prototype.forEach.call(
+      searchHistoryEl.querySelectorAll(".search-history-item[data-idx]"),
+      function (item) {
+        item.addEventListener("click", function (e) {
+          if (e.target.classList.contains("hist-remove")) return;
+          e.stopPropagation();
+          searchInput.value = items[parseInt(this.dataset.idx, 10)];
+          _dashFilter.search = searchInput.value;
+          addSearchHistory(_dashFilter.search, window.LS_KEYS.dashSearchHistory);
+          searchHistoryEl.style.display = "none";
+          refreshView();
+        });
+      }
+    );
+    Array.prototype.forEach.call(
+      searchHistoryEl.querySelectorAll(".hist-remove"),
+      function (x) {
+        x.addEventListener("click", function (e) {
+          e.stopPropagation();
+          removeSearchHistoryItem(parseInt(this.dataset.idx, 10), window.LS_KEYS.dashSearchHistory);
+          renderSearchHistory();
+        });
+      }
+    );
+    var clearAll = searchHistoryEl.querySelector(".search-history-clear");
+    if (clearAll)
+      clearAll.addEventListener("click", function () {
+        clearSearchHistory(window.LS_KEYS.dashSearchHistory);
+        searchHistoryEl.style.display = "none";
+      });
+  }
+
+  // Dropdown shows when the empty box is focused OR clicked (the box is
+  // auto-focused at load, so a plain click would otherwise fire no focus
+  // event); typing, Escape, or outside-click closes it (registerDropdown).
+  searchInput.addEventListener("focus", function () {
+    if (!this.value.trim() && !_skipHistoryOnFocus) renderSearchHistory();
+    _skipHistoryOnFocus = false;
+  });
+  searchInput.addEventListener("click", function () {
+    if (!this.value.trim()) renderSearchHistory();
+  });
+  window.registerDropdown("searchHistoryDropdown", searchHistoryEl, searchInput);
+
   searchInput.addEventListener("input", function () {
+    searchHistoryEl.style.display = "none";
     _dashFilter.search = this.value;
+    // Record as the filter applies — same as the reader (applySearch), so
+    // typing alone lands in history; no Enter needed. addSearchHistory's own
+    // debounce absorbs the keystroke burst.
+    addSearchHistory(this.value, window.LS_KEYS.dashSearchHistory);
     renderDashboard(_lastBookNames);
   });
   sortSelect.addEventListener("change", function () {
@@ -615,6 +698,7 @@ function setupDashboardControls() {
     if (e.key === "Escape" && isInput && e.target === searchInput) {
       searchInput.value = "";
       _dashFilter.search = "";
+      searchHistoryEl.style.display = "none";
       refreshView();
       searchInput.blur();
     }
@@ -639,8 +723,12 @@ function setupDashboardControls() {
     });
   }
 
-  // Auto-focus search on desktop
-  if (window.innerWidth > window.MOBILE_BP) searchInput.focus();
+  // Auto-focus search on desktop — skip popping the history dropdown over a
+  // fresh page; it shows on any later focus/click of the empty box.
+  if (window.innerWidth > window.MOBILE_BP) {
+    _skipHistoryOnFocus = true;
+    searchInput.focus();
+  }
 }
 
 // Re-render dashboard on settings reset (if visible)

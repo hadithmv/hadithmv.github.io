@@ -435,50 +435,61 @@ export function buildSnippets(row, parsed, queryForHighlight, normRow) {
 }
 
 // ── Search history ──────────────────────────────────────────
+// Stores are per-key: the reader and library-search pages keep separate
+// histories; a missing key means the reader's.
 
 export var MAX_HISTORY = 20;
 
-var _searchHistory = null;
-var _historySaveTimer = null;
+var _historyCache = {}; // key → array
+var _historySaveTimers = {}; // key → timer
 
-function _loadHistory() {
-  if (_searchHistory) return _searchHistory;
-  try {
-    _searchHistory = JSON.parse(localStorage.getItem(window.LS_KEYS.readerSearchHistory) || "[]");
-  } catch (e) {
-    _searchHistory = [];
+function _historyKey(key) {
+  return key || window.LS_KEYS.readerSearchHistory;
+}
+
+function _loadHistory(key) {
+  var k = _historyKey(key);
+  if (!_historyCache[k]) {
+    try {
+      _historyCache[k] = JSON.parse(localStorage.getItem(k) || "[]");
+    } catch (e) {
+      _historyCache[k] = [];
+    }
   }
-  return _searchHistory;
+  return _historyCache[k];
 }
 
-function _saveHistory() {
-  try { localStorage.setItem(window.LS_KEYS.readerSearchHistory, JSON.stringify(_searchHistory)); } catch (e) {}
+function _saveHistory(key) {
+  var k = _historyKey(key);
+  try { localStorage.setItem(k, JSON.stringify(_historyCache[k])); } catch (e) {}
 }
 
-export function getSearchHistory() {
-  return _loadHistory().slice();
+export function getSearchHistory(key) {
+  return _loadHistory(key).slice();
 }
 
-export function addSearchHistory(query) {
+export function addSearchHistory(query, key) {
   var q = query.trim();
   if (!q) return;
-  clearTimeout(_historySaveTimer);
-  _historySaveTimer = setTimeout(function () {
-    _loadHistory();
-    _searchHistory = _searchHistory.filter(function (h) { return h !== q; });
-    _searchHistory.unshift(q);
-    if (_searchHistory.length > MAX_HISTORY) _searchHistory.pop();
-    _saveHistory();
+  var k = _historyKey(key);
+  clearTimeout(_historySaveTimers[k]);
+  _historySaveTimers[k] = setTimeout(function () {
+    var hist = _loadHistory(k);
+    hist = hist.filter(function (h) { return h !== q; });
+    hist.unshift(q);
+    if (hist.length > MAX_HISTORY) hist.pop();
+    _historyCache[k] = hist;
+    _saveHistory(k);
   }, 800);
 }
 
-export function removeSearchHistoryItem(index) {
-  _loadHistory();
-  _searchHistory.splice(index, 1);
-  _saveHistory();
+export function removeSearchHistoryItem(index, key) {
+  var hist = _loadHistory(key);
+  hist.splice(index, 1);
+  _saveHistory(key);
 }
 
-export function clearSearchHistory() {
-  _searchHistory = [];
-  _saveHistory();
+export function clearSearchHistory(key) {
+  _historyCache[_historyKey(key)] = [];
+  _saveHistory(key);
 }
