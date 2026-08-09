@@ -576,10 +576,24 @@
   margin-bottom: 10px;
   text-align: right;
   white-space: pre-line;
+  /* Long tokens (URLs) wrap instead of overflowing the card — table view
+     already does this on its cells (reader-table-view.css) */
+  overflow-wrap: break-word;
 }
 
 .reader-field:last-child {
   margin-bottom: 0;
+}
+
+/* URLs in content become .reader-link anchors (linkifyURLs in search-utils).
+   dir="auto" on the anchor isolates the LTR URL run inside RTL paragraphs. */
+.reader-link {
+  color: var(--color-accent, #2563eb);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.reader-link:hover {
+  color: var(--color-accent-border-hover, #93c5fd);
 }
 
 /* Divider between main text and footnotes */

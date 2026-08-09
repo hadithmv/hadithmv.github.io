@@ -5,10 +5,11 @@
  * fuzzy matching, whole‑word, regex, and column‑scoped queries.
  * Used by both the book reader and the dashboard search.
  *
- * Exports: normaliseForSearch, escapeHTML, escapeXML, highlightMatches,
- *          parseQuery, compileQuery, rowMatchesQuery, rowMatchesQueryNorm,
- *          buildNormData, buildSnippets, addSearchHistory, getSearchHistory,
- *          removeSearchHistoryItem, clearSearchHistory, MAX_HISTORY
+ * Exports: normaliseForSearch, escapeHTML, escapeXML, linkifyURLs,
+ *          highlightMatches, parseQuery, compileQuery, rowMatchesQuery,
+ *          rowMatchesQueryNorm, buildNormData, buildSnippets,
+ *          addSearchHistory, getSearchHistory, removeSearchHistoryItem,
+ *          clearSearchHistory, MAX_HISTORY
  */
 
 // ── Text normalisation ──────────────────────────────────────
@@ -54,6 +55,34 @@ function escapeRegex(str) {
 
 export function escapeHTML(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// ── URL linkification ─────────────────────────────────────────
+
+/**
+ * Turn https:// URLs in ALREADY-ESCAPED html (highlight <mark> / tashkeel
+ * spans may be present) into <a> links. Matches only URL runs outside tags,
+ * so span markup and attributes are untouched. Trailing punctuation — Latin
+ * or Arabic — stays outside the link. The URL text is the escaped source
+ * text, so an href gets `&amp;` for `&` and still resolves to the real URL.
+ */
+export function linkifyURLs(html) {
+  if (!html || html.indexOf("http") === -1) return html;
+  var re = /https?:\/\/[^\s<>"']+/gi;
+  var out = "";
+  var last = 0;
+  var m;
+  while ((m = re.exec(html)) !== null) {
+    var before = html.slice(0, m.index);
+    if (before.lastIndexOf("<") > before.lastIndexOf(">")) continue; // inside a tag
+    var url = m[0].replace(/[.,;:!?،؛)\]}]+$/, "");
+    var trailing = m[0].slice(url.length);
+    out += html.slice(last, m.index);
+    out += '<a class="reader-link" href="' + url + '" target="_blank" rel="noopener noreferrer" dir="auto">' + url + "</a>";
+    out += trailing;
+    last = m.index + m[0].length;
+  }
+  return out + html.slice(last);
 }
 
 /** XML mode — also escapes quotes and apostrophes. */

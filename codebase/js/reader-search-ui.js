@@ -12,7 +12,7 @@
  * keyboard dispatcher, reset block and ?q= deep link stay in core.
  */
 
-import { parseQuery, compileQuery, rowMatchesQueryNorm, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, normaliseForSearch } from "./search-utils.js";
+import { parseQuery, compileQuery, rowMatchesQueryNorm, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, linkifyURLs, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, normaliseForSearch } from "./search-utils.js";
 import { t } from "./i18n.js";
 import { updatePagination } from "./reader-position.js";
 
@@ -68,7 +68,7 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
       // Fallback: show first non-empty cell
       for (var c = 0; c < row.length; c++) {
         if (row[c] != null && String(row[c]).trim()) {
-          snippets = [highlightMatches(String(row[c]).trim().slice(0, 200), q)];
+          snippets = [linkifyURLs(highlightMatches(String(row[c]).trim().slice(0, 200), q))];
           break;
         }
       }
@@ -78,7 +78,7 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
       count++;
     }
   }
-  return html;
+  return linkifyURLs(html);
 }
 
 function buildResultsHTML(query) {
@@ -118,7 +118,7 @@ function buildResultsHTML(query) {
       t("andMore") +
       "</div>";
   }
-  return html;
+  return linkifyURLs(html);
 }
 
 function updateSearchResults(query) {
@@ -135,6 +135,12 @@ function updateSearchResults(query) {
         searchInput.blur();
       });
     });
+  // URLs in snippets are links — let them open instead of jumping to the row
+  searchResultsEl.querySelectorAll(".search-result .reader-link").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+  });
 }
 
 export function applySearch(query) {
@@ -373,7 +379,7 @@ function applyAdvancedSearch() {
       for (var i = 0; i < limit; i++) {
         var row = tempFiltered[i];
         var rowNum = row[0] || (realIdxMap[i] + 1);
-        var snip = String(row[1] || row[0] || "").slice(0, 120);
+        var snip = linkifyURLs(escapeHTML(String(row[1] || row[0] || "").slice(0, 120)));
         resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
       }
     }
@@ -382,6 +388,12 @@ function applyAdvancedSearch() {
     ctx.setLoadedEnd(-1);
     updatePagination();
     var resultEls = readerContent.querySelectorAll(".search-result[data-real]");
+    // URLs in snippets are links — let them open instead of jumping to the row
+    readerContent.querySelectorAll(".search-result .reader-link").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+    });
     resultEls.forEach(function (el) {
       el.addEventListener("click", function (e) {
         e.stopPropagation();

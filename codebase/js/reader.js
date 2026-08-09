@@ -8,7 +8,7 @@
 
 import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches } from "./search-utils.js";
+import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
 import { initExports } from "./export.js";
@@ -528,6 +528,9 @@ initializePageWithMetadata(async function (metadata) {
               display = '<span class="knhs-body-header">' + display.slice(0, nlIdx) + '</span>' + display.slice(nlIdx);
             }
           }
+          // Long tokens (URLs) become links — runs after highlight/tashkeel
+          // markup so spans stay intact
+          display = linkifyURLs(display);
           // Quran: insert source-book label when crossing into a new book (only if external books are loaded)
           if (quranBook && hasExternalColumns(metadata.bookCode)) {
             var colSourceTitle = getColumnSourceBookTitle(colIdx);
@@ -606,7 +609,7 @@ initializePageWithMetadata(async function (metadata) {
             var nlIdx = d.indexOf("\n");
             if (nlIdx !== -1) d = '<span class="knhs-body-header">' + d.slice(0, nlIdx) + '</span>' + d.slice(nlIdx);
           }
-          return d;
+          return linkifyURLs(d);
         }
 
         // Partition fields into AR, DV, neutral (pre/post)
@@ -711,6 +714,7 @@ initializePageWithMetadata(async function (metadata) {
             } else {
               display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
             }
+            display = linkifyURLs(display);
             var tdClass = "";
             tdClass = columnTdClass(colHeader);
             h += '<td dir="auto"' + tdClass + '>' + display + '</td>';

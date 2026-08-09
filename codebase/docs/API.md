@@ -149,6 +149,10 @@ Pure logic. No DOM dependencies. Imported by `book-data.js`, `reader.js`, `quran
 
 HTML‑entity escaping. `escapeHTML` escapes `&`, `<`, `>`. `escapeXML` also escapes `"` and `'` (needed by export-xlsx.js and export-epub.js for XML output).
 
+### `linkifyURLs(html)`
+
+Turns `https://` URLs in **already‑escaped** HTML into `<a class="reader-link" target="_blank" rel="noopener noreferrer" dir="auto">` links. Runs after highlighting, so `<mark>`/tashkeel spans and attributes are left intact (matches are skipped when inside a tag); trailing Latin/Arabic punctuation stays outside the link. Used by the reader's card/parallel/table renderers and the in‑book search results. `&` in URLs is safe — it arrives as `&amp;`, which browsers decode back in the `href`.
+
 ### `normaliseForSearch(str)`
 
 Normalises text for comparison:
