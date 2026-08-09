@@ -162,7 +162,11 @@ const STRINGS = {
   labelTheme: { dv: "ތީމް", en: "Theme", ar: "المظهر" },
   labelSettings: { dv: "ސެޓިންގްސް", en: "Settings", ar: "الإعدادات" },
   settingsFont: { dv: "ފޮންޓް", en: "Font", ar: "الخط" },
-  btnOpenFontText: { dv: "ފޮންޓް ސެޓިންގްސް", en: "Font settings", ar: "إعدادات الخط" },
+  btnOpenFontText: {
+    dv: "ފޮންޓް ސެޓިންގްސް",
+    en: "Font settings",
+    ar: "إعدادات الخط",
+  },
   settingsLanguage: { dv: "ބަސް", en: "Language", ar: "اللغة" },
   labelFontSize: { dv: "ފޮންޓް ސައިޒު", en: "Font size", ar: "حجم الخط" },
   labelFontFamily: { dv: "ފޮންޓް ވައްތަރު", en: "Font", ar: "نوع الخط" },
@@ -243,7 +247,11 @@ const STRINGS = {
   dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
   dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
   tagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
-  tagsShowMore: { dv: "އިތުރު ޓެގުތައް", en: "More tags", ar: "المزيد من الوسوم" },
+  tagsShowMore: {
+    dv: "އިތުރު ޓެގުތައް",
+    en: "More tags",
+    ar: "المزيد من الوسوم",
+  },
   tagsShowFewer: { dv: "މަދު ޓެގުތައް", en: "Less tags", ar: "أقل من الوسوم" },
   tagFilterAll: { dv: "ހުރިހާ", en: "All", ar: "الكل" },
   continueReading: {
@@ -261,7 +269,7 @@ const STRINGS = {
     en: "Search inside books…",
     ar: "ابحث داخل الكتب…",
   },
-  libSearching: { dv: "ހޯދަމުން…", en: "Searching…", ar: "جارٍ البحث…" },
+  libSearching: { dv: "ހޯދަނީ...", en: "Searching…", ar: "جارٍ البحث…" },
   libSearchHint: {
     dv: "ފޮތްތަކުގެ ތެރެއިން ހޯދުމަށް ލިޔޭ",
     en: "Type to search inside all books",
@@ -321,7 +329,11 @@ const STRINGS = {
     en: "✕   Clear history",
     ar: "✕   مسح السجل",
   },
-  dashboardColTitleAR: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
+  dashboardColTitleAR: {
+    dv: "އަރަބި ނަން",
+    en: "Arabic name",
+    ar: "الاسم العربي",
+  },
   dashboardColTitleDV: {
     dv: "ދިވެހި ނަން",
     en: "Dhivehi name",
