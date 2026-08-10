@@ -380,7 +380,7 @@ function renderConditionRow(condition, idx) {
     logicHTML +
     '<select data-field="col" title="Column to search in">' + colOpts + '</select>' +
     '<select data-field="op" title="Match type">' + opOpts + '</select>' +
-    '<input data-field="val" value="' + (condition.val||'') + '" placeholder="' + t("advancedValue") + '" title="Text to search for" ' + valDisplay + ' />' +
+    '<input data-field="val" value="' + escapeHTML(condition.val || "") + '" placeholder="' + t("advancedValue") + '" title="Text to search for" ' + valDisplay + ' />' +
     '<button class="advanced-remove-btn" data-i18n="advancedRemove" title="Remove this condition">✕</button>' +
     '</div>';
 }

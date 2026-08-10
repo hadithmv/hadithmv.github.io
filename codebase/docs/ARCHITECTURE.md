@@ -703,6 +703,8 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
 
+**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (ZKR carries `<br>` line breaks, RDF carries `<span>` markup and entities; e.g. `data/content/ZKR-hisnulMuslim.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape.
+
 ### JavaScript
 
 **Module pattern.** All JS files are ES modules (`<script type="module">`). Heavy modules (`export-epub.js`, `export-xlsx.js`, `export-zip.js`) use dynamic `import()` — they are only fetched when the user triggers an export, keeping the initial bundle small.

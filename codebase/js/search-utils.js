@@ -53,8 +53,20 @@ function escapeRegex(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+/**
+ * Escape a string for insertion into HTML. Complete set: `& < > " '` —
+ * safe in text contexts AND quoted attributes (value="…", data-…="…").
+ * Cell content is deliberately NOT escaped anywhere (data renders as HTML
+ * by design); this is for user/URL input only. See docs/ARCHITECTURE.md
+ * "HTML & DOM".
+ */
 export function escapeHTML(str) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 // ── URL linkification ─────────────────────────────────────────

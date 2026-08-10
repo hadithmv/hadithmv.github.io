@@ -29,6 +29,13 @@ GitHub Pages. All code, data, and docs live in `codebase/`.
   (overflow-hidden/ellipsis/line-clamp): `padding-inline-start`; inputs:
   `text-indent` (padding only moves the clip with the text). Current insets
   and the safe-without-inset list: `codebase/docs/ARCHITECTURE.md` "Font".
+- HTML escaping: cell content renders raw as HTML **by design** — the data
+  files are the trust boundary (ZKR carries `<br>`, RDF `<span>`/entities;
+  see `codebase/docs/TESTING.md`). Only user/URL input (query terms) is
+  escaped: `escapeHTML` covers `& < > " '` — safe in text **and**
+  `value="…"`-style quoted-attribute contexts; never splice input into an
+  attribute raw. Full contract: `codebase/docs/ARCHITECTURE.md` "HTML &
+  DOM".
 - Data files are plain text; derived structure (juz/surah/ayah, basmalah) is
   computed at load, never stored redundantly.
 
