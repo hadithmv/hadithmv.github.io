@@ -310,6 +310,25 @@ async function main() {
     };
   })()`);
   check("search filters rows", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
+
+  // regex query path — same engine, must yield the identical result set as
+  // the plain term. Regression guard: the compiled regex used to carry the
+  // `g` flag (default "gi"), making shared .test() calls stateful and
+  // silently dropping matches (72/179 «الناس» misses in the imlai column
+  // alone, pre-fix); parseQuery now strips `g`/`y`, so the two paths must
+  // agree byte-for-byte.
+  await evalJS(`(function () {
+    var inp = document.getElementById('readerSearchInput');
+    inp.value = '/الناس/';
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelector('#searchResultsDropdown .search-count-header') !== null`, 10000);
+  await sleep(300);
+  const resRe = await evalJS(`(function () {
+    var h = document.querySelector('#searchResultsDropdown .search-count-header');
+    return h ? h.textContent.trim() : null;
+  })()`);
+  check("regex search matches plain-term count", resRe === res.rc, resRe);
   await evalJS(`(function () {
     var inp = document.getElementById('readerSearchInput');
     inp.value = '';

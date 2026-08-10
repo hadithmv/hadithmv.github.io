@@ -232,7 +232,15 @@ export function parseQuery(query) {
 
   var regexMatch = query.match(/^\/(.+?)\/([gimsu]*)$/);
   if (regexMatch) {
-    try { result.regex = new RegExp(regexMatch[1], regexMatch[2] || "gi"); } catch (e) { result.regex = null; }
+    try {
+      // The compiled regex is ONE object shared across every cell and row of
+      // a search, and only ever .test()ed. A `g`/`y` flag makes test()
+      // stateful (lastIndex persists between calls), so a later cell whose
+      // match sits before the inherited lastIndex silently fails — order-
+      // dependent false negatives (72/179 real misses on «/الناس/»). The
+      // engine wants "does this cell match anywhere": strip those flags.
+      result.regex = new RegExp(regexMatch[1], (regexMatch[2] || "i").replace(/[gy]/g, ""));
+    } catch (e) { result.regex = null; }
     return result;
   }
 
