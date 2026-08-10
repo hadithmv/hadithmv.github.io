@@ -258,6 +258,23 @@ async function main() {
   check("no QRN-BASE-STRUCT text anywhere", modal.bodyText.indexOf("QRN-BASE-STRUCT") === -1, "");
   check("base labels match 05 registry (dv)", JSON.stringify(modal.baseLabels) === JSON.stringify(expLabels), JSON.stringify(modal.baseLabels));
 
+  // basmalah toggle round-trip: uncheck hides, re-check restores. Regression
+  // guard — after the basefile-1 split, loadAndInsertColumn early-returned for
+  // ALL QRN-BASE_STRUCT keys, so basmalah (:3, a real toggle) could be hidden
+  // but never re-enabled, and its checkbox silently lied about the state.
+  await evalJS(`(function () {
+    var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-BASE-STRUCT:3"] input[type=checkbox]');
+    cb.click();
+  })()`);
+  const hid = await waitFor(`document.querySelectorAll('.reader-table th').length === 2`, 5000);
+  check("basmalah uncheck hides column", hid, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+  await evalJS(`(function () {
+    var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-BASE-STRUCT:3"] input[type=checkbox]');
+    cb.click();
+  })()`);
+  const rest = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 5000);
+  check("basmalah re-check restores column", rest, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+
   // ── C. PRESET_ALL / RESET ──────────────────────────────────────────
   console.log("== C. presets ==");
   await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]').click()`);

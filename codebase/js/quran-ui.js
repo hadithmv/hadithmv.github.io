@@ -451,6 +451,16 @@ export function initQuranUI(ctx) {
     return key.indexOf(QRN_BASE_STRUCT + ":") === 0 ||
       key.indexOf(QRN_BASE_FILE + ":") === 0;
   }
+  // The fixed structural pseudo-book columns (juz/surah/ayah) have no CSV
+  // file and no toggle in the modal — this is the no-op set for both the
+  // content-list render and loadAndInsertColumn. Basmalah (QRN-BASE-STRUCT:3)
+  // is NOT in it: it's a real column with a real toggle that must be
+  // re-enablable (it unhides through loadAndInsertColumn's loaded-map path).
+  function isFixedStructuralKey(key) {
+    return key === QRN_BASE_STRUCT + ":0" ||
+      key === QRN_BASE_STRUCT + ":1" ||
+      key === QRN_BASE_STRUCT + ":2";
+  }
 
   // Create the modal once — the unified layer wires backdrop, close, Escape.
   window.createModal("qrnContentOverlay", "qrnContentModalTitle", "qrnContentModalBody", "quran-content-modal");
@@ -550,10 +560,10 @@ export function initQuranUI(ctx) {
     for (var i = 0; i < _colOrder.length; i++) {
       var key = _colOrder[i];
       // Juz/surah/ayah are fixed structural columns: auto-hidden (-HDN),
-      // never reorderable, and their checkbox is a no-op (loadAndInsertColumn
-      // early-returns for QRN_BASE_STRUCT) — don't offer them in the modal.
-      // Basmalah (QRN-BASE-STRUCT:3) and the imlai row stay: real toggles.
-      if (key === QRN_BASE_STRUCT + ":0" || key === QRN_BASE_STRUCT + ":1" || key === QRN_BASE_STRUCT + ":2") continue;
+      // never reorderable, and their checkbox is a no-op — don't offer them
+      // in the modal. Basmalah (QRN-BASE-STRUCT:3) and the imlai row stay:
+      // real toggles.
+      if (isFixedStructuralKey(key)) continue;
       var parts = key.split(":");
       var sourceBook = parts.slice(0, -1).join(":");
       var sourceCol = parseInt(parts[parts.length - 1], 10);
@@ -661,9 +671,11 @@ export function initQuranUI(ctx) {
   }
 
   function loadAndInsertColumn(sourceBook, sourceCol) {
-    // QRN-BASE-STRUCT has no CSV file — structural columns are always
-    // pre-seeded in _loadedColMap at init, so this is unreachable today.
-    if (sourceBook === QRN_BASE_STRUCT) return Promise.resolve();
+    // Juz/surah/ayah have no CSV file and no modal toggle — a no-op for
+    // them only. Basmalah (QRN-BASE-STRUCT:3) falls through to the
+    // loaded-map unhide path below: hiding it (hideLoadedColumn) must be
+    // reversible, and PRESET_ALL must be able to restore it.
+    if (isFixedStructuralKey(sourceBook + ":" + sourceCol)) return Promise.resolve();
     var key = sourceBook + ":" + sourceCol;
     var hiddenColumns = ctx.getHiddenColumns();
     if (_loadedColMap[key] !== undefined) {
