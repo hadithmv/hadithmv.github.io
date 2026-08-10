@@ -1117,6 +1117,14 @@ body:has(.modal-overlay.open) {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 0.75em;
+  /* The Hadithmv webfont paints a few horizontal Thaana letters (ސ, ޗ, …)
+     with ~1–4px of start-side ink past the pen origin. The input's inner
+     editor clips text ink at its content box, so with the run right-aligned
+     the first letter's overhang is cut — the term's start looks chipped
+     even for a single letter, while alef (no overhang) looks fine. Padding
+     cannot help (the clip follows the text origin); text-indent moves only
+     the run's start, leaving the overhang inside the box. */
+  text-indent: 6px;
   /* line-height 33px in a 33px content box clips Thaana fili marks that paint
      above the em box (the start of the term looks cut off). Shrinking the line
      box to 1em keeps the text vertically centered while leaving the tall marks
