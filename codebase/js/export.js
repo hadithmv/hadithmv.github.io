@@ -146,6 +146,7 @@ export function initExports(ctx) {
         }
         pdfHTML += "</body></html>";
         var win = window.open("", "_blank");
+        if (!win) { window.showErrorToast("PDF export failed — popup blocked"); setExportBusy(false); return; }
         win.document.write(pdfHTML);
         win.document.close();
         win.onload = function () { win.print(); };
