@@ -631,6 +631,25 @@ Besides the role palette there are three **semantic accent families**, each defi
 
 **Font.** A single merged WOFF2 font (`font/merged-300.woff2`) covers Arabic, Thaana, and Latin glyphs. `font-family` stacks always list `"Hadithmv"` first, then platform fallbacks. Never load external fonts. Each family is a `--font-*` var in `:root` (common.css) — use sites are `var(--font-*, <canonical>)`, and the only literal `font-family` in the stylesheets is the `@font-face` name. Families: `--font-mixed` `"Hadithmv", "Faruma", system-ui, -apple-system, sans-serif` (any-language controls); `--font-latin` `system-ui, -apple-system, sans-serif` (Latin-only chrome); `--font-arabic` `"Hadithmv", "Traditional Arabic", "Scheherazade New", serif` (Arabic-only content); `--font-arabic-thaana` `"Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif` (mixed Arabic/Thaana content); `--font-thaana` `"Hadithmv", "Faruma", "MV Boli", sans-serif` (Dhivehi titles); `--font-mono` `"Consolas", "DejaVu Sans Mono", "Courier New", monospace`. (export.js / export-epub.js embed literal stacks in generated SVG/EPUB documents — standalone files, no vars there.) Title lines: Arabic and Dhivehi share one size on every surface (cards and search results) — `calc(var(--panel-font-size[-mobile]) * var(--title-scale))`, `--title-scale: 1.2` in `:root` — while English titles stay at base; hierarchy is carried by size tier, weight, and colour. Title lines sit `--title-gap` (4px) apart, with `--title-gap-caption` (2× the base gap) before the English caption; on cards the whole title block sits at the top, with the space below coming from the card's padding.
 
+**Start-side ink overhang.** The Hadithmv webfont paints a few horizontal
+Thaana letters (ސ, ޗ, …; alef has none) with ~1–5px of ink past the pen
+origin on the start side. In RTL that overhang sits at the run's right edge,
+so any surface whose first glyph's pen lands on a clip edge visibly chips
+the letter. Two clip rules follow: **inputs clip at the inner editor's
+content box** — padding moves the text origin together with the clip line,
+so only `text-indent` shelters the overhang; **divs clip at the padding
+box** — `padding-inline-start` moves the origin away from the clip line and
+the overhang paints into the padding. The current insets: `.search-input`
+`text-indent: 6px`, `.quran-surah-search` `text-indent: 6px`,
+`.search-history-item .hist-text` `padding-inline-start: 6px`,
+`.search-result-snippet` `padding-inline-start: 8px`, `#topBar #pageTitle`
+`padding-inline-start: 8px` (the title is `justify-content: safe center`,
+so its clip only exists when the title overflows — ޙ-led titles never show
+it, which is why it went unnoticed). Surfaces with ≥7px of start padding
+(quran table cells, pins cards, tag chips, surah list items) are safe
+without insets. Insets are regression-guarded by smoke-battery section F;
+measurement traps are in docs/TESTING.md "Traps from adjacent workflows".
+
 ### Horizontal scrolling & RTL
 
 **There is NO root `dir="rtl"`.** Both pages are `<html lang="en">` with no `dir` attribute — every RTL layout comes from local `dir="rtl"` attributes on individual elements. Nothing inherits RTL, so any new element that needs it must set its own `dir`. In particular, `<input type="number">` follows the input's own direction: without an explicit `dir="rtl"` it behaves LTR (arrow keys step the wrong way) — see the pagination-strip note under "Position readouts".

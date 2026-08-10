@@ -24,6 +24,11 @@ GitHub Pages. All code, data, and docs live in `codebase/`.
 - Mobile breakpoint: 600px.
 - Tooltips, errors, and status text in English (page content itself is
   trilingual per book).
+- Clipped Thaana text needs a start inset — the webfont paints ~1–5px of
+  start-side ink past the pen origin on horizontal letters (ސ, ޗ, …). Divs
+  (overflow-hidden/ellipsis/line-clamp): `padding-inline-start`; inputs:
+  `text-indent` (padding only moves the clip with the text). Current insets
+  and the safe-without-inset list: `codebase/docs/ARCHITECTURE.md` "Font".
 - Data files are plain text; derived structure (juz/surah/ayah, basmalah) is
   computed at load, never stored redundantly.
 

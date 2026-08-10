@@ -344,6 +344,49 @@ async function main() {
   })()`);
   check("last row = 6236th imlai", unornament(lastText) === imlai[6235][0], lastText);
 
+  // ── F. Thaana text-inset guard ──────────────────────────────────────
+  // The Hadithmv webfont paints ~1–5px of start-side ink past the pen
+  // origin on horizontal Thaana letters (ސ, ޗ, …). Every overflow-hidden /
+  // ellipsis / line-clamp surface without a start inset visibly chips the
+  // first glyph: divs need padding-inline-start (they clip at the padding
+  // box), inputs need text-indent (the inner editor clips at the content
+  // box, so padding only moves the clip with the text). If a CSS sweep
+  // drops an inset, the computed styles here go stale. Background and the
+  // surface list: docs/TESTING.md "Known non-errors", docs/ARCHITECTURE.md
+  // "Font".
+  console.log("== F. Thaana text-inset guard ==");
+  await goto(ROOT + "reader.html?book=QRN-hadithmv");
+  await waitFor(`(function () {
+    var w = document.getElementById('readerWrapper');
+    return w && getComputedStyle(w).display === 'block';
+  })()`);
+  const insets = await evalJS(`(function () {
+    // pageTitle shelters the overflow clip on narrow screens
+    var pt = getComputedStyle(document.getElementById('pageTitle')).paddingInlineStart;
+    // open the surah selector for a live .quran-surah-search, then close
+    document.getElementById('qrnSurahBtn').click();
+    var ov = document.getElementById('qrnSurahOverlay');
+    var ti = getComputedStyle(ov).display !== 'none'
+      ? getComputedStyle(document.getElementById('qrnSurahSearch')).textIndent : null;
+    document.getElementById('qrnSurahClose').click();
+    // probe elements with the real classes — computed style only, then removed
+    var wrap = document.createElement('div');
+    var item = document.createElement('div'); item.className = 'search-history-item';
+    var ht = document.createElement('span'); ht.className = 'hist-text'; ht.textContent = 'ސ';
+    item.appendChild(ht);
+    var sn = document.createElement('div'); sn.className = 'search-result-snippet'; sn.textContent = 'ޗ';
+    wrap.appendChild(item); wrap.appendChild(sn);
+    document.body.appendChild(wrap);
+    var htPad = getComputedStyle(ht).paddingInlineStart;
+    var snPad = getComputedStyle(sn).paddingInlineStart;
+    wrap.remove();
+    return { pt: pt, ti: ti, htPad: htPad, snPad: snPad };
+  })()`);
+  check("pageTitle start inset 8px", insets.pt === "8px", insets.pt);
+  check("quran-surah-search text-indent 6px", insets.ti === "6px", String(insets.ti));
+  check("hist-text start padding 6px", insets.htPad === "6px", insets.htPad);
+  check("result-snippet start padding 8px", insets.snPad === "8px", insets.snPad);
+
   ws.close();
   edge.kill();
   console.log(failures ? "== " + failures + " FAILURES ==" : "== ALL PASS ==");

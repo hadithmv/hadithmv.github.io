@@ -38,7 +38,7 @@ Before touching product code, run this sequence:
 ## Known non-errors (pre-existing behaviors that look like failures)
 
 | Observation | Why it is not a bug | Correct assertion |
-|---|---|---|
+| --- | --- | --- |
 | `.reader-table` missing on a fresh profile | Fresh profiles boot in **card mode** for non-radheef books (`reader.js:95`) — the table only exists after switching via View-mode dropdown → Table | Click `#btnViewMode` → `#viewModeDropdown .view-mode-option[data-mode="table"]`, then wait for a `<tr>` |
 | Row count far below 6236 | Table renders **incrementally** — ~50 initial rows, 30 per chunk appended on scroll (`reader.js:780`) | `scrollTo(0, document.body.scrollHeight)` in a poll loop until `tbody tr` count is stable; 6236 rows ≈ 210 chunks — allow up to 90 s |
 | `qrnAyahInput` shows a stale value after juz/surah nav | Pre-existing quirk: `goToQuranJuz` hardcodes `currentAyah = 1` (`quran-ui.js:357`) and an async scroll-sync may race it | Assert navigation via the **first rendered row's content** (imlai text at the known start row), never via the ayah input |
@@ -48,6 +48,7 @@ Before touching product code, run this sequence:
 | English strings never match titles/labels | The page defaults to **Dhivehi**: titles, modal labels, result counts and toasts are Thaana | Never assert English UI text; read expected strings from the registries (05 displayDV, 02 titleDV) with the app's own `parseCSV` |
 | Search result count differs between runs | Quick search matches **`allData`** — all loaded columns incl. hidden book columns (`reader-search-ui.js:153`). With Arabic tafseer books loaded: 841 matches for «الناس»; base columns only: 179. Empty-result text is «ނަތީޖާ 0» (no colon), results are «ނަތީޖާ: N» | Assert count relative to the column set loaded, or just > 0 and < 6236; treat "0 with no colon" as the no-results branch, not an error |
 | PRESET_RESET does not restore a juz/surah slice | Reset only hides external columns (`quran-ui.js:509`); the filtered slice from navigation stays | Not a regression — confirm the slice behavior separately if it matters |
+| A Thaana term's first glyph looks chipped on a history item / result snippet / title / surah-search input | The Hadithmv webfont paints ~1–5px of **start-side ink past the pen origin** on horizontal Thaana letters (ސ, ޗ, … — alef has none). Any surface that clips (overflow-hidden, ellipsis, line-clamp, or an input's inner editor) cuts that overhang when the run's origin sits at the clip edge; the clip is invisible when the surface has a start inset. The fixed surfaces carry their insets (`.hist-text` 6px, `.search-result-snippet` 8px, `.quran-surah-search` `text-indent: 6px`, `#pageTitle` 8px) — the battery's section F asserts them | Computed styles, not pixels: section F of `hmv-qrn-smoke.mjs`, or `getComputedStyle(...).paddingInlineStart` / `.textIndent` on the four surfaces. A bare pixel probe needs a **clipped-vs-visible reference pair** (same box, overflow forced visible) — see the mirror traps below |
 
 ## Harness traps (test-side failures, not product bugs)
 
@@ -71,6 +72,17 @@ Before touching product code, run this sequence:
   «Cannot read properties of undefined (reading 'result')» flake → delete the
   profile dir and retry. Custom CDP properties return token strings — measure
   DOM rects instead.
+- **`exceptionDetails.text` is only "Uncaught".** When `Runtime.evaluate`
+  throws, `.text` carries just the word "Uncaught" — the real error lives in
+  `.exceptionDetails.exception.description`. A throw with no visible cause is
+  one line of debug output away; include the description in the throw.
+- **Windowed-probe scale discipline.** Any headless window used for pixel
+  measurement must set `Emulation.setDeviceMetricsOverride({width, height,
+  deviceScaleFactor: 1, mobile: false})` **before** navigation and capture at
+  scale 1 — otherwise Windows display scaling (1.5×) corrupts every
+  measurement. And await `document.fonts.ready` (with `.catch(() => false)`)
+  before screenshots, or the webfont isn't loaded and glyph metrics are
+  fallback.
 - **Fresh profile = cold IndexedDB.** First run does real fetches; slow first
   loads are not hangs. Version-gated cache is per-profile, so timing between
   runs varies — use waitFor loops over fixed sleeps.
@@ -147,6 +159,30 @@ blaming the product.
   (2) watch pairs where a `.open`/`.hover`/`.active` variant survives but its
   base was deleted — the base is almost certainly still live; (3) re-serve and
   eyeball index + reader + library-search after any CSS sweep.
+- **Text-clip pixel probes need a clipped-vs-visible reference pair.** To
+  measure the webfont's start-side overhang clip (known non-errors row above),
+  shoot the real element and a reference with the identical box but
+  `overflow: visible` (or, for inputs, an identical span mirror) — the
+  rightmost-ink delta is the clip. Traps that corrupted these probes:
+  (1) **transparent probe elements read the page behind them** — an unset
+  background lets unrelated content bleed into the shot (a "−6px overhang"
+  turned out to be the page's own text); give probes opaque backgrounds and
+  place a white underlay behind any mirror that floats over dark page chrome
+  (modals, backdrops), sized **past** the shot margins — a content-box mirror
+  is wider than the source rect by its padding, so an underlay that only
+  covers the rect leaves a sliver of page ink at the shot's edge;
+  (2) **mirror the padding physically-correct in RTL** — the reference's
+  physical padding is `padding: 0 <inlineStart> 0 <inlineEnd>` (right gets
+  inline-start); a swapped mirror inflated the measured overhang to ~11px and
+  faked a "no CSS lever works" verdict that held for a session;
+  (3) **the clip only exists where the run touches the clip edge** —
+  safe-center flex text never clips while it fits (force an overflowing
+  width), and the reader's real title starts with ޙ, which has no overhang
+  (force a ޗ-led string to exercise the mechanism); (4) **inputs clip at the
+  inner editor's content box** (padding moves the clip with the text —
+  `text-indent` only), **divs clip at the padding box** (padding works).
+  These rules are what the current insets encode: divs use
+  `padding-inline-start`, inputs use `text-indent`.
 
 ## Assertion rules
 
