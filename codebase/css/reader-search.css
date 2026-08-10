@@ -145,6 +145,12 @@
 .search-history-item .hist-text {
   flex: 1;
   min-width: 0;
+  /* The Hadithmv webfont paints a few horizontal Thaana letters (ސ, ޗ, …)
+     with ~1–4px of start-side ink past the pen origin. This box clips at
+     the padding edge, so the first glyph's overhang is cut. Start padding
+     shelters it (works for divs — unlike the .search-input case, where the
+     inner editor's clip follows the origin and needs text-indent instead). */
+  padding-inline-start: 6px;
   color: var(--color-text);
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   overflow: hidden;
@@ -337,4 +343,7 @@
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   white-space: normal;
+  /* Same webfont start-side overhang as .hist-text — the line-clamp clip
+     cuts the first glyph of every line. Larger font → larger inset. */
+  padding-inline-start: 8px;
 }

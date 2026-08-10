@@ -1370,12 +1370,14 @@ body {
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   /* Centered when it fits; a long title overflowing on narrow screens is
      start-aligned (RTL) so its beginning is visible instead of clipped.
-     2px start inset keeps scroll rounding from shaving the first glyph */
+     The 8px start inset shelters the webfont's start-side ink overhang
+     (~1–5px for ސ/ޗ-led titles) from the overflow clip at the padding
+     box edge — the old 2px only covered scroll rounding. */
   display: flex;
   align-items: center;
   direction: rtl;
   justify-content: safe center;
-  padding-inline-start: 2px;
+  padding-inline-start: 8px;
   text-align: center;
   white-space: nowrap;
   overflow-x: auto;

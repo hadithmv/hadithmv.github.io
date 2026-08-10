@@ -277,6 +277,10 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   outline: none;
+  /* Input: padding moves the text origin with the inner editor's clip, so
+     only text-indent shelters the webfont's start-side overhang — same
+     mechanism as .search-input in common.css. */
+  text-indent: 6px;
 }
 .quran-surah-search::placeholder {
   color: var(--color-text-subtle);
