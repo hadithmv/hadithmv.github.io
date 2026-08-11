@@ -72,7 +72,11 @@ for (const entry of registryRows.slice(1)) {
     reportWarnings.push("skip (no file): " + bookCode);
     continue;
   }
-  const rows = parseCSV(fs.readFileSync(csvPath, "utf8"));
+  // QRN books are 6,236-slot skeletons — an empty row is an untranslated ayah,
+  // not formatting. Keep those rows so postings' row numbers match the reader's
+  // merged table, which keeps them via the same flag (loadQuranBookCSV).
+  const isQRN = bookCode.indexOf("QRN-") === 0;
+  const rows = parseCSV(fs.readFileSync(csvPath, "utf8"), isQRN);
   if (rows.length === 0) continue;
   const csvHeader = rows[0];
   const dataRows = rows.slice(1);

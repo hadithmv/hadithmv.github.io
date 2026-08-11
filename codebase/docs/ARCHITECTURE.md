@@ -496,6 +496,8 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
 
 Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran mode in the reader. Multiple CSV files are merged by row index — row N of every CSV corresponds to ayah N of the Quran.
 
+An all-empty row in a QRN book is **meaningful**: it marks an ayah with no content yet (e.g. untranslated) and renders as the base columns with no book content. `loadQuranBookCSV` parses with `keepEmpty`, so these slots survive the parse and the on-device cache; `07-rebuild-searchIndex.mjs` uses the same flag so its row postings stay aligned with the reader's merged table. (Non-QRN books drop empty rows — for them an empty line is formatting, not a slot.)
+
 ### Data files
 
 | File | Role | Columns |
@@ -544,7 +546,7 @@ QRN-DATA-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,2
 └────────────┴─────────────┴───────────┴──────────────────────────────┘
 ```
 
-Every translation CSV must have the same number of rows, in the same ayah order, as the base file — row *N* of the translation merges into row *N* of the reader.
+Every translation CSV must have the same number of rows, in the same ayah order, as the base file — row *N* of the translation merges into row *N* of the reader. An untranslated ayah is an **all-empty row** (`,,,` or a blank line) — leave it in place; it renders as the base columns with no translation. `mergeQuranData` logs a console warning when a book's row count differs from the base's 6,236: a structural mistake in the CSV (rows added/removed, or a trailing newline parsing as an extra slot).
 
 **Column loading.** `loadQuranBookCSV()` keeps a one‑entry parse cache (most recent book only): each translation CSV is fetched and parsed at most once per session, so inserting several columns from the same book — or a preset hitting multiple books — does not re‑download or re‑parse the whole file per column. The registry groups each book's columns together, so consecutive inserts hit the cache.
 
@@ -567,7 +569,7 @@ reader shows columns in list order
 
 **Adding a new Quran translation (walkthrough):**
 
-1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden.
+1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden. Where an ayah has no content yet, leave its row empty (`,,,` or a blank line) — it renders as base columns only.
 2. Register each column in `data/06-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
 4. Register the book in `02-registry-bookMeta.csv` — or just run `data/03-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts both registries. Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeColumns`) survive untouched.

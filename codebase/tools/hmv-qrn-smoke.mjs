@@ -14,6 +14,8 @@
 //    with 05 labels, no "QRN-BASE-STRUCT" text anywhere (juz/surah/ayah are
 //    fixed structural columns, not offered in the modal)
 //  - PRESET_ALL loads books without an error toast; PRESET_RESET back to 3
+//  - nav-then-add: after surah+ayah dropdown nav, an added column must
+//    widen the rendered rows (td == th), not just the thead
 //  - search filters; settings Reset no error toast
 //  - imlai book renders as a standard 1-column book (no quran panel)
 import fs from "fs";
@@ -246,6 +248,7 @@ async function main() {
       struct: keys.filter(function (k) { return k.indexOf('QRN-BASE-STRUCT:') === 0; }).length,
       imlai: keys.filter(function (k) { return k === 'QRN-DATA-ayahImlai:0'; }).length,
       total: keys.length,
+      keys: keys,
       baseLabels: rows.filter(function (r) {
         return r.dataset.key.indexOf('QRN-BASE-STRUCT:') === 0 || r.dataset.key === 'QRN-DATA-ayahImlai:0';
       }).map(function (r) { return r.textContent.trim().replace(/[\u25B2\u25BC]/g, '').replace(/\s+/g, ' '); }),
@@ -257,6 +260,31 @@ async function main() {
   check("2 base rows total", modal.struct + modal.imlai === 2, String(modal.total) + " rows total");
   check("no QRN-BASE-STRUCT text anywhere", modal.bodyText.indexOf("QRN-BASE-STRUCT") === -1, "");
   check("base labels match 05 registry (dv)", JSON.stringify(modal.baseLabels) === JSON.stringify(expLabels), JSON.stringify(modal.baseLabels));
+
+  // Regression guard: every 06 registry (sourceBook, sourceCol) must exist in
+  // that book's CSV header AND appear in the modal — a missing registry row
+  // silently removes the column from the modal, so it can never be added to
+  // an open QRN book (soabuni's translation column once had no row at all).
+  const rows06all = parseCSV(fs.readFileSync(DATA + "06-registry-quranColumns.csv", "utf8"));
+  rows06all.shift();
+  const modalKeys = new Set(modal.keys);
+  const regBad = [];
+  for (const r of rows06all) {
+    const isStruct = r[0] === "QRN-BASE-STRUCT";
+    const col = parseInt(r[1], 10);
+    if (isStruct && col < 3) continue; // fixed structural keys have no modal row
+    if (!isStruct) {
+      const csvRows = parseCSV(fs.readFileSync(DATA + "content/" + r[0] + ".csv", "utf8"));
+      if (!csvRows.length || col >= csvRows[0].length) {
+        regBad.push(r[0] + ":" + r[1] + " (no column " + r[1] + " in CSV header)");
+        continue;
+      }
+    }
+    if (!modalKeys.has(r[0] + ":" + r[1])) {
+      regBad.push(r[0] + ":" + r[1] + " (missing from modal list)");
+    }
+  }
+  check("every 06 registry column exists in CSV + modal", regBad.length === 0, regBad.join("; "));
 
   // basmalah toggle round-trip: uncheck hides, re-check restores. Regression
   // guard — after the basefile-1 split, loadAndInsertColumn early-returned for
@@ -274,6 +302,51 @@ async function main() {
   })()`);
   const rest = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 5000);
   check("basmalah re-check restores column", rest, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+
+  // ── B2. Nav-then-add regression ────────────────────────────────────
+  // User repro: navigate via the surah AND ayah dropdowns, then add a
+  // book column — the header label appeared but the rows never gained the
+  // cells. The surah filter's data slice held pre-insert row arrays and
+  // column rebuilds only replaced allData's elements. applyColumnOrder now
+  // rewrites rows in place, so filtered slices stay live.
+  await evalJS("window.closeModal('qrnContentOverlay')");
+  await goSurah(2);
+  await evalJS("document.getElementById('qrnAyahInput').click()");
+  await waitFor(`!!document.querySelector('#qrnAyahDropdown [data-v="255"]')`, 5000);
+  await evalJS(`document.querySelector('#qrnAyahDropdown [data-v="255"]').click()`);
+  await sleep(400);
+  await evalJS("document.getElementById('qrnContentBtn').click()");
+  await waitFor(`getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'`, 5000);
+  await evalJS(`(function () {
+    var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-jaufarFaiz:0"] input[type=checkbox]');
+    cb.click();
+  })()`);
+  const navAdd = await waitFor(`document.querySelectorAll('.reader-table th').length === 4`, 20000);
+  const navRows = await evalJS(`(function () {
+    var first = document.querySelector('.reader-table tbody tr:first-child');
+    var ths = document.querySelectorAll('.reader-table th').length;
+    return {
+      ths: ths,
+      tds: first ? first.children.length : -1,
+      cell4: first && first.children[3] ? first.children[3].textContent : null,
+    };
+  })()`);
+  check("nav-then-add: column label appears", navAdd && navRows.ths === 4, String(navRows.ths) + " th");
+  check("nav-then-add: rows carry the new column", navRows.tds === navRows.ths,
+    String(navRows.tds) + " td vs " + String(navRows.ths) + " th");
+  const jaufar = parseCSV(fs.readFileSync(DATA + "content/QRN-jaufarFaiz.csv", "utf8"), true);
+  jaufar.shift();
+  const jaufar21 = jaufar[surahStarts[2]][0];
+  check("nav-then-add: 2:1 jaufar cell matches data file",
+    unornament(navRows.cell4 || "") === unornament(jaufar21 || ""), (navRows.cell4 || "").slice(0, 20));
+  // leave state as section B ends it: column unchecked, modal open
+  // (section C clicks preset buttons inside the overlay)
+  await evalJS(`(function () {
+    var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-jaufarFaiz:0"] input[type=checkbox]');
+    cb.click();
+  })()`);
+  const navUndo = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 10000);
+  check("nav-then-add: uncheck restores base columns", navUndo, "");
 
   // ── C. PRESET_ALL / RESET ──────────────────────────────────────────
   console.log("== C. presets ==");

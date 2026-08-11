@@ -304,7 +304,12 @@ export function loadQuranBookCSV(bookCode) {
   if (_bookCsvCache && _bookCsvCache.bookCode === bookCode) {
     return Promise.resolve(_bookCsvCache);
   }
-  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/content/" + bookCode + ".csv").then(function (rows) {
+  // keepEmpty: QRN files are 6,236-slot skeletons — one row per ayah, an
+  // empty row meaning "no translation yet". Empty rows must survive the
+  // parse (and the cache) so the by-index merge in mergeQuranData stays
+  // aligned with the base file. The base files (QRN-DATA-*) have no blank
+  // rows, so keeping them here is a no-op for those.
+  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/content/" + bookCode + ".csv", true).then(function (rows) {
     if (rows.length === 0) return { headerRow: [], allData: [] };
     var headerRow = rows.shift();
     _bookCsvCache = { bookCode: bookCode, headerRow: headerRow, allData: rows };
@@ -320,6 +325,17 @@ export function mergeQuranData(bookCode) {
   ]).then(function (results) {
     var baseRows = results[0];
     var bookData = results[1];
+
+    // QRN books merge by row index — a count mismatch means a structural
+    // problem in the CSV (rows added/removed, or a trailing newline parsing
+    // as an extra slot), and every row past the shorter side would silently
+    // misalign. Console-only: a data-authoring signal, not a user-facing one.
+    if (bookData.allData && bookData.allData.length !== baseRows.length) {
+      console.warn(
+        "QRN book " + bookCode + " has " + bookData.allData.length + " rows, base has " +
+        baseRows.length + " — merge will misalign. Expected one row per ayah (6,236)."
+      );
+    }
 
     // Build synthetic headerRow
     var headerRow = BASE_HEADERS.slice();
@@ -417,8 +433,18 @@ export function applyColumnOrder(state) {
         if (newNormRow) newNormRow[at] = nrow[oldMap[colKey2]];
       }
     }
-    newAll[r] = newRow;
-    if (newNormRow) newNorm[r] = newNormRow;
+    // Rewrite the existing row arrays in place: filtered views (surah/juz
+    // slices, search results) hold references to these same objects, so they
+    // must see the new layout without being re-sliced. The returned arrays
+    // hold the same objects, making the caller's element copies no-ops.
+    row.length = 0;
+    for (var w = 0; w < newRow.length; w++) row.push(newRow[w]);
+    if (newNormRow) {
+      nrow.length = 0;
+      for (var w2 = 0; w2 < newNormRow.length; w2++) nrow.push(newNormRow[w2]);
+    }
+    newAll[r] = row;
+    if (newNormRow) newNorm[r] = nrow;
   }
 
   // Remap loaded/hidden indices. Base columns keep their fixed positions;

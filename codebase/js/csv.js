@@ -5,9 +5,10 @@
  *
  * Usage:
  *   import { parseCSV } from "./csv.js";
- *   var rows = parseCSV(csvText);
+ *   var rows = parseCSV(csvText);           // drops fully-empty rows
+ *   var rows = parseCSV(csvText, true);     // keeps them (QRN skeleton books)
  */
-export function parseCSV(text) {
+export function parseCSV(text, keepEmpty) {
   var rows = [];
   var row = [];
   var field = "";
@@ -36,8 +37,9 @@ export function parseCSV(text) {
       } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
         if (ch === '\r') i++; // skip \r in \r\n
         row.push(field.trim());
-        // Only keep non-empty rows
-        if (row.some(function (c) { return c !== ""; })) {
+        // Only keep non-empty rows — unless keepEmpty (QRN books: an empty
+        // row is an untranslated ayah slot, not formatting)
+        if (keepEmpty || row.some(function (c) { return c !== ""; })) {
           rows.push(row);
         }
         row = [];
@@ -45,7 +47,7 @@ export function parseCSV(text) {
       } else if (ch === '\r') {
         // standalone \r
         row.push(field.trim());
-        if (row.some(function (c) { return c !== ""; })) {
+        if (keepEmpty || row.some(function (c) { return c !== ""; })) {
           rows.push(row);
         }
         row = [];
@@ -58,7 +60,7 @@ export function parseCSV(text) {
 
   // Last field/row
   row.push(field.trim());
-  if (row.some(function (c) { return c !== ""; })) {
+  if (keepEmpty || row.some(function (c) { return c !== ""; })) {
     rows.push(row);
   }
 
@@ -66,16 +68,18 @@ export function parseCSV(text) {
 }
 
 /**
- * Fetch a CSV file, parse it, and filter out empty rows.
+ * Fetch a CSV file and parse it. Empty rows are dropped unless keepEmpty is
+ * set — QRN books are 6,236-slot skeletons whose empty rows are untranslated
+ * ayahs and must survive the parse.
  */
-export async function fetchCSVRows(path) {
+export async function fetchCSVRows(path, keepEmpty) {
   var resp = await fetch(path);
   if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
   var text = await resp.text();
-  // parseCSV already skips empty rows — no second filter pass or throwaway
+  // parseCSV already handles empty rows — no second filter pass or throwaway
   // array. The `text` string is a local, so it is garbage-collected as soon
   // as this returns (the decoded row arrays are the only thing retained).
-  return parseCSV(text);
+  return parseCSV(text, keepEmpty);
 }
 
 /**
@@ -137,7 +141,7 @@ function idbGet(bookCode) {
   });
 }
 
-function idbPut(bookCode, version, rows) {
+function idbPut(bookCode, version, rows, keepEmpty) {
   return openCacheDB().then(function (db) {
     if (!db) return;
     return new Promise(function (resolve) {
@@ -145,6 +149,7 @@ function idbPut(bookCode, version, rows) {
         bookCode: bookCode,
         version: version,
         rows: rows,
+        keepEmpty: keepEmpty,
       });
       tx.onsuccess = function () { resolve(); };
       tx.onerror = function () { resolve(); };
@@ -158,18 +163,23 @@ function idbPut(bookCode, version, rows) {
  * cache (no trust). Returns the parsed 2D array — same shape as fetchCSVRows.
  * IndexedDB returns a fresh structured-clone per read, so callers may mutate
  * the result (e.g. shift() the header) without corrupting the stored copy.
+ * `keepEmpty` is part of the cache contract: a stored record parsed with a
+ * different mode is a cache miss — the file hash alone can't tell those two
+ * parses apart. Both sides normalize with `|| false` so an absent field
+ * (old records, or records stored by flag-less callers) means drop mode and
+ * matches other drop-mode requests; `true` never matches drop mode.
  */
-export async function fetchBookCSVCached(bookCode, version, path) {
+export async function fetchBookCSVCached(bookCode, version, path, keepEmpty) {
   if (version) {
     var cached = await idbGet(bookCode);
-    if (cached && cached.version === version) {
+    if (cached && cached.version === version && (cached.keepEmpty || false) === (keepEmpty || false)) {
       return cached.rows;
     }
   }
-  var rows = await fetchCSVRows(path);
+  var rows = await fetchCSVRows(path, keepEmpty);
   if (version) {
     // Fire-and-forget: don't delay first render on the write
-    idbPut(bookCode, version, rows).catch(function () {});
+    idbPut(bookCode, version, rows, keepEmpty).catch(function () {});
   }
   return rows;
 }

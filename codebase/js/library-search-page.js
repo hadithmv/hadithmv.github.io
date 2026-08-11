@@ -263,10 +263,14 @@ function renderSearchHistory() {
 function peekEnsureData(bookCode, q) {
   var cached = _peekCache[bookCode] && _peekCache[bookCode][q];
   if (cached && cached.q === q) return Promise.resolve(cached);
+  // QRN books are 6,236-slot skeletons — empty rows are untranslated ayahs.
+  // The peek's row numbers must match the reader's merged table (and the
+  // index postings), which keep those rows, so parse them with keepEmpty.
   return fetchBookCSVCached(
     bookCode,
     getBookVersionSync(bookCode),
     getCsvPath(bookCode),
+    bookCode.indexOf("QRN-") === 0,
   ).then(function (rows) {
     if (!rows || rows.length < 2) throw new Error("Book has no content");
     var allData = rows.slice(1);
