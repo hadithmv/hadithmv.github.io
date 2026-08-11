@@ -210,19 +210,23 @@ function onScroll() {
       scrollCounter.classList.remove("show");
     }, 2000);
   }
+  // URL/history/pin rows must be whole-book indices: the reader's ?row=
+  // handler reads them against the full book at load, and surah/juz filter
+  // views are slices of allData — map the filtered index back first.
+  var absRow = Math.max(1, ctx.allData.indexOf(filteredData[vRow]) + 1);
   // Sync URL with current position (debounced 500ms)
   clearTimeout(urlSyncTimer);
   urlSyncTimer = setTimeout(function () {
-    var newURL = window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
+    var newURL = window.location.pathname + "?book=" + metadata.bookCode + "&row=" + absRow;
     history.replaceState(null, "", newURL);
   }, 500);
   // History auto-log + pin update (debounced 2s, row must change)
-  if (vRow + 1 !== _lastHistoryRow) {
+  if (absRow !== _lastHistoryRow) {
     clearTimeout(historyTimer);
     historyTimer = setTimeout(function () {
-      addReadHistory(metadata.bookCode, vRow + 1, ctx.pinLabel(vRow + 1));
-      if (isPinned(metadata.bookCode)) addPin(metadata.bookCode, vRow + 1, ctx.pinLabel(vRow + 1));
-      _lastHistoryRow = vRow + 1;
+      addReadHistory(metadata.bookCode, absRow, ctx.pinLabel(absRow));
+      if (isPinned(metadata.bookCode)) addPin(metadata.bookCode, absRow, ctx.pinLabel(absRow));
+      _lastHistoryRow = absRow;
     }, 2000);
   }
 }

@@ -35,13 +35,13 @@ initializePageWithMetadata(async function (metadata) {
   //   Infinite scroll + table scrollbar                    L710-833
   //   Navigation (goTo, scroll padding)                    L836-856
   //   Search UI (wiring — module: reader-search-ui.js)     L859-885
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L888-1040
-  //   Keyboard shortcuts (incl. navigation buttons)        L1043-1146
-  //   Touch swipe                                          L1149-1169
-  //   Settings reset + language change                     L1172-1185
-  //   Quran UI (initQuranUI ctx)                           L1188-1208
-  //   Initial render (deep links, reveal)                  L1211-1277
-  //   Module-level helpers (showError)                     L1280-1286
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L888-1047
+  //   Keyboard shortcuts (incl. navigation buttons)        L1050-1153
+  //   Touch swipe                                          L1156-1176
+  //   Settings reset + language change                     L1179-1192
+  //   Quran UI (initQuranUI ctx)                           L1195-1215
+  //   Initial render (deep links, reveal)                  L1218-1285
+  //   Module-level helpers (showError)                     L1288-1294
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -905,7 +905,10 @@ initializePageWithMetadata(async function (metadata) {
       // ── Toolbar: share ─────────────────────────────────────
       document.getElementById("btnShare").addEventListener("click", function () {
         var vRow = visiblePageIndex();
-        var url = window.location.origin + window.location.pathname + "?book=" + metadata.bookCode + "&row=" + (vRow + 1);
+        // Whole-book row — the ?row= handler reads against the full book on
+        // load, and filter views are slices of allData.
+        var absRow = Math.max(1, allData.indexOf(filteredData[vRow]) + 1);
+        var url = window.location.origin + window.location.pathname + "?book=" + metadata.bookCode + "&row=" + absRow;
         window.copyToClipboard(url, "toastShared");
       });
 
@@ -927,8 +930,9 @@ initializePageWithMetadata(async function (metadata) {
         window.reserveWidestText(btnBookmark, [t("btnBookmarkText"), t("btnBookmarkPinned")]);
       }
       function pinLabel(vRow) {
-        if (!quranBook || filteredData.length === 0) return null;
-        var row = filteredData[vRow - 1];
+        if (!quranBook || !allData.length) return null;
+        // vRow is a whole-book row — labels and stored rows must agree
+        var row = allData[vRow - 1];
         if (!row) return null;
         var surahNo = parseInt(row[1], 10) || 0;
         var ayahNo = parseInt(row[2], 10) || 0;
@@ -937,12 +941,15 @@ initializePageWithMetadata(async function (metadata) {
         return surahName + " " + ayahNo + ":" + surahNo;
       }
       btnBookmark.addEventListener("click", function () {
-        var vRow = visiblePageIndex() + 1;
+        var vRow = visiblePageIndex();
+        // Whole-book row — the pin opens via ?row= against the full book,
+        // and filter views are slices of allData.
+        var absRow = Math.max(1, allData.indexOf(filteredData[vRow]) + 1);
         if (isPinned(metadata.bookCode)) {
           removePin(metadata.bookCode);
           showToast(t("toastUnpinned"));
         } else {
-          var ok = addPin(metadata.bookCode, vRow, pinLabel(vRow));
+          var ok = addPin(metadata.bookCode, absRow, pinLabel(absRow));
           showToast(ok ? t("toastPinned") : t("toastPinned"));
         }
         updateBookmarkButton();
@@ -1218,6 +1225,7 @@ initializePageWithMetadata(async function (metadata) {
         metadata: metadata,
         quranBook: quranBook,
         headerRow: headerRow,
+        allData: allData,
         getFilteredData: function () { return filteredData; },
         pinLabel: pinLabel,
         goTo: goTo,
