@@ -27,18 +27,26 @@ export function isPinned(bookCode) {
 export function addPin(bookCode, row, label) {
   var pins = getPinnedBooks();
   var idx = pins.findIndex(function (p) { return p.bookCode === bookCode; });
+  var evictedName = null;
   if (idx !== -1) {
     pins[idx].row = row;
     if (label) pins[idx].label = label;
     pins[idx].addedAt = Date.now();
   } else {
-    if (pins.length >= MAX_PINS) return false;
+    if (pins.length >= MAX_PINS) {
+      // Full — evict the oldest pin (last in the newest-first list) to make
+      // room, mirroring read history's cap behaviour. Return its display name
+      // so the caller can tell the user what was dropped.
+      evictedName = bookDisplayName(pins.pop().bookCode);
+    }
     var entry = { bookCode: bookCode, row: row, addedAt: Date.now() };
     if (label) entry.label = label;
-    pins.push(entry);
+    // Newest pin lands at the top — same ordering as the read-history modal.
+    // Updates to an existing pin (the reader's auto-update) keep its position.
+    pins.unshift(entry);
   }
   setPinnedBooks(pins);
-  return true;
+  return evictedName;
 }
 export function removePin(bookCode) {
   setPinnedBooks(getPinnedBooks().filter(function (p) { return p.bookCode !== bookCode; }));

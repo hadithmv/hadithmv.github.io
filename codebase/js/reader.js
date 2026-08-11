@@ -949,8 +949,10 @@ initializePageWithMetadata(async function (metadata) {
           removePin(metadata.bookCode);
           showToast(t("toastUnpinned"));
         } else {
-          var ok = addPin(metadata.bookCode, absRow, pinLabel(absRow));
-          showToast(ok ? t("toastPinned") : t("toastPinned"));
+          // addPin returns the evicted pin's display name when the list was
+          // full and the oldest pin was dropped to make room — tell the user.
+          var evicted = addPin(metadata.bookCode, absRow, pinLabel(absRow));
+          showToast(evicted ? evicted + " — " + t("toastPinReplaced") : t("toastPinned"));
         }
         updateBookmarkButton();
       });

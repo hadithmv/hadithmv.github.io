@@ -316,7 +316,16 @@ const STRINGS = {
     ar: "لا يوجد سجل قراءة",
   },
   toastPinned: { dv: "ޕިން ކުރެވިއްޖެ", en: "Bookmarked", ar: "تم التثبيت" },
-  toastUnpinned: { dv: "ޕިން ނެތް", en: "Bookmark removed", ar: "تمت الإزالة" },
+  toastPinReplaced: {
+    dv: "ޕިންތައް ފުރިގެން އެންމެ ކުރީގެ ޕިން ފޮހެވިއްޖެ",
+    en: "Pins full, oldest pin removed",
+    ar: "التثبيتات ممتلئة، وتمت إزالة أقدم تثبيت",
+  },
+  toastUnpinned: {
+    dv: "ފޮހެވިއްޖެ",
+    en: "Removed",
+    ar: "تمت الإزالة",
+  },
   relativeJustNow: { dv: "ދެންމެ", en: "just now", ar: "الآن" },
   relativeMinutes: { dv: "މިނެޓް ކުރިން", en: "m ago", ar: "د" },
   relativeHours: { dv: "ގަޑިއިރު ކުރިން", en: "h ago", ar: "س" },

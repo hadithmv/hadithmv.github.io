@@ -128,7 +128,7 @@ URL: ?book=AQD-nawaqidulIslam
     └─ wire infinite scroll / search / toolbar / keyboard / i18n
 ```
 
-No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `book-data.js` for the registry) → search bar, tag chips, functions row (pins, history, view toggle, sort, reset), card grid of all books. Pins and history persist in `localStorage` (max 10 each) and open as modal overlays from toolbar buttons. Key behaviors:
+No `?book=` → dashboard (`index.html`) loads `dashboard.js` (which imports `book-data.js` for the registry) → search bar, tag chips, functions row (pins, history, view toggle, sort, reset), card grid of all books. Pins and history persist in `localStorage` (max 10 each — at the cap, the oldest entry is evicted to make room) and open as modal overlays from toolbar buttons. Key behaviors:
 
 - **Sort row** — one continuous line that scrolls horizontally when it doesn't fit (reader‑toolbar pattern: `#dashboardPanelFunctions` wrap with ◀▶ edge arrows, inner `.dash-functions-scroll` does the scrolling, arrows auto‑hide at the extremes, wheel redirects to horizontal — see "Horizontal scrolling & RTL" before touching the arrow signs)
 - **Table view** — `dash-table` wrapped in `.dash-table-wrap`: `overflow-x: auto` with a hidden scrollbar, so its four columns scroll sideways instead of overflowing the page
