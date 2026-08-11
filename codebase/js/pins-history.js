@@ -120,10 +120,10 @@ export function openPinsModal() {
     var html = '<table class="dd-table">';
     html += '<thead><tr>';
     html += '<th class="dd-col-idx">' + t("ddColIdx") + '</th>';
-    html += '<th class="dd-col-sort">' + t("ddColSort") + '</th>';
+    html += '<th class="dd-col-sort">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColSortShort" : "ddColSort") + '</th>';
     html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
     html += '<th class="dd-col-page">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColPageShort" : "ddColPage") + '</th>';
-    html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
+    html += '<th class="dd-col-remove">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColRemoveShort" : "ddColRemove") + '</th>';
     html += '</tr></thead><tbody>';
     for (var i = 0; i < pins.length; i++) {
       var p = pins[i];
@@ -166,7 +166,7 @@ export function openHistoryModal() {
     html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
     html += '<th class="dd-col-page">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColPageShort" : "ddColPage") + '</th>';
     html += '<th class="dd-col-time">' + t("ddColTime") + '</th>';
-    html += '<th class="dd-col-remove">' + t("ddColRemove") + '</th>';
+    html += '<th class="dd-col-remove">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColRemoveShort" : "ddColRemove") + '</th>';
     html += '</tr></thead><tbody>';
     for (var i = 0; i < history.length; i++) {
       var entry = history[i];

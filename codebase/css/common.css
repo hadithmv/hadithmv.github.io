@@ -1726,21 +1726,28 @@ body {
   .modal-header {
     padding: 16px 16px 8px;
   }
-  /* Compact the pins/history table on small screens so the book column keeps room */
+  /* Compact the pins/history table on small screens so the book column keeps
+     room. The sort/remove headers swap to glyph forms (ddColSortShort /
+     ddColRemoveShort, see pins-history.js) so these columns can drop to
+     roughly their content width; page/time keep word headers but shrink. */
   .pins-history-body .dd-table th {
     font-size: var(--fs-micro, 0.68rem);
     padding: 6px 8px;
+    /* table cells default to content-box — the widths below would render
+       16px wider than declared. Opt into border-box so they render exactly. */
+    box-sizing: border-box;
   }
   .pins-history-body .dd-table td {
     padding: 6px 8px;
+    box-sizing: border-box;
   }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1) { width: 30px; }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2) { width: 68px; }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 68px; }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 68px; }
-  .pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 68px; }
-  .pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 88px; }
-  .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 68px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1) { width: 26px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2) { width: 48px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 56px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 32px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 56px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 72px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 32px; }
 }
 
 /* Mobile touch targets — extend the hit area 3px on every side without

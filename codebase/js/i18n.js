@@ -300,6 +300,9 @@ const STRINGS = {
   ddColBook: { dv: "ފޮތް", en: "Book", ar: "كتاب" },
   ddColPage: { dv: "ސަފްހާ", en: "Page", ar: "صفحة" },
   ddColPageShort: { dv: "ސ", en: "Pg", ar: "ص" },
+  // Mobile drops the full words too — glyph headers keep the thin columns thin
+  ddColSortShort: { dv: "⇅", en: "⇅", ar: "⇅" },
+  ddColRemoveShort: { dv: "✕", en: "✕", ar: "✕" },
   ddColTime: { dv: "ވަގުތު", en: "Time", ar: "وقت" },
   ddColRemove: { dv: "ފޮހެލާ", en: "Remove", ar: "حذف" },
   ddColIdx: { dv: "#", en: "#", ar: "#" },
