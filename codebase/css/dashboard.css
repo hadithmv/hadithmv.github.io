@@ -172,7 +172,7 @@ a.toolbar-btn {
   left: 2px;
   right: auto;
 }
-/* The actions row (reset, view toggle, sort, pins, history) — never wraps;
+/* The actions row (pins, history, view toggle, sort, reset) — never wraps;
    the parent row scrolls horizontally instead. */
 .dash-functions-row {
   display: flex;
