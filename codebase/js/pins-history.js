@@ -7,7 +7,7 @@
  */
 
 import { t } from "./i18n.js";
-import { getBookTitleSync } from "./book-data.js";
+import { getBookTitleSync, resolveBookCode } from "./book-data.js";
 
 // ── Storage ─────────────────────────────────────────────────
 const PINNED_KEY = window.LS_KEYS.pinnedBooks;
@@ -90,7 +90,8 @@ export function timeAgo(ts) {
 }
 
 function bookDisplayName(bookCode) {
-  var title = getBookTitleSync(bookCode);
+  // Stored codes can predate a rename (tag-prefix change) — resolve first
+  var title = getBookTitleSync(resolveBookCode(bookCode));
   return title || bookCode;
 }
 
@@ -125,7 +126,7 @@ export function openPinsModal() {
       html += '<span class="chip-arrow' + (i === 0 ? ' chip-arrow-disabled' : '') + '" data-dir="-1" title="Move up">▲</span>';
       html += '<span class="chip-arrow' + (i === pins.length - 1 ? ' chip-arrow-disabled' : '') + '" data-dir="1" title="Move down">▼</span>';
       html += '</td>';
-      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + p.bookCode + '&row=' + p.row + '">' + name + '</a></td>';
+      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + resolveBookCode(p.bookCode) + '&row=' + p.row + '">' + name + '</a></td>';
       html += '<td class="dd-col-page">' + (p.label || p.row) + '</td>';
       html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';
       html += '</tr>';
@@ -163,7 +164,7 @@ export function openHistoryModal() {
       var entry = history[i];
       var name = bookDisplayName(entry.bookCode);
       html += '<tr class="dd-row" data-code="' + entry.bookCode + '">';
-      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + entry.bookCode + '&row=' + entry.row + '">' + name + '</a></td>';
+      html += '<td class="dd-col-book"><a class="dd-link" href="reader.html?book=' + resolveBookCode(entry.bookCode) + '&row=' + entry.row + '">' + name + '</a></td>';
       html += '<td class="dd-col-page">' + (entry.label || entry.row) + '</td>';
       html += '<td class="dd-col-time">' + timeAgo(entry.timestamp) + '</td>';
       html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';

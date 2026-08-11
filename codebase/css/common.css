@@ -1497,7 +1497,7 @@ body {
 
 /* ---- Pins / History modal ---- */
 .pins-history-modal {
-  width: min(520px, 92vw);
+  width: min(720px, 92vw);
   max-height: 80vh;
   display: flex;
   flex-direction: column;
@@ -1521,13 +1521,13 @@ body {
 .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 84px; }
 .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 84px; }
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 84px; }
-.pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 110px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 88px; }
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 84px; }
 .pins-history-body .dd-table th {
   padding: 8px 10px;
   font-size: var(--fs-aux, 0.8rem);
   font-weight: 700;
-  color: var(--color-text-subtle);
+  color: var(--color-text);
   background: var(--color-nav-btn-bg);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1576,6 +1576,13 @@ body {
 .pins-history-body .dd-table td.dd-col-page,
 .pins-history-body .dd-table td.dd-col-time {
   color: var(--color-text-subtle);
+}
+/* Book names wrap to a second line instead of truncating — long titles
+   (and any stale codes shown as a fallback) get full height */
+.pins-history-body .dd-table td.dd-col-book {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
 }
 .pins-history-body .dd-table .dd-col-remove {
   text-align: center;

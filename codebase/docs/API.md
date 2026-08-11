@@ -80,7 +80,11 @@ Looks up a single book by code (async). Returns the metadata object or `null`.
 
 ### `getBookTitleSync(bookCode)`
 
-Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran-data.js` for source-book labels.
+Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran-data.js` for source-book labels and `pins-history.js` for modal book names.
+
+### `resolveBookCode(bookCode)`
+
+Resolves a possibly-stale book code to a current registry code. Renames keep the base name and change the tag prefix (e.g. `AKLQ-…` → `DFK-…`), and old codes survive in stored pins/history — the pins/history modal runs every stored code through this before showing a title or building a `reader.html?book=…&row=…` link. Exact match wins; otherwise the registry code sharing the longest dash-segment suffix — requiring 2+ shared segments, or a unique 1-segment tail; ambiguous matches (two candidates claim the same tail) return the code unchanged. Returns the input unchanged when the registry isn't loaded or nothing matches.
 
 ### `getCsvPath(bookCode)`
 
@@ -126,15 +130,15 @@ Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current
 
 ## pins-history.js
 
-Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from book-data.js. Imported by `book-data.js` (re‑exports `addPin`, `removePin`, `isPinned`, `addReadHistory` for reader.js).
+Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from book-data.js. Imported by `book-data.js` (re‑exports `addPin`, `removePin`, `isPinned`, `addReadHistory` for reader.js). Stored book codes can predate a rename (tag-prefix change), so the modal resolves every entry via `resolveBookCode()` — both the displayed title (`bookDisplayName`) and the jump links use the resolved code.
 
 | Function | Description |
 |---|---|
 | `getPinnedBooks()` / `getReadHistory()` | Returns the full pins/history arrays from localStorage. |
-| `addPin(bookCode, row, label?)` | Adds or updates a pin. **One entry per book** — calling it for an already‑pinned book updates the existing entry's row/label rather than adding a second. In practice this path is exercised by the reader's position auto‑update while reading; the reader's 📌 button itself TOGGLES (calls `removePin` when already pinned). Returns `false` when the pin cap (10) is reached. Optional `label` stores a human‑readable position (e.g. `"البَقَرَة 5:2"`). |
+| `addPin(bookCode, row, label?)` | Adds or updates a pin. **One entry per book** — calling it for an already‑pinned book updates the existing entry's row/label rather than adding a second. In practice this path is exercised by the reader's position auto‑update while reading; the reader's 📌 button itself TOGGLES (calls `removePin` when already pinned). Returns `false` when the pin cap (10) is reached. Optional `label` stores a human‑readable position (e.g. `"البَقَرَة 5:2"`). `row` is a 1‑based **whole‑book** data position — the same `?row=` contract as deep links; callers writing from filtered views (surah/juz) must map the row back to the full book first. |
 | `removePin(bookCode)` | Removes a pin by book code. |
 | `isPinned(bookCode)` | Returns `true` if the book is currently pinned. |
-| `addReadHistory(bookCode, row, label?)` | Prepends an entry to reading history (max 10). |
+| `addReadHistory(bookCode, row, label?)` | Prepends an entry to reading history (max 10). Same `row` convention as `addPin`. |
 | `clearPins()` / `clearReadHistory()` | Clears all pins or history. |
 | `openPinsModal()` | Opens the pins modal overlay with reorder/remove/click-to-jump. Also on `window` for legacy callers. |
 | `openHistoryModal()` | Opens the history modal with timestamps and clear-all. Also on `window` for legacy callers. |
@@ -479,7 +483,9 @@ Reader position: the pagination strip, the visible-row detector, and the scroll-
 
 ### `initPosition(ctx)`
 
-Registers the window scroll listener (`{ passive: true }`) and logs the initial read-history entry. ctx: `{ metadata, quranBook, headerRow, getFilteredData, pinLabel, goTo }` — `metadata`/`quranBook`/`headerRow` are direct refs (never rebound); `getFilteredData` is an accessor because search reassigns `filteredData`; `pinLabel`/`goTo` are callbacks. Called from reader.js's initial render **before** `loadInitial` — the table branch calls `updatePagination()`, so the module's ctx must exist by then.
+Registers the window scroll listener (`{ passive: true }`) and logs the initial read-history entry. ctx: `{ metadata, quranBook, headerRow, allData, getFilteredData, pinLabel, goTo }` — `metadata`/`quranBook`/`headerRow`/`allData` are direct refs (never rebound); `getFilteredData` is an accessor because search reassigns `filteredData`; `pinLabel`/`goTo` are callbacks. Called from reader.js's initial render **before** `loadInitial` — the table branch calls `updatePagination()`, so the module's ctx must exist by then.
+
+The URL sync, read-history auto-log and pin auto-update all store **whole-book row numbers**: surah/juz filter views are slices of `allData`, so the scroll handler maps the visible row back via `allData.indexOf(filteredData[vRow]) + 1` before writing — the reader's `?row=` handler reads rows against the full book at load (filters never appear in the URL). The Share button and the 📌 bookmark handler in reader.js follow the same convention, and `pinLabel` takes the same 1-based whole-book row.
 
 ### `updatePagination()`
 

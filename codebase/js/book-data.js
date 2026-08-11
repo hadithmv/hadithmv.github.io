@@ -173,6 +173,31 @@ export function getBookTitleSync(bookCode) {
   return entry ? entry.titleDV || entry.titleEN || bookCode : null;
 }
 
+/**
+ * Resolve a possibly-stale book code to a current registry code. Renames
+ * keep the base name and change the tag prefix (e.g. AKLQ-… → DFK-…), and
+ * old codes survive in stored pins/history. Exact match wins; otherwise the
+ * registry code sharing the longest dash-segment suffix, requiring 2+ shared
+ * segments, or a unique 1-segment tail. Unresolvable codes come back
+ * unchanged.
+ */
+export function resolveBookCode(code) {
+  if (!_bookNamesCache || !code || code.indexOf("-") === -1) return code;
+  var a = code.split("-");
+  var best = null, bestSegs = 0, bestTies = 0;
+  for (var i = 0; i < _bookNamesCache.length; i++) {
+    var cand = _bookNamesCache[i].bookCode;
+    if (cand === code) return code;
+    var b = cand.split("-");
+    var n = 0;
+    while (n < a.length && n < b.length && a[a.length - 1 - n] === b[b.length - 1 - n]) n++;
+    if (n > bestSegs) { bestSegs = n; best = cand; bestTies = 1; }
+    else if (n === bestSegs && n > 0) bestTies++;
+  }
+  if (!best || bestSegs === 0) return code;
+  return (bestSegs >= 2 || bestTies === 1) ? best : code;
+}
+
 /** Sync version lookup (registry content-hash column) — "" when unknown. */
 export function getBookVersionSync(bookCode) {
   if (!_bookNamesCache) return "";
