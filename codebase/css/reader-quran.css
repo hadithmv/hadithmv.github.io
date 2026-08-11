@@ -251,7 +251,9 @@
   border-radius: var(--radius-lg, 12px);
   width: 380px;
   max-width: 92vw;
-  max-height: 80vh;
+  /* Fixed height (not max-height): the modal keeps its size while the search
+     filters the list, instead of collapsing to match a handful of rows. */
+  height: min(80vh, 560px);
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-modal, 0 16px 48px var(--color-shadow-modal));

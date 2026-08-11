@@ -31,7 +31,7 @@ HDT-HBK-sunanNasai,سنن النسائي,ސުނަން ނަސާއީ,Sunan Nasai,I
 HDT-HMSC-all,الجامع في الأحاديث,އެއްކުރަމުންދާ ޙަދީޘްތައް,Collection of Hadith,DRFT,"source,#,takhrij",30fe88ab3bd7
 HDT-HMSC-kutubAlbani,كتب الألباني,އަލްބާނީގެ ފޮތްތައް,Books of Albani,DRFT,"source,#,takhrij",9d3912bda7a1
 HDT-muwattaMalik,موطأ مالك,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT,"basmala,kitabAR,babAR,kitabDV,babDV,foot",7befde361360
-HDT-umdathulAhkam,عمدة الأحكام,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,,"kitabAR,babAR,kitabDV,babDV,foot",cf58851f371c
+HDT-umdathulAhkam,عمدة الأحكام,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,REV,"kitabAR,babAR,kitabDV,babDV,foot",cf58851f371c
 IH-huquqDaathIlaihalFitra,حقوق دعت إليها الفطرة,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް,Rights Advocated by Human Nature,,foot,a7d7a6a242f1
 IH-islamDeenRusulullah,الإسلام دين رسل الله,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,,,fc12b2efbb0d
 IH-islamDeenulFitrah,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",,,49daca16a4ea
@@ -46,16 +46,16 @@ QRN-DATA-ayahImlai,القرآن بالرسم الإملائي,ކީރިތި ގު�
 QRN-DATA-ayahUthmani,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,ENTIRE-BOOK,756308c8cfaf
 QRN-hadithmv,ترجمة حديث إم في,ޙަދީޘްއެމްވީގެ ތަރުޖަމާ,Quran Translation of Hadithmv,DRFT,,0f2711a29294
 QRN-jaufarFaiz,تفسير القرآن لجعفر,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,,foot,51f66d1603c8
-QRN-mukhtasarAR,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir,,ENTIRE-BOOK,ca622e0646a4
-QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir,,ENTIRE-BOOK,db1022a51454
+QRN-mukhtasarAR,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir (Arabic Only),,ENTIRE-BOOK,ca622e0646a4
+QRN-muyassarAR,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir (Arabic Only),,ENTIRE-BOOK,db1022a51454
 QRN-rasmee-alt,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),,,c7380ae41cd1
 QRN-rasmee-og,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ENTIRE-BOOK,24c98a2f7b76
-QRN-soabuniAshari-HDN,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,,"translation,title,note",246b5d204bb1
+QRN-soabuniAshari-HDN,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,REV,"translation,title,note",246b5d204bb1
 QRUL-ushrulAkhir-ahkamThahimmulMuslim,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,Explanation of Last Tenth of Quran - with Important Matters for the Muslim,"AQD,REV",bodyAR,38727785181e
 RDF-ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,ENTIRE-BOOK,80fe1dcdfc3f
 RDF-all,الجامع في المعاجم,އެއްކުރަމުންދާ ރަދީފުތައް,Collection of Dictionaries,,ENTIRE-BOOK,54defcd995ed
 RDF-asmaullahilHusna,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,AQD,ENTIRE-BOOK,17f198f4bf43
-RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Eegaal Dictionary,,ENTIRE-BOOK,611a4bc70631
+RDF-eegaal,(معجم) الإيقاظ,އަލްއީގާޡް,Eegaal Dictionary,REV,ENTIRE-BOOK,611a4bc70631
 RDF-hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,,ENTIRE-BOOK,c3012745fe06
 RDF-nanfoiyComb,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,,ENTIRE-BOOK,d81292aa4369
 RDF-rasmee,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Official Dhivehi Dictionary,,ENTIRE-BOOK,60c3f7c3af40
