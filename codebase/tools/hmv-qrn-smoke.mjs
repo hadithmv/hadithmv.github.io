@@ -355,7 +355,7 @@ async function main() {
   const thAfter = await evalJS(`document.querySelectorAll('.reader-table th').length`);
   check("preset all loads book columns", grew && thAfter > 6, String(thAfter) + " th");
   const toast = await evalJS(`(function () {
-    var t = document.querySelector('.copy-toast');
+    var t = document.querySelector('.toast');
     return t && t.textContent ? t.textContent : null;
   })()`);
   check("no error toast after preset all", !toast || toast.indexOf("⚠️") === -1, toast);
@@ -412,7 +412,7 @@ async function main() {
   await evalJS("document.getElementById('btnResetSettings').click()");
   await sleep(500);
   const toastR = await evalJS(`(function () {
-    var t = document.querySelector('.copy-toast');
+    var t = document.querySelector('.toast');
     return t && t.textContent ? t.textContent : null;
   })()`);
   check("settings reset no error toast", !toastR || toastR.indexOf("⚠️") === -1, toastR);

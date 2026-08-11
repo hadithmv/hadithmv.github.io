@@ -335,10 +335,10 @@ function applyFontSize(idx) {
 
 // ── Shared toast ────────────────────────────────────────────
 window.showToast = function (msg) {
-  var el = document.querySelector(".copy-toast");
+  var el = document.querySelector(".toast");
   if (!el) {
     el = document.createElement("div");
-    el.className = "copy-toast";
+    el.className = "toast";
     document.body.appendChild(el);
   }
   el.textContent = msg;

@@ -299,8 +299,8 @@
 }
 
 /* ── Multi-row page separator ── */
-/* ── Copy feedback toast ── */
-.copy-toast {
+/* ── Toast (copy, share, pin, errors — showToast in common.js) ── */
+.toast {
   position: fixed;
   bottom: 64px; /* clears the taller desktop scroll pill (bottom: 10px) */
   left: 50%;
@@ -319,7 +319,7 @@
   direction: rtl;
 }
 
-.copy-toast.show {
+.toast.show {
   opacity: 1;
 }
 
@@ -736,7 +736,7 @@
     padding: 4px 14px;
     min-width: 120px;
   }
-  .copy-toast {
+  .toast {
     bottom: 50px; /* compact pill is shorter — toast can sit lower again */
   }
 
