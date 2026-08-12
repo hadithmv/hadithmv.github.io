@@ -3,7 +3,7 @@
  *
  * Extracted from reader.js to keep the main module under 2 000 lines.
  * The in-book search hub: results rendering (buildSnippets /
- * buildResultsHTML / buildAdvResultsHTML / updateSearchResults),
+ * buildAdvResultsHTML / updateSearchResults),
  * applySearch, the whole-word toggle, the history dropdown, the
  * advanced-search modal (OPERATORS, advConditions, condition rows,
  * applyAdvancedSearch) and the search-results arrow navigation
@@ -45,6 +45,12 @@ var _searchDebounceTimer = null;
 // results dropdown renders from this (the dropdown is where the count
 // lives now that the row span is gone).
 var _lastResultCount = 0;
+// The last result set and its whole-book (absolute) row map, cached by
+// applySearch. The focus re-render (updateSearchResults) draws from this,
+// so both dropdown paths show the same book-wide list — one renderer
+// (buildAdvResultsHTML + data-real) for both, nothing to drift apart.
+var _lastResultSet = [];
+var _lastRealIdxMap = [];
 var advConditions = [];
 var OPERATORS = [
   { id: "equals", fn: function(cellVal, q) { return cellVal === q; }, needsValue: true },
@@ -92,46 +98,6 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
   return linkifyURLs(html);
 }
 
-function buildResultsHTML(query) {
-  const MAX = 50;
-  const q = query.trim();
-  const filteredData = ctx.getFilteredData();
-  if (!q || filteredData.length === 0) return "";
-  // Compile once for the whole result set — not once per row
-  var compiled = parseQueryWithMode(q);
-  let html = "";
-  let count = 0;
-  for (let i = 0; i < filteredData.length && count < MAX; i++) {
-    const row = filteredData[i];
-    const rowNum = row[0] || ctx.allData.indexOf(row) + 1;
-    // filteredData is allData normally, but the Quran surah filter
-    // swaps in a subset — index alignment only holds for allData.
-    var normRow = filteredData === ctx.allData ? ctx.normAllData[i] : ctx.normAllData[ctx.allData.indexOf(row)];
-    var snippets = buildSnippets(row, q, compiled, normRow);
-    for (var s = 0; s < snippets.length && count < MAX; s++) {
-      html +=
-        '<div class="search-result" data-idx="' +
-        i +
-        '">' +
-        '<span class="search-result-num">#' +
-        rowNum +
-        "</span>" +
-        '<span class="search-result-snippet">' +
-        snippets[s] +
-        "</span>" +
-        "</div>";
-      count++;
-    }
-  }
-  if (count >= MAX && count < filteredData.length) {
-    html +=
-      '<div class="search-result" style="color:var(--color-text-subtle);cursor:default">' +
-      t("andMore") +
-      "</div>";
-  }
-  return linkifyURLs(html);
-}
-
 function updateSearchResults(query) {
   var q = query.trim();
   var html = "";
@@ -153,18 +119,18 @@ function updateSearchResults(query) {
         escapeHTML(q) +
         '"</div>';
     } else {
-      html += buildResultsHTML(query);
+      html += buildAdvResultsHTML(query, _lastResultSet, _lastRealIdxMap);
     }
   }
   searchResultsEl.innerHTML = html;
   searchResultsEl.style.display = q ? "" : "none";
   selectedResultIdx = -1;
-  // Wire clicks
+  // Wire clicks — same absolute-row jump as applySearch's dropdown
   searchResultsEl
-    .querySelectorAll(".search-result[data-idx]")
+    .querySelectorAll(".search-result[data-real]")
     .forEach(function (el) {
       el.addEventListener("click", function () {
-        ctx.goTo(parseInt(this.dataset.idx));
+        jumpToResultRow(parseInt(el.dataset.real));
         searchInput.blur();
       });
     });
@@ -174,6 +140,16 @@ function updateSearchResults(query) {
       e.stopPropagation();
     });
   });
+}
+
+// Jump to an absolute (whole-book) result row. Search results are book-wide,
+// so leave any active surah/juz filter first — the target row may not be
+// inside it. One path for dropdown clicks, the focus re-render and keyboard
+// Enter, so every way of picking a result behaves identically.
+function jumpToResultRow(realIdx) {
+  ctx.setFilteredData(ctx.allData);
+  ctx.rebuildAll();
+  setTimeout(function () { ctx.goTo(realIdx); }, 150);
 }
 
 export function applySearch(query) {
@@ -214,6 +190,8 @@ export function applySearch(query) {
     } else {
       // Show results without filtering — clicking jumps to real row
       var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
+      _lastResultSet = tempFiltered;
+      _lastRealIdxMap = realIdxMap;
       searchResultsEl.innerHTML =
         '<div class="search-count-header">' + t("resultCount") + ": " +
         tempFiltered.length +
@@ -223,10 +201,7 @@ export function applySearch(query) {
       selectedResultIdx = -1;
       searchResultsEl.querySelectorAll(".search-result[data-real]").forEach(function (el) {
         el.addEventListener("click", function () {
-          ctx.setFilteredData(ctx.allData);
-          searchInput.value = query;
-          ctx.rebuildAll();
-          setTimeout(function () { ctx.goTo(parseInt(el.dataset.real)); }, 150);
+          jumpToResultRow(parseInt(el.dataset.real));
           searchInput.blur();
         });
       });
@@ -293,7 +268,7 @@ function renderSearchHistory() {
 function onSearchKeydown(e) {
   if (document.activeElement !== searchInput) return;
   var items = searchResultsEl.querySelectorAll(
-    ".search-result[data-idx]",
+    ".search-result[data-real]",
   );
   if (e.key === "ArrowDown" || e.key === "ArrowUp") {
     e.preventDefault();
@@ -317,7 +292,7 @@ function onSearchKeydown(e) {
     items[selectedResultIdx]
   ) {
     e.preventDefault();
-    ctx.goTo(parseInt(items[selectedResultIdx].dataset.idx));
+    jumpToResultRow(parseInt(items[selectedResultIdx].dataset.real));
     searchInput.blur();
     return;
   }
