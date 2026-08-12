@@ -358,14 +358,26 @@ window.showErrorToast = function (msg) {
 window.copyToClipboard = function (text, successKey, failKey) {
   var done = function () { showToast(t(successKey)); };
   var fail = function () { showErrorToast(t(failKey || "toastCopyFailed")); };
-  navigator.clipboard.writeText(text).then(done).catch(function () {
-    // Fallback for older browsers / non-HTTPS
+  // Fallback for older browsers / non-HTTPS: hidden textarea + execCommand.
+  // When navigator.clipboard is undefined the modern call would throw before
+  // its .catch could ever run — check the API exists so this path is actually
+  // reachable in the case it exists for.
+  function legacyCopy() {
     var ta = document.createElement("textarea");
     ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
     document.body.appendChild(ta); ta.select();
-    try { document.execCommand("copy"); done(); } catch (_) { fail(); }
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (_) { ok = false; }
     document.body.removeChild(ta);
-  });
+    // execCommand reports success with a boolean — don't claim a copy that
+    // didn't happen (it returns false when no user activation is present)
+    if (ok) done(); else fail();
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(legacyCopy);
+  } else {
+    legacyCopy();
+  }
 };
 
 // ── Unified modal layer ────────────────────────────────────
