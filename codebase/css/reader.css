@@ -603,7 +603,7 @@
    content-visibility clip boundary — without it the wash was cut to
    the field box (flush edge, square corners). */
 .reader-ar-region {
-  background: var(--color-ar-bg, #fbf8f2);
+  background: var(--color-ar-bg, #f4f7fa);
   border-radius: 16px;
   padding-inline: 24px 14px;
   padding-block: 10px;

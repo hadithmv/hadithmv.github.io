@@ -28,7 +28,7 @@
   --color-mark-bg: #fef08a;
   --color-mark-text: inherit;
   /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
-  --color-ar-bg: #fbf8f2;
+  --color-ar-bg: #f4f7fa;
 
   /* Semantic accent families — same role in every theme; never hardcode.
      accent: active menu button + dropdown checkmark (blue)
