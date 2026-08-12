@@ -271,9 +271,9 @@ const STRINGS = {
   },
   libSearching: { dv: "ހޯދަނީ...", en: "Searching…", ar: "جارٍ البحث…" },
   libSearchHint: {
-    dv: "ފޮތްތަކުގެ ތެރެއިން ހޯދުމަށް ލިޔޭ",
-    en: "Type to search inside all books",
-    ar: "اكتب للبحث داخل جميع الكتب",
+    dv: "ގިނަ ފޮތްތަކުން ހޯދުމަށް ލިޔޭ",
+    en: "Type to search multiple books",
+    ar: "اكتب للبحث في كتب متعددة ",
   },
   libNoResults: {
     dv: "އެއްވެސް ނަތީޖާއެއް ނެތް",
