@@ -265,9 +265,9 @@ const STRINGS = {
     ar: "لا توجد كتب",
   },
   libSearchPlaceholder: {
-    dv: "ފޮތްތަކުގެ ތެރެއިން ހޯދާ…",
-    en: "Search inside books…",
-    ar: "ابحث داخل الكتب…",
+    dv: "ގިނަ ފޮތްތަކުން އެއްފަހަރާ ހޯދާ...",
+    en: "Search multiple books at once…",
+    ar: "ابحث في كتب متعددة في آن واحد...",
   },
   libSearching: { dv: "ހޯދަނީ...", en: "Searching…", ar: "جارٍ البحث…" },
   libSearchHint: {
