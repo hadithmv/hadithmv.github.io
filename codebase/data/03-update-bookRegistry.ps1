@@ -12,6 +12,11 @@ $tagsPath = Join-Path $PSScriptRoot "01-registry-bookTags.csv"
 $dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
 $utf8 = New-Object System.Text.UTF8Encoding($false)  # no-BOM UTF-8 for registry reads/writes (PS 5.1's -Encoding UTF8 adds a BOM)
 
+# Virtual books: registered in 02 with a card, but no content CSV — their rows
+# are assembled in memory at load (see js/radheef-merge.js). Skip the
+# missing-file warning for these; keep the list in sync with that module.
+$virtualBooks = @("RDF-HCOMB")
+
 # ── Helpers for coloured output ──────────────────────────────
 function Write-Section($text) {
     Write-Host "`n━━━ $text ━━━" -ForegroundColor Cyan
@@ -81,7 +86,7 @@ $missing = 0
 foreach ($row in $rows) {
     $code = ($row -split ",")[0].Trim()
     $csvFile = Join-Path $dataDir "$code.csv"
-    if (-not (Test-Path $csvFile)) {
+    if (-not (Test-Path $csvFile) -and $virtualBooks -notcontains $code) {
         Write-Warning "  ⚠️  $code  —  registered but CSV file missing"
         $missing++
     }

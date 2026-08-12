@@ -17,6 +17,7 @@
 | `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
+| `js/radheef-merge.js` | Virtual merged radheef book (RDF-HCOMB): `isMergedRadheefBook()`, `loadMergedRadheefBook()` — see below |
 | `js/reader-position.js` | Reader position: pagination strip, visible-page detector, scroll block (progress, milestones, URL sync, read-history) |
 | `js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
 | `js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
@@ -475,6 +476,17 @@ Consumes `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `q
 
 - **Standard books** — header line `titleDV - titleAR` followed by row text with column separators (AR/DV spacer, matn/sharh divider, footnote divider).
 - **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-registry-bookMeta.csv`) above each book's columns. Per-column headers are omitted.
+
+---
+
+## radheef-merge.js
+
+The virtual merged radheef book (`RDF-HCOMB`) — a registry book with **no content CSV**; its rows are assembled in memory at load from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books" for the design contract). Imported by `reader.js` only.
+
+| Function | Description |
+| --- | --- |
+| `isMergedRadheefBook(bookCode)` | `true` for `RDF-HCOMB` (the only virtual book today). Used by `reader.js`'s `loadBookData()` to pick the virtual load path. |
+| `loadMergedRadheefBook()` | Fetches the 8 sources via `fetchBookCSVCached` (each keyed by its own registry `version`), projects every row by header name into `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, and resolves `{ data, headerRow, hasRowNums: false }` — the same shape as `loadStandardBook`. `source` carries each row's book's Dhivehi title from the registry; blocks concatenate in `MERGED_SOURCES` order (registry order). A source that fails or has no rows is skipped; if nothing loads, `data` is empty and the reader's "No data found" path takes over. |
 
 ---
 

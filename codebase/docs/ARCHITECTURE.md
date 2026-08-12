@@ -57,6 +57,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
 | `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
 | `js/reader.js`               | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links  |
+| `js/radheef-merge.js`        | Virtual merged radheef book (RDF-HCOMB): assembles the 8 source books in memory at load — see "Virtual merged books" |
 | `js/reader-position.js`      | Reader position: pagination strip, progress, URL sync, history log      |
 | `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search         |
 | `js/table-scroll-sync.js`    | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll |
@@ -121,7 +122,9 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   reader.js
-    ├─ parseCSV(../data/content/AQD-nawaqidulIslam.csv)
+    ├─ standard book:  parseCSV(../data/content/AQD-nawaqidulIslam.csv)
+    ├─ virtual book:   radheef-merge.js assembles rows in memory from the
+    │                  source books' CSVs (see "Virtual merged books")
     ├─ first row = header; col 0 = # or blank → row numbers
     ├─ build column toggle buttons
     ├─ loadInitial() → first chunk of rows
@@ -421,6 +424,8 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `excludeColumns` | **Optional** — comma‑separated header names to skip in the cross‑book index (case‑insensitive). `-HDN` and row‑number columns are always skipped regardless. Empty = all columns indexed. Build-only |
 | `version`  | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `03-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
 
+**Virtual books** (e.g. `RDF-HCOMB`) have a registry row but **no content CSV** — the `version` field stays empty (03 writes it only when a file exists), and 03's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
+
 **`excludeColumns` magic value:** `ENTIRE-BOOK` (case‑insensitive) skips the whole book from the cross‑book index — it stays fully visible in the dashboard and reader but is never searchable, and its postings are not emitted at all (shrinking the index). Other names in the same cell are ignored; `ENTIRE-BOOK` wins.
 
 ### 01-registry-bookTags.csv
@@ -475,11 +480,16 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
      dashboard.js (index)   Reader (reader.html)
      book grid / table      ?book=CODE → loads CSV
           │                       │
-          │              ┌────────┴────────┐
-          │         Standard book     Quran book (QRN-)
-          │         {bookCode}.csv    QRN-DATA-ayah*.csv
-          │                          + QRN-{translation}.csv
-          │                          (merged by row index)
+          │              ┌────────┴───────────────┐
+          │         Standard book    Quran book (QRN-)
+          │         {bookCode}.csv   QRN-DATA-ayah*.csv
+          │                         + QRN-{translation}.csv
+          │                         (merged by row index)
+          │              ┌────────┴───────────────┐
+          │         Virtual book (RDF-HCOMB)
+          │         no CSV — radheef-merge.js
+          │         assembles 8 source books
+          │         (by-name projection)
           │
     localStorage
     ├── pinnedBooks, readHistory  (pins-history.js)
@@ -492,6 +502,21 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
     │   contentWidth, focus
     └── window.LS_KEYS            (canonical key registry)
 ```
+
+## Virtual merged books
+
+A **virtual book** has a registry row in `02-registry-bookMeta.csv` (card, tags, reader routing) but **no content CSV** — its rows are assembled in memory at load. The only current example is **`RDF-HCOMB`** (الجامع في المعاجم / އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް / Collection of All Dictionaries): the combined radheef dictionary over the eight source radheef books.
+
+`js/radheef-merge.js` (`loadMergedRadheefBook`) is the assembler, wired into the reader's load path (`loadBookData()` in reader.js) after the Quran branch. Contract per source book:
+
+- **By-name projection** — every source row is projected into the merged schema `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, matched **by header name**. A source column lands in the target column with the same name; columns without a same-named home (eegaal's `pNo`, nanfoiy's `gender/approvedBy/originLang`, rasmee's technical columns, …) are left out. A source's column *order* is irrelevant.
+- **Block order = registry order** — the 8 sources concatenate in `MERGED_SOURCES` order, which mirrors 02's alphabetical sort (case-insensitive). No client-side row sorting exists anywhere; file/concat order is reading order.
+- **`source` column** — each row's 7th cell carries its book's **Dhivehi title**, read from the registry at load (`getBookTitleSync`) — derived, never stored or hardcoded.
+- **Caching** — sources load through the normal `fetchBookCSVCached`, each keyed by its own registry `version`, so an edit to any source book shows up here automatically with nothing to re-run; no merged file exists to go stale.
+- **Index** — `excludeColumns: ENTIRE-BOOK` keeps the merged book out of the library search index (like all RDF books): a postings index over dictionaries would dwarf the rest of the site. Its search runs inside the reader over the loaded rows.
+- **Registry script** — 03's missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `07-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
+
+Size reference: 152,612 merged rows (fahmy 682, asma 110, eegaal 13,376, maniku 2,231, nanfoiy 8,784, rasmee 53,841, RMSC-all 41,051, W2W 32,537).
 
 ## Quran data model
 
@@ -708,7 +733,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
 
-**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>` line breaks and `<span>`/entities; e.g. `data/content/RDF-all.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape.
+**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>` line breaks and `<span>`/entities; e.g. `data/content/RDF-RMSC-all.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape.
 
 ### JavaScript
 

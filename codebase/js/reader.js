@@ -10,6 +10,7 @@ import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned } 
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
+import { isMergedRadheefBook, loadMergedRadheefBook } from "./radheef-merge.js";
 import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn } from "./quran-ui.js";
 import { initExports } from "./export.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
@@ -21,27 +22,27 @@ initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
-  //   Book loading (standard CSV or Quran merge)           L46-114
-  //   Page header, tag badges, language-aware titles       L117-175
-  //   Persisted settings (LS wrapper, -HDN column init)    L178-224
-  //   Reader state, column toggles, dropdown infrastructure L227-313
-  //   Tashkeel helpers                                     L316-323
-  //   Clipboard formatting (rowText)                       L326-413
-  //   View mode dropdown (card / table / parallel)         L416-464
-  //   Quran helpers                                        L467-471
-  //   Card row renderer (renderRowHTML)                    L474-567
-  //   Parallel row renderer (renderParallelRowHTML)        L570-689
-  //   Chunk + table-row renderers                          L692-733
-  //   Infinite scroll + table scrollbar                    L736-859
-  //   Navigation (goTo, scroll padding)                    L862-882
-  //   Search UI (wiring — module: reader-search-ui.js)     L885-911
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L914-1074
-  //   Keyboard shortcuts (incl. navigation buttons)        L1077-1180
-  //   Touch swipe                                          L1183-1203
-  //   Settings reset + language change                     L1206-1219
-  //   Quran UI (initQuranUI ctx)                           L1222-1242
-  //   Initial render (deep links, reveal)                  L1245-1317
-  //   Module-level helpers (showError)                     L1320-1326
+  //   Book loading (standard CSV or Quran merge)           L47-123
+  //   Page header, tag badges, language-aware titles       L126-184
+  //   Persisted settings (LS wrapper, -HDN column init)    L187-233
+  //   Reader state, column toggles, dropdown infrastructure L236-322
+  //   Tashkeel helpers                                     L325-332
+  //   Clipboard formatting (rowText)                       L335-422
+  //   View mode dropdown (card / table / parallel)         L425-473
+  //   Quran helpers                                        L476-480
+  //   Card row renderer (renderRowHTML)                    L483-576
+  //   Parallel row renderer (renderParallelRowHTML)        L579-698
+  //   Chunk + table-row renderers                          L701-742
+  //   Infinite scroll + table scrollbar                    L745-868
+  //   Navigation (goTo, scroll padding)                    L871-891
+  //   Search UI (wiring — module: reader-search-ui.js)     L894-920
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L923-1083
+  //   Keyboard shortcuts (incl. navigation buttons)        L1086-1189
+  //   Touch swipe                                          L1192-1212
+  //   Settings reset + language change                     L1215-1228
+  //   Quran UI (initQuranUI ctx)                           L1231-1251
+  //   Initial render (deep links, reveal)                  L1254-1326
+  //   Module-level helpers (showError)                     L1329-1335
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -75,7 +76,15 @@ initializePageWithMetadata(async function (metadata) {
     });
   }
 
-  (quranBook ? loadQuranBook() : loadStandardBook())
+  // Virtual merged radheef book (RDF-HCOMB): no content CSV — the rows are
+  // assembled in memory from the source books (see radheef-merge.js).
+  function loadBookData() {
+    if (quranBook) return loadQuranBook();
+    if (isMergedRadheefBook(metadata.bookCode)) return loadMergedRadheefBook();
+    return loadStandardBook();
+  }
+
+  loadBookData()
     .then(function (result) {
       // ═══════════════════════════════════════════════════════════════
       // SHARED MUTABLE STATE — every function in this closure reads or
