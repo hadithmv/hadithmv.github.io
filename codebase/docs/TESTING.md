@@ -202,6 +202,25 @@ blaming the product.
   Verified 2026-08-10: the `?q=`/advanced-value/data-q audit was
   classification-only (no product change needed for the claims), and
   `escapeHTML` was completed to cover quotes for the attribute sites.
+- **Hidden-wrapper measurements read 0.** `offsetWidth` is 0 while any
+  ancestor is `display: none` — a `min-width` reservation (or any width
+  measure) taken before a post-load reveal silently reserves 0px, and the
+  first interaction visibly jumps: the pin button reserved 0px at load and
+  grew 63→77px on the first click (the click's re-measure fixed it until the
+  next load — the "keeps regressing" pattern). The reader's `#readerWrapper`
+  stays `display: none` until the book loads, so chrome measurements must run
+  after the reveal, with the sticky-chrome group (`updateTableHeaderTop`,
+  `updateScrollPadding`, `updateBookmarkButton`); `reserveWidestText`'s
+  fonts.ready re-measure also skips still-hidden elements (offsetWidth 0) so
+  it can't clobber a good reservation with 0. Verified 2026-08-12.
+- **`font-display: swap` can stale a measured min-width.** The fallback font
+  renders first; any reservation measured before the webfont lands is too
+  narrow once the swap-in widens the label, so the button grows on the first
+  toggle even when it was visible at measure time. `reserveWidestText` now
+  re-measures every reservation after `document.fonts.ready` (covers both the
+  swap-in and the font-failure path); probes measuring glyph widths must do
+  the same before screenshots (see the windowed-probe rule above). Verified
+  2026-08-12 with the pin button.
 
 ## Assertion rules
 
