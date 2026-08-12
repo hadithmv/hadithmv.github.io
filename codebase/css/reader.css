@@ -555,9 +555,20 @@
 /* Skip painting off-screen chunks — huge scroll perf boost for large books */
 /* NOTE: NOT applied to table rows (tr.reader-chunk) because content-visibility
    breaks the table layout algorithm and causes severe jank. */
+/* "Pocket": content-visibility's paint containment clips children at the
+   chunk's border box, which would cut the AR region's 24px start-side overhang
+   (the wash painted exactly as wide as the field box — flush edge, square
+   corners). margin-inline-start: -24px widens the chunk box over the overhang
+   and padding-inline-start: 24px keeps the content box (fields, text) exactly
+   where it was, so the overhang lands inside the chunk's padding box and
+   paints. 24px is the max — the chunk box then reaches the article's padding
+   edge (24px mobile gutter). Non-AR chunks are unaffected (transparent bg,
+   content box unchanged). */
 #readerContent > .reader-chunk,
 .reader-chunk:not(tr) {
   content-visibility: auto;
+  margin-inline-start: -24px;
+  padding-inline-start: 24px;
 }
 .reader-row-num {
   font-size: 1rem;
@@ -583,17 +594,20 @@
 /* Arabic-original content sits in a soft full-width wash region
    (isArabicColumn — one region per run of consecutive AR fields, so
    headAR + bodyAR read as one continuous block; footAR joins its run
-   or starts its own region). The padding mirrors the overhang margins
-   so the Arabic text keeps the x-position of the Dhivehi fields beside
-   it; the start side gets the deepest padding (webfont start-side
-   overhang, docs/ARCHITECTURE.md "Font"). */
+   or starts its own region). The region's padding is mirrored by a
+   start-side negative margin so the Arabic text keeps the x-position
+   of the Dhivehi fields beside it; the start side gets the deepest
+   padding (webfont start-side overhang, docs/ARCHITECTURE.md "Font").
+   The 24px overhang past the text paints only because the chunk's
+   "pocket" (see the .reader-chunk rule above) carries it inside the
+   content-visibility clip boundary — without it the wash was cut to
+   the field box (flush edge, square corners). */
 .reader-ar-region {
-  background: var(--color-ar-bg, #f9f5ec);
-  border-radius: 10px;
-  padding-inline: 20px 12px;
-  padding-block: 8px;
-  margin-inline-start: -20px;
-  margin-inline-end: -12px;
+  background: var(--color-ar-bg, #fbf8f2);
+  border-radius: 16px;
+  padding-inline: 24px 14px;
+  padding-block: 10px;
+  margin-inline-start: -24px;
 }
 
 /* Parallel view: the AR column is already its own grid lane — no gutter

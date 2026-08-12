@@ -89,7 +89,7 @@
 /* Arabic-original cells get the language wash (isArabicColumn) — kept
    below :hover specificity so row hover still lights the whole row */
 td.td-ar {
-  background: var(--color-ar-bg, #f5f1e8);
+  background: var(--color-ar-bg, #fbf8f2);
 }
 
 .reader-table tr:hover td {
