@@ -35,13 +35,13 @@ initializePageWithMetadata(async function (metadata) {
   //   Infinite scroll + table scrollbar                    L736-859
   //   Navigation (goTo, scroll padding)                    L862-882
   //   Search UI (wiring — module: reader-search-ui.js)     L885-911
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L914-1075
-  //   Keyboard shortcuts (incl. navigation buttons)        L1078-1181
-  //   Touch swipe                                          L1184-1204
-  //   Settings reset + language change                     L1207-1220
-  //   Quran UI (initQuranUI ctx)                           L1223-1243
-  //   Initial render (deep links, reveal)                  L1246-1313
-  //   Module-level helpers (showError)                     L1316-1322
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L914-1074
+  //   Keyboard shortcuts (incl. navigation buttons)        L1077-1180
+  //   Touch swipe                                          L1183-1203
+  //   Settings reset + language change                     L1206-1219
+  //   Quran UI (initQuranUI ctx)                           L1222-1242
+  //   Initial render (deep links, reveal)                  L1245-1317
+  //   Module-level helpers (showError)                     L1320-1326
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -982,7 +982,6 @@ initializePageWithMetadata(async function (metadata) {
         }
         updateBookmarkButton();
       });
-      updateBookmarkButton();
 
       // ── Toolbar: copy to clipboard ──────────────────────────
       btnCopy.addEventListener("click", function () {
@@ -1305,6 +1304,11 @@ initializePageWithMetadata(async function (metadata) {
       // bar/thead would pin behind the panel instead of below it
       updateTableHeaderTop();
       updateScrollPadding();
+      // Same hidden-measure-0 trap: the init call above measured the pin
+      // button's width reservation at 0px (it runs before this reveal), so
+      // the first toggle used to grow the button. Re-run now that the wrapper
+      // is visible; the click handler re-runs it too, so it stays current.
+      updateBookmarkButton();
       // Scroll arrows can't detect overflow while #readerWrapper was hidden
       if (window.initScrollArrows) window.initScrollArrows();
     }).catch(function (err) {

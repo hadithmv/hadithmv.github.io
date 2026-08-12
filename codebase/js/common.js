@@ -123,14 +123,26 @@ window.tagChipHtml = function (code, label, palette, active, count) {
 // measurements stay current (the normal re-render paths do this). For a
 // native <select> the strings are optional — the helper cycles the options
 // themselves by index, so the option elements are never touched.
+// Every reservation is also re-measured once the webfonts settle
+// (document.fonts.ready): with font-display: swap the labels swap from the
+// fallback font to the wider webfont, so a fallback-measured min-width goes
+// stale. Elements still hidden (offsetWidth 0) at that moment keep their old
+// reservation and re-measure on their next visible call instead.
+var _reservedWidest = [];
+var _reservedFontsDone = false;
 window.reserveWidestText = function (el, strings) {
   if (!el) return;
   var sel = el.tagName === "SELECT";
   if (!sel && (!strings || !strings.length)) return;
+  var i, known = false;
+  for (i = 0; i < _reservedWidest.length; i++) {
+    if (_reservedWidest[i].el === el) { known = true; break; }
+  }
+  if (!known) _reservedWidest.push({ el: el, strings: strings, sel: sel });
   var cur = sel ? el.selectedIndex : el.textContent;
   var max = 0;
   var n = sel ? el.options.length : strings.length;
-  for (var i = 0; i < n; i++) {
+  for (i = 0; i < n; i++) {
     if (sel) el.selectedIndex = i;
     else el.textContent = strings[i];
     if (el.offsetWidth > max) max = el.offsetWidth;
@@ -138,6 +150,15 @@ window.reserveWidestText = function (el, strings) {
   el.style.minWidth = max + "px";
   if (sel) el.selectedIndex = cur;
   else el.textContent = cur;
+  if (!_reservedFontsDone && document.fonts && document.fonts.ready) {
+    _reservedFontsDone = true;
+    document.fonts.ready.then(function () {
+      for (var j = 0; j < _reservedWidest.length; j++) {
+        var r = _reservedWidest[j];
+        if (r.el.offsetWidth > 0) window.reserveWidestText(r.el, r.strings);
+      }
+    });
+  }
 };
 
 /**
