@@ -153,6 +153,12 @@
   --arrow-gutter: 30px;
   --reader-pad: 12px 32px 32px;
   --reader-pad-mobile: 10px 24px 20px;
+  /* Reader horizontal gutter — the AR wash band and its chunk pocket overhang
+     this exactly, so the band reaches the article's padding edge at every
+     breakpoint. Must match the horizontal value in --reader-pad /
+     --reader-pad-mobile above (not --arrow-gutter — that one is the wrap
+     arrows' lane). */
+  --reader-gutter: 32px;
   /* Card padding — book cards and library results share one padding */
   --card-padding: 16px;
   --card-padding-mobile: 12px;
