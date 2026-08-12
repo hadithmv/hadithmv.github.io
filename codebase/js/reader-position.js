@@ -35,6 +35,20 @@ var urlSyncTimer;
 var historyTimer;
 var _lastHistoryRow = 0;
 var _lastMilestone = 0;
+// Per-message quiet window: the same toast text may re-show only after 5s.
+// Scrolling back still re-arms the markers (a genuine re-read celebrates
+// again), but wheel/inertia bounce across a boundary — a row or two apart on
+// short Quran surahs — must not instantly re-show the same toast. Keyed by
+// message, not milestone value: back-to-back Quran surah completions are
+// different messages (each surah names itself) and must each toast.
+var _milestoneToastAt = {};
+function fireMilestoneToast(msg) {
+  var now = Date.now();
+  if (now - (_milestoneToastAt[msg] || 0) < 5000) return false;
+  _milestoneToastAt[msg] = now;
+  showToast(msg);
+  return true;
+}
 
 export function visiblePageIndex() {
   // Fast path: use elementFromPoint at viewport centre (O(1) vs O(n) scan)
@@ -149,10 +163,29 @@ function onScroll() {
   var quranBook = ctx.quranBook;
   var headerRow = ctx.headerRow;
   updatePagination();
-  // Progress bar — surah-level for Quran, global for other books
+  // Progress bar — surah-level for Quran, global for other books.
+  // When the reader is fully scrolled to the bottom, the final row IS on
+  // screen (its bottom edge touches the viewport) even though its centre can
+  // never reach the viewport centre — that crossing lies past max scroll for
+  // the last row of a scrollable document, so the book's final 100% could
+  // never fire. Count the last row as the current one at the absolute bottom:
+  // the last surah of the Quran (and the end of any filtered view or short
+  // book) then completes normally. The scroll counter and URL below keep the
+  // honest centre-row value.
   var pct;
+  var vRow = visiblePageIndex();
+  var atBottom = false;
+  var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  if (maxScroll > 0 && window.scrollY >= maxScroll - 1) {
+    vRow = filteredData.length - 1;
+    atBottom = true;
+    // A bottom scroll arrives as a single event — there are no intermediate
+    // rows to re-arm the milestone marker through, so a marker left at 100
+    // by the previous surah's completion would block this one. The
+    // per-message 5s toast gate dedupes bottom events instead of the marker.
+    _lastMilestone = 0;
+  }
   if (quranBook && filteredData.length > 0) {
-    var vRow = visiblePageIndex();
     var curSurah = parseInt(filteredData[vRow][1], 10) || 0;
     var first = -1, last = 0;
     for (var r = 0; r < filteredData.length; r++) {
@@ -161,17 +194,18 @@ function onScroll() {
     }
     pct = last > first ? Math.round(((vRow - first) / (last - first)) * 100) : 0;
   } else {
-    pct = filteredData.length > 1 ? Math.round((visiblePageIndex() / (filteredData.length - 1)) * 100) : 0;
+    pct = filteredData.length > 1 ? Math.round((vRow / (filteredData.length - 1)) * 100) : 0;
   }
   document.getElementById("readerProgressFill").style.width = pct + "%";
-  // Milestone toasts at 25%, 50%, 75%, 100% — reset when scrolling back
+  // Milestone toasts at 25%, 50%, 75%, 100% — reset when scrolling back.
+  // The toasts are gated by fireMilestoneToast's 5s quiet window: bounce must
+  // not re-show a toast (see the gate's comment at the state declarations).
   if (pct < 25) { _lastMilestone = 0; document.getElementById("readerProgressFill").classList.remove("done"); }
   else if (pct < _lastMilestone) _lastMilestone = Math.floor(pct / 25) * 25;
-  if (pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; showToast("📖 25%"); }
-  if (pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; showToast("📖 50%"); }
-  if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; showToast("📖 75%"); }
-  if (pct >= 100 && _lastMilestone < 100) {
+  // Completion: name the surah just finished (Quran) or the whole book.
+  function celebrateCompletion() {
     _lastMilestone = 100;
+    var completionMsg;
     if (quranBook && filteredData.length > 0) {
       // Quran progress is surah-level — name the surah just finished
       var doneRow = filteredData[vRow];
@@ -180,15 +214,33 @@ function onScroll() {
       var doneInfo = getSurahInfo(doneSurah);
       var lang = currentLang();
       var doneName = doneInfo ? (lang === "en" ? doneInfo.nameEN : doneInfo.nameAR) : "";
-      showToast("✅ " + (doneName ? doneName + " " : "") + t("surahCompleted") + " 📖");
+      completionMsg = "✅ " + (doneName ? doneName + " " : "") + t("surahCompleted") + " 📖";
     } else {
-      showToast("✅ 100% " + t("qrnCompleted") + " 📖");
+      completionMsg = "✅ 100% " + t("qrnCompleted") + " 📖";
     }
-    document.getElementById("readerProgressFill").classList.add("done");
-    var ring = document.createElement("div");
-    ring.className = "completion-border";
-    document.body.appendChild(ring);
-    setTimeout(function () { ring.remove(); }, 5000);
+    // An allowed re-celebration restarts the ring; a suppressed bounce (the
+    // gate's 5s quiet window) must neither toast nor stack a second border
+    if (fireMilestoneToast(completionMsg)) {
+      document.getElementById("readerProgressFill").classList.add("done");
+      var oldRing = document.querySelector(".completion-border");
+      if (oldRing) oldRing.remove();
+      var ring = document.createElement("div");
+      ring.className = "completion-border";
+      document.body.appendChild(ring);
+      setTimeout(function () { ring.remove(); }, 5000);
+    }
+  }
+  if (atBottom) {
+    // The bottom arrives as a single event with nothing to walk through —
+    // evaluate only the completion. Re-running the 25/50/75 chain here would
+    // re-show those toasts on every bottom bounce once their own 5s windows
+    // lapse; the gate still dedupes the completion itself.
+    if (pct >= 100 && _lastMilestone < 100) celebrateCompletion();
+  } else {
+    if (pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; fireMilestoneToast("📖 25%"); }
+    if (pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; fireMilestoneToast("📖 50%"); }
+    if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; fireMilestoneToast("📖 75%"); }
+    if (pct >= 100 && _lastMilestone < 100) celebrateCompletion();
   }
   if (scrollCounter) {
     var vRow = visiblePageIndex();
