@@ -239,7 +239,15 @@
 .column-dropdown .col-toggle {
   text-align: right;
   width: 100%;
-  padding: 5px 10px;
+  /* Menu rows size to their content. The .toolbar-btn base is a fixed 35px
+     box (height 35 + line-height 33); adding vertical padding shrank the
+     content box to 25px — smaller than the 33px line box — and the text
+     hugged the bottom edge. height: auto + a normal line-height centers
+     the text like .dd-item rows; padding keeps the airy rows the old 5px
+     was meant to add. */
+  height: auto;
+  line-height: 1.8;
+  padding: 6px 10px;
   font-size: var(--panel-font-size, 0.85rem);
 }
 
