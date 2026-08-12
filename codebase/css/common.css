@@ -133,6 +133,9 @@
   --topbar-clearance: calc(var(--topbar-height) + var(--topbar-gap));
   --panel-pad: 10px;
   --panel-edge: 2px solid var(--color-card-hover-border);
+  --panel-gap: 10px; /* margin below a sticky panel's border — equals
+                         --panel-pad so the divider carries symmetric air
+                         (dashboard grid, library results) */
   /* Error boxes clear the fixed topbar plus fixed breathing room */
   --error-clearance: calc(var(--topbar-height) + 24px);
   /* Page chrome — the dashboard/library wrapper layout */

@@ -20,7 +20,7 @@
 /* Sticky contract + padding are shared — .sticky-panel in common.css.
    Only the dashboard-specific bits live here. */
 #dashboardPanel {
-  margin-bottom: var(--section-gap, 6px);
+  margin-bottom: var(--panel-gap, 10px);
   display: flex;
   flex-direction: column;
   direction: rtl;
@@ -307,7 +307,7 @@ a.toolbar-btn {
   }
   #dashboardPanel {
     top: var(--topbar-height, 58px); /* mobile drops the gap — flush lock */
-    margin-bottom: 6px;
+    margin-bottom: var(--panel-gap, 10px);
   }
   .toolbar-select {
     font-size: var(--panel-font-size-mobile, 0.78rem);

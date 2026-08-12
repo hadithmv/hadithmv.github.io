@@ -10,7 +10,7 @@
 
 /* ---- Focus mode: collapse tags + count, keep search visible ---- */
 [data-focus] #libTagsRow,
-[data-focus] #libCount {
+[data-focus] #libResultCount {
   display: none;
 }
 
@@ -40,8 +40,8 @@
 
 /* Direction comes from dir="auto" (RTL in dv/ar, LTR in en); the alignment
    is pinned left so the summary keeps a fixed position in every language. */
-#libCount {
-  margin-top: 12px;
+#libResultCount {
+  margin-top: var(--panel-gap, 10px);
   text-align: left;
 }
 #libResults {
