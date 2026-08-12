@@ -249,11 +249,13 @@ export function columnFieldClass(hdr) {
   return "";
 }
 
-/** Returns the td-* class for table mode, or "". */
-export function columnTdClass(hdr) {
-  if (hdr.startsWith("matn")) return ' class="td-matn"';
-  if (hdr.startsWith("sharh")) return ' class="td-sharh"';
-  return "";
+/** Returns the td-* classes for table mode, or "". */
+export function columnTdClass(hdr, isQuranBook) {
+  var cls = [];
+  if (hdr.startsWith("matn")) cls.push("td-matn");
+  if (hdr.startsWith("sharh")) cls.push("td-sharh");
+  if (isArabicColumn(hdr, isQuranBook)) cls.push("td-ar");
+  return cls.length ? ' class="' + cls.join(" ") + '"' : "";
 }
 
 export function isFootnoteColumn(hdr) { return hdr.startsWith("foot"); }
@@ -266,6 +268,15 @@ export function classifyColumnLang(hdr, isQuranBook) {
   if (hdr.endsWith("ar")) return "ar";
   if (hdr.endsWith("dv")) return "dv";
   return "neutral";
+}
+
+/** True for columns whose content is Arabic. The language lives in the
+ *  column-naming convention (…AR suffix; ayahImlai/uthmani in Quran books;
+ *  basmalah is Arabic by nature), so the reader can tint Arabic fields
+ *  and cells from the header alone — no per-column registry. */
+export function isArabicColumn(hdr, isQuranBook) {
+  hdr = (hdr || "").toLowerCase();
+  return classifyColumnLang(hdr, isQuranBook) === "ar" || /^basmalah?$/.test(hdr);
 }
 
 export function decorateAyah(

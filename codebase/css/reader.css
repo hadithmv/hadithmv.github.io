@@ -580,6 +580,28 @@
   margin-bottom: 0;
 }
 
+/* Arabic-original content sits in a soft full-width wash region
+   (isArabicColumn — one region per run of consecutive AR fields, so
+   headAR + bodyAR read as one continuous block; footAR joins its run
+   or starts its own region). The padding mirrors the overhang margins
+   so the Arabic text keeps the x-position of the Dhivehi fields beside
+   it; the start side gets the deepest padding (webfont start-side
+   overhang, docs/ARCHITECTURE.md "Font"). */
+.reader-ar-region {
+  background: var(--color-ar-bg, #f9f5ec);
+  border-radius: 10px;
+  padding-inline: 20px 12px;
+  padding-block: 8px;
+  margin-inline-start: -20px;
+  margin-inline-end: -12px;
+}
+
+/* Parallel view: the AR column is already its own grid lane — no gutter
+   overhang, the wash just pads inside the column */
+.parallel-ar-col.reader-ar-region {
+  margin-inline: 0;
+}
+
 /* URLs in content become .reader-link anchors (linkifyURLs in search-utils).
    dir="auto" on the anchor isolates the LTR URL run inside RTL paragraphs. */
 .reader-link {

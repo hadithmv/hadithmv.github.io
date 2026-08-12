@@ -20,7 +20,7 @@ export {
   buildSurahListHTML, findQuranColIndices,
   getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,
   columnFieldClass, columnTdClass, isFootnoteColumn,
-  isArDvTransition, isMatnSharhTransition, classifyColumnLang,
+  isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn,
   QRN_BASE_FILE, QRN_BASE_STRUCT, isBaseSourceBook,
   getSurahStartRow, getJuzStartRow,
 } from "./quran-data.js";

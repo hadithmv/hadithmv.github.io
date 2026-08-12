@@ -27,6 +27,8 @@
   --color-scrim: rgba(0, 0, 0, 0.4);
   --color-mark-bg: #fef08a;
   --color-mark-text: inherit;
+  /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
+  --color-ar-bg: #f9f5ec;
 
   /* Semantic accent families — same role in every theme; never hardcode.
      accent: active menu button + dropdown checkmark (blue)
@@ -219,6 +221,8 @@
   --color-scrim: rgba(0, 0, 0, 0.4);
   --color-mark-bg: #f0c060;
   --color-mark-text: #3d2e1c;
+  /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
+  --color-ar-bg: #f6eedd;
   --color-accent: #3b5f8a;
   --color-accent-bg: #e8e0d5;
   --color-accent-border: #c4b99a;
@@ -273,6 +277,8 @@
   --color-scrim: rgba(0, 0, 0, 0.55);
   --color-mark-bg: #854d0e;
   --color-mark-text: #fef9c3;
+  /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
+  --color-ar-bg: #253049;
   --color-accent: #93c5fd;
   --color-accent-bg: #1e3a5f;
   --color-accent-border: #1e3a5f;

@@ -10,7 +10,7 @@ import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned } 
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang } from "./quran-ui.js";
+import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn } from "./quran-ui.js";
 import { initExports } from "./export.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
 import { columnDisplayLabel } from "./column-labels.js";
@@ -29,19 +29,19 @@ initializePageWithMetadata(async function (metadata) {
   //   Clipboard formatting (rowText)                       L326-413
   //   View mode dropdown (card / table / parallel)         L416-464
   //   Quran helpers                                        L467-471
-  //   Card row renderer (renderRowHTML)                    L474-548
-  //   Parallel row renderer (renderParallelRowHTML)        L551-663
-  //   Chunk + table-row renderers                          L666-707
-  //   Infinite scroll + table scrollbar                    L710-833
-  //   Navigation (goTo, scroll padding)                    L836-856
-  //   Search UI (wiring — module: reader-search-ui.js)     L859-885
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L888-1047
-  //   Keyboard shortcuts (incl. navigation buttons)        L1050-1153
-  //   Touch swipe                                          L1156-1176
-  //   Settings reset + language change                     L1179-1192
-  //   Quran UI (initQuranUI ctx)                           L1195-1215
-  //   Initial render (deep links, reveal)                  L1218-1285
-  //   Module-level helpers (showError)                     L1288-1294
+  //   Card row renderer (renderRowHTML)                    L474-567
+  //   Parallel row renderer (renderParallelRowHTML)        L570-689
+  //   Chunk + table-row renderers                          L692-733
+  //   Infinite scroll + table scrollbar                    L736-859
+  //   Navigation (goTo, scroll padding)                    L862-882
+  //   Search UI (wiring — module: reader-search-ui.js)     L885-911
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L914-1075
+  //   Keyboard shortcuts (incl. navigation buttons)        L1078-1181
+  //   Touch swipe                                          L1184-1204
+  //   Settings reset + language change                     L1207-1220
+  //   Quran UI (initQuranUI ctx)                           L1223-1243
+  //   Initial render (deep links, reveal)                  L1246-1313
+  //   Module-level helpers (showError)                     L1316-1322
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -489,10 +489,24 @@ initializePageWithMetadata(async function (metadata) {
         }
         var query = searchInput.value.trim();
         var lastExtBook = "";
+        // Consecutive Arabic columns (isArabicColumn) share ONE wash region,
+        // so headAR + bodyAR read as a continuous block; everything else is
+        // plain. Regions keep the separators/labels between their fields.
+        var parts = [];
+        var group = null;
+        function flushGroup() {
+          if (group) {
+            parts.push(group.isAr ? '<div class="reader-ar-region">' + group.html + '</div>' : group.html);
+            group = null;
+          }
+        }
         for (var i = 0; i < fields.length; i++) {
           var colIdx = fields[i].index;
           var rawVal = fields[i].value;
           var colHeader = (headerRow && headerRow[colIdx]) ? headerRow[colIdx].toLowerCase() : "";
+          var isAr = isArabicColumn(colHeader, quranBook);
+          if (!group || group.isAr !== isAr) { flushGroup(); group = { isAr: isAr, html: "" }; }
+          var gh = "";
           // Quran: decorate ayah text columns with braces + ayah number
           var display;
           if (quranBook && isAyahTextColumn(colHeader)) {
@@ -520,7 +534,7 @@ initializePageWithMetadata(async function (metadata) {
               // No label for the Uthmani-script column — redundant beside the
               // base imlai column; every other book still labels its group.
               if (getColumnSourceBook(colIdx) !== "QRN-DATA-ayahUthmani") {
-                h += '<div class="reader-quran-book-label">' + colSourceTitle + ':</div>';
+                gh += '<div class="reader-quran-book-label">' + colSourceTitle + ':</div>';
                 lastExtBook = colSourceTitle;
               }
             } else if (!colSourceTitle) {
@@ -530,20 +544,25 @@ initializePageWithMetadata(async function (metadata) {
           if (i > 0) {
             var prevHdr = (headerRow && headerRow[fields[i - 1].index]) ? headerRow[fields[i - 1].index].toLowerCase() : "";
             if (isArDvTransition(prevHdr, colHeader)) {
-              h += `<div class="reader-ar-dv-spacer"></div>`;
+              gh += `<div class="reader-ar-dv-spacer"></div>`;
             }
             if (isMatnSharhTransition(prevHdr, colHeader)) {
-              h += `<div class="reader-matn-sharh-separator"></div>`;
+              gh += `<div class="reader-matn-sharh-separator"></div>`;
             }
           }
+          // Footnote fields wash when their header is Arabic (footAR) — they
+          // join the surrounding AR run or start their own region.
           if (isFootnoteColumn(colHeader) && fields.length > 1) {
-            h += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
-            h += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
+            gh += `<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>`;
+            gh += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
             var fieldClass = "reader-field" + (columnFieldClass(colHeader) ? " " + columnFieldClass(colHeader) : "");
-            h += `<div class="${fieldClass}" dir="auto">${display}</div>`;
+            gh += `<div class="${fieldClass}" dir="auto">${display}</div>`;
           }
+          group.html += gh;
         }
+        flushGroup();
+        h += parts.join("");
         return h;
       }
       // #endregion
@@ -609,13 +628,16 @@ initializePageWithMetadata(async function (metadata) {
 
         var lastExtBook = "";
 
-        // Render a group of fields with optional book labels
-        function renderFieldGroup(fg) {
+        // Render a group of fields with optional book labels. wrapAr=true
+        // (pre/post-neutral runs): Arabic fields get their own wash region
+        // (e.g. the full-width basmalah above the columns).
+        function renderFieldGroup(fg, wrapAr) {
           var gh = "";
           for (var gi = 0; gi < fg.length; gi++) {
             var gIdx = fg[gi].index;
             var gHdr = (headerRow && headerRow[gIdx]) ? headerRow[gIdx].toLowerCase() : "";
             var gDisplay = fieldHTML(fg[gi].value, gIdx);
+            var isAr = isArabicColumn(gHdr, quranBook);
             // Quran book labels (skipped for the Uthmani-script column)
             if (quranBook && hasExternalColumns(metadata.bookCode)) {
               var groupLabel = getColumnSourceBookTitle(gIdx);
@@ -627,18 +649,21 @@ initializePageWithMetadata(async function (metadata) {
               } else if (!groupLabel) { lastExtBook = ""; }
             }
             if (isFootnoteColumn(gHdr) && fg.length > 1) {
+              if (wrapAr && isAr) gh += '<div class="reader-ar-region">';
               gh += '<div class="reader-field reader-footnote-divider">ــــــــــــــــــــــــــــــــــــــــــــ</div>';
               gh += '<div class="reader-field reader-footnotes" dir="auto">' + gDisplay + '</div>';
+              if (wrapAr && isAr) gh += '</div>';
             } else {
               var gCls = "reader-field" + (columnFieldClass(gHdr) ? " " + columnFieldClass(gHdr) : "");
-              gh += '<div class="' + gCls + '" dir="auto">' + gDisplay + '</div>';
+              var gField = '<div class="' + gCls + '" dir="auto">' + gDisplay + '</div>';
+              gh += (wrapAr && isAr) ? '<div class="reader-ar-region">' + gField + '</div>' : gField;
             }
           }
           return gh;
         }
 
         // Pre-language neutral fields (full width above)
-        h += renderFieldGroup(preN);
+        h += renderFieldGroup(preN, true);
 
         // Side-by-side language columns
         // RTL grid: first child → right side, second child → left side
@@ -647,17 +672,18 @@ initializePageWithMetadata(async function (metadata) {
           h += '<div class="parallel-columns">';
           // DV column (right — first child in RTL grid)
           h += '<div class="parallel-dv-col">';
-          h += dvF.length > 0 ? renderFieldGroup(dvF) : '<div class="parallel-empty"></div>';
+          h += dvF.length > 0 ? renderFieldGroup(dvF, false) : '<div class="parallel-empty"></div>';
           h += '</div>';
-          // AR column (left — second child in RTL grid)
-          h += '<div class="parallel-ar-col">';
-          h += arF.length > 0 ? renderFieldGroup(arF) : '<div class="parallel-empty"></div>';
+          // AR column (left — second child in RTL grid) — the whole column
+          // is one wash region (its own lane, so no gutter overhang)
+          h += '<div class="parallel-ar-col' + (arF.length > 0 ? ' reader-ar-region' : '') + '">';
+          h += arF.length > 0 ? renderFieldGroup(arF, false) : '<div class="parallel-empty"></div>';
           h += '</div>';
           h += '</div>';
         }
 
         // Post-language neutral fields (full width below)
-        h += renderFieldGroup(postN);
+        h += renderFieldGroup(postN, true);
 
         return h;
       }
@@ -698,7 +724,7 @@ initializePageWithMetadata(async function (metadata) {
             }
             display = linkifyURLs(display);
             var tdClass = "";
-            tdClass = columnTdClass(colHeader);
+            tdClass = columnTdClass(colHeader, quranBook);
             h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
           }
           h += '</tr>';

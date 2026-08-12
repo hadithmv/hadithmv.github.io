@@ -405,11 +405,12 @@ Shared across card/parallel/table renderers and all export formats. Imported by 
 | Function | Returns | Description |
 |---|---|---|
 | `columnFieldClass(hdr)` | `""` or CSS class | Maps header prefix (`head`/`kitab`/`bab`/`matn`/`sharh`) to `reader-field-*` class |
-| `columnTdClass(hdr)` | `""` or HTML attr | Maps header prefix to ` class="td-matn"` / ` class="td-sharh"` for table mode |
+| `columnTdClass(hdr, isQuran)` | `""` or HTML attr | Maps header prefix + language to ` class="td-matn"` / ` class="td-sharh"` / ` class="td-ar"` for table mode |
 | `isFootnoteColumn(hdr)` | boolean | `true` if header starts with `foot` |
 | `isArDvTransition(prev, curr)` | boolean | `true` if `prev` ends with `ar` and `curr` ends with `dv` |
 | `isMatnSharhTransition(prev, curr)` | boolean | `true` if `prev` starts with `matn` and `curr` starts with `sharh` |
 | `classifyColumnLang(hdr, isQuran)` | `"ar"` / `"dv"` / `"neutral"` | Language classification for parallel text view |
+| `isArabicColumn(hdr, isQuran)` | boolean | `true` for Arabic content columns (`…AR` suffix, Quran ayah texts, `basmalah`) — drives the reader's Arabic wash (`--color-ar-bg` on `.reader-ar-region` in card/parallel views, `td.td-ar` in table mode) |
 
 ### `findQuranColIndices(headerRow)`
 
