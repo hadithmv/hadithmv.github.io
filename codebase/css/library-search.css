@@ -127,6 +127,115 @@
   margin-top: var(--section-gap, 6px);
 }
 
+/* ---- Book-scope picker ---- */
+.lib-scope-btn {
+  flex-shrink: 0;
+  max-width: 40vw; /* keep the input usable on narrow screens */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* .search-results supplies the dropdown look; these are the deltas */
+.lib-scope-popover {
+  width: min(340px, calc(100vw - 24px));
+  max-height: min(60vh, 480px);
+  margin: 0;
+}
+.lib-scope-head {
+  display: flex;
+  align-items: center;
+  gap: var(--control-gap, 6px);
+  padding: 8px;
+  background: var(--color-card-bg);
+  border-bottom: 2px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+/* .search-input (common.css) supplies the shared search-row look — semibold
+   text, bold subtle placeholder, focus ring, Thaana text-indent. Deltas only:
+   the page's panel font and the mixed font so Dhivehi/English both render. */
+.lib-scope-filter {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  direction: rtl;
+}
+.lib-scope-reset {
+  flex-shrink: 0;
+  padding: 0 10px;
+}
+.lib-scope-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--control-gap, 6px);
+  padding: 8px;
+  border-bottom: 1px solid var(--color-border);
+  direction: rtl;
+}
+.lib-scope-list {
+  direction: rtl;
+}
+.lib-scope-group-label {
+  padding: 10px 14px 2px;
+  font-size: var(--panel-font-size, 0.78rem);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.lib-scope-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.lib-scope-row:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.lib-scope-row input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-nav-btn-text);
+}
+.lib-scope-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-text, 0.95rem);
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  /* same webfont start-side overhang as .hist-text — the ellipsis clip cuts
+     the first glyph of every row */
+  padding-inline-start: 6px;
+}
+.lib-scope-code {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  color: var(--color-text-subtle);
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
+  direction: ltr;
+}
+.lib-scope-none {
+  padding: 10px 14px;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.lib-scope-foot {
+  position: sticky;
+  bottom: 0;
+  padding: 6px 14px;
+  font-size: var(--panel-font-size, 0.78rem);
+  color: var(--color-text-subtle);
+  background: var(--color-card-bg);
+  border-top: 2px solid var(--color-border);
+  text-align: center;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+
 @media (max-width: 600px) {
   #libWrapper {
     margin: var(--page-margin-mobile, 58px auto 12px);
@@ -144,5 +253,12 @@
   .lib-peek-item {
     font-size: var(--fs-aux, 0.8rem);
     line-height: 1.7;
+  }
+  .lib-scope-popover {
+    max-height: 70vh;
+  }
+  .lib-scope-btn {
+    font-size: var(--panel-font-size-mobile, 0.78rem);
+    padding: 0 8px;
   }
 }

@@ -4,14 +4,16 @@
  * (pure module: loadSearchIndex / searchLibrary / tokenizeText) and the word
  * index in data/search-index.json (built by data/07-rebuild-searchIndex.mjs).
  *
- * This page is self-initialising. It reads ?q= and ?tags= from the URL
- * (shareable links), renders tag chips scoped to the visible books, and
- * groups results by book with inline peek previews. Result deep-links and
- * peeks navigate to reader.html?book=X&row=N&q=… — the reader already
+ * This page is self-initialising. It reads ?q=, ?tags= and ?books= from the
+ * URL (shareable links), renders tag chips scoped to the visible books, and
+ * groups results by book with inline peek previews. ?books= is the book-scope
+ * picker (narrow the search to specific books; the chips narrow by category,
+ * the picker by book — the two intersect in computeScope). Result deep-links
+ * and peeks navigate to reader.html?book=X&row=N&q=… — the reader already
  * consumes that query (pre-highlights + scrolls to the row).
  */
 
-import { tagLabel, t } from "./i18n.js";
+import { tagLabel, t, currentLang } from "./i18n.js";
 import { loadSearchIndex, searchLibrary } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
@@ -39,6 +41,10 @@ import {
 var _bookNames = null; // full registry (incl. -HDN books)
 var _q = ""; // current query (trimmed)
 var _selectedTags = []; // active tag chips (OR — same semantics as the grid)
+var _selectedBooks = null; // book scope: null = every book; else explicit bookCode list
+var _searchableBooks = null; // picker list — visible books that are in the search index
+var _bookByCode = {}; // bookCode → registry entry (picker titles)
+var _scopeFilter = ""; // picker's filter-box text
 var _searchTimer = null; // input debounce
 var _refreshTags = null; // tag-row collapse refresh (common.js)
 var _skipHistoryOnFocus = false; // true only for the initial desktop auto-focus
@@ -53,6 +59,12 @@ var el = {
   tagsRow: null,
   count: null,
   results: null,
+  scopeBtn: null,
+  scopePopover: null,
+  scopeFilter: null,
+  scopeTypes: null,
+  scopeList: null,
+  scopeFoot: null,
 };
 
 /** Substitute {k} placeholders in an i18n template string. */
@@ -62,7 +74,7 @@ function fillTemplate(key, map) {
   return s;
 }
 
-// ── URL sync (?q= / ?tags= — shareable links) ────────────────
+// ── URL sync (?q= / ?tags= / ?books= — shareable links) ──────
 function readURLParams() {
   var params = new URLSearchParams(window.location.search);
   _q = (params.get("q") || "").trim();
@@ -71,13 +83,20 @@ function readURLParams() {
     _selectedTags = tagsParam.split(",").map(function (x) { return x.trim(); })
       .filter(function (x) { return x; });
   }
+  var booksParam = params.get("books");
+  if (booksParam) {
+    var books = booksParam.split(",").map(function (x) { return x.trim(); })
+      .filter(function (x) { return x; });
+    if (books.length > 0) _selectedBooks = books;
+  }
 }
 
-/** Keep ?q= and ?tags= in the address bar — the URL stays shareable. */
+/** Keep ?q=, ?tags= and ?books= in the address bar — the URL stays shareable. */
 function syncURL() {
   var params = new URLSearchParams();
   if (_q) params.set("q", _q);
   if (_selectedTags.length > 0) params.set("tags", _selectedTags.join(","));
+  if (_selectedBooks && _selectedBooks.length > 0) params.set("books", _selectedBooks.join(","));
   var qs = params.toString();
   history.replaceState(null, "", qs ? "?" + qs : window.location.pathname);
 }
@@ -133,10 +152,273 @@ function onChipsClick(e) {
   if (_q) runSearchAndRender();
 }
 
+// ── Book-scope picker ────────────────────────────────────────
+// The picker narrows the search to specific books (the tag chips narrow by
+// category — the two intersect in computeScope). Scope lives in ?books= so a
+// scoped search stays shareable. The picker lists only books the index
+// actually knows (meta.bookIds): RDF dictionaries and other
+// ENTIRE-BOOK-excluded books are absent by design — they have no postings.
+
+/** The picker's book list, lazily derived from the index meta. */
+function ensureSearchableBooks() {
+  if (_searchableBooks) return Promise.resolve();
+  return loadSearchIndex()
+    .then(function (index) {
+      var ids = index.meta.bookIds;
+      _searchableBooks = (_bookNames || []).filter(function (b) {
+        return !b.bookCode.endsWith("-HDN") && ids.indexOf(b.bookCode) !== -1;
+      });
+    })
+    .catch(function () {
+      // Index unavailable → fall back to every visible book (search is
+      // failing anyway; the list is still honest about the registry).
+      _searchableBooks = (_bookNames || []).filter(function (b) {
+        return !b.bookCode.endsWith("-HDN");
+      });
+    })
+    .then(function () {
+      _bookByCode = {};
+      _searchableBooks.forEach(function (b) {
+        _bookByCode[b.bookCode] = b;
+      });
+    });
+}
+
+/** Group the searchable books by primary tag (the prefix-derived type). */
+function scopeGroups() {
+  var groups = {};
+  var order = [];
+  _searchableBooks.forEach(function (b) {
+    var tg = extractTags(b.bookCode, b)[0];
+    if (!tg) return;
+    var g = groups[tg.code];
+    if (!g) {
+      g = groups[tg.code] = { code: tg.code, label: tg.label, palette: tg.palette, codes: [] };
+      order.push(tg.code);
+    }
+    g.codes.push(b.bookCode);
+  });
+  order.sort();
+  return order.map(function (c) {
+    return groups[c];
+  });
+}
+
+/**
+ * Is the book in the explicit selection? null (no scope) means every book is
+ * searched, but nothing is ticked — same metaphor as the tag chips' "All"
+ * chip: an empty selection is not a restriction. Ticking a book from the
+ * "everything" state narrows to exactly that book.
+ */
+function isBookSelected(code) {
+  return !!_selectedBooks && _selectedBooks.indexOf(code) !== -1;
+}
+
+function allCodes() {
+  return _searchableBooks.map(function (b) {
+    return b.bookCode;
+  });
+}
+
+/** Update _selectedBooks for one book; a full selection collapses to null. */
+function setBookSelected(code, on) {
+  var all = allCodes();
+  var cur = _selectedBooks ? _selectedBooks.slice() : [];
+  var i = cur.indexOf(code);
+  if (on && i === -1) cur.push(code);
+  if (!on && i !== -1) cur.splice(i, 1);
+  // Empty and full both mean "no restriction" — an empty array would pass the
+  // truthy scope check in computeScope and return zero results.
+  _selectedBooks = (cur.length === 0 || cur.length === all.length) ? null : cur;
+}
+
+/** Update _selectedBooks for a whole type group (the popover's chips). */
+function setGroupSelected(tagCode, on) {
+  var gs = scopeGroups();
+  var group = null;
+  for (var i = 0; i < gs.length; i++) {
+    if (gs[i].code === tagCode) { group = gs[i]; break; }
+  }
+  if (!group) return;
+  var all = allCodes();
+  var cur = _selectedBooks ? _selectedBooks.slice() : [];
+  for (var g = 0; g < group.codes.length; g++) {
+    var code = group.codes[g];
+    var i = cur.indexOf(code);
+    if (on && i === -1) cur.push(code);
+    if (!on && i !== -1) cur.splice(i, 1);
+  }
+  _selectedBooks = (cur.length === 0 || cur.length === all.length) ? null : cur;
+}
+
+function isGroupFullySelected(tagCode) {
+  var gs = scopeGroups();
+  for (var i = 0; i < gs.length; i++) {
+    if (gs[i].code !== tagCode) continue;
+    for (var j = 0; j < gs[i].codes.length; j++) {
+      if (!isBookSelected(gs[i].codes[j])) return false;
+    }
+    return true;
+  }
+  return false;
+}
+
+/** Scope changed → URL, button, popover, and (if querying) re-search. */
+function applyScopeChange() {
+  syncURL();
+  renderScopeButton();
+  if (el.scopePopover && el.scopePopover.style.display !== "none" && el.scopeList) {
+    renderScopePopover();
+  }
+  if (_q) runSearchAndRender();
+}
+
+function renderScopeButton() {
+  if (!el.scopeBtn) return;
+  var label;
+  if (!_selectedBooks) {
+    label = t("libScopeAll");
+  } else if (_selectedBooks.length === 1) {
+    label = t("libScopeCountOne");
+  } else {
+    label = fillTemplate("libScopeCount", { n: _selectedBooks.length });
+  }
+  el.scopeBtn.textContent = label + " ▾";
+}
+
+/**
+ * The popover's shell (head + empty containers) — rendered once. Only the
+ * inner lists are rebuilt on filter/selection changes, so the filter input
+ * keeps its focus.
+ */
+function renderScopeShell() {
+  el.scopePopover.innerHTML =
+    '<div class="lib-scope-head">' +
+    '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
+    'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
+    '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
+    t("libScopeAll") + "</button></div>" +
+    '<div id="libScopeTypes" class="lib-scope-types"></div>' +
+    '<div id="libScopeList" class="lib-scope-list"></div>' +
+    '<div id="libScopeFoot" class="lib-scope-foot"></div>';
+  el.scopeFilter = document.getElementById("libScopeFilter");
+  el.scopeTypes = document.getElementById("libScopeTypes");
+  el.scopeList = document.getElementById("libScopeList");
+  el.scopeFoot = document.getElementById("libScopeFoot");
+  el.scopeReset = document.getElementById("libScopeReset");
+  var reset = document.getElementById("libScopeReset");
+  el.scopeFilter.addEventListener("input", function () {
+    _scopeFilter = this.value;
+    renderScopePopover();
+  });
+  reset.addEventListener("click", function () {
+    _selectedBooks = null;
+    applyScopeChange();
+  });
+  // Delegation on the containers — they survive list re-renders
+  el.scopeTypes.addEventListener("click", function (e) {
+    // The toggle re-renders this row, detaching the clicked chip mid-dispatch
+    // — without this the outside-click handler sees a target outside the
+    // popover and closes it (same trap as the history items below).
+    e.stopPropagation();
+    var chip = e.target.closest(".tag-chip");
+    if (!chip || chip.dataset.tag === window.TAG_ALL) return;
+    setGroupSelected(chip.dataset.tag, !isGroupFullySelected(chip.dataset.tag));
+    applyScopeChange();
+  });
+  el.scopeList.addEventListener("change", function (e) {
+    var cb = e.target;
+    if (cb.type !== "checkbox" || !cb.dataset.book) return;
+    setBookSelected(cb.dataset.book, cb.checked);
+    applyScopeChange();
+  });
+}
+
+function scopeRowHTML(code) {
+  var b = _bookByCode[code];
+  var title = "";
+  if (b) {
+    var l = currentLang();
+    title = l === "dv" ? b.titleDV : l === "ar" ? b.titleAR : b.titleEN;
+    if (!title) title = b.titleEN || b.titleDV || b.titleAR || "";
+  }
+  return (
+    '<label class="lib-scope-row" data-book="' + code + '">' +
+    '<input type="checkbox" data-book="' + code + '"' +
+    (isBookSelected(code) ? " checked" : "") + " />" +
+    '<span class="lib-scope-title">' + escapeHTML(title || code) + "</span>" +
+    '<span class="lib-scope-code">' + code + "</span></label>"
+  );
+}
+
+function renderScopePopover() {
+  if (!_searchableBooks || !el.scopeList) return;
+  var groups = scopeGroups();
+  var total = allCodes().length;
+  var selCount = _selectedBooks ? _selectedBooks.length : total;
+  el.scopeTypes.innerHTML = groups.map(function (g) {
+    return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
+  }).join("");
+  var f = _scopeFilter.toLowerCase();
+  var html = [];
+  groups.forEach(function (g) {
+    var shown = g.codes.filter(function (code) {
+      if (!f) return true;
+      var b = _bookByCode[code];
+      var hay = ((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
+        " " + code).toLowerCase();
+      return hay.indexOf(f) !== -1;
+    });
+    if (shown.length === 0) return;
+    html.push('<div class="lib-scope-group-label">' + tagLabel(g.code, g.label) + "</div>");
+    shown.forEach(function (code) {
+      html.push(scopeRowHTML(code));
+    });
+  });
+  el.scopeList.innerHTML = html.join("") ||
+    '<div class="lib-scope-none">' + t("libScopeNoMatch") + "</div>";
+  // Unscoped → "46 books"; scoped → "12 of 46 books selected"
+  el.scopeFoot.textContent = _selectedBooks
+    ? fillTemplate("libScopeFoot", { n: selCount, m: total })
+    : fillTemplate("libScopeCount", { n: total });
+  // "All books" is only meaningful as an action when a scope is active —
+  // hidden otherwise so it never reads as a static label.
+  el.scopeReset.style.display = _selectedBooks ? "" : "none";
+}
+
+function toggleScopePopover() {
+  if (el.scopePopover.style.display !== "none") {
+    el.scopePopover.style.display = "none";
+    return;
+  }
+  var open = function () {
+    if (!el.scopePopover.innerHTML) renderScopeShell();
+    _scopeFilter = "";
+    if (el.scopeFilter) el.scopeFilter.value = "";
+    renderScopePopover();
+    window.openDropdown(el.scopePopover, el.scopeBtn, 4);
+    // Clamp to the viewport — the button sits mid-panel in wide layouts, so a
+    // fixed-left popover can overflow the right edge on narrow windows.
+    var r = el.scopePopover.getBoundingClientRect();
+    if (r.right > window.innerWidth - 4) {
+      el.scopePopover.style.left = "auto";
+      el.scopePopover.style.right = "4px";
+    } else {
+      el.scopePopover.style.right = "auto";
+    }
+  };
+  if (!_searchableBooks) {
+    ensureSearchableBooks().then(open);
+    return;
+  }
+  open();
+}
+
 // ── Search ───────────────────────────────────────────────────
 /**
  * Book codes eligible for the search: visible books (-HDN excluded) carrying
- * any active tag chip (OR — same semantics as the dashboard grid).
+ * any active tag chip (OR — same semantics as the dashboard grid), further
+ * narrowed to the book-scope picker's selection when one is active.
  */
 function computeScope() {
   var visible = (_bookNames || []).filter(function (b) {
@@ -150,6 +432,11 @@ function computeScope() {
       return _selectedTags.some(function (tc) {
         return codes.indexOf(tc) !== -1;
       });
+    });
+  }
+  if (_selectedBooks && _selectedBooks.length > 0) {
+    visible = visible.filter(function (b) {
+      return _selectedBooks.indexOf(b.bookCode) !== -1;
     });
   }
   return visible.map(function (b) {
@@ -171,10 +458,11 @@ function runSearchAndRender() {
     showEmpty("libSearchHint");
     return;
   }
-  // Empty-scope guard: active tags that match no books must NOT fall through
-  // to an unscoped search (the engine treats [] as "every book").
+  // Empty-scope guard: active tags or a book scope that match no books must
+  // NOT fall through to an unscoped search (the engine treats [] as
+  // "every book").
   var scope = computeScope();
-  if (_selectedTags.length > 0 && scope.length === 0) {
+  if ((_selectedTags.length > 0 || (_selectedBooks && _selectedBooks.length > 0)) && scope.length === 0) {
     showEmpty("libNoResults");
     return;
   }
@@ -545,6 +833,7 @@ async function init() {
   // Debounced search while typing
   el.input.addEventListener("input", function () {
     el.history.style.display = "none";
+    if (el.scopePopover) el.scopePopover.style.display = "none";
     clearTimeout(_searchTimer);
     updateSearchClear();
     _searchTimer = setTimeout(runSearchAndRender, 150);
@@ -554,9 +843,19 @@ async function init() {
   el.tagsRow.addEventListener("click", onChipsClick);
   _refreshTags = window.initTagsCollapse("libTagsCollapse", "libTagsToggle");
 
-  // Language change → re-render chips + results
+  // Book-scope picker (button + popover)
+  el.scopeBtn = document.getElementById("libScopeBtn");
+  el.scopePopover = document.getElementById("libScopePopover");
+  if (el.scopeBtn && el.scopePopover) {
+    renderScopeButton();
+    el.scopeBtn.addEventListener("click", toggleScopePopover);
+    window.registerDropdown("libScopePopover", el.scopePopover, el.scopeBtn);
+  }
+
+  // Language change → re-render chips + results (+ picker placeholder)
   document.addEventListener("languagechange", function () {
     renderChips();
+    if (el.scopeFilter) el.scopeFilter.placeholder = t("libScopeFilter");
     if (_q) runSearchAndRender();
   });
 
@@ -594,6 +893,10 @@ async function init() {
       if (!q) return;
       el.history.style.display = "none";
       runSearchAndRender();
+    }
+    if (e.key === "Escape" && el.scopePopover && el.scopePopover.style.display !== "none") {
+      el.scopePopover.style.display = "none";
+      if (e.target === el.scopeFilter) el.scopeFilter.blur();
     }
     if (e.key === "Escape" && isInput && e.target === el.input) {
       el.input.value = "";

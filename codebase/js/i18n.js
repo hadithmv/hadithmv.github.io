@@ -291,6 +291,25 @@ const STRINGS = {
     en: "Show next {n} matches",
     ar: "عرض {n} نتيجة أخرى",
   },
+  // Book-scope picker (narrow the search to specific books)
+  libScopeAll: { dv: "ހުރިހާ ފޮތް", en: "All books", ar: "كل الكتب" },
+  libScopeCount: { dv: "{n} ފޮތް", en: "{n} books", ar: "{n} كتب" },
+  libScopeCountOne: { dv: "1 ފޮތް", en: "1 book", ar: "1 كتاب" },
+  libScopeFilter: {
+    dv: "ފޮތް ފިލްޓަރު ކުރޭ…",
+    en: "Filter books…",
+    ar: "تصفية الكتب…",
+  },
+  libScopeFoot: {
+    dv: "{n} / {m} ފޮތް ހޮވިފައި",
+    en: "{n} of {m} books selected",
+    ar: "تم اختيار {n} من {m} كتب",
+  },
+  libScopeNoMatch: {
+    dv: "ފިލްޓަރަށް އެއްވެސް ފޮތެއް ނުފެނުނު",
+    en: "No books match the filter",
+    ar: "لا توجد كتب مطابقة للتصفية",
+  },
   dashboardClearAll: {
     dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕",
     en: "Clear all&nbsp;&nbsp;✕",
