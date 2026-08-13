@@ -15,7 +15,7 @@ import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSur
 import { initExports } from "./export.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
 import { columnDisplayLabel } from "./column-labels.js";
-import { initPosition, updatePagination, visiblePageIndex } from "./reader-position.js";
+import { initPosition, updatePagination, visiblePageIndex, noteProgrammaticJump } from "./reader-position.js";
 import { initSearchUI, applySearch, renderAdvancedSearch, parseQueryWithMode } from "./reader-search-ui.js";
 
 initializePageWithMetadata(async function (metadata) {
@@ -27,22 +27,22 @@ initializePageWithMetadata(async function (metadata) {
   //   Persisted settings (LS wrapper, -HDN column init)    L187-233
   //   Reader state, column toggles, dropdown infrastructure L236-322
   //   Tashkeel helpers                                     L325-332
-  //   Clipboard formatting (rowText)                       L335-422
-  //   View mode dropdown (card / table / parallel)         L425-473
-  //   Quran helpers                                        L476-480
-  //   Card row renderer (renderRowHTML)                    L483-579
-  //   Parallel row renderer (renderParallelRowHTML)        L582-701
-  //   Chunk + table-row renderers                          L704-766
-  //   Infinite scroll + table scrollbar                    L769-914
-  //   Navigation (goTo, scroll padding)                    L917-949
-  //   Search UI (wiring — module: reader-search-ui.js)     L952-981
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L984-1144
-  //   Keyboard shortcuts (incl. navigation buttons)        L1147-1250
-  //   Touch swipe                                          L1253-1273
-  //   Settings reset + language change                     L1276-1289
-  //   Quran UI (initQuranUI ctx)                           L1292-1312
-  //   Initial render (deep links, reveal)                  L1315-1388
-  //   Module-level helpers (showError)                     L1391-1397
+  //   Clipboard formatting (rowText)                       L335-425
+  //   View mode dropdown (card / table / parallel)         L428-476
+  //   Quran helpers                                        L479-483
+  //   Card row renderer (renderRowHTML)                    L486-582
+  //   Parallel row renderer (renderParallelRowHTML)        L585-704
+  //   Chunk + table-row renderers                          L707-769
+  //   Infinite scroll + table scrollbar                    L772-917
+  //   Navigation (goTo, scroll padding)                    L920-968
+  //   Search UI (wiring — module: reader-search-ui.js)     L971-1000
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1003-1163
+  //   Keyboard shortcuts (incl. navigation buttons)        L1166-1269
+  //   Touch swipe                                          L1272-1292
+  //   Settings reset + language change                     L1295-1308
+  //   Quran UI (initQuranUI ctx)                           L1311-1331
+  //   Initial render (deep links, reveal)                  L1334-1407
+  //   Module-level helpers (showError)                     L1410-1416
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -335,6 +335,9 @@ initializePageWithMetadata(async function (metadata) {
       // #region Clipboard formatting (rowText)
       // ── Clipboard formatting (rowText) ──────────────────────
       let loadedStart = -1, loadedEnd = -1;
+      // Measured top clearance (panel bottom edge), stored by updateScrollPadding
+      // and consumed by goTo's jump-destination math
+      var _scrollPadTop = 0;
 
       function rowText(row, rowNum) {
         // ── Quran clipboard format ──
@@ -922,6 +925,9 @@ initializePageWithMetadata(async function (metadata) {
         // parseFloat can't resolve it — measure the panel's pinned bottom edge
         var offset = (panel && panel.offsetHeight > 0) ? panel.getBoundingClientRect().bottom : (topBar ? topBar.offsetHeight : 62) + 6;
         document.documentElement.style.scrollPaddingTop = offset + "px";
+        // Kept for goTo's jump-destination math (the scrollIntoView target is
+        // the element's top minus this same padding)
+        _scrollPadTop = offset;
       }
       function goTo(rowIdx) {
         if (filteredData.length === 0) return;
@@ -944,7 +950,20 @@ initializePageWithMetadata(async function (metadata) {
         }
         updateScrollPadding();
         var el = readerContent.querySelector('.reader-chunk[data-row="' + rowIdx + '"]');
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (el) {
+          // Programmatic navigation must not celebrate: milestones toast for
+          // READING, not jumping. Record the smooth-scroll destination (the
+          // element's top minus the measured scroll-padding, clamped to the
+          // scroll extent) — onScroll suppresses milestone toasts until the
+          // position settles there, so a btnLast jump can't fire the
+          // "book finished" celebration on arrival.
+          var dest = el.getBoundingClientRect().top + window.scrollY - _scrollPadTop;
+          var maxS = document.documentElement.scrollHeight - window.innerHeight;
+          if (dest < 0) dest = 0;
+          else if (dest > maxS) dest = maxS;
+          noteProgrammaticJump(dest);
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
         updatePagination();
       }
       // #endregion

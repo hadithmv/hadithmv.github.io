@@ -282,8 +282,16 @@ async function main() {
     if (toast) toast.remove();
     var se = document.scrollingElement;
     document.documentElement.style.scrollBehavior = "auto";
-    // Cancel any in-flight smooth scrollIntoView (the previous clicks' last
-    // animation drags the position back and would fight the bottom jump).
+    // The previous clicks' last smooth scrollIntoView may still be running —
+    // an instant scrollTop assignment does NOT cancel it in headless, and the
+    // animation's next frame drags the position back mid-jump. Wait for 100ms
+    // of stillness first, then jump.
+    var last = -1, stableSince = Date.now(), tEnd = Date.now() + 10000;
+    while (Date.now() - stableSince < 100 && Date.now() < tEnd) {
+      var y = se.scrollTop;
+      if (y !== last) { last = y; stableSince = Date.now(); }
+      await new Promise(function (r) { setTimeout(r, 40); });
+    }
     se.scrollTop = 0;
     se.scrollTop = se.scrollHeight;
     await new Promise(function (r) { setTimeout(r, 300); });
@@ -300,6 +308,46 @@ async function main() {
   check("T1d RDF bottom: progress not .done", !D.done, botRes);
   check("T1d RDF bottom: progress still fills", D.fillW !== null && parseInt(D.fillW, 10) > 90, botRes);
   check("T1d RDF bottom: no completion toast", D.toast.indexOf("100%") === -1, botRes);
+
+  // ══ T9: programmatic jump never celebrates; natural arrival does ══
+  // On a non-Radheef book (milestones enabled): a btnLast jump lands with
+  // no completion toast, no .done bar, no border ring — milestones
+  // celebrate READING, not navigation (reader-position.js
+  // noteProgrammaticJump). A natural scroll to the bottom afterwards
+  // still celebrates.
+  await goto(ROOT + "reader.html?book=HDT-misc", 1280, 800);
+  check("T9 HDT-misc loads", await waitFor(`!!document.querySelector('.reader-chunk')`), "no rows");
+  const T9 = await evalJS(`(async function () {
+    document.getElementById('btnLast').click();
+    var se = document.scrollingElement;
+    // wait for the jump's smooth scroll to settle (100ms of stillness)
+    var last = -1, stableSince = Date.now(), tEnd = Date.now() + 10000;
+    while (Date.now() - stableSince < 100 && Date.now() < tEnd) {
+      var y = se.scrollTop;
+      if (y !== last) { last = y; stableSince = Date.now(); }
+      await new Promise(function (r) { setTimeout(r, 40); });
+    }
+    var after = {
+      border: !!document.querySelector('.completion-border'),
+      done: document.getElementById('readerProgressFill').classList.contains('done'),
+      toast: (document.querySelector('.toast') || {}).textContent || ""
+    };
+    // natural arrival: back to the top, then scroll to the very bottom
+    document.documentElement.style.scrollBehavior = "auto";
+    se.scrollTop = 0;
+    await new Promise(function (r) { setTimeout(r, 100); });
+    se.scrollTop = se.scrollHeight;
+    await new Promise(function (r) { setTimeout(r, 300); });
+    var natural = {
+      border: !!document.querySelector('.completion-border'),
+      done: document.getElementById('readerProgressFill').classList.contains('done'),
+      toast: (document.querySelector('.toast') || {}).textContent || ""
+    };
+    return JSON.stringify({ after: after, natural: natural });
+  })()`);
+  const T9R = JSON.parse(T9);
+  check("T9 jump to last page: no celebration", !T9R.after.border && !T9R.after.done && T9R.after.toast.indexOf("100%") === -1, T9);
+  check("T9 natural bottom scroll: celebrates", T9R.natural.border && T9R.natural.done, T9);
 
   // ══ T2: block boundaries via ?row= deep links (1-based) ══
   async function atRow(rowNum) {

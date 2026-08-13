@@ -51,6 +51,23 @@ function fireMilestoneToast(msg) {
   return true;
 }
 
+// Programmatic-jump suppression: goTo records where its smooth scroll
+// will land (noteProgrammaticJump); onScroll skips milestone toasts until
+// the position settles there — the arrival event itself is suppressed —
+// the user's own scrolling moves away from the destination, or the 3.5s
+// backstop expires (background tabs where animations stall). Navigation
+// is not reading: a btnLast, page-strip, deep-link or Home/End jump must
+// not celebrate "finished" (completion toast, green .done bar, flashing
+// border).
+var _jumpTargetY = -1;
+var _jumpAt = 0;
+var _jumpLastDist = Infinity;
+export function noteProgrammaticJump(targetY) {
+  _jumpTargetY = targetY;
+  _jumpAt = Date.now();
+  _jumpLastDist = Infinity;
+}
+
 export function visiblePageIndex() {
   // Fast path: use elementFromPoint at viewport centre (O(1) vs O(n) scan)
   var viewMid = window.innerHeight / 2;
@@ -208,7 +225,24 @@ function onScroll() {
   // Milestone toasts at 25%, 50%, 75%, 100% — reset when scrolling back.
   // The toasts are gated by fireMilestoneToast's 5s quiet window: bounce must
   // not re-show a toast (see the gate's comment at the state declarations).
-  if (milestonesEnabled) {
+  // Programmatic jumps (goTo) are muted too: while the jump's smooth scroll
+  // is in flight — and on its arrival event — milestones must not fire.
+  var jumpInFlight = false;
+  if (_jumpTargetY !== -1) {
+    // The jump's animation is done when the position reaches the recorded
+    // destination — or the document's current bottom, which can move past
+    // the recorded dest while sentinel rows keep loading — or moves AWAY
+    // from the destination (the user took over the scroll), or the
+    // backstop expires (throttled tabs where the animation stalls).
+    // Until then every event belongs to the navigation, not to reading.
+    var jy = window.scrollY;
+    var jMaxS = document.documentElement.scrollHeight - window.innerHeight;
+    var distNow = Math.abs(jy - _jumpTargetY);
+    if (distNow <= 3 || Math.abs(jy - jMaxS) <= 3 || distNow > _jumpLastDist || Date.now() - _jumpAt > 3500) _jumpTargetY = -1;
+    _jumpLastDist = distNow;
+    jumpInFlight = true;
+  }
+  if (milestonesEnabled && !jumpInFlight) {
     if (pct < 25) { _lastMilestone = 0; document.getElementById("readerProgressFill").classList.remove("done"); }
     else if (pct < _lastMilestone) _lastMilestone = Math.floor(pct / 25) * 25;
   }
@@ -245,12 +279,12 @@ function onScroll() {
     // evaluate only the completion. Re-running the 25/50/75 chain here would
     // re-show those toasts on every bottom bounce once their own 5s windows
     // lapse; the gate still dedupes the completion itself.
-    if (milestonesEnabled && pct >= 100 && _lastMilestone < 100) celebrateCompletion();
+    if (milestonesEnabled && !jumpInFlight && pct >= 100 && _lastMilestone < 100) celebrateCompletion();
   } else {
-    if (milestonesEnabled && pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; fireMilestoneToast("📖 25%"); }
-    if (milestonesEnabled && pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; fireMilestoneToast("📖 50%"); }
-    if (milestonesEnabled && pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; fireMilestoneToast("📖 75%"); }
-    if (milestonesEnabled && pct >= 100 && _lastMilestone < 100) celebrateCompletion();
+    if (milestonesEnabled && !jumpInFlight && pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; fireMilestoneToast("📖 25%"); }
+    if (milestonesEnabled && !jumpInFlight && pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; fireMilestoneToast("📖 50%"); }
+    if (milestonesEnabled && !jumpInFlight && pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; fireMilestoneToast("📖 75%"); }
+    if (milestonesEnabled && !jumpInFlight && pct >= 100 && _lastMilestone < 100) celebrateCompletion();
   }
   if (scrollCounter) {
     var vRow = visiblePageIndex();
