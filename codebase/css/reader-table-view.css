@@ -86,17 +86,18 @@
   border-inline-start: 2px dotted var(--color-divider-ornament);
 }
 
-/* Arabic-original cells get the language wash (isArabicColumn) — kept
+/* Arabic-original cells get the content wash (isArabicColumn) — kept
    below :hover specificity so row hover still lights the whole row */
 td.td-ar {
-  background: var(--color-ar-bg, #f4f7fa);
+  background: var(--color-wash-bg, #f4f7fa);
 }
 
-/* Merged radheef book (RDF-all): Rasmee rows get the same warm tint as
-   card view (reader.js mergedRowRasmeeClass). Placed above the :hover
-   rule so hovering still lights the whole row (see the td-ar note). */
+/* Merged radheef book (RDF-all): Rasmee rows share the same content
+   wash as card view and the AR cells (reader.js mergedRowRasmeeClass).
+   Placed above the :hover rule so hovering still lights the whole row
+   (see the td-ar note). */
 tr.merged-row-rasmee > td {
-  background: var(--color-rasmee-tint, rgba(230, 162, 60, 0.08));
+  background: var(--color-wash-bg, #f4f7fa);
 }
 
 /* Merged radheef book: the source column is chrome, not content */

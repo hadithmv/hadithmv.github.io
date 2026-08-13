@@ -415,7 +415,7 @@ Shared across card/parallel/table renderers and all export formats. Imported by 
 | `isArDvTransition(prev, curr)` | boolean | `true` if `prev` ends with `ar` and `curr` ends with `dv` |
 | `isMatnSharhTransition(prev, curr)` | boolean | `true` if `prev` starts with `matn` and `curr` starts with `sharh` |
 | `classifyColumnLang(hdr, isQuran)` | `"ar"` / `"dv"` / `"neutral"` | Language classification for parallel text view |
-| `isArabicColumn(hdr, isQuran)` | boolean | `true` for Arabic content columns (`…AR` suffix, Quran ayah texts, `basmalah`) — drives the reader's Arabic wash (`--color-ar-bg` on `.reader-ar-region` in card/parallel views, `td.td-ar` in table mode) |
+| `isArabicColumn(hdr, isQuran)` | boolean | `true` for Arabic content columns (`…AR` suffix, Quran ayah texts, `basmalah`) — drives the reader's content wash (`--color-wash-bg`, the site's one tint token shared with RDF-all's `merged-row-rasmee` rows) on `.reader-ar-region` in card/parallel views and `td.td-ar` in table mode |
 
 ### `findQuranColIndices(headerRow)`
 

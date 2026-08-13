@@ -27,13 +27,12 @@
   --color-scrim: rgba(0, 0, 0, 0.4);
   --color-mark-bg: #fef08a;
   --color-mark-text: inherit;
-  /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
-  --color-ar-bg: #f4f7fa;
-  /* Rasmee-dictionary wash — warm tint on RDF-all rows whose source is the
-     Rasmee book (reader.js mergedRowRasmeeClass). Same treatment language as
-     --color-ar-bg (flat, full-bleed, no border), different hue on purpose:
-     blue-grey means "Arabic script", warm amber means "primary dictionary". */
-  --color-rasmee-tint: rgba(230, 162, 60, 0.08);
+  /* Content wash — the reader's quiet tint on content that stands apart:
+     Arabic-original fields/cells (isArabicColumn) and RDF-all rows whose
+     source is the Rasmee book (reader.js mergedRowRasmeeClass). One token,
+     one treatment — flat, full-bleed, no border — shared by both so the
+     tints cannot drift apart. */
+  --color-wash-bg: #f4f7fa;
 
   /* Semantic accent families — same role in every theme; never hardcode.
      accent: active menu button + dropdown checkmark (blue)
@@ -232,11 +231,9 @@
   --color-scrim: rgba(0, 0, 0, 0.4);
   --color-mark-bg: #f0c060;
   --color-mark-text: #3d2e1c;
-  /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
-  --color-ar-bg: #f8f1e3;
-  /* Rasmee-dictionary wash — see the light-theme note; sepia needs a touch
-     more presence to read against the cream reader background */
-  --color-rasmee-tint: rgba(200, 138, 50, 0.12);
+  /* Content wash — see the light-theme note; sepia reads as warm sand
+     against the cream reader background */
+  --color-wash-bg: #f8f1e3;
   --color-accent: #3b5f8a;
   --color-accent-bg: #e8e0d5;
   --color-accent-border: #c4b99a;
@@ -291,11 +288,9 @@
   --color-scrim: rgba(0, 0, 0, 0.55);
   --color-mark-bg: #854d0e;
   --color-mark-text: #fef9c3;
-  /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
-  --color-ar-bg: #242f48;
-  /* Rasmee-dictionary wash — see the light-theme note; dark needs a
-     higher-alpha warm to read against the slate reader background */
-  --color-rasmee-tint: rgba(234, 179, 76, 0.16);
+  /* Content wash — see the light-theme note; a lifted slate against the
+     dark reader background */
+  --color-wash-bg: #242f48;
   --color-accent: #93c5fd;
   --color-accent-bg: #1e3a5f;
   --color-accent-border: #1e3a5f;

@@ -370,8 +370,20 @@ async function main() {
   await atRow(F("RDF-rasmee") + 1);
   const clsRasmee = await evalJS(`document.querySelector('tr[data-row="${F("RDF-rasmee")}"]').className`);
   check("T3 rasmee row has merged-row-rasmee", clsRasmee.indexOf("merged-row-rasmee") !== -1, clsRasmee);
-  const tintBg = await evalJS(`getComputedStyle(document.querySelector('tr[data-row="${F("RDF-rasmee")}"] td.td-source')).backgroundColor`);
-  check("T3 amber tint bg", tintBg.indexOf("230, 162, 60") !== -1, tintBg);
+  // The tint is the site's one content wash (--color-wash-bg, shared with
+  // the AR regions/cells) — derive the expected value from the app via a
+  // probe element instead of hardcoding a theme color.
+  const tintBg = await evalJS(`(function () {
+    var probe = document.createElement('div');
+    probe.style.background = 'var(--color-wash-bg)';
+    document.body.appendChild(probe);
+    var expected = getComputedStyle(probe).backgroundColor;
+    probe.remove();
+    var bg = getComputedStyle(document.querySelector('tr[data-row="${F("RDF-rasmee")}"] td.td-source')).backgroundColor;
+    return JSON.stringify({ expected: expected, bg: bg });
+  })()`);
+  const T3B = JSON.parse(tintBg);
+  check("T3 rasmee row uses the unified wash", T3B.expected !== "rgba(0, 0, 0, 0)" && T3B.bg === T3B.expected, tintBg);
   const sizes = await evalJS(`(function () {
     var tr = document.querySelector('tr[data-row="${F("RDF-rasmee")}"]');
     var src = tr.querySelector('td.td-source');
