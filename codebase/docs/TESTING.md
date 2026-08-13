@@ -50,9 +50,9 @@ Before touching product code, run this sequence:
 | Search result count differs between runs | Quick search matches **`allData`** — all loaded columns incl. hidden book columns (`reader-search-ui.js:166`). With Arabic tafseer books loaded: 841 matches for «الناس»; base columns only: 179. Empty-result text is «ނަތީޖާ 0» (no colon), results are «ނަތީޖާ: N» | Assert count relative to the column set loaded, or just > 0 and < 6236; treat "0 with no colon" as the no-results branch, not an error |
 | PRESET_RESET does not restore a juz/surah slice | Reset only hides external columns (`quran-ui.js:509`); the filtered slice from navigation stays | Not a regression — confirm the slice behavior separately if it matters |
 | A Thaana term's first glyph looks chipped on a history item / result snippet / title / surah-search input | The Hadithmv webfont paints ~1–5px of **start-side ink past the pen origin** on horizontal Thaana letters (ސ, ޗ, … — alef has none). Any surface that clips (overflow-hidden, ellipsis, line-clamp, or an input's inner editor) cuts that overhang when the run's origin sits at the clip edge; the clip is invisible when the surface has a start inset. The fixed surfaces carry their insets (`.hist-text` 6px, `.search-result-snippet` 8px, `.quran-surah-search` `text-indent: 6px`, `#pageTitle` 8px) — the battery's section F asserts them | Computed styles, not pixels: section F of `hmv-qrn-smoke.mjs`, or `getComputedStyle(...).paddingInlineStart` / `.textIndent` on the four surfaces. A bare pixel probe needs a **clipped-vs-visible reference pair** (same box, overflow forced visible) — see the mirror traps below |
-| A security audit claims reflected XSS via `?q=` or unescaped cells | Not exploitable. Every `?q=` → innerHTML sink escapes (`input.value` is a property assignment; the no-matches line uses `escapeHTML(q)`; snippets pass through `highlightMatches`, which escapes text and `<mark>` content). Cells render raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>`/`<span>`/entities, e.g. `data/content/RDF-RMSC-all.csv`). The one raw-attribute spot (`data-q="…"` in library-search cards) can't fire: a payload must tokenize into real search-index words (`tokenizeText` splits on every non-letter/mark/number char; `searchLibrary` ANDs), and index words never contain `"`/`<` — zero `onmouseover`/`onerror`/`javascript:` tokens in any data file (verified 2026-08-10). Audit line numbers routinely don't match this codebase — re-anchor each citation to the working tree first | Trace each sink, then grep `data/` for the payload tokens (the engine's matching gate is decisive); if the payload can't match a row, it can't render. `escapeHTML` covers `& < > " '` — safe in text and quoted attributes |
-| `RDF-HCOMB` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 07-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside eegaal) |
-| A reader search leaves the table showing **all rows** | Search is results-dropdown based — it **never filters** `filteredData` (`reader-search-ui.js:191` "Show results without filtering"); clicking a result jumps the table to the row | Read the match count from `#searchResultsDropdown .search-count-header` (`ނަތީޖާ: N` — no colon = the zero-result branch), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index |
+| A security audit claims reflected XSS via `?q=` or unescaped cells | Not exploitable. Every `?q=` → innerHTML sink escapes (`input.value` is a property assignment; the no-matches line uses `escapeHTML(q)`; snippets pass through `highlightMatches`, which escapes text and `<mark>` content). Cells render raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>`/`<span>`/entities, e.g. `data/content/RDF-misc.csv`). The one raw-attribute spot (`data-q="…"` in library-search cards) can't fire: a payload must tokenize into real search-index words (`tokenizeText` splits on every non-letter/mark/number char; `searchLibrary` ANDs), and index words never contain `"`/`<` — zero `onmouseover`/`onerror`/`javascript:` tokens in any data file (verified 2026-08-10). Audit line numbers routinely don't match this codebase — re-anchor each citation to the working tree first | Trace each sink, then grep `data/` for the payload tokens (the engine's matching gate is decisive); if the payload can't match a row, it can't render. `escapeHTML` covers `& < > " '` — safe in text and quoted attributes |
+| `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 07-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
+| A **non-RDF** reader search leaves the table showing **all rows** | Search is results-dropdown based — it **never filters** `filteredData` (`reader-search-ui.js:191` "Show results without filtering"); clicking a result jumps the table to the row. RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), the dropdown stays hidden, clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchResultsDropdown .search-count-header` (`ނަތީޖާ: N` — no colon = the zero-result branch), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
 
 ## Harness traps (test-side failures, not product bugs)
 
@@ -122,7 +122,7 @@ blaming the product.
   uppercase-versions run forced a one-time cache re-download for every visitor
   (versions compare case-sensitively at csv.js:163). The editor re-saves 02 as
   LF over script output — check file mtimes before trusting a "before" hash.
-  The script's `$virtualBooks` list (RDF-HCOMB today) exempts virtual books
+  The script's `$virtualBooks` list (RDF-all today) exempts virtual books
   from the missing-file warning — keep it in sync with radheef-merge.js's
   `MERGED_SOURCES` (add/remove a book in both, or 03 will warn on the merged
   book's deliberately absent CSV, or 02 will carry a row with a stale hash
@@ -228,6 +228,22 @@ blaming the product.
   swap-in and the font-failure path); probes measuring glyph widths must do
   the same before screenshots (see the windowed-probe rule above). Verified
   2026-08-12 with the pin button.
+- **Headless pages without `Page.bringToFront` produce no frames — so no
+  scroll events and a frozen incremental render.** In `--headless=new` CDP
+  sessions, a backgrounded page never gets a BeginFrame: `window.scrollTo`
+  moves `scrollY` (the position updates in the snapshot) but the viewport
+  scroll **event never dispatches** (25 s+ waitFor), the scroll counter stays
+  empty, and the sentinel-driven chunk renderer stalls at the first ~75
+  chunks (`scrollHeight` stuck at ~5,031 while the same page reaches
+  ~11,863 after bringToFront). Symptoms can also look app-side (input
+  listener "dead", counter "never populates") — rule it out first with a
+  capture-phase `scroll` counter or by dispatching a synthetic event (which
+  works because it bypasses the engine entirely). Fix: `Page.bringToFront`
+  right after navigating (and before scrolling); `scroll-behavior: smooth`
+  on `html` (common.css:332) makes programmatic scrolls animations whose
+  events are the first to vanish. Verified 2026-08-13 on the RDF-all probe
+  (the smoke battery's fixed wait-based checks predate this and pass
+  because its profile boots the tab as the active target).
 
 ## Assertion rules
 

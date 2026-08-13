@@ -57,7 +57,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
 | `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
 | `js/reader.js`               | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links  |
-| `js/radheef-merge.js`        | Virtual merged radheef book (RDF-HCOMB): assembles the 8 source books in memory at load — see "Virtual merged books" |
+| `js/radheef-merge.js`        | Virtual merged radheef book (RDF-all): assembles the 8 source books in memory at load — see "Virtual merged books" |
 | `js/reader-position.js`      | Reader position: pagination strip, progress, URL sync, history log      |
 | `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search         |
 | `js/table-scroll-sync.js`    | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll |
@@ -259,6 +259,8 @@ The reader supports three visual layouts, selected via a dropdown in the toolbar
 
 Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — strips Arabic diacritics, normalises alif/ya/waw variants, and normalises Thaana thikijehi (Arabic‑derived letters) to base Thaana. **Thaana fili (vowel marks) are deliberately PRESERVED** — unlike Arabic diacritics they distinguish words (ކަތި ≠ ކުތި), so stripping them would cause false matches. Results dropdown with highlighted snippets mapped back to original text. Keyboard‑navigable (↑/↓/Enter/Escape). Advanced search modal for column/condition/value filters with AND/OR logic. Same normalisation used for dashboard search. A `?q=TERM` URL param (used by library-search deep links) fills the search input on load, runs the search — so the dropdown lists every match and rendered rows show the term highlighted — and jumps to the `&row=` target, or the first match when no row is given.
 
+**RDF books filter in place instead of a dropdown.** For every `RDF-*` book (dictionaries — the merged RDF-all and its sources), `applySearch` takes the early branch `applyRadheefFilter(q)` (`reader-search-ui.js`): the dropdown never opens (hidden), typing filters `filteredData` to the matching rows — the table/card re-renders with only matches, the scroll counter shows the match count (e.g. `13,012 / 11`), and clearing the input restores all rows. Zero matches renders the empty-state message. The `?q=` deep link filters the same way on load. The normal non-RDF dropdown flow is untouched.
+
 **Performance.** Normalisation is a single regex pass (per‑char lookup instead of ~30 sequential replaces). At book load `reader.js` precomputes a parallel structure of normalised cells (`buildNormData()`), and each search compiles its query once (`compileQuery()`) — so a full scan over 50k+ rows matches against precomputed strings with precompiled regexes, and never re‑normalises a cell or a term. The search input is debounced (120 ms), so only pauses in typing trigger a scan. Highlighting (`highlightMatches` / `buildSnippets`) maps normalised match positions back to original text with an identity fast path (`mapNormToOrig`): characters that pass through normalisation unchanged are matched with a single compare, so only the minority (tashkeel, thikijehi, case) pay a normalisation call. The Quran on‑demand column loader keeps the norm cache in sync via the `initQuranUI` ctx bridge.
 
 ### Toolbar
@@ -424,7 +426,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `excludeColumns` | **Optional** — comma‑separated header names to skip in the cross‑book index (case‑insensitive). `-HDN` and row‑number columns are always skipped regardless. Empty = all columns indexed. Build-only |
 | `version`  | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `03-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
 
-**Virtual books** (e.g. `RDF-HCOMB`) have a registry row but **no content CSV** — the `version` field stays empty (03 writes it only when a file exists), and 03's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
+**Virtual books** (e.g. `RDF-all`) have a registry row but **no content CSV** — the `version` field stays empty (03 writes it only when a file exists), and 03's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
 
 **`excludeColumns` magic value:** `ENTIRE-BOOK` (case‑insensitive) skips the whole book from the cross‑book index — it stays fully visible in the dashboard and reader but is never searchable, and its postings are not emitted at all (shrinking the index). Other names in the same cell are ignored; `ENTIRE-BOOK` wins.
 
@@ -486,7 +488,7 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
           │                         + QRN-{translation}.csv
           │                         (merged by row index)
           │              ┌────────┴───────────────┐
-          │         Virtual book (RDF-HCOMB)
+          │         Virtual book (RDF-all)
           │         no CSV — radheef-merge.js
           │         assembles 8 source books
           │         (by-name projection)
@@ -505,18 +507,19 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
 
 ## Virtual merged books
 
-A **virtual book** has a registry row in `02-registry-bookMeta.csv` (card, tags, reader routing) but **no content CSV** — its rows are assembled in memory at load. The only current example is **`RDF-HCOMB`** (الجامع في المعاجم / އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް / Collection of All Dictionaries): the combined radheef dictionary over the eight source radheef books.
+A **virtual book** has a registry row in `02-registry-bookMeta.csv` (card, tags, reader routing) but **no content CSV** — its rows are assembled in memory at load. The only current example is **`RDF-all`** (الجامع في المعاجم / އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް / Collection of All Dictionaries): the combined radheef dictionary over the eight source radheef books.
 
 `js/radheef-merge.js` (`loadMergedRadheefBook`) is the assembler, wired into the reader's load path (`loadBookData()` in reader.js) after the Quran branch. Contract per source book:
 
 - **By-name projection** — every source row is projected into the merged schema `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, matched **by header name**. A source column lands in the target column with the same name; columns without a same-named home (eegaal's `pNo`, nanfoiy's `gender/approvedBy/originLang`, rasmee's technical columns, …) are left out. A source's column *order* is irrelevant.
-- **Block order = registry order** — the 8 sources concatenate in `MERGED_SOURCES` order, which mirrors 02's alphabetical sort (case-insensitive). No client-side row sorting exists anywhere; file/concat order is reading order.
+- **Block order = `MERGED_SOURCES`, deliberate** — the 8 sources concatenate in `MERGED_SOURCES` array order: **rasmee leads** (it is the primary Dhivehi dictionary, so the merged book opens on it), then the remaining seven follow 02's alphabetical sort (case-insensitive): fahmy, asma, eegaal, maniku, misc, nanfoiyComb, W2W. The order is a design choice, not alphabetical — change it only on purpose; every consumer (row indexing, `?row=` deep links, the rasmee tint's first-block visibility) follows this array. No client-side row sorting exists anywhere; file/concat order is reading order.
 - **`source` column** — each row's 7th cell carries its book's **Dhivehi title**, read from the registry at load (`getBookTitleSync`) — derived, never stored or hardcoded.
 - **Caching** — sources load through the normal `fetchBookCSVCached`, each keyed by its own registry `version`, so an edit to any source book shows up here automatically with nothing to re-run; no merged file exists to go stale.
-- **Index** — `excludeColumns: ENTIRE-BOOK` keeps the merged book out of the library search index (like all RDF books): a postings index over dictionaries would dwarf the rest of the site. Its search runs inside the reader over the loaded rows.
+- **Index** — `excludeColumns: ENTIRE-BOOK` keeps the merged book out of the library search index (like all RDF books): a postings index over dictionaries would dwarf the rest of the site. Its search runs inside the reader over the loaded rows — see "Search" below (RDF books get the in-place filter).
+- **Rasmee rows stand out** — rows whose `source` is the RDF-rasmee book carry `merged-row-rasmee` (`reader.js` `mergedRowRasmeeClass`, source cell compared against `getBookTitleSync("RDF-rasmee")` — content-derived, never hardcoded), tinted warm amber (`--color-rasmee-tint` in common.css — theme-aware like `--color-ar-bg`, deliberately a *different* hue: blue-grey means "Arabic script", warm amber means "primary dictionary") in both card and table layouts, and the `source` column renders small/muted as chrome rather than content.
 - **Registry script** — 03's missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `07-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
 
-Size reference: 152,612 merged rows (fahmy 682, asma 110, eegaal 13,376, maniku 2,231, nanfoiy 8,784, rasmee 53,841, RMSC-all 41,051, W2W 32,537).
+Size reference: 152,612 merged rows in `MERGED_SOURCES` block order — 0-based block starts: rasmee 0 (53,841 rows), fahmy 53,841 (682), asma 54,523 (110), eegaal 54,633 (13,376), maniku 68,009 (2,231), misc 70,240 (41,051), nanfoiyComb 111,291 (8,784), W2W 120,075 (32,537).
 
 ## Quran data model
 
@@ -733,7 +736,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
 
-**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>` line breaks and `<span>`/entities; e.g. `data/content/RDF-RMSC-all.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape.
+**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>` line breaks and `<span>`/entities; e.g. `data/content/RDF-misc.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape.
 
 ### JavaScript
 

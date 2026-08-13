@@ -69,6 +69,19 @@ export function escapeHTML(str) {
     .replace(/'/g, "&#39;");
 }
 
+// ── Number formatting ─────────────────────────────────────────
+
+/**
+ * Thousands separators for display-only numbers (search result row
+ * labels, result counts, the scroll counter). Plain-digit strings only —
+ * anything else (row[0] pNo values, non-numeric labels) passes through
+ * unchanged.
+ */
+export function formatThousands(n) {
+  var s = String(n);
+  return /^\d+$/.test(s) ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : s;
+}
+
 // ── URL linkification ─────────────────────────────────────────
 
 /**

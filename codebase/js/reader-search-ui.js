@@ -12,7 +12,7 @@
  * keyboard dispatcher, reset block and ?q= deep link stay in core.
  */
 
-import { parseQuery, compileQuery, rowMatchesQueryNorm, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, linkifyURLs, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, normaliseForSearch } from "./search-utils.js";
+import { parseQuery, compileQuery, rowMatchesQueryNorm, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, linkifyURLs, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, normaliseForSearch, formatThousands } from "./search-utils.js";
 import { t } from "./i18n.js";
 import { updatePagination } from "./reader-position.js";
 
@@ -91,7 +91,7 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
       }
     }
     for (var s = 0; s < snippets.length && count < MAX; s++) {
-      html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snippets[s] + '</span></div>';
+      html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + formatThousands(rowNum) + '</span><span class="search-result-snippet">' + snippets[s] + '</span></div>';
       count++;
     }
   }
@@ -99,6 +99,8 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
 }
 
 function updateSearchResults(query) {
+  // RDF dictionaries never show the dropdown — the input filters the table.
+  if (ctx.isRadheefBook) return;
   var q = query.trim();
   var html = "";
   if (q) {
@@ -109,7 +111,7 @@ function updateSearchResults(query) {
       '<div class="search-count-header">' +
       t("resultCount") +
       ": " +
-      _lastResultCount +
+      formatThousands(_lastResultCount) +
       "</div>";
     if (_lastResultCount === 0) {
       html +=
@@ -162,6 +164,14 @@ export function applySearch(query) {
     return;
   }
 
+  // RDF dictionaries: filter the table instead of showing the dropdown —
+  // typing narrows the rows in place (full rows, all columns, headers
+  // visible) and clearing restores all rows. See applyRadheefFilter.
+  if (ctx.isRadheefBook) {
+    applyRadheefFilter(q);
+    return;
+  }
+
   var compiled = compileQuery(parseQueryWithMode(q));
   var tempFiltered = ctx.allData.filter(function (row, ri) {
     return rowMatchesQueryNorm(row, ctx.normAllData[ri], compiled);
@@ -194,7 +204,7 @@ export function applySearch(query) {
       _lastRealIdxMap = realIdxMap;
       searchResultsEl.innerHTML =
         '<div class="search-count-header">' + t("resultCount") + ": " +
-        tempFiltered.length +
+        formatThousands(tempFiltered.length) +
         "</div>" +
         buildAdvResultsHTML(query, tempFiltered, realIdxMap);
       searchResultsEl.style.display = "";
@@ -207,6 +217,32 @@ export function applySearch(query) {
       });
     }
   }
+
+// RDF dictionaries (ctx.isRadheefBook): the search input filters the table
+// instead of opening the results dropdown. Same matcher as the dropdown
+// path (rowMatchesQueryNorm over normalized rows), so the hit set is
+// identical — only the presentation differs. The dropdown stays hidden
+// throughout; the scroll counter shows the match count.
+function applyRadheefFilter(q) {
+  var compiled = compileQuery(parseQueryWithMode(q));
+  var matches = [];
+  for (var ri = 0; ri < ctx.allData.length; ri++) {
+    if (rowMatchesQueryNorm(ctx.allData[ri], ctx.normAllData[ri], compiled)) {
+      matches.push(ctx.allData[ri]);
+    }
+  }
+  addSearchHistory(q);
+  searchResultsEl.style.display = "none";
+  ctx.setFilteredData(matches);
+  ctx.rebuildAll();
+  if (matches.length === 0) {
+    // rebuildAll clears the content area for an empty filter — write the
+    // no-matches line in after it (mirrors the dropdown path's empty state).
+    readerContent.innerHTML =
+      '<div class="empty-state">' + t("noMatchesMsg") + ': "' +
+      escapeHTML(q) + '"</div>';
+  }
+}
 
 // Wrapper around parseQuery to respect whole-word toggle
 export function parseQueryWithMode(query) {
@@ -428,12 +464,12 @@ function applyAdvancedSearch() {
         var row = tempFiltered[i];
         var rowNum = row[0] || (realIdxMap[i] + 1);
         var snip = linkifyURLs(escapeHTML(String(row[1] || row[0] || "").slice(0, 120)));
-        resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + rowNum + '</span><span class="search-result-snippet">' + snip + '</span></div>';
+        resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + formatThousands(rowNum) + '</span><span class="search-result-snippet">' + snip + '</span></div>';
       }
     }
     // Count line at the top of the inline block — the search-row span is
     // gone, so this is where the advanced search shows its total.
-    readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + '<div class="search-count-header">' + t("resultCount") + ": " + tempFiltered.length + '</div>' + resHTML + '</div>';
+    readerContent.innerHTML = '<div class="search-results" style="display:block;max-height:none;position:static;margin-bottom:16px">' + '<div class="search-count-header">' + t("resultCount") + ": " + formatThousands(tempFiltered.length) + '</div>' + resHTML + '</div>';
     ctx.setLoadedStart(-1);
     ctx.setLoadedEnd(-1);
     updatePagination();
@@ -483,7 +519,7 @@ export function initSearchUI(initCtx) {
 
   searchInput.addEventListener("focus", function () {
     if (!this.value.trim()) renderSearchHistory();
-    else searchResultsEl.style.display = "";
+    else if (!ctx.isRadheefBook) searchResultsEl.style.display = "";
   });
   // Clicking an already-focused box fires no focus event — re-trigger here so
   // the history dropdown also opens on a plain click of the empty input.
@@ -523,6 +559,7 @@ export function initSearchUI(initCtx) {
   window.registerDropdown("searchHistoryDropdown", searchHistoryEl, searchInput);
   // Re-open when focusing search with an active query
   searchInput.addEventListener("focus", function () {
+    if (ctx.isRadheefBook) return; // filtered table — no dropdown to re-open
     if (this.value.trim() && ctx.getFilteredData().length > 0) {
       updateSearchResults(this.value);
     }

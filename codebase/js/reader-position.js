@@ -14,6 +14,7 @@
 
 import { t, currentLang } from "./i18n.js";
 import { addReadHistory, isPinned, addPin } from "./book-data.js";
+import { formatThousands } from "./search-utils.js";
 import { quranState, findQuranColIndices, getRowSurah, getRowJuz, getSurahInfo, getAyahNoFromRow as getAyahNoFromRowQuran, updateQuranNavDisplay } from "./quran-ui.js";
 
 // Module-scope state — set by initPosition, read by the exported
@@ -79,7 +80,9 @@ function pageSelectHTML(current, total) {
   // Number input is O(1) — a <select> with one <option> per row is O(n) and
   // kills performance on large books (5 000+ <option> elements rendered twice).
   var w = Math.max(58, String(total).length * 18 + 10);
-  return `<span class="page-of-label">${total} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:${w}px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
+  // Label total gets thousands separators like the scroll counter; the
+  // input is type="number" so value/min/max must stay raw digits.
+  return `<span class="page-of-label">${formatThousands(total)} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:${w}px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
 }
 
 export function updatePagination() {
@@ -254,7 +257,7 @@ function onScroll() {
       scrollCounter.innerHTML = scName + ' <span class="scroll-counter-num">' + scSurah + '</span> : <span class="scroll-counter-num">' + scAyah + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
     } else {
       var total = filteredData.length;
-      scrollCounter.innerHTML = '<span class="scroll-counter-num">' + total + '</span> / <span class="scroll-counter-num">' + (vRow + 1) + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
+      scrollCounter.innerHTML = '<span class="scroll-counter-num">' + formatThousands(total) + '</span> / <span class="scroll-counter-num">' + formatThousands(vRow + 1) + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
     }
     scrollCounter.classList.add("show");
     clearTimeout(scrollTimer);

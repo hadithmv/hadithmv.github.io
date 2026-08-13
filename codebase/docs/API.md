@@ -17,7 +17,7 @@
 | `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
-| `js/radheef-merge.js` | Virtual merged radheef book (RDF-HCOMB): `isMergedRadheefBook()`, `loadMergedRadheefBook()` — see below |
+| `js/radheef-merge.js` | Virtual merged radheef book (RDF-all): `isMergedRadheefBook()`, `loadMergedRadheefBook()` — see below |
 | `js/reader-position.js` | Reader position: pagination strip, visible-page detector, scroll block (progress, milestones, URL sync, read-history) |
 | `js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
 | `js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
@@ -168,6 +168,10 @@ Normalises text for comparison:
 - Implemented as a single regex pass with a per‑char lookup (was ~30 sequential replaces) — the hottest function in the app, so it is built for speed
 
 Used by both dashboard search and book search.
+
+### `formatThousands(n)`
+
+Comma-grouped thousands for **display only** (regex on plain-digit input, passthrough otherwise): search-result `#N` labels, the results-dropdown/advanced count headers, and the reader's scroll counter (`152,612 / 4`). Never used for any numeric computation.
 
 ### `parseQuery(query)`
 
@@ -481,11 +485,11 @@ Consumes `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `q
 
 ## radheef-merge.js
 
-The virtual merged radheef book (`RDF-HCOMB`) — a registry book with **no content CSV**; its rows are assembled in memory at load from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books" for the design contract). Imported by `reader.js` only.
+The virtual merged radheef book (`RDF-all`) — a registry book with **no content CSV**; its rows are assembled in memory at load from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books" for the design contract). Imported by `reader.js` only.
 
 | Function | Description |
 | --- | --- |
-| `isMergedRadheefBook(bookCode)` | `true` for `RDF-HCOMB` (the only virtual book today). Used by `reader.js`'s `loadBookData()` to pick the virtual load path. |
+| `isMergedRadheefBook(bookCode)` | `true` for `RDF-all` (the only virtual book today). Used by `reader.js`'s `loadBookData()` to pick the virtual load path. |
 | `loadMergedRadheefBook()` | Fetches the 8 sources via `fetchBookCSVCached` (each keyed by its own registry `version`), projects every row by header name into `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, and resolves `{ data, headerRow, hasRowNums: false }` — the same shape as `loadStandardBook`. `source` carries each row's book's Dhivehi title from the registry; blocks concatenate in `MERGED_SOURCES` order (registry order). A source that fails or has no rows is skipped; if nothing loads, `data` is empty and the reader's "No data found" path takes over. |
 
 ---
@@ -510,7 +514,7 @@ Visible row index: `elementFromPoint` fast path at viewport centre, linear-scan 
 
 ## reader-search-ui.js
 
-In-book search UI: type-ahead results dropdown, search history, whole-word toggle, advanced search modal, arrow-key navigation while the search input is focused. Extracted from reader.js; imports `updatePagination` from reader-position.js and the search engine from search-utils.js.
+In-book search UI: type-ahead results dropdown, search history, whole-word toggle, advanced search modal, arrow-key navigation while the search input is focused. Extracted from reader.js; imports `updatePagination` from reader-position.js and the search engine from search-utils.js. For `RDF-*` books (dictionaries) the dropdown is replaced by the in-place filter — see `applyRadheefFilter` below.
 
 ### `initSearchUI(ctx)`
 
@@ -518,7 +522,11 @@ Wires the search input, whole-word toggle, history dropdown, advanced search mod
 
 ### `applySearch(query)`
 
-Runs the search engine, updates the results dropdown and match count. Used by reader.js's settings reset and the `?q=` deep-link block.
+Runs the search engine, updates the results dropdown and match count. Used by reader.js's settings reset and the `?q=` deep-link block. For RDF books it takes an early branch to `applyRadheefFilter(query)` instead.
+
+### `applyRadheefFilter(query)`
+
+RDF-family in-place filter: compiles the query (whole-word toggle honoured), filters `ctx.setFilteredData(matches)` and `ctx.rebuildAll()`s so only matching rows render — no dropdown, no result list. Clearing the input restores all rows; zero matches renders the empty-state message; the scroll counter shows the match count (comma-formatted). History is added on input like the normal flow. The `?q=` deep link filters through the same path on load.
 
 ### `renderAdvancedSearch()`
 

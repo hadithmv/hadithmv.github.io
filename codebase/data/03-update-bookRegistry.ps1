@@ -15,7 +15,7 @@ $utf8 = New-Object System.Text.UTF8Encoding($false)  # no-BOM UTF-8 for registry
 # Virtual books: registered in 02 with a card, but no content CSV — their rows
 # are assembled in memory at load (see js/radheef-merge.js). Skip the
 # missing-file warning for these; keep the list in sync with that module.
-$virtualBooks = @("RDF-HCOMB")
+$virtualBooks = @("RDF-all")
 
 # ── Helpers for coloured output ──────────────────────────────
 function Write-Section($text) {

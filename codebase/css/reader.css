@@ -600,6 +600,24 @@
   margin-bottom: 0;
 }
 
+/* Merged radheef book (RDF-all): rows whose source cell names the
+   Rasmee dictionary get a soft warm wash, so the curated entries stand
+   out from the other dictionary blocks. Quiet by design — mirrors the
+   AR-region wash (flat, no border, low opacity) and keeps air between
+   the tint's edges and the text (padding-block). The class is
+   content-derived at render time (reader.js mergedRowRasmeeClass). */
+.reader-chunk.merged-row-rasmee {
+  background: var(--color-rasmee-tint, rgba(230, 162, 60, 0.08));
+  padding-block: 8px 12px;
+}
+
+/* Merged radheef book: the source column is chrome, not content —
+   smaller and muted so the word/meaning columns dominate. */
+.reader-field-source {
+  font-size: 0.8em;
+  color: var(--color-text-muted);
+}
+
 /* Arabic-original content sits in a soft full-width wash region
    (isArabicColumn — one region per run of consecutive AR fields, so
    headAR + bodyAR read as one continuous block; footAR joins its run

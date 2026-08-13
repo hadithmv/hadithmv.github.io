@@ -6,7 +6,7 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, getBookTitleSync } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
@@ -30,19 +30,19 @@ initializePageWithMetadata(async function (metadata) {
   //   Clipboard formatting (rowText)                       L335-422
   //   View mode dropdown (card / table / parallel)         L425-473
   //   Quran helpers                                        L476-480
-  //   Card row renderer (renderRowHTML)                    L483-576
-  //   Parallel row renderer (renderParallelRowHTML)        L579-698
-  //   Chunk + table-row renderers                          L701-742
-  //   Infinite scroll + table scrollbar                    L745-868
-  //   Navigation (goTo, scroll padding)                    L871-891
-  //   Search UI (wiring — module: reader-search-ui.js)     L894-920
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L923-1083
-  //   Keyboard shortcuts (incl. navigation buttons)        L1086-1189
-  //   Touch swipe                                          L1192-1212
-  //   Settings reset + language change                     L1215-1228
-  //   Quran UI (initQuranUI ctx)                           L1231-1251
-  //   Initial render (deep links, reveal)                  L1254-1326
-  //   Module-level helpers (showError)                     L1329-1335
+  //   Card row renderer (renderRowHTML)                    L483-579
+  //   Parallel row renderer (renderParallelRowHTML)        L582-701
+  //   Chunk + table-row renderers                          L704-766
+  //   Infinite scroll + table scrollbar                    L769-892
+  //   Navigation (goTo, scroll padding)                    L895-915
+  //   Search UI (wiring — module: reader-search-ui.js)     L918-947
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L950-1110
+  //   Keyboard shortcuts (incl. navigation buttons)        L1113-1216
+  //   Touch swipe                                          L1219-1239
+  //   Settings reset + language change                     L1242-1255
+  //   Quran UI (initQuranUI ctx)                           L1258-1278
+  //   Initial render (deep links, reveal)                  L1281-1353
+  //   Module-level helpers (showError)                     L1356-1362
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -76,7 +76,7 @@ initializePageWithMetadata(async function (metadata) {
     });
   }
 
-  // Virtual merged radheef book (RDF-HCOMB): no content CSV — the rows are
+  // Virtual merged radheef book (RDF-all): no content CSV — the rows are
   // assembled in memory from the source books (see radheef-merge.js).
   function loadBookData() {
     if (quranBook) return loadQuranBook();
@@ -566,6 +566,9 @@ initializePageWithMetadata(async function (metadata) {
             gh += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
           } else {
             var fieldClass = "reader-field" + (columnFieldClass(colHeader) ? " " + columnFieldClass(colHeader) : "");
+            // Merged radheef book: the source column is chrome, not content —
+            // smaller and muted so the word/meaning columns dominate.
+            if (isMergedRadheefBook(metadata.bookCode) && colHeader === "source") fieldClass += " reader-field-source";
             gh += `<div class="${fieldClass}" dir="auto">${display}</div>`;
           }
           group.html += gh;
@@ -699,6 +702,22 @@ initializePageWithMetadata(async function (metadata) {
       // #endregion
 
       // #region Chunk + table-row renderers
+      // Merged radheef book (RDF-all): rows from the Rasmee dictionary get
+      // a distinguishing class. The check is content-based — the row's
+      // source cell (found by header name, so it survives column toggles
+      // and reorders) equals the Rasmee book's registry title, which is
+      // derived at load, never hardcoded.
+      var _rasmeeTitle = null;
+      function mergedRowRasmeeClass(row) {
+        if (!isMergedRadheefBook(metadata.bookCode)) return "";
+        if (_rasmeeTitle === null) {
+          _rasmeeTitle = getBookTitleSync("RDF-rasmee") || "";
+        }
+        if (!headerRow) return "";
+        var srcIdx = headerRow.indexOf("source");
+        if (srcIdx === -1 || !row[srcIdx]) return "";
+        return String(row[srcIdx]) === _rasmeeTitle ? " merged-row-rasmee" : "";
+      }
       function renderChunkHTML(startIdx, endIdx) {
         var h = "";
         var renderFn = viewMode === "parallel" ? renderParallelRowHTML : renderRowHTML;
@@ -706,7 +725,7 @@ initializePageWithMetadata(async function (metadata) {
           if (i > startIdx) h += `<div class="reader-divider"></div>`;
           var row = filteredData[i];
           var rowNum = hasRowNums ? (row[0] || (i + 1)) : (i + 1);
-          h += `<div class="reader-chunk" data-row="${i}">`;
+          h += `<div class="reader-chunk${mergedRowRasmeeClass(row)}" data-row="${i}">`;
           h += renderFn(row, rowNum);
           h += `</div>`;
         }
@@ -717,7 +736,7 @@ initializePageWithMetadata(async function (metadata) {
         var h = "";
         for (var i = startIdx; i < endIdx && i < filteredData.length; i++) {
           var row = filteredData[i];
-          h += '<tr class="reader-chunk" data-row="' + i + '">';
+          h += '<tr class="reader-chunk' + mergedRowRasmeeClass(row) + '" data-row="' + i + '">';
           for (var j = 0; j < row.length; j++) {
             if (hiddenColumns.indexOf(j) !== -1) continue;
             var v = (row[j] != null ? String(row[j]).trim() : "");
@@ -732,8 +751,13 @@ initializePageWithMetadata(async function (metadata) {
               display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
             }
             display = linkifyURLs(display);
-            var tdClass = "";
-            tdClass = columnTdClass(colHeader, quranBook);
+            var tdClass = columnTdClass(colHeader, quranBook);
+            // Merged radheef book: mute the source column (chrome, not content).
+            // columnTdClass returns ' class="…"' or "" — splice into the
+            // former, mint the attribute for the latter.
+            if (isMergedRadheefBook(metadata.bookCode) && colHeader === "source") {
+              tdClass = tdClass ? tdClass.replace(' class="', ' class="td-source ') : ' class="td-source"';
+            }
             h += '<td dir="auto"' + tdClass + '>' + display + '</td>';
           }
           h += '</tr>';
@@ -900,6 +924,9 @@ initializePageWithMetadata(async function (metadata) {
       initSearchUI({
         allData: allData,
         normAllData: normAllData,
+        bookCode: metadata.bookCode,
+        isRadheefBook: isRadheefBook(metadata.bookCode),
+        isMergedRadheefBook: isMergedRadheefBook(metadata.bookCode),
         maxCols: maxCols,
         colLabel: colLabel,
         // Display label for the advanced-search column dropdown: registry

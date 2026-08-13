@@ -29,6 +29,11 @@
   --color-mark-text: inherit;
   /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
   --color-ar-bg: #f4f7fa;
+  /* Rasmee-dictionary wash — warm tint on RDF-all rows whose source is the
+     Rasmee book (reader.js mergedRowRasmeeClass). Same treatment language as
+     --color-ar-bg (flat, full-bleed, no border), different hue on purpose:
+     blue-grey means "Arabic script", warm amber means "primary dictionary". */
+  --color-rasmee-tint: rgba(230, 162, 60, 0.08);
 
   /* Semantic accent families — same role in every theme; never hardcode.
      accent: active menu button + dropdown checkmark (blue)
@@ -229,6 +234,9 @@
   --color-mark-text: #3d2e1c;
   /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
   --color-ar-bg: #f8f1e3;
+  /* Rasmee-dictionary wash — see the light-theme note; sepia needs a touch
+     more presence to read against the cream reader background */
+  --color-rasmee-tint: rgba(200, 138, 50, 0.12);
   --color-accent: #3b5f8a;
   --color-accent-bg: #e8e0d5;
   --color-accent-border: #c4b99a;
@@ -285,6 +293,9 @@
   --color-mark-text: #fef9c3;
   /* Arabic-original wash — reader tint on Arabic fields/cells (isArabicColumn) */
   --color-ar-bg: #242f48;
+  /* Rasmee-dictionary wash — see the light-theme note; dark needs a
+     higher-alpha warm to read against the slate reader background */
+  --color-rasmee-tint: rgba(234, 179, 76, 0.16);
   --color-accent: #93c5fd;
   --color-accent-bg: #1e3a5f;
   --color-accent-border: #1e3a5f;

@@ -1,5 +1,5 @@
 /**
- * Virtual Merged Radheef Book (RDF-HCOMB)
+ * Virtual Merged Radheef Book (RDF-all)
  *
  * The combined radheef dictionary is a VIRTUAL book: it has a registry row in
  * 02-registry-bookMeta.csv (card, tags, reader routing) but no content CSV.
@@ -25,30 +25,33 @@
  * dictionaries would dwarf the rest of the site. Its search runs inside the
  * reader over the loaded rows; no index involved.
  *
- * The registry script (03) is exempted from warning about RDF-HCOMB's missing
+ * The registry script (03) is exempted from warning about RDF-all's missing
  * content file via its $virtualBooks list — keep the two in sync.
  */
 
 import { fetchBookCSVCached } from "./csv.js";
 import { getBookVersionSync, getBookTitleSync, getCsvPath } from "./book-data.js";
 
-var MERGED_BOOK_CODE = "RDF-HCOMB";
+var MERGED_BOOK_CODE = "RDF-all";
 
 // The combined book's column schema — every source maps into these by name.
 var MERGED_HEADERS = ["wordAR", "wordDV", "wordEN", "meanAR", "meanDV", "meanEN", "source"];
 
-// Block order = registry order — 02-registry-bookMeta.csv sorts alphabetically
-// by code (case-insensitive), and the blocks must match it: fahmy, asma, eegaal,
-// maniku, nanfoiy, rasmee, RMSC-all, W2W. (RMSC-all sorts near the end: "RMSC"
-// vs "rasmee" — case-insensitive 'a' < 'm'.)
+// Block order: the Rasmee dictionary leads — it's the primary Dhivehi
+// dictionary, so the merged book opens on it — then the remaining seven
+// sources follow registry order (02 sorts alphabetically by code,
+// case-insensitive): fahmy, asma, eegaal, maniku, misc, nanfoiyComb, W2W.
+// The order is deliberate, not alphabetical — change it only on purpose;
+// every consumer (row indexing, ?row= deep links, the rasmee tint's
+// first-block visibility) follows this array.
 var MERGED_SOURCES = [
+  "RDF-rasmee",
   "RDF-ahmadFahmyDidi",
   "RDF-asmaullahilHusna",
   "RDF-eegaal",
   "RDF-hassanAhmedManiku",
+  "RDF-misc",
   "RDF-nanfoiyComb",
-  "RDF-rasmee",
-  "RDF-RMSC-all",
   "RDF-W2W-bakurube",
 ];
 

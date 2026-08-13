@@ -92,6 +92,19 @@ td.td-ar {
   background: var(--color-ar-bg, #f4f7fa);
 }
 
+/* Merged radheef book (RDF-all): Rasmee rows get the same warm tint as
+   card view (reader.js mergedRowRasmeeClass). Placed above the :hover
+   rule so hovering still lights the whole row (see the td-ar note). */
+tr.merged-row-rasmee > td {
+  background: var(--color-rasmee-tint, rgba(230, 162, 60, 0.08));
+}
+
+/* Merged radheef book: the source column is chrome, not content */
+.td-source {
+  font-size: 0.8em;
+  color: var(--color-text-muted);
+}
+
 .reader-table tr:hover td {
   background: var(--color-nav-btn-hover-bg);
 }
