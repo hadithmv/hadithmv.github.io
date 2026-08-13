@@ -41,8 +41,8 @@ initializePageWithMetadata(async function (metadata) {
   //   Touch swipe                                          L1253-1273
   //   Settings reset + language change                     L1276-1289
   //   Quran UI (initQuranUI ctx)                           L1292-1312
-  //   Initial render (deep links, reveal)                  L1315-1387
-  //   Module-level helpers (showError)                     L1390-1396
+  //   Initial render (deep links, reveal)                  L1315-1388
+  //   Module-level helpers (showError)                     L1391-1397
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -1321,6 +1321,7 @@ initializePageWithMetadata(async function (metadata) {
       initPosition({
         metadata: metadata,
         quranBook: quranBook,
+        isRadheefBook: isRadheefBook(metadata.bookCode),
         headerRow: headerRow,
         allData: allData,
         getFilteredData: function () { return filteredData; },

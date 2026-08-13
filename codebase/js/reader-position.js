@@ -165,6 +165,11 @@ function onScroll() {
   var filteredData = ctx.getFilteredData();
   var quranBook = ctx.quranBook;
   var headerRow = ctx.headerRow;
+  // Radheef dictionaries are reference books — no reading milestones
+  // (25/50/75/100% toasts) and no completion celebration (green .done
+  // bar + flashing border ring); the progress bar and scroll counter
+  // still work.
+  var milestonesEnabled = !ctx.isRadheefBook;
   updatePagination();
   // Progress bar — surah-level for Quran, global for other books.
   // When the reader is fully scrolled to the bottom, the final row IS on
@@ -203,8 +208,10 @@ function onScroll() {
   // Milestone toasts at 25%, 50%, 75%, 100% — reset when scrolling back.
   // The toasts are gated by fireMilestoneToast's 5s quiet window: bounce must
   // not re-show a toast (see the gate's comment at the state declarations).
-  if (pct < 25) { _lastMilestone = 0; document.getElementById("readerProgressFill").classList.remove("done"); }
-  else if (pct < _lastMilestone) _lastMilestone = Math.floor(pct / 25) * 25;
+  if (milestonesEnabled) {
+    if (pct < 25) { _lastMilestone = 0; document.getElementById("readerProgressFill").classList.remove("done"); }
+    else if (pct < _lastMilestone) _lastMilestone = Math.floor(pct / 25) * 25;
+  }
   // Completion: name the surah just finished (Quran) or the whole book.
   function celebrateCompletion() {
     _lastMilestone = 100;
@@ -238,12 +245,12 @@ function onScroll() {
     // evaluate only the completion. Re-running the 25/50/75 chain here would
     // re-show those toasts on every bottom bounce once their own 5s windows
     // lapse; the gate still dedupes the completion itself.
-    if (pct >= 100 && _lastMilestone < 100) celebrateCompletion();
+    if (milestonesEnabled && pct >= 100 && _lastMilestone < 100) celebrateCompletion();
   } else {
-    if (pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; fireMilestoneToast("📖 25%"); }
-    if (pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; fireMilestoneToast("📖 50%"); }
-    if (pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; fireMilestoneToast("📖 75%"); }
-    if (pct >= 100 && _lastMilestone < 100) celebrateCompletion();
+    if (milestonesEnabled && pct >= 25 && _lastMilestone < 25) { _lastMilestone = 25; fireMilestoneToast("📖 25%"); }
+    if (milestonesEnabled && pct >= 50 && _lastMilestone < 50) { _lastMilestone = 50; fireMilestoneToast("📖 50%"); }
+    if (milestonesEnabled && pct >= 75 && _lastMilestone < 75) { _lastMilestone = 75; fireMilestoneToast("📖 75%"); }
+    if (milestonesEnabled && pct >= 100 && _lastMilestone < 100) celebrateCompletion();
   }
   if (scrollCounter) {
     var vRow = visiblePageIndex();

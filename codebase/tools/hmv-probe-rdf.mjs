@@ -273,6 +273,34 @@ async function main() {
   check("T1b btnFirst returns to start", B.first.first === "0" && B.first.count <= 700, btnRes);
   check("T1b btnPrev stays near start", B.prev.first === "0" || parseInt(B.prev.first, 10) <= 2, btnRes);
 
+  // ── T1d: RDF-all at the bottom — no completion celebration ──
+  // Reference books don't get milestone toasts or the completion ring
+  // (green .done bar + flashing border): the progress bar still fills,
+  // but nothing celebrates. Guards reader-position.js's milestonesEnabled.
+  const botRes = await evalJS(`(async function () {
+    var toast = document.querySelector('.toast');
+    if (toast) toast.remove();
+    var se = document.scrollingElement;
+    document.documentElement.style.scrollBehavior = "auto";
+    // Cancel any in-flight smooth scrollIntoView (the previous clicks' last
+    // animation drags the position back and would fight the bottom jump).
+    se.scrollTop = 0;
+    se.scrollTop = se.scrollHeight;
+    await new Promise(function (r) { setTimeout(r, 300); });
+    var fill = document.getElementById('readerProgressFill');
+    return JSON.stringify({
+      border: !!document.querySelector('.completion-border'),
+      done: fill ? fill.classList.contains('done') : null,
+      fillW: fill ? fill.style.width : null,
+      toast: (document.querySelector('.toast') || {}).textContent || ""
+    });
+  })()`);
+  const D = JSON.parse(botRes);
+  check("T1d RDF bottom: no completion border", !D.border, botRes);
+  check("T1d RDF bottom: progress not .done", !D.done, botRes);
+  check("T1d RDF bottom: progress still fills", D.fillW !== null && parseInt(D.fillW, 10) > 90, botRes);
+  check("T1d RDF bottom: no completion toast", D.toast.indexOf("100%") === -1, botRes);
+
   // ══ T2: block boundaries via ?row= deep links (1-based) ══
   async function atRow(rowNum) {
     await goto(ROOT + "reader.html?book=RDF-all&row=" + rowNum, 1280, 800);
