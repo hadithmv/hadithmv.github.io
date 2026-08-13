@@ -183,6 +183,11 @@ async function main() {
       })();
     })`);
     await sleep(300);
+    // bringToFront: without it headless pages get no BeginFrames — IO/scroll
+    // callbacks stall at rendering boundaries, and clicks racing a poll can
+    // land mid-callback (T1b's btnFirst/btnPrev went dead without this).
+    await send("Page.bringToFront").catch(function () {});
+    await sleep(400);
   }
   async function noErrorToast(name) {
     const toast = await evalJS(`(function () {
@@ -216,6 +221,57 @@ async function main() {
   check("T1 first row = rasmee block", row0 && row0[6] === title("RDF-rasmee"), row0 && row0[6]);
   const stripText = await evalJS(`document.getElementById('readerPageNumbers').textContent`);
   check("T1 page strip comma total", stripText.indexOf("152,612") !== -1, stripText);
+
+  // ── T1b/T1c: pagination buttons + far-jump windowing + scroll-up ──
+  // Regression guards: (1) every button used to map to the last row — the
+  // delta check tested indexOf("first")===0 against btn* ids, so all four
+  // fell through to 1e9; (2) far jumps chunked through every row — a 13s
+  // freeze and the whole 152k-row book in the DOM on RDF-all. The fix:
+  // explicit ids + goTo rebuilds a ~400-row window around the target.
+  // Assert the WINDOW (which row it spans), not the strip — the smooth
+  // scrollIntoView animation never advances in headless (throttled rAF), so
+  // scroll-driven strip updates can't settle there.
+  const btnRes = await evalJS(`(async function () {
+    var windowInfo = function () {
+      var rows = document.querySelectorAll('.reader-chunk');
+      return { first: rows[0] ? rows[0].dataset.row : null, count: rows.length, hasLast: !!document.querySelector('tr[data-row="152611"]') };
+    };
+    var t0 = performance.now();
+    document.getElementById('btnNext').click();
+    var nextMs = Math.round(performance.now() - t0);
+    var next = windowInfo();
+    var t1 = performance.now();
+    document.getElementById('btnLast').click();
+    var lastMs = Math.round(performance.now() - t1);
+    var last = windowInfo();
+    // T1c: scroll-up from the mid-book (end) window must prepend earlier rows
+    var se = document.scrollingElement;
+    document.documentElement.style.scrollBehavior = "auto";
+    se.scrollTop = 100;
+    await new Promise(function (r) { var t0 = Date.now(); (function poll() {
+      if (document.querySelectorAll('.reader-chunk').length > last.count || Date.now() - t0 > 5000) return r();
+      setTimeout(poll, 100);
+    })(); });
+    var rows = document.querySelectorAll('.reader-chunk');
+    var up = { count: rows.length, firstRow: rows[0].dataset.row, y: Math.round(se.scrollTop) };
+    document.getElementById('btnFirst').click();
+    var first = windowInfo();
+    document.getElementById('btnPrev').click();
+    var prev = windowInfo();
+    return JSON.stringify({ nextMs: nextMs, next: next, lastMs: lastMs, last: last, up: up, first: first, prev: prev });
+  })()`);
+  const B = JSON.parse(btnRes);
+  check("T1b btnNext stays near start", B.next.first === "0" && B.next.count <= 700, btnRes);
+  check("T1b btnLast targets the end", B.last.hasLast && B.last.first !== undefined && parseInt(B.last.first, 10) > 152000, btnRes);
+  check("T1b btnLast windowed DOM (≤700 rows)", B.last.count <= 700, btnRes);
+  check("T1b btnLast fast (<2s)", B.lastMs < 2000, btnRes);
+  check("T1c scroll-up grows window", B.up.count > B.last.count, btnRes);
+  check("T1c window extended upward", B.up.firstRow !== undefined && parseInt(B.up.firstRow, 10) < 152411, btnRes);
+  // Anchoring: the inserted chunk height (~1,000–3,000px) must be added to
+  // the scroll position, not snapped back to the window top (~100).
+  check("T1c viewport anchored (no snap)", B.up.y > 1000, btnRes);
+  check("T1b btnFirst returns to start", B.first.first === "0" && B.first.count <= 700, btnRes);
+  check("T1b btnPrev stays near start", B.prev.first === "0" || parseInt(B.prev.first, 10) <= 2, btnRes);
 
   // ══ T2: block boundaries via ?row= deep links (1-based) ══
   async function atRow(rowNum) {

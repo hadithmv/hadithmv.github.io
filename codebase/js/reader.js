@@ -33,16 +33,16 @@ initializePageWithMetadata(async function (metadata) {
   //   Card row renderer (renderRowHTML)                    L483-579
   //   Parallel row renderer (renderParallelRowHTML)        L582-701
   //   Chunk + table-row renderers                          L704-766
-  //   Infinite scroll + table scrollbar                    L769-892
-  //   Navigation (goTo, scroll padding)                    L895-915
-  //   Search UI (wiring — module: reader-search-ui.js)     L918-947
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L950-1110
-  //   Keyboard shortcuts (incl. navigation buttons)        L1113-1216
-  //   Touch swipe                                          L1219-1239
-  //   Settings reset + language change                     L1242-1255
-  //   Quran UI (initQuranUI ctx)                           L1258-1278
-  //   Initial render (deep links, reveal)                  L1281-1353
-  //   Module-level helpers (showError)                     L1356-1362
+  //   Infinite scroll + table scrollbar                    L769-914
+  //   Navigation (goTo, scroll padding)                    L917-949
+  //   Search UI (wiring — module: reader-search-ui.js)     L952-981
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L984-1144
+  //   Keyboard shortcuts (incl. navigation buttons)        L1147-1250
+  //   Touch swipe                                          L1253-1273
+  //   Settings reset + language change                     L1276-1289
+  //   Quran UI (initQuranUI ctx)                           L1292-1312
+  //   Initial render (deep links, reveal)                  L1315-1387
+  //   Module-level helpers (showError)                     L1390-1396
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -767,11 +767,14 @@ initializePageWithMetadata(async function (metadata) {
       // #endregion
 
       // #region Infinite scroll + table scrollbar
-      function loadInitial() {
+      function loadInitial(startIdx, endIdx) {
         var initialRows = viewMode === "table" ? 50 : ROWS_PER_CHUNK * 3;
-        var end = Math.min(initialRows, filteredData.length);
-        loadedStart = 0;
-        loadedEnd = end;
+        if (startIdx === undefined) {
+          startIdx = 0;
+          endIdx = Math.min(initialRows, filteredData.length);
+        }
+        loadedStart = startIdx;
+        loadedEnd = endIdx;
         if (viewMode === "table") {
           var thead = "";
           if (headerRow) {
@@ -787,17 +790,20 @@ initializePageWithMetadata(async function (metadata) {
           // Family was rdf* (Radheef shorthand — Radheef books default to table view); renamed to
           // table* because this is the generic table view. Rename in lockstep across the three
           // functions: #tableTopScroll, #tableScrollBack, #tableScrollFwd, #tableWrap, #tableBody,
-          // #sentinelBottom
+          // #sentinelTop, #sentinelBottom
+          // sentinelTop: goTo's far-jump rebuilds a window mid-book, so the
+          // top sentinel (card view's model) lets scrolling up extend it.
           readerContent.innerHTML =
             `<div class="table-top-scroll" id="tableTopScroll"><button class="scroll-arrow" id="tableScrollBack" title="Back to beginning">▶</button><div class="table-top-scroll-inner"><div class="table-top-scroll-spacer" id="tableTopScrollInner"></div></div><button class="scroll-arrow" id="tableScrollFwd" title="More columns">◀</button></div>` +
+            `<div id="sentinelTop" class="reader-sentinel"></div>` +
             `<div class="table-wrap" id="tableWrap"><table class="reader-table">${thead}<tbody id="tableBody"></tbody></table></div>` +
             `<div id="sentinelBottom" class="reader-sentinel"></div>`;
-          document.getElementById("tableBody").innerHTML = renderTableRows(0, end);
+          document.getElementById("tableBody").innerHTML = renderTableRows(startIdx, endIdx);
           initTableScroll({ headerRow: headerRow, getHiddenColumns: function () { return hiddenColumns; } });
         } else {
           readerContent.innerHTML =
             `<div id="sentinelTop" class="reader-sentinel"></div>` +
-            renderChunkHTML(0, end) +
+            renderChunkHTML(startIdx, endIdx) +
             `<div id="sentinelBottom" class="reader-sentinel"></div>`;
         }
         updatePagination();
@@ -848,6 +854,14 @@ initializePageWithMetadata(async function (metadata) {
         if (loadedStart <= 0) return;
         var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
         var nextStart = Math.max(0, loadedStart - chunkSize);
+        // The document is the scroller in both modes (readerContent has no
+        // overflow): anchor the viewport by pushing scrollY down by the
+        // inserted height. The html element carries scroll-behavior:smooth,
+        // which would animate a scrollTop setter — pin it to auto around
+        // the adjustment so the anchoring is instant.
+        var prevH = (viewMode === "table")
+          ? document.getElementById("tableBody").scrollHeight
+          : readerContent.scrollHeight;
         if (viewMode === "table") {
           var body = document.getElementById("tableBody");
           body.insertAdjacentHTML("afterbegin", renderTableRows(nextStart, loadedStart));
@@ -855,10 +869,18 @@ initializePageWithMetadata(async function (metadata) {
             refreshTableScrollWidth();
           });
         } else {
-          var prevH = readerContent.scrollHeight;
           var sentinel = document.getElementById("sentinelTop");
           sentinel.insertAdjacentHTML("afterend", renderChunkHTML(nextStart, loadedStart) + `<div class="reader-divider"></div>`);
-          readerContent.scrollTop += readerContent.scrollHeight - prevH;
+        }
+        var se = document.scrollingElement;
+        if (se) {
+          var added = (viewMode === "table"
+            ? document.getElementById("tableBody").scrollHeight
+            : readerContent.scrollHeight) - prevH;
+          var prevBehavior = document.documentElement.style.scrollBehavior;
+          document.documentElement.style.scrollBehavior = "auto";
+          se.scrollTop += added;
+          document.documentElement.style.scrollBehavior = prevBehavior;
         }
         loadedStart = nextStart;
       }
@@ -905,9 +927,21 @@ initializePageWithMetadata(async function (metadata) {
         if (filteredData.length === 0) return;
         if (rowIdx < 0) rowIdx = 0;
         if (rowIdx >= filteredData.length) rowIdx = filteredData.length - 1;
-        // Ensure row is loaded
-        while (rowIdx < loadedStart) prependPrev();
-        while (rowIdx >= loadedEnd) appendNext();
+        // Far jump (First/Last buttons, page strip, ?row= deep links on big
+        // books): rebuild a window AROUND the target instead of chunking
+        // through every intermediate row. The while-loop did one DOM insert
+        // per chunk — ~5,000 inserts to reach the end of RDF-all (152k
+        // rows), freezing the page for seconds. A rebuild is one insert
+        // (~400 rows) and the sentinels extend the window again on scroll.
+        if (rowIdx < loadedStart - 60 || rowIdx >= loadedEnd + 60) {
+          loadInitial(Math.max(0, rowIdx - 200), Math.min(filteredData.length, rowIdx + 200));
+          observeSentinels();
+          expandIfOverflowing();
+        } else {
+          // Adjacent jump — extend the window by a chunk or two
+          while (rowIdx < loadedStart) prependPrev();
+          while (rowIdx >= loadedEnd) appendNext();
+        }
         updateScrollPadding();
         var el = readerContent.querySelector('.reader-chunk[data-row="' + rowIdx + '"]');
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1118,14 +1152,14 @@ initializePageWithMetadata(async function (metadata) {
         "btnNext",
         "btnLast",
       ].forEach(function (id) {
+        // Explicit id checks — a prefix test (id.indexOf("first") === 0)
+        // never matched the btn* ids, so every button fell through to 1e9:
+        // all four jumped to the LAST row (a full-book render on RDF-all).
         const delta =
-          id.indexOf("first") === 0
-            ? -1e9
-            : id.indexOf("prev") === 0
-              ? -1
-              : id.indexOf("next") === 0
-                ? 1
-                : 1e9;
+          id === "btnFirst" ? -1e9
+          : id === "btnPrev" ? -1
+          : id === "btnNext" ? 1
+          : 1e9;
         document.getElementById(id).addEventListener("click", function () {
           if (delta === -1e9) goTo(0);
           else if (delta === 1e9) goTo(filteredData.length - 1);
