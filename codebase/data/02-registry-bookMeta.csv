@@ -1,4 +1,4 @@
-bookCode,titleAR,titleDV,titleEN,tags,excludeColumns,version
+bookCode,titleAR,titleDV,titleEN,tags,excludeFromIndex,version
 AQD-aqidatuNawawi-HDN,عقيدة النووي,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT,ENTIRE-BOOK,9ebcc269d59c
 AQD-aqidatuRaziyain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT,foot,b59b0badf3a9
 AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,,"headAR,headDV,foot",e8a6a9aba6c3

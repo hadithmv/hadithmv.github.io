@@ -6,7 +6,7 @@
  * For each registered book: parse the CSV, normalise every cell with the
  * same normalisation the app's search uses (search-utils.js), tokenise into words,
  * and record (bookCode, row) for each word. -HDN columns and the row-number
- * column are excluded; an optional `excludeColumns` column in the registry
+ * column are excluded; an optional `excludeFromIndex` column in the registry
  * skips the listed columns — the magic value `ENTIRE-BOOK` skips the whole
  * book. A per-book report of indexed and skipped columns
  * is printed while building and written to data/search-index-report.md
@@ -55,7 +55,7 @@ const bookIdx = header.indexOf("bookCode");
 // Optional registry column: comma-separated header names to SKIP. When set
 // for a book, those columns are not indexed (the row-number and -HDN columns
 // are still always skipped regardless). Absent/empty = all columns indexed.
-const excludeColIdx = header.indexOf("excludeColumns");
+const excludeFromIdx = header.indexOf("excludeFromIndex");
 
 let booksWithExclusions = 0;
 let booksExcluded = 0; // books skipped entirely via the ENTIRE-BOOK magic token
@@ -82,7 +82,7 @@ for (const entry of registryRows.slice(1)) {
   const dataRows = rows.slice(1);
 
   // Columns to skip for this book, computed once from the header
-  const excludedRaw = excludeColIdx !== -1 ? (entry[excludeColIdx] || "").trim() : "";
+  const excludedRaw = excludeFromIdx !== -1 ? (entry[excludeFromIdx] || "").trim() : "";
   const excludedList = excludedRaw
     ? excludedRaw.toLowerCase().split(",").map((s) => s.trim()).filter(Boolean)
     : null;
@@ -101,7 +101,7 @@ for (const entry of registryRows.slice(1)) {
     booksWithExclusions++;
     for (const name of excludedList) {
       if (!csvHeader.some((h) => (h || "").trim().toLowerCase() === name)) {
-        const msg = "excludeColumns lists '" + name + "' but " + bookCode + " has no such column";
+        const msg = "excludeFromIndex lists '" + name + "' but " + bookCode + " has no such column";
         console.warn("warn: " + msg);
         reportWarnings.push(msg);
       }
@@ -221,7 +221,7 @@ const out = JSON.stringify({
     built: new Date().toISOString(),
     bookIds: bookIds, // postings use numeric ids; resolve back through this
     books: booksScanned,
-    excluded: booksExcluded, // books skipped via excludeColumns: ENTIRE-BOOK
+    excluded: booksExcluded, // books skipped via excludeFromIndex: ENTIRE-BOOK
     rows: rowsScanned,
     words: Object.keys(words).length,
   },
@@ -238,7 +238,7 @@ const fmtSec = (ms) => (ms / 1000).toFixed(1) + " s";
 const fmtRate = (n, ms) => Math.round((n / ms) * 1000).toLocaleString("en-US");
 const heapMB = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(0);
 console.log("\nindex written:", OUT);
-console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| excludeColumns:", booksWithExclusions, "| excluded books:", booksExcluded);
+console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| excludeFromIndex:", booksWithExclusions, "| excluded books:", booksExcluded);
 const rawMB = (fs.statSync(OUT).size / 1024 / 1024).toFixed(1);
 const gzipMB = (zlib.gzipSync(out).length / 1024 / 1024).toFixed(1);
 console.log("raw size:", rawMB + " MB");
@@ -265,8 +265,8 @@ md += "- Heap used: " + heapMB + " MB · node " + process.version + "\n\n";
 md += "## Notes\n\n";
 md += "- `-HDN` books and columns are hidden from the dashboard and search scope.\n";
 md += "- `# (row numbers)` is the CSV's position column — never indexed.\n";
-md += "- An `excludeColumns` registry entry skips the listed columns.\n";
-md += "- `excludeColumns: ENTIRE-BOOK` skips the whole book — it stays in the dashboard and reader but is never searchable.\n";
+md += "- An `excludeFromIndex` registry entry skips the listed columns.\n";
+md += "- `excludeFromIndex: ENTIRE-BOOK` skips the whole book — it stays in the dashboard and reader but is never searchable.\n";
 md += "- Ids are 1-based positions in `meta.bookIds` (what postings in search-index.json reference).\n\n";
 if (reportWarnings.length > 0) {
   md += "## Warnings\n\n";

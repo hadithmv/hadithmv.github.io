@@ -21,7 +21,7 @@
  *     edits to any source book show up here automatically — nothing to re-run.
  *
  * Index: the merged book is excluded from the library search index
- * (excludeColumns = ENTIRE-BOOK, like all RDF books) — a postings index over
+ * (excludeFromIndex = ENTIRE-BOOK, like all RDF books) — a postings index over
  * dictionaries would dwarf the rest of the site. Its search runs inside the
  * reader over the loaded rows; no index involved.
  *

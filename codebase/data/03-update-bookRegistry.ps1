@@ -74,7 +74,7 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {
         Write-Add "$code"
-        $rows += "$code,,,,,,"  # code + 6 empty fields (titles, tags, excludeColumns); the version is swapped in below
+        $rows += "$code,,,,,,"  # code + 6 empty fields (titles, tags, excludeFromIndex); the version is swapped in below
         $added++
     }
 }
@@ -128,7 +128,7 @@ if ($normalized -eq 0) { Write-Info "all book CSVs already LF" }
 Write-Section "Updating versions"
 $newRows = foreach ($row in $rows) {
     # Book code = first token only — codes never contain commas. Everything
-    # after it may be quoted and comma-containing (titles, tags, excludeColumns),
+    # after it may be quoted and comma-containing (titles, tags, excludeFromIndex),
     # so the row is NEVER split and rebuilt — that mangles quoted fields
     # (e.g. ", with" inside a title loses its space).
     $code = ($row -split ",")[0].Trim()
