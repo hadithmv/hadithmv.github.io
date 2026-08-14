@@ -310,6 +310,21 @@ const STRINGS = {
     en: "No books match the filter",
     ar: "لا توجد كتب مطابقة للتصفية",
   },
+  libScopeReset: {
+    dv: "↺ ރީސެޓް",
+    en: "↺ Reset",
+    ar: "↺ إعادة تعيين",
+  },
+  libScopeTitle: {
+    dv: "ސާޗުކުރާނޭ ފޮތްތައް އިޚްތިޔާރުކުރޭ",
+    en: "Select books to search in",
+    ar: "اختر الكتب للبحث فيها",
+  },
+  libScopeDone: {
+    dv: "ނިންމާ",
+    en: "Done",
+    ar: "تم",
+  },
   dashboardClearAll: {
     dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕",
     en: "Clear all&nbsp;&nbsp;✕",

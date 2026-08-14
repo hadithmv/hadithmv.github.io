@@ -60,11 +60,17 @@ var el = {
   count: null,
   results: null,
   scopeBtn: null,
-  scopePopover: null,
+  scopeOverlay: null,
+  scopeTitle: null,
+  scopeBody: null,
   scopeFilter: null,
   scopeTypes: null,
+  scopeChips: null,
   scopeList: null,
   scopeFoot: null,
+  scopeCount: null,
+  scopeReset: null,
+  scopeDone: null,
 };
 
 /** Substitute {k} placeholders in an i18n template string. */
@@ -263,11 +269,11 @@ function isGroupFullySelected(tagCode) {
   return false;
 }
 
-/** Scope changed → URL, button, popover, and (if querying) re-search. */
+/** Scope changed → URL, button, modal, and (if querying) re-search. */
 function applyScopeChange() {
   syncURL();
   renderScopeButton();
-  if (el.scopePopover && el.scopePopover.style.display !== "none" && el.scopeList) {
+  if (scopeModalOpen() && el.scopeList) {
     renderScopePopover();
   }
   if (_q) runSearchAndRender();
@@ -287,40 +293,54 @@ function renderScopeButton() {
 }
 
 /**
- * The popover's shell (head + empty containers) — rendered once. Only the
- * inner lists are rebuilt on filter/selection changes, so the filter input
- * keeps its focus.
+ * The modal's shell (head + empty containers) — rendered once. Only the inner
+ * lists/chips are rebuilt on filter/selection changes, so the filter input
+ * keeps its focus and the reset button keeps its listener.
  */
 function renderScopeShell() {
-  el.scopePopover.innerHTML =
+  el.scopeBody.innerHTML =
     '<div class="lib-scope-head">' +
     '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
     'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
+    "</div>" +
+    // The reset button leads the type-chip row and is always visible — it is
+    // a plain action, not a state label, so it never hides. Only the chips
+    // sub-container is rebuilt, keeping the button + its listener intact.
+    '<div id="libScopeTypes" class="lib-scope-types">' +
     '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
-    t("libScopeAll") + "</button></div>" +
-    '<div id="libScopeTypes" class="lib-scope-types"></div>' +
+    t("libScopeReset") + "</button>" +
+    '<span id="libScopeChips" class="lib-scope-chips"></span>' +
+    "</div>" +
     '<div id="libScopeList" class="lib-scope-list"></div>' +
-    '<div id="libScopeFoot" class="lib-scope-foot"></div>';
+    '<div class="lib-scope-foot">' +
+    '<span id="libScopeCount" class="lib-scope-count"></span>' +
+    '<button type="button" id="libScopeDone" class="toolbar-btn lib-scope-done">' +
+    t("libScopeDone") + "</button>" +
+    "</div>";
   el.scopeFilter = document.getElementById("libScopeFilter");
   el.scopeTypes = document.getElementById("libScopeTypes");
+  el.scopeChips = document.getElementById("libScopeChips");
   el.scopeList = document.getElementById("libScopeList");
   el.scopeFoot = document.getElementById("libScopeFoot");
+  el.scopeCount = document.getElementById("libScopeCount");
   el.scopeReset = document.getElementById("libScopeReset");
-  var reset = document.getElementById("libScopeReset");
+  el.scopeDone = document.getElementById("libScopeDone");
   el.scopeFilter.addEventListener("input", function () {
     _scopeFilter = this.value;
     renderScopePopover();
   });
-  reset.addEventListener("click", function () {
+  el.scopeReset.addEventListener("click", function () {
+    if (_selectedBooks === null) return; // nothing scoped → nothing to reset
     _selectedBooks = null;
     applyScopeChange();
   });
-  // Delegation on the containers — they survive list re-renders
+  el.scopeDone.addEventListener("click", function () {
+    window.closeModal("libScopeOverlay");
+  });
+  // Delegation on the containers — they survive list re-renders. No
+  // outside-click handler exists for modals (backdrop click closes via
+  // e.target === overlay), so a re-render detaching the clicked chip is safe.
   el.scopeTypes.addEventListener("click", function (e) {
-    // The toggle re-renders this row, detaching the clicked chip mid-dispatch
-    // — without this the outside-click handler sees a target outside the
-    // popover and closes it (same trap as the history items below).
-    e.stopPropagation();
     var chip = e.target.closest(".tag-chip");
     if (!chip || chip.dataset.tag === window.TAG_ALL) return;
     setGroupSelected(chip.dataset.tag, !isGroupFullySelected(chip.dataset.tag));
@@ -356,7 +376,7 @@ function renderScopePopover() {
   var groups = scopeGroups();
   var total = allCodes().length;
   var selCount = _selectedBooks ? _selectedBooks.length : total;
-  el.scopeTypes.innerHTML = groups.map(function (g) {
+  el.scopeChips.innerHTML = groups.map(function (g) {
     return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
   }).join("");
   var f = _scopeFilter.toLowerCase();
@@ -377,35 +397,30 @@ function renderScopePopover() {
   });
   el.scopeList.innerHTML = html.join("") ||
     '<div class="lib-scope-none">' + t("libScopeNoMatch") + "</div>";
-  // Unscoped → "46 books"; scoped → "12 of 46 books selected"
-  el.scopeFoot.textContent = _selectedBooks
+  // Unscoped → "44 books"; scoped → "4 of 44 books selected"
+  el.scopeCount.textContent = _selectedBooks
     ? fillTemplate("libScopeFoot", { n: selCount, m: total })
     : fillTemplate("libScopeCount", { n: total });
-  // "All books" is only meaningful as an action when a scope is active —
-  // hidden otherwise so it never reads as a static label.
-  el.scopeReset.style.display = _selectedBooks ? "" : "none";
 }
 
-function toggleScopePopover() {
-  if (el.scopePopover.style.display !== "none") {
-    el.scopePopover.style.display = "none";
-    return;
-  }
+function scopeModalOpen() {
+  return !!el.scopeOverlay && el.scopeOverlay.classList.contains("open");
+}
+
+/** Open the book-scope modal (created lazily via the unified modal layer). */
+function openScopeModal() {
   var open = function () {
-    if (!el.scopePopover.innerHTML) renderScopeShell();
+    if (!el.scopeOverlay) {
+      el.scopeOverlay = window.createModal("libScopeOverlay", "libScopeModalTitle", "libScopeModalBody", "lib-scope-modal");
+      el.scopeTitle = document.getElementById("libScopeModalTitle");
+      el.scopeBody = document.getElementById("libScopeModalBody");
+      renderScopeShell();
+    }
+    el.scopeTitle.textContent = t("libScopeTitle");
     _scopeFilter = "";
     if (el.scopeFilter) el.scopeFilter.value = "";
     renderScopePopover();
-    window.openDropdown(el.scopePopover, el.scopeBtn, 4);
-    // Clamp to the viewport — the button sits mid-panel in wide layouts, so a
-    // fixed-left popover can overflow the right edge on narrow windows.
-    var r = el.scopePopover.getBoundingClientRect();
-    if (r.right > window.innerWidth - 4) {
-      el.scopePopover.style.left = "auto";
-      el.scopePopover.style.right = "4px";
-    } else {
-      el.scopePopover.style.right = "auto";
-    }
+    window.openModal("libScopeOverlay");
   };
   if (!_searchableBooks) {
     ensureSearchableBooks().then(open);
@@ -830,10 +845,10 @@ async function init() {
     el.input.focus();
   });
 
-  // Debounced search while typing
+  // Debounced search while typing (the scope modal can't be open here — the
+  // overlay blocks the page — so no need to close it)
   el.input.addEventListener("input", function () {
     el.history.style.display = "none";
-    if (el.scopePopover) el.scopePopover.style.display = "none";
     clearTimeout(_searchTimer);
     updateSearchClear();
     _searchTimer = setTimeout(runSearchAndRender, 150);
@@ -843,19 +858,20 @@ async function init() {
   el.tagsRow.addEventListener("click", onChipsClick);
   _refreshTags = window.initTagsCollapse("libTagsCollapse", "libTagsToggle");
 
-  // Book-scope picker (button + popover)
+  // Book-scope picker (button opens the scope modal)
   el.scopeBtn = document.getElementById("libScopeBtn");
-  el.scopePopover = document.getElementById("libScopePopover");
-  if (el.scopeBtn && el.scopePopover) {
+  if (el.scopeBtn) {
     renderScopeButton();
-    el.scopeBtn.addEventListener("click", toggleScopePopover);
-    window.registerDropdown("libScopePopover", el.scopePopover, el.scopeBtn);
+    el.scopeBtn.addEventListener("click", openScopeModal);
   }
 
   // Language change → re-render chips + results (+ picker placeholder)
   document.addEventListener("languagechange", function () {
     renderChips();
+    if (el.scopeTitle) el.scopeTitle.textContent = t("libScopeTitle");
     if (el.scopeFilter) el.scopeFilter.placeholder = t("libScopeFilter");
+    if (el.scopeReset) el.scopeReset.textContent = t("libScopeReset");
+    if (el.scopeDone) el.scopeDone.textContent = t("libScopeDone");
     if (_q) runSearchAndRender();
   });
 
@@ -894,10 +910,7 @@ async function init() {
       el.history.style.display = "none";
       runSearchAndRender();
     }
-    if (e.key === "Escape" && el.scopePopover && el.scopePopover.style.display !== "none") {
-      el.scopePopover.style.display = "none";
-      if (e.target === el.scopeFilter) el.scopeFilter.blur();
-    }
+    // Escape closes the scope modal via the shared modal layer (common.js)
     if (e.key === "Escape" && isInput && e.target === el.input) {
       el.input.value = "";
       _q = "";

@@ -1,5 +1,5 @@
 // Temporary probe for the library-search book-scope picker (?books= + the
-// picker popover). Delete after running — or keep as the library-search
+// picker modal). Delete after running — or keep as the library-search
 // battery if it earns its keep.
 // Run: node tools/hmv-libscope-check.mjs  (from codebase/). Requires Node
 // 20.11+ and Microsoft Edge. Env overrides: HMV_SCOPE_PORT (default 9357).
@@ -122,16 +122,18 @@ async function main() {
     check("S1 button label = All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "All books ▾");
     check("S1 no books param", (await evalJS(`new URLSearchParams(location.search).has('books')`)) === false);
 
-    // ── S2: open the popover ──
+    // ── S2: open the scope modal ──
     await evalJS(`document.getElementById('libScopeBtn').click()`);
-    check("S2 popover visible", await waitFor(`document.getElementById('libScopePopover').style.display !== 'none'`));
+    check("S2 modal opens", await waitFor(`document.getElementById('libScopeOverlay').classList.contains('open')`));
     const rows2 = await evalJS(`document.querySelectorAll('#libScopeList .lib-scope-row').length`);
     const groups2 = await evalJS(`document.querySelectorAll('#libScopeList .lib-scope-group-label').length`);
     const chips2 = await evalJS(`document.querySelectorAll('#libScopeTypes .tag-chip').length`);
     check("S2 list ≥ 40 books", rows2 >= 40, rows2);
     check("S2 ≥ 5 type groups", groups2 >= 5, groups2);
     check("S2 ≥ 5 type chips", chips2 >= 5, chips2);
-    check("S2 footer shows total (unscoped)", (await evalJS(`document.getElementById('libScopeFoot').textContent`)) === rows2 + " books", await evalJS(`document.getElementById('libScopeFoot').textContent`));
+    // expectation mirrors js/i18n.js libScopeTitle.en
+    check("S2 modal title", (await evalJS(`document.getElementById('libScopeModalTitle').textContent`)) === "Select books to search in", await evalJS(`document.getElementById('libScopeModalTitle').textContent`));
+    check("S2 count shows total (unscoped)", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === rows2 + " books", await evalJS(`document.getElementById('libScopeCount').textContent`));
     check("S2 filter uses the shared input style", (await evalJS(`(function () {
       var s = getComputedStyle(document.getElementById('libScopeFilter'), '::placeholder');
       return s.fontWeight === '700' && s.opacity === '1';
@@ -153,11 +155,12 @@ async function main() {
     })()`));
     check("S3 summary says 1 book", (await evalJS(`document.getElementById('libResultCount').textContent`)).indexOf(" in 1 book") !== -1, await evalJS(`document.getElementById('libResultCount').textContent`));
     check("S3 checkbox stays checked", (await evalJS(`document.querySelector('#libScopeList input[data-book="${firstBook}"]').checked`)) === true);
+    check("S3 modal stays open after tick", (await evalJS(`document.getElementById('libScopeOverlay').classList.contains('open')`)) === true);
     check("S3 no RDF books listed", (await evalJS(`Array.prototype.some.call(document.querySelectorAll('#libScopeList .lib-scope-code'), function (s) { return s.textContent.indexOf('RDF-') === 0; })`)) === false);
 
     // ── S4: type-group chip (QRN) toggles the whole family on, then off ──
     await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
-    check("S4 popover stays open after chip click", (await evalJS(`document.getElementById('libScopePopover').style.display !== 'none'`)) === true);
+    check("S4 modal stays open after chip click", (await evalJS(`document.getElementById('libScopeOverlay').classList.contains('open')`)) === true);
     const qrnInList = await evalJS(`(function () {
       return Array.prototype.filter.call(document.querySelectorAll('#libScopeList .lib-scope-row'), function (r) {
         return r.dataset.book.indexOf('QRN-') === 0;
@@ -178,14 +181,16 @@ async function main() {
     })()`));
 
     // ── S5: reset → all books again ──
-    check("S5 reset hidden when unscoped", (await evalJS(`document.getElementById('libScopeReset').style.display === 'none'`)) === true);
+    check("S5 reset always visible (unscoped)", (await evalJS(`document.getElementById('libScopeReset').style.display !== 'none'`)) === true);
+    check("S5 reset leads the types row", (await evalJS(`document.getElementById('libScopeTypes').firstElementChild === document.getElementById('libScopeReset')`)) === true);
     await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
-    check("S5 reset visible when scoped", await waitFor(`document.getElementById('libScopeReset').style.display !== 'none'`));
+    check("S5 reset says what it does", (await evalJS(`document.getElementById('libScopeReset').textContent`)) === "↺ Reset");
+    check("S5 count shows scoped total", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === qrnInList.length + " of " + rows2 + " books selected", await evalJS(`document.getElementById('libScopeCount').textContent`));
     await evalJS(`document.getElementById('libScopeReset').click()`);
     check("S5 books param gone", await waitFor(`!new URLSearchParams(location.search).has('books')`));
     check("S5 button back to All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "All books ▾");
     check("S5 results widen again", await waitFor(`document.querySelectorAll('.lib-result').length > 1`));
-    check("S5 reset hidden again", (await evalJS(`document.getElementById('libScopeReset').style.display === 'none'`)) === true);
+    check("S5 reset still visible (scoped)", (await evalJS(`document.getElementById('libScopeReset').style.display !== 'none'`)) === true);
 
     // ── S6: filter box narrows the list ──
     const totalRows = await evalJS(`document.querySelectorAll('#libScopeList .lib-scope-row').length`);
@@ -202,28 +207,38 @@ async function main() {
     check("S6 filtered rows contain bukhari", filtRows.codes.every((c) => c.toLowerCase().indexOf("bukhari") !== -1), filtRows.codes.join(","));
     await evalJS(`document.getElementById('libScopeFilter').value = ''`);
 
-    // ── S7: Escape closes the popover ──
+    // ── S7: Escape closes the modal (shared modal layer) ──
     await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
-    check("S7 Escape closes popover", await waitFor(`document.getElementById('libScopePopover').style.display === 'none'`));
+    check("S7 Escape closes modal", await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`));
+
+    // ── S7x: Done closes the modal and keeps the scope ──
+    await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
+    await evalJS(`document.getElementById('libScopeDone').click()`);
+    check("S7x Done closes modal", await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`));
+    check("S7x scope kept after Done", await waitFor(`new URLSearchParams(location.search).has('books')`));
 
     // ── S8: deep link ?books= restores the scope ──
     await goto(pageURL + "?q=" + encodeURIComponent(Q) + "&books=" + firstBook, 1280, 900);
     check("S8 deep-link button label", await waitFor(`document.getElementById('libScopeBtn').textContent === '1 book ▾'`));
     await evalJS(`document.getElementById('libScopeBtn').click()`);
+    check("S8 deep-link modal opens", await waitFor(`document.getElementById('libScopeOverlay').classList.contains('open')`));
     check("S8 deep-link checkbox checked", await waitFor(`document.querySelector('#libScopeList input[data-book="${firstBook}"]') !== null`));
     check("S8 deep-link checkbox state", (await evalJS(`document.querySelector('#libScopeList input[data-book="${firstBook}"]').checked`)) === true);
     check("S8 deep-link results scoped", (await evalJS(`Array.prototype.every.call(document.querySelectorAll('.lib-result'), function (c) { return c.dataset.book === ${JSON.stringify(firstBook)}; })`)) === true);
     check("S8 no error toast", (await evalJS(`(function(){var t=document.querySelector('.toast');return !t||t.textContent.indexOf('⚠️')===-1})()`)) === true);
 
-    // ── S9: mobile viewport — popover stays inside the window ──
+    // ── S9: mobile viewport — modal fits inside the window ──
     await goto(pageURL, 390, 844);
     await evalJS(`document.getElementById('libScopeBtn').click()`);
-    await waitFor(`document.getElementById('libScopePopover').style.display !== 'none'`);
+    // the modal shell is created lazily (async on first open — no ?q= here, so
+    // the searchable-books index loads first); null-check before touching it
+    await waitFor(`document.getElementById('libScopeOverlay') !== null && document.getElementById('libScopeOverlay').classList.contains('open')`);
     const mobileRect = await evalJS(`(function () {
-      var r = document.getElementById('libScopePopover').getBoundingClientRect();
-      return { left: Math.round(r.left), right: Math.round(r.right), w: window.innerWidth };
+      var m = document.querySelector('.lib-scope-modal');
+      var r = m.getBoundingClientRect();
+      return { left: Math.round(r.left), right: Math.round(r.right), top: Math.round(r.top), bottom: Math.round(r.bottom), w: window.innerWidth, h: window.innerHeight };
     })()`);
-    check("S9 popover fits mobile width", mobileRect.left >= 0 && mobileRect.right <= mobileRect.w, JSON.stringify(mobileRect));
+    check("S9 modal fits mobile viewport", mobileRect.left >= 0 && mobileRect.right <= mobileRect.w && mobileRect.top >= 0 && mobileRect.bottom <= mobileRect.h, JSON.stringify(mobileRect));
 
     // ── S10: no page errors anywhere ──
     check("S10 no page errors", pageErrors.length === 0, pageErrors.join(" | "));
