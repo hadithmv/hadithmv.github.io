@@ -304,17 +304,15 @@ function renderScopeShell() {
     // rightmost (above the rail), the filter and the count over the list.
     // Everything below the header scrolls inside its own pane — the label
     // never scrolls out of view with the chips. The reset button lives in the
-    // header beside the label, not in the rail: it clears the whole scope (a
+    // header beside the count, not in the rail: it clears the whole scope (a
     // picker-wide action, not a chip-local one) and stays reachable even when
-    // the rail is scrolled. Desktop maps label and head to the grid's first
-    // row; the stacked layout puts the label above the chips row, which comes
-    // above the filter row, which comes above the list (the filter stays
-    // directly above the list it describes).
-    '<div class="lib-scope-head-label">' +
+    // the rail is scrolled — and sitting next to the "N of M books selected"
+    // readout, it reads as the undo for the very state the count shows.
+    // Desktop maps label and head to the grid's first row; the stacked layout
+    // puts the label above the chips row, which comes above the filter row,
+    // which comes above the list (the filter stays directly above the list it
+    // describes).
     '<div id="libScopeTypesLabel" class="lib-scope-pane-label">' + t("libScopeTypesLabel") + "</div>" +
-    '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
-    t("libScopeReset") + "</button>" +
-    "</div>" +
     // The rail: only the chips (a plain, always-visible element — no state to
     // survive a rebuild). The chips sub-container is the whole rail, so it is
     // rebuilt on filter/selection changes with no listeners to preserve.
@@ -325,6 +323,8 @@ function renderScopeShell() {
     '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
     'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
     '<div id="libScopeCount" class="lib-scope-count"></div>' +
+    '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
+    t("libScopeReset") + "</button>" +
     "</div>" +
     '<div id="libScopeList" class="lib-scope-list"></div>';
   el.scopeFilter = document.getElementById("libScopeFilter");

@@ -151,31 +151,24 @@
   padding: 4px 0 0; /* rows carry their own horizontal padding */
   overflow: hidden;
 }
-/* Small pane label ("Tags") — the rail's heading. It sits inside the pinned
-   header cell next to the reset button; the wrapper carries the layout and
-   padding, this only the text look. */
+/* Small pane label ("Tags") — the rail's heading. In the stacked layout it
+   is the modal body's first line, directly above the chips row; on desktop
+   it becomes a pinned cell of the grid's header row (see the media block),
+   so it never scrolls out of view with the chips. */
 .lib-scope-pane-label {
+  padding: 8px 14px 0; /* own line above the chips row on mobile */
   font-size: var(--panel-font-size, 0.78rem);
   font-weight: 700;
   color: var(--color-text-subtle);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
-/* The pinned header's label cell: "Tags" + the reset button on one line. In
-   the stacked layout it is the modal body's first line, directly above the
-   chips row; on desktop it becomes the grid's rightmost header cell (see the
-   media block). Keeping the reset here — outside the scrolling rail — means
-   it never scrolls out of view with the chips. */
-.lib-scope-head-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px 0; /* own line above the chips row on mobile */
-}
-/* The modal's pinned header row: filter and count, directly above the book
-   list they describe. On desktop it spans the list pane's column only (the
-   Tags label occupies the cell to its right); on mobile it is its own line
-   between the chips row and the list. RTL row order: filter rightmost,
-   count to its left. */
+/* The modal's pinned header row: filter, the count and the reset action,
+   directly above the book list they describe. On desktop it spans the list
+   pane's column only (the Tags label occupies the cell to its right); on
+   mobile it is its own line between the chips row and the list. RTL row
+   order: filter rightmost, then the count, then reset at the far left —
+   reset sits beside the selection readout it clears, not in the rail (which
+   can scroll out from under it). */
 .lib-scope-head {
   display: flex;
   align-items: center;
@@ -321,11 +314,10 @@
       "label head"
       "types list";
   }
-  .lib-scope-head-label {
+  .lib-scope-pane-label {
     grid-area: label;
     display: flex;
     align-items: center; /* match the head's vertical centering */
-    gap: 8px;
     padding: 10px 14px; /* join the head's padding, so their border-bottoms align */
     border-bottom: 1px solid var(--color-border);
   }
