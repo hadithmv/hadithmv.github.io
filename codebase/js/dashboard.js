@@ -230,7 +230,11 @@ function renderDashboard(bookNames) {
   var allChipHTML = window.tagAllChipHtml(tagsActive, allVisible.length);
 
   var chipsHTML = Object.keys(tagCounts)
-    .sort()
+    // Palette slot = the tag registry's row position — render in the file's
+    // hand-set order, not alphabetical.
+    .sort(function (a, b) {
+      return tagCounts[a].palette - tagCounts[b].palette;
+    })
     .map(function (code) {
       var tagCount = tagCounts[code];
       return window.tagChipHtml(

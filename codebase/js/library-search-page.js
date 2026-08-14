@@ -124,7 +124,11 @@ function renderChips() {
   var allChipHTML = window.tagAllChipHtml(tagsActive, visible.length);
 
   var html = Object.keys(tagCounts)
-    .sort()
+    // Palette slot = the tag registry's row position — render in the file's
+    // hand-set order, not alphabetical.
+    .sort(function (a, b) {
+      return tagCounts[a].palette - tagCounts[b].palette;
+    })
     .map(function (code) {
       var tc = tagCounts[code];
       return window.tagChipHtml(
@@ -205,7 +209,10 @@ function scopeGroups() {
       g.codes.push(b.bookCode);
     });
   });
-  order.sort();
+  // Group order follows the registry's row order (palette slot), not the code.
+  order.sort(function (a, b) {
+    return groups[a].palette - groups[b].palette;
+  });
   return order.map(function (c) {
     return groups[c];
   });

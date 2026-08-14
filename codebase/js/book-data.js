@@ -67,21 +67,21 @@ export async function loadTagDefinitions() {
     // Generate palette CSS with enough slots (tags + headroom)
     var tagCount = 0;
     for (var i = 0; i < result.length; i++) {
-      if (result[i].code && result[i].code !== "PIN") tagCount++;
+      if (result[i].code) tagCount++;
     }
     injectPaletteCSS(Math.max(tagCount + 8, 20));
 
-    // Build lookup map — assign sequential palette slot to each tag (skipping PIN)
+    // Build lookup map — assign each tag its palette slot in file order.
+    // The slot IS the display order: chips sort by palette, not by code, so
+    // the registry's hand-set row sequence drives every rendered tag row.
     _tagDefinitionsCache = {};
     var palIdx = 0;
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
       if (row.code) {
-        var code = row.code;
-        var palette = code === "PIN" ? -1 : palIdx++;
-        _tagDefinitionsCache[code] = {
-          label: row.label || code,
-          palette: palette,
+        _tagDefinitionsCache[row.code] = {
+          label: row.label || row.code,
+          palette: palIdx++,
         };
       }
     }

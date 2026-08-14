@@ -99,7 +99,8 @@ window.tagAllChipHtml = function (tagsActive, count) {
 };
 window.tagChipHtml = function (code, label, palette, active, count) {
   var chipTitle = active ? "Remove filter: " + label : "Filter by " + label;
-  var palClass = palette >= 0 ? " tag-palette-" + palette : "";
+  // Every tag carries a palette slot (0-based, file order) — no negative case.
+  var palClass = " tag-palette-" + palette;
   return (
     '<span class="tag-chip' +
     (active ? " active" : "") +
