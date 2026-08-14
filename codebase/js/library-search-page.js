@@ -32,6 +32,7 @@ import {
   buildNormData,
   buildSnippets,
   highlightMatches,
+  scoreFilterTokens,
   addSearchHistory,
   getSearchHistory,
   removeSearchHistoryItem,
@@ -407,22 +408,39 @@ function renderScopePopover() {
   // renders exactly once, under its first group (groups run in the tag
   // registry's file order, which is also the palette/display order); a
   // group label whose books were all claimed by earlier groups is skipped.
+  // The filter is always-fuzzy, exact-ranked (scoreFilterTokens, same as
+  // the dashboard box): titles + tag words may match within 1–2 edits, the
+  // code is exact-only — a 2-edit match on a code is a different book.
+  // Exact hits float to the top of their group; the sort is stable, so
+  // equal scores keep the registry's hand-set display order.
   var seen = {};
+  var scores = {};
   groups.forEach(function (g) {
     var shown = g.codes.filter(function (code) {
       if (seen[code]) return false;
       seen[code] = true;
       if (!f) return true;
       var b = _bookByCode[code];
-      var hay = normaliseForSearch(((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
-        " " + code +
-        // Tag words (labels + aliases, all languages) — a query hitting a
-        // tag's text finds every book carrying that tag's code.
-        // normaliseForSearch: same script-level equivalence as the dashboard
-        // (hamza/tashkeel forms, Thaana dotted letters), then lowercase for
-        // Latin case-insensitivity.
-        (b ? " " + tagSearchWords(code, b) : "")).toLowerCase());
-      return hay.indexOf(f) !== -1;
+      var s = scoreFilterTokens(
+        [f],
+        [
+          // normaliseForSearch: same script-level equivalence as the
+          // dashboard (hamza/tashkeel forms, Thaana dotted letters), then
+          // lowercase for Latin case-insensitivity. Tag words (labels +
+          // aliases, all languages) — a query hitting a tag's text finds
+          // every book carrying that tag's code.
+          normaliseForSearch(((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
+            (b ? " " + tagSearchWords(code, b) : "")).toLowerCase())
+        ],
+        normaliseForSearch(code.toLowerCase())
+      );
+      if (s >= 0) scores[code] = s;
+      return s >= 0;
+    });
+    shown.sort(function (a, b) {
+      var sa = scores[a] || 0;
+      var sb = scores[b] || 0;
+      return sa - sb; // stable: equal scores keep registry order
     });
     if (shown.length === 0) return;
     html.push('<div class="lib-scope-group-label">' + tagLabel(g.code, g.label) + "</div>");

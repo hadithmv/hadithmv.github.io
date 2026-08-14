@@ -229,9 +229,23 @@ function matchCompiled(normText, term) {
 function fuzzyMatch(text, pattern, maxDist) {
   var tLen = text.length;
   var pLen = pattern.length;
-  if (Math.abs(tLen - pLen) > maxDist) return false;
-  for (var s = 0; s < tLen - pLen + maxDist + 1; s++) {
-    if (levenshtein(text.slice(s, Math.min(s + pLen + maxDist, tLen)), pattern, maxDist) <= maxDist) return true;
+  // Text too short to hold the pattern within the edit budget.
+  if (tLen < pLen - maxDist) return false;
+  // Substring-fuzzy: try every window whose length is within the edit
+  // budget of the pattern's length. (The old loop only took pLen+maxDist
+  // windows, so a pattern one edit from an exact-length substring was
+  // never found — the surplus chars ate the budget before the DP ran —
+  // and the old |tLen - pLen| guard killed every match on cells more
+  // than maxDist chars longer than the pattern, i.e. ~all real cells.)
+  var minLen = pLen - maxDist;
+  if (minLen < 0) minLen = 0;
+  var maxLen = pLen + maxDist;
+  for (var s = 0; s < tLen - minLen + 1; s++) {
+    var eMax = Math.min(tLen, s + maxLen);
+    var eMin = Math.min(eMax, s + minLen);
+    for (var e = eMin; e <= eMax; e++) {
+      if (levenshtein(text.slice(s, e), pattern, maxDist) <= maxDist) return true;
+    }
   }
   return false;
 }
@@ -252,6 +266,54 @@ function levenshtein(a, b, max) {
     prev = curr;
   }
   return prev[b.length];
+}
+
+// ── Book-list filters: fuzzy scoring ─────────────────────────
+//
+// Shared scoring for the book-list filter boxes (dashboard search box,
+// library scope picker). Always-fuzzy, exact-ranked: each query token
+// scores 0 on an exact (substring) hit in any text field or the code, or
+// 1–2 when it lands within Levenshtein distance 1–2 of a *text* field
+// (titles, tag words). Codes are exact-only — they are machine names,
+// and a 2-edit match on a code is a different book. Callers keep books
+// whose tokens all matched and sort by the returned score (exact hits
+// first, near-misses below, then the caller's own order).
+
+/** Score one query token against one field: 0 exact, 1–2 fuzzy, -1 none. */
+function scoreOne(token, text) {
+  if (!text) return -1;
+  if (text.indexOf(token) !== -1) return 0;
+  if (fuzzyMatch(text, token, 1)) return 1;
+  if (fuzzyMatch(text, token, 2)) return 2;
+  return -1;
+}
+
+/**
+ * Score a list of query tokens against a book.
+ * @param {string[]} tokens    normalised query tokens
+ * @param {string[]} textFields normalised title/tag-word strings (exact + fuzzy)
+ * @param {string}   codeText  normalised book code (exact only)
+ * @returns {number} sum of per-token distances, or -1 if any token matches
+ *                   nothing in any field
+ */
+export function scoreFilterTokens(tokens, textFields, codeText) {
+  var total = 0;
+  for (var i = 0; i < tokens.length; i++) {
+    var t = tokens[i];
+    if (!t) continue;
+    var best = -1;
+    for (var j = 0; j < textFields.length; j++) {
+      var s = scoreOne(t, textFields[j]);
+      if (s >= 0 && (best < 0 || s < best)) best = s;
+    }
+    if (best !== 0 && codeText) {
+      var cs = codeText.indexOf(t) !== -1 ? 0 : -1; // exact only
+      if (cs >= 0 && (best < 0 || cs < best)) best = cs;
+    }
+    if (best < 0) return -1;
+    total += best;
+  }
+  return total;
 }
 
 // ── Query parser ────────────────────────────────────────────

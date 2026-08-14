@@ -131,7 +131,7 @@ Dashboard page UI (books/index.html) — built on the metadata layer in `book-da
 | `renderDashboard(bookNames)` | Renders the card grid or table view, tag chips with counts, result count, and the continue-reading card. |
 | `setupDashboardControls()` | Wires search, tag chips, sort, view toggle, pins/history modals, the library-search jump, scroll arrows, and keyboard shortcuts. |
 
-Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. Re-renders on `dashboardReset` and `languagechange` (when visible).
+Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. The search box is always‑fuzzy, exact‑ranked (`scoreFilterTokens` — see below): titles and tag words may match within 1–2 edits, the book code is exact‑only; a search re‑sorts the grid by match score first, then the chosen order. Re-renders on `dashboardReset` and `languagechange` (when visible).
 
 ---
 
@@ -176,6 +176,10 @@ Normalises text for comparison:
 - Two passes over the string (mark/hamza map, then the ال-strip) — still the hottest function in the app, so both are single regex scans
 
 Used by dashboard search, book search, the scope-modal filter, the library engine, the search-index build, and regex query patterns (parseQuery normalises `/…/` patterns the same way — regexes test the normalised text, so the pattern must match the same normalised form).
+
+### `scoreFilterTokens(tokens, textFields, codeText)`
+
+Scores one book against the list‑filter boxes (dashboard search box, library scope‑modal filter) — always‑fuzzy, exact‑ranked. Each token scores `0` on an exact (substring) hit in any text field or the code, `1–2` when it lands within Levenshtein distance 1–2 of a *text* field (titles, tag words). Returns the sum of per‑token scores, or `-1` when any token matches nothing. **Codes are exact‑only** — they are machine names, and a 2‑edit match on a code is a different book; the fuzzy pass never sees `codeText`. Callers drop `-1` books and sort by score (exact hits first, near‑misses below, then the caller's own order). Text fields and tokens must already be `normaliseForSearch`'d (the dashboard strips `[\s-]` on both sides, consistent with its exact matching). The cross‑book index (`searchLibrary`) is deliberately untouched — it remains whole‑word exact.
 
 ### `formatThousands(n)`
 

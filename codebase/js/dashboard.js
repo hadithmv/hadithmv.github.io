@@ -8,6 +8,7 @@
 import { tagLabel, t } from "./i18n.js";
 import {
   normaliseForSearch,
+  scoreFilterTokens,
   escapeHTML,
   addSearchHistory,
   getSearchHistory,
@@ -129,7 +130,13 @@ function renderDashboard(bookNames) {
   // Apply search filter — whitespace-separated tokens, each must match at
   // least one field, in any order. Hyphens and whitespace are stripped from
   // both sides, so "RDF-rasmee" and "rdfrasmee" find the same book.
+  // Always-fuzzy, exact-ranked: a token scores 0 on an exact hit anywhere
+  // (including the code), or 1–2 when it lands within 1–2 edits of a title
+  // or tag word (scoreFilterTokens). The code is exact-only — a 2-edit
+  // match on a code is a different book. Books with a token matching
+  // nothing are dropped; survivors sort by score below.
   var q = _dashFilter.search.trim();
+  var scores = null;
   if (q) {
     var tokens = q
       .split(/\s+/)
@@ -140,21 +147,22 @@ function renderDashboard(bookNames) {
         return t;
       });
     if (tokens.length > 0) {
+      scores = {};
       visible = visible.filter(function (b) {
-        var haystacks = [
-          normaliseForSearch(b.titleDV || "").replace(/[\s-]/g, ""),
-          normaliseForSearch(b.titleAR || "").replace(/[\s-]/g, ""),
-          normaliseForSearch(b.titleEN || "").replace(/[\s-]/g, ""),
-          normaliseForSearch(b.bookCode || "").replace(/[\s-]/g, ""),
-          // Tag words (labels + aliases, all languages) — a query hitting a
-          // tag's text finds every book carrying that tag's code.
-          normaliseForSearch(tagSearchWords(b.bookCode, b) || "").replace(/[\s-]/g, ""),
-        ];
-        return tokens.every(function (t) {
-          return haystacks.some(function (h) {
-            return h.indexOf(t) !== -1;
-          });
-        });
+        var s = scoreFilterTokens(
+          tokens,
+          [
+            normaliseForSearch(b.titleDV || "").replace(/[\s-]/g, ""),
+            normaliseForSearch(b.titleAR || "").replace(/[\s-]/g, ""),
+            normaliseForSearch(b.titleEN || "").replace(/[\s-]/g, ""),
+            // Tag words (labels + aliases, all languages) — a query hitting a
+            // tag's text finds every book carrying that tag's code.
+            normaliseForSearch(tagSearchWords(b.bookCode, b) || "").replace(/[\s-]/g, ""),
+          ],
+          normaliseForSearch(b.bookCode || "").replace(/[\s-]/g, "")
+        );
+        if (s >= 0) scores[b.bookCode] = s;
+        return s >= 0;
       });
     }
   }
@@ -181,8 +189,13 @@ function renderDashboard(bookNames) {
     });
   }
 
-  // Sort
+  // Sort — exact matches (score 0) first, then near-misses by distance,
+  // then the chosen order within each tier. With no search, all scores are
+  // 0 and this degenerates to today's sort.
   visible.sort(function (a, b) {
+    var sa = scores ? scores[a.bookCode] || 0 : 0;
+    var sb = scores ? scores[b.bookCode] || 0 : 0;
+    if (sa !== sb) return sa - sb;
     var na = (a.titleEN || a.bookCode || "").toLowerCase();
     var nb = (b.titleEN || b.bookCode || "").toLowerCase();
     if (_dashFilter.sort === "az") return na < nb ? -1 : na > nb ? 1 : 0;
