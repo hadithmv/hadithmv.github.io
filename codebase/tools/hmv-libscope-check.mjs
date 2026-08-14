@@ -138,6 +138,49 @@ async function main() {
       var s = getComputedStyle(document.getElementById('libScopeFilter'), '::placeholder');
       return s.fontWeight === '700' && s.opacity === '1';
     })()`)) === true, "placeholder must be bold subtle like the search box");
+    // ── S2b: desktop two-pane grid — the family rail sits right of the list ──
+    const paneRects = await evalJS(`(function () {
+      var t = document.getElementById('libScopeTypes').getBoundingClientRect();
+      var l = document.getElementById('libScopeList').getBoundingClientRect();
+      var m = document.querySelector('.lib-scope-modal').getBoundingClientRect();
+      return { tLeft: Math.round(t.left), lRight: Math.round(l.right), w: Math.round(m.width) };
+    })()`);
+    check("S2b rail right of the list", paneRects.tLeft >= paneRects.lRight, JSON.stringify(paneRects));
+    check("S2b modal widened on desktop", paneRects.w > 600, paneRects.w);
+    // ── S2c: one pinned header row — Tags label over the rail, filter and
+    // count over the list; below it both panes scroll (no footer, no close
+    // button) ──
+    check("S2c rail has a Tags label", (await evalJS(`document.getElementById('libScopeTypesLabel').textContent`)) === "Tags", await evalJS(`document.getElementById('libScopeTypesLabel').textContent`));
+    const headRects = await evalJS(`(function () {
+      var f = document.getElementById('libScopeFilter').getBoundingClientRect();
+      var c = document.getElementById('libScopeCount').getBoundingClientRect();
+      var l = document.getElementById('libScopeList').getBoundingClientRect();
+      var g = document.getElementById('libScopeTypesLabel').getBoundingClientRect();
+      var t = document.getElementById('libScopeTypes').getBoundingClientRect();
+      return { fLeft: Math.round(f.left), fRight: Math.round(f.right), fTop: Math.round(f.top), fBottom: Math.round(f.bottom), lLeft: Math.round(l.left), lRight: Math.round(l.right), cTop: Math.round(c.top), cBottom: Math.round(c.bottom), cLeft: Math.round(c.left), lTop: Math.round(l.top), gTop: Math.round(g.top), gBottom: Math.round(g.bottom), gLeft: Math.round(g.left), tTop: Math.round(t.top), cW: document.getElementById('libScopeCount').offsetWidth, fW: document.getElementById('libScopeFilter').offsetWidth };
+    })()`);
+    check("S2c filter above the book list", headRects.fLeft >= headRects.lLeft && headRects.fRight <= headRects.lRight && headRects.fBottom <= headRects.lTop, JSON.stringify(headRects));
+    check("S2c count beside the filter", headRects.cTop >= headRects.fTop - 2 && headRects.cBottom <= headRects.fBottom + 2 && headRects.cLeft <= headRects.fLeft, JSON.stringify(headRects));
+    // The label occupies the header row (its cell is the row's full height —
+    // the filter band sits centered inside it), over the rail (right of the
+    // list), and its cell ends above the rail, so the rail can scroll without
+    // taking the label with it.
+    check("S2c label shares the header line with the filter", headRects.gTop <= headRects.fTop && headRects.gBottom >= headRects.fBottom && headRects.gLeft >= headRects.lRight, JSON.stringify(headRects));
+    check("S2c label stays above the rail", headRects.gBottom <= headRects.tTop, JSON.stringify(headRects));
+    // The count must use the full text token (readable, semibold) at the
+    // filter's font size — resolve --color-text on :root and compare
+    // rgb-to-rgb, so the check holds in every theme.
+    check("S2c count readable (text token, semibold, panel size)", (await evalJS(`(function () {
+      var c = getComputedStyle(document.getElementById('libScopeCount'));
+      var token = getComputedStyle(document.documentElement).getPropertyValue('--color-text').trim();
+      var m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(token);
+      if (!m) return false;
+      var rgb = 'rgb(' + parseInt(m[1], 16) + ', ' + parseInt(m[2], 16) + ', ' + parseInt(m[3], 16) + ')';
+      var f = getComputedStyle(document.getElementById('libScopeFilter'));
+      return c.color === rgb && c.fontWeight === '600' && c.fontSize === f.fontSize;
+    })()`)) === true);
+    check("S2c no footer", (await evalJS(`document.querySelector('.lib-scope-foot') === null`)) === true);
+    check("S2c no Done button", (await evalJS(`document.getElementById('libScopeDone') === null`)) === true);
 
     // ── S3: tick the first result's book → scoped ──
     const firstBook = await evalJS(`document.querySelector('.lib-result').dataset.book`);
@@ -182,10 +225,13 @@ async function main() {
 
     // ── S5: reset → all books again ──
     check("S5 reset always visible (unscoped)", (await evalJS(`document.getElementById('libScopeReset').style.display !== 'none'`)) === true);
-    check("S5 reset leads the types row", (await evalJS(`document.getElementById('libScopeTypes').firstElementChild === document.getElementById('libScopeReset')`)) === true);
+    check("S5 reset leads the rail", (await evalJS(`document.getElementById('libScopeTypes').children[0] === document.getElementById('libScopeReset')`)) === true);
     await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
     check("S5 reset says what it does", (await evalJS(`document.getElementById('libScopeReset').textContent`)) === "↺ Reset");
     check("S5 count shows scoped total", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === qrnInList.length + " of " + rows2 + " books selected", await evalJS(`document.getElementById('libScopeCount').textContent`));
+    // The count's width was pre-reserved to its widest state (S2c) — going
+    // unscoped→scoped must not change the count or the filter beside it.
+    check("S5 no width jump on scoping", await waitFor(`Math.abs(document.getElementById('libScopeCount').offsetWidth - ${headRects.cW}) <= 1 && Math.abs(document.getElementById('libScopeFilter').offsetWidth - ${headRects.fW}) <= 1`), headRects.cW + "→" + await evalJS(`document.getElementById('libScopeCount').offsetWidth`));
     await evalJS(`document.getElementById('libScopeReset').click()`);
     check("S5 books param gone", await waitFor(`!new URLSearchParams(location.search).has('books')`));
     check("S5 button back to All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "All books ▾");
@@ -211,11 +257,13 @@ async function main() {
     await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
     check("S7 Escape closes modal", await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`));
 
-    // ── S7x: Done closes the modal and keeps the scope ──
+    // ── S7x: ✕ closes the modal and keeps the live-applied scope ──
+    // (no Done/Apply button exists — the picker applies on every tick, so the
+    // shared ✕/backdrop/Escape are the only closers; scope must survive them)
     await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
-    await evalJS(`document.getElementById('libScopeDone').click()`);
-    check("S7x Done closes modal", await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`));
-    check("S7x scope kept after Done", await waitFor(`new URLSearchParams(location.search).has('books')`));
+    await evalJS(`document.querySelector('.modal-close').click()`);
+    check("S7x ✕ closes modal", await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`));
+    check("S7x scope kept after ✕", await waitFor(`new URLSearchParams(location.search).has('books')`));
 
     // ── S8: deep link ?books= restores the scope ──
     await goto(pageURL + "?q=" + encodeURIComponent(Q) + "&books=" + firstBook, 1280, 900);
@@ -239,6 +287,36 @@ async function main() {
       return { left: Math.round(r.left), right: Math.round(r.right), top: Math.round(r.top), bottom: Math.round(r.bottom), w: window.innerWidth, h: window.innerHeight };
     })()`);
     check("S9 modal fits mobile viewport", mobileRect.left >= 0 && mobileRect.right <= mobileRect.w && mobileRect.top >= 0 && mobileRect.bottom <= mobileRect.h, JSON.stringify(mobileRect));
+    const mobPane = await evalJS(`(function () {
+      var g = document.getElementById('libScopeTypesLabel').getBoundingClientRect();
+      var t = document.getElementById('libScopeTypes').getBoundingClientRect();
+      var h = document.querySelector('.lib-scope-head').getBoundingClientRect();
+      var l = document.getElementById('libScopeList').getBoundingClientRect();
+      return { gBottom: Math.round(g.bottom), tTop: Math.round(t.top), tBottom: Math.round(t.bottom), hTop: Math.round(h.top), hBottom: Math.round(h.bottom), lTop: Math.round(l.top) };
+    })()`);
+    check("S9b mobile stacks label, chips, filter, list", mobPane.gBottom <= mobPane.tTop && mobPane.tBottom <= mobPane.hTop && mobPane.hBottom <= mobPane.lTop, JSON.stringify(mobPane));
+
+    // ── S9c: desktop short window — the rail scrolls as ONE column; it must
+    // not pack its overflow into a second column (a wrapped column flex does
+    // exactly that instead of scrolling — the two-column regression) ──
+    await goto(pageURL, 1280, 440);
+    await evalJS(`document.getElementById('libScopeBtn').click()`);
+    await waitFor(`document.getElementById('libScopeOverlay') !== null && document.getElementById('libScopeOverlay').classList.contains('open')`);
+    check("S9c rail scrolls in one column", await waitFor(`(function () {
+      var t = document.getElementById('libScopeTypes');
+      var s = getComputedStyle(t);
+      return s.overflowY === 'auto' && s.flexWrap === 'nowrap' && t.scrollHeight > t.clientHeight + 4 && t.scrollWidth <= t.clientWidth + 4;
+    })()`));
+    // The rail is now actually overflowing — scroll it and prove the pinned
+    // Tags label above it does not move (the regression this whole layout
+    // exists to fix).
+    check("S9c label pinned while the rail scrolls", await waitFor(`(function () {
+      var t = document.getElementById('libScopeTypes');
+      var l = document.getElementById('libScopeTypesLabel');
+      var before = l.getBoundingClientRect().top;
+      t.scrollTop = 9999;
+      return t.scrollTop > 0 && Math.abs(l.getBoundingClientRect().top - before) < 1;
+    })()`));
 
     // ── S10: no page errors anywhere ──
     check("S10 no page errors", pageErrors.length === 0, pageErrors.join(" | "));

@@ -151,11 +151,27 @@
   padding: 4px 0 0; /* rows carry their own horizontal padding */
   overflow: hidden;
 }
+/* Small pane label ("Tags") — the rail's heading. In the stacked layout it
+   is the modal body's first line, directly above the chips row; on desktop
+   it becomes a pinned cell of the grid's header row (see the media block),
+   so it never scrolls out of view with the chips. */
+.lib-scope-pane-label {
+  padding: 8px 14px 0; /* own line above the chips row on mobile */
+  font-size: var(--panel-font-size, 0.78rem);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+/* The modal's pinned header row: filter and count, directly above the book
+   list they describe. On desktop it spans the list pane's column only (the
+   Tags label occupies the cell to its right); on mobile it is its own line
+   between the chips row and the list. RTL row order: filter rightmost,
+   count to its left. */
 .lib-scope-head {
   display: flex;
   align-items: center;
-  gap: var(--control-gap, 6px);
-  padding: 8px 14px;
+  gap: 10px;
+  padding: 10px 14px;
   border-bottom: 1px solid var(--color-border);
 }
 /* .search-input (common.css) supplies the shared search-row look — semibold
@@ -168,19 +184,20 @@
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   direction: rtl;
 }
+/* The selection summary — full text color, semibold, at the filter's font
+   size: legible at a glance (muted proved too quiet to notice), while the
+   smaller text keeps it from competing with the input. */
 .lib-scope-count {
-  flex: 1;
-  min-width: 0;
-  text-align: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 .lib-scope-reset {
   flex-shrink: 0;
   padding: 0 10px;
-}
-.lib-scope-done {
-  flex-shrink: 0;
-  padding: 0 14px;
-  font-weight: 700;
 }
 .lib-scope-types {
   display: flex;
@@ -205,11 +222,20 @@
   overscroll-behavior: contain;
   direction: rtl;
 }
+/* Group labels read as section headers: sticky inside the scrolling list
+   (they hold position while their books scroll beneath), on a subtle opaque
+   band with a rule under it — so they stand out from the rows and passing
+   rows stay hidden behind them. */
 .lib-scope-group-label {
-  padding: 10px 14px 2px;
-  font-size: var(--panel-font-size, 0.78rem);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 14px 6px;
+  font-size: var(--panel-font-size, 0.85rem);
   font-weight: 700;
-  color: var(--color-text-subtle);
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border-bottom: 1px solid var(--color-border);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 .lib-scope-row {
@@ -253,16 +279,52 @@
   color: var(--color-text-muted);
   text-align: center;
 }
-.lib-scope-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 14px;
-  font-size: var(--panel-font-size, 0.78rem);
-  color: var(--color-text-subtle);
-  border-top: 1px solid var(--color-border);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+/* Desktop (≥601px): the modal becomes a two-pane grid. Row 1 is one pinned
+   header — the "Tags" pane label rightmost (over the rail), the filter and
+   count over the list — and row 2 is the two scrollable panes: family chips
+   rail on the right (RTL grid order: the first column is the rightmost),
+   book list on the left. The label and head cells both carry the header's
+   bottom border, so the rule reads as one continuous line; the rail's
+   inline-end border keeps the vertical separator between the panes. Grid
+   areas map the shell's siblings (label / head / types / list) directly;
+   below 601px the base flex-column rules keep the stacked layout. */
+@media (min-width: 601px) {
+  .lib-scope-modal {
+    width: min(760px, 92vw);
+  }
+  .lib-scope-modal .modal-body {
+    display: grid;
+    grid-template-columns: minmax(170px, 220px) 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "label head"
+      "types list";
+  }
+  .lib-scope-pane-label {
+    grid-area: label;
+    display: flex;
+    align-items: center; /* match the head's vertical centering */
+    padding: 10px 14px; /* join the head's padding, so their border-bottoms align */
+    border-bottom: 1px solid var(--color-border);
+  }
+  .lib-scope-types {
+    grid-area: types;
+    flex-direction: column;
+    /* The base rule wraps for the mobile chips row; a wrapped column flex
+       would pack overflow into a second column instead of scrolling. */
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    border-inline-end: 1px solid var(--color-border);
+    border-bottom: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .lib-scope-head {
+    grid-area: head;
+  }
+  .lib-scope-list {
+    grid-area: list;
+  }
 }
 
 @media (max-width: 600px) {

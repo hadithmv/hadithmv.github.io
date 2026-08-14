@@ -301,7 +301,7 @@ const STRINGS = {
     ar: "تصفية الكتب…",
   },
   libScopeFoot: {
-    dv: "{n} / {m} ފޮތް ހޮވިފައި",
+    dv: "{m} / {n} ފޮތް ހޮވިފައި",
     en: "{n} of {m} books selected",
     ar: "تم اختيار {n} من {m} كتب",
   },
@@ -324,6 +324,11 @@ const STRINGS = {
     dv: "ނިންމާ",
     en: "Done",
     ar: "تم",
+  },
+  libScopeTypesLabel: {
+    dv: "ޓެގުތައް",
+    en: "Tags",
+    ar: "الوسوم",
   },
   dashboardClearAll: {
     dv: "އެއްކޮށް ފޮހެލާ&nbsp;&nbsp;✕",

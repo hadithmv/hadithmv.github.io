@@ -65,12 +65,11 @@ var el = {
   scopeBody: null,
   scopeFilter: null,
   scopeTypes: null,
+  scopeTypesLabel: null,
   scopeChips: null,
   scopeList: null,
-  scopeFoot: null,
   scopeCount: null,
   scopeReset: null,
-  scopeDone: null,
 };
 
 /** Substitute {k} placeholders in an i18n template string. */
@@ -190,19 +189,21 @@ function ensureSearchableBooks() {
     });
 }
 
-/** Group the searchable books by primary tag (the prefix-derived type). */
+/** Group the searchable books by EVERY tag they carry — the same semantics as
+ *  the page's tag row, not just the primary prefix tag — so a book carrying
+ *  several tags appears in several groups. */
 function scopeGroups() {
   var groups = {};
   var order = [];
   _searchableBooks.forEach(function (b) {
-    var tg = extractTags(b.bookCode, b)[0];
-    if (!tg) return;
-    var g = groups[tg.code];
-    if (!g) {
-      g = groups[tg.code] = { code: tg.code, label: tg.label, palette: tg.palette, codes: [] };
-      order.push(tg.code);
-    }
-    g.codes.push(b.bookCode);
+    extractTags(b.bookCode, b).forEach(function (tg) {
+      var g = groups[tg.code];
+      if (!g) {
+        g = groups[tg.code] = { code: tg.code, label: tg.label, palette: tg.palette, codes: [] };
+        order.push(tg.code);
+      }
+      g.codes.push(b.bookCode);
+    });
   });
   order.sort();
   return order.map(function (c) {
@@ -299,32 +300,35 @@ function renderScopeButton() {
  */
 function renderScopeShell() {
   el.scopeBody.innerHTML =
-    '<div class="lib-scope-head">' +
-    '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
-    'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
-    "</div>" +
-    // The reset button leads the type-chip row and is always visible — it is
-    // a plain action, not a state label, so it never hides. Only the chips
-    // sub-container is rebuilt, keeping the button + its listener intact.
+    // One pinned header row spanning both panes: the rail's "Tags" pane
+    // label rightmost (above the rail), the filter and the count over the
+    // list. Everything below the header scrolls inside its own pane — the
+    // label never scrolls out of view with the chips. Desktop maps label and
+    // head to the grid's first row; the stacked layout puts the label above
+    // the chips row, which comes above the filter row, which comes above the
+    // list (the filter stays directly above the list it describes).
+    '<div id="libScopeTypesLabel" class="lib-scope-pane-label">' + t("libScopeTypesLabel") + "</div>" +
+    // The rail: the reset button (always visible — a plain action, not a
+    // state label), then the chips. Only the chips sub-container is rebuilt
+    // on filter/selection changes, keeping the button + its listener intact.
     '<div id="libScopeTypes" class="lib-scope-types">' +
     '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
     t("libScopeReset") + "</button>" +
     '<span id="libScopeChips" class="lib-scope-chips"></span>' +
     "</div>" +
-    '<div id="libScopeList" class="lib-scope-list"></div>' +
-    '<div class="lib-scope-foot">' +
-    '<span id="libScopeCount" class="lib-scope-count"></span>' +
-    '<button type="button" id="libScopeDone" class="toolbar-btn lib-scope-done">' +
-    t("libScopeDone") + "</button>" +
-    "</div>";
+    '<div class="lib-scope-head">' +
+    '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
+    'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
+    '<div id="libScopeCount" class="lib-scope-count"></div>' +
+    "</div>" +
+    '<div id="libScopeList" class="lib-scope-list"></div>';
   el.scopeFilter = document.getElementById("libScopeFilter");
   el.scopeTypes = document.getElementById("libScopeTypes");
+  el.scopeTypesLabel = document.getElementById("libScopeTypesLabel");
   el.scopeChips = document.getElementById("libScopeChips");
   el.scopeList = document.getElementById("libScopeList");
-  el.scopeFoot = document.getElementById("libScopeFoot");
   el.scopeCount = document.getElementById("libScopeCount");
   el.scopeReset = document.getElementById("libScopeReset");
-  el.scopeDone = document.getElementById("libScopeDone");
   el.scopeFilter.addEventListener("input", function () {
     _scopeFilter = this.value;
     renderScopePopover();
@@ -333,9 +337,6 @@ function renderScopeShell() {
     if (_selectedBooks === null) return; // nothing scoped → nothing to reset
     _selectedBooks = null;
     applyScopeChange();
-  });
-  el.scopeDone.addEventListener("click", function () {
-    window.closeModal("libScopeOverlay");
   });
   // Delegation on the containers — they survive list re-renders. No
   // outside-click handler exists for modals (backdrop click closes via
@@ -381,8 +382,15 @@ function renderScopePopover() {
   }).join("");
   var f = _scopeFilter.toLowerCase();
   var html = [];
+  // The rail's chips show every tag a book carries, so a book belongs to
+  // several groups — but the list is a picker, not a taxonomy: each book
+  // renders exactly once, under its first (alphabetically first) group; a
+  // group label whose books were all claimed by earlier groups is skipped.
+  var seen = {};
   groups.forEach(function (g) {
     var shown = g.codes.filter(function (code) {
+      if (seen[code]) return false;
+      seen[code] = true;
       if (!f) return true;
       var b = _bookByCode[code];
       var hay = ((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
@@ -407,6 +415,24 @@ function scopeModalOpen() {
   return !!el.scopeOverlay && el.scopeOverlay.classList.contains("open");
 }
 
+/**
+ * Pin the count's width to its widest state so ticking books never resizes
+ * the filter beside it — the same swap-stability contract as
+ * window.reserveWidestText elsewhere. The count's shapes are enumerable: the
+ * unscoped "N books" and the scoped "S of N books selected" templates, with
+ * the most digits (S = N-1) giving the widest — so the reservation is exact,
+ * not a guess. The modal must be visible to measure, so this runs right
+ * after openModal and on language change while the modal is open.
+ */
+function reserveScopeCountWidth() {
+  var t = allCodes().length;
+  var s = t > 1 ? t - 1 : 1;
+  window.reserveWidestText(el.scopeCount, [
+    fillTemplate("libScopeCount", { n: t }),
+    fillTemplate("libScopeFoot", { n: s, m: t })
+  ]);
+}
+
 /** Open the book-scope modal (created lazily via the unified modal layer). */
 function openScopeModal() {
   var open = function () {
@@ -421,6 +447,7 @@ function openScopeModal() {
     if (el.scopeFilter) el.scopeFilter.value = "";
     renderScopePopover();
     window.openModal("libScopeOverlay");
+    reserveScopeCountWidth(); // must measure while the modal is visible
   };
   if (!_searchableBooks) {
     ensureSearchableBooks().then(open);
@@ -869,9 +896,10 @@ async function init() {
   document.addEventListener("languagechange", function () {
     renderChips();
     if (el.scopeTitle) el.scopeTitle.textContent = t("libScopeTitle");
+    if (el.scopeTypesLabel) el.scopeTypesLabel.textContent = t("libScopeTypesLabel");
     if (el.scopeFilter) el.scopeFilter.placeholder = t("libScopeFilter");
     if (el.scopeReset) el.scopeReset.textContent = t("libScopeReset");
-    if (el.scopeDone) el.scopeDone.textContent = t("libScopeDone");
+    if (scopeModalOpen()) reserveScopeCountWidth(); // templates changed
     if (_q) runSearchAndRender();
   });
 
