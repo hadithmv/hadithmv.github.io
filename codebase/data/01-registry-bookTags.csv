@@ -1,21 +1,21 @@
 code,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN
-QRN,قرآن,ގުރްއާން,Quran,,ކުރްއާން,"Koran,Quraan"
-HDT,حديث,ޙަދީޘް,Hadith,,,"Ahadith,Hadiths"
-AQD,عقيدة,އަގީދާ,Aqidah,عقائد,,"Aqeedah,Creed,Aqida"
-LNG,لغة,ބަސް,Language,لغات,ބަސްތައް,"Languages,Linguistics"
-ZKR,ذكر,ޒިކުރު,Zikr,,,"Dhikr,Adhkar,Azkar,Remembrance"
+QRN,قرآن,ގުރްއާން,Quran,,,
+HDT,حديث,ޙަދީޘް,Hadith,,,
+AQD,عقيدة,އަގީދާ,Aqidah,,,Creed
+LNG,لغة,ބަސް,Language,,ބަސްތައް,Linguistics
+ZKR,ذكر,ޒިކުރު,Zikr,,,"Adhkar,Azkar,Remembrance"
 
-AKLQ,أخلاق,އަޚްލާގު,Akhlaq,,އަޚުލާގު,"Morals,Ethics,Character"
-ATHR,آثار,އާޘާރު,Athar,,,Asar
+AKLQ,أخلاق,އަޚްލާގު,Akhlaq,,,"Morals,Ethics,Character"
+ATHR,آثار,އާޘާރު,Athar,,,
 RDF,معجم,ރަދީފު,Dictionary,"قاموس,راديف",ބަސްފޮތް,"Radheef,Lexicon"
-QRUL,علوم القرآن,ގުރްއާނުގެ އިލްމު,Quran Sciences,علوم القرآن الكريم,ގުރްއާނުގެ އުލޫމު,"Ulum al-Quran,Quranic Sciences"
+QRUL,علوم القرآن,ގުރްއާނުގެ އިލްމު,Quran Sciences,علوم القرآن الكريم,,Ulum al-Quran
 
 DFK,دفك,ދފކ,DFK,,,
-IH,بيت الإسلام,އިސްލާމް ހައުސް,Islamhouse,إسلام هاوس,އިސްލާމީ ހައުސް,Islam House
-KNSH,كناشة,ކުންނާޝާ,Kunnaasha,,,Kunnasha
+IH,بيت الإسلام,އިސްލާމް ހައުސް,Islamhouse,إسلام هاوس,,
+KNSH,كناشة,ކުންނާޝާ,Kunnaasha,,,
 
 NEW,جديد,އާ,New,أحدث,އެންމެ އާ,"Recent,Latest"
 RAW,خام,⚠️ ރޯ,Raw,غير مدقق,,"Unedited,Unreviewed"
-INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete,ناقص,ނިމިފައިނުވާ,"Unfinished,Partial,WIP"
+INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete,ناقص,ނިމިފައިނުވާ,"Unfinished,Partial"
 DRFT,مسودة,⚠️ ޑްރާފްޓް,Draft,قيد الإعداد,ތައްޔާރުކުރަމުން,In progress
 REV,مراجعة,މުރާޖާ,Revision,منقح,މުރާޖާކުރެވިފައި,"Reviewed,Updated"

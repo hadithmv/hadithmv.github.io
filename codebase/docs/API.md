@@ -109,7 +109,7 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 
 All searchable words a book's tags contribute — every tag's labels plus alias lists, all three languages, space-joined. This is the tag row's text that search matches against the code: a query word hitting an alias or label finds every book carrying that tag's code. Wired into the dashboard search haystacks and the scope-modal filter; empty aliases contribute nothing.
 
-**Aliases are word-level only.** Script-level equivalence — hamza/tashkeel forms, Thaana thikijehi, the guarded definite-article strip — comes from `normaliseForSearch` and must not be duplicated in alias cells (an alias that normalises to the label's own normalised form adds nothing; see `01-registry-bookTags.csv` in ARCHITECTURE.md).
+**Aliases are word-level only.** Script-level equivalence — hamza/tashkeel forms, Thaana thikijehi, the guarded definite-article strip — comes from `normaliseForSearch` and must not be duplicated in alias cells (an alias that normalises to the label's own normalised form adds nothing; see `01-registry-bookTags.csv` in ARCHITECTURE.md). Since the filter boxes are always‑fuzzy (`scoreFilterTokens`, ≤ 2 edits), an alias within 2 edits of its own label is dead weight too — the label already matches it.
 
 Dashboard state and rendering moved to `dashboard.js` when the module was split out of book-data.js — see below.
 
