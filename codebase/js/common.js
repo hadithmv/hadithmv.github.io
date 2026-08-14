@@ -98,7 +98,11 @@ window.tagAllChipHtml = function (tagsActive, count) {
   );
 };
 window.tagChipHtml = function (code, label, palette, active, count) {
-  var chipTitle = active ? "Remove filter: " + label : "Filter by " + label;
+  // label is the tag's trilingual definition ({dv,en,ar}) — tooltips are
+  // English-only house style, so the title always reads the English label.
+  var chipTitle = active
+    ? "Remove filter: " + tagLabel(code, label, "en")
+    : "Filter by " + tagLabel(code, label, "en");
   // Every tag carries a palette slot (0-based, file order) — no negative case.
   var palClass = " tag-palette-" + palette;
   return (

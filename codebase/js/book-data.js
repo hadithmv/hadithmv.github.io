@@ -54,7 +54,7 @@ function injectPaletteCSS(slotCount) {
 /**
  * Load tag definitions from 01-registry-bookTags.csv.
  * Cached after first load; safe to call multiple times.
- * @returns {Promise<Object>} Map of tag code → {label, palette}
+ * @returns {Promise<Object>} Map of tag code → {label: {dv,en,ar}, palette}
  */
 export async function loadTagDefinitions() {
   if (_tagDefinitionsCache) {
@@ -74,13 +74,19 @@ export async function loadTagDefinitions() {
     // Build lookup map — assign each tag its palette slot in file order.
     // The slot IS the display order: chips sort by palette, not by code, so
     // the registry's hand-set row sequence drives every rendered tag row.
+    // Labels are trilingual straight from the registry (code,labelAR,
+    // labelDV,labelEN) — tagLabel picks the right language at render time.
     _tagDefinitionsCache = {};
     var palIdx = 0;
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
       if (row.code) {
         _tagDefinitionsCache[row.code] = {
-          label: row.label || row.code,
+          label: {
+            dv: row.labelDV || row.code,
+            en: row.labelEN || row.code,
+            ar: row.labelAR || row.code,
+          },
           palette: palIdx++,
         };
       }

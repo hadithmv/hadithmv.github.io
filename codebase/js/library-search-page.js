@@ -402,7 +402,8 @@ function renderScopePopover() {
   var html = [];
   // The rail's chips show every tag a book carries, so a book belongs to
   // several groups — but the list is a picker, not a taxonomy: each book
-  // renders exactly once, under its first (alphabetically first) group; a
+  // renders exactly once, under its first group (groups run in the tag
+  // registry's file order, which is also the palette/display order); a
   // group label whose books were all claimed by earlier groups is skipped.
   var seen = {};
   groups.forEach(function (g) {

@@ -69,7 +69,7 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadTagDefinitions()`
 
-Loads and caches `01-registry-bookTags.csv` → `Map<code, {label, palette}>` (palette is a golden‑ratio HSL slot index). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
+Loads and caches `01-registry-bookTags.csv` → `Map<code, {label: {dv,en,ar}, palette}>` (palette is a golden‑ratio HSL slot index; the trilingual labels come straight from the file). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
 
 ### `loadBookNames()`
 
@@ -291,7 +291,7 @@ Returns the current language code.
 
 ### `tagLabel(code, fallback, lang?)`
 
-Returns the translated label for a tag code. Falls back to the CSV label, then the code itself.
+Returns the translated label for a tag code. `fallback` is the tag's loaded definition label (`{dv,en,ar}` from `01-registry-bookTags.csv`); a plain string is accepted too. Resolution order: the requested language, then English, then the fallback, then the code itself.
 
 ### `initI18n()`
 

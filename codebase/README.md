@@ -69,14 +69,14 @@ docs/                           ← User guide, architecture, API reference
 
 ### Add a new tag category
 
-Add a row to `data/01-registry-bookTags.csv`:
+Add a row to `data/01-registry-bookTags.csv` — the label is trilingual, straight in the file:
 
 ```csv
-code,label
-FQH,Fiqh
+code,labelAR,labelDV,labelEN
+FQH,فقه,ފިގުހު,Fiqh
 ```
 
-Books with a `FQH-` prefix (primary tag) or `FQH` in their `tags` column will show a "Fiqh" badge. No code needed. Colours are auto‑generated using golden‑ratio HSL — no limit on tags, always distinct, dark‑mode built in.
+Books with a `FQH-` prefix (primary tag) or `FQH` in their `tags` column will show a "Fiqh" badge in English, `فقه` in Arabic, `ފިގުހު` in Dhivehi. No code needed — this one row is the single source of truth for the tag in all three languages. Colours are auto‑generated using golden‑ratio HSL — no limit on tags, always distinct, dark‑mode built in.
 
 Blank lines are fine as group separators — the parser drops them and they don't shift the auto‑generated colours (each tag's colour slot follows its position among tags). Never add `#` comment lines: the parser has no comment syntax, so a `#` line parses as a phantom tag and silently recolours everything after it. The tag row order is the palette **and the display order — chips render in file order, not alphabetical** — `03-update-bookRegistry.ps1` never rewrites this file.
 

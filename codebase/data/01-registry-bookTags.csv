@@ -1,21 +1,21 @@
-code,label
-QRN,Quran
-HDT,Hadith
-AQD,Aqidah
-LNG,Language
-ZKR,Zikr
+code,labelAR,labelDV,labelEN
+QRN,قرآن,ގުރްއާން,Quran
+HDT,حديث,ޙަދީޘް,Hadith
+AQD,عقيدة,އަގީދާ,Aqidah
+LNG,لغة,ބަސް,Language
+ZKR,ذكر,ޒިކުރު,Zikr
 
-AKLQ,Akhlaq
-ATHR,Athar
-RDF,Radheef
-QRUL,Quran Sciences
+AKLQ,أخلاق,އަޚްލާގު,Akhlaq
+ATHR,آثار,އާޘާރު,Athar
+RDF,معجم,ރަދީފު,Dictionary
+QRUL,علوم القرآن,ގުރްއާނުގެ އިލްމު,Quran Sciences
 
-DFK,DFK
-IH,Islamhouse
-KNSH,Kunnaasha
+DFK,دفك,ދފކ,DFK
+IH,بيت الإسلام,އިސްލާމް ހައުސް,Islamhouse
+KNSH,كناشة,ކުންނާޝާ,Kunnaasha
 
-NEW,New
-RAW,Raw
-INC,Incomplete
-DRFT,Draft
-REV,Revision
+NEW,جديد,އާ,New
+RAW,خام,⚠️ ރޯ,Raw
+INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete
+DRFT,مسودة,⚠️ ޑްރާފްޓް,Draft
+REV,مراجعة,މުރާޖާ,Revision

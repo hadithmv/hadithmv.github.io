@@ -219,24 +219,6 @@ const STRINGS = {
   qrnPresetArabic: { dv: "އަރަބި", en: "Arabic", ar: "عربي" },
   qrnPresetReset: { dv: "ރީސެޓް", en: "Reset", ar: "ضبط" },
 
-  // ── Tag labels ──
-  tagAQD: { dv: "އަގީދާ", en: "Aqidah", ar: "عقيدة" },
-  tagHDT: { dv: "ޙަދީޘް", en: "Hadith", ar: "حديث" },
-  tagDRFT: { dv: "⚠️ ޑްރާފްޓް", en: "Draft", ar: "مسودة" },
-  tagAKLQ: { dv: "އަޚްލާގު", en: "Akhlaq", ar: "أخلاق" },
-  tagATHR: { dv: "އާޘާރު", en: "Athar", ar: "آثار" },
-  tagQRN: { dv: "ގުރްއާން", en: "Quran", ar: "قرآن" },
-  tagQRUL: { dv: "ގުރްއާނުގެ އިލްމު", en: "Quran Sciences", ar: "علوم القرآن" },
-  tagRDF: { dv: "ރަދީފު", en: "Dictionary", ar: "معجم" },
-  tagDFK: { dv: "ދފކ", en: "DFK", ar: "دفك" },
-  tagIH: { dv: "އިސްލާމް ހައުސް", en: "Islamhouse", ar: "بيت الإسلام" },
-  tagZKR: { dv: "ޒިކުރު", en: "Zikr", ar: "ذكر" },
-  tagKNSH: { dv: "ކުންނާޝާ", en: "Kunnaasha", ar: "الكناشة " },
-  tagREV: { dv: "މުރާޖާ", en: "Revision", ar: "مراجعة " },
-  tagNEW: { dv: "އާ", en: "New", ar: "جديد " },
-  tagINC: { dv: "⚠️ ނުނިމޭ...", en: "Incomplete...", ar: "غير مكتمل... " },
-  tagRAW: { dv: "⚠️ ރޯ", en: "Raw", ar: "خام" },
-
   // ── Dashboard ──
   dashboardSearchPlaceholder: {
     dv: "ފޮތް ހޯދާ…",
@@ -489,13 +471,19 @@ const STRINGS = {
   colLangEN: { dv: "އިނގިރޭސި", en: "English", ar: "الإنجليزية" },
 };
 
-/** Translate a tag code. Pass lang to override current language. Falls back to the CSV label. */
+/**
+ * Translate a tag code. Pass lang to override current language.
+ * The per-language labels come from the tag registry — book-data.js loads
+ * each tag as {dv,en,ar} and every render site threads it through as
+ * `fallback`; a plain string fallback is still accepted for legacy callers.
+ */
 export function tagLabel(code, fallback, lang) {
   var l = lang || _currentLang;
-  var key = "tag" + code;
-  var entry = STRINGS[key];
-  if (entry && entry[l]) return entry[l];
-  if (entry && entry.en) return entry.en;
+  if (fallback && typeof fallback === "object") {
+    if (fallback[l]) return fallback[l];
+    if (fallback.en) return fallback.en;
+    if (fallback.ar) return fallback.ar;
+  }
   return fallback || code;
 }
 

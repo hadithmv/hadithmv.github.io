@@ -41,7 +41,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
 | `data/02-registry-bookMeta.csv`      | Central registry of books (code, titles in AR/DV/EN, secondary `tags` column) |
-| `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file) |
+| `data/01-registry-bookTags.csv`       | Tag definitions (code, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file) |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs |
@@ -433,12 +433,16 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 ### 01-registry-bookTags.csv
 
-| Column  | Description                                              |
-| ------- | -------------------------------------------------------- |
-| `code`  | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
-| `label` | Display name for the badge                               |
+| Column     | Description                                              |
+| ---------- | -------------------------------------------------------- |
+| `code`     | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
+| `labelAR`  | Arabic display name                                      |
+| `labelDV`  | Dhivehi display name                                     |
+| `labelEN`  | English display name                                     |
 
-Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just `code,label` — no colour‑picking, no limit on tag count. Because the slot follows tag order, the palette is stable — `03-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours. **The slot is also the display order**: every rendered tag row (dashboard chips, library-search chips, the scope-modal rail and its book groups) sorts by palette slot, so the file's row sequence is exactly the order the user sees.
+Tag labels are **data, not code** — the registry is the single source of truth for all three languages (the same pattern as `02-registry-bookMeta.csv`'s `titleAR/titleDV/titleEN`). `book-data.js` loads each tag as `{label: {dv,en,ar}, palette}` and `tagLabel()` picks the right language at render time; `js/i18n.js` carries no tag strings.
+
+Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just one `code,labelAR,labelDV,labelEN` row — no colour‑picking, no code, no limit on tag count. Because the slot follows tag order, the palette is stable — `03-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours. **The slot is also the display order**: every rendered tag row (dashboard chips, library-search chips, the scope-modal rail and its book groups) sorts by palette slot, so the file's row sequence is exactly the order the user sees.
 
 **Format rules.** Blank lines are dropped by `parseCSV` (the loader's second guard, `if (row.code)` in `book-data.js`, skips anything that slips through) and consume no palette slot — use them freely to group related tags. **Never add comment lines** (`# …` or any non-tag text): the parser has no comment syntax, so such a line parses as a phantom tag with a truthy code, eating a palette slot and silently shifting every colour after it. A stray `,` line is harmless (empty code → skipped).
 
@@ -884,10 +888,10 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 ### Add a new tag category
 
-Add one row to `data/01-registry-bookTags.csv`. Colours are auto‑generated — just `code` and `label`:
+Add one row to `data/01-registry-bookTags.csv`. Colours are auto‑generated — just the code and the three label columns:
 ```csv
-code,label
-FQH,Fiqh
+code,labelAR,labelDV,labelEN
+FQH,فقه,ފިގުހު,Fiqh
 ```
 Use the tag code as the primary prefix in a `bookCode` (e.g. `FQH-usululFiqh`) or as a secondary in the `tags` column of `02-registry-bookMeta.csv` — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
 
@@ -961,7 +965,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### New tag category
 
-1. Add a row to `data/01-registry-bookTags.csv` with `code,label`. Colours are auto‑generated — no need to pick hex values.
+1. Add a row to `data/01-registry-bookTags.csv` with `code,labelAR,labelDV,labelEN`. Colours are auto‑generated — no need to pick hex values.
 1. Use the code as the primary prefix in a `bookCode`, or add it to a book's `tags` column — badges render automatically.
 
 ## Key benefits
