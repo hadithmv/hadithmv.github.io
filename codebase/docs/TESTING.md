@@ -113,8 +113,10 @@ blaming the product.
   recreate it after a `git mv` (seen 2026-08-07 with 02-registry-bookNames.csv
   — content was byte-identical; close the old tab in the editor).
 - **Registry regeneration must be idempotent.** `data/03-update-bookRegistry.ps1`
-  rewrites **both** registries on every run (recomputes version hashes,
-  re-sorts tags, which shifts palette colours — documented behavior). After any
+  rewrites only the book registry on every run (recomputes version hashes). It
+  never rewrites `01-registry-bookTags.csv` — tag row order is the palette slot
+  assignment for the auto-generated colours, so it is hand-controlled (since
+  2026-08-14; before that every run re-sorted tags, shifting colours). After any
   change to the script, run it twice and compare hashes — a byte-stable second
   run proves idempotency. The version swap replaces only the trailing 12-hex
   token on the raw row; never split quoted fields — a split mangles quoted
@@ -127,6 +129,15 @@ blaming the product.
   `MERGED_SOURCES` (add/remove a book in both, or 03 will warn on the merged
   book's deliberately absent CSV, or 02 will carry a row with a stale hash
   contract).
+- **`01-registry-bookTags.csv` has no comment syntax.** Blank lines are
+  dropped by `parseCSV` (csv.js) and consume no palette slot — slots count
+  only code-bearing rows (`if (row.code)` in book-data.js), so blank-line
+  grouping never shifts colours. A `#` comment line (or any non-tag text on
+  its own line) parses as a phantom tag with a truthy code: it eats a palette
+  slot and silently recolours every tag after it. Never add one — verify
+  unexpected colour changes against a git diff of this file first (seen
+  2026-08-14 when the tag sort was removed: the file's order became the
+  palette's order).
 - **`core.autocrlf` hides CRLF-tainted data files from git.** With
   `core.autocrlf=true` (this repo), git normalizes CRLF→LF before hashing, so
   a working file whose line endings were CRLF-ized (Windows editor re-save)

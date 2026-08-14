@@ -111,7 +111,7 @@ Dashboard state and rendering moved to `dashboard.js` when the module was split 
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort both registries (books by `bookCode`, tags by `code`)
+- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort the book registry by `bookCode` (the tag registry is never rewritten)
 
 ---
 

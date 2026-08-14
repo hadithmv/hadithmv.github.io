@@ -78,6 +78,8 @@ FQH,Fiqh
 
 Books with a `FQH-` prefix (primary tag) or `FQH` in their `tags` column will show a "Fiqh" badge. No code needed. Colours are auto‑generated using golden‑ratio HSL — no limit on tags, always distinct, dark‑mode built in.
 
+Blank lines are fine as group separators — the parser drops them and they don't shift the auto‑generated colours (each tag's colour slot follows its position among tags). Never add `#` comment lines: the parser has no comment syntax, so a `#` line parses as a phantom tag and silently recolours everything after it. The tag row order is the palette — `03-update-bookRegistry.ps1` never rewrites this file.
+
 ### Book code conventions
 
 A book code carries exactly ONE tag — the primary — as its first segment (`HDT-muwattaMalik`); any further tags live in the `tags` column of the registry. Prefixes and suffixes control book behaviour — badges, visibility, row order, and more. See [Architecture → Naming conventions](docs/ARCHITECTURE.md#naming-conventions) for the full list. A quick summary:

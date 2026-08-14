@@ -41,7 +41,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
 | `data/02-registry-bookMeta.csv`      | Central registry of books (code, titles in AR/DV/EN, secondary `tags` column) |
-| `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL)  |
+| `data/01-registry-bookTags.csv`       | Tag definitions (code, label) — colours auto‑generated (golden‑ratio HSL), slot = file order, hand‑controlled (03 never rewrites this file) |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs |
@@ -74,7 +74,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/content/*.csv`        | Per-book content files                                                     |
-| `data/03-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the registries            |
+| `data/03-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag registry) |
 | `data/04-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
 | `data/06-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
 | `data/05-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
@@ -438,7 +438,9 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `code`  | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
 | `label` | Display name for the badge                               |
 
-Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`). A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just `code,label` — no colour‑picking, no limit on tag count. The PIN entry exists only to document the pin chip colour; it uses hardcoded red and is not part of the rotation.
+Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just `code,label` — no colour‑picking, no limit on tag count. The PIN entry exists only to document the pin chip colour; it uses hardcoded red and is not part of the rotation. Because the slot follows tag order, the palette is stable — `03-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours.
+
+**Format rules.** Blank lines are dropped by `parseCSV` (the loader's second guard, `if (row.code)` in `book-data.js`, skips anything that slips through) and consume no palette slot — use them freely to group related tags. **Never add comment lines** (`# …` or any non-tag text): the parser has no comment syntax, so such a line parses as a phantom tag with a truthy code, eating a palette slot and silently shifting every colour after it. A stray `,` line is harmless (empty code → skipped). The PIN row is position‑neutral (palette −1, excluded from the slot count) and may sit anywhere.
 
 ### data/content/{bookCode}.csv
 
@@ -602,7 +604,7 @@ reader shows columns in list order
 1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden. Where an ayah has no content yet, leave its row empty (`,,,` or a blank line) — it renders as base columns only.
 2. Register each column in `data/06-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
-4. Register the book in `02-registry-bookMeta.csv` — or just run `data/03-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts both registries. Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeFromIndex`) survive untouched.
+4. Register the book in `02-registry-bookMeta.csv` — or just run `data/03-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts the book registry (the tag registry is never rewritten — its row order is the palette slot assignment). Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeFromIndex`) survive untouched.
 
 ### Ayah decoration
 

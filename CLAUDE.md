@@ -65,10 +65,12 @@ the "keeping this guide alive" capture-at-discovery rule.
 
 ## Data pipeline
 
-- `data/03-update-bookRegistry.ps1` rewrites **both** registries on every run
-  (recomputes versions, re-sorts tags). After changing it, run **twice** and
-  compare hashes — a byte-stable second run proves idempotency. Never split
-  quoted CSV fields when hand-editing registries.
+- `data/03-update-bookRegistry.ps1` rewrites the book registry on every run
+  (recomputes versions) — it **never** touches `01-registry-bookTags.csv`: tag
+  row order is the palette slot assignment for the auto-generated colours, so
+  it is hand-controlled. After changing the script, run **twice** and compare
+  hashes — a byte-stable second run proves idempotency. Never split quoted
+  CSV fields when hand-editing registries.
 - Version = SHA-256 of the content CSV, first 12 hex, **lowercase** (compared
   case-sensitively client-side).
 - After registry or book changes, regenerate the search index:

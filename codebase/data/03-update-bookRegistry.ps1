@@ -5,10 +5,11 @@
 #     git's clean filter, so versions always describe the LF bytes that GitHub
 #     Pages actually serves (bare CRs inside quoted fields are data, kept)
 #   - Recomputes each book's version hash from its content CSV
-#   - Sorts alphabetically by bookCode; writes both registries as LF, no BOM
+#   - Sorts alphabetically by bookCode; writes the registry as LF, no BOM
+#   - NEVER touches 01-registry-bookTags.csv — tag order (and the
+#     auto-assigned palette colours, which follow file order) is hand-controlled
 
 $csvPath = Join-Path $PSScriptRoot "02-registry-bookMeta.csv"
-$tagsPath = Join-Path $PSScriptRoot "01-registry-bookTags.csv"
 $dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
 $utf8 = New-Object System.Text.UTF8Encoding($false)  # no-BOM UTF-8 for registry reads/writes (PS 5.1's -Encoding UTF8 adds a BOM)
 
@@ -152,23 +153,11 @@ $newRows = foreach ($row in $rows) {
 $sorted = $newRows | Sort-Object { ($_ -split ",")[0].Trim() }
 
 # ── Write back ────────────────────────────────────────────────
+# Only the book registry is written. 01-registry-bookTags.csv is never
+# rewritten: its row order is the palette slot assignment for the
+# auto-generated tag colours, so the user controls it by hand.
 $output = @($header) + $sorted
 [System.IO.File]::WriteAllText($csvPath, ($output -join "`n"), $utf8)  # LF, no BOM, no trailing newline
-
-# ── Sort tag registry alphabetically by code ──────────────────
-# Keeps 01-registry-bookTags.csv tidy on every run, like the book
-# registry above. Note: palette slot assignment follows file order —
-# sorting shifts the auto-generated colours (they are not stored anywhere).
-Write-Section "Sorting tag registry"
-$tagLines = [System.IO.File]::ReadAllLines($tagsPath, $utf8)
-$tagHeader = $tagLines[0]
-$tagRows = $tagLines[1..($tagLines.Count - 1)] | Where-Object { $_.Trim() -ne "" }
-$tagSorted = $tagRows | Sort-Object { ($_ -split ",")[0].Trim() }
-# MUST join before Out-File -NoNewline: an array piped to Out-File with
-# -NoNewline is written as one concatenated line (no separators) — the
-# same pitfall the book registry avoids by joining first.
-[System.IO.File]::WriteAllText($tagsPath, ((@($tagHeader) + $tagSorted) -join "`n"), $utf8)
-Write-Info "$($tagSorted.Count) tags sorted"
 
 $total = $sorted.Count
 Write-Host "`n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor DarkGray
