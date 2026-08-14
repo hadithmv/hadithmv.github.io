@@ -320,11 +320,6 @@ const STRINGS = {
     en: "Select books to search in",
     ar: "اختر الكتب للبحث فيها",
   },
-  libScopeDone: {
-    dv: "ނިންމާ",
-    en: "Done",
-    ar: "تم",
-  },
   libScopeTypesLabel: {
     dv: "ޓެގުތައް",
     en: "Tags",

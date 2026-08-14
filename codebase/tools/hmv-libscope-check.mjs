@@ -131,6 +131,13 @@ async function main() {
     check("S2 list ≥ 40 books", rows2 >= 40, rows2);
     check("S2 ≥ 5 type groups", groups2 >= 5, groups2);
     check("S2 ≥ 5 type chips", chips2 >= 5, chips2);
+    // Rows pair the current-language title with the Arabic title as the
+    // secondary line; the machine code moved to the row's tooltip.
+    check("S2 rows show Arabic title, tooltip = code", (await evalJS(`(function () {
+      var r = document.querySelector('#libScopeList .lib-scope-row');
+      var sub = r.querySelector('.lib-scope-sub');
+      return r.getAttribute('title') === r.dataset.book && !!sub && sub.textContent.length > 0 && sub.textContent !== r.dataset.book;
+    })()`)) === true);
     // expectation mirrors js/i18n.js libScopeTitle.en
     check("S2 modal title", (await evalJS(`document.getElementById('libScopeModalTitle').textContent`)) === "Select books to search in", await evalJS(`document.getElementById('libScopeModalTitle').textContent`));
     check("S2 count shows total (unscoped)", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === rows2 + " books", await evalJS(`document.getElementById('libScopeCount').textContent`));

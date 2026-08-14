@@ -363,12 +363,15 @@ function scopeRowHTML(code) {
     title = l === "dv" ? b.titleDV : l === "ar" ? b.titleAR : b.titleEN;
     if (!title) title = b.titleEN || b.titleDV || b.titleAR || "";
   }
+  // The secondary line is the book's Arabic title — its canonical name in
+  // every language; the row's tooltip carries the machine code (the ?books=
+  // value) for power users sharing links.
   return (
-    '<label class="lib-scope-row" data-book="' + code + '">' +
+    '<label class="lib-scope-row" data-book="' + code + '" title="' + code + '">' +
     '<input type="checkbox" data-book="' + code + '"' +
     (isBookSelected(code) ? " checked" : "") + " />" +
     '<span class="lib-scope-title">' + escapeHTML(title || code) + "</span>" +
-    '<span class="lib-scope-code">' + code + "</span></label>"
+    '<span class="lib-scope-sub">' + escapeHTML(b && b.titleAR ? b.titleAR : "") + "</span></label>"
   );
 }
 

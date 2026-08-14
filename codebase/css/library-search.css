@@ -266,12 +266,21 @@
      the first glyph of every row */
   padding-inline-start: 6px;
 }
-.lib-scope-code {
+/* The row's secondary line: the book's Arabic title — canonical in every
+   language, so it renders RTL in the Arabic script font. The tooltip on the
+   row carries the machine code instead (Latin, shown on hover). Arabic
+   letters don't carry the Thaana webfont's start-side overhang, so the
+   ellipsis clip needs no inset. */
+.lib-scope-sub {
   flex-shrink: 0;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 0.72rem;
   color: var(--color-text-subtle);
-  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
-  direction: ltr;
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  direction: rtl;
 }
 .lib-scope-none {
   padding: 10px 14px;
