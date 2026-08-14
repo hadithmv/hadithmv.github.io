@@ -3,19 +3,19 @@ QRN,قرآن,ގުރްއާން,Quran,,,
 HDT,حديث,ޙަދީޘް,Hadith,,,
 AQD,عقيدة,އަގީދާ,Aqidah,,,Creed
 LNG,لغة,ބަސް,Language,,ބަސްތައް,Linguistics
-ZKR,ذكر,ޒިކުރު,Zikr,,,"Adhkar,Azkar,Remembrance"
+ZKR,ذكر,ޒިކުރު,Zikr,,ދުޢާ,"Adhkar,Azkar,Dua,Remembrance"
 
 AKLQ,أخلاق,އަޚްލާގު,Akhlaq,,,"Morals,Ethics,Character"
-ATHR,آثار,އާޘާރު,Athar,,,
+ATHR,آثار,އާޘާރު,Athar,"أثر,خبر,أخبار","ޚަބަރު,ޢަޚްބާރު","Khabar,Akhbar"
 RDF,معجم,ރަދީފު,Dictionary,"قاموس,راديف",ބަސްފޮތް,"Radheef,Lexicon"
 QRUL,علوم القرآن,ގުރްއާނުގެ އިލްމު,Quran Sciences,علوم القرآن الكريم,,Ulum al-Quran
 
-DFK,دفك,ދފކ,DFK,,,
-IH,بيت الإسلام,އިސްލާމް ހައުސް,Islamhouse,إسلام هاوس,,
-KNSH,كناشة,ކުންނާޝާ,Kunnaasha,,,
+DFK,دفك,ދފކ,DFK,دار فتية الكهف,ދާރު ފިތްޔަތިލް ކަހްފި,Dar Fityatil Kahf
+IH,دار الإسلام,އިސްލާމް ހައުސް,Islam House,"إسلام هاوس,دار الإسلام",,
+KNSH,كناشة,ކުންނާޝާ,Kunnaasha,,ނޯޓުފޮތް,Notebook
 
-NEW,جديد,އާ,New,أحدث,އެންމެ އާ,"Recent,Latest"
+NEW,جديد,އާ,New,أحدث,އައު,"Recent,Latest"
 RAW,خام,⚠️ ރޯ,Raw,غير مدقق,,"Unedited,Unreviewed"
-INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete,ناقص,ނިމިފައިނުވާ,"Unfinished,Partial"
-DRFT,مسودة,⚠️ ޑްރާފްޓް,Draft,قيد الإعداد,ތައްޔާރުކުރަމުން,In progress
-REV,مراجعة,މުރާޖާ,Revision,منقح,މުރާޖާކުރެވިފައި,"Reviewed,Updated"
+INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete,ناقص,,"Unfinished,Partial"
+DRFT,مسودة,⚠️ ޑްރާފްޓު,Draft,قيد الإعداد,ތައްޔާރުވަމުން ދަނީ,In Progress
+REV,مراجعة,މުރާޖާ,Revision,منقح,ބަލަމުން ދަނީ,In Review
