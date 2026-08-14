@@ -433,14 +433,19 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 ### 01-registry-bookTags.csv
 
-| Column     | Description                                              |
-| ---------- | -------------------------------------------------------- |
-| `code`     | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
-| `labelAR`  | Arabic display name                                      |
-| `labelDV`  | Dhivehi display name                                     |
-| `labelEN`  | English display name                                     |
+| Column       | Description                                              |
+| ------------ | -------------------------------------------------------- |
+| `code`       | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
+| `labelAR`    | Arabic display name                                      |
+| `labelDV`    | Dhivehi display name                                     |
+| `labelEN`    | English display name                                     |
+| `aliasesAR`  | Extra Arabic search words (optional)                     |
+| `aliasesDV`  | Extra Dhivehi search words (optional)                    |
+| `aliasesEN`  | Extra English search words (optional)                    |
 
-Tag labels are **data, not code** — the registry is the single source of truth for all three languages (the same pattern as `02-registry-bookMeta.csv`'s `titleAR/titleDV/titleEN`). `book-data.js` loads each tag as `{label: {dv,en,ar}, palette}` and `tagLabel()` picks the right language at render time; `js/i18n.js` carries no tag strings.
+Tag labels are **data, not code** — the registry is the single source of truth for all three languages (the same pattern as `02-registry-bookMeta.csv`'s `titleAR/titleDV/titleEN`). `book-data.js` loads each tag as `{label: {dv,en,ar}, aliases: {dv,en,ar}, palette}` and `tagLabel()` picks the right language at render time; `js/i18n.js` carries no tag strings.
+
+**Aliases** are search-only words that should match the tag's code — names beyond the label (e.g. RDF: `Radheef,Lexicon`). Comma-separated lists go in a **quoted cell** (`"Radheef,Lexicon"`) — the parser handles quotes. They never render on badges; they join the search matching (dashboard search box + scope-modal filter, all languages at once) via `tagSearchWords()`, which appends each book's tag labels + aliases to the query haystack.
 
 Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just one `code,labelAR,labelDV,labelEN` row — no colour‑picking, no code, no limit on tag count. Because the slot follows tag order, the palette is stable — `03-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours. **The slot is also the display order**: every rendered tag row (dashboard chips, library-search chips, the scope-modal rail and its book groups) sorts by palette slot, so the file's row sequence is exactly the order the user sees.
 

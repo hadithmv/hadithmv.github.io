@@ -87,6 +87,13 @@ export async function loadTagDefinitions() {
             en: row.labelEN || row.code,
             ar: row.labelAR || row.code,
           },
+          // Extra searchable words per language (comma-separated lists in the
+          // registry) — names beyond the label that should still match the code.
+          aliases: {
+            dv: row.aliasesDV || "",
+            en: row.aliasesEN || "",
+            ar: row.aliasesAR || "",
+          },
           palette: palIdx++,
         };
       }
@@ -111,7 +118,7 @@ export async function loadTagDefinitions() {
  * @param {string} bookCode - e.g. "HDT-muwattaMalik"
  * @param {Object} [entry] - the registry row (from 02-registry-bookMeta.csv);
  *   provides the `tags` column. Pass it whenever available.
- * @returns {Array<{code: string, label: string, palette: number}>}
+ * @returns {Array<{code: string, label: Object, aliases: Object, palette: number}>}
  */
 function extractTags(bookCode, entry) {
   if (!bookCode) return [];
@@ -132,8 +139,30 @@ function extractTags(bookCode, entry) {
   return codes.map((code) => ({
     code,
     label: defs[code].label,
+    aliases: defs[code].aliases,
     palette: defs[code].palette,
   }));
+}
+
+/**
+ * All searchable words a book's tags contribute — the labels plus the alias
+ * lists, in all three languages. This is the tag row's text that search
+ * should match against the code (a query word hitting an alias or label
+ * finds every book carrying that tag's code).
+ *
+ * @param {string} bookCode - e.g. "HDT-muwattaMalik"
+ * @param {Object} [entry] - the registry row, for secondary tags (see extractTags)
+ * @returns {string} space-joined words (aliases stay comma-separated inside)
+ */
+export function tagSearchWords(bookCode, entry) {
+  var words = [];
+  extractTags(bookCode, entry).forEach(function (tg) {
+    ["dv", "en", "ar"].forEach(function (l) {
+      if (tg.label && tg.label[l]) words.push(tg.label[l]);
+      if (tg.aliases && tg.aliases[l]) words.push(tg.aliases[l]);
+    });
+  });
+  return words.join(" ");
 }
 
 // ---------------------------------------------------------------------------

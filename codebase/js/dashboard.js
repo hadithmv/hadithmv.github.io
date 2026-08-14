@@ -14,7 +14,7 @@ import {
   removeSearchHistoryItem,
   clearSearchHistory,
 } from "./search-utils.js";
-import { loadTagDefinitions, loadBookRegistry, extractTags } from "./book-data.js";
+import { loadTagDefinitions, loadBookRegistry, extractTags, tagSearchWords } from "./book-data.js";
 import {
   isPinned,
   getPinnedBooks,
@@ -146,6 +146,9 @@ function renderDashboard(bookNames) {
           normaliseForSearch(b.titleAR || "").replace(/[\s-]/g, ""),
           normaliseForSearch(b.titleEN || "").replace(/[\s-]/g, ""),
           normaliseForSearch(b.bookCode || "").replace(/[\s-]/g, ""),
+          // Tag words (labels + aliases, all languages) — a query hitting a
+          // tag's text finds every book carrying that tag's code.
+          normaliseForSearch(tagSearchWords(b.bookCode, b) || "").replace(/[\s-]/g, ""),
         ];
         return tokens.every(function (t) {
           return haystacks.some(function (h) {

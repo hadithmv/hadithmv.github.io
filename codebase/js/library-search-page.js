@@ -19,6 +19,7 @@ import {
   loadTagDefinitions,
   loadBookRegistry,
   extractTags,
+  tagSearchWords,
   getBookVersionSync,
   getCsvPath,
 } from "./book-data.js";
@@ -413,7 +414,10 @@ function renderScopePopover() {
       if (!f) return true;
       var b = _bookByCode[code];
       var hay = ((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
-        " " + code).toLowerCase();
+        " " + code +
+        // Tag words (labels + aliases, all languages) — a query hitting a
+        // tag's text finds every book carrying that tag's code.
+        (b ? " " + tagSearchWords(code, b) : "")).toLowerCase();
       return hay.indexOf(f) !== -1;
     });
     if (shown.length === 0) return;

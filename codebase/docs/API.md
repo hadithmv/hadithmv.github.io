@@ -69,7 +69,7 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadTagDefinitions()`
 
-Loads and caches `01-registry-bookTags.csv` → `Map<code, {label: {dv,en,ar}, palette}>` (palette is a golden‑ratio HSL slot index; the trilingual labels come straight from the file). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
+Loads and caches `01-registry-bookTags.csv` → `Map<code, {label: {dv,en,ar}, aliases: {dv,en,ar}, palette}>` (palette is a golden‑ratio HSL slot index; the trilingual labels and alias words come straight from the file). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
 
 ### `loadBookNames()`
 
@@ -97,13 +97,17 @@ Synchronous version lookup — returns the registry's `version` hash for a book 
 
 ### `extractTags(bookCode, entry?)`
 
-Returns a book's tags: the PRIMARY is the first registered prefix segment of the `bookCode`; SECONDARY tags come from the registry entry's `tags` column (comma‑separated codes). Pass the registry row (`entry`) whenever available (book-data and reader both have it in scope). Returns `Array<{code, label, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
+Returns a book's tags: the PRIMARY is the first registered prefix segment of the `bookCode`; SECONDARY tags come from the registry entry's `tags` column (comma‑separated codes). Pass the registry row (`entry`) whenever available (book-data and reader both have it in scope). Returns `Array<{code, label: {dv,en,ar}, aliases: {dv,en,ar}, palette}>` (palette is an integer index used with `.tag-palette-N` CSS classes).
 
 ```js
 extractTags("HDT-muwattaMalik", { tags: "DRFT" });
-// [{code:"HDT", label:"Hadith", palette: 0},
-//  {code:"DRFT", label:"Draft", palette: 1}]
+// [{code:"HDT", label:{dv:"ޙަދީޘް", en:"Hadith", ar:"حديث"}, aliases:{...}, palette: 0},
+//  {code:"DRFT", label:{...}, aliases:{...}, palette: 1}]
 ```
+
+### `tagSearchWords(bookCode, entry?)`
+
+All searchable words a book's tags contribute — every tag's labels plus alias lists, all three languages, space-joined. This is the tag row's text that search matches against the code: a query word hitting an alias or label finds every book carrying that tag's code. Wired into the dashboard search haystacks and the scope-modal filter; empty aliases contribute nothing.
 
 Dashboard state and rendering moved to `dashboard.js` when the module was split out of book-data.js — see below.
 
