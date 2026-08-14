@@ -1,20 +1,20 @@
 code,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN
-QRN,قرآن,ގުރްއާން,Quran,"القرآن,القران",ކުރްއާން,"Qur'an,Koran,Quraan"
-HDT,حديث,ޙަދީޘް,Hadith,"الحديث,الأحاديث",ޙަދީސް,"Ahadith,Hadiths"
-AQD,عقيدة,އަގީދާ,Aqidah,"العقيدة,عقائد",ޢަގީދާ,"Aqeedah,Creed,Aqida"
-LNG,لغة,ބަސް,Language,"اللغة,لغات",ބަސްތައް,"Languages,Linguistics"
-ZKR,ذكر,ޒިކުރު,Zikr,"الذكر,الأذكار",ޛިކުރު,"Dhikr,Adhkar,Azkar,Remembrance"
+QRN,قرآن,ގުރްއާން,Quran,,ކުރްއާން,"Qur'an,Koran,Quraan"
+HDT,حديث,ޙަދީޘް,Hadith,,,"Ahadith,Hadiths"
+AQD,عقيدة,އަގީދާ,Aqidah,عقائد,,"Aqeedah,Creed,Aqida"
+LNG,لغة,ބަސް,Language,لغات,ބަސްތައް,"Languages,Linguistics"
+ZKR,ذكر,ޒިކުރު,Zikr,,,"Dhikr,Adhkar,Azkar,Remembrance"
 
-AKLQ,أخلاق,އަޚްލާގު,Akhlaq,الأخلاق,އަޚުލާގު,"Morals,Ethics,Character"
-ATHR,آثار,އާޘާރު,Athar,الآثار,އާސާރު,Asar
+AKLQ,أخلاق,އަޚްލާގު,Akhlaq,,އަޚުލާގު,"Morals,Ethics,Character"
+ATHR,آثار,އާޘާރު,Athar,,,Asar
 RDF,معجم,ރަދީފު,Dictionary,"قاموس,راديف",ބަސްފޮތް,"Radheef,Lexicon"
-QRUL,علوم القرآن,ގުރްއާނުގެ އިލްމު,Quran Sciences,"علوم القران,علوم القرآن الكريم",ގުރްއާނުގެ އުލޫމު,"Ulum al-Quran,Quranic Sciences"
+QRUL,علوم القرآن,ގުރްއާނުގެ އިލްމު,Quran Sciences,علوم القرآن الكريم,ގުރްއާނުގެ އުލޫމު,"Ulum al-Quran,Quranic Sciences"
 
 DFK,دفك,ދފކ,DFK,,,
 IH,بيت الإسلام,އިސްލާމް ހައުސް,Islamhouse,إسلام هاوس,އިސްލާމީ ހައުސް,Islam House
-KNSH,كناشة,ކުންނާޝާ,Kunnaasha,كناشة,,Kunnasha
+KNSH,كناشة,ކުންނާޝާ,Kunnaasha,,,Kunnasha
 
-NEW,جديد,އާ,New,"الجديد,أحدث",އެންމެ އާ,"Recent,Latest"
+NEW,جديد,އާ,New,أحدث,އެންމެ އާ,"Recent,Latest"
 RAW,خام,⚠️ ރޯ,Raw,غير مدقق,,"Unedited,Unreviewed"
 INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete,ناقص,ނިމިފައިނުވާ,"Unfinished,Partial,WIP"
 DRFT,مسودة,⚠️ ޑްރާފްޓް,Draft,قيد الإعداد,ތައްޔާރުކުރަމުން,In progress

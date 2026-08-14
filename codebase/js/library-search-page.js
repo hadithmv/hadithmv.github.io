@@ -36,6 +36,7 @@ import {
   getSearchHistory,
   removeSearchHistoryItem,
   clearSearchHistory,
+  normaliseForSearch,
 } from "./search-utils.js";
 
 // ── Page state ───────────────────────────────────────────────
@@ -399,7 +400,7 @@ function renderScopePopover() {
   el.scopeChips.innerHTML = groups.map(function (g) {
     return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
   }).join("");
-  var f = _scopeFilter.toLowerCase();
+  var f = normaliseForSearch(_scopeFilter.toLowerCase());
   var html = [];
   // The rail's chips show every tag a book carries, so a book belongs to
   // several groups — but the list is a picker, not a taxonomy: each book
@@ -413,11 +414,14 @@ function renderScopePopover() {
       seen[code] = true;
       if (!f) return true;
       var b = _bookByCode[code];
-      var hay = ((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
+      var hay = normaliseForSearch(((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
         " " + code +
         // Tag words (labels + aliases, all languages) — a query hitting a
         // tag's text finds every book carrying that tag's code.
-        (b ? " " + tagSearchWords(code, b) : "")).toLowerCase();
+        // normaliseForSearch: same script-level equivalence as the dashboard
+        // (hamza/tashkeel forms, Thaana dotted letters), then lowercase for
+        // Latin case-insensitivity.
+        (b ? " " + tagSearchWords(code, b) : "")).toLowerCase());
       return hay.indexOf(f) !== -1;
     });
     if (shown.length === 0) return;

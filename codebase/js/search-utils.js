@@ -16,20 +16,30 @@
 
 /**
  * Strip Arabic tashkeel, unify alif/ya/waw variants,
- * normalise Thaana thikijehi → base letters.
+ * normalise Thaana thikijehi → base letters, strip the
+ * Arabic definite article (guarded — see AL_RE below).
  */
 // Single regex pass + per-char lookup — one full scan instead of ~30
 // sequential replaces. This is the hottest function in the app: it runs
 // on every search keystroke, every highlight, and once per cell when
 // buildNormData() precomputes the search cache.
-var NORM_RE = /[ؐ-ًؚ-ٰٟۖ-ۭـ]|[أإآ]|ى|ؤ|[ޘޝޞ]|[ޙޚ]|[ޛޜޡ]|[ޟ]|[ޠ]|[ޢ]|[ޣޤ]|[ޥ]/g;
+var NORM_RE = /[ؐ-ًؚ-ٰٟۖ-ۭـ]|[أإآٱ]|ى|ؤ|[ޘޝޞ]|[ޙޚ]|[ޛޜޡ]|[ޟ]|[ޠ]|[ޢ]|[ޣޤ]|[ޥ]/g;
+
+// Arabic definite article, stripped at word start (second pass, after the
+// marks are gone so the guards see the letters themselves). Refuses:
+//  - before another ل — الله/اللهم/اللائي keep the whole word;
+//  - unless ≥ 2 letters follow — أَلْف "thousand" and the mysterious-letter
+//    "الر" keep their shape (a 1-letter remainder would be search noise).
+// Word-internal ال (بال، وال، لل) is left alone — "والقرآن" stays whole,
+// still consistent on both sides of a search.
+var AL_RE = /(^|[^؀-ۿݐ-ݿ])ال(?!ل)(?=[؀-ۿݐ-ݿ]{2})/g;
 
 export function normaliseForSearch(str) {
   if (!str) return "";
   var s = str.toLowerCase();
-  return s.replace(NORM_RE, function (ch) {
-    // Alif → plain alif
-    if (ch === "أ" || ch === "إ" || ch === "آ") return "ا";
+  s = s.replace(NORM_RE, function (ch) {
+    // Alif → plain alif (incl. alif-wasla ٱ)
+    if (ch === "أ" || ch === "إ" || ch === "آ" || ch === "ٱ") return "ا";
     // Ya → ya
     if (ch === "ى") return "ي";
     // Waw-hamza → waw
@@ -45,6 +55,7 @@ export function normaliseForSearch(str) {
     if (ch === "ޥ") return "ވ";
     return ""; // tashkeel / tatweel
   });
+  return s.replace(AL_RE, "$1");
 }
 
 // ── HTML helpers ────────────────────────────────────────────
@@ -249,7 +260,10 @@ function levenshtein(a, b, max) {
  *   ~word~        – fuzzy (1–2 char tolerance)
  *   * / ?        – wildcard
  *   col:N:word   – scope to column N
- *   /pattern/fl  – explicit regex
+ *   /pattern/fl  – explicit regex (the pattern is normalised like any
+ *                  query term — regexes test the normalised text, so the
+ *                  pattern gets the same treatment or «/الناس/» would
+ *                  diverge from the plain term once ال is stripped)
  */
 export function parseQuery(query) {
   var result = { include: [], exclude: [] };
@@ -264,7 +278,7 @@ export function parseQuery(query) {
       // match sits before the inherited lastIndex silently fails — order-
       // dependent false negatives (72/179 real misses on «/الناس/»). The
       // engine wants "does this cell match anywhere": strip those flags.
-      result.regex = new RegExp(regexMatch[1], (regexMatch[2] || "i").replace(/[gy]/g, ""));
+      result.regex = new RegExp(normaliseForSearch(regexMatch[1]), (regexMatch[2] || "i").replace(/[gy]/g, ""));
     } catch (e) { result.regex = null; }
     return result;
   }

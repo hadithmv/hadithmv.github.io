@@ -109,6 +109,8 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 
 All searchable words a book's tags contribute — every tag's labels plus alias lists, all three languages, space-joined. This is the tag row's text that search matches against the code: a query word hitting an alias or label finds every book carrying that tag's code. Wired into the dashboard search haystacks and the scope-modal filter; empty aliases contribute nothing.
 
+**Aliases are word-level only.** Script-level equivalence — hamza/tashkeel forms, Thaana thikijehi, the guarded definite-article strip — comes from `normaliseForSearch` and must not be duplicated in alias cells (an alias that normalises to the label's own normalised form adds nothing; see `01-registry-bookTags.csv` in ARCHITECTURE.md).
+
 Dashboard state and rendering moved to `dashboard.js` when the module was split out of book-data.js — see below.
 
 ### Naming conventions
@@ -167,11 +169,12 @@ Turns `https://` URLs in **already‑escaped** HTML into `<a class="reader-link"
 Normalises text for comparison:
 
 - Strips Arabic tashkeel and tatweel
-- Normalises alif variants (`أ إ آ` → `ا`), ya (`ى` → `ي`), waw‑hamza (`ؤ` → `و`)
+- Normalises alif variants (`أ إ آ ٱ` → `ا` — incl. alif‑wasla), ya (`ى` → `ي`), waw‑hamza (`ؤ` → `و`)
 - Normalises Thaana thikijehi (`ޘ→ސ`, `ޙ→ހ`, etc.)
-- Implemented as a single regex pass with a per‑char lookup (was ~30 sequential replaces) — the hottest function in the app, so it is built for speed
+- Strips the Arabic definite article at word start — **guarded**: refused before another ل (`الله`, `اللهم`, `اللائي` keep the whole word) and when fewer than 2 letters would remain (`أَلْف` "thousand", the mysterious-letter `الر`). Word-internal ال (`بال`, `وال`) is untouched
+- Two passes over the string (mark/hamza map, then the ال-strip) — still the hottest function in the app, so both are single regex scans
 
-Used by both dashboard search and book search.
+Used by dashboard search, book search, the scope-modal filter, the library engine, the search-index build, and regex query patterns (parseQuery normalises `/…/` patterns the same way — regexes test the normalised text, so the pattern must match the same normalised form).
 
 ### `formatThousands(n)`
 
@@ -205,7 +208,7 @@ parseQuery("الله -رسول .سلام col:2:بسم");
 | `~word~` | Fuzzy (Levenshtein ≤ 2) |
 | `*` / `?` | Wildcard (any / one char) |
 | `col:N:word` | Scope to column N |
-| `/pattern/flags` | Explicit regex |
+| `/pattern/flags` | Explicit regex — the pattern is normalised like any term (regexes test the normalised text) |
 
 ### `rowMatchesQuery(row, parsed)`
 
