@@ -300,20 +300,25 @@ function renderScopeButton() {
  */
 function renderScopeShell() {
   el.scopeBody.innerHTML =
-    // One pinned header row spanning both panes: the rail's "Tags" pane
-    // label rightmost (above the rail), the filter and the count over the
-    // list. Everything below the header scrolls inside its own pane — the
-    // label never scrolls out of view with the chips. Desktop maps label and
-    // head to the grid's first row; the stacked layout puts the label above
-    // the chips row, which comes above the filter row, which comes above the
-    // list (the filter stays directly above the list it describes).
+    // One pinned header row spanning both panes: the rail's "Tags" pane label
+    // rightmost (above the rail), the filter and the count over the list.
+    // Everything below the header scrolls inside its own pane — the label
+    // never scrolls out of view with the chips. The reset button lives in the
+    // header beside the label, not in the rail: it clears the whole scope (a
+    // picker-wide action, not a chip-local one) and stays reachable even when
+    // the rail is scrolled. Desktop maps label and head to the grid's first
+    // row; the stacked layout puts the label above the chips row, which comes
+    // above the filter row, which comes above the list (the filter stays
+    // directly above the list it describes).
+    '<div class="lib-scope-head-label">' +
     '<div id="libScopeTypesLabel" class="lib-scope-pane-label">' + t("libScopeTypesLabel") + "</div>" +
-    // The rail: the reset button (always visible — a plain action, not a
-    // state label), then the chips. Only the chips sub-container is rebuilt
-    // on filter/selection changes, keeping the button + its listener intact.
-    '<div id="libScopeTypes" class="lib-scope-types">' +
     '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
     t("libScopeReset") + "</button>" +
+    "</div>" +
+    // The rail: only the chips (a plain, always-visible element — no state to
+    // survive a rebuild). The chips sub-container is the whole rail, so it is
+    // rebuilt on filter/selection changes with no listeners to preserve.
+    '<div id="libScopeTypes" class="lib-scope-types">' +
     '<span id="libScopeChips" class="lib-scope-chips"></span>' +
     "</div>" +
     '<div class="lib-scope-head">' +

@@ -151,16 +151,25 @@
   padding: 4px 0 0; /* rows carry their own horizontal padding */
   overflow: hidden;
 }
-/* Small pane label ("Tags") — the rail's heading. In the stacked layout it
-   is the modal body's first line, directly above the chips row; on desktop
-   it becomes a pinned cell of the grid's header row (see the media block),
-   so it never scrolls out of view with the chips. */
+/* Small pane label ("Tags") — the rail's heading. It sits inside the pinned
+   header cell next to the reset button; the wrapper carries the layout and
+   padding, this only the text look. */
 .lib-scope-pane-label {
-  padding: 8px 14px 0; /* own line above the chips row on mobile */
   font-size: var(--panel-font-size, 0.78rem);
   font-weight: 700;
   color: var(--color-text-subtle);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+/* The pinned header's label cell: "Tags" + the reset button on one line. In
+   the stacked layout it is the modal body's first line, directly above the
+   chips row; on desktop it becomes the grid's rightmost header cell (see the
+   media block). Keeping the reset here — outside the scrolling rail — means
+   it never scrolls out of view with the chips. */
+.lib-scope-head-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 0; /* own line above the chips row on mobile */
 }
 /* The modal's pinned header row: filter and count, directly above the book
    list they describe. On desktop it spans the list pane's column only (the
@@ -224,8 +233,9 @@
 }
 /* Group labels read as section headers: sticky inside the scrolling list
    (they hold position while their books scroll beneath), on a subtle opaque
-   band with a rule under it — so they stand out from the rows and passing
-   rows stay hidden behind them. */
+   band framed top and bottom — so they stand out from the rows, passing rows
+   stay hidden behind them, and two labels stacking during a scroll read as
+   two separate blocks instead of one merged band. */
 .lib-scope-group-label {
   position: sticky;
   top: 0;
@@ -235,6 +245,7 @@
   font-weight: 700;
   color: var(--color-text-muted);
   background: var(--color-nav-btn-bg);
+  border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
@@ -270,15 +281,16 @@
    language, so it renders RTL in the Arabic script font. The tooltip on the
    row carries the machine code instead (Latin, shown on hover). Arabic
    letters don't carry the Thaana webfont's start-side overhang, so the
-   ellipsis clip needs no inset. */
+   ellipsis clip needs no inset. Readable-but-secondary: the muted token at
+   panel size — subtle was too faint to notice (same fix as the count). */
 .lib-scope-sub {
   flex-shrink: 0;
   max-width: 45%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.72rem;
-  color: var(--color-text-subtle);
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
   font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
   direction: rtl;
 }
@@ -309,10 +321,11 @@
       "label head"
       "types list";
   }
-  .lib-scope-pane-label {
+  .lib-scope-head-label {
     grid-area: label;
     display: flex;
     align-items: center; /* match the head's vertical centering */
+    gap: 8px;
     padding: 10px 14px; /* join the head's padding, so their border-bottoms align */
     border-bottom: 1px solid var(--color-border);
   }

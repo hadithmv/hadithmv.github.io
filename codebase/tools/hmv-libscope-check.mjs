@@ -138,6 +138,17 @@ async function main() {
       var sub = r.querySelector('.lib-scope-sub');
       return r.getAttribute('title') === r.dataset.book && !!sub && sub.textContent.length > 0 && sub.textContent !== r.dataset.book;
     })()`)) === true);
+    // The sub-line must use the muted text token (readable, secondary) at
+    // the panel size — same contract as the count, resolved against :root so
+    // it holds in every theme.
+    check("S2 sub-line readable (muted token, panel size)", (await evalJS(`(function () {
+      var s = getComputedStyle(document.querySelector('#libScopeList .lib-scope-row .lib-scope-sub'));
+      var token = getComputedStyle(document.documentElement).getPropertyValue('--color-text-muted').trim();
+      var m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(token);
+      if (!m) return false;
+      var rgb = 'rgb(' + parseInt(m[1], 16) + ', ' + parseInt(m[2], 16) + ', ' + parseInt(m[3], 16) + ')';
+      return s.color === rgb && s.fontSize === getComputedStyle(document.getElementById('libScopeFilter')).fontSize;
+    })()`)) === true);
     // expectation mirrors js/i18n.js libScopeTitle.en
     check("S2 modal title", (await evalJS(`document.getElementById('libScopeModalTitle').textContent`)) === "Select books to search in", await evalJS(`document.getElementById('libScopeModalTitle').textContent`));
     check("S2 count shows total (unscoped)", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === rows2 + " books", await evalJS(`document.getElementById('libScopeCount').textContent`));
@@ -163,16 +174,17 @@ async function main() {
       var c = document.getElementById('libScopeCount').getBoundingClientRect();
       var l = document.getElementById('libScopeList').getBoundingClientRect();
       var g = document.getElementById('libScopeTypesLabel').getBoundingClientRect();
+      var r = document.getElementById('libScopeReset').getBoundingClientRect();
       var t = document.getElementById('libScopeTypes').getBoundingClientRect();
-      return { fLeft: Math.round(f.left), fRight: Math.round(f.right), fTop: Math.round(f.top), fBottom: Math.round(f.bottom), lLeft: Math.round(l.left), lRight: Math.round(l.right), cTop: Math.round(c.top), cBottom: Math.round(c.bottom), cLeft: Math.round(c.left), lTop: Math.round(l.top), gTop: Math.round(g.top), gBottom: Math.round(g.bottom), gLeft: Math.round(g.left), tTop: Math.round(t.top), cW: document.getElementById('libScopeCount').offsetWidth, fW: document.getElementById('libScopeFilter').offsetWidth };
+      return { fLeft: Math.round(f.left), fRight: Math.round(f.right), fTop: Math.round(f.top), fBottom: Math.round(f.bottom), lLeft: Math.round(l.left), lRight: Math.round(l.right), cTop: Math.round(c.top), cBottom: Math.round(c.bottom), cLeft: Math.round(c.left), lTop: Math.round(l.top), gTop: Math.round(g.top), gBottom: Math.round(g.bottom), gLeft: Math.round(g.left), rTop: Math.round(r.top), rBottom: Math.round(r.bottom), rLeft: Math.round(r.left), tTop: Math.round(t.top), cW: document.getElementById('libScopeCount').offsetWidth, fW: document.getElementById('libScopeFilter').offsetWidth };
     })()`);
     check("S2c filter above the book list", headRects.fLeft >= headRects.lLeft && headRects.fRight <= headRects.lRight && headRects.fBottom <= headRects.lTop, JSON.stringify(headRects));
     check("S2c count beside the filter", headRects.cTop >= headRects.fTop - 2 && headRects.cBottom <= headRects.fBottom + 2 && headRects.cLeft <= headRects.fLeft, JSON.stringify(headRects));
-    // The label occupies the header row (its cell is the row's full height —
-    // the filter band sits centered inside it), over the rail (right of the
-    // list), and its cell ends above the rail, so the rail can scroll without
-    // taking the label with it.
-    check("S2c label shares the header line with the filter", headRects.gTop <= headRects.fTop && headRects.gBottom >= headRects.fBottom && headRects.gLeft >= headRects.lRight, JSON.stringify(headRects));
+    // The label + reset sit vertically centered in the pinned header cell, on
+    // the filter's line (each band intersects the filter band), over the rail
+    // (right of the list); the cell ends above the rail, so the rail can
+    // scroll without taking the label with it.
+    check("S2c label + reset share the header line with the filter", headRects.gBottom > headRects.fTop && headRects.gTop < headRects.fBottom && headRects.rBottom > headRects.fTop && headRects.rTop < headRects.fBottom && headRects.gLeft >= headRects.lRight && headRects.rLeft >= headRects.lRight, JSON.stringify(headRects));
     check("S2c label stays above the rail", headRects.gBottom <= headRects.tTop, JSON.stringify(headRects));
     // The count must use the full text token (readable, semibold) at the
     // filter's font size — resolve --color-text on :root and compare
@@ -232,7 +244,9 @@ async function main() {
 
     // ── S5: reset → all books again ──
     check("S5 reset always visible (unscoped)", (await evalJS(`document.getElementById('libScopeReset').style.display !== 'none'`)) === true);
-    check("S5 reset leads the rail", (await evalJS(`document.getElementById('libScopeTypes').children[0] === document.getElementById('libScopeReset')`)) === true);
+    // The reset clears the whole scope, so it lives in the pinned header beside
+    // the Tags label — not in the rail, which can scroll out from under it.
+    check("S5 reset sits with the Tags label (pinned header)", (await evalJS(`document.getElementById('libScopeReset').parentElement.querySelector('#libScopeTypesLabel') !== null`)) === true);
     await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
     check("S5 reset says what it does", (await evalJS(`document.getElementById('libScopeReset').textContent`)) === "↺ Reset");
     check("S5 count shows scoped total", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === qrnInList.length + " of " + rows2 + " books selected", await evalJS(`document.getElementById('libScopeCount').textContent`));
@@ -323,6 +337,16 @@ async function main() {
       var before = l.getBoundingClientRect().top;
       t.scrollTop = 9999;
       return t.scrollTop > 0 && Math.abs(l.getBoundingClientRect().top - before) < 1;
+    })()`));
+    // The rail is scrolled to its end — the reset button lives in the pinned
+    // header (with the label), so it must still be fully inside the modal,
+    // unlike the chips which scrolled out of view.
+    check("S9c reset visible while the rail is scrolled", await waitFor(`(function () {
+      var r = document.getElementById('libScopeReset');
+      if (r.offsetParent === null) return false;
+      var b = r.getBoundingClientRect();
+      var m = document.getElementById('libScopeOverlay').getBoundingClientRect();
+      return b.top >= m.top && b.bottom <= m.bottom && b.left >= m.left && b.right <= m.right;
     })()`));
 
     // ── S10: no page errors anywhere ──
