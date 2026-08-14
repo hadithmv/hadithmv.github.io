@@ -119,7 +119,10 @@ async function main() {
     await evalJS(`localStorage.setItem('lang', 'en')`);
     await goto(pageURL + "?q=" + encodeURIComponent(Q), 1280, 900);
     check("S1 results render", await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result cards");
-    check("S1 button label = All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "All books ▾");
+    check("S1 button label = All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "Search in: All books ▾");
+    // The tooltip is the only always-English explainer of the button's action —
+    // it must teach the verb ("choose which books"), not describe the result.
+    check("S1 button tooltip teaches the action", (await evalJS(`document.getElementById('libScopeBtn').getAttribute('title')`)) === "Choose which books to search");
     check("S1 no books param", (await evalJS(`new URLSearchParams(location.search).has('books')`)) === false);
 
     // ── S2: open the scope modal ──
@@ -213,7 +216,7 @@ async function main() {
       cb.dispatchEvent(new Event('change', { bubbles: true }));
     })()`);
     check("S3 books param = " + firstBook, await waitFor(`new URLSearchParams(location.search).get('books') === ${JSON.stringify(firstBook)}`));
-    check("S3 button label = 1 book", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "1 book ▾");
+    check("S3 button label = 1 book", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "Search in: 1 book ▾");
     check("S3 results scoped to one book", await waitFor(`(function () {
       var cards = document.querySelectorAll('.lib-result');
       return cards.length > 0 && Array.prototype.every.call(cards, function (c) { return c.dataset.book === ${JSON.stringify(firstBook)}; });
@@ -234,14 +237,14 @@ async function main() {
     const qrnParam = await evalJS(`new URLSearchParams(location.search).get('books') || ''`);
     const allQrn = qrnInList.every((c) => qrnParam.split(",").indexOf(c) !== -1);
     check("S4 QRN chip selects every QRN book", allQrn && qrnInList.length > 0 && qrnParam.split(",").length === qrnInList.length, qrnParam);
-    check("S4 button shows family count", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === qrnInList.length + " books ▾", qrnInList.length);
+    check("S4 button shows family count", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "Search in: " + qrnInList.length + " books ▾", qrnInList.length);
     await evalJS(`document.querySelector('#libScopeTypes .tag-chip[data-tag="QRN"]').click()`);
     // Regression for the empty-array bug: untoggling a full family must land on
     // null (all books), never [] — an empty array passes the truthy scope check
     // in computeScope and returns zero results while the URL says "all".
     check("S4b second click untoggles (back to all)", await waitFor(`(function () {
       return !new URLSearchParams(location.search).has('books')
-        && document.getElementById('libScopeBtn').textContent === 'All books ▾'
+        && document.getElementById('libScopeBtn').textContent === 'Search in: All books ▾'
         && document.querySelectorAll('.lib-result').length > 1;
     })()`));
 
@@ -259,7 +262,7 @@ async function main() {
     check("S5 no width jump on scoping", await waitFor(`Math.abs(document.getElementById('libScopeCount').offsetWidth - ${headRects.cW}) <= 1 && Math.abs(document.getElementById('libScopeFilter').offsetWidth - ${headRects.fW}) <= 1`), headRects.cW + "→" + await evalJS(`document.getElementById('libScopeCount').offsetWidth`));
     await evalJS(`document.getElementById('libScopeReset').click()`);
     check("S5 books param gone", await waitFor(`!new URLSearchParams(location.search).has('books')`));
-    check("S5 button back to All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "All books ▾");
+    check("S5 button back to All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "Search in: All books ▾");
     check("S5 results widen again", await waitFor(`document.querySelectorAll('.lib-result').length > 1`));
     check("S5 reset still visible (scoped)", (await evalJS(`document.getElementById('libScopeReset').style.display !== 'none'`)) === true);
 
@@ -292,7 +295,7 @@ async function main() {
 
     // ── S8: deep link ?books= restores the scope ──
     await goto(pageURL + "?q=" + encodeURIComponent(Q) + "&books=" + firstBook, 1280, 900);
-    check("S8 deep-link button label", await waitFor(`document.getElementById('libScopeBtn').textContent === '1 book ▾'`));
+    check("S8 deep-link button label", await waitFor(`document.getElementById('libScopeBtn').textContent === 'Search in: 1 book ▾'`));
     await evalJS(`document.getElementById('libScopeBtn').click()`);
     check("S8 deep-link modal opens", await waitFor(`document.getElementById('libScopeOverlay').classList.contains('open')`));
     check("S8 deep-link checkbox checked", await waitFor(`document.querySelector('#libScopeList input[data-book="${firstBook}"]') !== null`));

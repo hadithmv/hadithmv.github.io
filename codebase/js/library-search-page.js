@@ -290,7 +290,10 @@ function renderScopeButton() {
   } else {
     label = fillTemplate("libScopeCount", { n: _selectedBooks.length });
   }
-  el.scopeBtn.textContent = label + " ▾";
+  // "Search in: <state>" — the prefix teaches the button's purpose at a
+  // glance (it controls which books the search runs in), while the state part
+  // reports the current scope; the modal title's own "search in" phrasing.
+  el.scopeBtn.textContent = t("libScopeSearchIn") + " " + label + " ▾";
 }
 
 /**

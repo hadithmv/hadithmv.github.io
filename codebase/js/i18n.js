@@ -292,7 +292,10 @@ const STRINGS = {
     ar: "عرض {n} نتيجة أخرى",
   },
   // Book-scope picker (narrow the search to specific books)
-  libScopeAll: { dv: "ހުރިހާ ފޮތް", en: "All books", ar: "كل الكتب" },
+  // The button's purpose prefix — pairs with the state label ("All books" /
+  // "N books"), echoing the modal title's own "search in" phrasing.
+  libScopeSearchIn: { dv: "ސާޗުކުރަނީ:", en: "Search in:", ar: "البحث في:" },
+  libScopeAll: { dv: "ހުރިހާ ފޮތަކުން", en: "All books", ar: "كل الكتب" },
   libScopeCount: { dv: "{n} ފޮތް", en: "{n} books", ar: "{n} كتب" },
   libScopeCountOne: { dv: "1 ފޮތް", en: "1 book", ar: "1 كتاب" },
   libScopeFilter: {
