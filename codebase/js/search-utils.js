@@ -17,13 +17,19 @@
 /**
  * Strip Arabic tashkeel, unify alif/ya/waw variants,
  * normalise Thaana thikijehi → base letters, strip the
- * Arabic definite article (guarded — see AL_RE below).
+ * Arabic definite article (guarded — see AL_RE below),
+ * drop apostrophes (straight + curly) so EN transliterations
+ * match: "Qur'an" ≡ "Quran" — nothing else strips them, and the
+ * engine tokeniser would split on them into garbage tokens.
+ * (Hyphens/underscores are NOT stripped here: the dashboard
+ * strips them, the engine splits on them — either way both
+ * sides of a search get the same treatment.)
  */
 // Single regex pass + per-char lookup — one full scan instead of ~30
 // sequential replaces. This is the hottest function in the app: it runs
 // on every search keystroke, every highlight, and once per cell when
 // buildNormData() precomputes the search cache.
-var NORM_RE = /[ؐ-ًؚ-ٰٟۖ-ۭـ]|[أإآٱ]|ى|ؤ|[ޘޝޞ]|[ޙޚ]|[ޛޜޡ]|[ޟ]|[ޠ]|[ޢ]|[ޣޤ]|[ޥ]/g;
+var NORM_RE = /[ؐ-ًؚ-ٰٟۖ-ۭـ]|[أإآٱ]|ى|ؤ|'|’|‘|[ޘޝޞ]|[ޙޚ]|[ޛޜޡ]|[ޟ]|[ޠ]|[ޢ]|[ޣޤ]|[ޥ]/g;
 
 // Arabic definite article, stripped at word start (second pass, after the
 // marks are gone so the guards see the letters themselves). Refuses:

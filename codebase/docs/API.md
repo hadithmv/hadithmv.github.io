@@ -170,6 +170,7 @@ Normalises text for comparison:
 
 - Strips Arabic tashkeel and tatweel
 - Normalises alif variants (`أ إ آ ٱ` → `ا` — incl. alif‑wasla), ya (`ى` → `ي`), waw‑hamza (`ؤ` → `و`)
+- Strips apostrophes (straight `'` and curly `’` `‘`) — EN transliterations match: `Qur'an` ≡ `Quran` (the engine tokeniser would otherwise split on them into garbage tokens). Hyphens/underscores are **not** stripped here: the dashboard strips them and the engine splits on them, both sides consistently
 - Normalises Thaana thikijehi (`ޘ→ސ`, `ޙ→ހ`, etc.)
 - Strips the Arabic definite article at word start — **guarded**: refused before another ل (`الله`, `اللهم`, `اللائي` keep the whole word) and when fewer than 2 letters would remain (`أَلْف` "thousand", the mysterious-letter `الر`). Word-internal ال (`بال`, `وال`) is untouched
 - Two passes over the string (mark/hamza map, then the ال-strip) — still the hottest function in the app, so both are single regex scans
