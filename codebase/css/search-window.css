@@ -22,7 +22,7 @@
    pane scrolls internally instead. */
 .search-window-modal {
   width: min(1080px, 96vw);
-  height: min(94vh, 1020px);
+  height: min(96vh, 1100px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -47,7 +47,7 @@
 }
 .search-window-side {
   flex-shrink: 0;
-  width: 260px;
+  width: 240px;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -104,9 +104,16 @@
 }
 
 /* ---- Tabs (reader mode) ---- */
+/* Each control group is its own card (border + card bg, same language as
+   the history box), so the tab group and the options group read as
+   separate sections instead of one undifferentiated stack of buttons. */
 .search-window-tabs {
   display: flex;
   gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-card-bg);
 }
 .search-window-tab {
   flex: 1;
@@ -114,8 +121,8 @@
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-muted);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   /* tab labels are trilingual (this-book/all-books) — mixed font or the
@@ -128,13 +135,24 @@
 .search-window-tab.active {
   background: var(--color-nav-btn-text);
   color: var(--color-reader-bg);
-  border-color: var(--color-nav-btn-text);
 }
 
 /* ---- Options row (whole-word, advanced) ---- */
 .search-window-options {
   display: flex;
   gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-card-bg);
+}
+/* Ghost buttons inside the card — the card's border is the group outline. */
+.search-window-options .search-window-opt {
+  border: none;
+  background: transparent;
+}
+.search-window-options .search-window-opt:hover:not(.active) {
+  background: var(--color-nav-btn-hover-bg);
 }
 .search-window-opt {
   flex-shrink: 0;
@@ -158,6 +176,9 @@
 }
 .search-window-opt-label {
   white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .search-window-opt:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -177,15 +198,26 @@
 .search-window-view {
   display: flex;
   gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-card-bg);
 }
 .search-window-view .search-window-opt {
   flex: 1;
+  border: none;
+  background: transparent;
+}
+.search-window-view .search-window-opt:hover:not(.active) {
+  background: var(--color-nav-btn-hover-bg);
 }
 
 /* ---- Advanced conditions ---- */
 .search-window-adv {
-  border-top: 1px solid var(--color-border);
-  padding-top: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-card-bg);
+  padding: 10px;
 }
 .search-window-adv-label {
   margin-bottom: 8px;
@@ -240,6 +272,11 @@
   background: var(--color-card-bg);
   border-radius: var(--radius-md, 8px);
   overflow: hidden;
+  /* Never let the side pane's flex layout squeeze this box: overflow:hidden
+     zeroes its min-height, making it the only shrinkable section — it gets
+     crushed and the clear button overlaps the list (the pane scrolls
+     instead when the content is tall). */
+  flex-shrink: 0;
 }
 .search-window-history-label {
   padding: 6px 10px;
@@ -252,7 +289,10 @@
 .search-window-history-list {
   max-height: 30vh;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  /* No overscroll-behavior here: when the list can't scroll further, the
+     wheel must chain to the side pane (the pane has its own contain, so it
+     stops there — without this, opening the advanced section pushes the
+     history box below the fold and the wheel over it scrolls nothing). */
 }
 .search-window-history-empty {
   padding: 8px 10px;
@@ -263,8 +303,10 @@
 
 /* ---- Scope section (library window / All-books tab) ---- */
 .search-window-scope {
-  border-top: 1px solid var(--color-border);
-  padding-top: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-card-bg);
+  padding: 4px;
 }
 .search-window-scope-summary {
   width: 100%;
@@ -272,11 +314,14 @@
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  background: var(--color-nav-btn-bg);
-  border: 1px solid var(--color-border);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.search-window-scope-summary:hover {
+  background: var(--color-nav-btn-hover-bg);
 }
 /* The libScope modal — opened by the library page's scope button AND by
    this window's scope summary (either page, stacked on top of the window),
@@ -288,8 +333,8 @@
   width: min(520px, 94vw);
   /* Content-driven with a floor and a cap: a short list still uses the
      vertical room (the list pane scrolls to fill), a long one caps out. */
-  min-height: min(74vh, 680px);
-  max-height: 92vh;
+  min-height: min(80vh, 740px);
+  max-height: 94vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -563,11 +608,19 @@
   margin-inline-start: 4px;
 }
 
+/* ---- Mid widths (601–1100px): the modal is under its 1080px cap, so the
+   side pane gives up width to keep the results pane comfortable. ---- */
+@media (min-width: 601px) and (max-width: 1100px) {
+  .search-window-side {
+    width: 220px;
+  }
+}
+
 /* ---- Mobile: full-width window, single column ---- */
 @media (max-width: 600px) {
   .search-window-modal {
     width: 100%;
-    height: 94vh;
+    height: 96vh;
   }
   /* The side pane stacks above the results as a normal section, and the
      tabs go back to side-by-side half-width buttons. */

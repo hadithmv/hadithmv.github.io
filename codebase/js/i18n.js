@@ -44,7 +44,7 @@ const STRINGS = {
   btnViewMode: { dv: "📖 ފެންނަ ގޮތް", en: "📖 View", ar: "📖 عرض" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
   advancedSearchTitle: {
-    dv: "އެޑްވާންސްޑް ހޯދުން",
+    dv: "އެޑްވާންސްޑް ސާޗު",
     en: "Advanced Search",
     ar: "بحث متقدم",
   },
@@ -363,7 +363,7 @@ const STRINGS = {
   },
 
   // ── Search window (reader + library pages) ──
-  searchWindowTitle: { dv: "ހޯދުން", en: "Search", ar: "بحث" },
+  searchWindowTitle: { dv: "ސާޗު", en: "Search", ar: "بحث" },
   // The magnifier button that opens the window — emoji is part of the label
   // (same pattern as the sidebar's searchBooks, so data-i18n re-renders
   // keep it). dv is the verb form, matching the replaced placeholder's

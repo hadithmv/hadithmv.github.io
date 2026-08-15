@@ -63,6 +63,7 @@ function renderLabels() {
   el("searchWindowOpenPage").textContent = t("searchWindowOpenPage");
   el("searchWindowReset").textContent = t("libScopeReset");
   el("searchWindowHistoryLabel").textContent = t("searchWindowHistoryTitle");
+  el("searchWindowHistoryClear").textContent = t("searchClearHistory");
   refreshScopeSummary();
   // The count's reserved slot is language-dependent (widest of the count
   // forms) — re-reserve while the window is open. Hidden (offsetWidth 0)
@@ -351,6 +352,10 @@ function buildShell() {
         '<div id="searchWindowHistory" class="search-window-history">' +
           '<div class="search-window-history-label" id="searchWindowHistoryLabel"></div>' +
           '<div class="search-window-history-list" id="searchWindowHistoryList"></div>' +
+          // Clear-all is a sibling of the scrollable list (not its last row),
+          // so the list's scrollbar never spans it. The page modules toggle
+          // its visibility and wire the click.
+          '<button id="searchWindowHistoryClear" class="search-history-clear" style="display:none"></button>' +
         '</div>' +
       '</div>' +
       '<div class="search-window-main" id="searchWindowMain">' +
@@ -394,6 +399,7 @@ function buildShell() {
     results: el("searchWindowResults"),
     history: el("searchWindowHistory"),
     historyList: el("searchWindowHistoryList"),
+    historyClear: el("searchWindowHistoryClear"),
     footer: el("searchWindowFooter"),
     openPage: el("searchWindowOpenPage"),
     hint: el("searchWindowHint"),
@@ -474,6 +480,9 @@ function buildShell() {
       _ui.advBody.style.display = "";
       _ui.advToggle.classList.add("active");
       if (_cfg.onOpenAdvanced) _cfg.onOpenAdvanced();
+      // The expanded section pushes the sections below it down the pane —
+      // bring it fully into view (no-op when it already fits).
+      _ui.advBody.scrollIntoView({ block: "nearest" });
     }
   });
 
@@ -580,6 +589,7 @@ export function openSearchWindow(opts) {
     _ui.advBody.style.display = "";
     _ui.advToggle.classList.add("active");
     if (_cfg.onOpenAdvanced) _cfg.onOpenAdvanced();
+    _ui.advBody.scrollIntoView({ block: "nearest" });
   }
   if (_cfg.onOpen) _cfg.onOpen();
 }

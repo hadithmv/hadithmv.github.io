@@ -140,6 +140,8 @@
 .search-history-clear {
   display: flex;
   justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
   padding: 8px 14px;
   cursor: pointer;
   /* Explicit family like .hist-text — the row's text is Thaana ("Clear
@@ -149,9 +151,18 @@
   font-weight: 600;
   color: var(--color-error-text);
   background: var(--color-card-bg);
+  /* A <button> now (shell-owned sibling of the scrollable list) — kill the
+     UA button chrome, keep only the top separator. Sticky is inert in the
+     window (it sits outside the scroller) but still pins the clear row in
+     the page-level dropdowns that render it as the list's last child. */
+  border: none;
   border-top: 2px solid var(--color-border);
+  border-radius: 0;
   position: sticky;
   bottom: 0;
+}
+.search-history-clear:hover {
+  background: var(--color-nav-btn-hover-bg);
 }
 .search-no-matches {
   padding: 10px 14px;

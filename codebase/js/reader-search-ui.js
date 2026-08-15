@@ -26,7 +26,8 @@ var ctx = null;
 var searchInput = null;   // RDF header input (the in-place dictionary filter)
 var winInput = null;      // search-window input
 var searchResultsEl = null; // #searchWindowResults
-var searchHistoryListEl = null; // #searchWindowHistoryList (items — innerHTML)
+var searchHistoryListEl = null;  // #searchWindowHistoryList (items — innerHTML)
+var searchHistoryClearEl = null; // #searchWindowHistoryClear (sibling — display + click)
 var btnWholeWord = null;
 var advSearchRows = null;
 var advAdd = null;
@@ -267,14 +268,21 @@ function renderHistorySection() {
   if (searchHistoryItems.length === 0) {
     searchHistoryListEl.innerHTML =
       '<div class="search-window-history-empty">' + t("searchWindowNoHistory") + "</div>";
+    searchHistoryClearEl.style.display = "none";
     return;
   }
   searchHistoryListEl.innerHTML = searchHistoryItems.map(function (term, i) {
     return '<div class="search-history-item" data-idx="' + i + '">' +
       '<span class="hist-text">' + escapeHTML(term) + '</span>' +
       '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
-  }).join("") +
-  '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
+  }).join("");
+  // Clear-all sits outside the scrollable list (shell-owned sibling), so
+  // the list's scrollbar never spans it; shown only when there are items.
+  searchHistoryClearEl.style.display = "";
+  searchHistoryClearEl.onclick = function () {
+    clearSearchHistory();
+    renderHistorySection();
+  };
   // Wire clicks
   searchHistoryListEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
     item.addEventListener("click", function (e) {
@@ -290,12 +298,6 @@ function renderHistorySection() {
       removeSearchHistoryItem(parseInt(this.dataset.idx));
       renderHistorySection();
     });
-  });
-  // Clear-all button
-  var clearAll = searchHistoryListEl.querySelector(".search-history-clear");
-  if (clearAll) clearAll.addEventListener("click", function () {
-    clearSearchHistory();
-    renderHistorySection();
   });
 }
 
@@ -539,6 +541,7 @@ export function initSearchUI(initCtx) {
   winInput = ui.input;
   searchResultsEl = ui.results;
   searchHistoryListEl = ui.historyList;
+  searchHistoryClearEl = ui.historyClear;
   btnWholeWord = ui.wholeWord;
   advSearchRows = ui.advRows;
   advAdd = ui.advAdd;

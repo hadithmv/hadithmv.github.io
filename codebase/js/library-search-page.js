@@ -92,6 +92,7 @@ var el = {
 var winInput = null;      // #searchWindowInput
 var winResults = null;    // #searchWindowResults
 var winHistoryList = null; // #searchWindowHistoryList (items — innerHTML)
+var winHistoryClearEl = null; // #searchWindowHistoryClear (sibling — display + click)
 var _winView = "card";    // card | list (window view toggle)
 var _winLastQ = null;     // last window query + results (view re-render, no re-search)
 var _winLastResults = null;
@@ -624,14 +625,24 @@ function renderResults(results, q) {
  *  Clicking a term fills the window input and re-runs the window search. */
 function renderWindowHistorySection() {
   var items = getSearchHistory(window.LS_KEYS.searchHistory);
-  winHistoryList.innerHTML = items.length === 0
-    ? '<div class="search-window-history-empty">' + t("searchWindowNoHistory") + "</div>"
-    : items.map(function (term, i) {
-        return '<div class="search-history-item" data-idx="' + i + '">' +
-          '<span class="hist-text">' + escapeHTML(term) + '</span>' +
-          '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
-      }).join("") +
-      '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
+  if (items.length === 0) {
+    winHistoryList.innerHTML =
+      '<div class="search-window-history-empty">' + t("searchWindowNoHistory") + "</div>";
+    winHistoryClearEl.style.display = "none";
+    return;
+  }
+  winHistoryList.innerHTML = items.map(function (term, i) {
+    return '<div class="search-history-item" data-idx="' + i + '">' +
+      '<span class="hist-text">' + escapeHTML(term) + '</span>' +
+      '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
+  }).join("");
+  // Clear-all sits outside the scrollable list (shell-owned sibling), so
+  // the list's scrollbar never spans it; shown only when there are items.
+  winHistoryClearEl.style.display = "";
+  winHistoryClearEl.onclick = function () {
+    clearSearchHistory(window.LS_KEYS.searchHistory);
+    renderWindowHistorySection();
+  };
   winHistoryList.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
     item.addEventListener("click", function (e) {
       if (e.target.classList.contains("hist-remove")) return;
@@ -647,11 +658,6 @@ function renderWindowHistorySection() {
       removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.searchHistory);
       renderWindowHistorySection();
     });
-  });
-  var clearAll = winHistoryList.querySelector(".search-history-clear");
-  if (clearAll) clearAll.addEventListener("click", function () {
-    clearSearchHistory(window.LS_KEYS.searchHistory);
-    renderWindowHistorySection();
   });
 }
 
@@ -783,6 +789,7 @@ async function init() {
   winInput = ui.input;
   winResults = ui.results;
   winHistoryList = ui.historyList;
+  winHistoryClearEl = ui.historyClear;
 
   readURLParams();
   el.input.value = _q;
