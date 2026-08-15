@@ -68,15 +68,19 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   /* RTL: this pane is the modal's first column (right side), and its
-     vertical scrollbar renders on the LEFT edge — over the inline-end
-     padding, not beside it, so 20px clears the ~17px classic scrollbar.
-     The block padding keeps the first/last cards off the scrollport's
-     edges: at the scroll extremes a card flush against the edge reads as
-     sliced off (its rounded corners clip flat). The inline-start padding
-     keeps the cards off the panel's own border. */
-  padding-inline-end: 20px;
-  padding-inline-start: 10px;
-  padding-block: 8px;
+     vertical scrollbar renders on the LEFT edge. scrollbar-gutter
+     reserves exactly the scrollbar's own width there — a fixed
+     inline-end padding would be either wider (a white stripe between
+     scrollbar and content) or narrower (content sliding under the
+     thumb), depending on the system's scrollbar size. The block padding
+     keeps the first/last cards off the scrollport's edges: at the
+     scroll extremes a card flush against the edge reads as sliced off
+     (its rounded corners clip flat). The inline-start padding keeps the
+     cards off the panel's own border. */
+  scrollbar-gutter: stable;
+  /* padding-inline-start: 10px; */
+  /* padding-block: 8px; */
+  padding: 8px 10px;
 }
 /* Tab labels are long in Dhivehi ("ހުރިހާ ފޮތްތަކުން") — in the narrow
    pane they stack full-width like the scope rail's controls; the base row
@@ -529,10 +533,12 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   direction: rtl;
-  /* RTL: the list's scrollbar renders on the LEFT edge — over the
-     inline-end padding, not beside it, so 20px clears the ~17px classic
-     scrollbar (same pattern as .search-window-side). */
-  padding-inline-end: 20px;
+  /* RTL: the list's scrollbar renders on the LEFT edge; scrollbar-gutter
+     reserves exactly the scrollbar's own width there (same pattern as
+     .search-window-side) — a fixed inline-end padding would leave either
+     a white stripe or an overlap, depending on the system scrollbar
+     size. */
+  scrollbar-gutter: stable;
 }
 /* Group labels read as section headers: sticky inside the scrolling list
    (they hold position while their books scroll beneath), on a subtle opaque
@@ -564,6 +570,7 @@
   align-items: center;
   gap: 8px;
   padding: 6px 14px;
+  padding-left: 20px;
   cursor: pointer;
 }
 .lib-scope-row:hover {

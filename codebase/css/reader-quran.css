@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   gap: var(--control-gap, 6px);
-  padding: 9px 0 0;
+  /* padding: 9px 0 0; */
   flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
@@ -36,7 +36,6 @@
   background: var(--color-reader-bg);
 }
 
-
 .quran-nav-input {
   box-sizing: border-box;
   width: 50px;
@@ -50,7 +49,14 @@
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
   outline: none;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   appearance: textfield;
   -moz-appearance: textfield;
 }
@@ -66,7 +72,14 @@
   font-weight: 600;
   color: var(--color-text-muted);
   white-space: nowrap;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   padding-inline-start: 2px;
 }
 
@@ -95,13 +108,14 @@
      the list it heads — the presets row carries its own bottom margin */
   gap: 0;
 }
-/* Presets row sits above the scroll area — structurally fixed */
+/* Presets row sits above the scroll area — structurally fixed. No border:
+   the header table below owns the section separators (its top line is the
+   presets' divider, its bottom line separates it from the list). */
 .quran-content-presets {
   display: flex;
   gap: var(--control-gap, 6px);
   margin-bottom: var(--section-gap, 6px);
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-border);
   flex-wrap: wrap;
   flex-shrink: 0;
 }
@@ -116,8 +130,11 @@
      the body table ~15px narrower and the columns misalign. */
   overflow-y: hidden;
   scrollbar-gutter: stable;
-  /* The rule reads as the header's own bar: a full-width line under the
-     cells, separating them from the scrolling list below. */
+  /* The rule reads as the header's own bar: full-width lines above and
+     below the cells. The top line is the section separator (the presets
+     row above carries no border of its own); the bottom line separates
+     the header from the scrolling list. */
+  border-top: 2px solid var(--color-border);
   border-bottom: 2px solid var(--color-border);
 }
 .quran-content-table-head .quran-content-table {
@@ -151,7 +168,14 @@
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -190,7 +214,14 @@
   border: none;
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .quran-preset-btn:hover {
   filter: brightness(0.9);
@@ -226,7 +257,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .quran-content-table thead th:first-child {
   border-radius: 0 6px 6px 0;
@@ -257,7 +295,14 @@
   padding: 30px 10px;
   color: var(--color-text-muted);
   font-size: var(--fs-muted, 0.9rem);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* ---- Surah selector overlay ---- */
@@ -298,7 +343,14 @@
   padding: 0 12px;
   line-height: var(--control-line-height, 33px);
   font-size: 1rem;
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -347,7 +399,13 @@
 .quran-surah-item-ar {
   font-size: 1.05rem;
   font-weight: 600;
-  font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
+  font-family: var(
+    --font-arabic,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    serif
+  );
   text-align: right;
 }
 .quran-surah-item-dv {
@@ -361,4 +419,3 @@
   direction: ltr;
   text-align: left;
 }
-

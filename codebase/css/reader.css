@@ -10,9 +10,10 @@
 #collapsibleReaderPanel {
   display: grid;
   grid-template-rows: 1fr;
-  margin-top: var(--section-gap, 6px);
+  /* margin-top: var(--section-gap, 6px); */
   transition:
-    grid-template-rows var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
+    grid-template-rows var(--t-panel, 0.3s)
+      var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
     opacity var(--t-pop, 0.2s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
     margin-top var(--t-panel, 0.3s) ease;
   /* grid-0fr collapse needs exactly one child (.reader-panel-inner) */
@@ -61,9 +62,18 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 6px);
   outline: none;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
-  transition: background var(--t-hover, 0.15s) ease, border-color var(--t-hover, 0.15s) ease;
+  transition:
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
 }
 /* Inputs in panel rows are softer than the buttons beside them —
    matches the md radius of .search-input everywhere else */
@@ -134,14 +144,12 @@
   box-shadow: none;
 }
 
-
 /* ---- Widescreen (full-width) mode ---- */
 [data-widescreen] #readerContent {
   border-radius: 0;
   border-left: none;
   border-right: none;
 }
-
 
 /* ---- Page header ---- */
 #readerPageHeader {
@@ -157,14 +165,27 @@
 
 #readerPageHeader h1 {
   margin: 0 0 10px 0;
-  font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
+  font-family: var(
+    --font-arabic,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    serif
+  );
 }
 
 #readerPageSubtitle {
   font-size: var(--panel-font-size, 0.85rem);
   line-height: 2.2;
   color: var(--color-text-muted);
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   white-space: nowrap;
 }
 
@@ -180,7 +201,6 @@
 #readerPageSubRow #readerPageTags {
   margin-top: 0;
 }
-
 
 /* ---- Reader toolbar ---- */
 .reader-toolbar {
@@ -311,7 +331,14 @@
   padding: 8px 20px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-toast-text, #fff);
   background: var(--color-toast-bg, #1a202c);
   border-radius: var(--radius-md, 8px);
@@ -442,7 +469,14 @@
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-muted);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
   padding-inline-start: 2px;
 }
@@ -495,13 +529,17 @@
 /* Right side: page jump */
 /* ---- Reader content ---- */
 
-#topBar { border-bottom: none; }
+#topBar {
+  border-bottom: none;
+}
 /* Extend topBar background to full viewport width (matches readerPanel) */
 #topBar::before {
   content: "";
   position: absolute;
-  top: 0; bottom: 0;
-  left: -50vw; right: -50vw;
+  top: 0;
+  bottom: 0;
+  left: -50vw;
+  right: -50vw;
   background: inherit;
   z-index: var(--z-under, -1);
 }
@@ -519,7 +557,9 @@
   height: 100%;
   width: 0%;
   background: var(--color-nav-btn-text);
-  transition: width var(--t-panel, 0.3s) ease-out, background var(--t-slow, 0.5s) ease;
+  transition:
+    width var(--t-panel, 0.3s) ease-out,
+    background var(--t-slow, 0.5s) ease;
 }
 #readerProgressFill.done {
   background: var(--color-success, #10b981);
@@ -534,14 +574,38 @@
   animation: border-glow 5s ease-in-out forwards;
 }
 @keyframes border-glow {
-  0%   { border-width: 0px; opacity: 0; }
-  15%  { border-width: 12px; opacity: 1; }
-  30%  { border-width: 12px; opacity: 0.2; }
-  45%  { border-width: 12px; opacity: 1; }
-  60%  { border-width: 12px; opacity: 0.2; }
-  75%  { border-width: 12px; opacity: 1; }
-  90%  { border-width: 12px; opacity: 0.15; }
-  100% { border-width: 0px; opacity: 0; }
+  0% {
+    border-width: 0px;
+    opacity: 0;
+  }
+  15% {
+    border-width: 12px;
+    opacity: 1;
+  }
+  30% {
+    border-width: 12px;
+    opacity: 0.2;
+  }
+  45% {
+    border-width: 12px;
+    opacity: 1;
+  }
+  60% {
+    border-width: 12px;
+    opacity: 0.2;
+  }
+  75% {
+    border-width: 12px;
+    opacity: 1;
+  }
+  90% {
+    border-width: 12px;
+    opacity: 0.15;
+  }
+  100% {
+    border-width: 0px;
+    opacity: 0;
+  }
 }
 
 #readerContent {
@@ -732,7 +796,14 @@
   font-weight: 700;
   color: var(--color-text);
   margin: 10px 0 2px;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 .scroll-counter {
@@ -745,7 +816,14 @@
   min-width: 140px;
   text-align: center;
   font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-text);
   background: var(--color-card-bg);
   border: 1px solid var(--color-border);
@@ -763,18 +841,25 @@
   min-width: 2ch;
   text-align: center;
   direction: ltr;
-  font-family: var(--font-mono, "Consolas", "DejaVu Sans Mono", "Courier New", monospace);
+  font-family: var(
+    --font-mono,
+    "Consolas",
+    "DejaVu Sans Mono",
+    "Courier New",
+    monospace
+  );
 }
 
 .scroll-counter.show {
   opacity: 1;
 }
 
-
 /* ---- Responsive ---- */
 
 @media (max-width: 600px) {
-  .quran-nav-label { display: none; }
+  .quran-nav-label {
+    display: none;
+  }
 
   .reader-panel-row button,
   .reader-panel-row input,
