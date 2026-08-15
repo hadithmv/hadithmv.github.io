@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/reader-quran.css" />
     <link rel="stylesheet" href="../css/reader-search.css" />
     <link rel="stylesheet" href="../css/reader-table-view.css" />
+    <link rel="stylesheet" href="../css/search-window.css" />
     <link rel="stylesheet" href="../css/reader.css" />
     <script>
       (function () {
@@ -291,59 +292,6 @@
       </div>
     </div>
 
-    <div id="advancedSearchOverlay" class="modal-overlay">
-      <div id="advancedSearchModal" class="modal" role="dialog">
-        <div class="modal-header">
-          <h2 class="modal-title" data-i18n="advancedSearchTitle">
-            އިތުރު ހޯދުން
-          </h2>
-          <button
-            id="advancedSearchClose"
-            class="modal-close"
-            title="Close (Escape key)"
-          >
-            ✕
-          </button>
-        </div>
-        <div class="modal-body">
-          <div id="advancedSearchRows"></div>
-          <button
-            id="btnAddCondition"
-            class="modal-reset-small"
-            style="
-              width: 100%;
-              margin-top: 8px;
-              color: var(--color-text);
-              border-color: var(--color-border);
-            "
-            title="Add another search condition"
-            data-i18n="btnAddCondition"
-          >
-            + ޝަރުތު އިތުރު ކުރޭ
-          </button>
-          <div style="display: flex; gap: 8px; margin-top: 12px">
-            <button
-              id="btnApplyAdvancedSearch"
-              class="advanced-apply-btn"
-              title="Run advanced search"
-              data-i18n="btnApplySearch"
-            >
-              ހޯދާ
-            </button>
-            <button
-              id="btnClearAdvancedSearch"
-              class="modal-reset-small"
-              style="flex: 1"
-              title="Reset all conditions"
-              data-i18n="btnReset"
-            >
-              ↺ ރީސެޓް
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div id="loadingMessage" class="skeleton" dir="rtl">
       <div class="skeleton-line"></div>
       <div class="skeleton-line"></div>
@@ -365,11 +313,6 @@
 
     <div id="readerWrapper" style="display: none">
       <div id="readerPageHeader" style="display: none"></div>
-      <div
-        id="searchHistoryDropdown"
-        class="search-results search-history-dropdown"
-        style="display: none"
-      ></div>
       <div
         id="columnDropdown"
         class="column-dropdown"
@@ -491,24 +434,16 @@
       <div id="readerPanel" class="sticky-panel">
         <div id="readerPanelSearch" class="reader-panel-row">
           <button
-            id="btnAdvancedSearch"
+            id="btnSearchWindow"
             class="search-advanced-btn"
-            title="Advanced search (Ctrl+Shift+F)"
-            data-i18n="btnAdvancedSearchText"
+            data-i18n="searchBtnLabel"
+            title="Search (Ctrl+F or /)"
           >
-            🔎 އެޑްވާންސްޑް ހޯދުން
+            🔍 ހޯދާ
           </button>
-          <button
-            id="btnWholeWord"
-            class="search-advanced-btn"
-            title="Whole-word match"
-            style="display: none"
-          >
-            <span style="text-decoration: underline; text-underline-offset: 3px"
-              >ab</span
-            >
-          </button>
-          <div class="search-input-wrap">
+          <!-- In-place filter — RDF dictionary books only (the wrap is
+               hidden by JS for every other book; the window replaces it). -->
+          <div class="search-input-wrap" id="readerSearchWrap">
             <input
               id="readerSearchInput"
               type="search"
@@ -530,14 +465,9 @@
             </button>
           </div>
         </div>
-        <div
-          id="searchResultsDropdown"
-          class="search-results"
-          style="display: none"
-        ></div>
         <!-- Collapsible toolbar — functions, pagination and Quran nav.
                Focus collapses this (grid 0fr — needs exactly one child, the
-               inner) and also hides the search row + dropdown above. -->
+               inner) and also hides the search row above. -->
         <div id="collapsibleReaderPanel">
           <div class="reader-panel-inner">
             <div
@@ -847,6 +777,7 @@
     </div>
 
     <script type="module" src="../js/common.js"></script>
+    <script type="module" src="../js/search-window.js"></script>
     <script type="module" src="../js/reader.js"></script>
     <div id="scrollCounter" class="scroll-counter"></div>
     <script>

@@ -1,0 +1,527 @@
+/* ============================================================
+   Search window — the one modal search surface shared by the
+   reader and library-search pages, built by js/search-window.js
+   on the unified modal layer. Result/history/advanced row
+   classes stay in reader-search.css; this file sizes the window
+   and arranges its sections.
+   ============================================================ */
+
+/* ---- Modal shell ---- */
+/* The modal element carries the extra class itself (createModal sets
+   class="modal search-window-modal"), so these rules select the class
+   directly — the .modal-descendant form would never match (the window
+   silently rendered at the base 340px width until this was fixed).
+   Desktop is a two-column window (controls pane + results pane) — the extra
+   width buys the results pane the space the single column lost to controls.
+   The base .modal max-width (92vw) still caps it.
+   Height is FIXED (not max-height): a content-driven height makes every
+   content swap resize the centered window — history section hiding when a
+   result runs, history shrinking when a term is deleted — which re-centers
+   it (the overlay centers the modal). With a fixed height the flex chain
+   (body → body-row → main → results) is properly bounded and the results
+   pane scrolls internally instead. */
+.search-window-modal {
+  width: min(880px, 94vw);
+  height: min(86vh, 800px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.search-window-modal .modal-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  gap: 10px;
+}
+
+/* ---- Two-column body (desktop): controls pane + results pane ---- */
+/* The input row stays full-width above; everything below splits: the side
+   pane (tabs, options, view, advanced, scope) and the main pane (results,
+   history, status footer). ≤600px collapses the row to one column. */
+.search-window-body-row {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  gap: 12px;
+}
+.search-window-side {
+  flex-shrink: 0;
+  width: 260px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-inline-end: 12px;
+  border-inline-end: 1px solid var(--color-border);
+}
+/* Tab labels are long in Dhivehi ("ހުރިހާ ފޮތްތަކުން") — in the narrow
+   pane they stack full-width like the scope rail's controls; the base row
+   layout returns on mobile where the pane is full-width again. */
+.search-window-side .search-window-tabs {
+  flex-direction: column;
+}
+.search-window-side .search-window-tab {
+  flex: none;
+}
+.search-window-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ---- Input row ---- */
+/* Full-width input — the shared 500px wrap cap (reader-search.css) is a
+   header-box constraint, not a modal one. */
+.search-window-input-wrap {
+  max-width: none;
+}
+
+/* ---- Tabs (reader mode) ---- */
+.search-window-tabs {
+  display: flex;
+  gap: 4px;
+}
+.search-window-tab {
+  flex: 1;
+  padding: 6px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  /* tab labels are trilingual (this-book/all-books) — mixed font or the
+     Thaana labels fall back to a system font */
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.search-window-tab:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.search-window-tab.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+
+/* ---- Options row (whole-word, advanced) ---- */
+.search-window-options {
+  display: flex;
+  gap: 6px;
+}
+.search-window-opt {
+  flex-shrink: 0;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  padding: 0 12px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  line-height: var(--control-line-height, 33px);
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  /* option labels are trilingual too (whole-word / card / list) */
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.search-window-opt:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.search-window-opt.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+.search-window-ww {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
+}
+
+/* ---- Card/list view (library mode) ---- */
+.search-window-view {
+  display: flex;
+  gap: 6px;
+}
+.search-window-view .search-window-opt {
+  flex: 1;
+}
+
+/* ---- Advanced conditions ---- */
+.search-window-adv {
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+}
+.search-window-adv-label {
+  margin-bottom: 8px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-subtle);
+}
+.search-window-adv .modal-reset-small {
+  width: 100%;
+  margin-top: 8px;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.search-window-adv-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* ---- Results — flex-fill the main pane, scroll inside ---- */
+.search-window-results.search-results {
+  flex: 1;
+  min-height: 120px;
+  position: static;
+  max-height: none;
+  margin: 0;
+  border-radius: var(--radius-md, 8px);
+}
+/* The results pane's empty-state placeholder — shown while the input is
+   empty (history lives in the side pane, so the results column keeps a
+   quiet prompt instead of a void). */
+.search-window-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  padding: 14px;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ---- History — a "recent searches" section of the side pane, below the
+   scope section: the results column is for results. Capped with its own
+   scroll so a long history never pushes the tabs/options out of the pane
+   (same pattern as the scope picker's list). ---- */
+.search-window-history {
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+  max-height: 30vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.search-window-history-empty {
+  padding: 6px 2px;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ---- Scope section (library window / All-books tab) ---- */
+.search-window-scope {
+  border-top: 1px solid var(--color-border);
+  padding-top: 10px;
+}
+.search-window-scope-summary {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+/* The libScope modal — opened by the library page's scope button AND by
+   this window's scope summary (either page, stacked on top of the window),
+   so its geometry lives in this shared stylesheet. Same shape as the surah
+   selector: a fixed-height flex column where only the list scrolls; head,
+   types and foot stay put. The picker shell's surface rules (pane label,
+   head, filter, count, chips rail, list, rows) follow directly below. */
+.lib-scope-modal {
+  width: min(460px, 92vw);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.lib-scope-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 0;
+  padding: 4px 0 0; /* rows carry their own horizontal padding */
+  overflow: hidden;
+}
+/* Desktop (≥601px): the modal becomes a two-pane grid. Row 1 is one pinned
+   header — the "Tags" pane label rightmost (over the rail), the filter and
+   count over the list — and row 2 is the two scrollable panes: family chips
+   rail on the right (RTL grid order: the first column is the rightmost),
+   book list on the left. The label and head cells both carry the header's
+   bottom border, so the rule reads as one continuous line; the rail's
+   inline-end border keeps the vertical separator between the panes. Grid
+   areas map the shell's siblings (label / head / types / list) directly;
+   below 601px the base flex-column rules keep the stacked layout. */
+@media (min-width: 601px) {
+  .lib-scope-modal {
+    width: min(760px, 92vw);
+  }
+  .lib-scope-modal .modal-body {
+    display: grid;
+    grid-template-columns: minmax(170px, 220px) 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "label head"
+      "types list";
+  }
+  .lib-scope-modal .lib-scope-pane-label {
+    grid-area: label;
+    display: flex;
+    align-items: center; /* match the head's vertical centering */
+    padding: 10px 14px; /* join the head's padding, so their border-bottoms align */
+    border-bottom: 1px solid var(--color-border);
+  }
+  .lib-scope-modal .lib-scope-types {
+    grid-area: types;
+    flex-direction: column;
+    /* The base rule wraps for the mobile chips row; a wrapped column flex
+       would pack overflow into a second column instead of scrolling. */
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    border-inline-end: 1px solid var(--color-border);
+    border-bottom: none;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .lib-scope-modal .lib-scope-head {
+    grid-area: head;
+  }
+  .lib-scope-modal .lib-scope-list {
+    grid-area: list;
+  }
+}
+/* Small pane label ("Tags") — the rail's heading. In the stacked layout it
+   is the shell's first line, directly above the chips row. */
+.lib-scope-pane-label {
+  padding: 8px 14px 0; /* own line above the chips row on mobile */
+  font-size: var(--panel-font-size, 0.78rem);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+/* The picker's pinned header row: filter, the count and the reset action,
+   directly above the book list they describe. RTL row order: filter
+   rightmost, then the count, then reset at the far left — reset sits beside
+   the selection readout it clears, not in the rail (which can scroll out
+   from under it). */
+.lib-scope-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+/* .search-input (common.css) supplies the shared search-row look — semibold
+   text, bold subtle placeholder, focus ring, Thaana text-indent. Deltas only:
+   the panel font and the mixed font so Dhivehi/English both render. */
+.lib-scope-filter {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  direction: rtl;
+}
+/* The selection summary — full text color, semibold, at the filter's font
+   size: legible at a glance (muted proved too quiet to notice), while the
+   smaller text keeps it from competing with the input. */
+.lib-scope-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.lib-scope-reset {
+  flex-shrink: 0;
+  padding: 0 10px;
+}
+.lib-scope-types {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--control-gap, 6px);
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--color-border);
+  direction: rtl;
+}
+/* The chips render into their own span so the reset button (created once in
+   the shell) survives chip re-renders; display: contents keeps them direct
+   flex items of .lib-scope-types, so wrapping and gap behave as if the
+   reset button and the chips shared one row. */
+.lib-scope-chips {
+  display: contents;
+}
+.lib-scope-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  direction: rtl;
+}
+/* Group labels read as section headers: sticky inside the scrolling list
+   (they hold position while their books scroll beneath), on a subtle opaque
+   band framed top and bottom — so they stand out from the rows, passing rows
+   stay hidden behind them, and two labels stacking during a scroll read as
+   two separate blocks instead of one merged band. */
+.lib-scope-group-label {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 14px 6px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.lib-scope-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.lib-scope-row:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.lib-scope-row input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--color-nav-btn-text);
+}
+.lib-scope-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-text, 0.95rem);
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  /* same webfont start-side overhang as .hist-text — the ellipsis clip cuts
+     the first glyph of every row */
+  padding-inline-start: 6px;
+}
+/* The row's secondary line: the book's Arabic title — canonical in every
+   language, so it renders RTL in the Arabic script font. The tooltip on the
+   row carries the machine code instead (Latin, shown on hover). Arabic
+   letters don't carry the Thaana webfont's start-side overhang, so the
+   ellipsis clip needs no inset. Readable-but-secondary: the muted token at
+   panel size — subtle was too faint to notice (same fix as the count). */
+.lib-scope-sub {
+  flex-shrink: 0;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  direction: rtl;
+}
+.lib-scope-none {
+  padding: 10px 14px;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* ---- All-books tab: compact per-book result rows ---- */
+.search-window-book-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+}
+.search-window-book-link:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.search-window-book-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  /* same webfont start-side overhang as .hist-text — the ellipsis clip
+     cuts the first glyph of every title */
+  padding-inline-start: 6px;
+}
+.search-window-book-tags {
+  flex-shrink: 0;
+  display: inline-flex;
+  gap: 4px;
+}
+.search-window-book-tags .tag-badge {
+  font-size: var(--fs-aux, 0.8rem);
+  padding: 1px 8px;
+}
+.search-window-book-count {
+  flex-shrink: 0;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* ---- Footer ---- */
+.search-window-footer {
+  padding-top: 8px;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--fs-micro, 0.68rem);
+  color: var(--color-text-subtle);
+  text-align: center;
+}
+.search-window-status {
+  margin-inline-start: 8px;
+}
+.search-window-status-retry {
+  padding: 0 8px;
+  margin-inline-start: 4px;
+}
+
+/* ---- Mobile: full-width window, single column ---- */
+@media (max-width: 600px) {
+  .search-window-modal {
+    width: 100%;
+    height: 92vh;
+  }
+  /* The side pane stacks above the results as a normal section, and the
+     tabs go back to side-by-side half-width buttons. */
+  .search-window-body-row {
+    flex-direction: column;
+  }
+  .search-window-side {
+    width: auto;
+    padding-inline-end: 0;
+    border-inline-end: none;
+    /* shrinkable so short viewports compress the controls pane instead of
+       clipping it — it scrolls internally (overflow-y: auto) */
+    flex-shrink: 1;
+  }
+  .search-window-side .search-window-tabs {
+    flex-direction: row;
+  }
+  .search-window-side .search-window-tab {
+    flex: 1;
+  }
+}

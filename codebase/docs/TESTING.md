@@ -47,12 +47,14 @@ Before touching product code, run this sequence:
 | Imlai cell text never equals the CSV value | Cells render wrapped in ﴿ … ١ ﴾ (`decorateAyah`, `quran-data.js:271`) | Strip U+FD3F/U+FD3E **and** the trailing Arabic-Indic numerals U+0660–U+0669 (the ayah number sits inside the brackets) before comparing |
 | "Surah 114:1 has no basmalah" — wrong | Only surahs **1 and 9** lack the basmalah; 114:1 has it. Juz 30 opens at 78:1, which also has it | Basmalah present on 2:1/114:1/78:1; empty on 1:1/9:1 |
 | English strings never match titles/labels | The page defaults to **Dhivehi**: titles, modal labels, result counts and toasts are Thaana | Never assert English UI text; read expected strings from the registries (05 displayDV, 02 titleDV) with the app's own `parseCSV` |
-| Search result count differs between runs | Quick search matches **`allData`** — all loaded columns incl. hidden book columns (`reader-search-ui.js:166`). With Arabic tafseer books loaded: 841 matches for «الناس»; base columns only: 179. Empty-result text is «ނަތީޖާ 0» (no colon), results are «ނަތީޖާ: N» | Assert count relative to the column set loaded, or just > 0 and < 6236; treat "0 with no colon" as the no-results branch, not an error |
+| Search result count differs between runs | Quick search matches **`allData`** — all loaded columns incl. hidden book columns (`runBookSearch` in reader-search-ui.js). With Arabic tafseer books loaded: 841 matches for «الناس»; base columns only: 179. Empty-result text is «ނަތީޖާ 0» (no colon), results are «ނަތީޖާ: N» | Assert count relative to the column set loaded, or just > 0 and < 6236; treat "0 with no colon" as the no-results branch, not an error |
 | PRESET_RESET does not restore a juz/surah slice | Reset only hides external columns (`quran-ui.js:509`); the filtered slice from navigation stays | Not a regression — confirm the slice behavior separately if it matters |
 | A Thaana term's first glyph looks chipped on a history item / result snippet / title / surah-search input | The Hadithmv webfont paints ~1–5px of **start-side ink past the pen origin** on horizontal Thaana letters (ސ, ޗ, … — alef has none). Any surface that clips (overflow-hidden, ellipsis, line-clamp, or an input's inner editor) cuts that overhang when the run's origin sits at the clip edge; the clip is invisible when the surface has a start inset. The fixed surfaces carry their insets (`.hist-text` 6px, `.search-result-snippet` 8px, `.quran-surah-search` `text-indent: 6px`, `#pageTitle` 8px) — the battery's section F asserts them | Computed styles, not pixels: section F of `hmv-qrn-smoke.mjs`, or `getComputedStyle(...).paddingInlineStart` / `.textIndent` on the four surfaces. A bare pixel probe needs a **clipped-vs-visible reference pair** (same box, overflow forced visible) — see the mirror traps below |
 | A security audit claims reflected XSS via `?q=` or unescaped cells | Not exploitable. Every `?q=` → innerHTML sink escapes (`input.value` is a property assignment; the no-matches line uses `escapeHTML(q)`; snippets pass through `highlightMatches`, which escapes text and `<mark>` content). Cells render raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>`/`<span>`/entities, e.g. `data/content/RDF-misc.csv`). The one raw-attribute spot (`data-q="…"` in library-search cards) can't fire: a payload must tokenize into real search-index words (`tokenizeText` splits on every non-letter/mark/number char; `searchLibrary` ANDs), and index words never contain `"`/`<` — zero `onmouseover`/`onerror`/`javascript:` tokens in any data file (verified 2026-08-10). Audit line numbers routinely don't match this codebase — re-anchor each citation to the working tree first | Trace each sink, then grep `data/` for the payload tokens (the engine's matching gate is decisive); if the payload can't match a row, it can't render. `escapeHTML` covers `& < > " '` — safe in text and quoted attributes |
 | `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 07-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
-| A **non-RDF** reader search leaves the table showing **all rows** | Search is results-dropdown based — it **never filters** `filteredData` (`reader-search-ui.js:191` "Show results without filtering"); clicking a result jumps the table to the row. RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), the dropdown stays hidden, clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchResultsDropdown .search-count-header` (`ނަތީޖާ: N` — no colon = the zero-result branch), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
+| A **non-RDF** reader search leaves the table showing **all rows** | Search runs in the modal window (the header input exists for RDF books only) and — like the old dropdown — **never filters** `filteredData`; typing renders count + snippets in the window, clicking a result jumps the table to the row (`jumpToResultRow` in reader-search-ui.js). RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchWindowResults .search-count-header` (`ނަތީޖާ: N` — no colon = the zero-result branch), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
+| The **library window's** cards differ from the page's (no peek ▾, its own count) | The window renders the same `searchLibrary` results but **without peek toggles** (`resultCardHTML(..., withPeek=false)` — peek ids `btn-peek-CODE` would collide with the page's cards), inside `#searchWindowResults`. Scope changes from **either** surface re-run both (shared picker state fans out via the `libScopeChange` window event); the card↔list toggle re-renders the **cached** results — no re-search, no history write; the window copies the page's query once on open, then searches independently (the page's own input keeps working behind it) | Query `#searchWindowResults` for `.lib-result` (card) / `.search-window-book-link` (list) + `.search-count-header`, and expect **0** `.lib-peek-toggle` there. After a scope tick both `#libResults` and the window re-render. The list view's deep links go to `reader.html?book=CODE&row=<firstRow>&q=…` |
+| A modal opens but `document.activeElement` never becomes what `openModal` focused | The overlay's pop transition (`--t-pop`, common.css:519-529) leaves the modal **computed as `visibility: hidden` for its whole duration** — Blink silently drops every `focus()` called in that window (getComputedStyle says hidden while the fade-in is actually painted). `openModal` (common.js) and the search window's `openSearchWindow` (search-window.js) defer their focus calls past it (~`--t-pop` + 10/30 ms) | `waitFor` the intended focus target (`document.activeElement.id === …`), never assert focus synchronously right after the `open` class appears |
 
 ## Harness traps (test-side failures, not product bugs)
 
@@ -90,6 +92,43 @@ Before touching product code, run this sequence:
 - **Fresh profile = cold IndexedDB.** First run does real fetches; slow first
   loads are not hangs. Version-gated cache is per-profile, so timing between
   runs varies — use waitFor loops over fixed sleeps.
+- **An unasserted `waitFor` after a click is a false-positive trap.** A click
+  whose open-result is waited for but never `check`ed lets the whole section
+  run against **hidden DOM** — input `.value` sets, `input` event dispatches,
+  tab/vie-w toggle clicks and even the final Escape close all succeed with the
+  modal never opened (the Escape check passes because the overlay was never
+  open). This is exactly how the reader's magnifier button stayed dead for
+  weeks while the smoke + probe batteries stayed green — every check except
+  "is it open" was DOM-manipulation that doesn't need the modal. Rule: any
+  click whose effect is a modal/overlay must immediately `check(waitFor(open))`.
+- **`pathToFileURL` URL-encodes `?`.** Building a deep-link URL as
+  `pathToFileURL(ROOT + "book.html?q=…")` encodes the `?` into `%3F` — the
+  browser treats the whole string as a filename and serves the file-not-found
+  page (every element lookup then fails on nulls, e.g. `#btnSearchWindow`).
+  Build the base URL with `pathToFileURL` and append the query string after:
+  `const url = pathToFileURL(ROOT + "book.html").href; url + "?q=" + …`.
+- **`createModal` extra classes land on the modal element, not the overlay.**
+  `createModal(id, title, body, extraClass)` builds `class="modal <extra>"` —
+  the extra class is on the modal itself, so a CSS selector written as a
+  descendant (`.search-window-modal .modal`) **never matches**, and the whole
+  rule block silently dies. The search window rendered at the base
+  `.modal` 340px width for weeks while its shell CSS was dead — no battery
+  asserted width, so nothing caught it. Select the class directly
+  (`.search-window-modal`) — as `library-search.css` does for
+  `.lib-scope-modal` — and reserve descendant forms for real descendants
+  (`.search-window-modal .modal-body` is fine). S11's two-column geometry
+  checks are the guard: they fail the moment the shell rules stop applying.
+- **The modal layer is exclusive; stacked opens are opt-in.** `openModal`
+  calls `closeAllModals()` first — only one modal can be open through it.
+  The search window's scope summary opens the libScope modal **on top**
+  (`openModalOnTop`), so both overlays are `.open` at once. Traps: an Escape
+  dispatch now closes the **innermost** modal (the scope one) first — a check
+  that asserts the window closed after one Escape fails; the stacked modal
+  must be closed (or its Escape asserted first) before asserting the window's
+  close. The stacking guards are S11's "opens the libScope modal on top" +
+  "Escape closes the scope modal only" and the smoke's same-named checks.
+  Both overlays share `--z-modal`, so the later-created (last in `MODAL_IDS`)
+  paints on top — keep batteries' Escape expectations in creation order.
 
 ## Traps from adjacent workflows
 

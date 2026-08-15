@@ -16,33 +16,34 @@ import { initExports } from "./export.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
 import { columnDisplayLabel } from "./column-labels.js";
 import { initPosition, updatePagination, visiblePageIndex, noteProgrammaticJump } from "./reader-position.js";
-import { initSearchUI, applySearch, renderAdvancedSearch, parseQueryWithMode } from "./reader-search-ui.js";
+import { initSearchUI, applySearch, applySearchWindow, parseQueryWithMode } from "./reader-search-ui.js";
+import { openSearchWindow, setSearchWindowQuery } from "./search-window.js";
 
 initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
-  //   Book loading (standard CSV or Quran merge)           L47-123
-  //   Page header, tag badges, language-aware titles       L126-184
-  //   Persisted settings (LS wrapper, -HDN column init)    L187-233
-  //   Reader state, column toggles, dropdown infrastructure L236-322
-  //   Tashkeel helpers                                     L325-332
-  //   Clipboard formatting (rowText)                       L335-425
-  //   View mode dropdown (card / table / parallel)         L428-476
-  //   Quran helpers                                        L479-483
-  //   Card row renderer (renderRowHTML)                    L486-582
-  //   Parallel row renderer (renderParallelRowHTML)        L585-704
-  //   Chunk + table-row renderers                          L707-769
-  //   Infinite scroll + table scrollbar                    L772-917
-  //   Navigation (goTo, scroll padding)                    L920-968
-  //   Search UI (wiring — module: reader-search-ui.js)     L971-1000
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1003-1163
-  //   Keyboard shortcuts (incl. navigation buttons)        L1166-1269
-  //   Touch swipe                                          L1272-1292
-  //   Settings reset + language change                     L1295-1308
-  //   Quran UI (initQuranUI ctx)                           L1311-1331
-  //   Initial render (deep links, reveal)                  L1334-1407
-  //   Module-level helpers (showError)                     L1410-1416
+  //   Book loading (standard CSV or Quran merge)           L48-124
+  //   Page header, tag badges, language-aware titles       L127-185
+  //   Persisted settings (LS wrapper, -HDN column init)    L188-234
+  //   Reader state, column toggles, dropdown infrastructure L237-328
+  //   Tashkeel helpers                                     L331-338
+  //   Clipboard formatting (rowText)                       L341-431
+  //   View mode dropdown (card / table / parallel)         L434-482
+  //   Quran helpers                                        L485-489
+  //   Card row renderer (renderRowHTML)                    L492-588
+  //   Parallel row renderer (renderParallelRowHTML)        L591-710
+  //   Chunk + table-row renderers                          L713-775
+  //   Infinite scroll + table scrollbar                    L778-923
+  //   Navigation (goTo, scroll padding)                    L926-974
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L977-1013
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1016-1176
+  //   Keyboard shortcuts (incl. navigation buttons)        L1179-1286
+  //   Touch swipe                                          L1289-1309
+  //   Settings reset + language change                     L1312-1325
+  //   Quran UI (initQuranUI ctx)                           L1328-1348
+  //   Initial render (deep links, reveal)                  L1351-1432
+  //   Module-level helpers (showError)                     L1435-1441
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -247,6 +248,11 @@ initializePageWithMetadata(async function (metadata) {
       // every cell on every keystroke — the main win on big books.
       // Kept in sync with quran-ui.js column insertion via the ctx bridge.
       var normAllData = buildNormData(allData);
+      // The active search query — the renderers highlight by this instead
+      // of reading the header input, which only exists for RDF books now
+      // (every other book searches in the window). Owned here, written via
+      // ctx.setActiveQuery by the search module.
+      var activeSearchQuery = "";
 
       // DOM refs
       const searchInput = document.getElementById("readerSearchInput");
@@ -302,7 +308,7 @@ initializePageWithMetadata(async function (metadata) {
       // registerDropdown) live in common.js — the library-search page uses
       // them too. Keep the page's close-all id list here; the quran-nav
       // dropdowns are created later, so closeAllDropdowns resolves ids lazily.
-      ["columnDropdown", "exportDropdown", "searchHistoryDropdown",
+      ["columnDropdown", "exportDropdown",
        "qrnAyahDropdown", "qrnJuzDropdown", "qrnDisplayDropdown",
        "qrnSurahOverlay"].forEach(function (id) {
         window.registerDropdownId(id);
@@ -499,7 +505,7 @@ initializePageWithMetadata(async function (metadata) {
             fields.push({ value: val, index: i });
           }
         }
-        var query = searchInput.value.trim();
+        var query = activeSearchQuery;
         var lastExtBook = "";
         // Consecutive Arabic columns (isArabicColumn) share ONE wash region,
         // so headAR + bodyAR read as a continuous block; everything else is
@@ -601,7 +607,7 @@ initializePageWithMetadata(async function (metadata) {
           }
         }
 
-        var query = searchInput.value.trim();
+        var query = activeSearchQuery;
 
         // Helper: classify a column as AR, DV, or neutral
         function classify(colIdx) {
@@ -749,9 +755,9 @@ initializePageWithMetadata(async function (metadata) {
               var ayahNo = getAyahNoFromRow(row);
               var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
               var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
-              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), searchInput.value.trim()));
+              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), activeSearchQuery));
             } else {
-              display = markupTashkeel(highlightMatches(v, searchInput.value.trim()));
+              display = markupTashkeel(highlightMatches(v, activeSearchQuery));
             }
             display = linkifyURLs(display);
             var tdClass = columnTdClass(colHeader, quranBook);
@@ -968,12 +974,16 @@ initializePageWithMetadata(async function (metadata) {
       }
       // #endregion
 
-      // #region Search UI (wiring — module: reader-search-ui.js)
+      // #region Search UI (wiring — search-window.js + reader-search-ui.js)
       // ── Search ──────────────────────────────────────────────
-      // Search, the whole-word toggle, the history dropdown, the advanced
-      // search modal and the search-results arrow navigation all live in
-      // reader-search-ui.js; wired here once, before the toolbar and the
-      // keyboard shortcuts.
+      // The unified search window (search-window.js shell, behaviour in
+      // reader-search-ui.js) is wired here once, before the toolbar and
+      // the keyboard shortcuts. The header input stays the in-place
+      // filter for RDF dictionary books; every other book searches in
+      // the window only, so its wrap is hidden.
+      if (!isRadheefBook(metadata.bookCode)) {
+        document.getElementById("readerSearchWrap").style.display = "none";
+      }
       initSearchUI({
         allData: allData,
         normAllData: normAllData,
@@ -993,6 +1003,9 @@ initializePageWithMetadata(async function (metadata) {
         setLoadedStart: function (v) { loadedStart = v; },
         getLoadedEnd: function () { return loadedEnd; },
         setLoadedEnd: function (v) { loadedEnd = v; },
+        // The renderers highlight by this instead of the header input
+        // value — the input exists for RDF books only (see above).
+        setActiveQuery: function (q) { activeSearchQuery = q; },
         rebuildAll: rebuildAll,
         loadInitial: loadInitial,
         observeSentinels: observeSentinels,
@@ -1258,13 +1271,17 @@ initializePageWithMetadata(async function (metadata) {
         }
         if (e.key === "F" && e.shiftKey && (e.ctrlKey || e.metaKey)) {
           e.preventDefault();
-          document.getElementById("advancedSearchOverlay").classList.add("open");
-          renderAdvancedSearch();
+          openSearchWindow({ openAdvanced: true });
         }
         if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
           e.preventDefault();
-          searchInput.focus();
-          searchInput.select();
+          if (isRadheefBook(metadata.bookCode)) {
+            // RDF books keep the in-place filter — focus it directly
+            searchInput.focus();
+            searchInput.select();
+          } else {
+            openSearchWindow();
+          }
         }
       });
       // #endregion
@@ -1366,8 +1383,16 @@ initializePageWithMetadata(async function (metadata) {
       // match when no &row= is given.
       var sharedQuery = new URLSearchParams(window.location.search).get("q");
       if (sharedQuery) {
-        searchInput.value = sharedQuery;
-        applySearch(sharedQuery);
+        if (isRadheefBook(metadata.bookCode)) {
+          searchInput.value = sharedQuery;
+          applySearch(sharedQuery);
+        } else {
+          // No header input on non-RDF books — the query lives in the
+          // window's state (opening the window shows it pre-filled and
+          // re-runs it); the highlight comes from activeSearchQuery.
+          setSearchWindowQuery(sharedQuery);
+          applySearchWindow(sharedQuery);
+        }
         var compiledQ = compileQuery(parseQueryWithMode(sharedQuery));
         var firstMatchRow = -1;
         for (var qr = 0; qr < allData.length; qr++) {

@@ -361,6 +361,65 @@ const STRINGS = {
     en: "Clear history ✕",
     ar: "مسح السجل ✕",
   },
+
+  // ── Search window (reader + library pages) ──
+  searchWindowTitle: { dv: "ހޯދުން", en: "Search", ar: "بحث" },
+  // The magnifier button that opens the window — emoji is part of the label
+  // (same pattern as the sidebar's searchBooks, so data-i18n re-renders
+  // keep it). dv is the verb form, matching the replaced placeholder's
+  // family ("މި ފޮތުން ހޯދާ…").
+  searchBtnLabel: {
+    dv: "🔍 ހޯދާ",
+    en: "🔍 Search",
+    ar: "🔍 بحث",
+  },
+  searchWindowThisBook: {
+    dv: "މި ފޮތުން",
+    en: "This book",
+    ar: "هذا الكتاب",
+  },
+  searchWindowAllBooks: {
+    dv: "ހުރިހާ ފޮތުން",
+    en: "All books",
+    ar: "كل الكتب",
+  },
+  searchWindowNoHistory: {
+    dv: "ހިސްޓަރީއެއް ނެތް",
+    en: "No search history",
+    ar: "لا يوجد سجل بحث",
+  },
+  // The results pane's empty-state placeholder (history has its own
+  // section in the side pane, so the results column prompts instead).
+  searchWindowEmptyHint: {
+    dv: "ލިޔަން ފެށުމުން ނަތީޖާ ފެންނާނެ",
+    en: "Results appear as you type",
+    ar: "تظهر النتائج أثناء الكتابة",
+  },
+  searchWindowIndexLoading: {
+    dv: "ފޮތްތައް ތައްޔާރުވަނީ…",
+    en: "Loading book index…",
+    ar: "جارٍ تحميل فهرس الكتب…",
+  },
+  searchWindowIndexError: {
+    dv: "ފޮތްތައް ލޯޑުވެގެން ނުދެއެ",
+    en: "Book index could not be loaded",
+    ar: "تعذر تحميل فهرس الكتب",
+  },
+  searchWindowCardView: {
+    dv: "ކާޑް",
+    en: "Card view",
+    ar: "عرض البطاقات",
+  },
+  searchWindowListView: {
+    dv: "ލިސްޓް",
+    en: "List view",
+    ar: "عرض القائمة",
+  },
+  searchWindowOpenHint: {
+    dv: "↑↓ ދިއްކުން · Enter ޖަހަނީ · Esc ނިންމަނީ",
+    en: "↑↓ navigate · Enter open · Esc close",
+    ar: "↑↓ تنقّل · Enter فتح · Esc إغلاق",
+  },
   dashboardColTitleAR: {
     dv: "އަރަބި ނަން",
     en: "Arabic name",

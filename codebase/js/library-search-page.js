@@ -32,22 +32,36 @@ import {
   buildNormData,
   buildSnippets,
   highlightMatches,
-  scoreFilterTokens,
   addSearchHistory,
   getSearchHistory,
   removeSearchHistoryItem,
   clearSearchHistory,
-  normaliseForSearch,
 } from "./search-utils.js";
+import {
+  initScopePicker,
+  getScope,
+  setScope,
+  ensureSearchableBooks,
+  renderScopeShell,
+  ensureScopeShell,
+  renderScopePopover,
+  reserveScopeCountWidth,
+  scopeModalOpen,
+  clearScopeFilter,
+  refreshScopeLabels,
+  fillTemplate,
+} from "./library-scope-picker.js";
+import {
+  initSearchWindow,
+  getSearchWindowUI,
+  openSearchWindow,
+  buildBookRowsHTML,
+} from "./search-window.js";
 
 // ── Page state ───────────────────────────────────────────────
 var _bookNames = null; // full registry (incl. -HDN books)
 var _q = ""; // current query (trimmed)
 var _selectedTags = []; // active tag chips (OR — same semantics as the grid)
-var _selectedBooks = null; // book scope: null = every book; else explicit bookCode list
-var _searchableBooks = null; // picker list — visible books that are in the search index
-var _bookByCode = {}; // bookCode → registry entry (picker titles)
-var _scopeFilter = ""; // picker's filter-box text
 var _searchTimer = null; // input debounce
 var _refreshTags = null; // tag-row collapse refresh (common.js)
 var _skipHistoryOnFocus = false; // true only for the initial desktop auto-focus
@@ -66,21 +80,19 @@ var el = {
   scopeOverlay: null,
   scopeTitle: null,
   scopeBody: null,
-  scopeFilter: null,
-  scopeTypes: null,
-  scopeTypesLabel: null,
-  scopeChips: null,
-  scopeList: null,
-  scopeCount: null,
-  scopeReset: null,
 };
 
-/** Substitute {k} placeholders in an i18n template string. */
-function fillTemplate(key, map) {
-  var s = t(key);
-  for (var k in map) s = s.replace("{" + k + "}", map[k]);
-  return s;
-}
+// ── Search window (library mode) ─────────────────────────────
+// The window shares the page's state — the scope picker's selection and the
+// page input's query (copied over on open) — but searches independently:
+// typing in the window never touches the page behind it, which stays fully
+// functional as the fallback surface.
+var winInput = null;      // #searchWindowInput
+var winResults = null;    // #searchWindowResults
+var winHistory = null;    // #searchWindowHistory
+var _winView = "card";    // card | list (window view toggle)
+var _winLastQ = null;     // last window query + results (view re-render, no re-search)
+var _winLastResults = null;
 
 // ── URL sync (?q= / ?tags= / ?books= — shareable links) ──────
 function readURLParams() {
@@ -95,7 +107,7 @@ function readURLParams() {
   if (booksParam) {
     var books = booksParam.split(",").map(function (x) { return x.trim(); })
       .filter(function (x) { return x; });
-    if (books.length > 0) _selectedBooks = books;
+    if (books.length > 0) setScope(books);
   }
 }
 
@@ -104,7 +116,8 @@ function syncURL() {
   var params = new URLSearchParams();
   if (_q) params.set("q", _q);
   if (_selectedTags.length > 0) params.set("tags", _selectedTags.join(","));
-  if (_selectedBooks && _selectedBooks.length > 0) params.set("books", _selectedBooks.join(","));
+  var scopeBooks = getScope();
+  if (scopeBooks && scopeBooks.length > 0) params.set("books", scopeBooks.join(","));
   var qs = params.toString();
   history.replaceState(null, "", qs ? "?" + qs : window.location.pathname);
 }
@@ -164,127 +177,17 @@ function onChipsClick(e) {
   if (_q) runSearchAndRender();
 }
 
-// ── Book-scope picker ────────────────────────────────────────
-// The picker narrows the search to specific books (the tag chips narrow by
-// category — the two intersect in computeScope). Scope lives in ?books= so a
-// scoped search stays shareable. The picker lists only books the index
-// actually knows (meta.bookIds): RDF dictionaries and other
-// ENTIRE-BOOK-excluded books are absent by design — they have no postings.
-
-/** The picker's book list, lazily derived from the index meta. */
-function ensureSearchableBooks() {
-  if (_searchableBooks) return Promise.resolve();
-  return loadSearchIndex()
-    .then(function (index) {
-      var ids = index.meta.bookIds;
-      _searchableBooks = (_bookNames || []).filter(function (b) {
-        return !b.bookCode.endsWith("-HDN") && ids.indexOf(b.bookCode) !== -1;
-      });
-    })
-    .catch(function () {
-      // Index unavailable → fall back to every visible book (search is
-      // failing anyway; the list is still honest about the registry).
-      _searchableBooks = (_bookNames || []).filter(function (b) {
-        return !b.bookCode.endsWith("-HDN");
-      });
-    })
-    .then(function () {
-      _bookByCode = {};
-      _searchableBooks.forEach(function (b) {
-        _bookByCode[b.bookCode] = b;
-      });
-    });
-}
-
-/** Group the searchable books by EVERY tag they carry — the same semantics as
- *  the page's tag row, not just the primary prefix tag — so a book carrying
- *  several tags appears in several groups. */
-function scopeGroups() {
-  var groups = {};
-  var order = [];
-  _searchableBooks.forEach(function (b) {
-    extractTags(b.bookCode, b).forEach(function (tg) {
-      var g = groups[tg.code];
-      if (!g) {
-        g = groups[tg.code] = { code: tg.code, label: tg.label, palette: tg.palette, codes: [] };
-        order.push(tg.code);
-      }
-      g.codes.push(b.bookCode);
-    });
-  });
-  // Group order follows the registry's row order (palette slot), not the code.
-  order.sort(function (a, b) {
-    return groups[a].palette - groups[b].palette;
-  });
-  return order.map(function (c) {
-    return groups[c];
-  });
-}
-
-/**
- * Is the book in the explicit selection? null (no scope) means every book is
- * searched, but nothing is ticked — same metaphor as the tag chips' "All"
- * chip: an empty selection is not a restriction. Ticking a book from the
- * "everything" state narrows to exactly that book.
- */
-function isBookSelected(code) {
-  return !!_selectedBooks && _selectedBooks.indexOf(code) !== -1;
-}
-
-function allCodes() {
-  return _searchableBooks.map(function (b) {
-    return b.bookCode;
-  });
-}
-
-/** Update _selectedBooks for one book; a full selection collapses to null. */
-function setBookSelected(code, on) {
-  var all = allCodes();
-  var cur = _selectedBooks ? _selectedBooks.slice() : [];
-  var i = cur.indexOf(code);
-  if (on && i === -1) cur.push(code);
-  if (!on && i !== -1) cur.splice(i, 1);
-  // Empty and full both mean "no restriction" — an empty array would pass the
-  // truthy scope check in computeScope and return zero results.
-  _selectedBooks = (cur.length === 0 || cur.length === all.length) ? null : cur;
-}
-
-/** Update _selectedBooks for a whole type group (the popover's chips). */
-function setGroupSelected(tagCode, on) {
-  var gs = scopeGroups();
-  var group = null;
-  for (var i = 0; i < gs.length; i++) {
-    if (gs[i].code === tagCode) { group = gs[i]; break; }
-  }
-  if (!group) return;
-  var all = allCodes();
-  var cur = _selectedBooks ? _selectedBooks.slice() : [];
-  for (var g = 0; g < group.codes.length; g++) {
-    var code = group.codes[g];
-    var i = cur.indexOf(code);
-    if (on && i === -1) cur.push(code);
-    if (!on && i !== -1) cur.splice(i, 1);
-  }
-  _selectedBooks = (cur.length === 0 || cur.length === all.length) ? null : cur;
-}
-
-function isGroupFullySelected(tagCode) {
-  var gs = scopeGroups();
-  for (var i = 0; i < gs.length; i++) {
-    if (gs[i].code !== tagCode) continue;
-    for (var j = 0; j < gs[i].codes.length; j++) {
-      if (!isBookSelected(gs[i].codes[j])) return false;
-    }
-    return true;
-  }
-  return false;
-}
+// ── Book-scope picker (wiring) ───────────────────────────────
+// The picker's machinery lives in js/library-scope-picker.js — state
+// (_selectedBooks/_searchableBooks/_bookByCode/_scopeFilter), the shell
+// renderer, the popover, and the selection helpers. The page owns the modal
+// (createModal/openModal), the button, and what happens on change.
 
 /** Scope changed → URL, button, modal, and (if querying) re-search. */
 function applyScopeChange() {
   syncURL();
   renderScopeButton();
-  if (scopeModalOpen() && el.scopeList) {
+  if (scopeModalOpen()) {
     renderScopePopover();
   }
   if (_q) runSearchAndRender();
@@ -292,190 +195,19 @@ function applyScopeChange() {
 
 function renderScopeButton() {
   if (!el.scopeBtn) return;
+  var scopeBooks = getScope();
   var label;
-  if (!_selectedBooks) {
+  if (!scopeBooks) {
     label = t("libScopeAll");
-  } else if (_selectedBooks.length === 1) {
+  } else if (scopeBooks.length === 1) {
     label = t("libScopeCountOne");
   } else {
-    label = fillTemplate("libScopeCount", { n: _selectedBooks.length });
+    label = fillTemplate("libScopeCount", { n: scopeBooks.length });
   }
   // "Search in: <state>" — the prefix teaches the button's purpose at a
   // glance (it controls which books the search runs in), while the state part
   // reports the current scope; the modal title's own "search in" phrasing.
   el.scopeBtn.textContent = t("libScopeSearchIn") + " " + label + " ▾";
-}
-
-/**
- * The modal's shell (head + empty containers) — rendered once. Only the inner
- * lists/chips are rebuilt on filter/selection changes, so the filter input
- * keeps its focus and the reset button keeps its listener.
- */
-function renderScopeShell() {
-  el.scopeBody.innerHTML =
-    // One pinned header row spanning both panes: the rail's "Tags" pane label
-    // rightmost (above the rail), the filter and the count over the list.
-    // Everything below the header scrolls inside its own pane — the label
-    // never scrolls out of view with the chips. The reset button lives in the
-    // header beside the count, not in the rail: it clears the whole scope (a
-    // picker-wide action, not a chip-local one) and stays reachable even when
-    // the rail is scrolled — and sitting next to the "N of M books selected"
-    // readout, it reads as the undo for the very state the count shows.
-    // Desktop maps label and head to the grid's first row; the stacked layout
-    // puts the label above the chips row, which comes above the filter row,
-    // which comes above the list (the filter stays directly above the list it
-    // describes).
-    '<div id="libScopeTypesLabel" class="lib-scope-pane-label">' + t("libScopeTypesLabel") + "</div>" +
-    // The rail: only the chips (a plain, always-visible element — no state to
-    // survive a rebuild). The chips sub-container is the whole rail, so it is
-    // rebuilt on filter/selection changes with no listeners to preserve.
-    '<div id="libScopeTypes" class="lib-scope-types">' +
-    '<span id="libScopeChips" class="lib-scope-chips"></span>' +
-    "</div>" +
-    '<div class="lib-scope-head">' +
-    '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
-    'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
-    '<div id="libScopeCount" class="lib-scope-count"></div>' +
-    '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
-    t("libScopeReset") + "</button>" +
-    "</div>" +
-    '<div id="libScopeList" class="lib-scope-list"></div>';
-  el.scopeFilter = document.getElementById("libScopeFilter");
-  el.scopeTypes = document.getElementById("libScopeTypes");
-  el.scopeTypesLabel = document.getElementById("libScopeTypesLabel");
-  el.scopeChips = document.getElementById("libScopeChips");
-  el.scopeList = document.getElementById("libScopeList");
-  el.scopeCount = document.getElementById("libScopeCount");
-  el.scopeReset = document.getElementById("libScopeReset");
-  el.scopeFilter.addEventListener("input", function () {
-    _scopeFilter = this.value;
-    renderScopePopover();
-  });
-  el.scopeReset.addEventListener("click", function () {
-    if (_selectedBooks === null) return; // nothing scoped → nothing to reset
-    _selectedBooks = null;
-    applyScopeChange();
-  });
-  // Delegation on the containers — they survive list re-renders. No
-  // outside-click handler exists for modals (backdrop click closes via
-  // e.target === overlay), so a re-render detaching the clicked chip is safe.
-  el.scopeTypes.addEventListener("click", function (e) {
-    var chip = e.target.closest(".tag-chip");
-    if (!chip || chip.dataset.tag === window.TAG_ALL) return;
-    setGroupSelected(chip.dataset.tag, !isGroupFullySelected(chip.dataset.tag));
-    applyScopeChange();
-  });
-  el.scopeList.addEventListener("change", function (e) {
-    var cb = e.target;
-    if (cb.type !== "checkbox" || !cb.dataset.book) return;
-    setBookSelected(cb.dataset.book, cb.checked);
-    applyScopeChange();
-  });
-}
-
-function scopeRowHTML(code) {
-  var b = _bookByCode[code];
-  var title = "";
-  if (b) {
-    var l = currentLang();
-    title = l === "dv" ? b.titleDV : l === "ar" ? b.titleAR : b.titleEN;
-    if (!title) title = b.titleEN || b.titleDV || b.titleAR || "";
-  }
-  // The secondary line is the book's Arabic title — its canonical name in
-  // every language; the row's tooltip carries the machine code (the ?books=
-  // value) for power users sharing links.
-  return (
-    '<label class="lib-scope-row" data-book="' + code + '" title="' + code + '">' +
-    '<input type="checkbox" data-book="' + code + '"' +
-    (isBookSelected(code) ? " checked" : "") + " />" +
-    '<span class="lib-scope-title">' + escapeHTML(title || code) + "</span>" +
-    '<span class="lib-scope-sub">' + escapeHTML(b && b.titleAR ? b.titleAR : "") + "</span></label>"
-  );
-}
-
-function renderScopePopover() {
-  if (!_searchableBooks || !el.scopeList) return;
-  var groups = scopeGroups();
-  var total = allCodes().length;
-  var selCount = _selectedBooks ? _selectedBooks.length : total;
-  el.scopeChips.innerHTML = groups.map(function (g) {
-    return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
-  }).join("");
-  var f = normaliseForSearch(_scopeFilter.toLowerCase());
-  var html = [];
-  // The rail's chips show every tag a book carries, so a book belongs to
-  // several groups — but the list is a picker, not a taxonomy: each book
-  // renders exactly once, under its first group (groups run in the tag
-  // registry's file order, which is also the palette/display order); a
-  // group label whose books were all claimed by earlier groups is skipped.
-  // The filter is always-fuzzy, exact-ranked (scoreFilterTokens, same as
-  // the dashboard box): titles + tag words may match within 1–2 edits, the
-  // code is exact-only — a 2-edit match on a code is a different book.
-  // Exact hits float to the top of their group; the sort is stable, so
-  // equal scores keep the registry's hand-set display order.
-  var seen = {};
-  var scores = {};
-  groups.forEach(function (g) {
-    var shown = g.codes.filter(function (code) {
-      if (seen[code]) return false;
-      seen[code] = true;
-      if (!f) return true;
-      var b = _bookByCode[code];
-      var s = scoreFilterTokens(
-        [f],
-        [
-          // normaliseForSearch: same script-level equivalence as the
-          // dashboard (hamza/tashkeel forms, Thaana dotted letters), then
-          // lowercase for Latin case-insensitivity. Tag words (labels +
-          // aliases, all languages) — a query hitting a tag's text finds
-          // every book carrying that tag's code.
-          normaliseForSearch(((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
-            (b ? " " + tagSearchWords(code, b) : "")).toLowerCase())
-        ],
-        normaliseForSearch(code.toLowerCase())
-      );
-      if (s >= 0) scores[code] = s;
-      return s >= 0;
-    });
-    shown.sort(function (a, b) {
-      var sa = scores[a] || 0;
-      var sb = scores[b] || 0;
-      return sa - sb; // stable: equal scores keep registry order
-    });
-    if (shown.length === 0) return;
-    html.push('<div class="lib-scope-group-label">' + tagLabel(g.code, g.label) + "</div>");
-    shown.forEach(function (code) {
-      html.push(scopeRowHTML(code));
-    });
-  });
-  el.scopeList.innerHTML = html.join("") ||
-    '<div class="lib-scope-none">' + t("libScopeNoMatch") + "</div>";
-  // Unscoped → "44 books"; scoped → "4 of 44 books selected"
-  el.scopeCount.textContent = _selectedBooks
-    ? fillTemplate("libScopeFoot", { n: selCount, m: total })
-    : fillTemplate("libScopeCount", { n: total });
-}
-
-function scopeModalOpen() {
-  return !!el.scopeOverlay && el.scopeOverlay.classList.contains("open");
-}
-
-/**
- * Pin the count's width to its widest state so ticking books never resizes
- * the filter beside it — the same swap-stability contract as
- * window.reserveWidestText elsewhere. The count's shapes are enumerable: the
- * unscoped "N books" and the scoped "S of N books selected" templates, with
- * the most digits (S = N-1) giving the widest — so the reservation is exact,
- * not a guess. The modal must be visible to measure, so this runs right
- * after openModal and on language change while the modal is open.
- */
-function reserveScopeCountWidth() {
-  var t = allCodes().length;
-  var s = t > 1 ? t - 1 : 1;
-  window.reserveWidestText(el.scopeCount, [
-    fillTemplate("libScopeCount", { n: t }),
-    fillTemplate("libScopeFoot", { n: s, m: t })
-  ]);
 }
 
 /** Open the book-scope modal (created lazily via the unified modal layer). */
@@ -485,20 +217,15 @@ function openScopeModal() {
       el.scopeOverlay = window.createModal("libScopeOverlay", "libScopeModalTitle", "libScopeModalBody", "lib-scope-modal");
       el.scopeTitle = document.getElementById("libScopeModalTitle");
       el.scopeBody = document.getElementById("libScopeModalBody");
-      renderScopeShell();
     }
+    ensureScopeShell(el.scopeBody); // the window may have taken the shell
+    clearScopeFilter();
     el.scopeTitle.textContent = t("libScopeTitle");
-    _scopeFilter = "";
-    if (el.scopeFilter) el.scopeFilter.value = "";
     renderScopePopover();
     window.openModal("libScopeOverlay");
     reserveScopeCountWidth(); // must measure while the modal is visible
   };
-  if (!_searchableBooks) {
-    ensureSearchableBooks().then(open);
-    return;
-  }
-  open();
+  ensureSearchableBooks().then(open);
 }
 
 // ── Search ───────────────────────────────────────────────────
@@ -521,9 +248,10 @@ function computeScope() {
       });
     });
   }
-  if (_selectedBooks && _selectedBooks.length > 0) {
+  var scopeBooks = getScope();
+  if (scopeBooks && scopeBooks.length > 0) {
     visible = visible.filter(function (b) {
-      return _selectedBooks.indexOf(b.bookCode) !== -1;
+      return scopeBooks.indexOf(b.bookCode) !== -1;
     });
   }
   return visible.map(function (b) {
@@ -549,7 +277,8 @@ function runSearchAndRender() {
   // NOT fall through to an unscoped search (the engine treats [] as
   // "every book").
   var scope = computeScope();
-  if ((_selectedTags.length > 0 || (_selectedBooks && _selectedBooks.length > 0)) && scope.length === 0) {
+  var scopeBooks = getScope();
+  if ((_selectedTags.length > 0 || (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
     showEmpty("libNoResults");
     return;
   }
@@ -779,6 +508,79 @@ function togglePeek(root, bookCode, q) {
   }
 }
 
+/** One result card's markup, shared by the page and the window's card view.
+ *  The page cards carry the expandable peek (withPeek); the window's omit it
+ *  — no peek buttons there (their ids would collide with the page's cards). */
+function resultCardHTML(r, q, withPeek) {
+  var meta = (_bookNames || []).find(function (b) {
+    return b.bookCode === r.bookCode;
+  });
+  var tags = meta ? extractTags(meta.bookCode, meta) : [];
+  var tagHtml =
+    tags.length > 0
+      ? '<div class="card-tags">' +
+        tags
+          .map(function (tg) {
+            return (
+              '<span class="tag-badge' +
+              (tg.palette >= 0 ? " tag-palette-" + tg.palette : "") +
+              '" title="Category: ' +
+              tagLabel(tg.code, tg.label, "en") +
+              '">' +
+              tagLabel(tg.code, tg.label) +
+              "</span>"
+            );
+          })
+          .join("") +
+        "</div>"
+      : "";
+  var link =
+    "reader.html?book=" +
+    r.bookCode +
+    "&row=" +
+    r.firstRow +
+    "&q=" +
+    encodeURIComponent(q);
+  return (
+    '<div class="card lib-result" data-book="' +
+    r.bookCode +
+    '" data-q="' +
+    escapeHTML(q) +
+    '">' +
+    '<div class="lib-result-top">' +
+    '<a class="lib-result-link" href="' +
+    link +
+    '" title="' +
+    r.bookCode +
+    '">' +
+    tagHtml +
+    '<div class="title-ar">' +
+    escapeHTML(meta ? meta.titleAR || "" : "") +
+    "</div>" +
+    '<div class="title-dv">' +
+    escapeHTML(meta ? meta.titleDV || "" : "") +
+    "</div>" +
+    '<div class="title-en">' +
+    escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
+    "</div>" +
+    '<div class="lib-result-meta">' +
+    fillTemplate("libBookMatches", { n: r.count }) +
+    "</div>" +
+    "</a>" +
+    (withPeek
+      ? '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>'
+      : "") +
+    "</div>" +
+    (withPeek
+      ? '<div class="lib-peek" style="display:none">' +
+        '<div class="lib-peek-items"></div>' +
+        '<button class="toolbar-btn lib-peek-more" style="display:none"></button>' +
+        "</div>"
+      : "") +
+    "</div>"
+  );
+}
+
 /** Render grouped-by-book results into the results area. */
 function renderResults(results, q) {
   if (!results || results.length === 0) {
@@ -791,73 +593,7 @@ function renderResults(results, q) {
   el.count.textContent = fillTemplate("libResultSummary", { a: total, b: results.length });
   el.results.innerHTML =
     '<div class="lib-results">' +
-    results
-      .map(function (r) {
-        var meta = (_bookNames || []).find(function (b) {
-          return b.bookCode === r.bookCode;
-        });
-        var tags = meta ? extractTags(meta.bookCode, meta) : [];
-        var tagHtml =
-          tags.length > 0
-            ? '<div class="card-tags">' +
-              tags
-                .map(function (tg) {
-                  return (
-                    '<span class="tag-badge' +
-                    (tg.palette >= 0 ? " tag-palette-" + tg.palette : "") +
-                    '" title="Category: ' +
-                    tagLabel(tg.code, tg.label, "en") +
-                    '">' +
-                    tagLabel(tg.code, tg.label) +
-                    "</span>"
-                  );
-                })
-                .join("") +
-              "</div>"
-            : "";
-        var link =
-          "reader.html?book=" +
-          r.bookCode +
-          "&row=" +
-          r.firstRow +
-          "&q=" +
-          encodeURIComponent(q);
-        return (
-          '<div class="card lib-result" data-book="' +
-          r.bookCode +
-          '" data-q="' +
-          escapeHTML(q) +
-          '">' +
-          '<div class="lib-result-top">' +
-          '<a class="lib-result-link" href="' +
-          link +
-          '" title="' +
-          r.bookCode +
-          '">' +
-          tagHtml +
-          '<div class="title-ar">' +
-          escapeHTML(meta ? meta.titleAR || "" : "") +
-          "</div>" +
-          '<div class="title-dv">' +
-          escapeHTML(meta ? meta.titleDV || "" : "") +
-          "</div>" +
-          '<div class="title-en">' +
-          escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
-          "</div>" +
-          '<div class="lib-result-meta">' +
-          fillTemplate("libBookMatches", { n: r.count }) +
-          "</div>" +
-          "</a>" +
-          '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>' +
-          "</div>" +
-          '<div class="lib-peek" style="display:none">' +
-          '<div class="lib-peek-items"></div>' +
-          '<button class="toolbar-btn lib-peek-more" style="display:none"></button>' +
-          "</div>" +
-          "</div>"
-        );
-      })
-      .join("") +
+    results.map(function (r) { return resultCardHTML(r, q, true); }).join("") +
     "</div>";
 
   // Wire peek toggles + paging (rows are static HTML at this point)
@@ -879,6 +615,121 @@ function renderResults(results, q) {
   });
 }
 
+// ── Search window (library mode) ─────────────────────────────
+/** The window's empty state — the library search history (own key), same
+ *  items as the page's dropdown, wired to the window input. */
+function renderWindowHistory() {
+  var items = getSearchHistory(window.LS_KEYS.libSearchHistory);
+  // Empty state: placeholder in the results pane (history has its own
+  // section in the side pane — the results column is for results).
+  winResults.innerHTML =
+    '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
+  winResults.style.display = "";
+  winHistory.innerHTML = items.length === 0
+    ? '<div class="search-window-history-empty">' + t("searchWindowNoHistory") + "</div>"
+    : items.map(function (term, i) {
+        return '<div class="search-history-item" data-idx="' + i + '">' +
+          '<span class="hist-text">' + escapeHTML(term) + '</span>' +
+          '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
+      }).join("") +
+      '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
+  winHistory.style.display = "";
+  winHistory.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
+    item.addEventListener("click", function (e) {
+      if (e.target.classList.contains("hist-remove")) return;
+      var term = items[parseInt(this.dataset.idx)];
+      winInput.value = term;
+      getSearchWindowUI().syncClear();
+      windowSearchRun(term);
+    });
+  });
+  winHistory.querySelectorAll(".hist-remove").forEach(function (x) {
+    x.addEventListener("click", function (e) {
+      e.stopPropagation();
+      removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.libSearchHistory);
+      renderWindowHistory();
+    });
+  });
+  var clearAll = winHistory.querySelector(".search-history-clear");
+  if (clearAll) clearAll.addEventListener("click", function () {
+    clearSearchHistory(window.LS_KEYS.libSearchHistory);
+    renderWindowHistory();
+  });
+}
+
+/** Render the window's search results (card view or compact list view). */
+function renderWindowResults(results, q) {
+  _winLastQ = q;
+  _winLastResults = results;
+  var total = 0;
+  for (var i = 0; i < results.length; i++) total += results[i].count;
+  var html = '<div class="search-count-header">' +
+    fillTemplate("libResultSummary", { a: total, b: results.length }) +
+    "</div>";
+  if (results.length === 0) {
+    html += '<div class="search-no-matches">' + t("libNoResults") + "</div>";
+  } else if (_winView === "list") {
+    html += buildBookRowsHTML(results, q, _bookNames);
+  } else {
+    html += '<div class="lib-results">' +
+      results.map(function (r) { return resultCardHTML(r, q, false); }).join("") +
+      "</div>";
+  }
+  winResults.innerHTML = html;
+  winResults.style.display = "";
+  winHistory.style.display = "none";
+}
+
+/** Run the window search — the same pipeline as the page's runSearchAndRender
+ *  (computeScope includes tag chips + the picker scope, history on its own
+ *  key), rendering into the window. */
+function windowSearchRun(q) {
+  var scope = computeScope();
+  var scopeBooks = getScope();
+  if ((_selectedTags.length > 0 || (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
+    renderWindowResults([], q);
+    return;
+  }
+  addSearchHistory(q, window.LS_KEYS.libSearchHistory);
+  winResults.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
+  winResults.style.display = "";
+  winHistory.style.display = "none";
+  loadSearchIndex()
+    .then(function (index) {
+      renderWindowResults(searchLibrary(index, q, scope), q);
+    })
+    .catch(function () {
+      winResults.innerHTML =
+        '<div class="empty-state">⚠️ Error: Failed to load the search index. ' +
+        '<button id="winLibSearchRetry" class="retry-btn">↺ Retry</button></div>';
+      var retryBtn = document.getElementById("winLibSearchRetry");
+      if (retryBtn) retryBtn.addEventListener("click", function () { windowSearchRun(q); });
+    });
+}
+
+/** Window input routing (the shell debounces; settled values land here). */
+function windowSearch(value) {
+  var q = value.trim();
+  if (!q) { renderWindowHistory(); return; }
+  windowSearchRun(q);
+}
+
+/** Window open — copy the page's query over (one surface, shared state),
+ *  then run it; empty → the history empty state. */
+function onWindowOpen() {
+  var v = el.input.value.trim();
+  winInput.value = el.input.value;
+  getSearchWindowUI().syncClear();
+  if (!v) { renderWindowHistory(); return; }
+  windowSearchRun(v);
+}
+
+/** Card/list toggle — re-render the cached results, no re-search. */
+function onWindowViewChange(view) {
+  _winView = view;
+  if (_winLastQ && _winLastResults) renderWindowResults(_winLastResults, _winLastQ);
+}
+
 // ── Page initialisation ──────────────────────────────────────
 async function init() {
   el.input = document.getElementById("libSearchInput");
@@ -890,6 +741,27 @@ async function init() {
   el.history = document.getElementById("searchHistoryDropdown");
   el.clearBtn = document.getElementById("libSearchClear");
   if (!el.input) return;
+
+  initScopePicker({
+    bookNames: function () { return _bookNames; },
+    onScopeChange: applyScopeChange,
+  });
+
+  // The search window (library mode): shares the page's scope state, its
+  // own input + card/list views. The page stays fully functional behind it.
+  var ui = initSearchWindow({
+    mode: "library",
+    tabs: false,
+    options: false,  // no whole-word / advanced conditions on this page
+    scope: true,     // the scope section is always visible here
+    viewToggle: true,
+    onOpen: onWindowOpen,
+    onInput: windowSearch,
+    onViewChange: onWindowViewChange,
+  });
+  winInput = ui.input;
+  winResults = ui.results;
+  winHistory = ui.history;
 
   readURLParams();
   el.input.value = _q;
@@ -937,15 +809,22 @@ async function init() {
     el.scopeBtn.addEventListener("click", openScopeModal);
   }
 
-  // Language change → re-render chips + results (+ picker placeholder)
+  // Search window button — opens the shared modal window
+  var btnWindow = document.getElementById("btnSearchWindow");
+  if (btnWindow) btnWindow.addEventListener("click", function () {
+    openSearchWindow();
+  });
+
+  // Language change → re-render chips + results (+ picker labels; the picker
+  // module relabels its current surface — modal body or window scope section)
   document.addEventListener("languagechange", function () {
     renderChips();
     if (el.scopeTitle) el.scopeTitle.textContent = t("libScopeTitle");
-    if (el.scopeTypesLabel) el.scopeTypesLabel.textContent = t("libScopeTypesLabel");
-    if (el.scopeFilter) el.scopeFilter.placeholder = t("libScopeFilter");
-    if (el.scopeReset) el.scopeReset.textContent = t("libScopeReset");
-    if (scopeModalOpen()) reserveScopeCountWidth(); // templates changed
+    refreshScopeLabels();
     if (_q) runSearchAndRender();
+    // The window's own labels re-render via the shell's languagechange
+    // listener; its cached results re-render here (no re-search).
+    if (_winLastQ && _winLastResults) renderWindowResults(_winLastResults, _winLastQ);
   });
 
   // Focus mode button (collapse chips + count, keep the search visible)

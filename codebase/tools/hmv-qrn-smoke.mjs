@@ -16,7 +16,8 @@
 //  - PRESET_ALL loads books without an error toast; PRESET_RESET back to 3
 //  - nav-then-add: after surah+ayah dropdown nav, an added column must
 //    widen the rendered rows (td == th), not just the thead
-//  - search filters; settings Reset no error toast
+//  - search window: button opens the modal, results + regex + whole-word +
+//    advanced + history + Escape; settings Reset no error toast
 //  - imlai book renders as a standard 1-column book (no quran panel)
 import fs from "fs";
 import path from "path";
@@ -366,23 +367,35 @@ async function main() {
   const thReset = await evalJS(`document.querySelectorAll('.reader-table th').length`);
   check("preset reset back to base", thReset === 3, String(thReset) + " th");
 
-  // ── D. search + settings reset ─────────────────────────────────────
-  console.log("== D. search / settings ==");
+  // ── D. search window + settings reset ──────────────────────────────
+  // Search moved into the modal window (non-RDF books): the header input is
+  // gone, #btnSearchWindow opens the window. The "search filters rows" check
+  // is really "the table still renders (incremental render)" — window search
+  // never touches the page until a result jump, so the table row count stays
+  // the pre-search window (~50 rows), not 6236.
+  console.log("== D. search window / settings ==");
+  await evalJS(`document.getElementById('btnSearchWindow').click()`);
+  // The window must actually open — a click on a dead button leaves every
+  // later section-D check operating on hidden DOM (a false positive: input
+  // value + event dispatch and tab clicks all work with the modal closed).
+  check("D window opens from the magnifier button",
+    await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
   await evalJS(`(function () {
-    var inp = document.getElementById('readerSearchInput');
+    var inp = document.getElementById('searchWindowInput');
     inp.value = 'الناس';
     inp.dispatchEvent(new Event('input', { bubbles: true }));
   })()`);
-  await waitFor(`document.querySelector('#searchResultsDropdown .search-count-header') !== null`, 10000);
+  await waitFor(`document.querySelector('#searchWindowResults .search-count-header') !== null`, 10000);
   await sleep(300);
   const res = await evalJS(`(function () {
-    var h = document.querySelector('#searchResultsDropdown .search-count-header');
+    var h = document.querySelector('#searchWindowResults .search-count-header');
     return {
       rows: document.querySelectorAll('.reader-table tbody tr').length,
       rc: h ? h.textContent.trim() : null,
     };
   })()`);
-  check("search filters rows", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
+  check("search keeps table rows (incremental render)", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
+  check("search results render in window", res.rc !== null, res.rc);
 
   // regex query path — same engine, must yield the identical result set as
   // the plain term. Regression guard: the compiled regex used to carry the
@@ -391,23 +404,173 @@ async function main() {
   // alone, pre-fix); parseQuery now strips `g`/`y`, so the two paths must
   // agree byte-for-byte.
   await evalJS(`(function () {
-    var inp = document.getElementById('readerSearchInput');
+    var inp = document.getElementById('searchWindowInput');
     inp.value = '/الناس/';
     inp.dispatchEvent(new Event('input', { bubbles: true }));
   })()`);
-  await waitFor(`document.querySelector('#searchResultsDropdown .search-count-header') !== null`, 10000);
+  await waitFor(`document.querySelector('#searchWindowResults .search-count-header') !== null`, 10000);
   await sleep(300);
   const resRe = await evalJS(`(function () {
-    var h = document.querySelector('#searchResultsDropdown .search-count-header');
+    var h = document.querySelector('#searchWindowResults .search-count-header');
     return h ? h.textContent.trim() : null;
   })()`);
   check("regex search matches plain-term count", resRe === res.rc, resRe);
+
+  // whole-word toggle — marks itself active and re-runs the window search
+  await evalJS(`document.getElementById('searchWindowWholeWord').click()`);
+  await sleep(400);
+  const ww = await evalJS(`(function () {
+    var btn = document.getElementById('searchWindowWholeWord');
+    return {
+      active: btn.classList.contains('active'),
+      rc: (document.querySelector('#searchWindowResults .search-count-header') || {}).textContent || null,
+    };
+  })()`);
+  check("whole-word toggle active + results kept", ww.active && ww.rc !== null, JSON.stringify(ww));
+
+  // advanced conditions — the default condition (first visible text column,
+  // "contains", empty value) matches every row, so the count is the book's
+  await evalJS(`document.getElementById('searchWindowAdvToggle').click()`);
+  await waitFor(`document.getElementById('searchWindowAdvBody').style.display !== 'none'`, 5000);
+  check("advanced condition row renders", await evalJS(`!!document.querySelector('#advancedSearchRows .advanced-search-row')`));
+  await evalJS(`document.getElementById('btnApplyAdvancedSearch').click()`);
+  await waitFor(`document.querySelector('#searchWindowResults .search-count-header') !== null`, 10000);
+  const advRc = await evalJS(`(document.querySelector('#searchWindowResults .search-count-header') || {}).textContent || ''`);
+  check("advanced apply runs (all rows)", advRc.indexOf("6,236") !== -1, advRc);
+  await evalJS(`document.getElementById('searchWindowAdvToggle').click()`); // collapse
+
+  // clear → history empty state (the two queries above were recorded).
+  // The modal has a FIXED height — a content swap (results → history +
+  // placeholder) must not resize the centered window; the rect before and
+  // after must be identical. This guards the content-driven-height
+  // regression (window jumping when a history term is clicked/removed).
+  const rectBeforeClear = await evalJS(`(function () {
+    var r = document.querySelector('.search-window-modal').getBoundingClientRect();
+    return [r.left, r.top, r.width, r.height].join(',');
+  })()`);
+  await evalJS(`document.getElementById('searchWindowClear').click()`);
+  await waitFor(`document.querySelector('#searchWindowHistory .search-history-item') !== null`, 5000);
+  const histCount = await evalJS(`document.querySelectorAll('#searchWindowHistory .search-history-item').length`);
+  check("history listed in window", histCount >= 2, String(histCount));
+  const rectAfterClear = await evalJS(`(function () {
+    var r = document.querySelector('.search-window-modal').getBoundingClientRect();
+    return [r.left, r.top, r.width, r.height].join(',');
+  })()`);
+  check("window does not resize on content swap", rectAfterClear === rectBeforeClear, rectBeforeClear + " → " + rectAfterClear);
+
+  // All-books tab — cross-book search over the shared index, with the
+  // scope picker rendered inside the window
+  await evalJS(`document.getElementById('searchWindowTabAllBooks').click()`);
+  await sleep(200);
+  const allTab = await evalJS(`(function () {
+    var scope = document.getElementById('searchWindowScope');
+    var opts = document.getElementById('searchWindowOptions');
+    return {
+      active: document.getElementById('searchWindowTabAllBooks').classList.contains('active'),
+      scopeShown: scope.style.display !== 'none',
+      optsHidden: opts.style.display === 'none',
+      summary: document.getElementById('searchWindowScopeSummary').textContent.trim(),
+    };
+  })()`);
+  check("all-books tab: scope section on, options row off",
+    allTab.active && allTab.scopeShown && allTab.optsHidden, JSON.stringify(allTab));
+  check("all-books tab: scope summary label + caret",
+    allTab.summary.length > 1 && allTab.summary.indexOf("▾") !== -1, allTab.summary);
+
+  // type a query → per-book rows with deep links
   await evalJS(`(function () {
-    var inp = document.getElementById('readerSearchInput');
-    inp.value = '';
+    var inp = document.getElementById('searchWindowInput');
+    inp.value = 'الناس';
     inp.dispatchEvent(new Event('input', { bubbles: true }));
   })()`);
-  await sleep(500);
+  await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 0`, 15000);
+  await sleep(300);
+  const allRes = await evalJS(`(function () {
+    var links = document.querySelectorAll('#searchWindowResults .search-window-book-link');
+    var h = document.querySelector('#searchWindowResults .search-count-header');
+    return {
+      n: links.length,
+      href: links.length ? links[0].getAttribute('href') : null,
+      rc: h ? h.textContent.trim() : null,
+      counts: document.querySelectorAll('#searchWindowResults .search-window-book-count').length,
+    };
+  })()`);
+  check("all-books: per-book rows render",
+    allRes.n > 1 && allRes.counts === allRes.n, JSON.stringify(allRes));
+  check("all-books: count header lists books + matches",
+    allRes.rc !== null && /\d/.test(allRes.rc), allRes.rc);
+  check("all-books: deep link shape",
+    allRes.href !== null && /^reader\.html\?book=.+&row=\d+&q=/.test(allRes.href), allRes.href);
+  const allBookRow = await evalJS(`(function () {
+    var link = document.querySelector('#searchWindowResults .search-window-book-link');
+    var m = link ? (link.getAttribute('href') || '').match(/book=([^&]+)/) : null;
+    return m ? m[1] : null;
+  })()`);
+  check("all-books: rows carry book codes", allBookRow !== null, allBookRow);
+
+  // scope summary → the picker opens in the libScope modal, stacked on top
+  // of the window (the window stays open underneath)
+  await evalJS(`document.getElementById('searchWindowScopeSummary').click()`);
+  await waitFor(`document.querySelectorAll('#libScopeList .lib-scope-row input[type=checkbox]').length > 0`, 5000);
+  const scopeModalState = await evalJS(`(function () {
+    var m = document.getElementById('libScopeOverlay');
+    var w = document.getElementById('searchWindowOverlay');
+    return {
+      exists: m !== null,
+      modalOpen: m !== null && m.classList.contains('open'),
+      windowOpen: w !== null && w.classList.contains('open'),
+    };
+  })()`);
+  check("all-books: scope summary opens the libScope modal on top",
+    scopeModalState.exists && scopeModalState.modalOpen && scopeModalState.windowOpen,
+    JSON.stringify(scopeModalState));
+  const scopeListed = await evalJS(`(function () {
+    var want = ${JSON.stringify(allBookRow)};
+    var cb = null;
+    document.querySelectorAll('#libScopeList .lib-scope-row input[type=checkbox]').forEach(function (c) {
+      if (c.dataset.book === want) cb = c;
+    });
+    if (cb) cb.click();
+    return !!cb;
+  })()`);
+  check("all-books: scope list contains the matched book", scopeListed);
+
+  // the scope change re-runs the all-books search — one book → one row
+  await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length === 1`, 15000);
+  const scopedN = await evalJS(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length`);
+  check("all-books: scoped search re-runs (1 book)", scopedN === 1, String(scopedN));
+  const scopedSum = await evalJS(`document.getElementById('searchWindowScopeSummary').textContent.trim()`);
+  check("all-books: summary reflects the scope", scopedSum !== allTab.summary, scopedSum);
+
+  // reset the scope → all books again (reset click fires libScopeChange)
+  await evalJS(`document.getElementById('libScopeReset').click()`);
+  await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000);
+
+  // close the scope modal — Escape closes the innermost (the scope modal)
+  // first, leaving the window open; the later Escape closes the window
+  await evalJS(`(function () {
+    document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  })()`);
+  await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`, 5000);
+  check("all-books: Escape closes only the scope modal",
+    (await evalJS(`document.getElementById('searchWindowOverlay').classList.contains('open')`)) === true);
+
+  // back to This book — scope section off, options row back
+  await evalJS(`document.getElementById('searchWindowTabThisBook').click()`);
+  await sleep(200);
+  const tb = await evalJS(`(function () {
+    return {
+      scopeHidden: document.getElementById('searchWindowScope').style.display === 'none',
+      optsShown: document.getElementById('searchWindowOptions').style.display !== 'none',
+    };
+  })()`);
+  check("this-book tab: scope off, options back", tb.scopeHidden && tb.optsShown, JSON.stringify(tb));
+
+  // Escape closes the window — unified modal layer handles it
+  await evalJS(`(function () {
+    document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  })()`);
+  await waitFor(`!document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000);
 
   await evalJS("document.getElementById('btnResetSettings').click()");
   await sleep(500);

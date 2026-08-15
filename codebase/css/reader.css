@@ -1,15 +1,11 @@
 /* ---- Reader chrome — split like the dashboard for a shared structure ----
    The shell #readerPanel carries the sticky contract (.sticky-panel in
-   common.css) and holds the search row + results dropdown as siblings of the
-   collapsible toolbar. Unlike the dashboard, reader focus hides everything;
-   mobile overrides the pin below. */
+   common.css) and holds the search row (window button + RDF in-place
+   filter) above the collapsible toolbar. Unlike the dashboard, reader
+   focus hides everything; mobile overrides the pin below. */
 #readerPanel {
   display: flex;
   flex-direction: column;
-}
-/* Same gap the rows used to get from the fused block's row spacing */
-#readerPanel .search-results {
-  margin-top: var(--section-gap, 6px);
 }
 #collapsibleReaderPanel {
   display: grid;
@@ -117,10 +113,9 @@
 
 /* Reader focus hides the WHOLE chrome — search row included (unlike the
    dashboard, where search stays). The toolbar section animates via its own
-   grid; the search row + dropdown snap off, and the shell sheds its padding
-   and border so nothing of the panel remains. */
-[data-focus] #readerPanelSearch,
-[data-focus] #searchResultsDropdown {
+   grid; the search row snaps off, and the shell sheds its padding and
+   border so nothing of the panel remains. */
+[data-focus] #readerPanelSearch {
   display: none;
 }
 [data-focus] #collapsibleReaderPanel {

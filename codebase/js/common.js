@@ -412,6 +412,7 @@ window.copyToClipboard = function (text, successKey, failKey) {
 window.MODAL_IDS = ["settingsOverlay", "fontModalOverlay"];
 
 window.closeAllModals = function () {
+  _modalStack.length = 0;
   window.MODAL_IDS.forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.classList.remove("open");
@@ -422,10 +423,35 @@ window.closeAllModals = function () {
 // so keyboard/screen-reader users land back where they started.
 var _modalLastFocused = null;
 
+// Stacked modals (openModalOnTop): a modal opened over another without
+// closing it. Entries are {id, prevFocused} — the element that was focused
+// inside the modal below, restored when the stacked modal closes (Escape
+// closes innermost first, so the top entry is always the one closing).
+var _modalStack = [];
+
 window.closeModal = function (id) {
   var el = document.getElementById(id);
   if (!el) return;
   el.classList.remove("open");
+  // A stacked modal closes back onto the modal below it, not onto the page:
+  // restore the element focused when it opened, else the below modal's first
+  // focusable. The base modal keeps its own _modalLastFocused untouched for
+  // when IT closes back onto the page.
+  for (var i = _modalStack.length - 1; i >= 0; i--) {
+    if (_modalStack[i].id !== id) continue;
+    _modalStack.splice(i, 1);
+    var below = _modalStack.length > 0 ? _modalStack[_modalStack.length - 1] : null;
+    var belowEl = below ? document.getElementById(below.id) : null;
+    if (below && belowEl) {
+      if (below.prevFocused && document.contains(below.prevFocused)) {
+        try { below.prevFocused.focus(); } catch (_) {}
+      } else {
+        focusFirstInModal(belowEl);
+      }
+      return;
+    }
+    break; // was stacked, nothing below — fall through to the page restore
+  }
   if (_modalLastFocused && document.contains(_modalLastFocused)) {
     try { _modalLastFocused.focus(); } catch (_) {}
   }
@@ -477,9 +503,31 @@ window.openModal = function (id) {
   var el = document.getElementById(id);
   if (!el) return;
   _modalLastFocused = document.activeElement;
-  el.classList.add("open");
-  focusFirstInModal(el);
+  openModalPop(id, el);
 };
+
+// Open a modal over the currently open one instead of replacing it (e.g. the
+// search window's scope summary opens the libScope modal while the window
+// stays underneath). openModal stays exclusive — only surfaces that need
+// stacking call this. Same pop-transition focus deferral as openModal.
+window.openModalOnTop = function (id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  _modalStack.push({ id: id, prevFocused: document.activeElement });
+  openModalPop(id, el);
+};
+
+function openModalPop(id, el) {
+  el.classList.add("open");
+  // The overlay's pop transition leaves the modal computed as
+  // visibility:hidden for its whole duration — focus() calls in that window
+  // fail silently. Defer the focus-first until the transition flips it
+  // visible (and skip if the modal was already closed again).
+  var pop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--t-pop")) || 0.2;
+  window.setTimeout(function () {
+    if (el.classList.contains("open")) focusFirstInModal(el);
+  }, pop * 1000 + 10);
+}
 
 // Shared backdrop + close-button wiring for any modal
 function wireModal(id) {

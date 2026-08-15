@@ -9,6 +9,10 @@
          search-history dropdown styles (.search-results + .search-history-*) -->
     <link rel="stylesheet" href="../css/reader-search.css" />
     <link rel="stylesheet" href="../css/library-search.css" />
+    <!-- search-window.css: shared with the reader page — the unified search
+         window shell + the scope picker's surface rules (the libScope modal
+         keeps only its page geometry in library-search.css) -->
+    <link rel="stylesheet" href="../css/search-window.css" />
     <script>
       (function () {
         var t = localStorage.getItem("theme");
@@ -300,6 +304,17 @@
       <!-- Sticky wrapper — search + tag chips stay pinned below the topbar -->
       <div id="libPanel" class="sticky-panel">
         <div id="libSearchPanel">
+          <!-- The unified search window opens first on the row (the reader
+               toolbar leads with the same button) — the page input follows -->
+          <button
+            type="button"
+            id="btnSearchWindow"
+            class="toolbar-btn"
+            data-i18n="searchBtnLabel"
+            title="Open search window"
+          >
+            🔍 ހޯދާ
+          </button>
           <div class="search-input-wrap">
             <input
               id="libSearchInput"

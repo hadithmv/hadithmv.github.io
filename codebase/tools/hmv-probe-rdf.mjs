@@ -204,6 +204,21 @@ async function main() {
     })()`);
     await sleep(900); // 120ms debounce + render
   }
+  async function typeWindowQuery(q) {
+    await evalJS(`(function () {
+      var el = document.getElementById('searchWindowInput');
+      el.value = ${JSON.stringify(q)};
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    })()`);
+    await sleep(900); // 120ms debounce + render
+  }
+  async function closeSearchWindow() {
+    await evalJS(`(function () {
+      var inp = document.getElementById('searchWindowInput');
+      inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    })()`);
+    await waitFor(`!document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000);
+  }
   async function readRow(i) {
     // decoded cells of tr[data-row=i] (table view) or chunk data-row (card)
     return await evalJS(`(function () {
@@ -398,8 +413,9 @@ async function main() {
   await goto(ROOT + "reader.html?book=RDF-all", 1280, 800);
   await waitFor(`!!document.querySelector('.reader-table tbody tr')`);
   await typeQuery(FILTER_Q);
-  const ddHidden = await evalJS(`getComputedStyle(document.getElementById('searchResultsDropdown')).display`);
-  check("T4 no dropdown for RDF", ddHidden === "none", ddHidden);
+  // The results dropdown is gone — search moved into the modal window; the
+  // RDF header input keeps its in-place filter with no dropdown behind it.
+  check("T4 no dropdown element for RDF", await evalJS(`document.getElementById('searchResultsDropdown') === null`));
   const f0 = await readRow(0);
   let cellsMatch = !!f0 && f0.length === 7;
   for (let c = 0; c < 7 && cellsMatch; c++) cellsMatch = f0[c] === decodeCell(firstMatchCells[c]);
@@ -423,11 +439,11 @@ async function main() {
   let dqMatch = !!dq0 && dq0.length === 7;
   for (let c = 0; c < 7 && dqMatch; c++) dqMatch = dq0[c] === decodeCell(firstMatchCells[c]);
   check("T5 ?q= filters on load", dqMatch, dq0 && dq0[6]);
-  check("T5 no dropdown for RDF", await evalJS(`getComputedStyle(document.getElementById('searchResultsDropdown')).display`) === "none");
+  check("T5 no dropdown element for RDF", await evalJS(`document.getElementById('searchResultsDropdown') === null`));
   check("T5 no error toast", await evalJS(`(function(){var t=document.querySelector('.toast');return !t||t.textContent.indexOf('⚠️')===-1})()`));
 
-  // ══ T7 (before the heavy card-mode renders): non-RDF books keep the
-  // dropdown (regression) ══
+  // ══ T7 (before the heavy card-mode renders): non-RDF books search in
+  // the modal window — results there, table untouched (regression) ══
   async function forceTableMode() {
     // Fresh profiles boot in card mode for non-radheef books (reader.js:95)
     await evalJS("(function () { var b = document.getElementById('btnViewMode'); if (b) b.click(); })()");
@@ -451,18 +467,47 @@ async function main() {
   })()`);
   check("T7 table present", await forceTableMode());
   const before = await firstRowText();
-  await typeQuery(FILTER_Q);
-  const ddVisible = await evalJS(`getComputedStyle(document.getElementById('searchResultsDropdown')).display`);
-  check("T7 dropdown shows for non-RDF", ddVisible !== "none", ddVisible);
-  const countHeader = await evalJS(`document.getElementById('searchResultsDropdown').textContent`);
+  await evalJS(`document.getElementById('btnSearchWindow').click()`);
+  check("T7 window opens from the button",
+    await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+  await typeWindowQuery(FILTER_Q);
+  const countHeader = await evalJS(`document.getElementById('searchWindowResults').textContent`);
   check("T7 count header has comma 2,624", countHeader.indexOf("2,624") !== -1, countHeader.slice(0, 60));
   const afterQ = await firstRowText();
-  check("T7 table not filtered by dropdown", before !== null && before === afterQ, "");
+  check("T7 table not filtered by window search", before !== null && before === afterQ, "");
   const label1 = await evalJS(`(function () {
-    var el = document.querySelector('.search-result .search-result-num');
+    var el = document.querySelector('#searchWindowResults .search-result .search-result-num');
     return el ? el.textContent : null;
   })()`);
   check("T7 result label #1", label1 === "#1", label1);
+  await closeSearchWindow();
+
+  // ══ T7b: RDF — window jump clears a stale header filter ══
+  // The in-place header filter and the window coexist (Phase 2): with the
+  // filter active, a window search + jump must clear the header box (the
+  // target row may not be in the filtered subset) and land on the match.
+  // NOTE: the filtered view stamps data-row by position within the matches
+  // array, so the window's data-real (global allData index) is compared
+  // against filtMatchIdx[0] computed in Node — never against the filtered
+  // row's data-row.
+  await goto(ROOT + "reader.html?book=RDF-all", 1280, 800);
+  check("T7b RDF table boots", await waitFor(`!!document.querySelector('.reader-table tbody tr')`), "no table rows");
+  await typeQuery(FILTER_Q);
+  check("T7b header filter active", await evalJS(`document.getElementById('readerSearchInput').value === ${JSON.stringify(FILTER_Q)}`), "");
+  await evalJS(`document.getElementById('btnSearchWindow').click()`);
+  check("T7b window opens from the button",
+    await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+  await typeWindowQuery(FILTER_Q);
+  const windowFirstReal = await evalJS(`(function () {
+    var el = document.querySelector('#searchWindowResults .search-result');
+    return el ? el.dataset.real : null;
+  })()`);
+  check("T7b window first match = global first match", String(windowFirstReal) === String(filtMatchIdx[0]), windowFirstReal + " vs " + filtMatchIdx[0]);
+  await evalJS(`document.querySelector('#searchWindowResults .search-result').click()`);
+  await waitFor(`document.getElementById('readerSearchInput').value === ''`, 5000);
+  check("T7b jump cleared stale filter box", await evalJS(`document.getElementById('readerSearchInput').value === ''`), "");
+  check("T7b jump landed on the match", await waitFor(`!!document.querySelector('[data-row="${filtMatchIdx[0]}"]')`, 5000), filtMatchIdx[0]);
+  check("T7b window closed after jump", await evalJS(`!document.getElementById('searchWindowOverlay').classList.contains('open')`), "");
 
   // ══ T6: card mode — rasmee tint, commas in scroll counter ══
   await goto(ROOT + "reader.html?book=RDF-all&row=" + (F("RDF-rasmee") + 1), 400, 800);

@@ -587,13 +587,17 @@ export function addSearchHistory(query, key) {
   var q = query.trim();
   if (!q) return;
   var k = _historyKey(key);
+  // Cache is updated synchronously so callers (the search-window empty
+  // state, history dropdowns) see the new term immediately; only the
+  // localStorage write is debounced. Rapid successive searches each land
+  // in the cache instead of being coalesced away by a pending timer.
+  var hist = _loadHistory(k);
+  hist = hist.filter(function (h) { return h !== q; });
+  hist.unshift(q);
+  if (hist.length > MAX_HISTORY) hist.pop();
+  _historyCache[k] = hist;
   clearTimeout(_historySaveTimers[k]);
   _historySaveTimers[k] = setTimeout(function () {
-    var hist = _loadHistory(k);
-    hist = hist.filter(function (h) { return h !== q; });
-    hist.unshift(q);
-    if (hist.length > MAX_HISTORY) hist.pop();
-    _historyCache[k] = hist;
     _saveHistory(k);
   }, 800);
 }

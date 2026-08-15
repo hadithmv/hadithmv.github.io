@@ -1,6 +1,7 @@
-// Temporary probe for the library-search book-scope picker (?books= + the
-// picker modal). Delete after running — or keep as the library-search
-// battery if it earns its keep.
+// Library-search battery: the book-scope picker (?books= + the picker
+// modal, S1-S10) and the unified search window on the library page
+// (S11: open, focus, card/list toggle, scope modal stacked on the window,
+// scoped re-run, Escape-by-layer).
 // Run: node tools/hmv-libscope-check.mjs  (from codebase/). Requires Node
 // 20.11+ and Microsoft Edge. Env overrides: HMV_SCOPE_PORT (default 9357).
 import fs from "fs";
@@ -355,6 +356,157 @@ async function main() {
       var m = document.getElementById('libScopeOverlay').getBoundingClientRect();
       return b.top >= m.top && b.bottom <= m.bottom && b.left >= m.left && b.right <= m.right;
     })()`));
+
+    // ── S11: the unified search window on the library page ──
+    console.log("== S11. search window ==");
+    await goto(pageURL + "?q=" + encodeURIComponent(Q), 1280, 900);
+    await evalJS(`document.getElementById('btnSearchWindow').click()`);
+    check("S11 window opens", await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+    // The modal's pop transition keeps the overlay computed as
+    // visibility:hidden for ~0.2s — focus lands only after it flips visible.
+    check("S11 window focuses the input",
+      await waitFor(`document.activeElement && document.activeElement.id === 'searchWindowInput'`, 5000));
+    const winInit = await evalJS(`(function () {
+      return {
+        scopeShown: document.getElementById('searchWindowScope').style.display !== 'none',
+        viewShown: document.getElementById('searchWindowView').style.display !== 'none',
+        optsHidden: document.getElementById('searchWindowOptions').style.display === 'none',
+        query: document.getElementById('searchWindowInput').value,
+      };
+    })()`);
+    check("S11 window surfaces (scope + view on, options off)",
+      winInit.scopeShown && winInit.viewShown && winInit.optsHidden, JSON.stringify(winInit));
+    check("S11 window inherits the page query", winInit.query === Q, winInit.query);
+
+    // card view renders — the window's own cards, no peek toggles
+    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000);
+    const cards = await evalJS(`(function () {
+      var r = document.getElementById('searchWindowResults');
+      return {
+        n: r.querySelectorAll('.lib-result').length,
+        peeks: r.querySelectorAll('.lib-peek-toggle').length,
+        rc: (r.querySelector('.search-count-header') || {}).textContent || null,
+      };
+    })()`);
+    check("S11 card view renders in window", cards.n > 1 && cards.peeks === 0, JSON.stringify(cards));
+    check("S11 window count header", cards.rc !== null && /\d/.test(cards.rc), cards.rc);
+
+    // list view toggle — compact rows, cards gone, button active
+    await evalJS(`document.getElementById('searchWindowViewList').click()`);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 10000);
+    const listView = await evalJS(`(function () {
+      var r = document.getElementById('searchWindowResults');
+      return {
+        n: r.querySelectorAll('.search-window-book-link').length,
+        cards: r.querySelectorAll('.lib-result').length,
+        active: document.getElementById('searchWindowViewList').classList.contains('active'),
+      };
+    })()`);
+    check("S11 list view renders", listView.n > 1 && listView.cards === 0 && listView.active, JSON.stringify(listView));
+
+    // back to card view
+    await evalJS(`document.getElementById('searchWindowViewCard').click()`);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 10000);
+    check("S11 back to card view",
+      await evalJS(`document.getElementById('searchWindowViewCard').classList.contains('active')`));
+
+    // scope summary → the picker opens in the libScope modal, stacked ON TOP
+    // of the window (openModalOnTop): the window keeps its query and results
+    // underneath
+    await evalJS(`document.getElementById('searchWindowScopeSummary').click()`);
+    check("S11 scope shell in window",
+      await waitFor(`document.querySelectorAll('#libScopeList .lib-scope-row').length > 0`, 5000));
+    check("S11 window scope opens the libScope modal on top",
+      await evalJS(`(function () {
+        var m = document.getElementById('libScopeOverlay');
+        var w = document.getElementById('searchWindowOverlay');
+        return m !== null && m.classList.contains('open') &&
+               w !== null && w.classList.contains('open');
+      })()`));
+
+    // scope the window search by ticking the first card's book
+    const tickBook = await evalJS(`(function () {
+      var code = document.querySelector('#searchWindowResults .lib-result').dataset.book;
+      var cb = null;
+      document.querySelectorAll('#libScopeList .lib-scope-row input[type=checkbox]').forEach(function (c) {
+        if (c.dataset.book === code) cb = c;
+      });
+      if (cb) cb.click();
+      return { found: !!cb, code: code };
+    })()`);
+    check("S11 window scope tick book", tickBook.found, tickBook.code);
+    check("S11 scoped window search re-runs (1 card)",
+      await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length === 1`, 15000));
+    check("S11 window summary reflects scope",
+      (await evalJS(`document.getElementById('searchWindowScopeSummary').textContent`)).indexOf("1 book") !== -1);
+
+    // reset the scope → all books again
+    await evalJS(`document.getElementById('libScopeReset').click()`);
+    check("S11 window scope reset restores",
+      await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000));
+
+    // Desktop geometry — the two-column body: the side pane (controls) sits
+    // beside the main pane (results), narrower than it, both inside the
+    // modal. The window is RTL, so the side pane is the right-hand column:
+    // side.left >= main.right means the main pane's right edge meets the
+    // side pane's left edge (with the gap between them).
+    const geom = await evalJS(`(function () {
+      var s = document.getElementById('searchWindowSide').getBoundingClientRect();
+      var m = document.getElementById('searchWindowMain').getBoundingClientRect();
+      var o = document.getElementById('searchWindowOverlay').getBoundingClientRect();
+      return {
+        beside: Math.abs(s.top - m.top) < 2 && s.left >= m.right,
+        mainWider: m.width > s.width,
+        insideModal: s.left >= o.left && s.right <= o.right &&
+                     m.left >= o.left && m.right <= o.right,
+        // history is a side-pane section, never the results column's content
+        historyInSide: document.getElementById('searchWindowSide')
+          .contains(document.getElementById('searchWindowHistory')),
+      };
+    })()`);
+    check("S11 window two-column geometry",
+      geom.beside && geom.mainWider && geom.insideModal && geom.historyInSide, JSON.stringify(geom));
+
+    // Close the scope modal first — Escape closes the innermost (the scope
+    // modal), leaving the window open; a second Escape closes the window.
+    // The page behind is untouched throughout.
+    await evalJS(`document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    check("S11 Escape closes the scope modal only",
+      await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`, 5000));
+    check("S11 window stays open under the scope modal",
+      (await evalJS(`document.getElementById('searchWindowOverlay').classList.contains('open')`)) === true);
+    await evalJS(`document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    check("S11 Escape closes window",
+      await waitFor(`!document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+    const pageIntact = await evalJS(`(function () {
+      return {
+        cards: document.querySelectorAll('#libResults .lib-result').length,
+        count: (document.getElementById('libResultCount') || {}).textContent || '',
+      };
+    })()`);
+    check("S11 page behind intact", pageIntact.cards > 1 && pageIntact.count.length > 0, JSON.stringify(pageIntact));
+
+    // Mobile geometry — the ≤600px collapse: the side pane stacks above the
+    // main pane at full modal width.
+    await goto(pageURL + "?q=" + encodeURIComponent(Q), 390, 844);
+    await evalJS(`document.getElementById('btnSearchWindow').click()`);
+    check("S11 mobile window opens",
+      await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+    const geomM = await evalJS(`(function () {
+      var s = document.getElementById('searchWindowSide').getBoundingClientRect();
+      var m = document.getElementById('searchWindowMain').getBoundingClientRect();
+      var mod = document.querySelector('.search-window-modal').getBoundingClientRect();
+      var w = mod.width;
+      return {
+        stacked: s.top < m.top,
+        fullWidth: s.width > w * 0.85 && m.width > w * 0.85,
+        insideModal: s.left >= mod.left && s.right <= mod.right &&
+                     m.left >= mod.left && m.right <= mod.right,
+      };
+    })()`);
+    check("S11 mobile window stacked geometry",
+      geomM.stacked && geomM.fullWidth && geomM.insideModal, JSON.stringify(geomM));
+    await evalJS(`document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
 
     // ── S10: no page errors anywhere ──
     check("S10 no page errors", pageErrors.length === 0, pageErrors.join(" | "));
