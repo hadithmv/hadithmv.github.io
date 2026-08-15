@@ -285,7 +285,9 @@ function renderAllBooksResults(results, q) {
   }
   _ui.results.innerHTML = html;
   _ui.results.style.display = "";
-  _ui.history.style.display = "none";
+  // No history hiding here — the section is always visible (see the
+  // buildShell comment). A display:none on this tab stuck forever: nothing
+  // ever re-showed it, so Reset (back to this-book) read as a wiped history.
 }
 
 function buildShell() {

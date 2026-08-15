@@ -409,9 +409,9 @@ const STRINGS = {
   // The results pane's empty-state placeholder (history has its own
   // section in the side pane, so the results column prompts instead).
   searchWindowEmptyHint: {
-    dv: "ލިޔަން ފެށުމުން ނަތީޖާ ފެންނާނެ",
-    en: "Results appear as you type",
-    ar: "تظهر النتائج أثناء الكتابة",
+    dv: "ސާޗުގައި ލިޔަން ފެށުމުން ނަތީޖާ ފެންނާނެ",
+    en: "Results appear as you type in search",
+    ar: "تظهر النتائج أثناء الكتابة في البحث",
   },
   searchWindowOpenPage: {
     dv: "ބޮޑު ސަފުހާއެއްގައި ހުޅުވާ",
