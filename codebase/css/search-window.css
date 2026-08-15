@@ -43,19 +43,60 @@
 }
 
 /* ---- Two-column body (desktop): controls pane + results pane ---- */
-/* The input row stays full-width above; everything below splits: the side
-   pane (tabs, options, view, advanced, scope) and the main pane (results,
-   history, status footer). ≤600px collapses the row to one column. */
-.search-window-body-row {
-  flex: 1;
-  min-height: 0;
-  min-width: 0;
+/* The four body sections map onto the same two-column grid as the scope
+   modal — the side pane's heading above the pane (libScopeTypesLabel's
+   analogue), the input row above the results column ONLY (the filter's
+   analogue: it controls the list below it, not the pane beside it). RTL
+   grid order: the first column is the rightmost. ≤600px drops back to the
+   base flex column (input row first via order, see the mobile block). */
+@media (min-width: 601px) {
+  .search-window-modal .modal-body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "sidelabel headrow"
+      "side main";
+    /* row gap: the 10px the input row sat off the panes; column gap: the
+       12px that separated the panes (the old body-row's gap) */
+    gap: 10px 12px;
+  }
+  .search-window-side-label {
+    grid-area: sidelabel;
+  }
+  .search-window-input-row {
+    grid-area: headrow;
+  }
+  .search-window-side {
+    grid-area: side;
+  }
+  .search-window-main {
+    grid-area: main;
+  }
+}
+/* The pane's heading — the window's analogue of the scope modal's
+   libScopeTypesLabel ("Tags" above the rail). Centered against the input
+   row beside it on desktop; on mobile it is the controls card's own
+   heading, stacked above it. */
+.search-window-side-label {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  padding: 0 14px;
+  font-size: var(--panel-font-size, 0.78rem);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .search-window-side {
-  flex-shrink: 0;
-  width: 240px;
+  /* column width comes from the desktop grid's track (240px, 220px mid) —
+     no width here; mobile sets width: auto and flex-shrink: 1 */
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -286,7 +327,13 @@
   position: static;
   max-height: none;
   margin: 0;
-  border-radius: var(--radius-md, 8px);
+  /* The base .search-results rule is the old header dropdown's look —
+     border, floating background, a drop shadow. The border stays (the
+     pane's frame, the side pane's mirror); the shadow and the floating
+     background go — without the shadow the box sits flat in the column
+     instead of hovering over it. */
+  box-shadow: none;
+  background: transparent;
 }
 /* The results pane's empty-state placeholder — shown while the input is
    empty (history lives in the side pane, so the results column keeps a
@@ -684,10 +731,11 @@
 /* Panel size, not micro: the footer teaches the keyboard (↑↓/Enter/Esc)
    and carries the index status — guidance text at the micro tier was too
    small to read as instructions. The hop link overrides its own size
-   already (0.85rem, link-styled). */
+   already (0.85rem, link-styled). No border — the main column's flex gap
+   (10px) already separates it from the results; a divider line would make
+   the flat results column read as two stacked panels. */
 .search-window-footer {
   padding-top: 8px;
-  border-top: 1px solid var(--color-border);
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-subtle);
   text-align: center;
@@ -724,8 +772,8 @@
 /* ---- Mid widths (601–1100px): the modal is under its 1080px cap, so the
    side pane gives up width to keep the results pane comfortable. ---- */
 @media (min-width: 601px) and (max-width: 1100px) {
-  .search-window-side {
-    width: 220px;
+  .search-window-modal .modal-body {
+    grid-template-columns: 220px 1fr;
   }
 }
 
@@ -737,11 +785,14 @@
     width: 100%;
     height: 95vh;
   }
+  /* The search box stays first: the stacked DOM order (side label, input
+     row, side, main) would put the heading above the input; the label
+     heads the controls card, not the whole window. */
+  .search-window-input-row {
+    order: -1;
+  }
   /* The side pane stacks above the results as a normal section, and the
      tabs go back to side-by-side half-width buttons. */
-  .search-window-body-row {
-    flex-direction: column;
-  }
   .search-window-side {
     width: auto;
     /* the bordered panel keeps a slim symmetric padding on mobile — no

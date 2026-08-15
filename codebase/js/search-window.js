@@ -48,6 +48,7 @@ function el(id) { return document.getElementById(id); }
 // languagechange (same pattern as the library's scope modal).
 function renderLabels() {
   el("searchWindowTitle").textContent = t("searchWindowTitle");
+  el("searchWindowSideLabel").textContent = t("searchWindowSideLabel");
   el("searchWindowInput").placeholder = t("searchPlaceholder");
   el("searchWindowTabThisBook").textContent = t("searchWindowThisBook");
   el("searchWindowTabAllBooks").textContent = t("searchWindowAllBooks");
@@ -291,12 +292,18 @@ function buildShell() {
   window.createModal("searchWindowOverlay", "searchWindowTitle", "searchWindowBody", "search-window-modal");
   var body = el("searchWindowBody");
   body.innerHTML =
-    // Head row — the scope modal's pattern: the input shares the row with
+    // Header row — the scope modal's pattern: the input shares the row with
     // the result count and the reset, so it does not own the full width.
     // RTL row (the modal is dir=rtl): input rightmost, count beside it,
     // reset at the far left — same order as the libScope head row. The
     // count reuses the scope modal's count look (.lib-scope-count); the
     // reset reuses its button (.toolbar-btn lib-scope-reset).
+    // Desktop (≥601px) maps the four siblings onto a two-column grid — the
+    // same geometry as the scope modal: the side pane's heading above the
+    // pane (like libScopeTypesLabel above the rail), the input row above
+    // the results column only (like the filter above libScopeList). RTL
+    // grid order: the first sibling is the rightmost column.
+    '<div class="search-window-side-label" id="searchWindowSideLabel"></div>' +
     '<div class="search-window-input-row">' +
       '<div class="search-input-wrap search-window-input-wrap">' +
         '<input id="searchWindowInput" type="search" class="search-input" autocomplete="off" dir="rtl" ' +
@@ -308,9 +315,8 @@ function buildShell() {
     '</div>' +
     // Desktop two-column body: the controls (tabs, options, view, advanced,
     // scope) and the search-history section live in the side pane; the
-    // results and status footer fill the main pane. On ≤600px the row
+    // results and status footer fill the main pane. On ≤600px the grid
     // collapses to a single stacked column (css/search-window.css).
-    '<div class="search-window-body-row">' +
       '<div class="search-window-side" id="searchWindowSide">' +
         '<div class="search-window-tabs" id="searchWindowTabs">' +
           '<button id="searchWindowTabThisBook" class="search-window-tab" data-tab="thisBook"></button>' +
@@ -365,13 +371,13 @@ function buildShell() {
           '<span id="searchWindowHint"></span>' +
           '<span id="searchWindowStatus" class="search-window-status" style="display:none"></span>' +
         '</div>' +
-      '</div>' +
-    '</div>';
+      '</div>';
 
   _ui = {
     overlay: el("searchWindowOverlay"),
     title: el("searchWindowTitle"),
     body: body,
+    sideLabel: el("searchWindowSideLabel"),
     input: el("searchWindowInput"),
     clear: el("searchWindowClear"),
     count: el("searchWindowCount"),

@@ -364,6 +364,14 @@ const STRINGS = {
 
   // ── Search window (reader + library pages) ──
   searchWindowTitle: { dv: "ސާޗު", en: "Search", ar: "بحث" },
+  // The side pane's heading — the window's analogue of libScopeTypesLabel:
+  // the pane holds the tabs, options, view toggle, advanced conditions and
+  // history, so it is the search's controls column.
+  searchWindowSideLabel: {
+    dv: "ސާޗު ކޮންޓްރޯލްސް",
+    en: "Search controls",
+    ar: "عناصر التحكم",
+  },
   // The magnifier button that opens the window — emoji is part of the label
   // (same pattern as the sidebar's searchBooks, so data-i18n re-renders
   // keep it). dv is the verb form, matching the replaced placeholder's

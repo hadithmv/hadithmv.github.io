@@ -105,7 +105,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 7px 28px 7px 14px;
+  padding: 7px 15px;
+  padding-left: 20px;
   cursor: pointer;
   border-bottom: 1px solid var(--color-border);
   font-size: var(--fs-text, 0.95rem);
@@ -125,7 +126,14 @@
      inner editor's clip follows the origin and needs text-indent instead). */
   padding-inline-start: 6px;
   color: var(--color-text);
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -146,7 +154,14 @@
   cursor: pointer;
   /* Explicit family like .hist-text — the row's text is Thaana ("Clear
      history ✕") and the reader wrapper's font must not leak into it */
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-error-text);
@@ -202,7 +217,14 @@
 
 .advanced-search-row select,
 .advanced-search-row input {
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-text);
   background: var(--color-reader-bg);
   border: 1px solid var(--color-border);
@@ -245,7 +267,14 @@
   border: 1px solid var(--color-text);
   border-radius: 6px;
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* ---- Search results dropdown ---- */
@@ -306,7 +335,14 @@
   font-size: var(--fs-title-sm, 1.1rem);
   line-height: 1.6;
   color: var(--color-text);
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
