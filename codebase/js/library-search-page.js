@@ -51,6 +51,7 @@ import {
   clearScopeFilter,
   refreshScopeLabels,
   fillTemplate,
+  scopeSummaryText,
 } from "./library-scope-picker.js";
 import {
   initSearchWindow,
@@ -198,19 +199,11 @@ function applyScopeChange() {
 
 function renderScopeButton() {
   if (!el.scopeBtn) return;
-  var scopeBooks = getScope();
-  var label;
-  if (!scopeBooks) {
-    label = t("libScopeAll");
-  } else if (scopeBooks.length === 1) {
-    label = t("libScopeCountOne");
-  } else {
-    label = fillTemplate("libScopeCount", { n: scopeBooks.length });
-  }
   // "Search in: <state>" — the prefix teaches the button's purpose at a
   // glance (it controls which books the search runs in), while the state part
-  // reports the current scope; the modal title's own "search in" phrasing.
-  el.scopeBtn.textContent = t("libScopeSearchIn") + " " + label + " ▾";
+  // reports the current scope. Same builder as the search window's summary
+  // (scopeSummaryText), so the two surfaces can't drift.
+  el.scopeBtn.textContent = scopeSummaryText();
 }
 
 /** Open the book-scope modal (created lazily via the unified modal layer). */

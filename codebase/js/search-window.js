@@ -21,7 +21,7 @@ import { escapeHTML, formatThousands, addSearchHistory } from "./search-utils.js
 import {
   getScope, fillTemplate, ensureSearchableBooks, renderScopeShell,
   ensureScopeShell, renderScopePopover, clearScopeFilter, initScopePicker,
-  reserveScopeCountWidth, refreshScopeLabels,
+  reserveScopeCountWidth, refreshScopeLabels, scopeSummaryText,
 } from "./library-scope-picker.js";
 
 var _ui = null;
@@ -169,16 +169,12 @@ function registryReady() {
   });
 }
 
-// The scope summary's label: "All books" / "1 book" / "N books" + caret.
-// Refresh on scope changes and language switches (JS-built DOM has no
-// data-i18n).
+// The scope summary's label — same text the library page's scope button
+// shows ("Search in: … ▾"), built by the picker's shared scopeSummaryText
+// so the two surfaces never drift. Refresh on scope changes and language
+// switches (JS-built DOM has no data-i18n).
 function refreshScopeSummary() {
-  var sc = getScope();
-  var label;
-  if (!sc) label = t("libScopeAll");
-  else if (sc.length === 1) label = t("libScopeCountOne");
-  else label = fillTemplate("libScopeCount", { n: sc.length });
-  _ui.scopeSummary.textContent = label + " ▾";
+  _ui.scopeSummary.textContent = scopeSummaryText();
 }
 
 // Current-language title with the registry's canonical fallbacks (same
@@ -518,6 +514,12 @@ function buildShell() {
   // tag chips), so delegate through cfg.onInput when the window is open.
   window.addEventListener("libScopeChange", function () {
     refreshScopeSummary();
+    // Keep the picker's own surface fresh too (chips rail, count) — the page
+    // re-renders via its onScopeChange callback, but when the modal is opened
+    // from the window there is no page callback, so the shell would keep
+    // showing the pre-click selection. No-op when the modal is closed
+    // (renderScopePopover guards on the picker's list ref).
+    renderScopePopover();
     if (_currentTab === "allBooks" && _ui.input.value.trim()) {
       searchAllBooks(_ui.input.value);
     } else if (

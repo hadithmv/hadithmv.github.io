@@ -61,6 +61,18 @@ export function setScope(list) {
   _selectedBooks = list || null;
 }
 
+/** The scope label shared by the page button and the window's summary:
+ *  "Search in: All books ▾" / "… 1 book ▾" / "… N books ▾" — one builder so
+ *  the two surfaces never drift. */
+export function scopeSummaryText() {
+  var sc = getScope();
+  var label;
+  if (!sc) label = t("libScopeAll");
+  else if (sc.length === 1) label = t("libScopeCountOne");
+  else label = fillTemplate("libScopeCount", { n: sc.length });
+  return t("libScopeSearchIn") + " " + label + " ▾";
+}
+
 export function isBookSelected(code) {
   return !!_selectedBooks && _selectedBooks.indexOf(code) !== -1;
 }
@@ -235,7 +247,16 @@ export function renderScopeShell(target) {
   // e.target === overlay), so a re-render detaching the clicked chip is safe.
   _ui.types.addEventListener("click", function (e) {
     var chip = e.target.closest(".tag-chip");
-    if (!chip || chip.dataset.tag === window.TAG_ALL) return;
+    if (!chip) return;
+    if (chip.dataset.tag === window.TAG_ALL) {
+      // The All chip means the unscoped state — clicking it undoes any
+      // group or per-book selection (the same action as the reset button).
+      if (_selectedBooks !== null) {
+        _selectedBooks = null;
+        _notifyChange();
+      }
+      return;
+    }
     setGroupSelected(chip.dataset.tag, !isGroupFullySelected(chip.dataset.tag));
   });
   _ui.list.addEventListener("change", function (e) {
@@ -281,9 +302,14 @@ export function renderScopePopover() {
   var groups = scopeGroups();
   var total = allCodes().length;
   var selCount = _selectedBooks ? _selectedBooks.length : total;
-  _ui.chips.innerHTML = groups.map(function (g) {
-    return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
-  }).join("");
+  // The All chip leads the rail (same markup as the dashboard's row):
+  // active whenever nothing is scoped — the unscoped state IS "all books".
+  // Clicking it clears the selection (the types-click handler above).
+  _ui.chips.innerHTML =
+    window.tagAllChipHtml(_selectedBooks !== null, total) +
+    groups.map(function (g) {
+      return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
+    }).join("");
   var f = normaliseForSearch(_scopeFilter.toLowerCase());
   var html = [];
   // The rail's chips show every tag a book carries, so a book belongs to

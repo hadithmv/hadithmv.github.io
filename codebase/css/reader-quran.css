@@ -116,6 +116,9 @@
      the body table ~15px narrower and the columns misalign. */
   overflow-y: hidden;
   scrollbar-gutter: stable;
+  /* The rule reads as the header's own bar: a full-width line under the
+     cells, separating them from the scrolling list below. */
+  border-bottom: 2px solid var(--color-border);
 }
 .quran-content-table-head .quran-content-table {
   border-spacing: 0 0;
