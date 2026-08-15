@@ -294,6 +294,11 @@ function renderHistorySection() {
       winInput.value = searchHistoryItems[parseInt(this.dataset.idx)];
       getSearchWindowUI().syncClear();
       applySearchWindow(winInput.value);
+      // The mousedown itself blurred the input (a click on a non-focusable
+      // row moves focus to body) — refocus so ↑↓/Enter act on the fresh
+      // results, not the surface behind the window (onSearchKeydown only
+      // navigates while the input is focused).
+      winInput.focus();
     });
   });
   searchHistoryListEl.querySelectorAll(".hist-remove").forEach(function (x) {

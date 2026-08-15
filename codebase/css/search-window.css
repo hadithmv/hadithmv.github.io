@@ -718,6 +718,12 @@
 .search-window-book-link:hover {
   background: var(--color-nav-btn-hover-bg);
 }
+/* Keyboard-navigated rows (↑↓ in the window) — same wash as the hover,
+   matching .search-result.active on the this-book tab. */
+.search-window-book-link.active,
+.lib-result.active {
+  background: var(--color-nav-btn-hover-bg);
+}
 .search-window-book-title {
   flex: 1;
   min-width: 0;

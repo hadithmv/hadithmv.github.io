@@ -644,6 +644,10 @@ function renderWindowHistorySection() {
       winInput.value = term;
       getSearchWindowUI().syncClear();
       windowSearchRun(term);
+      // The mousedown itself blurred the input (a click on a non-focusable
+      // row moves focus to body) — refocus so ↑↓/Enter act on the fresh
+      // results (the shell's link-row navigation keys off the input).
+      winInput.focus();
     });
   });
   winHistoryList.querySelectorAll(".hist-remove").forEach(function (x) {

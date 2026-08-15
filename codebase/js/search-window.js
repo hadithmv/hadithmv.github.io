@@ -467,6 +467,45 @@ function buildShell() {
     _ui.input.focus();
   });
 
+  // Link-row keyboard navigation (the All-books tab's rows and the library
+  // window's cards/list rows). The input's own listener fires before any
+  // page document-level handler, and it no-ops when no link rows are on
+  // screen — this-book results (.search-result[data-real]) stay owned by
+  // the reader page. The hint strip's ↑↓/Enter promise holds on every tab.
+  _ui.input.addEventListener("keydown", function (e) {
+    if (!_ui.overlay.classList.contains("open")) return;
+    var rows = _ui.results.querySelectorAll(
+      ".search-window-book-link, .lib-result",
+    );
+    if (rows.length === 0) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      var idx = -1;
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].classList.contains("active")) { idx = i; break; }
+      }
+      idx = e.key === "ArrowDown"
+        ? Math.min(idx + 1, rows.length - 1)
+        : Math.max(idx - 1, 0);
+      for (var j = 0; j < rows.length; j++) {
+        rows[j].classList.toggle("active", j === idx);
+      }
+      rows[idx].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "Enter") {
+      var cur = null;
+      for (var k = 0; k < rows.length; k++) {
+        if (rows[k].classList.contains("active")) { cur = rows[k]; break; }
+      }
+      if (!cur) return;
+      e.preventDefault();
+      // Cards wrap their link inside; the All-books rows ARE the link.
+      var a = cur.classList.contains("search-window-book-link")
+        ? cur
+        : cur.querySelector(".lib-result-link");
+      if (a && a.href) window.location.href = a.href;
+    }
+  });
+
   // Head-row reset — the scope modal's pattern: one button restores the
   // surface's default state. The shell owns the chrome (query, advanced,
   // tab); the page owns its search state (whole-word flag, conditions),
