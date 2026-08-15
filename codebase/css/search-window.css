@@ -21,8 +21,8 @@
    (body → body-row → main → results) is properly bounded and the results
    pane scrolls internally instead. */
 .search-window-modal {
-  width: min(1080px, 96vw);
-  height: min(96vh, 1100px);
+  width: min(1200px, 97vw);
+  height: min(97vh, 1160px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -54,7 +54,14 @@
   gap: 10px;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-inline-end: 12px;
+  /* RTL: this pane is the modal's first column (right side), and its
+     vertical scrollbar renders on the LEFT edge — over the inline-end
+     padding, not beside it, so 20px clears the ~17px classic scrollbar.
+     The block padding keeps the first/last cards off the scrollport's
+     edges: at the scroll extremes a card flush against the edge reads as
+     sliced off (its rounded corners clip flat). */
+  padding-inline-end: 20px;
+  padding-block: 8px;
   border-inline-end: 1px solid var(--color-border);
 }
 /* Tab labels are long in Dhivehi ("ހުރިހާ ފޮތްތަކުން") — in the narrow
@@ -218,6 +225,9 @@
   border-radius: var(--radius-md, 8px);
   background: var(--color-card-bg);
   padding: 10px;
+  /* scrollIntoView on expand aligns the card flush to the pane's edge —
+     the pane's block padding scrolls away, so keep an explicit gap */
+  scroll-margin-block: 8px;
 }
 .search-window-adv-label {
   margin-bottom: 8px;
@@ -620,7 +630,7 @@
 @media (max-width: 600px) {
   .search-window-modal {
     width: 100%;
-    height: 96vh;
+    height: 97vh;
   }
   /* The side pane stacks above the results as a normal section, and the
      tabs go back to side-by-side half-width buttons. */
