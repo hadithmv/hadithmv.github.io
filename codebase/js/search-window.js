@@ -115,6 +115,7 @@ function updateOpenPageLink() {
   var q = _ui.input.value.trim();
   if (!crossBook || !q) {
     _ui.openPage.style.display = "none";
+    syncFooter();
     return;
   }
   var href = "library-search.html?q=" + encodeURIComponent(q);
@@ -122,6 +123,27 @@ function updateOpenPageLink() {
   if (sc && sc.length > 0) href += "&books=" + sc.join(",");
   _ui.openPage.href = href;
   _ui.openPage.style.display = "";
+  syncFooter();
+}
+
+// The keyboard hint (↑↓/Enter/Esc) only teaches something while result rows
+// are on screen — the empty state and the no-matches line have nothing to
+// navigate. Pages call this from their result/empty renderers (the shell
+// can't know a page's result markup); the all-books renderer here uses it
+// too.
+export function showWindowHint(show) {
+  _ui.hint.style.display = show ? "" : "none";
+  syncFooter();
+}
+
+// The footer strip is the window's status bar — it exists only while one of
+// its children shows (the hint, the index status, the open-page link); an
+// empty strip would leave a divider line with a blank band under it.
+function syncFooter() {
+  var any = _ui.hint.style.display !== "none" ||
+            _ui.status.style.display !== "none" ||
+            _ui.openPage.style.display !== "none";
+  _ui.footer.style.display = any ? "" : "none";
 }
 
 function collapseAdvanced() {
@@ -196,6 +218,7 @@ export function searchAllBooks(query) {
   if (!q) return;
   _ui.status.style.display = "";
   _ui.status.textContent = t("searchWindowIndexLoading");
+  syncFooter(); // the strip lives on the status while the index loads
   registryReady()
     .then(function () {
       return Promise.all([loadSearchIndex(), ensureSearchableBooks()]);
@@ -209,6 +232,7 @@ export function searchAllBooks(query) {
       if (_cfg.onHistoryChange) _cfg.onHistoryChange();
       var results = searchLibrary(index, q, getScope());
       _ui.status.style.display = "none";
+      syncFooter(); // the strip's life is now the hint's / open-page's
       renderAllBooksResults(results, q);
     })
     .catch(function () {
@@ -228,6 +252,7 @@ export function searchAllBooks(query) {
             if (_cfg.onHistoryChange) _cfg.onHistoryChange();
             var results = searchLibrary(index, v, getScope());
             _ui.status.style.display = "none";
+            syncFooter(); // the strip's life is now the hint's / open-page's
             renderAllBooksResults(results, v);
           })
           .catch(function () {});
@@ -288,6 +313,9 @@ function renderAllBooksResults(results, q) {
   // No history hiding here — the section is always visible (see the
   // buildShell comment). A display:none on this tab stuck forever: nothing
   // ever re-showed it, so Reset (back to this-book) read as a wiped history.
+  // The keyboard hint appears with the rows (they are Enter-openable
+  // links); the no-matches line hides it.
+  showWindowHint(results.length > 0);
 }
 
 function buildShell() {

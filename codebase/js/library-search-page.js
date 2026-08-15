@@ -59,6 +59,7 @@ import {
   openSearchWindow,
   buildBookRowsHTML,
   setWindowCount,
+  showWindowHint,
 } from "./search-window.js";
 
 // ── Page state ───────────────────────────────────────────────
@@ -658,6 +659,7 @@ function renderWindowHistorySection() {
  *  history section is not gated on it (always visible). */
 function renderWindowHistory() {
   setWindowCount(""); // no query → nothing to count; the head row clears
+  showWindowHint(false); // nothing to navigate — the strip collapses
   winResults.innerHTML =
     '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
   winResults.style.display = "";
@@ -685,6 +687,9 @@ function renderWindowResults(results, q) {
   }
   winResults.innerHTML = html;
   winResults.style.display = "";
+  // The keyboard hint appears with the rows; the no-matches line hides it
+  // (and the strip collapses).
+  showWindowHint(results.length > 0);
 }
 
 /** Run the window search — the same pipeline as the page's runSearchAndRender

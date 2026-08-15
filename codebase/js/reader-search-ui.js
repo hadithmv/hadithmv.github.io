@@ -17,7 +17,7 @@
 import { parseQuery, compileQuery, rowMatchesQueryNorm, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, linkifyURLs, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, normaliseForSearch, formatThousands } from "./search-utils.js";
 import { t } from "./i18n.js";
 import { updatePagination } from "./reader-position.js";
-import { initSearchWindow, getSearchWindowUI, getCurrentTab, searchAllBooks, openSearchWindow, setWindowCount } from "./search-window.js";
+import { initSearchWindow, getSearchWindowUI, getCurrentTab, searchAllBooks, openSearchWindow, setWindowCount, showWindowHint } from "./search-window.js";
 
 // Module-scope state — set by initSearchUI, read by the exported
 // applySearch / applySearchWindow / renderAdvancedSearch /
@@ -120,6 +120,10 @@ function wireWindowResultClicks() {
 function showWindowResults(html) {
   searchResultsEl.innerHTML = html;
   searchResultsEl.style.display = "";
+  // The keyboard hint (↑↓/Enter/Esc) teaches result navigation — it appears
+  // only while navigable rows are on screen; the no-matches line and the
+  // empty state hide it (and the strip collapses).
+  showWindowHint(!!searchResultsEl.querySelector(".search-result[data-real]"));
   // History stays visible while results show (user preference) — refresh it
   // so the just-written term appears; renderSearchHistory still owns the
   // empty-input placeholder.
@@ -305,6 +309,7 @@ function renderHistorySection() {
 // history section refreshes alongside (it is not gated on the empty state).
 function renderSearchHistory() {
   setWindowCount(""); // no query → nothing to count; the head row clears
+  showWindowHint(false); // nothing to navigate — the strip collapses
   searchResultsEl.innerHTML =
     '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
   searchResultsEl.style.display = "";

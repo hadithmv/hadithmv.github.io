@@ -43,8 +43,9 @@
   /* The base .modal-body padding (0 24px 24px) would float the panes 24px
      off the modal's bottom edge — in the open main column that dead space
      reads as a gap under the footer. The panes run to the modal's bottom;
-     the side pane (a bordered card) re-earns its clearance via its own
-     margin in the desktop grid rule. */
+     both cards (side pane and main) re-earn their clearance via their own
+     margins in the desktop grid rule — a symmetric 24px band, so the two
+     columns end on the same line. */
   padding-bottom: 0;
 }
 
@@ -82,6 +83,11 @@
   }
   .search-window-main {
     grid-area: main;
+    /* The modal-body's bottom padding is gone — the main card keeps the
+       same clearance as the side card, so the two columns end on the same
+       line (the framed strip under the results is the hint, not dead
+       space). */
+    margin-bottom: 24px;
   }
 }
 /* The pane's heading — the window's analogue of the scope modal's
@@ -152,12 +158,19 @@
   width: 100%;
 }
 .search-window-main {
+  box-sizing: border-box;
   flex: 1;
   min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
+  /* The main column is the results card now — the frame moved up from the
+     results box (its own border is gone) so it wraps the hint strip at the
+     bottom too: the hint lives INSIDE the card, line-separated, and the
+     column's bottom edge is the card's bottom edge (the side pane's
+     mirror). */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
 }
 
 /* ---- Head row (input + count + reset) ---- */
@@ -338,10 +351,13 @@
   max-height: none;
   margin: 0;
   /* The base .search-results rule is the old header dropdown's look —
-     border, floating background, a drop shadow. The border stays (the
-     pane's frame, the side pane's mirror); the shadow and the floating
-     background go — without the shadow the box sits flat in the column
-     instead of hovering over it. */
+     border, floating background, a drop shadow. The frame moved up to
+     .search-window-main (it must wrap the hint strip below too, or the
+     column's frame and the strip's divider would double-line); the shadow
+     and the floating background go — without the shadow the box sits flat
+     in the column instead of hovering over it. */
+  border: none;
+  border-radius: 0;
   box-shadow: none;
   background: transparent;
 }
@@ -737,15 +753,16 @@
   white-space: nowrap;
 }
 
-/* ---- Footer ---- */
+/* ---- Footer (the hint strip, inside the main card) ---- */
 /* Panel size, not micro: the footer teaches the keyboard (↑↓/Enter/Esc)
    and carries the index status — guidance text at the micro tier was too
    small to read as instructions. The hop link overrides its own size
-   already (0.85rem, link-styled). No border — the main column's flex gap
-   (10px) already separates it from the results; a divider line would make
-   the flat results column read as two stacked panels. */
+   already (0.85rem, link-styled). The divider line above separates the
+   hint strip from the scrolling results — the strip is the card's bottom
+   section, so the column's frame (on .search-window-main) wraps it. */
 .search-window-footer {
   padding: 5px 0;
+  border-top: 1px solid var(--color-border);
 
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-subtle);

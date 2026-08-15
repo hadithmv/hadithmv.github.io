@@ -368,7 +368,7 @@ const STRINGS = {
   // the pane holds the tabs, options, view toggle, advanced conditions and
   // history, so it is the search's controls column.
   searchWindowSideLabel: {
-    dv: "ސާޗު ކޮންޓްރޯލްސް",
+    dv: "ސާޗު ކޮންޓްރޯލްތައް",
     en: "Search controls",
     ar: "عناصر التحكم",
   },
