@@ -40,6 +40,12 @@
   min-height: 0;
   overflow: hidden;
   gap: 10px;
+  /* The base .modal-body padding (0 24px 24px) would float the panes 24px
+     off the modal's bottom edge — in the open main column that dead space
+     reads as a gap under the footer. The panes run to the modal's bottom;
+     the side pane (a bordered card) re-earns its clearance via its own
+     margin in the desktop grid rule. */
+  padding-bottom: 0;
 }
 
 /* ---- Two-column body (desktop): controls pane + results pane ---- */
@@ -69,6 +75,10 @@
   }
   .search-window-side {
     grid-area: side;
+    /* The modal-body's bottom padding is gone (the main column runs to the
+       modal's bottom) — the bordered card keeps its own clearance, or its
+       bottom border would collide with the modal's rounded corner. */
+    margin-bottom: 24px;
   }
   .search-window-main {
     grid-area: main;
@@ -147,7 +157,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 /* ---- Head row (input + count + reset) ---- */
@@ -735,7 +745,8 @@
    (10px) already separates it from the results; a divider line would make
    the flat results column read as two stacked panels. */
 .search-window-footer {
-  padding-top: 8px;
+  padding: 5px 0;
+
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-subtle);
   text-align: center;
