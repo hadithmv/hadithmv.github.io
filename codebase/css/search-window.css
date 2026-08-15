@@ -19,10 +19,13 @@
    result runs, history shrinking when a term is deleted — which re-centers
    it (the overlay centers the modal). With a fixed height the flex chain
    (body → body-row → main → results) is properly bounded and the results
-   pane scrolls internally instead. */
+   pane scrolls internally instead. 95vh is the full viewport minus a slim
+   symmetric margin; the base .modal max-height (85vh) must be neutralized
+   or it silently caps this back down. */
 .search-window-modal {
-  width: min(1200px, 97vw);
-  height: min(97vh, 1160px);
+  width: min(1200px, 95vw);
+  height: 95vh;
+  max-height: none;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -54,15 +57,21 @@
   gap: 10px;
   overflow-y: auto;
   overscroll-behavior: contain;
+  /* The pane is its own bordered panel — the same section language as the
+     results pane, so the controls column reads as a clear-cut area of the
+     window instead of a slice that bleeds into the modal. */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
   /* RTL: this pane is the modal's first column (right side), and its
      vertical scrollbar renders on the LEFT edge — over the inline-end
      padding, not beside it, so 20px clears the ~17px classic scrollbar.
      The block padding keeps the first/last cards off the scrollport's
      edges: at the scroll extremes a card flush against the edge reads as
-     sliced off (its rounded corners clip flat). */
+     sliced off (its rounded corners clip flat). The inline-start padding
+     keeps the cards off the panel's own border. */
   padding-inline-end: 20px;
+  padding-inline-start: 10px;
   padding-block: 8px;
-  border-inline-end: 1px solid var(--color-border);
 }
 /* Tab labels are long in Dhivehi ("ހުރިހާ ފޮތްތަކުން") — in the narrow
    pane they stack full-width like the scope rail's controls; the base row
@@ -134,7 +143,14 @@
   cursor: pointer;
   /* tab labels are trilingual (this-book/all-books) — mixed font or the
      Thaana labels fall back to a system font */
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .search-window-tab:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -179,7 +195,14 @@
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   /* option labels are trilingual too (whole-word / card / list) */
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .search-window-opt-label {
   white-space: nowrap;
@@ -328,7 +351,14 @@
   border: none;
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .search-window-scope-summary:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -340,11 +370,13 @@
    types and foot stay put. The picker shell's surface rules (pane label,
    head, filter, count, chips rail, list, rows) follow directly below. */
 .lib-scope-modal {
-  width: min(520px, 94vw);
-  /* Content-driven with a floor and a cap: a short list still uses the
-     vertical room (the list pane scrolls to fill), a long one caps out. */
-  min-height: min(80vh, 740px);
-  max-height: 94vh;
+  /* Same geometry as the search window (fixed, not content-driven): the two
+     windows are one family, and when the scope modal stacks on top of the
+     window a size swap between them would read as a glitch. max-height: none
+     neutralizes the base .modal 85vh cap, as above. */
+  width: min(1200px, 95vw);
+  height: 95vh;
+  max-height: none;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -367,9 +399,6 @@
    areas map the shell's siblings (label / head / types / list) directly;
    below 601px the base flex-column rules keep the stacked layout. */
 @media (min-width: 601px) {
-  .lib-scope-modal {
-    width: min(900px, 94vw);
-  }
   .lib-scope-modal .modal-body {
     display: grid;
     grid-template-columns: minmax(170px, 220px) 1fr;
@@ -411,7 +440,14 @@
   font-size: var(--panel-font-size, 0.78rem);
   font-weight: 700;
   color: var(--color-text-subtle);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 /* The picker's pinned header row: filter, the count and the reset action,
    directly above the book list they describe. RTL row order: filter
@@ -432,7 +468,14 @@
   flex: 1;
   min-width: 0;
   font-size: var(--panel-font-size, 0.85rem);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   direction: rtl;
 }
 /* The selection summary — full text color, semibold, at the filter's font
@@ -444,7 +487,14 @@
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .lib-scope-reset {
   flex-shrink: 0;
@@ -489,7 +539,14 @@
   background: var(--color-nav-btn-bg);
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .lib-scope-row {
   display: flex;
@@ -514,7 +571,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: var(--fs-text, 0.95rem);
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   /* same webfont start-side overhang as .hist-text — the ellipsis clip cuts
      the first glyph of every row */
   padding-inline-start: 6px;
@@ -533,7 +597,14 @@
   white-space: nowrap;
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-muted);
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   direction: rtl;
 }
 .lib-scope-none {
@@ -562,7 +633,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   /* same webfont start-side overhang as .hist-text — the ellipsis clip
      cuts the first glyph of every title */
   padding-inline-start: 6px;
@@ -605,7 +683,14 @@
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .search-window-open-page:hover {
   text-decoration: underline;
@@ -630,7 +715,14 @@
 @media (max-width: 600px) {
   .search-window-modal {
     width: 100%;
-    height: 97vh;
+    height: 95vh;
+  }
+  /* The scope modal matches the window's mobile geometry too — same
+     full-bleed, full-height pair whether they sit on top of each other
+     or the scope opens from the library page directly. */
+  .lib-scope-modal {
+    width: 100%;
+    height: 95vh;
   }
   /* The side pane stacks above the results as a normal section, and the
      tabs go back to side-by-side half-width buttons. */
@@ -639,8 +731,9 @@
   }
   .search-window-side {
     width: auto;
-    padding-inline-end: 0;
-    border-inline-end: none;
+    /* the bordered panel keeps a slim symmetric padding on mobile — no
+       classic scrollbar here, but the cards still need room off the border */
+    padding-inline: 10px;
     /* shrinkable so short viewports compress the controls pane instead of
        clipping it — it scrolls internally (overflow-y: auto) */
     flex-shrink: 1;

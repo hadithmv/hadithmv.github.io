@@ -457,9 +457,9 @@ const STRINGS = {
   qrnAyah: { dv: "އާޔަތް:", en: "Ayah:", ar: "آية:" },
   qrnJuz: { dv: "ޖުޒް:", en: "Juz:", ar: "جزء:" },
   qrnContent: {
-    dv: "ގުރްއާން ފޮތްތައް",
-    en: "Quran Books",
-    ar: "كتب القرآن",
+    dv: "އިތުރު ފޮތްތަކުން ▾",
+    en: "Other content ▾",
+    ar: "محتوى آخر ▾",
   },
   qrnToggleAyahNum: {
     dv: "އާޔަތް ނަންބަރު",

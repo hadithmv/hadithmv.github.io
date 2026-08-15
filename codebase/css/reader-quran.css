@@ -190,6 +190,12 @@
   border-radius: 6px 0 0 6px;
 }
 .quran-content-table thead th {
+  /* Pin the header to the wrap's scrollport top while the list scrolls —
+     column titles stay readable instead of scrolling away with the rows.
+     The th has an opaque background, so body rows pass cleanly beneath it. */
+  position: sticky;
+  top: 0;
+  z-index: 1;
   padding: 8px 10px;
   font-size: var(--fs-aux, 0.8rem);
   font-weight: 700;
