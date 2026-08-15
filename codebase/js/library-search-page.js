@@ -284,7 +284,7 @@ function runSearchAndRender() {
   }
   // Record the query as it is applied — same as the reader (applySearch), so
   // typing alone lands in history; no Enter needed.
-  addSearchHistory(_q, window.LS_KEYS.libSearchHistory);
+  addSearchHistory(_q, window.LS_KEYS.searchHistory);
   el.count.style.display = "none";
   el.results.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
   loadSearchIndex()
@@ -308,11 +308,12 @@ function updateSearchClear() {
 }
 
 // ── Search history dropdown ──────────────────────────────────
-// Same pattern as the reader's: every applied search commits (own key —
-// lib:searchHistory), the dropdown appears when the empty input is focused,
-// items re-run on click, ✕ removes one, "Clear" empties all.
+// Same pattern as the reader's — and the SAME store (the shared
+// searchHistory key): every applied search commits, the dropdown appears
+// when the empty input is focused, items re-run on click, ✕ removes one,
+// "Clear" empties all.
 function renderSearchHistory() {
-  var items = getSearchHistory(window.LS_KEYS.libSearchHistory);
+  var items = getSearchHistory(window.LS_KEYS.searchHistory);
   if (items.length === 0) {
     el.history.style.display = "none";
     return;
@@ -345,14 +346,14 @@ function renderSearchHistory() {
   el.history.querySelectorAll(".hist-remove").forEach(function (x) {
     x.addEventListener("click", function (e) {
       e.stopPropagation();
-      removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.libSearchHistory);
+      removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.searchHistory);
       renderSearchHistory();
     });
   });
   // Clear-all button
   var clearAll = el.history.querySelector(".search-history-clear");
   if (clearAll) clearAll.addEventListener("click", function () {
-    clearSearchHistory(window.LS_KEYS.libSearchHistory);
+    clearSearchHistory(window.LS_KEYS.searchHistory);
     el.history.style.display = "none";
   });
 }
@@ -619,7 +620,7 @@ function renderResults(results, q) {
 /** The window's empty state — the library search history (own key), same
  *  items as the page's dropdown, wired to the window input. */
 function renderWindowHistory() {
-  var items = getSearchHistory(window.LS_KEYS.libSearchHistory);
+  var items = getSearchHistory(window.LS_KEYS.searchHistory);
   // Empty state: placeholder in the results pane (history has its own
   // section in the side pane — the results column is for results).
   winResults.innerHTML =
@@ -646,13 +647,13 @@ function renderWindowHistory() {
   winHistory.querySelectorAll(".hist-remove").forEach(function (x) {
     x.addEventListener("click", function (e) {
       e.stopPropagation();
-      removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.libSearchHistory);
+      removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.searchHistory);
       renderWindowHistory();
     });
   });
   var clearAll = winHistory.querySelector(".search-history-clear");
   if (clearAll) clearAll.addEventListener("click", function () {
-    clearSearchHistory(window.LS_KEYS.libSearchHistory);
+    clearSearchHistory(window.LS_KEYS.searchHistory);
     renderWindowHistory();
   });
 }
@@ -690,7 +691,7 @@ function windowSearchRun(q) {
     renderWindowResults([], q);
     return;
   }
-  addSearchHistory(q, window.LS_KEYS.libSearchHistory);
+  addSearchHistory(q, window.LS_KEYS.searchHistory);
   winResults.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
   winResults.style.display = "";
   winHistory.style.display = "none";
@@ -722,6 +723,17 @@ function onWindowOpen() {
   getSearchWindowUI().syncClear();
   if (!v) { renderWindowHistory(); return; }
   windowSearchRun(v);
+}
+
+/** Window → page hop: apply the window's query to the page and close the
+ *  window — the page's input, card grid and URL are the full-page form of
+ *  the same search (one search, two looks). */
+function onWindowOpenPage(q) {
+  if (!q) return;
+  el.input.value = q;
+  updateSearchClear();
+  window.closeModal("searchWindowOverlay");
+  runSearchAndRender();
 }
 
 /** Card/list toggle — re-render the cached results, no re-search. */
@@ -758,6 +770,7 @@ async function init() {
     onOpen: onWindowOpen,
     onInput: windowSearch,
     onViewChange: onWindowViewChange,
+    onOpenPage: onWindowOpenPage,
   });
   winInput = ui.input;
   winResults = ui.results;

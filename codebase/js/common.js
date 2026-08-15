@@ -28,8 +28,10 @@ window.LS_KEYS = {
   pinnedBooks: "pinnedBooks",
   readHistory: "readHistory",
   readerPrefix: "reader:",
-  readerSearchHistory: "reader:searchHistory",
-  libSearchHistory: "lib:searchHistory",
+  // One search-history store shared by the reader's search window and the
+  // library-search page (this-book, all-books and page searches all commit
+  // to it); the dashboard keeps its own — title-search, different semantics.
+  searchHistory: "searchHistory",
   dashSearchHistory: "dash:searchHistory",
   readerHideTashkeel: "reader:hideTashkeel",
   // NOTE: hidden columns are per-book (reader:hiddenColumns:{bookCode}),
@@ -671,8 +673,7 @@ window.setFocus = function (on) {
       var resetReaderBtn = document.getElementById("btnResetReader");
       if (resetReaderBtn) resetReaderBtn.click();
       // Clear LS keys that the delegated buttons don't touch
-      localStorage.removeItem(window.LS_KEYS.readerSearchHistory);
-      localStorage.removeItem(window.LS_KEYS.libSearchHistory);
+      localStorage.removeItem(window.LS_KEYS.searchHistory);
       localStorage.removeItem(window.LS_KEYS.dashSearchHistory);
       localStorage.removeItem(window.LS_KEYS.focus);
       // Pins & history — part of the full reset (confirmed above)

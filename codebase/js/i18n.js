@@ -369,7 +369,7 @@ const STRINGS = {
   // keep it). dv is the verb form, matching the replaced placeholder's
   // family ("މި ފޮތުން ހޯދާ…").
   searchBtnLabel: {
-    dv: "🔍 ހޯދާ",
+    dv: "🔍 ސާޗު",
     en: "🔍 Search",
     ar: "🔍 بحث",
   },
@@ -379,7 +379,7 @@ const STRINGS = {
     ar: "هذا الكتاب",
   },
   searchWindowAllBooks: {
-    dv: "ހުރިހާ ފޮތުން",
+    dv: "ހުރިހާ ފޮތަކުން",
     en: "All books",
     ar: "كل الكتب",
   },
@@ -394,6 +394,11 @@ const STRINGS = {
     dv: "ލިޔަން ފެށުމުން ނަތީޖާ ފެންނާނެ",
     en: "Results appear as you type",
     ar: "تظهر النتائج أثناء الكتابة",
+  },
+  searchWindowOpenPage: {
+    dv: "ފުރިހަމަ ޞަފްޙާގައި ހުޅުވާ",
+    en: "Open in library page",
+    ar: "فتح في صفحة المكتبة",
   },
   searchWindowIndexLoading: {
     dv: "ފޮތްތައް ތައްޔާރުވަނީ…",

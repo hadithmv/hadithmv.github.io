@@ -57,6 +57,7 @@ function renderLabels() {
   el("searchWindowViewCard").textContent = t("searchWindowCardView");
   el("searchWindowViewList").textContent = t("searchWindowListView");
   el("searchWindowHint").textContent = t("searchWindowOpenHint");
+  el("searchWindowOpenPage").textContent = t("searchWindowOpenPage");
   refreshScopeSummary();
 }
 
@@ -67,6 +68,25 @@ function renderLabels() {
 // empty query; the shell needs no knowledge of search behaviour.
 function syncClear() {
   _ui.clear.classList.toggle("visible", !!_ui.input.value);
+  updateOpenPageLink();
+}
+
+// The cross-book hop link: shown only when the current context is
+// cross-book (library mode, or the reader's All-books tab) and there is a
+// query. The reader navigates (the href carries query + scope); the library
+// page intercepts the click and applies the search in place (onOpenPage).
+function updateOpenPageLink() {
+  var crossBook = _cfg.mode === "library" || _currentTab === "allBooks";
+  var q = _ui.input.value.trim();
+  if (!crossBook || !q) {
+    _ui.openPage.style.display = "none";
+    return;
+  }
+  var href = "library-search.html?q=" + encodeURIComponent(q);
+  var sc = getScope();
+  if (sc && sc.length > 0) href += "&books=" + sc.join(",");
+  _ui.openPage.href = href;
+  _ui.openPage.style.display = "";
 }
 
 function collapseAdvanced() {
@@ -96,6 +116,8 @@ function setTab(tab, silent) {
     _ui.options.style.display = isAll ? "none" : "";
     if (isAll) collapseAdvanced();
   }
+  // the hop link depends on the tab context (this-book tab: no hop)
+  updateOpenPageLink();
   // silent: initSearchWindow applies the initial state without firing the
   // page callback (its refs are not wired yet at that point).
   if (!silent && _cfg.onTabChange) _cfg.onTabChange(tab);
@@ -284,6 +306,11 @@ function buildShell() {
       '<div class="search-window-main" id="searchWindowMain">' +
         '<div id="searchWindowResults" class="search-results search-window-results" style="display:none"></div>' +
         '<div class="search-window-footer" id="searchWindowFooter">' +
+          // The cross-book hop: "open in library page" — the reader
+          // navigates (its href carries query + scope); the library page
+          // intercepts the click and applies the search in place
+          // (cfg.onOpenPage). Hidden on the this-book tab / empty input.
+          '<a id="searchWindowOpenPage" class="search-window-open-page" style="display:none" href="library-search.html"></a>' +
           '<span id="searchWindowHint"></span>' +
           '<span id="searchWindowStatus" class="search-window-status" style="display:none"></span>' +
         '</div>' +
@@ -315,6 +342,7 @@ function buildShell() {
     results: el("searchWindowResults"),
     history: el("searchWindowHistory"),
     footer: el("searchWindowFooter"),
+    openPage: el("searchWindowOpenPage"),
     hint: el("searchWindowHint"),
     status: el("searchWindowStatus"),
     setTab: setTab,
@@ -346,6 +374,16 @@ function buildShell() {
     syncClear();
     _ui.input.dispatchEvent(new Event("input", { bubbles: true }));
     _ui.input.focus();
+  });
+
+  // The cross-book hop: the library page applies the search in place
+  // (onOpenPage); the reader lets the link navigate — its href already
+  // carries the query and scope (updateOpenPageLink).
+  _ui.openPage.addEventListener("click", function (e) {
+    if (_cfg.onOpenPage) {
+      e.preventDefault();
+      _cfg.onOpenPage(_ui.input.value.trim());
+    }
   });
 
   // Tabs — the shell swaps section visibility; the page decides what a

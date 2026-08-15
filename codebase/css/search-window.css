@@ -491,6 +491,20 @@
   color: var(--color-text-subtle);
   text-align: center;
 }
+/* The cross-book hop ("open in library page") — link-styled, leading the
+   footer row; the mixed font so the trilingual label renders. */
+.search-window-open-page {
+  margin-inline-end: 12px;
+  color: var(--color-nav-btn-text);
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.search-window-open-page:hover {
+  text-decoration: underline;
+}
 .search-window-status {
   margin-inline-start: 8px;
 }

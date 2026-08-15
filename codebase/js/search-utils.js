@@ -550,8 +550,10 @@ export function buildSnippets(row, parsed, queryForHighlight, normRow) {
 }
 
 // ── Search history ──────────────────────────────────────────
-// Stores are per-key: the reader and library-search pages keep separate
-// histories; a missing key means the reader's.
+// One shared store for every search surface — the reader's search window
+// (this-book and all-books) and the library-search page — so a term
+// searched in the pop-up shows up in the page's recent searches too.
+// (The dashboard keeps its own key: title-search, different semantics.)
 
 export var MAX_HISTORY = 20;
 
@@ -559,7 +561,7 @@ var _historyCache = {}; // key → array
 var _historySaveTimers = {}; // key → timer
 
 function _historyKey(key) {
-  return key || window.LS_KEYS.readerSearchHistory;
+  return key || window.LS_KEYS.searchHistory;
 }
 
 function _loadHistory(key) {

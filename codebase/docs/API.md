@@ -253,7 +253,9 @@ Finds matching cells in a row, then builds highlighted snippets (~300 chars arou
 | `clearSearchHistory()` | Clears all history |
 | `MAX_HISTORY` | Max entries (20) |
 
-Saved to `localStorage` under `reader:searchHistory`.
+Saved to `localStorage` under `searchHistory` — one shared store for the
+reader's search window and the library-search page, so a term searched in
+one surface shows up in the other's recent searches.
 
 ---
 

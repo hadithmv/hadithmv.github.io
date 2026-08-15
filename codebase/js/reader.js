@@ -978,11 +978,11 @@ initializePageWithMetadata(async function (metadata) {
       // ── Search ──────────────────────────────────────────────
       // The unified search window (search-window.js shell, behaviour in
       // reader-search-ui.js) is wired here once, before the toolbar and
-      // the keyboard shortcuts. The header input stays the in-place
-      // filter for RDF dictionary books; every other book searches in
-      // the window only, so its wrap is hidden.
+      // the keyboard shortcuts. The window button leads the toolbar; the
+      // search row above holds the RDF in-place filter only, so every
+      // other book hides the whole row (it would be empty).
       if (!isRadheefBook(metadata.bookCode)) {
-        document.getElementById("readerSearchWrap").style.display = "none";
+        document.getElementById("readerPanelSearch").style.display = "none";
       }
       initSearchUI({
         allData: allData,

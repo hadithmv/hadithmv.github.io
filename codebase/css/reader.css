@@ -818,11 +818,6 @@
     font-size: 1rem;
   }
 
-  .search-advanced-btn {
-    padding: 0 8px;
-    font-size: var(--panel-font-size, 0.85rem);
-  }
-
   .reader-nav {
     flex-wrap: nowrap;
     gap: var(--control-gap, 6px);
@@ -849,11 +844,6 @@
   .col-toggle {
     padding: 0 5px;
     font-size: var(--fs-micro, 0.68rem);
-  }
-
-  .search-advanced-btn {
-    padding: 0 6px;
-    font-size: var(--panel-font-size, 0.85rem);
   }
 
   #readerPageSubRow {

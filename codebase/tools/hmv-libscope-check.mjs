@@ -410,6 +410,35 @@ async function main() {
     check("S11 back to card view",
       await evalJS(`document.getElementById('searchWindowViewCard').classList.contains('active')`));
 
+    // window → page hop: a NEW term typed in the window applies to the page
+    // in place — the page input, its card grid and the URL all take it over,
+    // and the window closes (the library page owns onOpenPage)
+    await evalJS(`(function () {
+      var inp = document.getElementById('searchWindowInput');
+      inp.value = 'الناس';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    })()`);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 0`, 15000);
+    check("S11 hop link shows for cross-book query",
+      await evalJS(`document.getElementById('searchWindowOpenPage').style.display !== 'none'`));
+    await evalJS(`document.getElementById('searchWindowOpenPage').click()`);
+    check("S11 hop closes window",
+      await waitFor(`!document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+    const hop = await evalJS(`(function () {
+      return {
+        input: document.getElementById('libSearchInput').value,
+        url: window.location.search,
+        cards: document.querySelectorAll('#libResults .lib-result').length,
+      };
+    })()`);
+    check("S11 hop applies the query to the page",
+      hop.input === "الناس" && hop.url.indexOf(encodeURIComponent("الناس")) !== -1 && hop.cards > 1,
+      JSON.stringify(hop));
+    // reopen the window for the scope section below
+    await evalJS(`document.getElementById('btnSearchWindow').click()`);
+    check("S11 window reopens after hop",
+      await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+
     // scope summary → the picker opens in the libScope modal, stacked ON TOP
     // of the window (openModalOnTop): the window keeps its query and results
     // underneath

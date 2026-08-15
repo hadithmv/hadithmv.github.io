@@ -508,6 +508,16 @@ async function main() {
   })()`);
   check("all-books: rows carry book codes", allBookRow !== null, allBookRow);
 
+  // the cross-book hop — "open in library page" shows for a cross-book query
+  // with a deep-link href carrying the query (and scope when set)
+  const hopLink = await evalJS(`(function () {
+    var a = document.getElementById('searchWindowOpenPage');
+    return a ? { shown: a.style.display !== 'none', href: a.getAttribute('href') } : null;
+  })()`);
+  check("all-books: open-in-library-page link",
+    hopLink !== null && hopLink.shown && /^library-search\.html\?q=/.test(hopLink.href),
+    JSON.stringify(hopLink));
+
   // scope summary → the picker opens in the libScope modal, stacked on top
   // of the window (the window stays open underneath)
   await evalJS(`document.getElementById('searchWindowScopeSummary').click()`);
@@ -562,9 +572,10 @@ async function main() {
     return {
       scopeHidden: document.getElementById('searchWindowScope').style.display === 'none',
       optsShown: document.getElementById('searchWindowOptions').style.display !== 'none',
+      openPageHidden: document.getElementById('searchWindowOpenPage').style.display === 'none',
     };
   })()`);
-  check("this-book tab: scope off, options back", tb.scopeHidden && tb.optsShown, JSON.stringify(tb));
+  check("this-book tab: scope off, options back", tb.scopeHidden && tb.optsShown && tb.openPageHidden, JSON.stringify(tb));
 
   // Escape closes the window — unified modal layer handles it
   await evalJS(`(function () {

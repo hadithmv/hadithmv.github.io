@@ -428,21 +428,15 @@
         </button>
       </div>
       <!-- Reader chrome — split like the dashboard for a shared structure:
-           the shell #readerPanel holds the search row + results dropdown as
-           siblings of #collapsibleReaderPanel (functions, pagination, Quran
-           nav). Unlike the dashboard, reader focus hides everything. -->
+           the shell #readerPanel holds the search row (the RDF in-place
+           filter) + the collapsible #collapsibleReaderPanel (toolbar,
+           pagination, Quran nav). Unlike the dashboard, reader focus
+           hides everything. -->
       <div id="readerPanel" class="sticky-panel">
         <div id="readerPanelSearch" class="reader-panel-row">
-          <button
-            id="btnSearchWindow"
-            class="search-advanced-btn"
-            data-i18n="searchBtnLabel"
-            title="Search (Ctrl+F or /)"
-          >
-            🔍 ހޯދާ
-          </button>
-          <!-- In-place filter — RDF dictionary books only (the wrap is
-               hidden by JS for every other book; the window replaces it). -->
+          <!-- In-place filter — RDF dictionary books only (the whole row is
+               hidden by JS for every other book; the window button leads
+               the toolbar below). -->
           <div class="search-input-wrap" id="readerSearchWrap">
             <input
               id="readerSearchInput"
@@ -475,6 +469,16 @@
               class="reader-panel-row reader-toolbar"
               dir="rtl"
             >
+              <!-- The unified search window leads the toolbar row (the
+                   library page row leads with the same button). -->
+              <button
+                id="btnSearchWindow"
+                class="toolbar-btn"
+                data-i18n="searchBtnLabel"
+                title="Search (Ctrl+F or /)"
+              >
+                🔍 ސާޗު
+              </button>
               <div class="toolbar-group">
                 <button
                   id="btnCopy"

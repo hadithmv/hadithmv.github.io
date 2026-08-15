@@ -1780,15 +1780,13 @@ body {
   #topBar button,
   .toolbar-btn,
   .nav-btn,
-  .col-toggle,
-  .search-advanced-btn {
+  .col-toggle {
     position: relative;
   }
   #topBar button::after,
   .toolbar-btn::after,
   .nav-btn::after,
-  .col-toggle::after,
-  .search-advanced-btn::after {
+  .col-toggle::after {
     content: "";
     position: absolute;
     inset: -3px;
