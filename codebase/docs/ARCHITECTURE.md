@@ -47,7 +47,8 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs |
 | `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors |
 | `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override reader-quran.css on specificity ties. |
-| `css/reader-search.css`      | Reader: search bar, results dropdown, advanced search                      |
+| `css/reader-search.css`      | Reader: RDF header filter, search window input/history/advanced            |
+| `css/search-window.css`      | Shared search window: shell grid, tabs/scope, results pane, hint strip     |
 | `css/reader-table-view.css`  | Reader: table view mode, top scrollbar, sentinels                          |
 | `css/reader-quran.css`       | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
 | `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
@@ -59,7 +60,8 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/reader.js`               | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links  |
 | `js/radheef-merge.js`        | Virtual merged radheef book (RDF-all): assembles the 8 source books in memory at load — see "Virtual merged books" |
 | `js/reader-position.js`      | Reader position: pagination strip, progress, URL sync, history log      |
-| `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search         |
+| `js/search-window.js`        | Unified search window shell: tabs, scope, all-books tab, link-row keys     |
+| `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search            |
 | `js/table-scroll-sync.js`    | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll |
 | `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
 | `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
@@ -68,6 +70,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/search-utils.js`         | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
 | `js/library-search-engine.js`| Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | `js/library-search-page.js`       | Library search page UI: `?q=`/`?tags=`/`?books=`, chips, results, peek previews, book-scope picker |
+| `js/library-scope-picker.js` | Book-scope picker: groups/chips/rail rendered into one surface at a time   |
 | `js/export-xlsx.js`          | XLSX writer — createXLSX(), inline strings, lazy-loaded |
 | `js/export-epub.js`          | EPUB 3 e-book writer — createEPUB(), embedded font, lazy-loaded |
 | `js/export-zip.js`           | Minimal store-only ZIP writer — zipStore(), shared by the XLSX + EPUB writers |
@@ -96,7 +99,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
 | i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
 | Search engine | `search-utils.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
-| In-book search UI | `reader-search-ui.js` (UI) + `search-utils.js` (shared toolkit) | `initSearchUI(ctx)`, `applySearch(q)`, `renderAdvancedSearch()`, `parseQueryWithMode(q)` — search bar, dropdown results, history, whole-word toggle, advanced search; styles in `reader-search.css` |
+| Search window + in-book search | `search-window.js` (shell) + `reader-search-ui.js` (in-book wiring) + `search-utils.js` (shared toolkit) | `initSearchWindow(cfg)`, `openSearchWindow`, `getSearchWindowUI`, `applySearch(q)` / `applySearchWindow`, `parseQueryWithMode(q)`, `renderAdvancedSearch()` — unified modal window: This book / All books tabs, history section, whole-word toggle, advanced conditions, scope picker; navigation ownership split between the page (this-book rows) and the shell (link rows); styles in `search-window.css` + `reader-search.css` |
 | Library search | `library-search-engine.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
 | Library search page | `library-search-page.js` | self-initialising — `?q=`/`?tags=`/`?books=`, chip + book scoping, peek previews |
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
@@ -258,9 +261,18 @@ The reader supports three visual layouts, selected via a dropdown in the toolbar
 
 ### Search
 
-Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — strips Arabic diacritics, normalises alif/ya/waw variants, and normalises Thaana thikijehi (Arabic‑derived letters) to base Thaana. **Thaana fili (vowel marks) are deliberately PRESERVED** — unlike Arabic diacritics they distinguish words (ކަތި ≠ ކުތި), so stripping them would cause false matches. Results dropdown with highlighted snippets mapped back to original text. Keyboard‑navigable (↑/↓/Enter/Escape). Advanced search modal for column/condition/value filters with AND/OR logic. Same normalisation used for dashboard search. A `?q=TERM` URL param (used by library-search deep links) fills the search input on load, runs the search — so the dropdown lists every match and rendered rows show the term highlighted — and jumps to the `&row=` target, or the first match when no row is given.
+Real‑time, tashkeel‑insensitive filtering via `normaliseForSearch()` — strips Arabic diacritics, normalises alif/ya/waw variants, and normalises Thaana thikijehi (Arabic‑derived letters) to base Thaana. **Thaana fili (vowel marks) are deliberately PRESERVED** — unlike Arabic diacritics they distinguish words (ކަތި ≠ ކުތި), so stripping them would cause false matches. Results render as highlighted snippets mapped back to original text. Same normalisation used for dashboard search.
 
-**RDF books filter in place instead of a dropdown.** For every `RDF-*` book (dictionaries — the merged RDF-all and its sources), `applySearch` takes the early branch `applyRadheefFilter(q)` (`reader-search-ui.js`): the dropdown never opens (hidden), typing filters `filteredData` to the matching rows — the table/card re-renders with only matches, the scroll counter shows the match count (e.g. `13,012 / 11`), and clearing the input restores all rows. Zero matches renders the empty-state message. The `?q=` deep link filters the same way on load. The normal non-RDF dropdown flow is untouched.
+**The search window** (`js/search-window.js` + `css/search-window.css`) is the shared modal surface on the reader and library pages, opened from the magnifier button, `/` or `Ctrl+F` (`Ctrl+Shift+F` opens it with the advanced conditions expanded). One shell, two modes:
+
+- **This book** (reader tab) — the window input drives the page's in-book search (`applySearch` → `applySearchWindow` in `reader-search-ui.js`); results render into `#searchWindowResults` with jump-to-row links. The window also hosts the whole-word toggle, the advanced conditions (column/condition/value filters with AND/OR logic — the old standalone advanced modal is gone), and the history section: max 20 terms under the shared `searchHistory` `localStorage` key (both pages); clicking a term fills the input, re-runs the search, and refocuses the input.
+- **All books** (reader tab; also the library window's only mode) — cross-book search over the generated index (`library-search-engine.js`) with the book-scope picker (`library-scope-picker.js`) rendered into the window. Rows are deep links (`reader.html?book=CODE&row=N&q=…`); the library window adds a card/list view toggle.
+
+**Keyboard navigation ownership.** Window navigation keys act only while the window input is focused. This-book result rows (`.search-result[data-real]`) are owned by the reader page (`onSearchKeydown`, guarded on `document.activeElement`); link rows (`.search-window-book-link`, `.lib-result`) are owned by the shell's input-level listener, which no-ops when no link rows are on screen — so the hint strip's ↑↓/Enter/Esc promise holds on every tab. Enter on a link row follows the row's `a.href`; on a this-book row it jumps and closes the window. A history-term click is a mousedown on a non-focusable row that moves focus to `<body>`; the click handlers refocus the window input so ↑↓/Enter keep acting on the fresh results.
+
+A `?q=TERM` URL param (used by library-search deep links) fills the window query on load, runs the search — so the window lists every match and rendered rows show the term highlighted — and jumps to the `&row=` target, or the first match when no row is given. The window stays closed on load; opening it later shows the query and its results.
+
+**RDF dictionary books filter in place.** For every `RDF-*` book (dictionaries — the merged RDF-all and its sources), the header input stays as the in-place filter: typing filters `filteredData` to the matching rows (`applyRadheefFilter` in `reader-search-ui.js`) — the table/card re-renders with only matches, the scroll counter shows the match count (e.g. `13,012 / 11`), and clearing the input restores all rows. Zero matches renders the empty-state message. The search window coexists as the advanced/browse surface: it searches independently of the in-place filter, and jumping to a result from the window clears a stale header filter value so the page shows all rows again. The `?q=` deep link filters in place on load for these books.
 
 **Performance.** Normalisation is a single regex pass (per‑char lookup instead of ~30 sequential replaces). At book load `reader.js` precomputes a parallel structure of normalised cells (`buildNormData()`), and each search compiles its query once (`compileQuery()`) — so a full scan over 50k+ rows matches against precomputed strings with precompiled regexes, and never re‑normalises a cell or a term. The search input is debounced (120 ms), so only pauses in typing trigger a scan. Highlighting (`highlightMatches` / `buildSnippets`) maps normalised match positions back to original text with an identity fast path (`mapNormToOrig`): characters that pass through normalisation unchanged are matched with a single compare, so only the minority (tashkeel, thikijehi, case) pay a normalisation call. The Quran on‑demand column loader keeps the norm cache in sync via the `initQuranUI` ctx bridge.
 
@@ -310,7 +322,7 @@ The toolbar and pagination rows are wrapped in a `.horizontal-scroll-wrap` conta
 
 Toggled via the green ▾/▴ button in the topBar or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
 
-**Reader:** Split like the dashboard for a shared structure, but focus hides the whole chrome: `#collapsibleReaderPanel` (functions, pagination, Quran nav) collapses via CSS Grid `grid-template-rows: 1fr → 0fr`, the search row + results dropdown snap off (`display: none`), and the shell sheds its padding and border. Only the topBar and reader content remain.
+**Reader:** Split like the dashboard for a shared structure, but focus hides the whole chrome: `#collapsibleReaderPanel` (functions, pagination, Quran nav) collapses via CSS Grid `grid-template-rows: 1fr → 0fr`, the search row snaps off (`display: none` — it holds the RDF books' header filter; non-RDF books hide it at load), and the shell sheds its padding and border. Only the topBar and reader content remain.
 
 **Dashboard:** Collapses `#collapsibleDashboardPanel` (tags + functions) via `max-height` transition. The search bar stays visible. The book grid remains fully interactive.
 
@@ -392,10 +404,10 @@ Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single
 | Swipe right | Reader (mobile)     | Next row |
 | Swipe left  | Reader (mobile)     | Previous row |
 | `Home` / `End`  | Reader                 | First / last row                       |
-| `↑` / `↓`       | Search focused         | Navigate results                       |
-| `Enter`         | Search focused         | Select result                          |
-| `/` or `Ctrl+F` | Anywhere               | Focus search bar                       |
-| `Ctrl+Shift+F`  | Anywhere               | Open advanced search                   |
+| `↑` / `↓`       | Search window input    | Navigate results                       |
+| `Enter`         | Search window input    | Follow the selected result             |
+| `/` or `Ctrl+F` | Anywhere               | Open search window (RDF: header filter)|
+| `Ctrl+Shift+F`  | Anywhere               | Open search window, advanced expanded  |
 | `Alt+Z`         | Reader                 | Toggle focus mode (same as ▾/▴ button) |
 | `Alt+T`         | Reader                 | Toggle tashkeel                        |
 | `Alt+V`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
@@ -1027,7 +1039,7 @@ The page (module `js/library-search-page.js`, styles `css/library-search.css`) r
 
 - **Whole-word only.** The index matches whole normalised words — `رحم` does NOT find الرحمن (in-book substring search does). No wildcards/fuzzy/regex/column scoping cross-book.
 - **AND across words.** A result row contains every query word (in-book queries are substring-based, which is a different match model).
-- **Book-level results; snippets on demand.** The index stores rows, not text — results show book summaries with counts, and the per-book peek (above) fetches the book on demand to show actual highlighted snippets, so content previews exist without making the search itself download anything. A click lands on the first matching row with the term pre-highlighted (the `?q=` param below) and the search dropdown listing every match; the reader's own search covers further in-book precision.
+- **Book-level results; snippets on demand.** The index stores rows, not text — results show book summaries with counts, and the per-book peek (above) fetches the book on demand to show actual highlighted snippets, so content previews exist without making the search itself download anything. A click lands on the first matching row with the term pre-highlighted — the `?q=` param fills the reader's search window, which lists every match (the window's All-books tab runs the same cross-book search from the reader); in-book search covers further precision.
 - **Snapshot semantics.** The index is built from a point-in-time scan; the `meta.version` hash invalidates stale cached copies.
 
 ### Planned (not yet built)

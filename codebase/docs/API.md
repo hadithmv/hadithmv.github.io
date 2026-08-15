@@ -183,7 +183,7 @@ Scores one book against the list‑filter boxes (dashboard search box, library s
 
 ### `formatThousands(n)`
 
-Comma-grouped thousands for **display only** (regex on plain-digit input, passthrough otherwise): search-result `#N` labels, the results-dropdown/advanced count headers, and the reader's scroll counter (`152,612 / 4`). Never used for any numeric computation.
+Comma-grouped thousands for **display only** (regex on plain-digit input, passthrough otherwise): search-result `#N` labels, the search window's count header, and the reader's scroll counter (`152,612 / 4`). Never used for any numeric computation.
 
 ### `parseQuery(query)`
 
@@ -528,27 +528,73 @@ Visible row index: `elementFromPoint` fast path at viewport centre, linear-scan 
 
 ## reader-search-ui.js
 
-In-book search UI: type-ahead results dropdown, search history, whole-word toggle, advanced search modal, arrow-key navigation while the search input is focused. Extracted from reader.js; imports `updatePagination` from reader-position.js and the search engine from search-utils.js. For `RDF-*` books (dictionaries) the dropdown is replaced by the in-place filter — see `applyRadheefFilter` below.
+In-book search engine wiring behind the unified search window (`js/search-window.js`): runs the page's search when the window input changes, renders this-book results into `#searchWindowResults`, and hosts the history section, whole-word toggle, and advanced conditions. Extracted from reader.js; imports `updatePagination` from reader-position.js, the search engine from search-utils.js, and the window shell API from search-window.js. For `RDF-*` books (dictionaries) the page's header input keeps filtering in place — see `applyRadheefFilter` below.
 
 ### `initSearchUI(ctx)`
 
-Wires the search input, whole-word toggle, history dropdown, advanced search modal and the search-nav `document` keydown listener (registered first, so it runs ahead of reader.js's global keydown while the input is focused). ctx: `{ allData, normAllData, maxCols, colLabel, getFilteredData, setFilteredData, getLoadedStart, setLoadedStart, getLoadedEnd, setLoadedEnd, rebuildAll, loadInitial, observeSentinels, goTo }` — `allData`/`normAllData`/`maxCols` direct refs (never rebound); the getter/setter pairs cover variables search reassigns (`filteredData`, `loadedStart`/`loadedEnd`).
+Wires the window (`initSearchWindow({ mode: "reader", tabs: true, onInput, onOpen, onOpenAdvanced, ... })`), the history section, the search-nav `document` keydown listener, and the window's result-row click delegation. ctx: `{ allData, normAllData, maxCols, colLabel, getFilteredData, setFilteredData, getLoadedStart, setLoadedStart, getLoadedEnd, setLoadedEnd, rebuildAll, loadInitial, observeSentinels, goTo }` — `allData`/`normAllData`/`maxCols` direct refs (never rebound); the getter/setter pairs cover variables search reassigns (`filteredData`, `loadedStart`/`loadedEnd`).
 
 ### `applySearch(query)`
 
-Runs the search engine, updates the results dropdown and match count. Used by reader.js's settings reset and the `?q=` deep-link block. For RDF books it takes an early branch to `applyRadheefFilter(query)` instead.
+Entry point for an in-book search. RDF books take the early branch `applyRadheefFilter(query)` (the header input's in-place filter); every other book routes to `applySearchWindow(query)`. Used by reader.js's settings reset and the `?q=` deep-link block.
+
+### `applySearchWindow(query)`
+
+Runs the search engine and renders this-book results into the window: count header + result rows into `#searchWindowResults`, `selectedResultIdx` state for ↑↓ navigation (`onSearchKeydown` — the `document` keydown listener, guarded on `document.activeElement === winInput`), and the hint strip via `showWindowHint`. Adds the term to history (`searchHistory` `localStorage` key, max 20). Zero matches renders count `0` and the no-matches message in the window only.
 
 ### `applyRadheefFilter(query)`
 
-RDF-family in-place filter: compiles the query (whole-word toggle honoured), filters `ctx.setFilteredData(matches)` and `ctx.rebuildAll()`s so only matching rows render — no dropdown, no result list. Clearing the input restores all rows; zero matches renders the empty-state message; the scroll counter shows the match count (comma-formatted). History is added on input like the normal flow. The `?q=` deep link filters through the same path on load.
+RDF-family in-place filter: compiles the query (whole-word toggle honoured), filters `ctx.setFilteredData(matches)` and `ctx.rebuildAll()`s so only matching rows render — no window involvement. Clearing the input restores all rows; zero matches renders the empty-state message; the scroll counter shows the match count (comma-formatted). History is added on input like the normal flow. The `?q=` deep link filters through the same path on load.
 
 ### `renderAdvancedSearch()`
 
-Opens the advanced search modal with its condition rows (AND/OR, operators, values). Used by the Ctrl+Shift+F keyboard shortcut in reader.js.
+Renders the advanced conditions (AND/OR, operators, values) into the window's advanced section. Reached through the shell's `onOpenAdvanced` path — the advanced toggle, or `Ctrl+Shift+F`, which opens the window with the section expanded.
 
 ### `parseQueryWithMode(query)`
 
 Parses a raw query string into the internal query shape, including the whole-word marker. Used by reader.js's `?q=` deep-link block.
+
+## search-window.js
+
+The unified modal search window shell shared by the reader and library pages (styles in `css/search-window.css`). Built once, eagerly, via `createModal("searchWindowOverlay", ...)`; behaviour flows in through `initSearchWindow` cfg callbacks — this module imports no page code (wiring lives in reader-search-ui.js and library-search-page.js). Owns: input row (`#searchWindowInput` + clear), options row (whole-word, advanced toggle), tabs row (reader only), results pane (`#searchWindowResults`), history section, scope section, footer strip (hint / status / open-page link).
+
+### `initSearchWindow(cfg)`
+
+Builds and configures the shell; returns the UI refs object. cfg: `mode` (`"reader"` | `"library"`), `tabs` (show the This book / All books tabs), `options` (`false` hides the options row), `viewToggle` (show the card/list view toggle), `scope` (`true` keeps the scope section visible in the this-book tab too), and callbacks: `onOpen`, `onOpenAdvanced`, `onTabChange(tab)`, `onViewChange(view)`, `onInput(value)`, `onHistoryChange`, `onReset`, `onOpenPage(value)`. Reader mode inits the shared scope picker (`library-scope-picker.js`) for the All-books tab.
+
+### `getSearchWindowUI()`
+
+Returns the shell's element refs (`{ overlay, input, count, reset, options, view, wholeWord, advToggle, advBody, tabs, tabThis, tabAll, scope, results, history, hint, status, ... }`), building the shell on first call — page modules resolve refs at init time after import.
+
+### `openSearchWindow(opts)`
+
+Opens the modal and focuses/selects the input (re-focusing past the modal's pop transition so the input beats common.js's close-✕ focus-first). `opts.openAdvanced` expands the advanced section (the `Ctrl+Shift+F` path). Fires `cfg.onOpen` so the page re-runs its current query.
+
+### `setSearchWindowQuery(q)`
+
+Programmatic query set for the `?q=` deep-link path — the window may be closed; opening it later shows the query and re-runs it via `cfg.onOpen`.
+
+### `getCurrentTab()`
+
+Current tab id — `"thisBook"` | `"allBooks"`.
+
+### `setWindowCount(text)`
+
+Sets the result-count slot (width-reserved so the footer doesn't shift).
+
+### `showWindowHint(show)`
+
+Shows/hides the hint strip (↑↓ navigate · Enter follow · Esc close). Pages call it as results arrive — shown only while result rows are on screen.
+
+### `searchAllBooks(query)`
+
+Cross-book search over the generated index (lazy `loadSearchIndex`; failure → footer status + retry) scoped by the picker selection; renders compact deep-link rows via `buildBookRowsHTML` and syncs the footer status.
+
+### `buildBookRowsHTML(results, q, bookNames)`
+
+Pure row builder for the All-books tab and the library window's compact list view: escaped titles, tag badges, match counts, deep links (`reader.html?book=CODE&row=N&q=…`).
+
+**Link-row keyboard navigation.** The shell's input-level keydown listener owns link rows (`.search-window-book-link`, `.lib-result`): ↑↓ toggles `.active`, Enter follows the row's `a.href`. It fires before any page document-level handler and no-ops when no link rows are on screen — this-book result rows (`.search-result[data-real]`) stay owned by the reader page's `onSearchKeydown`. The footer renders only while the hint, status, or open-page link is visible (`syncFooter`).
 
 ## table-scroll-sync.js
 

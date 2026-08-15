@@ -129,6 +129,21 @@ Before touching product code, run this sequence:
   "Escape closes the scope modal only" and the smoke's same-named checks.
   Both overlays share `--z-modal`, so the later-created (last in `MODAL_IDS`)
   paints on top — keep batteries' Escape expectations in creation order.
+- **`el.click()` never moves focus — focus-sensitive probes need real mouse
+  events.** A synthetic `.click()` fires the element's handlers without the
+  browser's pointer pipeline, so `document.activeElement` does not change the
+  way it does for a real mousedown on a non-focusable row (which blurs the
+  focused input and moves focus to `<body>`). The window's ↑↓/Enter navigation
+  is guarded on `document.activeElement === winInput` (`onSearchKeydown`), and
+  the history-term click handlers exist precisely to refocus after that blur —
+  a probe driven by `el.click()` sees the input still focused and reports
+  everything fine, while a real click loses the keys. This is how the
+  round-16 history-click bug survived the first probe: every flow "worked"
+  until `Input.dispatchMouseEvent` (mousePressed + mouseReleased) reproduced
+  the failure. Rule: any probe whose subject is focus-dependent — keyboard
+  navigation off the window input, anything that focuses a target on open —
+  must click with real CDP mouse events and snapshot `document.activeElement`
+  (tag + id + class) immediately after each click, before dispatching keys.
 
 ## Traps from adjacent workflows
 

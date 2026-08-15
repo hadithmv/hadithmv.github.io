@@ -19,12 +19,12 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 |---|---|
 | **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, continue‑reading card (resume your last book), pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
 | **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, scroll‑to‑top |
-| **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), full‑text search with wildcards/fuzzy/negation/regex/column‑scope, whole‑word toggle, search‑history dropdown, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%), surah‑completed toast on Quran books and completion animation, scroll counter with reading percentage, URL position sync |
+| **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), search window with full‑text search (wildcards/fuzzy/negation/regex/column‑scope), whole‑word toggle, search history, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%), surah‑completed toast on Quran books and completion animation, scroll counter with reading percentage, URL position sync |
 | **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand with reorderable columns, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
 | **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), one pin per book — the 📌 button toggles (pinned → click to unpin) and a pinned book's position follows you as you read — reorder via ▲▼, reading history with relative timestamps, confirmed clear‑all, sidebar access from both pages |
 | **Export** | TXT, MD, JSON, CSV, TSV, Excel, EPUB (embedded font), PDF (print), PNG (current row), HTML, HTML Table, Word, YAML, TOON, XML |
 | **Customisation** | Three themes (Light / Dark / Sepia), adjustable font size ±, font family (Hadithmv / System), content width (600/800/1000/1200/full), three UI languages (Dhivehi / English / Arabic) |
-| **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `Alt+Z` focus mode, `Alt+T` tashkeel, `Alt+V` cycle view mode, `Alt+P` toggle pin, `Alt+S` share link, `Alt+E` export, `/` or `Ctrl+F` search, `Ctrl+Shift+F` advanced search, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
+| **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `Alt+Z` focus mode, `Alt+T` tashkeel, `Alt+V` cycle view mode, `Alt+P` toggle pin, `Alt+S` share link, `Alt+E` export, `/` or `Ctrl+F` open the search window, `Ctrl+Shift+F` open it with advanced options, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
 | **Design** | RTL‑first layout, responsive (single 600px breakpoint), no external dependencies, all colours via CSS custom properties for theming |
 
 ## Finding a Book
@@ -64,7 +64,7 @@ A thin progress bar runs along the bottom of the top bar. For Quran books it tra
 
 | Row            | What it does                                                                                                                                                                                                           |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Search bar** | Find text inside the book. Supports wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~`), negation (`-word`), and exact column matching (`col:2:word`). The `ab` button toggles whole‑word mode for all terms. |
+| **Search**     | The 🔎 button (or `/` / `Ctrl+F`) opens the search window. Find text inside the book — wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~`), negation (`-word`), and exact column matching (`col:2:word`); the `ab` button toggles whole‑word mode for all terms. Search history and advanced filters live in the window too. |
 | **Toolbar**    | Copy the current row, hide Arabic diacritics, share a link, switch view mode (Card / Table / Parallel), reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow.                     |
 | **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The page selector is a number box — type a page and press Enter (arrow keys don't step it). The subtitle and tag badges are on the same row — scroll sideways if it's too wide.                                                              |
 
@@ -102,8 +102,8 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 | --------------- | -------------------------------------- |
 | `←` / `→`       | Next / previous row (RTL: content flows right→left) |
 | `Home` / `End`  | First / last row                       |
-| `/` or `Ctrl+F` | Focus the search bar                   |
-| `Ctrl+Shift+F`  | Open advanced search                   |
+| `/` or `Ctrl+F` | Open the search window                 |
+| `Ctrl+Shift+F`  | Open the search window (advanced)      |
 | `Alt+Z`         | Toggle focus mode                      |
 | `Alt+T`         | Toggle diacritics (tashkeel)           |
 | `Alt+V`         | Cycle view mode (Card → Table → Parallel) |
@@ -112,7 +112,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 | `Alt+E`         | Open export menu                       |
 | `Ctrl+,`        | Open settings                          |
 | `Ctrl+B`        | Back to book list                      |
-| `Escape`        | Close sidebar / modal / search results |
+| `Escape`        | Close sidebar / modal / search window  |
 | Swipe right     | Next row (mobile)                      |
 | Swipe left      | Previous row (mobile)                  |
 
@@ -120,7 +120,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 
 Press `Alt+Z` or click the green ▾ button to hide everything except the essential content. Press again to return.
 
-- **On the reader page** — the search bar, toolbar, pagination, and Quran nav collapse, leaving only the book text.
+- **On the reader page** — the search bar (dictionary books), toolbar, pagination, and Quran nav collapse, leaving only the book text.
 - **On the dashboard** — the tag chips and sort/filter row collapse, leaving the search bar and book grid visible.
 
 ### Sharing & Copying
