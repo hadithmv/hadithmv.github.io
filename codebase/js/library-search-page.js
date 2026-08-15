@@ -36,6 +36,7 @@ import {
   getSearchHistory,
   removeSearchHistoryItem,
   clearSearchHistory,
+  formatThousands,
 } from "./search-utils.js";
 import {
   initScopePicker,
@@ -56,6 +57,7 @@ import {
   getSearchWindowUI,
   openSearchWindow,
   buildBookRowsHTML,
+  setWindowCount,
 } from "./search-window.js";
 
 // ── Page state ───────────────────────────────────────────────
@@ -89,7 +91,7 @@ var el = {
 // functional as the fallback surface.
 var winInput = null;      // #searchWindowInput
 var winResults = null;    // #searchWindowResults
-var winHistory = null;    // #searchWindowHistory
+var winHistoryList = null; // #searchWindowHistoryList (items — innerHTML)
 var _winView = "card";    // card | list (window view toggle)
 var _winLastQ = null;     // last window query + results (view re-render, no re-search)
 var _winLastResults = null;
@@ -617,16 +619,12 @@ function renderResults(results, q) {
 }
 
 // ── Search window (library mode) ─────────────────────────────
-/** The window's empty state — the library search history (own key), same
- *  items as the page's dropdown, wired to the window input. */
-function renderWindowHistory() {
+/** The library search history section — always visible in the side pane
+ *  (same terms as the page's dropdown, own key), refreshed on every write.
+ *  Clicking a term fills the window input and re-runs the window search. */
+function renderWindowHistorySection() {
   var items = getSearchHistory(window.LS_KEYS.searchHistory);
-  // Empty state: placeholder in the results pane (history has its own
-  // section in the side pane — the results column is for results).
-  winResults.innerHTML =
-    '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
-  winResults.style.display = "";
-  winHistory.innerHTML = items.length === 0
+  winHistoryList.innerHTML = items.length === 0
     ? '<div class="search-window-history-empty">' + t("searchWindowNoHistory") + "</div>"
     : items.map(function (term, i) {
         return '<div class="search-history-item" data-idx="' + i + '">' +
@@ -634,8 +632,7 @@ function renderWindowHistory() {
           '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
       }).join("") +
       '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
-  winHistory.style.display = "";
-  winHistory.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
+  winHistoryList.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
     item.addEventListener("click", function (e) {
       if (e.target.classList.contains("hist-remove")) return;
       var term = items[parseInt(this.dataset.idx)];
@@ -644,18 +641,28 @@ function renderWindowHistory() {
       windowSearchRun(term);
     });
   });
-  winHistory.querySelectorAll(".hist-remove").forEach(function (x) {
+  winHistoryList.querySelectorAll(".hist-remove").forEach(function (x) {
     x.addEventListener("click", function (e) {
       e.stopPropagation();
       removeSearchHistoryItem(parseInt(this.dataset.idx), window.LS_KEYS.searchHistory);
-      renderWindowHistory();
+      renderWindowHistorySection();
     });
   });
-  var clearAll = winHistory.querySelector(".search-history-clear");
+  var clearAll = winHistoryList.querySelector(".search-history-clear");
   if (clearAll) clearAll.addEventListener("click", function () {
     clearSearchHistory(window.LS_KEYS.searchHistory);
-    renderWindowHistory();
+    renderWindowHistorySection();
   });
+}
+
+/** The window's empty state — a quiet placeholder in the results pane; the
+ *  history section is not gated on it (always visible). */
+function renderWindowHistory() {
+  setWindowCount(""); // no query → nothing to count; the head row clears
+  winResults.innerHTML =
+    '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
+  winResults.style.display = "";
+  renderWindowHistorySection();
 }
 
 /** Render the window's search results (card view or compact list view). */
@@ -664,9 +671,10 @@ function renderWindowResults(results, q) {
   _winLastResults = results;
   var total = 0;
   for (var i = 0; i < results.length; i++) total += results[i].count;
-  var html = '<div class="search-count-header">' +
-    fillTemplate("libResultSummary", { a: total, b: results.length }) +
-    "</div>";
+  // The count lives in the window's head row (scope-modal pattern) — the
+  // results pane is rows only.
+  setWindowCount(fillTemplate("libResultSummary", { a: formatThousands(total), b: results.length }));
+  var html = "";
   if (results.length === 0) {
     html += '<div class="search-no-matches">' + t("libNoResults") + "</div>";
   } else if (_winView === "list") {
@@ -678,13 +686,13 @@ function renderWindowResults(results, q) {
   }
   winResults.innerHTML = html;
   winResults.style.display = "";
-  winHistory.style.display = "none";
 }
 
 /** Run the window search — the same pipeline as the page's runSearchAndRender
  *  (computeScope includes tag chips + the picker scope, history on its own
  *  key), rendering into the window. */
 function windowSearchRun(q) {
+  setWindowCount(""); // the head row shows the count only once a run lands
   var scope = computeScope();
   var scopeBooks = getScope();
   if ((_selectedTags.length > 0 || (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
@@ -692,9 +700,9 @@ function windowSearchRun(q) {
     return;
   }
   addSearchHistory(q, window.LS_KEYS.searchHistory);
+  renderWindowHistorySection(); // history stays visible while the search runs
   winResults.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
   winResults.style.display = "";
-  winHistory.style.display = "none";
   loadSearchIndex()
     .then(function (index) {
       renderWindowResults(searchLibrary(index, q, scope), q);
@@ -774,7 +782,7 @@ async function init() {
   });
   winInput = ui.input;
   winResults = ui.results;
-  winHistory = ui.history;
+  winHistoryList = ui.historyList;
 
   readURLParams();
   el.input.value = _q;

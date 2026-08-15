@@ -471,7 +471,7 @@ async function main() {
   check("T7 window opens from the button",
     await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
   await typeWindowQuery(FILTER_Q);
-  const countHeader = await evalJS(`document.getElementById('searchWindowResults').textContent`);
+  const countHeader = await evalJS(`document.getElementById('searchWindowCount').textContent`);
   check("T7 count header has comma 2,624", countHeader.indexOf("2,624") !== -1, countHeader.slice(0, 60));
   const afterQ = await firstRowText();
   check("T7 table not filtered by window search", before !== null && before === afterQ, "");

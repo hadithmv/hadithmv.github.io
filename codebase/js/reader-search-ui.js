@@ -17,7 +17,7 @@
 import { parseQuery, compileQuery, rowMatchesQueryNorm, highlightMatches, buildSnippets as buildSnippetsFromSearch, escapeHTML, linkifyURLs, addSearchHistory, getSearchHistory, removeSearchHistoryItem, clearSearchHistory, normaliseForSearch, formatThousands } from "./search-utils.js";
 import { t } from "./i18n.js";
 import { updatePagination } from "./reader-position.js";
-import { initSearchWindow, getSearchWindowUI, getCurrentTab, searchAllBooks, openSearchWindow } from "./search-window.js";
+import { initSearchWindow, getSearchWindowUI, getCurrentTab, searchAllBooks, openSearchWindow, setWindowCount } from "./search-window.js";
 
 // Module-scope state — set by initSearchUI, read by the exported
 // applySearch / applySearchWindow / renderAdvancedSearch /
@@ -26,7 +26,7 @@ var ctx = null;
 var searchInput = null;   // RDF header input (the in-place dictionary filter)
 var winInput = null;      // search-window input
 var searchResultsEl = null; // #searchWindowResults
-var searchHistoryEl = null; // #searchWindowHistory
+var searchHistoryListEl = null; // #searchWindowHistoryList (items — innerHTML)
 var btnWholeWord = null;
 var advSearchRows = null;
 var advAdd = null;
@@ -119,7 +119,10 @@ function wireWindowResultClicks() {
 function showWindowResults(html) {
   searchResultsEl.innerHTML = html;
   searchResultsEl.style.display = "";
-  searchHistoryEl.style.display = "none";
+  // History stays visible while results show (user preference) — refresh it
+  // so the just-written term appears; renderSearchHistory still owns the
+  // empty-input placeholder.
+  renderHistorySection();
   selectedResultIdx = -1;
   wireWindowResultClicks();
 }
@@ -156,10 +159,10 @@ function runBookSearch(q) {
   var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
   _lastResultSet = tempFiltered;
   _lastRealIdxMap = realIdxMap;
-  var html =
-    '<div class="search-count-header">' + t("resultCount") + ": " +
-    formatThousands(tempFiltered.length) +
-    "</div>";
+  // The count lives in the window's head row (scope-modal pattern), not in
+  // the scrolling results pane — setWindowCount shows it beside the input.
+  setWindowCount(t("resultCount") + ": " + formatThousands(tempFiltered.length));
+  var html = "";
   if (tempFiltered.length === 0) {
     html +=
       '<div class="search-no-matches">' + t("noMatchesMsg") + ': "' +
@@ -230,6 +233,7 @@ function applyRadheefFilter(q) {
     }
   }
   addSearchHistory(q);
+  renderHistorySection();
   ctx.setActiveQuery(q);
   ctx.setFilteredData(matches);
   ctx.rebuildAll();
@@ -252,31 +256,27 @@ export function parseQueryWithMode(query) {
   return result;
 }
 
-// Search history — the window's empty state (shown while the input is
-// empty). Clicking a term fills the input and searches the window; the
-// RDF header filter is deliberately not touched by history clicks.
-// Also swaps the results pane for the empty-state placeholder — history
-// lives in the side pane, so the results column keeps a quiet prompt.
-function renderSearchHistory() {
-  searchResultsEl.innerHTML =
-    '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
-  searchResultsEl.style.display = "";
+// Search history — an always-visible side-pane section (user preference:
+// it stays while results show, rather than acting as the empty state).
+// Clicking a term fills the input and searches the window; the RDF header
+// filter is deliberately not touched by history clicks. Refreshed on every
+// history write (showWindowResults, applyRadheefFilter, the shell's
+// all-books path via cfg.onHistoryChange) and on item removal/clear.
+function renderHistorySection() {
   var searchHistoryItems = getSearchHistory();
   if (searchHistoryItems.length === 0) {
-    searchHistoryEl.innerHTML =
+    searchHistoryListEl.innerHTML =
       '<div class="search-window-history-empty">' + t("searchWindowNoHistory") + "</div>";
-    searchHistoryEl.style.display = "";
     return;
   }
-  searchHistoryEl.innerHTML = searchHistoryItems.map(function (term, i) {
+  searchHistoryListEl.innerHTML = searchHistoryItems.map(function (term, i) {
     return '<div class="search-history-item" data-idx="' + i + '">' +
       '<span class="hist-text">' + escapeHTML(term) + '</span>' +
       '<span class="hist-remove" data-idx="' + i + '">✕</span></div>';
   }).join("") +
   '<div class="search-history-clear">' + t("searchClearHistory") + '</div>';
-  searchHistoryEl.style.display = "";
   // Wire clicks
-  searchHistoryEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
+  searchHistoryListEl.querySelectorAll(".search-history-item[data-idx]").forEach(function (item) {
     item.addEventListener("click", function (e) {
       if (e.target.classList.contains("hist-remove")) return;
       winInput.value = searchHistoryItems[parseInt(this.dataset.idx)];
@@ -284,19 +284,29 @@ function renderSearchHistory() {
       applySearchWindow(winInput.value);
     });
   });
-  searchHistoryEl.querySelectorAll(".hist-remove").forEach(function (x) {
+  searchHistoryListEl.querySelectorAll(".hist-remove").forEach(function (x) {
     x.addEventListener("click", function (e) {
       e.stopPropagation();
       removeSearchHistoryItem(parseInt(this.dataset.idx));
-      renderSearchHistory();
+      renderHistorySection();
     });
   });
   // Clear-all button
-  var clearAll = searchHistoryEl.querySelector(".search-history-clear");
+  var clearAll = searchHistoryListEl.querySelector(".search-history-clear");
   if (clearAll) clearAll.addEventListener("click", function () {
     clearSearchHistory();
-    renderSearchHistory();
+    renderHistorySection();
   });
+}
+
+// The empty-input state: a quiet placeholder in the results pane; the
+// history section refreshes alongside (it is not gated on the empty state).
+function renderSearchHistory() {
+  setWindowCount(""); // no query → nothing to count; the head row clears
+  searchResultsEl.innerHTML =
+    '<div class="search-window-empty">' + t("searchWindowEmptyHint") + "</div>";
+  searchResultsEl.style.display = "";
+  renderHistorySection();
 }
 
 // Search-results navigation (when the window input is focused). Escape is
@@ -452,10 +462,8 @@ function applyAdvancedSearch() {
   var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
   _lastResultSet = tempFiltered;
   _lastRealIdxMap = realIdxMap;
-  var html =
-    '<div class="search-count-header">' + t("resultCount") + ": " +
-    formatThousands(tempFiltered.length) +
-    "</div>";
+  setWindowCount(t("resultCount") + ": " + formatThousands(tempFiltered.length));
+  var html = "";
   if (tempFiltered.length === 0) {
     html += '<div class="search-no-matches">' + t("noMatchesMsg") + "</div>";
   } else {
@@ -515,11 +523,22 @@ export function initSearchUI(initCtx) {
     onOpenAdvanced: renderAdvancedSearch,
     onInput: onWindowInput,
     onTabChange: onWindowTabChange,
+    onHistoryChange: renderHistorySection, // shell's all-books path writes history
+    // Head-row reset: the shell clears input/tab/advanced and fires this —
+    // the page restores its own search state (whole-word flag, conditions).
+    // The input event has already re-run the pipeline with an empty query,
+    // so the window is back on its history empty state when this runs.
+    onReset: function () {
+      wholeWordMode = false;
+      btnWholeWord.classList.remove("active");
+      advConditions = [];
+      renderAdvancedSearch();
+    },
   });
   searchInput = document.getElementById("readerSearchInput");
   winInput = ui.input;
   searchResultsEl = ui.results;
-  searchHistoryEl = ui.history;
+  searchHistoryListEl = ui.historyList;
   btnWholeWord = ui.wholeWord;
   advSearchRows = ui.advRows;
   advAdd = ui.advAdd;

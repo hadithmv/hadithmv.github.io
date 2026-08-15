@@ -21,8 +21,8 @@
    (body → body-row → main → results) is properly bounded and the results
    pane scrolls internally instead. */
 .search-window-modal {
-  width: min(880px, 94vw);
-  height: min(86vh, 800px);
+  width: min(1080px, 96vw);
+  height: min(94vh, 1020px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -66,6 +66,15 @@
 .search-window-side .search-window-tab {
   flex: none;
 }
+/* The option buttons carry trilingual labels now (whole-word / advanced) —
+   the Dhivehi advanced label alone is ~200px, so two side-by-side overflow
+   the narrow pane; stack full-width like the tabs. */
+.search-window-side .search-window-options {
+  flex-direction: column;
+}
+.search-window-side .search-window-options .search-window-opt {
+  width: 100%;
+}
 .search-window-main {
   flex: 1;
   min-width: 0;
@@ -75,10 +84,22 @@
   gap: 10px;
 }
 
-/* ---- Input row ---- */
-/* Full-width input — the shared 500px wrap cap (reader-search.css) is a
-   header-box constraint, not a modal one. */
+/* ---- Head row (input + count + reset) ---- */
+/* The scope modal's pattern: the input shares its row with the result
+   count and the reset button, so it does not own the full width. The
+   count reuses .lib-scope-count and the reset reuses .toolbar-btn
+   .lib-scope-reset (both defined below in this file); the row gap matches
+   the scope head's 10px. */
+.search-window-input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* The shared 500px wrap cap (reader-search.css) is a header-box
+   constraint, not a modal one. */
 .search-window-input-wrap {
+  flex: 1;
+  min-width: 0;
   max-width: none;
 }
 
@@ -120,9 +141,13 @@
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  line-height: var(--control-line-height, 33px);
+  line-height: 1.2;
   color: var(--color-text-muted);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -130,6 +155,9 @@
   cursor: pointer;
   /* option labels are trilingual too (whole-word / card / list) */
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.search-window-opt-label {
+  white-space: nowrap;
 }
 .search-window-opt:hover {
   background: var(--color-nav-btn-hover-bg);
@@ -203,18 +231,31 @@
 }
 
 /* ---- History — a "recent searches" section of the side pane, below the
-   scope section: the results column is for results. Capped with its own
-   scroll so a long history never pushes the tabs/options out of the pane
-   (same pattern as the scope picker's list). ---- */
+   scope section: the results column is for results. The label is a pinned
+   shell child; only the list below it scrolls (capped like the scope
+   picker's list, so a long history never pushes the tabs/options out of
+   the pane). ---- */
 .search-window-history {
-  border-top: 1px solid var(--color-border);
-  padding-top: 10px;
+  border: 1px solid var(--color-border);
+  background: var(--color-card-bg);
+  border-radius: var(--radius-md, 8px);
+  overflow: hidden;
+}
+.search-window-history-label {
+  padding: 6px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+.search-window-history-list {
   max-height: 30vh;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 .search-window-history-empty {
-  padding: 6px 2px;
+  padding: 8px 10px;
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-muted);
   text-align: center;
@@ -244,8 +285,11 @@
    types and foot stay put. The picker shell's surface rules (pane label,
    head, filter, count, chips rail, list, rows) follow directly below. */
 .lib-scope-modal {
-  width: min(460px, 92vw);
-  max-height: 80vh;
+  width: min(520px, 94vw);
+  /* Content-driven with a floor and a cap: a short list still uses the
+     vertical room (the list pane scrolls to fill), a long one caps out. */
+  min-height: min(74vh, 680px);
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -269,7 +313,7 @@
    below 601px the base flex-column rules keep the stacked layout. */
 @media (min-width: 601px) {
   .lib-scope-modal {
-    width: min(760px, 92vw);
+    width: min(900px, 94vw);
   }
   .lib-scope-modal .modal-body {
     display: grid;
@@ -523,7 +567,7 @@
 @media (max-width: 600px) {
   .search-window-modal {
     width: 100%;
-    height: 92vh;
+    height: 94vh;
   }
   /* The side pane stacks above the results as a normal section, and the
      tabs go back to side-by-side half-width buttons. */

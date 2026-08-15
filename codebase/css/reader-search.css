@@ -153,21 +153,6 @@
   position: sticky;
   bottom: 0;
 }
-/* Count header — the result count moved off the search bar into the
-   results dropdown; sticky at the top like the history clear-all is
-   sticky at the bottom */
-.search-count-header {
-  display: flex;
-  justify-content: center;
-  padding: 8px 14px;
-  font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
-  color: var(--color-text-subtle);
-  background: var(--color-card-bg);
-  border-bottom: 2px solid var(--color-border);
-  position: sticky;
-  top: 0;
-}
 .search-no-matches {
   padding: 10px 14px;
   font-size: var(--panel-font-size, 0.85rem);

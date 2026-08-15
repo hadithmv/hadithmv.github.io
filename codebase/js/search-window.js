@@ -38,6 +38,7 @@ var _cfg = {
   onTabChange: null,    // (tab) fired on a tab switch
   onViewChange: null,   // (view) fired on a card/list switch
   onInput: null,        // (value) debounced — the page decides what a query means
+  onHistoryChange: null, // () history was written by the shell — page refreshes its section
 };
 var _currentTab = "thisBook";
 
@@ -51,6 +52,8 @@ function renderLabels() {
   el("searchWindowTabThisBook").textContent = t("searchWindowThisBook");
   el("searchWindowTabAllBooks").textContent = t("searchWindowAllBooks");
   el("searchWindowAdvLabel").textContent = t("advancedSearchTitle");
+  el("searchWindowAdvToggle").textContent = "⚙ " + t("advancedSearchTitle");
+  el("searchWindowWholeWordLabel").textContent = t("searchWindowWholeWord");
   el("btnAddCondition").textContent = t("btnAddCondition");
   el("btnApplyAdvancedSearch").textContent = t("btnApplySearch");
   el("btnClearAdvancedSearch").textContent = t("btnReset");
@@ -58,7 +61,27 @@ function renderLabels() {
   el("searchWindowViewList").textContent = t("searchWindowListView");
   el("searchWindowHint").textContent = t("searchWindowOpenHint");
   el("searchWindowOpenPage").textContent = t("searchWindowOpenPage");
+  el("searchWindowReset").textContent = t("libScopeReset");
+  el("searchWindowHistoryLabel").textContent = t("searchWindowHistoryTitle");
   refreshScopeSummary();
+  // The count's reserved slot is language-dependent (widest of the count
+  // forms) — re-reserve while the window is open. Hidden (offsetWidth 0)
+  // calls would zero the reservation, so this is guarded like the scope
+  // picker's scopeModalOpen().
+  if (_ui && _ui.overlay.classList.contains("open")) reserveWindowCountWidth();
+}
+
+// The count lives between the input and the reset in the head row — when a
+// search lands it must APPEAR without SHIFTING the input. Reserve a
+// min-width slot sized to the widest count form (the scope modal does the
+// same: S5 "no width jump on scoping"). The modal must be visible to
+// measure, so this runs on open and on language change while open.
+function reserveWindowCountWidth() {
+  var n = formatThousands(999999); // widest realistic count (any book)
+  window.reserveWidestText(_ui.count, [
+    t("resultCount") + ": " + n,
+    fillTemplate("libResultSummary", { a: n, b: 99 }), // all-books / library
+  ]);
 }
 
 // Clear ✕ visibility tracks the input value. The shell owns the sync — it
@@ -69,6 +92,16 @@ function renderLabels() {
 function syncClear() {
   _ui.clear.classList.toggle("visible", !!_ui.input.value);
   updateOpenPageLink();
+}
+
+// Head-row result count (the scope modal's count look). Shown once a search
+// has run; hidden with empty text — no search yet (or a cleared one) has
+// nothing to count. Pages push their counts here instead of painting a
+// header into the scrolling results pane.
+// The count's slot is always present (min-width reserved at open) — the
+// text lands without shifting the head row, so no display toggling.
+export function setWindowCount(text) {
+  _ui.count.textContent = text || "";
 }
 
 // The cross-book hop link: shown only when the current context is
@@ -175,6 +208,7 @@ export function searchAllBooks(query) {
       // reader history as this-book terms (written once the search runs —
       // same timing as runBookSearch).
       addSearchHistory(q);
+      if (_cfg.onHistoryChange) _cfg.onHistoryChange();
       var results = searchLibrary(index, q, getScope());
       _ui.status.style.display = "none";
       renderAllBooksResults(results, q);
@@ -193,6 +227,7 @@ export function searchAllBooks(query) {
         loadSearchIndex()
           .then(function (index) {
             addSearchHistory(v);
+            if (_cfg.onHistoryChange) _cfg.onHistoryChange();
             var results = searchLibrary(index, v, getScope());
             _ui.status.style.display = "none";
             renderAllBooksResults(results, v);
@@ -242,9 +277,8 @@ export function buildBookRowsHTML(results, q, bookNames) {
 function renderAllBooksResults(results, q) {
   var total = 0;
   for (var i = 0; i < results.length; i++) total += results[i].count;
-  var html = '<div class="search-count-header">' +
-    fillTemplate("libResultSummary", { a: formatThousands(total), b: results.length }) +
-    "</div>";
+  setWindowCount(fillTemplate("libResultSummary", { a: formatThousands(total), b: results.length }));
+  var html = "";
   if (results.length === 0) {
     html += '<div class="search-no-matches">' + t("noMatchesMsg") + ': "' +
       escapeHTML(q) + '"</div>';
@@ -260,12 +294,20 @@ function buildShell() {
   window.createModal("searchWindowOverlay", "searchWindowTitle", "searchWindowBody", "search-window-modal");
   var body = el("searchWindowBody");
   body.innerHTML =
+    // Head row — the scope modal's pattern: the input shares the row with
+    // the result count and the reset, so it does not own the full width.
+    // RTL row (the modal is dir=rtl): input rightmost, count beside it,
+    // reset at the far left — same order as the libScope head row. The
+    // count reuses the scope modal's count look (.lib-scope-count); the
+    // reset reuses its button (.toolbar-btn lib-scope-reset).
     '<div class="search-window-input-row">' +
       '<div class="search-input-wrap search-window-input-wrap">' +
         '<input id="searchWindowInput" type="search" class="search-input" autocomplete="off" dir="rtl" ' +
           'title="Search (* wildcard, ? char, -exclude, ~fuzzy~, .wholeword, /regex/)" />' +
         '<button type="button" id="searchWindowClear" class="search-clear-btn" title="Clear search" aria-label="Clear search">✕</button>' +
       '</div>' +
+      '<span id="searchWindowCount" class="lib-scope-count"></span>' +
+      '<button type="button" id="searchWindowReset" class="toolbar-btn lib-scope-reset" title="Reset search">↺ Reset</button>' +
     '</div>' +
     // Desktop two-column body: the controls (tabs, options, view, advanced,
     // scope) and the search-history section live in the side pane; the
@@ -280,8 +322,9 @@ function buildShell() {
         '<div class="search-window-options" id="searchWindowOptions">' +
           '<button id="searchWindowWholeWord" class="search-window-opt" title="Whole-word match">' +
             '<span class="search-window-ww">ab</span>' +
+            '<span class="search-window-opt-label" id="searchWindowWholeWordLabel"></span>' +
           '</button>' +
-          '<button id="searchWindowAdvToggle" class="search-window-opt" title="Advanced search (Ctrl+Shift+F)">⚙</button>' +
+          '<button id="searchWindowAdvToggle" class="search-window-opt" title="Advanced search (Ctrl+Shift+F)"></button>' +
         '</div>' +
         '<div class="search-window-view" id="searchWindowView" style="display:none">' +
           '<button id="searchWindowViewCard" class="search-window-opt" title="Card view"></button>' +
@@ -300,8 +343,15 @@ function buildShell() {
           '<button id="searchWindowScopeSummary" class="search-window-scope-summary"></button>' +
         '</div>' +
         // History is a "recent searches" section of the controls pane — the
-        // main pane is the results column.
-        '<div id="searchWindowHistory" class="search-window-history" style="display:none"></div>' +
+        // main pane is the results column. The label is a shell child (the
+        // page modules re-render only the list, so it survives innerHTML
+        // wipes and language switches via renderLabels).
+        // Always visible: history is a live side-pane section, not an
+        // empty-state (user preference — it stays while results show).
+        '<div id="searchWindowHistory" class="search-window-history">' +
+          '<div class="search-window-history-label" id="searchWindowHistoryLabel"></div>' +
+          '<div class="search-window-history-list" id="searchWindowHistoryList"></div>' +
+        '</div>' +
       '</div>' +
       '<div class="search-window-main" id="searchWindowMain">' +
         '<div id="searchWindowResults" class="search-results search-window-results" style="display:none"></div>' +
@@ -323,6 +373,8 @@ function buildShell() {
     body: body,
     input: el("searchWindowInput"),
     clear: el("searchWindowClear"),
+    count: el("searchWindowCount"),
+    reset: el("searchWindowReset"),
     options: el("searchWindowOptions"),
     view: el("searchWindowView"),
     viewCard: el("searchWindowViewCard"),
@@ -341,6 +393,7 @@ function buildShell() {
     scopeSummary: el("searchWindowScopeSummary"),
     results: el("searchWindowResults"),
     history: el("searchWindowHistory"),
+    historyList: el("searchWindowHistoryList"),
     footer: el("searchWindowFooter"),
     openPage: el("searchWindowOpenPage"),
     hint: el("searchWindowHint"),
@@ -374,6 +427,21 @@ function buildShell() {
     syncClear();
     _ui.input.dispatchEvent(new Event("input", { bubbles: true }));
     _ui.input.focus();
+  });
+
+  // Head-row reset — the scope modal's pattern: one button restores the
+  // surface's default state. The shell owns the chrome (query, advanced,
+  // tab); the page owns its search state (whole-word flag, conditions),
+  // which cfg.onReset clears. The input event re-runs the page's pipeline
+  // with an empty query, landing on its empty/history state.
+  _ui.reset.addEventListener("click", function () {
+    _ui.input.value = "";
+    collapseAdvanced();
+    setTab("thisBook");
+    syncClear();
+    _ui.input.dispatchEvent(new Event("input", { bubbles: true }));
+    _ui.input.focus();
+    if (_cfg.onReset) _cfg.onReset();
   });
 
   // The cross-book hop: the library page applies the search in place
@@ -496,6 +564,7 @@ export function openSearchWindow(opts) {
   ensureBuilt();
   window.openModal("searchWindowOverlay");
   syncClear();
+  reserveWindowCountWidth(); // modal visible — pin the count slot now
   // Focus the input once the modal is focusable: the overlay's pop
   // transition computes as visibility:hidden for ~--t-pop (common.js defers
   // its own focus-first past it), so the synchronous focus attempt below

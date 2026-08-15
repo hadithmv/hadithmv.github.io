@@ -380,21 +380,28 @@ async function main() {
   // value + event dispatch and tab clicks all work with the modal closed).
   check("D window opens from the magnifier button",
     await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000));
+  // The head-row count's slot is reserved at open (reserveWidestText): the
+  // count appearing must not shrink the input — capture the wrap width
+  // while the count is empty, compare after the first count lands.
+  const inputWBefore = await evalJS(`document.querySelector('.search-window-input-wrap').offsetWidth`);
   await evalJS(`(function () {
     var inp = document.getElementById('searchWindowInput');
     inp.value = 'الناس';
     inp.dispatchEvent(new Event('input', { bubbles: true }));
   })()`);
-  await waitFor(`document.querySelector('#searchWindowResults .search-count-header') !== null`, 10000);
+  await waitFor(`document.getElementById('searchWindowCount').textContent !== ''`, 10000);
   await sleep(300);
   const res = await evalJS(`(function () {
-    var h = document.querySelector('#searchWindowResults .search-count-header');
+    var h = document.getElementById('searchWindowCount');
     return {
       rows: document.querySelectorAll('.reader-table tbody tr').length,
       rc: h ? h.textContent.trim() : null,
     };
   })()`);
   check("search keeps table rows (incremental render)", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
+  check("count appears without shifting the input",
+    await evalJS(`document.querySelector('.search-window-input-wrap').offsetWidth`) === inputWBefore,
+    String(inputWBefore));
   check("search results render in window", res.rc !== null, res.rc);
 
   // regex query path — same engine, must yield the identical result set as
@@ -408,10 +415,10 @@ async function main() {
     inp.value = '/الناس/';
     inp.dispatchEvent(new Event('input', { bubbles: true }));
   })()`);
-  await waitFor(`document.querySelector('#searchWindowResults .search-count-header') !== null`, 10000);
+  await waitFor(`document.getElementById('searchWindowCount').textContent !== ''`, 10000);
   await sleep(300);
   const resRe = await evalJS(`(function () {
-    var h = document.querySelector('#searchWindowResults .search-count-header');
+    var h = document.getElementById('searchWindowCount');
     return h ? h.textContent.trim() : null;
   })()`);
   check("regex search matches plain-term count", resRe === res.rc, resRe);
@@ -423,7 +430,7 @@ async function main() {
     var btn = document.getElementById('searchWindowWholeWord');
     return {
       active: btn.classList.contains('active'),
-      rc: (document.querySelector('#searchWindowResults .search-count-header') || {}).textContent || null,
+      rc: (document.getElementById('searchWindowCount') || {}).textContent || null,
     };
   })()`);
   check("whole-word toggle active + results kept", ww.active && ww.rc !== null, JSON.stringify(ww));
@@ -434,8 +441,8 @@ async function main() {
   await waitFor(`document.getElementById('searchWindowAdvBody').style.display !== 'none'`, 5000);
   check("advanced condition row renders", await evalJS(`!!document.querySelector('#advancedSearchRows .advanced-search-row')`));
   await evalJS(`document.getElementById('btnApplyAdvancedSearch').click()`);
-  await waitFor(`document.querySelector('#searchWindowResults .search-count-header') !== null`, 10000);
-  const advRc = await evalJS(`(document.querySelector('#searchWindowResults .search-count-header') || {}).textContent || ''`);
+  await waitFor(`document.getElementById('searchWindowCount').textContent !== ''`, 10000);
+  const advRc = await evalJS(`(document.getElementById('searchWindowCount') || {}).textContent || ''`);
   check("advanced apply runs (all rows)", advRc.indexOf("6,236") !== -1, advRc);
   await evalJS(`document.getElementById('searchWindowAdvToggle').click()`); // collapse
 
@@ -487,7 +494,7 @@ async function main() {
   await sleep(300);
   const allRes = await evalJS(`(function () {
     var links = document.querySelectorAll('#searchWindowResults .search-window-book-link');
-    var h = document.querySelector('#searchWindowResults .search-count-header');
+    var h = document.getElementById('searchWindowCount');
     return {
       n: links.length,
       href: links.length ? links[0].getAttribute('href') : null,

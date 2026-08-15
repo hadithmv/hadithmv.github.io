@@ -385,7 +385,7 @@ async function main() {
       return {
         n: r.querySelectorAll('.lib-result').length,
         peeks: r.querySelectorAll('.lib-peek-toggle').length,
-        rc: (r.querySelector('.search-count-header') || {}).textContent || null,
+        rc: (document.getElementById('searchWindowCount') || {}).textContent || null,
       };
     })()`);
     check("S11 card view renders in window", cards.n > 1 && cards.peeks === 0, JSON.stringify(cards));

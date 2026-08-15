@@ -40,7 +40,7 @@ const STRINGS = {
     ar: "تم نسخ الرابط!",
   },
   btnViewToggleTable: { dv: "📖 ޓޭބަލް", en: "📖 Table", ar: "📖 جدول" },
-  btnViewToggleCard: { dv: "📖 ކާޑް", en: "📖 Card", ar: "📖 بطاقة" },
+  btnViewToggleCard: { dv: "📖 ކާޑު", en: "📖 Card", ar: "📖 بطاقة" },
   btnViewMode: { dv: "📖 ފެންނަ ގޮތް", en: "📖 View", ar: "📖 عرض" },
   btnResetText: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ ضبط" },
   advancedSearchTitle: {
@@ -49,7 +49,7 @@ const STRINGS = {
     ar: "بحث متقدم",
   },
   btnAddCondition: {
-    dv: "+ ޝަރުތު އިތުރު ކުރޭ",
+    dv: "+ ޝަރުތު އިތުރުކުރޭ",
     en: "+ Add condition",
     ar: "+ إضافة شرط",
   },
@@ -82,7 +82,7 @@ const STRINGS = {
 
   btnReset: { dv: "↺ ރީސެޓް", en: "↺ Reset", ar: "↺ إعادة ضبط" },
   btnResetSettings: {
-    dv: "↺ ހުރިހާ ސެޓިންގް ރީސެޓް ކުރޭ",
+    dv: "↺ ހުރިހާ ސެޓިންގް ރީސެޓްކުރޭ",
     en: "↺ Reset all settings",
     ar: "↺ إعادة ضبط جميع الإعدادات",
   },
@@ -281,7 +281,7 @@ const STRINGS = {
   libScopeCount: { dv: "{n} ފޮތް", en: "{n} books", ar: "{n} كتب" },
   libScopeCountOne: { dv: "1 ފޮތް", en: "1 book", ar: "1 كتاب" },
   libScopeFilter: {
-    dv: "ފޮތް ފިލްޓަރު ކުރޭ…",
+    dv: "ފޮތް ފިލްޓަރުކުރޭ…",
     en: "Filter books…",
     ar: "تصفية الكتب…",
   },
@@ -388,6 +388,16 @@ const STRINGS = {
     en: "No search history",
     ar: "لا يوجد سجل بحث",
   },
+  searchWindowWholeWord: {
+    dv: "ލަފުޒުތައް ހަމައަށް އިންގޮތަށް",
+    en: "Whole Words Only",
+    ar: "كلمات كاملة فقط",
+  },
+  searchWindowHistoryTitle: {
+    dv: "ސާޗު ހިސްޓަރީ",
+    en: "Search history",
+    ar: "سجل البحث",
+  },
   // The results pane's empty-state placeholder (history has its own
   // section in the side pane, so the results column prompts instead).
   searchWindowEmptyHint: {
@@ -396,9 +406,9 @@ const STRINGS = {
     ar: "تظهر النتائج أثناء الكتابة",
   },
   searchWindowOpenPage: {
-    dv: "ފުރިހަމަ ޞަފްޙާގައި ހުޅުވާ",
-    en: "Open in library page",
-    ar: "فتح في صفحة المكتبة",
+    dv: "ބޮޑު ސަފުހާއެއްގައި ހުޅުވާ",
+    en: "Open in full page",
+    ar: "افتح في صفحة كاملة",
   },
   searchWindowIndexLoading: {
     dv: "ފޮތްތައް ތައްޔާރުވަނީ…",
@@ -411,7 +421,7 @@ const STRINGS = {
     ar: "تعذر تحميل فهرس الكتب",
   },
   searchWindowCardView: {
-    dv: "ކާޑް",
+    dv: "ކާޑު",
     en: "Card view",
     ar: "عرض البطاقات",
   },
