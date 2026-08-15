@@ -471,12 +471,18 @@ export function initQuranUI(ctx) {
       '<button class="quran-preset-btn" data-preset="' + PRESET_ARABIC + '"></button>' +
       '<button class="quran-preset-btn" data-preset="' + PRESET_RESET + '"></button>' +
     '</div>' +
-    '<div class="quran-content-table-wrap"><table class="quran-content-table">' +
+    // The header row lives in its own wrapper above the scrollable wrap —
+    // the wrap's scrollbar spans only the list, never the pinned header
+    // (a sticky thead inside the scroller would keep its scrollbar
+    // spanning the header zone).
+    '<div class="quran-content-table-head"><table class="quran-content-table">' +
       '<thead><tr>' +
         '<th class="quran-col-check">✓</th>' +
         '<th class="quran-col-label" id="qrnColThColumn"></th>' +
         '<th class="quran-col-move" id="qrnColThOrder"></th>' +
       '</tr></thead>' +
+    '</table></div>' +
+    '<div class="quran-content-table-wrap"><table class="quran-content-table">' +
       '<tbody id="qrnContentList"></tbody>' +
     '</table></div>';
 

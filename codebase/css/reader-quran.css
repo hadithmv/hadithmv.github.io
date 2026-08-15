@@ -91,6 +91,9 @@
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  /* the base .modal-body gap (16px) would float the header table away from
+     the list it heads — the presets row carries its own bottom margin */
+  gap: 0;
 }
 /* Presets row sits above the scroll area — structurally fixed */
 .quran-content-presets {
@@ -102,15 +105,40 @@
   flex-wrap: wrap;
   flex-shrink: 0;
 }
+/* The header table sits in a non-scrolling wrapper above the wrap — its
+   border-spacing is flat because the body table's own top spacing (2px)
+   provides the gap to row 1. */
+.quran-content-table-head {
+  flex-shrink: 0;
+  /* Mirror the wrap's scrollbar gutter (reserved even though this
+     container's own scrollbar is hidden) so the header table is as wide as
+     the list's content box — otherwise the wrap's classic scrollbar makes
+     the body table ~15px narrower and the columns misalign. */
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+}
+.quran-content-table-head .quran-content-table {
+  border-spacing: 0 0;
+}
 .quran-content-table-wrap {
   overflow-y: auto;
   min-height: 0;
   overscroll-behavior: contain;
+  /* reserve the gutter always (not only while overflowing), so the header
+     table above — which mirrors the gutter — stays aligned in every state */
+  scrollbar-gutter: stable;
 }
+/* table-layout: fixed so the head and body tables — each sized from its own
+   first row — derive identical column widths (check/move explicit, label
+   auto-fills the rest) and stay in alignment. */
 .quran-content-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0 2px;
+}
+.quran-content-table .quran-col-move {
+  width: 64px;
 }
 .quran-content-table tr:hover td {
   background: var(--color-nav-btn-hover-bg);
@@ -133,9 +161,6 @@
   accent-color: var(--color-nav-btn-text);
   margin: 0;
   cursor: pointer;
-}
-.quran-content-table .quran-col-label {
-  max-width: 240px;
 }
 .quran-content-table .quran-col-move {
   width: 64px;
@@ -190,12 +215,6 @@
   border-radius: 6px 0 0 6px;
 }
 .quran-content-table thead th {
-  /* Pin the header to the wrap's scrollport top while the list scrolls —
-     column titles stay readable instead of scrolling away with the rows.
-     The th has an opaque background, so body rows pass cleanly beneath it. */
-  position: sticky;
-  top: 0;
-  z-index: 1;
   padding: 8px 10px;
   font-size: var(--fs-aux, 0.8rem);
   font-weight: 700;
@@ -223,9 +242,6 @@
   .quran-content-table thead th {
     font-size: var(--fs-micro, 0.68rem);
     padding: 6px 8px;
-  }
-  .quran-content-table .quran-col-label {
-    max-width: 160px;
   }
   .quran-content-table .quran-col-move {
     width: 56px;
