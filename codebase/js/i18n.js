@@ -421,8 +421,8 @@ const STRINGS = {
     ar: "عرض القائمة",
   },
   searchWindowOpenHint: {
-    dv: "↑↓ ދިއްކުން · Enter ޖަހަނީ · Esc ނިންމަނީ",
-    en: "↑↓ navigate · Enter open · Esc close",
+    dv: "↑↓ ބަދަލުކުރުމަށް · Enter ދިޔުމަށް · Esc ލެއްޕުމަށް",
+    en: "↑↓ Navigate · Enter open · Esc close",
     ar: "↑↓ تنقّل · Enter فتح · Esc إغلاق",
   },
   dashboardColTitleAR: {

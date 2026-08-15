@@ -195,7 +195,9 @@
   justify-content: center;
   min-height: 160px;
   padding: 14px;
-  font-size: var(--panel-font-size, 0.85rem);
+  /* one notch above panel size — the prompt is the only thing on the
+     results pane while the input is empty, so it reads as content */
+  font-size: var(--fs-muted, 0.9rem);
   color: var(--color-text-muted);
   text-align: center;
 }
@@ -484,10 +486,14 @@
 }
 
 /* ---- Footer ---- */
+/* Panel size, not micro: the footer teaches the keyboard (↑↓/Enter/Esc)
+   and carries the index status — guidance text at the micro tier was too
+   small to read as instructions. The hop link overrides its own size
+   already (0.85rem, link-styled). */
 .search-window-footer {
   padding-top: 8px;
   border-top: 1px solid var(--color-border);
-  font-size: var(--fs-micro, 0.68rem);
+  font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text-subtle);
   text-align: center;
 }

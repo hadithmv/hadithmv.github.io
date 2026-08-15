@@ -591,6 +591,57 @@ async function main() {
   })()`);
   check("settings reset no error toast", !toastR || toastR.indexOf("⚠️") === -1, toastR);
 
+  // Arrow-key navigation over the results — real CDP key events (the
+  // handler gates on document.activeElement, so the input must be focused).
+  // Down moves the .active highlight, clamps at the last row; Up steps
+  // back; Enter jumps the page to the selected row and closes the window.
+  await evalJS(`document.getElementById('btnSearchWindow').click()`);
+  await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000);
+  await evalJS(`(function () {
+    var inp = document.getElementById('searchWindowInput');
+    inp.value = 'الناس';
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelectorAll('#searchWindowResults .search-result[data-real]').length > 0`, 10000);
+  await sleep(300);
+  await evalJS(`document.getElementById('searchWindowInput').focus()`);
+  const arrow = async (dir) => {
+    const vk = dir === "ArrowDown" ? 40 : 38;
+    await send("Input.dispatchKeyEvent", { type: "keyDown", key: dir, code: dir, windowsVirtualKeyCode: vk, nativeVirtualKeyCode: vk });
+    await send("Input.dispatchKeyEvent", { type: "keyUp", key: dir, code: dir, windowsVirtualKeyCode: vk, nativeVirtualKeyCode: vk });
+  };
+  const activeState = () => evalJS(`(function () {
+    var items = document.querySelectorAll('#searchWindowResults .search-result[data-real]');
+    var active = -1;
+    for (var i = 0; i < items.length; i++) if (items[i].classList.contains('active')) active = i;
+    return { total: items.length, active: active };
+  })()`);
+  await arrow("ArrowDown");
+  await sleep(150);
+  const ar1 = await activeState();
+  check("arrow Down selects first result", ar1.total > 0 && ar1.active === 0, JSON.stringify(ar1));
+  await arrow("ArrowDown");
+  await sleep(150);
+  const ar2 = await activeState();
+  check("arrow Down advances", ar2.active === 1, JSON.stringify(ar2));
+  await arrow("ArrowUp");
+  await sleep(150);
+  const ar3 = await activeState();
+  check("arrow Up steps back", ar3.active === 0, JSON.stringify(ar3));
+  for (let i = 0; i < ar1.total + 5; i++) { await arrow("ArrowDown"); await sleep(40); }
+  await sleep(200);
+  const ar4 = await activeState();
+  check("arrow Down clamps at last result", ar4.active === ar4.total - 1, JSON.stringify(ar4));
+  const yBefore = await evalJS(`window.scrollY`);
+  await send("Input.dispatchKeyEvent", { type: "keyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
+  await send("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
+  await sleep(600);
+  const jump = await evalJS(`(function () {
+    return { open: document.getElementById('searchWindowOverlay').classList.contains('open'), scrollY: window.scrollY };
+  })()`);
+  check("Enter jumps to the row and closes the window",
+    !jump.open && jump.scrollY > 0, JSON.stringify({ yBefore: yBefore, after: jump }));
+
   // ── E. imlai book as a standard 1-column book ──────────────────────
   console.log("== E. imlai book standalone ==");
   await goto(ROOT + "reader.html?book=QRN-DATA-ayahImlai");
