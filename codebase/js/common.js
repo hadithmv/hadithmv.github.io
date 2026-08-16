@@ -209,11 +209,17 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     if (tagLabel && toggle.parentElement !== collapse)
       collapse.insertBefore(toggle, tagLabel);
     // The overflow check only works while clamped — measure collapsed, then
-    // restore whatever state the user had.
+    // restore whatever state the user had. The max-height transition must be
+    // off during the measurement: the instant .expanded comes off,
+    // clientHeight still reads the mid-animation value (~400px), so a row
+    // that genuinely overflows reads as "fits" and the toggle disappears —
+    // and stays gone while the panel stays expanded.
     var wasExpanded = collapse.classList.contains("expanded");
+    collapse.style.transition = "none";
     collapse.classList.remove("expanded");
     var overflows = collapse.scrollHeight > collapse.clientHeight;
     if (wasExpanded) collapse.classList.add("expanded");
+    collapse.style.transition = "";
     toggle.style.display = overflows ? "" : "none";
     toggle.classList.toggle("expanded", overflows && wasExpanded);
     syncLabel();
