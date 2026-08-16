@@ -141,85 +141,13 @@
 /* ---- Author + period filter chips ----
    Reuse the tag-chip visuals, but accent-tinted so the facet is distinct
    from category tags; no palette slot (the registry has none). The active
-   state paints accent, which is enough to tell the facets apart. */
+   state paints accent, which is enough to tell the facets apart.
+   (The browse modals' own styles — filter input, sticky-header table —
+   live in common.css: facet-browse.js serves every page.) */
 .author-chip,
 .period-chip {
   --tag-color: var(--color-accent, var(--color-nav-btn-text));
   --tag-bg: var(--color-nav-btn-bg);
-}
-
-/* ---- Authors + Periods browse modals ---- */
-/* The modal body (pins-history-body) is a flex column with overflow hidden —
-   these two bodies scroll in place, the titles stay pinned. */
-.lib-authors-modal .pins-history-body,
-.lib-periods-modal .pins-history-body {
-  overflow-y: auto;
-}
-.author-browse-row {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: var(--radius-md, 8px);
-  cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-}
-.author-browse-row:hover {
-  background: var(--color-nav-btn-bg);
-}
-.author-browse-row.selected {
-  background: var(--tag-bg, var(--color-nav-btn-bg));
-  color: var(--tag-color, var(--color-nav-btn-text));
-}
-.author-browse-name {
-  flex: 1;
-  min-width: 0;
-  word-break: break-word;
-}
-.author-browse-years {
-  color: var(--color-text-muted);
-  font-size: var(--fs-muted, 0.9rem);
-}
-.author-browse-count {
-  flex-shrink: 0;
-  color: var(--color-text-muted);
-  font-size: var(--fs-muted, 0.9rem);
-  font-variant-numeric: tabular-nums;
-}
-.author-browse-check {
-  flex-shrink: 0;
-  width: 1.2em;
-  text-align: center;
-}
-.period-browse {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 8px;
-}
-.period-browse-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 9px 12px;
-  border-radius: var(--radius-md, 8px);
-  cursor: pointer;
-  border: 1px solid var(--color-border);
-  color: var(--color-nav-btn-text);
-  background: var(--color-nav-btn-bg);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  font-size: var(--panel-font-size, 0.85rem);
-  text-align: left;
-}
-.period-browse-btn:hover {
-  border-color: var(--color-card-hover-border);
-}
-.period-browse-btn.active {
-  border-color: var(--color-accent, var(--color-nav-btn-text));
-  color: var(--color-accent, var(--color-nav-btn-text));
-}
-.period-browse-check {
-  flex-shrink: 0;
 }
 
 @media (max-width: 600px) {
@@ -251,8 +179,5 @@
   .lib-scope-btn {
     font-size: var(--panel-font-size-mobile, 0.78rem);
     padding: 0 8px;
-  }
-  .period-browse {
-    grid-template-columns: 1fr 1fr;
   }
 }

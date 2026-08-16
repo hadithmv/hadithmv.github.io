@@ -23,6 +23,16 @@ import {
   ensureScopeShell, renderScopePopover, clearScopeFilter, initScopePicker,
   reserveScopeCountWidth, refreshScopeLabels, scopeSummaryText,
 } from "./library-scope-picker.js";
+import {
+  openAuthorsModal,
+  openPeriodsModal,
+  onFacetChange,
+  facetActive,
+  bookMatchesFacets,
+  facetChipsHTML,
+  visibleCounts,
+  onFacetChipClick,
+} from "./facet-browse.js";
 
 var _ui = null;
 var _registryCache = null; // reader-mode registry entries (initScopePicker's sync bookNames())
@@ -65,7 +75,10 @@ function renderLabels() {
   el("searchWindowReset").textContent = t("libScopeReset");
   el("searchWindowHistoryLabel").textContent = t("searchWindowHistoryTitle");
   el("searchWindowHistoryClear").textContent = t("searchClearHistory");
+  el("searchWindowFacetAuthors").textContent = t("libAuthors");
+  el("searchWindowFacetPeriods").textContent = t("libPeriods");
   refreshScopeSummary();
+  renderWindowFacetChips();
   // The count's reserved slot is language-dependent (widest of the count
   // forms) — re-reserve while the window is open. Hidden (offsetWidth 0)
   // calls would zero the reservation, so this is guarded like the scope
@@ -104,6 +117,30 @@ function syncClear() {
 // text lands without shifting the head row, so no display toggling.
 export function setWindowCount(text) {
   _ui.count.textContent = text || "";
+}
+
+// Active author/period filters render as chips under the facet buttons —
+// click-to-remove, same markup as every other surface (shared module).
+function renderWindowFacetChips() {
+  visibleCounts().then(function (counts) {
+    if (_ui.facetChips) _ui.facetChips.innerHTML = facetChipsHTML(counts);
+  });
+}
+
+// Facet-scoped book codes: the visible books passing the active author/period
+// filters, intersected with the picker's selection when one is active.
+// null when no facets are active (callers keep their plain scope).
+function facetScopedBooks() {
+  if (!facetActive()) return null;
+  var sc = getScope();
+  var out = [];
+  (_registryCache || []).forEach(function (b) {
+    if (b.bookCode.endsWith("-HDN")) return;
+    if (!bookMatchesFacets(b)) return;
+    if (sc && sc.length > 0 && sc.indexOf(b.bookCode) === -1) return;
+    out.push(b.bookCode);
+  });
+  return out;
 }
 
 // The cross-book hop link: shown only when the current context is
@@ -169,6 +206,7 @@ function setTab(tab, silent) {
   // only modifier. Library mode pins the scope section on (cfg.scope).
   var isAll = tab === "allBooks";
   _ui.scope.style.display = ((_cfg.tabs && isAll) || _cfg.scope === true) ? "" : "none";
+  _ui.facets.style.display = ((_cfg.tabs && isAll) || _cfg.scope === true) ? "" : "none";
   if (_cfg.options !== false) {
     _ui.options.style.display = isAll ? "none" : "";
     if (isAll) collapseAdvanced();
@@ -230,7 +268,17 @@ export function searchAllBooks(query) {
       // same timing as runBookSearch).
       addSearchHistory(q);
       if (_cfg.onHistoryChange) _cfg.onHistoryChange();
-      var results = searchLibrary(index, q, getScope());
+      var fb = facetScopedBooks();
+      if (fb !== null && fb.length === 0) {
+        // Facets exclude every book (possibly vs the picker scope) — show no
+        // matches, never fall through to an unscoped search (the engine
+        // treats [] as "every book")
+        _ui.status.style.display = "none";
+        syncFooter();
+        renderAllBooksResults([], q);
+        return;
+      }
+      var results = searchLibrary(index, q, fb !== null ? fb : getScope());
       _ui.status.style.display = "none";
       syncFooter(); // the strip's life is now the hint's / open-page's
       renderAllBooksResults(results, q);
@@ -375,6 +423,16 @@ function buildShell() {
         '<div class="search-window-scope" id="searchWindowScope" style="display:none">' +
           '<button id="searchWindowScopeSummary" class="search-window-scope-summary"></button>' +
         '</div>' +
+        // Authors/Periods facets — visible with the scope (cross-book search
+        // only). The buttons open the shared browse modals; active filters
+        // render as chips under them (click to remove).
+        '<div class="search-window-facets" id="searchWindowFacets" style="display:none">' +
+          '<div class="search-window-facet-btns">' +
+            '<button id="searchWindowFacetAuthors" class="search-window-opt" title="Browse and filter by author"></button>' +
+            '<button id="searchWindowFacetPeriods" class="search-window-opt" title="Browse and filter by period"></button>' +
+          '</div>' +
+          '<div class="search-window-facet-chips" id="searchWindowFacetChips"></div>' +
+        '</div>' +
         // History is a "recent searches" section of the controls pane — the
         // main pane is the results column. The label is a shell child (the
         // page modules re-render only the list, so it survives innerHTML
@@ -428,6 +486,10 @@ function buildShell() {
     tabAll: el("searchWindowTabAllBooks"),
     scope: el("searchWindowScope"),
     scopeSummary: el("searchWindowScopeSummary"),
+    facets: el("searchWindowFacets"),
+    facetAuthors: el("searchWindowFacetAuthors"),
+    facetPeriods: el("searchWindowFacetPeriods"),
+    facetChips: el("searchWindowFacetChips"),
     results: el("searchWindowResults"),
     history: el("searchWindowHistory"),
     historyList: el("searchWindowHistoryList"),
@@ -601,6 +663,30 @@ function buildShell() {
       _cfg.mode === "library" &&
       _ui.overlay.classList.contains("open") &&
       _ui.input.value.trim() &&
+      _cfg.onInput
+    ) {
+      _cfg.onInput(_ui.input.value);
+    }
+  });
+
+  // Authors/Periods browse — the shared facet modals, stacked on top of the
+  // window (same as the scope summary); the chips under the buttons remove
+  // active filters on click.
+  _ui.facetAuthors.addEventListener("click", openAuthorsModal);
+  _ui.facetPeriods.addEventListener("click", openPeriodsModal);
+  _ui.facetChips.addEventListener("click", onFacetChipClick);
+
+  // Facet changes (shared module — chips, browse modals on any surface)
+  // re-render this section's chips and re-run the current cross-book search
+  // so the window's results match the filters (mirrors libScopeChange above).
+  onFacetChange(function () {
+    renderWindowFacetChips();
+    if (!_ui.input.value.trim()) return;
+    if (_currentTab === "allBooks") {
+      searchAllBooks(_ui.input.value);
+    } else if (
+      _cfg.mode === "library" &&
+      _ui.overlay.classList.contains("open") &&
       _cfg.onInput
     ) {
       _cfg.onInput(_ui.input.value);

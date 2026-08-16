@@ -750,6 +750,17 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-muted);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
+/* The reader header's author line is a link to the filtered dashboard —
+   quiet link: muted like the card author line, dotted underline on hover. */
+#readerPageAuthor a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-text-muted);
+}
+#readerPageAuthor a:hover {
+  color: var(--color-accent, inherit);
+  border-bottom-style: solid;
+}
 
 /* System font override */
 [data-font-system] #readerContent,
@@ -930,6 +941,125 @@ body:has(.modal-overlay.open) {
 [data-theme="dark"] .tag-chip:hover,
 [data-theme="dark"] .tag-chip.active {
   border-color: var(--tag-color, var(--color-border));
+}
+
+/* ---- Facet browse modals (Authors & Periods) ----
+   Shared by the library-search page, the dashboard and the search window
+   (facet-browse.js). The modal body (pins-history-body, flex column) holds a
+   filter input and a table whose thead stays pinned while only the rows
+   scroll: the modal is a bounded flex column (pins-history-modal's geometry),
+   the table wrap is the flex:1 scrollport. */
+.lib-authors-modal,
+.lib-periods-modal {
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.facet-filter-row {
+  flex: 0 0 auto;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+/* Clipped-Thaana start-side inset: the webfont paints ~1–5px of start-side
+   ink past the pen origin on horizontal letters — inputs need text-indent. */
+.facet-filter-input {
+  width: 100%;
+  text-indent: 8px;
+  padding: 6px 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-input-bg, var(--color-nav-btn-bg));
+  color: var(--color-nav-btn-text);
+  font-size: var(--panel-font-size, 0.85rem);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+.facet-table-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.facet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-size: var(--panel-font-size, 0.85rem);
+}
+.facet-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-card-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 7px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+.facet-table thead th.facet-col-count {
+  width: 64px;
+  text-align: right;
+}
+.facet-table thead th.facet-col-check {
+  width: 40px;
+}
+.facet-table tbody td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+.author-browse-row,
+.period-browse-row {
+  cursor: pointer;
+}
+.author-browse-row:hover,
+.period-browse-row:hover {
+  background: var(--color-nav-btn-bg);
+}
+.author-browse-row.selected,
+.period-browse-row.selected {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-accent, var(--color-nav-btn-text));
+}
+.facet-name {
+  min-width: 0;
+  word-break: break-word;
+}
+.facet-name .author-browse-name {
+  display: block;
+  font-weight: 600;
+}
+.facet-name-alt {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: calc(var(--panel-font-size, 0.85rem) * 0.9);
+  line-height: 1.5;
+  direction: rtl;
+  text-align: right;
+}
+.facet-years {
+  color: var(--color-text-muted);
+  font-size: calc(var(--panel-font-size, 0.85rem) * 0.95);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.facet-count {
+  text-align: right;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.facet-check {
+  width: 40px;
+  text-align: center;
+  color: var(--color-accent, var(--color-nav-btn-text));
+}
+.facet-empty td {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 16px 12px;
 }
 .tags-label {
   font-size: var(--panel-font-size, 0.85rem);

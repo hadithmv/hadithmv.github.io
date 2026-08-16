@@ -85,7 +85,7 @@ Hijri years text for one author definition — `"d. 256 AH"` (died only), `"194�
 
 ### `bookAuthorLine(entry)`
 
-One display line for a book registry entry's authors, in the current language — `"al-Bukhari (d. 256 AH)"` — comma‑joined for multi-author books. `""` when the book has no author (`authorCode` empty or unresolvable). Drives the library result cards, dashboard cards, and the reader header author span.
+One display line for a book registry entry's authors, in the current language — `"al-Bukhari (d. 256 AH)"` — comma‑joined for multi-author books. `""` when the book has no author (`authorCode` empty or unresolvable). Drives the library result cards, dashboard cards, and the reader header author span — where the line renders as `" - <name>"` with the name linked to `index.html?authors=<codes>` (the filtered-dashboard jump, same homepage convention as the tag badges).
 
 ### `bookAuthorNames(entry)`
 
@@ -147,11 +147,11 @@ Dashboard page UI (books/index.html) — built on the metadata layer in `book-da
 
 | Function | Description |
 |---|---|
-| `initializeDashboard()` | Page entry point. `?book=` links redirect to the reader; otherwise preloads tag definitions, applies `?tags=` deep-link filters, loads the registry, then renders. On registry fetch failure, shows the error with a ↺ Retry button (re-runs the load; controls are wired only after a successful load, so no duplicate listeners). |
-| `renderDashboard(bookNames)` | Renders the card grid or table view, tag chips with counts, result count, and the continue-reading card. |
-| `setupDashboardControls()` | Wires search, tag chips, sort, view toggle, pins/history modals, the library-search jump, scroll arrows, and keyboard shortcuts. |
+| `initializeDashboard()` | Page entry point. `?book=` links redirect to the reader; otherwise preloads tag definitions, applies `?tags=` deep-link filters (plus `?authors=` / `?period=` via the shared facet module), loads the registry, then renders. On registry fetch failure, shows the error with a ↺ Retry button (re-runs the load; controls are wired only after a successful load, so no duplicate listeners). |
+| `renderDashboard(bookNames)` | Renders the card grid or table view, tag chips with counts, active facet chips, result count, and the continue-reading card. |
+| `setupDashboardControls()` | Wires search, tag chips, sort, view toggle, pins/history modals, the Authors/Periods browse buttons, the library-search jump, scroll arrows, and keyboard shortcuts. |
 
-Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. The search box is always‑fuzzy, exact‑ranked (`scoreFilterTokens` — see below): titles and tag words may match within 1–2 edits, the book code is exact‑only; a search re‑sorts the grid by match score first, then the chosen order. Re-renders on `dashboardReset` and `languagechange` (when visible).
+Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. Author/period facets live in `facet-browse.js` (shared with the library page and search window): the functions panel's ✍️ Authors / 🗓️ Periods buttons open the shared browse modals, active selections render as accent‑tinted chips in the tags row and filter the grid; `?authors=…&period=…` deep links and `?tags=` are kept in the address bar by `syncDashURL` (the reset button clears everything via `clearFacets()`). The search box is always‑fuzzy, exact‑ranked (`scoreFilterTokens` — see below): titles and tag words may match within 1–2 edits, the book code is exact‑only; a search re‑sorts the grid by match score first, then the chosen order. Re-renders on `dashboardReset` and `languagechange` (when visible).
 
 ---
 
@@ -303,7 +303,7 @@ The `books/library-search.html` page module — self-initialising (runs `init()`
 
 - **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B`, `?authors=A,B` (OR — any author of the book) and `?period=N|modern` (death-century bucket) activate chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
 - **Flow** — reads params → awaits `loadTagDefinitions()` + `loadAuthorDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
-- **Authors & Periods browse** — two buttons in the search panel open modals on the unified layer: the authors list (trilingual names + Hijri years + book counts, registry row order) and the period grid (death-century buckets 1st–15th + `modern`, chronological). Selection feeds `computeScope()` alongside tags and renders as accent‑tinted chips in the tags row.
+- **Authors & Periods browse** — the state, chips and browse modals live in the shared `facet-browse.js` module (the same surface the dashboard's functions panel and the search window's All-books tab use). The two buttons in the search panel open the modals: an authors list (trilingual names — Arabic always shown — Hijri years, book counts, registry row order, a filter input above a sticky-header table) and a period table (death-century buckets 1st–15th + `modern`, chronological). Selection feeds `computeScope()` alongside tags and renders as accent‑tinted chips in the tags row; the page subscribes via `onFacetChange` to re-sync URL, chips and results.
 - **Empty-scope guard** — active tags/authors/period matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
 - **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+B` back are handled by common.js.
 - **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old book-data.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
@@ -577,7 +577,7 @@ Parses a raw query string into the internal query shape, including the whole-wor
 
 ## search-window.js
 
-The unified modal search window shell shared by the reader and library pages (styles in `css/search-window.css`). Built once, eagerly, via `createModal("searchWindowOverlay", ...)`; behaviour flows in through `initSearchWindow` cfg callbacks — this module imports no page code (wiring lives in reader-search-ui.js and library-search-page.js). Owns: input row (`#searchWindowInput` + clear), options row (whole-word, advanced toggle), tabs row (reader only), results pane (`#searchWindowResults`), history section, scope section, footer strip (hint / status / open-page link).
+The unified modal search window shell shared by the reader and library pages (styles in `css/search-window.css`). Built once, eagerly, via `createModal("searchWindowOverlay", ...)`; behaviour flows in through `initSearchWindow` cfg callbacks — this module imports no page code (wiring lives in reader-search-ui.js and library-search-page.js). Owns: input row (`#searchWindowInput` + clear), options row (whole-word, advanced toggle), tabs row (reader only), results pane (`#searchWindowResults`), history section, scope section, Authors/Periods facet section (visible with the scope — cross-book search only), footer strip (hint / status / open-page link).
 
 ### `initSearchWindow(cfg)`
 
@@ -609,13 +609,45 @@ Shows/hides the hint strip (↑↓ navigate · Enter follow · Esc close). Pages
 
 ### `searchAllBooks(query)`
 
-Cross-book search over the generated index (lazy `loadSearchIndex`; failure → footer status + retry) scoped by the picker selection; renders compact deep-link rows via `buildBookRowsHTML` and syncs the footer status.
+Cross-book search over the generated index (lazy `loadSearchIndex`; failure → footer status + retry) scoped by the picker selection **intersected with the active author/period facets** (`facetScopedBooks` — a facet state excluding every book renders "No matches" instead of falling through to an unscoped search); renders compact deep-link rows via `buildBookRowsHTML` and syncs the footer status.
 
 ### `buildBookRowsHTML(results, q, bookNames)`
 
 Pure row builder for the All-books tab and the library window's compact list view: escaped titles, tag badges, match counts, deep links (`reader.html?book=CODE&row=N&q=…`).
 
 **Link-row keyboard navigation.** The shell's input-level keydown listener owns link rows (`.search-window-book-link`, `.lib-result`): ↑↓ toggles `.active`, Enter follows the row's `a.href`. It fires before any page document-level handler and no-ops when no link rows are on screen — this-book result rows (`.search-result[data-real]`) stay owned by the reader page's `onSearchKeydown`. The footer renders only while the hint, status, or open-page link is visible (`syncFooter`).
+
+## facet-browse.js
+
+The one Authors/Periods browse used by every surface: the library-search page's chips + buttons, the dashboard's functions panel + chips, and the search window's All-books section. Owns the facet state (one page load, one state — all surfaces on a page read/write the same), the browse modals, and the chip markup; consumers subscribe via `onFacetChange` and re-render their own surfaces, while the module re-renders its open modals. Imports nothing that imports it (no cycles).
+
+### `setFacets(authors, period)` / `facetState()`
+
+Replace / read the whole facet state — `authors` is an array of codes (OR semantics), `period` a single bucket (`"3"`, `"modern"`, or `""`). `facetState()` returns `{authors: [...], period}` (copies). The URL deep links (`?authors=…&period=…`) land here on both the library page and the dashboard.
+
+### `toggleAuthor(code)` / `togglePeriod(p)` / `clearFacets()`
+
+Author chips and modal rows are OR toggles; the period is single-select (clicking the active bucket clears it). `clearFacets()` empties everything (the dashboard's reset button calls it). All notify subscribers + open modals.
+
+### `onFacetChange(fn)`
+
+Subscribe to state changes — returns an unsubscribe. The library page re-syncs its URL, chips and (with a query set) re-runs the search; the dashboard re-syncs URL + grid; the search window re-renders its chips and re-runs the All-books search.
+
+### `bookMatchesFacets(book)`
+
+Does a registry row pass the active filters? (true when none) — author OR over the row's `authorCode` tokens, period = any of its authors' death-century buckets (`authorPeriodOf`, or `"modern"` when `diedAH` is blank).
+
+### `facetCounts(books)` / `visibleCounts()`
+
+Per-author and per-period book counts over a given book list; `visibleCounts()` is the cached counts over the registry's visible (`-HDN`-excluded) books — the set every surface chips against and the browse lists show. The browse modals list only authors with ≥1 visible book, and only buckets with visible authors.
+
+### `facetChipsHTML(counts)` / `onFacetChipClick(e)`
+
+Chip markup for the active author/period (tag-chip visuals, accent-tinted — `.author-chip` / `.period-chip` with `data-author` / `data-period`); the click handler toggles the state via the module.
+
+### `openAuthorsModal()` / `openPeriodsModal()`
+
+Open the shared browse modals (`libAuthorsOverlay` / `libPeriodsOverlay` — the same ids on every page, one page loaded at a time). Each modal is a filter input (`#libAuthorsFilter` / `#libPeriodsFilter`) above a table whose thead stays sticky while only the rows scroll (`.facet-table-wrap`). Author rows show the current-language name, the other two names — Arabic always included (`.facet-name-alt`, dir rtl) — plus Hijri years and a count, in registry row order; period rows are the distinct death-century buckets + `modern`, chronological. Opens stacked over the search window (`openModalOnTop`) when one is up, exclusively otherwise.
 
 ## table-scroll-sync.js
 

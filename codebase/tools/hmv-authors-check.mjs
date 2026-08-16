@@ -1,19 +1,26 @@
-// Authors & Periods browse battery — the library page's author/period
-// faceting + the author line on cards, dashboard and reader header.
+// Authors & Periods browse battery — the shared facet system (js/facet-browse.js)
+// on every surface: library-search page chips + modals, dashboard functions
+// panel + deep links, search window's All-books section, and the author line
+// on cards + reader header (a dash-separated link to the filtered dashboard).
 // Run: node tools/hmv-authors-check.mjs  (from codebase/, or anywhere — paths
 // resolve relative to this script). Requires Node 20.11+ and Microsoft Edge.
 // Env overrides: HMV_AUTHORS_PORT (default 9361), HMV_AUTHORS_PROFILE.
 //
 // Checks:
 //  - library page: Authors button opens the modal with one row per author
-//    (name + Hijri years, registry order); click toggles → chip + ?authors=
-//  - period modal: grid buttons = the distinct death-century buckets + modern
+//    (name + Arabic + Hijri years, registry order, filter input); click
+//    toggles → chip + ?authors=
+//  - period modal: table rows = the distinct death-century buckets + modern
 //    (derived from 08); click sets ?period= and the chip
 //  - ?authors=/?period= deep links activate chips on load
 //  - scoped search: with an author active, every result card belongs to one
 //    of that author's books (derived from 02)
 //  - author line renders on library result cards, dashboard cards, reader
-//    header ("by <nameEN> (d. <diedAH> AH)" — page driven in English)
+//    header (" - <nameEN> (<born>–<died> AH)" linked to index.html?authors=)
+//  - dashboard: no English title on cards, browse buttons open the shared
+//    modals, ?authors=nawawi pre-filters the grid
+//  - search window: All-books tab shows the Authors/Periods section, the
+//    buttons open the modals stacked over the window
 //  - no page errors
 import fs from "fs";
 import path from "path";
@@ -195,18 +202,18 @@ async function main() {
   // ── Library: Periods modal ────────────────────────────────────────
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);
   await waitFor(`!!document.getElementById('libPeriodsOverlay') && document.getElementById('libPeriodsOverlay').classList.contains('open')`);
-  const periodBtns = await evalJS(`Array.from(document.querySelectorAll('#libPeriodsModalBody .period-browse-btn')).map(function(b){
+  const periodBtns = await evalJS(`Array.from(document.querySelectorAll('#libPeriodsModalBody .period-browse-row')).map(function(b){
     return { period: b.dataset.period, text: b.textContent };
   })`);
-  check("period grid = distinct buckets", periodBtns.map((b) => b.period).join(",") === PERIODS.join(","),
+  check("period rows = distinct buckets", periodBtns.map((b) => b.period).join(",") === PERIODS.join(","),
     periodBtns.map((b) => b.period).join(",") + " vs " + PERIODS.join(","));
-  check("period grid sorted chronological", periodBtns.every(function (b, i) {
+  check("period rows sorted chronological", periodBtns.every(function (b, i) {
     return i === 0 || (periodBtns[i - 1].period === "modern" ? false :
       b.period === "modern" ? true : parseInt(b.period, 10) > parseInt(periodBtns[i - 1].period, 10));
   }), periodBtns.map((b) => b.period).join(","));
 
   // Select the 3rd-century bucket (bukhari died 256)
-  await evalJS(`document.querySelector('#libPeriodsModalBody .period-browse-btn[data-period="3"]').click()`);
+  await evalJS(`document.querySelector('#libPeriodsModalBody .period-browse-row[data-period="3"]').click()`);
   await waitFor(`location.search.indexOf('period=3') !== -1`);
   check("period click sets ?period=3", true, await evalJS(`location.search`));
   check("period chip active", await evalJS(`!!document.querySelector('#libTagsCollapse .period-chip[data-period="3"].active')`));
@@ -228,28 +235,89 @@ async function main() {
     `!!document.querySelector('#libTagsCollapse .author-chip[data-author="nawawi"].active') &&
      !!document.querySelector('#libTagsCollapse .period-chip[data-period="7"].active')`));
 
-  // ── Dashboard card author line ────────────────────────────────────
+  // ── Dashboard: cards, browse buttons, deep links ──────────────────
   await goto("file://" + ROOT + "index.html");
   await waitFor(`Array.from(document.querySelectorAll('.book-card')).some(function(c){
-    return c.querySelector('.title-en') && c.querySelector('.title-en').textContent === ${JSON.stringify(MALIK_BOOK.titleEN)};
+    return c.getAttribute('href').indexOf(${JSON.stringify(MALIK_BOOK.bookCode)}) !== -1;
   })`);
-  const cardAuthor = await evalJS(`Array.from(document.querySelectorAll('.book-card')).map(function(c){
-    var t = c.querySelector('.title-en'); if (!t || t.textContent !== ${JSON.stringify(MALIK_BOOK.titleEN)}) return '';
+  check("dashboard cards have no English title", await evalJS(
+    `Array.from(document.querySelectorAll('.book-card')).every(function(c){ return !c.querySelector('.title-en'); })`));
+  const malikCardAuthor = await evalJS(`Array.from(document.querySelectorAll('.book-card')).map(function(c){
+    if (c.getAttribute('href').indexOf(${JSON.stringify(MALIK_BOOK.bookCode)}) === -1) return '';
     var a = c.querySelector('.card-author'); return a ? a.textContent : '';
   }).join('')`);
-  check("dashboard card author line exact", cardAuthor === MALIK_LINE, cardAuthor + " vs " + MALIK_LINE);
+  check("dashboard card author line exact", malikCardAuthor === MALIK_LINE, malikCardAuthor + " vs " + MALIK_LINE);
   check("unattributed books exist in registry", UNATTRIBUTED.length > 0, UNATTRIBUTED.length);
   const noAuthorCard = UNATTRIBUTED.length > 0 && await evalJS(`Array.from(document.querySelectorAll('.book-card')).some(function(c){
-    return c.querySelector('.title-en') && c.querySelector('.title-en').textContent === ${JSON.stringify(UNATTRIBUTED[0].titleEN)} &&
-      !c.querySelector('.card-author');
+    return c.getAttribute('href').indexOf(${JSON.stringify(UNATTRIBUTED[0].bookCode)}) !== -1 && !c.querySelector('.card-author');
   })`);
   check("unattributed book has no author line", noAuthorCard);
 
-  // ── Reader header author line ─────────────────────────────────────
+  // The functions-panel browse buttons open the shared modals (with the
+  // filter input narrowing the rows)
+  await waitFor(`!!document.getElementById('dashAuthorsBtn')`);
+  await evalJS(`document.getElementById('dashAuthorsBtn').click()`);
+  await waitFor(`!!document.getElementById('libAuthorsOverlay') && document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("dashboard authors button opens modal", await evalJS(`document.getElementById('libAuthorsOverlay').classList.contains('open')`));
+  const dashRows = await evalJS(`document.querySelectorAll('#libAuthorsModalBody .author-browse-row').length`);
+  check("dashboard modal rows = visible authors", dashRows === BROWSE_AUTHORS.length, dashRows + " vs " + BROWSE_AUTHORS.length);
+  const hasFilter = await evalJS(`!!document.getElementById('libAuthorsFilter')`);
+  check("authors modal has filter input", hasFilter);
+  await evalJS(`document.getElementById('libAuthorsFilter').value = 'nawaw';
+    document.getElementById('libAuthorsFilter').dispatchEvent(new Event('input'));`);
+  await waitFor(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`);
+  check("authors filter input narrows rows", await evalJS(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  await evalJS(`document.getElementById('dashPeriodsBtn').click()`);
+  await waitFor(`!!document.getElementById('libPeriodsOverlay') && document.getElementById('libPeriodsOverlay').classList.contains('open')`);
+  check("dashboard periods button opens modal", await evalJS(`document.getElementById('libPeriodsOverlay').classList.contains('open')`));
+  await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
+  // ?authors=nawawi pre-filters the grid to that author's visible books
+  await goto("file://" + ROOT + "index.html?authors=nawawi");
+  await waitFor(`!!document.querySelector('#dashboardTagsCollapse .author-chip[data-author="nawawi"]')`);
+  check("dashboard deep link ?authors=nawawi chip", await evalJS(
+    `!!document.querySelector('#dashboardTagsCollapse .author-chip[data-author="nawawi"].active')`));
+  const authorCards = await evalJS(`Array.from(document.querySelectorAll('.book-card')).map(function(c){
+    return (c.getAttribute('href').match(/book=([^&]+)/) || [])[1];
+  })`);
+  check("dashboard author filter = nawawi's books",
+    authorCards.length === NAWAWI_BOOKS.length &&
+    authorCards.every((code) => NAWAWI_BOOKS.indexOf(code) !== -1),
+    authorCards.join(","));
+
+  // ── Reader header author line (dash-separated link) ───────────────
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
   await waitFor(`document.getElementById('readerPageAuthor') && document.getElementById('readerPageAuthor').textContent.indexOf(${JSON.stringify(nameEN("malik"))}) !== -1`);
   const readerAuthor = await evalJS(`document.getElementById('readerPageAuthor').textContent`);
-  check("reader header author line exact", readerAuthor === "by " + MALIK_LINE, readerAuthor + " vs by " + MALIK_LINE);
+  check("reader header author line exact", readerAuthor === " - " + MALIK_LINE, readerAuthor + " vs - " + MALIK_LINE);
+  const readerHref = await evalJS(`document.getElementById('readerPageAuthor').querySelector('a').getAttribute('href')`);
+  check("reader author links to filtered dashboard", readerHref === "index.html?authors=malik", readerHref);
+
+  // ── Search window: Authors/Periods on the All-books tab ───────────
+  await goto("file://" + ROOT + "reader.html?book=HDT-arbaoonNawawi");
+  await waitFor(`!!document.getElementById('btnSearchWindow')`);
+  await evalJS(`document.getElementById('btnSearchWindow').click()`);
+  await waitFor(`!!document.getElementById('searchWindowOverlay') && document.getElementById('searchWindowOverlay').classList.contains('open')`);
+  await evalJS(`document.getElementById('searchWindowTabAllBooks').click()`);
+  await waitFor(`document.getElementById('searchWindowFacets').style.display !== 'none'`);
+  check("search window All-books shows facets", await evalJS(
+    `document.getElementById('searchWindowFacets').style.display !== 'none' &&
+     !!document.getElementById('searchWindowFacetAuthors') &&
+     !!document.getElementById('searchWindowFacetPeriods')`));
+  // The facet modal stacks over the window (openModalOnTop path)
+  await evalJS(`document.getElementById('searchWindowFacetAuthors').click()`);
+  await waitFor(`!!document.getElementById('libAuthorsOverlay') && document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("window authors button opens modal", await evalJS(
+    `document.getElementById('libAuthorsOverlay').classList.contains('open') &&
+     document.getElementById('searchWindowOverlay').classList.contains('open')`),
+    await evalJS(`'win=' + document.getElementById('searchWindowOverlay').classList.contains('open') + ' auth=' + document.getElementById('libAuthorsOverlay').classList.contains('open')`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  await evalJS(`document.getElementById('searchWindowOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
 
   // ── Cleanup ───────────────────────────────────────────────────────
   check("no page errors", pageErrors.length === 0, pageErrors.join("; "));

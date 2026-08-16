@@ -456,6 +456,34 @@
   border-color: var(--color-card-hover-border);
   color: var(--color-nav-btn-hover-text);
 }
+
+/* ---- Facets (Authors & Periods) — the cross-book filter row ----
+   Same bordered-card look as the scope section above; two buttons open the
+   shared browse modals, the chip row shows the active filters. */
+.search-window-facets {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-card-bg);
+  padding: 4px;
+}
+.search-window-facet-btns {
+  display: flex;
+  gap: 4px;
+}
+.search-window-facet-btns .search-window-opt {
+  flex: 1;
+  border: none;
+  background: transparent;
+}
+.search-window-facet-btns .search-window-opt:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.search-window-facet-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 2px 0;
+}
 /* The libScope modal — opened by the library page's scope button AND by
    this window's scope summary (either page, stacked on top of the window),
    so its geometry lives in this shared stylesheet. Same shape as the surah

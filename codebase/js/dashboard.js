@@ -31,6 +31,19 @@ import {
   renderPins,
   renderHistory,
 } from "./pins-history.js";
+import {
+  facetState,
+  setFacets,
+  clearFacets,
+  facetActive,
+  onFacetChange,
+  bookMatchesFacets,
+  facetCounts,
+  facetChipsHTML,
+  onFacetChipClick,
+  openAuthorsModal,
+  openPeriodsModal,
+} from "./facet-browse.js";
 
 // ---------------------------------------------------------------------------
 // Page initialisation (dashboard only — reader bootstrap lives in book-data.js)
@@ -61,6 +74,17 @@ export async function initializeDashboard() {
   if (urlTags) {
     _dashFilter.tags = urlTags.split(",");
   }
+
+  // Read ?authors=/?period= (facet filters) — same params as the library page
+  var authorsParam = urlParams.get("authors");
+  var periodParam = urlParams.get("period");
+  setFacets(
+    authorsParam
+      ? authorsParam.split(",").map(function (x) { return x.trim(); })
+        .filter(function (x) { return x; })
+      : [],
+    periodParam === "modern" || /^\d+$/.test(periodParam) ? periodParam : ""
+  );
 
   var retryBtn = document.getElementById("retryRegistry");
   if (retryBtn) {
@@ -187,6 +211,12 @@ function renderDashboard(bookNames) {
     });
   }
 
+  // Apply author + period filters — author OR, period single-select (shared
+  // module; a no-op when no facets are active)
+  if (facetActive()) {
+    visible = visible.filter(bookMatchesFacets);
+  }
+
   // Apply pins-only filter
   if (_dashFilter.pinsOnly) {
     var pinnedCodes = getPinnedBooks().map(function (p) {
@@ -272,16 +302,20 @@ function renderDashboard(bookNames) {
       );
     })
     .join("");
+  // Active author + period filters render as chips too — the markup comes
+  // from the shared facet module, counts over the same all-visible set.
+  var facetHtml = facetChipsHTML(facetCounts(allVisible));
   // All leads the row (the neutral "no filter" state anchors the rail; the
   // other chip surfaces — library-search page, scope picker — do the same).
   document.getElementById("dashboardTagsCollapse").innerHTML =
-    allChipHTML + pinsChipHTML + chipsHTML
+    allChipHTML + pinsChipHTML + chipsHTML + facetHtml
       ? '<span class="tags-label">' +
         t("tagsLabel") +
         "</span> " +
         allChipHTML +
         pinsChipHTML +
-        chipsHTML
+        chipsHTML +
+        facetHtml
       : "";
   if (_refreshTags) _refreshTags();
 
@@ -471,9 +505,6 @@ function renderDashboard(bookNames) {
           '<div class="title-dv">' +
           (book.titleDV || "") +
           "</div>" +
-          '<div class="title-en">' +
-          (book.titleEN || book.bookCode) +
-          "</div>" +
           (authorLine ? '<div class="card-author">' + authorLine + "</div>" : "") +
           "</a>"
         );
@@ -598,10 +629,29 @@ function setupDashboardControls() {
   // row; refresh re-measures after every chips re-render (search/reset/lang).
   _refreshTags = window.initTagsCollapse("dashboardTagsCollapse", "dashboardTagsToggle");
 
+  // ── URL sync (?tags= / ?authors= / ?period= — shareable links) ──
+  /** Keep active tag + facet filters in the address bar. */
+  function syncDashURL() {
+    var params = new URLSearchParams();
+    if (_dashFilter.tags.length > 0) params.set("tags", _dashFilter.tags.join(","));
+    var facets = facetState();
+    if (facets.authors.length > 0) params.set("authors", facets.authors.join(","));
+    if (facets.period) params.set("period", facets.period);
+    var qs = params.toString();
+    history.replaceState(null, "", qs ? "?" + qs : window.location.pathname);
+  }
+
+  // Facet changes (chips, browse modals, the search window — the one shared
+  // facet state) re-sync the URL and re-render the grid.
+  onFacetChange(function () {
+    syncDashURL();
+    refreshView();
+  });
+
   // ── Library search jump ("search in books") ────────────────
   // The button is an anchor to library-search.html; carry the search box
-  // text (?q=) and any selected tag chips (?tags=) over so the page starts
-  // searching with the same scope. Pins are NOT carried (the page has none).
+  // text (?q=), any selected tag chips (?tags=) and facet filters over so
+  // the page starts searching with the same scope. Pins are NOT carried.
   var libBtn = document.getElementById("dashboardLibSearch");
   if (libBtn) {
     libBtn.addEventListener("click", function (e) {
@@ -610,6 +660,10 @@ function setupDashboardControls() {
       if (q) params.set("q", q);
       if (_dashFilter.tags.length > 0)
         params.set("tags", _dashFilter.tags.join(","));
+      var facets = facetState();
+      if (facets.authors.length > 0)
+        params.set("authors", facets.authors.join(","));
+      if (facets.period) params.set("period", facets.period);
       var qs = params.toString();
       e.preventDefault();
       window.location.href = qs ? "library-search.html?" + qs : "library-search.html";
@@ -618,6 +672,12 @@ function setupDashboardControls() {
   tagsPanel.addEventListener("click", function (e) {
     var chip = e.target.closest(".tag-chip");
     if (!chip) return;
+    if (chip.dataset.author || chip.dataset.period) {
+      // Author/period chips — the shared module toggles them and notifies
+      // subscribers (URL sync + re-render happen there)
+      onFacetChipClick(e);
+      return;
+    }
     var tag = chip.dataset.tag;
     if (tag === "pins") {
       _dashFilter.pinsOnly = !_dashFilter.pinsOnly;
@@ -628,11 +688,7 @@ function setupDashboardControls() {
       if (idx === -1) _dashFilter.tags.push(tag);
       else _dashFilter.tags.splice(idx, 1);
     }
-    // Sync URL with active tags
-    var url = window.location.pathname;
-    if (_dashFilter.tags.length > 0)
-      url += "?tags=" + _dashFilter.tags.join(",");
-    history.replaceState(null, "", url);
+    syncDashURL();
     refreshView();
   });
 
@@ -651,6 +707,12 @@ function setupDashboardControls() {
       e.stopPropagation();
       window.openHistoryModal();
     });
+
+  // Authors + Periods browse buttons — the shared facet modals
+  var btnAuthors = document.getElementById("dashAuthorsBtn");
+  if (btnAuthors) btnAuthors.addEventListener("click", openAuthorsModal);
+  var btnPeriods = document.getElementById("dashPeriodsBtn");
+  if (btnPeriods) btnPeriods.addEventListener("click", openPeriodsModal);
 
   // Escape handled centrally in common.js
 
@@ -671,6 +733,10 @@ function setupDashboardControls() {
         pinsOnly: false,
       };
       _dashTableMode = false;
+      // Facet state lives in the shared module — clear it (notifies
+      // subscribers, which re-sync the URL and re-render; the final
+      // renderDashboard below is the last word)
+      clearFacets();
       searchInput.value = "";
       sortSelect.value = "az";
       history.replaceState(null, "", window.location.pathname);
