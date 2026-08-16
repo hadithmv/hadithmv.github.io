@@ -329,6 +329,7 @@ async function main() {
     return {
       ths: ths,
       tds: first ? first.children.length : -1,
+      row: first ? parseInt(first.getAttribute("data-row") || "-1", 10) : -1,
       cell4: first && first.children[3] ? first.children[3].textContent : null,
     };
   })()`);
@@ -337,9 +338,17 @@ async function main() {
     String(navRows.tds) + " td vs " + String(navRows.ths) + " th");
   const jaufar = parseCSV(fs.readFileSync(DATA + "content/QRN-jaufarFaiz.csv", "utf8"), true);
   jaufar.shift();
-  const jaufar21 = jaufar[surahStarts[2]][0];
-  check("nav-then-add: 2:1 jaufar cell matches data file",
-    unornament(navRows.cell4 || "") === unornament(jaufar21 || ""), (navRows.cell4 || "").slice(0, 20));
+  // The column rebuild preserves the reading position (window around the
+  // current row), so the first rendered row is NOT the top of the surah
+  // anymore — identify it via its own data-row (slice index, mapped to the
+  // full-book index) and expect the data-file value for THAT row. Still
+  // guards the original bug: a stale pre-insert slice would render the new
+  // cell empty or misaligned with the row's other cells.
+  const jaufarRow = navRows.row >= 0 ? surahStarts[2] + navRows.row : -1;
+  check("nav-then-add: jaufar cell matches data file",
+    jaufarRow >= 0 && jaufarRow < jaufar.length &&
+    unornament(navRows.cell4 || "") === unornament(jaufar[jaufarRow][0] || ""),
+    (navRows.cell4 || "").slice(0, 20));
   // leave state as section B ends it: column unchecked, modal open
   // (section C clicks preset buttons inside the overlay)
   await evalJS(`(function () {

@@ -635,8 +635,29 @@
 #readerContent > .reader-chunk,
 .reader-chunk:not(tr) {
   content-visibility: auto;
+  /* Skipped chunks must keep a stable size: `auto` remembers each chunk's
+     last laid-out size (real, once it has been on screen), and the fallback
+     covers fresh chunks that were never laid out. Without this, skipped
+     chunks collapse to 0 height — the document height collapses under the
+     reader and scrollY clamps, so every rebuild/jump anchor drifts by
+     pages on long books (tashkeel toggles). */
+  contain-intrinsic-size: auto 62px;
   margin-inline: calc(var(--reader-gutter, 32px) * -1);
   padding-inline: var(--reader-gutter, 32px);
+}
+/* With tashkeel hidden the rows are shorter — match the fallback so the
+   document height doesn't wobble in the hidden state. */
+#readerContent.hide-tashkeel > .reader-chunk,
+.hide-tashkeel .reader-chunk:not(tr) {
+  contain-intrinsic-size: auto 43px;
+}
+/* One-frame sweep for rebuilds and far jumps: during the measure every
+   chunk in the window is laid out for REAL (content-visibility: visible),
+   so the anchor rect is exact; the just-laid-out sizes become each chunk's
+   remembered size (`auto` above), so when the sweep drops the document
+   height stays put. */
+#readerContent.reader-sweep > .reader-chunk {
+  content-visibility: visible;
 }
 .reader-row-num {
   font-size: 1rem;

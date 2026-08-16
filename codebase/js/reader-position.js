@@ -28,6 +28,7 @@ var metadata = null;
 var _lastPagUpdate = 0;
 var _lastPagCur = -1;
 var _lastPagTotal = -1;
+var _pagDeferTimer;
 
 // Scroll-block state (progress, milestones, URL sync, history log)
 var scrollCounter = null;
@@ -102,9 +103,20 @@ function pageSelectHTML(current, total) {
   return `<span class="page-of-label">${formatThousands(total)} / </span><input type="number" class="page-strip-sel toolbar-select" style="width:${w}px;text-align:center;text-align-last:center" min="1" max="${total}" value="${current}" autocomplete="off">`;
 }
 
-export function updatePagination() {
+export function updatePagination(force) {
   var now = performance.now();
-  if (now - _lastPagUpdate < 120) return; // throttle to ~8 fps — enough for page indicator
+  // Throttle to ~8 fps — enough for page indicator. Trailing edge: a call
+  // inside the window defers the write instead of dropping it, so the last
+  // event of a burst (a rebuild's anchor scroll followed by layout-settle
+  // clamps, a goTo glide arrival) still lands and reads the settled
+  // position — without it the strip sticks on the mid-settle row. The
+  // rebuild path also calls with force=true (its closing write is the
+  // immediate truth; the deferred re-check confirms it).
+  if (!force && now - _lastPagUpdate < 120) {
+    clearTimeout(_pagDeferTimer);
+    _pagDeferTimer = setTimeout(function () { updatePagination(true); }, 130);
+    return;
+  }
   _lastPagUpdate = now;
 
   var filteredData = ctx.getFilteredData();
@@ -238,7 +250,15 @@ function onScroll() {
     var jy = window.scrollY;
     var jMaxS = document.documentElement.scrollHeight - window.innerHeight;
     var distNow = Math.abs(jy - _jumpTargetY);
-    if (distNow <= 3 || Math.abs(jy - jMaxS) <= 3 || distNow > _jumpLastDist || Date.now() - _jumpAt > 3500) _jumpTargetY = -1;
+    // At the absolute bottom the arrival is followed by a layout-settle
+    // event (a re-render's height change clamps scrollY a frame later);
+    // clearing the marker on the first bottom arrival would leave that
+    // follow-up unmuted, and it reads as "read to the end" (spurious
+    // completion celebration after a tashkeel toggle). Keep the marker
+    // armed at the bottom — only the 3.5s backstop clears it, so genuine
+    // later reading still celebrates.
+    if (!atBottom && (distNow <= 3 || Math.abs(jy - jMaxS) <= 3 || distNow > _jumpLastDist)) _jumpTargetY = -1;
+    if (Date.now() - _jumpAt > 3500) _jumpTargetY = -1;
     _jumpLastDist = distNow;
     jumpInFlight = true;
   }

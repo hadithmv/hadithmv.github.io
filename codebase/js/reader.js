@@ -34,16 +34,16 @@ initializePageWithMetadata(async function (metadata) {
   //   Card row renderer (renderRowHTML)                    L492-588
   //   Parallel row renderer (renderParallelRowHTML)        L591-710
   //   Chunk + table-row renderers                          L713-775
-  //   Infinite scroll + table scrollbar                    L778-923
-  //   Navigation (goTo, scroll padding)                    L926-974
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L977-1013
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1016-1188
-  //   Keyboard shortcuts (incl. navigation buttons)        L1191-1298
-  //   Touch swipe                                          L1301-1321
-  //   Settings reset + language change                     L1324-1337
-  //   Quran UI (initQuranUI ctx)                           L1340-1360
-  //   Initial render (deep links, reveal)                  L1363-1444
-  //   Module-level helpers (showError)                     L1447-1453
+  //   Infinite scroll + table scrollbar                    L778-982
+  //   Navigation (goTo, scroll padding)                    L985-1041
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1044-1080
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1083-1262
+  //   Keyboard shortcuts (incl. navigation buttons)        L1265-1372
+  //   Touch swipe                                          L1375-1395
+  //   Settings reset + language change                     L1398-1411
+  //   Quran UI (initQuranUI ctx)                           L1414-1434
+  //   Initial render (deep links, reveal)                  L1437-1518
+  //   Module-level helpers (showError)                     L1521-1527
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -910,16 +910,75 @@ initializePageWithMetadata(async function (metadata) {
         if (sb) io.observe(sb);
       }
 
-      // Rebuild entire content (used after search / settings change)
-      function rebuildAll() {
+      // Rebuild entire content (used after search / settings change). The
+      // reader must stay where it is: a bare wipe re-renders from row 0, the
+      // document collapses to the initial window, the browser clamps scrollY
+      // to the new bottom, and that clamp's scroll event reads as "reached
+      // the end of the book" — the page strip jumps to the last page and the
+      // completion celebration fires (green .done bar, flashing border,
+      // "book finished" toast). Rebuild a window AROUND the current row
+      // (goTo's far-jump pattern) and re-anchor it as a programmatic jump,
+      // which onScroll mutes until the position settles.
+      // vRow may be passed in: callers that resize the EXISTING rows before
+      // the rebuild (tashkeel toggle, settings reset) must capture the
+      // current row FIRST — a read after the resize lands on a different
+      // row (the height change moves the content under the fixed viewport
+      // by the total shrink/grow of everything above it), which would
+      // anchor the rebuild a few pages off.
+      function rebuildAll(vRow) {
         if (filteredData.length === 0) {
           readerContent.innerHTML = "";
           loadedStart = loadedEnd = -1;
           updatePagination();
           return;
         }
-        loadInitial();
+        if (vRow === undefined) {
+          vRow = visiblePageIndex();
+          if (vRow < 0) vRow = 0;
+          if (vRow >= filteredData.length) vRow = filteredData.length - 1;
+        }
+        loadInitial(Math.max(0, vRow - 200), Math.min(filteredData.length, vRow + 200));
         observeSentinels();
+        expandIfOverflowing();
+        // Sweep: content-visibility:auto skips off-screen chunks, and freshly
+        // created ones size from stale pre-rebuild state (tashkeel rows
+        // shrink/grow) — a rect measured here would anchor by wrong heights
+        // and drift the position by pages on long books. The sweep class
+        // forces one real layout for the measure; the just-laid-out sizes
+        // are retained when it drops, so the document height stays put.
+        readerContent.classList.add("reader-sweep");
+        try {
+          var el = readerContent.querySelector('.reader-chunk[data-row="' + vRow + '"]');
+          if (el) {
+            // Anchor the row's CENTRE to the viewport centre — the same
+            // definition visiblePageIndex / the page strip use for "current
+            // row" — so the strip shows the same page before and after the
+            // rebuild even when row heights change (tashkeel re-renders do).
+            // Record it as a programmatic jump: the anchor's own scroll event
+            // is muted, so the rebuild can never read as reading to the end.
+            var dest = el.getBoundingClientRect().top +
+              el.getBoundingClientRect().height / 2 +
+              window.scrollY - window.innerHeight / 2;
+            var maxS = document.documentElement.scrollHeight - window.innerHeight;
+            if (dest < 0) dest = 0;
+            else if (dest > maxS) dest = maxS;
+            noteProgrammaticJump(dest);
+            // Instant anchor, not a navigation glide: the html element carries
+            // scroll-behavior:smooth, which would animate a scrollTop setter —
+            // pin it to auto around the adjustment (prependPrev's idiom).
+            var se = document.scrollingElement;
+            var prevBehavior = document.documentElement.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = "auto";
+            if (se) se.scrollTop = dest;
+            document.documentElement.style.scrollBehavior = prevBehavior;
+          }
+        } finally {
+          readerContent.classList.remove("reader-sweep");
+        }
+        // Forced: the anchor's scroll event can land inside updatePagination's
+        // 120ms throttle window (a settle clamp fired first), which would
+        // leave the strip on the mid-rebuild position until the next scroll.
+        updatePagination(true);
       }
       // #endregion
 
@@ -955,20 +1014,28 @@ initializePageWithMetadata(async function (metadata) {
           while (rowIdx >= loadedEnd) appendNext();
         }
         updateScrollPadding();
-        var el = readerContent.querySelector('.reader-chunk[data-row="' + rowIdx + '"]');
-        if (el) {
-          // Programmatic navigation must not celebrate: milestones toast for
-          // READING, not jumping. Record the smooth-scroll destination (the
-          // element's top minus the measured scroll-padding, clamped to the
-          // scroll extent) — onScroll suppresses milestone toasts until the
-          // position settles there, so a btnLast jump can't fire the
-          // "book finished" celebration on arrival.
-          var dest = el.getBoundingClientRect().top + window.scrollY - _scrollPadTop;
-          var maxS = document.documentElement.scrollHeight - window.innerHeight;
-          if (dest < 0) dest = 0;
-          else if (dest > maxS) dest = maxS;
-          noteProgrammaticJump(dest);
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Sweep (same reason as rebuildAll): the far-jump window holds fresh
+        // skipped chunks — without a real layout the landing measure would be
+        // off by the stale-vs-real height delta of the rows above the target.
+        readerContent.classList.add("reader-sweep");
+        try {
+          var el = readerContent.querySelector('.reader-chunk[data-row="' + rowIdx + '"]');
+          if (el) {
+            // Programmatic navigation must not celebrate: milestones toast for
+            // READING, not jumping. Record the smooth-scroll destination (the
+            // element's top minus the measured scroll-padding, clamped to the
+            // scroll extent) — onScroll suppresses milestone toasts until the
+            // position settles there, so a btnLast jump can't fire the
+            // "book finished" celebration on arrival.
+            var dest = el.getBoundingClientRect().top + window.scrollY - _scrollPadTop;
+            var maxS = document.documentElement.scrollHeight - window.innerHeight;
+            if (dest < 0) dest = 0;
+            else if (dest > maxS) dest = maxS;
+            noteProgrammaticJump(dest);
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } finally {
+          readerContent.classList.remove("reader-sweep");
         }
         updatePagination();
       }
@@ -1016,6 +1083,9 @@ initializePageWithMetadata(async function (metadata) {
       // #region Toolbar (tashkeel, share, pin, copy, focus, export, reset)
       // ── Toolbar: tashkeel toggle ────────────────────────────
       btnTashkeel.addEventListener("click", function () {
+        // Capture the row BEFORE the class toggle — see rebuildAll's note
+        // on the passed-in vRow.
+        var vRow = visiblePageIndex();
         hideTashkeel = !hideTashkeel;
         STATE.hideTashkeel = hideTashkeel; // aliases are read-only views — write back
         LS.set(window.LS_KEYS.readerHideTashkeel, hideTashkeel);
@@ -1027,7 +1097,7 @@ initializePageWithMetadata(async function (metadata) {
           btnTashkeel.classList.remove("active");
         }
         // Re-render to apply/remove markup
-        if (filteredData.length > 0) rebuildAll();
+        if (filteredData.length > 0) rebuildAll(vRow);
       });
 
       // ── Toolbar: share ─────────────────────────────────────
@@ -1144,6 +1214,10 @@ initializePageWithMetadata(async function (metadata) {
       // Shared reset block — used by the toolbar Reset button and by the
       // settings-modal "Reset settings" (dispatches the readerReset event).
       function resetReaderDefaults() {
+        // The resets below (tashkeel class, view mode) resize the existing
+        // rows BEFORE the rebuild — capture the current row first (see
+        // rebuildAll's note on the passed-in vRow).
+        var vRow = visiblePageIndex();
         // Clear search
         searchInput.value = "";
         applySearch("");
@@ -1177,7 +1251,7 @@ initializePageWithMetadata(async function (metadata) {
         }
         // Exit focus mode
         window.setFocus(false);
-        rebuildAll();
+        rebuildAll(vRow);
       }
 
       btnResetReader.addEventListener("click", function () {
