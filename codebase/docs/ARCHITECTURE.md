@@ -40,8 +40,9 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| `data/02-registry-bookMeta.csv`      | Central registry of books (code, titles in AR/DV/EN, secondary `tags` column) |
-| `data/01-registry-bookTags.csv`       | Tag definitions (code, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file) |
+| `data/02-registry-bookMeta.csv`      | Central registry of books (code, authorCode, titles in AR/DV/EN, secondary `tags` column, version) |
+| `data/01-registry-bookTags.csv`       | Tag definitions (tagCode, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file) |
+| `data/08-registry-authors.csv`        | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 02's `authorCode` column |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs |
@@ -77,7 +78,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/content/*.csv`        | Per-book content files                                                     |
-| `data/03-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag registry) |
+| `data/03-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag or author registries) |
 | `data/04-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
 | `data/06-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
 | `data/05-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
@@ -431,6 +432,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | Column             | Description                                         |
 | ------------------ | --------------------------------------------------- |
 | `bookCode`         | Unique identifier, doubles as the data CSV filename. Format: `PRIMARY-bookName[-SUFFIX]` — the **primary tag** is the first segment, registered in `01-registry-bookTags.csv` (a book may have no primary). `-HDN` / `-DSC` are suffix flags, not tags |
+| `authorCode`       | **Optional** — comma‑separated author codes from `08-registry-authors.csv` (one per contributor, e.g. `nawawi`). Drives the author line on cards/reader header, the EPUB `dc:creator`, and the library's Authors/Periods browse filters. Empty = no author line. Sits **immediately after** `bookCode`, before the titles — see the version‑last invariant under 03 |
 | `titleAR`          | Arabic title                                        |
 | `titleDV`          | Dhivehi title                                       |
 | `titleEN`          | English title (used for `<title>` and page heading) |
@@ -446,7 +448,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 | Column       | Description                                              |
 | ------------ | -------------------------------------------------------- |
-| `code`       | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
+| `tagCode`    | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
 | `labelAR`    | Arabic display name                                      |
 | `labelDV`    | Dhivehi display name                                     |
 | `labelEN`    | English display name                                     |
@@ -462,7 +464,24 @@ Tag labels are **data, not code** — the registry is the single source of truth
 
 Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just one `code,labelAR,labelDV,labelEN` row — no colour‑picking, no code, no limit on tag count. Because the slot follows tag order, the palette is stable — `03-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours. **The slot is also the display order**: every rendered tag row (dashboard chips, library-search chips, the scope-modal rail and its book groups) sorts by palette slot, so the file's row sequence is exactly the order the user sees.
 
-**Format rules.** Blank lines are dropped by `parseCSV` (the loader's second guard, `if (row.code)` in `book-data.js`, skips anything that slips through) and consume no palette slot — use them freely to group related tags. **Never add comment lines** (`# …` or any non-tag text): the parser has no comment syntax, so such a line parses as a phantom tag with a truthy code, eating a palette slot and silently shifting every colour after it. A stray `,` line is harmless (empty code → skipped).
+**Format rules.** Blank lines are dropped by `parseCSV` (the loader's second guard, `if (row.tagCode)` in `book-data.js`, skips anything that slips through) and consume no palette slot — use them freely to group related tags. **Never add comment lines** (`# …` or any non-tag text): the parser has no comment syntax, so such a line parses as a phantom tag with a truthy code, eating a palette slot and silently shifting every colour after it. A stray `,` line is harmless (empty code → skipped).
+
+### 08-registry-authors.csv
+
+| Column     | Description                                              |
+| ---------- | -------------------------------------------------------- |
+| `authorCode` | Author code — referenced from 02's `authorCode` column, one token per contributor, comma‑separated for co‑authored works |
+| `nameAR`   | Arabic display name                                      |
+| `nameDV`   | Dhivehi display name                                     |
+| `nameEN`   | English display name                                     |
+| `bornAH`   | Hijri birth year (**optional** — blank when unknown)     |
+| `diedAH`   | Hijri death year (**optional** — blank = living/modern author) |
+
+Author names are **data, not code** — same single-source-of-truth pattern as tags. `book-data.js` loads each author as `{name: {dv,en,ar}, bornAH, diedAH}`; `bookAuthorLine()` renders the display line ("al-Bukhari (d. 256 AH)") in the current language, `bookAuthorNames()` the portable English names for the EPUB `dc:creator`. **Row order is the author list's display order** (chronological by death year in the current file) — hand‑controlled, never rewritten by 03.
+
+**Years are Hijri AH**, stored as plain numerals (no "AH" suffix — that is added by the i18n template at render). The **period facet is derived, never stored**: a book's period bucket is `Math.ceil(diedAH / 100)` (the Hijri century of death), or the special `modern` bucket when `diedAH` is blank. Century labels (1st–15th) live in `js/i18n.js` (`century1`…`century15`, `centuryModern`), not in the CSV.
+
+**Format rules.** Same as tags: blank lines are fine, no comment syntax, no trailing newline. Only authors with books in the collection render in the Authors browse modal — registry rows without books stay invisible.
 
 ### data/content/{bookCode}.csv
 
@@ -492,11 +511,12 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
 ## Data model at a glance
 
 ```text
-02-registry-bookMeta.csv         01-registry-bookTags.csv
-┌─────────────────────────┐       ┌──────────────────┐
-│ bookCode, titleDV/AR/EN │       │ code, label      │
-│ Defines every book      │       │ e.g. AQD→Aqidah  │
-└──────────┬──────────────┘       └────────┬─────────┘
+02-registry-bookMeta.csv         01-registry-bookTags.csv    08-registry-authors.csv
+┌─────────────────────────┐       ┌──────────────────┐       ┌──────────────────────┐
+│ bookCode, titleDV/AR/EN │       │ tagCode, label   │       │ authorCode, names,   │
+│ authorCode → 08         │       │ e.g. AQD→Aqidah  │       │ bornAH/diedAH (Hijri)│
+│ Defines every book      │       │ palette by order │       │ e.g. bukhari         │
+└──────────┬──────────────┘       └────────┬─────────┘       └───────────┬──────────┘
            │                              │
            └──────────┬───────────────────┘
                       │
@@ -700,7 +720,9 @@ the overhang paints into the padding. The current insets: `.search-input`
 `.search-result-snippet` `padding-inline-start: 8px`, `#topBar #pageTitle`
 `padding-inline-start: 8px` (the title is `justify-content: safe center`,
 so its clip only exists when the title overflows — ޙ-led titles never show
-it, which is why it went unnoticed). Surfaces with ≥7px of start padding
+it, which is why it went unnoticed), `#readerPageAuthor`
+`padding-inline-start: 8px` (Dhivehi author names clip at the ellipsis).
+Surfaces with ≥7px of start padding
 (quran table cells, pins cards, tag chips, surah list items) are safe
 without insets. Insets are regression-guarded by smoke-battery section F;
 measurement traps are in docs/TESTING.md "Traps from adjacent workflows".
@@ -801,8 +823,8 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 **Book code format.** `PRIMARY-bookName[-SUFFIX]`. The FIRST segment is the primary tag, matched against `01-registry-bookTags.csv`; after stripping it and the suffix flags, the remaining segment is the book name. Secondary tags live in the `tags` column of `02-registry-bookMeta.csv`, NOT in the code.
 
 ```text
-"HDT-muwattaMalik"        +  registry: bookCode,titleAR,titleDV,titleEN,tags
-  │         │                                       ... ,HDT-muwattaMalik,...,...,...,DRFT
+"HDT-muwattaMalik"        +  registry: bookCode,authorCode,titleAR,titleDV,titleEN,tags
+  │         │                                       ... ,HDT-muwattaMalik,...,...,...,...,DRFT
   │         └─ Book name (after stripping primary tag & suffix flags)
   └─ Primary tag → "Hadith" badge        tags column → "⚠️ Draft" badge (secondary)
 
@@ -897,9 +919,9 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
    #,headAR,bodyAR,headDV,bodyDV,foot
    1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
    ```
-2. Add a line to `data/02-registry-bookMeta.csv` (the `tags` column is optional — secondary tags only):
+2. Add a line to `data/02-registry-bookMeta.csv` (the `authorCode` and `tags` columns are optional — comma‑separated codes from `08-registry-authors.csv` / `01-registry-bookTags.csv`):
    ```csv
-   FQH-usululFiqh,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh,
+   FQH-usululFiqh,ibn-rajab,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh,,
    ```
 3. Run `data/03-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
 
@@ -907,9 +929,18 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 Add one row to `data/01-registry-bookTags.csv`. Colours are auto‑generated — just the code and the three label columns:
 ```csv
-code,labelAR,labelDV,labelEN
+tagCode,labelAR,labelDV,labelEN
 FQH,فقه,ފިގުހު,Fiqh
 ```
+
+### Add a new author
+
+Add one row to `data/08-registry-authors.csv`, then put the `authorCode` in the books' `authorCode` column:
+```csv
+authorCode,nameAR,nameDV,nameEN,bornAH,diedAH
+ibn-rajab,ابن رجب,އިބްނު ރަޖަބު,Ibn Rajab,736,795
+```
+Rows are hand‑ordered (the current file sorts by death year — that is the browse list's display order); 03 never rewrites this file. Blank `bornAH`/`diedAH` = unknown/living (the author lands in the "Modern" period bucket).
 Use the tag code as the primary prefix in a `bookCode` (e.g. `FQH-usululFiqh`) or as a secondary in the `tags` column of `02-registry-bookMeta.csv` — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
 
 ### Add a new export format
@@ -982,7 +1013,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### New tag category
 
-1. Add a row to `data/01-registry-bookTags.csv` with `code,labelAR,labelDV,labelEN`. Colours are auto‑generated — no need to pick hex values.
+1. Add a row to `data/01-registry-bookTags.csv` with `tagCode,labelAR,labelDV,labelEN`. Colours are auto‑generated — no need to pick hex values.
 1. Use the code as the primary prefix in a `bookCode`, or add it to a book's `tags` column — badges render automatically.
 
 ## Key benefits

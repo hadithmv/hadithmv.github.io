@@ -740,6 +740,17 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
+/* Author line under the title trio (dashboard cards + library result cards) */
+.book-card .card-author,
+.lib-result .card-author {
+  direction: ltr; /* names may be latin; years stay digits */
+  text-align: right;
+  margin-top: 2px;
+  font-size: calc(var(--panel-font-size, 0.85rem) * 0.95);
+  color: var(--color-text-muted);
+  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+
 /* System font override */
 [data-font-system] #readerContent,
 [data-font-system] .reader-field,

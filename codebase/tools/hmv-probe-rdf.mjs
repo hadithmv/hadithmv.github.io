@@ -46,8 +46,11 @@ function check(name, cond, detail) {
 }
 
 const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
-rows02.shift();
-const title = (code) => { const r = rows02.find((x) => x[0] === code); return r ? r[2] : ""; };
+const rows02Header = rows02.shift();
+// Column resolved by header name, not position — 02's layout may grow
+// (authorCode sits after bookCode; version is always last).
+const TITLE_DV_COL = rows02Header.indexOf("titleDV");
+const title = (code) => { const r = rows02.find((x) => x[0] === code); return r ? r[TITLE_DV_COL] : ""; };
 
 const src = fs.readFileSync(baseDir + "/../js/radheef-merge.js", "utf8");
 const m = src.match(/MERGED_SOURCES\s*=\s*\[([\s\S]*?)\]/);

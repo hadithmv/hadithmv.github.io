@@ -17,6 +17,10 @@ import { tagLabel, t, currentLang } from "./i18n.js";
 import { loadSearchIndex, searchLibrary } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
+  loadAuthorDefinitions,
+  authorDefs,
+  bookAuthorLine,
+  authorYearsText,
   loadBookRegistry,
   extractTags,
   tagSearchWords,
@@ -66,6 +70,8 @@ import {
 var _bookNames = null; // full registry (incl. -HDN books)
 var _q = ""; // current query (trimmed)
 var _selectedTags = []; // active tag chips (OR — same semantics as the grid)
+var _selectedAuthors = []; // active author chips (OR — any author of the book)
+var _selectedPeriod = ""; // active period bucket: century number ("3") or "modern"
 var _searchTimer = null; // input debounce
 var _refreshTags = null; // tag-row collapse refresh (common.js)
 var _skipHistoryOnFocus = false; // true only for the initial desktop auto-focus
@@ -108,6 +114,15 @@ function readURLParams() {
     _selectedTags = tagsParam.split(",").map(function (x) { return x.trim(); })
       .filter(function (x) { return x; });
   }
+  var authorsParam = params.get("authors");
+  if (authorsParam) {
+    _selectedAuthors = authorsParam.split(",").map(function (x) { return x.trim(); })
+      .filter(function (x) { return x; });
+  }
+  var periodParam = params.get("period");
+  if (periodParam === "modern" || /^\d+$/.test(periodParam)) {
+    _selectedPeriod = periodParam;
+  }
   var booksParam = params.get("books");
   if (booksParam) {
     var books = booksParam.split(",").map(function (x) { return x.trim(); })
@@ -116,23 +131,89 @@ function readURLParams() {
   }
 }
 
-/** Keep ?q=, ?tags= and ?books= in the address bar — the URL stays shareable. */
+/** Keep ?q=, ?tags=, ?authors=, ?period= and ?books= in the address bar. */
 function syncURL() {
   var params = new URLSearchParams();
   if (_q) params.set("q", _q);
   if (_selectedTags.length > 0) params.set("tags", _selectedTags.join(","));
+  if (_selectedAuthors.length > 0) params.set("authors", _selectedAuthors.join(","));
+  if (_selectedPeriod) params.set("period", _selectedPeriod);
   var scopeBooks = getScope();
   if (scopeBooks && scopeBooks.length > 0) params.set("books", scopeBooks.join(","));
   var qs = params.toString();
   history.replaceState(null, "", qs ? "?" + qs : window.location.pathname);
 }
 
+// ── Author + period helpers ──────────────────────────────────
+/** Author codes of a registry row ("" when the book has no author). */
+function authorCodesOf(b) {
+  return ((b && b.authorCode) || "")
+    .split(",")
+    .map(function (s) { return s.trim(); })
+    .filter(Boolean);
+}
+
+/** Period bucket of an author — death century as a string ("3"), "modern" when
+ *  no death year is recorded. Buckets come from the 08 registry, not the data. */
+function authorPeriodOf(code) {
+  var d = authorDefs()[code];
+  if (!d || !d.diedAH) return "modern";
+  return String(Math.ceil(parseInt(d.diedAH, 10) / 100));
+}
+
+/** Visible books only (-HDN excluded) — the set the grid filters. */
+function visibleBooks() {
+  return (_bookNames || []).filter(function (b) {
+    return !b.bookCode.endsWith("-HDN");
+  });
+}
+
+/** Book counts per author code over the visible set. */
+function authorCounts() {
+  var counts = {};
+  visibleBooks().forEach(function (b) {
+    authorCodesOf(b).forEach(function (ac) {
+      if (!counts[ac]) counts[ac] = 0;
+      counts[ac]++;
+    });
+  });
+  return counts;
+}
+
+/** Book counts per period bucket over the visible set. */
+function periodCounts() {
+  var counts = {};
+  visibleBooks().forEach(function (b) {
+    authorCodesOf(b).forEach(function (ac) {
+      var p = authorPeriodOf(ac);
+      if (!counts[p]) counts[p] = 0;
+      counts[p]++;
+    });
+  });
+  return counts;
+}
+
+/** English period title — tooltips are English house style. */
+function periodLabelEn(p) {
+  if (p === "modern") return "Authors without a recorded death year";
+  var n = parseInt(p, 10);
+  var s = n % 100 >= 11 && n % 100 <= 13 ? "th"
+    : n % 10 === 1 ? "st"
+    : n % 10 === 2 ? "nd"
+    : n % 10 === 3 ? "rd"
+    : "th";
+  return "Died in the " + n + s + " century AH";
+}
+
+/** Period display label in the current language ("3rd century AH" / modern). */
+function periodLabel(p) {
+  return p === "modern" ? t("centuryModern") : t("century" + p);
+}
+
 // ── Tag chips ────────────────────────────────────────────────
 /** Render the chip row with counts over visible (-HDN excluded) books. */
 function renderChips() {
-  var visible = (_bookNames || []).filter(function (b) {
-    return !b.bookCode.endsWith("-HDN");
-  });
+  var visible = visibleBooks();
   var tagCounts = {};
   visible.forEach(function (b) {
     extractTags(b.bookCode, b).forEach(function (tg) {
@@ -161,21 +242,70 @@ function renderChips() {
       );
     })
     .join("");
+  // Active author + period filters render as chips too (same visuals as tags —
+  // the author registry's codes key them via data-author/data-period).
+  var acounts = authorCounts();
+  var authorHtml = _selectedAuthors
+    .map(function (code) {
+      var d = authorDefs()[code];
+      if (!d) return "";
+      var l = currentLang();
+      var nm = d.name[l] || d.name.en || d.name.ar || code;
+      return (
+        '<span class="tag-chip author-chip active" data-author="' +
+        code +
+        '" title="Remove filter: ' +
+        (d.name.en || code) +
+        '">' +
+        '<span class="chip-x">✕</span>' +
+        escapeHTML(nm) +
+        " <small>(" +
+        (acounts[code] || 0) +
+        ")</small></span>"
+      );
+    })
+    .join("");
+  var periodHtml = "";
+  if (_selectedPeriod) {
+    periodHtml =
+      '<span class="tag-chip period-chip active" data-period="' +
+      _selectedPeriod +
+      '" title="Remove filter: ' +
+      periodLabelEn(_selectedPeriod) +
+      '">' +
+      '<span class="chip-x">✕</span>' +
+      escapeHTML(periodLabel(_selectedPeriod)) +
+      " <small>(" +
+      (periodCounts()[_selectedPeriod] || 0) +
+      ")</small></span>";
+  }
   el.tagsCollapse.innerHTML =
-    '<span class="tags-label">' + t("tagsLabel") + "</span> " + allChipHTML + html;
+    '<span class="tags-label">' + t("tagsLabel") + "</span> " + allChipHTML + html + authorHtml + periodHtml;
   if (_refreshTags) _refreshTags();
 }
 
 function onChipsClick(e) {
   var chip = e.target.closest(".tag-chip");
   if (!chip) return;
-  var tag = chip.dataset.tag;
-  if (tag === window.TAG_ALL) {
-    _selectedTags = [];
+  if (chip.dataset.author) {
+    // Author chip — OR toggle, same semantics as tags
+    var ac = chip.dataset.author;
+    var ai = _selectedAuthors.indexOf(ac);
+    if (ai === -1) _selectedAuthors.push(ac);
+    else _selectedAuthors.splice(ai, 1);
+  } else if (chip.dataset.period) {
+    // Period chip — single-select bucket, click again to clear
+    var pp = chip.dataset.period;
+    _selectedPeriod = _selectedPeriod === pp ? "" : pp;
   } else {
-    var idx = _selectedTags.indexOf(tag);
-    if (idx === -1) _selectedTags.push(tag);
-    else _selectedTags.splice(idx, 1);
+    var tag = chip.dataset.tag;
+    if (tag === window.TAG_ALL) {
+      _selectedTags = [];
+    } else {
+      var idx = _selectedTags.indexOf(tag);
+      if (idx === -1) _selectedTags.push(tag);
+      else _selectedTags.splice(idx, 1);
+    }
   }
   syncURL();
   renderChips();
@@ -225,6 +355,144 @@ function openScopeModal() {
   ensureSearchableBooks().then(open);
 }
 
+// ── Authors + Periods browse ─────────────────────────────────
+// Two more browse surfaces on the unified modal layer, fed by the author
+// registry (08-registry-authors.csv). Selection feeds computeScope() exactly
+// like tags do; active selections also render as chips in the tags row.
+
+var _authorsOverlay = null, _authorsTitle = null, _authorsBody = null;
+var _periodsOverlay = null, _periodsTitle = null, _periodsBody = null;
+
+/** Authors modal — trilingual names + Hijri years + book counts, in the
+ *  registry's hand-set (chronological) order. */
+function renderAuthorBrowse() {
+  var counts = authorCounts();
+  var defs = authorDefs();
+  var l = currentLang();
+  var html = Object.keys(defs)
+    // Only authors with books in the collection (count > 0)
+    .filter(function (code) { return counts[code]; })
+    .map(function (code) {
+      var d = defs[code];
+      var nm = d.name[l] || d.name.en || d.name.ar || code;
+      var yrs = authorYearsText(d);
+      var sel = _selectedAuthors.indexOf(code) !== -1;
+      return (
+        '<div class="author-browse-row' +
+        (sel ? " selected" : "") +
+        '" data-author="' +
+        code +
+        '" title="' +
+        (d.name.en || code) +
+        '">' +
+        '<span class="author-browse-name">' +
+        escapeHTML(nm) +
+        (yrs
+          ? ' <span class="author-browse-years">' + escapeHTML(yrs) + "</span>"
+          : "") +
+        "</span>" +
+        '<span class="author-browse-count">' +
+        counts[code] +
+        "</span>" +
+        '<span class="author-browse-check">' +
+        (sel ? "✓" : "") +
+        "</span>" +
+        "</div>"
+      );
+    })
+    .join("");
+  _authorsBody.innerHTML =
+    html || '<div class="empty-state">' + t("libNoAuthors") + "</div>";
+}
+
+function onAuthorBrowseClick(e) {
+  var row = e.target.closest(".author-browse-row");
+  if (!row) return;
+  var code = row.dataset.author;
+  var idx = _selectedAuthors.indexOf(code);
+  if (idx === -1) _selectedAuthors.push(code);
+  else _selectedAuthors.splice(idx, 1);
+  syncURL();
+  renderChips();
+  renderAuthorBrowse();
+  if (_q) runSearchAndRender();
+}
+
+function openAuthorsModal() {
+  if (!_authorsOverlay) {
+    _authorsOverlay = window.createModal(
+      "libAuthorsOverlay",
+      "libAuthorsModalTitle",
+      "libAuthorsModalBody",
+      "lib-authors-modal"
+    );
+    _authorsTitle = document.getElementById("libAuthorsModalTitle");
+    _authorsBody = document.getElementById("libAuthorsModalBody");
+    _authorsBody.addEventListener("click", onAuthorBrowseClick);
+  }
+  _authorsTitle.textContent = t("libAuthorsTitle");
+  renderAuthorBrowse();
+  window.openModal("libAuthorsOverlay");
+}
+
+/** Periods modal — death-century grid (chronological) + Modern, with counts. */
+function renderPeriodBrowse() {
+  var counts = periodCounts();
+  var periods = Object.keys(counts).sort(function (a, b) {
+    if (a === "modern") return 1;
+    if (b === "modern") return -1;
+    return parseInt(a, 10) - parseInt(b, 10);
+  });
+  _periodsBody.innerHTML = periods
+    .map(function (p) {
+      var sel = _selectedPeriod === p;
+      return (
+        '<button type="button" class="period-browse-btn' +
+        (sel ? " active" : "") +
+        '" data-period="' +
+        p +
+        '" title="' +
+        periodLabelEn(p) +
+        '">' +
+        periodLabel(p) +
+        " <small>(" +
+        counts[p] +
+        ")</small>" +
+        (sel ? ' <span class="period-browse-check">✓</span>' : "") +
+        "</button>"
+      );
+    })
+    .join("");
+}
+
+function onPeriodBrowseClick(e) {
+  var btn = e.target.closest(".period-browse-btn");
+  if (!btn) return;
+  var p = btn.dataset.period;
+  _selectedPeriod = _selectedPeriod === p ? "" : p;
+  syncURL();
+  renderChips();
+  renderPeriodBrowse();
+  if (_q) runSearchAndRender();
+}
+
+function openPeriodsModal() {
+  if (!_periodsOverlay) {
+    _periodsOverlay = window.createModal(
+      "libPeriodsOverlay",
+      "libPeriodsModalTitle",
+      "libPeriodsModalBody",
+      "lib-periods-modal"
+    );
+    _periodsTitle = document.getElementById("libPeriodsModalTitle");
+    _periodsBody = document.getElementById("libPeriodsModalBody");
+    _periodsBody.addEventListener("click", onPeriodBrowseClick);
+  }
+  _periodsTitle.textContent = t("libPeriodsTitle");
+  renderPeriodBrowse();
+  window.openModal("libPeriodsOverlay");
+}
+
 // ── Search ───────────────────────────────────────────────────
 /**
  * Book codes eligible for the search: visible books (-HDN excluded) carrying
@@ -242,6 +510,23 @@ function computeScope() {
       });
       return _selectedTags.some(function (tc) {
         return codes.indexOf(tc) !== -1;
+      });
+    });
+  }
+  // Author filter: any of the book's authors must carry an active code (OR)
+  if (_selectedAuthors.length > 0) {
+    visible = visible.filter(function (b) {
+      var codes = authorCodesOf(b);
+      return _selectedAuthors.some(function (ac) {
+        return codes.indexOf(ac) !== -1;
+      });
+    });
+  }
+  // Period filter: any of the book's authors must have died in the bucket
+  if (_selectedPeriod) {
+    visible = visible.filter(function (b) {
+      return authorCodesOf(b).some(function (ac) {
+        return authorPeriodOf(ac) === _selectedPeriod;
       });
     });
   }
@@ -270,12 +555,13 @@ function runSearchAndRender() {
     showEmpty("libSearchHint");
     return;
   }
-  // Empty-scope guard: active tags or a book scope that match no books must
-  // NOT fall through to an unscoped search (the engine treats [] as
-  // "every book").
+  // Empty-scope guard: active tags/authors/period or a book scope that match
+  // no books must NOT fall through to an unscoped search (the engine treats
+  // [] as "every book").
   var scope = computeScope();
   var scopeBooks = getScope();
-  if ((_selectedTags.length > 0 || (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
+  if ((_selectedTags.length > 0 || _selectedAuthors.length > 0 || _selectedPeriod ||
+       (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
     showEmpty("libNoResults");
     return;
   }
@@ -514,6 +800,7 @@ function resultCardHTML(r, q, withPeek) {
     return b.bookCode === r.bookCode;
   });
   var tags = meta ? extractTags(meta.bookCode, meta) : [];
+  var authorLine = bookAuthorLine(meta);
   var tagHtml =
     tags.length > 0
       ? '<div class="card-tags">' +
@@ -561,6 +848,9 @@ function resultCardHTML(r, q, withPeek) {
     '<div class="title-en">' +
     escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
     "</div>" +
+    (authorLine
+      ? '<div class="card-author">' + escapeHTML(authorLine) + "</div>"
+      : "") +
     '<div class="lib-result-meta">' +
     fillTemplate("libBookMatches", { n: r.count }) +
     "</div>" +
@@ -839,6 +1129,12 @@ async function init() {
     el.scopeBtn.addEventListener("click", openScopeModal);
   }
 
+  // Authors + Periods browse buttons
+  var btnAuthors = document.getElementById("libAuthorsBtn");
+  if (btnAuthors) btnAuthors.addEventListener("click", openAuthorsModal);
+  var btnPeriods = document.getElementById("libPeriodsBtn");
+  if (btnPeriods) btnPeriods.addEventListener("click", openPeriodsModal);
+
   // Search window button — opens the shared modal window
   var btnWindow = document.getElementById("btnSearchWindow");
   if (btnWindow) btnWindow.addEventListener("click", function () {
@@ -851,6 +1147,15 @@ async function init() {
     renderChips();
     if (el.scopeTitle) el.scopeTitle.textContent = t("libScopeTitle");
     refreshScopeLabels();
+    // An open browse modal re-renders in the new language
+    if (_authorsOverlay && _authorsOverlay.classList.contains("open")) {
+      _authorsTitle.textContent = t("libAuthorsTitle");
+      renderAuthorBrowse();
+    }
+    if (_periodsOverlay && _periodsOverlay.classList.contains("open")) {
+      _periodsTitle.textContent = t("libPeriodsTitle");
+      renderPeriodBrowse();
+    }
     if (_q) runSearchAndRender();
     // The window's own labels re-render via the shell's languagechange
     // listener; its cached results re-render here (no re-search).
@@ -905,6 +1210,7 @@ async function init() {
 
   // Registries feed the chips + scoping + result titles
   await loadTagDefinitions();
+  await loadAuthorDefinitions();
   _bookNames = await loadBookRegistry();
   renderChips();
 

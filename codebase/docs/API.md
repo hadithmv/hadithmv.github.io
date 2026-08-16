@@ -69,11 +69,31 @@ initializePageWithMetadata(async function (metadata) {
 
 ### `loadTagDefinitions()`
 
-Loads and caches `01-registry-bookTags.csv` → `Map<code, {label: {dv,en,ar}, aliases: {dv,en,ar}, palette}>` (palette is a golden‑ratio HSL slot index; the trilingual labels and alias words come straight from the file). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
+Loads and caches `01-registry-bookTags.csv` → `Map<tagCode, {label: {dv,en,ar}, aliases: {dv,en,ar}, palette}>` (palette is a golden‑ratio HSL slot index; the trilingual labels and alias words come straight from the file). Also injects the palette CSS. Returns the empty map on error (cached, no retry). Must resolve before `extractTags()` returns tags — the library search page awaits it before rendering chips.
+
+### `loadAuthorDefinitions()`
+
+Loads and caches `08-registry-authors.csv` → `Map<authorCode, {name: {dv,en,ar}, bornAH, diedAH}>` (Hijri years as strings, "" when unknown). Returns the empty map on error (cached, no retry). Preloaded by `initializePageWithMetadata()` and `initializeDashboard()` alongside the tag definitions — `bookAuthorLine()` renders "" until it resolves.
+
+### `authorDefs()`
+
+Synchronous accessor for the loaded author map (`{}` until `loadAuthorDefinitions()` resolves). Used by `bookAuthorLine()` and the library page's period buckets.
+
+### `authorYearsText(def)`
+
+Hijri years text for one author definition — `"d. 256 AH"` (died only), `"194–256 AH"` (born + died), `""` (neither). The template strings come from `t("authorDied")` / `t("authorLife")`, so the phrasing follows the UI language; the digits are the plain registry numbers.
+
+### `bookAuthorLine(entry)`
+
+One display line for a book registry entry's authors, in the current language — `"al-Bukhari (d. 256 AH)"` — comma‑joined for multi-author books. `""` when the book has no author (`authorCode` empty or unresolvable). Drives the library result cards, dashboard cards, and the reader header author span.
+
+### `bookAuthorNames(entry)`
+
+English-only author names, no years, comma‑joined — the portable form for the EPUB `dc:creator`. `""` when the book has no author (the EPUB writer falls back to `Hadithmv`).
 
 ### `loadBookNames()`
 
-Fetches and caches `02-registry-bookMeta.csv`. Returns `Array` of book objects (`bookCode`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
+Fetches and caches `02-registry-bookMeta.csv`. Returns `Array` of book objects (`bookCode`, `authorCode` — optional, comma‑separated codes from `08-registry-authors.csv`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
 
 ### `getPageMetadata(bookCode)`
 
@@ -117,7 +137,7 @@ Dashboard state and rendering moved to `dashboard.js` when the module was split 
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort the book registry by `bookCode` (the tag registry is never rewritten)
+- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort the book registry by `bookCode` (the tag and author registries are never rewritten)
 
 ---
 
@@ -281,9 +301,10 @@ Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (co
 
 The `books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
 
-- **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B` activates tag chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
-- **Flow** — reads params → awaits `loadTagDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
-- **Empty-scope guard** — active tags matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
+- **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B`, `?authors=A,B` (OR — any author of the book) and `?period=N|modern` (death-century bucket) activate chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
+- **Flow** — reads params → awaits `loadTagDefinitions()` + `loadAuthorDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
+- **Authors & Periods browse** — two buttons in the search panel open modals on the unified layer: the authors list (trilingual names + Hijri years + book counts, registry row order) and the period grid (death-century buckets 1st–15th + `modern`, chronological). Selection feeds `computeScope()` alongside tags and renders as accent‑tinted chips in the tags row.
+- **Empty-scope guard** — active tags/authors/period matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
 - **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+B` back are handled by common.js.
 - **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old book-data.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
 
@@ -612,16 +633,17 @@ Recomputes table and spacer widths and scrollbar visibility after column toggles
 
 ## export-epub.js
 
-Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `export-zip.js`, `escapeXML` from `search-utils.js`, and column helpers from `quran-ui.js`.
+Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `export-zip.js`, `escapeXML` from `search-utils.js`, `bookAuthorNames` from `book-data.js`, and column helpers from `quran-ui.js`.
 
 ### `createEPUB(rows, meta, opts)`
 
 Generates a valid EPUB 3 e-book Blob. Each book row becomes a chapter. The Hadithmv font is optionally embedded for offline reading.
 
 - `rows` — 2D array of cell values
-- `meta` — `{bookCode, titleEN, titleDV, titleAR}`
+- `meta` — `{bookCode, authorCode?, titleEN, titleDV, titleAR}`
 - `opts` — `{siteURL, fontData?: Uint8Array}`
 - Returns `Blob` with MIME type `application/epub+zip`
+- `dc:creator` — the book's author(s) via `bookAuthorNames(meta)` (English names, no years); falls back to `Hadithmv` when the book has no author
 
 Structure: `mimetype` (first, uncompressed) · `META-INF/container.xml` · `OEBPS/content.opf` (Dublin Core metadata) · `OEBPS/nav.xhtml` (EPUB 3 TOC) · `OEBPS/cover.xhtml` · `OEBPS/chXXX.xhtml` (one per row) · `OEBPS/styles.css` · `OEBPS/fonts/hadithmv.woff2` (if embedded).
 
@@ -677,14 +699,21 @@ No JSON endpoints. All data is CSV — one source of truth, no duplication. If y
 ```http
 GET data/02-registry-bookMeta.csv
 ```
-Columns: `bookCode,titleAR,titleDV,titleEN,tags`. One row per registered book. The `tags` column holds secondary tag codes (comma‑separated); the primary tag is the first segment of `bookCode`.
+Columns: `bookCode,authorCode,titleAR,titleDV,titleEN,tags,excludeFromIndex,version`. One row per registered book. The `tags` column holds secondary tag codes (comma‑separated); the primary tag is the first segment of `bookCode`. The `authorCode` column holds author codes (comma‑separated) from `08-registry-authors.csv`.
 
 ### Tag definitions
 
 ```http
 GET data/01-registry-bookTags.csv
 ```
-Columns: `code,label`. Colours are auto‑generated client‑side using golden‑ratio HSL — unlimited tags, always distinct.
+Columns: `tagCode,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN`. Colours are auto‑generated client‑side using golden‑ratio HSL — unlimited tags, always distinct.
+
+### Author definitions
+
+```http
+GET data/08-registry-authors.csv
+```
+Columns: `authorCode,nameAR,nameDV,nameEN,bornAH,diedAH`. Hijri years as plain numerals (blank = unknown/living). Row order is the browse list's display order (chronological by death year in the current file).
 
 ### Book content
 

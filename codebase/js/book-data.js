@@ -7,9 +7,11 @@
  */
 
 import { fetchCSVObjects } from "./csv.js";
+import { t, currentLang } from "./i18n.js";
 
 let _bookNamesCache = null;
 let _tagDefinitionsCache = null;
+let _authorDefinitionsCache = null;
 
 // ---------------------------------------------------------------------------
 // Tag definitions — loaded from 01-registry-bookTags.csv
@@ -67,25 +69,25 @@ export async function loadTagDefinitions() {
     // Generate palette CSS with enough slots (tags + headroom)
     var tagCount = 0;
     for (var i = 0; i < result.length; i++) {
-      if (result[i].code) tagCount++;
+      if (result[i].tagCode) tagCount++;
     }
     injectPaletteCSS(Math.max(tagCount + 8, 20));
 
     // Build lookup map — assign each tag its palette slot in file order.
     // The slot IS the display order: chips sort by palette, not by code, so
     // the registry's hand-set row sequence drives every rendered tag row.
-    // Labels are trilingual straight from the registry (code,labelAR,
+    // Labels are trilingual straight from the registry (tagCode,labelAR,
     // labelDV,labelEN) — tagLabel picks the right language at render time.
     _tagDefinitionsCache = {};
     var palIdx = 0;
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
-      if (row.code) {
-        _tagDefinitionsCache[row.code] = {
+      if (row.tagCode) {
+        _tagDefinitionsCache[row.tagCode] = {
           label: {
-            dv: row.labelDV || row.code,
-            en: row.labelEN || row.code,
-            ar: row.labelAR || row.code,
+            dv: row.labelDV || row.tagCode,
+            en: row.labelEN || row.tagCode,
+            ar: row.labelAR || row.tagCode,
           },
           // Extra searchable words per language (comma-separated lists in the
           // registry) — names beyond the label that should still match the code.
@@ -163,6 +165,111 @@ export function tagSearchWords(bookCode, entry) {
     });
   });
   return words.join(" ");
+}
+
+// ---------------------------------------------------------------------------
+// Author definitions — loaded from 08-registry-authors.csv
+// ---------------------------------------------------------------------------
+
+/**
+ * Load author definitions from 08-registry-authors.csv.
+ * Cached after first load; safe to call multiple times.
+ * @returns {Promise<Object>} Map of authorCode → {name: {dv,en,ar}, bornAH, diedAH}
+ */
+export async function loadAuthorDefinitions() {
+  if (_authorDefinitionsCache) {
+    return _authorDefinitionsCache;
+  }
+  try {
+    var result = await fetchCSVObjects("../data/08-registry-authors.csv");
+    _authorDefinitionsCache = {};
+    for (var i = 0; i < result.length; i++) {
+      var row = result[i];
+      if (row.authorCode) {
+        _authorDefinitionsCache[row.authorCode] = {
+          name: {
+            dv: row.nameDV || row.authorCode,
+            en: row.nameEN || row.authorCode,
+            ar: row.nameAR || row.authorCode,
+          },
+          bornAH: row.bornAH || "",
+          diedAH: row.diedAH || "",
+        };
+      }
+    }
+    return _authorDefinitionsCache;
+  } catch (error) {
+    console.error("Error loading 08-registry-authors.csv:", error);
+    _authorDefinitionsCache = {};
+    return _authorDefinitionsCache;
+  }
+}
+
+/** Sync lookup of the loaded author map ({} until loadAuthorDefinitions resolves). */
+export function authorDefs() {
+  return _authorDefinitionsCache || {};
+}
+
+/**
+ * {y}/{b}/{d} template fill for the author year strings — the i18n keys
+ * (authorDied/authorLife) carry the placeholders, filled with plain digits.
+ */
+function _fmtYears(str, map) {
+  return str.replace(/\{(\w+)\}/g, function (_, k) {
+    return map[k] != null ? map[k] : "";
+  });
+}
+
+/** Hijri years text for one author def — "d. 256 AH" / "194–256 AH" / "" (living). */
+export function authorYearsText(def) {
+  if (!def) return "";
+  if (def.bornAH && def.diedAH) return _fmtYears(t("authorLife"), { b: def.bornAH, d: def.diedAH });
+  if (def.diedAH) return _fmtYears(t("authorDied"), { y: def.diedAH });
+  return "";
+}
+
+/**
+ * Author names for portable metadata (EPUB dc:creator): English names only,
+ * no years, comma-joined — a bookshelf listing reads better without them.
+ * "" when the book has no author.
+ */
+export function bookAuthorNames(entry) {
+  var defs = _authorDefinitionsCache || {};
+  var codes = ((entry && entry.authorCode) || "")
+    .split(",")
+    .map(function (s) { return s.trim(); })
+    .filter(Boolean);
+  var names = [];
+  codes.forEach(function (code) {
+    var d = defs[code];
+    if (!d) return;
+    names.push(d.name.en || d.name.ar || d.name.dv || code);
+  });
+  return names.join(", ");
+}
+
+/**
+ * One display line for a book registry entry's authors: the name(s) in the
+ * current language, each with its Hijri years — "al-Bukhari (d. 256 AH)" —
+ * comma-joined for multi-author books. "" when the book has no author.
+ */
+export function bookAuthorLine(entry) {
+  var defs = _authorDefinitionsCache || {};
+  var codes = ((entry && entry.authorCode) || "")
+    .split(",")
+    .map(function (s) { return s.trim(); })
+    .filter(Boolean);
+  if (codes.length === 0) return "";
+  var l = currentLang();
+  var parts = [];
+  codes.forEach(function (code) {
+    var d = defs[code];
+    if (!d) return;
+    var nm = d.name[l] || d.name.en || d.name.ar || code;
+    var yrs = authorYearsText(d);
+    parts.push(yrs ? nm + " (" + yrs + ")" : nm);
+  });
+  return parts.join(", ");
 }
 
 // ---------------------------------------------------------------------------
@@ -274,9 +381,10 @@ export { addPin, removePin, isPinned, addReadHistory, evictCandidateName };
  * @param {Function} callback - Called with metadata object for the selected book
  */
 export async function initializePageWithMetadata(callback) {
-  // Preload tag definitions before any rendering — ensures extractTags()
-  // has data in the book-view path.
+  // Preload tag + author definitions before any rendering — ensures
+  // extractTags() and bookAuthorLine() have data in the book-view path.
   await loadTagDefinitions();
+  await loadAuthorDefinitions();
 
   const urlParams = new URLSearchParams(window.location.search);
   const bookCode = urlParams.get("book");

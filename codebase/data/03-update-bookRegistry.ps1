@@ -6,8 +6,14 @@
 #     Pages actually serves (bare CRs inside quoted fields are data, kept)
 #   - Recomputes each book's version hash from its content CSV
 #   - Sorts alphabetically by bookCode; writes the registry as LF, no BOM
-#   - NEVER touches 01-registry-bookTags.csv — tag order (and the
-#     auto-assigned palette colours, which follow file order) is hand-controlled
+#   - NEVER touches 01-registry-bookTags.csv or 08-registry-authors.csv —
+#     tag row order is the palette slot assignment, author rows are
+#     hand-authored; both stay hand-controlled
+#   - INVARIANT: `version` is ALWAYS the last column. The version swap below
+#     matches a trailing hex field, which is only safe because nothing can
+#     follow it — a quoted cell can't end in a hex match (a closing quote
+#     isn't hex), so the pattern always hits the true version field. New
+#     columns (like authorCode) go BEFORE it; never after.
 
 $csvPath = Join-Path $PSScriptRoot "02-registry-bookMeta.csv"
 $dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
@@ -75,7 +81,7 @@ Get-ChildItem $dataDir -Filter *.csv | Where-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {
         Write-Add "$code"
-        $rows += "$code,,,,,,"  # code + 6 empty fields (titles, tags, excludeFromIndex); the version is swapped in below
+        $rows += "$code,,,,,,,"  # code + 7 empty fields (authorCode, titles, tags, excludeFromIndex); the version is swapped in below
         $added++
     }
 }

@@ -6,7 +6,7 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, bookAuthorLine, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
@@ -24,26 +24,26 @@ initializePageWithMetadata(async function (metadata) {
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
   //   Book loading (standard CSV or Quran merge)           L48-124
-  //   Page header, tag badges, language-aware titles       L127-185
-  //   Persisted settings (LS wrapper, -HDN column init)    L188-234
-  //   Reader state, column toggles, dropdown infrastructure L237-328
-  //   Tashkeel helpers                                     L331-338
-  //   Clipboard formatting (rowText)                       L341-431
-  //   View mode dropdown (card / table / parallel)         L434-482
-  //   Quran helpers                                        L485-489
-  //   Card row renderer (renderRowHTML)                    L492-588
-  //   Parallel row renderer (renderParallelRowHTML)        L591-710
-  //   Chunk + table-row renderers                          L713-775
-  //   Infinite scroll + table scrollbar                    L778-994
-  //   Navigation (goTo, scroll padding)                    L997-1053
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1056-1092
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1095-1282
-  //   Keyboard shortcuts (incl. navigation buttons)        L1285-1392
-  //   Touch swipe                                          L1395-1415
-  //   Settings reset + language change                     L1418-1431
-  //   Quran UI (initQuranUI ctx)                           L1434-1454
-  //   Initial render (deep links, reveal)                  L1457-1538
-  //   Module-level helpers (showError)                     L1541-1547
+  //   Page header, tag badges, language-aware titles       L127-192
+  //   Persisted settings (LS wrapper, -HDN column init)    L195-241
+  //   Reader state, column toggles, dropdown infrastructure L244-335
+  //   Tashkeel helpers                                     L338-345
+  //   Clipboard formatting (rowText)                       L348-438
+  //   View mode dropdown (card / table / parallel)         L441-489
+  //   Quran helpers                                        L492-496
+  //   Card row renderer (renderRowHTML)                    L499-595
+  //   Parallel row renderer (renderParallelRowHTML)        L598-717
+  //   Chunk + table-row renderers                          L720-782
+  //   Infinite scroll + table scrollbar                    L785-1001
+  //   Navigation (goTo, scroll padding)                    L1004-1060
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1063-1099
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1102-1289
+  //   Keyboard shortcuts (incl. navigation buttons)        L1292-1399
+  //   Touch swipe                                          L1402-1422
+  //   Settings reset + language change                     L1425-1438
+  //   Quran UI (initQuranUI ctx)                           L1441-1461
+  //   Initial render (deep links, reveal)                  L1464-1545
+  //   Module-level helpers (showError)                     L1548-1554
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -148,6 +148,13 @@ initializePageWithMetadata(async function (metadata) {
         var pageTitle = document.getElementById("pageTitle");
         var pageSubtitle = document.getElementById("readerPageSubtitle");
         var pageSubRow = document.getElementById("readerPageSubRow");
+        var pageAuthor = document.getElementById("readerPageAuthor");
+        // "by al-Bukhari (d. 256 AH)" — empty (no author) hides the span
+        var authorLine = bookAuthorLine(metadata);
+        if (pageAuthor) {
+          pageAuthor.textContent = authorLine ? t("authorBy") + " " + authorLine : "";
+          pageAuthor.style.display = authorLine ? "" : "none";
+        }
 
         if (lang === "en") {
           pageTitle.textContent = metadata.titleEN || metadata.bookCode;

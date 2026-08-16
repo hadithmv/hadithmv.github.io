@@ -15,7 +15,14 @@ import {
   removeSearchHistoryItem,
   clearSearchHistory,
 } from "./search-utils.js";
-import { loadTagDefinitions, loadBookRegistry, extractTags, tagSearchWords } from "./book-data.js";
+import {
+  loadTagDefinitions,
+  loadAuthorDefinitions,
+  bookAuthorLine,
+  loadBookRegistry,
+  extractTags,
+  tagSearchWords,
+} from "./book-data.js";
 import {
   isPinned,
   getPinnedBooks,
@@ -44,9 +51,10 @@ export async function initializeDashboard() {
     return;
   }
 
-  // Preload tag definitions before any rendering — ensures extractTags()
-  // has data in the dashboard path.
+  // Preload tag + author definitions before any rendering — ensures
+  // extractTags() and bookAuthorLine() have data in the dashboard path.
   await loadTagDefinitions();
+  await loadAuthorDefinitions();
 
   // Read ?tags= from URL for pre-filtered dashboard links
   const urlTags = urlParams.get("tags");
@@ -449,6 +457,7 @@ function renderDashboard(bookNames) {
                 .join("") +
               "</div>"
             : "";
+        var authorLine = bookAuthorLine(book);
         return (
           '<a href="reader.html?book=' +
           book.bookCode +
@@ -465,6 +474,7 @@ function renderDashboard(bookNames) {
           '<div class="title-en">' +
           (book.titleEN || book.bookCode) +
           "</div>" +
+          (authorLine ? '<div class="card-author">' + authorLine + "</div>" : "") +
           "</a>"
         );
       })

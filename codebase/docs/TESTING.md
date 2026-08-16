@@ -5,7 +5,10 @@ The battery lives at `../tools/hmv-qrn-smoke.mjs` (run `node tools/hmv-qrn-smoke
 from the codebase root; paths resolve relative to the script, and
 `HMV_SMOKE_PORT` / `HMV_SMOKE_PROFILE` env vars override the defaults). The
 TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
-(`node tools/hmv-toc-scan.cjs`). The column-label coverage scan lives at
+(`node tools/hmv-toc-scan.cjs`). The Authors & Periods browse battery lives at
+`../tools/hmv-authors-check.mjs` (`node tools/hmv-authors-check.mjs`;
+`HMV_AUTHORS_PORT` / `HMV_AUTHORS_PROFILE` env vars override the defaults).
+The column-label coverage scan lives at
 `../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
 every `data/content/*.csv` header and diffs it against the token tables in
 `js/column-tokens.js` (the same tables `js/column-labels.js` uses to derive
@@ -168,16 +171,22 @@ blaming the product.
   — content was byte-identical; close the old tab in the editor).
 - **Registry regeneration must be idempotent.** `data/03-update-bookRegistry.ps1`
   rewrites only the book registry on every run (recomputes version hashes). It
-  never rewrites `01-registry-bookTags.csv` — tag row order is the palette slot
-  assignment for the auto-generated colours, so it is hand-controlled (since
-  2026-08-14; before that every run re-sorted tags, shifting colours). After any
-  change to the script, run it twice and compare hashes — a byte-stable second
-  run proves idempotency. The version swap replaces only the trailing 12-hex
-  token on the raw row; never split quoted fields — a split mangles quoted
-  comma-bearing cells (a quoted titleEN `, with` lost its space) and an
-  uppercase-versions run forced a one-time cache re-download for every visitor
-  (versions compare case-sensitively at csv.js:163). The editor re-saves 02 as
-  LF over script output — check file mtimes before trusting a "before" hash.
+  never rewrites `01-registry-bookTags.csv` or `08-registry-authors.csv` — tag
+  row order is the palette slot assignment for the auto-generated colours, and
+  author row order is the Authors browse list's display order, so both are
+  hand-controlled (tags since 2026-08-14; before that every run re-sorted tags,
+  shifting colours). After any change to the script, run it twice and compare
+  hashes — a byte-stable second run proves idempotency. **Invariant:** `version`
+  is ALWAYS the last column of 02 — the version swap matches a trailing hex
+  field, which is only safe because nothing can follow it (a quoted cell can't
+  end in a hex match). New columns (like `authorCode`, which sits immediately
+  after `bookCode`) go BEFORE it; never after. The version swap replaces only
+  the trailing 12-hex token on the raw row; never split quoted fields — a split
+  mangles quoted comma-bearing cells (a quoted titleEN `, with` lost its space)
+  and an uppercase-versions run forced a one-time cache re-download for every
+  visitor (versions compare case-sensitively at csv.js:163). The editor re-saves
+  02 as LF over script output — check file mtimes before trusting a "before"
+  hash.
   The script's `$virtualBooks` list (RDF-all today) exempts virtual books
   from the missing-file warning — keep it in sync with radheef-merge.js's
   `MERGED_SOURCES` (add/remove a book in both, or 03 will warn on the merged
@@ -185,13 +194,29 @@ blaming the product.
   contract).
 - **`01-registry-bookTags.csv` has no comment syntax.** Blank lines are
   dropped by `parseCSV` (csv.js) and consume no palette slot — slots count
-  only code-bearing rows (`if (row.code)` in book-data.js), so blank-line
+  only code-bearing rows (`if (row.tagCode)` in book-data.js), so blank-line
   grouping never shifts colours. A `#` comment line (or any non-tag text on
   its own line) parses as a phantom tag with a truthy code: it eats a palette
   slot and silently recolours every tag after it. Never add one — verify
   unexpected colour changes against a git diff of this file first (seen
   2026-08-14 when the tag sort was removed: the file's order became the
   palette's order).
+- **`08-registry-authors.csv` follows the same rules.** No comment syntax, no
+  trailing newline; blank `bornAH`/`diedAH` cells mean unknown/living (the
+  author lands in the `modern` period bucket). An author code referenced from
+  02 but missing from 08 renders no author line (bookAuthorLine skips
+  unresolvable codes) — the Authors browse modal only lists authors with ≥1
+  book, so a dangling code shows up as a silent gap, not an error. The period
+  facet is derived client-side (`Math.ceil(diedAH/100)`) — never store the
+  century in the CSV, or the two can drift.
+- **Batteries must resolve 02 columns by header name, not position.** 02's
+  layout is free to grow between `bookCode` and `version` (the version-last
+  invariant), so a positional read of `02-registry-bookMeta.csv` in a tool
+  (e.g. `rows02[r][2]` for titleDV) silently returns the wrong column after
+  an insertion (seen 2026-08-16: the `authorCode` insert made a smoke-battery
+  expected-title check read titleAR as titleDV — the page rendered correctly,
+  the battery was wrong). Derive `header.indexOf("titleDV")` once and index
+  with it.
 - **`core.autocrlf` hides CRLF-tainted data files from git.** With
   `core.autocrlf=true` (this repo), git normalizes CRLF→LF before hashing, so
   a working file whose line endings were CRLF-ized (Windows editor re-save)

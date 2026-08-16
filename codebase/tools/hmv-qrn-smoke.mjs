@@ -66,8 +66,11 @@ const expLabels = base06.filter(function (r) {
   return !(r[0] === "QRN-BASE-STRUCT" && parseInt(r[1], 10) < 3);
 }).map(function (r) { return r[2]; });
 const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
-rows02.shift();
-const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-ayahImlai"; }) || [])[2] || "";
+const rows02Header = rows02.shift();
+// Column resolved by header name, not position — 02's layout may grow
+// (authorCode sits after bookCode; version is always last).
+const EXP_TITLE_DV_COL = rows02Header.indexOf("titleDV");
+const EXP_TITLE_DV = (rows02.find(function (r) { return r[0] === "QRN-DATA-ayahImlai"; }) || [])[EXP_TITLE_DV_COL] || "";
 
 async function main() {
   fs.rmSync(PROFILE, { recursive: true, force: true });

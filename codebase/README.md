@@ -6,13 +6,14 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/
-  01-registry-bookTags.csv      ← Tag definitions (code, label, colors)
-  02-registry-bookMeta.csv     ← Book registry (code, titles in AR/DV/EN, secondary tags, version hash)
+  01-registry-bookTags.csv      ← Tag definitions (tagCode, trilingual labels, aliases, colors)
+  02-registry-bookMeta.csv     ← Book registry (bookCode, authorCode, titles in AR/DV/EN, secondary tags, version hash)
   03-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
   04-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
   05-registry-quranJuz.csv      ← 30 juz cut points (startSurah, startAyah)
   06-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
   07-rebuild-searchIndex.mjs    ← Node script: builds search-index.json (rerun after book changes)
+  08-registry-authors.csv       ← Author definitions (authorCode, trilingual names, Hijri birth/death years)
   search-index.json             ← Generated word-level search index (word → books → rows)
   content/                      ← Per-book content files (incl. Quran base data)
     *.csv                       ← One file per book
@@ -56,11 +57,11 @@ docs/                           ← User guide, architecture, API reference
 
 ### Add a new book
 
-1. Add a row to `data/02-registry-bookMeta.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`:
+1. Add a row to `data/02-registry-bookMeta.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`; `authorCode` is optional (one or more comma‑separated codes from `08-registry-authors.csv`):
 
    ```csv
-   bookCode,titleAR,titleDV,titleEN,tags
-   FQH-usululFiqh,أصول الفقه,އުޞޫލުލް ފިޤްހު,Usul ul-Fiqh,HDT
+   bookCode,authorCode,titleAR,titleDV,titleEN,tags
+   FQH-usululFiqh,ibn-rajab,أصول الفقه,އުޞޫލުލް ފިޤްހު,Usul ul-Fiqh,HDT
    ```
 
 1. Create the data file at `data/content/FQH-usululFiqh.csv`.
@@ -72,7 +73,7 @@ docs/                           ← User guide, architecture, API reference
 Add a row to `data/01-registry-bookTags.csv` — the label is trilingual, straight in the file:
 
 ```csv
-code,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN
+tagCode,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN
 FQH,فقه,ފިގުހު,Fiqh,,,
 ```
 
@@ -107,7 +108,7 @@ Note the first row's `bodyAR` cell spans two lines — quoted cells may contain 
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `book-data.js` loads `02-registry-bookMeta.csv` and `01-registry-bookTags.csv` for metadata and badges.
+1. `book-data.js` loads `02-registry-bookMeta.csv`, `01-registry-bookTags.csv` and `08-registry-authors.csv` for metadata, badges and author lines.
 1. `reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 

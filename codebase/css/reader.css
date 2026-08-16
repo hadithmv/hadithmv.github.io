@@ -201,6 +201,16 @@
 #readerPageSubRow #readerPageTags {
   margin-top: 0;
 }
+#readerPageAuthor {
+  color: var(--color-text-muted);
+  font-size: var(--fs-muted, 0.9rem);
+  direction: auto; /* names may be Arabic/Thaana/latin */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* Start-side inset for clipped Thaana overhang (see ARCHITECTURE.md "Font") */
+  padding-inline-start: 8px;
+}
 
 /* ---- Reader toolbar ---- */
 .reader-toolbar {

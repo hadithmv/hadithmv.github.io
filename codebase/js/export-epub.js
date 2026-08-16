@@ -12,13 +12,14 @@
 import { zipStore } from "./export-zip.js";
 import { escapeXML as xmlEsc } from "./search-utils.js";
 import { isFootnoteColumn, isArDvTransition, isMatnSharhTransition } from "./quran-ui.js";
+import { bookAuthorNames } from "./book-data.js";
 
 var enc = new TextEncoder();
 
 /**
  * Create an EPUB 3 e-book Blob.
  * @param {Array<Array<*>>} rows      — 2D array of cell values (null/undefined → empty)
- * @param {{bookCode,titleEN,titleDV,titleAR}} meta — book metadata
+ * @param {{bookCode,titleEN,titleDV,titleAR,authorCode}} meta — book metadata
  * @param {{siteURL,fontData?:Uint8Array,headerRow?:Array<string>}} opts
  * @returns {Blob}  application/epub+zip
  */
@@ -138,11 +139,14 @@ export function createEPUB(rows, meta, opts) {
     manifestItems += '<item id="font" href="fonts/hadithmv.woff2" media-type="font/woff2"/>';
   }
 
+  // Creator = the book's author(s) (English names, no years — portable),
+  // falling back to the brand for unattributed books.
+  var creator = bookAuthorNames(meta) || "Hadithmv";
   var opf = '<?xml version="1.0" encoding="UTF-8"?>'
     + '<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="book-id" version="3.0">'
     + '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
     + '<dc:title>' + xmlEsc(bookTitle) + '</dc:title>'
-    + '<dc:creator>Hadithmv</dc:creator>'
+    + '<dc:creator>' + xmlEsc(creator) + '</dc:creator>'
     + '<dc:language>' + lang + '</dc:language>'
     + '<dc:identifier id="book-id">' + xmlEsc(uniqueId) + '</dc:identifier>'
     + '<dc:date>' + nowISO + '</dc:date>'
