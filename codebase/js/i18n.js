@@ -351,7 +351,7 @@ const STRINGS = {
     en: 'Pins are full — If you pin, the oldest pin "{name}" will be replaced.',
     ar: 'التثبيتات ممتلئة — إذا قمت بالتثبيت، سيتم استبدال أقدم تثبيت "{name}".',
   },
-  confirmPinReplaceBtn: { dv: "ބަދަލުކުރަން", en: "Replace", ar: "استبدال" },
+  confirmPinReplaceBtn: { dv: "ޕިންކުރޭ", en: "Pin it", ar: "ثبتها" },
   toastUnpinned: {
     dv: "ފޮހެވިއްޖެ",
     en: "Removed",
