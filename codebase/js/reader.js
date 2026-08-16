@@ -34,16 +34,16 @@ initializePageWithMetadata(async function (metadata) {
   //   Card row renderer (renderRowHTML)                    L492-588
   //   Parallel row renderer (renderParallelRowHTML)        L591-710
   //   Chunk + table-row renderers                          L713-775
-  //   Infinite scroll + table scrollbar                    L778-982
-  //   Navigation (goTo, scroll padding)                    L985-1041
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1044-1080
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1083-1262
-  //   Keyboard shortcuts (incl. navigation buttons)        L1265-1372
-  //   Touch swipe                                          L1375-1395
-  //   Settings reset + language change                     L1398-1411
-  //   Quran UI (initQuranUI ctx)                           L1414-1434
-  //   Initial render (deep links, reveal)                  L1437-1518
-  //   Module-level helpers (showError)                     L1521-1527
+  //   Infinite scroll + table scrollbar                    L778-994
+  //   Navigation (goTo, scroll padding)                    L997-1053
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1056-1092
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1095-1282
+  //   Keyboard shortcuts (incl. navigation buttons)        L1285-1392
+  //   Touch swipe                                          L1395-1415
+  //   Settings reset + language change                     L1418-1431
+  //   Quran UI (initQuranUI ctx)                           L1434-1454
+  //   Initial render (deep links, reveal)                  L1457-1538
+  //   Module-level helpers (showError)                     L1541-1547
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -925,7 +925,13 @@ initializePageWithMetadata(async function (metadata) {
       // row (the height change moves the content under the fixed viewport
       // by the total shrink/grow of everything above it), which would
       // anchor the rebuild a few pages off.
-      function rebuildAll(vRow) {
+      // anchorPos ({scrollY, rowTop}, captured the same way) preserves the
+      // row's on-screen position exactly: dest = newTop + (oldScrollY −
+      // oldTop), so the reading spot does not move at all and the strip's
+      // centre-row read is unchanged. Without it the row is centre-anchored,
+      // which relocates the user's reading spot to the viewport middle —
+      // felt as "ends up a little higher/lower" after a toggle.
+      function rebuildAll(vRow, anchorPos) {
         if (filteredData.length === 0) {
           readerContent.innerHTML = "";
           loadedStart = loadedEnd = -1;
@@ -950,15 +956,21 @@ initializePageWithMetadata(async function (metadata) {
         try {
           var el = readerContent.querySelector('.reader-chunk[data-row="' + vRow + '"]');
           if (el) {
-            // Anchor the row's CENTRE to the viewport centre — the same
-            // definition visiblePageIndex / the page strip use for "current
-            // row" — so the strip shows the same page before and after the
-            // rebuild even when row heights change (tashkeel re-renders do).
+            var rect = el.getBoundingClientRect();
+            var dest;
+            if (anchorPos) {
+              // Preserve the pre-rebuild reading spot (tashkeel toggle,
+              // settings reset): the row's offset from the viewport top stays
+              // the same, so the text the user was reading doesn't move.
+              dest = rect.top + (anchorPos.scrollY - anchorPos.rowTop);
+            } else {
+              // Centre-anchor — the same definition visiblePageIndex / the
+              // page strip use for "current row", so the strip shows the
+              // same page before and after the rebuild.
+              dest = rect.top + rect.height / 2 + window.scrollY - window.innerHeight / 2;
+            }
             // Record it as a programmatic jump: the anchor's own scroll event
             // is muted, so the rebuild can never read as reading to the end.
-            var dest = el.getBoundingClientRect().top +
-              el.getBoundingClientRect().height / 2 +
-              window.scrollY - window.innerHeight / 2;
             var maxS = document.documentElement.scrollHeight - window.innerHeight;
             if (dest < 0) dest = 0;
             else if (dest > maxS) dest = maxS;
@@ -1083,9 +1095,13 @@ initializePageWithMetadata(async function (metadata) {
       // #region Toolbar (tashkeel, share, pin, copy, focus, export, reset)
       // ── Toolbar: tashkeel toggle ────────────────────────────
       btnTashkeel.addEventListener("click", function () {
-        // Capture the row BEFORE the class toggle — see rebuildAll's note
-        // on the passed-in vRow.
+        // Capture the row + its on-screen position BEFORE the class toggle —
+        // see rebuildAll's note on the passed-in vRow / anchorPos. The rect
+        // is read from the settled layout here; read after the toggle it
+        // would describe the moved content.
         var vRow = visiblePageIndex();
+        var vRowEl = readerContent.querySelector('.reader-chunk[data-row="' + vRow + '"]');
+        var anchorPos = vRowEl ? { scrollY: window.scrollY, rowTop: vRowEl.getBoundingClientRect().top } : null;
         hideTashkeel = !hideTashkeel;
         STATE.hideTashkeel = hideTashkeel; // aliases are read-only views — write back
         LS.set(window.LS_KEYS.readerHideTashkeel, hideTashkeel);
@@ -1096,8 +1112,9 @@ initializePageWithMetadata(async function (metadata) {
           readerContent.classList.remove("hide-tashkeel");
           btnTashkeel.classList.remove("active");
         }
-        // Re-render to apply/remove markup
-        if (filteredData.length > 0) rebuildAll(vRow);
+        // Re-render to apply/remove markup — the rebuild restores the reading
+        // spot exactly (the row stays where it was on screen).
+        if (filteredData.length > 0) rebuildAll(vRow, anchorPos);
       });
 
       // ── Toolbar: share ─────────────────────────────────────
@@ -1215,9 +1232,12 @@ initializePageWithMetadata(async function (metadata) {
       // settings-modal "Reset settings" (dispatches the readerReset event).
       function resetReaderDefaults() {
         // The resets below (tashkeel class, view mode) resize the existing
-        // rows BEFORE the rebuild — capture the current row first (see
-        // rebuildAll's note on the passed-in vRow).
+        // rows BEFORE the rebuild — capture the current row + its on-screen
+        // position first (see rebuildAll's note on the passed-in vRow /
+        // anchorPos).
         var vRow = visiblePageIndex();
+        var vRowEl = readerContent.querySelector('.reader-chunk[data-row="' + vRow + '"]');
+        var anchorPos = vRowEl ? { scrollY: window.scrollY, rowTop: vRowEl.getBoundingClientRect().top } : null;
         // Clear search
         searchInput.value = "";
         applySearch("");
@@ -1251,7 +1271,7 @@ initializePageWithMetadata(async function (metadata) {
         }
         // Exit focus mode
         window.setFocus(false);
-        rebuildAll(vRow);
+        rebuildAll(vRow, anchorPos);
       }
 
       btnResetReader.addEventListener("click", function () {
