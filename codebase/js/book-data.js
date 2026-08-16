@@ -257,10 +257,10 @@ export function getCsvPath(bookCode) {
   return `../data/content/${bookCode}.csv`;
 }
 
-import { addPin, removePin, isPinned, addReadHistory } from "./pins-history.js";
+import { addPin, removePin, isPinned, addReadHistory, evictCandidateName } from "./pins-history.js";
 
 // Re-export for reader.js
-export { addPin, removePin, isPinned, addReadHistory };
+export { addPin, removePin, isPinned, addReadHistory, evictCandidateName };
 
 // ---------------------------------------------------------------------------
 // Page initialisation (book path — dashboard init lives in dashboard.js)

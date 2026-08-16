@@ -572,13 +572,19 @@ window.createModal = function (id, titleId, bodyId, extraClass) {
 };
 
 // Reusable confirm dialog on the unified modal layer.
-// Title/message/confirm-button come from i18n keys; onConfirm runs only
-// when the user presses the confirm button (Escape / backdrop / Cancel = no).
-window.confirmModal = function (titleKey, messageKey, confirmKey, onConfirm) {
+// Title/message/confirm-button come from i18n keys; params (optional)
+// substitutes {k} placeholders in the message (same syntax as fillTemplate);
+// onConfirm runs only when the user presses the confirm button
+// (Escape / backdrop / Cancel = no).
+window.confirmModal = function (titleKey, messageKey, confirmKey, onConfirm, params) {
   var overlay = window.createModal("confirmOverlay", "confirmModalTitle", "confirmModalBody", "confirm-modal");
   document.getElementById("confirmModalTitle").textContent = t(titleKey);
+  var msg = t(messageKey);
+  if (params) {
+    for (var k in params) msg = msg.replace("{" + k + "}", params[k]);
+  }
   document.getElementById("confirmModalBody").innerHTML =
-    '<p class="confirm-message">' + t(messageKey) + "</p>" +
+    '<p class="confirm-message">' + msg + "</p>" +
     '<div class="confirm-actions">' +
       '<button type="button" class="confirm-btn confirm-cancel" id="confirmCancel">' + t("confirmCancel") + "</button>" +
       '<button type="button" class="confirm-btn confirm-yes" id="confirmYes">' + t(confirmKey) + "</button>" +

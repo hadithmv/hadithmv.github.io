@@ -226,7 +226,7 @@ const STRINGS = {
     ar: "…ابحث عن كتاب",
   },
   dashboardSortAZ: { dv: "އ ← ޒ", en: "A → Z", ar: "أ ← ز " },
-  dashboardSortZA: { dv: "ޔ → އ", en: "Z ← A", ar: "ي → أ" },
+  dashboardSortZA: { dv: "ޒ → އ", en: "Z ← A", ar: "ز → أ" },
   dashboardBooksLabel: { dv: "ފޮތްތައް:", en: "Books:", ar: "الكتب:" },
   tagsLabel: { dv: "ޓެގުތައް:", en: "Tags:", ar: "الوسوم:" },
   tagsShowMore: {
@@ -343,6 +343,15 @@ const STRINGS = {
     en: "Pins full, oldest pin removed",
     ar: "التثبيتات ممتلئة، وتمت إزالة أقدم تثبيت",
   },
+  // Pins are full and pinning would evict the oldest pin — the reader asks
+  // first, naming the pin that would be dropped ({name} via confirmModal's
+  // params substitution, same syntax as fillTemplate).
+  confirmPinReplace: {
+    dv: 'ޕިންތައް ފުރިއްޖެ — ޕިންކުރާ ނަމަ، އެންމެ ކުރީގެ ޕިން "{name}" ގެއްލޭނެ.',
+    en: 'Pins are full — If you pin, the oldest pin "{name}" will be replaced.',
+    ar: 'التثبيتات ممتلئة — إذا قمت بالتثبيت، سيتم استبدال أقدم تثبيت "{name}".',
+  },
+  confirmPinReplaceBtn: { dv: "ބަދަލުކުރަން", en: "Replace", ar: "استبدال" },
   toastUnpinned: {
     dv: "ފޮހެވިއްޖެ",
     en: "Removed",

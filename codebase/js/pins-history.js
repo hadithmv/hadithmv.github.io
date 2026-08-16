@@ -51,6 +51,14 @@ export function addPin(bookCode, row, label) {
 export function removePin(bookCode) {
   setPinnedBooks(getPinnedBooks().filter(function (p) { return p.bookCode !== bookCode; }));
 }
+// Name of the pin that a new pin would evict right now (null when the list
+// isn't full) — lets a caller ask "will this replace something?" before
+// committing, e.g. for the reader's confirmation prompt.
+export function evictCandidateName() {
+  var pins = getPinnedBooks();
+  if (pins.length < MAX_PINS) return null;
+  return bookDisplayName(pins[pins.length - 1].bookCode);
+}
 export function movePin(bookCode, dir) {
   var pins = getPinnedBooks();
   var idx = pins.findIndex(function (p) { return p.bookCode === bookCode; });

@@ -6,7 +6,7 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, getBookTitleSync } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
@@ -37,13 +37,13 @@ initializePageWithMetadata(async function (metadata) {
   //   Infinite scroll + table scrollbar                    L778-923
   //   Navigation (goTo, scroll padding)                    L926-974
   //   Search UI (wiring — search-window.js + reader-search-ui.js) L977-1013
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1016-1176
-  //   Keyboard shortcuts (incl. navigation buttons)        L1179-1286
-  //   Touch swipe                                          L1289-1309
-  //   Settings reset + language change                     L1312-1325
-  //   Quran UI (initQuranUI ctx)                           L1328-1348
-  //   Initial render (deep links, reveal)                  L1351-1432
-  //   Module-level helpers (showError)                     L1435-1441
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1016-1188
+  //   Keyboard shortcuts (incl. navigation buttons)        L1191-1298
+  //   Touch swipe                                          L1301-1321
+  //   Settings reset + language change                     L1324-1337
+  //   Quran UI (initQuranUI ctx)                           L1340-1360
+  //   Initial render (deep links, reveal)                  L1363-1444
+  //   Module-level helpers (showError)                     L1447-1453
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -1076,12 +1076,24 @@ initializePageWithMetadata(async function (metadata) {
         if (isPinned(metadata.bookCode)) {
           removePin(metadata.bookCode);
           showToast(t("toastUnpinned"));
-        } else {
-          // addPin returns the evicted pin's display name when the list was
-          // full and the oldest pin was dropped to make room — tell the user.
-          var evicted = addPin(metadata.bookCode, absRow, pinLabel(absRow));
-          showToast(evicted ? evicted + " — " + t("toastPinReplaced") : t("toastPinned"));
+          updateBookmarkButton();
+          return;
         }
+        // Pins full? The oldest pin would be evicted to make room — confirm
+        // first, naming the pin that would be dropped. Only the explicit pin
+        // action can evict; the reader's auto-update path updates an existing
+        // pin in place and never prompts.
+        var victim = evictCandidateName();
+        if (victim) {
+          window.confirmModal("dashboardPinsBtn", "confirmPinReplace", "confirmPinReplaceBtn", function () {
+            addPin(metadata.bookCode, absRow, pinLabel(absRow));
+            showToast(t("toastPinned"));
+            updateBookmarkButton();
+          }, { name: victim });
+          return;
+        }
+        addPin(metadata.bookCode, absRow, pinLabel(absRow));
+        showToast(t("toastPinned"));
         updateBookmarkButton();
       });
 
