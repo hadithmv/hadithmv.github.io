@@ -208,20 +208,18 @@ window.initTagsCollapse = function (collapseId, toggleId) {
     var tagLabel = collapse.querySelector(".tags-label");
     if (tagLabel && toggle.parentElement !== collapse)
       collapse.insertBefore(toggle, tagLabel);
-    // The overflow check only works while clamped — measure collapsed, then
-    // restore whatever state the user had. The max-height transition must be
-    // off during the measurement: the instant .expanded comes off,
-    // clientHeight still reads the mid-animation value (~400px), so a row
-    // that genuinely overflows reads as "fits" and the toggle disappears —
-    // and stays gone while the panel stays expanded.
-    var wasExpanded = collapse.classList.contains("expanded");
-    collapse.style.transition = "none";
-    collapse.classList.remove("expanded");
-    var overflows = collapse.scrollHeight > collapse.clientHeight;
-    if (wasExpanded) collapse.classList.add("expanded");
-    collapse.style.transition = "";
+    // Overflow = the chips' content height exceeds one row. scrollHeight is
+    // the full content height whether the box is clamped or expanded (it
+    // includes the clipped rows), so this needs no class dance — measuring
+    // never touches max-height, so no transition can kick in, and the read
+    // can't race an animation. (The old dance — remove .expanded, read
+    // clientHeight, restore — misjudged mid-transition AND its snap to the
+    // clamped height made the engine animate the panel on every re-render.)
+    var chip = collapse.querySelector(".tag-chip");
+    var oneRow = chip ? chip.offsetHeight : 0;
+    var overflows = oneRow > 0 && collapse.scrollHeight > oneRow + 2;
     toggle.style.display = overflows ? "" : "none";
-    toggle.classList.toggle("expanded", overflows && wasExpanded);
+    toggle.classList.toggle("expanded", overflows && collapse.classList.contains("expanded"));
     syncLabel();
   }
 
