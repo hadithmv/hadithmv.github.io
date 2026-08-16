@@ -117,14 +117,19 @@ export function openPinsModal() {
   if (pins.length === 0) {
     body.innerHTML = '<div class="dd-empty">' + t("pinsEmpty") + '</div>';
   } else {
-    var html = '<table class="dd-table">';
+    // The header bar is its own table outside the scroll wrapper — the
+    // scrollbar then spans the rows only (never the thead), and the header
+    // stays put without any sticky tricks. The clear-all button sits outside
+    // too, pinned under the list.
+    var html = '<div class="dd-header"><table class="dd-table">';
     html += '<thead><tr>';
     html += '<th class="dd-col-idx">' + t("ddColIdx") + '</th>';
     html += '<th class="dd-col-sort">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColSortShort" : "ddColSort") + '</th>';
     html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
     html += '<th class="dd-col-page">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColPageShort" : "ddColPage") + '</th>';
     html += '<th class="dd-col-remove">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColRemoveShort" : "ddColRemove") + '</th>';
-    html += '</tr></thead><tbody>';
+    html += '</tr></thead></table></div>';
+    html += '<div class="dd-scroll"><table class="dd-table"><tbody>';
     for (var i = 0; i < pins.length; i++) {
       var p = pins[i];
       var name = bookDisplayName(p.bookCode);
@@ -139,7 +144,7 @@ export function openPinsModal() {
       html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';
       html += '</tr>';
     }
-    html += '</tbody></table><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
+    html += '</tbody></table></div><button class="dd-clear-all" id="pinsClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
     document.getElementById("pinsClearAll").addEventListener("click", function () {
       window.confirmModal("dashboardPinsBtn", "confirmAreYouSure", "dashboardClearAll", function () {
@@ -150,7 +155,20 @@ export function openPinsModal() {
   }
   window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();
+  _syncHeaderGutter(body);
 };
+
+function _syncHeaderGutter(body) {
+  // The rows table's wrapper consumes scrollbar width, so the rows table is
+  // narrower than the header table and its columns drift out of line. Mirror
+  // the consumed width (offsetWidth − clientWidth) onto the header div —
+  // zero when the list fits, i.e. no scrollbar, nothing to compensate.
+  var sc = body.querySelector(".dd-scroll");
+  var header = body.querySelector(".dd-header");
+  if (!sc || !header) return;
+  var sb = sc.offsetWidth - sc.clientWidth;
+  header.style.paddingInlineEnd = (sb > 0 ? sb : 0) + "px";
+}
 
 export function openHistoryModal() {
   _ensureModal();
@@ -161,13 +179,14 @@ export function openHistoryModal() {
   if (history.length === 0) {
     body.innerHTML = '<div class="dd-empty">' + t("historyEmpty") + '</div>';
   } else {
-    var html = '<table class="dd-table">';
+    var html = '<div class="dd-header"><table class="dd-table">';
     html += '<thead><tr>';
     html += '<th class="dd-col-book">' + t("ddColBook") + '</th>';
     html += '<th class="dd-col-page">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColPageShort" : "ddColPage") + '</th>';
     html += '<th class="dd-col-time">' + t("ddColTime") + '</th>';
     html += '<th class="dd-col-remove">' + t(window.matchMedia("(max-width: 600px)").matches ? "ddColRemoveShort" : "ddColRemove") + '</th>';
-    html += '</tr></thead><tbody>';
+    html += '</tr></thead></table></div>';
+    html += '<div class="dd-scroll"><table class="dd-table"><tbody>';
     for (var i = 0; i < history.length; i++) {
       var entry = history[i];
       var name = bookDisplayName(entry.bookCode);
@@ -178,7 +197,7 @@ export function openHistoryModal() {
       html += '<td class="dd-col-remove"><span class="chip-x" data-action="remove" title="Remove">✕</span></td>';
       html += '</tr>';
     }
-    html += '</tbody></table><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
+    html += '</tbody></table></div><button class="dd-clear-all" id="historyClearAll">' + t("dashboardClearAll") + '</button>';
     body.innerHTML = html;
     document.getElementById("historyClearAll").addEventListener("click", function () {
       window.confirmModal("dashboardHistoryBtn", "confirmAreYouSure", "dashboardClearAll", function () {
@@ -189,6 +208,7 @@ export function openHistoryModal() {
   }
   window.openModal("pinsHistoryModalOverlay");
   _wirePinsHistoryModal();
+  _syncHeaderGutter(body);
 };
 
 // Also expose on window for legacy callers (sidebar links, dashboard buttons)

@@ -1532,9 +1532,31 @@ body {
   overflow: hidden;
 }
 .pins-history-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+/* The rows scroll in their own wrapper; the header bar and the clear-all
+   button live outside it (pins-history.js builds the header as its own
+   table above this wrapper) — so the scrollbar spans the rows only, never
+   the thead, and the header stays put without any sticky tricks. */
+.pins-history-body .dd-header {
+  flex: 0 0 auto;
+}
+.pins-history-body .dd-scroll {
   overflow-y: auto;
   flex: 1;
   min-height: 0;
+  overscroll-behavior: contain;
+}
+/* border-spacing adds 2px above the first row; pulling the body table up
+   keeps that invisible spacing clipped inside the wrapper, so the first row
+   sits flush with the scrollport top and the gap to the header bar is the
+   header table's own 2px bottom spacing. */
+.pins-history-body .dd-scroll .dd-table {
+  margin-top: -2px;
 }
 .pins-history-body .dd-table {
   width: 100%;
@@ -1544,13 +1566,22 @@ body {
   border-spacing: 0 2px;
   table-layout: fixed;
 }
-.pins-history-body[data-mode="pins"] .dd-table th:nth-child(1) { width: 36px; }
-.pins-history-body[data-mode="pins"] .dd-table th:nth-child(2) { width: 80px; }
-.pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 84px; }
-.pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 84px; }
-.pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 84px; }
-.pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 88px; }
-.pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 84px; }
+/* Widths apply to both tables (header table: th, rows table: td) — they
+   must share the column layout exactly or the bars drift apart. */
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(1),
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(1) { width: 36px; }
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(2),
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(2) { width: 80px; }
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(4),
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(4) { width: 84px; }
+.pins-history-body[data-mode="pins"] .dd-table th:nth-child(5),
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(5) { width: 84px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(2),
+.pins-history-body[data-mode="history"] .dd-table td:nth-child(2) { width: 84px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(3),
+.pins-history-body[data-mode="history"] .dd-table td:nth-child(3) { width: 88px; }
+.pins-history-body[data-mode="history"] .dd-table th:nth-child(4),
+.pins-history-body[data-mode="history"] .dd-table td:nth-child(4) { width: 84px; }
 .pins-history-body .dd-table th {
   padding: 8px 10px;
   font-size: var(--fs-aux, 0.8rem);
@@ -1633,6 +1664,7 @@ body {
 .dd-clear-all {
   display: block;
   width: 100%;
+  flex: 0 0 auto; /* pinned under the list (the modal body is a flex column) */
   margin-top: 4px;
   padding: 5px 8px;
   font-size: var(--panel-font-size, 0.85rem);
@@ -1769,13 +1801,20 @@ body {
     padding: 6px 8px;
     box-sizing: border-box;
   }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1) { width: 26px; }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2) { width: 48px; }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4) { width: 56px; }
-  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5) { width: 32px; }
-  .pins-history-body[data-mode="history"] .dd-table th:nth-child(2) { width: 56px; }
-  .pins-history-body[data-mode="history"] .dd-table th:nth-child(3) { width: 72px; }
-  .pins-history-body[data-mode="history"] .dd-table th:nth-child(4) { width: 32px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1),
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(1) { width: 26px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2),
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(2) { width: 48px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4),
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(4) { width: 56px; }
+  .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5),
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(5) { width: 32px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(2),
+  .pins-history-body[data-mode="history"] .dd-table td:nth-child(2) { width: 56px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(3),
+  .pins-history-body[data-mode="history"] .dd-table td:nth-child(3) { width: 72px; }
+  .pins-history-body[data-mode="history"] .dd-table th:nth-child(4),
+  .pins-history-body[data-mode="history"] .dd-table td:nth-child(4) { width: 32px; }
 }
 
 /* Mobile touch targets — extend the hit area 3px on every side without
