@@ -905,6 +905,13 @@ body:has(.modal-overlay.open) {
 .tag-chip .chip-x:hover {
   opacity: 0.7;
 }
+/* The ✕ span is always in the markup (see tagChipHtml); while the chip is
+   inactive the slot is simply not painted. visibility (not display: none)
+   keeps the glyph + margins occupying their box, so selecting a chip never
+   changes its width and the row never reflows. */
+.tag-chip:not(.active) .chip-x {
+  visibility: hidden;
+}
 /* Dark mode: hide chip borders unless hovered/active */
 [data-theme="dark"] .tag-chip {
   border-color: transparent;

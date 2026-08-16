@@ -116,7 +116,11 @@ window.tagChipHtml = function (code, label, palette, active, count) {
     '" title="' +
     chipTitle +
     '">' +
-    (active ? '<span class="chip-x">✕</span>' : "") +
+    // The ✕ span is always present so the chip's width never changes when
+    // it becomes active — a growing pill would reflow the whole chip row.
+    // CSS hides the slot while the chip is inactive (visibility, not
+    // display: the layout box must stay reserved).
+    '<span class="chip-x">✕</span>' +
     tagLabel(code, label) +
     " <small>(" +
     count +

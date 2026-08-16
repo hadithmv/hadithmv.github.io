@@ -234,7 +234,9 @@ function renderDashboard(bookNames) {
       ";background:" +
       (pinsActive ? "var(--color-danger-text)" : "var(--color-danger-bg)") +
       ';border-color:var(--color-danger-text)">' +
-      (pinsActive ? '<span class="chip-x">✕</span>' : "") +
+      // ✕ always present — see tagChipHtml: the chip must not change width
+      // when selected (CSS hides the slot while inactive).
+      '<span class="chip-x">✕</span>' +
       "📌 " +
       t("dashboardPinsChip") +
       " <small>(" +
@@ -262,13 +264,15 @@ function renderDashboard(bookNames) {
       );
     })
     .join("");
+  // All leads the row (the neutral "no filter" state anchors the rail; the
+  // other chip surfaces — library-search page, scope picker — do the same).
   document.getElementById("dashboardTagsCollapse").innerHTML =
-    pinsChipHTML + allChipHTML + chipsHTML
+    allChipHTML + pinsChipHTML + chipsHTML
       ? '<span class="tags-label">' +
         t("tagsLabel") +
         "</span> " +
-        pinsChipHTML +
         allChipHTML +
+        pinsChipHTML +
         chipsHTML
       : "";
   if (_refreshTags) _refreshTags();
