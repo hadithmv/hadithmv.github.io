@@ -45,6 +45,7 @@ import {
   getScope,
   setScope,
   ensureSearchableBooks,
+  searchableBooks,
   renderScopeShell,
   ensureScopeShell,
   renderScopePopover,
@@ -199,8 +200,10 @@ function renderChips() {
     .join("");
   // Active author + period filters render as chips too (same visuals as tags —
   // the markup comes from the shared facet module, keyed via data-author /
-  // data-period; counts are over the same visible set).
-  var facetHtml = facetChipsHTML(facetCounts(visible));
+  // data-period). Counts are over the searchable set — the same set the
+  // browse modals count (see visibleCounts in facet-browse.js) — so a chip
+  // count can never promise a book the library can't search.
+  var facetHtml = facetChipsHTML(facetCounts(searchableBooks() || visible));
   el.tagsCollapse.innerHTML =
     '<span class="tags-label">' + t("tagsLabel") + "</span> " + allChipHTML + html + facetHtml;
   if (_refreshTags) _refreshTags();
@@ -831,7 +834,6 @@ async function init() {
   if (!el.input) return;
 
   initScopePicker({
-    bookNames: function () { return _bookNames; },
     onScopeChange: applyScopeChange,
   });
 
@@ -899,11 +901,16 @@ async function init() {
     el.scopeBtn.addEventListener("click", openScopeModal);
   }
 
-  // Authors + Periods browse buttons
+  // Authors + Periods browse buttons — the modals count over the searchable
+  // set (books really in the library), the same set the facets filter.
   var btnAuthors = document.getElementById("libAuthorsBtn");
-  if (btnAuthors) btnAuthors.addEventListener("click", openAuthorsModal);
+  if (btnAuthors) btnAuthors.addEventListener("click", function () {
+    ensureSearchableBooks().then(function () { openAuthorsModal(searchableBooks()); });
+  });
   var btnPeriods = document.getElementById("libPeriodsBtn");
-  if (btnPeriods) btnPeriods.addEventListener("click", openPeriodsModal);
+  if (btnPeriods) btnPeriods.addEventListener("click", function () {
+    ensureSearchableBooks().then(function () { openPeriodsModal(searchableBooks()); });
+  });
 
   // Search window button — opens the shared modal window
   var btnWindow = document.getElementById("btnSearchWindow");
@@ -975,6 +982,9 @@ async function init() {
   await loadTagDefinitions();
   await loadAuthorDefinitions();
   _bookNames = await loadBookRegistry();
+  // The searchable book list (registry ∩ index) — the set the author/period
+  // facets count over, so the counts only cover books really in the library.
+  await ensureSearchableBooks();
 
   // Facet changes (chips, browse modals, the search window — the one shared
   // facet state) re-sync the URL, chips and results

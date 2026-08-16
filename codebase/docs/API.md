@@ -167,8 +167,8 @@ Pins & history: localStorage CRUD + modal UI + sidebar wiring. Extracted from bo
 | `isPinned(bookCode)` | Returns `true` if the book is currently pinned. |
 | `addReadHistory(bookCode, row, label?)` | Prepends an entry to reading history (max 10 — the oldest is dropped when full). Same `row` convention as `addPin`. |
 | `clearPins()` / `clearReadHistory()` | Clears all pins or history. |
-| `openPinsModal()` | Opens the pins modal overlay with reorder/remove/click-to-jump. Also on `window` for legacy callers. |
-| `openHistoryModal()` | Opens the history modal with timestamps and clear-all. Also on `window` for legacy callers. |
+| `openPinsModal()` | Opens the pins modal overlay (the shared full-size geometry and flush nav-btn-bg thead-bar styling of the other modals) with reorder/remove/click-to-jump. Also on `window` for legacy callers. |
+| `openHistoryModal()` | Opens the history modal (same shared styling) with timestamps and clear-all. Also on `window` for legacy callers. |
 
 ---
 
@@ -647,7 +647,7 @@ Chip markup for the active author/period (tag-chip visuals, accent-tinted — `.
 
 ### `openAuthorsModal()` / `openPeriodsModal()`
 
-Open the shared browse modals (`libAuthorsOverlay` / `libPeriodsOverlay` — the same ids on every page, one page loaded at a time). Each modal is a filter input (`#libAuthorsFilter` / `#libPeriodsFilter`) above a table whose thead stays sticky while only the rows scroll (`.facet-table-wrap`). Author rows show the current-language name, the other two names — Arabic always included (`.facet-name-alt`, dir rtl) — plus Hijri years and a count, in registry row order; period rows are the distinct death-century buckets + `modern`, chronological. Opens stacked over the search window (`openModalOnTop`) when one is up, exclusively otherwise.
+Open the shared browse modals (`libAuthorsOverlay` / `libPeriodsOverlay` — the same ids on every page, one page loaded at a time). Each modal is a filter input (`#libAuthorsFilter` / `#libPeriodsFilter`, the shared `.search-input` look) above a pinned thead strip and a scrollport holding only the rows (`.facet-table-wrap`) — the scrollbar runs beside the list alone; the modal body drops the base `.modal-body` gap and side padding, so the filter row, thead bar and list stack flush edge to edge (the scope modal's treatment). The thead strip and the rows share one grid column template (`.facet-grid-authors` — name, century, range, count, check — / `.facet-grid-periods` — century, range, count, check — the century label pinned short, the range the wide 1fr column), so the columns align by construction; the thead cells inherit the modal body's rtl (right-aligned, matching the rows). Author rows are one-line grid divs: the current-language name with the other names — Arabic and Dhivehi, never English — trailing inline after a " · " (`.facet-name-alt`), then the death century unbracketed (the `centuryN` label in numeral form — "Century 7" / "ގަރުނު 7" / "القرن 7", the same keys as the period rows and the chips) and the Hijri years bracketed each in their own column, then a count, in registry row order; period rows are the distinct death-century buckets + `modern` (the AH span bracketed in its own column), chronological. All three text runs sit at the row's full text size (no downscaling). The variable text columns are pinned to their widest content (`pinFacetColumn` sets `--facet-century-w` / `--facet-range-w` on the authors overlay, `--facet-period-w` on the periods overlay) so the header and every row share identical tracks; the thead row mirrors the scrollport gutter (`--facet-gutter`). Both filters run through `normaliseForSearch` — the same fuzzy normalizer as the library search. Opens stacked over the search window (`openModalOnTop`) when one is up, exclusively otherwise.
 
 ## table-scroll-sync.js
 

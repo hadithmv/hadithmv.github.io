@@ -208,8 +208,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* Start-side inset for clipped Thaana overhang (see ARCHITECTURE.md "Font") */
-  padding-inline-start: 8px;
 }
 
 /* ---- Reader toolbar ---- */

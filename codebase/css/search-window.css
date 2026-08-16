@@ -22,19 +22,10 @@
    pane scrolls internally instead. 95vh is the full viewport minus a slim
    symmetric margin; the base .modal max-height (85vh) must be neutralized
    or it silently caps this back down. */
-/* The two full-size windows — search window and scope modal — share ONE
-   geometry rule. They open stacked on top of each other and side by side
-   across the pages, so a size difference would read as a glitch — and a
-   single selector means a size change is one edit, not two that can drift. */
-.search-window-modal,
-.lib-scope-modal {
-  width: min(1200px, 95vw);
-  height: 95vh;
-  max-height: none;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+/* The full-size geometry (window, scope modal, Authors/Periods browse) is
+   ONE rule in common.css — the browse modals also open on the dashboard,
+   which loads only common.css. This file holds only the window-specific
+   body layout. */
 .search-window-modal .modal-body {
   flex: 1;
   min-height: 0;
@@ -841,12 +832,7 @@
 
 /* ---- Mobile: full-width window, single column ---- */
 @media (max-width: 600px) {
-  /* Same shared geometry as desktop — one rule for both windows. */
-  .search-window-modal,
-  .lib-scope-modal {
-    width: 100%;
-    height: 95vh;
-  }
+  /* The mobile full-width geometry lives with the shared rule in common.css. */
   /* The search box stays first: the stacked DOM order (side label, input
      row, side, main) would put the heading above the input; the label
      heads the controls card, not the whole window. */

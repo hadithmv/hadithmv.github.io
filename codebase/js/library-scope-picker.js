@@ -12,7 +12,7 @@
 
 import { tagLabel, t, currentLang } from "./i18n.js";
 import { loadSearchIndex } from "./library-search-engine.js";
-import { extractTags, tagSearchWords } from "./book-data.js";
+import { extractTags, tagSearchWords, loadBookRegistry } from "./book-data.js";
 import { escapeHTML, scoreFilterTokens, normaliseForSearch } from "./search-utils.js";
 
 // ── State ────────────────────────────────────────────────────
@@ -47,7 +47,7 @@ function _notifyChange() {
   window.dispatchEvent(new CustomEvent("libScopeChange"));
 }
 
-/** The page hands over its registry accessor + the scope-changed callback. */
+/** The page hands over its scope-changed callback. */
 export function initScopePicker(cfg) {
   _cfg = cfg;
 }
@@ -77,30 +77,44 @@ export function isBookSelected(code) {
   return !!_selectedBooks && _selectedBooks.indexOf(code) !== -1;
 }
 
-/** The picker's book list, lazily derived from the index meta. */
+/** The picker's book list (visible books in the search index) — null until
+ *  ensureSearchableBooks() resolves. Facet counts on the library surfaces
+ *  count over this list so they only cover books really in the library. */
+export function searchableBooks() {
+  return _searchableBooks;
+}
+
+/** The picker's book list, lazily derived from the index meta. Awaits the
+ *  shared registry itself (not the page's sync bookNames getter, which may
+ *  still be null while the page loads) so an eager caller — the search
+ *  window's facet chips at window-build time — can never catch the registry
+ *  mid-flight. Registry failure resolves without setting anything; callers
+ *  fall back to their own lists. */
 export function ensureSearchableBooks() {
   if (_searchableBooks) return Promise.resolve();
-  var bookNames = _cfg ? _cfg.bookNames() : [];
-  return loadSearchIndex()
-    .then(function (index) {
-      var ids = index.meta.bookIds;
-      _searchableBooks = bookNames.filter(function (b) {
-        return !b.bookCode.endsWith("-HDN") && ids.indexOf(b.bookCode) !== -1;
+  return loadBookRegistry().then(function (bookNames) {
+    if (!bookNames) return;
+    return loadSearchIndex()
+      .then(function (index) {
+        var ids = index.meta.bookIds;
+        _searchableBooks = bookNames.filter(function (b) {
+          return !b.bookCode.endsWith("-HDN") && ids.indexOf(b.bookCode) !== -1;
+        });
+      })
+      .catch(function () {
+        // Index unavailable → fall back to every visible book (search is
+        // failing anyway; the list is still honest about the registry).
+        _searchableBooks = bookNames.filter(function (b) {
+          return !b.bookCode.endsWith("-HDN");
+        });
+      })
+      .then(function () {
+        _bookByCode = {};
+        _searchableBooks.forEach(function (b) {
+          _bookByCode[b.bookCode] = b;
+        });
       });
-    })
-    .catch(function () {
-      // Index unavailable → fall back to every visible book (search is
-      // failing anyway; the list is still honest about the registry).
-      _searchableBooks = bookNames.filter(function (b) {
-        return !b.bookCode.endsWith("-HDN");
-      });
-    })
-    .then(function () {
-      _bookByCode = {};
-      _searchableBooks.forEach(function (b) {
-        _bookByCode[b.bookCode] = b;
-      });
-    });
+  });
 }
 
 /** Group the searchable books by EVERY tag they carry — the same semantics as

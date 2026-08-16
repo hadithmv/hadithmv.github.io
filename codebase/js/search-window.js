@@ -19,9 +19,9 @@ import { loadSearchIndex, searchLibrary } from "./library-search-engine.js";
 import { loadBookRegistry, extractTags } from "./book-data.js";
 import { escapeHTML, formatThousands, addSearchHistory } from "./search-utils.js";
 import {
-  getScope, fillTemplate, ensureSearchableBooks, renderScopeShell,
-  ensureScopeShell, renderScopePopover, clearScopeFilter, initScopePicker,
-  reserveScopeCountWidth, refreshScopeLabels, scopeSummaryText,
+  getScope, fillTemplate, ensureSearchableBooks, searchableBooks,
+  renderScopeShell, ensureScopeShell, renderScopePopover, clearScopeFilter,
+  initScopePicker, reserveScopeCountWidth, refreshScopeLabels, scopeSummaryText,
 } from "./library-scope-picker.js";
 import {
   openAuthorsModal,
@@ -35,7 +35,7 @@ import {
 } from "./facet-browse.js";
 
 var _ui = null;
-var _registryCache = null; // reader-mode registry entries (initScopePicker's sync bookNames())
+var _registryCache = null; // reader-mode registry entries (book titles, facet scoping)
 var _inputTimer = null;    // the window input's debounce — shell-owned, like syncClear
 var _cfg = {
   mode: "reader",
@@ -120,10 +120,14 @@ export function setWindowCount(text) {
 }
 
 // Active author/period filters render as chips under the facet buttons —
-// click-to-remove, same markup as every other surface (shared module).
+// click-to-remove, same markup as every other surface (shared module). The
+// window browses the searchable set, so its counts cover only books really
+// in the library (same semantics as the library page's modals).
 function renderWindowFacetChips() {
-  visibleCounts().then(function (counts) {
-    if (_ui.facetChips) _ui.facetChips.innerHTML = facetChipsHTML(counts);
+  ensureSearchableBooks().then(function () {
+    visibleCounts(searchableBooks()).then(function (counts) {
+      if (_ui.facetChips) _ui.facetChips.innerHTML = facetChipsHTML(counts);
+    });
   });
 }
 
@@ -218,11 +222,10 @@ function setTab(tab, silent) {
   if (!silent && _cfg.onTabChange) _cfg.onTabChange(tab);
 }
 
-// Reader-mode registry accessor for the picker. The library page owns its
-// own registry variable; the shell caches the shared module-level promise
-// result so initScopePicker's sync bookNames() call sees the books once
-// the registry has resolved. Always resolves to an array (null on fetch
-// failure → empty list; the search itself is failing anyway).
+// Reader-mode registry accessor. The library page owns its own registry
+// variable; the shell caches the shared module-level promise result for its
+// own consumers (book titles, facet scoping). Always resolves to an array
+// (null on fetch failure → empty list; the search itself is failing anyway).
 function registryReady() {
   return loadBookRegistry().then(function (reg) {
     if (reg) _registryCache = reg;
@@ -671,9 +674,14 @@ function buildShell() {
 
   // Authors/Periods browse — the shared facet modals, stacked on top of the
   // window (same as the scope summary); the chips under the buttons remove
-  // active filters on click.
-  _ui.facetAuthors.addEventListener("click", openAuthorsModal);
-  _ui.facetPeriods.addEventListener("click", openPeriodsModal);
+  // active filters on click. The modals count the searchable set (the window
+  // browses the index, so its counts cover only books really in the library).
+  _ui.facetAuthors.addEventListener("click", function () {
+    ensureSearchableBooks().then(function () { openAuthorsModal(searchableBooks()); });
+  });
+  _ui.facetPeriods.addEventListener("click", function () {
+    ensureSearchableBooks().then(function () { openPeriodsModal(searchableBooks()); });
+  });
   _ui.facetChips.addEventListener("click", onFacetChipClick);
 
   // Facet changes (shared module — chips, browse modals on any surface)
@@ -712,9 +720,7 @@ export function initSearchWindow(cfg) {
     // The reader's All-books tab shares the scope picker; the library page
     // inits its own (it owns the libScope modal and button). No page
     // callback — the shell reacts through the libScopeChange event.
-    initScopePicker({
-      bookNames: function () { return _registryCache || []; },
-    });
+    initScopePicker({});
   }
   return _ui;
 }

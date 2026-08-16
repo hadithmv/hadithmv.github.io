@@ -6,9 +6,9 @@
  * search window's All-books tab. Owns the selection state (one page load,
  * one facet state — the library page, dashboard and window on that page all
  * read/write the same state), the shared browse modals (filter input +
- * sticky-header table, trilingual rows), and the chip markup. Consumers
- * subscribe via onFacetChange and re-render their own chips/results; the
- * module re-renders its own open modals.
+ * pinned thead strip + scrolling row list, trilingual rows), and the chip
+ * markup. Consumers subscribe via onFacetChange and re-render their own
+ * chips/results; the module re-renders its own open modals.
  *
  * The modals' ids (libAuthorsOverlay / libPeriodsOverlay) are the same on
  * every page — one page is loaded at a time, so no collisions.
@@ -16,7 +16,7 @@
 
 import { t, currentLang } from "./i18n.js";
 import { authorDefs, loadAuthorDefinitions, loadBookRegistry, authorYearsText } from "./book-data.js";
-import { escapeHTML } from "./search-utils.js";
+import { escapeHTML, normaliseForSearch } from "./search-utils.js";
 
 // ── Facet state (shared by every surface on the page) ──────────────
 var _authors = [];
@@ -51,7 +51,7 @@ export function periodLabelEn(p) {
   return "Died in the " + n + s + " century AH";
 }
 
-/** Period display label in the current language ("3rd century AH" / modern). */
+/** Period display label in the current language ("Century 3" / modern). */
 export function periodLabel(p) {
   return p === "modern" ? t("centuryModern") : t("century" + p);
 }
@@ -132,11 +132,19 @@ export function facetCounts(books) {
   return { byAuthor: byAuthor, byPeriod: byPeriod };
 }
 
-// Counts over the registry's visible (-HDN excluded) books — the same set
-// every surface chips against. Lazy + cached; the pages pass their own list
-// to facetCounts when they already hold it.
+// Counts over the registry's visible (-HDN excluded) books — the set the
+// dashboard grids and chips against. Lazy + cached. The library surfaces
+// (library-search page, search window) pass their own book list — the
+// searchable set — so their counts only cover books really in the library
+// (ENITRE-BOOK-excluded books like the RDF dictionaries have no postings).
 var _counts = null;
-export function visibleCounts() {
+export function visibleCounts(books) {
+  if (books) {
+    return loadAuthorDefinitions().then(function () {
+      _counts = facetCounts(books);
+      return _counts;
+    });
+  }
   if (_counts) return Promise.resolve(_counts);
   return loadAuthorDefinitions()
     .then(function () { return loadBookRegistry(); })
@@ -194,9 +202,13 @@ export function onFacetChipClick(e) {
 }
 
 // ── Browse modals ────────────────────────────────────────────────
-// Filter input on top, then a table whose thead stays pinned while only the
-// rows scroll (the modal body is the flex-column pins-history-body; the
-// table wrap is the flex:1 scrollport).
+// Filter input on top, then a pinned thead strip, then a scrollport holding
+// only the rows — the scrollbar runs beside the list alone, never the thead
+// (the modal body is the flex-column pins-history-body; the wrap is the
+// flex:1 scrollport). The thead and the rows share one CSS grid column
+// template (.facet-grid-authors / .facet-grid-periods), so the columns
+// align by construction instead of by table auto-layout; the rows are grid
+// divs, not <tr>s.
 var _authorsOverlay = null;
 var _authorsTitle = null;
 var _authorsBody = null;
@@ -220,14 +232,22 @@ function ensureAuthorsModal() {
   _authorsBody = document.getElementById("libAuthorsModalBody");
   _authorsBody.innerHTML =
     '<div class="facet-filter-row">' +
-    '<input id="libAuthorsFilter" type="search" class="facet-filter-input" autocomplete="off" title="Filter authors by name or code" />' +
+    '<input id="libAuthorsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter authors by name or code" />' +
     "</div>" +
-    '<div class="facet-table-wrap"><table class="facet-table"><thead><tr>' +
-    "<th></th><th></th><th></th><th></th>" +
-    "</tr></thead><tbody id=\"libAuthorsList\"></tbody></table></div>";
+    '<div class="facet-thead-row"><div class="facet-grid facet-grid-authors">' +
+    '<div class="facet-thead-cell"></div>' +
+    '<div class="facet-thead-cell facet-col-century"></div>' +
+    '<div class="facet-thead-cell facet-col-range"></div>' +
+    '<div class="facet-thead-cell facet-col-count"></div>' +
+    '<div class="facet-thead-cell facet-col-check"></div>' +
+    "</div></div>" +
+    '<div class="facet-table-wrap"><div id="libAuthorsList"></div></div>';
   _authorsFilter = document.getElementById("libAuthorsFilter");
   _authorsList = document.getElementById("libAuthorsList");
-  _authorsFilter.addEventListener("input", function () { renderAuthorRows(); });
+  _authorsFilter.addEventListener("input", function () {
+    renderAuthorRows();
+    pinFacetGeometry(); // the scrollbar can come and go with the row count
+  });
   _authorsBody.addEventListener("click", function (e) {
     var row = e.target.closest(".author-browse-row");
     if (row) toggleAuthor(row.dataset.author);
@@ -237,18 +257,21 @@ function ensureAuthorsModal() {
 function authorsModalLabels() {
   _authorsTitle.textContent = t("libAuthorsTitle");
   _authorsFilter.placeholder = t("libAuthorsFilter");
-  var ths = _authorsBody.querySelectorAll("thead th");
+  var ths = _authorsBody.querySelectorAll(".facet-thead-cell");
   ths[0].textContent = t("facetColAuthor");
-  ths[1].textContent = t("facetColYears");
-  ths[2].textContent = t("facetColBooks");
-  ths[3].textContent = "";
+  ths[1].textContent = t("facetColCentury");
+  ths[2].textContent = t("facetColYears");
+  ths[3].textContent = t("facetColBooks");
+  ths[4].textContent = "";
 }
 
-/** The rows — registry order, only authors with visible books; the filter
- *  matches any of the three names or the code. */
+/** The rows — registry order, only authors with visible books. The filter
+ *  runs through normaliseForSearch, the same script-level normalizer as the
+ *  library search (lowercase, hamza/tashkeel forms, Thaana dotted letters),
+ *  so facet filtering feels exactly like every other filter box. */
 function renderAuthorRows() {
   if (!_authorsList) return;
-  var ft = (_authorsFilter.value || "").trim().toLowerCase();
+  var ft = normaliseForSearch((_authorsFilter.value || "").trim());
   var counts = (_counts && _counts.byAuthor) || {};
   var defs = authorDefs();
   var l = currentLang();
@@ -257,7 +280,7 @@ function renderAuthorRows() {
     if (!ft) return true;
     var d = defs[code];
     return [code, d.name.dv, d.name.ar, d.name.en].some(function (s) {
-      return (s || "").toLowerCase().indexOf(ft) !== -1;
+      return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
   _authorsList.innerHTML = codes.map(function (code) {
@@ -265,39 +288,52 @@ function renderAuthorRows() {
     var nm = d.name[l] || d.name.en || d.name.ar || code;
     var yrs = authorYearsText(d);
     var sel = _authors.indexOf(code) !== -1;
-    // The other names, Arabic always included — every row shows the Arabic
-    // name no matter the UI language.
-    var alt = l === "ar"
-      ? [d.name.dv, d.name.en]
-      : [d.name.ar, l === "en" ? d.name.dv : d.name.en];
-    alt = alt.filter(function (n) { return n && n !== nm; });
+    // The other names — Arabic and Dhivehi only, never English (English is
+    // the primary name in the en UI and the tooltip everywhere else). Every
+    // row shows the Arabic name no matter the UI language. The alt run
+    // trails the primary name inline, lead by a " · " so the two scripts
+    // never butt together.
+    var alt = [d.name.ar, d.name.dv].filter(function (n) { return n && n !== nm; });
+    var p = authorPeriodOf(code);
+    // The century and the years each get their own column — the century
+    // label first, unbracketed; the AH range follows bracketed, so both
+    // columns stay uniform width down the list ("modern" authors have no
+    // death year: no century, and the years text stands alone).
+    var century = p === "modern" ? "" : periodLabel(p);
+    var range = yrs ? (p === "modern" ? yrs : "(" + yrs + ")") : "";
     return (
-      '<tr class="author-browse-row' +
+      '<div class="author-browse-row facet-grid-authors' +
       (sel ? " selected" : "") +
       '" data-author="' +
       code +
       '" title="' +
       (d.name.en || code) +
       '">' +
-      '<td class="facet-name"><span class="author-browse-name">' +
+      '<div class="facet-name"><span class="author-browse-name">' +
       escapeHTML(nm) +
       "</span>" +
       (alt.length
-        ? '<span class="facet-name-alt">' + escapeHTML(alt.join(" · ")) + "</span>"
+        ? '<span class="facet-name-alt">' +
+          " · " +
+          escapeHTML(alt.join(" · ")) +
+          "</span>"
         : "") +
-      "</td>" +
-      '<td class="facet-years">' +
-      (yrs ? escapeHTML(yrs) : "") +
-      "</td>" +
-      '<td class="facet-count">' +
+      "</div>" +
+      '<div class="facet-century">' +
+      (century ? escapeHTML(century) : "") +
+      "</div>" +
+      '<div class="facet-range">' +
+      (range ? escapeHTML(range) : "") +
+      "</div>" +
+      '<div class="facet-count">' +
       counts[code] +
-      "</td>" +
-      '<td class="facet-check">' +
+      "</div>" +
+      '<div class="facet-check">' +
       (sel ? "✓" : "") +
-      "</td></tr>"
+      "</div></div>"
     );
   }).join("") ||
-    '<tr class="facet-empty"><td colspan="4">' + t("libAuthorsNoMatch") + "</td></tr>";
+    '<div class="facet-empty">' + t("libAuthorsNoMatch") + "</div>";
 }
 
 // The modals can be opened from a surface with another modal already open —
@@ -312,13 +348,72 @@ function openFacetModal(id) {
   else window.openModal(id);
 }
 
-export function openAuthorsModal() {
-  visibleCounts().then(function () {
+/** Align the pinned thead strip with the rows — two things need pinning:
+ *  - --facet-gutter: the rows' grid lives inside the RTL scrollport, which
+ *    right-anchors its content and takes the scrollbar's width off the left
+ *    edge, so the rows' columns start ~15px right of the thead's. The thead
+ *    row mirrors the gutter with padding-inline-end, so both grids are
+ *    identical. Measured live: overlay scrollbars (gutter 0) and
+ *    filtered-down lists (no scrollbar) stay aligned too.
+ *  - the text columns: an auto century/range track would size per-grid —
+ *    the thead's short label against the rows' longer text (and each row
+ *    against its neighbours) — drifting the header columns left of the rows
+ *    and making the column spacing uneven. Each column is pinned to its
+ *    widest content, measured nowrap (true max-content), so every grid in
+ *    the modal — thead and every row — is identical.
+ *  Runs on open, on language change (the widest label changes), and on
+ *  filter input (the scrollbar comes and goes with the row count). */
+function pinFacetGeometry() {
+  var open = ["libAuthorsOverlay", "libPeriodsOverlay"].some(function (id) {
+    var m = document.getElementById(id);
+    return m && m.classList.contains("open");
+  });
+  if (!open) return;
+  Array.prototype.forEach.call(document.querySelectorAll(".facet-table-wrap"), function (wrap) {
+    var ov = wrap.closest(".lib-authors-modal, .lib-periods-modal");
+    if (ov) ov.style.setProperty("--facet-gutter", (wrap.offsetWidth - wrap.clientWidth) + "px");
+  });
+  // [row-cell class, thead-cell class, custom property] per modal — the
+  // authors grid pins the century and the range; the periods grid pins its
+  // label column (the century label is short, so the wide 1fr column is
+  // the range).
+  pinFacetColumn("libAuthorsOverlay", [
+    ["facet-century", "facet-col-century", "facet-century-w"],
+    ["facet-range", "facet-col-range", "facet-range-w"]
+  ]);
+  pinFacetColumn("libPeriodsOverlay", [
+    ["facet-name", "facet-col-period", "facet-period-w"]
+  ]);
+}
+
+function pinFacetColumn(overlayId, pairs) {
+  var ov = document.getElementById(overlayId);
+  if (!ov) return;
+  pairs.forEach(function (pair) {
+    var cells = Array.prototype.slice.call(ov.querySelectorAll("." + pair[0]));
+    var head = ov.querySelector(".facet-thead-cell." + pair[1]);
+    if (head) cells.push(head);
+    var w = 0;
+    cells.forEach(function (el) {
+      el.style.whiteSpace = "nowrap";
+      w = Math.max(w, el.scrollWidth);
+      el.style.whiteSpace = "";
+    });
+    if (w > 0) ov.style.setProperty("--" + pair[2], w + "px");
+  });
+}
+
+/** Open the authors browse. books (optional) = the surface's book set —
+ *  omitted on the dashboard (registry-visible), the searchable list on the
+ *  library page and the search window (see visibleCounts). */
+export function openAuthorsModal(books) {
+  visibleCounts(books).then(function () {
     ensureAuthorsModal();
     authorsModalLabels();
     _authorsFilter.value = "";
     renderAuthorRows();
     openFacetModal("libAuthorsOverlay");
+    pinFacetGeometry();
     _authorsFilter.focus();
   });
 }
@@ -335,14 +430,21 @@ function ensurePeriodsModal() {
   _periodsBody = document.getElementById("libPeriodsModalBody");
   _periodsBody.innerHTML =
     '<div class="facet-filter-row">' +
-    '<input id="libPeriodsFilter" type="search" class="facet-filter-input" autocomplete="off" title="Filter periods" />' +
+    '<input id="libPeriodsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter periods" />' +
     "</div>" +
-    '<div class="facet-table-wrap"><table class="facet-table"><thead><tr>' +
-    "<th></th><th></th><th></th>" +
-    "</tr></thead><tbody id=\"libPeriodsList\"></tbody></table></div>";
+    '<div class="facet-thead-row"><div class="facet-grid facet-grid-periods">' +
+    '<div class="facet-thead-cell facet-col-period"></div>' +
+    '<div class="facet-thead-cell facet-col-range"></div>' +
+    '<div class="facet-thead-cell facet-col-count"></div>' +
+    '<div class="facet-thead-cell facet-col-check"></div>' +
+    "</div></div>" +
+    '<div class="facet-table-wrap"><div id="libPeriodsList"></div></div>';
   _periodsFilter = document.getElementById("libPeriodsFilter");
   _periodsList = document.getElementById("libPeriodsList");
-  _periodsFilter.addEventListener("input", function () { renderPeriodRows(); });
+  _periodsFilter.addEventListener("input", function () {
+    renderPeriodRows();
+    pinFacetGeometry();
+  });
   _periodsBody.addEventListener("click", function (e) {
     var row = e.target.closest(".period-browse-row");
     if (row) togglePeriod(row.dataset.period);
@@ -352,17 +454,30 @@ function ensurePeriodsModal() {
 function periodsModalLabels() {
   _periodsTitle.textContent = t("libPeriodsTitle");
   _periodsFilter.placeholder = t("libPeriodsFilter");
-  var ths = _periodsBody.querySelectorAll("thead th");
-  ths[0].textContent = t("facetColPeriod");
-  ths[1].textContent = t("facetColBooks");
-  ths[2].textContent = "";
+  var ths = _periodsBody.querySelectorAll(".facet-thead-cell");
+  ths[0].textContent = t("facetColCentury");
+  ths[1].textContent = t("facetColYears");
+  ths[2].textContent = t("facetColBooks");
+  ths[3].textContent = "";
+}
+
+/** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
+ *  range, filled with the bucket's AH span; "" for "modern" (no range). */
+function periodRangeText(p) {
+  if (p === "modern") return "";
+  var n = parseInt(p, 10);
+  if (!n || n < 1) return "";
+  return t("authorLife")
+    .replace("{b}", String((n - 1) * 100 + 1))
+    .replace("{d}", String(n * 100));
 }
 
 /** The rows — distinct death-century buckets + modern, chronological order
- *  (modern last), zero-count buckets dropped. */
+ *  (modern last), zero-count buckets dropped. The filter runs through
+ *  normaliseForSearch like the authors filter (see renderAuthorRows). */
 function renderPeriodRows() {
   if (!_periodsList) return;
-  var ft = (_periodsFilter.value || "").trim().toLowerCase();
+  var ft = normaliseForSearch((_periodsFilter.value || "").trim());
   var counts = (_counts && _counts.byPeriod) || {};
   var periods = Object.keys(counts).sort(function (a, b) {
     if (a === "modern") return 1;
@@ -370,41 +485,52 @@ function renderPeriodRows() {
     return parseInt(a, 10) - parseInt(b, 10);
   }).filter(function (p) {
     if (!ft) return true;
-    return [periodLabel(p), periodLabelEn(p), p].some(function (s) {
-      return (s || "").toLowerCase().indexOf(ft) !== -1;
+    var range = periodRangeText(p);
+    return [periodLabel(p), periodLabelEn(p), p, range].some(function (s) {
+      return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
   _periodsList.innerHTML = periods.map(function (p) {
     var sel = _period === p;
+    var range = periodRangeText(p);
+    // The century label is the row's name; the AH span gets its own column,
+    // bracketed, so both columns stay uniform width down the list
+    // ("modern" has no span — the range cell stays empty).
     return (
-      '<tr class="period-browse-row' +
+      '<div class="period-browse-row facet-grid-periods' +
       (sel ? " selected" : "") +
       '" data-period="' +
       p +
       '" title="' +
       periodLabelEn(p) +
       '">' +
-      '<td class="facet-name">' +
+      '<div class="facet-name">' +
       escapeHTML(periodLabel(p)) +
-      "</td>" +
-      '<td class="facet-count">' +
+      "</div>" +
+      '<div class="facet-range">' +
+      (range ? "(" + escapeHTML(range) + ")" : "") +
+      "</div>" +
+      '<div class="facet-count">' +
       counts[p] +
-      "</td>" +
-      '<td class="facet-check">' +
+      "</div>" +
+      '<div class="facet-check">' +
       (sel ? "✓" : "") +
-      "</td></tr>"
+      "</div></div>"
     );
   }).join("") ||
-    '<tr class="facet-empty"><td colspan="3">' + t("libPeriodsNoMatch") + "</td></tr>";
+    '<div class="facet-empty">' + t("libPeriodsNoMatch") + "</div>";
 }
 
-export function openPeriodsModal() {
-  visibleCounts().then(function () {
+/** Open the periods browse. books (optional) — same semantics as
+ *  openAuthorsModal. */
+export function openPeriodsModal(books) {
+  visibleCounts(books).then(function () {
     ensurePeriodsModal();
     periodsModalLabels();
     _periodsFilter.value = "";
     renderPeriodRows();
     openFacetModal("libPeriodsOverlay");
+    pinFacetGeometry();
     _periodsFilter.focus();
   });
 }
@@ -419,4 +545,5 @@ document.addEventListener("languagechange", function () {
     periodsModalLabels();
     renderPeriodRows();
   }
+  pinFacetGeometry(); // the widest years text changes with the language
 });

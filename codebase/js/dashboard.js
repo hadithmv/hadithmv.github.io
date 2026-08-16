@@ -708,11 +708,16 @@ function setupDashboardControls() {
       window.openHistoryModal();
     });
 
-  // Authors + Periods browse buttons — the shared facet modals
+  // Authors + Periods browse buttons — the shared facet modals. No books
+  // argument: the dashboard counts the registry-visible set (its grid shows
+  // all readable books). The closure also keeps the click event from leaking
+  // into the books parameter (openAuthorsModal(books) would read a MouseEvent).
   var btnAuthors = document.getElementById("dashAuthorsBtn");
-  if (btnAuthors) btnAuthors.addEventListener("click", openAuthorsModal);
+  if (btnAuthors)
+    btnAuthors.addEventListener("click", function () { openAuthorsModal(); });
   var btnPeriods = document.getElementById("dashPeriodsBtn");
-  if (btnPeriods) btnPeriods.addEventListener("click", openPeriodsModal);
+  if (btnPeriods)
+    btnPeriods.addEventListener("click", function () { openPeriodsModal(); });
 
   // Escape handled centrally in common.js
 

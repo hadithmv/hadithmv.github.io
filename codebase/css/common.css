@@ -751,15 +751,14 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 /* The reader header's author line is a link to the filtered dashboard —
-   quiet link: muted like the card author line, dotted underline on hover. */
+   quiet link: muted like the card author line, no underline (the accent on
+   hover is the only affordance). */
 #readerPageAuthor a {
   color: inherit;
   text-decoration: none;
-  border-bottom: 1px dotted var(--color-text-muted);
 }
 #readerPageAuthor a:hover {
   color: var(--color-accent, inherit);
-  border-bottom-style: solid;
 }
 
 /* System font override */
@@ -947,30 +946,64 @@ body:has(.modal-overlay.open) {
    Shared by the library-search page, the dashboard and the search window
    (facet-browse.js). The modal body (pins-history-body, flex column) holds a
    filter input and a table whose thead stays pinned while only the rows
-   scroll: the modal is a bounded flex column (pins-history-modal's geometry),
-   the table wrap is the flex:1 scrollport. */
+   scroll: the table wrap is the flex:1 scrollport. */
+/* The full-size modals — search window, scope modal, the Authors/Periods
+   browse and the Pins/History list — share ONE geometry rule. They can
+   stack on top of each other (window → scope / browse on the reader +
+   library pages; browse and the pins list on the dashboard), so a size
+   difference between them would read as a glitch — and a single selector
+   means a size change is one edit, not four that can drift. The dashboard
+   opens the browse modals and the pins list but loads only common.css, so
+   the rule lives here, not in search-window.css. */
+.search-window-modal,
+.lib-scope-modal,
 .lib-authors-modal,
-.lib-periods-modal {
-  max-height: 80vh;
+.lib-periods-modal,
+.pins-history-modal {
+  width: min(1200px, 95vw);
+  height: 95vh;
+  max-height: none;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
+@media (max-width: 600px) {
+  /* Same shared geometry as desktop — one rule for all five modals. */
+  .search-window-modal,
+  .lib-scope-modal,
+  .lib-authors-modal,
+  .lib-periods-modal,
+  .pins-history-modal {
+    width: 100%;
+    height: 95vh;
+  }
+}
+/* The browse bodies drop the base .modal-body's gap (16px) and side
+   padding (0 24px) — the scope modal's treatment: children stack flush (the
+   thead bar is the separator) and the rows carry their own horizontal
+   padding, so the thead bar spans the modal edge to edge. Lives here, not
+   in search-window.css, because the dashboard opens these modals and loads
+   only common.css. The pins list body gets the same flush stack. */
+.lib-authors-modal .modal-body,
+.lib-periods-modal .modal-body,
+.pins-history-modal .modal-body {
+  gap: 0;
+  padding: 4px 0 0;
+}
+/* The filter row above the thead bar: plain padding, no divider — the bar
+   below it is the separator (the scope modal keeps its own border because
+   its head sits above a plain list, not another bar). */
 .facet-filter-row {
   flex: 0 0 auto;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--color-border);
+  padding: 10px 14px;
 }
-/* Clipped-Thaana start-side inset: the webfont paints ~1–5px of start-side
-   ink past the pen origin on horizontal letters — inputs need text-indent. */
+/* The shared search-box look (.search-input, common.css) — semibold text,
+   bold subtle placeholder, focus ring, Thaana text-indent. Deltas only, the
+   same pattern as .lib-scope-filter: full-width and the mixed font so
+   Dhivehi and English both render. */
 .facet-filter-input {
   width: 100%;
-  text-indent: 8px;
-  padding: 6px 4px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md, 8px);
-  background: var(--color-input-bg, var(--color-nav-btn-bg));
-  color: var(--color-nav-btn-text);
+  max-width: none;
   font-size: var(--panel-font-size, 0.85rem);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
@@ -980,39 +1013,56 @@ body:has(.modal-overlay.open) {
   overflow-y: auto;
   overscroll-behavior: contain;
 }
-.facet-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  font-size: var(--panel-font-size, 0.85rem);
+/* The pinned thead strip and the rows share ONE grid column template per
+   modal (.facet-grid-authors / .facet-grid-periods), so the header columns
+   align with the rows by construction — no table auto-layout to drift. */
+.facet-grid {
+  display: grid;
 }
-.facet-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--color-card-bg);
-  border-bottom: 1px solid var(--color-border);
-  padding: 7px 12px;
-  text-align: left;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  white-space: nowrap;
+.facet-grid-authors {
+  /* The century + range tracks are pinned by facet-browse.js
+     (pinFacetColumn): the tracks would otherwise size per-grid (the thead's
+     short labels vs the rows' longer text, and each row against its
+     neighbours), drifting the header columns and making the column spacing
+     uneven. */
+  grid-template-columns: 1fr var(--facet-century-w, 90px) var(--facet-range-w, 110px) 64px 40px;
 }
-.facet-table thead th.facet-col-count {
-  width: 64px;
-  text-align: right;
+.facet-grid-periods {
+  /* The century label is a short column, pinned to its widest label
+     (--facet-period-w); the AH range is the wide one (1fr). */
+  grid-template-columns: var(--facet-period-w, 110px) 1fr 64px 40px;
 }
-.facet-table thead th.facet-col-check {
-  width: 40px;
+/* The header is the reader-table's look (nav-btn-bg bar, 2px divider line,
+   bold text) — every tabular surface shares it, per the unified-modal rule.
+   It lives OUTSIDE the scrollport, so the scrollbar runs only beside the
+   rows. Cell padding matches the rows' (8px 12px) so the text lines up. */
+.facet-thead-row {
+  flex: 0 0 auto;
+  background: var(--color-nav-btn-bg);
+  border-bottom: 2px solid var(--color-divider-ornament);
+  /* Mirror the scrollport's gutter (facet-browse.js pinFacetGeometry): the
+     rows' grid is right-anchored in the RTL scrollport and loses the
+     scrollbar's width off its inline-end, so without this the thead
+     columns sit ~15px left of the rows. Inline-end adapts to either
+     direction. */
+  padding-inline-end: var(--facet-gutter, 0px);
 }
-.facet-table tbody td {
+/* The cells inherit the modal body's rtl, so the labels sit right-aligned
+   over the rows' right-aligned text — no explicit alignment (a left-facing
+   thead above right-facing rows was the "gaps" look: every label stranded
+   at the far edge of its wide column). */
+.facet-thead-cell {
   padding: 8px 12px;
-  border-bottom: 1px solid var(--color-border);
-  vertical-align: top;
+  font-weight: 700;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text);
+  white-space: nowrap;
 }
 .author-browse-row,
 .period-browse-row {
+  display: grid;
   cursor: pointer;
+  border-bottom: 1px solid var(--color-border);
 }
 .author-browse-row:hover,
 .period-browse-row:hover {
@@ -1023,27 +1073,34 @@ body:has(.modal-overlay.open) {
   background: var(--color-nav-btn-bg);
   color: var(--color-accent, var(--color-nav-btn-text));
 }
+.author-browse-row > div,
+.period-browse-row > div {
+  padding: 8px 12px;
+  min-width: 0;
+}
 .facet-name {
   min-width: 0;
   word-break: break-word;
 }
 .facet-name .author-browse-name {
-  display: block;
   font-weight: 600;
 }
+/* The old second line became an inline run (one-line rows): muted, at the
+   row's full text size (the downscaled versions read as "kinda small"),
+   trailing the primary name. The bidi context — not forced rtl like the
+   block version — lets the inline run sit naturally in the row's
+   direction. */
 .facet-name-alt {
-  display: block;
   color: var(--color-text-muted);
-  font-size: calc(var(--panel-font-size, 0.85rem) * 0.9);
   line-height: 1.5;
-  direction: rtl;
-  text-align: right;
 }
-.facet-years {
+.facet-century,
+.facet-range {
   color: var(--color-text-muted);
-  font-size: calc(var(--panel-font-size, 0.85rem) * 0.95);
-  font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+.facet-range {
+  font-variant-numeric: tabular-nums;
 }
 .facet-count {
   text-align: right;
@@ -1052,14 +1109,32 @@ body:has(.modal-overlay.open) {
   white-space: nowrap;
 }
 .facet-check {
-  width: 40px;
   text-align: center;
   color: var(--color-accent, var(--color-nav-btn-text));
 }
-.facet-empty td {
+.facet-empty {
   text-align: center;
   color: var(--color-text-muted);
   padding: 16px 12px;
+}
+/* Narrow viewports: the rows fold the text columns under the name — each
+   full width on its own line — and the thead's headers go with them; the
+   name, count and check columns stay aligned. */
+@media (max-width: 600px) {
+  .facet-grid-authors,
+  .facet-grid-periods {
+    grid-template-columns: 1fr 64px 40px;
+  }
+  .facet-grid-authors .facet-col-century,
+  .facet-grid-authors .facet-col-range,
+  .facet-grid-periods .facet-col-range {
+    display: none;
+  }
+  .author-browse-row .facet-century,
+  .author-browse-row .facet-range,
+  .period-browse-row .facet-range {
+    grid-column: 1 / -1;
+  }
 }
 .tags-label {
   font-size: var(--panel-font-size, 0.85rem);
@@ -1665,13 +1740,9 @@ body {
 }
 
 /* ---- Pins / History modal ---- */
-.pins-history-modal {
-  width: min(720px, 92vw);
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+/* Geometry (width/height) is the shared full-size modal rule above, and
+   the body drops the base .modal-body gap/padding the same way the browse
+   bodies do. */
 .pins-history-body {
   display: flex;
   flex-direction: column;
@@ -1682,9 +1753,13 @@ body {
 /* The rows scroll in their own wrapper; the header bar and the clear-all
    button live outside it (pins-history.js builds the header as its own
    table above this wrapper) — so the scrollbar spans the rows only, never
-   the thead, and the header stays put without any sticky tricks. */
+   the thead, and the header stays put without any sticky tricks. The bar
+   is the reader-table's look (nav-btn-bg, 2px divider line), the same as
+   the facet thead — every tabular surface shares it. */
 .pins-history-body .dd-header {
   flex: 0 0 auto;
+  background: var(--color-nav-btn-bg);
+  border-bottom: 2px solid var(--color-divider-ornament);
 }
 .pins-history-body .dd-scroll {
   overflow-y: auto;
@@ -1692,19 +1767,10 @@ body {
   min-height: 0;
   overscroll-behavior: contain;
 }
-/* border-spacing adds 2px above the first row; pulling the body table up
-   keeps that invisible spacing clipped inside the wrapper, so the first row
-   sits flush with the scrollport top and the gap to the header bar is the
-   header table's own 2px bottom spacing. */
-.pins-history-body .dd-scroll .dd-table {
-  margin-top: -2px;
-}
 .pins-history-body .dd-table {
   width: 100%;
   border-collapse: separate;
-  /* vertical spacing only: header bar and rows float as solid bars,
-     2px apart, with cells touching horizontally */
-  border-spacing: 0 2px;
+  border-spacing: 0;
   table-layout: fixed;
 }
 /* Widths apply to both tables (header table: th, rows table: td) — they
@@ -1724,35 +1790,33 @@ body {
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(4),
 .pins-history-body[data-mode="history"] .dd-table td:nth-child(4) { width: 84px; }
 .pins-history-body .dd-table th {
-  padding: 8px 10px;
-  font-size: var(--fs-aux, 0.8rem);
+  /* The bar's background + divider live on the .dd-header wrapper, not the
+     cells — the scrollbar-gutter mirror (_syncHeaderGutter) shifts the
+     cells inside a still-full-width bar, exactly like the facet thead's
+     --facet-gutter mirror. */
+  padding: 8px 12px;
+  font-size: var(--panel-font-size, 0.85rem);
   font-weight: 700;
   color: var(--color-text);
-  background: var(--color-nav-btn-bg);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-}
-/* Round only the outer corners of the header bar and the hover bar
-   (first column is the rightmost in RTL) */
-.pins-history-body .dd-table th:first-child,
-.pins-history-body .dd-table td:first-child {
-  border-radius: 0 6px 6px 0;
-}
-.pins-history-body .dd-table th:last-child,
-.pins-history-body .dd-table td:last-child {
-  border-radius: 6px 0 0 6px;
 }
 .pins-history-body .dd-table td {
-  padding: 7px 10px;
+  padding: 8px 12px;
   font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
   color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+}
+/* Hairline separators, the browse rows' look — except the last row, whose
+   bottom edge sits on the clear-all button's own divider line. */
+.pins-history-body .dd-table tbody tr:last-child td {
+  border-bottom: none;
 }
 .pins-history-body .dd-table tbody tr:hover td {
   background: var(--color-nav-btn-hover-bg);
@@ -1761,7 +1825,6 @@ body {
   text-align: center;
 }
 .pins-history-body .dd-table td.dd-col-idx {
-  font-size: var(--fs-micro, 0.68rem);
   color: var(--color-text-subtle);
 }
 .pins-history-body .dd-table .dd-col-sort {
@@ -1777,9 +1840,11 @@ body {
 .pins-history-body .dd-table td.dd-col-time {
   color: var(--color-text-subtle);
 }
-/* Book names wrap to a second line instead of truncating — long titles
-   (and any stale codes shown as a fallback) get full height */
+/* Book names are the row's primary content — the browse rows' name weight
+   — and wrap to a second line instead of truncating: long titles (and any
+   stale codes shown as a fallback) get full height. */
 .pins-history-body .dd-table td.dd-col-book {
+  font-weight: 600;
   white-space: normal;
   overflow-wrap: anywhere;
   line-height: 1.4;
@@ -1795,6 +1860,7 @@ body {
   text-decoration: underline;
 }
 .pins-history-body .dd-empty {
+  margin: 8px 14px;
   padding: 16px 12px;
   text-align: center;
   color: var(--color-text-subtle);
@@ -1814,7 +1880,6 @@ body {
   background: none;
   border: 1px solid transparent;
   border-top: 1px solid var(--color-border);
-  border-radius: 0 0 4px 4px;
   cursor: pointer;
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
   text-align: center;

@@ -8,10 +8,13 @@
 //
 // Checks:
 //  - library page: Authors button opens the modal with one row per author
-//    (name + Arabic + Hijri years, registry order, filter input); click
-//    toggles → chip + ?authors=
+//    with a searchable book (name + Arabic + Dhivehi alts + Hijri century
+//    and years, registry order, filter input); click toggles → chip +
+//    ?authors=
 //  - period modal: table rows = the distinct death-century buckets + modern
-//    (derived from 08); click sets ?period= and the chip
+//    (derived from 08), each row shows the century's AH range in its own
+//    column, counts cover only books really in the library (searchable
+//    set); click sets ?period=
 //  - ?authors=/?period= deep links activate chips on load
 //  - scoped search: with an author active, every result card belongs to one
 //    of that author's books (derived from 02)
@@ -56,15 +59,39 @@ const nameEN = (code) => (authors08.find((a) => a.authorCode === code) || {}).na
 // Period bucket: death-century string, "modern" when diedAH is blank
 const periodOf = (a) => (a.diedAH ? String(Math.ceil(parseInt(a.diedAH, 10) / 100)) : "modern");
 const authorCodesOf = (b) => ((b && b.authorCode) || "").split(",").map((s) => s.trim()).filter(Boolean);
-// The page counts over the *visible* set only (-HDN books are hidden from the
-// library); mirrors visibleBooks() in library-search-page.js.
+// The dashboard counts over the *visible* set only (-HDN books are hidden
+// from the grid); mirrors visibleBooks() in dashboard.js.
 const VISIBLE_BOOKS = books02.filter((b) => !b.bookCode.endsWith("-HDN"));
-// The browse lists authors with at least one visible book, in registry order.
-const BROWSE_AUTHORS = authors08.filter((a) => VISIBLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
-// Period buckets over the visible authors; "modern" only when a visible author
-// lacks a death year (a zero-count bucket would be pointless).
-const HAS_MODERN = BROWSE_AUTHORS.some((a) => !a.diedAH);
-const PERIODS = [...new Set(BROWSE_AUTHORS.map(periodOf))]
+// The library surfaces (library-search page, search window) count over the
+// searchable set — visible books the search index knows (meta.bookIds).
+// ENTIRE-BOOK-excluded books (RDF dictionaries, KNSH, …) have no postings,
+// so they are absent from the library's facet counts by design; mirrors
+// library-scope-picker's _searchableBooks.
+const searchIndex = JSON.parse(fs.readFileSync(DATA + "search-index.json", "utf8"));
+const INDEX_IDS = new Set(searchIndex.meta.bookIds);
+const SEARCHABLE_BOOKS = VISIBLE_BOOKS.filter((b) => INDEX_IDS.has(b.bookCode));
+// Authors with at least one visible book — the dashboard's browse list
+// (registry order).
+const VISIBLE_AUTHORS = authors08.filter((a) => VISIBLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
+// Authors with at least one searchable book — the library page's browse list.
+const SEARCHABLE_AUTHORS = authors08.filter((a) => SEARCHABLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
+// Per-bucket book counts (a book counts once per author it carries — same as
+// facetCounts in facet-browse.js) over a book set.
+function periodCountsOf(books) {
+  const out = {};
+  books.forEach((b) => authorCodesOf(b).forEach((ac) => {
+    const a = authors08.find((x) => x.authorCode === ac);
+    if (!a) return;
+    const p = periodOf(a);
+    out[p] = (out[p] || 0) + 1;
+  }));
+  return out;
+}
+const SEARCHABLE_PERIOD_COUNTS = periodCountsOf(SEARCHABLE_BOOKS);
+// Period buckets over the searchable authors; "modern" only when a searchable
+// author lacks a death year (a zero-count bucket would be pointless).
+const HAS_MODERN = SEARCHABLE_AUTHORS.some((a) => !a.diedAH);
+const PERIODS = [...new Set(SEARCHABLE_AUTHORS.map(periodOf))]
   .filter((p) => p !== "modern" || HAS_MODERN)
   .sort((a, b) =>
     a === "modern" ? 1 : b === "modern" ? -1 : parseInt(a, 10) - parseInt(b, 10));
@@ -163,16 +190,44 @@ async function main() {
   await waitFor(`!!document.getElementById('libAuthorsOverlay') && document.getElementById('libAuthorsOverlay').classList.contains('open')`);
   check("authors modal opens", await evalJS(`document.getElementById('libAuthorsOverlay').classList.contains('open')`));
 
-  // One row per registered author, in registry order, name + years
+  // One row per author with a searchable book (books really in the library),
+  // in registry order, name + years
   const rows = await evalJS(`Array.from(document.querySelectorAll('#libAuthorsModalBody .author-browse-row')).map(function(r){
     return { code: r.dataset.author, text: r.textContent, title: r.title };
   })`);
-  check("author rows = visible authors", rows.length === BROWSE_AUTHORS.length, rows.length + " vs " + BROWSE_AUTHORS.length);
-  check("author rows in registry order", rows.every(function (r, i) { return r.code === BROWSE_AUTHORS[i].authorCode; }),
+  check("author rows = searchable authors", rows.length === SEARCHABLE_AUTHORS.length, rows.length + " vs " + SEARCHABLE_AUTHORS.length);
+  check("author rows in registry order", rows.every(function (r, i) { return r.code === SEARCHABLE_AUTHORS[i].authorCode; }),
     rows.map((r) => r.code).join(","));
-  // nawawi was born 631 and died 676 — the row shows "631–676 AH" (authorLife)
+  // nawawi was born 631 and died 676 AH. The century and the years each get
+  // their own column: the century label first, unbracketed ("Century 7"),
+  // the AH range next, bracketed ("(631–676 AH)", the authorLife template).
   check("nawawi row has years", rows.find((r) => r.code === "nawawi").text.indexOf("676 AH") !== -1,
     rows.find((r) => r.code === "nawawi").text);
+  check("century and years in separate columns", await evalJS(
+    `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-century').textContent === ${JSON.stringify("Century 7")} &&
+     document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-range').textContent === ${JSON.stringify("(631–676 AH)")}`),
+    rows.find((r) => r.code === "nawawi").text);
+  // The alt-name run carries Arabic + Dhivehi only — English is the primary
+  // name in the en UI, so it must not repeat in the row — and a " · " leads
+  // the run so the primary and the alt scripts never butt together.
+  check("author alt names have no English", await evalJS(
+    `!document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-name-alt').textContent.match(/[a-zA-Z]/) &&
+     document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-name-alt').textContent.indexOf(" · ") === 0`),
+    await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-name-alt').textContent`));
+
+  // The thead strip sits OUTSIDE the scrollport — the scrollbar runs beside
+  // the rows alone, never the thead — and thead + rows share the grid column
+  // template, so the column edges line up exactly (the "thead left" drift
+  // the old table auto-layout produced). The authors grid has 5 columns:
+  // name, century, range, count, check.
+  check("thead outside the scrollport", await evalJS(
+    `!document.querySelector('#libAuthorsModalBody .facet-thead-row').closest('.facet-table-wrap')`));
+  check("thead columns align with the rows", await evalJS(
+    `(() => { var th = document.querySelectorAll('#libAuthorsModalBody .facet-thead-cell'); var c = document.querySelector('#libAuthorsModalBody .author-browse-row').children; return th.length === 5 && c.length === 5 && [0,1,2,3,4].every(function(i){ return Math.abs(th[i].getBoundingClientRect().left - c[i].getBoundingClientRect().left) < 1; }); })()`));
+  // The alt-name run and the century/range text columns sit at the row's
+  // full text size (no downscaling).
+  check("alt names and text columns at full size", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var fs = function(sel){ return getComputedStyle(r.querySelector(sel)).fontSize; }; return fs('.facet-name-alt') === fs('.facet-name') && fs('.facet-century') === fs('.facet-name') && fs('.facet-range') === fs('.facet-name'); })()`));
 
   // Click the nawawi row → selection, chip, URL
   await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"]').click()`);
@@ -203,7 +258,16 @@ async function main() {
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);
   await waitFor(`!!document.getElementById('libPeriodsOverlay') && document.getElementById('libPeriodsOverlay').classList.contains('open')`);
   const periodBtns = await evalJS(`Array.from(document.querySelectorAll('#libPeriodsModalBody .period-browse-row')).map(function(b){
-    return { period: b.dataset.period, text: b.textContent };
+    return {
+      period: b.dataset.period,
+      text: b.textContent,
+      count: b.querySelector('.facet-count').textContent,
+      // The range lives in its own column, still in brackets — "(201–300
+      // AH)" — the only parens in a period row. The backslashes must be
+      // doubled here: a template literal cooks \( to (, which would change
+      // the regex into a different match entirely.
+      range: (b.querySelector('.facet-range').textContent.match(/\\(([^)]+)\\)/) || [])[1] || ''
+    };
   })`);
   check("period rows = distinct buckets", periodBtns.map((b) => b.period).join(",") === PERIODS.join(","),
     periodBtns.map((b) => b.period).join(",") + " vs " + PERIODS.join(","));
@@ -211,8 +275,35 @@ async function main() {
     return i === 0 || (periodBtns[i - 1].period === "modern" ? false :
       b.period === "modern" ? true : parseInt(b.period, 10) > parseInt(periodBtns[i - 1].period, 10));
   }), periodBtns.map((b) => b.period).join(","));
+  // Each row shows the century's AH span bracketed in its own column —
+  // "Century 3" | "(201–300 AH)" — the en authorLife template "{b}–{d}
+  // AH" filled with the bucket's span, e.g. ((3-1)*100+1)–(3*100)); "modern"
+  // rows have no range.
+  check("period rows show the AH range", periodBtns.every(function (b) {
+    if (b.period === "modern") return b.range === "";
+    const n = parseInt(b.period, 10);
+    return b.range === ((n - 1) * 100 + 1) + "–" + (n * 100) + " AH";
+  }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.range) + " in " + JSON.stringify(b.text)).join(","));
+  // Counts cover books really in the library (searchable set) — e.g. century
+  // 15 counts the albani + qahtani books but not maniku's ENTIRE-BOOK-excluded
+  // RDF dictionary.
+  check("period row counts = searchable books", periodBtns.every(function (b) {
+    return String(SEARCHABLE_PERIOD_COUNTS[b.period]) === b.count;
+  }), periodBtns.map((b) => b.period + "=" + b.count + " want " + SEARCHABLE_PERIOD_COUNTS[b.period]).join(","));
+  // The label column is the short one; the range column is the wide 1fr one.
+  check("period range column is the widest", await evalJS(
+    `document.querySelector('#libPeriodsModalBody .period-browse-row .facet-range').getBoundingClientRect().width >
+     document.querySelector('#libPeriodsModalBody .period-browse-row .facet-name').getBoundingClientRect().width`));
+  // The base .modal-body gap (16px) and side padding would float the filter
+  // row, thead bar and list apart and in from the modal edges — the browse
+  // bodies drop both, matching the scope modal's flush stack. Checked here,
+  // in the periods section, because both modal bodies exist by now (the
+  // periods modal is built lazily on its first open).
+  check("facet modal bodies have no gaps", await evalJS(
+    `getComputedStyle(document.getElementById('libAuthorsModalBody')).gap === '0px' &&
+     getComputedStyle(document.getElementById('libPeriodsModalBody')).gap === '0px'`));
 
-  // Select the 3rd-century bucket (bukhari died 256)
+  // Select the Century-3 bucket (bukhari died 256)
   await evalJS(`document.querySelector('#libPeriodsModalBody .period-browse-row[data-period="3"]').click()`);
   await waitFor(`location.search.indexOf('period=3') !== -1`);
   check("period click sets ?period=3", true, await evalJS(`location.search`));
@@ -260,7 +351,7 @@ async function main() {
   await waitFor(`!!document.getElementById('libAuthorsOverlay') && document.getElementById('libAuthorsOverlay').classList.contains('open')`);
   check("dashboard authors button opens modal", await evalJS(`document.getElementById('libAuthorsOverlay').classList.contains('open')`));
   const dashRows = await evalJS(`document.querySelectorAll('#libAuthorsModalBody .author-browse-row').length`);
-  check("dashboard modal rows = visible authors", dashRows === BROWSE_AUTHORS.length, dashRows + " vs " + BROWSE_AUTHORS.length);
+  check("dashboard modal rows = visible authors", dashRows === VISIBLE_AUTHORS.length, dashRows + " vs " + VISIBLE_AUTHORS.length);
   const hasFilter = await evalJS(`!!document.getElementById('libAuthorsFilter')`);
   check("authors modal has filter input", hasFilter);
   await evalJS(`document.getElementById('libAuthorsFilter').value = 'nawaw';

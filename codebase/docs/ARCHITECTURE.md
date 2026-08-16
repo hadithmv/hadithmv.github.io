@@ -720,9 +720,11 @@ the overhang paints into the padding. The current insets: `.search-input`
 `.search-result-snippet` `padding-inline-start: 8px`, `#topBar #pageTitle`
 `padding-inline-start: 8px` (the title is `justify-content: safe center`,
 so its clip only exists when the title overflows — ޙ-led titles never show
-it, which is why it went unnoticed), `#readerPageAuthor`
-`padding-inline-start: 8px` (Dhivehi author names clip at the ellipsis).
-Surfaces with ≥7px of start padding
+it, which is why it went unnoticed). The reader header's author line
+(`#readerPageAuthor`) is safe without an inset: its text always starts with
+the neutral " - " prefix, so the first strong glyph's pen lands well inside
+the box and its start-side overhang paints into the prefix run, never the
+clip. Surfaces with ≥7px of start padding
 (quran table cells, pins cards, tag chips, surah list items) are safe
 without insets. Insets are regression-guarded by smoke-battery section F;
 measurement traps are in docs/TESTING.md "Traps from adjacent workflows".
