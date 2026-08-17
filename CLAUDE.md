@@ -65,7 +65,7 @@ the "keeping this guide alive" capture-at-discovery rule.
 
 ## Data pipeline
 
-- `data/03-update-bookRegistry.ps1` rewrites the book registry on every run
+- `data/04-update-bookRegistry.ps1` rewrites the book registry on every run
   (recomputes versions) — it **never** touches `01-registry-bookTags.csv`: tag
   row order is the palette slot assignment for the auto-generated colours, so
   it is hand-controlled. After changing the script, run **twice** and compare
@@ -74,7 +74,7 @@ the "keeping this guide alive" capture-at-discovery rule.
 - Version = SHA-256 of the content CSV, first 12 hex, **lowercase** (compared
   case-sensitively client-side).
 - After registry or book changes, regenerate the search index:
-  `node data/07-rebuild-searchIndex.mjs`.
+  `node data/08-rebuild-searchIndex.mjs`.
 - Renames/swaps move names, not data: after any `git mv`, verify bytes against
   the git blob (`git show HEAD:<path> | sha256sum`) and check
   `git status --porcelain` for untracked strays at the old path.

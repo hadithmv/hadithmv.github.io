@@ -7,13 +7,13 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 ```text
 data/
   01-registry-bookTags.csv      ← Tag definitions (tagCode, trilingual labels, aliases, colors)
-  02-registry-bookMeta.csv     ← Book registry (bookCode, authorCode, titles in AR/DV/EN, secondary tags, version hash)
-  03-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
-  04-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
-  05-registry-quranJuz.csv      ← 30 juz cut points (startSurah, startAyah)
-  06-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
-  07-rebuild-searchIndex.mjs    ← Node script: builds search-index.json (rerun after book changes)
-  08-registry-authors.csv       ← Author definitions (authorCode, trilingual names, Hijri birth/death years)
+  03-registry-bookMeta.csv     ← Book registry (bookCode, authorCode, titles in AR/DV/EN, secondary tags, version hash)
+  04-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
+  05-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
+  06-registry-quranJuz.csv      ← 30 juz cut points (startSurah, startAyah)
+  07-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
+  08-rebuild-searchIndex.mjs    ← Node script: builds search-index.json (rerun after book changes)
+  02-registry-bookAuthors.csv       ← Author definitions (authorCode, trilingual names, Hijri birth/death years)
   search-index.json             ← Generated word-level search index (word → books → rows)
   content/                      ← Per-book content files (incl. Quran base data)
     *.csv                       ← One file per book
@@ -57,7 +57,7 @@ docs/                           ← User guide, architecture, API reference
 
 ### Add a new book
 
-1. Add a row to `data/02-registry-bookMeta.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`; `authorCode` is optional (one or more comma‑separated codes from `08-registry-authors.csv`):
+1. Add a row to `data/03-registry-bookMeta.csv` — the `tags` column holds secondary tags (comma‑separated codes from `01-registry-bookTags.csv`); the primary tag is the first segment of the `bookCode`; `authorCode` is optional (one or more comma‑separated codes from `02-registry-bookAuthors.csv`):
 
    ```csv
    bookCode,authorCode,titleAR,titleDV,titleEN,tags
@@ -81,14 +81,14 @@ Books with a `FQH-` prefix (primary tag) or `FQH` in their `tags` column will sh
 
 The `aliases*` columns are **optional extra search words** — names beyond the label that should still match the tag when searched (e.g. `RDF` carries `Radheef,Lexicon` in English). Comma-separated lists go in a quoted cell (`"Radheef,Lexicon"`). They never appear on badges — they only join the search matching.
 
-Blank lines are fine as group separators — the parser drops them and they don't shift the auto‑generated colours (each tag's colour slot follows its position among tags). Never add `#` comment lines: the parser has no comment syntax, so a `#` line parses as a phantom tag and silently recolours everything after it. The tag row order is the palette **and the display order — chips render in file order, not alphabetical** — `03-update-bookRegistry.ps1` never rewrites this file.
+Blank lines are fine as group separators — the parser drops them and they don't shift the auto‑generated colours (each tag's colour slot follows its position among tags). Never add `#` comment lines: the parser has no comment syntax, so a `#` line parses as a phantom tag and silently recolours everything after it. The tag row order is the palette **and the display order — chips render in file order, not alphabetical** — `04-update-bookRegistry.ps1` never rewrites this file.
 
 ### Book code conventions
 
 A book code carries exactly ONE tag — the primary — as its first segment (`HDT-muwattaMalik`); any further tags live in the `tags` column of the registry. Prefixes and suffixes control book behaviour — badges, visibility, row order, and more. See [Architecture → Naming conventions](docs/ARCHITECTURE.md#naming-conventions) for the full list. A quick summary:
 
 - `DRFT-` → draft badge (or in `tags`) · `-HDN` → hidden · `-DSC` → reversed rows · `KNSH-` → body heading style
-- Run `data/03-update-bookRegistry.ps1` to sync new books and generate `titleEN` (it preserves the `tags` column)
+- Run `data/04-update-bookRegistry.ps1` to sync new books and generate `titleEN` (it preserves the `tags` column)
 
 ## Data CSV format
 
@@ -108,7 +108,7 @@ Note the first row's `bodyAR` cell spans two lines — quoted cells may contain 
 ## How it works
 
 1. The page reads `?book=CODE` from the URL.
-1. `book-data.js` loads `02-registry-bookMeta.csv`, `01-registry-bookTags.csv` and `08-registry-authors.csv` for metadata, badges and author lines.
+1. `book-data.js` loads `03-registry-bookMeta.csv`, `01-registry-bookTags.csv` and `02-registry-bookAuthors.csv` for metadata, badges and author lines.
 1. `reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 

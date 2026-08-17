@@ -1,7 +1,7 @@
 /**
  * Book Data Module
  * Book registry, tag extraction, page metadata and bootstrap.
- * Loads metadata from 02-registry-bookMeta.csv and 01-registry-bookTags.csv.
+ * Loads metadata from 03-registry-bookMeta.csv and 01-registry-bookTags.csv.
  * All configuration lives in CSV files — no hardcoded data.
  * The dashboard UI built on this metadata lives in dashboard.js.
  */
@@ -118,7 +118,7 @@ export async function loadTagDefinitions() {
  * to populate the cache, or the function returns no tags (graceful fallback).
  *
  * @param {string} bookCode - e.g. "HDT-muwattaMalik"
- * @param {Object} [entry] - the registry row (from 02-registry-bookMeta.csv);
+ * @param {Object} [entry] - the registry row (from 03-registry-bookMeta.csv);
  *   provides the `tags` column. Pass it whenever available.
  * @returns {Array<{code: string, label: Object, aliases: Object, palette: number}>}
  */
@@ -168,11 +168,11 @@ export function tagSearchWords(bookCode, entry) {
 }
 
 // ---------------------------------------------------------------------------
-// Author definitions — loaded from 08-registry-authors.csv
+// Author definitions — loaded from 02-registry-bookAuthors.csv
 // ---------------------------------------------------------------------------
 
 /**
- * Load author definitions from 08-registry-authors.csv.
+ * Load author definitions from 02-registry-bookAuthors.csv.
  * Cached after first load; safe to call multiple times.
  * @returns {Promise<Object>} Map of authorCode → {name: {dv,en,ar}, bornAH, diedAH}
  */
@@ -181,7 +181,7 @@ export async function loadAuthorDefinitions() {
     return _authorDefinitionsCache;
   }
   try {
-    var result = await fetchCSVObjects("../data/08-registry-authors.csv");
+    var result = await fetchCSVObjects("../data/02-registry-bookAuthors.csv");
     _authorDefinitionsCache = {};
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
@@ -199,7 +199,7 @@ export async function loadAuthorDefinitions() {
     }
     return _authorDefinitionsCache;
   } catch (error) {
-    console.error("Error loading 08-registry-authors.csv:", error);
+    console.error("Error loading 02-registry-bookAuthors.csv:", error);
     _authorDefinitionsCache = {};
     return _authorDefinitionsCache;
   }
@@ -277,7 +277,7 @@ export function bookAuthorLine(entry) {
 // ---------------------------------------------------------------------------
 
 /**
- * Load the book registry (02-registry-bookMeta.csv) and parse it using parseCSV.
+ * Load the book registry (03-registry-bookMeta.csv) and parse it using parseCSV.
  * Uses a cache so the file is only fetched once per page load.
  * @returns {Promise<Array>} Array of book metadata objects (empty on error)
  */
@@ -287,10 +287,10 @@ export async function loadBookRegistry() {
   }
 
   try {
-    _bookNamesCache = await fetchCSVObjects("../data/02-registry-bookMeta.csv");
+    _bookNamesCache = await fetchCSVObjects("../data/03-registry-bookMeta.csv");
     return _bookNamesCache;
   } catch (error) {
-    console.error("Error loading 02-registry-bookMeta.csv:", error);
+    console.error("Error loading 03-registry-bookMeta.csv:", error);
     return null; // null signals fetch failure (vs empty registry)
   }
 }

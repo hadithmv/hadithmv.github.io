@@ -284,10 +284,10 @@ const STRINGS = {
   // Emoji lives INSIDE the values: data-i18n sets textContent to the
   // translation, wiping any emoji baked into the button's HTML (see
   // dashboardHistoryBtn / searchBtnLabel for the same pattern).
-  libAuthors: { dv: "✍️ ލިޔުންތެރިން", en: "✍️ Authors", ar: "✍️ المؤلفون" },
+  libAuthors: { dv: "✍️ މުއައްލިފުން", en: "✍️ Authors", ar: "✍️ المؤلفون" },
   libPeriods: { dv: "🗓️ ޒަމާންތައް", en: "🗓️ Periods", ar: "🗓️ الفترات" },
   libAuthorsTitle: {
-    dv: "ލިޔުންތެރިން",
+    dv: "މުއައްލިފުން",
     en: "Browse by author",
     ar: "تصفح حسب المؤلف",
   },
@@ -297,7 +297,7 @@ const STRINGS = {
     ar: "تصفح حسب الفترة",
   },
   libAuthorsFilter: {
-    dv: "ލިޔުންތެރިން ހޯދާ…",
+    dv: "މުއައްލިފުން ހޯދާ…",
     en: "Filter authors…",
     ar: "ابحث عن المؤلفين…",
   },
@@ -307,7 +307,7 @@ const STRINGS = {
     ar: "ابحث عن الفترات…",
   },
   libAuthorsNoMatch: {
-    dv: "އެއްވެސް ލިޔުންތެރިއެއް ނުފެނުނު",
+    dv: "އެއްވެސް މުއައްލިފެއް ނުފެނުނު",
     en: "No authors match",
     ar: "لا يوجد مؤلفون مطابقون",
   },
@@ -316,7 +316,7 @@ const STRINGS = {
     en: "No periods match",
     ar: "لا توجد فترات مطابقة",
   },
-  facetColAuthor: { dv: "ލިޔުންތެރިން", en: "Author", ar: "المؤلف" },
+  facetColAuthor: { dv: "މުއައްލިފު", en: "Author", ar: "المؤلف" },
   facetColCentury: { dv: "ގަރުނު", en: "Century", ar: "القرن" },
   facetColYears: { dv: "އަހަރު", en: "Years", ar: "السنوات" },
   facetColBooks: { dv: "ފޮތް", en: "Books", ar: "الكتب" },
@@ -340,7 +340,7 @@ const STRINGS = {
   century13: { dv: "ގަރުނު 13", en: "Century 13", ar: "القرن 13" },
   century14: { dv: "ގަރުނު 14", en: "Century 14", ar: "القرن 14" },
   century15: { dv: "ގަރުނު 15", en: "Century 15", ar: "القرن 15" },
-  centuryModern: { dv: "މުޢާޞިރު", en: "Modern", ar: "معاصر" },
+  centuryModern: { dv: "ފަހުގެ", en: "Modern", ar: "معاصر" },
   libScopeFilter: {
     dv: "ފޮތް ފިލްޓަރުކުރޭ…",
     en: "Filter books…",

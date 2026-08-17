@@ -41,7 +41,7 @@ function check(name, cond, detail) {
 }
 
 // ── expected values straight from the data files ─────────────────────
-const rows04 = parseCSV(fs.readFileSync(DATA + "04-registry-quranSurahs.csv", "utf8"));
+const rows04 = parseCSV(fs.readFileSync(DATA + "05-registry-quranSurahs.csv", "utf8"));
 rows04.shift();
 const s02 = rows04.find((r) => r[0] === "2");
 const BASM = s02[5];
@@ -53,7 +53,7 @@ const imlai = parseCSV(fs.readFileSync(DATA + "content/QRN-DATA-ayahImlai.csv", 
 imlai.shift();
 const JSTARTS = [0, 148, 259, 385, 516, 640, 750, 899, 1041, 1200, 1327, 1478, 1648, 1802, 2029, 2214, 2483, 2673, 2875, 3214, 3385, 3563, 3732, 4089, 4264, 4510, 4705, 5104, 5241, 5672];
 
-const rows06 = parseCSV(fs.readFileSync(DATA + "06-registry-quranColumns.csv", "utf8"));
+const rows06 = parseCSV(fs.readFileSync(DATA + "07-registry-quranColumns.csv", "utf8"));
 rows06.shift();
 const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" || r[0] === "QRN-DATA-ayahImlai"; })
   .sort(function (a, b) {
@@ -65,7 +65,7 @@ const base06 = rows06.filter(function (r) { return r[0] === "QRN-BASE-STRUCT" ||
 const expLabels = base06.filter(function (r) {
   return !(r[0] === "QRN-BASE-STRUCT" && parseInt(r[1], 10) < 3);
 }).map(function (r) { return r[2]; });
-const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
+const rows02 = parseCSV(fs.readFileSync(DATA + "03-registry-bookMeta.csv", "utf8"));
 const rows02Header = rows02.shift();
 // Column resolved by header name, not position — 02's layout may grow
 // (authorCode sits after bookCode; version is always last).
@@ -269,7 +269,7 @@ async function main() {
   // that book's CSV header AND appear in the modal — a missing registry row
   // silently removes the column from the modal, so it can never be added to
   // an open QRN book (soabuni's translation column once had no row at all).
-  const rows06all = parseCSV(fs.readFileSync(DATA + "06-registry-quranColumns.csv", "utf8"));
+  const rows06all = parseCSV(fs.readFileSync(DATA + "07-registry-quranColumns.csv", "utf8"));
   rows06all.shift();
   const modalKeys = new Set(modal.keys);
   const regBad = [];

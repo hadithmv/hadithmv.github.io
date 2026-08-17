@@ -6,7 +6,7 @@
  * their raw CSV identifiers (those are data identifiers, not content).
  *
  * Resolution order for a column's display label:
- *   1. Column registry (06-registry-quranColumns.csv) — QRN books only
+ *   1. Column registry (07-registry-quranColumns.csv) — QRN books only
  *   2. Derived from the raw header's camelCase tokens (tables in
  *      column-tokens.js, labels in i18n.js as col* keys)
  *   3. Raw header text (fallback — unmapped headers are caught by

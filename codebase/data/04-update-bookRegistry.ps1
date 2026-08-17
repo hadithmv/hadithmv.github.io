@@ -1,4 +1,4 @@
-# Update and sort 02-registry-bookMeta.csv
+# Update and sort 03-registry-bookMeta.csv
 #   - Scans data/content/ for CSV files not yet registered and adds them
 #     (titles left empty — all three titles are hand-authored)
 #   - Converts CRLF line endings in book CSVs to LF before hashing — exactly
@@ -6,7 +6,7 @@
 #     Pages actually serves (bare CRs inside quoted fields are data, kept)
 #   - Recomputes each book's version hash from its content CSV
 #   - Sorts alphabetically by bookCode; writes the registry as LF, no BOM
-#   - NEVER touches 01-registry-bookTags.csv or 08-registry-authors.csv —
+#   - NEVER touches 01-registry-bookTags.csv or 02-registry-bookAuthors.csv —
 #     tag row order is the palette slot assignment, author rows are
 #     hand-authored; both stay hand-controlled
 #   - INVARIANT: `version` is ALWAYS the last column. The version swap below
@@ -15,7 +15,7 @@
 #     isn't hex), so the pattern always hits the true version field. New
 #     columns (like authorCode) go BEFORE it; never after.
 
-$csvPath = Join-Path $PSScriptRoot "02-registry-bookMeta.csv"
+$csvPath = Join-Path $PSScriptRoot "03-registry-bookMeta.csv"
 $dataDir = Join-Path $PSScriptRoot "content"  # book CSVs live in the content/ subfolder
 $utf8 = New-Object System.Text.UTF8Encoding($false)  # no-BOM UTF-8 for registry reads/writes (PS 5.1's -Encoding UTF8 adds a BOM)
 
@@ -70,13 +70,13 @@ foreach ($row in $rows) {
     $code = ($row -split ",")[0].Trim()
     if ($code) { $registered[$code] = $true }
 }
-Write-Info "$($rows.Count) books in 02-registry-bookMeta.csv"
+Write-Info "$($rows.Count) books in 03-registry-bookMeta.csv"
 
 # ── Find new CSV files ────────────────────────────────────────
 Write-Section "Scanning for new books"
 $added = 0
 Get-ChildItem $dataDir -Filter *.csv | Where-Object {
-    $_.Name -notin @("01-registry-bookTags.csv", "02-registry-bookMeta.csv", "04-registry-quranSurahs.csv", "05-registry-quranJuz.csv", "06-registry-quranColumns.csv")
+    $_.Name -notin @("01-registry-bookTags.csv", "03-registry-bookMeta.csv", "05-registry-quranSurahs.csv", "06-registry-quranJuz.csv", "07-registry-quranColumns.csv")
 } | ForEach-Object {
     $code = $_.BaseName
     if (-not $registered.ContainsKey($code)) {

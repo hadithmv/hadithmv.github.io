@@ -45,7 +45,7 @@ function check(name, cond, detail) {
   if (!cond) failures++;
 }
 
-const rows02 = parseCSV(fs.readFileSync(DATA + "02-registry-bookMeta.csv", "utf8"));
+const rows02 = parseCSV(fs.readFileSync(DATA + "03-registry-bookMeta.csv", "utf8"));
 const rows02Header = rows02.shift();
 // Column resolved by header name, not position — 02's layout may grow
 // (authorCode sits after bookCode; version is always last).

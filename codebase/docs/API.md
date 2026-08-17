@@ -73,7 +73,7 @@ Loads and caches `01-registry-bookTags.csv` → `Map<tagCode, {label: {dv,en,ar}
 
 ### `loadAuthorDefinitions()`
 
-Loads and caches `08-registry-authors.csv` → `Map<authorCode, {name: {dv,en,ar}, bornAH, diedAH}>` (Hijri years as strings, "" when unknown). Returns the empty map on error (cached, no retry). Preloaded by `initializePageWithMetadata()` and `initializeDashboard()` alongside the tag definitions — `bookAuthorLine()` renders "" until it resolves.
+Loads and caches `02-registry-bookAuthors.csv` → `Map<authorCode, {name: {dv,en,ar}, bornAH, diedAH}>` (Hijri years as strings, "" when unknown). Returns the empty map on error (cached, no retry). Preloaded by `initializePageWithMetadata()` and `initializeDashboard()` alongside the tag definitions — `bookAuthorLine()` renders "" until it resolves.
 
 ### `authorDefs()`
 
@@ -93,7 +93,7 @@ English-only author names, no years, comma‑joined — the portable form for th
 
 ### `loadBookNames()`
 
-Fetches and caches `02-registry-bookMeta.csv`. Returns `Array` of book objects (`bookCode`, `authorCode` — optional, comma‑separated codes from `08-registry-authors.csv`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
+Fetches and caches `03-registry-bookMeta.csv`. Returns `Array` of book objects (`bookCode`, `authorCode` — optional, comma‑separated codes from `02-registry-bookAuthors.csv`, `titleAR`, `titleDV`, `titleEN`, `tags` — secondary tags, comma‑separated). Returns `[]` on error.
 
 ### `getPageMetadata(bookCode)`
 
@@ -137,7 +137,7 @@ Dashboard state and rendering moved to `dashboard.js` when the module was split 
 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
-- Run `data/03-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort the book registry by `bookCode` (the tag and author registries are never rewritten)
+- Run `data/04-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort the book registry by `bookCode` (the tag and author registries are never rewritten)
 
 ---
 
@@ -281,7 +281,7 @@ one surface shows up in the other's recent searches.
 
 ## library-search-engine.js
 
-Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/07-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/08-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is).
 
 ### `loadSearchIndex()`
 
@@ -377,7 +377,7 @@ DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, 
 
 ### `loadQuranBaseData()`
 
-Memoized. Derives the base structure — `[juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai]` per row, 6,236 rows — at load time from three sources: Imlai text via `loadQuranBookCSV(QRN-DATA-ayahImlai.csv)` (version-gated IndexedDB cache), surah spans and the per-surah basmalah from `04-registry-quranSurahs.csv`, juz cut points from `05-registry-quranJuz.csv`. Structural cells are `String`-typed to match CSV byte semantics. Also fills the O(1) lookup tables behind `getSurahStartRow` / `getJuzStartRow`.
+Memoized. Derives the base structure — `[juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai]` per row, 6,236 rows — at load time from three sources: Imlai text via `loadQuranBookCSV(QRN-DATA-ayahImlai.csv)` (version-gated IndexedDB cache), surah spans and the per-surah basmalah from `05-registry-quranSurahs.csv`, juz cut points from `06-registry-quranJuz.csv`. Structural cells are `String`-typed to match CSV byte semantics. Also fills the O(1) lookup tables behind `getSurahStartRow` / `getJuzStartRow`.
 
 ### `getSurahStartRow(surahNo)` / `getJuzStartRow(juzNo)`
 
@@ -404,7 +404,7 @@ Pure column‑layout rebuild — the heart of the content modal's reorder featur
 
 ### `loadColumnRegistry()`
 
-Fetches `06-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
+Fetches `07-registry-quranColumns.csv` — a registry of all available Quran columns across all books. Each entry has `sourceBook`, `sourceCol`, `displayDV`, `displayEN`.
 
 ### Content presets
 
@@ -416,7 +416,7 @@ The content modal (`quran-ui.js`) lists every available column in `_colOrder` (r
 
 ### `getBookLabel(colIndex)`
 
-Returns the book-level title (from `02-registry-bookMeta.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
+Returns the book-level title (from `03-registry-bookMeta.csv`) for the source book that column `colIndex` belongs to. Returns `null` for base data columns. Falls back to the raw book code if the book isn't in the registry. Used by the card renderer and clipboard exporter to label each book's content.
 
 ### `getColumnSourceBook(colIndex)`
 
@@ -514,7 +514,7 @@ Consumes `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `q
 ### Clipboard format
 
 - **Standard books** — header line `titleDV - titleAR` followed by row text with column separators (AR/DV spacer, matn/sharh divider, footnote divider).
-- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `02-registry-bookMeta.csv`) above each book's columns. Per-column headers are omitted.
+- **Quran books** — no book header line. Ayah text decorated with `﴿ ﴾` braces, surah reference `[name surahNo : ayahNo]`, then columns grouped by source book with a book-level label (from `03-registry-bookMeta.csv`) above each book's columns. Per-column headers are omitted.
 
 ---
 
@@ -729,9 +729,9 @@ No JSON endpoints. All data is CSV — one source of truth, no duplication. If y
 ### Book registry
 
 ```http
-GET data/02-registry-bookMeta.csv
+GET data/03-registry-bookMeta.csv
 ```
-Columns: `bookCode,authorCode,titleAR,titleDV,titleEN,tags,excludeFromIndex,version`. One row per registered book. The `tags` column holds secondary tag codes (comma‑separated); the primary tag is the first segment of `bookCode`. The `authorCode` column holds author codes (comma‑separated) from `08-registry-authors.csv`.
+Columns: `bookCode,authorCode,titleAR,titleDV,titleEN,tags,excludeFromIndex,version`. One row per registered book. The `tags` column holds secondary tag codes (comma‑separated); the primary tag is the first segment of `bookCode`. The `authorCode` column holds author codes (comma‑separated) from `02-registry-bookAuthors.csv`.
 
 ### Tag definitions
 
@@ -743,7 +743,7 @@ Columns: `tagCode,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN`. Colour
 ### Author definitions
 
 ```http
-GET data/08-registry-authors.csv
+GET data/02-registry-bookAuthors.csv
 ```
 Columns: `authorCode,nameAR,nameDV,nameEN,bornAH,diedAH`. Hijri years as plain numerals (blank = unknown/living). Row order is the browse list's display order (chronological by death year in the current file).
 
@@ -780,7 +780,7 @@ with urllib.request.urlopen(url) as r:
 
 ```bash
 # curl into any CSV tool
-curl -s https://hadithmv.github.io/codebase/data/02-registry-bookMeta.csv | csvlook
+curl -s https://hadithmv.github.io/codebase/data/03-registry-bookMeta.csv | csvlook
 ```
 
 No authentication, no rate limiting, no CORS — static files on GitHub Pages.

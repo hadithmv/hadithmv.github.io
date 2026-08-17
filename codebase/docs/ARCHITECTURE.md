@@ -40,9 +40,9 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 
 | File                         | Purpose                                                                    |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| `data/02-registry-bookMeta.csv`      | Central registry of books (code, authorCode, titles in AR/DV/EN, secondary `tags` column, version) |
+| `data/03-registry-bookMeta.csv`      | Central registry of books (code, authorCode, titles in AR/DV/EN, secondary `tags` column, version) |
 | `data/01-registry-bookTags.csv`       | Tag definitions (tagCode, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file) |
-| `data/08-registry-authors.csv`        | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 02's `authorCode` column |
+| `data/02-registry-bookAuthors.csv`        | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 02's `authorCode` column |
 | `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
 | `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
 | `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs |
@@ -78,13 +78,13 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/content/*.csv`        | Per-book content files                                                     |
-| `data/03-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag or author registries) |
-| `data/04-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
-| `data/06-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
-| `data/05-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
-| `data/content/QRN-DATA-ayahImlai.csv`      | Base Quran text: one Imlai ayah per row (structure derived from 04 + 05 at load) |
+| `data/04-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag or author registries) |
+| `data/05-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
+| `data/07-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
+| `data/06-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
+| `data/content/QRN-DATA-ayahImlai.csv`      | Base Quran text: one Imlai ayah per row (structure derived from 05 + 06 at load) |
 | `data/content/QRN-DATA-ayahUthmani.csv`   | Quran text in Uthmani script                                |
-| `data/07-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
+| `data/08-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
 | `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
 | `data/search-index-report.md` | Generated per-build policy report — one row per book (index id, rows, postings, indexed/skipped columns), warnings, and a postings-by-column breakdown sorted by size; commit it to diff policy changes across versions |
 
@@ -120,7 +120,7 @@ URL: ?book=AQD-nawaqidulIslam
         │
         ▼
   book-data.js
-    ├─ fetch ../data/02-registry-bookMeta.csv  ──→  find row by bookCode
+    ├─ fetch ../data/03-registry-bookMeta.csv  ──→  find row by bookCode
     ├─ fetch ../data/01-registry-bookTags.csv ──→  resolve tag badges (primary prefix + tags column)
     └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
         │
@@ -427,18 +427,18 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 ## Data shape
 
-### 02-registry-bookMeta.csv
+### 03-registry-bookMeta.csv
 
 | Column             | Description                                         |
 | ------------------ | --------------------------------------------------- |
 | `bookCode`         | Unique identifier, doubles as the data CSV filename. Format: `PRIMARY-bookName[-SUFFIX]` — the **primary tag** is the first segment, registered in `01-registry-bookTags.csv` (a book may have no primary). `-HDN` / `-DSC` are suffix flags, not tags |
-| `authorCode`       | **Optional** — comma‑separated author codes from `08-registry-authors.csv` (one per contributor, e.g. `nawawi`). Drives the author line on cards/reader header (the reader's links to `index.html?authors=`), the EPUB `dc:creator`, and the shared Authors/Periods browse filters (library page, dashboard, search window). Empty = no author line. Sits **immediately after** `bookCode`, before the titles — see the version‑last invariant under 03 |
+| `authorCode`       | **Optional** — comma‑separated author codes from `02-registry-bookAuthors.csv` (one per contributor, e.g. `nawawi`). Drives the author line on cards/reader header (the reader's links to `index.html?authors=`), the EPUB `dc:creator`, and the shared Authors/Periods browse filters (library page, dashboard, search window). Empty = no author line. Sits **immediately after** `bookCode`, before the titles — see the version‑last invariant under 03 |
 | `titleAR`          | Arabic title                                        |
 | `titleDV`          | Dhivehi title                                       |
 | `titleEN`          | English title (used for `<title>` and page heading) |
 | `tags`             | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column |
 | `excludeFromIndex` | **Optional** — comma‑separated header names to skip in the cross‑book index (case‑insensitive). `-HDN` and row‑number columns are always skipped regardless. Empty = all columns indexed. Build-only |
-| `version`          | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `03-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
+| `version`          | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `04-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
 
 **Virtual books** (e.g. `RDF-all`) have a registry row but **no content CSV** — the `version` field stays empty (03 writes it only when a file exists), and 03's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
 
@@ -456,17 +456,17 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `aliasesDV`  | Extra Dhivehi search words (optional)                    |
 | `aliasesEN`  | Extra English search words (optional)                    |
 
-Tag labels are **data, not code** — the registry is the single source of truth for all three languages (the same pattern as `02-registry-bookMeta.csv`'s `titleAR/titleDV/titleEN`). `book-data.js` loads each tag as `{label: {dv,en,ar}, aliases: {dv,en,ar}, palette}` and `tagLabel()` picks the right language at render time; `js/i18n.js` carries no tag strings.
+Tag labels are **data, not code** — the registry is the single source of truth for all three languages (the same pattern as `03-registry-bookMeta.csv`'s `titleAR/titleDV/titleEN`). `book-data.js` loads each tag as `{label: {dv,en,ar}, aliases: {dv,en,ar}, palette}` and `tagLabel()` picks the right language at render time; `js/i18n.js` carries no tag strings.
 
 **Aliases** are search-only words that should match the tag's code — names beyond the label (e.g. RDF: `Radheef,Lexicon`). Comma-separated lists go in a **quoted cell** (`"Radheef,Lexicon"`) — the parser handles quotes. They never render on badges; they join the search matching (dashboard search box + scope-modal filter, all languages at once) via `tagSearchWords()`, which appends each book's tag labels + aliases to the query haystack.
 
 **Aliases are word-level only — script-level equivalence lives in `normaliseForSearch` (search-utils.js), not here.** The normaliser already makes labels match their hamza/tashkeel variants (أإآٱ→ا, ى→ي, ؤ→و, marks stripped), Thaana thikijehi forms (ޙ→ހ …), and the Arabic definite article (guarded word-initial ال-strip: refused before ل — الله/اللهم — and for 1-letter remainders — أَلْف). An alias that normalises to the label's own normalised form (e.g. ޙަދީސް ≡ ޙަދީޘް, القرآن ≡ قرآن, الأحاديث ⊂ الحديث) is dead weight and should not be added — the CSV keeps only genuinely different words (transliterations, plurals, synonyms, alternative spellings like ކުރްއާން where ކ ≠ ގ). Article-typed Arabic now matches through the normaliser too. **Fuzzy widens the boundary: the filter boxes are always‑fuzzy (scoreFilterTokens, ≤ 2 edits), so an alias within 2 edits of its own label is also dead weight — the label already catches it.** Verified current state: every remaining alias is > 2 edits from its label.
 
-Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just one `code,labelAR,labelDV,labelEN` row — no colour‑picking, no code, no limit on tag count. Because the slot follows tag order, the palette is stable — `03-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours. **The slot is also the display order**: every rendered tag row (dashboard chips, library-search chips, the scope-modal rail and its book groups) sorts by palette slot, so the file's row sequence is exactly the order the user sees.
+Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 137.5°`), where `n` is the tag's **ordinal position among code-bearing rows**. A `<style>` tag is injected at load time with enough slots for all current tags plus headroom. Each slot has light/sepia and dark‑mode variants. Adding a new tag is just one `code,labelAR,labelDV,labelEN` row — no colour‑picking, no code, no limit on tag count. Because the slot follows tag order, the palette is stable — `04-update-bookRegistry.ps1` never rewrites this file; reordering rows by hand is the way to reorder colours. **The slot is also the display order**: every rendered tag row (dashboard chips, library-search chips, the scope-modal rail and its book groups) sorts by palette slot, so the file's row sequence is exactly the order the user sees.
 
 **Format rules.** Blank lines are dropped by `parseCSV` (the loader's second guard, `if (row.tagCode)` in `book-data.js`, skips anything that slips through) and consume no palette slot — use them freely to group related tags. **Never add comment lines** (`# …` or any non-tag text): the parser has no comment syntax, so such a line parses as a phantom tag with a truthy code, eating a palette slot and silently shifting every colour after it. A stray `,` line is harmless (empty code → skipped).
 
-### 08-registry-authors.csv
+### 02-registry-bookAuthors.csv
 
 | Column     | Description                                              |
 | ---------- | -------------------------------------------------------- |
@@ -489,7 +489,7 @@ First row is always the header row. For a representative sample, see `AQD-nawaqi
 
 ## Tag system
 
-Every book has a **primary tag** (the first registered prefix segment of its `bookCode`) and zero or more **secondary tags** (the `tags` column in `02-registry-bookMeta.csv`, comma‑separated codes). `extractTags(bookCode, entry)` reads both: the primary from the code, the secondaries from the registry row's `tags` column. Tags drive the dashboard chips, counts, `?tags=` filter, and badges on cards and the reader header. Each code is looked up in `01-registry-bookTags.csv`; unknown codes are silently ignored.
+Every book has a **primary tag** (the first registered prefix segment of its `bookCode`) and zero or more **secondary tags** (the `tags` column in `03-registry-bookMeta.csv`, comma‑separated codes). `extractTags(bookCode, entry)` reads both: the primary from the code, the secondaries from the registry row's `tags` column. Tags drive the dashboard chips, counts, `?tags=` filter, and badges on cards and the reader header. Each code is looked up in `01-registry-bookTags.csv`; unknown codes are silently ignored.
 
 | bookCode                    | `tags` column | Tags (primary + secondary) | Book Name       |
 | --------------------------- | ------------- | -------------------------- | --------------- |
@@ -511,7 +511,7 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
 ## Data model at a glance
 
 ```text
-02-registry-bookMeta.csv         01-registry-bookTags.csv    08-registry-authors.csv
+03-registry-bookMeta.csv         01-registry-bookTags.csv    02-registry-bookAuthors.csv
 ┌─────────────────────────┐       ┌──────────────────┐       ┌──────────────────────┐
 │ bookCode, titleDV/AR/EN │       │ tagCode, label   │       │ authorCode, names,   │
 │ authorCode → 08         │       │ e.g. AQD→Aqidah  │       │ bornAH/diedAH (Hijri)│
@@ -551,7 +551,7 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
 
 ## Virtual merged books
 
-A **virtual book** has a registry row in `02-registry-bookMeta.csv` (card, tags, reader routing) but **no content CSV** — its rows are assembled in memory at load. The only current example is **`RDF-all`** (الجامع في المعاجم / އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް / Collection of All Dictionaries): the combined radheef dictionary over the eight source radheef books.
+A **virtual book** has a registry row in `03-registry-bookMeta.csv` (card, tags, reader routing) but **no content CSV** — its rows are assembled in memory at load. The only current example is **`RDF-all`** (الجامع في المعاجم / އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް / Collection of All Dictionaries): the combined radheef dictionary over the eight source radheef books.
 
 `js/radheef-merge.js` (`loadMergedRadheefBook`) is the assembler, wired into the reader's load path (`loadBookData()` in reader.js) after the Quran branch. Contract per source book:
 
@@ -561,7 +561,7 @@ A **virtual book** has a registry row in `02-registry-bookMeta.csv` (card, tags,
 - **Caching** — sources load through the normal `fetchBookCSVCached`, each keyed by its own registry `version`, so an edit to any source book shows up here automatically with nothing to re-run; no merged file exists to go stale.
 - **Index** — `excludeFromIndex: ENTIRE-BOOK` keeps the merged book out of the library search index (like all RDF books): a postings index over dictionaries would dwarf the rest of the site. Its search runs inside the reader over the loaded rows — see "Search" below (RDF books get the in-place filter).
 - **Rasmee rows stand out** — rows whose `source` is the RDF-rasmee book carry `merged-row-rasmee` (`reader.js` `mergedRowRasmeeClass`, source cell compared against `getBookTitleSync("RDF-rasmee")` — content-derived, never hardcoded), tinted with the site's one content wash (`--color-wash-bg` in common.css — theme-aware, the *same* token Arabic-original content uses via `isArabicColumn`, so both tint families share one definition and cannot drift apart) in both card and table layouts, and the `source` column renders small/muted as chrome rather than content.
-- **Registry script** — 03's missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `07-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
+- **Registry script** — 03's missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `08-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
 
 Size reference: 152,612 merged rows in `MERGED_SOURCES` block order — 0-based block starts: rasmee 0 (53,841 rows), fahmy 53,841 (682), asma 54,523 (110), eegaal 54,633 (13,376), maniku 68,009 (2,231), misc 70,240 (41,051), nanfoiyComb 111,291 (8,784), W2W 120,075 (32,537).
 
@@ -569,7 +569,7 @@ Size reference: 152,612 merged rows in `MERGED_SOURCES` block order — 0-based 
 
 Books with the `QRN-` prefix (excluding `QRN-DATA-` source files) trigger Quran mode in the reader. Multiple CSV files are merged by row index — row N of every CSV corresponds to ayah N of the Quran.
 
-An all-empty row in a QRN book is **meaningful**: it marks an ayah with no content yet (e.g. untranslated) and renders as the base columns with no book content. `loadQuranBookCSV` parses with `keepEmpty`, so these slots survive the parse and the on-device cache; `07-rebuild-searchIndex.mjs` uses the same flag so its row postings stay aligned with the reader's merged table. (Non-QRN books drop empty rows — for them an empty line is formatting, not a slot.)
+An all-empty row in a QRN book is **meaningful**: it marks an ayah with no content yet (e.g. untranslated) and renders as the base columns with no book content. `loadQuranBookCSV` parses with `keepEmpty`, so these slots survive the parse and the on-device cache; `08-rebuild-searchIndex.mjs` uses the same flag so its row postings stay aligned with the reader's merged table. (Non-QRN books drop empty rows — for them an empty line is formatting, not a slot.)
 
 ### Data files
 
@@ -578,20 +578,20 @@ An all-empty row in a QRN book is **meaningful**: it marks an ayah with no conte
 | `QRN-DATA-ayahImlai.csv` | Base Quran text (always loaded) | `ayahImlai` |
 | `QRN-DATA-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
 | `QRN-BASE-STRUCT` (synthetic) | Derived base columns — built at load from 04 + 05, no file exists | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah` |
-| `04-registry-quranSurahs.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount, basmalah` |
-| `06-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
-| `05-registry-quranJuz.csv` | Juz cut points | `juzNo, startSurah, startAyah` |
+| `05-registry-quranSurahs.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount, basmalah` |
+| `07-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
+| `06-registry-quranJuz.csv` | Juz cut points | `juzNo, startSurah, startAyah` |
 | `QRN-{name}.csv` | Book-specific columns | Varies per book |
 
 ### Deriving the base columns
 
 `QRN-DATA-ayahImlai.csv` stores only the Imlai text — one column, one row per ayah (6,236 rows). The structural columns (juz, surah, ayah number, basmalah) are **derived at load time** by `loadQuranBaseData()` from two registry tables:
 
-- `04-registry-quranSurahs.csv` — per-surah `ayahCount` gives each surah's row span; the `basmalah` column holds the verse that opens every surah except 1 and 9.
-- `05-registry-quranJuz.csv` — the standard 30 juz cut points as `startSurah,startAyah` (juz 12 opens mid-surah at 11:6, juz 13 at 12:53).
+- `05-registry-quranSurahs.csv` — per-surah `ayahCount` gives each surah's row span; the `basmalah` column holds the verse that opens every surah except 1 and 9.
+- `06-registry-quranJuz.csv` — the standard 30 juz cut points as `startSurah,startAyah` (juz 12 opens mid-surah at 11:6, juz 13 at 12:53).
 
 ```text
-04-registry-quranSurahs.csv    05-registry-quranJuz.csv    QRN-DATA-ayahImlai.csv
+05-registry-quranSurahs.csv    06-registry-quranJuz.csv    QRN-DATA-ayahImlai.csv
 114 surahs (ayahCount,         30 juz cut points           (1 col, 6,236 rows)
 basmalah per surah)            (startSurah, startAyah)
         └──────────────┬──────────────┘           │
@@ -603,7 +603,7 @@ The derivation is a single pass over 6,236 rows with advancing surah/juz pointer
 
 ### Merging
 
-Base data columns are always present. Book-specific columns are merged by row index. The `06-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
+Base data columns are always present. Book-specific columns are merged by row index. The `07-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
 **Two naming layers.** CSV headers are data identifiers AND the engine's classification keys (`ar`/`dv`/`en` suffixes for script/direction, `foot*` footnotes, `matn*`/`sharh*` card grouping, `-hdn` auto-hide). They are never translated — table/card headers show the raw identifier because it names the data, not the language. Only *selection chrome* (the advanced-search column dropdown, the column toggle buttons) gets friendly labels, resolved by `js/column-labels.js` in this order: (1) the column registry above — QRN books, per current language; (2) derived from the header's camelCase tokens via the token tables in `js/column-tokens.js` (labels in `js/i18n.js` as `col*` keys); (3) raw header text as fallback. `tools/hmv-header-scan.mjs` diffs every `data/content/*.csv` header against those same token tables and fails on unmapped tokens — adding a header without a token makes the scan exit 1, so the fallback never silently grows.
 
@@ -638,14 +638,14 @@ fresh header, rows, norm rows, hidden indices
 reader shows columns in list order
 ```
 
-**Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`). Reordering those columns would silently break copy references, pin labels, and scroll-sync surah tracking. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all sites plus `findQuranColIndices` cache invalidation. (These cells are now derived from 04 + 05 at load — see "Deriving the base columns" — but they still land in `row[0..4]` of every merged row, so the positional contract is unchanged. Surah/juz *navigation* no longer reads them: `applyQuranSurahFilter` and `goToQuranJuz` use the O(1) `getSurahStartRow` / `getJuzStartRow` accessors.)
+**Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`). Reordering those columns would silently break copy references, pin labels, and scroll-sync surah tracking. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all sites plus `findQuranColIndices` cache invalidation. (These cells are now derived from 05 + 06 at load — see "Deriving the base columns" — but they still land in `row[0..4]` of every merged row, so the positional contract is unchanged. Surah/juz *navigation* no longer reads them: `applyQuranSurahFilter` and `goToQuranJuz` use the O(1) `getSurahStartRow` / `getJuzStartRow` accessors.)
 
 **Adding a new Quran translation (walkthrough):**
 
 1. Create `data/content/{bookCode}.csv` with a header row and **one row per ayah, in the same order and count as `QRN-DATA-ayahImlai.csv` (6,236 rows)** — columns merge by row index (`mergeQuranData`). Name columns with a language suffix (`*AR`, `*DV`); add `-HDN` to start hidden. Where an ayah has no content yet, leave its row empty (`,,,` or a blank line) — it renders as base columns only.
-2. Register each column in `data/06-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
+2. Register each column in `data/07-registry-quranColumns.csv` — one row per column (`sourceBook,sourceCol,displayDV,displayEN`), consecutive rows per book. The content modal lists them automatically.
 3. Optionally add the book to `QRN_PRESET_MAIN` / `QRN_PRESET_ARABIC` in `js/quran-data.js` so the Main/Arabic preset buttons include it.
-4. Register the book in `02-registry-bookMeta.csv` — or just run `data/03-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts the book registry (the tag registry is never rewritten — its row order is the palette slot assignment). Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeFromIndex`) survive untouched.
+4. Register the book in `03-registry-bookMeta.csv` — or just run `data/04-update-bookRegistry.ps1`, which adds the unregistered CSV as a row with empty titles (all three titles are hand-authored), recomputes each book's version hash from its content CSV, and sorts the book registry (the tag registry is never rewritten — its row order is the palette slot assignment). Rows are rewritten verbatim — only the trailing version field is replaced — so quoted multi-value cells (tags, `excludeFromIndex`) survive untouched.
 
 ### Ayah decoration
 
@@ -680,7 +680,7 @@ Navigation syncs on scroll: the visible ayah's surah, ayah, and juz update autom
 
 ### Clipboard
 
-Quran clipboard format: no book header line. Decorated ayah text, `[surahName surahNo : ayahNo]` reference, then columns grouped by source book — each book gets one label (from `02-registry-bookMeta.csv`) above its first column, no per-column headings.
+Quran clipboard format: no book header line. Decorated ayah text, `[surahName surahNo : ayahNo]` reference, then columns grouped by source book — each book gets one label (from `03-registry-bookMeta.csv`) above its first column, no per-column headings.
 
 (Table‑mode performance is documented under Reader UI → View modes → **Performance** — it is shared with the reader table, not Quran‑specific.)
 
@@ -822,7 +822,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 ### Data & CSV
 
-**Book code format.** `PRIMARY-bookName[-SUFFIX]`. The FIRST segment is the primary tag, matched against `01-registry-bookTags.csv`; after stripping it and the suffix flags, the remaining segment is the book name. Secondary tags live in the `tags` column of `02-registry-bookMeta.csv`, NOT in the code.
+**Book code format.** `PRIMARY-bookName[-SUFFIX]`. The FIRST segment is the primary tag, matched against `01-registry-bookTags.csv`; after stripping it and the suffix flags, the remaining segment is the book name. Secondary tags live in the `tags` column of `03-registry-bookMeta.csv`, NOT in the code.
 
 ```text
 "HDT-muwattaMalik"        +  registry: bookCode,authorCode,titleAR,titleDV,titleEN,tags
@@ -921,11 +921,11 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
    #,headAR,bodyAR,headDV,bodyDV,foot
    1,باب النية,النية هي...,ނިޔަތަކީ...,—,المصدر
    ```
-2. Add a line to `data/02-registry-bookMeta.csv` (the `authorCode` and `tags` columns are optional — comma‑separated codes from `08-registry-authors.csv` / `01-registry-bookTags.csv`):
+2. Add a line to `data/03-registry-bookMeta.csv` (the `authorCode` and `tags` columns are optional — comma‑separated codes from `02-registry-bookAuthors.csv` / `01-registry-bookTags.csv`):
    ```csv
    FQH-usululFiqh,ibn-rajab,أصول الفقه,އުސޫލުލް ފިޤްހު,Usulul Fiqh,,
    ```
-3. Run `data/03-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
+3. Run `data/04-update-bookRegistry.ps1` — or the book auto‑registers on first visit via `?book=FQH-usululFiqh`.
 
 ### Add a new tag category
 
@@ -937,13 +937,13 @@ FQH,فقه,ފިގުހު,Fiqh
 
 ### Add a new author
 
-Add one row to `data/08-registry-authors.csv`, then put the `authorCode` in the books' `authorCode` column:
+Add one row to `data/02-registry-bookAuthors.csv`, then put the `authorCode` in the books' `authorCode` column:
 ```csv
 authorCode,nameAR,nameDV,nameEN,bornAH,diedAH
 ibn-rajab,ابن رجب,އިބްނު ރަޖަބު,Ibn Rajab,736,795
 ```
 Rows are hand‑ordered (the current file sorts by death year — that is the browse list's display order); 03 never rewrites this file. Blank `bornAH`/`diedAH` = unknown/living (the author lands in the "Modern" period bucket).
-Use the tag code as the primary prefix in a `bookCode` (e.g. `FQH-usululFiqh`) or as a secondary in the `tags` column of `02-registry-bookMeta.csv` — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
+Use the tag code as the primary prefix in a `bookCode` (e.g. `FQH-usululFiqh`) or as a secondary in the `tags` column of `03-registry-bookMeta.csv` — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
 
 ### Add a new export format
 
@@ -1009,7 +1009,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### New book
 
-1. Add a row to `data/02-registry-bookMeta.csv`.
+1. Add a row to `data/03-registry-bookMeta.csv`.
 1. Create `data/content/{bookCode}.csv` with a header row as the first row.
 1. Open the viewer — it appears automatically.
 
@@ -1035,7 +1035,7 @@ The app has no test suite or build step — changes are verified by hand:
 
 ### The index
 
-`data/07-rebuild-searchIndex.mjs` (Node — run `node data/07-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; an optional `excludeFromIndex` registry column (comma‑separated header names) skips those columns — `-HDN` and the row‑number column still win regardless; the magic value `ENTIRE-BOOK` skips the whole book (no postings, and it is listed under `## Excluded Books` in the report). The build prints **one report line per book** (row count, indexed columns, skipped columns) and writes the same info to `data/search-index-report.md` (markdown table with per-book postings — the policy as a diffable file, committed alongside the index) so the whole indexing policy is eyeballable at a glance, and an `excludeFromIndex` entry that matches no column warns. The build times itself — elapsed, per‑phase breakdown (index / pack / write), rows·postings per second, heap, node version — printed to the console and mirrored in the report's `## Build Stats` section. Rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
+`data/08-rebuild-searchIndex.mjs` (Node — run `node data/08-rebuild-searchIndex.mjs` after book changes, chain it after the PS1) scans every registered book once, offline, and emits `data/search-index.json` — word‑level postings of `bookId + row`, where `bookId` is a numeric index into `meta.bookIds` (full codes never repeat per entry). Built with the app's own parser and normaliser (`parseCSV`, `normaliseForSearch`) and the SAME tokeniser the query side uses (`tokenizeText` in library-search-engine.js — build and query MUST agree on what a word is, so the script imports it rather than re‑implementing). `-HDN` columns and the row‑number column are excluded; an optional `excludeFromIndex` registry column (comma‑separated header names) skips those columns — `-HDN` and the row‑number column still win regardless; the magic value `ENTIRE-BOOK` skips the whole book (no postings, and it is listed under `## Excluded Books` in the report). The build prints **one report line per book** (row count, indexed columns, skipped columns) and writes the same info to `data/search-index-report.md` (markdown table with per-book postings — the policy as a diffable file, committed alongside the index) so the whole indexing policy is eyeballable at a glance, and an `excludeFromIndex` entry that matches no column warns. The build times itself — elapsed, per‑phase breakdown (index / pack / write), rows·postings per second, heap, node version — printed to the console and mirrored in the report's `## Build Stats` section. Rows are packed as ranges (`"1-5,8,12"`); pure‑number tokens are dropped; `meta.version` (first 16 hex chars of the payload's SHA‑256) stamps the file for cache validation. **Row numbers are 1‑based DATA POSITIONS** (the reader's `?row=` contract — `goTo(row-1)`) — NOT the CSV's `#` column, which is not always sequential (5 books have gaps); the index would deep-link to the wrong row otherwise. The `#` column is display-only.
 
 The file's shape — real excerpt (`bookIds` truncated, three of one word's postings shown):
 

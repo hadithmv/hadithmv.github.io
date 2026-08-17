@@ -2,7 +2,7 @@
  * Virtual Merged Radheef Book (RDF-all)
  *
  * The combined radheef dictionary is a VIRTUAL book: it has a registry row in
- * 02-registry-bookMeta.csv (card, tags, reader routing) but no content CSV.
+ * 03-registry-bookMeta.csv (card, tags, reader routing) but no content CSV.
  * Opening it loads the eight source radheef books through the normal
  * version-gated cache (fetchBookCSVCached) and assembles the combined view in
  * memory — nothing is stored, duplicated, or re-generated.
@@ -13,7 +13,7 @@
  *     pNo, nanfoiy's gender/approvedBy/originLang, rasmee's technical columns,
  *     ...) are simply left out. A source's column order is irrelevant.
  *   - Block order: sources concatenate in MERGED_SOURCES order, which mirrors
- *     the registry's alphabetical sort (03-update-bookRegistry.ps1).
+ *     the registry's alphabetical sort (04-update-bookRegistry.ps1).
  *   - source column: each row's 7th cell carries its book's Dhivehi title,
  *     read from the registry at load (getBookTitleSync) — derived, never
  *     stored or hardcoded.
@@ -25,7 +25,7 @@
  * dictionaries would dwarf the rest of the site. Its search runs inside the
  * reader over the loaded rows; no index involved.
  *
- * The registry script (03) is exempted from warning about RDF-all's missing
+ * The registry script (04) is exempted from warning about RDF-all's missing
  * content file via its $virtualBooks list — keep the two in sync.
  */
 

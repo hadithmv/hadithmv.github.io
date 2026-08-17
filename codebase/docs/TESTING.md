@@ -58,7 +58,7 @@ Before touching product code, run this sequence:
 | PRESET_RESET does not restore a juz/surah slice | Reset only hides external columns (`quran-ui.js:509`); the filtered slice from navigation stays | Not a regression — confirm the slice behavior separately if it matters |
 | A Thaana term's first glyph looks chipped on a history item / result snippet / title / surah-search input | The Hadithmv webfont paints ~1–5px of **start-side ink past the pen origin** on horizontal Thaana letters (ސ, ޗ, … — alef has none). Any surface that clips (overflow-hidden, ellipsis, line-clamp, or an input's inner editor) cuts that overhang when the run's origin sits at the clip edge; the clip is invisible when the surface has a start inset. The fixed surfaces carry their insets (`.hist-text` 6px, `.search-result-snippet` 8px, `.quran-surah-search` `text-indent: 6px`, `#pageTitle` 8px) — the battery's section F asserts them | Computed styles, not pixels: section F of `hmv-qrn-smoke.mjs`, or `getComputedStyle(...).paddingInlineStart` / `.textIndent` on the four surfaces. A bare pixel probe needs a **clipped-vs-visible reference pair** (same box, overflow forced visible) — see the mirror traps below |
 | A security audit claims reflected XSS via `?q=` or unescaped cells | Not exploitable. Every `?q=` → innerHTML sink escapes (`input.value` is a property assignment; the no-matches line uses `escapeHTML(q)`; snippets pass through `highlightMatches`, which escapes text and `<mark>` content). Cells render raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>`/`<span>`/entities, e.g. `data/content/RDF-misc.csv`). The one raw-attribute spot (`data-q="…"` in library-search cards) can't fire: a payload must tokenize into real search-index words (`tokenizeText` splits on every non-letter/mark/number char; `searchLibrary` ANDs), and index words never contain `"`/`<` — zero `onmouseover`/`onerror`/`javascript:` tokens in any data file (verified 2026-08-10). Audit line numbers routinely don't match this codebase — re-anchor each citation to the working tree first | Trace each sink, then grep `data/` for the payload tokens (the engine's matching gate is decisive); if the payload can't match a row, it can't render. `escapeHTML` covers `& < > " '` — safe in text and quoted attributes |
-| `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 07-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
+| `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 08-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
 | A **non-RDF** reader search leaves the table showing **all rows** | Search runs in the modal window (the header input exists for RDF books only) and — like the old dropdown — **never filters** `filteredData`; typing renders count + snippets in the window, clicking a result jumps the table to the row (`jumpToResultRow` in reader-search-ui.js). RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchWindowCount` in the window's pinned head row (`ނަތީޖާ: N` — no colon = the zero-result branch; the element exists from shell build, hidden/empty until a search runs), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
 | The **library window's** cards differ from the page's (no peek ▾, its own count) | The window renders the same `searchLibrary` results but **without peek toggles** (`resultCardHTML(..., withPeek=false)` — peek ids `btn-peek-CODE` would collide with the page's cards), inside `#searchWindowResults`. Scope changes from **either** surface re-run both (shared picker state fans out via the `libScopeChange` window event); the card↔list toggle re-renders the **cached** results — no re-search, no history write; the window copies the page's query once on open, then searches independently (the page's own input keeps working behind it) | Query `#searchWindowResults` for `.lib-result` (card) / `.search-window-book-link` (list), expect **0** `.lib-peek-toggle` there, and read the count from the head row's `#searchWindowCount`. After a scope tick both `#libResults` and the window re-render. The list view's deep links go to `reader.html?book=CODE&row=<firstRow>&q=…` |
 | A modal opens but `document.activeElement` never becomes what `openModal` focused | The overlay's pop transition (`--t-pop`, common.css:519-529) leaves the modal **computed as `visibility: hidden` for its whole duration** — Blink silently drops every `focus()` called in that window (getComputedStyle says hidden while the fade-in is actually painted). `openModal` (common.js) and the search window's `openSearchWindow` (search-window.js) defer their focus calls past it (~`--t-pop` + 10/30 ms) | `waitFor` the intended focus target (`document.activeElement.id === …`), never assert focus synchronously right after the `open` class appears |
@@ -168,14 +168,14 @@ blaming the product.
 - **`git mv` moves names, not data.** After any rename/swap of data files,
   verify bytes against the git blob (`git show HEAD:<path> | sha256sum` vs the
   working file), and read verification output literally — an earlier check
-  echoed the header from the file *named* "04-registry-quranSurahs.csv" and it
+  echoed the header from the file *named* "05-registry-quranSurahs.csv" and it
   was misread as proof. Also check `git status --porcelain` for **untracked
   strays at the old path**: an editor with the old file open can re-save and
   recreate it after a `git mv` (seen 2026-08-07 with 02-registry-bookNames.csv
   — content was byte-identical; close the old tab in the editor).
-- **Registry regeneration must be idempotent.** `data/03-update-bookRegistry.ps1`
+- **Registry regeneration must be idempotent.** `data/04-update-bookRegistry.ps1`
   rewrites only the book registry on every run (recomputes version hashes). It
-  never rewrites `01-registry-bookTags.csv` or `08-registry-authors.csv` — tag
+  never rewrites `01-registry-bookTags.csv` or `02-registry-bookAuthors.csv` — tag
   row order is the palette slot assignment for the auto-generated colours, and
   author row order is the Authors browse list's display order, so both are
   hand-controlled (tags since 2026-08-14; before that every run re-sorted tags,
@@ -205,7 +205,7 @@ blaming the product.
   unexpected colour changes against a git diff of this file first (seen
   2026-08-14 when the tag sort was removed: the file's order became the
   palette's order).
-- **`08-registry-authors.csv` follows the same rules.** No comment syntax, no
+- **`02-registry-bookAuthors.csv` follows the same rules.** No comment syntax, no
   trailing newline; blank `bornAH`/`diedAH` cells mean unknown/living (the
   author lands in the `modern` period bucket). An author code referenced from
   02 but missing from 08 renders no author line (bookAuthorLine skips
@@ -215,7 +215,7 @@ blaming the product.
   century in the CSV, or the two can drift.
 - **Batteries must resolve 02 columns by header name, not position.** 02's
   layout is free to grow between `bookCode` and `version` (the version-last
-  invariant), so a positional read of `02-registry-bookMeta.csv` in a tool
+  invariant), so a positional read of `03-registry-bookMeta.csv` in a tool
   (e.g. `rows02[r][2]` for titleDV) silently returns the wrong column after
   an insertion (seen 2026-08-16: the `authorCode` insert made a smoke-battery
   expected-title check read titleAR as titleDV — the page rendered correctly,
@@ -229,7 +229,7 @@ blaming the product.
   sha256sum`. Verified 2026-08-09: 47/62 content CSVs were CRLF-tainted
   (`QRN-*` and `RDF-*` fully — 6,236 CRs each — most others a few lines; `file`
   samples the start and misses low CR counts, don't trust its "clean"
-  verdict). Consequences: `03-update-bookRegistry.ps1` computes versions with
+  verdict). Consequences: `04-update-bookRegistry.ps1` computes versions with
   `Get-FileHash` on raw disk bytes, so registry versions silently tracked the
   CRLF bytes and no longer equal the deployed blob's hash — the client treats
   the version as an opaque cache key (`csv.js:162`), so this is truthfulness
@@ -244,7 +244,7 @@ blaming the product.
   HDT-arbaoonNawawi 6, DFK-sharhuSunnahBarbahari 2, HDT-HBK-sunanAbiDawud 1,
   RDF-ahmadFahmyDidi 1, RDF-asmaullahilHusna 1; verified 2026-08-09), so a
   blanket `tr -d '\r'` is **NOT byte-safe** — it corrupts those files. Fix:
-  strip only `\r\n` pairs (`sed 's/\r$//'`). 03-update-bookRegistry.ps1
+  strip only `\r\n` pairs (`sed 's/\r$//'`). 04-update-bookRegistry.ps1
   self-heals: a byte-level `\r\n`→`\n` pass (Latin-1 round-trip, bare CRs
   preserved) normalizes any tainted file before hashing, so versions describe
   the LF form that will be deployed, not the tainted disk bytes. 8 files were

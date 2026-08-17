@@ -12,16 +12,16 @@
 //    and years, registry order, filter input); click toggles → chip +
 //    ?authors=
 //  - period modal: table rows = the distinct death-century buckets + modern
-//    (derived from 08), each row shows the century's AH range in its own
+//    (derived from 02), each row shows the century's AH range in its own
 //    column, counts cover only books really in the library (searchable
 //    set); click sets ?period=
 //  - ?authors=/?period= deep links activate chips on load
 //  - scoped search: with an author active, every result card belongs to one
-//    of that author's books (derived from 02)
+//    of that author's books (derived from 03)
 //  - author line renders on library result cards, dashboard cards, reader
 //    header (" - <nameEN> (<born>–<died> AH)" linked to index.html?authors=)
 //  - dashboard: no English title on cards, browse buttons open the shared
-//    modals, ?authors=nawawi pre-filters the grid
+//    modals, ?authors=yahyaBinSharafAnNawawi pre-filters the grid
 //  - search window: All-books tab shows the Authors/Periods section, the
 //    buttons open the modals stacked over the window
 //  - no page errors
@@ -52,16 +52,16 @@ function csvObjects(file) {
   const hdr = rows.shift();
   return rows.map((r) => Object.fromEntries(hdr.map((h, i) => [h, r[i]])));
 }
-const books02 = csvObjects("02-registry-bookMeta.csv");
-const authors08 = csvObjects("08-registry-authors.csv").filter((a) => a.authorCode);
+const books03 = csvObjects("03-registry-bookMeta.csv");
+const authors02 = csvObjects("02-registry-bookAuthors.csv").filter((a) => a.authorCode);
 // EN name for an author code (from the registry — the battery runs the page in English)
-const nameEN = (code) => (authors08.find((a) => a.authorCode === code) || {}).nameEN || code;
+const nameEN = (code) => (authors02.find((a) => a.authorCode === code) || {}).nameEN || code;
 // Period bucket: death-century string, "modern" when diedAH is blank
 const periodOf = (a) => (a.diedAH ? String(Math.ceil(parseInt(a.diedAH, 10) / 100)) : "modern");
 const authorCodesOf = (b) => ((b && b.authorCode) || "").split(",").map((s) => s.trim()).filter(Boolean);
 // The dashboard counts over the *visible* set only (-HDN books are hidden
 // from the grid); mirrors visibleBooks() in dashboard.js.
-const VISIBLE_BOOKS = books02.filter((b) => !b.bookCode.endsWith("-HDN"));
+const VISIBLE_BOOKS = books03.filter((b) => !b.bookCode.endsWith("-HDN"));
 // The library surfaces (library-search page, search window) count over the
 // searchable set — visible books the search index knows (meta.bookIds).
 // ENTIRE-BOOK-excluded books (RDF dictionaries, KNSH, …) have no postings,
@@ -72,15 +72,15 @@ const INDEX_IDS = new Set(searchIndex.meta.bookIds);
 const SEARCHABLE_BOOKS = VISIBLE_BOOKS.filter((b) => INDEX_IDS.has(b.bookCode));
 // Authors with at least one visible book — the dashboard's browse list
 // (registry order).
-const VISIBLE_AUTHORS = authors08.filter((a) => VISIBLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
+const VISIBLE_AUTHORS = authors02.filter((a) => VISIBLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
 // Authors with at least one searchable book — the library page's browse list.
-const SEARCHABLE_AUTHORS = authors08.filter((a) => SEARCHABLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
+const SEARCHABLE_AUTHORS = authors02.filter((a) => SEARCHABLE_BOOKS.some((b) => authorCodesOf(b).includes(a.authorCode)));
 // Per-bucket book counts (a book counts once per author it carries — same as
 // facetCounts in facet-browse.js) over a book set.
 function periodCountsOf(books) {
   const out = {};
   books.forEach((b) => authorCodesOf(b).forEach((ac) => {
-    const a = authors08.find((x) => x.authorCode === ac);
+    const a = authors02.find((x) => x.authorCode === ac);
     if (!a) return;
     const p = periodOf(a);
     out[p] = (out[p] || 0) + 1;
@@ -95,16 +95,16 @@ const PERIODS = [...new Set(SEARCHABLE_AUTHORS.map(periodOf))]
   .filter((p) => p !== "modern" || HAS_MODERN)
   .sort((a, b) =>
     a === "modern" ? 1 : b === "modern" ? -1 : parseInt(a, 10) - parseInt(b, 10));
-const NAWAWI = authors08.find((a) => a.authorCode === "nawawi");
-const NAWAWI_BOOKS = VISIBLE_BOOKS.filter((b) => authorCodesOf(b).includes("nawawi")).map((b) => b.bookCode);
-const MALIK_BOOK = books02.find((b) => b.bookCode === "HDT-muwattaMalik");
-const malikRow = authors08.find((a) => a.authorCode === "malik");
+const NAWAWI = authors02.find((a) => a.authorCode === "yahyaBinSharafAnNawawi");
+const NAWAWI_BOOKS = VISIBLE_BOOKS.filter((b) => authorCodesOf(b).includes("yahyaBinSharafAnNawawi")).map((b) => b.bookCode);
+const MALIK_BOOK = books03.find((b) => b.bookCode === "HDT-muwattaMalik");
+const malikRow = authors02.find((a) => a.authorCode === "malikBinAnas");
 // Exact en author line for Malik, per the i18n authorLife template "{b}–{d} AH":
-// "Malik ibn Anas (93–179 AH)". Both born and died are present in the data.
-const MALIK_LINE = nameEN("malik") + " (" + malikRow.bornAH + "–" + malikRow.diedAH + " AH)";
+// "Malik bin Anas (93–179 AH)". Both born and died are present in the data.
+const MALIK_LINE = nameEN("malikBinAnas") + " (" + malikRow.bornAH + "–" + malikRow.diedAH + " AH)";
 // Books whose authorCode is blank — the registry may leave some unattributed
 // on purpose; their cards must show no author line.
-const UNATTRIBUTED = books02.filter((b) => authorCodesOf(b).length === 0);
+const UNATTRIBUTED = books03.filter((b) => authorCodesOf(b).length === 0);
 
 async function main() {
   fs.rmSync(PROFILE, { recursive: true, force: true });
@@ -174,7 +174,7 @@ async function main() {
   }
 
   // Run the page in English — the battery derives its expected strings from
-  // 08's nameEN + the en i18n templates.
+  // 02's nameEN + the en i18n templates.
   const setLang = async () => {
     await goto("file://" + ROOT + "library-search.html");
     await evalJS(`localStorage.setItem('lang','en')`);
@@ -201,19 +201,19 @@ async function main() {
   // nawawi was born 631 and died 676 AH. The century and the years each get
   // their own column: the century label first, unbracketed ("Century 7"),
   // the AH range next, bracketed ("(631–676 AH)", the authorLife template).
-  check("nawawi row has years", rows.find((r) => r.code === "nawawi").text.indexOf("676 AH") !== -1,
-    rows.find((r) => r.code === "nawawi").text);
+  check("nawawi row has years", rows.find((r) => r.code === "yahyaBinSharafAnNawawi").text.indexOf("676 AH") !== -1,
+    rows.find((r) => r.code === "yahyaBinSharafAnNawawi").text);
   check("century and years in separate columns", await evalJS(
-    `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-century').textContent === ${JSON.stringify("Century 7")} &&
-     document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-range').textContent === ${JSON.stringify("(631–676 AH)")}`),
-    rows.find((r) => r.code === "nawawi").text);
+    `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-century').textContent === ${JSON.stringify("Century 7")} &&
+     document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-range').textContent === ${JSON.stringify("(631–676 AH)")}`),
+    rows.find((r) => r.code === "yahyaBinSharafAnNawawi").text);
   // The alt-name run carries Arabic + Dhivehi only — English is the primary
   // name in the en UI, so it must not repeat in the row — and a " · " leads
   // the run so the primary and the alt scripts never butt together.
   check("author alt names have no English", await evalJS(
-    `!document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-name-alt').textContent.match(/[a-zA-Z]/) &&
-     document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-name-alt').textContent.indexOf(" · ") === 0`),
-    await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"] .facet-name-alt').textContent`));
+    `!document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-name-alt').textContent.match(/[a-zA-Z]/) &&
+     document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-name-alt').textContent.indexOf(" · ") === 0`),
+    await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-name-alt').textContent`));
 
   // The thead strip sits OUTSIDE the scrollport — the scrollbar runs beside
   // the rows alone, never the thead — and thead + rows share the grid column
@@ -230,13 +230,13 @@ async function main() {
     `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var fs = function(sel){ return getComputedStyle(r.querySelector(sel)).fontSize; }; return fs('.facet-name-alt') === fs('.facet-name') && fs('.facet-century') === fs('.facet-name') && fs('.facet-range') === fs('.facet-name'); })()`));
 
   // Click the nawawi row → selection, chip, URL
-  await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="nawawi"]').click()`);
-  await waitFor(`location.search.indexOf('authors=nawawi') !== -1`);
-  check("click sets ?authors=nawawi", true, await evalJS(`location.search`));
+  await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]').click()`);
+  await waitFor(`location.search.indexOf('authors=yahyaBinSharafAnNawawi') !== -1`);
+  check("click sets ?authors=yahyaBinSharafAnNawawi", true, await evalJS(`location.search`));
   check("author chip active in tags row", await evalJS(
-    `!!document.querySelector('#libTagsCollapse .author-chip[data-author="nawawi"].active')`));
+    `!!document.querySelector('#libTagsCollapse .author-chip[data-author="yahyaBinSharafAnNawawi"].active')`));
   check("nawawi chip carries count", await evalJS(
-    `document.querySelector('#libTagsCollapse .author-chip[data-author="nawawi"]').textContent.indexOf(${JSON.stringify(String(NAWAWI_BOOKS.length))}) !== -1`),
+    `document.querySelector('#libTagsCollapse .author-chip[data-author="yahyaBinSharafAnNawawi"]').textContent.indexOf(${JSON.stringify(String(NAWAWI_BOOKS.length))}) !== -1`),
     NAWAWI_BOOKS.length);
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
@@ -250,7 +250,7 @@ async function main() {
   check("scoped search yields results", resultBooks.length > 0, resultBooks.length);
   check("scoped search results all by nawawi", resultBooks.every((c) => NAWAWI_BOOKS.indexOf(c) !== -1), resultBooks.join(","));
   check("author line on result card", await evalJS(
-    `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("nawawi"))}) !== -1 &&
+    `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("yahyaBinSharafAnNawawi"))}) !== -1 &&
      document.querySelector('#libResults .lib-result .card-author').textContent.indexOf('676 AH') !== -1`),
     await evalJS(`document.querySelector('#libResults .lib-result .card-author').textContent`));
 
@@ -285,8 +285,8 @@ async function main() {
     return b.range === ((n - 1) * 100 + 1) + "–" + (n * 100) + " AH";
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.range) + " in " + JSON.stringify(b.text)).join(","));
   // Counts cover books really in the library (searchable set) — e.g. century
-  // 15 counts the albani + qahtani books but not maniku's ENTIRE-BOOK-excluded
-  // RDF dictionary.
+  // 15 counts the albani, qahtani, jaufarFaiz and ibnulUthaymeen books but not
+  // maniku's ENTIRE-BOOK-excluded RDF dictionary.
   check("period row counts = searchable books", periodBtns.every(function (b) {
     return String(SEARCHABLE_PERIOD_COUNTS[b.period]) === b.count;
   }), periodBtns.map((b) => b.period + "=" + b.count + " want " + SEARCHABLE_PERIOD_COUNTS[b.period]).join(","));
@@ -320,10 +320,10 @@ async function main() {
 
   // ── Deep links activate chips on load ────────────────────────────
   // nawawi died 676 AH → 7th-century bucket
-  await goto("file://" + ROOT + "library-search.html?authors=nawawi&period=7");
-  await waitFor(`!!document.querySelector('#libTagsCollapse .author-chip[data-author="nawawi"]')`);
-  check("deep link ?authors=nawawi&period=7", await evalJS(
-    `!!document.querySelector('#libTagsCollapse .author-chip[data-author="nawawi"].active') &&
+  await goto("file://" + ROOT + "library-search.html?authors=yahyaBinSharafAnNawawi&period=7");
+  await waitFor(`!!document.querySelector('#libTagsCollapse .author-chip[data-author="yahyaBinSharafAnNawawi"]')`);
+  check("deep link ?authors=yahyaBinSharafAnNawawi&period=7", await evalJS(
+    `!!document.querySelector('#libTagsCollapse .author-chip[data-author="yahyaBinSharafAnNawawi"].active') &&
      !!document.querySelector('#libTagsCollapse .period-chip[data-period="7"].active')`));
 
   // ── Dashboard: cards, browse buttons, deep links ──────────────────
@@ -354,7 +354,7 @@ async function main() {
   check("dashboard modal rows = visible authors", dashRows === VISIBLE_AUTHORS.length, dashRows + " vs " + VISIBLE_AUTHORS.length);
   const hasFilter = await evalJS(`!!document.getElementById('libAuthorsFilter')`);
   check("authors modal has filter input", hasFilter);
-  await evalJS(`document.getElementById('libAuthorsFilter').value = 'nawaw';
+  await evalJS(`document.getElementById('libAuthorsFilter').value = 'nawawi';
     document.getElementById('libAuthorsFilter').dispatchEvent(new Event('input'));`);
   await waitFor(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`);
   check("authors filter input narrows rows", await evalJS(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`));
@@ -366,11 +366,11 @@ async function main() {
   await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
 
-  // ?authors=nawawi pre-filters the grid to that author's visible books
-  await goto("file://" + ROOT + "index.html?authors=nawawi");
-  await waitFor(`!!document.querySelector('#dashboardTagsCollapse .author-chip[data-author="nawawi"]')`);
-  check("dashboard deep link ?authors=nawawi chip", await evalJS(
-    `!!document.querySelector('#dashboardTagsCollapse .author-chip[data-author="nawawi"].active')`));
+  // ?authors=yahyaBinSharafAnNawawi pre-filters the grid to that author's visible books
+  await goto("file://" + ROOT + "index.html?authors=yahyaBinSharafAnNawawi");
+  await waitFor(`!!document.querySelector('#dashboardTagsCollapse .author-chip[data-author="yahyaBinSharafAnNawawi"]')`);
+  check("dashboard deep link ?authors=yahyaBinSharafAnNawawi chip", await evalJS(
+    `!!document.querySelector('#dashboardTagsCollapse .author-chip[data-author="yahyaBinSharafAnNawawi"].active')`));
   const authorCards = await evalJS(`Array.from(document.querySelectorAll('.book-card')).map(function(c){
     return (c.getAttribute('href').match(/book=([^&]+)/) || [])[1];
   })`);
@@ -381,11 +381,11 @@ async function main() {
 
   // ── Reader header author line (dash-separated link) ───────────────
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
-  await waitFor(`document.getElementById('readerPageAuthor') && document.getElementById('readerPageAuthor').textContent.indexOf(${JSON.stringify(nameEN("malik"))}) !== -1`);
+  await waitFor(`document.getElementById('readerPageAuthor') && document.getElementById('readerPageAuthor').textContent.indexOf(${JSON.stringify(nameEN("malikBinAnas"))}) !== -1`);
   const readerAuthor = await evalJS(`document.getElementById('readerPageAuthor').textContent`);
   check("reader header author line exact", readerAuthor === " - " + MALIK_LINE, readerAuthor + " vs - " + MALIK_LINE);
   const readerHref = await evalJS(`document.getElementById('readerPageAuthor').querySelector('a').getAttribute('href')`);
-  check("reader author links to filtered dashboard", readerHref === "index.html?authors=malik", readerHref);
+  check("reader author links to filtered dashboard", readerHref === "index.html?authors=malikBinAnas", readerHref);
 
   // ── Search window: Authors/Periods on the All-books tab ───────────
   await goto("file://" + ROOT + "reader.html?book=HDT-arbaoonNawawi");

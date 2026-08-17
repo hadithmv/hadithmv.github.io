@@ -14,7 +14,7 @@ DFK-intisarLiAshabilHadith,abulMuzaffarAsSamaani,الانتصار لأصحاب �
 DFK-kalimathulIkhlas,ibnRajabAlHanbali,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Statement of Sincerity,AQD,"headAR,footAR,footDV",e838d1f09c5f
 DFK-kitabulEmanAbiUbaid,abuUbaidAlQasim,كتاب الإيمان لأبي عبيد,އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Book of Faith,AQD,"headAR,footAR,headDV,footDV",fd980da25962
 DFK-kitabulIlmAbiKhaithama,abuKhaythamaZuhair,كتاب العلم لأبي خيثمة,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge,ATHR,"footAR,footDV",318e51dc67a7
-DFK-sharhuSunnahBarbahari,barbahari,شرح السنة للبربهاري (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (DFK),AQD,foot,442ffaf36405
+DFK-sharhuSunnahBarbahari,alHasanBinAliAlBarbahari,شرح السنة للبربهاري (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (DFK),AQD,foot,442ffaf36405
 DFK-talkhisKitabiShariah,,تلخيص العقيدة من كتاب الشريعة للآجري,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Summary of Aqidah from Aajurry's Shari'ah,AQD,"headDV,foot,pNo",1438bfbe927e
 HDT-arbaoonAajurry,abuBakrAlAajurry,الأربعون للآجري,އާޖުއްރީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Aajurry,DRFT,"headAR,headDV,foot",2e68b6339e36
 HDT-arbaoonNawawi,yahyaBinSharafAnNawawi,الأربعون النووية,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Nawawi,REV,"noAR,headAR,headDV,footAR,footDV",ef3ddf02a617
@@ -22,7 +22,7 @@ HDT-bulughulMaram,ibnHajarAlAsqalani,بلوغ المرام,ބުލޫޣުލް މަ
 HDT-bulughulMaram-FULL-HDN,ibnHajarAlAsqalani,بلوغ المرام,ބުލޫޣުލް މަރާމް,Bulughul Maram,DRFT,"kitabAR,babAR,kitabDV,babDV,footAR",f61a1fa722e3
 HDT-HBK-adabulMufrad,muhammadBinIsmailAlBukhari,الأدب المفرد,އަދަބުލް މުފްރަދު,Adabul Mufrad,INC,"source,#,takhrij",37613cc1b6e7
 HDT-HBK-jamiuTirmidhi,abuEasaTirmidhi,جامع الترمذي,ޖާމިޢުއް ތިރްމިޛީ,Jamiu Tirmidhi,INC,"source,#,takhrij",b30abc5b906f
-HDT-HBK-musnadAhmed,ahmad-ibn-hanbal,مسند أحمد,މުސްނަދު އަޙްމަދު,Musnad Ahmed,INC,"source,#,takhrij",485d2b281a1f
+HDT-HBK-musnadAhmed,ahmedBinHanbal,مسند أحمد,މުސްނަދު އަޙްމަދު,Musnad Ahmed,INC,"source,#,takhrij",485d2b281a1f
 HDT-HBK-sahihBukhari,muhammadBinIsmailAlBukhari,صحيح البخاري,ޞަޙީޙު ބުޚާރީ,Sahih Bukhari,INC,"source,#,takhrij",d3ffcff8d71f
 HDT-HBK-sahihMuslim,muslimBinAlHajjaj,صحيح مسلم,ޞަޙީޙު މުސްލިމް,Sahih Muslim,INC,"source,#,takhrij",b15bf580d1a5
 HDT-HBK-sunanAbiDawud,abuDawudAsSijistani,سنن أبي داود,ސުނަން އަބީ ދާއޫދު,Sunan Abi Dawud,INC,"source,#,takhrij",8e5fe4271217

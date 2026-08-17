@@ -638,7 +638,7 @@ export function initQuranUI(ctx) {
       _loadedColMap[sk] = saved[sk];
     }
     // Map base columns by header name. Keys must match
-    // 06-registry-quranColumns.csv (sourceBook:colIdx): the structural
+    // 07-registry-quranColumns.csv (sourceBook:colIdx): the structural
     // columns belong to the QRN-BASE-STRUCT pseudo-book, the imlai text to
     // the 1-column imlai book.
     var baseNames = ["juzno", "surahno", "ayahno", "basmalah", "ayahimlai"];
