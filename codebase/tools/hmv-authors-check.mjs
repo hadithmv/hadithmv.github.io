@@ -530,17 +530,17 @@ async function main() {
   check("mobile: joins are dotted with margin spacing", await evalJS(
     `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return s.content !== 'none' && s.marginInlineStart === '6px' && s.marginInlineEnd === '6px'; }; return j('.facet-name-ar') && j('.facet-range') && j('.facet-ce'); })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return sel + '=' + s.content + ' m=' + s.marginInlineStart + '/' + s.marginInlineEnd; }; return ['.facet-name-ar', '.facet-range', '.facet-ce'].map(j).join(' '); })()`));
-  // The check gets the same join — select the row (a click toggles the
-  // facet; reopening re-renders the rows with the ✓ present) so the
-  // spacing before the tick mark is observable: the ✓ must sit off the
-  // count's text by the dot's margins, not flush.
+  // The check gets the space without the dot — select the row (a click
+  // toggles the facet; reopening re-renders the rows with the ✓ present)
+  // so the spacing before the tick mark is observable: a real gap, but no
+  // dot in it (a dot's footprint would push the gap past 12px).
   await evalJS(`document.getElementById('libAuthorsModalBody').querySelector('.author-browse-row[data-author="yahyaBinSharafAnNawawi"]').click()`);
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await evalJS(`document.getElementById('libAuthorsBtn').click()`);
   await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
-  check("mobile: the ✓ sits off the count with the join's spacing", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var ch = r.querySelector('.facet-check'); var s = getComputedStyle(ch, '::before'); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ra = document.createRange(); ra.selectNodeContents(ch); return ch.textContent === '✓' && s.content !== 'none' && s.marginInlineStart === '6px' && ct.left - ra.getBoundingClientRect().right >= 5; })()`),
+  check("mobile: the ✓ sits off the count with the space, no dot", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var ch = r.querySelector('.facet-check'); var s = getComputedStyle(ch, '::before'); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ra = document.createRange(); ra.selectNodeContents(ch); var g = ct.left - ra.getBoundingClientRect().right; return ch.textContent === '✓' && s.content !== 'none' && s.marginInlineStart === '6px' && g >= 5 && g < 12; })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var ch = r.querySelector('.facet-check'); var s = getComputedStyle(ch, '::before'); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ra = document.createRange(); ra.selectNodeContents(ch); var v = ra.getBoundingClientRect(); return 'check=' + JSON.stringify(ch.textContent) + ' dot=' + s.content + ' m=' + s.marginInlineStart + '/' + s.marginInlineEnd + ' gap=' + (ct.left - v.right); })()`));
   // The Hijri century and years stay plain text; the CE (miladi) side is
   // the derived approximation and reads muted (same tone as the count).

@@ -1298,10 +1298,8 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-name-ar::before,
   .author-browse-row .facet-range::before,
   .author-browse-row .facet-ce::before,
-  .author-browse-row .facet-check::before,
   .period-browse-row .facet-range::before,
-  .period-browse-row .facet-ce::before,
-  .period-browse-row .facet-check::before {
+  .period-browse-row .facet-ce::before {
     /* The join is a bare dot with margins — a " · " string loses its
        leading space (it collapses at the start of the cell's inline flow,
        RTL, hugging the dot to the previous piece); margins can't. */
@@ -1309,6 +1307,13 @@ body:has(.modal-overlay.open) {
     margin-inline: 6px;
     color: var(--color-text-subtle);
     opacity: 0.5;
+  }
+  /* The ✓ wants the space without the dot — a bare margin on empty
+     content; the :empty guard below drops even that on unpinned rows. */
+  .author-browse-row .facet-check::before,
+  .period-browse-row .facet-check::before {
+    content: "";
+    margin-inline-start: 6px;
   }
   .author-browse-row .facet-name-ar:empty::before,
   .author-browse-row .facet-range:empty::before,
