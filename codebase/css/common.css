@@ -741,15 +741,15 @@ body:has(.modal-overlay.open) {
 }
 
 /* Author line under the title trio (dashboard cards + library result cards).
-   The muted secondary-name tone at full panel size — the same recipe as
-   the modal's name cells (.facet-name-ar): a supporting line under the
-   titles, not a headline. */
+   The muted secondary-name tone, a step above the panel size (1.05×) with
+   normal weight — grey and light enough to stay a supporting line under
+   the titles, big enough to read at a glance. */
 .book-card .card-author,
 .lib-result .card-author {
   direction: ltr; /* names may be latin; years stay digits */
   text-align: right;
   margin-top: 4px;
-  font-size: var(--panel-font-size, 0.85rem);
+  font-size: calc(var(--panel-font-size, 0.85rem) * 1.05);
   color: var(--color-text-muted);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
@@ -1034,8 +1034,9 @@ body:has(.modal-overlay.open) {
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
-     (--facet-period-w); the AH range is the wide one (1fr). */
-  grid-template-columns: var(--facet-period-w, 110px) 1fr 64px 40px;
+     (--facet-period-w); the Gregorian span is pinned to its longest text
+     (--facet-ce-w); the AH range is the wide one (1fr). */
+  grid-template-columns: var(--facet-period-w, 110px) 1fr var(--facet-ce-w, 150px) 64px 40px;
 }
 /* The header is the reader-table's look (nav-btn-bg bar, 2px divider line,
    bold text) — every tabular surface shares it, per the unified-modal rule.
@@ -1132,13 +1133,15 @@ body:has(.modal-overlay.open) {
   .facet-grid-authors .facet-col-century,
   .facet-grid-authors .facet-col-range,
   .facet-grid-authors .facet-col-ar,
-  .facet-grid-periods .facet-col-range {
+  .facet-grid-periods .facet-col-range,
+  .facet-grid-periods .facet-col-ce {
     display: none;
   }
   .author-browse-row .facet-century,
   .author-browse-row .facet-range,
   .author-browse-row .facet-name-ar,
-  .period-browse-row .facet-range {
+  .period-browse-row .facet-range,
+  .period-browse-row .facet-ce {
     grid-column: 1 / -1;
   }
 }

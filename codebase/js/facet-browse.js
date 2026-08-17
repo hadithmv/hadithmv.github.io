@@ -380,17 +380,27 @@ function pinFacetGeometry() {
   // 180px floor for the range — so on resize the text columns yield first
   // and the range + count never cram (the count and check are fixed tracks
   // anchored at the row's end, so a bare 1fr range would collapse into
-  // them). The fixed columns are century 90 + count 64 + check 40; the
-  // 46/54 split follows the tracks' content proportions.
+  // them). On wide desktops the same caps step up (up to +110px each, full
+  // at ~1450px of scrollport) so the columns don't look stuck at the
+  // narrow-screen maximum when the modal has room — the range outgrows
+  // both tracks at every step (at 879px it is 225 vs the 220 cap; the gap
+  // only widens). The fixed columns are century 90 + count 64 + check 40;
+  // the 46/54 split follows the tracks' content proportions. The pins are
+  // still clamped to the rows' content (pinFacetColumn), so nothing
+  // stretches beyond the longest name.
   var aWrap = document.querySelector("#libAuthorsOverlay .facet-table-wrap");
-  var namesShare = (aWrap ? aWrap.clientWidth : 0) - 194 - 180;
+  var avail = aWrap ? aWrap.clientWidth : 0;
+  var namesShare = avail - 194 - 180;
+  var grow = Math.max(0, Math.min(1, (avail - 879) / 571));
+  var step = Math.round(grow * 110);
   pinFacetColumn("libAuthorsOverlay", [
-    ["facet-name", "facet-col-name", "facet-name-w", namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0],
-    ["facet-name-ar", "facet-col-ar", "facet-ar-w", namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0],
+    ["facet-name", "facet-col-name", "facet-name-w", (namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0) + step],
+    ["facet-name-ar", "facet-col-ar", "facet-ar-w", (namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0) + step],
     ["facet-century", "facet-col-century", "facet-century-w"]
   ]);
   pinFacetColumn("libPeriodsOverlay", [
-    ["facet-name", "facet-col-period", "facet-period-w"]
+    ["facet-name", "facet-col-period", "facet-period-w"],
+    ["facet-ce", "facet-col-ce", "facet-ce-w"]
   ]);
 }
 
@@ -449,6 +459,7 @@ function ensurePeriodsModal() {
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-periods">' +
     '<div class="facet-thead-cell facet-col-period"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
+    '<div class="facet-thead-cell facet-col-ce"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
     '<div class="facet-thead-cell facet-col-check"></div>' +
     "</div></div>" +
@@ -471,8 +482,9 @@ function periodsModalLabels() {
   var ths = _periodsBody.querySelectorAll(".facet-thead-cell");
   ths[0].textContent = t("facetColCentury");
   ths[1].textContent = t("facetColYears");
-  ths[2].textContent = t("facetColBooks");
-  ths[3].textContent = "";
+  ths[2].textContent = t("facetColGregorian");
+  ths[3].textContent = t("facetColBooks");
+  ths[4].textContent = "";
 }
 
 /** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
@@ -484,6 +496,21 @@ function periodRangeText(p) {
   return t("authorLife")
     .replace("{b}", String((n - 1) * 100 + 1))
     .replace("{d}", String(n * 100));
+}
+
+/** The same span in the Gregorian calendar — "817–913 CE" for bucket 3 —
+ *  the authorLifeCe template filled with the bucket's endpoints converted
+ *  AH → CE (the standard 1 Hijri year ≈ 0.970229 solar years approximation,
+ *  offset 621.57; rounded); "" for "modern". Derived at render, never
+ *  stored. */
+function periodRangeCeText(p) {
+  if (p === "modern") return "";
+  var n = parseInt(p, 10);
+  if (!n || n < 1) return "";
+  var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
+  return t("authorLifeCe")
+    .replace("{b}", String(ce((n - 1) * 100 + 1)))
+    .replace("{d}", String(ce(n * 100)));
 }
 
 /** The rows — distinct death-century buckets + modern, chronological order
@@ -500,16 +527,18 @@ function renderPeriodRows() {
   }).filter(function (p) {
     if (!ft) return true;
     var range = periodRangeText(p);
-    return [periodLabel(p), periodLabelEn(p), p, range].some(function (s) {
+    var rangeCe = periodRangeCeText(p);
+    return [periodLabel(p), periodLabelEn(p), p, range, rangeCe].some(function (s) {
       return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
   _periodsList.innerHTML = periods.map(function (p) {
     var sel = _period === p;
     var range = periodRangeText(p);
-    // The century label is the row's name; the AH span gets its own column,
-    // bracketed, so both columns stay uniform width down the list
-    // ("modern" has no span — the range cell stays empty).
+    var rangeCe = periodRangeCeText(p);
+    // The century label is the row's name; the AH and Gregorian spans get
+    // their own bracketed columns, so both stay uniform width down the
+    // list ("modern" has no spans — the range and CE cells stay empty).
     return (
       '<div class="period-browse-row facet-grid-periods' +
       (sel ? " selected" : "") +
@@ -523,6 +552,9 @@ function renderPeriodRows() {
       "</div>" +
       '<div class="facet-range">' +
       (range ? "(" + escapeHTML(range) + ")" : "") +
+      "</div>" +
+      '<div class="facet-ce">' +
+      (rangeCe ? "(" + escapeHTML(rangeCe) + ")" : "") +
       "</div>" +
       '<div class="facet-count">' +
       counts[p] +

@@ -320,9 +320,11 @@ const STRINGS = {
   facetColAuthorAr: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
   facetColCentury: { dv: "ގަރުނު", en: "Century", ar: "القرن" },
   facetColYears: { dv: "އަހަރު", en: "Years", ar: "السنوات" },
+  facetColGregorian: { dv: "މީލާދީ", en: "Gregorian", ar: "ميلادي" },
   facetColBooks: { dv: "ފޮތް", en: "Books", ar: "الكتب" },
   authorDied: { dv: "ނިޔާވީ {y} ހ.", en: "d. {y} AH", ar: "ت {y}هـ" },
   authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
+  authorLifeCe: { dv: "{b}–{d} މ.", en: "{b}–{d} CE", ar: "{b}–{d}م" },
   // Hijri centuries of the author's death year (1–15), plus the modern
   // bucket — numeral labels ("Century 3") shared by the authors' century
   // column, the periods' name column and the chips.

@@ -12,9 +12,9 @@
 //    column, Hijri century and years, registry order, filter input); click
 //    toggles → chip + ?authors=
 //  - period modal: table rows = the distinct death-century buckets + modern
-//    (derived from 02), each row shows the century's AH range in its own
-//    column, counts cover only books really in the library (searchable
-//    set); click sets ?period=
+//    (derived from 02), each row shows the century's AH range and its
+//    Gregorian (miladi) equivalent each in their own column, counts cover
+//    only books really in the library (searchable set); click sets ?period=
 //  - ?authors=/?period= deep links activate chips on load
 //  - scoped search: with an author active, every result card belongs to one
 //    of that author's books (derived from 03)
@@ -31,6 +31,11 @@ import { spawn } from "child_process";
 import { pathToFileURL } from "url";
 
 const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "csv.js")));
+
+// The Gregorian equivalent of an AH year — the same approximation as
+// facet-browse.js's periodRangeCeText (1 Hijri year ≈ 0.970229 solar years,
+// offset 621.57, rounded): a formula change in the product shows up here.
+const ceFromAh = (ah) => Math.round(ah * 0.970229 + 621.57);
 
 // Machine-specific: path to Microsoft Edge. Adjust per machine/OS.
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
@@ -259,12 +264,12 @@ async function main() {
     `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("yahyaBinSharafAnNawawi"))}) !== -1 &&
      document.querySelector('#libResults .lib-result .card-author').textContent.indexOf('676 AH') !== -1`),
     await evalJS(`document.querySelector('#libResults .lib-result .card-author').textContent`));
-  // The author line reads like the modal's secondary names (facet-name-ar):
-  // muted, at full panel size (13.6px = 0.85rem at the 16px root; change
-  // --panel-font-size and this value together), normal weight — a
-  // supporting line, not a headline.
-  check("author line like the muted modal names", await evalJS(
-    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '13.6px' && cs.fontWeight === '400' && cs.color === ts.color; })()`),
+  // The author line: the muted secondary-name tone (facet-name-ar / the EN
+  // caption colour), a step above the panel size (14.28px = 0.85rem × 1.05
+  // at the 16px root; change --panel-font-size or the 1.05 scale and this
+  // value together), normal weight.
+  check("author line muted, a step up", await evalJS(
+    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '14.28px' && cs.fontWeight === '400' && cs.color === ts.color; })()`),
     await evalJS(`(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return 'size=' + cs.fontSize + ' weight=' + cs.fontWeight + ' color=' + cs.color + ' mutedCaptionColor=' + ts.color; })()`));
 
   // ── Library: Periods modal ────────────────────────────────────────
@@ -279,7 +284,9 @@ async function main() {
       // AH)" — the only parens in a period row. The backslashes must be
       // doubled here: a template literal cooks \( to (, which would change
       // the regex into a different match entirely.
-      range: (b.querySelector('.facet-range').textContent.match(/\\(([^)]+)\\)/) || [])[1] || ''
+      range: (b.querySelector('.facet-range').textContent.match(/\\(([^)]+)\\)/) || [])[1] || '',
+      // The Gregorian span, same bracketed shape — "(817–913 CE)".
+      ce: (b.querySelector('.facet-ce').textContent.match(/\\(([^)]+)\\)/) || [])[1] || ''
     };
   })`);
   check("period rows = distinct buckets", periodBtns.map((b) => b.period).join(",") === PERIODS.join(","),
@@ -297,6 +304,18 @@ async function main() {
     const n = parseInt(b.period, 10);
     return b.range === ((n - 1) * 100 + 1) + "–" + (n * 100) + " AH";
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.range) + " in " + JSON.stringify(b.text)).join(","));
+  // The Gregorian (miladi) equivalent of the same span, in its own column —
+  // the ceFromAh approximation above, the en authorLifeCe template "{b}–{d}
+  // CE"; "modern" rows have no spans.
+  check("period rows show the CE range", periodBtns.every(function (b) {
+    if (b.period === "modern") return b.ce === "";
+    const n = parseInt(b.period, 10);
+    return b.ce === ceFromAh((n - 1) * 100 + 1) + "–" + ceFromAh(n * 100) + " CE";
+  }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.ce)).join(","));
+  // Five thead cells over five row cells, column to column — the shared
+  // grid template keeps them aligned by construction, like the authors.
+  check("period thead columns align with the rows", await evalJS(
+    `(() => { var th = document.querySelectorAll('#libPeriodsModalBody .facet-thead-cell'); var c = document.querySelector('#libPeriodsModalBody .period-browse-row').children; return th.length === 5 && c.length === 5 && [0,1,2,3,4].every(function(i){ return Math.abs(th[i].getBoundingClientRect().left - c[i].getBoundingClientRect().left) < 1; }); })()`));
   // Counts cover books really in the library (searchable set) — e.g. century
   // 15 counts the albani, qahtani, jaufarFaiz and ibnulUthaymeen books but not
   // maniku's ENTIRE-BOOK-excluded RDF dictionary.
@@ -308,8 +327,8 @@ async function main() {
     `document.querySelector('#libPeriodsModalBody .period-browse-row .facet-range').getBoundingClientRect().width >
      document.querySelector('#libPeriodsModalBody .period-browse-row .facet-name').getBoundingClientRect().width`));
   // The authors grid mirrors the shape: the widest column is the one before
-  // the count (the range), not the first (the name) — and the Arabic track's
-  // 320px cap keeps even the longest Arabic names from overtaking it.
+  // the count (the range), not the first (the name) — the width-aware caps
+  // in facet-browse.js keep the name/Arabic tracks under it at every width.
   check("authors range column is the widest", await evalJS(
     `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return r.querySelector(sel).getBoundingClientRect().width; }; return w('.facet-range') > w('.facet-name') && w('.facet-range') > w('.facet-name-ar'); })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return ['.facet-name', '.facet-name-ar', '.facet-century', '.facet-range', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
@@ -444,6 +463,15 @@ async function main() {
     await evalJS(`(() => { var body = document.getElementById('libAuthorsModalBody'); var r = body.querySelector('.author-browse-row'); var ar = r.querySelector('.facet-name-ar'); var name = r.querySelector('.facet-name'); return 'thead-ar display=' + getComputedStyle(body.querySelector('.facet-thead-cell.facet-col-ar')).display + ' arLeft=' + Math.round(ar.getBoundingClientRect().left) + ' rowLeft=' + Math.round(r.getBoundingClientRect().left) + ' arTop=' + Math.round(ar.getBoundingClientRect().top) + ' nameTop=' + Math.round(name.getBoundingClientRect().top) + ' arW=' + Math.round(ar.getBoundingClientRect().width) + ' nameW=' + Math.round(name.getBoundingClientRect().width); })()`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
+  await evalJS(`document.getElementById('libPeriodsBtn').click()`);
+  await waitFor(`!!document.getElementById('libPeriodsOverlay') && document.getElementById('libPeriodsOverlay').classList.contains('open')`);
+  // The Gregorian column folds the same way: hidden from the thead, the
+  // span takes its own full-width line under the AH range.
+  check("mobile: ce column folds under the range", await evalJS(
+    `(() => { var body = document.getElementById('libPeriodsModalBody'); var r = body.querySelector('.period-browse-row'); var ce = r.querySelector('.facet-ce'); var range = r.querySelector('.facet-range'); var rb = r.getBoundingClientRect(); var ceb = ce.getBoundingClientRect(); var rg = range.getBoundingClientRect(); return getComputedStyle(body.querySelector('.facet-thead-cell.facet-col-ce')).display === 'none' && ceb.left === rb.left && ceb.top > rg.top && ceb.width > 300; })()`),
+    await evalJS(`(() => { var body = document.getElementById('libPeriodsModalBody'); var r = body.querySelector('.period-browse-row'); var ce = r.querySelector('.facet-ce'); return 'thead-ce display=' + getComputedStyle(body.querySelector('.facet-thead-cell.facet-col-ce')).display + ' ceLeft=' + Math.round(ce.getBoundingClientRect().left) + ' rowLeft=' + Math.round(r.getBoundingClientRect().left) + ' ceW=' + Math.round(ce.getBoundingClientRect().width) + ' rangeW=' + Math.round(r.querySelector('.facet-range').getBoundingClientRect().width); })()`));
+  await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
 
   // Narrow desktop (1024): the capped name/Arabic tracks leave the range +
   // count real room — the range must not collapse into the count.
@@ -469,6 +497,22 @@ async function main() {
   check("800px: text columns yield, range keeps its floor", await evalJS(
     `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-range') >= 170 && w('.facet-name') < 220 && w('.facet-name-ar') < 240; })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return ['.facet-name', '.facet-name-ar', '.facet-range', '.facet-count'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
+  // Large desktop (1536): the name/Arabic caps step up past the small-desktop
+  // maximums — the columns fill out with the room (the name sits at its
+  // full content width; the Arabic track stays content-bound here because
+  // the longest Arabic name is only ~240px in the EN UI) — while the range
+  // stays the widest column.
+  await send("Emulation.setDeviceMetricsOverride", { width: 1536, height: 800, deviceScaleFactor: 1, mobile: false });
+  await goto("file://" + ROOT + "library-search.html");
+  await waitFor(`document.getElementById('libAuthorsBtn')`);
+  await evalJS(`document.getElementById('libAuthorsBtn').click()`);
+  await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("1536px: text columns grow, range still widest", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-name') > 240 && w('.facet-name-ar') >= 240 && w('.facet-range') > w('.facet-name') && w('.facet-range') > w('.facet-name-ar'); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return ['.facet-name', '.facet-name-ar', '.facet-century', '.facet-range', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
