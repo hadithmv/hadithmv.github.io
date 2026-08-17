@@ -49,13 +49,13 @@ QRN-jaufarFaiz,jaufarFaiz,تفسير القرآن لجعفر,ޖަޢުފަރުގ�
 QRN-mukhtasarAR,,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir (Arabic Only),,ENTIRE-BOOK,ca622e0646a4
 QRN-muyassarAR,,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir (Arabic Only),,ENTIRE-BOOK,db1022a51454
 QRN-rasmee-alt,,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),,,c7380ae41cd1
-QRN-rasmee-og,,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ENTIRE-BOOK,24c98a2f7b76
+QRN-rasmee-og,presidentsOfficeMv,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ENTIRE-BOOK,24c98a2f7b76
 QRN-soabuniAshari-HDN,muhammadAliSoabuniAlAshari,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,REV,"translation,title,note",246b5d204bb1
 QRUL-ushrulAkhir-ahkamThahimmulMuslim,,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,Explanation of Last Tenth of Quran - with Important Matters for the Muslim,"AQD,REV",bodyAR,38727785181e
-RDF-ahmadFahmyDidi,,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,ENTIRE-BOOK,80fe1dcdfc3f
+RDF-ahmadFahmyDidi,ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,ENTIRE-BOOK,80fe1dcdfc3f
 RDF-all,,الجامع في المعاجم,އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް,Collection of All Dictionaries,RDF,ENTIRE-BOOK,
 RDF-asmaullahilHusna,,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,AQD,ENTIRE-BOOK,17f198f4bf43
-RDF-eegaal,,(معجم) الإيقاظ,އަލްއީގާޡް,Eegaal Dictionary,REV,ENTIRE-BOOK,611a4bc70631
+RDF-eegaal,malimMoosaMaafaiykileygefaanu,(معجم) الإيقاظ في تعليم الألفاظ,އަލްއީގާޡް,Eegaal Dictionary,REV,ENTIRE-BOOK,611a4bc70631
 RDF-hassanAhmedManiku,hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,,ENTIRE-BOOK,c3012745fe06
 RDF-misc,,معاجم مختلفة,ތަފާތު އެކި ބަސްފޮތްތައް,Collection of Various Dictionaries,REV,ENTIRE-BOOK,54defcd995ed
 RDF-nanfoiyComb,,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,REV,ENTIRE-BOOK,d81292aa4369
