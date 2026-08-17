@@ -252,6 +252,38 @@ async function main() {
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
 
+  // Opening the modals (button click or the Alt+A / Alt+R shortcuts) lands
+  // the caret in the modal's filter input — the modal opens with the search
+  // bar ready to type.
+  await evalJS(`document.getElementById('libAuthorsBtn').click()`);
+  await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("authors modal opens with focus in the filter", await evalJS(
+    `document.activeElement === document.getElementById('libAuthorsFilter')`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  await evalJS(`document.getElementById('libPeriodsBtn').click()`);
+  await waitFor(`document.getElementById('libPeriodsOverlay').classList.contains('open')`);
+  check("periods modal opens with focus in the filter", await evalJS(
+    `document.activeElement === document.getElementById('libPeriodsFilter')`));
+  await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
+  await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'a', altKey: true, bubbles: true }))`);
+  // The caret lands past the overlay's pop transition (--t-pop) — common.js
+  // defers its focus-first past it and the facet module re-focuses after, so
+  // wait for the focus to land rather than asserting synchronously.
+  await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open') && document.activeElement === document.getElementById('libAuthorsFilter')`);
+  check("Alt+A opens the authors modal, caret in the filter", await evalJS(
+    `document.getElementById('libAuthorsOverlay').classList.contains('open') && document.activeElement === document.getElementById('libAuthorsFilter')`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'r', altKey: true, bubbles: true }))`);
+  await waitFor(`document.getElementById('libPeriodsOverlay').classList.contains('open') && document.activeElement === document.getElementById('libPeriodsFilter')`);
+  check("Alt+R opens the periods modal, caret in the filter", await evalJS(
+    `document.getElementById('libPeriodsOverlay').classList.contains('open') && document.activeElement === document.getElementById('libPeriodsFilter')`));
+  await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
   // ── Scoped search: results ⊆ that author's books ─────────────────
   // Query proven by the libscope battery; the author chip must narrow it.
   await evalJS(`document.getElementById('libSearchInput').value = 'الناس';` +

@@ -19,7 +19,7 @@
    result runs, history shrinking when a term is deleted — which re-centers
    it (the overlay centers the modal). With a fixed height the flex chain
    (body → body-row → main → results) is properly bounded and the results
-   pane scrolls internally instead. 95vh is the full viewport minus a slim
+   pane scrolls internally instead. 93vh is the full viewport minus a slim
    symmetric margin; the base .modal max-height (85vh) must be neutralized
    or it silently caps this back down. */
 /* The full-size geometry (window, scope modal, Authors/Periods browse) is

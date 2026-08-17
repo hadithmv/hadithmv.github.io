@@ -91,14 +91,14 @@
      text sits between --fs-aux and --fs-muted; retune a tier here, not at
      use sites. */
   --fs-micro: 0.68rem; /* arrows, tiny glyphs, dense table cells */
-  --fs-aux: 0.8rem;    /* compact table headers */
-  --fs-muted: 0.9rem;  /* meta/subtitle text, sidebar links */
-  --fs-text: 0.95rem;  /* reading surfaces: table body, snippets */
+  --fs-aux: 0.8rem; /* compact table headers */
+  --fs-muted: 0.9rem; /* meta/subtitle text, sidebar links */
+  --fs-text: 0.95rem; /* reading surfaces: table body, snippets */
   --fs-title-sm: 1.1rem; /* sub-headings (bab tier) */
-  --fs-title: 1.15rem;   /* page titles and heading tiers */
+  --fs-title: 1.15rem; /* page titles and heading tiers */
   --fs-title-lg: 1.2rem; /* kitab tier headings */
-  --fs-heading: 1.3rem;  /* sidebar title, panel headings */
-  --fs-display: 1.5rem;  /* chevron glyphs */
+  --fs-heading: 1.3rem; /* sidebar title, panel headings */
+  --fs-display: 1.5rem; /* chevron glyphs */
   /* Title scale — Arabic and Dhivehi title lines (cards + search results)
      render at this × the panel font size; English titles stay at base. */
   --title-scale: 1.2;
@@ -114,7 +114,8 @@
   /* Card shadows — shapes only; the shadow colours stay per-theme
      (--color-shadow-card/-hover). Card and result hovers share one lift. */
   --shadow-card: 0 1px 3px var(--color-shadow-card);
-  --shadow-card-hover: 0 10px 15px -3px var(--color-shadow-card-hover),
+  --shadow-card-hover:
+    0 10px 15px -3px var(--color-shadow-card-hover),
     0 4px 6px -2px var(--color-shadow-card);
   /* Modal shadow — every modal/selector panel shares one shape; the colour
      is per-theme --color-shadow-modal (stronger in dark mode). */
@@ -201,8 +202,8 @@
   --font-mixed: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   --font-latin: system-ui, -apple-system, sans-serif;
   --font-arabic: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
-  --font-arabic-thaana: "Hadithmv", "Traditional Arabic", "Scheherazade New",
-    "Faruma", serif;
+  --font-arabic-thaana:
+    "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   --font-thaana: "Hadithmv", "Faruma", "MV Boli", sans-serif;
   --font-mono: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
 }
@@ -416,7 +417,14 @@ body {
   transition: transform var(--t-drawer, 0.25s) ease;
   overflow-y: auto;
   overscroll-behavior: contain;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   direction: rtl;
 }
 
@@ -543,7 +551,14 @@ body:has(.modal-overlay.open) {
   overscroll-behavior: contain;
   box-shadow: var(--shadow-modal, 0 16px 48px var(--color-shadow-modal));
   direction: rtl;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 .modal-header {
@@ -596,7 +611,14 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -631,7 +653,14 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   line-height: 1.8;
 }
 .confirm-actions {
@@ -643,7 +672,14 @@ body:has(.modal-overlay.open) {
   padding: 6px 16px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   border-radius: var(--radius-sm, 6px);
   border: 1px solid var(--color-border);
   cursor: pointer;
@@ -688,7 +724,14 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-error-text);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   transition: opacity var(--t-hover, 0.15s) ease;
   margin-right: auto;
   margin-left: 8px;
@@ -716,7 +759,13 @@ body:has(.modal-overlay.open) {
   text-align: right;
   font-weight: 700;
   margin-bottom: var(--title-gap, 4px);
-  font-family: var(--font-arabic, "Hadithmv", "Traditional Arabic", "Scheherazade New", serif);
+  font-family: var(
+    --font-arabic,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    serif
+  );
 }
 
 .book-card .title-dv,
@@ -751,7 +800,14 @@ body:has(.modal-overlay.open) {
   margin-top: 4px;
   font-size: calc(var(--panel-font-size, 0.85rem) * 1.05);
   color: var(--color-text-muted);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 /* The reader header's author line is a link to the filtered dashboard —
    quiet link: muted like the card author line, no underline (the accent on
@@ -798,7 +854,14 @@ body:has(.modal-overlay.open) {
   padding: 100px 40px 40px;
   font-size: var(--fs-heading, 1.3rem);
   color: var(--color-loading);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* Skeleton loading lines */
@@ -882,7 +945,10 @@ body:has(.modal-overlay.open) {
   background-color: var(--color-error-bg);
   border-radius: var(--radius-md, 8px);
   margin: 20px;
-  margin-top: var(--error-clearance, calc(var(--topbar-height) + 24px)); /* clear the fixed topbar + 24px breathing room */
+  margin-top: var(
+    --error-clearance,
+    calc(var(--topbar-height) + 24px)
+  ); /* clear the fixed topbar + 24px breathing room */
 }
 /* Errors are English-only (app convention) — a single central prefix covers
    every .error box; the red background alone is invisible to screen readers */
@@ -904,7 +970,14 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   color: var(--tag-color, var(--color-nav-btn-text));
   background: var(--tag-bg, var(--color-nav-btn-bg));
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
   transition:
     background var(--t-hover, 0.15s) ease,
@@ -964,7 +1037,7 @@ body:has(.modal-overlay.open) {
 .lib-periods-modal,
 .pins-history-modal {
   width: min(1200px, 95vw);
-  height: 95vh;
+  height: 93vh;
   max-height: none;
   display: flex;
   flex-direction: column;
@@ -978,7 +1051,7 @@ body:has(.modal-overlay.open) {
   .lib-periods-modal,
   .pins-history-modal {
     width: 100%;
-    height: 95vh;
+    height: 93vh;
   }
 }
 /* The browse bodies drop the base .modal-body's gap (16px) — the thead bar
@@ -1007,7 +1080,14 @@ body:has(.modal-overlay.open) {
   width: 100%;
   max-width: none;
   font-size: var(--panel-font-size, 0.85rem);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .facet-table-wrap {
   flex: 1;
@@ -1030,13 +1110,17 @@ body:has(.modal-overlay.open) {
      scales the caps down together on narrower desktops, so the text
      columns yield before the range + count cram. The range is the wide 1fr
      column — the one before the count, mirroring the periods grid. */
-  grid-template-columns: var(--facet-name-w, 220px) var(--facet-ar-w, 240px) var(--facet-century-w, 90px) 1fr 64px 40px;
+  grid-template-columns:
+    var(--facet-name-w, 220px) var(--facet-ar-w, 240px)
+    var(--facet-century-w, 90px) 1fr 64px 40px;
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
      (--facet-period-w); the Gregorian span is pinned to its longest text
      (--facet-ce-w); the AH range is the wide one (1fr). */
-  grid-template-columns: var(--facet-period-w, 110px) 1fr var(--facet-ce-w, 150px) 64px 40px;
+  grid-template-columns:
+    var(--facet-period-w, 110px) 1fr var(--facet-ce-w, 150px)
+    64px 40px;
 }
 /* The header is the reader-table's look (nav-btn-bg bar, 2px divider line,
    bold text) — every tabular surface shares it, per the unified-modal rule.
@@ -1149,7 +1233,14 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* Collapsible chip row — dashboard + library search share the chip row; when
@@ -1173,7 +1264,8 @@ body:has(.modal-overlay.open) {
      toggle hides itself. */
   max-width: max-content;
   max-height: calc(var(--control-height, 35px));
-  transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+  transition: max-height var(--t-panel, 0.3s)
+    var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
 .tags-collapse.expanded {
   /* A concrete target the transition can run to — far beyond the ~2-4 rows
@@ -1200,7 +1292,14 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   transition:
     background var(--t-hover, 0.15s) ease,
     border-color var(--t-hover, 0.15s) ease,
@@ -1213,7 +1312,8 @@ body:has(.modal-overlay.open) {
 .tags-toggle-arrow {
   font-size: var(--fs-display, 1.5rem);
   line-height: 1;
-  transition: transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+  transition: transform var(--t-panel, 0.3s)
+    var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
 .tags-toggle-label {
   /* inline-block so the min-width syncLabel reserves (the wider of the
@@ -1262,7 +1362,14 @@ body:has(.modal-overlay.open) {
   line-height: var(--control-line-height, 33px);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1280,7 +1387,14 @@ body:has(.modal-overlay.open) {
   padding: 40px 20px;
   color: var(--color-text-muted);
   font-size: 1rem;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* ── Card surface — shared by dashboard book cards and library results ──
@@ -1298,8 +1412,11 @@ body:has(.modal-overlay.open) {
 }
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-card-hover, 0 10px 15px -3px var(--color-shadow-card-hover),
-    0 4px 6px -2px var(--color-shadow-card));
+  box-shadow: var(
+    --shadow-card-hover,
+    0 10px 15px -3px var(--color-shadow-card-hover),
+    0 4px 6px -2px var(--color-shadow-card)
+  );
   border-color: var(--color-card-hover-border);
 }
 
@@ -1316,7 +1433,14 @@ body:has(.modal-overlay.open) {
   cursor: pointer;
   color: var(--tag-color, var(--color-text));
   background: var(--tag-bg, var(--color-nav-btn-bg));
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
   border: 1px solid transparent;
 }
@@ -1339,7 +1463,14 @@ body:has(.modal-overlay.open) {
   max-width: var(--content-width, 800px);
   margin: var(--topbar-clearance, 64px) auto 60px;
   padding: 0;
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
 }
 
 /* Font-family select (settings → Font modal — always English) */
@@ -1348,7 +1479,14 @@ body:has(.modal-overlay.open) {
   padding: 8px 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1383,7 +1521,14 @@ body:has(.modal-overlay.open) {
      box to 1em keeps the text vertically centered while leaving the tall marks
      room inside the box. */
   line-height: 1;
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   /* Resting border is the panel border shade; focus steps it up to the
      card-hover shade (see .search-input:focus) — the reader page's
      treatment, shared so the ring-less focus looks the same everywhere */
@@ -1410,7 +1555,14 @@ body:has(.modal-overlay.open) {
   font-size: var(--fs-muted, 0.9rem);
   font-weight: 600;
   color: var(--color-text-muted);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
 }
 
@@ -1433,7 +1585,14 @@ body:has(.modal-overlay.open) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
   transition:
     background var(--t-hover, 0.15s) ease,
@@ -1465,7 +1624,14 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
   text-align: right;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   transition: background var(--t-fast, 0.1s) ease;
   box-sizing: border-box;
 }
@@ -1503,7 +1669,14 @@ body:has(.modal-overlay.open) {
   text-align-last: center;
   -moz-appearance: textfield;
   appearance: textfield;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -1576,7 +1749,6 @@ body:has(.modal-overlay.open) {
   pointer-events: none;
 }
 
-
 #topBar > * {
   flex-shrink: 0;
 }
@@ -1620,7 +1792,14 @@ body {
   font-size: var(--fs-title, 1.15rem);
   font-weight: 700;
   color: var(--color-text);
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
   /* Centered when it fits; a long title overflowing on narrow screens is
      start-aligned (RTL) so its beginning is visible instead of clipped.
      The 8px start inset shelters the webfont's start-side ink overhang
@@ -1670,7 +1849,10 @@ body {
   box-sizing: border-box;
   height: var(--control-height, 35px);
   padding: 0 10px;
-  font-size: var(--fs-display, 1.5rem); /* chevron glyph — same size family as the tags toggle arrow */
+  font-size: var(
+    --fs-display,
+    1.5rem
+  ); /* chevron glyph — same size family as the tags toggle arrow */
   font-weight: 600;
   line-height: var(--control-line-height, 33px);
   color: var(--color-focus-text, #15803d);
@@ -1682,8 +1864,16 @@ body {
     background var(--t-panel, 0.3s) ease,
     border-color var(--t-panel, 0.3s) ease,
     color var(--t-panel, 0.3s) ease,
-    transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+    transform var(--t-panel, 0.3s)
+      var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
 }
 
@@ -1696,12 +1886,15 @@ body {
   background: var(--color-focus-text, #15803d);
   color: var(--color-on-solid, #fff);
   border-color: var(--color-focus-text, #15803d);
-  transform: rotate(180deg); /* ▾ → ▴, same animation as the tags toggle arrow */
+  transform: rotate(
+    180deg
+  ); /* ▾ → ▴, same animation as the tags toggle arrow */
   transition:
     background var(--t-panel, 0.3s) ease,
     border-color var(--t-panel, 0.3s) ease,
     color var(--t-panel, 0.3s) ease,
-    transform var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+    transform var(--t-panel, 0.3s)
+      var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 /* ---- Font modal ---- */
@@ -1785,19 +1978,33 @@ body {
 /* Widths apply to both tables (header table: th, rows table: td) — they
    must share the column layout exactly or the bars drift apart. */
 .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1),
-.pins-history-body[data-mode="pins"] .dd-table td:nth-child(1) { width: 36px; }
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(1) {
+  width: 36px;
+}
 .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2),
-.pins-history-body[data-mode="pins"] .dd-table td:nth-child(2) { width: 80px; }
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(2) {
+  width: 80px;
+}
 .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4),
-.pins-history-body[data-mode="pins"] .dd-table td:nth-child(4) { width: 84px; }
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(4) {
+  width: 84px;
+}
 .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5),
-.pins-history-body[data-mode="pins"] .dd-table td:nth-child(5) { width: 84px; }
+.pins-history-body[data-mode="pins"] .dd-table td:nth-child(5) {
+  width: 84px;
+}
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(2),
-.pins-history-body[data-mode="history"] .dd-table td:nth-child(2) { width: 84px; }
+.pins-history-body[data-mode="history"] .dd-table td:nth-child(2) {
+  width: 84px;
+}
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(3),
-.pins-history-body[data-mode="history"] .dd-table td:nth-child(3) { width: 88px; }
+.pins-history-body[data-mode="history"] .dd-table td:nth-child(3) {
+  width: 88px;
+}
 .pins-history-body[data-mode="history"] .dd-table th:nth-child(4),
-.pins-history-body[data-mode="history"] .dd-table td:nth-child(4) { width: 84px; }
+.pins-history-body[data-mode="history"] .dd-table td:nth-child(4) {
+  width: 84px;
+}
 .pins-history-body .dd-table th {
   /* The bar's background + divider live on the .dd-header wrapper, not the
      cells — the scrollbar-gutter mirror (_syncHeaderGutter) shifts the
@@ -1810,7 +2017,14 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 .pins-history-body .dd-table td {
   padding: 8px 12px;
@@ -1820,7 +2034,14 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 /* Hairline separators, the browse rows' look — except the last row, whose
    bottom edge sits on the clear-all button's own divider line. */
@@ -1890,7 +2111,14 @@ body {
   border: 1px solid transparent;
   border-top: 1px solid var(--color-border);
   cursor: pointer;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   text-align: center;
   opacity: 0.8;
   transition: opacity var(--t-hover, 0.15s) ease;
@@ -1930,7 +2158,9 @@ body {
   .lib-result .title-ar,
   .book-card .title-dv,
   .lib-result .title-dv {
-    font-size: calc(var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2));
+    font-size: calc(
+      var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2)
+    );
   }
   .book-card .title-en,
   .lib-result .title-en {
@@ -1948,7 +2178,10 @@ body {
 
   .nav-focus-btn {
     padding: 5px 8px !important;
-    font-size: var(--fs-display, 1.5rem) !important; /* chevron glyph stays full-size on mobile */
+    font-size: var(
+      --fs-display,
+      1.5rem
+    ) !important; /* chevron glyph stays full-size on mobile */
   }
 
   /* Shared component mobile sizing (dashboard + library-search pages) */
@@ -2017,19 +2250,33 @@ body {
     box-sizing: border-box;
   }
   .pins-history-body[data-mode="pins"] .dd-table th:nth-child(1),
-  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(1) { width: 26px; }
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(1) {
+    width: 26px;
+  }
   .pins-history-body[data-mode="pins"] .dd-table th:nth-child(2),
-  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(2) { width: 48px; }
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(2) {
+    width: 48px;
+  }
   .pins-history-body[data-mode="pins"] .dd-table th:nth-child(4),
-  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(4) { width: 56px; }
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(4) {
+    width: 56px;
+  }
   .pins-history-body[data-mode="pins"] .dd-table th:nth-child(5),
-  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(5) { width: 32px; }
+  .pins-history-body[data-mode="pins"] .dd-table td:nth-child(5) {
+    width: 32px;
+  }
   .pins-history-body[data-mode="history"] .dd-table th:nth-child(2),
-  .pins-history-body[data-mode="history"] .dd-table td:nth-child(2) { width: 56px; }
+  .pins-history-body[data-mode="history"] .dd-table td:nth-child(2) {
+    width: 56px;
+  }
   .pins-history-body[data-mode="history"] .dd-table th:nth-child(3),
-  .pins-history-body[data-mode="history"] .dd-table td:nth-child(3) { width: 72px; }
+  .pins-history-body[data-mode="history"] .dd-table td:nth-child(3) {
+    width: 72px;
+  }
   .pins-history-body[data-mode="history"] .dd-table th:nth-child(4),
-  .pins-history-body[data-mode="history"] .dd-table td:nth-child(4) { width: 32px; }
+  .pins-history-body[data-mode="history"] .dd-table td:nth-child(4) {
+    width: 32px;
+  }
 }
 
 /* Mobile touch targets — extend the hit area 3px on every side without

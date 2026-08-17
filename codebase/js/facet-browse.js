@@ -427,6 +427,21 @@ function pinFacetColumn(overlayId, pairs) {
   });
 }
 
+// Focus the modal's filter once the modal is focusable: the overlay's pop
+// transition computes as visibility:hidden for ~--t-pop (common.js defers
+// its own focus-first past it), so the synchronous focus attempt below
+// silently fails and the deferred one re-lands it past the transition —
+// after common.js's close-✕ focus, so the input wins. Same pattern as the
+// search window's input focus.
+function deferFacetFocus(filterEl, overlayEl) {
+  try { filterEl.focus(); } catch (_) {}
+  var pop = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--t-pop")) || 0.2;
+  window.setTimeout(function () {
+    if (!overlayEl.classList.contains("open")) return;
+    try { filterEl.focus(); } catch (_) {}
+  }, pop * 1000 + 10);
+}
+
 /** Open the authors browse. books (optional) = the surface's book set —
  *  omitted on the dashboard (registry-visible), the searchable list on the
  *  library page and the search window (see visibleCounts). */
@@ -438,7 +453,7 @@ export function openAuthorsModal(books) {
     renderAuthorRows();
     openFacetModal("libAuthorsOverlay");
     pinFacetGeometry();
-    _authorsFilter.focus();
+    deferFacetFocus(_authorsFilter, _authorsOverlay);
   });
 }
 
@@ -577,9 +592,26 @@ export function openPeriodsModal(books) {
     renderPeriodRows();
     openFacetModal("libPeriodsOverlay");
     pinFacetGeometry();
-    _periodsFilter.focus();
+    deferFacetFocus(_periodsFilter, _periodsOverlay);
   });
 }
+
+// Keyboard: Alt+A opens the Authors browse, Alt+R the Periods browse —
+// the same Alt+letter pattern as the page shortcuts (Alt+Z focus mode,
+// Alt+P pins/position, …). Opening while another modal is up closes it
+// (openModal semantics); ignored while typing. The modals open with the
+// filter input focused, so the shortcut lands the caret straight in the
+// search bar.
+document.addEventListener("keydown", function (e) {
+  if (!e.altKey || e.ctrlKey || e.metaKey || window.isTypingTarget(e)) return;
+  if (e.key === "a") {
+    e.preventDefault();
+    openAuthorsModal();
+  } else if (e.key === "r") {
+    e.preventDefault();
+    openPeriodsModal();
+  }
+});
 
 // Open modals re-render in the new language (labels + rows)
 document.addEventListener("languagechange", function () {
