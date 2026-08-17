@@ -1,24 +1,24 @@
 authorCode,nameAR,nameDV,nameEN,bornAH,diedAH
-malik,مالك بن أنس,މާލިކު ބިން އަނަސް,Malik ibn Anas,93,179
-abu-ubayd,أبو عبيد القاسم بن سلام,އަބޫ ޢުބައިދު,Abu Ubayd al-Qasim ibn Sallam,157,224
-abu-khaythama,أبو خيثمة زهير بن حرب,އަބޫ ޚައިޘަމާ,Abu Khaythama,160,234
-ahmad-ibn-hanbal,أحمد بن حنبل,އަޙްމަދު ބިން ޙަންބަލް,Ahmad ibn Hanbal,164,241
-bukhari,محمد بن إسماعيل البخاري,ބުޚާރީ,al-Bukhari,194,256
-muslim,مسلم بن الحجاج,މުސްލިމް ބިން ޙައްޖާޖް,Muslim ibn al-Hajjaj,204,261
-ibn-majah,ابن ماجه,އިބްނު މާޖާ,Ibn Majah,209,273
-abu-dawud,أبو داود السجستاني,އަބޫ ދާވުދު,Abu Dawud,202,275
-tirmidhi,محمد بن عيسى الترمذي,ތިރްމިޛީ,al-Tirmidhi,209,279
-nasai,أحمد بن شعيب النسائي,ނަސާއީ,al-Nasa'i,215,303
-barbahari,أبو محمد الحسن بن علي البربهاري,ބަރުބަހާރީ,al-Barbahari,,329
-ajurri,أبو بكر محمد بن الحسين الآجري,އާޖުރީ,al-Ajurri,,360
-sabuni-abu-uthman,أبو عثمان إسماعيل الصابوني,ޞާބޫނީ,Abu Uthman al-Sabuni,373,449
-samani,أبو المظفر منصور بن محمد السمعاني,ސަމްޢާނީ,Abu al-Muzaffar al-Sam'ani,426,489
-maqdisi,عبد الغني بن عبد الواحد المقدسي,މަގްދިސީ,Abd al-Ghani al-Maqdisi,541,600
-nawawi,يحيى بن شرف النووي,ނަވަވީ,al-Nawawi,631,676
-ibn-rajab,عبد الرحمن بن أحمد ابن رجب الحنبلي,އިބްނު ރަޖަބު,Ibn Rajab,736,795
-ibn-hajar,أحمد بن علي بن حجر العسقلاني,އިބްނު ޙަޖަރު,Ibn Hajar,773,852
-ibn-abdul-wahhab,محمد بن عبد الوهاب,އިބްނު ޢަބްދުލްވައްހާބް,Muhammad ibn Abd al-Wahhab,1115,1206
-albani,محمد ناصر الدين الألباني,އަލްބާނީ,al-Albani,1332,1420
-qahtani,سعيد بن علي بن وهف القحطاني,ޤަޙްޠާނީ,Sa'id ibn Wahf al-Qahtani,,1440
-sabuni-muhammad-ali,محمد علي الصابوني,މުޙައްމަދު ޢަލީ ޞާބޫނީ,Muhammad Ali al-Sabuni,1347,1442
-maniku,حسن أحمد مانيك,ޙަސަން އަޙްމަދު މާނިކު,Hassan Ahmed Maniku,,1440
+malikBinAnas,مالِكُ بْنُ أَنَسِ المَدَنِيُّ,މާލިކު ބިން އަނަސް,Malik bin Anas,93,179
+abuUbaidAlQasim,أبُو عُبَيْدٍ القاسِمُ بنُ سَلَّامٍ الهَرَوِيُّ, އަބޫ ޢުބައިދު ގާސިމް ބިން ސައްލާމް އަލްހަރަވީ,Abu Ubayd alQasim ibn Sallam alHarawi,157,224
+abuKhaythamaZuhair,أَبُو خَيْثَمَةَ زُهَيْرُ بْنُ حَرْبٍ،,އަބޫ ޚައިޘަމާ ޒުހައިރު ބިން ޙަރްބި,Zuhair bin Harb,160,234
+ahmedBinHanbal,أَحْمَدُ بْنُ حَنْبَلِ الشَّيْبَانِيُّ,އަޙްމަދު ބިން ޙަންބަލް,Ahmad bin Hanbal ashShaibani,164,241
+muhammadBinIsmailAlBukhari,مُحَمَّدُ بْنُ إسماعِيلَ البُخَارِيُّ,މުޙައްމަދު ބިން އިސްމާޢީލު އަލްބުޚާރީ,Muhammad bin Ismail alBukhari,194,256
+muslimBinAlHajjaj,مُسْلِمُ بنُ الحَجَّاجِ النَّيْسَابُوْرِيُّ,މުސްލިމް ބިން ޙައްޖާޖް,Muslim ibn al-Hajjaj,204,261
+ibnMajahAlQazwini,ابنُ ماجَهْ القَزْوِيني,އިބްނު މާޖަހް އަލްގަޒްވީނީ,Ibn Majah alQazwini,209,273
+abuDawudAsSijistani,أَبُو دَاوُدَ السِّجِسْتَانِيُّ,އަބޫ ދާވުދު އައްސިޖިސްތާނީ,Abu Dawud as-Sijistani,202,275
+abuEasaTirmidhi,أَبُو عِيسَى مُحَمَّدُ التِّرْمِذِيُّ,އަބޫ ޢީސާ އައްތިރްމިޛީ,Abu Easa atTirmidhi,209,279
+ahmedBinShuaibAnNasai,أَحْمَدُ بْنُ شُعَيْبٍ النَّسَائِيُّ,އަޙްމަދު ބިން ޝުޢައިބު އައްނަސާއީ,Ahmed bin Shu'aib anNasai,215,303
+alHasanBinAliAlBarbahari,أَبُو مُحَمَّدُ الْحَسَنِ بْنِ عَلِيٍّ الْبَرْبَهَارِيُّ,އަލްޙަސަން ބިން ޢަލީ އަލްބަރްބަހާރީ,alHasan bin Ali alBarbahari,233,329
+abuBakrAlAajurry,أَبُو بَكْرٍ مُحَمَّدَ بْنَ الْحُسَيْنِ الآجُرِّيَّ,އަބޫ ބަކުރު އަލްއާޖުއްރީ,Abu Bakr alAajurry,280,360
+abuUthmanAsSoabuni,أَبُو عُثْمَانَ إِسْمَاعِيلُ بْنُ عَبْدِ الرَّحْمَنِ الصَّابُونِيُّ النَّيْسَابُورِيُّ,އަބޫ ޢުޘްމާން އައްޞާބޫނީ އައްނައިސާބޫރީ,Abu Uthman as-Soabuni an-Naisaburi,373,449
+abulMuzaffarAsSamaani,أَبُو المُظَفَّرِ مَنْصُورُ بْنُ مُحَمَّدِ السَّمْعَانِيُّ الشَّافِعِيُّ,އަބުލް މުޛައްފަރު އައްސަމްޢާނީ އައްޝާފިޢީ,Abul Muzaffar as-Sam'ani as-Shafi'i,426,489
+abdulGhaniAlMaqdisi,أَبُو مُحَمَّدٍ عَبْدُ الْغَنَيِّ الْمَقْدِسِيُّ,ޢަބްދުލް ޣަނީ އަލްމަގްދިސީ,Abdul Ghani alMaqdisi,541,600
+yahyaBinSharafAnNawawi,يَحْيَى بن شَرَفِ النَّوَويِّ,ޔަޙްޔާ ބިން ޝަރަފް އައްނަވަވީ,Yahya bin Sharaf anNawawi,631,676
+ibnRajabAlHanbali,ابْنِ رَجَبٍ الْحَنبَلِيِّ, އިބްނު ރަޖަބު އަލްޙަންބަލީ,Ibn Rajab alHanbali,736,795
+ibnHajarAlAsqalani,ابْنُ حَجَرٍ الْعَسْقَلَانِيُّ,އިބްނު ޙަޖަރު އަލްއަސްގަލާނީ,Ibn Hajar alAsqalani,773,852
+muhammadBinAbdulWahhab,مُحَمَّدِ بْنِ عَبْدِ الوَهَّابِ بْنِ سُلَيْمَانَ التَّمِيْمِيِّ,މުޙައްމަދު ބިން ޢަބްދުލްވައްހާބް,Muhammad bin AbdulWahhab,1115,1206
+albani,مُحَمَّدُ نَاصِرُ الدِّينِ الْأَلْبَانِيِّ,މުޙައްމަދު ނާޞިރުއްދީން އަލްއަލްބާނީ,muhammad Nasiruddeen alAlbani,1332,1420
+saeedAlQahtani,سَعِيدٌ بْنُ عَلِيٍّ بْنِ وَهْفٍ الْقَحْطَانِيُّ,ސަޢީދު ބިން ޢަލީ އަލްގަހްޠާނީ,Sa'eed bin Ali alQahtani,1372,1440
+muhammadAliSoabuniAlAshari,مُحَمَّدٌ عَلِيُّ الصَّابُونِيُّ الأَشْعَرِيُّ,މުޙައްމަދު ޢަލީ އައްޞާބޫނީ އަލްއަޝްޢަރީ,muhammad ali as-Soabuni al-Ash'ari,1349,1442
+hassanAhmedManiku,حسن أحمد مانيك,ޙަސަން އަޙްމަދު މަނިކު,Hassan Ahmed Maniku,,
