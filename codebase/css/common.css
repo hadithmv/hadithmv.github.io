@@ -746,8 +746,11 @@ body:has(.modal-overlay.open) {
   direction: ltr; /* names may be latin; years stay digits */
   text-align: right;
   margin-top: 2px;
-  font-size: calc(var(--panel-font-size, 0.85rem) * 0.95);
-  color: var(--color-text-muted);
+  /* Full panel size, the title's colour and semibold — the attribution
+     reads as part of the card, not a muted footnote. */
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 /* The reader header's author line is a link to the filtered dashboard —
@@ -978,24 +981,23 @@ body:has(.modal-overlay.open) {
     height: 95vh;
   }
 }
-/* The browse bodies drop the base .modal-body's gap (16px) and side
-   padding (0 24px) — the scope modal's treatment: children stack flush (the
-   thead bar is the separator) and the rows carry their own horizontal
-   padding, so the thead bar spans the modal edge to edge. Lives here, not
-   in search-window.css, because the dashboard opens these modals and loads
-   only common.css. The pins list body gets the same flush stack. */
+/* The browse bodies drop the base .modal-body's gap (16px) — the thead bar
+   is the separator between the stacked children — but keep the base 24px
+   side padding: the header, the filter row, the thead strip and the rows
+   all sit on the same band, the search window's all-around padding. Lives
+   here, not in search-window.css, because the dashboard opens these modals
+   and loads only common.css. The pins list body keeps the same grid. */
 .lib-authors-modal .modal-body,
 .lib-periods-modal .modal-body,
 .pins-history-modal .modal-body {
   gap: 0;
-  padding: 4px 0 0;
 }
 /* The filter row above the thead bar: plain padding, no divider — the bar
    below it is the separator (the scope modal keeps its own border because
    its head sits above a plain list, not another bar). */
 .facet-filter-row {
   flex: 0 0 auto;
-  padding: 10px 14px;
+  padding: 10px 0;
 }
 /* The shared search-box look (.search-input, common.css) — semibold text,
    bold subtle placeholder, focus ring, Thaana text-indent. Deltas only, the
@@ -1020,12 +1022,13 @@ body:has(.modal-overlay.open) {
   display: grid;
 }
 .facet-grid-authors {
-  /* The century + range tracks are pinned by facet-browse.js
+  /* The name, Arabic and century tracks are pinned by facet-browse.js
      (pinFacetColumn): the tracks would otherwise size per-grid (the thead's
      short labels vs the rows' longer text, and each row against its
      neighbours), drifting the header columns and making the column spacing
-     uneven. */
-  grid-template-columns: 1fr var(--facet-century-w, 90px) var(--facet-range-w, 110px) 64px 40px;
+     uneven. The range is the wide 1fr column — the one before the count,
+     mirroring the periods grid. */
+  grid-template-columns: var(--facet-name-w, 240px) var(--facet-ar-w, 300px) var(--facet-century-w, 90px) 1fr 64px 40px;
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
@@ -1085,14 +1088,13 @@ body:has(.modal-overlay.open) {
 .facet-name .author-browse-name {
   font-weight: 600;
 }
-/* The old second line became an inline run (one-line rows): muted, at the
-   row's full text size (the downscaled versions read as "kinda small"),
-   trailing the primary name. The bidi context — not forced rtl like the
-   block version — lets the inline run sit naturally in the row's
-   direction. */
-.facet-name-alt {
+/* The Arabic name in its own column — the secondary script's muted tone;
+   the longest names wrap within the pinned track (the 320px cap in
+   facet-browse.js) rather than push the column out. */
+.facet-name-ar {
+  min-width: 0;
+  word-break: break-word;
   color: var(--color-text-muted);
-  line-height: 1.5;
 }
 .facet-century,
 .facet-range {
@@ -1127,11 +1129,13 @@ body:has(.modal-overlay.open) {
   }
   .facet-grid-authors .facet-col-century,
   .facet-grid-authors .facet-col-range,
+  .facet-grid-authors .facet-col-ar,
   .facet-grid-periods .facet-col-range {
     display: none;
   }
   .author-browse-row .facet-century,
   .author-browse-row .facet-range,
+  .author-browse-row .facet-name-ar,
   .period-browse-row .facet-range {
     grid-column: 1 / -1;
   }
@@ -1860,7 +1864,7 @@ body {
   text-decoration: underline;
 }
 .pins-history-body .dd-empty {
-  margin: 8px 14px;
+  margin: 8px 0;
   padding: 16px 12px;
   text-align: center;
   color: var(--color-text-subtle);

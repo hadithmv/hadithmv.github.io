@@ -235,7 +235,8 @@ function ensureAuthorsModal() {
     '<input id="libAuthorsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter authors by name or code" />' +
     "</div>" +
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-authors">' +
-    '<div class="facet-thead-cell"></div>' +
+    '<div class="facet-thead-cell facet-col-name"></div>' +
+    '<div class="facet-thead-cell facet-col-ar"></div>' +
     '<div class="facet-thead-cell facet-col-century"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
@@ -259,10 +260,11 @@ function authorsModalLabels() {
   _authorsFilter.placeholder = t("libAuthorsFilter");
   var ths = _authorsBody.querySelectorAll(".facet-thead-cell");
   ths[0].textContent = t("facetColAuthor");
-  ths[1].textContent = t("facetColCentury");
-  ths[2].textContent = t("facetColYears");
-  ths[3].textContent = t("facetColBooks");
-  ths[4].textContent = "";
+  ths[1].textContent = t("facetColAuthorAr");
+  ths[2].textContent = t("facetColCentury");
+  ths[3].textContent = t("facetColYears");
+  ths[4].textContent = t("facetColBooks");
+  ths[5].textContent = "";
 }
 
 /** The rows — registry order, only authors with visible books. The filter
@@ -288,12 +290,12 @@ function renderAuthorRows() {
     var nm = d.name[l] || d.name.en || d.name.ar || code;
     var yrs = authorYearsText(d);
     var sel = _authors.indexOf(code) !== -1;
-    // The other names — Arabic and Dhivehi only, never English (English is
-    // the primary name in the en UI and the tooltip everywhere else). Every
-    // row shows the Arabic name no matter the UI language. The alt run
-    // trails the primary name inline, lead by a " · " so the two scripts
-    // never butt together.
-    var alt = [d.name.ar, d.name.dv].filter(function (n) { return n && n !== nm; });
+    // The Arabic name gets its own column, shown no matter the UI language
+    // (empty in the Arabic UI, where the primary name already is Arabic).
+    // The name column carries the primary name only — a trailing inline run
+    // would pin the name track past the range column — and the tooltip
+    // lists all three names.
+    var arName = l === "ar" ? "" : d.name.ar;
     var p = authorPeriodOf(code);
     // The century and the years each get their own column — the century
     // label first, unbracketed; the AH range follows bracketed, so both
@@ -307,17 +309,13 @@ function renderAuthorRows() {
       '" data-author="' +
       code +
       '" title="' +
-      (d.name.en || code) +
+      [d.name.en, d.name.ar, d.name.dv].filter(Boolean).join(" · ") +
       '">' +
       '<div class="facet-name"><span class="author-browse-name">' +
       escapeHTML(nm) +
-      "</span>" +
-      (alt.length
-        ? '<span class="facet-name-alt">' +
-          " · " +
-          escapeHTML(alt.join(" · ")) +
-          "</span>"
-        : "") +
+      "</span></div>" +
+      '<div class="facet-name-ar">' +
+      (arName ? escapeHTML(arName) : "") +
       "</div>" +
       '<div class="facet-century">' +
       (century ? escapeHTML(century) : "") +
@@ -355,12 +353,12 @@ function openFacetModal(id) {
  *    row mirrors the gutter with padding-inline-end, so both grids are
  *    identical. Measured live: overlay scrollbars (gutter 0) and
  *    filtered-down lists (no scrollbar) stay aligned too.
- *  - the text columns: an auto century/range track would size per-grid —
- *    the thead's short label against the rows' longer text (and each row
- *    against its neighbours) — drifting the header columns left of the rows
- *    and making the column spacing uneven. Each column is pinned to its
- *    widest content, measured nowrap (true max-content), so every grid in
- *    the modal — thead and every row — is identical.
+ *  - the text columns: an auto track would size per-grid — the thead's
+ *    short label against the rows' longer text (and each row against its
+ *    neighbours) — drifting the header columns left of the rows and making
+ *    the column spacing uneven. Each column is pinned to its widest content,
+ *    measured nowrap (true max-content), so every grid in the modal — thead
+ *    and every row — is identical.
  *  Runs on open, on language change (the widest label changes), and on
  *  filter input (the scrollbar comes and goes with the row count). */
 function pinFacetGeometry() {
@@ -373,13 +371,15 @@ function pinFacetGeometry() {
     var ov = wrap.closest(".lib-authors-modal, .lib-periods-modal");
     if (ov) ov.style.setProperty("--facet-gutter", (wrap.offsetWidth - wrap.clientWidth) + "px");
   });
-  // [row-cell class, thead-cell class, custom property] per modal — the
-  // authors grid pins the century and the range; the periods grid pins its
-  // label column (the century label is short, so the wide 1fr column is
-  // the range).
+  // [row-cell class, thead-cell class, custom property, cap] per modal —
+  // the authors grid pins its name, Arabic and century tracks; the range
+  // is the wide 1fr column, the one before the count — same shape as the
+  // periods grid, which pins its label column (the century label is
+  // short, so the range is 1fr there too).
   pinFacetColumn("libAuthorsOverlay", [
-    ["facet-century", "facet-col-century", "facet-century-w"],
-    ["facet-range", "facet-col-range", "facet-range-w"]
+    ["facet-name", "facet-col-name", "facet-name-w"],
+    ["facet-name-ar", "facet-col-ar", "facet-ar-w", 320],
+    ["facet-century", "facet-col-century", "facet-century-w"]
   ]);
   pinFacetColumn("libPeriodsOverlay", [
     ["facet-name", "facet-col-period", "facet-period-w"]
@@ -399,7 +399,11 @@ function pinFacetColumn(overlayId, pairs) {
       w = Math.max(w, el.scrollWidth);
       el.style.whiteSpace = "";
     });
-    if (w > 0) ov.style.setProperty("--" + pair[2], w + "px");
+    // The cap keeps the wide 1fr range column the widest: uncapped, the
+    // longest Arabic names would swallow the modal — they wrap within the
+    // pinned track instead (break-word on .facet-name-ar).
+    var cap = pair[3];
+    if (w > 0) ov.style.setProperty("--" + pair[2], (cap && w > cap ? cap : w) + "px");
   });
 }
 

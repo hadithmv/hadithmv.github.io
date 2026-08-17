@@ -317,6 +317,7 @@ const STRINGS = {
     ar: "لا توجد فترات مطابقة",
   },
   facetColAuthor: { dv: "މުއައްލިފު", en: "Author", ar: "المؤلف" },
+  facetColAuthorAr: { dv: "އަރަބި ނަން", en: "Arabic name", ar: "الاسم العربي" },
   facetColCentury: { dv: "ގަރުނު", en: "Century", ar: "القرن" },
   facetColYears: { dv: "އަހަރު", en: "Years", ar: "السنوات" },
   facetColBooks: { dv: "ފޮތް", en: "Books", ar: "الكتب" },
