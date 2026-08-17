@@ -1194,10 +1194,15 @@ body:has(.modal-overlay.open) {
   word-break: break-word;
   color: var(--color-text-muted);
 }
+/* The Hijri century and years read as plain text; the Gregorian (miladi)
+   side is the derived approximation, so it takes the muted tone — in its
+   desktop column and in the mobile joined line alike. */
 .facet-century,
 .facet-range {
-  color: var(--color-text-muted);
   white-space: nowrap;
+}
+.facet-ce {
+  color: var(--color-text-muted);
 }
 .facet-range {
   font-variant-numeric: tabular-nums;
@@ -1231,10 +1236,11 @@ body:has(.modal-overlay.open) {
    2, the count (with its "ފޮތް:" label, hidden on desktop where it has its
    own thead column) and check on line 3; the periods rows drop to two
    lines. The pieces sit on one baseline and wrap as text — no column
-   blocks, no per-letter stacking. The " · " joins are mobile-only ::before
+   blocks, no per-letter stacking. The "·" joins are mobile-only ::before
    rules so the desktop cells stay clean, and the :empty guards drop a join
    whose piece is missing (Arabic UI leaves the Arabic name out; undated
-   authors have no century/range/CE to join). */
+   authors have no century/range/CE to join; unpinned rows have nothing to
+   check). */
 @media (max-width: 600px) {
   .facet-thead-row {
     display: none;
@@ -1292,17 +1298,25 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-name-ar::before,
   .author-browse-row .facet-range::before,
   .author-browse-row .facet-ce::before,
+  .author-browse-row .facet-check::before,
   .period-browse-row .facet-range::before,
-  .period-browse-row .facet-ce::before {
-    content: " · ";
+  .period-browse-row .facet-ce::before,
+  .period-browse-row .facet-check::before {
+    /* The join is a bare dot with margins — a " · " string loses its
+       leading space (it collapses at the start of the cell's inline flow,
+       RTL, hugging the dot to the previous piece); margins can't. */
+    content: "·";
+    margin-inline: 6px;
     color: var(--color-text-subtle);
     opacity: 0.5;
   }
   .author-browse-row .facet-name-ar:empty::before,
   .author-browse-row .facet-range:empty::before,
   .author-browse-row .facet-ce:empty::before,
+  .author-browse-row .facet-check:empty::before,
   .period-browse-row .facet-range:empty::before,
-  .period-browse-row .facet-ce:empty::before {
+  .period-browse-row .facet-ce:empty::before,
+  .period-browse-row .facet-check:empty::before {
     content: none;
   }
   /* No leading dot on line 2 when the century is missing (undated authors) */

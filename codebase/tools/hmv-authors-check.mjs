@@ -524,6 +524,29 @@ async function main() {
   check("mobile: century·range·CE join on one line, count·check below", await evalJS(
     `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var c = r.querySelector('.facet-century').getBoundingClientRect(); var rg = r.querySelector('.facet-range').getBoundingClientRect(); var ce = r.querySelector('.facet-ce').getBoundingClientRect(); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ch = r.querySelector('.facet-check').getBoundingClientRect(); return Math.abs(rg.top - c.top) < 1 && Math.abs(ce.top - c.top) < 1 && ce.right < rg.right && rg.right < c.right && Math.abs(ct.top - ch.top) < 1 && ct.top > c.top && ct.right > ch.right; })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var w = function(sel){ var b = r.querySelector(sel).getBoundingClientRect(); return 'L' + Math.round(b.left) + 'R' + Math.round(b.right) + 'T' + Math.round(b.top); }; return ['.facet-century', '.facet-range', '.facet-ce', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
+  // The joins are a bare dot with margins — a " · " string collapses its
+  // leading space at the start of the cell's line (RTL: the dot hugs the
+  // previous piece); margins can't.
+  check("mobile: joins are dotted with margin spacing", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return s.content !== 'none' && s.marginInlineStart === '6px' && s.marginInlineEnd === '6px'; }; return j('.facet-name-ar') && j('.facet-range') && j('.facet-ce'); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return sel + '=' + s.content + ' m=' + s.marginInlineStart + '/' + s.marginInlineEnd; }; return ['.facet-name-ar', '.facet-range', '.facet-ce'].map(j).join(' '); })()`));
+  // The check gets the same join — select the row (a click toggles the
+  // facet; reopening re-renders the rows with the ✓ present) so the
+  // spacing before the tick mark is observable: the ✓ must sit off the
+  // count's text by the dot's margins, not flush.
+  await evalJS(`document.getElementById('libAuthorsModalBody').querySelector('.author-browse-row[data-author="yahyaBinSharafAnNawawi"]').click()`);
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  await evalJS(`document.getElementById('libAuthorsBtn').click()`);
+  await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("mobile: the ✓ sits off the count with the join's spacing", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var ch = r.querySelector('.facet-check'); var s = getComputedStyle(ch, '::before'); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ra = document.createRange(); ra.selectNodeContents(ch); return ch.textContent === '✓' && s.content !== 'none' && s.marginInlineStart === '6px' && ct.left - ra.getBoundingClientRect().right >= 5; })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var ch = r.querySelector('.facet-check'); var s = getComputedStyle(ch, '::before'); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ra = document.createRange(); ra.selectNodeContents(ch); var v = ra.getBoundingClientRect(); return 'check=' + JSON.stringify(ch.textContent) + ' dot=' + s.content + ' m=' + s.marginInlineStart + '/' + s.marginInlineEnd + ' gap=' + (ct.left - v.right); })()`));
+  // The Hijri century and years stay plain text; the CE (miladi) side is
+  // the derived approximation and reads muted (same tone as the count).
+  check("mobile: the CE reads muted, the Hijri years plain", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var c = function(sel){ return getComputedStyle(r.querySelector(sel)).color; }; return c('.facet-ce') !== c('.facet-century') && c('.facet-century') === c('.facet-name') && c('.facet-ce') === c('.facet-count'); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var c = function(sel){ return getComputedStyle(r.querySelector(sel)).color; }; return 'ce=' + c('.facet-ce') + ' century=' + c('.facet-century') + ' name=' + c('.facet-name') + ' count=' + c('.facet-count'); })()`));
   // The count carries its "ފޮތް:" label on mobile (hidden on desktop under
   // the "Books" thead column) — the word part of the libScopeCount template
   // plus the colon, so it reads "books: N" / "ފޮތް: N" per language.
