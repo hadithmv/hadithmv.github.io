@@ -239,6 +239,7 @@ function ensureAuthorsModal() {
     '<div class="facet-thead-cell facet-col-ar"></div>' +
     '<div class="facet-thead-cell facet-col-century"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
+    '<div class="facet-thead-cell facet-col-ce"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
     '<div class="facet-thead-cell facet-col-check"></div>' +
     "</div></div>" +
@@ -263,8 +264,9 @@ function authorsModalLabels() {
   ths[1].textContent = t("facetColAuthorAr");
   ths[2].textContent = t("facetColCentury");
   ths[3].textContent = t("facetColYears");
-  ths[4].textContent = t("facetColBooks");
-  ths[5].textContent = "";
+  ths[4].textContent = t("facetColGregorian");
+  ths[5].textContent = t("facetColBooks");
+  ths[6].textContent = "";
 }
 
 /** The rows — registry order, only authors with visible books. The filter
@@ -303,6 +305,12 @@ function renderAuthorRows() {
     // death year: no century, and the years text stands alone).
     var century = p === "modern" ? "" : periodLabel(p);
     var range = yrs ? (p === "modern" ? yrs : "(" + yrs + ")") : "";
+    var ce = authorYearsCeText(d);
+    // The cells group into line wrappers — on desktop the wrappers are
+    // display: contents (the cells stay the grid's direct items, so the
+    // thead/rows column contract is unchanged); on mobile they become the
+    // flowing text lines of the compact layout (name · Arabic name /
+    // century · years · CE / count · check).
     return (
       '<div class="author-browse-row facet-grid-authors' +
       (sel ? " selected" : "") +
@@ -311,24 +319,31 @@ function renderAuthorRows() {
       '" title="' +
       [d.name.en, d.name.ar, d.name.dv].filter(Boolean).join(" · ") +
       '">' +
+      '<div class="facet-line-1">' +
       '<div class="facet-name"><span class="author-browse-name">' +
       escapeHTML(nm) +
       "</span></div>" +
       '<div class="facet-name-ar">' +
       (arName ? escapeHTML(arName) : "") +
-      "</div>" +
+      "</div></div>" +
+      '<div class="facet-line-2">' +
       '<div class="facet-century">' +
       (century ? escapeHTML(century) : "") +
       "</div>" +
       '<div class="facet-range">' +
       (range ? escapeHTML(range) : "") +
       "</div>" +
+      '<div class="facet-ce">' +
+      (ce ? "(" + escapeHTML(ce) + ")" : "") +
+      "</div></div>" +
+      '<div class="facet-line-3">' +
       '<div class="facet-count">' +
+      facetCountLabel() +
       counts[code] +
       "</div>" +
       '<div class="facet-check">' +
       (sel ? "✓" : "") +
-      "</div></div>"
+      "</div></div></div>"
     );
   }).join("") ||
     '<div class="facet-empty">' + t("libAuthorsNoMatch") + "</div>";
@@ -372,31 +387,40 @@ function pinFacetGeometry() {
     if (ov) ov.style.setProperty("--facet-gutter", (wrap.offsetWidth - wrap.clientWidth) + "px");
   });
   // [row-cell class, thead-cell class, custom property, cap] per modal —
-  // the authors grid pins its name, Arabic and century tracks; the range
-  // is the wide 1fr column, the one before the count — same shape as the
-  // periods grid, which pins its label column (the century label is
-  // short, so the range is 1fr there too). The name and Arabic tracks are
-  // capped at 220/240 — scaled down together on narrower desktops past a
-  // 180px floor for the range — so on resize the text columns yield first
-  // and the range + count never cram (the count and check are fixed tracks
+  // the authors grid pins its name, Arabic, century and Gregorian tracks
+  // (the Gregorian one pinned like the periods grid's); the range is the
+  // wide 1fr column, the one before the count — same shape as the periods
+  // grid, which pins its label column (the century label is short, so the
+  // range is 1fr there too). The name and Arabic tracks are capped at
+  // 220/240 — scaled down together on narrower desktops past a 180px
+  // floor for the range — so on resize the text columns yield first and
+  // the range + count never cram (the count and check are fixed tracks
   // anchored at the row's end, so a bare 1fr range would collapse into
-  // them). On wide desktops the same caps step up (up to +110px each, full
-  // at ~1450px of scrollport) so the columns don't look stuck at the
+  // them). On wide desktops the same caps step up (up to +110px each,
+  // full at ~1450px of scrollport) so the columns don't look stuck at the
   // narrow-screen maximum when the modal has room — the range outgrows
   // both tracks at every step (at 879px it is 225 vs the 220 cap; the gap
-  // only widens). The fixed columns are century 90 + count 64 + check 40;
-  // the 46/54 split follows the tracks' content proportions. The pins are
-  // still clamped to the rows' content (pinFacetColumn), so nothing
-  // stretches beyond the longest name.
+  // only widens). The fixed columns are century 90 + the Gregorian track
+  // (measured first, same nowrap measure pinFacetColumn uses) + count 64
+  // + check 40; the 46/54 split follows the tracks' content proportions.
+  // The pins are still clamped to the rows' content (pinFacetColumn), so
+  // nothing stretches beyond the longest name.
   var aWrap = document.querySelector("#libAuthorsOverlay .facet-table-wrap");
   var avail = aWrap ? aWrap.clientWidth : 0;
-  var namesShare = avail - 194 - 180;
+  var ceW = 0;
+  Array.prototype.forEach.call(aWrap.querySelectorAll(".facet-ce, .facet-thead-cell.facet-col-ce"), function (el) {
+    el.style.whiteSpace = "nowrap";
+    ceW = Math.max(ceW, el.scrollWidth);
+    el.style.whiteSpace = "";
+  });
+  var namesShare = avail - 90 - ceW - 64 - 40 - 180;
   var grow = Math.max(0, Math.min(1, (avail - 879) / 571));
   var step = Math.round(grow * 110);
   pinFacetColumn("libAuthorsOverlay", [
     ["facet-name", "facet-col-name", "facet-name-w", (namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0) + step],
     ["facet-name-ar", "facet-col-ar", "facet-ar-w", (namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0) + step],
-    ["facet-century", "facet-col-century", "facet-century-w"]
+    ["facet-century", "facet-col-century", "facet-century-w"],
+    ["facet-ce", "facet-col-ce", "facet-ce-w"]
   ]);
   pinFacetColumn("libPeriodsOverlay", [
     ["facet-name", "facet-col-period", "facet-period-w"],
@@ -528,6 +552,33 @@ function periodRangeCeText(p) {
     .replace("{d}", String(ce(n * 100)));
 }
 
+/** The author's lifetime in the Gregorian calendar, mirroring
+ *  authorYearsText's missing-date handling (born+died → the authorLifeCe
+ *  range; died only → the authorDiedCe single year; neither → ""). A "~"
+ *  estimate in the data carries over to its CE side — the approximation
+ *  cannot make an estimate precise. The same formula as periodRangeCeText. */
+function authorYearsCeText(d) {
+  if (!d) return "";
+  var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
+  var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
+  if (d.bornAH && d.diedAH) {
+    return t("authorLifeCe")
+      .replace("{b}", (String(d.bornAH).indexOf("~") === 0 ? "~" : "") + String(ce(num(d.bornAH))))
+      .replace("{d}", String(ce(num(d.diedAH))));
+  }
+  if (d.diedAH) return t("authorDiedCe").replace("{y}", String(ce(num(d.diedAH))));
+  return "";
+}
+
+/** The per-row count's mobile label ("ފޮތް: 1", "books: 1" — the word from
+ *  libScopeCount + the colon). Hidden on desktop, where the count sits under
+ *  its own "Books" thead column. */
+function facetCountLabel() {
+  return '<span class="facet-count-label">' +
+    escapeHTML(t("libScopeCount").replace("{n}", "").trim() + ": ") +
+    "</span>";
+}
+
 /** The rows — distinct death-century buckets + modern, chronological order
  *  (modern last), zero-count buckets dropped. The filter runs through
  *  normaliseForSearch like the authors filter (see renderAuthorRows). */
@@ -562,6 +613,7 @@ function renderPeriodRows() {
       '" title="' +
       periodLabelEn(p) +
       '">' +
+      '<div class="facet-line-1">' +
       '<div class="facet-name">' +
       escapeHTML(periodLabel(p)) +
       "</div>" +
@@ -570,13 +622,15 @@ function renderPeriodRows() {
       "</div>" +
       '<div class="facet-ce">' +
       (rangeCe ? "(" + escapeHTML(rangeCe) + ")" : "") +
-      "</div>" +
+      "</div></div>" +
+      '<div class="facet-line-2">' +
       '<div class="facet-count">' +
+      facetCountLabel() +
       counts[p] +
       "</div>" +
       '<div class="facet-check">' +
       (sel ? "✓" : "") +
-      "</div></div>"
+      "</div></div></div>"
     );
   }).join("") ||
     '<div class="facet-empty">' + t("libPeriodsNoMatch") + "</div>";

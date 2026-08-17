@@ -1102,17 +1102,18 @@ body:has(.modal-overlay.open) {
   display: grid;
 }
 .facet-grid-authors {
-  /* The name, Arabic and century tracks are pinned by facet-browse.js
-     (pinFacetColumn): the tracks would otherwise size per-grid (the thead's
-     short labels vs the rows' longer text, and each row against its
-     neighbours), drifting the header columns and making the column spacing
-     uneven. The name and Arabic pins cap at 220/240 — facet-browse.js
-     scales the caps down together on narrower desktops, so the text
-     columns yield before the range + count cram. The range is the wide 1fr
-     column — the one before the count, mirroring the periods grid. */
+  /* The name, Arabic, century and Gregorian tracks are pinned by
+     facet-browse.js (pinFacetColumn): the tracks would otherwise size
+     per-grid (the thead's short labels vs the rows' longer text, and each
+     row against its neighbours), drifting the header columns and making
+     the column spacing uneven. The name and Arabic pins cap at 220/240 —
+     facet-browse.js scales the caps down together on narrower desktops, so
+     the text columns yield before the range + count cram. The range is
+     the wide 1fr column — the one before the count, mirroring the periods
+     grid. */
   grid-template-columns:
     var(--facet-name-w, 220px) var(--facet-ar-w, 240px)
-    var(--facet-century-w, 90px) 1fr 64px 40px;
+    var(--facet-century-w, 90px) 1fr var(--facet-ce-w, 150px) 64px 40px;
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
@@ -1163,8 +1164,18 @@ body:has(.modal-overlay.open) {
   background: var(--color-nav-btn-bg);
   color: var(--color-accent, var(--color-nav-btn-text));
 }
-.author-browse-row > div,
-.period-browse-row > div {
+/* The rows' pieces group into line wrappers — the mobile layout's text
+   lines. On desktop the wrappers contribute nothing (display: contents
+   keeps the cells as the grid's direct items, so the thead/rows column
+   contract is unchanged); the cells keep the 8px 12px row padding. */
+.facet-line-1,
+.facet-line-2,
+.facet-line-3 {
+  display: contents;
+}
+.facet-line-1 > div,
+.facet-line-2 > div,
+.facet-line-3 > div {
   padding: 8px 12px;
   min-width: 0;
 }
@@ -1197,6 +1208,12 @@ body:has(.modal-overlay.open) {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+/* The "ފޮތް:" label on the count sits under its own "Books" thead column
+   on desktop — hidden here, shown inline on mobile (where the thead folds
+   away and the count stands alone). */
+.facet-count-label {
+  display: none;
+}
 .facet-check {
   text-align: center;
   color: var(--color-accent, var(--color-nav-btn-text));
@@ -1206,27 +1223,94 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-muted);
   padding: 16px 12px;
 }
-/* Narrow viewports: the rows fold the text columns under the name — each
-   full width on its own line — and the thead's headers go with them; the
-   name, count and check columns stay aligned. */
+/* Narrow viewports: the thead strip folds away entirely — once the columns
+   collapse, its labels (some never labelled, like the count and check
+   headers) float above nothing. The rows stop being grids and re-flow as
+   plain flowing text lines — the line wrappers from facet-browse.js: the
+   name joins the Arabic name on line 1, the century/range/CE text on line
+   2, the count (with its "ފޮތް:" label, hidden on desktop where it has its
+   own thead column) and check on line 3; the periods rows drop to two
+   lines. The pieces sit on one baseline and wrap as text — no column
+   blocks, no per-letter stacking. The " · " joins are mobile-only ::before
+   rules so the desktop cells stay clean, and the :empty guards drop a join
+   whose piece is missing (Arabic UI leaves the Arabic name out; undated
+   authors have no century/range/CE to join). */
 @media (max-width: 600px) {
-  .facet-grid-authors,
-  .facet-grid-periods {
-    grid-template-columns: 1fr 64px 40px;
-  }
-  .facet-grid-authors .facet-col-century,
-  .facet-grid-authors .facet-col-range,
-  .facet-grid-authors .facet-col-ar,
-  .facet-grid-periods .facet-col-range,
-  .facet-grid-periods .facet-col-ce {
+  .facet-thead-row {
     display: none;
   }
-  .author-browse-row .facet-century,
-  .author-browse-row .facet-range,
-  .author-browse-row .facet-name-ar,
-  .period-browse-row .facet-range,
-  .period-browse-row .facet-ce {
-    grid-column: 1 / -1;
+  .facet-grid-authors,
+  .facet-grid-periods {
+    display: block;
+  }
+  .author-browse-row > .facet-line-1,
+  .author-browse-row > .facet-line-2,
+  .author-browse-row > .facet-line-3,
+  .period-browse-row > .facet-line-1,
+  .period-browse-row > .facet-line-2 {
+    display: flex;
+    flex-wrap: wrap;
+    /* The Hadithmv font's intrinsic line gap (~2.4×) would float the
+       stacked lines apart — 1.8 is the app's text convention for the
+       mixed font (reader content, snippets). */
+    line-height: 1.8;
+    padding: 0 12px;
+  }
+  /* The text lines sit their pieces on one baseline; the count/check line
+     stretches instead — the ✓ glyph comes from a symbol fallback with odd
+     font metrics, so baseline alignment would hang it a line lower. */
+  .author-browse-row > .facet-line-1,
+  .author-browse-row > .facet-line-2,
+  .period-browse-row > .facet-line-1 {
+    align-items: baseline;
+  }
+  .author-browse-row > .facet-line-1,
+  .author-browse-row > .facet-line-2,
+  .period-browse-row > .facet-line-1 {
+    margin-bottom: 3px;
+  }
+  .author-browse-row > .facet-line-1,
+  .period-browse-row > .facet-line-1 {
+    padding-top: 9px;
+  }
+  .author-browse-row > .facet-line-3,
+  .period-browse-row > .facet-line-2 {
+    padding-bottom: 9px;
+  }
+  .author-browse-row .facet-line-1 > div,
+  .author-browse-row .facet-line-2 > div,
+  .author-browse-row .facet-line-3 > div,
+  .period-browse-row .facet-line-1 > div,
+  .period-browse-row .facet-line-2 > div {
+    padding: 0;
+  }
+  .facet-check {
+    display: inline-flex;
+    align-items: center;
+    height: 1.8em; /* match the line height above — the ✓ centers in it */
+  }
+  .author-browse-row .facet-name-ar::before,
+  .author-browse-row .facet-range::before,
+  .author-browse-row .facet-ce::before,
+  .period-browse-row .facet-range::before,
+  .period-browse-row .facet-ce::before {
+    content: " · ";
+    color: var(--color-text-subtle);
+    opacity: 0.5;
+  }
+  .author-browse-row .facet-name-ar:empty::before,
+  .author-browse-row .facet-range:empty::before,
+  .author-browse-row .facet-ce:empty::before,
+  .period-browse-row .facet-range:empty::before,
+  .period-browse-row .facet-ce:empty::before {
+    content: none;
+  }
+  /* No leading dot on line 2 when the century is missing (undated authors) */
+  .author-browse-row .facet-century:empty + .facet-range::before {
+    content: none;
+  }
+  .facet-count-label {
+    display: inline;
   }
 }
 .tags-label {

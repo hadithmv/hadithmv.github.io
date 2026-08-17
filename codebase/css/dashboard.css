@@ -373,6 +373,6 @@ a.toolbar-btn {
     text-overflow: ellipsis;
     white-space: nowrap;
     /* start-side ink inset for clipped Thaana (ARCHITECTURE "Font") */
-    /* padding-inline-start: 6px; */
+    padding-inline-start: 6px;
   }
 }
