@@ -741,17 +741,16 @@ body:has(.modal-overlay.open) {
 }
 
 /* Author line under the title trio (dashboard cards + library result cards).
-   Prominent but not bold: a step above the caption (1.05× panel), the
-   caption's medium weight — full colour so it reads like the modal's name
-   cells, not a muted footnote. */
+   The muted secondary-name tone at full panel size — the same recipe as
+   the modal's name cells (.facet-name-ar): a supporting line under the
+   titles, not a headline. */
 .book-card .card-author,
 .lib-result .card-author {
   direction: ltr; /* names may be latin; years stay digits */
   text-align: right;
   margin-top: 4px;
-  font-size: calc(var(--panel-font-size, 0.85rem) * 1.05);
-  font-weight: 500;
-  color: var(--color-text);
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
   font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
 }
 /* The reader header's author line is a link to the filtered dashboard —
@@ -1027,10 +1026,10 @@ body:has(.modal-overlay.open) {
      (pinFacetColumn): the tracks would otherwise size per-grid (the thead's
      short labels vs the rows' longer text, and each row against its
      neighbours), drifting the header columns and making the column spacing
-     uneven. The name and Arabic pins are capped (220/240) so the longest
-     names wrap instead of squeezing the range + count. The range is the
-     wide 1fr column — the one before the count, mirroring the periods
-     grid. */
+     uneven. The name and Arabic pins cap at 220/240 — facet-browse.js
+     scales the caps down together on narrower desktops, so the text
+     columns yield before the range + count cram. The range is the wide 1fr
+     column — the one before the count, mirroring the periods grid. */
   grid-template-columns: var(--facet-name-w, 220px) var(--facet-ar-w, 240px) var(--facet-century-w, 90px) 1fr 64px 40px;
 }
 .facet-grid-periods {

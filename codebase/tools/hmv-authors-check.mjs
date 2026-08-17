@@ -259,14 +259,13 @@ async function main() {
     `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("yahyaBinSharafAnNawawi"))}) !== -1 &&
      document.querySelector('#libResults .lib-result .card-author').textContent.indexOf('676 AH') !== -1`),
     await evalJS(`document.querySelector('#libResults .lib-result .card-author').textContent`));
-  // The author line is prominent — a step above the caption (14.28px =
-  // 0.85rem × 1.05 at the 16px root; change --panel-font-size or the 1.05
-  // scale and this value together), the main title's colour (the Dhivehi
-  // title; the EN caption is muted), medium weight — not bold: it is a
-  // supporting line under the trio.
-  check("author line prominent but not bold", await evalJS(
-    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '14.28px' && cs.fontWeight === '500' && cs.color === ts.color; })()`),
-    await evalJS(`(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return 'size=' + cs.fontSize + ' weight=' + cs.fontWeight + ' color=' + cs.color + ' titleColor=' + ts.color; })()`));
+  // The author line reads like the modal's secondary names (facet-name-ar):
+  // muted, at full panel size (13.6px = 0.85rem at the 16px root; change
+  // --panel-font-size and this value together), normal weight — a
+  // supporting line, not a headline.
+  check("author line like the muted modal names", await evalJS(
+    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '13.6px' && cs.fontWeight === '400' && cs.color === ts.color; })()`),
+    await evalJS(`(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return 'size=' + cs.fontSize + ' weight=' + cs.fontWeight + ' color=' + cs.color + ' mutedCaptionColor=' + ts.color; })()`));
 
   // ── Library: Periods modal ────────────────────────────────────────
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);
@@ -456,6 +455,20 @@ async function main() {
   check("1024px: range keeps its room", await evalJS(
     `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-range') > w('.facet-count') * 2 && w('.facet-name') <= 220 && w('.facet-name-ar') <= 240; })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; var body = document.getElementById('libAuthorsModalBody'); var wrap = body.querySelector('.facet-table-wrap'); return ['.facet-name', '.facet-name-ar', '.facet-century', '.facet-range', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' ') + ' modalW=' + body.closest('.lib-authors-modal').offsetWidth + ' bodyW=' + body.offsetWidth + ' wrapOff=' + wrap.offsetWidth + ' wrapCli=' + wrap.clientWidth; })()`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
+  // Sub-1024 (800): the name/Arabic tracks scale down below their caps and
+  // the range holds its floor — on resize the text columns yield first, the
+  // range + count never cram (the 180px floor ± the 46/54 split rounding).
+  await send("Emulation.setDeviceMetricsOverride", { width: 800, height: 800, deviceScaleFactor: 1, mobile: false });
+  await goto("file://" + ROOT + "library-search.html");
+  await waitFor(`document.getElementById('libAuthorsBtn')`);
+  await evalJS(`document.getElementById('libAuthorsBtn').click()`);
+  await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("800px: text columns yield, range keeps its floor", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-range') >= 170 && w('.facet-name') < 220 && w('.facet-name-ar') < 240; })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return ['.facet-name', '.facet-name-ar', '.facet-range', '.facet-count'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });

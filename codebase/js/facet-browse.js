@@ -376,11 +376,17 @@ function pinFacetGeometry() {
   // is the wide 1fr column, the one before the count — same shape as the
   // periods grid, which pins its label column (the century label is
   // short, so the range is 1fr there too). The name and Arabic tracks are
-  // capped (220/240) so the longest names can't dominate on narrower
-  // desktop widths and squeeze the range + count to nothing.
+  // capped at 220/240 — scaled down together on narrower desktops past a
+  // 180px floor for the range — so on resize the text columns yield first
+  // and the range + count never cram (the count and check are fixed tracks
+  // anchored at the row's end, so a bare 1fr range would collapse into
+  // them). The fixed columns are century 90 + count 64 + check 40; the
+  // 46/54 split follows the tracks' content proportions.
+  var aWrap = document.querySelector("#libAuthorsOverlay .facet-table-wrap");
+  var namesShare = (aWrap ? aWrap.clientWidth : 0) - 194 - 180;
   pinFacetColumn("libAuthorsOverlay", [
-    ["facet-name", "facet-col-name", "facet-name-w", 220],
-    ["facet-name-ar", "facet-col-ar", "facet-ar-w", 240],
+    ["facet-name", "facet-col-name", "facet-name-w", namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0],
+    ["facet-name-ar", "facet-col-ar", "facet-ar-w", namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0],
     ["facet-century", "facet-col-century", "facet-century-w"]
   ]);
   pinFacetColumn("libPeriodsOverlay", [
