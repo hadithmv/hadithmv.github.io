@@ -286,18 +286,42 @@ const STRINGS = {
   // dashboardHistoryBtn / searchBtnLabel for the same pattern).
   libAuthors: { dv: "✍️ ލިޔުންތެރިން", en: "✍️ Authors", ar: "✍️ المؤلفون" },
   libPeriods: { dv: "🗓️ ޒަމާންތައް", en: "🗓️ Periods", ar: "🗓️ الفترات" },
-  libAuthorsTitle: { dv: "ލިޔުންތެރިން", en: "Browse by author", ar: "تصفح حسب المؤلف" },
-  libPeriodsTitle: { dv: "ޒަމާންތައް", en: "Browse by period", ar: "تصفح حسب الفترة" },
-  libAuthorsFilter: { dv: "ލިޔުންތެރިން ހޯދާ…", en: "Filter authors…", ar: "ابحث عن المؤلفين…" },
-  libPeriodsFilter: { dv: "ޒަމާންތައް ހޯދާ…", en: "Filter periods…", ar: "ابحث عن الفترات…" },
-  libAuthorsNoMatch: { dv: "އެއްވެސް ލިޔުންތެރިއެއް ނުފެނުނު", en: "No authors match", ar: "لا يوجد مؤلفون مطابقون" },
-  libPeriodsNoMatch: { dv: "އެއްވެސް ޒަމާނެއް ނުފެނުނު", en: "No periods match", ar: "لا توجد فترات مطابقة" },
+  libAuthorsTitle: {
+    dv: "ލިޔުންތެރިން",
+    en: "Browse by author",
+    ar: "تصفح حسب المؤلف",
+  },
+  libPeriodsTitle: {
+    dv: "ޒަމާންތައް",
+    en: "Browse by period",
+    ar: "تصفح حسب الفترة",
+  },
+  libAuthorsFilter: {
+    dv: "ލިޔުންތެރިން ހޯދާ…",
+    en: "Filter authors…",
+    ar: "ابحث عن المؤلفين…",
+  },
+  libPeriodsFilter: {
+    dv: "ޒަމާންތައް ހޯދާ…",
+    en: "Filter periods…",
+    ar: "ابحث عن الفترات…",
+  },
+  libAuthorsNoMatch: {
+    dv: "އެއްވެސް ލިޔުންތެރިއެއް ނުފެނުނު",
+    en: "No authors match",
+    ar: "لا يوجد مؤلفون مطابقون",
+  },
+  libPeriodsNoMatch: {
+    dv: "އެއްވެސް ޒަމާނެއް ނުފެނުނު",
+    en: "No periods match",
+    ar: "لا توجد فترات مطابقة",
+  },
   facetColAuthor: { dv: "ލިޔުންތެރިން", en: "Author", ar: "المؤلف" },
   facetColCentury: { dv: "ގަރުނު", en: "Century", ar: "القرن" },
   facetColYears: { dv: "އަހަރު", en: "Years", ar: "السنوات" },
   facetColBooks: { dv: "ފޮތް", en: "Books", ar: "الكتب" },
-  authorDied: { dv: "މަރުވި {y} ހ.ޢ", en: "d. {y} AH", ar: "ت {y}هـ" },
-  authorLife: { dv: "{b}–{d} ހ.ޢ", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
+  authorDied: { dv: "ނިޔާވީ {y} ހ.", en: "d. {y} AH", ar: "ت {y}هـ" },
+  authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
   // Hijri centuries of the author's death year (1–15), plus the modern
   // bucket — numeral labels ("Century 3") shared by the authors' century
   // column, the periods' name column and the chips.
