@@ -259,12 +259,13 @@ async function main() {
     `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("yahyaBinSharafAnNawawi"))}) !== -1 &&
      document.querySelector('#libResults .lib-result .card-author').textContent.indexOf('676 AH') !== -1`),
     await evalJS(`document.querySelector('#libResults .lib-result .card-author').textContent`));
-  // The author line is prominent — full panel size (13.6px = 0.85rem at the
-  // 16px root; change --panel-font-size and this value together), the main
-  // title's colour (the Dhivehi title; the EN caption is muted) — but not
-  // bold: it is a supporting line under the trio.
+  // The author line is prominent — a step above the caption (14.28px =
+  // 0.85rem × 1.05 at the 16px root; change --panel-font-size or the 1.05
+  // scale and this value together), the main title's colour (the Dhivehi
+  // title; the EN caption is muted), medium weight — not bold: it is a
+  // supporting line under the trio.
   check("author line prominent but not bold", await evalJS(
-    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '13.6px' && cs.color === ts.color && cs.fontWeight !== '600' && cs.fontWeight !== '700'; })()`),
+    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '14.28px' && cs.fontWeight === '500' && cs.color === ts.color; })()`),
     await evalJS(`(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return 'size=' + cs.fontSize + ' weight=' + cs.fontWeight + ' color=' + cs.color + ' titleColor=' + ts.color; })()`));
 
   // ── Library: Periods modal ────────────────────────────────────────
@@ -453,7 +454,7 @@ async function main() {
   await evalJS(`document.getElementById('libAuthorsBtn').click()`);
   await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
   check("1024px: range keeps its room", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-range') > w('.facet-count') * 2 && w('.facet-name') <= 240 && w('.facet-name-ar') <= 280; })()`),
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-range') > w('.facet-count') * 2 && w('.facet-name') <= 220 && w('.facet-name-ar') <= 240; })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; var body = document.getElementById('libAuthorsModalBody'); var wrap = body.querySelector('.facet-table-wrap'); return ['.facet-name', '.facet-name-ar', '.facet-century', '.facet-range', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' ') + ' modalW=' + body.closest('.lib-authors-modal').offsetWidth + ' bodyW=' + body.offsetWidth + ' wrapOff=' + wrap.offsetWidth + ' wrapCli=' + wrap.clientWidth; })()`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);

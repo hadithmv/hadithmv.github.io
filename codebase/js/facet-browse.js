@@ -376,11 +376,11 @@ function pinFacetGeometry() {
   // is the wide 1fr column, the one before the count — same shape as the
   // periods grid, which pins its label column (the century label is
   // short, so the range is 1fr there too). The name and Arabic tracks are
-  // capped (240/280) so the longest names can't dominate on narrower
+  // capped (220/240) so the longest names can't dominate on narrower
   // desktop widths and squeeze the range + count to nothing.
   pinFacetColumn("libAuthorsOverlay", [
-    ["facet-name", "facet-col-name", "facet-name-w", 240],
-    ["facet-name-ar", "facet-col-ar", "facet-ar-w", 280],
+    ["facet-name", "facet-col-name", "facet-name-w", 220],
+    ["facet-name-ar", "facet-col-ar", "facet-ar-w", 240],
     ["facet-century", "facet-col-century", "facet-century-w"]
   ]);
   pinFacetColumn("libPeriodsOverlay", [
