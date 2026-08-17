@@ -12,6 +12,10 @@
 //    column, Hijri century and years, Gregorian (miladi) lifetime each in
 //    their own column, registry order, filter input); click toggles →
 //    chip + ?authors=
+//  - mobile (≤600px): thead folds away, rows re-flow into joined text
+//    lines (name · Arabic name / century · years · CE / books: N ✓) — the
+//    joins a dotted margin run, the CE muted against the plain Hijri dates,
+//    the count label inline, the ✓ spaced without a dot
 //  - period modal: table rows = the distinct death-century buckets + modern
 //    (derived from 02), each row shows the century's AH range and its
 //    Gregorian (miladi) equivalent each in their own column, counts cover
