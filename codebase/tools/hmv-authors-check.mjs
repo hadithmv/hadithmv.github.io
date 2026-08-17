@@ -259,6 +259,13 @@ async function main() {
     `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("yahyaBinSharafAnNawawi"))}) !== -1 &&
      document.querySelector('#libResults .lib-result .card-author').textContent.indexOf('676 AH') !== -1`),
     await evalJS(`document.querySelector('#libResults .lib-result .card-author').textContent`));
+  // The author line is prominent — full panel size (13.6px = 0.85rem at the
+  // 16px root; change --panel-font-size and this value together), the main
+  // title's colour (the Dhivehi title; the EN caption is muted) — but not
+  // bold: it is a supporting line under the trio.
+  check("author line prominent but not bold", await evalJS(
+    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '13.6px' && cs.color === ts.color && cs.fontWeight !== '600' && cs.fontWeight !== '700'; })()`),
+    await evalJS(`(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-dv'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return 'size=' + cs.fontSize + ' weight=' + cs.fontWeight + ' color=' + cs.color + ' titleColor=' + ts.color; })()`));
 
   // ── Library: Periods modal ────────────────────────────────────────
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);
@@ -435,6 +442,19 @@ async function main() {
   check("mobile: ar column folds under the name", await evalJS(
     `(() => { var body = document.getElementById('libAuthorsModalBody'); var r = body.querySelector('.author-browse-row'); var ar = r.querySelector('.facet-name-ar'); var name = r.querySelector('.facet-name'); var arb = ar.getBoundingClientRect(); var rb = r.getBoundingClientRect(); return getComputedStyle(body.querySelector('.facet-thead-cell.facet-col-ar')).display === 'none' && arb.left === rb.left && arb.top > name.getBoundingClientRect().top && arb.width > name.getBoundingClientRect().width; })()`),
     await evalJS(`(() => { var body = document.getElementById('libAuthorsModalBody'); var r = body.querySelector('.author-browse-row'); var ar = r.querySelector('.facet-name-ar'); var name = r.querySelector('.facet-name'); return 'thead-ar display=' + getComputedStyle(body.querySelector('.facet-thead-cell.facet-col-ar')).display + ' arLeft=' + Math.round(ar.getBoundingClientRect().left) + ' rowLeft=' + Math.round(r.getBoundingClientRect().left) + ' arTop=' + Math.round(ar.getBoundingClientRect().top) + ' nameTop=' + Math.round(name.getBoundingClientRect().top) + ' arW=' + Math.round(ar.getBoundingClientRect().width) + ' nameW=' + Math.round(name.getBoundingClientRect().width); })()`));
+  await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
+  // Narrow desktop (1024): the capped name/Arabic tracks leave the range +
+  // count real room — the range must not collapse into the count.
+  await send("Emulation.setDeviceMetricsOverride", { width: 1024, height: 800, deviceScaleFactor: 1, mobile: false });
+  await goto("file://" + ROOT + "library-search.html");
+  await waitFor(`document.getElementById('libAuthorsBtn')`);
+  await evalJS(`document.getElementById('libAuthorsBtn').click()`);
+  await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open')`);
+  check("1024px: range keeps its room", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; return w('.facet-range') > w('.facet-count') * 2 && w('.facet-name') <= 240 && w('.facet-name-ar') <= 280; })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var w = function(sel){ return Math.round(r.querySelector(sel).getBoundingClientRect().width); }; var body = document.getElementById('libAuthorsModalBody'); var wrap = body.querySelector('.facet-table-wrap'); return ['.facet-name', '.facet-name-ar', '.facet-century', '.facet-range', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' ') + ' modalW=' + body.closest('.lib-authors-modal').offsetWidth + ' bodyW=' + body.offsetWidth + ' wrapOff=' + wrap.offsetWidth + ' wrapCli=' + wrap.clientWidth; })()`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });

@@ -375,10 +375,12 @@ function pinFacetGeometry() {
   // the authors grid pins its name, Arabic and century tracks; the range
   // is the wide 1fr column, the one before the count — same shape as the
   // periods grid, which pins its label column (the century label is
-  // short, so the range is 1fr there too).
+  // short, so the range is 1fr there too). The name and Arabic tracks are
+  // capped (240/280) so the longest names can't dominate on narrower
+  // desktop widths and squeeze the range + count to nothing.
   pinFacetColumn("libAuthorsOverlay", [
-    ["facet-name", "facet-col-name", "facet-name-w"],
-    ["facet-name-ar", "facet-col-ar", "facet-ar-w", 320],
+    ["facet-name", "facet-col-name", "facet-name-w", 240],
+    ["facet-name-ar", "facet-col-ar", "facet-ar-w", 280],
     ["facet-century", "facet-col-century", "facet-century-w"]
   ]);
   pinFacetColumn("libPeriodsOverlay", [
@@ -399,9 +401,11 @@ function pinFacetColumn(overlayId, pairs) {
       w = Math.max(w, el.scrollWidth);
       el.style.whiteSpace = "";
     });
-    // The cap keeps the wide 1fr range column the widest: uncapped, the
-    // longest Arabic names would swallow the modal — they wrap within the
-    // pinned track instead (break-word on .facet-name-ar).
+    // The caps keep the range + count columns from being squeezed out:
+    // uncapped, the longest names (Thaana names in the dv UI run long
+    // too) would swallow the modal on narrower desktop widths — they wrap
+    // within the pinned track instead (break-word on .facet-name and
+    // .facet-name-ar), the full name still in the row tooltip.
     var cap = pair[3];
     if (w > 0) ov.style.setProperty("--" + pair[2], (cap && w > cap ? cap : w) + "px");
   });
