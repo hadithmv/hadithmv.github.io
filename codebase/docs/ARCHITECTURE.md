@@ -720,7 +720,9 @@ the overhang paints into the padding. The current insets: `.search-input`
 `.search-result-snippet` `padding-inline-start: 8px`, `#topBar #pageTitle`
 `padding-inline-start: 8px` (the title is `justify-content: safe center`,
 so its clip only exists when the title overflows — ޙ-led titles never show
-it, which is why it went unnoticed). The reader header's author line
+it, which is why it went unnoticed), and mobile-only
+`.dash-continue-title` `padding-inline-start: 6px` (≤600px, where the
+title ellipsizes to keep the continue row one line). The reader header's author line
 (`#readerPageAuthor`) is safe without an inset: its text always starts with
 the neutral " - " prefix, so the first strong glyph's pen lands well inside
 the box and its start-side overhang paints into the prefix run, never the

@@ -739,6 +739,29 @@ async function main() {
   check("quran-surah-search text-indent 6px", insets.ti === "6px", String(insets.ti));
   check("hist-text start padding 6px", insets.htPad === "6px", insets.htPad);
   check("result-snippet start padding 8px", insets.snPad === "8px", insets.snPad);
+  // dash-continue-title: mobile-only recipe (dashboard.css ≤600px) — the
+  // continue row stays one line, the title ellipsizes, and the clipped
+  // Thaana keeps its 6px start inset. Probed with synthetic elements at a
+  // narrow viewport (the continue card needs reading history to exist).
+  await send("Emulation.setDeviceMetricsOverride", { width: 480, height: 800, deviceScaleFactor: 1, mobile: false });
+  await goto(ROOT + "index.html");
+  await waitFor(`!!document.getElementById('dashboardWrapper')`);
+  const cont = await evalJS(`(function () {
+    var w = document.createElement('div');
+    var c = document.createElement('div'); c.className = 'dash-continue';
+    var t = document.createElement('span'); t.className = 'dash-continue-title'; t.textContent = 'ޗ';
+    c.appendChild(t); w.appendChild(c); document.body.appendChild(w);
+    var pad = getComputedStyle(t).paddingInlineStart;
+    var wrap = getComputedStyle(c).flexWrap;
+    var ovf = getComputedStyle(t).overflow;
+    var ell = getComputedStyle(t).textOverflow;
+    w.remove();
+    return { pad: pad, wrap: wrap, ovf: ovf, ell: ell };
+  })()`);
+  check("mobile: dash-continue one row, title ellipsized + 6px inset",
+    cont.wrap === "nowrap" && cont.ovf === "hidden" && cont.ell === "ellipsis" && cont.pad === "6px",
+    cont.wrap + " / " + cont.ovf + " / " + cont.ell + " / " + cont.pad);
+  await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
 
   ws.close();
   edge.kill();

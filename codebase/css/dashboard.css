@@ -1,5 +1,7 @@
 /* ---- Dashboard ---- */
-#topBar { max-width: var(--content-width, 800px); }
+#topBar {
+  max-width: var(--content-width, 800px);
+}
 
 #dashboardWrapper {
   max-width: var(--content-width, 800px);
@@ -34,10 +36,12 @@
   gap: var(--section-gap, 6px);
   margin-top: var(--section-gap, 6px);
   max-height: 300px;
-  transition: max-height var(--t-panel, 0.3s) var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
-              opacity var(--t-pop, 0.2s) ease,
-              margin-top var(--t-panel, 0.3s) ease,
-              gap var(--t-panel, 0.3s) ease;
+  transition:
+    max-height var(--t-panel, 0.3s)
+      var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
+    opacity var(--t-pop, 0.2s) ease,
+    margin-top var(--t-panel, 0.3s) ease,
+    gap var(--t-panel, 0.3s) ease;
 }
 
 #dashboardSearchPanel {
@@ -88,7 +92,14 @@ a.toolbar-btn {
   border-spacing: 0;
   font-size: 1rem;
   direction: rtl;
-  font-family: var(--font-arabic-thaana, "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif);
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
 }
 /* No position: sticky on the dashboard header — the .dash-table-wrap scroll
    container makes sticky measure against the wrapper (pushing the thead down
@@ -188,7 +199,14 @@ a.toolbar-btn {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* ---- Book cards ---- */
@@ -225,7 +243,14 @@ a.toolbar-btn {
   border: 1px solid var(--color-danger-text, #dc2626);
   background: var(--color-danger-bg, #fef2f2);
   color: var(--color-danger-text, #dc2626);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   white-space: nowrap;
 }
 
@@ -248,8 +273,17 @@ a.toolbar-btn {
   color: var(--color-text);
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
-  transition: border-color var(--t-hover, 0.15s) ease, background var(--t-hover, 0.15s) ease;
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
+  transition:
+    border-color var(--t-hover, 0.15s) ease,
+    background var(--t-hover, 0.15s) ease;
 }
 /* Join the pieces into one continuous reading: "label title · pos · time" */
 .dash-continue > span + span::before {
@@ -327,5 +361,18 @@ a.toolbar-btn {
   .dash-table th,
   .dash-table td {
     padding: 6px 8px;
+  }
+  /* One row on mobile: the pieces stop wrapping and the title truncates
+     instead (desktop keeps the wrap-to-sentence behaviour above) */
+  .dash-continue {
+    flex-wrap: nowrap;
+  }
+  .dash-continue-title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* start-side ink inset for clipped Thaana (ARCHITECTURE "Font") */
+    /* padding-inline-start: 6px; */
   }
 }
