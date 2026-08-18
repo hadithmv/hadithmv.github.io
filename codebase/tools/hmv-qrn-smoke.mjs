@@ -763,6 +763,48 @@ async function main() {
     cont.wrap + " / " + cont.ovf + " / " + cont.ell + " / " + cont.pad);
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
 
+  // ── G. Completion discipline: a btnLast jump must not celebrate ─────
+  // Navigation is not reading: the last-page button lands at the bottom
+  // with the jump marker armed (a layout-settle event must stay muted),
+  // and scrolling up a bit afterwards leaves pct at 100 (the last ~30 rows
+  // round to it) while the milestone marker sits at 0 — the next event
+  // used to celebrate "finished" (green .done bar + .completion-border
+  // ring + toast) while moving AWAY from the end. Genuine reading to the
+  // bottom must still celebrate.
+  console.log("== G. completion discipline ==");
+  await goto(ROOT + "reader.html?book=QRN-hadithmv");
+  await waitFor(`document.getElementById('btnLast')`);
+  await evalJS(`document.getElementById('btnLast').click()`);
+  await waitFor(`window.scrollY >= document.documentElement.scrollHeight - window.innerHeight - 1`, 15000);
+  await sleep(300);
+  const afterJump = await evalJS(`(function () {
+    var f = document.getElementById('readerProgressFill');
+    return { ring: !!document.querySelector('.completion-border'), done: f.classList.contains('done') };
+  })()`);
+  check("last-page jump lands at the bottom without celebrating",
+    afterJump.ring === false && afterJump.done === false, JSON.stringify(afterJump));
+  // the reported repro: scroll up a bit — two nudges, then nothing must fire
+  await evalJS(`scrollBy(0, -120)`);
+  await sleep(250);
+  await evalJS(`scrollBy(0, -120)`);
+  await sleep(250);
+  const afterUp = await evalJS(`(function () {
+    var f = document.getElementById('readerProgressFill');
+    return { ring: !!document.querySelector('.completion-border'), done: f.classList.contains('done'),
+      y: Math.round(window.scrollY) };
+  })()`);
+  check("scrolling up after the jump does not celebrate",
+    afterUp.ring === false && afterUp.done === false, JSON.stringify(afterUp));
+  // positive control: a genuine scroll to the bottom still celebrates
+  await evalJS(`scrollTo(0, document.documentElement.scrollHeight)`);
+  await waitFor(`!!document.querySelector('.completion-border')`, 5000);
+  const afterBottom = await evalJS(`(function () {
+    var f = document.getElementById('readerProgressFill');
+    return { ring: !!document.querySelector('.completion-border'), done: f.classList.contains('done') };
+  })()`);
+  check("genuine read to the bottom still celebrates",
+    afterBottom.ring === true && afterBottom.done === true, JSON.stringify(afterBottom));
+
   ws.close();
   edge.kill();
   console.log(failures ? "== " + failures + " FAILURES ==" : "== ALL PASS ==");

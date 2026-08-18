@@ -1110,18 +1110,21 @@ body:has(.modal-overlay.open) {
      facet-browse.js scales the caps down together on narrower desktops, so
      the text columns yield before the range + count cram. The range is
      the wide 1fr column — the one before the count, mirroring the periods
-     grid. */
+     grid. The age and the two count columns are fixed tracks (short
+     numbers — no pinning needed). */
   grid-template-columns:
     var(--facet-name-w, 220px) var(--facet-ar-w, 240px)
-    var(--facet-century-w, 90px) 1fr var(--facet-ce-w, 150px) 64px 40px;
+    var(--facet-century-w, 90px) 1fr var(--facet-ce-w, 150px)
+    var(--facet-age-w, 48px) 64px 40px;
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
      (--facet-period-w); the Gregorian span is pinned to its longest text
-     (--facet-ce-w); the AH range is the wide one (1fr). */
+     (--facet-ce-w); the AH range is the wide one (1fr); the authors and
+     book counts are fixed tracks (short numbers). */
   grid-template-columns:
     var(--facet-period-w, 110px) 1fr var(--facet-ce-w, 150px)
-    64px 40px;
+    var(--facet-authors-w, 56px) 64px 40px;
 }
 /* The header is the reader-table's look (nav-btn-bg bar, 2px divider line,
    bold text) — every tabular surface shares it, per the unified-modal rule.
@@ -1195,19 +1198,23 @@ body:has(.modal-overlay.open) {
   color: var(--color-text-muted);
 }
 /* The Hijri century and years read as plain text; the Gregorian (miladi)
-   side is the derived approximation, so it takes the muted tone — in its
-   desktop column and in the mobile joined line alike. */
+   side and the age — both derived approximations — take the muted tone,
+   in their desktop columns and in the mobile joined line alike. */
 .facet-century,
 .facet-range {
   white-space: nowrap;
 }
-.facet-ce {
+.facet-ce,
+.facet-age {
   color: var(--color-text-muted);
 }
-.facet-range {
+.facet-range,
+.facet-age {
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
-.facet-count {
+.facet-count,
+.facet-authors {
   text-align: right;
   color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
@@ -1232,14 +1239,16 @@ body:has(.modal-overlay.open) {
    collapse, its labels (some never labelled, like the count and check
    headers) float above nothing. The rows stop being grids and re-flow as
    plain flowing text lines — the line wrappers from facet-browse.js: the
-   name joins the Arabic name on line 1, the century/range/CE text on line
-   2, the count (with its "ފޮތް:" label, hidden on desktop where it has its
-   own thead column) and check on line 3; the periods rows drop to two
-   lines. The pieces sit on one baseline and wrap as text — no column
-   blocks, no per-letter stacking. The "·" joins are mobile-only ::before
-   rules so the desktop cells stay clean, and the :empty guards drop a join
-   whose piece is missing (Arabic UI leaves the Arabic name out; undated
-   authors have no century/range/CE to join; unpinned rows have nothing to
+   name joins the Arabic name on line 1, the century/range/CE/age text on
+   line 2, the count (with its "ފޮތް:" label, hidden on desktop where it has
+   its own thead column) and check on line 3; the periods rows drop to two
+   lines, their count line led by the authors count (labelled like the
+   book count — the "·" before the book count separates the two numbers).
+   The pieces sit on one baseline and wrap as text — no column blocks, no
+   per-letter stacking. The "·" joins are mobile-only ::before rules so
+   the desktop cells stay clean, and the :empty guards drop a join whose
+   piece is missing (Arabic UI leaves the Arabic name out; undated authors
+   have no century/range/CE/age to join; unpinned rows have nothing to
    check). */
 @media (max-width: 600px) {
   .facet-thead-row {
@@ -1298,8 +1307,10 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-name-ar::before,
   .author-browse-row .facet-range::before,
   .author-browse-row .facet-ce::before,
+  .author-browse-row .facet-age::before,
   .period-browse-row .facet-range::before,
-  .period-browse-row .facet-ce::before {
+  .period-browse-row .facet-ce::before,
+  .period-browse-row .facet-count::before {
     /* The join is a bare dot with margins — a " · " string loses its
        leading space (it collapses at the start of the cell's inline flow,
        RTL, hugging the dot to the previous piece); margins can't. */
@@ -1318,9 +1329,11 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-name-ar:empty::before,
   .author-browse-row .facet-range:empty::before,
   .author-browse-row .facet-ce:empty::before,
+  .author-browse-row .facet-age:empty::before,
   .author-browse-row .facet-check:empty::before,
   .period-browse-row .facet-range:empty::before,
   .period-browse-row .facet-ce:empty::before,
+  .period-browse-row .facet-count:empty::before,
   .period-browse-row .facet-check:empty::before {
     content: none;
   }

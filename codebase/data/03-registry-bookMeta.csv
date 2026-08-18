@@ -33,15 +33,17 @@ HDT-misc,,أحاديث مختلفة,ތަފާތު އެކި ޙަދީޘްތައް,C
 HDT-muwattaMalik,malikBinAnas,موطأ مالك,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT,"basmala,kitabAR,babAR,kitabDV,babDV,foot",7befde361360
 HDT-umdathulAhkam,abdulGhaniAlMaqdisi,عمدة الأحكام,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,REV,"kitabAR,babAR,kitabDV,babDV,foot",cf58851f371c
 IH-dhuroosMuhimmahLiAammathilUmmah,ibnBaz,الدروس المهمة لعامة الأمة,އުއްމަތުގެ ޢާއްމުންނަށް ޓަކައި މުހިއްމު ފިލާވަޅުތައް,Important Lessons for the General Ummah,"NEW,RAW",,a40c48dea45c
-IH-hisnulMuslim,,حِصْنُ المُسْلِمِ (دار الإسلام),ޙިޞްނުލް މުސްލިމް (އިސްލާމް ހައުސް),Fortress of the Muslim (Islam House),"NEW,RAW,ZKR",,a0de8aada9b7
+IH-hisnulMuslim,saeedAlQahtani,حِصْنُ المُسْلِمِ (دار الإسلام),ޙިޞްނުލް މުސްލިމް (އިސްލާމް ހައުސް),Fortress of the Muslim (Islam House),"NEW,RAW,ZKR",,a0de8aada9b7
 IH-huquqDaathIlaihalFitrah,ibnulUthaymeen,حقوق دعت إليها الفطرة,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް,Rights Advocated by Human Nature,NEW,foot,a7d7a6a242f1
 IH-islamDeenRusulullah,,الإسلام دين رسل الله,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,NEW,,fc12b2efbb0d
 IH-islamDeenulFitrah,,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",NEW,,49daca16a4ea
 IH-manKhalaqaniWaLimaza,,من خلقني؟ ولماذا؟,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟,Who Created Me? And Why?,NEW,,843032358f7d
-IH-mukhtasarFiSifathilUmrah,,المختصر في صفة العمرة وأحكامها,ޢުމްރާގެ ޞިފައާއި އޭގެ ޙުކުމްތަކުގެ ކުރު ޚުލާޞާއެއް,Concise Description of Umrah and Its Rulings,"NEW,RAW,AQD",,a63e6dbf3dde
+IH-mukhtasarFiSifathilUmrah,,المختصر في صفة العمرة وأحكامها,ޢުމްރާގެ ޞިފައާއި އޭގެ ޙުކުމްތަކުގެ ކުރު ޚުލާޞާއެއް,Concise Description of Umrah and Its Rulings,"NEW,RAW,FQH",,a63e6dbf3dde
 IH-mukhtasarTauhidilAsmaWaSifat,,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"NEW,DRFT,AQD",,9dea890896d2
 IH-nubzaMujazahAnilIslam,,رسالة موجزة عن الإسلام,އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam,"NEW,REV",,0c10a2244855
 IH-rasoolulIslamMuhammad,,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,,,995991f3678a
+IH-risalaFiDimaiTabiiyyah,ibnulUthaymeen,رِسَالَةٌ فِي الدِّمَاءِ الطَّبِيعِيَّةِ لِلنِّسَاءِ,އަންހެނުންގެ ޠަބީޢީ ލެއާ ބެހޭ ރިސާލާއެއް,A Treatise on Women’s Natural Blood,"NEW,RAW,FQH",,32b8a81ed527
+IH-risalathainMujizathainFiZakathiWaSiyam,ibnBaz,رِسَالَتَانِ مُوجَزَتَانِ فِي الزَّكَاةِ وَالصِّيَامِ,ޒަކާތާއި ރޯދައާ ބެހޭ ޚުލާޞާ ދެ ރިސާލާ,Two Concise Treatises on Zakath and Fasting,"NEW,RAW,FQH",,32790907ec52
 IH-usooluThalaatha,muhammadBinAbdulWahhab,الأصول الستة (دار الإسلام),ހަ އުސޫލު (އިސްލާމް ހައުސް),Six Principles (Islam House),"NEW,RAW,AQD",,2105b23d5add
 KNSH-hadithmv-DSC,,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,ENTIRE-BOOK,b19337752be6
 KNSH-muhammedMaldheefi-DSC,,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,ENTIRE-BOOK,b075d0e59ba6

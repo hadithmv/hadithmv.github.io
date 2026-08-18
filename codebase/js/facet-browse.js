@@ -116,10 +116,16 @@ export function bookMatchesFacets(book) {
   return true;
 }
 
-/** Book counts per author code and per period bucket over a book list. */
+/** Book counts per author code and per period bucket over a book list,
+ *  plus the distinct-author count per bucket — "within this period, books
+ *  from this many authors". A book's author list is unique per code, so the
+ *  bucket set accumulates author codes; the count of distinct keys is the
+ *  answer (an author enters a bucket only via a visible book, so zero-book
+ *  authors never inflate it). */
 export function facetCounts(books) {
   var byAuthor = {};
   var byPeriod = {};
+  var byPeriodAuthors = {};
   (books || []).forEach(function (b) {
     authorCodesOf(b).forEach(function (ac) {
       if (!byAuthor[ac]) byAuthor[ac] = 0;
@@ -127,9 +133,15 @@ export function facetCounts(books) {
       var p = authorPeriodOf(ac);
       if (!byPeriod[p]) byPeriod[p] = 0;
       byPeriod[p]++;
+      if (!byPeriodAuthors[p]) byPeriodAuthors[p] = {};
+      byPeriodAuthors[p][ac] = true;
     });
   });
-  return { byAuthor: byAuthor, byPeriod: byPeriod };
+  var authorCounts = {};
+  Object.keys(byPeriodAuthors).forEach(function (p) {
+    authorCounts[p] = Object.keys(byPeriodAuthors[p]).length;
+  });
+  return { byAuthor: byAuthor, byPeriod: byPeriod, byPeriodAuthors: authorCounts };
 }
 
 // Counts over the registry's visible (-HDN excluded) books — the set the
@@ -240,6 +252,7 @@ function ensureAuthorsModal() {
     '<div class="facet-thead-cell facet-col-century"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
     '<div class="facet-thead-cell facet-col-ce"></div>' +
+    '<div class="facet-thead-cell facet-col-age"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
     '<div class="facet-thead-cell facet-col-check"></div>' +
     "</div></div>" +
@@ -265,8 +278,9 @@ function authorsModalLabels() {
   ths[2].textContent = t("facetColCentury");
   ths[3].textContent = t("facetColYears");
   ths[4].textContent = t("facetColGregorian");
-  ths[5].textContent = t("facetColBooks");
-  ths[6].textContent = "";
+  ths[5].textContent = t("facetColAge");
+  ths[6].textContent = t("facetColBooks");
+  ths[7].textContent = "";
 }
 
 /** The rows — registry order, only authors with visible books. The filter
@@ -306,11 +320,14 @@ function renderAuthorRows() {
     var century = p === "modern" ? "" : periodLabel(p);
     var range = yrs ? (p === "modern" ? yrs : "(" + yrs + ")") : "";
     var ce = authorYearsCeText(d);
+    var age = authorAgeText(d);
     // The cells group into line wrappers — on desktop the wrappers are
     // display: contents (the cells stay the grid's direct items, so the
     // thead/rows column contract is unchanged); on mobile they become the
     // flowing text lines of the compact layout (name · Arabic name /
-    // century · years · CE / count · check).
+    // century · years · CE · age / count · check). The age — derived from
+    // the dates, like the CE span, so it takes the muted tone and joins
+    // the dates line.
     return (
       '<div class="author-browse-row facet-grid-authors' +
       (sel ? " selected" : "") +
@@ -335,6 +352,9 @@ function renderAuthorRows() {
       "</div>" +
       '<div class="facet-ce">' +
       (ce ? "(" + escapeHTML(ce) + ")" : "") +
+      "</div>" +
+      '<div class="facet-age">' +
+      (age ? facetAgeLabel() + escapeHTML(age) : "") +
       "</div></div>" +
       '<div class="facet-line-3">' +
       '<div class="facet-count">' +
@@ -398,13 +418,18 @@ function pinFacetGeometry() {
   // anchored at the row's end, so a bare 1fr range would collapse into
   // them). On wide desktops the same caps step up (up to +110px each,
   // full at ~1450px of scrollport) so the columns don't look stuck at the
-  // narrow-screen maximum when the modal has room — the range outgrows
-  // both tracks at every step (at 879px it is 225 vs the 220 cap; the gap
-  // only widens). The fixed columns are century 90 + the Gregorian track
-  // (measured first, same nowrap measure pinFacetColumn uses) + count 64
-  // + check 40; the 46/54 split follows the tracks' content proportions.
-  // The pins are still clamped to the rows' content (pinFacetColumn), so
-  // nothing stretches beyond the longest name.
+  // narrow-screen maximum when the modal has room. The range keeps its
+  // 180px floor at every width; on wide desktops the longest Thaana name
+  // is content-bound (~265-270px) and can outgrow the 1fr range — the
+  // caps still hold the tracks to their maximums, so the floor is what
+  // guarantees the range + count never cram. The fixed columns are
+  // century 90 + the Gregorian track
+  // (measured first, same nowrap measure pinFacetColumn uses) + age 48 +
+  // count 64 + check 40 (the age and the periods authors track — 56px —
+  // are short numbers, fixed in the CSS grid templates, not pinned); the
+  // 46/54 split follows the tracks' content proportions. The pins are
+  // still clamped to the rows' content (pinFacetColumn), so nothing
+  // stretches beyond the longest name.
   var aWrap = document.querySelector("#libAuthorsOverlay .facet-table-wrap");
   var avail = aWrap ? aWrap.clientWidth : 0;
   var ceW = 0;
@@ -413,7 +438,7 @@ function pinFacetGeometry() {
     ceW = Math.max(ceW, el.scrollWidth);
     el.style.whiteSpace = "";
   });
-  var namesShare = avail - 90 - ceW - 64 - 40 - 180;
+  var namesShare = avail - 90 - ceW - 48 - 64 - 40 - 180;
   var grow = Math.max(0, Math.min(1, (avail - 879) / 571));
   var step = Math.round(grow * 110);
   pinFacetColumn("libAuthorsOverlay", [
@@ -499,6 +524,7 @@ function ensurePeriodsModal() {
     '<div class="facet-thead-cell facet-col-period"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
     '<div class="facet-thead-cell facet-col-ce"></div>' +
+    '<div class="facet-thead-cell facet-col-authors"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
     '<div class="facet-thead-cell facet-col-check"></div>' +
     "</div></div>" +
@@ -522,8 +548,9 @@ function periodsModalLabels() {
   ths[0].textContent = t("facetColCentury");
   ths[1].textContent = t("facetColYears");
   ths[2].textContent = t("facetColGregorian");
-  ths[3].textContent = t("facetColBooks");
-  ths[4].textContent = "";
+  ths[3].textContent = t("facetColAuthors");
+  ths[4].textContent = t("facetColBooks");
+  ths[5].textContent = "";
 }
 
 /** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
@@ -570,13 +597,37 @@ function authorYearsCeText(d) {
   return "";
 }
 
-/** The per-row count's mobile label ("ފޮތް: 1", "books: 1" — the word from
- *  libScopeCount + the colon). Hidden on desktop, where the count sits under
- *  its own "Books" thead column. */
+/** The author's age — diedAH − bornAH, both required; a "~" estimate on
+ *  either end carries over (the data cannot make an estimate precise); ""
+ *  when either date is missing. */
+function authorAgeText(d) {
+  if (!d || !d.bornAH || !d.diedAH) return "";
+  var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
+  var age = num(d.diedAH) - num(d.bornAH);
+  if (!(age > 0)) return "";
+  return (String(d.bornAH).indexOf("~") === 0 || String(d.diedAH).indexOf("~") === 0 ? "~" : "") + String(age);
+}
+
+/** The mobile label span ("word: " — hidden on desktop, where the cell sits
+ *  under its own thead column; shown inline on mobile, where the thead folds
+ *  away and the bare number would float alone). */
+function facetLabelSpan(word) {
+  return '<span class="facet-count-label">' + escapeHTML(word + ": ") + "</span>";
+}
+
+/** The per-row count's mobile label — the word from libScopeCount. */
 function facetCountLabel() {
-  return '<span class="facet-count-label">' +
-    escapeHTML(t("libScopeCount").replace("{n}", "").trim() + ": ") +
-    "</span>";
+  return facetLabelSpan(t("libScopeCount").replace("{n}", "").trim());
+}
+
+/** The periods authors cell's mobile label — the facetColAuthors word. */
+function facetAuthorsLabel() {
+  return facetLabelSpan(t("facetColAuthors"));
+}
+
+/** The author age cell's mobile label — the facetColAge word. */
+function facetAgeLabel() {
+  return facetLabelSpan(t("facetColAge"));
 }
 
 /** The rows — distinct death-century buckets + modern, chronological order
@@ -605,6 +656,9 @@ function renderPeriodRows() {
     // The century label is the row's name; the AH and Gregorian spans get
     // their own bracketed columns, so both stay uniform width down the
     // list ("modern" has no spans — the range and CE cells stay empty).
+    // The distinct-author count opens the mobile count line (the "·" join
+    // on the count separates the two numbers), then the book count.
+    var authors = (_counts && _counts.byPeriodAuthors && _counts.byPeriodAuthors[p]) || 0;
     return (
       '<div class="period-browse-row facet-grid-periods' +
       (sel ? " selected" : "") +
@@ -624,6 +678,10 @@ function renderPeriodRows() {
       (rangeCe ? "(" + escapeHTML(rangeCe) + ")" : "") +
       "</div></div>" +
       '<div class="facet-line-2">' +
+      '<div class="facet-authors">' +
+      facetAuthorsLabel() +
+      authors +
+      "</div>" +
       '<div class="facet-count">' +
       facetCountLabel() +
       counts[p] +

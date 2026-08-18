@@ -257,7 +257,18 @@ function onScroll() {
     // completion celebration after a tashkeel toggle). Keep the marker
     // armed at the bottom — only the 3.5s backstop clears it, so genuine
     // later reading still celebrates.
-    if (!atBottom && (distNow <= 3 || Math.abs(jy - jMaxS) <= 3 || distNow > _jumpLastDist)) _jumpTargetY = -1;
+    if (!atBottom && (distNow <= 3 || Math.abs(jy - jMaxS) <= 3 || distNow > _jumpLastDist)) {
+      _jumpTargetY = -1;
+      // The jump can leave the completion pending at the end: with the last
+      // row still the visible page, pct stays 100 while the marker sits at
+      // 0, so the next event would celebrate while the reader is moving
+      // AWAY from the end (the scroll-up-after-last-page jump). Disarm on
+      // the clear: reaching the absolute bottom re-arms the celebration
+      // (atBottom resets the marker above), and scrolling back past pct
+      // 100 drops it via the milestone reset below — genuine later reading
+      // still celebrates.
+      if (pct >= 100) _lastMilestone = 100;
+    }
     if (Date.now() - _jumpAt > 3500) _jumpTargetY = -1;
     _jumpLastDist = distNow;
     jumpInFlight = true;

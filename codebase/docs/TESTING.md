@@ -9,8 +9,9 @@ TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
 `../tools/hmv-authors-check.mjs` (`node tools/hmv-authors-check.mjs`;
 `HMV_AUTHORS_PORT` / `HMV_AUTHORS_PROFILE` env vars override the defaults) —
 it covers the shared facet system on every surface: library-page chips +
-filter/table modals (the desktop columns and the ≤600px joined-line rows —
-dotted joins, muted CE, inline count label, spaced ✓), dashboard buttons +
+filter/table modals (the desktop columns — including the derived age and the
+distinct-author counts — and the ≤600px joined-line rows: dotted joins,
+muted CE and age, inline count labels, spaced ✓), dashboard buttons +
 `?authors=` deep links + the no-English-title cards, the reader header's
 dash-separated author link, and the search window's All-books facet section
 (modals stack over the window).
@@ -110,6 +111,19 @@ Before touching product code, run this sequence:
   weeks while the smoke + probe batteries stayed green — every check except
   "is it open" was DOM-manipulation that doesn't need the modal. Rule: any
   click whose effect is a modal/overlay must immediately `check(waitFor(open))`.
+- **A synchronous focus assert right after `waitFor(open)` races the
+  deferred focus.** Modals defer their caret past the pop transition
+  (`--t-pop`; `deferFacetFocus` and friends), so `waitFor(open)` + an
+  immediate `activeElement === …` check fails ~half the runs under render
+  load — the focus lands ~200 ms after `open`. Wait for the focus
+  *inside* the waitFor (`open && document.activeElement === …`), like the
+  Alt+A check does, instead of asserting synchronously.
+- **Every battery section must start with its own `goto`.** A section that
+  skips navigation inherits whatever page the previous section last loaded —
+  section G's `#btnLast` click died on `index.html` (null element) because
+  section F's mobile probe had navigated to the dashboard. A section header
+  (`console.log("== X ==")`) is the cue: page load + waitFor its root
+  element first.
 - **`pathToFileURL` URL-encodes `?`.** Building a deep-link URL as
   `pathToFileURL(ROOT + "book.html?q=…")` encodes the `?` into `%3F` — the
   browser treats the whole string as a filename and serves the file-not-found
@@ -354,6 +368,14 @@ blaming the product.
    any later diff that survives it is a genuine regression.
 4. **Wait for state, then assert**: `waitFor` on the thing being measured
    (rows rendered, result count changed, `th` count), never `sleep` alone.
+5. **Widest-column proxies break when the fixed-track budget changes**:
+   a "column X is the widest" check survives only while the 1fr track can
+   outbid the content-clamped tracks. Adding a fixed track (e.g. the
+   authors modal's 48px age column) shrinks the 1fr range until the
+   longest Thaana name outgrows it — the proxy dies even though the layout
+   is fine. Assert the invariants the pins actually guarantee (the range's
+   floor, the caps, room over the count) and update the check's comment,
+   rather than re-timing the formula to revive a widest claim.
 
 ## Keeping this guide alive
 

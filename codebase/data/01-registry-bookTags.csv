@@ -1,7 +1,10 @@
 tagCode,labelAR,labelDV,labelEN,aliasesAR,aliasesDV,aliasesEN
+NEW,جديد,އާ,New,أحدث,އައު,"Recent,Latest"
+
 QRN,قرآن,ގުރްއާން,Quran,,,
 HDT,حديث,ޙަދީޘް,Hadith,,,
 AQD,عقيدة,އަގީދާ,Aqidah,,,Creed
+FQH,فقه,ފިގްހު,Fiqh,,,Jurisprudence
 LNG,لغة,ބަސް,Language,,ބަސްތައް,Linguistics
 ZKR,ذكر,ޒިކުރު,Zikr,,ދުޢާ,"Adhkar,Azkar,Dua,Remembrance"
 
@@ -14,7 +17,6 @@ DFK,دفك,ދފކ,DFK,دار فتية الكهف,ދާރު ފިތްޔަތިލް �
 IH,دار الإسلام,އިސްލާމް ހައުސް,Islam House,إسلام هاوس,,
 KNSH,كناشة,ކުންނާޝާ,Kunnaasha,,ނޯޓުފޮތް,Notebook
 
-NEW,جديد,އާ,New,أحدث,އައު,"Recent,Latest"
 RAW,خام,⚠️ ރޯ,Raw,غير مدقق,,"Unedited,Unreviewed"
 INC,غير مكتمل,⚠️ ނުނިމޭ,Incomplete,ناقص,,"Unfinished,Partial"
 DRFT,مسودة,⚠️ ޑްރާފްޓު,Draft,قيد الإعداد,ތައްޔާރުވަމުން ދަނީ,In Progress
