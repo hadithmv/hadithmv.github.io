@@ -523,8 +523,8 @@ function ensurePeriodsModal() {
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-periods">' +
     '<div class="facet-thead-cell facet-col-period"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
-    '<div class="facet-thead-cell facet-col-ce"></div>' +
     '<div class="facet-thead-cell facet-col-authors"></div>' +
+    '<div class="facet-thead-cell facet-col-ce"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
     '<div class="facet-thead-cell facet-col-check"></div>' +
     "</div></div>" +
@@ -547,8 +547,8 @@ function periodsModalLabels() {
   var ths = _periodsBody.querySelectorAll(".facet-thead-cell");
   ths[0].textContent = t("facetColCentury");
   ths[1].textContent = t("facetColYears");
-  ths[2].textContent = t("facetColGregorian");
-  ths[3].textContent = t("facetColAuthors");
+  ths[2].textContent = t("facetColAuthors");
+  ths[3].textContent = t("facetColGregorian");
   ths[4].textContent = t("facetColBooks");
   ths[5].textContent = "";
 }
@@ -598,14 +598,15 @@ function authorYearsCeText(d) {
 }
 
 /** The author's age — diedAH − bornAH, both required; a "~" estimate on
- *  either end carries over (the data cannot make an estimate precise); ""
- *  when either date is missing. */
+ *  either end carries over (the data cannot make an estimate precise); the
+ *  language's year-unit shorthand follows ("86 އ." / "86 y." / "86 س.");
+ *  "" when either date is missing. */
 function authorAgeText(d) {
   if (!d || !d.bornAH || !d.diedAH) return "";
   var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
   var age = num(d.diedAH) - num(d.bornAH);
   if (!(age > 0)) return "";
-  return (String(d.bornAH).indexOf("~") === 0 || String(d.diedAH).indexOf("~") === 0 ? "~" : "") + String(age);
+  return (String(d.bornAH).indexOf("~") === 0 || String(d.diedAH).indexOf("~") === 0 ? "~" : "") + String(age) + " " + t("facetAgeUnit");
 }
 
 /** The mobile label span ("word: " — hidden on desktop, where the cell sits

@@ -328,10 +328,13 @@ const STRINGS = {
   facetColBooks: { dv: "ފޮތް", en: "Books", ar: "الكتب" },
   facetColAge: { dv: "އުމުރު", en: "Age", ar: "العمر" },
   facetColAuthors: { dv: "މުއައްލިފުން", en: "Authors", ar: "المؤلفون" },
-  authorDied: { dv: "ނިޔާވީ {y} ހ.", en: "d. {y} AH", ar: "ت {y}هـ" },
+  facetAgeUnit: { dv: "އ.", en: "y.", ar: "س." },
+  // Died-only authors lead with the same en-dash the born–died range uses
+  // (the born slot is simply missing): "– 179 ހ." — language-neutral.
+  authorDied: { dv: "– {y} ހ.", en: "– {y} AH", ar: "– {y}هـ" },
   authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
   authorLifeCe: { dv: "{b}–{d} މ.", en: "{b}–{d} CE", ar: "{b}–{d}م" },
-  authorDiedCe: { dv: "ނިޔާވީ {y} މ.", en: "d. {y} CE", ar: "ت {y}م" },
+  authorDiedCe: { dv: "– {y} މ.", en: "– {y} CE", ar: "– {y}م" },
   // Hijri centuries of the author's death year (1–15), plus the modern
   // bucket — numeral labels ("Century 3") shared by the authors' century
   // column, the periods' name column and the chips.

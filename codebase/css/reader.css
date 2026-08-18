@@ -419,7 +419,11 @@
 .reader-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* safe center — with overflow-x: auto and dir=rtl, a plain center puts
+     the overflow on the unreachable start side, so a row that outgrows
+     the panel (page strip + subtitle/author/tags) clips its << < buttons;
+     safe falls back to start alignment, keeping the start edge in view */
+  justify-content: safe center;
   gap: var(--section-gap, 6px);
   padding: 0;
   margin: 0;

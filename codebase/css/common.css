@@ -1119,13 +1119,29 @@ body:has(.modal-overlay.open) {
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
-     (--facet-period-w); the Gregorian span is pinned to its longest text
-     (--facet-ce-w); the AH range is the wide one (1fr); the authors and
-     book counts are fixed tracks (short numbers). */
+     (--facet-period-w); the authors track sits right after the wide AH
+     range (the reader reads the period's authors count next to its
+     years); the Gregorian span is pinned to its longest text
+     (--facet-ce-w); the book count is a fixed track (short numbers). */
   grid-template-columns:
-    var(--facet-period-w, 110px) 1fr var(--facet-ce-w, 150px)
-    var(--facet-authors-w, 56px) 64px 40px;
+    var(--facet-period-w, 110px) 1fr var(--facet-authors-w, 56px)
+    var(--facet-ce-w, 150px) 64px 40px;
 }
+/* The periods row cells keep their mobile-friendly DOM order (line 1:
+   label · years · CE, line 2: authors · books ✓) while the desktop grid
+   shows the authors track right after the years — every cell is placed
+   into its column explicitly. All six must be placed: with only the
+   reordered two explicit, the auto-placed cells were scanned into the
+   explicitly-placed cells' columns (the count overlapped the CE track),
+   so nothing is left to auto-place. The thead follows the visual order
+   and auto-places into columns 1–6. grid-column is inert on mobile,
+   where the line wrappers are flex. */
+.period-browse-row .facet-name { grid-column: 1; }
+.period-browse-row .facet-range { grid-column: 2; }
+.period-browse-row .facet-authors { grid-column: 3; }
+.period-browse-row .facet-ce { grid-column: 4; }
+.period-browse-row .facet-count { grid-column: 5; }
+.period-browse-row .facet-check { grid-column: 6; }
 /* The header is the reader-table's look (nav-btn-bg bar, 2px divider line,
    bold text) — every tabular surface shares it, per the unified-modal rule.
    It lives OUTSIDE the scrollport, so the scrollbar runs only beside the

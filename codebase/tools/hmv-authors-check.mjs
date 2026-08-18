@@ -123,7 +123,9 @@ const authorAgeOf = (a) => {
   const num = (s) => parseInt(String(s || "").replace(/^~+/, ""), 10);
   const age = num(a.diedAH) - num(a.bornAH);
   if (!(age > 0)) return "";
-  return (String(a.bornAH).startsWith("~") || String(a.diedAH).startsWith("~") ? "~" : "") + String(age);
+  // The EN year-unit shorthand — the battery runs the page in the EN UI,
+  // mirroring t("facetAgeUnit").en in authorAgeText.
+  return (String(a.bornAH).startsWith("~") || String(a.diedAH).startsWith("~") ? "~" : "") + String(age) + " y.";
 };
 const MALIK_AGE = authorAgeOf(malikRow);
 // Distinct authors per bucket over a book set — the period rows' authors
@@ -247,14 +249,14 @@ async function main() {
   // The Gregorian column mirrors the years column through the same AH→CE
   // approximation the periods grid uses (ceFromAh above): the authorLifeCe
   // template "{b}–{d} CE" for born+died, the authorDiedCe template
-  // "d. {y} CE" for died-only, "" when undated; a "~" estimate in the data
-  // carries over to its CE side. Data-derived per author — no hardcoded
-  // dates.
+  // "– {y} CE" for died-only (the bare dash marks the missing born year),
+  // "" when undated; a "~" estimate in the data carries over to its CE
+  // side. Data-derived per author — no hardcoded dates.
   const authorCeText = (a) => {
     const num = (s) => parseInt(String(s || "").replace(/^~+/, ""), 10);
     if (a.bornAH && a.diedAH)
       return (String(a.bornAH).startsWith("~") ? "~" : "") + ceFromAh(num(a.bornAH)) + "–" + ceFromAh(num(a.diedAH)) + " CE";
-    if (a.diedAH) return "d. " + ceFromAh(num(a.diedAH)) + " CE";
+    if (a.diedAH) return "– " + ceFromAh(num(a.diedAH)) + " CE";
     return "";
   };
   const wantCe = {};
@@ -426,8 +428,14 @@ async function main() {
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.ce)).join(","));
   // Six thead cells over six row cells, column to column — the shared
   // grid template keeps them aligned by construction, like the authors.
+  // The thead follows the visual order (… years · authors · Gregorian …)
+  // while the row cells keep their mobile-friendly DOM order — the
+  // authors and CE cells are placed into their desktop columns explicitly
+  // (grid-column in common.css) — so the pairs are matched by class, not
+  // by DOM index.
   check("period thead columns align with the rows", await evalJS(
-    `(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); var th = document.querySelectorAll('#libPeriodsModalBody .facet-thead-cell'); var c = r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div'); return th.length === 6 && c.length === 6 && [0,1,2,3,4,5].every(function(i){ return Math.abs(th[i].getBoundingClientRect().left - c[i].getBoundingClientRect().left) < 1; }); })()`));
+    `(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); var th = document.querySelectorAll('#libPeriodsModalBody .facet-thead-cell'); var pairs = [['facet-col-period','facet-name'],['facet-col-range','facet-range'],['facet-col-authors','facet-authors'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return th.length === 6 && pairs.every(function(p){ var h = document.querySelector('#libPeriodsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); var pairs = [['facet-col-period','facet-name'],['facet-col-range','facet-range'],['facet-col-authors','facet-authors'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return pairs.map(function(p){ var h = document.querySelector('#libPeriodsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
   // The distinct-author column — "within this period, books from this many
   // authors" — counts authors with a searchable book in the bucket (an
   // author enters a bucket only via a book, so zero-book authors never
