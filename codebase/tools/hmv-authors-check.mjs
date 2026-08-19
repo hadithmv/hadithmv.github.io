@@ -304,11 +304,25 @@ async function main() {
   // the rows alone, never the thead — and thead + rows share the grid column
   // template, so the column edges line up exactly (the "thead left" drift
   // the old table auto-layout produced). The authors grid has 8 columns:
-  // name, Arabic, century, range, Gregorian, age, count, check.
+  // name, Arabic, century, range, age, Gregorian, count, check — the age
+  // right after the years, before the Gregorian span.
   check("thead outside the scrollport", await evalJS(
     `!document.querySelector('#libAuthorsModalBody .facet-thead-row').closest('.facet-table-wrap')`));
+  // The thead follows the visual order while the row cells keep their
+  // mobile-friendly DOM order — the age/CE pair is placed into its desktop
+  // columns explicitly (grid-column + grid-row in common.css) — so the
+  // pairs are matched by class, not by DOM index.
   check("thead columns align with the rows", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var th = document.querySelectorAll('#libAuthorsModalBody .facet-thead-cell'); var c = r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div, .facet-line-3 > div'); return th.length === 8 && c.length === 8 && [0,1,2,3,4,5,6,7].every(function(i){ return Math.abs(th[i].getBoundingClientRect().left - c[i].getBoundingClientRect().left) < 1; }); })()`));
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return pairs.every(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return pairs.map(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
+  // The row's eight cells sit on ONE grid row — with only the columns
+  // explicit, the sparse auto-placer walks its cursor back on the
+  // DOM/visual swap (… years · CE · age … → columns 4, 6, 5) and drops the
+  // age/count/check into a second band (the periods modal's "two subrows"
+  // look); grid-row: 1 pins the band, and this asserts it.
+  check("authors rows are a single band", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var ts = Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div, .facet-line-3 > div')).map(function(c){ return Math.round(c.getBoundingClientRect().top); }); return ts.length === 8 && ts.every(function(t){ return Math.abs(t - ts[0]) < 1; }); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); return Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div, .facet-line-3 > div')).map(function(c){ return c.className + '=' + Math.round(c.getBoundingClientRect().top); }).join(' '); })()`));
   // The Arabic-name and century/range/age text columns sit at the row's full
   // text size (no downscaling).
   check("text columns at full size", await evalJS(
@@ -431,11 +445,19 @@ async function main() {
   // The thead follows the visual order (… years · authors · Gregorian …)
   // while the row cells keep their mobile-friendly DOM order — the
   // authors and CE cells are placed into their desktop columns explicitly
-  // (grid-column in common.css) — so the pairs are matched by class, not
-  // by DOM index.
+  // (grid-column + grid-row in common.css, the row pinned to a single
+  // band) — so the pairs are matched by class, not by DOM index.
   check("period thead columns align with the rows", await evalJS(
     `(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); var th = document.querySelectorAll('#libPeriodsModalBody .facet-thead-cell'); var pairs = [['facet-col-period','facet-name'],['facet-col-range','facet-range'],['facet-col-authors','facet-authors'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return th.length === 6 && pairs.every(function(p){ var h = document.querySelector('#libPeriodsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
     await evalJS(`(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); var pairs = [['facet-col-period','facet-name'],['facet-col-range','facet-range'],['facet-col-authors','facet-authors'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return pairs.map(function(p){ var h = document.querySelector('#libPeriodsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
+  // The row's six cells sit on ONE grid row — the mobile DOM order swaps
+  // the authors cell before the CE in the columns, and without the pinned
+  // row the sparse auto-placer would walk the cursor back on that swap and
+  // drop the authors/count/check into a second band below (the "2
+  // subrows" look the user saw); this asserts the band directly.
+  check("period rows are a single band", await evalJS(
+    `(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); var ts = Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return Math.round(c.getBoundingClientRect().top); }); return ts.length === 6 && ts.every(function(t){ return Math.abs(t - ts[0]) < 1; }); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libPeriodsModalBody .period-browse-row'); return Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return c.className + '=' + Math.round(c.getBoundingClientRect().top); }).join(' '); })()`));
   // The distinct-author column — "within this period, books from this many
   // authors" — counts authors with a searchable book in the bucket (an
   // author enters a bucket only via a book, so zero-book authors never
@@ -549,11 +571,14 @@ async function main() {
     authorCards.every((code) => NAWAWI_BOOKS.indexOf(code) !== -1),
     authorCards.join(","));
 
-  // ── Reader header author line (dash-separated link) ───────────────
+  // ── Reader header author line (dot-separated link) ────────────────
+  // The subtitle joins the title and the author line with the same " · "
+  // the app's other text joins use (the facet mobile lines); the years
+  // then follow in the authorLife template.
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
   await waitFor(`document.getElementById('readerPageAuthor') && document.getElementById('readerPageAuthor').textContent.indexOf(${JSON.stringify(nameEN("malikBinAnas"))}) !== -1`);
   const readerAuthor = await evalJS(`document.getElementById('readerPageAuthor').textContent`);
-  check("reader header author line exact", readerAuthor === " - " + MALIK_LINE, readerAuthor + " vs - " + MALIK_LINE);
+  check("reader header author line exact", readerAuthor === " · " + MALIK_LINE, readerAuthor + " vs · " + MALIK_LINE);
   const readerHref = await evalJS(`document.getElementById('readerPageAuthor').querySelector('a').getAttribute('href')`);
   check("reader author links to filtered dashboard", readerHref === "index.html?authors=malikBinAnas", readerHref);
 

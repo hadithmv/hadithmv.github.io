@@ -10,13 +10,18 @@ TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
 `HMV_AUTHORS_PORT` / `HMV_AUTHORS_PROFILE` env vars override the defaults) —
 it covers the shared facet system on every surface: library-page chips +
 filter/table modals (the desktop columns — the derived age with its
-year-unit shorthand (`86 y.`), the dash-led died-only years (`– 256 AH`),
-the periods grid's authors track placed right after the years with the
-thead cells paired to the row cells column by column — and the ≤600px
-joined-line rows: dotted joins, muted CE and age, inline count labels,
-spaced ✓), dashboard buttons + `?authors=` deep links + the no-English-title
-cards, the reader header's dash-separated author link, and the search
-window's All-books facet section (modals stack over the window).
+year-unit shorthand (`86 y.`) placed right after the years, before the
+Gregorian span, the dash-led died-only years (`– 256 AH`), the periods
+grid's authors track placed right after the years, the thead cells paired
+to the row cells column by column — class-paired, since the rows' DOM
+order keeps the mobile lines — and the single-band assertion that the row
+cells all sit on one grid row (a column-only pin would let the sparse
+auto-placer walk its cursor back on the DOM/visual swap and drop the
+swapped cells into a second band) — and the ≤600px joined-line rows:
+dotted joins, muted CE and age, inline count labels, spaced ✓), dashboard
+buttons + `?authors=` deep links + the no-English-title cards, the reader
+header's dot-separated author link, and the search window's All-books
+facet section (modals stack over the window).
 The column-label coverage scan lives at
 `../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
 every `data/content/*.csv` header and diffs it against the token tables in

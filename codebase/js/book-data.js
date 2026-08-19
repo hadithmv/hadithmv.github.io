@@ -250,7 +250,7 @@ export function bookAuthorNames(entry) {
 
 /**
  * One display line for a book registry entry's authors: the name(s) in the
- * current language, each with its Hijri years — "al-Bukhari (d. 256 AH)" —
+ * current language, each with its Hijri years — "al-Bukhari (– 256 AH)" —
  * comma-joined for multi-author books. "" when the book has no author.
  */
 export function bookAuthorLine(entry) {

@@ -24,26 +24,26 @@ initializePageWithMetadata(async function (metadata) {
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
   //   Book loading (standard CSV or Quran merge)           L48-124
-  //   Page header, tag badges, language-aware titles       L127-211
-  //   Persisted settings (LS wrapper, -HDN column init)    L214-260
-  //   Reader state, column toggles, dropdown infrastructure L263-354
-  //   Tashkeel helpers                                     L357-364
-  //   Clipboard formatting (rowText)                       L367-457
-  //   View mode dropdown (card / table / parallel)         L460-508
-  //   Quran helpers                                        L511-515
-  //   Card row renderer (renderRowHTML)                    L518-614
-  //   Parallel row renderer (renderParallelRowHTML)        L617-736
-  //   Chunk + table-row renderers                          L739-801
-  //   Infinite scroll + table scrollbar                    L804-1020
-  //   Navigation (goTo, scroll padding)                    L1023-1079
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1082-1118
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1121-1308
-  //   Keyboard shortcuts (incl. navigation buttons)        L1311-1418
-  //   Touch swipe                                          L1421-1441
-  //   Settings reset + language change                     L1444-1457
-  //   Quran UI (initQuranUI ctx)                           L1460-1480
-  //   Initial render (deep links, reveal)                  L1483-1564
-  //   Module-level helpers (showError)                     L1567-1573
+  //   Page header, tag badges, language-aware titles       L127-212
+  //   Persisted settings (LS wrapper, -HDN column init)    L215-261
+  //   Reader state, column toggles, dropdown infrastructure L264-355
+  //   Tashkeel helpers                                     L358-365
+  //   Clipboard formatting (rowText)                       L368-458
+  //   View mode dropdown (card / table / parallel)         L461-509
+  //   Quran helpers                                        L512-516
+  //   Card row renderer (renderRowHTML)                    L519-615
+  //   Parallel row renderer (renderParallelRowHTML)        L618-737
+  //   Chunk + table-row renderers                          L740-802
+  //   Infinite scroll + table scrollbar                    L805-1021
+  //   Navigation (goTo, scroll padding)                    L1024-1080
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1083-1119
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1122-1309
+  //   Keyboard shortcuts (incl. navigation buttons)        L1312-1419
+  //   Touch swipe                                          L1422-1442
+  //   Settings reset + language change                     L1445-1458
+  //   Quran UI (initQuranUI ctx)                           L1461-1481
+  //   Initial render (deep links, reveal)                  L1484-1565
+  //   Module-level helpers (showError)                     L1568-1574
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -149,11 +149,12 @@ initializePageWithMetadata(async function (metadata) {
         var pageSubtitle = document.getElementById("readerPageSubtitle");
         var pageSubRow = document.getElementById("readerPageSubRow");
         var pageAuthor = document.getElementById("readerPageAuthor");
-        // " - al-Bukhari (– 256 AH)" — the dash-led died-only years (the bare
-        // dash marks the missing born year); the author name links to the
-        // dashboard filtered to this author's books (index.html?authors=, the
-        // same homepage convention as the tag badges); empty (no author)
-        // hides the span
+        // " · al-Bukhari (– 256 AH)" — the dotted separator matches the
+        // app's other text joins (the facet mobile lines' "·"); the
+        // dash-led died-only years follow (the bare dash marks the missing
+        // born year); the author name links to the dashboard filtered to
+        // this author's books (index.html?authors=, the same homepage
+        // convention as the tag badges); empty (no author) hides the span
         var authorLine = bookAuthorLine(metadata);
         if (pageAuthor) {
           if (authorLine) {
@@ -162,7 +163,7 @@ initializePageWithMetadata(async function (metadata) {
               .map(function (s) { return s.trim(); })
               .filter(Boolean);
             pageAuthor.innerHTML =
-              ' - <a href="index.html?authors=' +
+              ' · <a href="index.html?authors=' +
               authorCodes.join(",") +
               '" title="Show all books by ' +
               bookAuthorNames(metadata) +

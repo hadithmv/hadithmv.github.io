@@ -251,8 +251,8 @@ function ensureAuthorsModal() {
     '<div class="facet-thead-cell facet-col-ar"></div>' +
     '<div class="facet-thead-cell facet-col-century"></div>' +
     '<div class="facet-thead-cell facet-col-range"></div>' +
-    '<div class="facet-thead-cell facet-col-ce"></div>' +
     '<div class="facet-thead-cell facet-col-age"></div>' +
+    '<div class="facet-thead-cell facet-col-ce"></div>' +
     '<div class="facet-thead-cell facet-col-count"></div>' +
     '<div class="facet-thead-cell facet-col-check"></div>' +
     "</div></div>" +
@@ -277,8 +277,8 @@ function authorsModalLabels() {
   ths[1].textContent = t("facetColAuthorAr");
   ths[2].textContent = t("facetColCentury");
   ths[3].textContent = t("facetColYears");
-  ths[4].textContent = t("facetColGregorian");
-  ths[5].textContent = t("facetColAge");
+  ths[4].textContent = t("facetColAge");
+  ths[5].textContent = t("facetColGregorian");
   ths[6].textContent = t("facetColBooks");
   ths[7].textContent = "";
 }
@@ -409,8 +409,10 @@ function pinFacetGeometry() {
   // [row-cell class, thead-cell class, custom property, cap] per modal —
   // the authors grid pins its name, Arabic, century and Gregorian tracks
   // (the Gregorian one pinned like the periods grid's); the range is the
-  // wide 1fr column, the one before the count — same shape as the periods
-  // grid, which pins its label column (the century label is short, so the
+  // wide 1fr column — the age right after it, then the Gregorian, the
+  // same "derived values next to the years" reading order as the periods
+  // grid, which puts its authors track right after its years (the periods
+  // grid pins its label column — the century label is short, so the
   // range is 1fr there too). The name and Arabic tracks are capped at
   // 220/240 — scaled down together on narrower desktops past a 180px
   // floor for the range — so on resize the text columns yield first and
@@ -423,13 +425,13 @@ function pinFacetGeometry() {
   // is content-bound (~265-270px) and can outgrow the 1fr range — the
   // caps still hold the tracks to their maximums, so the floor is what
   // guarantees the range + count never cram. The fixed columns are
-  // century 90 + the Gregorian track
-  // (measured first, same nowrap measure pinFacetColumn uses) + age 48 +
-  // count 64 + check 40 (the age and the periods authors track — 56px —
-  // are short numbers, fixed in the CSS grid templates, not pinned); the
-  // 46/54 split follows the tracks' content proportions. The pins are
-  // still clamped to the rows' content (pinFacetColumn), so nothing
-  // stretches beyond the longest name.
+  // century 90 + age 48 + the Gregorian track
+  // (measured first, same nowrap measure pinFacetColumn uses) + count 64
+  // + check 40 (the age and the periods authors track — 56px — are short
+  // numbers, fixed in the CSS grid templates, not pinned); the 46/54
+  // split follows the tracks' content proportions. The pins are still
+  // clamped to the rows' content (pinFacetColumn), so nothing stretches
+  // beyond the longest name.
   var aWrap = document.querySelector("#libAuthorsOverlay .facet-table-wrap");
   var avail = aWrap ? aWrap.clientWidth : 0;
   var ceW = 0;
