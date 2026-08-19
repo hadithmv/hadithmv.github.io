@@ -11,11 +11,14 @@ TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
 it covers the shared facet system on every surface: library-page chips +
 filter/table modals (the desktop columns — the derived age with its
 year-unit shorthand (`86 y.`) placed right after the years, before the
-Gregorian span, the range column content-pinned so the years and the age
-tracks touch (the "age far from the years" look was the 1fr range
-absorbing the modal's leftover width), the books counts reading bold like
-the name column (the mobile labels share the weight; the periods' first
-column is bold the same way), the dash-led died-only years (`– 256 AH`),
+Gregorian span, both modals' range columns content-pinned so the years
+hug what follows — the authors' age touching the years, the periods'
+years hugging the century label (the "far/wide" looks were the 1fr range
+absorbing the modal's leftover width) — the books counts reading bold in
+the name's colour like the name column (only the books count's mobile
+label carries the weight — the age/authors labels stay plain; the
+periods' first column is bold the same way), the ✓ thead headers centered
+over the rows, the dash-led died-only years (`– 256 AH`),
 the periods grid's authors track placed right after the years, the thead
 cells paired to the row cells column by column — class-paired, since the
 rows' DOM order keeps the mobile lines — and the single-band assertion
@@ -382,12 +385,13 @@ blaming the product.
    (rows rendered, result count changed, `th` count), never `sleep` alone.
 5. **Widest-column proxies break when the fixed-track budget changes**:
    a "column X is the widest" check survives only while a 1fr track can
-   outbid the content-clamped tracks (the periods modal's range is the
-   last 1fr left — the authors range is now content-pinned like the
-   Gregorian track, so its old floor/room proxies are gone too). Assert
-   the invariants the pins actually guarantee (a pinned range's content
-   size and the years–age adjacency, the caps) and update the check's
-   comment, rather than re-timing a formula to revive a widest claim.
+   outbid the content-clamped tracks — the last 1fr is gone (both modals'
+   ranges are content-pinned like the Gregorian track, so the periods
+   "widest range" proxy died with it). Assert the invariants the pins
+   actually guarantee (a pinned range's content size and its adjacency to
+   the track beside it — the authors' age, the periods' century label —
+   the caps) and update the check's comment, rather than re-timing a
+   formula to revive a widest claim.
 
 ## Keeping this guide alive
 

@@ -280,7 +280,7 @@ function authorsModalLabels() {
   ths[4].textContent = t("facetColAge");
   ths[5].textContent = t("facetColGregorian");
   ths[6].textContent = t("facetColBooks");
-  ths[7].textContent = "";
+  ths[7].textContent = "✓";
 }
 
 /** The rows — registry order, only authors with visible books. The filter
@@ -407,56 +407,93 @@ function pinFacetGeometry() {
     var ov = wrap.closest(".lib-authors-modal, .lib-periods-modal");
     if (ov) ov.style.setProperty("--facet-gutter", (wrap.offsetWidth - wrap.clientWidth) + "px");
   });
-  // [row-cell class, thead-cell class, custom property, cap] per modal —
-  // the authors grid pins its name, Arabic, century, range and Gregorian
-  // tracks; the range is pinned to its widest range text like the
-  // Gregorian one (measured first, below) — no 1fr anywhere, so the age
-  // sits directly against the years instead of past the leftover space a
-  // stretching column would hold; the row's slack collects at the far end
-  // of the RTL row instead (the periods grid keeps its 1fr range — there
-  // the years ARE the row's main column). The name and Arabic tracks are
-  // capped at 220/240 — scaled down together on narrower desktops — so on
-  // resize the text columns yield first and the fixed tracks never cram
-  // (the count and check are fixed tracks anchored at the row's end). On
-  // wide desktops the same caps step up (up to +110px each, full at
-  // ~1450px of scrollport) so the columns don't look stuck at the
-  // narrow-screen maximum when the modal has room. The fixed columns are
-  // century 90 + age 48 + the Gregorian track
-  // (measured first, same nowrap measure pinFacetColumn uses) + count 64
-  // + check 40 (the age and the periods authors track — 56px — are short
-  // numbers, fixed in the CSS grid templates, not pinned); the 46/54
-  // split follows the tracks' content proportions. The pins are still
-  // clamped to the rows' content (pinFacetColumn), so nothing stretches
-  // beyond the longest name.
+  // Both modals pin every track to its widest content (pinFacetColumn,
+  // measured nowrap — true max-content), so the thead and every row share
+  // one column template; the leftover width goes to the long-text
+  // columns. The authors' name/Arabic pair split it 46/54, capped at
+  // 220/240 — scaled down together on narrower desktops so the text
+  // columns yield first and the fixed tracks never cram; on wide desktops
+  // the same caps step up (up to +110px each, full at ~1450px of
+  // scrollport) so the columns don't look stuck at the narrow-screen
+  // maximum. The periods' century label column takes its leftover the
+  // same way (the modal's only long-text track — same cap and step), so
+  // both modals behave identically on resize. The range tracks are pinned
+  // to their widest range text in BOTH modals (measured first, below) —
+  // no 1fr anywhere: the authors' age sits directly against the years,
+  // and the periods' years sit at their natural width, hugging the
+  // century label ("extremely wide" was the old 1fr range absorbing the
+  // modal's leftover). The fixed tracks: authors century 90 + age 48 +
+  // Gregorian (measured) + count 64 + check 40; periods authors 56 —
+  // short numbers, fixed in the CSS grid templates, not pinned. The
+  // authors pins are still clamped to the rows' content (pinFacetColumn),
+  // so nothing stretches beyond the longest name; the periods' century
+  // label is short text, so its column takes the share directly instead.
   var aWrap = document.querySelector("#libAuthorsOverlay .facet-table-wrap");
-  var avail = aWrap ? aWrap.clientWidth : 0;
-  var ceW = 0;
-  Array.prototype.forEach.call(aWrap.querySelectorAll(".facet-ce, .facet-thead-cell.facet-col-ce"), function (el) {
-    el.style.whiteSpace = "nowrap";
-    ceW = Math.max(ceW, el.scrollWidth);
-    el.style.whiteSpace = "";
-  });
-  var rangeW = 0;
-  Array.prototype.forEach.call(aWrap.querySelectorAll(".facet-range, .facet-thead-cell.facet-col-range"), function (el) {
-    el.style.whiteSpace = "nowrap";
-    rangeW = Math.max(rangeW, el.scrollWidth);
-    el.style.whiteSpace = "";
-  });
-  var ovEl = document.getElementById("libAuthorsOverlay");
-  if (ovEl && rangeW > 0) ovEl.style.setProperty("--facet-range-w", rangeW + "px");
-  var namesShare = avail - 90 - ceW - 48 - 64 - 40 - rangeW;
-  var grow = Math.max(0, Math.min(1, (avail - 879) / 571));
-  var step = Math.round(grow * 110);
-  pinFacetColumn("libAuthorsOverlay", [
-    ["facet-name", "facet-col-name", "facet-name-w", (namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0) + step],
-    ["facet-name-ar", "facet-col-ar", "facet-ar-w", (namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0) + step],
-    ["facet-century", "facet-col-century", "facet-century-w"],
-    ["facet-ce", "facet-col-ce", "facet-ce-w"]
-  ]);
-  pinFacetColumn("libPeriodsOverlay", [
-    ["facet-name", "facet-col-period", "facet-period-w"],
-    ["facet-ce", "facet-col-ce", "facet-ce-w"]
-  ]);
+  var pWrap = document.querySelector("#libPeriodsOverlay .facet-table-wrap");
+  var grow = 0;
+  var step = 0;
+  if (aWrap) {
+    var avail = aWrap.clientWidth;
+    grow = Math.max(0, Math.min(1, (avail - 879) / 571));
+    step = Math.round(grow * 110);
+    var ceW = 0;
+    Array.prototype.forEach.call(aWrap.querySelectorAll(".facet-ce, .facet-thead-cell.facet-col-ce"), function (el) {
+      el.style.whiteSpace = "nowrap";
+      ceW = Math.max(ceW, el.scrollWidth);
+      el.style.whiteSpace = "";
+    });
+    var rangeW = 0;
+    Array.prototype.forEach.call(aWrap.querySelectorAll(".facet-range, .facet-thead-cell.facet-col-range"), function (el) {
+      el.style.whiteSpace = "nowrap";
+      rangeW = Math.max(rangeW, el.scrollWidth);
+      el.style.whiteSpace = "";
+    });
+    var ovEl = document.getElementById("libAuthorsOverlay");
+    if (ovEl && rangeW > 0) ovEl.style.setProperty("--facet-range-w", rangeW + "px");
+    var namesShare = avail - 90 - ceW - 48 - 64 - 40 - rangeW;
+    pinFacetColumn("libAuthorsOverlay", [
+      ["facet-name", "facet-col-name", "facet-name-w", (namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0) + step],
+      ["facet-name-ar", "facet-col-ar", "facet-ar-w", (namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0) + step],
+      ["facet-century", "facet-col-century", "facet-century-w"],
+      ["facet-ce", "facet-col-ce", "facet-ce-w"]
+    ]);
+  } else if (pWrap) {
+    grow = Math.max(0, Math.min(1, (pWrap.clientWidth - 879) / 571));
+    step = Math.round(grow * 110);
+  }
+  if (pWrap) {
+    var pCeW = 0;
+    Array.prototype.forEach.call(pWrap.querySelectorAll(".facet-ce, .facet-thead-cell.facet-col-ce"), function (el) {
+      el.style.whiteSpace = "nowrap";
+      pCeW = Math.max(pCeW, el.scrollWidth);
+      el.style.whiteSpace = "";
+    });
+    var pRangeW = 0;
+    Array.prototype.forEach.call(pWrap.querySelectorAll(".facet-range, .facet-thead-cell.facet-col-range"), function (el) {
+      el.style.whiteSpace = "nowrap";
+      pRangeW = Math.max(pRangeW, el.scrollWidth);
+      el.style.whiteSpace = "";
+    });
+    var pOv = document.getElementById("libPeriodsOverlay");
+    if (pOv && pRangeW > 0) pOv.style.setProperty("--facet-range-w", pRangeW + "px");
+    if (pOv) {
+      // The century label is short text ("Century 15" ~90px), so the
+      // measured-content clamp pinFacetColumn applies would never let the
+      // column take the leftover — the share is set directly, floored at
+      // the content (narrow windows) and capped like the authors' name.
+      var pContent = 0;
+      Array.prototype.forEach.call(pOv.querySelectorAll(".facet-name, .facet-thead-cell.facet-col-period"), function (el) {
+        el.style.whiteSpace = "nowrap";
+        pContent = Math.max(pContent, el.scrollWidth);
+        el.style.whiteSpace = "";
+      });
+      var pShare = pWrap.clientWidth - pRangeW - pCeW - 56 - 64 - 40;
+      pOv.style.setProperty("--facet-period-w", (pShare > 0 ? Math.max(pContent, Math.min(220, Math.round(pShare)) + step) : pContent) + "px");
+    }
+    pinFacetColumn("libPeriodsOverlay", [
+      ["facet-ce", "facet-col-ce", "facet-ce-w"]
+    ]);
+  }
 }
 
 function pinFacetColumn(overlayId, pairs) {
@@ -556,7 +593,7 @@ function periodsModalLabels() {
   ths[2].textContent = t("facetColAuthors");
   ths[3].textContent = t("facetColGregorian");
   ths[4].textContent = t("facetColBooks");
-  ths[5].textContent = "";
+  ths[5].textContent = "✓";
 }
 
 /** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}

@@ -1119,14 +1119,19 @@ body:has(.modal-overlay.open) {
     var(--facet-age-w, 48px) var(--facet-ce-w, 150px) 64px 40px;
 }
 .facet-grid-periods {
-  /* The century label is a short column, pinned to its widest label
-     (--facet-period-w); the authors track sits right after the wide AH
-     range (the reader reads the period's authors count next to its
-     years); the Gregorian span is pinned to its longest text
-     (--facet-ce-w); the book count is a fixed track (short numbers). */
+  /* Every track is pinned like the authors' (facet-browse.js
+     pinFacetGeometry): the century label column takes the leftover width
+     (the modal's only long-text track — same cap and step-up as the
+     authors' name, so the two modals behave identically on resize); the
+     AH range is pinned to its widest range text like the authors' — no
+     1fr anywhere, so the years sit at their natural width ("extremely
+     wide" was the stretching column absorbing the modal's leftover) and
+     hug the century label the way the age hugs the years; the authors
+     track and the Gregorian span pin their longest content; the book
+     count is a fixed track (short numbers). */
   grid-template-columns:
-    var(--facet-period-w, 110px) 1fr var(--facet-authors-w, 56px)
-    var(--facet-ce-w, 150px) 64px 40px;
+    var(--facet-period-w, 110px) var(--facet-range-w, 140px)
+    var(--facet-authors-w, 56px) var(--facet-ce-w, 150px) 64px 40px;
 }
 /* The rows keep their mobile-friendly DOM order (authors line 1: name ·
    Arabic, line 2: century · years · CE · age, line 3: books ✓; periods
@@ -1180,6 +1185,11 @@ body:has(.modal-overlay.open) {
   font-size: var(--panel-font-size, 0.85rem);
   color: var(--color-text);
   white-space: nowrap;
+}
+/* The check column's ✓ header centers over the rows' centered ✓s — the
+   bare right-align (the RTL body) would sit the glyph ~13px off. */
+.facet-thead-cell.facet-col-check {
+  text-align: center;
 }
 .author-browse-row,
 .period-browse-row {
@@ -1243,12 +1253,17 @@ body:has(.modal-overlay.open) {
 .facet-count,
 .facet-authors {
   text-align: right;
-  color: var(--color-text-muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-/* The books count reads as a headline figure like the name column — same
-   weight, still the muted tone (it is a derived count, not a name). */
+/* The periods authors count is the secondary figure — muted, normal
+   weight. The books count matches the name column instead: same weight,
+   and the same color by inheritance (the row's text colour, accent-blue
+   in the selected state included), so the count reads exactly like the
+   name it sits beside. */
+.facet-authors {
+  color: var(--color-text-muted);
+}
 .facet-count {
   font-weight: 600;
 }
@@ -1257,13 +1272,14 @@ body:has(.modal-overlay.open) {
 .period-browse-row .facet-name {
   font-weight: 600;
 }
-/* The "ފޮތް:" label on the count sits under its own "Books" thead column
-   on desktop — hidden here, shown inline on mobile (where the thead folds
-   away and the count stands alone). The label shares the count's weight
-   when inline, so the whole "ފޮތް: N" reads bold on mobile. */
+/* The mobile label span ("ފޮތް:" / "Age:" / "Authors:") — hidden on
+   desktop, where each cell sits under its own thead column; shown inline
+   on mobile (the thead folds away and the bare figures would float
+   alone). The span carries no weight of its own — it inherits the cell's:
+   the books count's label inherits the count's 600 and its colour, while
+   the age and authors labels inherit their cells' normal weight. */
 .facet-count-label {
   display: none;
-  font-weight: 600;
 }
 .facet-check {
   text-align: center;
