@@ -1070,7 +1070,7 @@ Current size: 62 books, 226k rows, ~485k unique words — 39.7MB raw, 12.7MB gzi
 
 The page (module `js/library-search-page.js`, styles `css/library-search.css`) reads `?q=` and `?tags=` from the URL (shareable links — typing, chip toggles, and clear keep the address bar in sync via `replaceState`). Tag chips scope the search (OR — a book is searched if it carries any selected tag); `-HDN` books are excluded from scopes; a scope that matches no books renders "No results" rather than falling through to an unscoped search (the engine treats `[]` as "every book").
 
-**Authors & Periods facets.** The page's ✍️ Authors / 🗓️ Periods buttons open the browse modals, but the state, chips and modals themselves live in one shared module — `js/facet-browse.js` — used by the library page, the dashboard's functions panel (same buttons + chips, filtering the card grid) and the search window's All-books tab (facet scope intersects the index search). `?authors=` (comma list, OR) and `?period=` (century number or `modern`) deep-link on both the library page and the dashboard. Selection semantics: author = any of the book's `authorCode` tokens; period = the death-century bucket of any of its authors (`Math.ceil(diedAH/100)`, or `modern` when blank). The modals are one design everywhere: a filter input (matches any of the three names or the code) above a table whose header stays sticky while only the rows scroll; author rows show the current-language name, the other two names (Arabic always included), the Hijri years and, right after them, the derived age (diedAH − bornAH; a `~` estimate on either end carries over, blank when a date is missing, the language's year-unit shorthand appended — އ. / y. / س.; muted like the CE) and the Gregorian (miladi) equivalent (derived at render with the same AH→CE approximation as the periods grid; a `~` estimate carries over; the CE side reads in the muted tone while the Hijri dates stay plain; a died-only author leads the years with the same bare dash the born–died range uses between its years — `– 179 ހ.`), in the 08 registry's row order; period rows are the distinct buckets, chronological — the years, the distinct-author count (an author enters a bucket only via a book, so zero-book authors never inflate it) right after them, then the Gregorian span — each row carrying the count of distinct authors with a book in the bucket. On narrow screens (≤600px) the header strip folds away entirely and each row re-flows into compact joined lines — name · Arabic name / century · years · CE · age / "ފޮތް: N" ✓ (periods: label · years · CE / authors · "ފޮތް: N" ✓, the authors count leading its line unjoined) — the count labels (ފޮތް, Authors, Age) hidden on desktop under their own header columns.
+**Authors & Periods facets.** The page's ✍️ Authors / 🗓️ Periods buttons open the browse modals, but the state, chips and modals themselves live in one shared module — `js/facet-browse.js` — used by the library page, the dashboard's functions panel (same buttons + chips, filtering the card grid) and the search window's All-books tab (facet scope intersects the index search). `?authors=` (comma list, OR) and `?period=` (century number or `modern`) deep-link on both the library page and the dashboard. Selection semantics: author = any of the book's `authorCode` tokens; period = the death-century bucket of any of its authors (`Math.ceil(diedAH/100)`, or `modern` when blank). The modals are one design everywhere: a filter input (matches any of the three names or the code) above a table whose header stays sticky while only the rows scroll; author rows show the current-language name, the other two names (Arabic always included), the Hijri years and, right after them, the derived age (diedAH − bornAH; a `~` estimate on either end carries over, blank when a date is missing, the language's year-unit shorthand appended — އ. / y. / س.; muted like the CE) and the Gregorian (miladi) equivalent (derived at render with the same AH→CE approximation as the periods grid; a `~` estimate carries over; the CE side reads in the muted tone while the Hijri dates stay plain; a died-only author leads the years with the same bare dash the born–died range uses between its years — `– 179 ހ.`), in the 08 registry's row order; period rows are the distinct buckets, chronological — the years, the distinct-author count (an author enters a bucket only via a book, so zero-book authors never inflate it) right after them, then the Gregorian span — each row carrying the count of distinct authors with a book in the bucket. On narrow screens (≤600px) the header strip folds away entirely and each row re-flows into compact joined lines — name · Arabic name / century · years · CE · age · "ފޮތް: N" ✓, the count and its tick joining the end of the dates line (periods: label · years · CE / authors · "ފޮތް: N" ✓, the authors count leading its line unjoined) — the count labels (ފޮތް, Authors, Age) hidden on desktop under their own header columns. The books count reads bold (600) like the name column in both modals — the mobile count labels share the weight, and the periods' century label (its first column) is bold like the authors' name.
 
 The grids (thead strip + rows share the tracks; the variable ones pinned by
 `pinFacetGeometry` to the widest cell — `--facet-*-w`, caps in parentheses):
@@ -1080,11 +1080,11 @@ The grids (thead strip + rows share the tracks; the variable ones pinned by
 | `name` | current-language name (tooltip lists all three) | century label (`centuryN`) | `--facet-name-w` (220) / `--facet-period-w` |
 | `name-ar` | Arabic name — empty in the Arabic UI | — | `--facet-ar-w` (240) |
 | `century` | death century, unbracketed | — | 90px |
-| `range` | `(born–died ހ.)` | `(span ހ.)` | the wide `1fr` |
+| `range` | `(born–died ހ.)` | `(span ހ.)` | `--facet-range-w`, measured nowrap like the Gregorian track — no `1fr`, so the age sits directly against the years (periods: the wide `1fr` — there the years are the row's main column) |
 | `age` | diedAH − bornAH — blank when either is missing, a `~` carries over; muted like the CE, the year-unit shorthand appended (`86 އ.` / `86 y.` / `86 س.`) — sits right after the years, before the Gregorian span | — | 48px (fixed) |
 | `authors` | — | distinct authors with a searchable book in the bucket — sits right after the years, before the Gregorian span | 56px (fixed) |
 | `ce` | `(born–died CE)`, muted | `(span CE)`, muted | `--facet-ce-w`, measured first |
-| `count` | `ފޮތް: N` — the label goes inline on mobile | same | 64px |
+| `count` | `ފޮތް: N` — bold (600) like the name column; the label goes inline on mobile and shares the weight | same | 64px |
 | `check` | ✓ when selected | same | 40px |
 
 One row, both viewports (the real Malik bin Anas row — 02 registry values,
@@ -1116,12 +1116,11 @@ Mobile (≤600px) — the strip folds away, the rows re-flow into flowing
 lines (the wrappers are display:contents on desktop, so the grids above
 are untouched there); the joins are a bare · with margins (a " · " string
 would lose its leading space to inline white-space collapsing at the start
-of the cell's line), the ✓ gets the spacing without a dot. Authors: three
-lines, the age carrying its ޢުމުރު label; periods: two, the authors count
-leading its line unjoined:
+of the cell's line), the ✓ gets the spacing without a dot. Both modals:
+two lines — the authors' count (carrying its ފޮތް label) and ✓ join the
+end of the dates line; the periods' authors count leads its line unjoined:
     މާލިކު ބިން އަނަސް · مالِكُ بْنُ أَنَسِ المَدَنِيُّ
-    Century 2 · (93–179 ހ.) · (712–795 CE) · ޢުމުރު: 86 އ.
-    ފޮތް: 1 ✓
+    Century 2 · (93–179 ހ.) · (712–795 CE) · ޢުމުރު: 86 އ. · ފޮތް: 1 ✓
     Century 2 · (93–179 ހ.) · (712–795 CE)
     މުއައްލިފުން: 1 · ފޮތް: 1 ✓
 ```

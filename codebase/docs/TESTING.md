@@ -11,14 +11,19 @@ TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
 it covers the shared facet system on every surface: library-page chips +
 filter/table modals (the desktop columns — the derived age with its
 year-unit shorthand (`86 y.`) placed right after the years, before the
-Gregorian span, the dash-led died-only years (`– 256 AH`), the periods
-grid's authors track placed right after the years, the thead cells paired
-to the row cells column by column — class-paired, since the rows' DOM
-order keeps the mobile lines — and the single-band assertion that the row
-cells all sit on one grid row (a column-only pin would let the sparse
-auto-placer walk its cursor back on the DOM/visual swap and drop the
-swapped cells into a second band) — and the ≤600px joined-line rows:
-dotted joins, muted CE and age, inline count labels, spaced ✓), dashboard
+Gregorian span, the range column content-pinned so the years and the age
+tracks touch (the "age far from the years" look was the 1fr range
+absorbing the modal's leftover width), the books counts reading bold like
+the name column (the mobile labels share the weight; the periods' first
+column is bold the same way), the dash-led died-only years (`– 256 AH`),
+the periods grid's authors track placed right after the years, the thead
+cells paired to the row cells column by column — class-paired, since the
+rows' DOM order keeps the mobile lines — and the single-band assertion
+that the row cells all sit on one grid row (a column-only pin would let
+the sparse auto-placer walk its cursor back on the DOM/visual swap and
+drop the swapped cells into a second band) — and the ≤600px joined-line
+rows: the count (with its inline label) joining the end of the dates
+line, dotted joins, muted CE and age, spaced ✓), dashboard
 buttons + `?authors=` deep links + the no-English-title cards, the reader
 header's dot-separated author link, and the search window's All-books
 facet section (modals stack over the window).
@@ -376,13 +381,13 @@ blaming the product.
 4. **Wait for state, then assert**: `waitFor` on the thing being measured
    (rows rendered, result count changed, `th` count), never `sleep` alone.
 5. **Widest-column proxies break when the fixed-track budget changes**:
-   a "column X is the widest" check survives only while the 1fr track can
-   outbid the content-clamped tracks. Adding a fixed track (e.g. the
-   authors modal's 48px age column) shrinks the 1fr range until the
-   longest Thaana name outgrows it — the proxy dies even though the layout
-   is fine. Assert the invariants the pins actually guarantee (the range's
-   floor, the caps, room over the count) and update the check's comment,
-   rather than re-timing the formula to revive a widest claim.
+   a "column X is the widest" check survives only while a 1fr track can
+   outbid the content-clamped tracks (the periods modal's range is the
+   last 1fr left — the authors range is now content-pinned like the
+   Gregorian track, so its old floor/room proxies are gone too). Assert
+   the invariants the pins actually guarantee (a pinned range's content
+   size and the years–age adjacency, the caps) and update the check's
+   comment, rather than re-timing a formula to revive a widest claim.
 
 ## Keeping this guide alive
 

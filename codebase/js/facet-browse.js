@@ -325,9 +325,11 @@ function renderAuthorRows() {
     // display: contents (the cells stay the grid's direct items, so the
     // thead/rows column contract is unchanged); on mobile they become the
     // flowing text lines of the compact layout (name · Arabic name /
-    // century · years · CE · age / count · check). The age — derived from
-    // the dates, like the CE span, so it takes the muted tone and joins
-    // the dates line.
+    // century · years · CE · age · count · check — the count and check
+    // join the end of the dates line; their grid columns are class-placed,
+    // so the DOM move never shifts the desktop columns). The age — derived
+    // from the dates, like the CE span, so it takes the muted tone and
+    // joins the dates line.
     return (
       '<div class="author-browse-row facet-grid-authors' +
       (sel ? " selected" : "") +
@@ -355,8 +357,7 @@ function renderAuthorRows() {
       "</div>" +
       '<div class="facet-age">' +
       (age ? facetAgeLabel() + escapeHTML(age) : "") +
-      "</div></div>" +
-      '<div class="facet-line-3">' +
+      "</div>" +
       '<div class="facet-count">' +
       facetCountLabel() +
       counts[code] +
@@ -407,24 +408,19 @@ function pinFacetGeometry() {
     if (ov) ov.style.setProperty("--facet-gutter", (wrap.offsetWidth - wrap.clientWidth) + "px");
   });
   // [row-cell class, thead-cell class, custom property, cap] per modal —
-  // the authors grid pins its name, Arabic, century and Gregorian tracks
-  // (the Gregorian one pinned like the periods grid's); the range is the
-  // wide 1fr column — the age right after it, then the Gregorian, the
-  // same "derived values next to the years" reading order as the periods
-  // grid, which puts its authors track right after its years (the periods
-  // grid pins its label column — the century label is short, so the
-  // range is 1fr there too). The name and Arabic tracks are capped at
-  // 220/240 — scaled down together on narrower desktops past a 180px
-  // floor for the range — so on resize the text columns yield first and
-  // the range + count never cram (the count and check are fixed tracks
-  // anchored at the row's end, so a bare 1fr range would collapse into
-  // them). On wide desktops the same caps step up (up to +110px each,
-  // full at ~1450px of scrollport) so the columns don't look stuck at the
-  // narrow-screen maximum when the modal has room. The range keeps its
-  // 180px floor at every width; on wide desktops the longest Thaana name
-  // is content-bound (~265-270px) and can outgrow the 1fr range — the
-  // caps still hold the tracks to their maximums, so the floor is what
-  // guarantees the range + count never cram. The fixed columns are
+  // the authors grid pins its name, Arabic, century, range and Gregorian
+  // tracks; the range is pinned to its widest range text like the
+  // Gregorian one (measured first, below) — no 1fr anywhere, so the age
+  // sits directly against the years instead of past the leftover space a
+  // stretching column would hold; the row's slack collects at the far end
+  // of the RTL row instead (the periods grid keeps its 1fr range — there
+  // the years ARE the row's main column). The name and Arabic tracks are
+  // capped at 220/240 — scaled down together on narrower desktops — so on
+  // resize the text columns yield first and the fixed tracks never cram
+  // (the count and check are fixed tracks anchored at the row's end). On
+  // wide desktops the same caps step up (up to +110px each, full at
+  // ~1450px of scrollport) so the columns don't look stuck at the
+  // narrow-screen maximum when the modal has room. The fixed columns are
   // century 90 + age 48 + the Gregorian track
   // (measured first, same nowrap measure pinFacetColumn uses) + count 64
   // + check 40 (the age and the periods authors track — 56px — are short
@@ -440,7 +436,15 @@ function pinFacetGeometry() {
     ceW = Math.max(ceW, el.scrollWidth);
     el.style.whiteSpace = "";
   });
-  var namesShare = avail - 90 - ceW - 48 - 64 - 40 - 180;
+  var rangeW = 0;
+  Array.prototype.forEach.call(aWrap.querySelectorAll(".facet-range, .facet-thead-cell.facet-col-range"), function (el) {
+    el.style.whiteSpace = "nowrap";
+    rangeW = Math.max(rangeW, el.scrollWidth);
+    el.style.whiteSpace = "";
+  });
+  var ovEl = document.getElementById("libAuthorsOverlay");
+  if (ovEl && rangeW > 0) ovEl.style.setProperty("--facet-range-w", rangeW + "px");
+  var namesShare = avail - 90 - ceW - 48 - 64 - 40 - rangeW;
   var grow = Math.max(0, Math.min(1, (avail - 879) / 571));
   var step = Math.round(grow * 110);
   pinFacetColumn("libAuthorsOverlay", [

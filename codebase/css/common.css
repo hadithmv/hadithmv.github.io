@@ -1102,22 +1102,21 @@ body:has(.modal-overlay.open) {
   display: grid;
 }
 .facet-grid-authors {
-  /* The name, Arabic, century and Gregorian tracks are pinned by
-     facet-browse.js (pinFacetColumn): the tracks would otherwise size
-     per-grid (the thead's short labels vs the rows' longer text, and each
-     row against its neighbours), drifting the header columns and making
-     the column spacing uneven. The name and Arabic pins cap at 220/240 —
-     facet-browse.js scales the caps down together on narrower desktops, so
-     the text columns yield before the range + count cram. The range is
-     the wide 1fr column — the age (short number) sits right after it,
-     before the Gregorian span, the same "derived text right after the
-     years" reading order as the periods grid's authors track. The age and
-     the two count columns are fixed tracks (short numbers — no pinning
-     needed). */
+  /* Every track is pinned by facet-browse.js (pinFacetColumn): the tracks
+     would otherwise size per-grid (the thead's short labels vs the rows'
+     longer text, and each row against its neighbours), drifting the header
+     columns and making the column spacing uneven. The name and Arabic pins
+     cap at 220/240 — facet-browse.js scales the caps down together on
+     narrower desktops, so the text columns yield first. The range pin is
+     measured like the Gregorian one — no 1fr anywhere, so the age (a short
+     number) sits directly against the years instead of past the leftover
+     space a stretching column would hold; the row's slack collects at the
+     far end of the RTL row instead. The age and the two count columns are
+     fixed tracks (short numbers — no pinning needed). */
   grid-template-columns:
     var(--facet-name-w, 220px) var(--facet-ar-w, 240px)
-    var(--facet-century-w, 90px) 1fr var(--facet-age-w, 48px)
-    var(--facet-ce-w, 150px) 64px 40px;
+    var(--facet-century-w, 90px) var(--facet-range-w, 140px)
+    var(--facet-age-w, 48px) var(--facet-ce-w, 150px) 64px 40px;
 }
 .facet-grid-periods {
   /* The century label is a short column, pinned to its widest label
@@ -1202,13 +1201,11 @@ body:has(.modal-overlay.open) {
    keeps the cells as the grid's direct items, so the thead/rows column
    contract is unchanged); the cells keep the 8px 12px row padding. */
 .facet-line-1,
-.facet-line-2,
-.facet-line-3 {
+.facet-line-2 {
   display: contents;
 }
 .facet-line-1 > div,
-.facet-line-2 > div,
-.facet-line-3 > div {
+.facet-line-2 > div {
   padding: 8px 12px;
   min-width: 0;
 }
@@ -1250,11 +1247,23 @@ body:has(.modal-overlay.open) {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+/* The books count reads as a headline figure like the name column — same
+   weight, still the muted tone (it is a derived count, not a name). */
+.facet-count {
+  font-weight: 600;
+}
+/* The periods' first column (the century label) mirrors the authors' name
+   column weight; the authors' name is already 600 via .author-browse-name. */
+.period-browse-row .facet-name {
+  font-weight: 600;
+}
 /* The "ފޮތް:" label on the count sits under its own "Books" thead column
    on desktop — hidden here, shown inline on mobile (where the thead folds
-   away and the count stands alone). */
+   away and the count stands alone). The label shares the count's weight
+   when inline, so the whole "ފޮތް: N" reads bold on mobile. */
 .facet-count-label {
   display: none;
+  font-weight: 600;
 }
 .facet-check {
   text-align: center;
@@ -1268,18 +1277,20 @@ body:has(.modal-overlay.open) {
 /* Narrow viewports: the thead strip folds away entirely — once the columns
    collapse, its labels (some never labelled, like the count and check
    headers) float above nothing. The rows stop being grids and re-flow as
-   plain flowing text lines — the line wrappers from facet-browse.js: the
-   name joins the Arabic name on line 1, the century/range/CE/age text on
-   line 2, the count (with its "ފޮތް:" label, hidden on desktop where it has
-   its own thead column) and check on line 3; the periods rows drop to two
-   lines, their count line led by the authors count (labelled like the
-   book count — the "·" before the book count separates the two numbers).
-   The pieces sit on one baseline and wrap as text — no column blocks, no
-   per-letter stacking. The "·" joins are mobile-only ::before rules so
-   the desktop cells stay clean, and the :empty guards drop a join whose
-   piece is missing (Arabic UI leaves the Arabic name out; undated authors
-   have no century/range/CE/age to join; unpinned rows have nothing to
-   check). */
+   plain flowing text lines — the line wrappers from facet-browse.js: both
+   modals' rows drop to two lines — the authors: name joins the Arabic
+   name on line 1, the century/range/CE/age text on line 2 with the count
+   (its "ފޮތް:" label hidden on desktop where it has its own thead column)
+   and check right at the line's end; the periods: name/range/CE, then the
+   authors count (labelled like the book count — the "·" before the book
+   count separates the two numbers) · count · check. The pieces wrap as
+   text — no column blocks, no per-letter stacking. Line 1 baselines;
+   the count lines stretch instead — the ✓ glyph comes from a symbol
+   fallback with odd font metrics, so baseline alignment would hang it a
+   line lower. The "·" joins are mobile-only ::before rules so the desktop
+   cells stay clean, and the :empty guards drop a join whose piece is
+   missing (Arabic UI leaves the Arabic name out; undated authors have no
+   century/range/CE/age to join; unpinned rows have nothing to check). */
 @media (max-width: 600px) {
   .facet-thead-row {
     display: none;
@@ -1290,7 +1301,6 @@ body:has(.modal-overlay.open) {
   }
   .author-browse-row > .facet-line-1,
   .author-browse-row > .facet-line-2,
-  .author-browse-row > .facet-line-3,
   .period-browse-row > .facet-line-1,
   .period-browse-row > .facet-line-2 {
     display: flex;
@@ -1301,16 +1311,14 @@ body:has(.modal-overlay.open) {
     line-height: 1.8;
     padding: 0 12px;
   }
-  /* The text lines sit their pieces on one baseline; the count/check line
-     stretches instead — the ✓ glyph comes from a symbol fallback with odd
-     font metrics, so baseline alignment would hang it a line lower. */
+  /* Line 1 sits its pieces on one baseline; the count lines stretch — the
+     ✓ glyph comes from a symbol fallback with odd font metrics, so
+     baseline alignment would hang it a line lower. */
   .author-browse-row > .facet-line-1,
-  .author-browse-row > .facet-line-2,
   .period-browse-row > .facet-line-1 {
     align-items: baseline;
   }
   .author-browse-row > .facet-line-1,
-  .author-browse-row > .facet-line-2,
   .period-browse-row > .facet-line-1 {
     margin-bottom: 3px;
   }
@@ -1318,13 +1326,12 @@ body:has(.modal-overlay.open) {
   .period-browse-row > .facet-line-1 {
     padding-top: 9px;
   }
-  .author-browse-row > .facet-line-3,
+  .author-browse-row > .facet-line-2,
   .period-browse-row > .facet-line-2 {
     padding-bottom: 9px;
   }
   .author-browse-row .facet-line-1 > div,
   .author-browse-row .facet-line-2 > div,
-  .author-browse-row .facet-line-3 > div,
   .period-browse-row .facet-line-1 > div,
   .period-browse-row .facet-line-2 > div {
     padding: 0;
@@ -1338,6 +1345,7 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-range::before,
   .author-browse-row .facet-ce::before,
   .author-browse-row .facet-age::before,
+  .author-browse-row .facet-count::before,
   .period-browse-row .facet-range::before,
   .period-browse-row .facet-ce::before,
   .period-browse-row .facet-count::before {
@@ -1360,6 +1368,7 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-range:empty::before,
   .author-browse-row .facet-ce:empty::before,
   .author-browse-row .facet-age:empty::before,
+  .author-browse-row .facet-count:empty::before,
   .author-browse-row .facet-check:empty::before,
   .period-browse-row .facet-range:empty::before,
   .period-browse-row .facet-ce:empty::before,
