@@ -354,6 +354,57 @@ const STRINGS = {
   century14: { dv: "ގަރުނު 14", en: "Century 14", ar: "القرن 14" },
   century15: { dv: "ގަރުނު 15", en: "Century 15", ar: "القرن 15" },
   centuryModern: { dv: "ފަހުގެ", en: "Modern", ar: "معاصر" },
+  // ── Book & author info modal ──
+  infoModalTitle: {
+    dv: "އިތުރު މައުލޫމާތު",
+    en: "Additional Info",
+    ar: "معلومات إضافية",
+  },
+  infoTabBook: { dv: "މި ފޮތް", en: "This Book", ar: "هذا الكتاب" },
+  infoTabAuthor: { dv: "މުއައްލިފު", en: "Author", ar: "المؤلف" },
+  infoTabBooks: { dv: "ފޮތްތައް", en: "Books", ar: "الكتب" },
+  infoOpenBook: {
+    dv: "ފޮތުގެ މަޢުލޫމާތު",
+    en: "Book info",
+    ar: "معلومات الكتاب",
+  },
+  infoOpenAuthor: {
+    dv: "މުއައްލިފުގެ މަޢުލޫމާތު",
+    en: "Author info",
+    ar: "معلومات المؤلف",
+  },
+  infoBookNotesLabel: {
+    dv: "ފޮތުގެ ނޯޓް",
+    en: "Book notes",
+    ar: "ملاحظات الكتاب",
+  },
+  infoAuthorBioLabel: { dv: "ތަޢާރަފު", en: "Bio", ar: "السيرة" },
+  infoNoNotes: {
+    dv: "ނޯޓެއް ލިޔެފައި ނެތް",
+    en: "No notes yet",
+    ar: "لا توجد ملاحظات بعد",
+  },
+  infoBooksByAuthor: {
+    dv: "{name} ގެ ފޮތްތައް",
+    en: "Books by {name}",
+    ar: "كتب {name}",
+  },
+  infoShowAllBooks: {
+    dv: "{name} ގެ ހުރިހާ ފޮތްތަކެއް ދައްކާ",
+    en: "Show all books by {name}",
+    ar: "عرض جميع كتب {name}",
+  },
+  infoSearchPlaceholder: {
+    dv: "ސާޗުކުރޭ...",
+    en: "Search…",
+    ar: "…ابحث",
+  },
+  infoToc: { dv: "ފިހުރިސްތު", en: "Contents", ar: "المحتويات" },
+  infoNoMatch: {
+    dv: "އެއްވެސް ނަތީޖާއެއް ނެތް",
+    en: "No matches",
+    ar: "لا توجد نتائج",
+  },
   libScopeFilter: {
     dv: "ފޮތް ފިލްޓަރުކުރޭ…",
     en: "Filter books…",

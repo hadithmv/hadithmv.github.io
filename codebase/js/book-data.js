@@ -228,6 +228,101 @@ export function authorYearsText(def) {
   return "";
 }
 
+// Author/period derivation — moved here from facet-browse.js so the browse
+// modals and the book/author info modal share one derivation path (century
+// bucket, period labels, AH/CE ranges, age). All derived at render, never
+// stored; the AH→CE conversion is the standard approximation (1 Hijri year
+// ≈ 0.970229 solar years, offset 621.57; rounded).
+
+/** Author codes of a registry row ("" when the book has no author). */
+export function authorCodesOf(b) {
+  return ((b && b.authorCode) || "")
+    .split(",")
+    .map(function (s) { return s.trim(); })
+    .filter(Boolean);
+}
+
+/** Period bucket of an author — death century as a string ("3"), "modern" when
+ *  no death year is recorded. Buckets come from the 08 registry, not the data. */
+export function authorPeriodOf(code) {
+  var d = authorDefs()[code];
+  if (!d || !d.diedAH) return "modern";
+  return String(Math.ceil(parseInt(d.diedAH, 10) / 100));
+}
+
+/** English period title — tooltips are English house style. */
+export function periodLabelEn(p) {
+  if (p === "modern") return "Authors without a recorded death year";
+  var n = parseInt(p, 10);
+  var s = n % 100 >= 11 && n % 100 <= 13 ? "th"
+    : n % 10 === 1 ? "st"
+    : n % 10 === 2 ? "nd"
+    : n % 10 === 3 ? "rd"
+    : "th";
+  return "Died in the " + n + s + " century AH";
+}
+
+/** Period display label in the current language ("Century 3" / modern). */
+export function periodLabel(p) {
+  return p === "modern" ? t("centuryModern") : t("century" + p);
+}
+
+/** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
+ *  range, filled with the bucket's AH span; "" for "modern" (no range). */
+export function periodRangeText(p) {
+  if (p === "modern") return "";
+  var n = parseInt(p, 10);
+  if (!n || n < 1) return "";
+  return t("authorLife")
+    .replace("{b}", String((n - 1) * 100 + 1))
+    .replace("{d}", String(n * 100));
+}
+
+/** The same span in the Gregorian calendar — "817–913 CE" for bucket 3 —
+ *  the authorLifeCe template filled with the bucket's endpoints converted
+ *  AH → CE (the standard 1 Hijri year ≈ 0.970229 solar years approximation,
+ *  offset 621.57; rounded); "" for "modern". Derived at render, never
+ *  stored. */
+export function periodRangeCeText(p) {
+  if (p === "modern") return "";
+  var n = parseInt(p, 10);
+  if (!n || n < 1) return "";
+  var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
+  return t("authorLifeCe")
+    .replace("{b}", String(ce((n - 1) * 100 + 1)))
+    .replace("{d}", String(ce(n * 100)));
+}
+
+/** The author's lifetime in the Gregorian calendar, mirroring
+ *  authorYearsText's missing-date handling (born+died → the authorLifeCe
+ *  range; died only → the authorDiedCe single year; neither → ""). A "~"
+ *  estimate in the data carries over to its CE side — the approximation
+ *  cannot make an estimate precise. The same formula as periodRangeCeText. */
+export function authorYearsCeText(d) {
+  if (!d) return "";
+  var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
+  var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
+  if (d.bornAH && d.diedAH) {
+    return t("authorLifeCe")
+      .replace("{b}", (String(d.bornAH).indexOf("~") === 0 ? "~" : "") + String(ce(num(d.bornAH))))
+      .replace("{d}", String(ce(num(d.diedAH))));
+  }
+  if (d.diedAH) return t("authorDiedCe").replace("{y}", String(ce(num(d.diedAH))));
+  return "";
+}
+
+/** The author's age — diedAH − bornAH, both required; a "~" estimate on
+ *  either end carries over (the data cannot make an estimate precise); the
+ *  language's year-unit shorthand follows ("86 އ." / "86 y." / "86 س.");
+ *  "" when either date is missing. */
+export function authorAgeText(d) {
+  if (!d || !d.bornAH || !d.diedAH) return "";
+  var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
+  var age = num(d.diedAH) - num(d.bornAH);
+  if (!(age > 0)) return "";
+  return (String(d.bornAH).indexOf("~") === 0 || String(d.diedAH).indexOf("~") === 0 ? "~" : "") + String(age) + " " + t("facetAgeUnit");
+}
+
 /**
  * Author names for portable metadata (EPUB dc:creator): English names only,
  * no years, comma-joined — a bookshelf listing reads better without them.

@@ -25,7 +25,10 @@
 //  - scoped search: with an author active, every result card belongs to one
 //    of that author's books (derived from 03)
 //  - author line renders on library result cards, dashboard cards, reader
-//    header (" - <nameEN> (<born>–<died> AH)" linked to index.html?authors=)
+//    header ("<nameEN> (<born>–<died> AH)" — a plain-background button
+//    with real button chrome opening the info modal's Author tab; the
+//    Dhivevi layout's Arabic subtitle is the same button, opening the
+//    modal's Book tab)
 //  - dashboard: no English title on cards, browse buttons open the shared
 //    modals, ?authors=yahyaBinSharafAnNawawi pre-filters the grid
 //  - search window: All-books tab shows the Authors/Periods section, the
@@ -303,25 +306,38 @@ async function main() {
   // The thead strip sits OUTSIDE the scrollport — the scrollbar runs beside
   // the rows alone, never the thead — and thead + rows share the grid column
   // template, so the column edges line up exactly (the "thead left" drift
-  // the old table auto-layout produced). The authors grid has 8 columns:
-  // name, Arabic, century, range, age, Gregorian, count, check — the age
-  // right after the years, before the Gregorian span.
+  // the old table auto-layout produced). The authors grid has 9 columns:
+  // info, name, Arabic, century, range, age, Gregorian, count, check — the
+  // info button leading, the age right after the years, before the
+  // Gregorian span.
   check("thead outside the scrollport", await evalJS(
     `!document.querySelector('#libAuthorsModalBody .facet-thead-row').closest('.facet-table-wrap')`));
+  // The info column leads the grid — its thead cell is the grid's first
+  // element (the thead DOM order is the visual order).
+  check("info column is the first column", await evalJS(
+    `document.querySelector('#libAuthorsModalBody .facet-grid-authors').firstElementChild.className === 'facet-thead-cell facet-col-info' &&
+     document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-info').textContent === 'ℹ'`));
+  // The header glyph must center over the row buttons, not merely share the
+  // column (the left-edge check below passes even if the thead content were
+  // left-aligned inside its track). text-align: center centers the glyph box;
+  // the button box centers itself — the two centers must coincide.
+  check("info header centers over the row buttons", await evalJS(
+    `(() => { var h = document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-info'); var b = document.querySelector('#libAuthorsModalBody .author-browse-row .author-info-btn'); var hc = h.getBoundingClientRect().left + h.getBoundingClientRect().width / 2; var bc = b.getBoundingClientRect().left + b.getBoundingClientRect().width / 2; return Math.abs(hc - bc) < 2; })()`),
+    await evalJS(`(() => { var h = document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-info'); var b = document.querySelector('#libAuthorsModalBody .author-browse-row .author-info-btn'); var hr = h.getBoundingClientRect(); var br = b.getBoundingClientRect(); return 'headCenter=' + Math.round(hr.left + hr.width / 2) + ' btnCenter=' + Math.round(br.left + br.width / 2); })()`));
   // The thead follows the visual order while the row cells keep their
   // mobile-friendly DOM order — the age/CE pair is placed into its desktop
   // columns explicitly (grid-column + grid-row in common.css) — so the
   // pairs are matched by class, not by DOM index.
   check("thead columns align with the rows", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return pairs.every(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
-    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check']]; return pairs.map(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
-  // The row's eight cells sit on ONE grid row — with only the columns
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check'],['facet-col-info','facet-info']]; return pairs.every(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check'],['facet-col-info','facet-info']]; return pairs.map(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
+  // The row's nine cells sit on ONE grid row — with only the columns
   // explicit, the sparse auto-placer walks its cursor back on the
   // DOM/visual swap (… years · CE · age … → columns 4, 6, 5) and drops the
-  // age/count/check into a second band (the periods modal's "two subrows"
-  // look); grid-row: 1 pins the band, and this asserts it.
+  // age/count/check/info into a second band (the periods modal's "two
+  // subrows" look); grid-row: 1 pins the band, and this asserts it.
   check("authors rows are a single band", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var ts = Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return Math.round(c.getBoundingClientRect().top); }); return ts.length === 8 && ts.every(function(t){ return Math.abs(t - ts[0]) < 1; }); })()`),
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var ts = Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return Math.round(c.getBoundingClientRect().top); }); return ts.length === 9 && ts.every(function(t){ return Math.abs(t - ts[0]) < 1; }); })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); return Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return c.className + '=' + Math.round(c.getBoundingClientRect().top); }).join(' '); })()`));
   // The Arabic-name and century/range/age text columns sit at the row's full
   // text size (no downscaling).
@@ -568,10 +584,24 @@ async function main() {
   check("dashboard modal rows = visible authors", dashRows === VISIBLE_AUTHORS.length, dashRows + " vs " + VISIBLE_AUTHORS.length);
   const hasFilter = await evalJS(`!!document.getElementById('libAuthorsFilter')`);
   check("authors modal has filter input", hasFilter);
+  // The filter sits in the shared search-input-wrap — the same search-box
+  // component as the search window / info modal / page searches, with the
+  // ✕ clear button mirrored on the query.
+  check("authors filter carries the shared clear ✕", await evalJS(
+    `!!document.getElementById('libAuthorsFilterClear') &&
+     document.querySelector('#libAuthorsFilter').closest('.search-input-wrap') !== null`));
   await evalJS(`document.getElementById('libAuthorsFilter').value = 'nawawi';
     document.getElementById('libAuthorsFilter').dispatchEvent(new Event('input'));`);
   await waitFor(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`);
   check("authors filter input narrows rows", await evalJS(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`));
+  check("authors clear ✕ shows with a query", await evalJS(
+    `document.getElementById('libAuthorsFilterClear').classList.contains('visible')`));
+  await evalJS(`document.getElementById('libAuthorsFilterClear').click()`);
+  await sleep(150);
+  check("authors clear ✕ restores input, rows and ✕ state", await evalJS(
+    `document.getElementById('libAuthorsFilter').value === '' &&
+     !document.getElementById('libAuthorsFilterClear').classList.contains('visible') &&
+     document.querySelectorAll('#libAuthorsList .author-browse-row').length === ${VISIBLE_AUTHORS.length}`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await evalJS(`document.getElementById('dashPeriodsBtn').click()`);
@@ -593,16 +623,67 @@ async function main() {
     authorCards.every((code) => NAWAWI_BOOKS.indexOf(code) !== -1),
     authorCards.join(","));
 
-  // ── Reader header author line (dot-separated link) ────────────────
-  // The subtitle joins the title and the author line with the same " · "
-  // the app's other text joins use (the facet mobile lines); the years
-  // then follow in the authorLife template.
+  // ── Reader header author line (plain-background info button) ──────
+  // The author name sits bare next to the title — no " · " separator; the
+  // years follow in the authorLife template. The author line is a button
+  // that opens the info modal's Author tab (the dashboard-filter jump
+  // moved inside the modal as the show-all link). The button wears the
+  // page background but keeps real button chrome — 1px border, radius,
+  // padding — and never underlines (the .reader-panel-row button rule
+  // would paint the toolbar fill and 35px height, so the override has to
+  // outrank it).
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
   await waitFor(`document.getElementById('readerPageAuthor') && document.getElementById('readerPageAuthor').textContent.indexOf(${JSON.stringify(nameEN("malikBinAnas"))}) !== -1`);
   const readerAuthor = await evalJS(`document.getElementById('readerPageAuthor').textContent`);
-  check("reader header author line exact", readerAuthor === " · " + MALIK_LINE, readerAuthor + " vs · " + MALIK_LINE);
-  const readerHref = await evalJS(`document.getElementById('readerPageAuthor').querySelector('a').getAttribute('href')`);
-  check("reader author links to filtered dashboard", readerHref === "index.html?authors=malikBinAnas", readerHref);
+  check("reader header author line exact", readerAuthor === MALIK_LINE, readerAuthor + " vs " + MALIK_LINE);
+  check("author line reads as a plain-bg button", await evalJS(
+    // getComputedStyle resolves height:auto to the used pixel height — the
+    // contract is that the button is content-sized (its text ~30px plus
+    // the restored 1px borders and 2px vertical padding ≈ 36px), not the
+    // toolbar rule's pinned 35px control height. The text wears the
+    // page's normal colour (not the muted author-line colour it inherits).
+    `(() => { var b = document.querySelector('#readerPageAuthor .reader-author-btn'); var s = getComputedStyle(b); return s.backgroundColor === getComputedStyle(document.body).backgroundColor && s.color === getComputedStyle(document.body).color && s.textDecorationLine === 'none' && s.borderWidth === '1px' && s.height !== '35px' && parseFloat(s.height) < 40; })()`),
+    await evalJS(`(() => { var b = document.querySelector('#readerPageAuthor .reader-author-btn'); var s = getComputedStyle(b); return 'bg=' + s.backgroundColor + ' deco=' + s.textDecorationLine + ' border=' + s.borderWidth + ' height=' + s.height + ' color=' + s.color; })()`));
+  check("reader author line is an info button", await evalJS(
+    `document.getElementById('readerPageAuthor').querySelector('.reader-author-btn') !== null`));
+  await evalJS(`document.getElementById('readerPageAuthor').querySelector('.reader-author-btn').click()`);
+  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  check("author-line click opens info modal on the Author tab", await evalJS(
+    `document.querySelector('#infoModalBody .info-tab[data-tab="author"]').classList.contains('active')`));
+  check("author info head carries the current-lang name", await evalJS(
+    `document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))}`),
+    await evalJS(`document.querySelector('#infoPane .info-head-title').textContent`));
+  // The author's books live on their own Books tab — the show-all link
+  // sits at its bottom.
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="books"]').click()`);
+  await waitFor(`!!document.querySelector('#infoPane .info-show-all')`);
+  const infoShowAll = await evalJS(`document.querySelector('#infoPane .info-show-all').getAttribute('href')`);
+  check("in-modal show-all links to filtered dashboard", infoShowAll === "index.html?authors=malikBinAnas", infoShowAll);
+  await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+
+  // ── Dhivevi layout: the Arabic subtitle is the same plain-bg button ──
+  // (reader.js updatePageHeader) — sharing the author button's style rule,
+  // carrying the Arabic title, opening the modal's Book tab.
+  await evalJS(`localStorage.setItem('lang','dv')`);
+  await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
+  await waitFor(`!!document.querySelector('#readerPageSubtitle .reader-subtitle-btn')`);
+  check("dv subtitle button carries the Arabic title", await evalJS(
+    `document.querySelector('#readerPageSubtitle .reader-subtitle-btn').textContent === ${JSON.stringify(MALIK_BOOK.titleAR)}`),
+    await evalJS(`document.querySelector('#readerPageSubtitle .reader-subtitle-btn').textContent`));
+  check("dv subtitle button shares the author button's plain-bg look", await evalJS(
+    `(function () { var s = getComputedStyle(document.querySelector('#readerPageSubtitle .reader-subtitle-btn')); var a = getComputedStyle(document.querySelector('#readerPageAuthor .reader-author-btn')); return s.borderWidth === a.borderWidth && s.borderTopColor === a.borderTopColor && s.backgroundColor === a.backgroundColor && s.backgroundColor === getComputedStyle(document.body).backgroundColor; })()`),
+    await evalJS(`(function () { var s = getComputedStyle(document.querySelector('#readerPageSubtitle .reader-subtitle-btn')); return 'border=' + s.borderWidth + ' bg=' + s.backgroundColor; })()`));
+  await evalJS(`document.querySelector('#readerPageSubtitle .reader-subtitle-btn').click()`);
+  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  check("dv subtitle click opens the info modal on the Book tab", await evalJS(
+    `document.querySelector('#infoModalBody .info-tab[data-tab="book"]').classList.contains('active')`));
+  await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  // Back to English for the sections that follow (their expectations are en).
+  await evalJS(`localStorage.setItem('lang','en')`);
+  await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
+  await waitFor(`!!document.getElementById('btnSearchWindow')`);
 
   // ── Search window: Authors/Periods on the All-books tab ───────────
   await goto("file://" + ROOT + "reader.html?book=HDT-arbaoonNawawi");
@@ -640,21 +721,21 @@ async function main() {
   // The whole thead strip folds away (its empty count/check headers would
   // otherwise float above the collapsed columns) and the row re-flows into
   // two joined lines: name · Arabic name / century · range · CE · age ·
-  // books: N · ✓ — the count and the tick join the end of the dates line.
-  // The row is RTL, so the pieces read right to left; each line's pieces
-  // share a top, each line sits below the previous.
+  // books: N · ✓ · ℹ — the count, tick and info button join the end of
+  // the dates line. The row is RTL, so the pieces read right to left;
+  // each line's pieces share a top, each line sits below the previous.
   check("mobile: thead folds away, name·ar join on one line", await evalJS(
     `(() => { var body = document.getElementById('libAuthorsModalBody'); var r = body.querySelector('.author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var name = r.querySelector('.facet-name').getBoundingClientRect(); var ar = r.querySelector('.facet-name-ar').getBoundingClientRect(); return getComputedStyle(body.querySelector('.facet-thead-row')).display === 'none' && Math.abs(ar.top - name.top) < 1 && ar.right < name.right && ar.right > name.left - 30; })()`),
     await evalJS(`(() => { var body = document.getElementById('libAuthorsModalBody'); var r = body.querySelector('.author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var name = r.querySelector('.facet-name').getBoundingClientRect(); var ar = r.querySelector('.facet-name-ar').getBoundingClientRect(); return 'thead=' + getComputedStyle(body.querySelector('.facet-thead-row')).display + ' nameL=' + Math.round(name.left) + ' nameR=' + Math.round(name.right) + ' arL=' + Math.round(ar.left) + ' arR=' + Math.round(ar.right) + ' arTop=' + Math.round(ar.top) + ' nameTop=' + Math.round(name.top); })()`));
-  check("mobile: century·range·CE·age·count join one line, ✓ at the end", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var c = r.querySelector('.facet-century').getBoundingClientRect(); var rg = r.querySelector('.facet-range').getBoundingClientRect(); var ce = r.querySelector('.facet-ce').getBoundingClientRect(); var ag = r.querySelector('.facet-age').getBoundingClientRect(); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ch = r.querySelector('.facet-check').getBoundingClientRect(); return Math.abs(rg.top - c.top) < 1 && Math.abs(ce.top - c.top) < 1 && Math.abs(ag.top - c.top) < 1 && Math.abs(ct.top - c.top) < 1 && Math.abs(ch.top - c.top) < 1 && ce.right < rg.right && rg.right < c.right && ag.right < ce.right && ct.right < ag.right && ch.right < ct.right; })()`),
-    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var w = function(sel){ var b = r.querySelector(sel).getBoundingClientRect(); return 'L' + Math.round(b.left) + 'R' + Math.round(b.right) + 'T' + Math.round(b.top); }; return ['.facet-century', '.facet-range', '.facet-ce', '.facet-age', '.facet-count', '.facet-check'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
+  check("mobile: century·range·CE·age·count join one line, ✓ and ℹ at the end", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var c = r.querySelector('.facet-century').getBoundingClientRect(); var rg = r.querySelector('.facet-range').getBoundingClientRect(); var ce = r.querySelector('.facet-ce').getBoundingClientRect(); var ag = r.querySelector('.facet-age').getBoundingClientRect(); var ct = r.querySelector('.facet-count').getBoundingClientRect(); var ch = r.querySelector('.facet-check').getBoundingClientRect(); var inf = r.querySelector('.facet-info').getBoundingClientRect(); return Math.abs(rg.top - c.top) < 1 && Math.abs(ce.top - c.top) < 1 && Math.abs(ag.top - c.top) < 1 && Math.abs(ct.top - c.top) < 1 && Math.abs(ch.top - c.top) < 1 && Math.abs(inf.top - c.top) < 1 && ce.right < rg.right && rg.right < c.right && ag.right < ce.right && ct.right < ag.right && ch.right < ct.right && inf.left < ch.left && inf.right <= ch.right; })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var w = function(sel){ var b = r.querySelector(sel).getBoundingClientRect(); return 'L' + Math.round(b.left) + 'R' + Math.round(b.right) + 'T' + Math.round(b.top); }; return ['.facet-century', '.facet-range', '.facet-ce', '.facet-age', '.facet-count', '.facet-check', '.facet-info'].map(function(sel){ return sel + '=' + w(sel); }).join(' '); })()`));
   // The joins are a bare dot with margins — a " · " string collapses its
   // leading space at the start of the cell's line (RTL: the dot hugs the
   // previous piece); margins can't.
   check("mobile: joins are dotted with margin spacing", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return s.content !== 'none' && s.marginInlineStart === '6px' && s.marginInlineEnd === '6px'; }; return j('.facet-name-ar') && j('.facet-range') && j('.facet-ce') && j('.facet-age') && j('.facet-count'); })()`),
-    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return sel + '=' + s.content + ' m=' + s.marginInlineStart + '/' + s.marginInlineEnd; }; return ['.facet-name-ar', '.facet-range', '.facet-ce', '.facet-age', '.facet-count'].map(j).join(' '); })()`));
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return s.content !== 'none' && s.marginInlineStart === '6px' && s.marginInlineEnd === '6px'; }; return j('.facet-name-ar') && j('.facet-range') && j('.facet-ce') && j('.facet-age') && j('.facet-count') && j('.facet-info'); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"]'); var j = function(sel){ var s = getComputedStyle(r.querySelector(sel), '::before'); return sel + '=' + s.content + ' m=' + s.marginInlineStart + '/' + s.marginInlineEnd; }; return ['.facet-name-ar', '.facet-range', '.facet-ce', '.facet-age', '.facet-count', '.facet-info'].map(j).join(' '); })()`));
   // The check gets the space without the dot — select the row (a click
   // toggles the facet; reopening re-renders the rows with the ✓ present)
   // so the spacing before the tick mark is observable: a real gap, but no

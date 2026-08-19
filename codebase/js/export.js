@@ -4,10 +4,178 @@
  *
  * Extracted from reader.js to keep the main module under 2 000 lines.
  * Pass a context object with the data and callbacks the exports need.
+ *
+ * The file builders (downloadFile, buildWordHTML, buildPdfHTML,
+ * buildHtmlBook, exportEPUB) live at module scope so the book & author
+ * info modal (js/book-info.js) can export its pane with the exact same
+ * machinery. They read only cfg.rows / cfg.headerRow / cfg.hasRowNums /
+ * cfg.metadata and are byte-identical to the reader's pre-refactor
+ * output (goldens in tools/golden/, captured by hmv-golden-capture.mjs).
  */
 
 import { unparseCSV } from "./csv.js";
 import { escapeHTML } from "./search-utils.js";
+
+// ── Shared builders — module scope, usable by any surface ─────────
+
+export function downloadFile(content, filename, mime) {
+  var blob = new Blob([content], { type: mime });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Word (.doc) — an HTML document with the .doc extension; Word opens it.
+// The "head" column renders as the big heading, "kitab"/"bab" step down,
+// "foot" as the divider, "sharh" at reduced size.
+export function buildWordHTML(cfg, siteURL, versionText) {
+  var meta = cfg.metadata;
+  var rows = cfg.rows;
+  var content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
+  content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
+  content += "<h1>" + meta.titleDV + " - " + meta.titleAR + "</h1>";
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    content += "<h2>" + (cfg.hasRowNums ? "#" : "") + (cfg.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
+    var fields = [];
+    for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
+      if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
+    }
+    for (var j = 0; j < fields.length; j++) {
+      var colHeader3 = (cfg.headerRow && cfg.headerRow[fields[j].index]) ? cfg.headerRow[fields[j].index].toLowerCase() : "";
+      if (j > 0) {
+        var prevHdr3 = (cfg.headerRow && cfg.headerRow[fields[j - 1].index]) ? cfg.headerRow[fields[j - 1].index].toLowerCase() : "";
+        if (prevHdr3.endsWith("ar") && colHeader3.endsWith("dv")) content += "<p>&nbsp;</p>";
+        if (prevHdr3.startsWith("matn") && colHeader3.startsWith("sharh")) content += '<p style="text-align:center;color:#bbb;margin:6px 0;font-size:8pt;letter-spacing:3px">· · ·</p>';
+      }
+      if (colHeader3.startsWith("foot") && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+      if (!colHeader3.startsWith("foot")) {
+        if (colHeader3.startsWith("head")) {
+          content += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
+        } else if (colHeader3.startsWith("kitab")) {
+          content += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
+        } else if (colHeader3.startsWith("bab")) {
+          content += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
+        } else if (colHeader3.startsWith("sharh")) {
+          content += '<p style="font-size:12.5pt">' + fields[j].value + '</p>';
+        } else {
+          content += "<p>" + fields[j].value + "</p>";
+        }
+      } else {
+        content += "<p>" + fields[j].value + "</p>";
+      }
+    }
+    content += "<hr>";
+  }
+  content += "</body></html>";
+  return content;
+}
+
+// PDF — the popup-print page: an RTL document styled for print with a
+// footer page counter; the caller opens it, writes, and calls win.print().
+export function buildPdfHTML(cfg, siteURL, versionText) {
+  var meta = cfg.metadata;
+  var rows = cfg.rows;
+  var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
+  var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0}</style></head><body>';
+  pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + siteURL + " - " + versionText + "</p>";
+  pdfHTML += "<h1>" + meta.titleDV + "</h1><p style='text-align:center'>" + meta.titleAR + "</p>";
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    pdfHTML += "<h2>" + (cfg.hasRowNums ? "#" : "") + (cfg.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
+    var fields = [];
+    for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
+      if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
+    }
+    for (var j = 0; j < fields.length; j++) {
+      var colHeader2 = (cfg.headerRow && cfg.headerRow[fields[j].index]) ? cfg.headerRow[fields[j].index].toLowerCase() : "";
+      if (j > 0) {
+        var prevHdr2 = (cfg.headerRow && cfg.headerRow[fields[j - 1].index]) ? cfg.headerRow[fields[j - 1].index].toLowerCase() : "";
+        if (prevHdr2.endsWith("ar") && colHeader2.endsWith("dv")) pdfHTML += "<p>&nbsp;</p>";
+        if (prevHdr2.startsWith("matn") && colHeader2.startsWith("sharh")) pdfHTML += '<p style="text-align:center;color:#bbb;margin:6px 0;font-size:8pt;letter-spacing:3px">· · ·</p>';
+      }
+      if (colHeader2.startsWith("foot") && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
+      if (!colHeader2.startsWith("foot")) {
+        if (colHeader2.startsWith("head")) {
+          pdfHTML += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
+        } else if (colHeader2.startsWith("kitab")) {
+          pdfHTML += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
+        } else if (colHeader2.startsWith("bab")) {
+          pdfHTML += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
+        } else if (colHeader2.startsWith("sharh")) {
+          pdfHTML += '<p style="font-size:12.5pt">' + fields[j].value + '</p>';
+        } else {
+          pdfHTML += "<p>" + fields[j].value + "</p>";
+        }
+      } else {
+        pdfHTML += "<p>" + fields[j].value + "</p>";
+      }
+    }
+    pdfHTML += "<hr>";
+  }
+  pdfHTML += "</body></html>";
+  return pdfHTML;
+}
+
+// HTML Book — a single self-contained RTL page with the webfont reference,
+// the "sharh" cells in the reduced size, "· · ·" between matn and sharh.
+export function buildHtmlBook(cfg, siteURL, versionText) {
+  var meta = cfg.metadata;
+  var rows = cfg.rows;
+  var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || cfg.bookCode || "book") + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
+  htmlExport += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
+  htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    htmlExport += '<h2>#' + (cfg.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + '</h2>';
+    var expPrevHdr = "";
+    for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
+      if (row[j] != null && String(row[j]).trim()) {
+        var expHdr = (cfg.headerRow && cfg.headerRow[j]) ? cfg.headerRow[j].toLowerCase() : "";
+        if (expPrevHdr.startsWith("matn") && expHdr.startsWith("sharh")) htmlExport += '<div class="ms-sep">· · ·</div>';
+        if (expHdr.startsWith("sharh")) {
+          htmlExport += '<p class="sharh">' + String(row[j]).trim() + '</p>';
+        } else {
+          htmlExport += '<p>' + String(row[j]).trim() + '</p>';
+        }
+        expPrevHdr = expHdr;
+      }
+    }
+    if (i < rows.length - 1) htmlExport += '<div class="sep">◆</div>';
+  }
+  htmlExport += '</body></html>';
+  return htmlExport;
+}
+
+// EPUB — resolves with the .epub Blob once the font is fetched and the
+// epub module is loaded; the caller downloads it (busy/toast handling at
+// the call site, since the surfaces differ).
+export function exportEPUB(cfg, siteURL) {
+  var meta = cfg.metadata;
+  var rows = cfg.rows;
+  return fetch("../font/merged-300.woff2")
+    .then(function (response) { return response.ok ? response.arrayBuffer() : null; })
+    .then(function (fontBuf) {
+      return import("./export-epub.js").then(function (mod) {
+        return mod.createEPUB(rows, {
+          bookCode: meta.bookCode,
+          titleEN: meta.titleEN,
+          titleDV: meta.titleDV,
+          titleAR: meta.titleAR
+        }, {
+          siteURL: siteURL,
+          fontData: fontBuf ? new Uint8Array(fontBuf) : null,
+          headerRow: cfg.headerRow
+        });
+      });
+    });
+}
+
+// ── Reader surface ────────────────────────────────────────────────
 
 export function initExports(ctx) {
   var btnExport = document.getElementById("btnExport");
@@ -23,17 +191,6 @@ export function initExports(ctx) {
     }
   });
   window.registerDropdown("exportDropdown", exportDropdown, btnExport);
-
-  function downloadFile(content, filename, mime) {
-    var blob = new Blob([content], { type: mime });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    a.href = url; a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
 
   // Busy state for the export button — large exports (54k rows, EPUB+font)
   // take seconds; without feedback users double-click and get duplicates.
@@ -107,44 +264,7 @@ export function initExports(ctx) {
         filename = baseName + ".tsv";
         mime = "text/tab-separated-values";
       } else if (fmt === "pdf") {
-        var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
-        var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0}</style></head><body>';
-        pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + siteURL + " - " + versionText + "</p>";
-        pdfHTML += "<h1>" + meta.titleDV + "</h1><p style='text-align:center'>" + meta.titleAR + "</p>";
-        for (var i = 0; i < rows.length; i++) {
-          var row = rows[i];
-          pdfHTML += "<h2>" + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
-          var fields = [];
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
-            if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
-          }
-          for (var j = 0; j < fields.length; j++) {
-            var colHeader2 = (ctx.headerRow && ctx.headerRow[fields[j].index]) ? ctx.headerRow[fields[j].index].toLowerCase() : "";
-            if (j > 0) {
-              var prevHdr2 = (ctx.headerRow && ctx.headerRow[fields[j - 1].index]) ? ctx.headerRow[fields[j - 1].index].toLowerCase() : "";
-              if (prevHdr2.endsWith("ar") && colHeader2.endsWith("dv")) pdfHTML += "<p>&nbsp;</p>";
-              if (prevHdr2.startsWith("matn") && colHeader2.startsWith("sharh")) pdfHTML += '<p style="text-align:center;color:#bbb;margin:6px 0;font-size:8pt;letter-spacing:3px">· · ·</p>';
-            }
-            if (colHeader2.startsWith("foot") && fields.length > 1) pdfHTML += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-            if (!colHeader2.startsWith("foot")) {
-              if (colHeader2.startsWith("head")) {
-                pdfHTML += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
-              } else if (colHeader2.startsWith("kitab")) {
-                pdfHTML += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
-              } else if (colHeader2.startsWith("bab")) {
-                pdfHTML += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
-              } else if (colHeader2.startsWith("sharh")) {
-                pdfHTML += '<p style="font-size:12.5pt">' + fields[j].value + '</p>';
-              } else {
-                pdfHTML += "<p>" + fields[j].value + "</p>";
-              }
-            } else {
-              pdfHTML += "<p>" + fields[j].value + "</p>";
-            }
-          }
-          pdfHTML += "<hr>";
-        }
-        pdfHTML += "</body></html>";
+        var pdfHTML = buildPdfHTML(ctx, siteURL, versionText);
         var win = window.open("", "_blank");
         if (!win) { window.showErrorToast("PDF export failed — popup blocked"); setExportBusy(false); return; }
         win.document.write(pdfHTML);
@@ -220,27 +340,14 @@ export function initExports(ctx) {
         }).catch(function () { window.showErrorToast("Excel export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "epub") {
-        fetch("../font/merged-300.woff2")
-          .then(function(response) { return response.ok ? response.arrayBuffer() : null; })
-          .then(function(fontBuf) {
-            return import("./export-epub.js").then(function(mod) {
-              var epubBlob = mod.createEPUB(rows, {
-                bookCode: meta.bookCode,
-                titleEN: meta.titleEN,
-                titleDV: meta.titleDV,
-                titleAR: meta.titleAR
-              }, {
-                siteURL: siteURL,
-                fontData: fontBuf ? new Uint8Array(fontBuf) : null,
-                headerRow: ctx.headerRow
-              });
-              var blobUrl = URL.createObjectURL(epubBlob);
-              var a = document.createElement("a");
-              a.href = blobUrl; a.download = baseName + ".epub";
-              document.body.appendChild(a); a.click();
-              document.body.removeChild(a); URL.revokeObjectURL(blobUrl);
-              setExportBusy(false);
-            });
+        exportEPUB(ctx, siteURL)
+          .then(function (epubBlob) {
+            var blobUrl = URL.createObjectURL(epubBlob);
+            var a = document.createElement("a");
+            a.href = blobUrl; a.download = baseName + ".epub";
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(blobUrl);
+            setExportBusy(false);
           }).catch(function () { window.showErrorToast("EPUB export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "yaml") {
@@ -272,29 +379,7 @@ export function initExports(ctx) {
         }
         downloadFile(to, baseName + ".toon", "text/plain");
       } else if (fmt === "html") {
-        var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
-        htmlExport += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
-        htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
-        for (var i = 0; i < rows.length; i++) {
-          var row = rows[i];
-          htmlExport += '<h2>#' + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + '</h2>';
-          var expPrevHdr = "";
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
-            if (row[j] != null && String(row[j]).trim()) {
-              var expHdr = (ctx.headerRow && ctx.headerRow[j]) ? ctx.headerRow[j].toLowerCase() : "";
-              if (expPrevHdr.startsWith("matn") && expHdr.startsWith("sharh")) htmlExport += '<div class="ms-sep">· · ·</div>';
-              if (expHdr.startsWith("sharh")) {
-                htmlExport += '<p class="sharh">' + String(row[j]).trim() + '</p>';
-              } else {
-                htmlExport += '<p>' + String(row[j]).trim() + '</p>';
-              }
-              expPrevHdr = expHdr;
-            }
-          }
-          if (i < rows.length - 1) htmlExport += '<div class="sep">◆</div>';
-        }
-        htmlExport += '</body></html>';
-        downloadFile(htmlExport, baseName + ".html", "text/html");
+        downloadFile(buildHtmlBook(ctx, siteURL, versionText), baseName + ".html", "text/html");
       } else if (fmt === "html-table") {
         var ht = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:12pt;line-height:1.8;padding:16px;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:16pt;margin-bottom:4px} table{width:100%;border-collapse:collapse;direction:rtl} th,td{padding:6px 8px;border:1px solid #ddd;text-align:right;vertical-align:top} th{background:#f5f5f5;font-weight:700;font-size:10pt;white-space:nowrap} .hd{text-align:center;font-size:9pt;color:#999;margin-bottom:16px}</style></head><body>';
         ht += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
@@ -334,43 +419,7 @@ export function initExports(ctx) {
         xml += '  </rows>\n</book>';
         downloadFile(xml, baseName + ".xml", "application/xml");
       } else if (fmt === "word") {
-        content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
-        content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
-        content += "<h1>" + meta.titleDV + " - " + meta.titleAR + "</h1>";
-        for (var i = 0; i < rows.length; i++) {
-          var row = rows[i];
-          content += "<h2>" + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
-          var fields = [];
-          for (var j = (ctx.hasRowNums ? 1 : 0); j < row.length; j++) {
-            if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
-          }
-          for (var j = 0; j < fields.length; j++) {
-            var colHeader3 = (ctx.headerRow && ctx.headerRow[fields[j].index]) ? ctx.headerRow[fields[j].index].toLowerCase() : "";
-            if (j > 0) {
-              var prevHdr3 = (ctx.headerRow && ctx.headerRow[fields[j - 1].index]) ? ctx.headerRow[fields[j - 1].index].toLowerCase() : "";
-              if (prevHdr3.endsWith("ar") && colHeader3.endsWith("dv")) content += "<p>&nbsp;</p>";
-              if (prevHdr3.startsWith("matn") && colHeader3.startsWith("sharh")) content += '<p style="text-align:center;color:#bbb;margin:6px 0;font-size:8pt;letter-spacing:3px">· · ·</p>';
-            }
-            if (colHeader3.startsWith("foot") && fields.length > 1) content += '<p style="color:#999;font-size:11pt">ــــــــــــــــــــــــــــــــــــــــــــ</p>';
-            if (!colHeader3.startsWith("foot")) {
-              if (colHeader3.startsWith("head")) {
-                content += '<p style="font-size:17pt;font-weight:700;margin:12px 0 2px">' + fields[j].value + '</p>';
-              } else if (colHeader3.startsWith("kitab")) {
-                content += '<p style="font-weight:600;font-size:15pt;margin:8px 0 2px">' + fields[j].value + '</p>';
-              } else if (colHeader3.startsWith("bab")) {
-                content += '<p style="font-weight:600;margin:6px 0 2px">' + fields[j].value + '</p>';
-              } else if (colHeader3.startsWith("sharh")) {
-                content += '<p style="font-size:12.5pt">' + fields[j].value + '</p>';
-              } else {
-                content += "<p>" + fields[j].value + "</p>";
-              }
-            } else {
-              content += "<p>" + fields[j].value + "</p>";
-            }
-          }
-          content += "<hr>";
-        }
-        content += "</body></html>";
+        content = buildWordHTML(ctx, siteURL, versionText);
         filename = baseName + ".doc";
         mime = "application/msword";
       }

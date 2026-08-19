@@ -15,46 +15,14 @@
  */
 
 import { t, currentLang } from "./i18n.js";
-import { authorDefs, loadAuthorDefinitions, loadBookRegistry, authorYearsText } from "./book-data.js";
+import { authorDefs, loadAuthorDefinitions, loadBookRegistry, authorYearsText, authorCodesOf, authorPeriodOf, periodLabelEn, periodLabel, periodRangeText, periodRangeCeText, authorYearsCeText, authorAgeText } from "./book-data.js";
 import { escapeHTML, normaliseForSearch } from "./search-utils.js";
+import { openInfoModal } from "./book-info.js";
 
 // ── Facet state (shared by every surface on the page) ──────────────
 var _authors = [];
 var _period = "";
 var _subs = [];
-
-/** Author codes of a registry row ("" when the book has no author). */
-export function authorCodesOf(b) {
-  return ((b && b.authorCode) || "")
-    .split(",")
-    .map(function (s) { return s.trim(); })
-    .filter(Boolean);
-}
-
-/** Period bucket of an author — death century as a string ("3"), "modern" when
- *  no death year is recorded. Buckets come from the 08 registry, not the data. */
-export function authorPeriodOf(code) {
-  var d = authorDefs()[code];
-  if (!d || !d.diedAH) return "modern";
-  return String(Math.ceil(parseInt(d.diedAH, 10) / 100));
-}
-
-/** English period title — tooltips are English house style. */
-export function periodLabelEn(p) {
-  if (p === "modern") return "Authors without a recorded death year";
-  var n = parseInt(p, 10);
-  var s = n % 100 >= 11 && n % 100 <= 13 ? "th"
-    : n % 10 === 1 ? "st"
-    : n % 10 === 2 ? "nd"
-    : n % 10 === 3 ? "rd"
-    : "th";
-  return "Died in the " + n + s + " century AH";
-}
-
-/** Period display label in the current language ("Century 3" / modern). */
-export function periodLabel(p) {
-  return p === "modern" ? t("centuryModern") : t("century" + p);
-}
 
 export function facetState() {
   return { authors: _authors.slice(), period: _period };
@@ -225,11 +193,13 @@ var _authorsOverlay = null;
 var _authorsTitle = null;
 var _authorsBody = null;
 var _authorsFilter = null;
+var _authorsFilterClear = null;
 var _authorsList = null;
 var _periodsOverlay = null;
 var _periodsTitle = null;
 var _periodsBody = null;
 var _periodsFilter = null;
+var _periodsFilterClear = null;
 var _periodsList = null;
 
 function ensureAuthorsModal() {
@@ -244,9 +214,13 @@ function ensureAuthorsModal() {
   _authorsBody = document.getElementById("libAuthorsModalBody");
   _authorsBody.innerHTML =
     '<div class="facet-filter-row">' +
+    '<div class="search-input-wrap">' +
     '<input id="libAuthorsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter authors by name or code" />' +
+    '<button type="button" id="libAuthorsFilterClear" class="search-clear-btn" title="Clear filter" aria-label="Clear filter">✕</button>' +
+    "</div>" +
     "</div>" +
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-authors">' +
+    '<div class="facet-thead-cell facet-col-info" title="Author info"></div>' +
     '<div class="facet-thead-cell facet-col-name"></div>' +
     '<div class="facet-thead-cell facet-col-ar"></div>' +
     '<div class="facet-thead-cell facet-col-century"></div>' +
@@ -258,14 +232,33 @@ function ensureAuthorsModal() {
     "</div></div>" +
     '<div class="facet-table-wrap"><div id="libAuthorsList"></div></div>';
   _authorsFilter = document.getElementById("libAuthorsFilter");
+  _authorsFilterClear = document.getElementById("libAuthorsFilterClear");
   _authorsList = document.getElementById("libAuthorsList");
   _authorsFilter.addEventListener("input", function () {
+    // The ✕ mirrors the query — the shared search-box component's
+    // contract (search window, info modal, page searches).
+    _authorsFilterClear.classList.toggle("visible", !!_authorsFilter.value);
     renderAuthorRows();
     pinFacetGeometry(); // the scrollbar can come and go with the row count
   });
+  // The ✕ clears and re-fires "input" — the same re-render path as
+  // typing — then focus stays in the field.
+  _authorsFilterClear.addEventListener("click", function () {
+    _authorsFilter.value = "";
+    _authorsFilter.dispatchEvent(new Event("input", { bubbles: true }));
+    _authorsFilter.focus();
+  });
   _authorsBody.addEventListener("click", function (e) {
-    var row = e.target.closest(".author-browse-row");
-    if (row) toggleAuthor(row.dataset.author);
+    var infoBtn = e.target.closest(".author-info-btn");
+    if (infoBtn) {
+      var row = infoBtn.closest(".author-browse-row");
+      if (row) {
+        openInfoModal({ author: row.dataset.author });
+        return;
+      }
+    }
+    var rowEl = e.target.closest(".author-browse-row");
+    if (rowEl) toggleAuthor(rowEl.dataset.author);
   });
 }
 
@@ -273,14 +266,15 @@ function authorsModalLabels() {
   _authorsTitle.textContent = t("libAuthorsTitle");
   _authorsFilter.placeholder = t("libAuthorsFilter");
   var ths = _authorsBody.querySelectorAll(".facet-thead-cell");
-  ths[0].textContent = t("facetColAuthor");
-  ths[1].textContent = t("facetColAuthorAr");
-  ths[2].textContent = t("facetColCentury");
-  ths[3].textContent = t("facetColYears");
-  ths[4].textContent = t("facetColAge");
-  ths[5].textContent = t("facetColGregorian");
-  ths[6].textContent = t("facetColBooks");
-  ths[7].textContent = "✓";
+  ths[0].textContent = "ℹ";
+  ths[1].textContent = t("facetColAuthor");
+  ths[2].textContent = t("facetColAuthorAr");
+  ths[3].textContent = t("facetColCentury");
+  ths[4].textContent = t("facetColYears");
+  ths[5].textContent = t("facetColAge");
+  ths[6].textContent = t("facetColGregorian");
+  ths[7].textContent = t("facetColBooks");
+  ths[8].textContent = "✓";
 }
 
 /** The rows — registry order, only authors with visible books. The filter
@@ -325,11 +319,11 @@ function renderAuthorRows() {
     // display: contents (the cells stay the grid's direct items, so the
     // thead/rows column contract is unchanged); on mobile they become the
     // flowing text lines of the compact layout (name · Arabic name /
-    // century · years · CE · age · count · check — the count and check
-    // join the end of the dates line; their grid columns are class-placed,
-    // so the DOM move never shifts the desktop columns). The age — derived
-    // from the dates, like the CE span, so it takes the muted tone and
-    // joins the dates line.
+    // century · years · CE · age · count · check · info — the count,
+    // check and info button join the end of the dates line; their grid
+    // columns are class-placed, so the DOM move never shifts the desktop
+    // columns). The age — derived from the dates, like the CE span, so it
+    // takes the muted tone and joins the dates line.
     return (
       '<div class="author-browse-row facet-grid-authors' +
       (sel ? " selected" : "") +
@@ -364,7 +358,8 @@ function renderAuthorRows() {
       "</div>" +
       '<div class="facet-check">' +
       (sel ? "✓" : "") +
-      "</div></div></div>"
+      "</div>" +
+      '<div class="facet-info"><button type="button" class="author-info-btn" title="Author info" aria-label="Author info">ℹ</button></div></div></div>'
     );
   }).join("") ||
     '<div class="facet-empty">' + t("libAuthorsNoMatch") + "</div>";
@@ -423,7 +418,8 @@ function pinFacetGeometry() {
   // and the periods' years sit at their natural width, hugging the
   // century label ("extremely wide" was the old 1fr range absorbing the
   // modal's leftover). The fixed tracks: authors century 90 + age 48 +
-  // Gregorian (measured) + count 64 + check 40; periods authors 56 —
+  // Gregorian (measured) + count 64 + check 40 + info 36; periods
+  // authors 56 —
   // short numbers, fixed in the CSS grid templates, not pinned. The
   // authors pins are still clamped to the rows' content (pinFacetColumn),
   // so nothing stretches beyond the longest name; the periods' century
@@ -450,7 +446,7 @@ function pinFacetGeometry() {
     });
     var ovEl = document.getElementById("libAuthorsOverlay");
     if (ovEl && rangeW > 0) ovEl.style.setProperty("--facet-range-w", rangeW + "px");
-    var namesShare = avail - 90 - ceW - 48 - 64 - 40 - rangeW;
+    var namesShare = avail - 90 - ceW - 48 - 64 - 40 - 36 - rangeW;
     pinFacetColumn("libAuthorsOverlay", [
       ["facet-name", "facet-col-name", "facet-name-w", (namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0) + step],
       ["facet-name-ar", "facet-col-ar", "facet-ar-w", (namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0) + step],
@@ -542,6 +538,7 @@ export function openAuthorsModal(books) {
     ensureAuthorsModal();
     authorsModalLabels();
     _authorsFilter.value = "";
+    _authorsFilterClear.classList.remove("visible"); // query reset → ✕ hidden
     renderAuthorRows();
     openFacetModal("libAuthorsOverlay");
     pinFacetGeometry();
@@ -561,7 +558,10 @@ function ensurePeriodsModal() {
   _periodsBody = document.getElementById("libPeriodsModalBody");
   _periodsBody.innerHTML =
     '<div class="facet-filter-row">' +
+    '<div class="search-input-wrap">' +
     '<input id="libPeriodsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter periods" />' +
+    '<button type="button" id="libPeriodsFilterClear" class="search-clear-btn" title="Clear filter" aria-label="Clear filter">✕</button>' +
+    "</div>" +
     "</div>" +
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-periods">' +
     '<div class="facet-thead-cell facet-col-period"></div>' +
@@ -573,10 +573,17 @@ function ensurePeriodsModal() {
     "</div></div>" +
     '<div class="facet-table-wrap"><div id="libPeriodsList"></div></div>';
   _periodsFilter = document.getElementById("libPeriodsFilter");
+  _periodsFilterClear = document.getElementById("libPeriodsFilterClear");
   _periodsList = document.getElementById("libPeriodsList");
   _periodsFilter.addEventListener("input", function () {
+    _periodsFilterClear.classList.toggle("visible", !!_periodsFilter.value);
     renderPeriodRows();
     pinFacetGeometry();
+  });
+  _periodsFilterClear.addEventListener("click", function () {
+    _periodsFilter.value = "";
+    _periodsFilter.dispatchEvent(new Event("input", { bubbles: true }));
+    _periodsFilter.focus();
   });
   _periodsBody.addEventListener("click", function (e) {
     var row = e.target.closest(".period-browse-row");
@@ -594,62 +601,6 @@ function periodsModalLabels() {
   ths[3].textContent = t("facetColGregorian");
   ths[4].textContent = t("facetColBooks");
   ths[5].textContent = "✓";
-}
-
-/** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
- *  range, filled with the bucket's AH span; "" for "modern" (no range). */
-function periodRangeText(p) {
-  if (p === "modern") return "";
-  var n = parseInt(p, 10);
-  if (!n || n < 1) return "";
-  return t("authorLife")
-    .replace("{b}", String((n - 1) * 100 + 1))
-    .replace("{d}", String(n * 100));
-}
-
-/** The same span in the Gregorian calendar — "817–913 CE" for bucket 3 —
- *  the authorLifeCe template filled with the bucket's endpoints converted
- *  AH → CE (the standard 1 Hijri year ≈ 0.970229 solar years approximation,
- *  offset 621.57; rounded); "" for "modern". Derived at render, never
- *  stored. */
-function periodRangeCeText(p) {
-  if (p === "modern") return "";
-  var n = parseInt(p, 10);
-  if (!n || n < 1) return "";
-  var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
-  return t("authorLifeCe")
-    .replace("{b}", String(ce((n - 1) * 100 + 1)))
-    .replace("{d}", String(ce(n * 100)));
-}
-
-/** The author's lifetime in the Gregorian calendar, mirroring
- *  authorYearsText's missing-date handling (born+died → the authorLifeCe
- *  range; died only → the authorDiedCe single year; neither → ""). A "~"
- *  estimate in the data carries over to its CE side — the approximation
- *  cannot make an estimate precise. The same formula as periodRangeCeText. */
-function authorYearsCeText(d) {
-  if (!d) return "";
-  var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
-  var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
-  if (d.bornAH && d.diedAH) {
-    return t("authorLifeCe")
-      .replace("{b}", (String(d.bornAH).indexOf("~") === 0 ? "~" : "") + String(ce(num(d.bornAH))))
-      .replace("{d}", String(ce(num(d.diedAH))));
-  }
-  if (d.diedAH) return t("authorDiedCe").replace("{y}", String(ce(num(d.diedAH))));
-  return "";
-}
-
-/** The author's age — diedAH − bornAH, both required; a "~" estimate on
- *  either end carries over (the data cannot make an estimate precise); the
- *  language's year-unit shorthand follows ("86 އ." / "86 y." / "86 س.");
- *  "" when either date is missing. */
-function authorAgeText(d) {
-  if (!d || !d.bornAH || !d.diedAH) return "";
-  var num = function (s) { return parseInt(String(s || "").replace(/^~+/, ""), 10); };
-  var age = num(d.diedAH) - num(d.bornAH);
-  if (!(age > 0)) return "";
-  return (String(d.bornAH).indexOf("~") === 0 || String(d.diedAH).indexOf("~") === 0 ? "~" : "") + String(age) + " " + t("facetAgeUnit");
 }
 
 /** The mobile label span ("word: " — hidden on desktop, where the cell sits
@@ -745,6 +696,7 @@ export function openPeriodsModal(books) {
     ensurePeriodsModal();
     periodsModalLabels();
     _periodsFilter.value = "";
+    _periodsFilterClear.classList.remove("visible"); // query reset → ✕ hidden
     renderPeriodRows();
     openFacetModal("libPeriodsOverlay");
     pinFacetGeometry();

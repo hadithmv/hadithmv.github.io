@@ -18,7 +18,12 @@ absorbing the modal's leftover width) — the books counts reading bold in
 the name's colour like the name column (only the books count's mobile
 label carries the weight — the age/authors labels stay plain; the
 periods' first column is bold the same way), the ✓ thead headers centered
-over the rows, the dash-led died-only years (`– 256 AH`),
+over the rows, the info header ℹ geometrically centered over the row
+buttons — a left-edge match alone is not enough: the shared 8px 12px cell
+padding leaves a 12px content box in the info column's 36px track, and a
+24px button cannot fit one, so the overflowing inline anchors to the
+line's start edge and spills ~6px off the header's center (the cell
+carries `padding-inline: 0` for exactly that reason) — the dash-led died-only years (`– 256 AH`),
 the periods grid's authors track placed right after the years, the thead
 cells paired to the row cells column by column — class-paired, since the
 rows' DOM order keeps the mobile lines — and the single-band assertion
@@ -30,6 +35,27 @@ line, dotted joins, muted CE and age, spaced ✓), dashboard
 buttons + `?authors=` deep links + the no-English-title cards, the reader
 header's dot-separated author link, and the search window's All-books
 facet section (modals stack over the window).
+The info-modal battery lives at `../tools/hmv-info-check.mjs`
+(`node tools/hmv-info-check.mjs`; `HMV_INFO_PORT` / `HMV_INFO_PROFILE` env
+vars override the defaults) — it drives both entry points on the reader
+(title click + Alt+I → Book tab, author line → Author tab) and the
+authors-modal ℹ affordance (stacking, Escape order), the fact strips
+(data-derived via `parseCSV`), the markdown renderer against the notes
+fixtures (auto-TOC, deep links), the Books tab (a third tab, hidden
+without an author, holding the books list + dashboard link), the in-modal
+search (count == `<mark>`s on both tabs, Enter cycling, no-match, query
+survives tab switches, the clear ✕ mirroring the query), copy
+(monkey-patched `window.copyToClipboard`, exact plain-text compare with a
+string built from data files — blank lines only at the structural
+boundaries, the `""` entries the tab builders and the markdown renderer
+push), the
+four pane exports (blob-captured via a patched `URL.createObjectURL`;
+the Word bytes are diffed against the reader's golden
+`tools/golden/reader-word.doc` — the S8b byte-identity guard on
+export.js's shared builders), the 600px shared-geometry layout (the info
+modal must measure identically to the search window; the pane scrolls
+vertically with no horizontal overflow — the RTL-list marker and
+unbreakable-string guards), and the busy-export "Preparing…" label swap.
 The column-label coverage scan lives at
 `../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
 every `data/content/*.csv` header and diffs it against the token tables in
@@ -392,6 +418,40 @@ blaming the product.
    the track beside it — the authors' age, the periods' century label —
    the caps) and update the check's comment, rather than re-timing a
    formula to revive a widest claim.
+
+## Capturing clipboard & export bytes
+
+Headless Edge cannot read the real clipboard, and export blobs never touch
+disk — so the info-modal battery asserts those paths through **captures**,
+not the browser's own surfaces:
+
+- **Clipboard** — `window.copyToClipboard` is monkey-patched (installed per
+  page load) to record the text argument; the assertion compares it
+  byte-exactly against the expected plain-text lines derived from the data
+  files and the notes fixtures (via `parseCSV` + fs reads — the
+  "derive, never hardcode" rule applies to copy text too). Never try to
+  read `navigator.clipboard` in the harness — the headless profile has no
+  permissions and the result is a rejected promise, not a value.
+- **Blobs** — `URL.createObjectURL` is patched to trap `type`/`size` and
+  the bytes (`b.arrayBuffer()`), so a `downloadFile` call is observable
+  without a real download. `downloadFile` passes a **bare Blob** — there is
+  no `.name` to assert. Word/PDF/HTML are synchronous; EPUB is async (font
+  fetch + dynamic `import()`), so wait for the new entry specifically:
+  record `capLen = window.__cap.length` before the click and wait for
+  `length === capLen + 1 && bytes` — a wait matching any prior blob's type
+  can succeed on a **stale capture** from an earlier export.
+- **PDF popup** — `window.open` is faked to a recording stub; the popup's
+  `document.write` input is the export HTML. The battery asserts the
+  version footer + book link inside it, never a real print dialog.
+- **Golden regression** — the captured Word bytes are written to disk and
+  diffed against `tools/golden/reader-word.doc` (re-captured by
+  `tools/hmv-golden-capture.mjs` before export-affecting changes; the
+  golden's header comment lists when to re-run). EPUB goldens cannot be
+  byte-diffed — the container embeds a timestamp inside deflate-compressed
+  data — so EPUB checks stay structural (PK header, stored `mimetype`,
+  embedded font).
+- **Navigation wipes hooks** — patches are installed per page load; a
+  battery section that navigates must re-install them before any capture.
 
 ## Keeping this guide alive
 

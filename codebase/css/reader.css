@@ -209,6 +209,36 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+/* The author line's button opens the book & author info modal's Author tab
+   (the dashboard-filter jump it replaced lives inside the modal now). It
+   wears the page background with the page's normal text colour but keeps
+   real button chrome — border, radius, padding — so it reads as clickable,
+   and it never underlines. */
+/* The author line lives inside .reader-panel-row, whose button rule
+   (0,1,1) would outrank this and paint it as a toolbar button — the
+   nav-btn-bg fill, 35px control height and muted text. The override
+   therefore has to outrank it too: page background and normal text colour
+   instead of the toolbar fill, its own text height instead of the control
+   height. The Arabic subtitle in the Dhivehi layout (reader.js
+   updatePageHeader) is the same button in the same row, opening the
+   modal's Book tab. */
+.reader-panel-row button.reader-author-btn,
+.reader-panel-row button.reader-subtitle-btn {
+  padding: 2px 12px;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color var(--t-hover, 0.15s) ease;
+}
+.reader-panel-row button.reader-author-btn:hover,
+.reader-panel-row button.reader-subtitle-btn:hover {
+  border-color: var(--color-card-hover-border);
+}
 
 /* ---- Reader toolbar ---- */
 .reader-toolbar {

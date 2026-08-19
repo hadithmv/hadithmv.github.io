@@ -14,6 +14,7 @@
 |---|---|
 | `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
 | `js/book-data.js` | Book registry, tag resolution, page bootstrap |
+| `js/book-info.js` | Book/author info modal: markdown notes renderer, tabs, in-modal search, copy, pane export — see below |
 | `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
 | `js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
@@ -22,7 +23,7 @@
 | `js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
 | `js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
 | `js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
-| `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object |
+| `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export |
 | `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
 | `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
 | `js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
@@ -138,6 +139,53 @@ Dashboard state and rendering moved to `dashboard.js` when the module was split 
 - `DRFT-` prefix → Draft badge (⚠️), visible on dashboard
 - `-HDN` suffix → hidden from dashboard
 - Run `data/04-update-bookRegistry.ps1` to auto‑generate `titleEN` from `bookCode`, rename `* - Sheet1.csv` files (replacing existing targets), register new books, and sort the book registry by `bookCode` (the tag and author registries are never rewritten)
+
+---
+
+## book-info.js
+
+The three-tab **info modal**: click the reader's book title, its Arabic subtitle (Dhivevi layout) or `Alt+I` → **Book tab**; click the reader's author line → **Author tab**; the Authors browse modal's per-row ℹ button (the grid's leading column) opens it stacked on top. A third **Books tab** (the author's other books — hidden when the modal has no author) sits alongside. Imports only i18n / book-data / search-utils / csv / export — never facet-browse.js or reader.js (cycle prevention). Re-opening while open re-renders in place (never double-pushes the modal stack).
+
+### `openInfoModal(cfg)`
+
+Opens (or re-renders) the modal. `cfg`:
+
+| Field | Meaning |
+|---|---|
+| `bookCode` | Book for the Book tab (registry facts, notes) |
+| `author` | Author code for the Author tab (bio, fact strip) and the Books tab (his books — the tab is hidden without one) |
+| `tab` | `"book"` \| `"author"` \| `"books"` — explicit tab wins over the fallback (`author` → Author, else Book); `"books"` requires `author` |
+| `counts` | `{rows, chapters}` computed by the caller (the reader computes them at load; the facet pages pass what they have) |
+
+Opens stacked (`window.openModalOnTop`) when any modal is already open, else `window.openModal` — Escape and the shared Tab-trap/backdrop/✕ behaviour come from the common.js modal layer. `createModal("infoOverlay", "infoModalTitle", "infoModalBody", "info-modal")` — the extra class lands on `.modal`, the `.open` state on `#infoOverlay`.
+
+### `renderMarkdown(src)`
+
+Renders the **notes subset** of markdown. Returns `{html, headings, plainText}`:
+
+- Block level: `#` → `<h2 id="info-hN">`, `##` → `<h3 id="info-hN">`, `-`-led lines → `<ul><li>`, blank-line-separated paragraphs. Every block carries `dir="auto"`.
+- Inline pass runs on the **escaped** text (escapeHTML first — the notes files are the user's own content, raw-by-design like the CSVs): `**b**` → `<strong>`, `*i*` → `<em>`, `[label](url)` → external link (`target="_blank" rel="noopener"`), `[[book:CODE]]` → `reader.html?book=CODE` titled via `getBookTitleSync(CODE) || CODE`. Everything else renders literally.
+- `headings` = the rendered h2/h3 texts with their `info-hN` ids; the caller builds a TOC when `headings.length >= 2` (click = scrollIntoView).
+- `plainText` = the copy/export path: strips `#`/`##` and hyphen-list prefixes, keeps inline markers literal, skips blank lines.
+
+### `computeChapterCount(rows, headerRow)`
+
+Chapters = runs of the first column whose lowercased header starts with `kitab` (else `bab`), falling back to `rows.length` when neither matches (e.g. Muwatta's basmalah-only columns). Purely derived at load — never stored.
+
+### In-modal search / copy / export
+
+- Search re-targets the active tab: `normaliseForSearch`-case-insensitive matching, `<mark>` highlighting (`highlightMatches`), count = the mark count (one counting path — cannot drift), ↑/↓ buttons plus Enter/Shift+Enter cycle the matches (`scrollIntoView({block:"center"})`), no-match shows the muted `infoNoMatch` line, and a clear ✕ (the search window's shared `.search-clear-btn` — `.visible` toggled on the query) clears the field and re-runs the search. The query survives tab switches; a stale async render is dropped by a render-sequence guard (`_renderSeq`).
+- 📋 copies the active pane's plain text via `window.copyToClipboard(_plain.join("\n"), "toastCopied")` — blank lines are **structural**: the tab builders push `""` entries at block boundaries (head → facts → tags → notes) and `renderMarkdown` keeps blank source lines as `""` (paragraph gaps), so the gaps sit exactly where the rendered sections have them.
+- The format menu exports **Word / PDF / HTML Book / EPUB only** of the active tab, reusing export.js's shared builders: pane sections (`sections.map(s => [s.title, s.body])`) under a synthetic `["headInfo", "bodyInfo"]` header row with `hasRowNums: false` — the existing headinfo/bodyinfo heuristics style the export, EPUB gets one chapter per section. Busy state disables the menu during async exports (font fetch + dynamic import) and swaps the clicked button's label to `exportPreparing` ("Preparing…"), restored when the export lands.
+
+### Notes content (`notes/`)
+
+One file per book/author; **the filename is the index** — no registry, no version churn. `notes/works/{bookCode}.md` (book notes) and `notes/authors/{authorCode}.md` (author bio). Fetched lazily on open (cached per path); 404/network failure → quiet "No notes yet" placeholder, never an error. One bio per author, **language-invariant** — the same file shows in all three site languages (per-paragraph `dir="auto"` handles mixed bidi). Write notes in the subset above; anything else renders literally.
+
+### Verification notes
+
+- Syntax-check ES modules with the **stdin-pipe form**: `cat js/book-info.js | node --check --input-type=module -` (recent Node rejects the file-path form).
+- The EPUB export embeds a timestamp inside its deflate-compressed container, so byte-goldens cover Word/PDF/HTML only — the battery's EPUB assertions are structural (PK header, stored `mimetype`, embedded font). Re-run `tools/hmv-golden-capture.mjs` deliberately (and commit the new goldens) after any change that alters export output — a version bump, an export-header edit, a builder refactor.
 
 ---
 

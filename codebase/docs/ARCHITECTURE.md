@@ -56,6 +56,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `css/library-search.css`     | Library search page: results, peek previews                                |
 | `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
 | `js/book-data.js`            | Book metadata: registry + tag loaders, tag extraction, page bootstrap |
+| `js/book-info.js`            | Book/author info modal: markdown notes renderer, fact strip, auto-TOC, in-modal search, copy, 4-format pane export (reuses `js/export.js`'s shared builders) |
 | `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
 | `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
 | `js/reader.js`               | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links  |
@@ -64,7 +65,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/search-window.js`        | Unified search window shell: tabs, scope, all-books tab, link-row keys     |
 | `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search            |
 | `js/table-scroll-sync.js`    | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll |
-| `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) |
+| `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) — the PDF/HTML/Word/EPUB builders are module-scope pure functions shared with the info modal's pane export |
 | `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
 | `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
 | `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSVRows()`, `parseCSVWithHeader()`, `fetchCSVObjects()` |
@@ -78,6 +79,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
 | `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
 | `data/content/*.csv`        | Per-book content files                                                     |
+| `notes/works/*.md` + `notes/authors/*.md` | Optional book notes / author bios for the info modal — filename = book/author code, fetched lazily, 404 → "no notes yet" placeholder (see "Info modal") |
 | `data/04-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag or author registries) |
 | `data/05-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
 | `data/07-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
@@ -106,6 +108,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
 | Quran nav / dropdowns | `quran-ui.js` | `initQuranUI(ctx)` — re-exports quran-data.js |
 | Reader core | `reader.js` | Rendering, loaders, `goTo`, STATE, toolbar, keyboard, deep links, focus mode |
+| Info modal | `book-info.js` | `openInfoModal(cfg)`, `renderMarkdown(src)`, `computeChapterCount(rows, headerRow)` — imports only i18n / book-data / search-utils / csv / export (never facet-browse or reader — cycle prevention) |
 | Reader position | `reader-position.js` | `initPosition(ctx)`, `updatePagination()`, `visiblePageIndex()` — pagination strip, scroll block (progress, milestones, URL sync, read-history) |
 | Table scrollbar | `table-scroll-sync.js` | `initTableScroll(ctx)`, `refreshTableScrollWidth()` — top scrollbar, width sync, arrow/wheel scrolling |
 | Export formats | `export.js` | `initExports(ctx)` — TXT, MD, PDF, EPUB, etc. |
@@ -335,6 +338,17 @@ Three themes via `[data-theme]` attribute: `light` (default), `dark`, `sepia`. A
 
 Opened from the sidebar. Cards for Appearance (theme dropdown, content width dropdown), Font (size ±, family dropdown: Hadithmv/System — always English), Language (select dropdown). The ↺ Reset button in the modal header is a **confirmed factory reset** — it clears settings, pins, and history (message: "Reset all settings, pins, and history? This cannot be undone."). The dashboard and reader resets are view-only and preserve pins/history. Modal has `overscroll-behavior: contain` and body scroll is locked when open to prevent background scroll bleed.
 
+### Info modal
+
+`js/book-info.js` owns a three-tab modal opened four ways: clicking the reader's book title, its Arabic subtitle (Dhivevi layout — a bordered page-background button sharing the author line's style rule) or `Alt+I` (Book tab), clicking the reader's author line (Author tab — the old dashboard-filter jump is gone), and the ℹ button on each author row in the Authors browse modal (Author tab, stacked over the authors modal — Escape closes innermost-first). It is a `.info-modal` variant of the shared modal layer (`createModal("infoOverlay", …)`, `openModal`/`openModalOnTop`), sharing the full-size geometry rule with the search-window modal family (`min(1200px, 95vw)`, `92vw`-capped at ≤600px) so stacked modals always measure identically.
+
+- **Book tab** — facts derived from the registries at open time (titles AR/DV/EN, author line + years/century/age from `book-data.js`'s author helpers, tags via `extractTags`), plus the book's note file `notes/works/{bookCode}.md` when it exists (lazy fetch, 404 → quiet "No notes yet" placeholder).
+- **Author tab** — the bio `notes/authors/{authorCode}.md` and a fact strip (AH years, CE span, century, age).
+- **Books tab** — the author's other books (registry rows whose authorCodes include the code, `-HDN` variants excluded) with deep links into `reader.html?book=CODE`; the "Show all books by {name}" link goes to `index.html?authors=CODE`. A third tab, hidden when the modal has no author.
+- **Notes are language-invariant** — one file per book/author shown identically in all three site languages; each paragraph/heading/list carries `dir="auto"` for mixed Arabic/Thaana/English bidi (the lists too: an RTL list holding LTR items renders its outside-position markers ~20px past the list edge — the pane's phantom horizontal overflow). The markdown subset: `#`→h2 / `##`→h3 (TOC links when 2+ headings), `-`-led lines → list, blank-line paragraphs, inline `**b**`, `*i*`, `[label](url)` (external, `_blank`), `[[book:CODE]]` (reader deep link titled via `getBookTitleSync` — DV-primary). Everything else renders literally after `escapeHTML` — same trust boundary as the CSVs.
+- **In-modal search** — fixed bar re-targeting the active tab: live `<mark>` highlighting, "N matches" count before navigation and "k / N" position while stepping (the count *is* the mark count — one counting path), ↑/↓ buttons plus Enter/Shift+Enter cycle the matches, each step scrolling the pane to the term (`scrollIntoView` block `center`), quiet "No matches" line, and a clear ✕ (the search window's shared `.search-input-wrap`/`.search-clear-btn` component — visible only with a query, click clears the field and unwraps the highlights); the query survives tab switches. The same component also serves the two facet-browse modal filters — the info modal, dashboard, reader, library-search page, search window, and both facet modals all share one ✕ implementation.
+- **Copy & export cover the active tab** — 📋 copies the pane's plain text (markdown markers stripped, inline markup kept literal) with blank lines **at the structural boundaries only** — the plain-text array carries `""` entries pushed by the tab builders (head → facts → tags → notes) and by the markdown renderer for blank source lines (paragraph gaps), then joins with `"\n"` — so the gaps sit exactly where the rendered sections have them, not between every line; the format menu exports Word / PDF / HTML Book / EPUB only, reusing `js/export.js`'s shared builders (`buildWordHTML`/`buildPdfHTML`/`buildHtmlBook`/`exportEPUB` + `downloadFile`) fed by pane sections under a synthetic `headInfo`/`bodyInfo` header — byte-identical machinery to the reader's own exports.
+
 ### Font scaling
 
 Four CSS custom properties control user-adjustable font sizes:
@@ -415,6 +429,7 @@ Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single
 | `Alt+P`         | Reader                 | Toggle bookmark (pin)                  |
 | `Alt+S`         | Reader                 | Share link                             |
 | `Alt+E`         | Reader                 | Open export dropdown                   |
+| `Alt+I`         | Reader                 | Open the info modal (Book tab)         |
 | `Ctrl+,`        | Anywhere               | Open settings                          |
 | `Ctrl+B`        | Anywhere               | Back to book list                      |
 | `Escape`        | Sidebar/modal/dropdown | Close                                  |
@@ -722,11 +737,11 @@ the overhang paints into the padding. The current insets: `.search-input`
 so its clip only exists when the title overflows — ޙ-led titles never show
 it, which is why it went unnoticed), and mobile-only
 `.dash-continue-title` `padding-inline-start: 6px` (≤600px, where the
-title ellipsizes to keep the continue row one line). The reader header's author line
-(`#readerPageAuthor`) is safe without an inset: its text always starts with
-the neutral " - " prefix, so the first strong glyph's pen lands well inside
-the box and its start-side overhang paints into the prefix run, never the
-clip. Surfaces with ≥7px of start padding
+title ellipsizes to keep the continue row one line). The reader header's author
+button (`#readerPageAuthor .reader-author-btn`) and the Dhivevi-layout
+subtitle button (`#readerPageSubtitle .reader-subtitle-btn`) are safe without
+an inset: they are content-sized (no clip), and their 12px inline padding
+paints any start-side overhang inside the button. Surfaces with ≥7px of start padding
 (quran table cells, pins cards, tag chips, surah list items) are safe
 without insets. Insets are regression-guarded by smoke-battery section F;
 measurement traps are in docs/TESTING.md "Traps from adjacent workflows".
@@ -786,7 +801,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Static text.** Any visible string in static HTML uses a `data-i18n` attribute. Dynamic text uses `t("key")`. Never hardcode a Dhivehi, Arabic, or English label directly in HTML or JS — use the i18n layer.
 
-**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>` line breaks and `<span>`/entities; e.g. `data/content/RDF-misc.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape.
+**HTML escaping.** Cell content renders raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>` line breaks and `<span>`/entities; e.g. `data/content/RDF-misc.csv`). Never assume a cell is plain text, and never "fix" an audit finding by escaping the render path — that would be a content regression, not a security fix. The only untrusted surface is user/URL input (query terms): input values are set via `.value` (a property assignment — the browser never parses it), and every other sink passes through `escapeHTML` or `highlightMatches` (which escapes both the surrounding text and the `<mark>` content). `escapeHTML` escapes `& < > " '` — complete since 2026-08-10 — safe in text contexts **and** quoted attributes (`value="…"`, `data-…="…"`); never splice input into an attribute raw. Known attribute sites: the advanced-search condition value (`reader-search-ui.js` renderConditionRow) and the library result card's `data-q` (`library-search-page.js`). Exports split the same way: article formats (PDF/HTML/Word) embed cells raw (they render the data format), table/XML formats escape. The info-modal notes files (`notes/…`) join the data files' trust boundary — raw-by-design: the markdown renderer escapes first and only the subset (`**b**`, `*i*`, `[label](url)`, `[[book:CODE]]`, `#`/`##` headings, hyphen lists) is re-interpreted; everything else renders literally (see "Info modal").
 
 ### JavaScript
 
