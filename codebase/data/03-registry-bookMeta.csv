@@ -1,6 +1,6 @@
 bookCode,authorCode,titleAR,titleDV,titleEN,tags,excludeFromIndex,version
 AQD-aqidatuNawawi-HDN,yahyaBinSharafAnNawawi,عقيدة النووي,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT,ENTIRE-BOOK,9ebcc269d59c
-AQD-aqidatuRaziyain,arRaziain,عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT,foot,b59b0badf3a9
+AQD-aqidatuRaziyain,"abuZurahArRazi,abuHatimArRazi",عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT,foot,b59b0badf3a9
 AQD-nawaqidulIslam,muhammadBinAbdulWahhab,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,,"headAR,headDV,foot",e8a6a9aba6c3
 AQD-qawaidulArbau,muhammadBinAbdulWahhab,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Four Principles,,"headAR,headDV,foot",4e6391a64c9c
 AQD-sharhuSunnahBarbahari-hmv,alHasanBinAliAlBarbahari,شرح السنة للبربهاري,ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah,DRFT,foot,0d5e8d4ffff5
