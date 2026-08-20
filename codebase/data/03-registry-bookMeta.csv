@@ -33,6 +33,7 @@ HDT-misc,,أحاديث مختلفة,ތަފާތު އެކި ޙަދީޘްތައް,C
 HDT-muwattaMalik,malikBinAnas,موطأ مالك,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT,"basmala,kitabAR,babAR,kitabDV,babDV,foot",25b92435f2ec
 HDT-umdathulAhkam,abdulGhaniAlMaqdisi,عمدة الأحكام,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,REV,"kitabAR,babAR,kitabDV,babDV,foot",cf58851f371c
 IH-dhuroosMuhimmahLiAammathilUmmah,ibnBaz,الدروس المهمة لعامة الأمة,އުއްމަތުގެ ޢާއްމުންނަށް ޓަކައި މުހިއްމު ފިލާވަޅުތައް,Important Lessons for the General Ummah,"NEW,RAW",,a40c48dea45c
+IH-fadailWaAadabulMasjidiNabawi,,فَضَائِلُ وَآدَابُ المَسْجِدِ النَّبَوِيِّ وَأَحْكَامُ زِيَارَةِ قَبْرِ النَّبِيِّ ﷺ,މަސްޖިދުއް ނަބަވީގެ މާތްކަމާއި އެ ތަނުގެ އަދަބުތަކާއި، އަދި ނަބިއްޔާ ﷺ ގެ ޤަބުރުފުޅަށް ޒިޔާރަތްކުރުމުގެ ޙުކުމްތައް,The Virtues and Etiquettes of the Prophet's Mosque and the Rulings on Visiting the Grave of the Prophet ﷺ,"NEW,RAW,AQD",,4cbfcfdfa4de
 IH-hirasathuTauhid_1_aqidahSahihah,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 1 - العَقِيدَةُ الصَّحِيحَةُ وَمَا يُضَادُّهَا,ތައުޙީދު ރައްކާތެރިކުރުން 1 - ޞައްޙަ ޢަޤީދާއާއި އެއާ ޚިލާފުވާ ކަންތައްތައް,Safeguarding Tauhid 1 – Correct Creed and What Opposes It,"NEW,RAW,AQD",,46a38d23044a
 IH-hirasathuTauhid_10_tahzeerMinBinailMasajidAlalQubur,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 10 - التَّحْذِيرُ مِنْ بِنَاءِ المَسَاجِدِ عَلَى القُبُورِ,ތައުޙީދު ރައްކާތެރިކުރުން 9 - ޤަބުރުތަކުގެ މަތީގައި މިސްކިތް ބިނާކުރުމާމެދު އިންޛާރުދިނުން,Safeguarding Tauhid 10 – Warning Against Building Mosques Over Graves,"NEW,RAW,AQD",,85c1b07f8dfa
 IH-hirasathuTauhid_11_dafnulMauthaFilMasajid,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 11 - دَفْنُ المَوْتَى فِي المَسَاجِدِ,ތައުޙީދު ރައްކާތެރިކުރުން 11 - މިސްކިތްތަކުގައި މައްޔިތުން ވަޅުލުން,Safeguarding Tauhid 11 – Burying the Dead Inside Mosques,"NEW,RAW,AQD",,c4c681b47b80
@@ -44,6 +45,7 @@ IH-hisnulMuslim,saeedAlQahtani,حِصْنُ المُسْلِمِ (دار الإ�
 IH-huquqDaathIlaihalFitrah,ibnulUthaymeen,حقوق دعت إليها الفطرة,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް,Rights Advocated by Human Nature,NEW,foot,a7d7a6a242f1
 IH-islamDeenRusulullah,,الإسلام دين رسل الله,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,NEW,,fc12b2efbb0d
 IH-islamDeenulFitrah,,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",NEW,,49daca16a4ea
+IH-kaifiyyathuSalatiNabiy_IbnBaz,ibnBaz,كَيفِيَّةُ صَلَاةِ النَّبِيِّ ﷺ - ابْنُ بَازٍ,ނަބީ ﷺ ނަމާދުގެ ނަމާދުކުރެއްވި ގޮތް - އިބްނު ބާޒް,Description of the Prophet's Prayer,"NEW,RAW,FQH",,87bc47347a8e
 IH-manKhalaqaniWaLimaza,,من خلقني؟ ولماذا؟,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟,Who Created Me? And Why?,NEW,,843032358f7d
 IH-mukhtasarFiSifathilUmrah,,المختصر في صفة العمرة وأحكامها,ޢުމްރާގެ ޞިފައާއި އޭގެ ޙުކުމްތަކުގެ ކުރު ޚުލާޞާއެއް,Concise Description of Umrah and Its Rulings,"NEW,RAW,FQH",,a63e6dbf3dde
 IH-mukhtasarTauhidilAsmaWaSifat,,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"NEW,DRFT,AQD",,9dea890896d2
