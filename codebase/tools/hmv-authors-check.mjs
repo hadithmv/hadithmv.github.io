@@ -24,8 +24,8 @@
 //    Gregorian (miladi) equivalent each in their own column, the distinct
 //    authors in the bucket and the book count, counts cover only books
 //    really in the library (searchable set); click sets ?period=. The
-//    modern row's name carries the open-ended "(15+)" marker and its
-//    ranges are the "1401+ AH" / "1981+ CE" from-forms
+//    modern row's name carries the open-ended "(+15)" marker and its
+//    ranges are the "+1401 AH" / "+1981 CE" from-forms
 //  - ?authors=/?period= deep links activate chips on load
 //  - scoped search: with an author active, every result card belongs to one
 //    of that author's books (derived from 03)
@@ -315,11 +315,13 @@ async function main() {
     `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-century').textContent === ${JSON.stringify("Century 7")} &&
      document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-range').textContent === ${JSON.stringify("(631–676 AH)")}`),
     rows.find((r) => r.code === "yahyaBinSharafAnNawawi").text);
-  // Modern authors' century cell carries the bucket's open-ended "(15+)"
-  // marker — the same one the periods modal's modern row shows (albani
+  // Modern authors' century cell carries the open-ended marker — the
+  // century label with the leading plus, "Century +15" (the
+  // periodFromCentury template's {n} filled with MODERN_PERIOD_CENTURY) —
+  // the same "+" the modern row's name marker and from-forms carry (albani
   // died 1420 AH → the 15th-century modern bucket).
-  check("modern author century shows the (15+) marker", await evalJS(
-    `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="muhammadNasiruddeenAlAlbani"] .facet-century').textContent === "(15+)"`),
+  check("modern author century shows the +15 label", await evalJS(
+    `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="muhammadNasiruddeenAlAlbani"] .facet-century').textContent === "Century +15"`),
     await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="muhammadNasiruddeenAlAlbani"] .facet-century').textContent`));
   // The Arabic name gets its own column (empty in the Arabic UI, where the
   // primary name already is Arabic); the name column carries the current
@@ -467,7 +469,7 @@ async function main() {
       // the regex into a different match entirely.
       range: (b.querySelector('.facet-range').textContent.match(/\\(([^)]+)\\)/) || [])[1] || '',
       // The row name — the period label, with the modern bucket's open-ended
-      // "(15+)" opening-century marker appended ("Modern (15+)").
+      // opening-century marker appended, the plus leading ("Modern (+15)").
       name: b.querySelector('.facet-name').textContent,
       // The Gregorian span, same bracketed shape — "(817–913 CE)".
       ce: (b.querySelector('.facet-ce').textContent.match(/\\(([^)]+)\\)/) || [])[1] || ''
@@ -483,29 +485,30 @@ async function main() {
   // "Century 3" | "(201–300 AH)" — the en authorLife template "{b}–{d}
   // AH" filled with the bucket's span, e.g. ((3-1)*100+1)–(3*100)); the
   // "modern" bucket's range opens at its century's first year and has no
-  // closing year — "1401+ AH" (the periodFromAH template).
+  // closing year — "+1401 AH" (the periodFromAH template).
   check("period rows show the AH range", periodBtns.every(function (b) {
-    if (b.period === "modern") return b.range === "1401+ AH";
+    if (b.period === "modern") return b.range === "+1401 AH";
     const n = parseInt(b.period, 10);
     return b.range === ((n - 1) * 100 + 1) + "–" + (n * 100) + " AH";
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.range) + " in " + JSON.stringify(b.text)).join(","));
   // The Gregorian (miladi) equivalent of the same span, in its own column —
   // the ceFromAh approximation above, the en authorLifeCe template "{b}–{d}
-  // CE"; the modern bucket's opens at the CE of 1401 AH — 1981+, derived
+  // CE"; the modern bucket's opens at the CE of 1401 AH — +1981, derived
   // from the same formula the app uses (a hardcoded "1981" would drift the
   // moment the conversion changes).
   check("period rows show the CE range", periodBtns.every(function (b) {
-    if (b.period === "modern") return b.ce === ceFromAh(1401) + "+ CE";
+    if (b.period === "modern") return b.ce === "+" + ceFromAh(1401) + " CE";
     const n = parseInt(b.period, 10);
     return b.ce === ceFromAh((n - 1) * 100 + 1) + "–" + ceFromAh(n * 100) + " CE";
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.ce)).join(","));
-  // The modern bucket's row name carries the open-ended "(15+)" marker —
-  // "Modern (15+)", appended to the bare periodLabel so the chip and the
+  // The modern bucket's row name carries the open-ended "(+15)" marker —
+  // "Modern (+15)", the plus leading the century number like the
+  // from-forms, appended to the bare periodLabel so the chip and the
   // info modal's guarded century fact stay clean; the numeric buckets keep
   // their plain century label ("Century 2"), the same en centuryN key the
   // battery asserts on the info fact strip.
-  check("modern row name carries the (15+) marker", periodBtns.every(function (b) {
-    return b.period === "modern" ? b.name === "Modern (15+)" : b.name === "Century " + b.period;
+  check("modern row name carries the (+15) marker", periodBtns.every(function (b) {
+    return b.period === "modern" ? b.name === "Modern (+15)" : b.name === "Century " + b.period;
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.name)).join(","));
   // Six thead cells over six row cells, column to column — the shared
   // grid template keeps them aligned by construction, like the authors.
@@ -642,6 +645,12 @@ async function main() {
   check("dashboard authors button opens modal", await evalJS(`document.getElementById('libAuthorsOverlay').classList.contains('open')`));
   const dashRows = await evalJS(`document.querySelectorAll('#libAuthorsModalBody .author-browse-row').length`);
   check("dashboard modal rows = visible authors", dashRows === VISIBLE_AUTHORS.length, dashRows + " vs " + VISIBLE_AUTHORS.length);
+  // The count is always visible — the search window's "match: N" pattern
+  // over the SHOWN rows, reading the full list with an empty filter (no
+  // query gate: every filter in the app shows its count at all times).
+  check("authors filter count shows the full list on open", await evalJS(
+    `document.getElementById('libAuthorsFilterCount').textContent === 'match: ' + ${VISIBLE_AUTHORS.length}`),
+    await evalJS(`document.getElementById('libAuthorsFilterCount').textContent`));
   const hasFilter = await evalJS(`!!document.getElementById('libAuthorsFilter')`);
   check("authors modal has filter input", hasFilter);
   // The filter sits in the shared search-input-wrap — the same search-box
@@ -687,10 +696,10 @@ async function main() {
     `document.getElementById('libAuthorsFilter').value === '' &&
      !document.getElementById('libAuthorsFilterClear').classList.contains('visible') &&
      document.querySelectorAll('#libAuthorsList .author-browse-row').length === ${VISIBLE_AUTHORS.length}`));
-  // The count hides with the cleared query — empty text, the slot's
-  // reserved width holding the layout.
-  check("authors filter count hides on clear", await evalJS(
-    `document.getElementById('libAuthorsFilterCount').textContent === ''`),
+  // The count stays on with the cleared query, reading the full list again
+  // — always visible, never empty.
+  check("authors filter count shows the full list on clear", await evalJS(
+    `document.getElementById('libAuthorsFilterCount').textContent === 'match: ' + ${VISIBLE_AUTHORS.length}`),
     await evalJS(`document.getElementById('libAuthorsFilterCount').textContent`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
@@ -707,8 +716,8 @@ async function main() {
     await evalJS(`document.getElementById('libPeriodsFilterCount').textContent`));
   await evalJS(`document.getElementById('libPeriodsFilterClear').click()`);
   await sleep(150);
-  check("periods filter count hides on clear", await evalJS(
-    `document.getElementById('libPeriodsFilterCount').textContent === ''`),
+  check("periods filter count shows the full list on clear", await evalJS(
+    `document.getElementById('libPeriodsFilterCount').textContent === 'match: ' + ${PERIODS.length}`),
     await evalJS(`document.getElementById('libPeriodsFilterCount').textContent`));
   await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);

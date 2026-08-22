@@ -24,97 +24,97 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 
 ## Where to look (cheat sheet)
 
-| Task | Where |
-|---|---|
-| Change the toolbar / reader chrome | `books/reader.html` + `js/reader.js` + `css/reader.css` |
-| Add a regular book | README → "Add a new book" |
-| Add a Quran translation | "Adding a new Quran translation" below |
-| Change themes / colours | `css/common.css` `--color-*` variables (3 themes) |
-| Add a UI string | `js/i18n.js` (`dv`/`en`/`ar`), then the button gets `data-i18n` |
-| Wire a new modal | `common.js` `createModal()` + `MODAL_IDS` (must open via `openModal`) |
-| Change search behaviour | `js/search-utils.js` (engine) + `js/reader.js` (wiring) |
-| Bump the version | `js/i18n.js` `appVersion`, commit "Update to vX.Y.Z" |
-| Verify changes | "Verification habits" at the bottom |
+| Task                               | Where                                                                 |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| Change the toolbar / reader chrome | `books/reader.html` + `js/reader.js` + `css/reader.css`               |
+| Add a regular book                 | README → "Add a new book"                                             |
+| Add a Quran translation            | "Adding a new Quran translation" below                                |
+| Change themes / colours            | `css/common.css` `--color-*` variables (3 themes)                     |
+| Add a UI string                    | `js/i18n.js` (`dv`/`en`/`ar`), then the button gets `data-i18n`       |
+| Wire a new modal                   | `common.js` `createModal()` + `MODAL_IDS` (must open via `openModal`) |
+| Change search behaviour            | `js/search-utils.js` (engine) + `js/reader.js` (wiring)               |
+| Bump the version                   | `js/i18n.js` `appVersion`, commit "Update to vX.Y.Z"                  |
+| Verify changes                     | "Verification habits" at the bottom                                   |
 
 ## Files
 
-| File                         | Purpose                                                                    |
-| ---------------------------- | -------------------------------------------------------------------------- |
-| `data/03-registry-bookMeta.csv`      | Central registry of books (code, authorCode, titles in AR/DV/EN, secondary `tags` column, version) |
-| `data/01-registry-bookTags.csv`       | Tag definitions (tagCode, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file) |
-| `data/02-registry-bookAuthors.csv`        | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 02's `authorCode` column |
-| `books/index.html`           | Dashboard — book list, search, tag filter, table/card view                 |
-| `books/reader.html`          | Book viewer — loaded via `?book=CODE`                                      |
-| `books/library-search.html`  | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs |
-| `css/common.css`             | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors |
-| `css/reader.css`             | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override reader-quran.css on specificity ties. |
-| `css/reader-search.css`      | Reader: RDF header filter, search window input/history/advanced            |
-| `css/search-window.css`      | Shared search window: shell grid, tabs/scope, results pane, hint strip     |
-| `css/reader-table-view.css`  | Reader: table view mode, top scrollbar, sentinels                          |
-| `css/reader-quran.css`       | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.  |
-| `css/dashboard.css`          | Dashboard styles: grid, cards, controls, table view                        |
-| `css/library-search.css`     | Library search page: results, peek previews                                |
-| `js/common.js`               | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal |
-| `js/book-data.js`            | Book metadata: registry + tag loaders, tag extraction, page bootstrap |
-| `js/book-info.js`            | Book/author info modal: markdown notes renderer, fact strip, auto-TOC, in-modal search, copy, 4-format pane export (reuses `js/export.js`'s shared builders) |
-| `js/dashboard.js`            | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard |
-| `js/pins-history.js`         | Pins & history: storage CRUD, modal UI, sidebar wiring |
-| `js/reader.js`               | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links  |
-| `js/radheef-merge.js`        | Virtual merged radheef book (RDF-all): assembles the 8 source books in memory at load — see "Virtual merged books" |
-| `js/reader-position.js`      | Reader position: pagination strip, progress, URL sync, history log      |
-| `js/search-window.js`        | Unified search window shell: tabs, scope, all-books tab, link-row keys     |
-| `js/reader-search-ui.js`     | Reader search UI: results, history, whole-word, advanced search            |
-| `js/table-scroll-sync.js`    | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll |
-| `js/export.js`               | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) — the PDF/HTML/Word/EPUB builders are module-scope pure functions shared with the info modal's pane export |
-| `js/quran-data.js`           | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers |
-| `js/quran-ui.js`             | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js. |
-| `js/csv.js`                  | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSVRows()`, `parseCSVWithHeader()`, `fetchCSVObjects()` |
-| `js/search-utils.js`         | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping |
-| `js/library-search-engine.js`| Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
-| `js/library-search-page.js`       | Library search page UI: `?q=`/`?tags=`/`?books=`, chips, results, peek previews, book-scope picker |
-| `js/library-scope-picker.js` | Book-scope picker: groups/chips/rail rendered into one surface at a time   |
-| `js/export-xlsx.js`          | XLSX writer — createXLSX(), inline strings, lazy-loaded |
-| `js/export-epub.js`          | EPUB 3 e-book writer — createEPUB(), embedded font, lazy-loaded |
-| `js/export-zip.js`           | Minimal store-only ZIP writer — zipStore(), shared by the XLSX + EPUB writers |
-| `js/i18n.js`                 | Translations module (dv/en/ar) — `t()`, `setLanguage()`                    |
-| `font/`                      | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                 |
-| `data/content/*.csv`        | Per-book content files                                                     |
-| `notes/works/*.md` + `notes/authors/*.md` | Optional book notes / author bios for the info modal — filename = book/author code, fetched lazily, 404 → "no notes yet" placeholder (see "Info modal") |
-| `data/04-update-bookRegistry.ps1` | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag or author registries) |
-| `data/05-registry-quranSurahs.csv` | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah |
-| `data/07-registry-quranColumns.csv` | Registry of all available Quran columns (source, labels, defaults) |
-| `data/06-registry-quranJuz.csv` | 30 juz cut points as `startSurah`/`startAyah` |
-| `data/content/QRN-DATA-ayahImlai.csv`      | Base Quran text: one Imlai ayah per row (structure derived from 05 + 06 at load) |
-| `data/content/QRN-DATA-ayahUthmani.csv`   | Quran text in Uthmani script                                |
-| `data/08-rebuild-searchIndex.mjs` | Node build script — scans every registered book, emits the word-level search index (rerun after book changes) |
-| `data/search-index.json`     | Generated word-level search index — the one machine-generated data file (see "Library search") |
-| `data/search-index-report.md` | Generated per-build policy report — one row per book (index id, rows, postings, indexed/skipped columns), warnings, and a postings-by-column breakdown sorted by size; commit it to diff policy changes across versions |
+| File                                      | Purpose                                                                                                                                                                                                                 |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data/03-registry-bookMeta.csv`           | Central registry of books (code, authorCode, titles in AR/DV/EN, secondary `tags` column, version)                                                                                                                      |
+| `data/01-registry-bookTags.csv`           | Tag definitions (tagCode, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file)                                        |
+| `data/02-registry-bookAuthors.csv`        | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 02's `authorCode` column                                                        |
+| `books/index.html`                        | Dashboard — book list, search, tag filter, table/card view                                                                                                                                                              |
+| `books/reader.html`                       | Book viewer — loaded via `?book=CODE`                                                                                                                                                                                   |
+| `books/library-search.html`               | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs                                                                                                                                        |
+| `css/common.css`                          | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors                                                                                                            |
+| `css/reader.css`                          | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override reader-quran.css on specificity ties.                                                        |
+| `css/reader-search.css`                   | Reader: RDF header filter, search window input/history/advanced                                                                                                                                                         |
+| `css/search-window.css`                   | Shared search window: shell grid, tabs/scope, results pane, hint strip                                                                                                                                                  |
+| `css/reader-table-view.css`               | Reader: table view mode, top scrollbar, sentinels                                                                                                                                                                       |
+| `css/reader-quran.css`                    | Reader: Quran nav row, dropdowns, surah overlay. Loads before reader.css.                                                                                                                                               |
+| `css/dashboard.css`                       | Dashboard styles: grid, cards, controls, table view                                                                                                                                                                     |
+| `css/library-search.css`                  | Library search page: results, peek previews                                                                                                                                                                             |
+| `js/common.js`                            | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast, clipboard, LS_KEYS, createModal                                                                                                    |
+| `js/book-data.js`                         | Book metadata: registry + tag loaders, tag extraction, page bootstrap                                                                                                                                                   |
+| `js/book-info.js`                         | Book/author info modal: markdown notes renderer, fact strip, auto-TOC, in-modal search, copy, 4-format pane export (reuses `js/export.js`'s shared builders)                                                            |
+| `js/dashboard.js`                         | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard                                                                                                                                      |
+| `js/pins-history.js`                      | Pins & history: storage CRUD, modal UI, sidebar wiring                                                                                                                                                                  |
+| `js/reader.js`                            | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links                                                                                                                                                 |
+| `js/radheef-merge.js`                     | Virtual merged radheef book (RDF-all): assembles the 8 source books in memory at load — see "Virtual merged books"                                                                                                      |
+| `js/reader-position.js`                   | Reader position: pagination strip, progress, URL sync, history log                                                                                                                                                      |
+| `js/search-window.js`                     | Unified search window shell: tabs, scope, all-books tab, link-row keys                                                                                                                                                  |
+| `js/reader-search-ui.js`                  | Reader search UI: results, history, whole-word, advanced search                                                                                                                                                         |
+| `js/table-scroll-sync.js`                 | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll                                                                                                                                                 |
+| `js/export.js`                            | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) — the PDF/HTML/Word/EPUB builders are module-scope pure functions shared with the info modal's pane export     |
+| `js/quran-data.js`                        | Quran pure data/logic: detection, loading, merging, ayah decoration, column classification helpers                                                                                                                      |
+| `js/quran-ui.js`                          | Quran UI: surah/ayah/juz dropdowns, content presets, display options, surah selector. Re‑exports quran-data.js.                                                                                                         |
+| `js/csv.js`                               | Tiny CSV parser (~1 KB) — `parseCSV()`, `unparseCSV()`, `fetchCSVRows()`, `parseCSVWithHeader()`, `fetchCSVObjects()`                                                                                                   |
+| `js/search-utils.js`                      | Search engine: normalisation, parsing, matching, snippets, history, HTML/XML escaping                                                                                                                                   |
+| `js/library-search-engine.js`             | Cross-book search: index loader (IndexedDB-cached) + pure query engine — `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script)                                                        |
+| `js/library-search-page.js`               | Library search page UI: `?q=`/`?tags=`/`?books=`, chips, results, peek previews, book-scope picker                                                                                                                      |
+| `js/library-scope-picker.js`              | Book-scope picker: groups/chips/rail rendered into one surface at a time                                                                                                                                                |
+| `js/export-xlsx.js`                       | XLSX writer — createXLSX(), inline strings, lazy-loaded                                                                                                                                                                 |
+| `js/export-epub.js`                       | EPUB 3 e-book writer — createEPUB(), embedded font, lazy-loaded                                                                                                                                                         |
+| `js/export-zip.js`                        | Minimal store-only ZIP writer — zipStore(), shared by the XLSX + EPUB writers                                                                                                                                           |
+| `js/i18n.js`                              | Translations module (dv/en/ar) — `t()`, `setLanguage()`                                                                                                                                                                 |
+| `font/`                                   | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)                                                                                                                                                              |
+| `data/content/*.csv`                      | Per-book content files                                                                                                                                                                                                  |
+| `notes/works/*.md` + `notes/authors/*.md` | Optional book notes / author bios for the info modal — filename = book/author code, fetched lazily, 404 → "no notes yet" placeholder (see "Info modal")                                                                 |
+| `data/04-update-bookRegistry.ps1`         | Adds new books, recomputes version hashes, sorts the book registry (never touches the tag or author registries)                                                                                                         |
+| `data/05-registry-quranSurahs.csv`        | 114 surah names in AR/DV/EN with ayah counts and the per-surah basmalah                                                                                                                                                 |
+| `data/07-registry-quranColumns.csv`       | Registry of all available Quran columns (source, labels, defaults)                                                                                                                                                      |
+| `data/06-registry-quranJuz.csv`           | 30 juz cut points as `startSurah`/`startAyah`                                                                                                                                                                           |
+| `data/content/QRN-DATA-ayahImlai.csv`     | Base Quran text: one Imlai ayah per row (structure derived from 05 + 06 at load)                                                                                                                                        |
+| `data/content/QRN-DATA-ayahUthmani.csv`   | Quran text in Uthmani script                                                                                                                                                                                            |
+| `data/08-rebuild-searchIndex.mjs`         | Node build script — scans every registered book, emits the word-level search index (rerun after book changes)                                                                                                           |
+| `data/search-index.json`                  | Generated word-level search index — the one machine-generated data file (see "Library search")                                                                                                                          |
+| `data/search-index-report.md`             | Generated per-build policy report — one row per book (index id, rows, postings, indexed/skipped columns), warnings, and a postings-by-column breakdown sorted by size; commit it to diff policy changes across versions |
 
 ## Where to find things
 
 Key functions and where they're defined. Many are re-exported through barrel modules (quran-ui.js → quran-data.js, book-data.js → pins-history.js).
 
-| What | Module | Notes |
-|---|---|---|
-| Book metadata | `book-data.js` | `initializePageWithMetadata`, `loadBookNames`, `extractTags` |
-| Dashboard UI | `dashboard.js` | `initializeDashboard`, `renderDashboard`, `setupDashboardControls` |
-| CSV parsing | `csv.js` | `parseCSV`, `fetchCSVRows`, `parseCSVWithHeader`, `fetchCSVObjects` |
-| Theme, font, sidebar, settings | `common.js` | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal` |
-| i18n / translations | `i18n.js` | `t(key)`, `setLanguage(lang)` |
-| Search engine | `search-utils.js` | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML` |
-| Search window + in-book search | `search-window.js` (shell) + `reader-search-ui.js` (in-book wiring) + `search-utils.js` (shared toolkit) | `initSearchWindow(cfg)`, `openSearchWindow`, `getSearchWindowUI`, `applySearch(q)` / `applySearchWindow`, `parseQueryWithMode(q)`, `renderAdvancedSearch()` — unified modal window: This book / All books tabs, history section, whole-word toggle, advanced conditions, scope picker; navigation ownership split between the page (this-book rows) and the shell (link rows); styles in `search-window.css` + `reader-search.css` |
-| Library search | `library-search-engine.js` | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script) |
-| Library search page | `library-search-page.js` | self-initialising — `?q=`/`?tags=`/`?books=`, chip + book scoping, peek previews |
-| Quran data / decoration | `quran-data.js` | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers |
-| Quran nav / dropdowns | `quran-ui.js` | `initQuranUI(ctx)` — re-exports quran-data.js |
-| Reader core | `reader.js` | Rendering, loaders, `goTo`, STATE, toolbar, keyboard, deep links, focus mode |
-| Info modal | `book-info.js` | `openInfoModal(cfg)`, `renderMarkdown(src)`, `computeChapterCount(rows, headerRow)` — imports only i18n / book-data / search-utils / csv / export (never facet-browse or reader — cycle prevention) |
-| Reader position | `reader-position.js` | `initPosition(ctx)`, `updatePagination()`, `visiblePageIndex()` — pagination strip, scroll block (progress, milestones, URL sync, read-history) |
-| Table scrollbar | `table-scroll-sync.js` | `initTableScroll(ctx)`, `refreshTableScrollWidth()` — top scrollbar, width sync, arrow/wheel scrolling |
-| Export formats | `export.js` | `initExports(ctx)` — TXT, MD, PDF, EPUB, etc. |
-| Pins & history | `pins-history.js` | `addPin`, `addReadHistory`, `openPinsModal`, `openHistoryModal` |
-| `window.openDropdown` / `closeAllDropdowns` / `registerDropdown` | `reader.js` | Shared dropdown helpers |
-| `window.showToast` | `common.js` | Single toast implementation |
+| What                                                             | Module                                                                                                   | Notes                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Book metadata                                                    | `book-data.js`                                                                                           | `initializePageWithMetadata`, `loadBookNames`, `extractTags`                                                                                                                                                                                                                                                                                                                                                                       |
+| Dashboard UI                                                     | `dashboard.js`                                                                                           | `initializeDashboard`, `renderDashboard`, `setupDashboardControls`                                                                                                                                                                                                                                                                                                                                                                 |
+| CSV parsing                                                      | `csv.js`                                                                                                 | `parseCSV`, `fetchCSVRows`, `parseCSVWithHeader`, `fetchCSVObjects`                                                                                                                                                                                                                                                                                                                                                                |
+| Theme, font, sidebar, settings                                   | `common.js`                                                                                              | Also `window.setFocus`, `window.LS_KEYS`, `window.copyToClipboard`, `window.createModal`                                                                                                                                                                                                                                                                                                                                           |
+| i18n / translations                                              | `i18n.js`                                                                                                | `t(key)`, `setLanguage(lang)`                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Search engine                                                    | `search-utils.js`                                                                                        | `normaliseForSearch`, `parseQuery`, `compileQuery`, `rowMatchesQueryNorm`, `buildNormData`, `escapeHTML`, `escapeXML`                                                                                                                                                                                                                                                                                                              |
+| Search window + in-book search                                   | `search-window.js` (shell) + `reader-search-ui.js` (in-book wiring) + `search-utils.js` (shared toolkit) | `initSearchWindow(cfg)`, `openSearchWindow`, `getSearchWindowUI`, `applySearch(q)` / `applySearchWindow`, `parseQueryWithMode(q)`, `renderAdvancedSearch()` — unified modal window: This book / All books tabs, history section, whole-word toggle, advanced conditions, scope picker; navigation ownership split between the page (this-book rows) and the shell (link rows); styles in `search-window.css` + `reader-search.css` |
+| Library search                                                   | `library-search-engine.js`                                                                               | `loadSearchIndex`, `searchLibrary`, `tokenizeText` (shared with the index build script)                                                                                                                                                                                                                                                                                                                                            |
+| Library search page                                              | `library-search-page.js`                                                                                 | self-initialising — `?q=`/`?tags=`/`?books=`, chip + book scoping, peek previews                                                                                                                                                                                                                                                                                                                                                   |
+| Quran data / decoration                                          | `quran-data.js`                                                                                          | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers                                                                                                                                                                                                                                                                                                                                                |
+| Quran nav / dropdowns                                            | `quran-ui.js`                                                                                            | `initQuranUI(ctx)` — re-exports quran-data.js                                                                                                                                                                                                                                                                                                                                                                                      |
+| Reader core                                                      | `reader.js`                                                                                              | Rendering, loaders, `goTo`, STATE, toolbar, keyboard, deep links, focus mode                                                                                                                                                                                                                                                                                                                                                       |
+| Info modal                                                       | `book-info.js`                                                                                           | `openInfoModal(cfg)`, `renderMarkdown(src)`, `computeChapterCount(rows, headerRow)` — imports only i18n / book-data / search-utils / csv / export (never facet-browse or reader — cycle prevention)                                                                                                                                                                                                                                |
+| Reader position                                                  | `reader-position.js`                                                                                     | `initPosition(ctx)`, `updatePagination()`, `visiblePageIndex()` — pagination strip, scroll block (progress, milestones, URL sync, read-history)                                                                                                                                                                                                                                                                                    |
+| Table scrollbar                                                  | `table-scroll-sync.js`                                                                                   | `initTableScroll(ctx)`, `refreshTableScrollWidth()` — top scrollbar, width sync, arrow/wheel scrolling                                                                                                                                                                                                                                                                                                                             |
+| Export formats                                                   | `export.js`                                                                                              | `initExports(ctx)` — TXT, MD, PDF, EPUB, etc.                                                                                                                                                                                                                                                                                                                                                                                      |
+| Pins & history                                                   | `pins-history.js`                                                                                        | `addPin`, `addReadHistory`, `openPinsModal`, `openHistoryModal`                                                                                                                                                                                                                                                                                                                                                                    |
+| `window.openDropdown` / `closeAllDropdowns` / `registerDropdown` | `reader.js`                                                                                              | Shared dropdown helpers                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `window.showToast`                                               | `common.js`                                                                                              | Single toast implementation                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ## Request flow
 
@@ -283,7 +283,7 @@ A `?q=TERM` URL param (used by library-search deep links) fills the window query
 ### Toolbar
 
 | Control         | Implementation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                                                                                                                                   |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Copy            | **Standard books:** `titleDV - titleAR` header, then row text with `ـ` divider before `foot` columns, blank line between AR‑ending and DV‑ending columns, heading formatting for `head`/`kitab`/`bab` columns. **Quran books:** no book header; decorated ayah text, `[name surahNo : ayahNo]` reference, then columns grouped by source book with one book-level label per book. `navigator.clipboard.writeText()` with `execCommand` fallback.                                                                                   |
 | Share           | Copies a deep link (`?book=CODE&row=N`) to the current row.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Pin             | Toggles a pin for the current position (📌 Pin ↔ 📌 Pinned; Alt+P). The label swap is width‑reserved via `reserveWidestText` — the reservation runs at the post‑load wrapper reveal (with the sticky‑chrome measurements), because `#readerWrapper` is `display: none` until then and a hidden element measures 0px. Persists in `pinnedBooks` (max 10); while pinned, the entry's row auto‑updates on the 2 s scroll debounce — see the dashboard section.                                                                        |
@@ -295,23 +295,23 @@ A `?q=TERM` URL param (used by library-search deep links) fills the window query
 
 #### Export formats
 
-| Format     | Type        | Header row? | Module            | Notes                                |
-|-----------|-------------|-------------|------------------|--------------------------------------|
-| TXT       | Rich text   | No          | —                 | Formatted like clipboard copy        |
-| MD        | Rich text   | No          | —                 | Markdown with `##` per row           |
-| JSON      | Data        | Yes         | —                 | Array of arrays, header first        |
-| CSV       | Data        | Yes         | —                 | `unparseCSV()`                       |
-| TSV       | Data        | Yes         | —                 | Tab‑separated                        |
-| Excel     | Data        | Yes         | `export-xlsx.js`  | Lazy‑loaded, inline strings          |
-| HTML      | Rich text   | No          | —                 | Book reader view, styled paragraphs  |
-| HTML Table| Data        | Yes         | —                 | `<table>` with `<thead>`             |
-| Word      | Rich text   | No          | —                 | HTML saved as `.doc`                 |
-| EPUB      | Rich text   | No          | `export-epub.js`  | Lazy‑loaded, embedded font           |
-| YAML      | Structured  | —           | —                 | `id` + `fields` per row              |
-| TOON      | Structured  | —           | —                 | Hadithmv compact notation            |
-| XML       | Structured  | —           | —                 | `<book>` / `<row>` / `<colN>`        |
-| PDF       | Rich text   | No          | —                 | Print‑only (window print)            |
-| PNG       | Screenshot  | —           | —                 | Canvas render of the current visible row (2×) — one row only, never the whole book |
+| Format     | Type       | Header row? | Module           | Notes                                                                              |
+| ---------- | ---------- | ----------- | ---------------- | ---------------------------------------------------------------------------------- |
+| TXT        | Rich text  | No          | —                | Formatted like clipboard copy                                                      |
+| MD         | Rich text  | No          | —                | Markdown with `##` per row                                                         |
+| JSON       | Data       | Yes         | —                | Array of arrays, header first                                                      |
+| CSV        | Data       | Yes         | —                | `unparseCSV()`                                                                     |
+| TSV        | Data       | Yes         | —                | Tab‑separated                                                                      |
+| Excel      | Data       | Yes         | `export-xlsx.js` | Lazy‑loaded, inline strings                                                        |
+| HTML       | Rich text  | No          | —                | Book reader view, styled paragraphs                                                |
+| HTML Table | Data       | Yes         | —                | `<table>` with `<thead>`                                                           |
+| Word       | Rich text  | No          | —                | HTML saved as `.doc`                                                               |
+| EPUB       | Rich text  | No          | `export-epub.js` | Lazy‑loaded, embedded font                                                         |
+| YAML       | Structured | —           | —                | `id` + `fields` per row                                                            |
+| TOON       | Structured | —           | —                | Hadithmv compact notation                                                          |
+| XML        | Structured | —           | —                | `<book>` / `<row>` / `<colN>`                                                      |
+| PDF        | Rich text  | No          | —                | Print‑only (window print)                                                          |
+| PNG        | Screenshot | —           | —                | Canvas render of the current visible row (2×) — one row only, never the whole book |
 
 **Rule:** data formats (CSV, TSV, Excel, JSON, HTML Table) include the CSV header row. Rich‑text and structured formats do not.
 
@@ -346,19 +346,19 @@ Opened from the sidebar. Cards for Appearance (theme dropdown, content width dro
 - **Author tab** — the bio `notes/authors/{authorCode}.md` and a fact strip (AH years, CE span, century, age).
 - **Books tab** — the author's other books (registry rows whose authorCodes include the code, `-HDN` variants excluded) with deep links into `reader.html?book=CODE`; the "Show all books by {name}" link goes to `index.html?authors=CODE`. A third tab, hidden when the modal has no author.
 - **Notes are language-invariant** — one file per book/author shown identically in all three site languages; each paragraph/heading/list carries `dir="auto"` for mixed Arabic/Thaana/English bidi (the lists too: an RTL list holding LTR items renders its outside-position markers ~20px past the list edge — the pane's phantom horizontal overflow). The markdown subset: `#`→h2 / `##`→h3 (TOC links when 2+ headings), `-`-led lines → list, blank-line paragraphs, inline `**b**`, `*i*`, `[label](url)` (external, `_blank`), `[[book:CODE]]` (reader deep link titled via `getBookTitleSync` — DV-primary). Everything else renders literally after `escapeHTML` — same trust boundary as the CSVs.
-- **In-modal search** — fixed bar re-targeting the active tab: live `<mark>` highlighting, "N matches" count before navigation and "k / N" position while stepping (the count *is* the mark count — one counting path), ↑/↓ buttons plus Enter/Shift+Enter cycle the matches, each step scrolling the pane to the term (`scrollIntoView` block `center`), quiet "No matches" line, and a clear ✕ (the search window's shared `.search-input-wrap`/`.search-clear-btn` component — visible only with a query, click clears the field and unwraps the highlights); the query survives tab switches. The same component also serves the two facet-browse modal filters, the library-scope picker's filter, and the Quran reader's surah selector — every search box in the app (info modal, dashboard, reader, library-search page, search window, both facet modals, lib scope, surah selector) shares one ✕ implementation; there is no search box without it.
+- **In-modal search** — fixed bar re-targeting the active tab: live `<mark>` highlighting, "N matches" count before navigation and "k / N" position while stepping (the count _is_ the mark count — one counting path), ↑/↓ buttons plus Enter/Shift+Enter cycle the matches, each step scrolling the pane to the term (`scrollIntoView` block `center`), quiet "No matches" line, and a clear ✕ (the search window's shared `.search-input-wrap`/`.search-clear-btn` component — visible only with a query, click clears the field and unwraps the highlights); the query survives tab switches. The same component also serves the two facet-browse modal filters, the library-scope picker's filter, and the Quran reader's surah selector — every search box in the app (info modal, dashboard, reader, library-search page, search window, both facet modals, lib scope, surah selector) shares one ✕ implementation; there is no search box without it.
 - **Copy & export cover the active tab** — 📋 copies the pane's plain text (markdown markers stripped, inline markup kept literal) with blank lines **at the structural boundaries only** — the plain-text array carries `""` entries pushed by the tab builders (head → facts → tags → notes) and by the markdown renderer for blank source lines (paragraph gaps), then joins with `"\n"` — so the gaps sit exactly where the rendered sections have them, not between every line; the format menu exports Word / PDF / HTML Book / EPUB only, reusing `js/export.js`'s shared builders (`buildWordHTML`/`buildPdfHTML`/`buildHtmlBook`/`exportEPUB` + `downloadFile`) fed by pane sections under a synthetic `headInfo`/`bodyInfo` header — byte-identical machinery to the reader's own exports.
 
 ### Font scaling
 
 Four CSS custom properties control user-adjustable font sizes:
 
-| Variable | Default | Controls |
-|---|---|---|
-| `--reader-font-size` | `1.25rem` | Reader content text |
-| `--reader-font-size-mobile` | `1.1rem` | Reader content on mobile |
-| `--panel-font-size` | `0.85rem` | All panel UI text (buttons, inputs, labels) |
-| `--panel-font-size-mobile` | `0.78rem` | Panel UI + dashboard on mobile |
+| Variable                    | Default   | Controls                                    |
+| --------------------------- | --------- | ------------------------------------------- |
+| `--reader-font-size`        | `1.25rem` | Reader content text                         |
+| `--reader-font-size-mobile` | `1.1rem`  | Reader content on mobile                    |
+| `--panel-font-size`         | `0.85rem` | All panel UI text (buttons, inputs, labels) |
+| `--panel-font-size-mobile`  | `0.78rem` | Panel UI + dashboard on mobile              |
 
 The first two are JS-only tokens (set before paint, no `:root` value); the panel pair have `:root` defaults overridden by `common.js` at runtime. Controls stay a fixed `var(--control-height, 35px)` tall at any font size — only text scales. The Settings → Font ± control sets all four variables. Reset restores defaults. The fixed design sizes live in the `--fs-*` scale (see UI & theming → Control sizing).
 
@@ -366,14 +366,14 @@ The first two are JS-only tokens (set before paint, no `:root` value); the panel
 
 Settings and small state live in `localStorage` (table below). **IndexedDB** is used for exactly two things, both validated against a content-hash version stamp: the **on‑device book cache** in `csv.js` (`fetchBookCSVCached`) — parsed book CSVs stored keyed by `bookCode`, validated against the registry `version` hash — and the **search index cache** in `library-search-engine.js` (the separate `hadithmvSearch` DB, keyed by a fixed id, validated against the index's own `meta.version` hash). Cache hit + version match → read locally with zero download/parse; mismatch or empty version → fetch, parse, refresh the cache. Every failure path degrades to a plain fetch. Only book CSVs and the search index are cached (registries are small and change often). No sessionStorage or cookies. In‑memory caches (`bookNamesCache`, `tagDefinitionsCache`) are populated at startup and never written to disk.
 
-| Key | Where used | Shape | Notes |
-|-----|-----------|-------|-------|
-| `theme` | `common.js` | `"dark"` / `"sepia"` / `""` (light) | Applied before paint to avoid flash |
-| `contentWidth` | `common.js` | CSS value (`"800px"`, `"none"`, etc.) | Content area max‑width |
-| `fontSize` | `common.js` | CSS value like `"1.25rem"` | Reader font size |
-| `fontSystem` | `common.js` | `"1"` or `"0"` | `"1"` = system font, `"0"` = Hadithmv |
-| `lang` | `i18n.js` | `"dv"` / `"en"` / `"ar"` | UI language |
-| `focus` | `common.js` | `"1"` or `"0"` | Focus mode (shared across reader and dashboard) |
+| Key            | Where used  | Shape                                 | Notes                                           |
+| -------------- | ----------- | ------------------------------------- | ----------------------------------------------- |
+| `theme`        | `common.js` | `"dark"` / `"sepia"` / `""` (light)   | Applied before paint to avoid flash             |
+| `contentWidth` | `common.js` | CSS value (`"800px"`, `"none"`, etc.) | Content area max‑width                          |
+| `fontSize`     | `common.js` | CSS value like `"1.25rem"`            | Reader font size                                |
+| `fontSystem`   | `common.js` | `"1"` or `"0"`                        | `"1"` = system font, `"0"` = Hadithmv           |
+| `lang`         | `i18n.js`   | `"dv"` / `"en"` / `"ar"`              | UI language                                     |
+| `focus`        | `common.js` | `"1"` or `"0"`                        | Focus mode (shared across reader and dashboard) |
 
 | `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
 | `reader:hiddenColumns:{bookCode}` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns — **keyed per book** (a global key leaked hidden indices across books; see the `-HDN` convention) |
@@ -413,30 +413,30 @@ Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single
 
 ### Keyboard
 
-| Key             | Context                | Action                                 |
-| --------------- | ---------------------- | -------------------------------------- |
+| Key             | Context                | Action                                              |
+| --------------- | ---------------------- | --------------------------------------------------- |
 | `←` / `→`       | Reader                 | Next / previous row (RTL: content flows right→left) |
-| Swipe right | Reader (mobile)     | Next row |
-| Swipe left  | Reader (mobile)     | Previous row |
-| `Home` / `End`  | Reader                 | First / last row                       |
-| `↑` / `↓`       | Search window input    | Navigate results                       |
-| `Enter`         | Search window input    | Follow the selected result             |
-| `/` or `Ctrl+F` | Anywhere               | Open search window (RDF: header filter)|
-| `Ctrl+Shift+F`  | Anywhere               | Open search window, advanced expanded  |
-| `Alt+Z`         | Reader                 | Toggle focus mode (same as ▾/▴ button) |
-| `Alt+T`         | Reader                 | Toggle tashkeel                        |
-| `Alt+V`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card) |
-| `Alt+P`         | Reader                 | Toggle bookmark (pin)                  |
-| `Alt+S`         | Reader                 | Share link                             |
-| `Alt+E`         | Reader                 | Open export dropdown                   |
-| `Alt+I`         | Reader                 | Open the info modal (Book tab)         |
-| `Ctrl+,`        | Anywhere               | Open settings                          |
-| `Ctrl+B`        | Anywhere               | Back to book list                      |
-| `Escape`        | Sidebar/modal/dropdown | Close                                  |
-| `Escape`        | Dashboard search       | Clear search & blur                    |
-| `z`             | Dashboard              | Toggle focus mode                      |
-| `p`             | Dashboard              | Open pins modal                        |
-| `h`             | Dashboard              | Open history modal                     |
+| Swipe right     | Reader (mobile)        | Next row                                            |
+| Swipe left      | Reader (mobile)        | Previous row                                        |
+| `Home` / `End`  | Reader                 | First / last row                                    |
+| `↑` / `↓`       | Search window input    | Navigate results                                    |
+| `Enter`         | Search window input    | Follow the selected result                          |
+| `/` or `Ctrl+F` | Anywhere               | Open search window (RDF: header filter)             |
+| `Ctrl+Shift+F`  | Anywhere               | Open search window, advanced expanded               |
+| `Alt+Z`         | Reader                 | Toggle focus mode (same as ▾/▴ button)              |
+| `Alt+T`         | Reader                 | Toggle tashkeel                                     |
+| `Alt+V`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card)    |
+| `Alt+P`         | Reader                 | Toggle bookmark (pin)                               |
+| `Alt+S`         | Reader                 | Share link                                          |
+| `Alt+E`         | Reader                 | Open export dropdown                                |
+| `Alt+I`         | Reader                 | Open the info modal (Book tab)                      |
+| `Ctrl+,`        | Anywhere               | Open settings                                       |
+| `Ctrl+B`        | Anywhere               | Back to book list                                   |
+| `Escape`        | Sidebar/modal/dropdown | Close                                               |
+| `Escape`        | Dashboard search       | Clear search & blur                                 |
+| `z`             | Dashboard              | Toggle focus mode                                   |
+| `p`             | Dashboard              | Open pins modal                                     |
+| `h`             | Dashboard              | Open history modal                                  |
 
 Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips, badges, book cards, table rows, toolbar buttons, and page titles all carry `title` tooltips describing their action or category.
 
@@ -444,16 +444,16 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 ### 03-registry-bookMeta.csv
 
-| Column             | Description                                         |
-| ------------------ | --------------------------------------------------- |
-| `bookCode`         | Unique identifier, doubles as the data CSV filename. Format: `PRIMARY-bookName[-SUFFIX]` — the **primary tag** is the first segment, registered in `01-registry-bookTags.csv` (a book may have no primary). `-HDN` / `-DSC` are suffix flags, not tags |
+| Column             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bookCode`         | Unique identifier, doubles as the data CSV filename. Format: `PRIMARY-bookName[-SUFFIX]` — the **primary tag** is the first segment, registered in `01-registry-bookTags.csv` (a book may have no primary). `-HDN` / `-DSC` are suffix flags, not tags                                                                                                                                                                                                                                                                                                                             |
 | `authorCode`       | **Optional** — comma‑separated author codes from `02-registry-bookAuthors.csv` (one per contributor, e.g. `nawawi`). Drives the author line on cards (joined with the script‑appropriate comma — latin "," in English, "،" in Dhivehi/Arabic) and the reader header's one‑button‑per‑author line (each button opens that author's info), the EPUB `dc:creator`, and the shared Authors/Periods browse filters (library page, dashboard, search window). Empty = no author line. Sits **immediately after** `bookCode`, before the titles — see the version‑last invariant under 03 |
-| `titleAR`          | Arabic title                                        |
-| `titleDV`          | Dhivehi title                                       |
-| `titleEN`          | English title (used for `<title>` and page heading) |
-| `tags`             | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column |
-| `excludeFromIndex` | **Optional** — comma‑separated header names to skip in the cross‑book index (case‑insensitive). `-HDN` and row‑number columns are always skipped regardless. Empty = all columns indexed. Build-only |
-| `version`          | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `04-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed |
+| `titleAR`          | Arabic title                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `titleDV`          | Dhivehi title                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `titleEN`          | English title (used for `<title>` and page heading)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `tags`             | **Secondary tags** — comma‑separated tag codes from `01-registry-bookTags.csv` (e.g. `DFK,QRUL`). The primary tag lives in the code prefix; everything else goes in this column                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `excludeFromIndex` | **Optional** — comma‑separated header names to skip in the cross‑book index (case‑insensitive). `-HDN` and row‑number columns are always skipped regardless. Empty = all columns indexed. Build-only                                                                                                                                                                                                                                                                                                                                                                               |
+| `version`          | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `04-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed                                                                                                                                                                                                                                                                                                                                                                      |
 
 **Virtual books** (e.g. `RDF-all`) have a registry row but **no content CSV** — the `version` field stays empty (03 writes it only when a file exists), and 03's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
 
@@ -461,15 +461,15 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 
 ### 01-registry-bookTags.csv
 
-| Column       | Description                                              |
-| ------------ | -------------------------------------------------------- |
-| `tagCode`    | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
-| `labelAR`    | Arabic display name                                      |
-| `labelDV`    | Dhivehi display name                                     |
-| `labelEN`    | English display name                                     |
-| `aliasesAR`  | Extra Arabic search words (optional)                     |
-| `aliasesDV`  | Extra Dhivehi search words (optional)                    |
-| `aliasesEN`  | Extra English search words (optional)                    |
+| Column      | Description                                                                  |
+| ----------- | ---------------------------------------------------------------------------- |
+| `tagCode`   | Tag code — used as a bookCode primary prefix OR a value in the `tags` column |
+| `labelAR`   | Arabic display name                                                          |
+| `labelDV`   | Dhivehi display name                                                         |
+| `labelEN`   | English display name                                                         |
+| `aliasesAR` | Extra Arabic search words (optional)                                         |
+| `aliasesDV` | Extra Dhivehi search words (optional)                                        |
+| `aliasesEN` | Extra English search words (optional)                                        |
 
 Tag labels are **data, not code** — the registry is the single source of truth for all three languages (the same pattern as `03-registry-bookMeta.csv`'s `titleAR/titleDV/titleEN`). `book-data.js` loads each tag as `{label: {dv,en,ar}, aliases: {dv,en,ar}, palette}` and `tagLabel()` picks the right language at render time; `js/i18n.js` carries no tag strings.
 
@@ -483,18 +483,18 @@ Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 1
 
 ### 02-registry-bookAuthors.csv
 
-| Column     | Description                                              |
-| ---------- | -------------------------------------------------------- |
-| `authorCode` | Author code — referenced from 02's `authorCode` column, one token per contributor, comma‑separated for co‑authored works |
-| `nameAR`   | Arabic display name                                      |
-| `nameDV`   | Dhivehi display name                                     |
-| `nameEN`   | English display name                                     |
-| `bornAH`   | Hijri birth year (**optional** — blank when unknown)     |
-| `diedAH`   | Hijri death year (**optional** — blank = living; also the **modern** era bucket: death in the 15th century AH (1401) and later) |
+| Column       | Description                                                                                                                     |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `authorCode` | Author code — referenced from 02's `authorCode` column, one token per contributor, comma‑separated for co‑authored works        |
+| `nameAR`     | Arabic display name                                                                                                             |
+| `nameDV`     | Dhivehi display name                                                                                                            |
+| `nameEN`     | English display name                                                                                                            |
+| `bornAH`     | Hijri birth year (**optional** — blank when unknown)                                                                            |
+| `diedAH`     | Hijri death year (**optional** — blank = living; also the **modern** era bucket: death in the 15th century AH (1401) and later) |
 
 Author names are **data, not code** — same single-source-of-truth pattern as tags. `book-data.js` loads each author as `{name: {dv,en,ar}, bornAH, diedAH}`; `bookAuthorLine()` renders the display line ("al-Bukhari (–256 AH)") in the current language — multi-author books joined with the **script-appropriate comma** (latin "," in the English layout, the Arabic comma "،" in the Dhivehi/Arabic ones, via `authorListSeparator()`); `bookAuthorParts()` gives the same per-author pieces for the reader's one-button-per-author header; `bookAuthorNames()` the portable English names for the EPUB `dc:creator`. **Row order is the author list's display order** (chronological by death year in the current file) — hand‑controlled, never rewritten by 03.
 
-**Years are Hijri AH**, stored as plain numerals (no "AH" suffix — that is added by the i18n template at render). The **period facet is derived, never stored**: a book's period bucket is `Math.ceil(diedAH / 100)` (the Hijri century of death), except that a death in the **15th century AH (1401) and later — and a blank `diedAH` — both land in the single `modern` era bucket** (the modern/contemporary authors are one period, not split between a "Century 15" row and a "Modern" catch-all). The `modern` bucket's row renders the open-ended "(15+)" marker on its name (the opening century — `MODERN_PERIOD_CENTURY` in `js/book-data.js`) and its range columns show the open-ended "from" forms: "1401+ AH" (the 15th century's first year) and the Gregorian equivalent derived by the app's own conversion (`Math.round(1401 × 0.970229 + 621.57)` = "1981+ CE"). Century labels (1st–14th) live in `js/i18n.js` (`century1`…`century14`, `centuryModern` = Modern / معاصر / މުޢާޞިރު), not in the CSV.
+**Years are Hijri AH**, stored as plain numerals (no "AH" suffix — that is added by the i18n template at render). The **period facet is derived, never stored**: a book's period bucket is `Math.ceil(diedAH / 100)` (the Hijri century of death), except that a death in the **15th century AH (1401) and later — and a blank `diedAH` — both land in the single `modern` era bucket** (the modern/contemporary authors are one period, not split between a "Century 15" row and a "Modern" catch-all). The `modern` bucket's row renders the open-ended "(+15)" marker on its name (the opening century — `MODERN_PERIOD_CENTURY` in `js/book-data.js`, the plus leading the number) and its range columns show the open-ended "from" forms: "+1401 AH" (the 15th century's first year) and the Gregorian equivalent derived by the app's own conversion (`Math.round(1401 × 0.970229 + 621.57)` = "+1981 CE"). Century labels (1st–14th) live in `js/i18n.js` (`century1`…`century14`, `centuryModern` = Modern / معاصر / ފަހުގެ), not in the CSV.
 
 **Format rules.** Same as tags: blank lines are fine, no comment syntax, no trailing newline. Only authors with books in the collection render in the Authors browse modal — registry rows without books stay invisible.
 
@@ -506,12 +506,12 @@ First row is always the header row. For a representative sample, see `AQD-nawaqi
 
 Every book has a **primary tag** (the first registered prefix segment of its `bookCode`) and zero or more **secondary tags** (the `tags` column in `03-registry-bookMeta.csv`, comma‑separated codes). `extractTags(bookCode, entry)` reads both: the primary from the code, the secondaries from the registry row's `tags` column. Tags drive the dashboard chips, counts, `?tags=` filter, and badges on cards and the reader header. Each code is looked up in `01-registry-bookTags.csv`; unknown codes are silently ignored.
 
-| bookCode                    | `tags` column | Tags (primary + secondary) | Book Name       |
-| --------------------------- | ------------- | -------------------------- | --------------- |
-| `AQD-nawaqidulIslam`        | *(empty)*     | Aqidah                     | nawaqidulIslam  |
-| `HDT-muwattaMalik`          | `DRFT`        | Hadith, ⚠️ Draft           | muwattaMalik    |
+| bookCode                    | `tags` column | Tags (primary + secondary) | Book Name             |
+| --------------------------- | ------------- | -------------------------- | --------------------- |
+| `AQD-nawaqidulIslam`        | _(empty)_     | Aqidah                     | nawaqidulIslam        |
+| `HDT-muwattaMalik`          | `DRFT`        | Hadith, ⚠️ Draft           | muwattaMalik          |
 | `AQD-sharhuSunnahBarbahari` | `DFK`         | Aqidah, DFK                | sharhuSunnahBarbahari |
-| `RDF-asmaullahilHusna`      | `AQD`         | Radheef, Aqidah            | asmaullahilHusna |
+| `RDF-asmaullahilHusna`      | `AQD`         | Radheef, Aqidah            | asmaullahilHusna      |
 
 Suffix flags are pure app conventions — `-HDN` hides the book from the dashboard, `-DSC` displays rows in reverse order. At the column level, any CSV header ending with `-HDN` (e.g. `notes-HDN`) starts hidden in the reader.
 
@@ -570,12 +570,12 @@ A **virtual book** has a registry row in `03-registry-bookMeta.csv` (card, tags,
 
 `js/radheef-merge.js` (`loadMergedRadheefBook`) is the assembler, wired into the reader's load path (`loadBookData()` in reader.js) after the Quran branch. Contract per source book:
 
-- **By-name projection** — every source row is projected into the merged schema `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, matched **by header name**. A source column lands in the target column with the same name; columns without a same-named home (eegaal's `pNo`, nanfoiy's `gender/approvedBy/originLang`, rasmee's technical columns, …) are left out. A source's column *order* is irrelevant.
+- **By-name projection** — every source row is projected into the merged schema `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, matched **by header name**. A source column lands in the target column with the same name; columns without a same-named home (eegaal's `pNo`, nanfoiy's `gender/approvedBy/originLang`, rasmee's technical columns, …) are left out. A source's column _order_ is irrelevant.
 - **Block order = `MERGED_SOURCES`, deliberate** — the 8 sources concatenate in `MERGED_SOURCES` array order: **rasmee leads** (it is the primary Dhivehi dictionary, so the merged book opens on it), then the remaining seven follow 02's alphabetical sort (case-insensitive): fahmy, asma, eegaal, maniku, misc, nanfoiyComb, W2W. The order is a design choice, not alphabetical — change it only on purpose; every consumer (row indexing, `?row=` deep links, the rasmee tint's first-block visibility) follows this array. No client-side row sorting exists anywhere; file/concat order is reading order.
 - **`source` column** — each row's 7th cell carries its book's **Dhivehi title**, read from the registry at load (`getBookTitleSync`) — derived, never stored or hardcoded.
 - **Caching** — sources load through the normal `fetchBookCSVCached`, each keyed by its own registry `version`, so an edit to any source book shows up here automatically with nothing to re-run; no merged file exists to go stale.
 - **Index** — `excludeFromIndex: ENTIRE-BOOK` keeps the merged book out of the library search index (like all RDF books): a postings index over dictionaries would dwarf the rest of the site. Its search runs inside the reader over the loaded rows — see "Search" below (RDF books get the in-place filter).
-- **Rasmee rows stand out** — rows whose `source` is the RDF-rasmee book carry `merged-row-rasmee` (`reader.js` `mergedRowRasmeeClass`, source cell compared against `getBookTitleSync("RDF-rasmee")` — content-derived, never hardcoded), tinted with the site's one content wash (`--color-wash-bg` in common.css — theme-aware, the *same* token Arabic-original content uses via `isArabicColumn`, so both tint families share one definition and cannot drift apart) in both card and table layouts, and the `source` column renders small/muted as chrome rather than content.
+- **Rasmee rows stand out** — rows whose `source` is the RDF-rasmee book carry `merged-row-rasmee` (`reader.js` `mergedRowRasmeeClass`, source cell compared against `getBookTitleSync("RDF-rasmee")` — content-derived, never hardcoded), tinted with the site's one content wash (`--color-wash-bg` in common.css — theme-aware, the _same_ token Arabic-original content uses via `isArabicColumn`, so both tint families share one definition and cannot drift apart) in both card and table layouts, and the `source` column renders small/muted as chrome rather than content.
 - **Registry script** — 03's missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `08-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
 
 Size reference: 152,612 merged rows in `MERGED_SOURCES` block order — 0-based block starts: rasmee 0 (53,841 rows), fahmy 53,841 (682), asma 54,523 (110), eegaal 54,633 (13,376), maniku 68,009 (2,231), misc 70,240 (41,051), nanfoiyComb 111,291 (8,784), W2W 120,075 (32,537).
@@ -588,15 +588,15 @@ An all-empty row in a QRN book is **meaningful**: it marks an ayah with no conte
 
 ### Data files
 
-| File | Role | Columns |
-|------|------|---------|
-| `QRN-DATA-ayahImlai.csv` | Base Quran text (always loaded) | `ayahImlai` |
-| `QRN-DATA-ayahUthmani.csv` | Uthmani script (on demand) | `ayahUthmani` |
-| `QRN-BASE-STRUCT` (synthetic) | Derived base columns — built at load from 04 + 05, no file exists | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah` |
-| `05-registry-quranSurahs.csv` | Surah metadata | `surahNo, nameAR, nameDV, nameEN, ayahCount, basmalah` |
-| `07-registry-quranColumns.csv` | Column registry | `sourceBook, sourceCol, displayDV, displayEN` |
-| `06-registry-quranJuz.csv` | Juz cut points | `juzNo, startSurah, startAyah` |
-| `QRN-{name}.csv` | Book-specific columns | Varies per book |
+| File                           | Role                                                              | Columns                                                |
+| ------------------------------ | ----------------------------------------------------------------- | ------------------------------------------------------ |
+| `QRN-DATA-ayahImlai.csv`       | Base Quran text (always loaded)                                   | `ayahImlai`                                            |
+| `QRN-DATA-ayahUthmani.csv`     | Uthmani script (on demand)                                        | `ayahUthmani`                                          |
+| `QRN-BASE-STRUCT` (synthetic)  | Derived base columns — built at load from 04 + 05, no file exists | `juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah`         |
+| `05-registry-quranSurahs.csv`  | Surah metadata                                                    | `surahNo, nameAR, nameDV, nameEN, ayahCount, basmalah` |
+| `07-registry-quranColumns.csv` | Column registry                                                   | `sourceBook, sourceCol, displayDV, displayEN`          |
+| `06-registry-quranJuz.csv`     | Juz cut points                                                    | `juzNo, startSurah, startAyah`                         |
+| `QRN-{name}.csv`               | Book-specific columns                                             | Varies per book                                        |
 
 ### Deriving the base columns
 
@@ -614,13 +614,13 @@ basmalah per surah)            (startSurah, startAyah)
         per merged row: [juzNo-HDN, surahNo-HDN, ayahNo-HDN, basmalah, ayahImlai]
 ```
 
-The derivation is a single pass over 6,236 rows with advancing surah/juz pointers — amortized O(1) per row. Surah *N* starts after the cumulative ayah counts of surahs 1…N−1; juz *J* starts at `surahStarts[startSurah] + startAyah − 1`; basmalah is non-empty exactly on the first ayah of surahs 2–8, 10–114. The same pass fills `_surahStartRows` / `_juzStartRows`, so `getSurahStartRow(sn)` and `getJuzStartRow(jn)` answer surah/juz range navigation in O(1) — replacing the old 6,236-row `parseInt` scans. The merged-row contract is unchanged: every merged row still carries the same first 5 columns, byte-identical to the old compiled CSV.
+The derivation is a single pass over 6,236 rows with advancing surah/juz pointers — amortized O(1) per row. Surah _N_ starts after the cumulative ayah counts of surahs 1…N−1; juz _J_ starts at `surahStarts[startSurah] + startAyah − 1`; basmalah is non-empty exactly on the first ayah of surahs 2–8, 10–114. The same pass fills `_surahStartRows` / `_juzStartRows`, so `getSurahStartRow(sn)` and `getJuzStartRow(jn)` answer surah/juz range navigation in O(1) — replacing the old 6,236-row `parseInt` scans. The merged-row contract is unchanged: every merged row still carries the same first 5 columns, byte-identical to the old compiled CSV.
 
 ### Merging
 
 Base data columns are always present. Book-specific columns are merged by row index. The `07-registry-quranColumns.csv` registry declares all available columns across all QRN books — the content modal uses this to list toggleable columns, including those from other books (loaded on demand via `loadAndInsertColumn`). Preset buttons (Main/All/Arabic/Reset) batch-toggle columns; Main and Arabic are driven by the `QRN_PRESET_MAIN` and `QRN_PRESET_ARABIC` arrays in `quran-data.js`.
 
-**Two naming layers.** CSV headers are data identifiers AND the engine's classification keys (`ar`/`dv`/`en` suffixes for script/direction, `foot*` footnotes, `matn*`/`sharh*` card grouping, `-hdn` auto-hide). They are never translated — table/card headers show the raw identifier because it names the data, not the language. Only *selection chrome* (the advanced-search column dropdown, the column toggle buttons) gets friendly labels, resolved by `js/column-labels.js` in this order: (1) the column registry above — QRN books, per current language; (2) derived from the header's camelCase tokens via the token tables in `js/column-tokens.js` (labels in `js/i18n.js` as `col*` keys); (3) raw header text as fallback. `tools/hmv-header-scan.mjs` diffs every `data/content/*.csv` header against those same token tables and fails on unmapped tokens — adding a header without a token makes the scan exit 1, so the fallback never silently grows.
+**Two naming layers.** CSV headers are data identifiers AND the engine's classification keys (`ar`/`dv`/`en` suffixes for script/direction, `foot*` footnotes, `matn*`/`sharh*` card grouping, `-hdn` auto-hide). They are never translated — table/card headers show the raw identifier because it names the data, not the language. Only _selection chrome_ (the advanced-search column dropdown, the column toggle buttons) gets friendly labels, resolved by `js/column-labels.js` in this order: (1) the column registry above — QRN books, per current language; (2) derived from the header's camelCase tokens via the token tables in `js/column-tokens.js` (labels in `js/i18n.js` as `col*` keys); (3) raw header text as fallback. `tools/hmv-header-scan.mjs` diffs every `data/content/*.csv` header against those same token tables and fails on unmapped tokens — adding a header without a token makes the scan exit 1, so the fallback never silently grows.
 
 ```text
 QRN-DATA-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,236 rows)
@@ -634,7 +634,7 @@ QRN-DATA-ayahImlai.csv (derived base cols, 6,236 rows)     QRN-bakurube.csv (6,2
 └────────────┴─────────────┴───────────┴──────────────────────────────┘
 ```
 
-Every translation CSV must have the same number of rows, in the same ayah order, as the base file — row *N* of the translation merges into row *N* of the reader. An untranslated ayah is an **all-empty row** (`,,,` or a blank line) — leave it in place; it renders as the base columns with no translation. `mergeQuranData` logs a console warning when a book's row count differs from the base's 6,236: a structural mistake in the CSV (rows added/removed, or a trailing newline parsing as an extra slot).
+Every translation CSV must have the same number of rows, in the same ayah order, as the base file — row _N_ of the translation merges into row _N_ of the reader. An untranslated ayah is an **all-empty row** (`,,,` or a blank line) — leave it in place; it renders as the base columns with no translation. `mergeQuranData` logs a console warning when a book's row count differs from the base's 6,236: a structural mistake in the CSV (rows added/removed, or a trailing newline parsing as an extra slot).
 
 **Column loading.** `loadQuranBookCSV()` keeps a one‑entry parse cache (most recent book only): each translation CSV is fetched and parsed at most once per session, so inserting several columns from the same book — or a preset hitting multiple books — does not re‑download or re‑parse the whole file per column. The registry groups each book's columns together, so consecutive inserts hit the cache.
 
@@ -653,7 +653,7 @@ fresh header, rows, norm rows, hidden indices
 reader shows columns in list order
 ```
 
-**Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`). Reordering those columns would silently break copy references, pin labels, and scroll-sync surah tracking. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all sites plus `findQuranColIndices` cache invalidation. (These cells are now derived from 05 + 06 at load — see "Deriving the base columns" — but they still land in `row[0..4]` of every merged row, so the positional contract is unchanged. Surah/juz *navigation* no longer reads them: `applyQuranSurahFilter` and `goToQuranJuz` use the O(1) `getSurahStartRow` / `getJuzStartRow` accessors.)
+**Why the base columns cannot move — hardcoded indices.** Surah/ayah numbers are read at fixed positions `row[1]`/`row[2]` by index, NOT by header name, in `reader.js` (clipboard format, pin labels, scroll‑sync surah tracking) and `quran-ui.js` (`findAyahRowInFiltered`). Reordering those columns would silently break copy references, pin labels, and scroll-sync surah tracking. Do NOT "improve" these to dynamic indices as part of a refactor — it needs coordinated changes across all sites plus `findQuranColIndices` cache invalidation. (These cells are now derived from 05 + 06 at load — see "Deriving the base columns" — but they still land in `row[0..4]` of every merged row, so the positional contract is unchanged. Surah/juz _navigation_ no longer reads them: `applyQuranSurahFilter` and `goToQuranJuz` use the O(1) `getSurahStartRow` / `getJuzStartRow` accessors.)
 
 **Adding a new Quran translation (walkthrough):**
 
@@ -666,13 +666,13 @@ reader shows columns in list order
 
 Columns `ayahImlai` and `ayahUthmani` are rendered with configurable decoration:
 
-| Braces | Number | Num Brackets | Output |
-|--------|--------|-------------|--------|
-| ☑ | ☑ | ☐ | `﴿text ١﴾` |
-| ☑ | ☑ | ☑ | `text ﴿١﴾` |
-| ☑ | ☐ | — | `﴿text﴾` |
-| ☐ | ☑ | — | `text ١` |
-| ☐ | ☐ | — | `text` |
+| Braces | Number | Num Brackets | Output     |
+| ------ | ------ | ------------ | ---------- |
+| ☑      | ☑      | ☐            | `﴿text ١﴾` |
+| ☑      | ☑      | ☑            | `text ﴿١﴾` |
+| ☑      | ☐      | —            | `﴿text﴾`   |
+| ☐      | ☑      | —            | `text ١`   |
+| ☐      | ☐      | —            | `text`     |
 
 ## Quran reader
 
@@ -682,14 +682,14 @@ QRN‑specific UI — everything the reader adds for Quran books. Pure data logi
 
 A navigation row (`readerPanelQuran`) appears inside the collapsible reader panel for QRN books:
 
-  - **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
-  - **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
-  - **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30)
-  - **Content modal**: checkboxes + ▲▼ reorder for all columns from the registry; changes apply immediately (see "Column ordering" under Merging)
-  - **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration (braces, ayah number, number-position)
-  - `﴿ ﴾` — wraps ayah in Quranic braces
-  - `١٢٣` — appends ayah number in Arabic numerals
-  - `﴿١٢٣﴾` — number-only brackets: `text ﴿١﴾` instead of `﴿text ١﴾`
+- **Surah selector**: button showing `{N} {nameAR}`, click opens a searchable overlay of all 114 surahs
+- **Ayah selector**: number input with prev/next arrows and a dropdown list on click/focus
+- **Juz selector**: number input with prev/next arrows and a dropdown list on click/focus (1–30)
+- **Content modal**: checkboxes + ▲▼ reorder for all columns from the registry; changes apply immediately (see "Column ordering" under Merging)
+- **Display dropdown** (`﴿١﴾ ▾`): three checkboxes controlling ayah decoration (braces, ayah number, number-position)
+- `﴿ ﴾` — wraps ayah in Quranic braces
+- `١٢٣` — appends ayah number in Arabic numerals
+- `﴿١٢٣﴾` — number-only brackets: `text ﴿١﴾` instead of `﴿text ١﴾`
 
 Navigation syncs on scroll: the visible ayah's surah, ayah, and juz update automatically. Changing any selector updates the others (e.g. changing surah recalculates juz).
 
@@ -711,9 +711,9 @@ Quran clipboard format: no book header line. Decorated ayah text, `[surahName su
 
 **JS‑set tokens** have no `:root` value — JS writes them before paint (via `setProperty` or inline styles) and CSS consumes them with fallbacks: `--reader-font-size`/`--reader-font-size-mobile` (JS‑only; `common.js`) and `--panel-font-size`/`--panel-font-size-mobile` (`:root` defaults, overridden by `common.js` at runtime — see Font scaling), `--content-width` (reader content width, `common.js`, removed on reset), `--table-header-top` (sticky reader header offset, `reader.js`), and per‑chip `--tag-bg`/`--tag-color` (tag chip colours — inline golden‑ratio HSL styles from `book-data.js`, consumed with nested var fallbacks). These never live in the theme blocks; removing one means removing its JS setter too.
 
-Two more var families exist purely to keep *groups* in sync; their tokens, not the values, are the convention unit. **Z-index ladder:** every `z-index` in the stylesheets is one of the `--z-*` tokens defined in `:root` (common.css) — `--z-under` (-1, background art) through `--z-celebrate` (9998, effects), with the full ladder in between (arrow 2, base 5, sticky 6, table head 10, toolbar 50, dropdown 60, pill 100, topbar 101, sidebar overlay 199, sidebar/toast 200, modal 300). A bare `z-index` literal is a grep-checkable violation. To renumber a layer, change its token in `:root` — never a single site. **Transition durations:** every `transition` duration is one of the `--t-*` tier tokens defined in `:root` — `--t-fast` (0.1s, compact-item hovers), `--t-hover` (0.15s, standard control hovers), `--t-pop` (0.2s, toast/modal/card-lift), `--t-drawer` (0.25s, sidebar), `--t-panel` (0.3s, layout motion and theme crossfades), `--t-slow` (0.5s, progress fill). Durations change together in `:root`; the one shared easing — the expand/collapse curve `--ease-panel: cubic-bezier(0.4, 0, 0.2, 1)` — is a token too, and plain `ease` stays literal at use sites.
+Two more var families exist purely to keep _groups_ in sync; their tokens, not the values, are the convention unit. **Z-index ladder:** every `z-index` in the stylesheets is one of the `--z-*` tokens defined in `:root` (common.css) — `--z-under` (-1, background art) through `--z-celebrate` (9998, effects), with the full ladder in between (arrow 2, base 5, sticky 6, table head 10, toolbar 50, dropdown 60, pill 100, topbar 101, sidebar overlay 199, sidebar/toast 200, modal 300). A bare `z-index` literal is a grep-checkable violation. To renumber a layer, change its token in `:root` — never a single site. **Transition durations:** every `transition` duration is one of the `--t-*` tier tokens defined in `:root` — `--t-fast` (0.1s, compact-item hovers), `--t-hover` (0.15s, standard control hovers), `--t-pop` (0.2s, toast/modal/card-lift), `--t-drawer` (0.25s, sidebar), `--t-panel` (0.3s, layout motion and theme crossfades), `--t-slow` (0.5s, progress fill). Durations change together in `:root`; the one shared easing — the expand/collapse curve `--ease-panel: cubic-bezier(0.4, 0, 0.2, 1)` — is a token too, and plain `ease` stays literal at use sites.
 
-Besides the role palette there are three **semantic accent families**, each defined in all three themes with per-theme values: `--color-accent-*` (active menu button, dropdown checkmark — blue), `--color-focus-*` (focus-mode buttons — green), `--color-danger-*` (destructive buttons, pins badge/chips, continue bar, error text — red; `--color-error-*` aliases this family). Their hex values exist only inside the theme blocks — a component that needs an accent colour references the family vars with per-site fallbacks (`var(--color-danger-text, #dc2626)`), never a bare hex. Two more families follow the same shape: `--color-preset-*` (Quran content-modal preset buttons — one bg/text pair per preset) and `--color-success`/`--color-success-border` (progress-fill completion state, celebration border). One content-level token follows the same three-theme rule: `--color-wash-bg` — a quiet wash (a pale cool slate in light, warm sand in sepia, a lifted slate in dark) that the reader paints on content which stands apart: Arabic-original fields and cells (so Arabic text reads apart from Dhivehi at a glance — the language comes from the column-naming convention (`…AR` suffix, Quran ayah texts, basmalah) via `isArabicColumn`, no per-column registry) and the merged RDF book's Rasmee rows (`merged-row-rasmee`). One token, one treatment — the two tint families share a single definition and cannot drift apart. In card and parallel views the wash is a soft **region** (`.reader-ar-region`): the card renderer groups consecutive Arabic columns into ONE full-width region per run — `border-radius` 16px, `padding-inline: 24px 14px` (start side deliberately deepest — the webfont overhangs the pen origin ~1–5px, see Font; 24px is the max the mirror-margin trick allows before the 24px mobile gutter overflows), `padding-block: 10px` — so `headAR` + `bodyAR` read as one continuous block with no white seam between them, and short lines leave the wash full-width (no pill hugging). Footnote columns join their surrounding run or start their own region when their header is Arabic (`footAR`; unprefixed `foot` stays untinted — header convention can't tell AQD's Arabic notes from KNSH's Latin ones, by agreement). The region overhangs its chunk on both sides via `margin-inline: calc(var(--reader-gutter, 32px) * -1)`, mirroring `padding-inline: var(--reader-gutter, 32px)` so the Arabic text keeps the exact x-position of the Dhivehi fields beside it at both ends (a plain padding would shift the text; the start-side inset is deep enough to shelter the webfont's start-side ink overhang). The overhang depth is `--reader-gutter` — the reader content's horizontal padding, 32px desktop / 24px mobile, which must stay in sync with `--reader-pad` / `--reader-pad-mobile` (common.css) — so the band spans the full content column, article padding edge to padding edge, at every breakpoint. (The original design had a shallower 14px end-side overhang; it was clipped invisible and dropped, which left the wash one-sided — flush at the start edge with a page-gutter gap at the end — and shifted the Arabic line ends 14px short of the Dhivehi fields. The pocket below restored both overhangs at the gutter depth.) **The chunk pocket.** The overhang paints only because of a deliberate quirk of `.reader-chunk` (`content-visibility: auto`, see the skip-painting note): its paint containment clips children at the chunk's border box, which *cuts* the overhang — the wash rendered exactly as wide as the field box, flush against the text with square corners. The chunk therefore gets `margin-inline: calc(var(--reader-gutter, 32px) * -1); padding-inline: var(--reader-gutter, 32px)` ("the pocket"): the margins widen the chunk's border box over both overhangs and the paddings keep the content box (fields, text) exactly where it was — the margin and padding cancel on each side — so the region's overhangs land inside the chunk's padding box — inside the clip — and paint. Non-AR chunks are unaffected (transparent background, content box unchanged). Parallel view: the AR column is already its own grid lane, so it is one region with `margin-inline: 0` (no gutter overhang); the pre-column full-width basmalah is wrapped individually. Table-mode cells keep the square wash (their own 10px cell padding; a radius would fight the row borders). Text sitting on saturated solids — active chips, confirm buttons, preset fills — uses `--color-on-solid` (white in every theme). The toast chip uses `--color-toast-*` (fixed dark in light/sepia, inverted in dark). Shadows and page chrome are also vars: `--shadow-card`/`--shadow-card-hover` hold the card/result shadow shapes (their colours stay per-theme `--color-shadow-*`), and the dashboard/library wrapper layout uses `--page-margin`/`--page-padding` with `-mobile` variants. Sticky panels hang from one shared clearance: `--topbar-clearance` is `--topbar-height` (58px, the fixed topbar's pinned bottom edge) plus `--topbar-gap` (6px of air, the same value as the row gaps). All three sticky panels — reader, dashboard, library search — lock at that offset on desktop, and each wrapper's top margin puts the panel at the same resting position (`--page-margin` for dashboard and library search, `#readerWrapper`'s `--topbar-clearance` margin-top for the reader): rest equals lock, so the top gap stays visible at every scroll position and no panel ever rides up. Because the gap is open space, the fixed topbar paints it (`#topBar::after` — full viewport width, the topbar's own background) so scrolled content never shows through the strip. All the panels share `--panel-pad` (10px, the vertical padding above their bottom border), `--panel-edge` (the 2px bottom border, `2px solid var(--color-card-hover-border)`, under the topbar and every sticky panel), and `--panel-gap` (10px — the margin between a panel's bottom border and the block below it; it equals `--panel-pad` by design so the divider carries symmetric air). Mobile drops the gap — wrapper top margins and the panels' sticky tops both fall to `--topbar-height` alone (the `-mobile` margin variants plus `--topbar-height` sticky-top overrides), so dashboard, library search and reader all start flush at the same y. Error boxes clear the topbar with `--error-clearance` (height + 24px), and the reader's wrap arrows and content padding are tokens too: `--arrow-gutter` (30px on each side of the horizontal-scroll-wrap), `--reader-pad` (12px 32px 32px) with `--reader-pad-mobile` (10px 24px 20px). Every modal/selector panel shares `--shadow-modal` (shape in `:root`, colour per theme `--color-shadow-modal`, stronger in dark mode), and modal backdrops use `--color-scrim` (per theme).
+Besides the role palette there are three **semantic accent families**, each defined in all three themes with per-theme values: `--color-accent-*` (active menu button, dropdown checkmark — blue), `--color-focus-*` (focus-mode buttons — green), `--color-danger-*` (destructive buttons, pins badge/chips, continue bar, error text — red; `--color-error-*` aliases this family). Their hex values exist only inside the theme blocks — a component that needs an accent colour references the family vars with per-site fallbacks (`var(--color-danger-text, #dc2626)`), never a bare hex. Two more families follow the same shape: `--color-preset-*` (Quran content-modal preset buttons — one bg/text pair per preset) and `--color-success`/`--color-success-border` (progress-fill completion state, celebration border). One content-level token follows the same three-theme rule: `--color-wash-bg` — a quiet wash (a pale cool slate in light, warm sand in sepia, a lifted slate in dark) that the reader paints on content which stands apart: Arabic-original fields and cells (so Arabic text reads apart from Dhivehi at a glance — the language comes from the column-naming convention (`…AR` suffix, Quran ayah texts, basmalah) via `isArabicColumn`, no per-column registry) and the merged RDF book's Rasmee rows (`merged-row-rasmee`). One token, one treatment — the two tint families share a single definition and cannot drift apart. In card and parallel views the wash is a soft **region** (`.reader-ar-region`): the card renderer groups consecutive Arabic columns into ONE full-width region per run — `border-radius` 16px, `padding-inline: 24px 14px` (start side deliberately deepest — the webfont overhangs the pen origin ~1–5px, see Font; 24px is the max the mirror-margin trick allows before the 24px mobile gutter overflows), `padding-block: 10px` — so `headAR` + `bodyAR` read as one continuous block with no white seam between them, and short lines leave the wash full-width (no pill hugging). Footnote columns join their surrounding run or start their own region when their header is Arabic (`footAR`; unprefixed `foot` stays untinted — header convention can't tell AQD's Arabic notes from KNSH's Latin ones, by agreement). The region overhangs its chunk on both sides via `margin-inline: calc(var(--reader-gutter, 32px) * -1)`, mirroring `padding-inline: var(--reader-gutter, 32px)` so the Arabic text keeps the exact x-position of the Dhivehi fields beside it at both ends (a plain padding would shift the text; the start-side inset is deep enough to shelter the webfont's start-side ink overhang). The overhang depth is `--reader-gutter` — the reader content's horizontal padding, 32px desktop / 24px mobile, which must stay in sync with `--reader-pad` / `--reader-pad-mobile` (common.css) — so the band spans the full content column, article padding edge to padding edge, at every breakpoint. (The original design had a shallower 14px end-side overhang; it was clipped invisible and dropped, which left the wash one-sided — flush at the start edge with a page-gutter gap at the end — and shifted the Arabic line ends 14px short of the Dhivehi fields. The pocket below restored both overhangs at the gutter depth.) **The chunk pocket.** The overhang paints only because of a deliberate quirk of `.reader-chunk` (`content-visibility: auto`, see the skip-painting note): its paint containment clips children at the chunk's border box, which _cuts_ the overhang — the wash rendered exactly as wide as the field box, flush against the text with square corners. The chunk therefore gets `margin-inline: calc(var(--reader-gutter, 32px) * -1); padding-inline: var(--reader-gutter, 32px)` ("the pocket"): the margins widen the chunk's border box over both overhangs and the paddings keep the content box (fields, text) exactly where it was — the margin and padding cancel on each side — so the region's overhangs land inside the chunk's padding box — inside the clip — and paint. Non-AR chunks are unaffected (transparent background, content box unchanged). Parallel view: the AR column is already its own grid lane, so it is one region with `margin-inline: 0` (no gutter overhang); the pre-column full-width basmalah is wrapped individually. Table-mode cells keep the square wash (their own 10px cell padding; a radius would fight the row borders). Text sitting on saturated solids — active chips, confirm buttons, preset fills — uses `--color-on-solid` (white in every theme). The toast chip uses `--color-toast-*` (fixed dark in light/sepia, inverted in dark). Shadows and page chrome are also vars: `--shadow-card`/`--shadow-card-hover` hold the card/result shadow shapes (their colours stay per-theme `--color-shadow-*`), and the dashboard/library wrapper layout uses `--page-margin`/`--page-padding` with `-mobile` variants. Sticky panels hang from one shared clearance: `--topbar-clearance` is `--topbar-height` (58px, the fixed topbar's pinned bottom edge) plus `--topbar-gap` (6px of air, the same value as the row gaps). All three sticky panels — reader, dashboard, library search — lock at that offset on desktop, and each wrapper's top margin puts the panel at the same resting position (`--page-margin` for dashboard and library search, `#readerWrapper`'s `--topbar-clearance` margin-top for the reader): rest equals lock, so the top gap stays visible at every scroll position and no panel ever rides up. Because the gap is open space, the fixed topbar paints it (`#topBar::after` — full viewport width, the topbar's own background) so scrolled content never shows through the strip. All the panels share `--panel-pad` (10px, the vertical padding above their bottom border), `--panel-edge` (the 2px bottom border, `2px solid var(--color-card-hover-border)`, under the topbar and every sticky panel), and `--panel-gap` (10px — the margin between a panel's bottom border and the block below it; it equals `--panel-pad` by design so the divider carries symmetric air). Mobile drops the gap — wrapper top margins and the panels' sticky tops both fall to `--topbar-height` alone (the `-mobile` margin variants plus `--topbar-height` sticky-top overrides), so dashboard, library search and reader all start flush at the same y. Error boxes clear the topbar with `--error-clearance` (height + 24px), and the reader's wrap arrows and content padding are tokens too: `--arrow-gutter` (30px on each side of the horizontal-scroll-wrap), `--reader-pad` (12px 32px 32px) with `--reader-pad-mobile` (10px 24px 20px). Every modal/selector panel shares `--shadow-modal` (shape in `:root`, colour per theme `--color-shadow-modal`, stronger in dark mode), and modal backdrops use `--color-scrim` (per theme).
 
 **Control sizing, spacing & radius.** Every boxed control — search inputs, buttons, selects, chips, badges, and the square icon buttons — is `var(--control-height, 35px)` tall at every breakpoint, with `line-height: var(--control-line-height, 33px)` (height minus the 2px of 1px borders; controls are border-box). Controls in one row sit `var(--control-gap, 6px)` apart; rows are separated by the same value, `var(--section-gap, 6px)`. One exception: the block directly below a sticky panel's border (the dashboard grid, library results) hangs off `--panel-gap` (10px, equal to `--panel-pad` — see the sticky-chrome paragraph above). Corners come from four radius tiers defined in `:root`: `--radius-sm` (6px — buttons, selects), `--radius-md` (8px — inputs, chips, badges, square icon buttons, dropdown menus), `--radius-lg` (12px — cards, modals), `--radius-pill` (20px — the scroll-position toast). Panel fonts use `--panel-font-size` (0.85rem, `--panel-font-size-mobile` 0.78rem). The remaining distinct sizes form the font-size scale, one token per tier in `:root`: `--fs-micro` (0.68rem — arrows, tiny glyphs, dense table cells), `--fs-aux` (0.8rem — compact table headers), `--fs-muted` (0.9rem — meta/subtitle text, sidebar links), `--fs-text` (0.95rem — reading surfaces: table body, snippets), `--fs-title-sm` (1.1rem — sub-headings), `--fs-title` (1.15rem — page titles), `--fs-title-lg` (1.2rem — kitab tier headings), `--fs-heading` (1.3rem — sidebar title), `--fs-display` (1.5rem — chevron glyphs). The 1rem default baseline and em-relative sizes stay literal; the ornament ◆ at 0.55rem is deliberately outside the scale. All of these are defined once in `:root` (common.css) — change the standard there, never at use sites. Menu items, table cells, grids, and the mark/skeleton/scrollbar-thumb radii (2–5px) are deliberately outside the scale. Card surfaces — dashboard book cards and library search results — share one padding: `--card-padding` (16px) with a `--card-padding-mobile` (12px) variant. Card grids (dashboard book grid, reader parallel columns) share `--grid-gap` (12px — double the control-gap rhythm, so surfaces stay distinct).
 
@@ -754,38 +754,43 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **RTL scroll conventions differ by browser:**
 
-- Chrome: `scrollLeft ∈ [0, max]` — the **start** (rightmost) sits at `max`, the **end** (leftmost) at `0`; scrolling toward the end *decreases* it
-- Firefox: `scrollLeft ∈ [-max, 0]` — the **start** (rightmost) sits at `0`, the **end** (leftmost) at `-max`; scrolling toward the end *decreases* it
+- Chrome: `scrollLeft ∈ [0, max]` — the **start** (rightmost) sits at `max`, the **end** (leftmost) at `0`; scrolling toward the end _decreases_ it
+- Firefox: `scrollLeft ∈ [-max, 0]` — the **start** (rightmost) sits at `0`, the **end** (leftmost) at `-max`; scrolling toward the end _decreases_ it
 - **Both engines: scrolling toward the end always DECREASES the signed `scrollLeft`; toward the start INCREASES it.** Always use `Math.abs(scrollLeft)` for position checks, and always test scroll behavior in both browsers.
 
 **RTL start/end terminology:**
+
 - **Start** = beginning of content = right side in RTL
 - **End** = later content = left side in RTL
 - `scroll-arrow-start` (►) scrolls toward start (right). `scroll-arrow-end` (◄) scrolls toward end (left).
 
 **`.horizontal-scroll-wrap` pattern** (used for toolbar, nav, quranNav):
+
 ```
 .horizontal-scroll-wrap (display:flex, position:relative, padding:0 var(--arrow-gutter, 30px))
   ├── button.scroll-arrow.scroll-arrow-start (►)  — absolute, left:2px
   ├── .reader-panel-row   — flex:1, min-width:0, overflow-x:auto, hidden scrollbar
   └── button.scroll-arrow.scroll-arrow-end (◄)    — absolute, right:2px
 ```
+
 - Arrows sit in the padding area and are absolutely positioned.
 - The scrollable row is constrained to the content area by `flex:1; min-width:0`.
 - `overflow:hidden` on the wrap clips content to the content area — row content CANNOT bleed into the arrow padding.
 - DO NOT wrap a hidden (`display:none`) element — it has 0 dimensions and breaks layout. Wrap only after the element is visible.
 - Click handlers: start arrow (►) → `scrollLeft += step` (toward start/right). End arrow (◄) → `scrollLeft -= step` (toward end/left). Wheel‑down also scrolls toward the end: `scrollLeft -= deltaY`.
 - **Don't re‑derive the signs — copy the reader's proven wiring**: `tableScrollBack` (▶) → `+COL_STEP`, `tableScrollFwd` (◀) → `-COL_STEP` in `reader.js`; the dashboard copy lives in `dashboard.js` (the sort row's arrows). The dashboard's `updateArrows()` uses `Math.abs(scrollLeft)` for the auto‑hide checks.
-- **Exception — the reader TABLE's wheel is NOT comparable**: `tableWrap`'s wheel handler does `topScroll.scrollLeft += amount` on the *mirrored top scrollbar*, and the table follows via `translateX` from the absolute fraction (`syncTableTransform`, `Math.abs`). Different mechanism, opposite sign — do not "fix" it to match the rule above.
+- **Exception — the reader TABLE's wheel is NOT comparable**: `tableWrap`'s wheel handler does `topScroll.scrollLeft += amount` on the _mirrored top scrollbar_, and the table follows via `translateX` from the absolute fraction (`syncTableTransform`, `Math.abs`). Different mechanism, opposite sign — do not "fix" it to match the rule above.
 - Visibility: start arrow hidden when `abs(scrollLeft) < 1`. End arrow hidden when `abs(scrollLeft) > maxScroll - 2`.
 
 **Sticky‑arrow pattern** (alternative, used for quranNav):
+
 - Arrows are `position:sticky` children inside the scrollable flex row.
 - First child (start arrow): `right:0`, sticks to right edge. Last child (end arrow): `left:0`, sticks to left edge.
 - Need `align-self:stretch` + solid `background` to create a full‑height cutoff barrier.
 - Need horizontal `padding` to widen the barrier beyond just the arrow symbol.
 
 **When adding a new horizontally‑scrollable row:**
+
 1. If it exists at page load and is visible → use `.horizontal-scroll-wrap` pattern (add to the inline script's `querySelectorAll`).
 2. If it's created or shown dynamically → use the sticky‑arrow pattern, or wrap it in `.horizontal-scroll-wrap` AFTER it becomes visible.
 3. Never set `wrap.style.padding = "0"` — the padding is always needed for arrow placement.
@@ -811,23 +816,23 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Closure state (reader.js).** The reader's 1 274‑line closure centralises shared mutable state in a `STATE` object at the top. Convenience aliases (`var filteredData = STATE.filteredData`) are read‑only — mutations MUST write back: `STATE.filteredData = filteredData`. This pattern makes shared state visible at a glance without rewriting every reference to `STATE.*`. The ctx‑object pattern used by `export.js`, `quran-ui.js`, `table-scroll-sync.js`, `reader-position.js` and `reader-search-ui.js` is the same idea applied to extracted modules: each extracted module owns module‑scope state (set by its `initX(ctx)` call — the `quranState` precedent), and ctx carries plain values, callback closures, and getter/setter accessors for anything core REBINDS (`filteredData`, `hiddenColumns`, `loadedStart`/`loadedEnd` — a captured ref would go stale). Utilities (`t`, search‑utils, book‑data) are imported directly, not passed via ctx.
 
-**Window globals.** `window.*` functions used by BOTH pages live in `common.js` (`setFocus`, `showToast`, `copyToClipboard`, etc.). Reader‑only helpers (`openDropdown`, `closeAllDropdowns`, `registerDropdown`) stay in `reader.js`. Pins/history helpers (`openPinsModal`, `openHistoryModal`) live in `pins-history.js`. Rule: before adding `window.X = …`, ask *does it serve both pages?* YES → common.js, NO → owning module. A comment in `common.js:1‑20` documents the full inventory.
+**Window globals.** `window.*` functions used by BOTH pages live in `common.js` (`setFocus`, `showToast`, `copyToClipboard`, etc.). Reader‑only helpers (`openDropdown`, `closeAllDropdowns`, `registerDropdown`) stay in `reader.js`. Pins/history helpers (`openPinsModal`, `openHistoryModal`) live in `pins-history.js`. Rule: before adding `window.X = …`, ask _does it serve both pages?_ YES → common.js, NO → owning module. A comment in `common.js:1‑20` documents the full inventory.
 
 **Explicit re‑exports over `export *`.** Barrel modules (quran-ui.js) use explicit named re‑exports instead of `export *`. Adding a function to the source module requires adding it to the re‑export list — silent name collisions are impossible.
 
 **Naming conventions.**
 
-| Scope | Convention | Examples |
-|---|---|---|
-| Files | kebab-case | `quran-data.js`, `pins-history.js`, `reader.js` |
-| Functions | camelCase | `renderRowHTML`, `buildClipboardText` |
-| Constants (module‑level) | UPPER_SNAKE | `MAX_PINS`, `ROWS_PER_CHUNK`, `DEFAULT_FONT_SIZE` |
-| Private module‑level state | `_camelCase` | `_bookNamesCache`, `_loadedColMap`, `_historyCache`, `_lastBookNames` |
-| DOM element IDs | camelCase | `readerContent`, `btnExport`, `dashboardPanelSearch` |
-| CSS classes | kebab-case + namespace | `reader-field-matn`, `dash-table`, `quran-nav-btn` |
-| Shared CSS utilities | `dd-` prefix | `.dd-item`, `.dd-menu`, `.dd-check` (dropdowns); `.dd-table`, `.dd-row`, `.dd-col-*` (pins/history modal table, scoped under `.pins-history-body`) |
-| Custom events | single lowercase word | `readerReset`, `focuschange`, `languagechange` |
-| LocalStorage keys | `reader:` prefix for reader; `dash:` for the dashboard; `searchHistory` is shared by the reader window and library-search page | `reader:hiddenColumns:{bookCode}`, `searchHistory`, `dash:searchHistory` |
+| Scope                      | Convention                                                                                                                     | Examples                                                                                                                                           |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Files                      | kebab-case                                                                                                                     | `quran-data.js`, `pins-history.js`, `reader.js`                                                                                                    |
+| Functions                  | camelCase                                                                                                                      | `renderRowHTML`, `buildClipboardText`                                                                                                              |
+| Constants (module‑level)   | UPPER_SNAKE                                                                                                                    | `MAX_PINS`, `ROWS_PER_CHUNK`, `DEFAULT_FONT_SIZE`                                                                                                  |
+| Private module‑level state | `_camelCase`                                                                                                                   | `_bookNamesCache`, `_loadedColMap`, `_historyCache`, `_lastBookNames`                                                                              |
+| DOM element IDs            | camelCase                                                                                                                      | `readerContent`, `btnExport`, `dashboardPanelSearch`                                                                                               |
+| CSS classes                | kebab-case + namespace                                                                                                         | `reader-field-matn`, `dash-table`, `quran-nav-btn`                                                                                                 |
+| Shared CSS utilities       | `dd-` prefix                                                                                                                   | `.dd-item`, `.dd-menu`, `.dd-check` (dropdowns); `.dd-table`, `.dd-row`, `.dd-col-*` (pins/history modal table, scoped under `.pins-history-body`) |
+| Custom events              | single lowercase word                                                                                                          | `readerReset`, `focuschange`, `languagechange`                                                                                                     |
+| LocalStorage keys          | `reader:` prefix for reader; `dash:` for the dashboard; `searchHistory` is shared by the reader window and library-search page | `reader:hiddenColumns:{bookCode}`, `searchHistory`, `dash:searchHistory`                                                                           |
 
 **New exports.** Each export format is an `else if (fmt === "...")` block in the export click handler in `js/export.js`. Follow the existing pattern: build a string or Blob, call `downloadFile()` or open a new window. Exports that produce data or table formats (CSV, TSV, Excel, JSON, HTML Table) must include the CSV header row as the first row / `<thead>`. Rich‑text exports (TXT, MD, PDF, Word, EPUB, HTML reader view) use the formatted rendering path and should not include a raw header row.
 
@@ -870,11 +875,12 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Dropdowns.** All dropdowns use shared helpers and shared CSS classes for visual consistency:
 
-*Container:* `.dd-menu` (common.css) — `position: absolute; padding, background, border, border-radius, box-shadow, z-index`. Applied alongside page‑specific positioning (e.g. `.view-mode-dropdown`, `.quran-content-dropdown`).
+_Container:_ `.dd-menu` (common.css) — `position: absolute; padding, background, border, border-radius, box-shadow, z-index`. Applied alongside page‑specific positioning (e.g. `.view-mode-dropdown`, `.quran-content-dropdown`).
 
-*Items:* `.dd-item` (common.css) — flex row, `padding: 6px 10px`, `font-size: var(--panel-font-size)`, hover highlight, checkbox/radio accent colour. Used by view‑mode, Quran content, and display‑options dropdowns.
+_Items:_ `.dd-item` (common.css) — flex row, `padding: 6px 10px`, `font-size: var(--panel-font-size)`, hover highlight, checkbox/radio accent colour. Used by view‑mode, Quran content, and display‑options dropdowns.
 
-*Helpers:*
+_Helpers:_
+
 - `window.openDropdown(dd, anchorEl, gap)` — closes other dropdowns, positions `dd` below `anchorEl`, shows it. Default gap 4px.
 - `window.closeAllDropdowns()` — hides all registered dropdowns.
 - `window.registerDropdown(id, dd, anchor)` — wires outside‑click‑to‑close for a dropdown and adds its ID to the shared list.
@@ -889,22 +895,22 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 **In‑memory state — who owns what (closures are the hard part to track):**
 
-| State | Lives in | What changes it |
-|---|---|---|
-| `STATE` (allData, filteredData, viewMode, hiddenColumns, hideTashkeel) | `reader.js` init closure | load, search, column toggles, view mode, tashkeel, reset |
-| `normAllData` | `reader.js` closure | built at load; kept in sync by `quran-ui.js` column inserts (via ctx) |
-| `_loadedColMap` / `_colOrder` / `_pendingColumnValues` | `quran-ui.js` init closure | content modal checkboxes / ▲▼; `applyColumnOrder()` rebuilds the map |
-| `_dashFilter` / `_dashTableMode` | `dashboard.js` module scope | dashboard search / tags / sort / reset / view toggle |
-| `_bookNamesCache` / `_tagDefinitionsCache` | `book-data.js` module scope | first load only (null = failed fetch) |
-| `_bookCsvCache` (one‑entry) | `quran-data.js` module scope | `loadQuranBookCSV` |
-| `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache` | `quran-data.js` module scope | first load only |
-| `_indexPromise` | `library-search-engine.js` module scope | first `loadSearchIndex()` call; cleared on failure so retries work |
-| `_q` / `_selectedTags` / `_searchTimer` / `_peekCache` | `library-search-page.js` module scope | `?q=`/`?tags=` state + chip scoping / debounced input / peek cache |
-| `quranState` (exported) | `quran-data.js` | nav updates, scroll sync, ayah decoration |
-| `ctx` + refs (`topScrollOuter`, `tableWrap`, `topSpacer`, `topScroll`) | `table-scroll-sync.js` module scope | set by `initTableScroll(ctx)` in loadInitial's table branch |
-| `ctx` + refs (`readerContent`, `metadata`, pagination/scroll/URL timers) | `reader-position.js` module scope | set by `initPosition(ctx)` in initial render; `updatePagination` / `visiblePageIndex` read it |
-| `ctx` + refs (search DOM, `wholeWordMode`, `selectedResultIdx`, `advConditions`) | `reader-search-ui.js` module scope | set by `initSearchUI(ctx)` in initial render; `applySearch` / `renderAdvancedSearch` read it |
-| `_modalLastFocused` | `common.js` module scope | `openModal` / `closeModal` (focus restore) |
+| State                                                                            | Lives in                                | What changes it                                                                               |
+| -------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `STATE` (allData, filteredData, viewMode, hiddenColumns, hideTashkeel)           | `reader.js` init closure                | load, search, column toggles, view mode, tashkeel, reset                                      |
+| `normAllData`                                                                    | `reader.js` closure                     | built at load; kept in sync by `quran-ui.js` column inserts (via ctx)                         |
+| `_loadedColMap` / `_colOrder` / `_pendingColumnValues`                           | `quran-ui.js` init closure              | content modal checkboxes / ▲▼; `applyColumnOrder()` rebuilds the map                          |
+| `_dashFilter` / `_dashTableMode`                                                 | `dashboard.js` module scope             | dashboard search / tags / sort / reset / view toggle                                          |
+| `_bookNamesCache` / `_tagDefinitionsCache`                                       | `book-data.js` module scope             | first load only (null = failed fetch)                                                         |
+| `_bookCsvCache` (one‑entry)                                                      | `quran-data.js` module scope            | `loadQuranBookCSV`                                                                            |
+| `_baseDataCache` / `_surahNamesCache` / `_colRegistryCache`                      | `quran-data.js` module scope            | first load only                                                                               |
+| `_indexPromise`                                                                  | `library-search-engine.js` module scope | first `loadSearchIndex()` call; cleared on failure so retries work                            |
+| `_q` / `_selectedTags` / `_searchTimer` / `_peekCache`                           | `library-search-page.js` module scope   | `?q=`/`?tags=` state + chip scoping / debounced input / peek cache                            |
+| `quranState` (exported)                                                          | `quran-data.js`                         | nav updates, scroll sync, ayah decoration                                                     |
+| `ctx` + refs (`topScrollOuter`, `tableWrap`, `topSpacer`, `topScroll`)           | `table-scroll-sync.js` module scope     | set by `initTableScroll(ctx)` in loadInitial's table branch                                   |
+| `ctx` + refs (`readerContent`, `metadata`, pagination/scroll/URL timers)         | `reader-position.js` module scope       | set by `initPosition(ctx)` in initial render; `updatePagination` / `visiblePageIndex` read it |
+| `ctx` + refs (search DOM, `wholeWordMode`, `selectedResultIdx`, `advConditions`) | `reader-search-ui.js` module scope      | set by `initSearchUI(ctx)` in initial render; `applySearch` / `renderAdvancedSearch` read it  |
+| `_modalLastFocused`                                                              | `common.js` module scope                | `openModal` / `closeModal` (focus restore)                                                    |
 
 **Reset flow.** The settings modal's ↺ Reset is a **confirmed factory reset** (`confirmResetAll` message): on confirm it delegates to `btnResetFont` + `btnResetReader`, clears remaining LS keys, **clears pins and history**, and dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic. The dashboard and reader resets stay view-only (pins/history preserved).
 
@@ -914,18 +920,18 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 **One source of truth.** Every fact lives in exactly one doc. When adding or changing a convention, error state, naming rule, or configuration detail, update the canonical location — never duplicate it across docs.
 
-| Content | Lives in | Linked from |
-|---------|----------|-------------|
-| Naming conventions (prefixes, suffixes) | ARCHITECTURE | README |
-| Error states | ARCHITECTURE | README |
-| Development conventions | ARCHITECTURE | — |
-| How‑to examples (add book, tag, export, etc.) | ARCHITECTURE | — |
-| Persisted state inventory | ARCHITECTURE | — |
-| Keyboard shortcuts | README, USER_GUIDE | — |
-| Feature overview | README | — |
-| API signatures and Data API | API.md | — |
-| Verification workflow, smoke battery, known non-errors, measurement/audit traps | TESTING.md | tools/ |
-| Reader instructions | USER_GUIDE | — |
+| Content                                                                         | Lives in           | Linked from |
+| ------------------------------------------------------------------------------- | ------------------ | ----------- |
+| Naming conventions (prefixes, suffixes)                                         | ARCHITECTURE       | README      |
+| Error states                                                                    | ARCHITECTURE       | README      |
+| Development conventions                                                         | ARCHITECTURE       | —           |
+| How‑to examples (add book, tag, export, etc.)                                   | ARCHITECTURE       | —           |
+| Persisted state inventory                                                       | ARCHITECTURE       | —           |
+| Keyboard shortcuts                                                              | README, USER_GUIDE | —           |
+| Feature overview                                                                | README             | —           |
+| API signatures and Data API                                                     | API.md             | —           |
+| Verification workflow, smoke battery, known non-errors, measurement/audit traps | TESTING.md         | tools/      |
+| Reader instructions                                                             | USER_GUIDE         | —           |
 
 **When adding a new fact,** put it in the right column above. If you're not sure, default to ARCHITECTURE — it's the canonical developer reference. The other docs link to it; they don't repeat it.
 
@@ -947,6 +953,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 ### Add a new tag category
 
 Add one row to `data/01-registry-bookTags.csv`. Colours are auto‑generated — just the code and the three label columns:
+
 ```csv
 tagCode,labelAR,labelDV,labelEN
 FQH,فقه,ފިގުހު,Fiqh
@@ -955,16 +962,19 @@ FQH,فقه,ފިގުހު,Fiqh
 ### Add a new author
 
 Add one row to `data/02-registry-bookAuthors.csv`, then put the `authorCode` in the books' `authorCode` column:
+
 ```csv
 authorCode,nameAR,nameDV,nameEN,bornAH,diedAH
 ibn-rajab,ابن رجب,އިބްނު ރަޖަބު,Ibn Rajab,736,795
 ```
+
 Rows are hand‑ordered (the current file sorts by death year — that is the browse list's display order); 03 never rewrites this file. Blank `bornAH`/`diedAH` = unknown/living; a death in the 15th century AH (1401) and later, or no death year, lands the author in the single "Modern" period bucket (never a "Century 15" row of its own).
 Use the tag code as the primary prefix in a `bookCode` (e.g. `FQH-usululFiqh`) or as a secondary in the `tags` column of `03-registry-bookMeta.csv` — badges render automatically with a golden‑ratio HSL colour. No limit on tag count; colours stay perceptually distinct.
 
 ### Add a new export format
 
 In `js/export.js`, add an `else if (fmt === "...")` block inside the export click handler. Data formats use `ctx.allData` with `ctx.headerRow` prepended; rich‑text formats use `ctx.allData` directly:
+
 ```js
 } else if (fmt === "newfmt") {
   var rowsWithHdr = ctx.headerRow ? [ctx.headerRow].concat(ctx.allData) : ctx.allData;
@@ -973,46 +983,57 @@ In `js/export.js`, add an `else if (fmt === "...")` block inside the export clic
   mime = "application/x-myformat";
 }
 ```
+
 Heavy modules use dynamic `import()` so they only load on demand (see `export-xlsx.js` and `export-epub.js`).
 
 ### Add a new i18n key
 
 In `js/i18n.js`, add one entry to the `STRINGS` object with all three languages:
+
 ```js
 btnMyFeature: { dv: "ތަރުޖަމާ", en: "My Feature", ar: "ميزتي" },
 ```
+
 Use `data-i18n="btnMyFeature"` in static HTML, or `t("btnMyFeature")` in JS. Tooltip text is English‑only — hardcode the string.
 
 ### Add a new theme colour
 
 Define the variable in all three theme blocks. Pick a descriptive `--color-<role>` name:
+
 ```css
-:root                              { --color-accent: #2563eb; }
-[data-theme="sepia"]               { --color-accent: #b45309; }
-[data-theme="dark"]                { --color-accent: #60a5fa; }
+:root {
+  --color-accent: #2563eb;
+}
+[data-theme="sepia"] {
+  --color-accent: #b45309;
+}
+[data-theme="dark"] {
+  --color-accent: #60a5fa;
+}
 ```
+
 Use `var(--color-accent)` everywhere. Never reference the hardcoded hex directly.
 
 ## Error states
 
 All errors show visible messages in English. Error boxes carry a central `⚠️ Error:` prefix (`.error::before` — one rule covers every box; the red background alone is invisible to screen readers). Failure toasts use `window.showErrorToast` (⚠️‑prefixed, language‑neutral). Silent failures are minimised:
 
-| Error | Source | Behaviour |
-|---|---|---|
-| Registry fails to load | `dashboard.js` → dashboard | Shows "Failed to load the book registry" with a ↺ Retry button (`loadDashboard()` re-runs; controls are wired only after success, so no duplicate listeners) instead of an empty dashboard |
-| Book code not found | `book-data.js` → reader | Shows error message |
-| CSV empty or fails | `reader.js` → reader | `.catch()` on the fetch chain shows error |
-| Export fails (PNG/Excel/EPUB) | `export.js` | ⚠️ toast with format name; the Export button is disabled with a "Preparing…" label while working and restored on failure, so the user can click again |
-| Missing i18n key | `i18n.js` `t()` | `console.warn` with key name, falls back to raw key string |
-| localStorage write fails | All modules | Silently caught (intentional — better to degrade than crash) |
-| CSV parse warnings | Console | Non‑fatal |
+| Error                         | Source                     | Behaviour                                                                                                                                                                                  |
+| ----------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Registry fails to load        | `dashboard.js` → dashboard | Shows "Failed to load the book registry" with a ↺ Retry button (`loadDashboard()` re-runs; controls are wired only after success, so no duplicate listeners) instead of an empty dashboard |
+| Book code not found           | `book-data.js` → reader    | Shows error message                                                                                                                                                                        |
+| CSV empty or fails            | `reader.js` → reader       | `.catch()` on the fetch chain shows error                                                                                                                                                  |
+| Export fails (PNG/Excel/EPUB) | `export.js`                | ⚠️ toast with format name; the Export button is disabled with a "Preparing…" label while working and restored on failure, so the user can click again                                      |
+| Missing i18n key              | `i18n.js` `t()`            | `console.warn` with key name, falls back to raw key string                                                                                                                                 |
+| localStorage write fails      | All modules                | Silently caught (intentional — better to degrade than crash)                                                                                                                               |
+| CSV parse warnings            | Console                    | Non‑fatal                                                                                                                                                                                  |
 
 ## Verification habits
 
 The app has no test suite or build step — changes are verified by hand:
 
 - **JS syntax**: `node --check --input-type=module < js/file.js` (files are ES modules; plain `node --check` treats them as CommonJS and fails on `import`)
-- **TOC freshness** (reader.js): the header banner's last `Lxxxx-Lyyyy` range must end on the file's last content line — the line number of the last line that is *not* an `#endregion` marker (the file ends with the last region's closing marker, so a plain count would undercount by the number of markers). One-liner: `$L = Get-Content js/reader.js; for ($i = $L.Count - 1; $i -ge 0; $i--) { if ($L[$i] -notmatch '^\s*// #endregion') { break } }; $i + 1` — the last TOC range end must equal that. (A `Where-Object … .Count` variant is WRONG here: with N interspersed markers it can only match by coincidence.)
+- **TOC freshness** (reader.js): the header banner's last `Lxxxx-Lyyyy` range must end on the file's last content line — the line number of the last line that is _not_ an `#endregion` marker (the file ends with the last region's closing marker, so a plain count would undercount by the number of markers). One-liner: `$L = Get-Content js/reader.js; for ($i = $L.Count - 1; $i -ge 0; $i--) { if ($L[$i] -notmatch '^\s*// #endregion') { break } }; $i + 1` — the last TOC range end must equal that. (A `Where-Object … .Count` variant is WRONG here: with N interspersed markers it can only match by coincidence.)
 - **Region/TOC consistency** (reader.js): every `// #region <name>` appears in the TOC banner and every TOC entry is a real region — grep counts must match, names must match (region names are the anchors; line numbers drift). One-liner (works for single-space alignment, which a `(.+?) \s+` pattern silently misses): `$L = Get-Content js/reader.js; $t = ($L | Select-String '^  //   (.+?)\s+L\d+-\d+\s*$' | ForEach-Object { $_.Matches[0].Groups[1].Value }); $r = (Select-String -Path js/reader.js -Pattern '^\s*// #region (.+)$' | ForEach-Object { $_.Matches[0].Groups[1].Value }); "missing in TOC: $(@($r | Where-Object { $_ -notin $t }).Count)  no region: $(@($t | Where-Object { $_ -notin $r }).Count)"` — both counts must be 0.
 - **CSS sanity**: brace balance (`{`/`}` counts must match) after every CSS edit
 - **Dangling references**: grep for removed IDs/classes/i18n keys across `js/`, `books/`, `css/`
@@ -1085,23 +1106,23 @@ Current size: 62 books, 226k rows, ~485k unique words — 39.7MB raw, 12.7MB gzi
 
 The page (module `js/library-search-page.js`, styles `css/library-search.css`) reads `?q=` and `?tags=` from the URL (shareable links — typing, chip toggles, and clear keep the address bar in sync via `replaceState`). Tag chips scope the search (OR — a book is searched if it carries any selected tag); `-HDN` books are excluded from scopes; a scope that matches no books renders "No results" rather than falling through to an unscoped search (the engine treats `[]` as "every book").
 
-**Authors & Periods facets.** The page's ✍️ Authors / 🗓️ Periods buttons open the browse modals, but the state, chips and modals themselves live in one shared module — `js/facet-browse.js` — used by the library page, the dashboard's functions panel (same buttons + chips, filtering the card grid) and the search window's All-books tab (facet scope intersects the index search). `?authors=` (comma list, OR) and `?period=` (century number or `modern`) deep-link on both the library page and the dashboard. Selection semantics: author = any of the book's `authorCode` tokens; period = the death-century bucket of any of its authors (`Math.ceil(diedAH/100)`, or `modern` — 15th century AH and later, or no death year). The modals are one design everywhere: a filter input (matches any of the three names or the code) with a result count beside it — the search window's "match: N" pattern ("ނަތީޖާ: N" / "نتيجة: N"), shown only while a query is typed, the slot width pre-reserved at open so the count never shifts the input — above a table whose header stays sticky while only the rows scroll; author rows lead with a muted, tabular 1-based index (the row's position in the currently shown list — renumbered when the filter narrows it — under a bare "#" header cell), then show the current-language name, the other two names (Arabic always included), the Hijri years and, right after them, the derived age (diedAH − bornAH; a `~` estimate on either end carries over, blank when a date is missing, the language's year-unit shorthand appended — އ. / y. / س.; muted like the CE) and the Gregorian (miladi) equivalent (derived at render with the same AH→CE approximation as the periods grid; a `~` estimate carries over; the CE side reads in the muted tone while the Hijri dates stay plain; a died-only author leads the years with the same bare dash the born–died range uses between its years — `–179 ހ.`, glued to the year like the range's own dash), in the 08 registry's row order; period rows are the distinct buckets, chronological — the years, the distinct-author count (an author enters a bucket only via a book, so zero-book authors never inflate it) right after them, then the Gregorian span — each row carrying the count of distinct authors with a book in the bucket, and the modern bucket's row showing the open-ended "(15+)" marker on its name (the 15th-century-AH opening marker) with its range and Gregorian cells at the open-ended "from" forms ("1401+ ހ." / "1981+ މ."). On narrow screens (≤600px) the header strip folds away entirely and each row re-flows into compact joined lines — index · name · Arabic name / century · years · CE · age · "ފޮތް: N" ✓, the index leading its line (the periods rows have no index, so their name keeps the dot-free line lead), the count and its tick joining the end of the dates line (periods: label · years · CE / authors · "ފޮތް: N" ✓, the authors count leading its line unjoined) — the count labels (ފޮތް, Authors, Age) hidden on desktop under their own header columns. The books count reads like the name column in both modals — same weight (600) and the same colour by inheritance (neither has a colour of its own; both pick up the row's text colour, the accent-blue selected state included); the mobile count labels (ފޮތް, Authors, Age) inherit their cells' weight, so only the books count's label reads bold in the name's colour while the age and authors labels stay plain captions of their muted figures; the periods' century label (its first column) is bold like the authors' name. Both modals' Hijri range columns are content-pinned — no `1fr` anywhere — so the years sit at their natural width and hug what follows: the authors' age, and the periods' century label (which takes the leftover width the way the authors' names do).
+**Authors & Periods facets.** The page's ✍️ Authors / 🗓️ Periods buttons open the browse modals, but the state, chips and modals themselves live in one shared module — `js/facet-browse.js` — used by the library page, the dashboard's functions panel (same buttons + chips, filtering the card grid) and the search window's All-books tab (facet scope intersects the index search). `?authors=` (comma list, OR) and `?period=` (century number or `modern`) deep-link on both the library page and the dashboard. Selection semantics: author = any of the book's `authorCode` tokens; period = the death-century bucket of any of its authors (`Math.ceil(diedAH/100)`, or `modern` — 15th century AH and later, or no death year). The modals are one design everywhere: a filter input (matches any of the three names or the code) with a result count beside it — the search window's "match: N" pattern ("ނަތީޖާ: N" / "نتيجة: N"), always visible and reading the shown rows (the full list with an empty filter), the slot width pre-reserved at open so the count's digit changes never shift the input — above a table whose header stays sticky while only the rows scroll; author rows lead with a muted, tabular 1-based index (the row's position in the currently shown list — renumbered when the filter narrows it — under a bare "#" header cell), then show the current-language name, the other two names (Arabic always included), the Hijri years and, right after them, the derived age (diedAH − bornAH; a `~` estimate on either end carries over, blank when a date is missing, the language's year-unit shorthand appended — އ. / y. / س.; muted like the CE) and the Gregorian (miladi) equivalent (derived at render with the same AH→CE approximation as the periods grid; a `~` estimate carries over; the CE side reads in the muted tone while the Hijri dates stay plain; a died-only author leads the years with the same bare dash the born–died range uses between its years — `–179 ހ.`, glued to the year like the range's own dash), in the 08 registry's row order; period rows are the distinct buckets, chronological — the years, the distinct-author count (an author enters a bucket only via a book, so zero-book authors never inflate it) right after them, then the Gregorian span — each row carrying the count of distinct authors with a book in the bucket, and the modern bucket's row showing the open-ended "(+15)" marker on its name (the 15th-century-AH opening century, the plus leading the number) with its range and Gregorian cells at the open-ended "from" forms ("+1401 ހ." / "+1981 މ."). On narrow screens (≤600px) the header strip folds away entirely and each row re-flows into compact joined lines — index · name · Arabic name / century · years · CE · age · "ފޮތް: N" ✓, the index leading its line (the periods rows have no index, so their name keeps the dot-free line lead), the count and its tick joining the end of the dates line (periods: label · years · CE / authors · "ފޮތް: N" ✓, the authors count leading its line unjoined) — the count labels (ފޮތް, Authors, Age) hidden on desktop under their own header columns. The books count reads like the name column in both modals — same weight (600) and the same colour by inheritance (neither has a colour of its own; both pick up the row's text colour, the accent-blue selected state included); the mobile count labels (ފޮތް, Authors, Age) inherit their cells' weight, so only the books count's label reads bold in the name's colour while the age and authors labels stay plain captions of their muted figures; the periods' century label (its first column) is bold like the authors' name. Both modals' Hijri range columns are content-pinned — no `1fr` anywhere — so the years sit at their natural width and hug what follows: the authors' age, and the periods' century label (which takes the leftover width the way the authors' names do).
 
 The grids (thead strip + rows share the tracks; the variable ones pinned by
 `pinFacetGeometry` to the widest cell — `--facet-*-w`, caps in parentheses):
 
-| Track | Authors | Periods | Pinned |
-| --- | --- | --- | --- |
-| `index` | 1, 2, 3… — the row's position in the shown (filtered) list; muted, tabular numerals; the thead cell carries a bare `#` (`title="Row number"`) | — | 44px (fixed) |
-| `name` | current-language name (tooltip lists all three) | century label (`centuryN`) | `--facet-name-w` (220) / `--facet-period-w` |
-| `name-ar` | Arabic name — empty in the Arabic UI | — | `--facet-ar-w` (240) |
-| `century` | death century, unbracketed — `(15+)` when the author is in the modern bucket, the same marker the modern period row's name carries | — | 90px |
-| `range` | `(born–died ހ.)` | `(span ހ.)` | `--facet-range-w`, measured nowrap like the Gregorian track — no `1fr` in either modal: the age sits directly against the years, and the periods' years sit at their natural width, hugging the century label (which takes the leftover width) |
-| `age` | diedAH − bornAH — blank when either is missing, a `~` carries over; muted like the CE, the year-unit shorthand appended (`86 އ.` / `86 y.` / `86 س.`) — sits right after the years, before the Gregorian span | — | 48px (fixed) |
-| `authors` | — | distinct authors with a searchable book in the bucket — sits right after the years, before the Gregorian span | 56px (fixed) |
-| `ce` | `(born–died CE)`, muted | `(span CE)`, muted | `--facet-ce-w`, measured first |
-| `count` | `ފޮތް: N` — bold (600) and the same colour as the name column (both inherit the row's); the label goes inline on mobile and inherits the cell — only this label reads bold | same | 64px |
-| `check` | ✓ when selected — the thead cell carries the same ✓, centered | same | 40px |
+| Track     | Authors                                                                                                                                                                                                                | Periods                                                                                                       | Pinned                                                                                                                                                                                                                                         |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`   | 1, 2, 3… — the row's position in the shown (filtered) list; muted, tabular numerals; the thead cell carries a bare `#` (`title="Row number"`)                                                                          | —                                                                                                             | 44px (fixed)                                                                                                                                                                                                                                   |
+| `name`    | current-language name (tooltip lists all three)                                                                                                                                                                        | century label (`centuryN`)                                                                                    | `--facet-name-w` (220) / `--facet-period-w`                                                                                                                                                                                                    |
+| `name-ar` | Arabic name — empty in the Arabic UI                                                                                                                                                                                   | —                                                                                                             | `--facet-ar-w` (240)                                                                                                                                                                                                                           |
+| `century` | death century, unbracketed — the modern bucket's cell reads `Century +15` (the `periodFromCentury` template — the century label with the leading plus, the same `+` the modern row's name marker and from-forms carry) | —                                                                                                             | content-pinned (93px today — the +15 label is the longest cell, measured like the range)                                                                                                                                                       |
+| `range`   | `(born–died ހ.)`                                                                                                                                                                                                       | `(span ހ.)`                                                                                                   | `--facet-range-w`, measured nowrap like the Gregorian track — no `1fr` in either modal: the age sits directly against the years, and the periods' years sit at their natural width, hugging the century label (which takes the leftover width) |
+| `age`     | diedAH − bornAH — blank when either is missing, a `~` carries over; muted like the CE, the year-unit shorthand appended (`86 އ.` / `86 y.` / `86 س.`) — sits right after the years, before the Gregorian span          | —                                                                                                             | 48px (fixed)                                                                                                                                                                                                                                   |
+| `authors` | —                                                                                                                                                                                                                      | distinct authors with a searchable book in the bucket — sits right after the years, before the Gregorian span | 56px (fixed)                                                                                                                                                                                                                                   |
+| `ce`      | `(born–died CE)`, muted                                                                                                                                                                                                | `(span CE)`, muted                                                                                            | `--facet-ce-w`, measured first                                                                                                                                                                                                                 |
+| `count`   | `ފޮތް: N` — bold (600) and the same colour as the name column (both inherit the row's); the label goes inline on mobile and inherits the cell — only this label reads bold                                             | same                                                                                                          | 64px                                                                                                                                                                                                                                           |
+| `check`   | ✓ when selected — the thead cell carries the same ✓, centered                                                                                                                                                          | same                                                                                                          | 40px                                                                                                                                                                                                                                           |
 
 One row, both viewports (the real Malik bin Anas row — 02 registry values,
 the CE span and the age the AH→CE / diedAH − bornAH derivations of the

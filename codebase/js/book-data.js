@@ -244,7 +244,7 @@ export function authorCodesOf(b) {
 
 /** The modern era bucket's opening century — the 15th century AH (1401)
  *  and later (authorPeriodOf). The bucket's row name carries the open-ended
- *  "(15+)" marker and its ranges open at the century's first year. */
+ *  "(+15)" marker and its ranges open at the century's first year. */
 export var MODERN_PERIOD_CENTURY = 15;
 /** 1401 — the first year of the 15th century AH (MODERN_PERIOD_CENTURY). */
 var MODERN_PERIOD_FROM_AH = (MODERN_PERIOD_CENTURY - 1) * 100 + 1;
@@ -280,7 +280,7 @@ export function periodLabel(p) {
 
 /** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
  *  range, filled with the bucket's AH span; for "modern" (a bucket with a
- *  start but no closing year) the open-ended "from" form — "1401+ AH" —
+ *  start but no closing year) the open-ended "from" form — "+1401 AH" —
  *  from the periodFromAH template, filled with the bucket's first year
  *  (the modern era opens at the 15th century AH, 1401). */
 export function periodRangeText(p) {
@@ -298,7 +298,7 @@ export function periodRangeText(p) {
  *  the authorLifeCe template filled with the bucket's endpoints converted
  *  AH → CE (the standard 1 Hijri year ≈ 0.970229 solar years approximation,
  *  offset 621.57; rounded); "modern" opens at its first year converted —
- *  "1981+ CE" (the periodFromCE template). Derived at render, never
+ *  "+1981 CE" (the periodFromCE template). Derived at render, never
  *  stored. */
 export function periodRangeCeText(p) {
   if (p === "modern") {

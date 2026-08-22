@@ -20,8 +20,8 @@ absorbing the modal's leftover width) — the books counts reading bold in
 the name's colour like the name column (only the books count's mobile
 label carries the weight — the age/authors labels stay plain; the
 periods' first column is bold the same way), the modern bucket's row
-showing its open-ended forms — the "(15+)" name marker, the "1401+ AH"
-range and the "1981+ CE" Gregorian, the CE derived via the battery's own
+showing its open-ended forms — the "(+15)" name marker, the "+1401 AH"
+range and the "+1981 CE" Gregorian, the CE derived via the battery's own
 `ceFromAh(1401)` conversion, never hardcoded — the ✓ thead headers centered
 over the rows, the info header ℹ geometrically centered over the row
 buttons — a left-edge match alone is not enough: the shared 8px 12px cell
@@ -32,10 +32,11 @@ carries `padding-inline: 0` for exactly that reason) — the dash-led
 died-only years, their dash glued to the year (`–256 AH` / `–865 CE` —
 the same dash the born–died range uses between its years, the
 `authorDied` template's `{y}` slot), the modern author's century cell
-carrying the same "(15+)" marker as the modern period row's name, and
+reading the century label with the leading plus ("Century +15"), and
 both filters' result counts — the search window's "match: N" pattern,
-shown only while a query is typed, the slot width pre-reserved at open
-so the count never shifts the input, hidden on clear — the periods grid's authors track placed right after the years, the thead
+always visible over the shown rows (the full list with an empty
+filter), the slot width pre-reserved at open so the count's digit
+changes never shift the input — the periods grid's authors track placed right after the years, the thead
 cells paired to the row cells column by column — class-paired, since the
 rows' DOM order keeps the mobile lines — and the single-band assertion
 that the row cells all sit on one grid row (a column-only pin would let
@@ -286,8 +287,9 @@ blaming the product.
   period facet is derived client-side (`Math.ceil(diedAH/100)` with the modern
   merge) — never store the century in the CSV, or the two can drift. The
   `modern` bucket's periods-modal row renders the open-ended forms by
-  construction — name + "(15+)" (the opening century), range "1401+ ހ." (the
-  century's first year), Gregorian "1981+ މ." (derived from 1401 AH by the
+  construction — name + "(+15)" (the opening century, the plus leading the
+  number), range "+1401 ހ." (the
+  century's first year), Gregorian "+1981 މ." (derived from 1401 AH by the
   app's own AH→CE conversion, never hardcoded) — so an assertion change to a
   hardcoded "1981" would break the battery's `ceFromAh(1401)` derivation the
   moment the conversion changes; derive it the way the battery does.
