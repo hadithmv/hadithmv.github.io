@@ -442,9 +442,9 @@ const STRINGS = {
   // The actions row's second chip — copies the info page's URL for the
   // active pane (the same URL the exports print on their title page).
   infoCopyLink: {
-    dv: "ލިންކު ކޮޕީ ކުރޭ",
-    en: "Copy link",
-    ar: "نسخ الرابط",
+    dv: "ލިންކު",
+    en: "Link",
+    ar: "الرابط",
   },
   // The info page's empty state — no ?book= / ?author= parameters.
   infoPageEmpty: {

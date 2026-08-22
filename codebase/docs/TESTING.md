@@ -79,8 +79,10 @@ Hadithmv webfont on the body and the shared flex/rtl search wrap
 (reader-search.css loaded; there is no `.modal` wrapper to inherit
 from), its top bar must read like `#topBar` (an LTR `--content-width`
 column inside the full-bleed sticky strip — the back button start-side,
-the title centered in the flex space, geometry-checked) — and the URL
-must follow the tabs: tab clicks pushState
+the title centered in the flex space, geometry-checked), the actions
+row must stay (its 6 buttons — copy, copy-link, the four exports —
+visible at desktop width, the 📥 toggle hidden above 600px) — and the
+URL must follow the tabs: tab clicks pushState
 (`?author=…` → `?author=…&tab=works`), back/forward step through the
 panes from the query string; the goldens themselves must be re-captured
 whenever the title-page/cover markup changes, since the reader's four

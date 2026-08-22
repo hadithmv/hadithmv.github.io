@@ -865,6 +865,18 @@ async function main() {
         ' btn=' + Math.round(b.left) + ' titleC=' + Math.round((t.left + t.right) / 2) +
         ' colC=' + Math.round((inner.left + inner.right) / 2);
     })()`));
+  check("S13 the actions row stays: copy + copy-link + the four exports", await evalJS(
+    `(() => {
+      var a = document.getElementById('infoActions').getBoundingClientRect();
+      var t = document.getElementById('infoActionsToggle').getBoundingClientRect();
+      return a.width > 0 && a.height > 0 && t.width === 0 && t.height === 0 &&
+        document.querySelectorAll('#infoPageShell #infoActions button').length === 6;
+    })()`),
+    await evalJS(`(() => {
+      var a = document.getElementById('infoActions').getBoundingClientRect();
+      return 'actions=' + Math.round(a.width) + 'x' + Math.round(a.height) +
+        ' buttons=' + Array.from(document.querySelectorAll('#infoPageShell #infoActions button')).map(function (b) { return b.textContent; }).join('|');
+    })()`));
   check("S13 search row uses the shared input wrap (reader-search.css)", await evalJS(
     `(() => { var w = getComputedStyle(document.querySelector('#infoPageShell .search-input-wrap')); return w.display === 'flex' && w.direction === 'rtl'; })()`),
     await evalJS(`getComputedStyle(document.querySelector('#infoPageShell .search-input-wrap')).display + ' / ' + getComputedStyle(document.querySelector('#infoPageShell .search-input-wrap')).direction`));
