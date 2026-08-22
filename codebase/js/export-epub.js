@@ -113,16 +113,17 @@ export function createEPUB(rows, meta, opts) {
     + '<title>' + xmlEsc(bookTitle) + '</title>'
     + '<link rel="stylesheet" type="text/css" href="styles.css"/>'
     + '</head><body class="cover">'
-    + (opts.kindTitle ? '<p class="cover-kind">' + xmlEsc(opts.kindTitle) + '</p>' : '')
+    + (opts.kindTitle ? '<p class="cover-kind">' + xmlEsc(opts.kindTitle) + '</p><hr/>' : '')
     + '<h1 class="cover-title">' + xmlEsc(meta.titleDV || meta.titleEN || "") + '</h1>';
   if (meta.titleAR) cover += '<p class="cover-ar">' + xmlEsc(meta.titleAR) + '</p>';
   if (meta.titleEN && meta.titleDV) cover += '<p class="cover-en">' + xmlEsc(meta.titleEN) + '</p>';
-  if (opts.titleFacts && opts.titleFacts.length) {
-    cover += '<p class="cover-facts">' + opts.titleFacts.map(xmlEsc).join("<br/>") + '</p>';
-  }
+  cover += '<hr/>';
   cover += '<p class="cover-brand">Hadithmv - ' + xmlEsc(opts.versionText || "") + '</p>'
-    + '<p class="cover-url">' + xmlEsc(opts.siteURL || "") + '</p>'
-    + '</body></html>';
+    + '<p class="cover-url">' + xmlEsc(opts.siteURL || "") + '</p>';
+  if (opts.titleFacts && opts.titleFacts.length) {
+    cover += '<hr/><p class="cover-facts">' + opts.titleFacts.map(xmlEsc).join("<br/>") + '</p>';
+  }
+  cover += '</body></html>';
 
   // ── Navigation XHTML  (EPUB 3 nav doc) ─────────────────────────
   var nav = '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="' + lang + '"><head>'
@@ -191,13 +192,14 @@ export function createEPUB(rows, meta, opts) {
     + '.ms-sep { text-align: center; color: #aaa; margin: 0.8em 0; font-size: 0.6em; letter-spacing: 0.3em; direction: ltr; }\n'
     + '/* Cover */\n'
     + 'body.cover { text-align: center; padding: 2em 1em; }\n'
-    + '.cover-kind { font-size: 0.9rem; color: #777; margin: 1.5em 0 0.5em; }\n'
-    + '.cover-facts { font-size: 0.85rem; color: #666; margin: 1em 0; line-height: 2; }\n'
+    + 'hr { border: none; border-top: 1px solid #ccc; margin: 1.5em 0; }\n'
+    + '.cover-kind { font-size: 1.05rem; color: #777; margin: 0; }\n'
+    + '.cover-facts { font-size: 0.85rem; color: #666; line-height: 2; }\n'
     + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'
-    + '.cover-ar { font-size: 1.2rem; color: #555; margin: 0.2em 0; }\n'
+    + '.cover-ar { font-size: 1.35rem; color: #555; margin: 0.2em 0; }\n'
     + '.cover-en { font-size: 1rem; color: #888; margin: 0.2em 0; }\n'
-    + '.cover-brand { font-size: 0.85rem; color: #999; margin: 2em 0 0; }\n'
-    + '.cover-url { font-size: 0.75rem; color: #aaa; margin: 0.2em 0; }\n'
+    + '.cover-brand { font-size: 0.95rem; color: #999; margin: 0; }\n'
+    + '.cover-url { font-size: 0.85rem; color: #aaa; margin: 0.2em 0 0; }\n'
     + '/* Nav */\n'
     + 'nav ol { padding-right: 1.5em; }\n'
     + 'nav li { margin: 0.3em 0; }\n'

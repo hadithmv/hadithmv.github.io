@@ -43,7 +43,6 @@ import {
   extractTags,
   authorCodesOf,
   authorPeriodOf,
-  periodLabel,
   authorYearsText,
   authorYearsCeText,
   authorAgeText,
@@ -372,12 +371,14 @@ function render() {
 
 /** One label/value pair of the fact strip ("" values are dropped by the
  *  callers — an undated author shows no empty Years row). The label is
- *  escaped (i18n text); the value arrives pre-escaped from the callers.
- *  An empty label (the century chip — the value carries the word,
- *  "ގަރުނު 2"/"Century 2") emits the value div alone, no label div. */
+ *  escaped (i18n text) and gains a colon ("Years:") — labels sit in the
+ *  strip's first column, values in the second, always as sibling pairs
+ *  so the two columns never drift; the value arrives pre-escaped. */
 function factRow(label, value) {
+  var lab = label ? escapeHTML(label) : "";
+  if (lab && lab.indexOf(":") === -1) lab += ":";
   return (
-    (label ? '<div class="info-fact-label">' + escapeHTML(label) + "</div>" : "") +
+    (label ? '<div class="info-fact-label">' + lab + "</div>" : "") +
     '<div class="info-fact-value">' + value + "</div>"
   );
 }
@@ -468,11 +469,11 @@ function renderBookTab(seq) {
           }
           var p = authorPeriodOf(codes[0]);
           if (p !== "modern") {
-            // No label — the value carries the word (ގަރުނު 2 / Century 2);
-            // "Century: Century 2" would double it.
-            facts.push(factRow("", escapeHTML(periodLabel(p))));
-            plain.push(periodLabel(p));
-            factLines.push(periodLabel(p));
+            // The label carries the word (Century) — the value is the bare
+            // number ("2"), never "Century: Century 2" doubled.
+            facts.push(factRow(t("facetColCentury"), escapeHTML(String(p))));
+            plain.push(t("facetColCentury") + ": " + p);
+            factLines.push(t("facetColCentury") + ": " + p);
           }
           var age = authorAgeText(first);
           if (age) {
@@ -498,7 +499,9 @@ function renderBookTab(seq) {
             return tagLabel(tag.code, tag.label);
           }).join(" · ");
           plain.push(tagsPlain);
-          factLines.push(tagsPlain);
+          // The tags stay in the pane's strip and the copy — the export's
+          // title-page facts drop them (a "Tags: …" line doesn't belong
+          // on the exported title page).
         }
       }
       if (facts.length > 0) {
@@ -642,11 +645,11 @@ function showAuthorPane(seq, code) {
     }
     var p = authorPeriodOf(code);
     if (p !== "modern") {
-      // No label — the value carries the word (ގަރުނު 2 / Century 2);
-      // "Century: Century 2" would double it.
-      facts.push(factRow("", escapeHTML(periodLabel(p))));
-      plain.push(periodLabel(p));
-      factLines.push(periodLabel(p));
+      // The label carries the word (Century) — the value is the bare
+      // number ("2"), never "Century: Century 2" doubled.
+      facts.push(factRow(t("facetColCentury"), escapeHTML(String(p))));
+      plain.push(t("facetColCentury") + ": " + p);
+      factLines.push(t("facetColCentury") + ": " + p);
     }
     var age = authorAgeText(def);
     if (age) {
