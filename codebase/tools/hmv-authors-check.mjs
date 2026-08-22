@@ -8,19 +8,24 @@
 //
 // Checks:
 //  - library page: Authors button opens the modal with one row per author
-//    with a searchable book (current-language name, Arabic name in its own
-//    column, Hijri century and years, Gregorian (miladi) lifetime, age —
-//    diedAH − bornAH, ~-aware — each in their own column, registry order,
-//    filter input); click toggles → chip + ?authors=
+//    with a searchable book (leading 1-based index column — renumbered
+//    after filtering — then the current-language name, Arabic name in its
+//    own column, Hijri century and years, Gregorian (miladi) lifetime, age
+//    — diedAH − bornAH, ~-aware — each in their own column, registry
+//    order, filter input); click toggles → chip + ?authors=
 //  - mobile (≤600px): thead folds away, rows re-flow into joined text
-//    lines (name · Arabic name / century · years · CE · age / books: N ✓) —
-//    the joins a dotted margin run, the CE and age muted against the plain
-//    Hijri dates, the count label inline, the ✓ spaced without a dot
-//  - period modal: table rows = the distinct death-century buckets + modern
-//    (derived from 02), each row shows the century's AH range and its
+//    lines (index · name · Arabic name / century · years · CE · age /
+//    books: N ✓) — the joins a dotted margin run, the CE and age muted
+//    against the plain Hijri dates, the count label inline, the ✓ spaced
+//    without a dot
+//  - period modal: table rows = the distinct death-century buckets + the
+//    single modern era (15th century AH and later, or no death year —
+//    derived from 02), each row shows the century's AH range and its
 //    Gregorian (miladi) equivalent each in their own column, the distinct
 //    authors in the bucket and the book count, counts cover only books
-//    really in the library (searchable set); click sets ?period=
+//    really in the library (searchable set); click sets ?period=. The
+//    modern row's name carries the open-ended "(15+)" marker and its
+//    ranges are the "1401+ AH" / "1981+ CE" from-forms
 //  - ?authors=/?period= deep links activate chips on load
 //  - scoped search: with an author active, every result card belongs to one
 //    of that author's books (derived from 03)
@@ -28,7 +33,9 @@
 //    header ("<nameEN> (<born>–<died> AH)" — a plain-background button
 //    with real button chrome opening the info modal's Author tab; the
 //    Dhivevi layout's Arabic subtitle is the same button, opening the
-//    modal's Book tab)
+//    modal's Book tab; a multi-author book gets ONE button per author,
+//    joined with the script-appropriate comma (", " en / "، " dv-ar),
+//    each button opening its own author's tab)
 //  - dashboard: no English title on cards, browse buttons open the shared
 //    modals, ?authors=yahyaBinSharafAnNawawi pre-filters the grid
 //  - search window: All-books tab shows the Authors/Periods section, the
@@ -72,8 +79,14 @@ const authors02 = csvObjects("02-registry-bookAuthors.csv").filter((a) => a.auth
 const nameEN = (code) => (authors02.find((a) => a.authorCode === code) || {}).nameEN || code;
 const nameAR = (code) => (authors02.find((a) => a.authorCode === code) || {}).nameAR || "";
 const nameDV = (code) => (authors02.find((a) => a.authorCode === code) || {}).nameDV || "";
-// Period bucket: death-century string, "modern" when diedAH is blank
-const periodOf = (a) => (a.diedAH ? String(Math.ceil(parseInt(a.diedAH, 10) / 100)) : "modern");
+// Period bucket: death-century string, "modern" when diedAH is blank OR
+// the death fell in the 15th century AH and later — the modern/contemporary
+// era is one bucket (mirrors authorPeriodOf in book-data.js)
+const periodOf = (a) => {
+  if (!a.diedAH) return "modern";
+  const c = Math.ceil(parseInt(a.diedAH, 10) / 100);
+  return c >= 15 ? "modern" : String(c);
+};
 const authorCodesOf = (b) => ((b && b.authorCode) || "").split(",").map((s) => s.trim()).filter(Boolean);
 // The dashboard counts over the *visible* set only (-HDN books are hidden
 // from the grid); mirrors visibleBooks() in dashboard.js.
@@ -105,8 +118,9 @@ function periodCountsOf(books) {
 }
 const SEARCHABLE_PERIOD_COUNTS = periodCountsOf(SEARCHABLE_BOOKS);
 // Period buckets over the searchable authors; "modern" only when a searchable
-// author lacks a death year (a zero-count bucket would be pointless).
-const HAS_MODERN = SEARCHABLE_AUTHORS.some((a) => !a.diedAH);
+// author maps to it (no death year, or a 15th-century-and-later death — a
+// zero-count bucket would be pointless).
+const HAS_MODERN = SEARCHABLE_AUTHORS.some((a) => periodOf(a) === "modern");
 const PERIODS = [...new Set(SEARCHABLE_AUTHORS.map(periodOf))]
   .filter((p) => p !== "modern" || HAS_MODERN)
   .sort((a, b) =>
@@ -118,6 +132,15 @@ const malikRow = authors02.find((a) => a.authorCode === "malikBinAnas");
 // Exact en author line for Malik, per the i18n authorLife template "{b}–{d} AH":
 // "Malik bin Anas (93–179 AH)". Both born and died are present in the data.
 const MALIK_LINE = nameEN("malikBinAnas") + " (" + malikRow.bornAH + "–" + malikRow.diedAH + " AH)";
+// The two-Razis book — the multi-author fixture (both authors, one book).
+const RAZI_BOOK = books03.find((b) => b.bookCode === "AQD-aqidatuRaziyain_ASM");
+const RAZI_AUTHORS = ["abuZurahArRazi", "abuHatimArRazi"].map((code) => {
+  const a = authors02.find((x) => x.authorCode === code);
+  return { code, enLine: nameEN(code) + " (" + a.bornAH + "–" + a.diedAH + " AH)" };
+});
+// en multi-author line — the Latin comma joins the names; the dv/ar layouts
+// use the Arabic comma (both via bookAuthorLine's authorListSeparator).
+const RAZI_LINE_EN = RAZI_AUTHORS.map((a) => a.enLine).join(", ");
 // Age = diedAH − bornAH (both required; a "~" estimate on either end carries
 // over — the data cannot make an estimate precise); mirrors authorAgeText in
 // facet-browse.js.
@@ -306,16 +329,18 @@ async function main() {
   // The thead strip sits OUTSIDE the scrollport — the scrollbar runs beside
   // the rows alone, never the thead — and thead + rows share the grid column
   // template, so the column edges line up exactly (the "thead left" drift
-  // the old table auto-layout produced). The authors grid has 9 columns:
-  // info, name, Arabic, century, range, age, Gregorian, count, check — the
-  // info button leading, the age right after the years, before the
-  // Gregorian span.
+  // the old table auto-layout produced). The authors grid has 10 columns:
+  // index, info, name, Arabic, century, range, age, Gregorian, count, check
+  // — the index number leading, the info button next, the age right after
+  // the years, before the Gregorian span.
   check("thead outside the scrollport", await evalJS(
     `!document.querySelector('#libAuthorsModalBody .facet-thead-row').closest('.facet-table-wrap')`));
-  // The info column leads the grid — its thead cell is the grid's first
-  // element (the thead DOM order is the visual order).
-  check("info column is the first column", await evalJS(
-    `document.querySelector('#libAuthorsModalBody .facet-grid-authors').firstElementChild.className === 'facet-thead-cell facet-col-info' &&
+  // The index column leads the grid — its thead cell is the grid's first
+  // element (the thead DOM order is the visual order), the info button
+  // second, both carrying their glyphs.
+  check("index column is the first column, info second", await evalJS(
+    `document.querySelector('#libAuthorsModalBody .facet-grid-authors').firstElementChild.className === 'facet-thead-cell facet-col-index' &&
+     document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-index').textContent === '#' &&
      document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-info').textContent === 'ℹ'`));
   // The header glyph must center over the row buttons, not merely share the
   // column (the left-edge check below passes even if the thead content were
@@ -324,20 +349,25 @@ async function main() {
   check("info header centers over the row buttons", await evalJS(
     `(() => { var h = document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-info'); var b = document.querySelector('#libAuthorsModalBody .author-browse-row .author-info-btn'); var hc = h.getBoundingClientRect().left + h.getBoundingClientRect().width / 2; var bc = b.getBoundingClientRect().left + b.getBoundingClientRect().width / 2; return Math.abs(hc - bc) < 2; })()`),
     await evalJS(`(() => { var h = document.querySelector('#libAuthorsModalBody .facet-thead-cell.facet-col-info'); var b = document.querySelector('#libAuthorsModalBody .author-browse-row .author-info-btn'); var hr = h.getBoundingClientRect(); var br = b.getBoundingClientRect(); return 'headCenter=' + Math.round(hr.left + hr.width / 2) + ' btnCenter=' + Math.round(br.left + br.width / 2); })()`));
+  // The rows carry their position in the shown list — 1, 2, 3… down the
+  // column, renumbered when the filter narrows the list.
+  check("rows carry 1-based index numbers", await evalJS(
+    `(() => { var rows = document.querySelectorAll('#libAuthorsModalBody .author-browse-row'); return rows.length > 2 && Array.prototype.every.call(rows, function (r, i) { return r.querySelector('.facet-index').textContent === String(i + 1); }); })()`),
+    await evalJS(`Array.from(document.querySelectorAll('#libAuthorsModalBody .author-browse-row')).slice(0, 3).map(function (r) { return r.querySelector('.facet-index').textContent; }).join(',')`));
   // The thead follows the visual order while the row cells keep their
   // mobile-friendly DOM order — the age/CE pair is placed into its desktop
   // columns explicitly (grid-column + grid-row in common.css) — so the
   // pairs are matched by class, not by DOM index.
   check("thead columns align with the rows", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check'],['facet-col-info','facet-info']]; return pairs.every(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
-    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check'],['facet-col-info','facet-info']]; return pairs.map(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
-  // The row's nine cells sit on ONE grid row — with only the columns
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-index','facet-index'],['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check'],['facet-col-info','facet-info']]; return pairs.every(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return Math.abs(h.getBoundingClientRect().left - c.getBoundingClientRect().left) < 1; }); })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var pairs = [['facet-col-index','facet-index'],['facet-col-name','facet-name'],['facet-col-ar','facet-name-ar'],['facet-col-century','facet-century'],['facet-col-range','facet-range'],['facet-col-age','facet-age'],['facet-col-ce','facet-ce'],['facet-col-count','facet-count'],['facet-col-check','facet-check'],['facet-col-info','facet-info']]; return pairs.map(function(p){ var h = document.querySelector('#libAuthorsModalBody .' + p[0]); var c = r.querySelector('.' + p[1]); return p[0] + '=' + Math.round(h.getBoundingClientRect().left) + ' vs ' + p[1] + '=' + Math.round(c.getBoundingClientRect().left); }).join(' '); })()`));
+  // The row's ten cells sit on ONE grid row — with only the columns
   // explicit, the sparse auto-placer walks its cursor back on the
   // DOM/visual swap (… years · CE · age … → columns 4, 6, 5) and drops the
   // age/count/check/info into a second band (the periods modal's "two
   // subrows" look); grid-row: 1 pins the band, and this asserts it.
   check("authors rows are a single band", await evalJS(
-    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var ts = Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return Math.round(c.getBoundingClientRect().top); }); return ts.length === 9 && ts.every(function(t){ return Math.abs(t - ts[0]) < 1; }); })()`),
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); var ts = Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return Math.round(c.getBoundingClientRect().top); }); return ts.length === 10 && ts.every(function(t){ return Math.abs(t - ts[0]) < 1; }); })()`),
     await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row'); return Array.prototype.slice.call(r.querySelectorAll('.facet-line-1 > div, .facet-line-2 > div')).map(function(c){ return c.className + '=' + Math.round(c.getBoundingClientRect().top); }).join(' '); })()`));
   // The Arabic-name and century/range/age text columns sit at the row's full
   // text size (no downscaling).
@@ -429,6 +459,9 @@ async function main() {
       // doubled here: a template literal cooks \( to (, which would change
       // the regex into a different match entirely.
       range: (b.querySelector('.facet-range').textContent.match(/\\(([^)]+)\\)/) || [])[1] || '',
+      // The row name — the period label, with the modern bucket's open-ended
+      // "(15+)" opening-century marker appended ("Modern (15+)").
+      name: b.querySelector('.facet-name').textContent,
       // The Gregorian span, same bracketed shape — "(817–913 CE)".
       ce: (b.querySelector('.facet-ce').textContent.match(/\\(([^)]+)\\)/) || [])[1] || ''
     };
@@ -441,21 +474,32 @@ async function main() {
   }), periodBtns.map((b) => b.period).join(","));
   // Each row shows the century's AH span bracketed in its own column —
   // "Century 3" | "(201–300 AH)" — the en authorLife template "{b}–{d}
-  // AH" filled with the bucket's span, e.g. ((3-1)*100+1)–(3*100)); "modern"
-  // rows have no range.
+  // AH" filled with the bucket's span, e.g. ((3-1)*100+1)–(3*100)); the
+  // "modern" bucket's range opens at its century's first year and has no
+  // closing year — "1401+ AH" (the periodFromAH template).
   check("period rows show the AH range", periodBtns.every(function (b) {
-    if (b.period === "modern") return b.range === "";
+    if (b.period === "modern") return b.range === "1401+ AH";
     const n = parseInt(b.period, 10);
     return b.range === ((n - 1) * 100 + 1) + "–" + (n * 100) + " AH";
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.range) + " in " + JSON.stringify(b.text)).join(","));
   // The Gregorian (miladi) equivalent of the same span, in its own column —
   // the ceFromAh approximation above, the en authorLifeCe template "{b}–{d}
-  // CE"; "modern" rows have no spans.
+  // CE"; the modern bucket's opens at the CE of 1401 AH — 1981+, derived
+  // from the same formula the app uses (a hardcoded "1981" would drift the
+  // moment the conversion changes).
   check("period rows show the CE range", periodBtns.every(function (b) {
-    if (b.period === "modern") return b.ce === "";
+    if (b.period === "modern") return b.ce === ceFromAh(1401) + "+ CE";
     const n = parseInt(b.period, 10);
     return b.ce === ceFromAh((n - 1) * 100 + 1) + "–" + ceFromAh(n * 100) + " CE";
   }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.ce)).join(","));
+  // The modern bucket's row name carries the open-ended "(15+)" marker —
+  // "Modern (15+)", appended to the bare periodLabel so the chip and the
+  // info modal's guarded century fact stay clean; the numeric buckets keep
+  // their plain century label ("Century 2"), the same en centuryN key the
+  // battery asserts on the info fact strip.
+  check("modern row name carries the (15+) marker", periodBtns.every(function (b) {
+    return b.period === "modern" ? b.name === "Modern (15+)" : b.name === "Century " + b.period;
+  }), periodBtns.map((b) => b.period + "=" + JSON.stringify(b.name)).join(","));
   // Six thead cells over six row cells, column to column — the shared
   // grid template keeps them aligned by construction, like the authors.
   // The thead follows the visual order (… years · authors · Gregorian …)
@@ -488,9 +532,10 @@ async function main() {
   check("period row authors = distinct authors", periodBtns.every(function (b) {
     return String(SEARCHABLE_PERIOD_AUTHORS[b.period]) === b.authors;
   }), periodBtns.map((b) => b.period + "=" + b.authors + " want " + SEARCHABLE_PERIOD_AUTHORS[b.period]).join(","));
-  // Counts cover books really in the library (searchable set) — e.g. century
-  // 15 counts the albani, qahtani, jaufarFaiz and ibnulUthaymeen books but not
-  // maniku's ENTIRE-BOOK-excluded RDF dictionary.
+  // Counts cover books really in the library (searchable set) — e.g. modern
+  // counts the albani, qahtani, jaufarFaiz and ibnulUthaymeen books (their
+  // authors died in the 15th century AH) but not maniku's ENTIRE-BOOK-
+  // excluded RDF dictionary.
   check("period row counts = searchable books", periodBtns.every(function (b) {
     return String(SEARCHABLE_PERIOD_COUNTS[b.period]) === b.count;
   }), periodBtns.map((b) => b.period + "=" + b.count + " want " + SEARCHABLE_PERIOD_COUNTS[b.period]).join(","));
@@ -568,6 +613,14 @@ async function main() {
     var a = c.querySelector('.card-author'); return a ? a.textContent : '';
   }).join('')`);
   check("dashboard card author line exact", malikCardAuthor === MALIK_LINE, malikCardAuthor + " vs " + MALIK_LINE);
+  // The multi-author card joins the two author lines with the Latin comma
+  // in the English layout (the Arabic comma comes with the dv/ar layouts —
+  // asserted on the reader below; bookAuthorLine serves every surface).
+  const raziCardAuthor = await evalJS(`Array.from(document.querySelectorAll('.book-card')).map(function(c){
+    if (c.getAttribute('href').indexOf(${JSON.stringify(RAZI_BOOK.bookCode)}) === -1) return '';
+    var a = c.querySelector('.card-author'); return a ? a.textContent : '';
+  }).join('')`);
+  check("multi-author card: en line, latin comma", raziCardAuthor === RAZI_LINE_EN, raziCardAuthor + " vs " + RAZI_LINE_EN);
   check("unattributed books exist in registry", UNATTRIBUTED.length > 0, UNATTRIBUTED.length);
   const noAuthorCard = UNATTRIBUTED.length > 0 && await evalJS(`Array.from(document.querySelectorAll('.book-card')).some(function(c){
     return c.getAttribute('href').indexOf(${JSON.stringify(UNATTRIBUTED[0].bookCode)}) !== -1 && !c.querySelector('.card-author');
@@ -594,6 +647,11 @@ async function main() {
     document.getElementById('libAuthorsFilter').dispatchEvent(new Event('input'));`);
   await waitFor(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`);
   check("authors filter input narrows rows", await evalJS(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`));
+  // The index renumbers from 1 over the SHOWN (filtered) list — the single
+  // remaining row is "1", not its position in the unfiltered registry order.
+  check("filtered rows renumber from 1", await evalJS(
+    `document.querySelector('#libAuthorsList .author-browse-row .facet-index').textContent === '1'`),
+    await evalJS(`document.querySelector('#libAuthorsList .author-browse-row .facet-index').textContent`));
   check("authors clear ✕ shows with a query", await evalJS(
     `document.getElementById('libAuthorsFilterClear').classList.contains('visible')`));
   await evalJS(`document.getElementById('libAuthorsFilterClear').click()`);
@@ -681,6 +739,47 @@ async function main() {
   await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   // Back to English for the sections that follow (their expectations are en).
+  await evalJS(`localStorage.setItem('lang','en')`);
+
+  // ── Multi-author books: one reader button per author ──────────────
+  // A multi-author book renders ONE author button per author (joined with
+  // the script-appropriate comma), and each button opens THAT author's
+  // Author tab — not the book's first author for all of them.
+  await goto("file://" + ROOT + "reader.html?book=AQD-aqidatuRaziyain_ASM");
+  await waitFor(`document.querySelectorAll('#readerPageAuthor .reader-author-btn').length === 2`);
+  check("multi-author reader: one button per author", await evalJS(
+    `document.querySelectorAll('#readerPageAuthor .reader-author-btn').length === 2`));
+  check("multi-author reader: buttons carry the per-author lines", await evalJS(
+    `Array.from(document.querySelectorAll('#readerPageAuthor .reader-author-btn')).map(function(b){ return b.textContent; }).join('|') === ${JSON.stringify(RAZI_AUTHORS.map((a) => a.enLine).join("|"))}`),
+    await evalJS(`Array.from(document.querySelectorAll('#readerPageAuthor .reader-author-btn')).map(function(b){ return b.textContent; }).join('|')`));
+  check("multi-author reader: en separator is the latin comma", await evalJS(
+    `document.getElementById('readerPageAuthor').textContent.indexOf(', ') !== -1`),
+    await evalJS(`document.getElementById('readerPageAuthor').textContent`));
+  // The SECOND button opens the second author's info — the two buttons are
+  // not two doors into the first author.
+  await evalJS(`document.querySelectorAll('#readerPageAuthor .reader-author-btn')[1].click()`);
+  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open') && document.querySelector('#infoPane .info-head-title')`);
+  check("multi-author reader: second button opens the second author", await evalJS(
+    `document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("abuHatimArRazi"))}`),
+    await evalJS(`document.querySelector('#infoPane .info-head-title').textContent`));
+  await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  await evalJS(`document.querySelectorAll('#readerPageAuthor .reader-author-btn')[0].click()`);
+  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open') && document.querySelector('#infoPane .info-head-title')`);
+  check("multi-author reader: first button opens the first author", await evalJS(
+    `document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("abuZurahArRazi"))}`),
+    await evalJS(`document.querySelector('#infoPane .info-head-title').textContent`));
+  await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
+  // The Dhivehi layout joins the two buttons with the Arabic comma — the
+  // Latin comma is an English-layout thing.
+  await evalJS(`localStorage.setItem('lang','dv')`);
+  await goto("file://" + ROOT + "reader.html?book=AQD-aqidatuRaziyain_ASM");
+  await waitFor(`document.querySelectorAll('#readerPageAuthor .reader-author-btn').length === 2`);
+  check("multi-author reader: dv separator is the Arabic comma", await evalJS(
+    `document.getElementById('readerPageAuthor').textContent.indexOf('، ') !== -1 &&
+     document.getElementById('readerPageAuthor').textContent.indexOf(', ') === -1`),
+    await evalJS(`document.getElementById('readerPageAuthor').textContent`));
   await evalJS(`localStorage.setItem('lang','en')`);
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
   await waitFor(`!!document.getElementById('btnSearchWindow')`);

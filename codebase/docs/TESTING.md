@@ -9,7 +9,9 @@ TOC freshness scan for reader.js lives at `../tools/hmv-toc-scan.cjs`
 `../tools/hmv-authors-check.mjs` (`node tools/hmv-authors-check.mjs`;
 `HMV_AUTHORS_PORT` / `HMV_AUTHORS_PROFILE` env vars override the defaults) —
 it covers the shared facet system on every surface: library-page chips +
-filter/table modals (the desktop columns — the derived age with its
+filter/table modals (the desktop columns — the leading muted 1-based
+index renumbering from 1 over the filtered list (under a bare "#"
+header), the derived age with its
 year-unit shorthand (`86 y.`) placed right after the years, before the
 Gregorian span, both modals' range columns content-pinned so the years
 hug what follows — the authors' age touching the years, the periods'
@@ -17,7 +19,10 @@ years hugging the century label (the "far/wide" looks were the 1fr range
 absorbing the modal's leftover width) — the books counts reading bold in
 the name's colour like the name column (only the books count's mobile
 label carries the weight — the age/authors labels stay plain; the
-periods' first column is bold the same way), the ✓ thead headers centered
+periods' first column is bold the same way), the modern bucket's row
+showing its open-ended forms — the "(15+)" name marker, the "1401+ AH"
+range and the "1981+ CE" Gregorian, the CE derived via the battery's own
+`ceFromAh(1401)` conversion, never hardcoded — the ✓ thead headers centered
 over the rows, the info header ℹ geometrically centered over the row
 buttons — a left-edge match alone is not enough: the shared 8px 12px cell
 padding leaves a 12px content box in the info column's 36px track, and a
@@ -33,8 +38,11 @@ drop the swapped cells into a second band) — and the ≤600px joined-line
 rows: the count (with its inline label) joining the end of the dates
 line, dotted joins, muted CE and age, spaced ✓), dashboard
 buttons + `?authors=` deep links + the no-English-title cards, the reader
-header's dot-separated author link, and the search window's All-books
-facet section (modals stack over the window).
+header's per-author buttons (one button per author — the multi-author Razi
+fixture — each opening its own Author tab, joined with the
+script-appropriate comma: the Latin comma in the English layout, the Arabic
+comma in Dhivehi/Arabic, on cards and header alike), and the search
+window's All-books facet section (modals stack over the window).
 The info-modal battery lives at `../tools/hmv-info-check.mjs`
 (`node tools/hmv-info-check.mjs`; `HMV_INFO_PORT` / `HMV_INFO_PROFILE` env
 vars override the defaults) — it drives both entry points on the reader
@@ -263,13 +271,20 @@ blaming the product.
   2026-08-14 when the tag sort was removed: the file's order became the
   palette's order).
 - **`02-registry-bookAuthors.csv` follows the same rules.** No comment syntax, no
-  trailing newline; blank `bornAH`/`diedAH` cells mean unknown/living (the
-  author lands in the `modern` period bucket). An author code referenced from
-  02 but missing from 08 renders no author line (bookAuthorLine skips
-  unresolvable codes) — the Authors browse modal only lists authors with ≥1
-  book, so a dangling code shows up as a silent gap, not an error. The period
-  facet is derived client-side (`Math.ceil(diedAH/100)`) — never store the
-  century in the CSV, or the two can drift.
+  trailing newline; blank `bornAH`/`diedAH` cells mean unknown/living — and a
+  death in the 15th century AH (1401) and later — lands the author in the
+  single `modern` period bucket (there is no "Century 15" row). An author code
+  referenced from 02 but missing from 08 renders no author line (bookAuthorLine
+  skips unresolvable codes) — the Authors browse modal only lists authors with
+  ≥1 book, so a dangling code shows up as a silent gap, not an error. The
+  period facet is derived client-side (`Math.ceil(diedAH/100)` with the modern
+  merge) — never store the century in the CSV, or the two can drift. The
+  `modern` bucket's periods-modal row renders the open-ended forms by
+  construction — name + "(15+)" (the opening century), range "1401+ ހ." (the
+  century's first year), Gregorian "1981+ މ." (derived from 1401 AH by the
+  app's own AH→CE conversion, never hardcoded) — so an assertion change to a
+  hardcoded "1981" would break the battery's `ceFromAh(1401)` derivation the
+  moment the conversion changes; derive it the way the battery does.
 - **Batteries must resolve 02 columns by header name, not position.** 02's
   layout is free to grow between `bookCode` and `version` (the version-last
   invariant), so a positional read of `03-registry-bookMeta.csv` in a tool

@@ -271,11 +271,21 @@ export function initQuranUI(ctx) {
     .addEventListener("click", function (e) {
       if (e.target === this) closeSurahSelector();
     });
-  document
-    .getElementById("qrnSurahSearch")
-    .addEventListener("input", function () {
-      renderSurahList(this.value);
-    });
+  var qrnSurahSearch = document.getElementById("qrnSurahSearch");
+  var qrnSurahSearchClear = document.getElementById("qrnSurahSearchClear");
+  qrnSurahSearch.addEventListener("input", function () {
+    // The ✕ mirrors the query — the shared search-box component's
+    // contract (the reader search, the search window, the facet filters).
+    qrnSurahSearchClear.classList.toggle("visible", !!this.value);
+    renderSurahList(this.value);
+  });
+  // The ✕ clears and re-fires "input" — the same re-render path as
+  // typing — then focus stays in the field.
+  qrnSurahSearchClear.addEventListener("click", function () {
+    qrnSurahSearch.value = "";
+    qrnSurahSearch.dispatchEvent(new Event("input", { bubbles: true }));
+    qrnSurahSearch.focus();
+  });
 
   // ── Outside click closes all Quran dropdowns ──
   document.addEventListener("click", function (e) {
@@ -390,6 +400,7 @@ export function initQuranUI(ctx) {
     var overlay = document.getElementById("qrnSurahOverlay");
     overlay.style.display = "flex";
     document.getElementById("qrnSurahSearch").value = "";
+    document.getElementById("qrnSurahSearchClear").classList.remove("visible");
     renderSurahList("");
     setTimeout(function () {
       document.getElementById("qrnSurahSearch").focus();

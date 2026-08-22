@@ -739,6 +739,28 @@ async function main() {
   check("quran-surah-search text-indent 6px", insets.ti === "6px", String(insets.ti));
   check("hist-text start padding 6px", insets.htPad === "6px", insets.htPad);
   check("result-snippet start padding 8px", insets.snPad === "8px", insets.snPad);
+  // The surah selector's search rides the shared search-input-wrap, so its
+  // ✕ clear button mirrors on the query and restores the list — the
+  // unification sweep ("no search box without a ✕") pinned here so a future
+  // component rewrite can't drop it.
+  await evalJS(`document.getElementById('qrnSurahBtn').click()`);
+  // The total BEFORE the query filters the list — the restored-count target
+  const surahTotal = await evalJS(`document.querySelectorAll('.quran-surah-item').length`);
+  await evalJS(`(function () {
+    var f = document.getElementById('qrnSurahSearch');
+    f.value = 'ب';
+    f.dispatchEvent(new Event('input'));
+  })()`);
+  await waitFor(`document.getElementById('qrnSurahSearchClear').classList.contains('visible')`);
+  await evalJS(`document.getElementById('qrnSurahSearchClear').click()`);
+  check("surah ✕ clears the box, restores the list, re-focuses", await waitFor(`(function () {
+    var f = document.getElementById('qrnSurahSearch');
+    return f.value === ''
+      && !document.getElementById('qrnSurahSearchClear').classList.contains('visible')
+      && document.querySelectorAll('.quran-surah-item').length === ${surahTotal}
+      && document.activeElement === f;
+  })()`), await evalJS(`document.getElementById('qrnSurahSearch').value`));
+  await evalJS(`document.getElementById('qrnSurahClose').click()`);
   // dash-continue-title: mobile-only recipe (dashboard.css ≤600px) — the
   // continue row stays one line, the title ellipsizes, and the clipped
   // Thaana keeps its 6px start inset. Probed with synthetic elements at a

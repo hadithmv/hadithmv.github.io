@@ -233,14 +233,21 @@ export function renderScopeShell(target) {
     '<span id="libScopeChips" class="lib-scope-chips"></span>' +
     "</div>" +
     '<div class="lib-scope-head">' +
+    // The filter rides the shared search-box component — the same
+    // search-input-wrap + ✕ clear button as the search window, the info
+    // modal, the page searches and the facet filters (one ✕ everywhere).
+    '<div class="search-input-wrap lib-scope-filter-wrap">' +
     '<input type="search" id="libScopeFilter" class="search-input lib-scope-filter" ' +
     'placeholder="' + t("libScopeFilter") + '" autocomplete="off" title="Filter books" />' +
+    '<button type="button" id="libScopeFilterClear" class="search-clear-btn" title="Clear filter" aria-label="Clear filter">✕</button>' +
+    "</div>" +
     '<div id="libScopeCount" class="lib-scope-count"></div>' +
     '<button type="button" id="libScopeReset" class="toolbar-btn lib-scope-reset">' +
     t("libScopeReset") + "</button>" +
     "</div>" +
     '<div id="libScopeList" class="lib-scope-list"></div>';
   _ui.filter = document.getElementById("libScopeFilter");
+  _ui.filterClear = document.getElementById("libScopeFilterClear");
   _ui.types = document.getElementById("libScopeTypes");
   _ui.typesLabel = document.getElementById("libScopeTypesLabel");
   _ui.chips = document.getElementById("libScopeChips");
@@ -249,7 +256,17 @@ export function renderScopeShell(target) {
   _ui.reset = document.getElementById("libScopeReset");
   _ui.filter.addEventListener("input", function () {
     _scopeFilter = this.value;
+    // The ✕ mirrors the query — the shared search-box component's
+    // contract (search window, info modal, page searches, facet filters).
+    _ui.filterClear.classList.toggle("visible", !!_scopeFilter);
     renderScopePopover();
+  });
+  // The ✕ clears and re-fires "input" — the same re-render path as
+  // typing — then focus stays in the field.
+  _ui.filterClear.addEventListener("click", function () {
+    _ui.filter.value = "";
+    _ui.filter.dispatchEvent(new Event("input", { bubbles: true }));
+    _ui.filter.focus();
   });
   _ui.reset.addEventListener("click", function () {
     if (_selectedBooks === null) return; // nothing scoped → nothing to reset
@@ -289,6 +306,7 @@ export function ensureScopeShell(target) {
 export function clearScopeFilter() {
   _scopeFilter = "";
   if (_ui.filter) _ui.filter.value = "";
+  if (_ui.filterClear) _ui.filterClear.classList.remove("visible");
 }
 
 function scopeRowHTML(code) {

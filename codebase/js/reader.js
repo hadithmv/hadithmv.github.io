@@ -6,7 +6,7 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, bookAuthorLine, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, bookAuthorParts, authorListSeparator, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
@@ -25,26 +25,26 @@ initializePageWithMetadata(async function (metadata) {
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
   //   Book loading (standard CSV or Quran merge)           L49-125
-  //   Page header, tag badges, language-aware titles       L128-259
-  //   Persisted settings (LS wrapper, -HDN column init)    L262-308
-  //   Reader state, column toggles, dropdown infrastructure L311-402
-  //   Tashkeel helpers                                     L405-412
-  //   Clipboard formatting (rowText)                       L415-505
-  //   View mode dropdown (card / table / parallel)         L508-556
-  //   Quran helpers                                        L559-563
-  //   Card row renderer (renderRowHTML)                    L566-662
-  //   Parallel row renderer (renderParallelRowHTML)        L665-784
-  //   Chunk + table-row renderers                          L787-849
-  //   Infinite scroll + table scrollbar                    L852-1068
-  //   Navigation (goTo, scroll padding)                    L1071-1127
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1130-1166
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1169-1358
-  //   Keyboard shortcuts (incl. navigation buttons)        L1361-1472
-  //   Touch swipe                                          L1475-1495
-  //   Settings reset + language change                     L1498-1511
-  //   Quran UI (initQuranUI ctx)                           L1514-1534
-  //   Initial render (deep links, reveal)                  L1537-1618
-  //   Module-level helpers (showError)                     L1621-1627
+  //   Page header, tag badges, language-aware titles       L128-270
+  //   Persisted settings (LS wrapper, -HDN column init)    L273-319
+  //   Reader state, column toggles, dropdown infrastructure L322-413
+  //   Tashkeel helpers                                     L416-423
+  //   Clipboard formatting (rowText)                       L426-516
+  //   View mode dropdown (card / table / parallel)         L519-567
+  //   Quran helpers                                        L570-574
+  //   Card row renderer (renderRowHTML)                    L577-673
+  //   Parallel row renderer (renderParallelRowHTML)        L676-795
+  //   Chunk + table-row renderers                          L798-860
+  //   Infinite scroll + table scrollbar                    L863-1079
+  //   Navigation (goTo, scroll padding)                    L1082-1138
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1141-1177
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1180-1369
+  //   Keyboard shortcuts (incl. navigation buttons)        L1372-1483
+  //   Touch swipe                                          L1486-1506
+  //   Settings reset + language change                     L1509-1522
+  //   Quran UI (initQuranUI ctx)                           L1525-1545
+  //   Initial render (deep links, reveal)                  L1548-1629
+  //   Module-level helpers (showError)                     L1632-1638
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -150,27 +150,35 @@ initializePageWithMetadata(async function (metadata) {
         var pageSubtitle = document.getElementById("readerPageSubtitle");
         var pageSubRow = document.getElementById("readerPageSubRow");
         var pageAuthor = document.getElementById("readerPageAuthor");
-        // The author name sits bare next to the title — no " · " separator
-        // (the title and the author read as one line of plain text, both
+        // The author names sit bare next to the title — no " · " separator
+        // (the title and the authors read as one line of plain text, both
         // clickable). The dash-led died-only years follow (the bare dash
-        // marks the missing born year); the author name opens the book &
-        // author info modal's Author tab (the old dashboard-filter jump
-        // lives inside the modal as the "show all books" link — the same
-        // homepage convention as the tag badges); the button wears the
-        // page background with real button chrome — border, radius,
-        // padding — so it reads as clickable (see reader.css
-        // .reader-author-btn); empty (no author) hides the span
-        var authorLine = bookAuthorLine(metadata);
+        // marks the missing born year); each author name is its OWN button —
+        // a multi-author book gets one button per author, joined with the
+        // script-appropriate comma, so clicking a name opens THAT author's
+        // info (the old dashboard-filter jump lives inside the modal as the
+        // "show all books" link — the same homepage convention as the tag
+        // badges); the buttons wear the page background with real button
+        // chrome — border, radius, padding — so they read as clickable (see
+        // reader.css .reader-author-btn); empty (no author) hides the span
+        var authorParts = bookAuthorParts(metadata);
         if (pageAuthor) {
-          if (authorLine) {
-            pageAuthor.innerHTML =
-              '<button type="button" class="reader-author-btn" title="Open author info (Alt+I)" aria-label="Open author info">' +
-              authorLine +
-              "</button>";
+          if (authorParts.length > 0) {
+            var authorSep = authorListSeparator();
+            pageAuthor.innerHTML = authorParts.map(function (a, i) {
+              return (
+                (i > 0 ? authorSep : "") +
+                '<button type="button" class="reader-author-btn" data-author="' +
+                a.code +
+                '" title="Open author info (Alt+I)" aria-label="Open author info">' +
+                a.text +
+                "</button>"
+              );
+            }).join("");
           } else {
             pageAuthor.textContent = "";
           }
-          pageAuthor.style.display = authorLine ? "" : "none";
+          pageAuthor.style.display = authorParts.length ? "" : "none";
         }
 
         if (lang === "en") {
@@ -227,10 +235,10 @@ initializePageWithMetadata(async function (metadata) {
         .split(",")
         .map(function (s) { return s.trim(); })
         .filter(Boolean);
-      function openBookInfo(tab) {
+      function openBookInfo(tab, authorCode) {
         openInfoModal({
           bookCode: metadata.bookCode,
-          author: infoAuthorCodes[0] || null,
+          author: authorCode || infoAuthorCodes[0] || null,
           tab: tab || "book",
           counts: infoCounts,
         });
@@ -248,11 +256,14 @@ initializePageWithMetadata(async function (metadata) {
       pageSubtitleEl.addEventListener("click", function () {
         openBookInfo("book");
       });
-      // Delegated on the span (updatePageHeader rebuilds the button's
-      // innerHTML on every language change — the span itself persists)
+      // Delegated on the span (updatePageHeader rebuilds the buttons'
+      // innerHTML on every language change — the span itself persists).
+      // A multi-author book has one button per author, each carrying its
+      // code — the clicked author's info opens, not the first's.
       var pageAuthorEl = document.getElementById("readerPageAuthor");
       pageAuthorEl.addEventListener("click", function (e) {
-        if (e.target.closest(".reader-author-btn")) openBookInfo("author");
+        var btn = e.target.closest(".reader-author-btn");
+        if (btn) openBookInfo("author", btn.getAttribute("data-author") || null);
       });
 
       // Clipboard header — book title line (always DV - AR)

@@ -564,6 +564,13 @@
   padding: 10px 14px;
   border-bottom: 1px solid var(--color-border);
 }
+/* The filter rides the shared search-input-wrap (reader-search.css) — the
+   same component as the search window, the info modal and the page
+   searches, with the ✕ clear button mirrored on the query. Only the wrap's
+   500px header-box cap is dropped, like the facet filters'. */
+.lib-scope-head .search-input-wrap {
+  max-width: none;
+}
 /* .search-input (common.css) supplies the shared search-row look — semibold
    text, bold subtle placeholder, focus ring, Thaana text-indent. Deltas only:
    the panel font and the mixed font so Dhivehi/English both render. */

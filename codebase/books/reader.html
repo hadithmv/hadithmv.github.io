@@ -762,14 +762,25 @@
         >
           <div class="quran-surah-selector" dir="rtl">
             <div class="quran-surah-header">
-              <input
-                id="qrnSurahSearch"
-                type="search"
-                class="quran-surah-search"
-                placeholder="ސޫރަތް ހޯދާ…"
-                dir="rtl"
-                autocomplete="off"
-              />
+              <div class="search-input-wrap quran-surah-search-wrap">
+                <input
+                  id="qrnSurahSearch"
+                  type="search"
+                  class="quran-surah-search"
+                  placeholder="ސޫރަތް ހޯދާ…"
+                  dir="rtl"
+                  autocomplete="off"
+                />
+                <button
+                  type="button"
+                  id="qrnSurahSearchClear"
+                  class="search-clear-btn"
+                  title="Clear search"
+                  aria-label="Clear search"
+                >
+                  ✕
+                </button>
+              </div>
               <button id="qrnSurahClose" class="modal-close" title="Close">
                 ✕
               </button>

@@ -15,7 +15,7 @@
  */
 
 import { t, currentLang } from "./i18n.js";
-import { authorDefs, loadAuthorDefinitions, loadBookRegistry, authorYearsText, authorCodesOf, authorPeriodOf, periodLabelEn, periodLabel, periodRangeText, periodRangeCeText, authorYearsCeText, authorAgeText } from "./book-data.js";
+import { authorDefs, loadAuthorDefinitions, loadBookRegistry, authorYearsText, authorCodesOf, authorPeriodOf, periodLabelEn, periodLabel, periodRangeText, periodRangeCeText, authorYearsCeText, authorAgeText, MODERN_PERIOD_CENTURY } from "./book-data.js";
 import { escapeHTML, normaliseForSearch } from "./search-utils.js";
 import { openInfoModal } from "./book-info.js";
 
@@ -220,6 +220,7 @@ function ensureAuthorsModal() {
     "</div>" +
     "</div>" +
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-authors">' +
+    '<div class="facet-thead-cell facet-col-index" title="Row number"></div>' +
     '<div class="facet-thead-cell facet-col-info" title="Author info"></div>' +
     '<div class="facet-thead-cell facet-col-name"></div>' +
     '<div class="facet-thead-cell facet-col-ar"></div>' +
@@ -266,15 +267,16 @@ function authorsModalLabels() {
   _authorsTitle.textContent = t("libAuthorsTitle");
   _authorsFilter.placeholder = t("libAuthorsFilter");
   var ths = _authorsBody.querySelectorAll(".facet-thead-cell");
-  ths[0].textContent = "ℹ";
-  ths[1].textContent = t("facetColAuthor");
-  ths[2].textContent = t("facetColAuthorAr");
-  ths[3].textContent = t("facetColCentury");
-  ths[4].textContent = t("facetColYears");
-  ths[5].textContent = t("facetColAge");
-  ths[6].textContent = t("facetColGregorian");
-  ths[7].textContent = t("facetColBooks");
-  ths[8].textContent = "✓";
+  ths[0].textContent = "#";
+  ths[1].textContent = "ℹ";
+  ths[2].textContent = t("facetColAuthor");
+  ths[3].textContent = t("facetColAuthorAr");
+  ths[4].textContent = t("facetColCentury");
+  ths[5].textContent = t("facetColYears");
+  ths[6].textContent = t("facetColAge");
+  ths[7].textContent = t("facetColGregorian");
+  ths[8].textContent = t("facetColBooks");
+  ths[9].textContent = "✓";
 }
 
 /** The rows — registry order, only authors with visible books. The filter
@@ -295,7 +297,10 @@ function renderAuthorRows() {
       return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
-  _authorsList.innerHTML = codes.map(function (code) {
+  // The row's leading cell is its 1-based index — the position in the
+  // currently shown (filtered) list, so the numbers always read 1, 2, 3…
+  // down the column. The muted tone keeps it behind the name.
+  _authorsList.innerHTML = codes.map(function (code, i) {
     var d = defs[code];
     var nm = d.name[l] || d.name.en || d.name.ar || code;
     var yrs = authorYearsText(d);
@@ -333,6 +338,9 @@ function renderAuthorRows() {
       [d.name.en, d.name.ar, d.name.dv].filter(Boolean).join(" · ") +
       '">' +
       '<div class="facet-line-1">' +
+      '<div class="facet-index">' +
+      (i + 1) +
+      "</div>" +
       '<div class="facet-name"><span class="author-browse-name">' +
       escapeHTML(nm) +
       "</span></div>" +
@@ -418,8 +426,8 @@ function pinFacetGeometry() {
   // and the periods' years sit at their natural width, hugging the
   // century label ("extremely wide" was the old 1fr range absorbing the
   // modal's leftover). The fixed tracks: authors century 90 + age 48 +
-  // Gregorian (measured) + count 64 + check 40 + info 36; periods
-  // authors 56 —
+  // Gregorian (measured) + count 64 + check 40 + info 36 + index 44;
+  // periods authors 56 —
   // short numbers, fixed in the CSS grid templates, not pinned. The
   // authors pins are still clamped to the rows' content (pinFacetColumn),
   // so nothing stretches beyond the longest name; the periods' century
@@ -446,7 +454,7 @@ function pinFacetGeometry() {
     });
     var ovEl = document.getElementById("libAuthorsOverlay");
     if (ovEl && rangeW > 0) ovEl.style.setProperty("--facet-range-w", rangeW + "px");
-    var namesShare = avail - 90 - ceW - 48 - 64 - 40 - 36 - rangeW;
+    var namesShare = avail - 90 - ceW - 48 - 64 - 40 - 36 - 44 - rangeW;
     pinFacetColumn("libAuthorsOverlay", [
       ["facet-name", "facet-col-name", "facet-name-w", (namesShare > 0 ? Math.min(220, Math.round(namesShare * 0.46)) : 0) + step],
       ["facet-name-ar", "facet-col-ar", "facet-ar-w", (namesShare > 0 ? Math.min(240, Math.round(namesShare * 0.54)) : 0) + step],
@@ -625,6 +633,14 @@ function facetAgeLabel() {
   return facetLabelSpan(t("facetColAge"));
 }
 
+/** The row's name cell — the period label, with the open-ended modern
+ *  bucket's "(15+)" opening-century marker appended ("މުޢާޞިރު (15+)"); the
+ *  marker also makes the row findable by typing "15+". */
+function periodRowName(p) {
+  var label = periodLabel(p);
+  return p === "modern" ? label + " (" + MODERN_PERIOD_CENTURY + "+)" : label;
+}
+
 /** The rows — distinct death-century buckets + modern, chronological order
  *  (modern last), zero-count buckets dropped. The filter runs through
  *  normaliseForSearch like the authors filter (see renderAuthorRows). */
@@ -640,7 +656,7 @@ function renderPeriodRows() {
     if (!ft) return true;
     var range = periodRangeText(p);
     var rangeCe = periodRangeCeText(p);
-    return [periodLabel(p), periodLabelEn(p), p, range, rangeCe].some(function (s) {
+    return [periodRowName(p), periodLabelEn(p), p, range, rangeCe].some(function (s) {
       return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
@@ -648,9 +664,11 @@ function renderPeriodRows() {
     var sel = _period === p;
     var range = periodRangeText(p);
     var rangeCe = periodRangeCeText(p);
-    // The century label is the row's name; the AH and Gregorian spans get
-    // their own bracketed columns, so both stay uniform width down the
-    // list ("modern" has no spans — the range and CE cells stay empty).
+    // The period label is the row's name ("modern" carries its "(15+)"
+    // opening-century marker); the AH and Gregorian spans get their own
+    // bracketed columns, so both stay uniform width down the list — the
+    // open-ended modern bucket's spans are the "1401+ ހ." / "1981+ މ."
+    // from-forms (periodRangeText / periodRangeCeText).
     // The distinct-author count opens the mobile count line (the "·" join
     // on the count separates the two numbers), then the book count.
     var authors = (_counts && _counts.byPeriodAuthors && _counts.byPeriodAuthors[p]) || 0;
@@ -664,7 +682,7 @@ function renderPeriodRows() {
       '">' +
       '<div class="facet-line-1">' +
       '<div class="facet-name">' +
-      escapeHTML(periodLabel(p)) +
+      escapeHTML(periodRowName(p)) +
       "</div>" +
       '<div class="facet-range">' +
       (range ? "(" + escapeHTML(range) + ")" : "") +

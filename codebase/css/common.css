@@ -1415,11 +1415,12 @@ body:has(.modal-overlay.open) {
      measured like the Gregorian one — no 1fr anywhere, so the age (a short
      number) sits directly against the years instead of past the leftover
      space a stretching column would hold; the row's slack collects at the
-     far end of the RTL row instead. The age, the two count columns and
-     the info affordance are fixed tracks (short content — no pinning
-     needed). */
+     far end of the RTL row instead. The index, the age, the two count
+     columns and the info affordance are fixed tracks (short content — no
+     pinning needed). */
   grid-template-columns:
-    36px var(--facet-name-w, 220px) var(--facet-ar-w, 240px)
+    44px 36px var(--facet-name-w, 220px)
+    var(--facet-ar-w, 240px)
     var(--facet-century-w, 90px) var(--facet-range-w, 140px)
     var(--facet-age-w, 48px) var(--facet-ce-w, 150px) 64px 40px;
 }
@@ -1438,22 +1439,32 @@ body:has(.modal-overlay.open) {
     var(--facet-period-w, 110px) var(--facet-range-w, 140px)
     var(--facet-authors-w, 56px) var(--facet-ce-w, 150px) 64px 40px;
 }
-/* The rows keep their mobile-friendly DOM order (authors line 1: name ·
-   Arabic, line 2: century · years · CE · age · books ✓ ℹ; periods
+/* The rows keep their mobile-friendly DOM order (authors line 1: index ·
+   name · Arabic, line 2: century · years · CE · age · books ✓ ℹ; periods
    line 1: label · years · CE, line 2: authors · books ✓) while the desktop
-   grids show the swapped pairs in the visual order (the authors' info
-   button first, its age before its CE; the periods' authors before its CE)
-   — so every cell is placed into its column AND its row explicitly. Both
-   are required: with only the columns explicit, the sparse auto-placer
-   walks its cursor through the DOM order and, on the backward step
-   (… years · CE · age … landing on columns 4, 6, 5), increments the row —
-   the swapped cell and every cell after it drop into a second band (the
-   "two subrows" look). grid-row: 1 pins the band; grid-column/row are
-   inert on mobile, where the line wrappers are flex. The thead follows
-   the visual order and auto-places into columns 1–9/1–6, its own DOM
-   order already matching. */
-.author-browse-row .facet-info {
+   grids show the swapped pairs in the visual order (the authors' index
+   number and info button first, its age before its CE; the periods'
+   authors before its CE) — so every cell is placed into its column AND its
+   row explicitly. Both are required: with only the columns explicit, the
+   sparse auto-placer walks its cursor through the DOM order and, on the
+   backward step (… years · CE · age … landing on columns 4, 6, 5),
+   increments the row — the swapped cell and every cell after it drop into
+   a second band (the "two subrows" look). grid-row: 1 pins the band;
+   grid-column/row are inert on mobile, where the line wrappers are flex.
+   The thead follows the visual order and auto-places into columns 1–10/
+   1–6, its own DOM order already matching. */
+.author-browse-row .facet-index {
   grid-column: 1;
+  grid-row: 1;
+  /* The row's position number (1, 2, 3… down the shown list) reads behind
+     the name: the muted tone of the derived figures, tabular so the digits
+     line up. */
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.author-browse-row .facet-info {
+  grid-column: 2;
   grid-row: 1;
   /* No inline padding: the shared cell rule (8px 12px) would leave a 12px
      content box in the 36px track, and a 24px button cannot fit one —
@@ -1462,14 +1473,14 @@ body:has(.modal-overlay.open) {
      track to itself the button centers exactly under the thead glyph. */
   padding-inline: 0;
 }
-.author-browse-row .facet-name { grid-column: 2; grid-row: 1; }
-.author-browse-row .facet-name-ar { grid-column: 3; grid-row: 1; }
-.author-browse-row .facet-century { grid-column: 4; grid-row: 1; }
-.author-browse-row .facet-range { grid-column: 5; grid-row: 1; }
-.author-browse-row .facet-age { grid-column: 6; grid-row: 1; }
-.author-browse-row .facet-ce { grid-column: 7; grid-row: 1; }
-.author-browse-row .facet-count { grid-column: 8; grid-row: 1; }
-.author-browse-row .facet-check { grid-column: 9; grid-row: 1; }
+.author-browse-row .facet-name { grid-column: 3; grid-row: 1; }
+.author-browse-row .facet-name-ar { grid-column: 4; grid-row: 1; }
+.author-browse-row .facet-century { grid-column: 5; grid-row: 1; }
+.author-browse-row .facet-range { grid-column: 6; grid-row: 1; }
+.author-browse-row .facet-age { grid-column: 7; grid-row: 1; }
+.author-browse-row .facet-ce { grid-column: 8; grid-row: 1; }
+.author-browse-row .facet-count { grid-column: 9; grid-row: 1; }
+.author-browse-row .facet-check { grid-column: 10; grid-row: 1; }
 .period-browse-row .facet-name { grid-column: 1; grid-row: 1; }
 .period-browse-row .facet-range { grid-column: 2; grid-row: 1; }
 .period-browse-row .facet-authors { grid-column: 3; grid-row: 1; }
@@ -1722,6 +1733,7 @@ body:has(.modal-overlay.open) {
   .author-browse-row .facet-info::before {
     margin-inline: 4px;
   }
+  .author-browse-row .facet-name::before,
   .author-browse-row .facet-name-ar::before,
   .author-browse-row .facet-range::before,
   .author-browse-row .facet-ce::before,

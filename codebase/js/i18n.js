@@ -335,6 +335,11 @@ const STRINGS = {
   authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
   authorLifeCe: { dv: "{b}–{d} މ.", en: "{b}–{d} CE", ar: "{b}–{d}م" },
   authorDiedCe: { dv: "– {y} މ.", en: "– {y} CE", ar: "– {y}م" },
+  // The open-ended "from" forms for the modern era bucket — "1401+ ހ." /
+  // "1981+ މ." (periodRangeText / periodRangeCeText for "modern"): the
+  // bucket has a start but no closing year.
+  periodFromAH: { dv: "{y}+ ހ.", en: "{y}+ AH", ar: "{y}+هـ" },
+  periodFromCE: { dv: "{y}+ މ.", en: "{y}+ CE", ar: "{y}+م" },
   // Hijri centuries of the author's death year (1–15), plus the modern
   // bucket — numeral labels ("Century 3") shared by the authors' century
   // column, the periods' name column and the chips.
@@ -353,7 +358,7 @@ const STRINGS = {
   century13: { dv: "ގަރުނު 13", en: "Century 13", ar: "القرن 13" },
   century14: { dv: "ގަރުނު 14", en: "Century 14", ar: "القرن 14" },
   century15: { dv: "ގަރުނު 15", en: "Century 15", ar: "القرن 15" },
-  centuryModern: { dv: "ފަހުގެ", en: "Modern", ar: "معاصر" },
+  centuryModern: { dv: "މުޢާޞިރު", en: "Modern", ar: "معاصر" },
   // ── Book & author info modal ──
   infoModalTitle: {
     dv: "އިތުރު މައުލޫމާތު",

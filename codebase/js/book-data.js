@@ -242,17 +242,28 @@ export function authorCodesOf(b) {
     .filter(Boolean);
 }
 
-/** Period bucket of an author — death century as a string ("3"), "modern" when
- *  no death year is recorded. Buckets come from the 08 registry, not the data. */
+/** The modern era bucket's opening century — the 15th century AH (1401)
+ *  and later (authorPeriodOf). The bucket's row name carries the open-ended
+ *  "(15+)" marker and its ranges open at the century's first year. */
+export var MODERN_PERIOD_CENTURY = 15;
+/** 1401 — the first year of the 15th century AH (MODERN_PERIOD_CENTURY). */
+var MODERN_PERIOD_FROM_AH = (MODERN_PERIOD_CENTURY - 1) * 100 + 1;
+
+/** Period bucket of an author — death century as a string ("3"), "modern"
+ *  when no death year is recorded OR the death fell in the modern era (the
+ *  15th century AH, 1401, and later) — one bucket, not a numeric century
+ *  and a "modern" catch-all. Buckets come from the 08 registry, not the
+ *  data. */
 export function authorPeriodOf(code) {
   var d = authorDefs()[code];
   if (!d || !d.diedAH) return "modern";
-  return String(Math.ceil(parseInt(d.diedAH, 10) / 100));
+  var c = Math.ceil(parseInt(d.diedAH, 10) / 100);
+  return c >= MODERN_PERIOD_CENTURY ? "modern" : String(c);
 }
 
 /** English period title — tooltips are English house style. */
 export function periodLabelEn(p) {
-  if (p === "modern") return "Authors without a recorded death year";
+  if (p === "modern") return "Modern era (15th century AH onward)";
   var n = parseInt(p, 10);
   var s = n % 100 >= 11 && n % 100 <= 13 ? "th"
     : n % 10 === 1 ? "st"
@@ -268,9 +279,14 @@ export function periodLabel(p) {
 }
 
 /** "201–300 AH" for a century bucket — the authorLife template's {b}–{d}
- *  range, filled with the bucket's AH span; "" for "modern" (no range). */
+ *  range, filled with the bucket's AH span; for "modern" (a bucket with a
+ *  start but no closing year) the open-ended "from" form — "1401+ AH" —
+ *  from the periodFromAH template, filled with the bucket's first year
+ *  (the modern era opens at the 15th century AH, 1401). */
 export function periodRangeText(p) {
-  if (p === "modern") return "";
+  if (p === "modern") {
+    return t("periodFromAH").replace("{y}", String(MODERN_PERIOD_FROM_AH));
+  }
   var n = parseInt(p, 10);
   if (!n || n < 1) return "";
   return t("authorLife")
@@ -281,10 +297,14 @@ export function periodRangeText(p) {
 /** The same span in the Gregorian calendar — "817–913 CE" for bucket 3 —
  *  the authorLifeCe template filled with the bucket's endpoints converted
  *  AH → CE (the standard 1 Hijri year ≈ 0.970229 solar years approximation,
- *  offset 621.57; rounded); "" for "modern". Derived at render, never
+ *  offset 621.57; rounded); "modern" opens at its first year converted —
+ *  "1981+ CE" (the periodFromCE template). Derived at render, never
  *  stored. */
 export function periodRangeCeText(p) {
-  if (p === "modern") return "";
+  if (p === "modern") {
+    var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
+    return t("periodFromCE").replace("{y}", String(ce(MODERN_PERIOD_FROM_AH)));
+  }
   var n = parseInt(p, 10);
   if (!n || n < 1) return "";
   var ce = function (ah) { return Math.round(ah * 0.970229 + 621.57); };
@@ -346,15 +366,35 @@ export function bookAuthorNames(entry) {
 /**
  * One display line for a book registry entry's authors: the name(s) in the
  * current language, each with its Hijri years — "al-Bukhari (– 256 AH)" —
- * comma-joined for multi-author books. "" when the book has no author.
+ * joined for multi-author books with the script-appropriate comma (latin
+ * "," in the English layout, the Arabic comma "،" in the Dhivehi/Arabic
+ * ones). "" when the book has no author.
  */
 export function bookAuthorLine(entry) {
+  return bookAuthorParts(entry)
+    .map(function (p) { return p.text; })
+    .join(authorListSeparator());
+}
+
+/** The script-appropriate multi-author separator — the Latin comma in the
+ *  English layout, the Arabic comma in the RTL ones. */
+export function authorListSeparator() {
+  return currentLang() === "en" ? ", " : "، ";
+}
+
+/**
+ * The per-author display parts of a book registry entry's author list —
+ * [{code, text}] in the current language, each name with its Hijri years
+ * ("al-Bukhari (– 256 AH)"). The reader splits these into one button per
+ * author; bookAuthorLine joins them with authorListSeparator(). [] when the
+ * book has no author.
+ */
+export function bookAuthorParts(entry) {
   var defs = _authorDefinitionsCache || {};
   var codes = ((entry && entry.authorCode) || "")
     .split(",")
     .map(function (s) { return s.trim(); })
     .filter(Boolean);
-  if (codes.length === 0) return "";
   var l = currentLang();
   var parts = [];
   codes.forEach(function (code) {
@@ -362,9 +402,9 @@ export function bookAuthorLine(entry) {
     if (!d) return;
     var nm = d.name[l] || d.name.en || d.name.ar || code;
     var yrs = authorYearsText(d);
-    parts.push(yrs ? nm + " (" + yrs + ")" : nm);
+    parts.push({ code: code, text: yrs ? nm + " (" + yrs + ")" : nm });
   });
-  return parts.join(", ");
+  return parts;
 }
 
 // ---------------------------------------------------------------------------

@@ -280,7 +280,17 @@ async function main() {
     })()`);
     check("S6 filter narrows list", filtRows.n > 0 && filtRows.n < totalRows, totalRows + " → " + filtRows.n);
     check("S6 filtered rows contain bukhari", filtRows.codes.every((c) => c.toLowerCase().indexOf("bukhari") !== -1), filtRows.codes.join(","));
-    await evalJS(`document.getElementById('libScopeFilter').value = ''`);
+    // The filter rides the shared search-input-wrap — the same search-box
+    // component as every other filter — so its ✕ clear button mirrors on
+    // the query and restores the full list.
+    check("S6b clear ✕ shows with a query", (await evalJS(`document.getElementById('libScopeFilterClear').classList.contains('visible')`)) === true);
+    await evalJS(`document.getElementById('libScopeFilterClear').click()`);
+    check("S6b ✕ clears the box, restores rows, and re-focuses", await waitFor(`(function () {
+      return document.getElementById('libScopeFilter').value === ''
+        && !document.getElementById('libScopeFilterClear').classList.contains('visible')
+        && document.querySelectorAll('#libScopeList .lib-scope-row').length === ${totalRows}
+        && document.activeElement === document.getElementById('libScopeFilter');
+    })()`));
 
     // ── S7: Escape closes the modal (shared modal layer) ──
     await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);

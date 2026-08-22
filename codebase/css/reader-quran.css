@@ -336,6 +336,14 @@
   padding: 16px;
   border-bottom: 1px solid var(--color-border);
 }
+/* The search rides the shared search-input-wrap (reader-search.css) — the
+   same component as every other search box, with the ✕ clear button
+   mirrored on the query. Only the wrap's 500px header-box cap is dropped. */
+.quran-surah-search-wrap {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+}
 .quran-surah-search {
   flex: 1;
   box-sizing: border-box;
