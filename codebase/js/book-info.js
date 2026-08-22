@@ -191,10 +191,21 @@ function ensureModal() {
   _body = document.getElementById("infoModalBody");
   document.getElementById("infoModalTitle").textContent = t("infoModalTitle");
   _body.innerHTML =
+    '<div class="info-tab-band">' +
     '<div class="info-tab-row" role="tablist">' +
     '<button type="button" class="info-tab" role="tab" data-tab="book"></button>' +
     '<button type="button" class="info-tab" role="tab" data-tab="author"></button>' +
     '<button type="button" class="info-tab" role="tab" data-tab="books"></button>' +
+    "</div>" +
+    '<button type="button" id="infoActionsToggle" class="toolbar-btn info-actions-toggle" title="Copy & export actions" aria-label="Copy & export actions" aria-expanded="false" aria-controls="infoActions"></button>' +
+    '<div class="info-actions" id="infoActions">' +
+    '<button type="button" id="infoCopyBtn" class="toolbar-btn"></button>' +
+    '<span class="info-actions-sep" aria-hidden="true"></span>' +
+    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="word" title="Word document">Word</button>' +
+    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="pdf" title="PDF for printing">PDF</button>' +
+    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="html" title="HTML web page">HTML</button>' +
+    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="epub" title="EPUB e-book">EPUB</button>' +
+    "</div>" +
     "</div>" +
     '<div class="info-search-row">' +
     '<div class="search-input-wrap">' +
@@ -205,15 +216,7 @@ function ensureModal() {
     '<button type="button" id="infoSearchNext" class="info-search-nav" title="Next match (Enter)" aria-label="Next match" disabled>&#8595;</button>' +
     '<span id="infoSearchCount" class="info-search-count"></span>' +
     "</div>" +
-    '<div class="info-pane" id="infoPane"></div>' +
-    '<div class="info-footer">' +
-    '<button type="button" id="infoCopyBtn" class="toolbar-btn"></button>' +
-    '<span class="info-footer-sep" aria-hidden="true"></span>' +
-    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="word" title="Word document">Word</button>' +
-    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="pdf" title="PDF for printing">PDF</button>' +
-    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="html" title="HTML web page">HTML</button>' +
-    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="epub" title="EPUB e-book">EPUB</button>' +
-    "</div>";
+    '<div class="info-pane" id="infoPane"></div>';
   _pane = document.getElementById("infoPane");
   _searchInput = document.getElementById("infoSearchInput");
   _clearBtn = document.getElementById("infoSearchClear");
@@ -229,7 +232,6 @@ function ensureModal() {
   document.getElementById("infoSearchPrev").addEventListener("click", function () { prevMatch(); });
   document.getElementById("infoSearchNext").addEventListener("click", function () { nextMatch(); });
   var copyBtn = document.getElementById("infoCopyBtn");
-  copyBtn.textContent = t("btnCopyText");
   copyBtn.title = "Copy this tab's content to the clipboard";
   copyBtn.addEventListener("click", function () {
     // Blank lines live in the array itself — the "" entries the tab
@@ -238,6 +240,30 @@ function ensureModal() {
     // clipboard text has gaps exactly where the sections have them.
     if (_plain.length > 0) window.copyToClipboard(_plain.join("\n"), "toastCopied");
   });
+  // Mobile-only dropdown: the same 📥 export chip the reader uses; opens
+  // the actions (copy + the four formats) as a menu anchored below the
+  // band (desktop shows the buttons inline — the toggle is display:none
+  // up there). The menu is transient, like the reader's own: an outside
+  // click, picking an item, or a tab switch closes it — no persistent
+  // open state. aria-expanded tracks it for assistive tech.
+  var actionsToggle = document.getElementById("infoActionsToggle");
+  var actionsMenu = document.getElementById("infoActions");
+  function setActionsMenu(open) {
+    actionsMenu.classList.toggle("open", open);
+    actionsToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  actionsToggle.addEventListener("click", function (e) {
+    e.stopPropagation();
+    setActionsMenu(!actionsMenu.classList.contains("open"));
+  });
+  document.addEventListener("click", function (e) {
+    if (!actionsMenu.classList.contains("open")) return;
+    if (actionsMenu.contains(e.target) || e.target === actionsToggle) return;
+    setActionsMenu(false);
+  });
+  // Item clicks (copy or a format) run their action, then close the menu
+  // (the document listener above skips clicks inside the menu).
+  actionsMenu.addEventListener("click", function () { setActionsMenu(false); });
   Array.prototype.forEach.call(_body.querySelectorAll(".info-export-btn"), function (b) {
     b.addEventListener("click", function () { exportPane(this.dataset.fmt, this); });
   });
@@ -282,6 +308,11 @@ function labels() {
     b.classList.toggle("active", b.dataset.tab === _activeTab);
     b.setAttribute("aria-selected", b.dataset.tab === _activeTab ? "true" : "false");
   });
+  // The band's action buttons carry language text — the copy chip and the
+  // 📥 toggle (the reader's export label). Relabelled with the tabs so a
+  // language switch while the modal is open leaves nothing stale.
+  document.getElementById("infoCopyBtn").textContent = t("btnCopyText");
+  document.getElementById("infoActionsToggle").textContent = t("btnExportText");
   _searchInput.placeholder = t("infoSearchPlaceholder");
   _searchInput.title = "Search the active tab (Enter: next match, Shift+Enter: previous)";
 }
@@ -836,12 +867,14 @@ function paneRows() {
 }
 
 /** Busy state — EPUB is async (font fetch + dynamic import); disable the
- *  whole footer so a slow export can't double-fire or race a tab switch.
- *  The clicked button's label swaps to the "Preparing…" wording while it
- *  works (the reader export's feedback pattern), restored on completion. */
+ *  whole actions group (the tab band's buttons — copy + the four exports,
+ *  one container on desktop and mobile alike) so a slow export can't
+ *  double-fire or race a tab switch. The clicked button's label swaps to
+ *  the "Preparing…" wording while it works (the reader export's feedback
+ *  pattern), restored on completion. */
 function setExportBusy(on, btn) {
   _exportBusy = on;
-  Array.prototype.forEach.call(_body.querySelectorAll(".info-footer button"), function (b) {
+  Array.prototype.forEach.call(_body.querySelectorAll(".info-actions button"), function (b) {
     if (on && b === btn) {
       b.dataset.origText = b.textContent;
       b.textContent = t("exportPreparing");

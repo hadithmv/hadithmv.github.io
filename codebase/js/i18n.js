@@ -395,9 +395,9 @@ const STRINGS = {
     en: "Book notes",
     ar: "ملاحظات الكتاب",
   },
-  infoAuthorBioLabel: { dv: "ތަޢާރަފު", en: "Bio", ar: "السيرة" },
+  infoAuthorBioLabel: { dv: "ތައާރަފު", en: "Bio", ar: "السيرة" },
   infoNoNotes: {
-    dv: "ނޯޓެއް ލިޔެފައި ނެތް",
+    dv: "ނޯޓެއް އަދި ނެތް",
     en: "No notes yet",
     ar: "لا توجد ملاحظات بعد",
   },

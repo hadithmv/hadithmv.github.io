@@ -32,14 +32,17 @@
 //  S7  copy captures the active tab's plain text exactly (book + author +
 //      books tabs)
 //  S8  exports: Word/HTML blob bytes + names, EPUB (PK + mimetype + the
-//      async disable/re-enable of the footer), PDF popup document — all
-//      carry the siteURL ?book= link and the version footer
+//      async disable/re-enable of the action buttons), PDF popup document —
+//      all carry the siteURL ?book= link and the version footer
 //  S8b reader Word export byte-identical to tools/golden/reader-word.doc
 //  S9  authors modal ℹ button stacks the info modal; Escape closes the
 //      info modal first, then the browse modal
 //  S10 Alt+I opens the info modal on the Book tab
-//  S11 mobile (600px): the modal fills the viewport, no horizontal scroll,
-//      the footer buttons wrap inside it
+//  S11 mobile (600px): the modal fills the viewport, no horizontal scroll;
+//      the actions collapse behind the 📥 toggle — it opens a dropdown
+//      menu (copy + the four formats) that closes on a tab switch, on
+//      selection, and on outside clicks; at 1280px the actions sit inline
+//      in the tab band, toggle hidden
 //  S12 no page errors
 import fs from "fs";
 import path from "path";
@@ -563,12 +566,12 @@ async function main() {
   // deflate-compressed, so the checks are the stored mimetype (the only
   // uncompressed member) + the embedded font's weight (>100KB).
   await clickExport("epub");
-  const busyNow = await evalJS(`Array.from(document.querySelectorAll('#infoModalBody .info-footer button')).every(function (b) { return b.disabled; })`);
+  const busyNow = await evalJS(`Array.from(document.querySelectorAll('#infoModalBody .info-actions button')).every(function (b) { return b.disabled; })`);
   const busyLabel = await evalJS(`document.querySelector('#infoModalBody .info-export-btn[data-fmt="epub"]').textContent`);
   await waitBytes("application/epub+zip", 30000);
   const epubEntry = await capEntry("application/epub+zip");
   const epubBytes = epubEntry ? Buffer.from(epubEntry.bytes) : Buffer.alloc(0);
-  const epubBusyAfter = await evalJS(`Array.from(document.querySelectorAll('#infoModalBody .info-footer button')).some(function (b) { return !b.disabled; })`);
+  const epubBusyAfter = await evalJS(`Array.from(document.querySelectorAll('#infoModalBody .info-actions button')).some(function (b) { return !b.disabled; })`);
   const busyLabelAfter = await evalJS(`document.querySelector('#infoModalBody .info-export-btn[data-fmt="epub"]').textContent`);
   check("S8 EPUB: PK zip, stored mimetype, embedded font", epubEntry &&
     epubEntry.type === "application/epub+zip" && epubBytes.length > 100000 &&
@@ -685,16 +688,45 @@ async function main() {
         pane.scrollHeight >= pane.clientHeight && pane.scrollWidth <= pane.clientWidth;
     })()`),
     await evalJS(`(() => { var m = document.querySelector('#infoOverlay .modal').getBoundingClientRect(); var p = document.getElementById('infoPane'); return 'info=' + Math.round(m.left) + '-' + Math.round(m.right) + ' scrollW=' + document.documentElement.scrollWidth + ' paneSW=' + p.scrollWidth + ' paneCW=' + p.clientWidth + ' paneH=' + p.clientHeight + ' paneSH=' + p.scrollHeight; })()`));
-  check("S11 footer buttons wrap inside the modal", await evalJS(
-    `(() => { var m = document.querySelector('#infoOverlay .modal').getBoundingClientRect(); return Array.from(document.querySelectorAll('#infoModalBody .info-footer button')).every(function (b) { var r = b.getBoundingClientRect(); return r.left >= m.left && r.right <= m.right; }); })()`),
-    await evalJS(`(() => { var m = document.querySelector('#infoOverlay .modal').getBoundingClientRect(); return Array.from(document.querySelectorAll('#infoModalBody .info-footer button')).map(function (b) { var r = b.getBoundingClientRect(); return b.textContent + '=' + Math.round(r.left) + '-' + Math.round(r.right); }).join(' ') + ' modal=' + Math.round(m.left) + '-' + Math.round(m.right); })()`));
+  check("S11 mobile: actions collapsed behind the toggle", await evalJS(
+    `(() => { var t = document.getElementById('infoActionsToggle').getBoundingClientRect(); var a = document.getElementById('infoActions').getBoundingClientRect(); return t.width > 0 && t.height > 0 && a.width === 0 && a.height === 0; })()`),
+    await evalJS(`(() => { var t = document.getElementById('infoActionsToggle').getBoundingClientRect(); var a = document.getElementById('infoActions').getBoundingClientRect(); return 'toggle=' + Math.round(t.width) + 'x' + Math.round(t.height) + ' actions=' + Math.round(a.width) + 'x' + Math.round(a.height); })()`));
+  await evalJS(`document.getElementById('infoActionsToggle').click()`);
+  await sleep(50);
+  check("S11 toggle opens the menu inside the modal", await evalJS(
+    `(() => { var m = document.querySelector('#infoOverlay .modal').getBoundingClientRect(); return Array.from(document.querySelectorAll('#infoModalBody .info-actions button')).every(function (b) { var r = b.getBoundingClientRect(); return r.left >= m.left && r.right <= m.right; }); })()`),
+    await evalJS(`(() => { var m = document.querySelector('#infoOverlay .modal').getBoundingClientRect(); return Array.from(document.querySelectorAll('#infoModalBody .info-actions button')).map(function (b) { var r = b.getBoundingClientRect(); return b.textContent + '=' + Math.round(r.left) + '-' + Math.round(r.right); }).join(' ') + ' modal=' + Math.round(m.left) + '-' + Math.round(m.right); })()`));
   // The author tab's bio carries the RTL-list (ul dir="auto") — the pane
   // must stay overflow-free there too (the 20px marker spill this guards).
   await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="author"]').click()`);
   await waitFor(`!!document.querySelector('#infoPane .info-toc')`);
+  check("S11 the menu closes on a tab switch", await evalJS(
+    `(() => { var a = document.getElementById('infoActions').getBoundingClientRect(); return a.width === 0 && a.height === 0; })()`));
   check("S11 author tab: no horizontal pane overflow (RTL-list marker bug)", await evalJS(
     `(() => { var p = document.getElementById('infoPane'); return p.scrollWidth <= p.clientWidth; })()`),
     await evalJS(`(() => { var p = document.getElementById('infoPane'); return 'paneSW=' + p.scrollWidth + ' paneCW=' + p.clientWidth; })()`));
+  // The tab switch left the menu closed — open it, then the toggle closes it.
+  await evalJS(`document.getElementById('infoActionsToggle').click()`);
+  await sleep(50);
+  await evalJS(`document.getElementById('infoActionsToggle').click()`);
+  await sleep(50);
+  check("S11 toggle closes the menu again", await evalJS(
+    `(() => { var a = document.getElementById('infoActions').getBoundingClientRect(); return a.width === 0 && a.height === 0; })()`));
+  // Picking a format runs the export and closes the menu (the Word path is
+  // synchronous; the headless page just creates a blob URL — no dialog).
+  await evalJS(`document.getElementById('infoActionsToggle').click()`);
+  await sleep(50);
+  await evalJS(`document.querySelector('#infoModalBody .info-actions .info-export-btn[data-fmt="word"]').click()`);
+  await sleep(50);
+  check("S11 picking a format closes the menu", await evalJS(
+    `(() => { var a = document.getElementById('infoActions').getBoundingClientRect(); return a.width === 0 && a.height === 0; })()`));
+  // An outside click (the pane) closes it like any dropdown.
+  await evalJS(`document.getElementById('infoActionsToggle').click()`);
+  await sleep(50);
+  await evalJS(`document.getElementById('infoPane').click()`);
+  await sleep(50);
+  check("S11 clicking outside the menu closes it", await evalJS(
+    `(() => { var a = document.getElementById('infoActions').getBoundingClientRect(); return a.width === 0 && a.height === 0; })()`));
   await evalJS(`(() => { var el = document.querySelector('#infoOverlay .modal'); var r = el.getBoundingClientRect(); window.__infoRect = [r.left, r.right, r.top, r.bottom].map(function (v) { return Math.round(v); }).join(','); })()`);
   await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
@@ -706,6 +738,16 @@ async function main() {
   await evalJS(`document.getElementById('searchWindowOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+  // The same modal at desktop width: the actions sit inline in the band
+  // (the toggle is display:none) — the S11 mobile checks above proved the
+  // collapsed state, this one proves the untouched desktop layout.
+  await evalJS(`document.getElementById('pageTitle').click()`);
+  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  check("S11 desktop: actions inline in the tab band, toggle hidden", await evalJS(
+    `(() => { var t = document.getElementById('infoActionsToggle').getBoundingClientRect(); var a = document.getElementById('infoActions').getBoundingClientRect(); return t.width === 0 && t.height === 0 && a.width > 0 && a.height > 0; })()`),
+    await evalJS(`(() => { var t = document.getElementById('infoActionsToggle').getBoundingClientRect(); var a = document.getElementById('infoActions').getBoundingClientRect(); return 'toggle=' + Math.round(t.width) + 'x' + Math.round(t.height) + ' actions=' + Math.round(a.width) + 'x' + Math.round(a.height); })()`));
+  await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
+  await sleep(150);
 
   // ── S2: quiet "No notes yet" placeholders ─────────────────────────
   // A book with no notes file (HDT-arbaoonNawawi) and an author with no

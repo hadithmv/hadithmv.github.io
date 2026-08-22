@@ -70,7 +70,11 @@ the Word bytes are diffed against the reader's golden
 export.js's shared builders), the 600px shared-geometry layout (the info
 modal must measure identically to the search window; the pane scrolls
 vertically with no horizontal overflow — the RTL-list marker and
-unbreakable-string guards), and the busy-export "Preparing…" label swap.
+unbreakable-string guards; the actions collapse behind the 📥 toggle at
+600px — opens a dropdown menu (copy + the four formats) that closes on a
+tab switch, on selection, and on outside clicks, and sits inline in the
+tab band with the toggle hidden at 1280px), and the busy-export
+"Preparing…" label swap.
 The column-label coverage scan lives at
 `../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
 every `data/content/*.csv` header and diffs it against the token tables in

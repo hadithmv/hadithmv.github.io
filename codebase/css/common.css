@@ -1078,13 +1078,26 @@ body:has(.modal-overlay.open) {
   gap: 0;
   overflow: hidden;
 }
-/* Tab strip — the Book/Author toggle. The active tab carries the accent
-   underline, the search-window-modal tab look. */
-.info-tab-row {
+/* Tab band — the tab row plus the action buttons (copy + exports) on one
+   line: tabs inline-start, actions inline-end (the search-window-modal tab
+   look). The band wraps when the two don't fit side by side — the actions
+   drop onto their own line, still pushed to the far end by their auto
+   start-margin. The band's bottom border is the underline; the active
+   tab's accent sits on it (the -2px pull below). */
+.info-tab-band {
+  /* The mobile dropdown menu anchors to the band (top: 100% below it,
+     far end — the toggle's auto margin puts it there). */
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
   margin-bottom: 12px;
   border-bottom: 2px solid var(--color-divider-ornament);
+}
+.info-tab-row {
+  display: flex;
+  gap: 8px;
 }
 .info-tab {
   padding: 8px 16px;
@@ -1124,7 +1137,7 @@ body:has(.modal-overlay.open) {
 /* Search row — fixed position above the pane, re-targets to the active
    tab. The count slot reserves its width so typing never shifts the
    input (the search window's count-slot pattern). The ornament divider
-   separates the search band from the pane below it (the tab row's own
+   separates the search band from the pane below it (the tab band's own
    divider pattern). */
 .info-search-row {
   display: flex;
@@ -1343,23 +1356,83 @@ body:has(.modal-overlay.open) {
   margin-top: 14px;
   font-weight: 600;
 }
-/* Footer — copy + the pane exports (Word / PDF / HTML / EPUB via
+/* Action buttons — copy + the pane exports (Word / PDF / HTML / EPUB via
    export.js's shared builders); the copy button is the primary action,
-   the exports sit after a hairline separator. */
-.info-footer {
+   the exports sit after a hairline separator. Inline in the tab band on
+   desktop; ≤600px they collapse behind the 📥 toggle and open as a
+   dropdown menu (the mobile block below). */
+.info-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--color-border);
+  margin-inline-start: auto;
 }
-.info-footer-sep {
+.info-actions-sep {
   align-self: center;
   width: 1px;
   height: 1.2em;
   background: var(--color-border);
+}
+/* The mobile toggle — the reader's 📥 export chip (the same btnExportText
+   label, so the affordance is already known); hidden on desktop where the
+   actions sit inline. */
+.info-actions-toggle {
+  display: none;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+}
+@media (max-width: 600px) {
+  .info-actions-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* The actions become the reader-style export menu: an absolute dropdown
+     anchored to the band's far end (the toggle's auto margin sits there),
+     card look, floating over the search row. The chips restyle as menu
+     rows — Copy leads the menu, the hairline becomes a horizontal divider
+     before the four formats. */
+  .info-actions {
+    position: absolute;
+    top: 100%;
+    inset-inline-end: 0;
+    z-index: var(--z-dropdown, 60);
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    min-width: 150px;
+    margin-inline-start: 0;
+    padding: 4px;
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: 0 4px 12px var(--color-shadow-card-hover);
+  }
+  .info-actions.open {
+    display: flex;
+  }
+  .info-actions .toolbar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 6px 12px;
+    background: none;
+    border: none;
+    border-radius: var(--radius-sm, 6px);
+    text-align: start;
+  }
+  .info-actions .toolbar-btn:hover {
+    background: var(--color-nav-btn-hover-bg);
+    color: var(--color-nav-btn-hover-text);
+  }
+  .info-actions .info-actions-sep {
+    width: 100%;
+    height: 1px;
+    align-self: stretch;
+  }
 }
 /* The filter row above the thead bar: plain padding, no divider — the bar
    below it is the separator (the scope modal keeps its own border because
