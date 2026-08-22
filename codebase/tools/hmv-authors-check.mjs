@@ -275,14 +275,15 @@ async function main() {
   // The Gregorian column mirrors the years column through the same AH→CE
   // approximation the periods grid uses (ceFromAh above): the authorLifeCe
   // template "{b}–{d} CE" for born+died, the authorDiedCe template
-  // "– {y} CE" for died-only (the bare dash marks the missing born year),
-  // "" when undated; a "~" estimate in the data carries over to its CE
-  // side. Data-derived per author — no hardcoded dates.
+  // "–{y} CE" for died-only (the bare dash marks the missing born year,
+  // glued to the year like the range's own dash), "" when undated; a "~"
+  // estimate in the data carries over to its CE side. Data-derived per
+  // author — no hardcoded dates.
   const authorCeText = (a) => {
     const num = (s) => parseInt(String(s || "").replace(/^~+/, ""), 10);
     if (a.bornAH && a.diedAH)
       return (String(a.bornAH).startsWith("~") ? "~" : "") + ceFromAh(num(a.bornAH)) + "–" + ceFromAh(num(a.diedAH)) + " CE";
-    if (a.diedAH) return "– " + ceFromAh(num(a.diedAH)) + " CE";
+    if (a.diedAH) return "–" + ceFromAh(num(a.diedAH)) + " CE";
     return "";
   };
   const wantCe = {};
@@ -314,6 +315,12 @@ async function main() {
     `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-century').textContent === ${JSON.stringify("Century 7")} &&
      document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="yahyaBinSharafAnNawawi"] .facet-range').textContent === ${JSON.stringify("(631–676 AH)")}`),
     rows.find((r) => r.code === "yahyaBinSharafAnNawawi").text);
+  // Modern authors' century cell carries the bucket's open-ended "(15+)"
+  // marker — the same one the periods modal's modern row shows (albani
+  // died 1420 AH → the 15th-century modern bucket).
+  check("modern author century shows the (15+) marker", await evalJS(
+    `document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="muhammadNasiruddeenAlAlbani"] .facet-century').textContent === "(15+)"`),
+    await evalJS(`document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="muhammadNasiruddeenAlAlbani"] .facet-century').textContent`));
   // The Arabic name gets its own column (empty in the Arabic UI, where the
   // primary name already is Arabic); the name column carries the current
   // language's name only, no trailing alt run — and the row tooltip lists
@@ -643,6 +650,16 @@ async function main() {
   check("authors filter carries the shared clear ✕", await evalJS(
     `!!document.getElementById('libAuthorsFilterClear') &&
      document.querySelector('#libAuthorsFilter').closest('.search-input-wrap') !== null`));
+  // The died-only row reads with the dash glued to the year — "–219 AH" /
+  // "–865 CE" — the authorDied template's {y} slot, the same dash the
+  // born–died range uses between its years (humaidi died 219 AH, no born
+  // year; CE derived via ceFromAh, never hardcoded). His book is visible
+  // (dashboard set) but not searchable, so this lives here, not in the
+  // library section.
+  check("died-only row: dash glued to the year (AH + CE)", await evalJS(
+    `(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="abuBakrAlHumaidi"]'); return !!r && r.querySelector('.facet-range').textContent === ${JSON.stringify("(–219 AH)")} && r.querySelector('.facet-ce').textContent === ${JSON.stringify("(–" + ceFromAh(219) + " CE)")}; })()`),
+    await evalJS(`(() => { var r = document.querySelector('#libAuthorsModalBody .author-browse-row[data-author="abuBakrAlHumaidi"]'); return r ? r.querySelector('.facet-range').textContent + ' | ' + r.querySelector('.facet-ce').textContent : 'row missing'; })()`));
+  const authorsFiltW0 = await evalJS(`document.getElementById('libAuthorsFilter').offsetWidth`);
   await evalJS(`document.getElementById('libAuthorsFilter').value = 'nawawi';
     document.getElementById('libAuthorsFilter').dispatchEvent(new Event('input'));`);
   await waitFor(`document.querySelectorAll('#libAuthorsList .author-browse-row').length === 1`);
@@ -652,6 +669,16 @@ async function main() {
   check("filtered rows renumber from 1", await evalJS(
     `document.querySelector('#libAuthorsList .author-browse-row .facet-index').textContent === '1'`),
     await evalJS(`document.querySelector('#libAuthorsList .author-browse-row .facet-index').textContent`));
+  // The filter's result count — the search window's pattern ("match: N",
+  // the resultCount key) — appears with a query and reads the SHOWN rows.
+  check("authors filter count shows the matched rows", await evalJS(
+    `document.getElementById('libAuthorsFilterCount').textContent === 'match: 1'`),
+    await evalJS(`document.getElementById('libAuthorsFilterCount').textContent`));
+  // The count slot is width-reserved at open — its appearance must not
+  // shift the input beside it (the search window's no-jump contract).
+  check("authors count does not shift the input", await evalJS(
+    `document.getElementById('libAuthorsFilter').offsetWidth === ${authorsFiltW0}`),
+    await evalJS(`document.getElementById('libAuthorsFilter').offsetWidth + ' vs ' + ${authorsFiltW0}`));
   check("authors clear ✕ shows with a query", await evalJS(
     `document.getElementById('libAuthorsFilterClear').classList.contains('visible')`));
   await evalJS(`document.getElementById('libAuthorsFilterClear').click()`);
@@ -660,11 +687,29 @@ async function main() {
     `document.getElementById('libAuthorsFilter').value === '' &&
      !document.getElementById('libAuthorsFilterClear').classList.contains('visible') &&
      document.querySelectorAll('#libAuthorsList .author-browse-row').length === ${VISIBLE_AUTHORS.length}`));
+  // The count hides with the cleared query — empty text, the slot's
+  // reserved width holding the layout.
+  check("authors filter count hides on clear", await evalJS(
+    `document.getElementById('libAuthorsFilterCount').textContent === ''`),
+    await evalJS(`document.getElementById('libAuthorsFilterCount').textContent`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await evalJS(`document.getElementById('dashPeriodsBtn').click()`);
   await waitFor(`!!document.getElementById('libPeriodsOverlay') && document.getElementById('libPeriodsOverlay').classList.contains('open')`);
   check("dashboard periods button opens modal", await evalJS(`document.getElementById('libPeriodsOverlay').classList.contains('open')`));
+  // The periods filter's count works the same way — "modern" matches the
+  // modern bucket's row (its bare "modern" token is in the filter array).
+  await evalJS(`document.getElementById('libPeriodsFilter').value = 'modern';
+    document.getElementById('libPeriodsFilter').dispatchEvent(new Event('input'));`);
+  await waitFor(`document.querySelectorAll('#libPeriodsList .period-browse-row').length === 1`);
+  check("periods filter count shows the matched rows", await evalJS(
+    `document.getElementById('libPeriodsFilterCount').textContent === 'match: 1'`),
+    await evalJS(`document.getElementById('libPeriodsFilterCount').textContent`));
+  await evalJS(`document.getElementById('libPeriodsFilterClear').click()`);
+  await sleep(150);
+  check("periods filter count hides on clear", await evalJS(
+    `document.getElementById('libPeriodsFilterCount').textContent === ''`),
+    await evalJS(`document.getElementById('libPeriodsFilterCount').textContent`));
   await evalJS(`document.getElementById('libPeriodsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
 

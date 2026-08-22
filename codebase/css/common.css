@@ -1363,9 +1363,14 @@ body:has(.modal-overlay.open) {
 }
 /* The filter row above the thead bar: plain padding, no divider — the bar
    below it is the separator (the scope modal keeps its own border because
-   its head sits above a plain list, not another bar). */
+   its head sits above a plain list, not another bar). Flex: the search box
+   takes the share, the result count sits at the far end (the scope modal's
+   head-row arrangement). */
 .facet-filter-row {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--control-gap, 6px);
   padding: 10px 0;
 }
 /* The facet modals' filter rows reuse the shared .search-input-wrap (the
@@ -1375,6 +1380,27 @@ body:has(.modal-overlay.open) {
    it wraps. */
 .facet-filter-row .search-input-wrap {
   max-width: none;
+}
+/* The filter's result count — "ނަތީޖާ: N" / "match: N" — the same
+   selection-summary look as the search window's count (.lib-scope-count,
+   search-window.css — defined here because the modals open on pages that
+   don't load that stylesheet): full text colour, semibold, at the filter's
+   font size. The slot's width is pre-reserved in JS (reserveFacetCountWidth),
+   so the text lands without shifting the input. */
+.facet-filter-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  color: var(--color-text);
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 /* The shared search-box look (.search-input, common.css) — semibold text,
    bold subtle placeholder, focus ring, Thaana text-indent. Deltas only, the

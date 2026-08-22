@@ -16,7 +16,7 @@
 
 import { t, currentLang } from "./i18n.js";
 import { authorDefs, loadAuthorDefinitions, loadBookRegistry, authorYearsText, authorCodesOf, authorPeriodOf, periodLabelEn, periodLabel, periodRangeText, periodRangeCeText, authorYearsCeText, authorAgeText, MODERN_PERIOD_CENTURY } from "./book-data.js";
-import { escapeHTML, normaliseForSearch } from "./search-utils.js";
+import { escapeHTML, normaliseForSearch, formatThousands } from "./search-utils.js";
 import { openInfoModal } from "./book-info.js";
 
 // ── Facet state (shared by every surface on the page) ──────────────
@@ -194,12 +194,14 @@ var _authorsTitle = null;
 var _authorsBody = null;
 var _authorsFilter = null;
 var _authorsFilterClear = null;
+var _authorsFilterCount = null;
 var _authorsList = null;
 var _periodsOverlay = null;
 var _periodsTitle = null;
 var _periodsBody = null;
 var _periodsFilter = null;
 var _periodsFilterClear = null;
+var _periodsFilterCount = null;
 var _periodsList = null;
 
 function ensureAuthorsModal() {
@@ -218,6 +220,10 @@ function ensureAuthorsModal() {
     '<input id="libAuthorsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter authors by name or code" />' +
     '<button type="button" id="libAuthorsFilterClear" class="search-clear-btn" title="Clear filter" aria-label="Clear filter">✕</button>' +
     "</div>" +
+    // The filter's result count — the search window's count pattern: text
+    // only with a query (empty text hides it), the slot width pre-reserved
+    // at open so the count never shifts the input.
+    '<span id="libAuthorsFilterCount" class="facet-filter-count"></span>' +
     "</div>" +
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-authors">' +
     '<div class="facet-thead-cell facet-col-index" title="Row number"></div>' +
@@ -234,6 +240,7 @@ function ensureAuthorsModal() {
     '<div class="facet-table-wrap"><div id="libAuthorsList"></div></div>';
   _authorsFilter = document.getElementById("libAuthorsFilter");
   _authorsFilterClear = document.getElementById("libAuthorsFilterClear");
+  _authorsFilterCount = document.getElementById("libAuthorsFilterCount");
   _authorsList = document.getElementById("libAuthorsList");
   _authorsFilter.addEventListener("input", function () {
     // The ✕ mirrors the query — the shared search-box component's
@@ -297,6 +304,10 @@ function renderAuthorRows() {
       return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
+  // The filter's result count — the search window's count pattern ("ނަތީޖާ:
+  // N" / "match: N"): text only with a query (empty text hides the count),
+  // the slot width pre-reserved at open so appearing never shifts the input.
+  _authorsFilterCount.textContent = ft ? t("resultCount") + ": " + codes.length : "";
   // The row's leading cell is its 1-based index — the position in the
   // currently shown (filtered) list, so the numbers always read 1, 2, 3…
   // down the column. The muted tone keeps it behind the name.
@@ -314,9 +325,10 @@ function renderAuthorRows() {
     var p = authorPeriodOf(code);
     // The century and the years each get their own column — the century
     // label first, unbracketed; the AH range follows bracketed, so both
-    // columns stay uniform width down the list ("modern" authors have no
-    // death year: no century, and the years text stands alone).
-    var century = p === "modern" ? "" : periodLabel(p);
+    // columns stay uniform width down the list. "modern" authors carry the
+    // bucket's open-ended "(15+)" marker (the same one the periods modal's
+    // modern row shows) — the death century itself is what is open-ended.
+    var century = p === "modern" ? "(" + MODERN_PERIOD_CENTURY + "+)" : periodLabel(p);
     var range = yrs ? (p === "modern" ? yrs : "(" + yrs + ")") : "";
     var ce = authorYearsCeText(d);
     var age = authorAgeText(d);
@@ -538,6 +550,16 @@ function deferFacetFocus(filterEl, overlayEl) {
   }, pop * 1000 + 10);
 }
 
+// The count slots' reserved width — a count that APPEARS with a query must
+// not shift the input beside it (the search window's count does the same).
+// The modal must be visible to measure, so this runs on open and on
+// language change while open (the count text changes with the language).
+function reserveFacetCountWidth() {
+  var n = formatThousands(999999); // widest realistic count
+  window.reserveWidestText(_authorsFilterCount, [t("resultCount") + ": " + n]);
+  window.reserveWidestText(_periodsFilterCount, [t("resultCount") + ": " + n]);
+}
+
 /** Open the authors browse. books (optional) = the surface's book set —
  *  omitted on the dashboard (registry-visible), the searchable list on the
  *  library page and the search window (see visibleCounts). */
@@ -549,6 +571,7 @@ export function openAuthorsModal(books) {
     _authorsFilterClear.classList.remove("visible"); // query reset → ✕ hidden
     renderAuthorRows();
     openFacetModal("libAuthorsOverlay");
+    reserveFacetCountWidth();
     pinFacetGeometry();
     deferFacetFocus(_authorsFilter, _authorsOverlay);
   });
@@ -570,6 +593,10 @@ function ensurePeriodsModal() {
     '<input id="libPeriodsFilter" type="search" class="search-input facet-filter-input" autocomplete="off" title="Filter periods" />' +
     '<button type="button" id="libPeriodsFilterClear" class="search-clear-btn" title="Clear filter" aria-label="Clear filter">✕</button>' +
     "</div>" +
+    // The filter's result count — the search window's count pattern: text
+    // only with a query (empty text hides it), the slot width pre-reserved
+    // at open so the count never shifts the input.
+    '<span id="libPeriodsFilterCount" class="facet-filter-count"></span>' +
     "</div>" +
     '<div class="facet-thead-row"><div class="facet-grid facet-grid-periods">' +
     '<div class="facet-thead-cell facet-col-period"></div>' +
@@ -582,6 +609,7 @@ function ensurePeriodsModal() {
     '<div class="facet-table-wrap"><div id="libPeriodsList"></div></div>';
   _periodsFilter = document.getElementById("libPeriodsFilter");
   _periodsFilterClear = document.getElementById("libPeriodsFilterClear");
+  _periodsFilterCount = document.getElementById("libPeriodsFilterCount");
   _periodsList = document.getElementById("libPeriodsList");
   _periodsFilter.addEventListener("input", function () {
     _periodsFilterClear.classList.toggle("visible", !!_periodsFilter.value);
@@ -660,6 +688,10 @@ function renderPeriodRows() {
       return normaliseForSearch(s || "").indexOf(ft) !== -1;
     });
   });
+  // The filter's result count — the search window's count pattern ("ނަތީޖާ:
+  // N" / "match: N"): text only with a query (empty text hides the count),
+  // the slot width pre-reserved at open so appearing never shifts the input.
+  _periodsFilterCount.textContent = ft ? t("resultCount") + ": " + periods.length : "";
   _periodsList.innerHTML = periods.map(function (p) {
     var sel = _period === p;
     var range = periodRangeText(p);
@@ -717,6 +749,7 @@ export function openPeriodsModal(books) {
     _periodsFilterClear.classList.remove("visible"); // query reset → ✕ hidden
     renderPeriodRows();
     openFacetModal("libPeriodsOverlay");
+    reserveFacetCountWidth();
     pinFacetGeometry();
     deferFacetFocus(_periodsFilter, _periodsOverlay);
   });
@@ -750,4 +783,5 @@ document.addEventListener("languagechange", function () {
     renderPeriodRows();
   }
   pinFacetGeometry(); // the widest years text changes with the language
+  reserveFacetCountWidth(); // the count text changes with the language
 });

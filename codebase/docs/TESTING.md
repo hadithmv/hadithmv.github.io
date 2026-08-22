@@ -28,8 +28,14 @@ buttons — a left-edge match alone is not enough: the shared 8px 12px cell
 padding leaves a 12px content box in the info column's 36px track, and a
 24px button cannot fit one, so the overflowing inline anchors to the
 line's start edge and spills ~6px off the header's center (the cell
-carries `padding-inline: 0` for exactly that reason) — the dash-led died-only years (`– 256 AH`),
-the periods grid's authors track placed right after the years, the thead
+carries `padding-inline: 0` for exactly that reason) — the dash-led
+died-only years, their dash glued to the year (`–256 AH` / `–865 CE` —
+the same dash the born–died range uses between its years, the
+`authorDied` template's `{y}` slot), the modern author's century cell
+carrying the same "(15+)" marker as the modern period row's name, and
+both filters' result counts — the search window's "match: N" pattern,
+shown only while a query is typed, the slot width pre-reserved at open
+so the count never shifts the input, hidden on clear — the periods grid's authors track placed right after the years, the thead
 cells paired to the row cells column by column — class-paired, since the
 rows' DOM order keeps the mobile lines — and the single-band assertion
 that the row cells all sit on one grid row (a column-only pin would let

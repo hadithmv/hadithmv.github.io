@@ -330,11 +330,12 @@ const STRINGS = {
   facetColAuthors: { dv: "މުއައްލިފުން", en: "Authors", ar: "المؤلفون" },
   facetAgeUnit: { dv: "އ.", en: "y.", ar: "س." },
   // Died-only authors lead with the same en-dash the born–died range uses
-  // (the born slot is simply missing): "– 179 ހ." — language-neutral.
-  authorDied: { dv: "– {y} ހ.", en: "– {y} AH", ar: "– {y}هـ" },
+  // (the born slot is simply missing), glued to the year like the range's
+  // own dash: "–179 ހ." — language-neutral.
+  authorDied: { dv: "–{y} ހ.", en: "–{y} AH", ar: "–{y}هـ" },
   authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
   authorLifeCe: { dv: "{b}–{d} މ.", en: "{b}–{d} CE", ar: "{b}–{d}م" },
-  authorDiedCe: { dv: "– {y} މ.", en: "– {y} CE", ar: "– {y}م" },
+  authorDiedCe: { dv: "–{y} މ.", en: "–{y} CE", ar: "–{y}م" },
   // The open-ended "from" forms for the modern era bucket — "1401+ ހ." /
   // "1981+ މ." (periodRangeText / periodRangeCeText for "modern"): the
   // bucket has a start but no closing year.
