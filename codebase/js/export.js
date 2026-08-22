@@ -31,9 +31,10 @@ export function downloadFile(content, filename, mime) {
 
 // ── Title page + Contents page (shared by the HTML builders) ──────
 // Every export opens with a title page: the title (big) over the Arabic
-// subtitle, a hairline, then the brand/version/URL. The info modal adds
-// its kind line ("Biography of the author" …) before the name pair and
-// the fact strip after the URL — each group separated by a hairline.
+// subtitle, a hairline, then the brand/version/URL (a live link — clickable
+// in Word, the HTML Book and the EPUB cover). The info modal adds its kind
+// line ("Biography of the author" …) before the name pair and the fact
+// strip after the URL — each group separated by a hairline.
 // The page-break p (a real character, so Word keeps it) forces the
 // break BEFORE it: the next block (TOC, content) starts on a fresh page.
 // The builders read only cfg.*, so the reader and the modal share one
@@ -46,7 +47,10 @@ function titlePageHTML(cfg, meta, siteURL, versionText) {
   if (meta.titleAR) h += '<p class="subtitle">' + meta.titleAR + '</p>';
   h += '<hr class="title-sep">';
   h += '<p class="brand">Hadithmv - ' + versionText + '</p>';
-  h += '<p class="url">' + siteURL + '</p>';
+  // The URL is a live link (the info exports point at the info page; the
+  // reader's at the reader) — href and text carry the same escaped string,
+  // so a "&tab=works" query survives as &amp; in the attribute.
+  h += '<p class="url"><a href="' + escapeHTML(siteURL) + '">' + escapeHTML(siteURL) + '</a></p>';
   if (cfg.titleFacts && cfg.titleFacts.length) {
     h += '<hr class="title-sep"><p class="title-facts">' + cfg.titleFacts.join("<br>") + '</p>';
   }
@@ -89,7 +93,7 @@ function tocPageHTML(cfg, tocTitle) {
 export function buildWordHTML(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
-  var content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h1{font-size:22pt;margin:0} h2{font-size:12pt;color:#666} .title-page{text-align:center;margin:80px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:14pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:6px 0}</style></head><body>';
+  var content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h1{font-size:22pt;margin:0} h2{font-size:12pt;color:#666} .title-page{text-align:center;margin:80px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:14pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:6px 0}</style></head><body>';
   content += titlePageHTML(cfg, meta, siteURL, versionText);
   content += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
@@ -139,7 +143,7 @@ export function buildPdfHTML(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
   var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
-  var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;font-size:22pt;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0} .title-page{text-align:center;margin:100px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+  var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;font-size:22pt;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0} .title-page{text-align:center;margin:100px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
   pdfHTML += titlePageHTML(cfg, meta, siteURL, versionText);
   pdfHTML += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
@@ -184,7 +188,7 @@ export function buildPdfHTML(cfg, siteURL, versionText, tocTitle) {
 export function buildHtmlBook(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
-  var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || cfg.bookCode || "book") + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:22pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:14pt;color:#888} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+  var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || cfg.bookCode || "book") + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:22pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:14pt;color:#888} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
   htmlExport += titlePageHTML(cfg, meta, siteURL, versionText);
   htmlExport += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {

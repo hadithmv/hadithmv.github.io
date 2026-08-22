@@ -56,25 +56,42 @@ vars override the defaults) — it drives both entry points on the reader
 (title click + Alt+I → Book tab, author line → Author tab) and the
 authors-modal ℹ affordance (stacking, Escape order), the fact strips
 (data-derived via `parseCSV`), the markdown renderer against the notes
-fixtures (auto-TOC, deep links), the Books tab (a third tab, hidden
-without an author, holding the books list + dashboard link), the in-modal
+fixtures (auto-TOC, deep links), the Works tab (a third tab, hidden
+without an author, holding the works list + dashboard link), the in-modal
 search (count == `<mark>`s on both tabs, Enter cycling, no-match, query
 survives tab switches, the clear ✕ mirroring the query), copy
 (monkey-patched `window.copyToClipboard`, exact plain-text compare with a
 string built from data files — blank lines only at the structural
 boundaries, the `""` entries the tab builders and the markdown renderer
-push), the
-four pane exports (blob-captured via a patched `URL.createObjectURL`;
-the Word bytes are diffed against the reader's golden
-`tools/golden/reader-word.doc` — the S8b byte-identity guard on
-export.js's shared builders), the 600px shared-geometry layout (the info
+push), the copy-link chip (the raw info-page URL — `?book=` / `?author=`
+/ `&tab=works`, unescaped on the clipboard), the
+four pane exports (blob-captured via a patched `URL.createObjectURL` —
+their title pages carry the info-page URL as a live `<a href>`, escaped
+in the bytes — and the reader's Word golden
+`tools/golden/reader-word.doc` is re-diffed as the S8b byte-identity
+guard on export.js's shared builders), the **books/info.html page** (S13:
+`?author=`/`&tab=works`/`?book=` deep links render the same panes with no
+overlay and no content-CSV fetch — no derived-meta line — unknown codes
+show the placeholder, a bare visit the empty state (the shell tucked
+away), a zero-book author still gets a Works tab; the page must also
+carry the modal's look itself — computed `direction: rtl` + the
+Hadithmv webfont on the body and the shared flex/rtl search wrap
+(reader-search.css loaded; there is no `.modal` wrapper to inherit
+from), its top bar must read like `#topBar` (an LTR `--content-width`
+column inside the full-bleed sticky strip — the back button start-side,
+the title centered in the flex space, geometry-checked) — and the URL
+must follow the tabs: tab clicks pushState
+(`?author=…` → `?author=…&tab=works`), back/forward step through the
+panes from the query string; the goldens themselves must be re-captured
+whenever the title-page/cover markup changes, since the reader's four
+exports share it), the 600px shared-geometry layout (the info
 modal must measure identically to the search window; the pane scrolls
 vertically with no horizontal overflow — the RTL-list marker and
 unbreakable-string guards; the actions collapse behind the 📥 toggle at
-600px — opens a dropdown menu (copy + the four formats) that closes on a
-tab switch, on selection, and on outside clicks, and sits inline in the
-tab band with the toggle hidden at 1280px), and the busy-export
-"Preparing…" label swap.
+600px — opens a dropdown menu (copy + copy-link + the four formats) that
+closes on a tab switch, on selection, and on outside clicks, and sits
+inline in the tab band with the toggle hidden at 1280px), and the
+busy-export "Preparing…" label swap.
 The column-label coverage scan lives at
 `../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
 every `data/content/*.csv` header and diffs it against the token tables in

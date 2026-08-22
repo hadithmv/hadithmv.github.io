@@ -389,14 +389,14 @@ const STRINGS = {
     en: "Description of the book",
     ar: "وصف الكتاب",
   },
-  infoExportKindBooks: {
-    dv: "މުއައްލިފުގެ ފޮތްތައް",
-    en: "The author's books",
+  infoExportKindWorks: {
+    dv: "މުއައްލިފުގެ މަސައްކަތްތައް",
+    en: "The author's works",
     ar: "مؤلفات المؤلف",
   },
   infoTabBook: { dv: "މި ފޮތް", en: "This Book", ar: "هذا الكتاب" },
   infoTabAuthor: { dv: "މުއައްލިފު", en: "Author", ar: "المؤلف" },
-  infoTabBooks: { dv: "ފޮތްތައް", en: "Books", ar: "الكتب" },
+  infoTabWorks: { dv: "މަސައްކަތްތައް", en: "Works", ar: "مؤلفات" },
   infoOpenBook: {
     dv: "ފޮތުގެ މަޢުލޫމާތު",
     en: "Book info",
@@ -418,15 +418,15 @@ const STRINGS = {
     en: "No notes yet",
     ar: "لا توجد ملاحظات بعد",
   },
-  infoBooksByAuthor: {
-    dv: "{name} ގެ ފޮތްތައް",
-    en: "Books by {name}",
-    ar: "كتب {name}",
+  infoWorksByAuthor: {
+    dv: "{name} ގެ މަސައްކަތްތައް",
+    en: "Works by {name}",
+    ar: "مؤلفات {name}",
   },
-  infoShowAllBooks: {
-    dv: "{name} ގެ ހުރިހާ ފޮތްތަކެއް ދައްކާ",
-    en: "Show all books by {name}",
-    ar: "عرض جميع كتب {name}",
+  infoShowAllWorks: {
+    dv: "{name} ގެ ހުރިހާ މަސައްކަތްތަކެއް ދައްކާ",
+    en: "Show all works by {name}",
+    ar: "عرض جميع مؤلفات {name}",
   },
   infoSearchPlaceholder: {
     dv: "ސާޗުކުރޭ...",
@@ -438,6 +438,19 @@ const STRINGS = {
     dv: "އެއްވެސް ނަތީޖާއެއް ނެތް",
     en: "No matches",
     ar: "لا توجد نتائج",
+  },
+  // The actions row's second chip — copies the info page's URL for the
+  // active pane (the same URL the exports print on their title page).
+  infoCopyLink: {
+    dv: "ލިންކު ކޮޕީ ކުރޭ",
+    en: "Copy link",
+    ar: "نسخ الرابط",
+  },
+  // The info page's empty state — no ?book= / ?author= parameters.
+  infoPageEmpty: {
+    dv: "ފޮތެއް ނުވަތަ މުއައްލިފެއްގެ މައުލޫމާތު ބެލުމަށް ލިންކަކުން އަތުވެއްޖެއެވެ",
+    en: "Book or author info opens here from a link",
+    ar: "يفتح هنا من رابط معلومات كتاب أو مؤلف",
   },
   libScopeFilter: {
     dv: "ފޮތް ފިލްޓަރުކުރޭ…",

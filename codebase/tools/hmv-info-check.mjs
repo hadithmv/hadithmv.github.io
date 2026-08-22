@@ -18,10 +18,10 @@
 //      age/tags fact rows, rows·chapters·version meta line, markdown notes
 //  S2  a book with no notes file shows the quiet "No notes yet" placeholder
 //      (and an author without a bio gets one on the Author tab too; the
-//      Books tab still renders)
+//      Works tab still renders)
 //  S3  reader author-line click → Author tab: fact strip, bio with auto-TOC
 //      (3 headings → 3 links; a TOC click scrolls, no hash churn)
-//  S3b the Books tab (a third tab, hidden without an author): the books
+//  S3b the Works tab (a third tab, hidden without an author): the works
 //      list with deep links, the in-modal dashboard "show all" link
 //  S4  tab switching re-renders the pane; the search query survives it
 //  S5  search: live highlight, count == number of <mark>s (one counting
@@ -30,10 +30,11 @@
 //  S6  no-match → muted "No matches"; clearing empties the count slot;
 //      the clear ✕ mirrors the query and click-clears (search-window pattern)
 //  S7  copy captures the active tab's plain text exactly (book + author +
-//      books tabs)
+//      works tabs); the copy-link chip captures the raw info-page URL
+//      (?book=… / ?author=… / &tab=works) — the exports' anchor sibling
 //  S8  exports: Word/HTML blob bytes + names, EPUB (PK + mimetype + the
 //      async disable/re-enable of the action buttons), PDF popup document —
-//      all carry the siteURL ?book= link and the version footer
+//      all carry the siteURL info-page link and the version footer
 //  S8b reader Word export byte-identical to tools/golden/reader-word.doc
 //  S9  authors modal ℹ button stacks the info modal; Escape closes the
 //      info modal first, then the browse modal
@@ -44,6 +45,13 @@
 //      selection, and on outside clicks; at 1280px the actions sit inline
 //      in the tab band, toggle hidden
 //  S12 no page errors
+//  S13 books/info.html page: the deep links behind the modal's exports —
+//      ?author=CODE renders the Author pane as a page (no overlay, no
+//      content-CSV fetch), &tab=works the Works pane, ?book=CODE the Book
+//      pane, an unknown code the placeholder, a bare visit the empty state;
+//      the page carries the modal's RTL + webfont itself (reader-search.css
+//      for the search row); tab switches pushState the query and
+//      back/forward re-render from it
 import fs from "fs";
 import path from "path";
 import { spawn } from "child_process";
@@ -93,11 +101,10 @@ const MALIK_LINE = nameEN("malikBinAnas") + " (" + malikRow.bornAH + "–" + mal
 const MALIK_YEARS = malikRow.bornAH + "–" + malikRow.diedAH + " AH";
 const MALIK_CE = ceFromAh(parseInt(malikRow.bornAH, 10)) + "–" + ceFromAh(parseInt(malikRow.diedAH, 10)) + " CE";
 const MALIK_AGE = String(parseInt(malikRow.diedAH, 10) - parseInt(malikRow.bornAH, 10)) + " y.";
-// Rows/chapters on the Book tab: the reader counts over its loaded CSV
-// (rows = data rows; chapters = runs of the first column whose lowercased
-// header starts with "kitab"/"bab", else the row count — muwatta's first
-// column is "basmala", so chapters == rows), the version from 03.
-const muwattaData = parseCSV(fs.readFileSync(DATA + "content/HDT-muwattaMalik.csv", "utf8"));
+// Rows/chapters/version once fed the Book tab's meta line; the line was
+// removed (it demanded the content CSV — the info page renders registry
+// facts only), so the battery asserts its absence (S1) instead of its
+// content. No content CSV is read at all here.
 // The tags row — the PRIMARY tag (the first registered bookCode prefix
 // segment, HDT) plus the registry entry's tags column (DRFT), each with its
 // EN label from 01, joined " · " in the plain text; the chips themselves
@@ -161,11 +168,11 @@ const AUTHOR_TAB_PLAIN = [
   "Bio", "",
   BIO_PLAIN,
 ].join("\n");
-const BOOKS_TAB_PLAIN = [
+const WORKS_TAB_PLAIN = [
   nameEN("malikBinAnas"), nameAR("malikBinAnas"), "",
-  "Books by " + nameEN("malikBinAnas"), "",
+  "Works by " + nameEN("malikBinAnas"), "",
   BOOK_LINE(muwatta), "",
-  "Show all books by " + nameEN("malikBinAnas"),
+  "Show all works by " + nameEN("malikBinAnas"),
 ].join("\n");
 
 // The export-capture hooks — blob bytes are trapped on URL.createObjectURL
@@ -344,25 +351,25 @@ async function main() {
   await sleep(300);
   check("S3 TOC click leaves the hash alone", await evalJS(`location.hash`) === hashBefore, await evalJS(`location.hash`));
 
-  // ── S3b: the Books tab — the author's other books, one tab over ────
-  // The books list lives on its own tab (the Author tab is facts + bio);
+  // ── S3b: the Works tab — the author's works, one tab over ──────────
+  // The works list lives on its own tab (the Author tab is facts + bio);
   // the tab exists only when the modal carries an author.
-  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="books"]').click()`);
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="works"]').click()`);
   await waitFor(`!!document.querySelector('#infoPane .info-books-list')`);
-  check("S3b books tab is a third tab, active after the click", await evalJS(
+  check("S3b works tab is a third tab, active after the click", await evalJS(
     `document.querySelectorAll('#infoModalBody .info-tab').length === 3 &&
-     document.querySelector('#infoModalBody .info-tab[data-tab="books"]').classList.contains('active') &&
-     !document.querySelector('#infoModalBody .info-tab[data-tab="books"]').hidden`));
-  check("S3b books tab head carries the author name pair", await evalJS(
+     document.querySelector('#infoModalBody .info-tab[data-tab="works"]').classList.contains('active') &&
+     !document.querySelector('#infoModalBody .info-tab[data-tab="works"]').hidden`));
+  check("S3b works tab head carries the author name pair", await evalJS(
     `document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))} &&
      document.querySelector('#infoPane .info-head-ar').textContent === ${JSON.stringify(nameAR("malikBinAnas"))}`));
-  // The books list — muwatta only (registry), one deep-linked row.
-  check("S3b books list: one row, deep-linked into the reader", await evalJS(
-    `(() => { var rows = document.querySelectorAll('#infoPane .info-book-row'); var labels = Array.from(document.querySelectorAll('#infoPane .info-section-label')).map(function (l) { return l.textContent; }); return labels.indexOf('Books by ${nameEN("malikBinAnas")}') !== -1 && rows.length === 1 && rows[0].getAttribute('href') === 'reader.html?book=HDT-muwattaMalik' && rows[0].querySelector('.info-book-title').textContent === ${JSON.stringify(muwatta.titleDV)} && rows[0].querySelector('.info-book-ar').textContent === ${JSON.stringify(muwatta.titleAR)}; })()`),
+  // The works list — muwatta only (registry), one deep-linked row.
+  check("S3b works list: one row, deep-linked into the reader", await evalJS(
+    `(() => { var rows = document.querySelectorAll('#infoPane .info-book-row'); var labels = Array.from(document.querySelectorAll('#infoPane .info-section-label')).map(function (l) { return l.textContent; }); return labels.indexOf('Works by ${nameEN("malikBinAnas")}') !== -1 && rows.length === 1 && rows[0].getAttribute('href') === 'reader.html?book=HDT-muwattaMalik' && rows[0].querySelector('.info-book-title').textContent === ${JSON.stringify(muwatta.titleDV)} && rows[0].querySelector('.info-book-ar').textContent === ${JSON.stringify(muwatta.titleAR)}; })()`),
     await evalJS(`Array.from(document.querySelectorAll('#infoPane .info-book-row')).map(function(r){ return r.getAttribute('href') + ' ' + r.textContent; }).join('; ')`));
   check("S3b in-modal dashboard link", await evalJS(
     `document.querySelector('#infoPane .info-show-all').getAttribute('href') === 'index.html?authors=malikBinAnas' &&
-     document.querySelector('#infoPane .info-show-all').textContent === 'Show all books by ${nameEN("malikBinAnas")}'`),
+     document.querySelector('#infoPane .info-show-all').textContent === 'Show all works by ${nameEN("malikBinAnas")}'`),
     await evalJS(`document.querySelector('#infoPane .info-show-all').getAttribute('href')`));
   // Back to the Author tab — the next sections pick up from here.
   await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="author"]').click()`);
@@ -468,7 +475,7 @@ async function main() {
   await sleep(150);
   // The query survives a tab switch and re-matches against the new pane:
   // on the Author tab "مالك" hits the Arabic head pair + the bio's Arabic
-  // line (the books row's Arabic subline lives on the Books tab now).
+  // line (the works row's Arabic subline lives on the Works tab now).
   await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="author"]').click()`);
   await waitFor(`document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))}`);
   check("S5 query survives the tab switch", await evalJS(
@@ -526,11 +533,11 @@ async function main() {
   await sleep(100);
   check("S7 author-tab copy = exact plain text", await evalJS(`window.__copied === ${JSON.stringify(AUTHOR_TAB_PLAIN)}`),
     await evalJS(`(window.__copied || '').slice(0, 80).replace(/\\n/g, '|')`));
-  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="books"]').click()`);
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="works"]').click()`);
   await waitFor(`!!document.querySelector('#infoPane .info-books-list')`);
   await evalJS(`document.getElementById('infoCopyBtn').click()`);
   await sleep(100);
-  check("S7 books-tab copy = exact plain text", await evalJS(`window.__copied === ${JSON.stringify(BOOKS_TAB_PLAIN)}`),
+  check("S7 works-tab copy = exact plain text", await evalJS(`window.__copied === ${JSON.stringify(WORKS_TAB_PLAIN)}`),
     await evalJS(`(window.__copied || '').slice(0, 80).replace(/\\n/g, '|')`));
   await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="book"]').click()`);
   await waitFor(`document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(muwatta.titleDV)}`);
@@ -538,6 +545,30 @@ async function main() {
   await sleep(100);
   check("S7 book-tab copy = exact plain text", await evalJS(`window.__copied === ${JSON.stringify(BOOK_TAB_PLAIN)}`),
     await evalJS(`(window.__copied || '').slice(0, 80).replace(/\\n/g, '|')`));
+  // The copy-link chip copies the info page's URL for the active pane — the
+  // same string the exports print (path-tail match: the drive letter and
+  // case come from the browser's own script URL resolution).
+  const copyLink = () => evalJS(`document.getElementById('infoCopyLinkBtn').click()`);
+  const copiedHas = (tail) => evalJS(`(window.__copied || '').indexOf(${JSON.stringify(tail)}) !== -1`);
+  await copyLink();
+  await sleep(100);
+  check("S7 copy-link on the book tab → info.html?book=…", await copiedHas("books/info.html?book=HDT-muwattaMalik"),
+    await evalJS(`window.__copied || ''`));
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="author"]').click()`);
+  await waitFor(`document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))}`);
+  await copyLink();
+  await sleep(100);
+  check("S7 copy-link on the author tab → info.html?author=…", await copiedHas("books/info.html?author=malikBinAnas"),
+    await evalJS(`window.__copied || ''`));
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="works"]').click()`);
+  await waitFor(`!!document.querySelector('#infoPane .info-books-list')`);
+  await copyLink();
+  await sleep(100);
+  check("S7 copy-link on the works tab → info.html?author=…&tab=works", await copiedHas("books/info.html?author=malikBinAnas&tab=works"),
+    await evalJS(`window.__copied || ''`));
+  // Back to the book tab — the export section picks up from here.
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="book"]').click()`);
+  await waitFor(`document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(muwatta.titleDV)}`);
 
   // ── S8: the four pane exports (patched blob/popup captures) ────────
   await evalJS(PATCH_EXPORTS);
@@ -554,8 +585,8 @@ async function main() {
   await clickExport("word");
   await waitBytes("application/msword");
   const wordEntry = await capEntry("application/msword");
-  check("S8 Word: type, book link, kind line + brand/version + the DV title h1", wordEntry &&
-    wordEntry.type === "application/msword" && contains(wordEntry, "?book=HDT-muwattaMalik") &&
+  check("S8 Word: type, info-page book link, kind line + brand/version + the DV title h1", wordEntry &&
+    wordEntry.type === "application/msword" && contains(wordEntry, "info.html?book=HDT-muwattaMalik") &&
     contains(wordEntry, VERSION_TEXT) && contains(wordEntry, muwatta.titleDV) &&
     contains(wordEntry, "Description of the book") && contains(wordEntry, "Hadithmv - " + VERSION_TEXT),
     (wordEntry ? wordEntry.size + "B" : "no blob"));
@@ -576,8 +607,8 @@ async function main() {
   await clickExport("pdf");
   await waitPdf();
   const pdfHtml = await capPdf();
-  check("S8 PDF: popup document carries the book link + version", pdfHtml &&
-    pdfHtml.indexOf("<html") !== -1 && pdfHtml.indexOf("?book=HDT-muwattaMalik") !== -1 &&
+  check("S8 PDF: popup document carries the info-page link + version", pdfHtml &&
+    pdfHtml.indexOf("<html") !== -1 && pdfHtml.indexOf("info.html?book=HDT-muwattaMalik") !== -1 &&
     pdfHtml.indexOf(VERSION_TEXT) !== -1, (pdfHtml || "").length + " chars");
   // EPUB — async (font fetch + dynamic import); the footer disables while
   // it runs and re-enables when the blob lands. The content is
@@ -602,8 +633,10 @@ async function main() {
   // works and restores when the blob lands (the reader export's feedback).
   check("S8 EPUB: busy label shows while exporting, restores after", busyLabel === "Preparing…" && busyLabelAfter === "EPUB",
     busyLabel + " → " + busyLabelAfter);
-  // The author/books panes export under the author's own code — it doubles
-  // as the builders' bookCode, so the siteURL link is "?book=malikBinAnas".
+  // The author/works panes export under the author's own code — it doubles
+  // as the builders' bookCode, so the siteURL points at the info page
+  // (?author=… / &tab=works — the query survives in the export's HTML as
+  // &amp;, since the anchor's href and text share the escaped string).
   // The wait targets the NEXT entry past the current count — an earlier
   // capture (the book-tab Word) already satisfies the type.
   await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="author"]').click()`);
@@ -612,23 +645,23 @@ async function main() {
   await clickExport("word");
   await waitFor(`window.__cap.length === ${capLen} + 1 && window.__cap[${capLen}].bytes`, 30000);
   const authorWord = await evalJS(`window.__cap[${capLen}]`);
-  check("S8 author pane Word: bio + kind line + Contents page inside, author-code link", authorWord &&
-    contains(authorWord, "Life") && contains(authorWord, "?book=malikBinAnas") &&
+  check("S8 author pane Word: bio + kind line + Contents page inside, info-page link", authorWord &&
+    contains(authorWord, "Life") && contains(authorWord, "info.html?author=malikBinAnas") &&
     contains(authorWord, "Biography of the author") && contains(authorWord, "Contents") &&
     contains(authorWord, "Century: 2"),
     (authorWord ? authorWord.size + "B" : "no blob"));
-  // The books list exports from its own tab — same capture pattern.
+  // The works list exports from its own tab — same capture pattern.
   const capLen2 = await evalJS(`window.__cap.length`);
-  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="books"]').click()`);
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="works"]').click()`);
   await waitFor(`!!document.querySelector('#infoPane .info-books-list')`);
   await clickExport("word");
   await waitFor(`window.__cap.length === ${capLen2} + 1 && window.__cap[${capLen2}].bytes`, 30000);
   const booksWord = await evalJS(`window.__cap[${capLen2}]`);
-  check("S8 books-tab Word: kind line + books list + show-all inside, author-code link", booksWord &&
-    contains(booksWord, "The author's books") &&
-    contains(booksWord, "Books by " + nameEN("malikBinAnas")) &&
-    contains(booksWord, "Show all books by " + nameEN("malikBinAnas")) &&
-    contains(booksWord, "?book=malikBinAnas"),
+  check("S8 works-tab Word: kind line + works list + show-all inside, info-page link", booksWord &&
+    contains(booksWord, "The author's works") &&
+    contains(booksWord, "Works by " + nameEN("malikBinAnas")) &&
+    contains(booksWord, "Show all works by " + nameEN("malikBinAnas")) &&
+    contains(booksWord, "info.html?author=malikBinAnas&amp;tab=works"),
     (booksWord ? booksWord.size + "B" : "no blob"));
   await evalJS(`document.getElementById('infoOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
@@ -785,11 +818,120 @@ async function main() {
   await waitFor(`document.querySelectorAll('#infoPane .info-no-notes').length === 1`);
   check("S2 author without a bio gets its placeholder too", await evalJS(
     `document.querySelector('#infoPane .info-no-notes').textContent === 'No notes yet'`));
-  // The books list lives on its own tab — it renders even without a bio.
-  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="books"]').click()`);
+  // The works list lives on its own tab — it renders even without a bio.
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="works"]').click()`);
   await waitFor(`!!document.querySelector('#infoPane .info-books-list')`);
-  check("S2 books tab renders without a bio", await evalJS(
+  check("S2 works tab renders without a bio", await evalJS(
     `document.querySelectorAll('#infoPane .info-book-row').length >= 1`));
+
+  // ── S13: the info page (books/info.html) ──────────────────────────
+  // The deep-link target behind the modal's exports and copy-link: the
+  // shared shell renders as a page — no overlay, no content-CSV fetch
+  // (the Book pane asserts the derived-meta line never renders).
+  await goto("file://" + ROOT + "info.html?author=malikBinAnas");
+  await waitFor(`document.querySelector('#infoPageShell #infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))}`);
+  check("S13 author deep link renders the Author pane as a page (no overlay)", await evalJS(
+    `document.querySelector('#infoPageShell #infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))} &&
+     !document.getElementById('infoOverlay')`));
+  check("S13 …with the bio's 3-link auto-TOC", await evalJS(
+    `document.querySelectorAll('#infoPageShell #infoPane .info-toc a').length === 3`));
+  // The page carries the modal's look itself — the base .modal rule (RTL
+  // shell, the Hadithmv webfont) is modal-only, and the search row needs
+  // reader-search.css's wrap. All three must be in place or the page
+  // renders Times New Roman in LTR with a broken search bar.
+  check("S13 page shell: RTL + the app webfont (modal look)", await evalJS(
+    `getComputedStyle(document.body).direction === 'rtl' &&
+     getComputedStyle(document.body).fontFamily.indexOf('Hadithmv') !== -1 &&
+     getComputedStyle(document.getElementById('infoPane')).fontFamily.indexOf('Hadithmv') !== -1`),
+    await evalJS(`getComputedStyle(document.body).direction + ' / ' + getComputedStyle(document.body).fontFamily.slice(0, 40)`));
+  check("S13 top bar: the site's centered column — back button start-side, title centered", await evalJS(
+    `(() => {
+      var inner = document.querySelector('.info-page-top-inner').getBoundingClientRect();
+      var bar = document.querySelector('.info-page-top').getBoundingClientRect();
+      var b = document.getElementById('infoPageBack').getBoundingClientRect();
+      var t = document.querySelector('.info-page-top h1');
+      var tr = t.getBoundingClientRect();
+      return getComputedStyle(document.querySelector('.info-page-top-inner')).direction === 'ltr' &&
+        getComputedStyle(t).direction === 'rtl' &&
+        b.left < tr.left &&
+        Math.abs((tr.left + tr.right) / 2 - (inner.left + inner.right) / 2) < 40 &&
+        Math.abs(bar.left) < 1 && bar.width >= inner.width;
+    })()`),
+    await evalJS(`(() => {
+      var inner = document.querySelector('.info-page-top-inner').getBoundingClientRect();
+      var b = document.getElementById('infoPageBack').getBoundingClientRect();
+      var t = document.querySelector('.info-page-top h1').getBoundingClientRect();
+      return 'col=' + Math.round(inner.left) + '..' + Math.round(inner.right) +
+        ' btn=' + Math.round(b.left) + ' titleC=' + Math.round((t.left + t.right) / 2) +
+        ' colC=' + Math.round((inner.left + inner.right) / 2);
+    })()`));
+  check("S13 search row uses the shared input wrap (reader-search.css)", await evalJS(
+    `(() => { var w = getComputedStyle(document.querySelector('#infoPageShell .search-input-wrap')); return w.display === 'flex' && w.direction === 'rtl'; })()`),
+    await evalJS(`getComputedStyle(document.querySelector('#infoPageShell .search-input-wrap')).display + ' / ' + getComputedStyle(document.querySelector('#infoPageShell .search-input-wrap')).direction`));
+  // The Works tab — the modal's exports point here via &tab=works.
+  await evalJS(`document.querySelector('#infoPageShell .info-tab[data-tab="works"]').click()`);
+  await waitFor(`!!document.querySelector('#infoPageShell #infoPane .info-books-list')`);
+  check("S13 works tab deep link: row + reader deep link + show-all", await evalJS(
+    `(() => {
+      var rows = Array.from(document.querySelectorAll('#infoPageShell #infoPane .info-book-row'));
+      var all = document.querySelector('#infoPageShell #infoPane .info-show-all');
+      return rows.length === 1 &&
+        rows[0].getAttribute('href') === 'reader.html?book=HDT-muwattaMalik' &&
+        !!all && all.getAttribute('href') === 'index.html?authors=malikBinAnas' &&
+        all.textContent === ${JSON.stringify("Show all works by " + nameEN("malikBinAnas"))};
+    })()`),
+    await evalJS(`document.querySelector('#infoPageShell #infoPane').textContent.slice(0, 160)`));
+  // Tab switches pushState — the URL follows the pane (the page's reason to
+  // exist is shareable deep links), and back/forward re-resolve it.
+  check("S13 works click → ?author=…&tab=works in the address bar", await evalJS(
+    `location.search === '?author=malikBinAnas&tab=works'`),
+    await evalJS(`location.search`));
+  await evalJS(`document.querySelector('#infoPageShell .info-tab[data-tab="author"]').click()`);
+  await waitFor(`!!document.querySelector('#infoPageShell #infoPane .info-toc')`);
+  check("S13 author click → ?author=… (tab param dropped)", await evalJS(
+    `location.search === '?author=malikBinAnas'`),
+    await evalJS(`location.search`));
+  await evalJS(`history.back()`);
+  await waitFor(`location.search === '?author=malikBinAnas&tab=works' && !!document.querySelector('#infoPageShell #infoPane .info-books-list')`);
+  check("S13 back → the Works pane re-renders from the URL", await evalJS(
+    `location.search === '?author=malikBinAnas&tab=works' &&
+     !!document.querySelector('#infoPageShell #infoPane .info-books-list')`));
+  await evalJS(`history.back()`);
+  await waitFor(`location.search === '?author=malikBinAnas' && !!document.querySelector('#infoPageShell #infoPane .info-toc')`);
+  check("S13 back again → the Author pane re-renders from the URL", await evalJS(
+    `location.search === '?author=malikBinAnas' &&
+     !!document.querySelector('#infoPageShell #infoPane .info-toc')`));
+  // The Book pane — same pane as the modal's, minus the derived-meta line
+  // (the reader's counts need the content CSV; the page fetches nothing).
+  await goto("file://" + ROOT + "info.html?book=HDT-muwattaMalik");
+  await waitFor(`document.querySelector('#infoPageShell #infoPane .info-head-title').textContent === ${JSON.stringify(muwatta.titleDV)}`);
+  check("S13 book deep link: head + notes render, no derived-meta line", await evalJS(
+    `document.querySelector('#infoPageShell #infoPane .info-head-title').textContent === ${JSON.stringify(muwatta.titleDV)} &&
+     !document.querySelector('#infoPageShell #infoPane .info-meta') &&
+     document.querySelectorAll('#infoPageShell #infoPane .info-md p').length === 2`),
+    await evalJS(`document.querySelector('#infoPageShell #infoPane').textContent.slice(0, 160)`));
+  await goto("file://" + ROOT + "info.html?book=noSuchBook");
+  await waitFor(`!!document.querySelector('#infoPageShell #infoPane .info-no-notes')`);
+  check("S13 unknown book code → the placeholder", await evalJS(
+    `document.querySelector('#infoPageShell #infoPane .info-no-notes').textContent === 'No notes yet'`));
+  await goto("file://" + ROOT + "info.html");
+  await waitFor(`!document.getElementById('infoPageEmpty').hidden`);
+  check("S13 bare visit → the empty-state line, shell tucked away", await evalJS(
+    `!document.getElementById('infoPageEmpty').hidden &&
+     document.getElementById('infoPageShell').hidden`));
+  // A zero-book author (if the data has one): the Author pane + Works tab
+  // still render — the info page was built for exactly this case.
+  const zeroBook = authors02.find((a) => !books03.some((b) =>
+    b.bookCode.indexOf("-HDN") !== -1 ? false :
+    (b.authorCode || "").split(",").map((s) => s.trim()).filter(Boolean).indexOf(a.authorCode) !== -1));
+  if (zeroBook) {
+    await goto("file://" + ROOT + "info.html?author=" + zeroBook.authorCode);
+    await waitFor(`document.querySelector('#infoPageShell #infoPane .info-head-title').textContent === ${JSON.stringify(nameEN(zeroBook.authorCode))}`);
+    check("S13 zero-book author: Author pane renders, works tab shows the placeholder", await evalJS(
+      `document.querySelector('#infoPageShell #infoPane .info-head-title').textContent === ${JSON.stringify(nameEN(zeroBook.authorCode))}`));
+  } else {
+    check("S13 zero-book author: no such author in the current data (skipped)", true, "no zero-book author in 02/03");
+  }
 
   // ── Cleanup ────────────────────────────────────────────────────────
   check("S12 no page errors", pageErrors.length === 0, pageErrors.join("; "));

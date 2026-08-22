@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Additional Info · Hadithmv</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <!-- The shell's search row uses the shared search-input wrap + ✕ (the
+         reader's search components) — the info page needs their stylesheet
+         too; its #readerPanelSearch rules are id-scoped and never leak. -->
+    <link rel="stylesheet" href="../css/reader-search.css" />
+    <style>
+      /* The info page — the modal's tabs + panes (js/book-info.js) as a
+         plain page, the deep-link target behind the modal's exports and
+         copy-link button: ?book=CODE opens the Book pane, ?author=CODE the
+         Author pane, &tab=works the Works pane. The actions row (copy +
+         exports) is part of the shared shell markup; only this page hides
+         it — the page is a link target, not a workspace. Tab switches
+         pushState, so the URL always names the pane and back/forward step
+         through the tabs (js/book-info.js's openInfoPageFromLocation). */
+      body {
+        margin: 0;
+        /* The modal's look comes from the base .modal rule (RTL shell,
+           the Hadithmv webfont) — the page has no .modal wrapper, so it
+           carries direction + font itself. */
+        direction: rtl;
+        font-family: var(
+          --font-mixed,
+          "Hadithmv",
+          "Faruma",
+          system-ui,
+          -apple-system,
+          sans-serif
+        );
+      }
+      /* Full-bleed strip; the chrome inside sits in the site's centered
+         column (like #topBar): LTR bar, the back button at the start, the
+         title centered in the flex space. The body stays RTL for the pane
+         below — only the bar reads LTR, exactly like the reader's. */
+      .info-page-top {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        border-bottom: 2px solid var(--color-divider-ornament);
+        background: var(--color-bg, #fff);
+      }
+      .info-page-top-inner {
+        max-width: var(--content-width, 800px);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        direction: ltr;
+      }
+      .info-page-top h1 {
+        flex: 1;
+        margin: 0;
+        font-size: var(--fs-title-lg, 1.2rem);
+        font-weight: 800;
+        color: var(--color-text);
+        /* the modal title's look; centered when it fits, start-aligned
+           (safe center) when a long title overflows, text itself RTL */
+        display: flex;
+        align-items: center;
+        direction: rtl;
+        justify-content: safe center;
+        text-align: center;
+        white-space: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .info-page-top h1::-webkit-scrollbar {
+        display: none;
+      }
+      #infoPageBack {
+        /* the site's back control — #backToDashboard's look */
+        width: var(--control-height, 35px);
+        height: var(--control-height, 35px);
+        padding: 0;
+        font-size: var(--fs-title-lg, 1.2rem);
+        line-height: 1;
+        font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
+        color: var(--color-danger-text, #dc2626);
+        background: var(--color-danger-bg, #fef2f2);
+        border: 1px solid var(--color-danger-border, #fecaca);
+        border-radius: var(--radius-md, 8px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background var(--t-hover, 0.15s) ease,
+          border-color var(--t-hover, 0.15s) ease;
+      }
+      #infoPageBack:hover {
+        background: var(--color-danger-bg, #fef2f2);
+        border-color: var(--color-danger-border-hover, #fca5a5);
+      }
+      #infoPageShell {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      /* The pane is the modal's flex scrollport — on the page it flows
+         naturally with the body. */
+      #infoPageShell .info-pane {
+        overflow: visible;
+      }
+      #infoActions,
+      .info-actions-toggle {
+        display: none !important;
+      }
+      .info-page-empty {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 48px 16px;
+        text-align: center;
+        color: var(--color-text-muted);
+      }
+    </style>
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (t && t !== "light")
+          document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <header class="info-page-top">
+      <div class="info-page-top-inner">
+        <button
+          id="infoPageBack"
+          title="Back to the book list"
+          onclick="window.location.href = 'index.html'"
+        >
+          ↩
+        </button>
+        <h1 data-i18n="infoModalTitle">Additional Info</h1>
+      </div>
+    </header>
+    <div id="infoPageShell"></div>
+    <div
+      id="infoPageEmpty"
+      class="info-page-empty"
+      data-i18n="infoPageEmpty"
+      hidden
+    ></div>
+
+    <script type="module" src="../js/common.js"></script>
+    <script type="module">
+      import { openInfoPageFromLocation } from "../js/book-info.js";
+      openInfoPageFromLocation();
+    </script>
+  </body>
+</html>

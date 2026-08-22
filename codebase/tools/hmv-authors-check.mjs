@@ -765,9 +765,9 @@ async function main() {
   check("author info head carries the current-lang name", await evalJS(
     `document.querySelector('#infoPane .info-head-title').textContent === ${JSON.stringify(nameEN("malikBinAnas"))}`),
     await evalJS(`document.querySelector('#infoPane .info-head-title').textContent`));
-  // The author's books live on their own Books tab — the show-all link
+  // The author's works live on their own Works tab — the show-all link
   // sits at its bottom.
-  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="books"]').click()`);
+  await evalJS(`document.querySelector('#infoModalBody .info-tab[data-tab="works"]').click()`);
   await waitFor(`!!document.querySelector('#infoPane .info-show-all')`);
   const infoShowAll = await evalJS(`document.querySelector('#infoPane .info-show-all').getAttribute('href')`);
   check("in-modal show-all links to filtered dashboard", infoShowAll === "index.html?authors=malikBinAnas", infoShowAll);
