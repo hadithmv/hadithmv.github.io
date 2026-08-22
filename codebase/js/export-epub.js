@@ -196,7 +196,7 @@ export function createEPUB(rows, meta, opts) {
     + '.cover-kind { font-size: 1.05rem; color: #777; margin: 0; }\n'
     + '.cover-facts { font-size: 0.85rem; color: #666; line-height: 2; }\n'
     + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'
-    + '.cover-ar { font-size: 1.35rem; color: #555; margin: 0.2em 0; }\n'
+    + '.cover-ar { font-size: 1.45rem; color: #555; margin: 0.2em 0; }\n'
     + '.cover-en { font-size: 1rem; color: #888; margin: 0.2em 0; }\n'
     + '.cover-brand { font-size: 0.95rem; color: #999; margin: 0; }\n'
     + '.cover-url { font-size: 0.85rem; color: #aaa; margin: 0.2em 0 0; }\n'
