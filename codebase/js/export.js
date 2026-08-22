@@ -29,15 +29,64 @@ export function downloadFile(content, filename, mime) {
   URL.revokeObjectURL(url);
 }
 
+// ── Title page + Contents page (shared by the HTML builders) ──────
+// Every export opens with a title page: the title (big) over the Arabic
+// subtitle, then the brand/version/URL. The info modal adds its kind line
+// ("Biography of the author" …) and the fact strip via cfg — the builders
+// read only cfg.*, so the reader and the modal share one shape.
+
+function titlePageHTML(cfg, meta, siteURL, versionText) {
+  var h = '<div class="title-page">';
+  if (cfg.kindTitle) h += '<p class="kind">' + cfg.kindTitle + '</p>';
+  h += '<h1>' + meta.titleDV + '</h1>';
+  if (meta.titleAR) h += '<p class="subtitle">' + meta.titleAR + '</p>';
+  if (cfg.titleFacts && cfg.titleFacts.length) {
+    h += '<p class="title-facts">' + cfg.titleFacts.join("<br>") + '</p>';
+  }
+  h += '<p class="brand">Hadithmv - ' + versionText + '</p>';
+  h += '<p class="url">' + siteURL + '</p>';
+  return h + '</div><div class="page-break"></div>';
+}
+
+// Contents page entries — cfg.toc (the modal's markdown headings) when
+// supplied, else the reader's chapter rows: the first non-empty cell of
+// each row whose column header starts with head/kitab/bab.
+function tocEntries(cfg) {
+  var toc = cfg.toc || [];
+  if (toc.length >= 2) return toc;
+  var rows = cfg.rows;
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
+      var v = row[j] != null ? String(row[j]).trim() : "";
+      if (!v) continue;
+      var hdr = (cfg.headerRow && cfg.headerRow[j]) ? cfg.headerRow[j].toLowerCase() : "";
+      if (hdr.indexOf("head") === 0 || hdr.indexOf("kitab") === 0 || hdr.indexOf("bab") === 0) {
+        toc.push(v);
+        break;
+      }
+    }
+  }
+  return toc;
+}
+
+function tocPageHTML(cfg, tocTitle) {
+  var entries = tocEntries(cfg);
+  if (entries.length < 2) return ""; // a single section heading needs no TOC
+  var h = '<div class="toc"><h2>' + (tocTitle || "Table of Contents") + '</h2><ol>';
+  for (var i = 0; i < entries.length; i++) h += '<li>' + entries[i] + '</li>';
+  return h + '</ol></div><div class="page-break"></div>';
+}
+
 // Word (.doc) — an HTML document with the .doc extension; Word opens it.
 // The "head" column renders as the big heading, "kitab"/"bab" step down,
 // "foot" as the divider, "sharh" at reduced size.
-export function buildWordHTML(cfg, siteURL, versionText) {
+export function buildWordHTML(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
-  var content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
-  content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + versionText + ' - ' + siteURL + '</p>';
-  content += "<h1>" + meta.titleDV + " - " + meta.titleAR + "</h1>";
+  var content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h1{font-size:22pt;margin:0} h2{font-size:12pt;color:#666} .title-page{text-align:center;margin:80px 0} .kind{font-size:12pt;color:#666;margin-bottom:28px} .subtitle{font-size:15pt;color:#444;margin:4px 0 8px} .title-facts{font-size:12pt;color:#555;line-height:2.2;margin:16px 0} .brand{font-size:10pt;color:#999;margin-top:32px} .url{font-size:10pt;color:#999;word-break:break-all} .page-break{page-break-after:always} .toc{text-align:center;margin:60px 0} .toc h2{font-size:14pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:6px 0}</style></head><body>';
+  content += titlePageHTML(cfg, meta, siteURL, versionText);
+  content += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     // Row numbers only when the book has an id column — id-less books
@@ -81,13 +130,13 @@ export function buildWordHTML(cfg, siteURL, versionText) {
 
 // PDF — the popup-print page: an RTL document styled for print with a
 // footer page counter; the caller opens it, writes, and calls win.print().
-export function buildPdfHTML(cfg, siteURL, versionText) {
+export function buildPdfHTML(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
   var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
-  var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0}</style></head><body>';
-  pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + versionText + " - " + siteURL + "</p>";
-  pdfHTML += "<h1>" + meta.titleDV + "</h1><p style='text-align:center'>" + meta.titleAR + "</p>";
+  var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0} .title-page{text-align:center;margin:100px 0} .kind{font-size:12pt;color:#666;margin-bottom:28px} .subtitle{font-size:15pt;color:#444;margin:4px 0 8px} .title-facts{font-size:12pt;color:#555;line-height:2.2;margin:16px 0} .brand{font-size:10pt;color:#999;margin-top:32px} .url{font-size:10pt;color:#999;word-break:break-all} .page-break{page-break-after:always} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+  pdfHTML += titlePageHTML(cfg, meta, siteURL, versionText);
+  pdfHTML += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (cfg.hasRowNums) pdfHTML += "<h2>#" + (row[0] || (i + 1)) + "</h2>";
@@ -127,12 +176,12 @@ export function buildPdfHTML(cfg, siteURL, versionText) {
 
 // HTML Book — a single self-contained RTL page with the webfont reference,
 // the "sharh" cells in the reduced size, "· · ·" between matn and sharh.
-export function buildHtmlBook(cfg, siteURL, versionText) {
+export function buildHtmlBook(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
-  var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || cfg.bookCode || "book") + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
-  htmlExport += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
-  htmlExport += '<div class="hd">Hadithmv · ' + versionText + '<br>' + siteURL + '</div><hr>';
+  var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || cfg.bookCode || "book") + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:20pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:12pt;color:#888;margin-bottom:28px} .subtitle{font-size:15pt;color:#444;margin:4px 0 8px} .title-facts{font-size:12pt;color:#555;line-height:2.2;margin:16px 0} .brand{font-size:10pt;color:#999;margin-top:32px} .url{font-size:10pt;color:#999;word-break:break-all} .page-break{page-break-after:always} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+  htmlExport += titlePageHTML(cfg, meta, siteURL, versionText);
+  htmlExport += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (cfg.hasRowNums) htmlExport += "<h2>#" + (row[0] || (i + 1)) + "</h2>";
@@ -160,7 +209,7 @@ export function buildHtmlBook(cfg, siteURL, versionText) {
 // EPUB — resolves with the .epub Blob once the font is fetched and the
 // epub module is loaded; the caller downloads it (busy/toast handling at
 // the call site, since the surfaces differ).
-export function exportEPUB(cfg, siteURL) {
+export function exportEPUB(cfg, siteURL, versionText) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
   return fetch("../font/merged-300.woff2")
@@ -175,7 +224,10 @@ export function exportEPUB(cfg, siteURL) {
         }, {
           siteURL: siteURL,
           fontData: fontBuf ? new Uint8Array(fontBuf) : null,
-          headerRow: cfg.headerRow
+          headerRow: cfg.headerRow,
+          versionText: versionText || "",
+          kindTitle: cfg.kindTitle || "",
+          titleFacts: cfg.titleFacts || null
         });
       });
     });
@@ -223,18 +275,28 @@ export function initExports(ctx) {
       var siteURL = window.location.origin + window.location.pathname + "?book=" + meta.bookCode;
       var versionFull = ctx.t("appVersion");
       var versionText = versionFull.replace(/ \(.*\)/, "");
-      var exportHeader = (meta.titleEN || meta.bookCode) + "\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + "Hadithmv\n" + versionText + "\n" + siteURL + "\n\n" + "──────────\n\n";
+      var tocTitle = ctx.t("infoToc");
+      var tocLines = tocEntries(ctx);
 
       // Close the dropdown and show the busy label immediately
       exportDropdown.style.display = "none";
       setExportBusy(true);
 
       if (fmt === "txt") {
-        content = exportHeader + ctx.buildClipboardText(0, rows.length);
+        // The plain-text title page: title over the subtitle, separator,
+        // brand/version/URL, separator, then the Contents block (2+ only).
+        content = meta.titleDV + "\n" + meta.titleAR + "\n\n──────────\n\n" + "Hadithmv - " + versionText + "\n" + siteURL + "\n\n──────────\n\n";
+        if (tocLines.length >= 2) {
+          content += tocTitle + "\n" + tocLines.map(function (e) { return "  " + e; }).join("\n") + "\n\n──────────\n\n";
+        }
+        content += ctx.buildClipboardText(0, rows.length);
         filename = baseName + ".txt";
         mime = "text/plain";
       } else if (fmt === "md") {
-        content = "# " + (meta.titleEN || meta.bookCode) + "\n\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + "Hadithmv\n" + versionText + "\n\n" + siteURL + "\n\n---\n\n";
+        content = "# " + meta.titleDV + "\n\n" + meta.titleAR + "\n\n---\n\n" + "Hadithmv - " + versionText + "\n\n" + siteURL + "\n\n---\n\n";
+        if (tocLines.length >= 2) {
+          content += "## " + tocTitle + "\n\n" + tocLines.map(function (e) { return "- " + e; }).join("\n") + "\n\n---\n\n";
+        }
         for (var i = 0; i < rows.length; i++) {
           var row = rows[i];
           if (ctx.hasRowNums) content += "## #" + (row[0] || (i + 1)) + "\n\n";
@@ -270,7 +332,7 @@ export function initExports(ctx) {
         filename = baseName + ".tsv";
         mime = "text/tab-separated-values";
       } else if (fmt === "pdf") {
-        var pdfHTML = buildPdfHTML(ctx, siteURL, versionText);
+        var pdfHTML = buildPdfHTML(ctx, siteURL, versionText, ctx.t("infoToc"));
         var win = window.open("", "_blank");
         if (!win) { window.showErrorToast("PDF export failed — popup blocked"); setExportBusy(false); return; }
         win.document.write(pdfHTML);
@@ -346,7 +408,7 @@ export function initExports(ctx) {
         }).catch(function () { window.showErrorToast("Excel export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "epub") {
-        exportEPUB(ctx, siteURL)
+        exportEPUB(ctx, siteURL, versionText)
           .then(function (epubBlob) {
             var blobUrl = URL.createObjectURL(epubBlob);
             var a = document.createElement("a");
@@ -385,7 +447,7 @@ export function initExports(ctx) {
         }
         downloadFile(to, baseName + ".toon", "text/plain");
       } else if (fmt === "html") {
-        downloadFile(buildHtmlBook(ctx, siteURL, versionText), baseName + ".html", "text/html");
+        downloadFile(buildHtmlBook(ctx, siteURL, versionText, ctx.t("infoToc")), baseName + ".html", "text/html");
       } else if (fmt === "html-table") {
         var ht = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:12pt;line-height:1.8;padding:16px;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:16pt;margin-bottom:4px} table{width:100%;border-collapse:collapse;direction:rtl} th,td{padding:6px 8px;border:1px solid #ddd;text-align:right;vertical-align:top} th{background:#f5f5f5;font-weight:700;font-size:10pt;white-space:nowrap} .hd{text-align:center;font-size:9pt;color:#999;margin-bottom:16px}</style></head><body>';
         ht += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
@@ -425,7 +487,7 @@ export function initExports(ctx) {
         xml += '  </rows>\n</book>';
         downloadFile(xml, baseName + ".xml", "application/xml");
       } else if (fmt === "word") {
-        content = buildWordHTML(ctx, siteURL, versionText);
+        content = buildWordHTML(ctx, siteURL, versionText, ctx.t("infoToc"));
         filename = baseName + ".doc";
         mime = "application/msword";
       }

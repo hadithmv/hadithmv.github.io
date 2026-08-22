@@ -146,7 +146,7 @@ const BOOK_TAB_PLAIN = [
   "Author: " + MALIK_LINE,
   "Years: " + MALIK_YEARS,
   "Gregorian: " + MALIK_CE,
-  "Century: Century 2",
+  "Century 2", // label-less — the value carries the word
   "Age: " + MALIK_AGE,
   M_TAGS, "", // the tags sit inside the fact strip — one block with the facts
   "Book notes", "",
@@ -156,7 +156,7 @@ const AUTHOR_TAB_PLAIN = [
   nameEN("malikBinAnas"), nameAR("malikBinAnas"), "",
   "Years: " + MALIK_YEARS,
   "Gregorian: " + MALIK_CE,
-  "Century: Century 2",
+  "Century 2", // label-less — the value carries the word
   "Age: " + MALIK_AGE, "",
   "Bio", "",
   BIO_PLAIN,
@@ -300,7 +300,17 @@ async function main() {
   check("S1 fact strip: author line", await evalJS(factOf("Author")) === MALIK_LINE, await evalJS(factOf("Author")));
   check("S1 fact strip: Hijri years", await evalJS(factOf("Years")) === MALIK_YEARS, await evalJS(factOf("Years")));
   check("S1 fact strip: Gregorian years", await evalJS(factOf("Gregorian")) === MALIK_CE, await evalJS(factOf("Gregorian")));
-  check("S1 fact strip: century", await evalJS(factOf("Century")) === "Century 2", await evalJS(factOf("Century")));
+  // The century chip is label-less — the value carries the word ("Century 2"),
+  // exactly one bare value div and no "Century" label div (the
+  // "Century: Century 2" redundancy is gone from pane, copy and export).
+  const centuryProbe = `(function () {
+    var kids = Array.prototype.slice.call(document.querySelectorAll('#infoPane .info-fact-strip > div'));
+    var bare = kids.filter(function (k) { return k.className === 'info-fact-value' && k.textContent === 'Century 2'; }).length;
+    var labeled = kids.filter(function (k) { return k.className === 'info-fact-label' && k.textContent === 'Century'; }).length;
+    return bare === 1 && labeled === 0;
+  })()`;
+  check("S1 fact strip: century — label-less chip carries the value", await evalJS(centuryProbe),
+    await evalJS(`Array.prototype.slice.call(document.querySelectorAll('#infoPane .info-fact-strip > div')).map(function (d) { return d.className + '=' + d.textContent; }).join(' | ')`));
   check("S1 fact strip: age", await evalJS(factOf("Age")) === MALIK_AGE, await evalJS(factOf("Age")));
   check("S1 fact strip: tag chips (primary HDT + secondary DRFT)", await evalJS(factOf("Tags")) === M_TAGS_CHIPS, await evalJS(factOf("Tags")));
   check("S1 no derived-meta line (rows · chapters · version removed)", await evalJS(
@@ -320,8 +330,8 @@ async function main() {
      document.querySelector('#infoPane .info-head-ar').textContent === ${JSON.stringify(nameAR("malikBinAnas"))}`),
     await evalJS(`document.querySelector('#infoPane .info-head-title').textContent + ' / ' + document.querySelector('#infoPane .info-head-ar').textContent`));
   check("S3 fact strip: years · CE · century · age", await evalJS(
-    `(() => { var kids = Array.prototype.slice.call(document.querySelectorAll('#infoPane .info-fact-strip > div')); var get = function(l){ for (var i = 0; i < kids.length; i++){ if (kids[i].className === 'info-fact-label' && kids[i].textContent === l) return kids[i + 1] ? kids[i + 1].textContent : ''; } return ''; }; return get('Years') === ${JSON.stringify(MALIK_YEARS)} && get('Gregorian') === ${JSON.stringify(MALIK_CE)} && get('Century') === 'Century 2' && get('Age') === ${JSON.stringify(MALIK_AGE)}; })()`),
-    await evalJS(`(() => { var kids = Array.prototype.slice.call(document.querySelectorAll('#infoPane .info-fact-strip > div')); var get = function(l){ for (var i = 0; i < kids.length; i++){ if (kids[i].className === 'info-fact-label' && kids[i].textContent === l) return kids[i + 1] ? kids[i + 1].textContent : ''; } return ''; }; return ['Years','Gregorian','Century','Age'].map(get).join(' | '); })()`));
+    `(() => { var kids = Array.prototype.slice.call(document.querySelectorAll('#infoPane .info-fact-strip > div')); var get = function(l){ for (var i = 0; i < kids.length; i++){ if (kids[i].className === 'info-fact-label' && kids[i].textContent === l) return kids[i + 1] ? kids[i + 1].textContent : ''; } return ''; }; var bare = kids.filter(function (k) { return k.className === 'info-fact-value' && k.textContent === 'Century 2'; }).length; return get('Years') === ${JSON.stringify(MALIK_YEARS)} && get('Gregorian') === ${JSON.stringify(MALIK_CE)} && bare === 1 && get('Age') === ${JSON.stringify(MALIK_AGE)}; })()`),
+    await evalJS(`(() => { var kids = Array.prototype.slice.call(document.querySelectorAll('#infoPane .info-fact-strip > div')); var get = function(l){ for (var i = 0; i < kids.length; i++){ if (kids[i].className === 'info-fact-label' && kids[i].textContent === l) return kids[i + 1] ? kids[i + 1].textContent : ''; } return ''; }; return ['Years','Gregorian','Age'].map(get).join(' | '); })()`));
   // The bio's auto-TOC — the fixture has 3 headings → a "Contents" nav with
   // one link per heading, anchored to the heading ids.
   check("S3 auto-TOC: 3 links over the 3 fixture headings", await evalJS(
@@ -543,9 +553,10 @@ async function main() {
   await clickExport("word");
   await waitBytes("application/msword");
   const wordEntry = await capEntry("application/msword");
-  check("S8 Word: type, book link + version footer + the DV title h1", wordEntry &&
+  check("S8 Word: type, book link, kind line + brand/version + the DV title h1", wordEntry &&
     wordEntry.type === "application/msword" && contains(wordEntry, "?book=HDT-muwattaMalik") &&
-    contains(wordEntry, VERSION_TEXT) && contains(wordEntry, muwatta.titleDV),
+    contains(wordEntry, VERSION_TEXT) && contains(wordEntry, muwatta.titleDV) &&
+    contains(wordEntry, "Description of the book") && contains(wordEntry, "Hadithmv - " + VERSION_TEXT),
     (wordEntry ? wordEntry.size + "B" : "no blob"));
   // HTML Book — same path, text/html blob
   await clickExport("html");
@@ -594,8 +605,9 @@ async function main() {
   await clickExport("word");
   await waitFor(`window.__cap.length === ${capLen} + 1 && window.__cap[${capLen}].bytes`, 30000);
   const authorWord = await evalJS(`window.__cap[${capLen}]`);
-  check("S8 author pane Word: bio inside, author-code link", authorWord &&
-    contains(authorWord, "Life") && contains(authorWord, "?book=malikBinAnas"),
+  check("S8 author pane Word: bio + kind line + Contents page inside, author-code link", authorWord &&
+    contains(authorWord, "Life") && contains(authorWord, "?book=malikBinAnas") &&
+    contains(authorWord, "Biography of the author") && contains(authorWord, "Contents"),
     (authorWord ? authorWord.size + "B" : "no blob"));
   // The books list exports from its own tab — same capture pattern.
   const capLen2 = await evalJS(`window.__cap.length`);
@@ -604,7 +616,8 @@ async function main() {
   await clickExport("word");
   await waitFor(`window.__cap.length === ${capLen2} + 1 && window.__cap[${capLen2}].bytes`, 30000);
   const booksWord = await evalJS(`window.__cap[${capLen2}]`);
-  check("S8 books-tab Word: books list + show-all inside, author-code link", booksWord &&
+  check("S8 books-tab Word: kind line + books list + show-all inside, author-code link", booksWord &&
+    contains(booksWord, "The author's books") &&
     contains(booksWord, "Books by " + nameEN("malikBinAnas")) &&
     contains(booksWord, "Show all books by " + nameEN("malikBinAnas")) &&
     contains(booksWord, "?book=malikBinAnas"),

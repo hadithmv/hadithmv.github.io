@@ -66,7 +66,10 @@ var _markIndex = -1;
 var _notesCache = {};  // path → Promise<string|null> (null = 404/error)
 var _plain = [];       // plain-text lines of the active pane (copy)
 var _sections = [];    // [{title, body}] raw-text export rows of the active pane
-var _exportMeta = null; // {bookCode, titleDV, titleAR, titleEN, authorCode} for the builders
+var _exportMeta = null;  // {bookCode, titleDV, titleAR, titleEN, authorCode} for the builders
+var _exportKind = "";    // the export's kind line ("Biography of the author" …) — title-page top
+var _exportFacts = [];   // fact-strip lines — rendered on the export's title page
+var _exportToc = null;   // markdown headings (2+) — the export's Contents page
 var _exportBusy = false;
 
 // ── Markdown subset renderer ───────────────────────────────────
@@ -369,21 +372,29 @@ function render() {
 
 /** One label/value pair of the fact strip ("" values are dropped by the
  *  callers — an undated author shows no empty Years row). The label is
- *  escaped (i18n text); the value arrives pre-escaped from the callers. */
+ *  escaped (i18n text); the value arrives pre-escaped from the callers.
+ *  An empty label (the century chip — the value carries the word,
+ *  "ގަރުނު 2"/"Century 2") emits the value div alone, no label div. */
 function factRow(label, value) {
   return (
-    '<div class="info-fact-label">' + escapeHTML(label) + "</div>" +
+    (label ? '<div class="info-fact-label">' + escapeHTML(label) + "</div>" : "") +
     '<div class="info-fact-value">' + value + "</div>"
   );
 }
 
-/** Replace the pane and re-run the search highlight on the fresh DOM. */
-function showPane(seq, paneHtml, plain, sections, exportMeta) {
+/** Replace the pane and re-run the search highlight on the fresh DOM.
+ *  exportExtra feeds the export's title page: kind (the "Biography of the
+ *  author …" line), facts (the fact-strip lines) and toc (the markdown
+ *  headings when 2+). */
+function showPane(seq, paneHtml, plain, sections, exportMeta, exportExtra) {
   if (seq !== _renderSeq) return;
   _pane.innerHTML = paneHtml;
   _plain = plain;
   _sections = sections || [];
   _exportMeta = exportMeta || null;
+  _exportKind = (exportExtra && exportExtra.kind) || "";
+  _exportFacts = (exportExtra && exportExtra.facts) || [];
+  _exportToc = (exportExtra && exportExtra.toc) || null;
   applySearch();
 }
 
@@ -457,9 +468,11 @@ function renderBookTab(seq) {
           }
           var p = authorPeriodOf(codes[0]);
           if (p !== "modern") {
-            facts.push(factRow(t("facetColCentury"), escapeHTML(periodLabel(p))));
-            plain.push(t("facetColCentury") + ": " + periodLabel(p));
-            factLines.push(t("facetColCentury") + ": " + periodLabel(p));
+            // No label — the value carries the word (ގަރުނު 2 / Century 2);
+            // "Century: Century 2" would double it.
+            facts.push(factRow("", escapeHTML(periodLabel(p))));
+            plain.push(periodLabel(p));
+            factLines.push(periodLabel(p));
           }
           var age = authorAgeText(first);
           if (age) {
@@ -491,8 +504,9 @@ function renderBookTab(seq) {
       if (facts.length > 0) {
         pane.push('<div class="info-card"><div class="info-fact-strip">' + facts.join("") + "</div></div>");
         // The fact strip is untitled in the pane — the export matches; the
-        // author line is already the strip's first fact.
-        sections.push({ title: "", body: factLines.join("\n") });
+        // author line is already the strip's first fact. The strip is not a
+        // section: its lines travel via exportExtra.facts to the export's
+        // title page (the copy keeps them inline, where they belong).
         plain.push(""); // the fact strip block's boundary
       }
       var noBook = !entry;
@@ -533,7 +547,11 @@ function renderBookTab(seq) {
         }
         card.push("</div>");
         pane.push(card.join(""));
-        showPane(seq, pane.join("\n"), plain, sections, exportMeta);
+        showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
+          kind: t("infoExportKindBook"),
+          facts: factLines.length > 0 ? factLines : null,
+          toc: null,
+        });
       });
     });
 }
@@ -624,9 +642,11 @@ function showAuthorPane(seq, code) {
     }
     var p = authorPeriodOf(code);
     if (p !== "modern") {
-      facts.push(factRow(t("facetColCentury"), escapeHTML(periodLabel(p))));
-      plain.push(t("facetColCentury") + ": " + periodLabel(p));
-      factLines.push(t("facetColCentury") + ": " + periodLabel(p));
+      // No label — the value carries the word (ގަރުނު 2 / Century 2);
+      // "Century: Century 2" would double it.
+      facts.push(factRow("", escapeHTML(periodLabel(p))));
+      plain.push(periodLabel(p));
+      factLines.push(periodLabel(p));
     }
     var age = authorAgeText(def);
     if (age) {
@@ -638,7 +658,8 @@ function showAuthorPane(seq, code) {
       pane.push('<div class="info-card"><div class="info-fact-strip">' + facts.join("") + "</div></div>");
       // The fact strip is untitled in the pane — the export matches (the
       // h1 already names the author; a repeating title would duplicate it).
-      sections.push({ title: "", body: factLines.join("\n") });
+      // The strip is not a section: its lines travel via exportExtra.facts
+      // to the export's title page (the copy keeps them inline).
       plain.push(""); // the fact strip block's boundary
     }
 
@@ -685,7 +706,11 @@ function showAuthorPane(seq, code) {
       pane.push(card.join(""));
       // The author's books live on their own Books tab (renderBooksTab) —
       // the Author tab is the facts + bio.
-      showPane(seq, pane.join("\n"), plain, sections, exportMeta);
+      showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
+        kind: t("infoExportKindAuthor"),
+        facts: factLines.length > 0 ? factLines : null,
+        toc: (md && md.headings.length >= 2) ? md.headings : null,
+      });
     });
   });
 }
@@ -744,7 +769,11 @@ function showBooksPane(seq, code) {
         pane.push('<div class="info-card"><div class="info-no-notes">' +
           escapeHTML(t("infoNoNotes")) + "</div></div>");
         plain.push(t("infoNoNotes"));
-        showPane(seq, pane.join("\n"), plain, sections, exportMeta);
+        showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
+          kind: t("infoExportKindBooks"),
+          facts: null,
+          toc: null,
+        });
         return;
       }
       var listLabel = t("infoBooksByAuthor").replace("{name}", name);
@@ -779,7 +808,11 @@ function showBooksPane(seq, code) {
       plain.push(showAll);
       bookLines.push(showAll + " — index.html?authors=" + code);
       sections.push({ title: listLabel, body: bookLines.join("\n") });
-      showPane(seq, pane.join("\n"), plain, sections, exportMeta);
+      showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
+        kind: t("infoExportKindBooks"),
+        facts: null,
+        toc: null,
+      });
     });
   });
 }
@@ -866,10 +899,14 @@ function prevMatch() { goMatch(-1); }
 // pane as the "book": each section is one row [title, body] under the
 // synthetic header ["headInfo","bodyInfo"], no row numbers — the existing
 // headinfo/bodyinfo heuristics style the titles big and the bodies as
-// paragraphs; EPUB gets one chapter per section. The pane head is not a
-// section (the builders' h1 carries it) and untitled sections like the fact
-// strip render as plain paragraphs. The sections are raw text (the copy
-// source), so search highlights never leak into the files.
+// paragraphs; EPUB gets one chapter per section. Every export opens with a
+// title page: the kind line ("Biography of the author" …), the pane's name
+// pair, the fact strip, then the brand/version/URL — and a Contents page
+// (the markdown headings, 2+ only) when the pane has one. The pane head is
+// not a section (the builders' title page carries it) and the fact strip is
+// not a section either — its lines ride exportExtra.facts. The sections are
+// raw text (the copy source), so search highlights never leak into the
+// files.
 
 function paneRows() {
   return _sections.map(function (s) { return [s.title, s.body]; });
@@ -907,6 +944,10 @@ function exportPane(fmt, btn) {
     headerRow: ["headInfo", "bodyInfo"],
     hasRowNums: false,
     metadata: meta,
+    kindTitle: _exportKind || "",
+    titleFacts: _exportFacts.length > 0 ? _exportFacts : null,
+    toc: _exportToc && _exportToc.length >= 2 ? _exportToc : null,
+    tocTitle: t("infoToc"),
   };
   setExportBusy(true, btn);
   if (fmt === "word") {
@@ -924,7 +965,7 @@ function exportPane(fmt, btn) {
     downloadFile(buildHtmlBook(cfg, siteURL, versionText), baseName + ".html", "text/html");
     setExportBusy(false);
   } else if (fmt === "epub") {
-    exportEPUB(cfg, siteURL)
+    exportEPUB(cfg, siteURL, versionText)
       .then(function (epubBlob) {
         downloadFile(epubBlob, baseName + ".epub", "application/epub+zip");
         setExportBusy(false);

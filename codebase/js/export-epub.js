@@ -20,7 +20,7 @@ var enc = new TextEncoder();
  * Create an EPUB 3 e-book Blob.
  * @param {Array<Array<*>>} rows      — 2D array of cell values (null/undefined → empty)
  * @param {{bookCode,titleEN,titleDV,titleAR,authorCode}} meta — book metadata
- * @param {{siteURL,fontData?:Uint8Array,headerRow?:Array<string>}} opts
+ * @param {{siteURL,fontData?:Uint8Array,headerRow?:Array<string>,versionText?:string,kindTitle?:string,titleFacts?:Array<string>}} opts
  * @returns {Blob}  application/epub+zip
  */
 export function createEPUB(rows, meta, opts) {
@@ -113,10 +113,14 @@ export function createEPUB(rows, meta, opts) {
     + '<title>' + xmlEsc(bookTitle) + '</title>'
     + '<link rel="stylesheet" type="text/css" href="styles.css"/>'
     + '</head><body class="cover">'
+    + (opts.kindTitle ? '<p class="cover-kind">' + xmlEsc(opts.kindTitle) + '</p>' : '')
     + '<h1 class="cover-title">' + xmlEsc(meta.titleDV || meta.titleEN || "") + '</h1>';
   if (meta.titleAR) cover += '<p class="cover-ar">' + xmlEsc(meta.titleAR) + '</p>';
   if (meta.titleEN && meta.titleDV) cover += '<p class="cover-en">' + xmlEsc(meta.titleEN) + '</p>';
-  cover += '<p class="cover-brand">Hadithmv</p>'
+  if (opts.titleFacts && opts.titleFacts.length) {
+    cover += '<p class="cover-facts">' + opts.titleFacts.map(xmlEsc).join("<br/>") + '</p>';
+  }
+  cover += '<p class="cover-brand">Hadithmv - ' + xmlEsc(opts.versionText || "") + '</p>'
     + '<p class="cover-url">' + xmlEsc(opts.siteURL || "") + '</p>'
     + '</body></html>';
 
@@ -187,6 +191,8 @@ export function createEPUB(rows, meta, opts) {
     + '.ms-sep { text-align: center; color: #aaa; margin: 0.8em 0; font-size: 0.6em; letter-spacing: 0.3em; direction: ltr; }\n'
     + '/* Cover */\n'
     + 'body.cover { text-align: center; padding: 2em 1em; }\n'
+    + '.cover-kind { font-size: 0.9rem; color: #777; margin: 1.5em 0 0.5em; }\n'
+    + '.cover-facts { font-size: 0.85rem; color: #666; margin: 1em 0; line-height: 2; }\n'
     + '.cover-title { font-size: 1.6rem; margin-bottom: 0.3em; }\n'
     + '.cover-ar { font-size: 1.2rem; color: #555; margin: 0.2em 0; }\n'
     + '.cover-en { font-size: 1rem; color: #888; margin: 0.2em 0; }\n'

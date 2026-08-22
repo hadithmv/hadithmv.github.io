@@ -377,6 +377,23 @@ const STRINGS = {
     en: "Additional Info",
     ar: "معلومات إضافية",
   },
+  // The export's kind line — what kind of "info book" the pane is, at the
+  // top of the export's title page (current site language, like all UI).
+  infoExportKindAuthor: {
+    dv: "މުއައްލިފުގެ ތައާރަފު",
+    en: "Biography of the author",
+    ar: "سيرة المؤلف",
+  },
+  infoExportKindBook: {
+    dv: "ފޮތުގެ މައުލޫމާތު",
+    en: "Description of the book",
+    ar: "وصف الكتاب",
+  },
+  infoExportKindBooks: {
+    dv: "މުއައްލިފުގެ ފޮތްތައް",
+    en: "The author's books",
+    ar: "مؤلفات المؤلف",
+  },
   infoTabBook: { dv: "މި ފޮތް", en: "This Book", ar: "هذا الكتاب" },
   infoTabAuthor: { dv: "މުއައްލިފު", en: "Author", ar: "المؤلف" },
   infoTabBooks: { dv: "ފޮތްތައް", en: "Books", ar: "الكتب" },
