@@ -420,7 +420,8 @@ function renderBookTab(seq) {
         // between the head, the fact strip, the tags and the notes
         // section, never inside them.
         plain.push("");
-        sections.push({ title: title, body: titleAr });
+        // The head is not a section — the builders' h1 (titleDV - titleAR)
+        // already carries the pane head; exporting it again duplicates it.
       }
       var facts = [];
       if (entry) {
@@ -489,7 +490,9 @@ function renderBookTab(seq) {
       }
       if (facts.length > 0) {
         pane.push('<div class="info-card"><div class="info-fact-strip">' + facts.join("") + "</div></div>");
-        sections.push({ title: authorLine || title, body: factLines.join("\n") });
+        // The fact strip is untitled in the pane — the export matches; the
+        // author line is already the strip's first fact.
+        sections.push({ title: "", body: factLines.join("\n") });
         plain.push(""); // the fact strip block's boundary
       }
       var noBook = !entry;
@@ -604,7 +607,8 @@ function showAuthorPane(seq, code) {
     plain.push(name);
     if (nameAr) plain.push(nameAr);
     plain.push(""); // the head block's boundary
-    sections.push({ title: name, body: nameAr });
+    // The head is not a section — the builders' h1 (titleDV - titleAR)
+    // already carries the pane head; exporting it again duplicates the name.
     var facts = [];
     var yrs = authorYearsText(def);
     if (yrs) {
@@ -632,7 +636,9 @@ function showAuthorPane(seq, code) {
     }
     if (facts.length > 0) {
       pane.push('<div class="info-card"><div class="info-fact-strip">' + facts.join("") + "</div></div>");
-      sections.push({ title: name, body: factLines.join("\n") });
+      // The fact strip is untitled in the pane — the export matches (the
+      // h1 already names the author; a repeating title would duplicate it).
+      sections.push({ title: "", body: factLines.join("\n") });
       plain.push(""); // the fact strip block's boundary
     }
 
@@ -718,7 +724,8 @@ function showBooksPane(seq, code) {
     plain.push(name);
     if (nameAr) plain.push(nameAr);
     plain.push(""); // the head block's boundary
-    sections.push({ title: name, body: nameAr });
+    // The head is not a section — the builders' h1 (titleDV - titleAR)
+    // already carries the pane head; exporting it again duplicates the name.
     loadBookRegistry().then(function (reg) {
       if (seq !== _renderSeq) return;
       // Registry rows carrying this code, duplicates (-HDN variants)
@@ -859,8 +866,10 @@ function prevMatch() { goMatch(-1); }
 // pane as the "book": each section is one row [title, body] under the
 // synthetic header ["headInfo","bodyInfo"], no row numbers — the existing
 // headinfo/bodyinfo heuristics style the titles big and the bodies as
-// paragraphs; EPUB gets one chapter per section. The sections are raw text
-// (the copy source), so search highlights never leak into the files.
+// paragraphs; EPUB gets one chapter per section. The pane head is not a
+// section (the builders' h1 carries it) and untitled sections like the fact
+// strip render as plain paragraphs. The sections are raw text (the copy
+// source), so search highlights never leak into the files.
 
 function paneRows() {
   return _sections.map(function (s) { return [s.title, s.body]; });

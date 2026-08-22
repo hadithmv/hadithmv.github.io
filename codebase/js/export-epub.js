@@ -45,7 +45,19 @@ export function createEPUB(rows, meta, opts) {
         break;
       }
     }
-    if (!chapTitle) chapTitle = (epubHasRowNums ? "#" : "") + (epubHasRowNums ? (row[0] || (i + 1)) : (i + 1));
+    if (!chapTitle) {
+      if (epubHasRowNums) {
+        chapTitle = "#" + (row[0] || (i + 1));
+      } else {
+        // Untitled sections (the info modal's fact strip) fall back to the
+        // first line of their content — never a synthetic number.
+        for (var j2 = 0; j2 < row.length; j2++) {
+          var t2 = row[j2] != null ? String(row[j2]).trim() : "";
+          if (t2) { chapTitle = t2.split(/\n+/)[0]; break; }
+        }
+        if (!chapTitle) chapTitle = "";
+      }
+    }
     // Truncate long titles
     if (chapTitle.length > 80) chapTitle = chapTitle.slice(0, 77) + "…";
 

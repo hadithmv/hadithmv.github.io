@@ -36,14 +36,18 @@ export function buildWordHTML(cfg, siteURL, versionText) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
   var content = '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h2{font-size:12pt;color:#666}</style></head><body>';
-  content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + siteURL + ' - ' + versionText + '</p>';
+  content += '<p style="text-align:center;font-size:10pt;color:#999">Hadithmv - ' + versionText + ' - ' + siteURL + '</p>';
   content += "<h1>" + meta.titleDV + " - " + meta.titleAR + "</h1>";
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    content += "<h2>" + (cfg.hasRowNums ? "#" : "") + (cfg.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
+    // Row numbers only when the book has an id column — id-less books
+    // (and the info modal's sections) get no headings at all.
+    if (cfg.hasRowNums) content += "<h2>#" + (row[0] || (i + 1)) + "</h2>";
     var fields = [];
     for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
-      if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
+      // Multi-line cells (the modal's fact strip, the bio's paragraphs)
+      // must keep their line breaks — an HTML newline collapses to a space.
+      if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim().replace(/\n+/g, "<br>"), index: j });
     }
     for (var j = 0; j < fields.length; j++) {
       var colHeader3 = (cfg.headerRow && cfg.headerRow[fields[j].index]) ? cfg.headerRow[fields[j].index].toLowerCase() : "";
@@ -82,14 +86,14 @@ export function buildPdfHTML(cfg, siteURL, versionText) {
   var rows = cfg.rows;
   var fontUrl = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, "/../font/merged-300.woff2");
   var pdfHTML = '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' + fontUrl + ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0}</style></head><body>';
-  pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + siteURL + " - " + versionText + "</p>";
+  pdfHTML += "<p style='text-align:center;font-size:9pt;color:#999'>Hadithmv - " + versionText + " - " + siteURL + "</p>";
   pdfHTML += "<h1>" + meta.titleDV + "</h1><p style='text-align:center'>" + meta.titleAR + "</p>";
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    pdfHTML += "<h2>" + (cfg.hasRowNums ? "#" : "") + (cfg.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "</h2>";
+    if (cfg.hasRowNums) pdfHTML += "<h2>#" + (row[0] || (i + 1)) + "</h2>";
     var fields = [];
     for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
-      if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim(), index: j });
+      if (row[j] && String(row[j]).trim()) fields.push({ value: String(row[j]).trim().replace(/\n+/g, "<br>"), index: j });
     }
     for (var j = 0; j < fields.length; j++) {
       var colHeader2 = (cfg.headerRow && cfg.headerRow[fields[j].index]) ? cfg.headerRow[fields[j].index].toLowerCase() : "";
@@ -128,19 +132,21 @@ export function buildHtmlBook(cfg, siteURL, versionText) {
   var rows = cfg.rows;
   var htmlExport = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || cfg.bookCode || "book") + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:18pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .hd{text-align:center;font-size:10pt;color:#999;margin-bottom:24px} .sep{text-align:center;color:#ccc;margin:20px 0}</style></head><body>';
   htmlExport += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
-  htmlExport += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div><hr>';
+  htmlExport += '<div class="hd">Hadithmv · ' + versionText + '<br>' + siteURL + '</div><hr>';
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    htmlExport += '<h2>#' + (cfg.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + '</h2>';
+    if (cfg.hasRowNums) htmlExport += "<h2>#" + (row[0] || (i + 1)) + "</h2>";
     var expPrevHdr = "";
     for (var j = (cfg.hasRowNums ? 1 : 0); j < row.length; j++) {
       if (row[j] != null && String(row[j]).trim()) {
         var expHdr = (cfg.headerRow && cfg.headerRow[j]) ? cfg.headerRow[j].toLowerCase() : "";
+        // Line breaks in multi-line cells (the modal's fact strip, bios).
+        var expVal = String(row[j]).trim().replace(/\n+/g, "<br>");
         if (expPrevHdr.startsWith("matn") && expHdr.startsWith("sharh")) htmlExport += '<div class="ms-sep">· · ·</div>';
         if (expHdr.startsWith("sharh")) {
-          htmlExport += '<p class="sharh">' + String(row[j]).trim() + '</p>';
+          htmlExport += '<p class="sharh">' + expVal + '</p>';
         } else {
-          htmlExport += '<p>' + String(row[j]).trim() + '</p>';
+          htmlExport += '<p>' + expVal + '</p>';
         }
         expPrevHdr = expHdr;
       }
@@ -217,7 +223,7 @@ export function initExports(ctx) {
       var siteURL = window.location.origin + window.location.pathname + "?book=" + meta.bookCode;
       var versionFull = ctx.t("appVersion");
       var versionText = versionFull.replace(/ \(.*\)/, "");
-      var exportHeader = (meta.titleEN || meta.bookCode) + "\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + siteURL + "\nHadithmv\n" + versionText + "\n\n" + "──────────\n\n";
+      var exportHeader = (meta.titleEN || meta.bookCode) + "\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + "Hadithmv\n" + versionText + "\n" + siteURL + "\n\n" + "──────────\n\n";
 
       // Close the dropdown and show the busy label immediately
       exportDropdown.style.display = "none";
@@ -228,10 +234,10 @@ export function initExports(ctx) {
         filename = baseName + ".txt";
         mime = "text/plain";
       } else if (fmt === "md") {
-        content = "# " + (meta.titleEN || meta.bookCode) + "\n\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + siteURL + "\n\nHadithmv\n" + versionText + "\n\n---\n\n";
+        content = "# " + (meta.titleEN || meta.bookCode) + "\n\n" + meta.titleDV + "\n" + meta.titleAR + "\n\n" + "Hadithmv\n" + versionText + "\n\n" + siteURL + "\n\n---\n\n";
         for (var i = 0; i < rows.length; i++) {
           var row = rows[i];
-          content += "## " + (ctx.hasRowNums ? "#" : "") + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "\n\n";
+          if (ctx.hasRowNums) content += "## #" + (row[0] || (i + 1)) + "\n\n";
           var exportStart0 = ctx.hasRowNums ? 1 : 0;
           var mdPrevHdr = "";
           for (var j = exportStart0; j < row.length; j++) {
@@ -290,7 +296,7 @@ export function initExports(ctx) {
             contentDiv.innerHTML = clone.outerHTML;
             var footerDiv = document.createElement("div");
             footerDiv.style.cssText = "text-align:center;padding:20px 32px;font-size:13pt;line-height:1.8;direction:rtl;margin-top:8px";
-            footerDiv.textContent = meta.titleDV + "\n" + meta.titleAR + "\n" + siteURL + "\nHadithmv · " + versionText;
+            footerDiv.textContent = meta.titleDV + "\n" + meta.titleAR + "\n" + "Hadithmv · " + versionText + "\n" + siteURL;
             footerDiv.style.whiteSpace = "pre-line";
             wrapper.appendChild(contentDiv);
             wrapper.appendChild(footerDiv);
@@ -351,7 +357,7 @@ export function initExports(ctx) {
           }).catch(function () { window.showErrorToast("EPUB export failed"); setExportBusy(false); });
         return;
       } else if (fmt === "yaml") {
-        var y = "# " + (meta.titleEN || baseName) + "\n# " + meta.titleDV + " - " + meta.titleAR + "\n# " + siteURL + "\n# Hadithmv · " + versionText + "\n---\n";
+        var y = "# " + (meta.titleEN || baseName) + "\n# " + meta.titleDV + " - " + meta.titleAR + "\n# Hadithmv · " + versionText + "\n# " + siteURL + "\n---\n";
         for (var i = 0; i < rows.length; i++) {
           var row = rows[i];
           y += "- id: " + (ctx.hasRowNums ? (row[0] || (i + 1)) : (i + 1)) + "\n  fields:\n";
@@ -383,7 +389,7 @@ export function initExports(ctx) {
       } else if (fmt === "html-table") {
         var ht = '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' + (meta.titleEN || baseName) + '</title><style>@font-face{font-family:Hadithmv;src:url(../font/merged-300.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:12pt;line-height:1.8;padding:16px;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:16pt;margin-bottom:4px} table{width:100%;border-collapse:collapse;direction:rtl} th,td{padding:6px 8px;border:1px solid #ddd;text-align:right;vertical-align:top} th{background:#f5f5f5;font-weight:700;font-size:10pt;white-space:nowrap} .hd{text-align:center;font-size:9pt;color:#999;margin-bottom:16px}</style></head><body>';
         ht += '<h1>' + meta.titleDV + '</h1><p style="text-align:center">' + meta.titleAR + '</p>';
-        ht += '<div class="hd">' + siteURL + '<br>Hadithmv · ' + versionText + '</div>';
+        ht += '<div class="hd">Hadithmv · ' + versionText + '<br>' + siteURL + '</div>';
         ht += '<table><thead><tr>';
         if (ctx.headerRow) {
           for (var ci = 0; ci < ctx.headerRow.length; ci++) {
@@ -394,7 +400,7 @@ export function initExports(ctx) {
         for (var ri = 0; ri < rows.length; ri++) {
           ht += '<tr>';
           for (var cj = 0; cj < rows[ri].length; cj++) {
-            var cv = rows[ri][cj] != null ? String(rows[ri][cj]).trim() : "";
+            var cv = rows[ri][cj] != null ? String(rows[ri][cj]).trim().replace(/\n+/g, "<br>") : "";
             ht += '<td>' + escapeHTML(cv) + '</td>';
           }
           ht += '</tr>';
@@ -404,7 +410,7 @@ export function initExports(ctx) {
       } else if (fmt === "xml") {
         var xml = '<?xml version="1.0" encoding="UTF-8"?>\n<book>\n';
         xml += '  <title><dv>' + (meta.titleDV || "") + '</dv><ar>' + (meta.titleAR || "") + '</ar><en>' + (meta.titleEN || "") + '</en></title>\n';
-        xml += '  <meta><url>' + siteURL + '</url><version>' + versionText + '</version></meta>\n';
+        xml += '  <meta><version>' + versionText + '</version><url>' + siteURL + '</url></meta>\n';
         xml += '  <rows>\n';
         for (var i = 0; i < rows.length; i++) {
           var row = rows[i];
