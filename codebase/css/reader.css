@@ -10,9 +10,11 @@
 #collapsibleReaderPanel {
   display: grid;
   grid-template-rows: 1fr;
-  /* The search row → toolbar gap — same 6px as the row-to-row gaps
-     (the dashboard's collapsible keeps this rule active; focus mode
-     overrides it to 0 below). */
+  /* The search row → toolbar gap — same 6px as the row-to-row gaps.
+     It must only exist when the search row does: with the row hidden
+     (non-RDF books) the margin stacks on the panel's 10px top padding,
+     leaving 16px of air under the top bar against 12px at the bottom.
+     The override below zeroes it; focus mode overrides it to 0 as well. */
   margin-top: var(--section-gap, 6px);
   transition:
     grid-template-rows var(--t-panel, 0.3s)
@@ -131,6 +133,15 @@
    border so nothing of the panel remains. */
 [data-focus] #readerPanelSearch {
   display: none;
+}
+/* The search-row → toolbar gap exists only while the search row does:
+   with it hidden (every non-RDF book) the 6px margin would stack on the
+   panel's 10px padding — 16px of air under the top bar vs the 12px under
+   the last row (same pattern as the wrap-hiding rule above: matches the
+   inline display:none the JS sets, self-heals when the row is shown). */
+#readerPanel:has(#readerPanelSearch[style*="display: none"])
+  #collapsibleReaderPanel {
+  margin-top: 0;
 }
 [data-focus] #collapsibleReaderPanel {
   grid-template-rows: 0fr;

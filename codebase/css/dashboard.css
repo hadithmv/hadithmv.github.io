@@ -43,6 +43,13 @@
     margin-top var(--t-panel, 0.3s) ease,
     gap var(--t-panel, 0.3s) ease;
 }
+/* The continue-reading card is filled by JS with "" when no position is
+   saved — an empty 0-height slot still reserves a 6px gap, making the
+   search row → toolbar gap swing 6/12px with localStorage state. Drop
+   it: gaps should only run between real rows. */
+#collapsibleDashboardPanel > #dashboardContinue:empty {
+  display: none;
+}
 
 #dashboardSearchPanel {
   display: flex;
