@@ -265,12 +265,10 @@ function applyFontSize(idx) {
   var readerPx = parseFloat(size);
   var mobileReaderPx = Math.round(readerPx * 0.88 * 100) / 100;
   html.style.setProperty("--reader-font-size-mobile", mobileReaderPx + "rem");
-  // Panel chrome = 68% of reader size (0.85rem / 1.25rem default)
-  var panelPx = Math.round(readerPx * 0.68 * 100) / 100;
-  html.style.setProperty("--panel-font-size", panelPx + "rem");
-  // Mobile panel = 90% of desktop panel (fits toolbar buttons on small screens)
-  var mobilePanelPx = Math.round(panelPx * 0.9 * 100) / 100;
-  html.style.setProperty("--panel-font-size-mobile", mobilePanelPx + "rem");
+  // The panel chrome tiers (--panel-font-size / --panel-font-size-mobile)
+  // are computed in CSS from --reader-font-size (common.css token block) —
+  // no inline styles here, so the global ≤600px panel swap can redefine
+  // the panel tier without fighting an inline style.
   var val = document.getElementById("fontSizeVal");
   if (val) val.textContent = size;
   try { localStorage.setItem(window.LS_KEYS.fontSize, size); } catch (_) {}
@@ -284,10 +282,7 @@ function applyFontSize(idx) {
   var readerPx = parseFloat(size);
   var mobileReaderPx = Math.round(readerPx * 0.88 * 100) / 100;
   html.style.setProperty("--reader-font-size-mobile", mobileReaderPx + "rem");
-  var panelPx = Math.round(readerPx * 0.68 * 100) / 100;
-  html.style.setProperty("--panel-font-size", panelPx + "rem");
-  var mobilePanelPx = Math.round(panelPx * 0.9 * 100) / 100;
-  html.style.setProperty("--panel-font-size-mobile", mobilePanelPx + "rem");
+  // Panel chrome tiers come from CSS (see applyFontSize) — no inline writes.
   if (val) val.textContent = size;
 })();
 
@@ -718,8 +713,8 @@ window.setFocus = function (on) {
     var html = document.documentElement;
     html.style.setProperty("--reader-font-size", DEFAULT_FONT_SIZE);
     html.style.setProperty("--reader-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.88 * 100) / 100 + "rem");
-    html.style.setProperty("--panel-font-size", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 100) / 100 + "rem");
-    html.style.setProperty("--panel-font-size-mobile", Math.round(parseFloat(DEFAULT_FONT_SIZE) * 0.68 * 0.9 * 100) / 100 + "rem");
+    // Panel chrome tiers recompute from --reader-font-size in CSS
+    // (common.css token block) — nothing to reset inline here.
     localStorage.removeItem(window.LS_KEYS.fontSize);
     var fontSizeVal = document.getElementById("fontSizeVal");
     if (fontSizeVal) fontSizeVal.textContent = DEFAULT_FONT_SIZE;

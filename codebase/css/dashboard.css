@@ -344,7 +344,7 @@ a.toolbar-btn {
     margin-bottom: var(--panel-gap, 10px);
   }
   .toolbar-select {
-    font-size: var(--panel-font-size-mobile, 0.78rem);
+    /* font-size: the global ≤600px panel swap (common.css) covers it */
     padding: 0 0.5em;
   }
   .book-grid {

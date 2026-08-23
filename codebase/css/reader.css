@@ -109,7 +109,8 @@
 .reader-panel-row .horizontal-scroll-wrap .scroll-arrow {
   height: 24px;
   padding: 0;
-  font-size: var(--fs-micro, 0.68rem);
+  /* same chevron tier as the shared .scroll-arrow (common.css) */
+  font-size: min(var(--panel-font-size, 0.85rem), 1rem);
   line-height: 1;
   color: var(--color-text-muted);
   background: transparent;
@@ -232,7 +233,12 @@
   border-radius: var(--radius-md, 8px);
   background: var(--color-bg);
   color: var(--color-text);
-  font: inherit;
+  /* font-size comes from the shared row-control rule above (panel tier) —
+     uniform with every other row control; no font: inherit from the meta
+     line, which would read at the meta size (fs-muted) instead. The weight
+     stays normal (400), not the rows' semibold 600: the line reads as the
+     page's meta text, just wearing button chrome. */
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
   transition: border-color var(--t-hover, 0.15s) ease;
@@ -931,15 +937,12 @@
   .reader-panel-row select,
   .toolbar-btn,
   .nav-btn {
+    /* font-size needs no mobile override — the global ≤600px swap of
+       --panel-font-size (common.css) shrinks every panel label together */
     padding: 0 0.65em;
-    font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   .quran-nav-input {
     padding: 0 0.4em;
-    font-size: var(--panel-font-size-mobile, 0.78rem);
-  }
-  .reader-panel-row .search-input {
-    font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   /* Desktop gets a larger scroll pill; mobile keeps the compact size */
   .scroll-counter {
@@ -992,16 +995,14 @@
   }
 
   .col-toggle {
+    /* font-size: the global panel swap shrinks these label buttons with
+       everything else (they were the lone 0.68rem mobile holdout) */
     padding: 0 5px;
-    font-size: var(--fs-micro, 0.68rem);
   }
 
   #readerPageSubRow {
     margin: 0 8px !important;
     justify-content: center;
-  }
-  #readerPageSubtitle {
-    font-size: var(--panel-font-size-mobile, 0.78rem);
   }
   .btn-text {
     display: none;

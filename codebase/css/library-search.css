@@ -169,15 +169,12 @@
   .lib-result {
     padding: var(--card-padding-mobile, 12px);
   }
-  .lib-result-meta {
-    font-size: var(--panel-font-size-mobile, 0.78rem);
-  }
   .lib-peek-item {
     font-size: var(--fs-aux, 0.8rem);
     line-height: 1.7;
   }
   .lib-scope-btn {
-    font-size: var(--panel-font-size-mobile, 0.78rem);
+    /* font-size: the global ≤600px panel swap (common.css) covers it */
     padding: 0 8px;
   }
 }

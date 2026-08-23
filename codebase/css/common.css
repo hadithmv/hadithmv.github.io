@@ -83,9 +83,13 @@
      panel and the next block — the same value (6px), two roles. */
   --control-gap: 6px;
   --section-gap: 6px;
-  /* Panel font sizes (were fallback-only) — change here, not at use sites. */
-  --panel-font-size: 0.85rem;
-  --panel-font-size-mobile: 0.78rem;
+  /* Panel font sizes — computed from the reader font size (the settings
+     slider's --reader-font-size, set inline by common.js) so the chrome
+     scales with the reader pick. The mobile tier is the desktop tier × 0.9
+     (the old JS chain 0.68 × 0.9; the 2dp rounding the JS used is dropped —
+     sub-pixel). Change the scale here, not at use sites. */
+  --panel-font-size: calc(var(--reader-font-size, 1.25rem) * 0.68);
+  --panel-font-size-mobile: calc(var(--reader-font-size, 1.25rem) * 0.612);
   /* Font-size scale — every distinct rem size in the app as a named tier
      (the 1rem default baseline and em-relative sizes stay literal). Panel
      text sits between --fs-aux and --fs-muted; retune a tier here, not at
@@ -206,6 +210,17 @@
     "Hadithmv", "Traditional Arabic", "Scheherazade New", "Faruma", serif;
   --font-thaana: "Hadithmv", "Faruma", "MV Boli", sans-serif;
   --font-mono: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+}
+
+/* Mobile panel tier — ONE swap, everywhere. Redefining --panel-font-size
+   to the mobile tier makes every panel label shrink together at ≤600px:
+   toolbar rows, modals, the info page, the search windows. The per-page
+   selector overrides that used to do this (reader.css, dashboard.css,
+   library-search.css) are redundant now and have been removed. */
+@media (max-width: 600px) {
+  :root {
+    --panel-font-size: var(--panel-font-size-mobile);
+  }
 }
 
 /* ---- Theme: sepia ---- */
@@ -1186,7 +1201,8 @@ body:has(.modal-overlay.open) {
   border-radius: var(--radius-md, 8px);
   background: var(--color-reader-bg);
   color: var(--color-text);
-  font-size: 0.8rem;
+  /* glyph tier — 1rem like the other standalone glyph buttons */
+  font-size: 1rem;
   line-height: 1;
   cursor: pointer;
   transition: border-color var(--t-hover, 0.15s) ease;
@@ -1988,7 +2004,9 @@ body:has(.modal-overlay.open) {
 .scroll-arrow {
   flex-shrink: 0;
   padding: 0;
-  font-size: var(--fs-micro, 0.68rem);
+  /* inline chevrons track the panel labels (min caps them at 16px so an
+     extreme reader-font setting can't outgrow the 24px scroll pill) */
+  font-size: min(var(--panel-font-size, 0.85rem), 1rem);
   line-height: 1;
   color: var(--color-text-muted);
   background: transparent;
@@ -2482,7 +2500,9 @@ body {
   width: var(--control-height, 35px);
   height: var(--control-height, 35px);
   padding: 0;
-  font-size: var(--fs-title-lg, 1.2rem);
+  /* glyph tier — 1rem like every other standalone glyph button
+     (modal-close, sidebar-close, …); the back arrow is an icon, not text */
+  font-size: 1rem;
   line-height: 1;
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
   color: var(--color-danger-text, #dc2626);
