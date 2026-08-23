@@ -716,7 +716,10 @@ body:has(.modal-overlay.open) {
 }
 
 .modal-reset-small {
-  padding: 4px 10px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  line-height: var(--control-line-height, 33px);
+  padding: 0 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-error-text);
@@ -1100,7 +1103,10 @@ body:has(.modal-overlay.open) {
   gap: 8px;
 }
 .info-tab {
-  padding: 8px 16px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  line-height: var(--control-line-height, 33px);
+  padding: 0 16px;
   margin-bottom: -2px;
   border: none;
   border-bottom: 2px solid transparent;
@@ -2125,7 +2131,10 @@ body:has(.modal-overlay.open) {
 /* Font-family select (settings → Font modal — always English) */
 .font-select {
   flex: 1;
-  padding: 8px 10px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  line-height: var(--control-line-height, 33px);
+  padding: 0 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   font-family: var(
@@ -2933,18 +2942,56 @@ body {
    changing the visible control size (35px stays; 44px is the guideline).
    A transparent ::after overlay: rows keep their density, and on rows that
    scroll horizontally the vertical extension is clipped by overflow-x so
-   there the gain is horizontal only. */
+   there the gain is horizontal only. Every interactive control gets the
+   same overlay, so hit areas are uniform. Two can't join in: the
+   in-field ✕ (.search-clear-btn) already sits position: absolute, so it
+   skips the position assignment (its own box still anchors the ::after);
+   .font-select is a real <select>, and Chromium never paints
+   pseudo-elements on it. */
 @media (max-width: 600px) {
   #topBar button,
   .toolbar-btn,
   .nav-btn,
-  .col-toggle {
+  .col-toggle,
+  .reader-author-btn,
+  .reader-subtitle-btn,
+  .tag-chip,
+  .tag-badge,
+  .info-tab,
+  .search-window-tab,
+  .search-window-opt,
+  .modal-reset-small,
+  .modal-close,
+  .sidebar-close,
+  .info-search-nav,
+  .font-adjust-button,
+  .tags-toggle,
+  .scroll-arrow,
+  .author-info-btn,
+  #infoPageBack {
     position: relative;
   }
   #topBar button::after,
   .toolbar-btn::after,
   .nav-btn::after,
-  .col-toggle::after {
+  .col-toggle::after,
+  .reader-author-btn::after,
+  .reader-subtitle-btn::after,
+  .tag-chip::after,
+  .tag-badge::after,
+  .info-tab::after,
+  .search-window-tab::after,
+  .search-window-opt::after,
+  .modal-reset-small::after,
+  .modal-close::after,
+  .sidebar-close::after,
+  .info-search-nav::after,
+  .font-adjust-button::after,
+  .tags-toggle::after,
+  .scroll-arrow::after,
+  .author-info-btn::after,
+  .search-clear-btn::after,
+  #infoPageBack::after {
     content: "";
     position: absolute;
     inset: -3px;

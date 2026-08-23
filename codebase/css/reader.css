@@ -218,14 +218,16 @@
    (0,1,1) would outrank this and paint it as a toolbar button — the
    nav-btn-bg fill, 35px control height and muted text. The override
    therefore has to outrank it too: page background and normal text colour
-   instead of the toolbar fill, its own text height instead of the control
-   height. The Arabic subtitle in the Dhivehi layout (reader.js
-   updatePageHeader) is the same button in the same row, opening the
-   modal's Book tab. */
+   instead of the toolbar fill. The height is the unified control height
+   (35px) like every other row control — no text-height fractions. The
+   Arabic subtitle in the Dhivehi layout (reader.js updatePageHeader) is
+   the same button in the same row, opening the modal's Book tab. */
 .reader-panel-row button.reader-author-btn,
 .reader-panel-row button.reader-subtitle-btn {
-  padding: 2px 12px;
-  height: auto;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  line-height: var(--control-line-height, 33px);
+  padding: 0 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md, 8px);
   background: var(--color-bg);

@@ -404,7 +404,8 @@ async function main() {
   // wait for the focus to land rather than asserting synchronously.
   await waitFor(`document.getElementById('libAuthorsOverlay').classList.contains('open') && document.activeElement === document.getElementById('libAuthorsFilter')`);
   check("authors modal opens with focus in the filter", await evalJS(
-    `document.activeElement === document.getElementById('libAuthorsFilter')`));
+    `document.activeElement === document.getElementById('libAuthorsFilter')`), await evalJS(
+    `(function(){ var f = document.getElementById('libAuthorsFilter'); return 'active=' + (document.activeElement ? document.activeElement.id || document.activeElement.tagName : 'null') + ' open=' + document.getElementById('libAuthorsOverlay').classList.contains('open') + ' href=' + location.href + ' lang=' + localStorage.getItem('lang'); })()`));
   await evalJS(`document.getElementById('libAuthorsOverlay').querySelector('.modal-close').click()`);
   await sleep(150);
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);
@@ -750,11 +751,10 @@ async function main() {
   check("reader header author line exact", readerAuthor === MALIK_LINE, readerAuthor + " vs " + MALIK_LINE);
   check("author line reads as a plain-bg button", await evalJS(
     // getComputedStyle resolves height:auto to the used pixel height — the
-    // contract is that the button is content-sized (its text ~30px plus
-    // the restored 1px borders and 2px vertical padding ≈ 36px), not the
-    // toolbar rule's pinned 35px control height. The text wears the
+    // contract is the unified control height (35px), the same as every
+    // other row control — no text-height fractions. The text wears the
     // page's normal colour (not the muted author-line colour it inherits).
-    `(() => { var b = document.querySelector('#readerPageAuthor .reader-author-btn'); var s = getComputedStyle(b); return s.backgroundColor === getComputedStyle(document.body).backgroundColor && s.color === getComputedStyle(document.body).color && s.textDecorationLine === 'none' && s.borderWidth === '1px' && s.height !== '35px' && parseFloat(s.height) < 40; })()`),
+    `(() => { var b = document.querySelector('#readerPageAuthor .reader-author-btn'); var s = getComputedStyle(b); return s.backgroundColor === getComputedStyle(document.body).backgroundColor && s.color === getComputedStyle(document.body).color && s.textDecorationLine === 'none' && s.borderWidth === '1px' && s.height === '35px'; })()`),
     await evalJS(`(() => { var b = document.querySelector('#readerPageAuthor .reader-author-btn'); var s = getComputedStyle(b); return 'bg=' + s.backgroundColor + ' deco=' + s.textDecorationLine + ' border=' + s.borderWidth + ' height=' + s.height + ' color=' + s.color; })()`));
   check("reader author line is an info button", await evalJS(
     `document.getElementById('readerPageAuthor').querySelector('.reader-author-btn') !== null`));

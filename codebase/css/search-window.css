@@ -197,7 +197,10 @@
 }
 .search-window-tab {
   flex: 1;
-  padding: 6px 10px;
+  box-sizing: border-box;
+  height: var(--control-height, 35px);
+  line-height: var(--control-line-height, 33px);
+  padding: 0 10px;
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 600;
   color: var(--color-text-muted);
