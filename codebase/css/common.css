@@ -1190,8 +1190,9 @@ body:has(.modal-overlay.open) {
   white-space: nowrap;
 }
 /* Prev/next match stepping — small square buttons wearing the search
-   input's look (border/radius/background matched). The arrow glyphs are
-   direction-neutral, so no mirroring is needed in RTL layouts. */
+   input's look (border/radius/background matched). The glyphs are the
+   scroll-row triangle style, up/down (▲ ▼ — book-info.js): previous
+   match = up, next = down; direction-neutral in the RTL modal. */
 .info-search-nav {
   flex: 0 0 auto;
   width: var(--control-height, 35px);
@@ -1389,6 +1390,10 @@ body:has(.modal-overlay.open) {
   align-items: center;
   gap: 8px;
   margin-inline-start: auto;
+  /* Clearance above the band's underline — the tabs sit ON the line via
+     their -2px pull; the floating actions lift the same 2px instead of
+     hugging it. */
+  margin-bottom: 2px;
 }
 .info-actions-sep {
   align-self: center;
@@ -1403,6 +1408,8 @@ body:has(.modal-overlay.open) {
   display: none;
   flex: 0 0 auto;
   margin-inline-start: auto;
+  /* same clearance as .info-actions above the band's underline */
+  margin-bottom: 2px;
 }
 @media (max-width: 600px) {
   .info-actions-toggle {

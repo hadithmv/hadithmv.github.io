@@ -239,8 +239,11 @@ function wireShell(container) {
     '<input id="infoSearchInput" type="search" class="search-input info-search-input" autocomplete="off" />' +
     '<button type="button" id="infoSearchClear" class="search-clear-btn" title="Clear search" aria-label="Clear search">✕</button>' +
     '</div>' +
-    '<button type="button" id="infoSearchPrev" class="info-search-nav" title="Previous match (Shift+Enter)" aria-label="Previous match" disabled>&#8593;</button>' +
-    '<button type="button" id="infoSearchNext" class="info-search-nav" title="Next match (Enter)" aria-label="Next match" disabled>&#8595;</button>' +
+    // Match stepping wears the scroll-row triangle style (▲ ▼) while
+    // keeping the up/down semantics: previous match = up, next = down.
+    // Direction-neutral, so no RTL mirroring is needed.
+    '<button type="button" id="infoSearchPrev" class="info-search-nav" title="Previous match (Shift+Enter)" aria-label="Previous match" disabled>&#9650;</button>' +
+    '<button type="button" id="infoSearchNext" class="info-search-nav" title="Next match (Enter)" aria-label="Next match" disabled>&#9660;</button>' +
     '<span id="infoSearchCount" class="info-search-count"></span>' +
     "</div>" +
     '<div class="info-pane" id="infoPane"></div>';
