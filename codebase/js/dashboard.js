@@ -163,8 +163,9 @@ function renderDashboard(bookNames) {
   // least one field, in any order. Hyphens and whitespace are stripped from
   // both sides, so "RDF-rasmee" and "rdfrasmee" find the same book.
   // Always-fuzzy, exact-ranked: a token scores 0 on an exact hit anywhere
-  // (including the code), or 1–2 when it lands within 1–2 edits of a title
-  // or tag word (scoreFilterTokens). The code is exact-only — a 2-edit
+  // (including the code), or 1–2 when it lands within a length-scaled edit
+  // distance of a title or tag word (scoreFilterTokens: 4–5 char tokens →
+  // 1 edit, 6+ → 2, shorter exact-only). The code is exact-only — a 2-edit
   // match on a code is a different book. Books with a token matching
   // nothing are dropped; survivors sort by score below.
   var q = _dashFilter.search.trim();

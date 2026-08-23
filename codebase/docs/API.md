@@ -299,7 +299,7 @@ parseQuery("الله -رسول .سلام col:2:بسم");
 | `word` | Normal substring match |
 | `.word` | Whole‑word match |
 | `-word` | Exclude |
-| `~word~` | Fuzzy (Levenshtein ≤ 2) |
+| `~word~` | Fuzzy — tolerance scales with the word's length: 4–5 chars → 1 edit, 6+ → 2 edits. Shorter terms are exact (a 2‑edit budget is longer than a 1–3 char word itself); wildcards still cover them. |
 | `*` / `?` | Wildcard (any / one char) |
 | `col:N:word` | Scope to column N |
 | `/pattern/flags` | Explicit regex — the pattern is normalised like any term (regexes test the normalised text) |

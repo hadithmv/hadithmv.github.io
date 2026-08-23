@@ -659,12 +659,30 @@ function deferFacetFocus(filterEl, overlayEl) {
     parseFloat(
       getComputedStyle(document.documentElement).getPropertyValue("--t-pop"),
     ) || 0.2;
+  // The overlay's pop transition keeps it computed as visibility:hidden for
+  // its whole duration, and Blink silently drops every focus() called in
+  // that window. One attempt at the fixed deadline above usually lands past
+  // it — but under a busy main thread the style recalc can lag the timer,
+  // both attempts get dropped, and the caret never reaches the filter (the
+  // modal sits open with focus wherever it was before). Retry on a short
+  // poll until the overlay is actually visible — keyed on the real
+  // condition, not the timer — then focus (give up past ~1s).
   window.setTimeout(
     function () {
       if (!overlayEl.classList.contains("open")) return;
-      try {
-        filterEl.focus();
-      } catch (_) {}
+      var tries = 0;
+      (function retry() {
+        if (!overlayEl.classList.contains("open")) return;
+        var vis = getComputedStyle(overlayEl).visibility;
+        if (vis === "visible" || tries >= 25) {
+          try {
+            filterEl.focus();
+          } catch (_) {}
+          return;
+        }
+        tries++;
+        window.setTimeout(retry, 40);
+      })();
     },
     pop * 1000 + 10,
   );

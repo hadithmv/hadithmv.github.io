@@ -350,7 +350,8 @@ export function renderScopePopover() {
   // registry's file order, which is also the palette/display order); a
   // group label whose books were all claimed by earlier groups is skipped.
   // The filter is always-fuzzy, exact-ranked (scoreFilterTokens, same as
-  // the dashboard box): titles + tag words may match within 1–2 edits, the
+  // the dashboard box): titles + tag words may match within a length-scaled
+  // edit distance (4–5 chars → 1 edit, 6+ → 2, shorter exact-only), the
   // code is exact-only — a 2-edit match on a code is a different book.
   // Exact hits float to the top of their group; the sort is stable, so
   // equal scores keep the registry's hand-set display order.

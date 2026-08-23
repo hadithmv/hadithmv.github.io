@@ -221,7 +221,17 @@ function compileTerm(term, wholeWord, fuzzyFlag) {
 /** Match a pre-normalised cell against a compiled term. */
 function matchCompiled(normText, term) {
   if (!term.nterm) return false;
-  if (term.fuzzy) return fuzzyMatch(normText, term.fuzzyTerm, 2);
+  if (term.fuzzy) {
+    // Fuzzy tolerance scales with the pattern's length (same gate as the
+    // book filters below): a flat 2-edit budget is longer than a 1–3 char
+    // pattern itself, so ~قرأ~ used to match every row of every book.
+    // Under 4 chars → exact substring only — no fuzzy, but the search
+    // still works (wildcards cover fuzzy needs for very short patterns);
+    // 4–5 chars → 1 edit; 6+ chars → 2 edits.
+    var fLen = term.fuzzyTerm.length;
+    if (fLen < 4) return normText.indexOf(term.fuzzyTerm) !== -1;
+    return fuzzyMatch(normText, term.fuzzyTerm, fLen < 6 ? 1 : 2);
+  }
   if (term.re) return term.re.test(normText);
   return normText.indexOf(term.nterm) !== -1;
 }
@@ -229,16 +239,20 @@ function matchCompiled(normText, term) {
 function fuzzyMatch(text, pattern, maxDist) {
   var tLen = text.length;
   var pLen = pattern.length;
-  // Text too short to hold the pattern within the edit budget.
-  if (tLen < pLen - maxDist) return false;
+  // Text too short to hold the pattern within the edit budget. Windows
+  // must keep nearly the pattern's length — at most maxDist−1 chars
+  // shorter — so a one-deletion typo ("qurn" → "quran") still matches,
+  // but a short residue never does. A flat |pLen − maxDist| floor let
+  // "qurn" match by deleting half of it: any two letters roughly in
+  // order matched anything, which is how 1–2 char terms hit every book.
+  if (tLen < pLen - maxDist + 1) return false;
   // Substring-fuzzy: try every window whose length is within the edit
   // budget of the pattern's length. (The old loop only took pLen+maxDist
   // windows, so a pattern one edit from an exact-length substring was
   // never found — the surplus chars ate the budget before the DP ran —
   // and the old |tLen - pLen| guard killed every match on cells more
   // than maxDist chars longer than the pattern, i.e. ~all real cells.)
-  var minLen = pLen - maxDist;
-  if (minLen < 0) minLen = 0;
+  var minLen = pLen - maxDist + 1;
   var maxLen = pLen + maxDist;
   for (var s = 0; s < tLen - minLen + 1; s++) {
     var eMax = Math.min(tLen, s + maxLen);
@@ -273,8 +287,10 @@ function levenshtein(a, b, max) {
 // Shared scoring for the book-list filter boxes (dashboard search box,
 // library scope picker). Always-fuzzy, exact-ranked: each query token
 // scores 0 on an exact (substring) hit in any text field or the code, or
-// 1–2 when it lands within Levenshtein distance 1–2 of a *text* field
-// (titles, tag words). Codes are exact-only — they are machine names,
+// 1–2 when it lands within a *length-scaled* Levenshtein distance of a
+// *text* field (titles, tag words): 4–5 char tokens tolerate 1 edit,
+// 6+ tolerate 2, shorter tokens are exact-only — the same gate as the
+// engine's ~term~ above. Codes are exact-only — they are machine names,
 // and a 2-edit match on a code is a different book. Callers keep books
 // whose tokens all matched and sort by the returned score (exact hits
 // first, near-misses below, then the caller's own order).
@@ -283,8 +299,14 @@ function levenshtein(a, b, max) {
 function scoreOne(token, text) {
   if (!text) return -1;
   if (text.indexOf(token) !== -1) return 0;
+  // Same length-scaling as the engine's ~term~ above: fuzzy is noise on
+  // short tokens (a 2-edit budget is longer than a 3-char pattern), so
+  // tokens under 4 chars are exact-only, and the 2-edit tier exists only
+  // for 6+ — 4–5 chars are single-edit territory, and the tier must not
+  // award score 2 for a distance the pattern can't afford.
+  if (token.length < 4) return -1;
   if (fuzzyMatch(text, token, 1)) return 1;
-  if (fuzzyMatch(text, token, 2)) return 2;
+  if (token.length >= 6 && fuzzyMatch(text, token, 2)) return 2;
   return -1;
 }
 
@@ -325,7 +347,8 @@ export function scoreFilterTokens(tokens, textFields, codeText) {
  *   word         – normal match
  *   .word        – whole‑word match
  *   -word        – exclude
- *   ~word~        – fuzzy (1–2 char tolerance)
+ *   ~word~        – fuzzy (tolerance scales with length: 4–5 chars → 1
+ *                  edit, 6+ → 2; shorter terms are exact)
  *   * / ?        – wildcard
  *   col:N:word   – scope to column N
  *   /pattern/fl  – explicit regex (the pattern is normalised like any
