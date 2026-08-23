@@ -1211,6 +1211,14 @@ body:has(.modal-overlay.open) {
 .info-search-nav:hover:not(:disabled) {
   border-color: var(--color-card-hover-border);
 }
+/* The ▲▼ pair reads as one stepper: the row's 10px gap is right for the
+   count slot and input, but between the two triangles it's a moat
+   (the glyphs are ~16px inside 35px boxes, so 10px reads as ~29px of
+   whitespace shape-to-shape). Pull the pair to 2px — logical margin,
+   so the RTL modal mirrors it for free. */
+.info-search-nav + .info-search-nav {
+  margin-inline-start: -8px;
+}
 .info-search-nav:disabled {
   opacity: 0.45;
   cursor: default;
