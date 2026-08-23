@@ -10,7 +10,10 @@
 #collapsibleReaderPanel {
   display: grid;
   grid-template-rows: 1fr;
-  /* margin-top: var(--section-gap, 6px); */
+  /* The search row → toolbar gap — same 6px as the row-to-row gaps
+     (the dashboard's collapsible keeps this rule active; focus mode
+     overrides it to 0 below). */
+  margin-top: var(--section-gap, 6px);
   transition:
     grid-template-rows var(--t-panel, 0.3s)
       var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1)),
@@ -407,6 +410,14 @@
   position: relative;
   padding: 0 var(--arrow-gutter, 30px); /* room for 24px arrows + 6px gap on each side */
   overflow: hidden;
+}
+/* A row hidden with inline display:none (the Quran nav row on non-Quran
+   books, the RDF search row on every other book) stays inside its wrap —
+   the wrap keeps the row-to-row margin-top while collapsing to height 0,
+   which pads phantom air under the last visible toolbar row. Hide the
+   wrap along with its row (self-healing: showing the row re-shows it). */
+.horizontal-scroll-wrap:has(> .reader-panel-row[style*="display: none"]) {
+  display: none;
 }
 /* The row itself scrolls — wrap just provides arrow space */
 .horizontal-scroll-wrap .reader-panel-row {
