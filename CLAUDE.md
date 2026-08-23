@@ -45,6 +45,12 @@ Run these before declaring work done (from `codebase/`):
 
 - `node tools/hmv-qrn-smoke.mjs` — headless-Edge smoke battery over the QRN
   reader (paths/ports are in the script header; needs Microsoft Edge).
+- `node tools/hmv-info-check.mjs` — info-modal battery (title/author entry
+  points, tabs, markdown renderer, in-modal search, exports; ports in the
+  script header).
+- `node tools/hmv-authors-check.mjs` — Authors & Periods browse battery (the
+  shared facet system across library page, modals, dashboard, reader header).
+- `node tools/hmv-libscope-check.mjs` — library-scope picker battery.
 - `node tools/hmv-toc-scan.cjs` — reader.js TOC freshness scan.
 - JS syntax: `cat js/<file>.js | node --check --input-type=module -`
 - Expected values: **derive from the data files** via `js/csv.js` `parseCSV`
