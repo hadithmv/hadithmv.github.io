@@ -17,39 +17,43 @@ data/
   search-index.json             ← Generated word-level search index (word → books → rows)
   content/                      ← Per-book content files (incl. Quran base data)
     *.csv                       ← One file per book
-books/
-  index.html                    ← Dashboard — book list, search, tag filter, table/card view
-  reader.html                   ← Book viewer — loaded via ?book=CODE
-  library-search.html           ← Cross-book search page — shareable ?q=/?tags= URLs
-css/
-  common.css                    ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
-  reader.css                    ← Reader page: focus mode, toolbar, pagination, content, responsive
-  reader-search.css             ← Reader: search bar, results dropdown, advanced search
-  reader-table-view.css         ← Reader: table view mode, top scrollbar, sentinels
-  reader-quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
-  dashboard.css                 ← Dashboard: grid, cards, controls, table view
-  library-search.css            ← Library search page: results, peek previews
-js/
-  common.js                     ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
-  book-data.js                  ← Book metadata: registry + tag loaders, page bootstrap
-  pins-history.js               ← Pins & history: localStorage, modals, sidebar wiring
-  dashboard.js                  ← Dashboard UI: card/table grid, search, tags, sort, keyboard
-  reader.js                     ← Book viewer core: render, loaders, goTo, toolbar, keyboard, deep links
-  reader-position.js            ← Reader position: pagination strip, progress bar, URL sync, read-history
-  reader-search-ui.js           ← In-book search: results, history, whole-word toggle, advanced search
-  table-scroll-sync.js          ← Table view: top scrollbar, width sync, arrow/wheel scrolling
-  quran-data.js                 ← Quran: data, decoration, column registry
-  quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
-  csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
-  search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
-  library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine
-  library-search-page.js         ← Library search page UI: chips, results, peek previews
-  i18n.js                       ← Translations (dv/en/ar)
-  export.js                     ← Export feature: formats menu, downloads, lazy-loaded writers
-  export-xlsx.js                ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
-  export-epub.js                ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
-  export-zip.js                 ← Minimal ZIP writer (store), shared by the XLSX + EPUB writers
-font/                           ← Custom merged font (Arabic + Thaana + Latin)
+src/
+  books/
+    index.html                    ← Dashboard — book list, search, tag filter, table/card view
+    reader.html                   ← Book viewer — loaded via ?book=CODE
+    library-search.html           ← Cross-book search page — shareable ?q=/?tags= URLs
+  css/
+    common.css                    ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
+    reader.css                    ← Reader page: focus mode, toolbar, pagination, content, responsive
+    reader-search.css             ← Reader: search bar, results dropdown, advanced search
+    reader-table-view.css         ← Reader: table view mode, top scrollbar, sentinels
+    reader-quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
+    dashboard.css                 ← Dashboard: grid, cards, controls, table view
+    library-search.css            ← Library search page: results, peek previews
+  js/
+    common.js                     ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
+    book-data.js                  ← Book metadata: registry + tag loaders, page bootstrap
+    pins-history.js               ← Pins & history: localStorage, modals, sidebar wiring
+    dashboard.js                  ← Dashboard UI: card/table grid, search, tags, sort, keyboard
+    reader.js                     ← Book viewer core: render, loaders, goTo, toolbar, keyboard, deep links
+    reader-position.js            ← Reader position: pagination strip, progress bar, URL sync, read-history
+    reader-search-ui.js           ← In-book search: results, history, whole-word toggle, advanced search
+    table-scroll-sync.js          ← Table view: top scrollbar, width sync, arrow/wheel scrolling
+    quran-data.js                 ← Quran: data, decoration, column registry
+    quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
+    csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
+    search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
+    library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine
+    library-search-page.js        ← Library search page UI: chips, results, peek previews
+    i18n.js                       ← Translations (dv/en/ar)
+    export.js                     ← Export feature: formats menu, downloads, lazy-loaded writers
+    export-xlsx.js                ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
+    export-epub.js                ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
+    export-zip.js                 ← Minimal ZIP writer (store), shared by the XLSX + EPUB writers
+static/
+  font/                           ← Custom merged font (Arabic + Thaana + Latin)
+  notes/                          ← Markdown book notes & author bios for the info modal
+dist/                           ← Generated: minified js/css + verbatim books (tools/build.mjs) — gitignored, rebuilt each run
 docs/                           ← User guide, architecture, API reference
 ```
 
@@ -66,7 +70,7 @@ docs/                           ← User guide, architecture, API reference
 
 1. Create the data file at `data/content/FQH-usululFiqh.csv`.
 
-1. Open `books/index.html?book=FQH-usululFiqh` — the book appears. The dashboard at `books/index.html` picks it up automatically.
+1. Open `src/books/index.html?book=FQH-usululFiqh` — the book appears. The dashboard at `src/books/index.html` picks it up automatically.
 
 ### Add a new tag category
 
@@ -109,14 +113,14 @@ Note the first row's `bodyAR` cell spans two lines — quoted cells may contain 
 
 1. The page reads `?book=CODE` from the URL.
 1. `book-data.js` loads `03-registry-bookMeta.csv`, `01-registry-bookTags.csv` and `02-registry-bookAuthors.csv` for metadata, badges and author lines.
-1. `reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
+1. `src/js/reader.js` loads `data/content/{bookCode}.csv` via `fetch` + `parseCSV`.
 1. Content renders with infinite scroll — rows load as you scroll.
 
 **No book selected?** The dashboard shows all registered books as a card grid.
 
 ## Running locally
 
-The site is fully static — no build step, no dependencies. Serve the `codebase/` folder over HTTP (the data loads via `fetch`, which `file://` blocks):
+The site is fully static with zero runtime dependencies. Serve the `codebase/` folder over HTTP (the data loads via `fetch`, which `file://` blocks):
 
 ```bash
 cd codebase
@@ -124,13 +128,17 @@ python -m http.server 8000
 # or: npx serve .
 ```
 
-Then open `http://localhost:8000/books/index.html`.
+Then open `http://localhost:8000/src/books/index.html`.
+
+The optional build — `npm install` then `node tools/build.mjs` — emits the
+minified `dist/` for deployment; source and dist behave identically (see
+"Build (dist/)" in `docs/ARCHITECTURE.md`).
 
 ## Deploying
 
-This repo **is** the GitHub Pages site (`hadithmv.github.io`) — pushing to `main` deploys automatically. The app lives at `hadithmv.github.io/codebase/books/`.
+This repo **is** the GitHub Pages site (`hadithmv.github.io`) — pushing to `main` deploys automatically. The app lives at `hadithmv.github.io/codebase/src/books/`.
 
-**Version ritual:** the version string (e.g. `v6.9.85 (Web)`) lives in `js/i18n.js` under `appVersion` (shown in the sidebar footer and export headers). Bump it whenever you ship a release, and title the release commit `Update to vX.Y.Z`.
+**Version ritual:** the version string (e.g. `v6.9.85 (Web)`) lives in `src/js/i18n.js` under `appVersion` (shown in the sidebar footer and export headers). Bump it whenever you ship a release, and title the release commit `Update to vX.Y.Z`.
 
 ## Features
 
@@ -266,11 +274,11 @@ Three themes selectable from the settings modal: Light, Dark, and Sepia (warm cr
 
 ### Exports
 
-All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`js/export-xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`js/export-epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures only the currently visible row (2× resolution) with the Hadithmv font embedded — one row, not the whole book. While an export is preparing, the Export button shows a "Preparing…" label and is disabled — large exports (54k rows, EPUB + font) take seconds, and the busy state prevents duplicate downloads from double-clicks.
+All text formats include book title, URL, Hadithmv, and version. TOON uses the expanded list form (`[N]:` root array). Excel uses a lazy-loaded inline writer (`src/js/export-xlsx.js`, ~2.5 KB). EPUB uses a lazy-loaded e-book writer (`src/js/export-epub.js`, ~4 KB) with embedded Hadithmv font. PNG captures only the currently visible row (2× resolution) with the Hadithmv font embedded — one row, not the whole book. While an export is preparing, the Export button shows a "Preparing…" label and is disabled — large exports (54k rows, EPUB + font) take seconds, and the busy state prevents duplicate downloads from double-clicks.
 
 ### Internationalisation
 
-All UI strings in [`js/i18n.js`](js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. **Tooltips and error messages are English-only and never translated.** Every button should have a tooltip; if it has a keyboard shortcut, the shortcut is noted in the tooltip with the key in title case (e.g. `title="Toggle focus (Alt+Z)"`, `Ctrl+B`, `Ctrl+Shift+F`).
+All UI strings in [`src/js/i18n.js`](src/js/i18n.js) with `dv`, `en`, and `ar` translations. Static HTML uses `data-i18n` attributes; dynamic text uses `t()`. Language select in the settings modal. Persisted to `localStorage`. **Tooltips and error messages are English-only and never translated.** Every button should have a tooltip; if it has a keyboard shortcut, the shortcut is noted in the tooltip with the key in title case (e.g. `title="Toggle focus (Alt+Z)"`, `Ctrl+B`, `Ctrl+Shift+F`).
 
 ## Error handling
 
@@ -280,12 +288,12 @@ All errors show visible messages in English, with a ⚠️ Error: prefix on erro
 
 ## Dependencies
 
-Zero external dependencies. No CDN, no build step:
+Zero runtime dependencies. No CDN — everything ships from the repo (the only devDependency is esbuild, used by the optional `dist/` build):
 
-- `js/csv.js` — tiny CSV parser (~1 KB), handles quoted fields and multiline values
-- `js/export-xlsx.js` — inline XLSX writer (~2.5 KB), lazy-loaded only when exporting to Excel
-- `js/export-epub.js` — inline EPUB 3 e-book writer (~4 KB), lazy-loaded only when exporting to EPUB
-- `js/export-zip.js` — minimal store-only ZIP writer (~1.5 KB), shared by the XLSX and EPUB writers
+- `src/js/csv.js` — tiny CSV parser (~1 KB), handles quoted fields and multiline values
+- `src/js/export-xlsx.js` — inline XLSX writer (~2.5 KB), lazy-loaded only when exporting to Excel
+- `src/js/export-epub.js` — inline EPUB 3 e-book writer (~4 KB), lazy-loaded only when exporting to EPUB
+- `src/js/export-zip.js` — minimal store-only ZIP writer (~1.5 KB), shared by the XLSX and EPUB writers
 
 ## Documentation
 

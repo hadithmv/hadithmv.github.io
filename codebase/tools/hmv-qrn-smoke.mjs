@@ -24,12 +24,13 @@ import path from "path";
 import { spawn } from "child_process";
 import { pathToFileURL } from "url";
 
-const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "csv.js")));
+const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "csv.js")));
 
 // Machine-specific: path to Microsoft Edge. Adjust per machine/OS.
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
-const ROOT = baseDir + "/../books/";
+const IS_DIST = process.argv.includes("--dist");
+const ROOT = baseDir + (IS_DIST ? "/../dist/books/" : "/../src/books/");
 const DATA = baseDir + "/../data/";
 const PORT = process.env.HMV_SMOKE_PORT ? parseInt(process.env.HMV_SMOKE_PORT, 10) : 9353;
 const PROFILE = process.env.HMV_SMOKE_PROFILE || (process.env.TEMP + "\\hmv-qrn-smoke-profile");

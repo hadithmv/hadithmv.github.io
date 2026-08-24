@@ -674,7 +674,7 @@ const STRINGS = {
   // ── Column display labels (selection chrome only — the advanced-search
   // column dropdown and the column toggle buttons). Table/card headers keep
   // their raw CSV identifiers; these names are for the controls that pick
-  // columns. Keys are consumed by js/column-labels.js, which resolves a
+  // columns. Keys are consumed by src/js/column-labels.js, which resolves a
   // header like "bodyDV" into colBody + colLangDV ("Body (Dhivehi)").
   colBody: { dv: "މައިލިޔުން", en: "Body", ar: "المتن" },
   colHead: { dv: "ސުރުހީ", en: "Heading", ar: "العنوان" },

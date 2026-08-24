@@ -1,6 +1,6 @@
 /**
  * Library Search Page Module (books/library-search.html)
- * Cross-book search UI — the engine itself lives in js/library-search-engine.js
+ * Cross-book search UI — the engine itself lives in src/js/library-search-engine.js
  * (pure module: loadSearchIndex / searchLibrary / tokenizeText) and the word
  * index in data/search-index.json (built by data/08-rebuild-searchIndex.mjs).
  *
@@ -78,7 +78,7 @@ import {
 } from "./facet-browse.js";
 
 // ── Page state ───────────────────────────────────────────────
-// The author/period facet state lives in js/facet-browse.js (shared with the
+// The author/period facet state lives in src/js/facet-browse.js (shared with the
 // dashboard and search window); this page keeps its tags, query and scope.
 var _bookNames = null; // full registry (incl. -HDN books)
 var _q = ""; // current query (trimmed)
@@ -158,7 +158,7 @@ function syncURL() {
 
 // ── Author + period helpers ──────────────────────────────────
 // The author/period state, chips and browse modals live in the shared
-// js/facet-browse.js module — this page only keeps its visible-book set.
+// src/js/facet-browse.js module — this page only keeps its visible-book set.
 /** Visible books only (-HDN excluded) — the set the grid filters. */
 function visibleBooks() {
   return (_bookNames || []).filter(function (b) {
@@ -232,7 +232,7 @@ function onChipsClick(e) {
 }
 
 // ── Book-scope picker (wiring) ───────────────────────────────
-// The picker's machinery lives in js/library-scope-picker.js — state
+// The picker's machinery lives in src/js/library-scope-picker.js — state
 // (_selectedBooks/_searchableBooks/_bookByCode/_scopeFilter), the shell
 // renderer, the popover, and the selection helpers. The page owns the modal
 // (createModal/openModal), the button, and what happens on change.
@@ -277,7 +277,7 @@ function openScopeModal() {
 // ── Authors + Periods browse ─────────────────────────────────
 // The browse modals (filter input + sticky-header table, trilingual rows
 // with Arabic names) and the openAuthorsModal / openPeriodsModal entry points
-// live in the shared js/facet-browse.js module — one surface on every page.
+// live in the shared src/js/facet-browse.js module — one surface on every page.
 
 // ── Search ───────────────────────────────────────────────────
 /**

@@ -1,4 +1,4 @@
-// Authors & Periods browse battery — the shared facet system (js/facet-browse.js)
+// Authors & Periods browse battery — the shared facet system (src/js/facet-browse.js)
 // on every surface: library-search page chips + modals, dashboard functions
 // panel + deep links, search window's All-books section, and the author line
 // on cards + reader header (a dash-separated link to the filtered dashboard).
@@ -46,7 +46,7 @@ import path from "path";
 import { spawn } from "child_process";
 import { pathToFileURL } from "url";
 
-const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "csv.js")));
+const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "csv.js")));
 
 // The Gregorian equivalent of an AH year — the same approximation as
 // facet-browse.js's periodRangeCeText (1 Hijri year ≈ 0.970229 solar years,
@@ -56,7 +56,8 @@ const ceFromAh = (ah) => Math.round(ah * 0.970229 + 621.57);
 // Machine-specific: path to Microsoft Edge. Adjust per machine/OS.
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
-const ROOT = baseDir + "/../books/";
+const IS_DIST = process.argv.includes("--dist");
+const ROOT = baseDir + (IS_DIST ? "/../dist/books/" : "/../src/books/");
 const DATA = baseDir + "/../data/";
 const PORT = process.env.HMV_AUTHORS_PORT ? parseInt(process.env.HMV_AUTHORS_PORT, 10) : 9361;
 const PROFILE = process.env.HMV_AUTHORS_PROFILE || (process.env.TEMP + "\\hmv-authors-check-profile");

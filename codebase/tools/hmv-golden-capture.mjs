@@ -1,6 +1,6 @@
 // Golden capture for the reader's file-based exports — Word (.doc),
 // HTML Book (.html), EPUB (.epub) blob bytes plus the PDF popup's document
-// HTML. Run BEFORE refactoring js/export.js: the captured bytes are the
+// HTML. Run BEFORE refactoring src/js/export.js: the captured bytes are the
 // byte-identity contract for the Phase 2 shared-builder refactor, and
 // hmv-info-check.mjs's S8b re-captures the Word export and diffs it against
 // tools/golden/reader-word.doc.
@@ -21,7 +21,7 @@ import { spawn } from "child_process";
 // Machine-specific: path to Microsoft Edge. Adjust per machine/OS.
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
-const ROOT = baseDir + "/../books/";
+const ROOT = baseDir + "/../src/books/";
 const PORT = process.env.HMV_CAPTURE_PORT ? parseInt(process.env.HMV_CAPTURE_PORT, 10) : 9362;
 const PROFILE = process.env.HMV_CAPTURE_PROFILE || (process.env.TEMP + "\\hmv-golden-capture-profile");
 const GOLDEN = path.join(baseDir, "golden");

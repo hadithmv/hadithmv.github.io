@@ -1,6 +1,9 @@
 node_modules
 _site/
 
+# Build output — regenerated fresh by codebase/tools/build.mjs each run, cannot drift
+/codebase/dist/
+
 
 
 # Custom rules for ignoring specific files in the notes directory

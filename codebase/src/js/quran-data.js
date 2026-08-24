@@ -91,7 +91,7 @@ export function getJuzStartRow(juzNo) {
 // 30-row juz start table (06-registry-quranJuz.csv).
 export function loadJuzTable() {
   if (_juzTableCache) return Promise.resolve(_juzTableCache);
-  return fetchCSVRows("../data/06-registry-quranJuz.csv").then(function (rows) {
+  return fetchCSVRows("../../data/06-registry-quranJuz.csv").then(function (rows) {
     if (rows.length > 0) rows.shift(); // strip header row
     _juzTableCache = rows.map(function (r) {
       return {
@@ -180,7 +180,7 @@ export function loadQuranBaseData() {
 
 export function loadSurahNames() {
   if (_surahNamesCache) return Promise.resolve(_surahNamesCache);
-  return fetchCSVRows("../data/05-registry-quranSurahs.csv").then(
+  return fetchCSVRows("../../data/05-registry-quranSurahs.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       var header = rows.shift(); // surahNo,nameAR,nameDV,nameEN,ayahCount,basmalah
@@ -320,7 +320,7 @@ export function loadQuranBookCSV(bookCode) {
   // parse (and the cache) so the by-index merge in mergeQuranData stays
   // aligned with the base file. The base files (QRN-DATA-*) have no blank
   // rows, so keeping them here is a no-op for those.
-  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../data/content/" + bookCode + ".csv", true).then(function (rows) {
+  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../../data/content/" + bookCode + ".csv", true).then(function (rows) {
     if (rows.length === 0) return { headerRow: [], allData: [] };
     var headerRow = rows.shift();
     _bookCsvCache = { bookCode: bookCode, headerRow: headerRow, allData: rows };
@@ -490,7 +490,7 @@ export function applyColumnOrder(state) {
 
 export function loadColumnRegistry() {
   if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
-  return fetchCSVRows("../data/07-registry-quranColumns.csv").then(
+  return fetchCSVRows("../../data/07-registry-quranColumns.csv").then(
     function (rows) {
       if (rows.length === 0) return [];
       rows.shift(); // strip header
@@ -536,7 +536,7 @@ export function getColumnSourceBook(colIndex) {
 
 // The full {sourceBook, sourceCol} pair a column was loaded from (null for
 // unmapped columns — regular books, or base data before the merge builds
-// the map). Consumed by js/column-labels.js to look up registry labels.
+// the map). Consumed by src/js/column-labels.js to look up registry labels.
 export function getColumnSource(colIndex) {
   if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
   return _columnSourceMap[colIndex];

@@ -15,7 +15,7 @@
  *   YES → common.js    NO → the owning module
  */
 
-import { initI18n, setLanguage, t, tagLabel } from "../js/i18n.js";
+import { initI18n, setLanguage, t, tagLabel } from "./i18n.js";
 
 // ── Shared localStorage keys ─────────────────────────────────
 window.LS_KEYS = {

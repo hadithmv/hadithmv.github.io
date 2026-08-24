@@ -1,5 +1,5 @@
 // Header-coverage scan: every CSV header in data/content/ must be fully
-// mappable to a display label by js/column-labels.js. It walks all content
+// mappable to a display label by src/js/column-labels.js. It walks all content
 // files, tokenizes each header with the SAME tokenizer the mapper uses, and
 // reports any header whose tokens the mapper does not know (those would
 // silently fall back to the raw identifier in the advanced-search dropdown
@@ -8,8 +8,8 @@
 // Usage: node tools/hmv-header-scan.mjs
 // Exit:  0 = all headers mapped, 1 = unknown tokens (or a data problem)
 //
-// When this reports an unknown token, add it to js/column-tokens.js (and a
-// col* entry in js/i18n.js) or to DELIBERATE_RAW below if it must stay raw.
+// When this reports an unknown token, add it to src/js/column-tokens.js (and a
+// col* entry in src/js/i18n.js) or to DELIBERATE_RAW below if it must stay raw.
 //
 // DELIBERATE_RAW: headers we intentionally leave as raw text. Today: none —
 // the trailing empty field in IH-manKhalaqaniWaLimaza.csv never reaches the
@@ -18,8 +18,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { unknownTokens } from "../js/column-tokens.js";
-import { parseCSV } from "../js/csv.js";
+import { unknownTokens } from "../src/js/column-tokens.js";
+import { parseCSV } from "../src/js/csv.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CONTENT_DIR = path.join(ROOT, "data", "content");
@@ -70,7 +70,7 @@ console.log(
 );
 if (failures) {
   console.log(
-    "Fix: add tokens to js/column-labels.js (with col* labels in js/i18n.js), " +
+    "Fix: add tokens to src/js/column-labels.js (with col* labels in src/js/i18n.js), " +
     "or list the header in DELIBERATE_RAW with a reason."
   );
   process.exit(1);

@@ -10,7 +10,8 @@ import { spawn, execSync } from "child_process";
 import { pathToFileURL } from "url";
 
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
-const ROOT = baseDir + "/../books/";
+const IS_DIST = process.argv.includes("--dist");
+const ROOT = baseDir + (IS_DIST ? "/../dist/books/" : "/../src/books/");
 const PORT = process.env.HMV_SCOPE_PORT ? parseInt(process.env.HMV_SCOPE_PORT, 10) : 9357;
 const PROFILE = process.env.TEMP + "\\hmv-scope-profile-" + Date.now();
 
@@ -153,7 +154,7 @@ async function main() {
       var rgb = 'rgb(' + parseInt(m[1], 16) + ', ' + parseInt(m[2], 16) + ', ' + parseInt(m[3], 16) + ')';
       return s.color === rgb && s.fontSize === getComputedStyle(document.getElementById('libScopeFilter')).fontSize;
     })()`)) === true);
-    // expectation mirrors js/i18n.js libScopeTitle.en
+    // expectation mirrors src/js/i18n.js libScopeTitle.en
     check("S2 modal title", (await evalJS(`document.getElementById('libScopeModalTitle').textContent`)) === "Select books to search in", await evalJS(`document.getElementById('libScopeModalTitle').textContent`));
     check("S2 count shows total (unscoped)", (await evalJS(`document.getElementById('libScopeCount').textContent`)) === rows2 + " books", await evalJS(`document.getElementById('libScopeCount').textContent`));
     check("S2 filter uses the shared input style", (await evalJS(`(function () {

@@ -8,13 +8,13 @@ import path from "path";
 import { spawn, execSync } from "child_process";
 import { pathToFileURL } from "url";
 
-const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "csv.js")));
-const { formatThousands } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "search-utils.js")));
-const { parseQuery, compileQuery, buildNormData, rowMatchesQueryNorm } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "search-utils.js")));
+const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "csv.js")));
+const { formatThousands } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "search-utils.js")));
+const { parseQuery, compileQuery, buildNormData, rowMatchesQueryNorm } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "search-utils.js")));
 
 // ── expected values straight from the data files (app's own parser) ──
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
-const ROOT = baseDir + "/../books/";
+const ROOT = baseDir + "/../src/books/";
 const DATA = baseDir + "/../data/";
 const PORT = process.env.HMV_PROBE_PORT ? parseInt(process.env.HMV_PROBE_PORT, 10) : 9354;
 // Unique per run — a crashed run may leave the browser alive holding its
@@ -52,7 +52,7 @@ const rows02Header = rows02.shift();
 const TITLE_DV_COL = rows02Header.indexOf("titleDV");
 const title = (code) => { const r = rows02.find((x) => x[0] === code); return r ? r[TITLE_DV_COL] : ""; };
 
-const src = fs.readFileSync(baseDir + "/../js/radheef-merge.js", "utf8");
+const src = fs.readFileSync(baseDir + "/../src/js/radheef-merge.js", "utf8");
 const m = src.match(/MERGED_SOURCES\s*=\s*\[([\s\S]*?)\]/);
 const CODES = [...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]);
 const HEADERS = ["wordAR", "wordDV", "wordEN", "meanAR", "meanDV", "meanEN", "source"];

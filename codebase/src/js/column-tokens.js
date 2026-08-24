@@ -2,13 +2,13 @@
  * Column Token Tables
  *
  * Pure data + tokenizer shared by two consumers:
- *   - js/column-labels.js  — resolves reader columns to display labels
+ *   - src/js/column-labels.js  — resolves reader columns to display labels
  *   - tools/hmv-header-scan.mjs — diffs every content CSV header against
  *     these tables and reports unmapped tokens
  *
  * Kept free of imports (and therefore Node-safe) so the scan can import
  * exactly the tables the mapper uses — a re-copy would drift. Labels for
- * the i18n keys below live in js/i18n.js as col* entries.
+ * the i18n keys below live in src/js/i18n.js as col* entries.
  */
 
 // Exact whole-header matches (checked BEFORE tokenization). Keys are

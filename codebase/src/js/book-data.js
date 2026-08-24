@@ -64,7 +64,7 @@ export async function loadTagDefinitions() {
   }
 
   try {
-    var result = await fetchCSVObjects("../data/01-registry-bookTags.csv");
+    var result = await fetchCSVObjects("../../data/01-registry-bookTags.csv");
 
     // Generate palette CSS with enough slots (tags + headroom)
     var tagCount = 0;
@@ -181,7 +181,7 @@ export async function loadAuthorDefinitions() {
     return _authorDefinitionsCache;
   }
   try {
-    var result = await fetchCSVObjects("../data/02-registry-bookAuthors.csv");
+    var result = await fetchCSVObjects("../../data/02-registry-bookAuthors.csv");
     _authorDefinitionsCache = {};
     for (var i = 0; i < result.length; i++) {
       var row = result[i];
@@ -422,7 +422,7 @@ export async function loadBookRegistry() {
   }
 
   try {
-    _bookNamesCache = await fetchCSVObjects("../data/03-registry-bookMeta.csv");
+    _bookNamesCache = await fetchCSVObjects("../../data/03-registry-bookMeta.csv");
     return _bookNamesCache;
   } catch (error) {
     console.error("Error loading 03-registry-bookMeta.csv:", error);
@@ -496,7 +496,7 @@ export { extractTags };
  * @returns {string} Path to the CSV file in data folder
  */
 export function getCsvPath(bookCode) {
-  return `../data/content/${bookCode}.csv`;
+  return `../../data/content/${bookCode}.csv`;
 }
 
 import { addPin, removePin, isPinned, addReadHistory, evictCandidateName } from "./pins-history.js";

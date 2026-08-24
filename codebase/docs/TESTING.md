@@ -52,7 +52,12 @@ comma in Dhivehi/Arabic, on cards and header alike), and the search
 window's All-books facet section (modals stack over the window).
 The info-modal battery lives at `../tools/hmv-info-check.mjs`
 (`node tools/hmv-info-check.mjs`; `HMV_INFO_PORT` / `HMV_INFO_PROFILE` env
-vars override the defaults) — it drives both entry points on the reader
+vars override the defaults). The four page batteries (info, authors,
+libscope, qrn-smoke) take `--dist` to run against the built `dist/` tree
+(after `node tools/build.mjs`) — the page root repoints to `dist/books/`
+while `static/`/`data/` stay siblings, and S8b's golden comparison
+normalises the embedded tree name so minified output is still byte-checked
+(`src/` runs stay the byte-identity baseline). It drives both entry points on the reader
 (title click + Alt+I → Book tab, author line → Author tab) and the
 authors-modal ℹ affordance (stacking, Escape order), the fact strips
 (data-derived via `parseCSV`), the markdown renderer against the notes
@@ -69,7 +74,7 @@ four pane exports (blob-captured via a patched `URL.createObjectURL` —
 their title pages carry the info-page URL as a live `<a href>`, escaped
 in the bytes — and the reader's Word golden
 `tools/golden/reader-word.doc` is re-diffed as the S8b byte-identity
-guard on export.js's shared builders), the **books/info.html page** (S13:
+guard on export.js's shared builders), the **src/books/info.html page** (S13:
 `?author=`/`&tab=works`/`?book=` deep links render the same panes with no
 overlay and no content-CSV fetch — no derived-meta line — unknown codes
 show the placeholder, a bare visit the empty state (the shell tucked
@@ -97,11 +102,11 @@ busy-export "Preparing…" label swap.
 The column-label coverage scan lives at
 `../tools/hmv-header-scan.mjs` (`node tools/hmv-header-scan.mjs`): it walks
 every `data/content/*.csv` header and diffs it against the token tables in
-`js/column-tokens.js` (the same tables `js/column-labels.js` uses to derive
+`src/js/column-tokens.js` (the same tables `src/js/column-labels.js` uses to derive
 display labels for the advanced-search column dropdown and the column
 toggles). An unknown token means that header would silently fall back to
 its raw identifier in the selection chrome — add a token (plus a `col*`
-entry in `js/i18n.js`) or list it in `DELIBERATE_RAW` with a reason. Its
+entry in `src/js/i18n.js`) or list it in `DELIBERATE_RAW` with a reason. Its
 job: when a check fails, you know
 **in seconds** whether it is a product bug, a test-setup problem, or a
 pre-existing behavior that merely looks wrong — instead of spending an hour
@@ -140,7 +145,7 @@ Before touching product code, run this sequence:
 | PRESET_RESET does not restore a juz/surah slice | Reset only hides external columns (`quran-ui.js:509`); the filtered slice from navigation stays | Not a regression — confirm the slice behavior separately if it matters |
 | A Thaana term's first glyph looks chipped on a history item / result snippet / title / surah-search input | The Hadithmv webfont paints ~1–5px of **start-side ink past the pen origin** on horizontal Thaana letters (ސ, ޗ, … — alef has none). Any surface that clips (overflow-hidden, ellipsis, line-clamp, or an input's inner editor) cuts that overhang when the run's origin sits at the clip edge; the clip is invisible when the surface has a start inset. The fixed surfaces carry their insets (`.hist-text` 6px, `.search-result-snippet` 8px, `.quran-surah-search` `text-indent: 6px`, `#pageTitle` 8px) — the battery's section F asserts them | Computed styles, not pixels: section F of `hmv-qrn-smoke.mjs`, or `getComputedStyle(...).paddingInlineStart` / `.textIndent` on the four surfaces. A bare pixel probe needs a **clipped-vs-visible reference pair** (same box, overflow forced visible) — see the mirror traps below |
 | A security audit claims reflected XSS via `?q=` or unescaped cells | Not exploitable. Every `?q=` → innerHTML sink escapes (`input.value` is a property assignment; the no-matches line uses `escapeHTML(q)`; snippets pass through `highlightMatches`, which escapes text and `<mark>` content). Cells render raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>`/`<span>`/entities, e.g. `data/content/RDF-misc.csv`). The one raw-attribute spot (`data-q="…"` in library-search cards) can't fire: a payload must tokenize into real search-index words (`tokenizeText` splits on every non-letter/mark/number char; `searchLibrary` ANDs), and index words never contain `"`/`<` — zero `onmouseover`/`onerror`/`javascript:` tokens in any data file (verified 2026-08-10). Audit line numbers routinely don't match this codebase — re-anchor each citation to the working tree first | Trace each sink, then grep `data/` for the payload tokens (the engine's matching gate is decisive); if the payload can't match a row, it can't render. `escapeHTML` covers `& < > " '` — safe in text and quoted attributes |
-| `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 08-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
+| `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `src/js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 08-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
 | A **non-RDF** reader search leaves the table showing **all rows** | Search runs in the modal window (the header input exists for RDF books only) and — like the old dropdown — **never filters** `filteredData`; typing renders count + snippets in the window, clicking a result jumps the table to the row (`jumpToResultRow` in reader-search-ui.js). RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchWindowCount` in the window's pinned head row (`ނަތީޖާ: N` — no colon = the zero-result branch; the element exists from shell build, hidden/empty until a search runs), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
 | The **library window's** cards differ from the page's (no peek ▾, its own count) | The window renders the same `searchLibrary` results but **without peek toggles** (`resultCardHTML(..., withPeek=false)` — peek ids `btn-peek-CODE` would collide with the page's cards), inside `#searchWindowResults`. Scope changes from **either** surface re-run both (shared picker state fans out via the `libScopeChange` window event); the card↔list toggle re-renders the **cached** results — no re-search, no history write; the window copies the page's query once on open, then searches independently (the page's own input keeps working behind it) | Query `#searchWindowResults` for `.lib-result` (card) / `.search-window-book-link` (list), expect **0** `.lib-peek-toggle` there, and read the count from the head row's `#searchWindowCount`. After a scope tick both `#libResults` and the window re-render. The list view's deep links go to `reader.html?book=CODE&row=<firstRow>&q=…` |
 | A modal opens but `document.activeElement` never becomes what `openModal` focused | The overlay's pop transition (`--t-pop`, common.css:519-529) leaves the modal **computed as `visibility: hidden` for its whole duration** — Blink silently drops every `focus()` called in that window (getComputedStyle says hidden while the fade-in is actually painted). `openModal` (common.js) and the search window's `openSearchWindow` (search-window.js) defer their focus calls past it (~`--t-pop` + 10/30 ms) | `waitFor` the intended focus target (`document.activeElement.id === …`), never assert focus synchronously right after the `open` class appears |
@@ -361,7 +366,7 @@ blaming the product.
   live rules (`.modal-overlay` base, `.card` surface; `class="card book-card"`
   in dashboard.js:408, `class="card lib-result"` in library-search-page.js:381;
   both restored verbatim from HEAD). Correct procedure: (1) grep the bare class
-  token with word boundaries across `books/*.html` **and** `js/*.js`;
+  token with word boundaries across `src/books/*.html` **and** `src/js/*.js`;
   (2) watch pairs where a `.open`/`.hover`/`.active` variant survives but its
   base was deleted — the base is almost certainly still live; (3) re-serve and
   eyeball index + reader + library-search after any CSS sweep.
@@ -445,7 +450,7 @@ blaming the product.
 ## Assertion rules
 
 1. **Derive, never hardcode**: expected values come from the data files via
-   `js/csv.js` `parseCSV` (the app's parser — its trim semantics are the
+   `src/js/csv.js` `parseCSV` (the app's parser — its trim semantics are the
    byte-equality contract). Basmalah, surah starts, juz starts, labels,
    titles, ayah text — all file-derived.
 2. **Assert content, not widgets**: first-row imlai/basmalah cells against

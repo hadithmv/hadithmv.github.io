@@ -8,12 +8,12 @@
  * over the browse modal — Escape returns to it).
  *
  * Book tab: registry facts (titles, author, Hijri/Gregorian years, century,
- * age, tags) + optional markdown book notes from notes/works/<bookCode>.md.
+ * age, tags) + optional markdown book notes from static/notes/works/<bookCode>.md.
  * Author tab: fact strip (years/CE/century/age) + markdown bio from
- * notes/authors/<authorCode>.md (auto-TOC when it has 2+ headings).
+ * static/notes/authors/<authorCode>.md (auto-TOC when it has 2+ headings).
  * Works tab: the author's works (deep links into the reader) + a
  * dashboard "show all works" link — hidden when the modal has no author.
- * The same tabs + panes render as a standalone page (books/info.html) —
+ * The same tabs + panes render as a standalone page (src/books/info.html) —
  * the deep-link target behind the modal's exports and copy-link button:
  * ?book=CODE opens the Book pane, ?author=CODE the Author pane,
  * &tab=works the Works pane.
@@ -630,9 +630,9 @@ function renderBookTab(seq) {
       }
       // Notes (async — the pane shows the facts first, then the notes
       // section lands; the search re-runs when it does). All pages live in
-      // books/, so the notes root is one level up. The section label and
+      // src/books/, so the notes root is two levels up (../../static/notes).
       // its content share one card, the search modal's section look.
-      fetchNote("../notes/works/" + code + ".md").then(function (text) {
+      fetchNote("../../static/notes/works/" + code + ".md").then(function (text) {
         if (seq !== _renderSeq) return;
         var card = [
           '<div class="info-card">',
@@ -777,7 +777,7 @@ function showAuthorPane(seq, code) {
 
     // The bio section — label and content share one card, the search
     // modal's section look.
-    fetchNote("../notes/authors/" + code + ".md").then(function (text) {
+    fetchNote("../../static/notes/authors/" + code + ".md").then(function (text) {
       if (seq !== _renderSeq) return;
       var card = [
         '<div class="info-card">',

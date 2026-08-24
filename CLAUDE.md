@@ -52,8 +52,10 @@ Run these before declaring work done (from `codebase/`):
   shared facet system across library page, modals, dashboard, reader header).
 - `node tools/hmv-libscope-check.mjs` — library-scope picker battery.
 - `node tools/hmv-toc-scan.cjs` — reader.js TOC freshness scan.
-- JS syntax: `cat js/<file>.js | node --check --input-type=module -`
-- Expected values: **derive from the data files** via `js/csv.js` `parseCSV`
+- After `node tools/build.mjs`, run the four page batteries with `--dist` to
+  verify the built `dist/` (info, authors, libscope, qrn-smoke).
+- JS syntax: `cat src/js/<file>.js | node --check --input-type=module -`
+- Expected values: **derive from the data files** via `src/js/csv.js` `parseCSV`
   (the app's own parser — its trim semantics are the byte-equality contract).
   Never hardcode Arabic/Thaana strings.
 
@@ -64,7 +66,7 @@ the "keeping this guide alive" capture-at-discovery rule.
 
 ## Don't touch without approval
 
-- `js/table-scroll-sync.js` — the scrollbar sync mechanism.
+- `src/js/table-scroll-sync.js` — the scrollbar sync mechanism.
 - The user's real (non-headless) Edge browser. For headless runs always use a
   fresh `--user-data-dir` and kill only Edge processes with
   `--remote-debugging-port`/headless in their command line.

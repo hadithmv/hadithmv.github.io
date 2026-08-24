@@ -1,4 +1,4 @@
-// Book & Author info modal battery (js/book-info.js) — the two-tab modal on
+// Book & Author info modal battery (src/js/book-info.js) — the two-tab modal on
 // every entry point: reader book-title click (Book tab), reader author-line
 // click (Author tab), Alt+I, and the authors browse modal's per-row ℹ button
 // (stacked — Escape closes the info modal first, then the browse modal).
@@ -57,7 +57,7 @@ import path from "path";
 import { spawn } from "child_process";
 import { pathToFileURL } from "url";
 
-const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "js", "csv.js")));
+const { parseCSV } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "csv.js")));
 
 // The Gregorian equivalent of an AH year — the same approximation as
 // book-data.js's authorYearsCeText (1 Hijri year ≈ 0.970229 solar years,
@@ -69,9 +69,10 @@ const fmt = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 // Machine-specific: path to Microsoft Edge. Adjust per machine/OS.
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
-const ROOT = baseDir + "/../books/";
+const IS_DIST = process.argv.includes("--dist");
+const ROOT = baseDir + (IS_DIST ? "/../dist/books/" : "/../src/books/");
 const DATA = baseDir + "/../data/";
-const NOTES = baseDir + "/../notes/";
+const NOTES = baseDir + "/../static/notes/";
 const GOLDEN = path.join(baseDir, "golden");
 const PORT = process.env.HMV_INFO_PORT ? parseInt(process.env.HMV_INFO_PORT, 10) : 9365;
 const PROFILE = process.env.HMV_INFO_PROFILE || (process.env.TEMP + "\\hmv-info-check-profile");
@@ -679,7 +680,14 @@ async function main() {
   await waitBytes("application/msword", 20000);
   const readerWord = await capEntry("application/msword");
   const golden = fs.readFileSync(path.join(GOLDEN, "reader-word.doc"));
-  const live = readerWord ? Buffer.from(readerWord.bytes) : Buffer.alloc(0);
+  let live = readerWord ? Buffer.from(readerWord.bytes) : Buffer.alloc(0);
+  if (IS_DIST) {
+    // The export embeds the page's own location twice (page URL + info
+    // link); running from dist/ makes those read /dist/books/ instead of
+    // /src/books/. Normalise the tree name so the byte guard still proves
+    // the minified builders emit output identical to the golden's.
+    live = Buffer.from(live.toString("utf8").replace(/\/dist\/books\//g, "/src/books/"), "utf8");
+  }
   check("S8b reader Word export byte-identical to the golden", golden.equals(live),
     golden.length + " vs " + live.length + " bytes");
 

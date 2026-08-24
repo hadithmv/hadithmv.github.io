@@ -4,34 +4,34 @@
 
 | Page | Entry point | Loads |
 |---|---|---|
-| `books/index.html` | Inline module → `dashboard.js` | `common.js` |
-| `books/reader.html` | `reader.js` | `common.js` |
-| `books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
+| `src/books/index.html` | Inline module → `dashboard.js` | `common.js` |
+| `src/books/reader.html` | `reader.js` | `common.js` |
+| `src/books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
 
 ## Modules
 
 | Module | Purpose |
 |---|---|
-| `js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
-| `js/book-data.js` | Book registry, tag resolution, page bootstrap |
-| `js/book-info.js` | Book/author info modal **and the books/info.html page**: markdown notes renderer, tabs, in-modal search, copy, copy-link, pane export — see below |
-| `js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
-| `js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
-| `js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
-| `js/radheef-merge.js` | Virtual merged radheef book (RDF-all): `isMergedRadheefBook()`, `loadMergedRadheefBook()` — see below |
-| `js/reader-position.js` | Reader position: pagination strip, visible-page detector, scroll block (progress, milestones, URL sync, read-history) |
-| `js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
-| `js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
-| `js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
-| `js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export |
-| `js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
-| `js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
-| `js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
-| `js/export-xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
-| `js/export-epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
-| `js/export-zip.js` | Minimal store-only ZIP writer, `zipStore()` — shared by the XLSX + EPUB writers |
-| `js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()`, progress milestones |
-| `js/csv.js` | CSV parsing, serialisation, and fetch helpers |
+| `src/js/common.js` | Shared init: theme, fonts, i18n, sidebar, settings, keyboard, unified modals, toast |
+| `src/js/book-data.js` | Book registry, tag resolution, page bootstrap |
+| `src/js/book-info.js` | Book/author info modal **and the src/books/info.html page**: markdown notes renderer, tabs, in-modal search, copy, copy-link, pane export — see below |
+| `src/js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
+| `src/js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
+| `src/js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
+| `src/js/radheef-merge.js` | Virtual merged radheef book (RDF-all): `isMergedRadheefBook()`, `loadMergedRadheefBook()` — see below |
+| `src/js/reader-position.js` | Reader position: pagination strip, visible-page detector, scroll block (progress, milestones, URL sync, read-history) |
+| `src/js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
+| `src/js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
+| `src/js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
+| `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export |
+| `src/js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
+| `src/js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
+| `src/js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
+| `src/js/export-xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
+| `src/js/export-epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
+| `src/js/export-zip.js` | Minimal store-only ZIP writer, `zipStore()` — shared by the XLSX + EPUB writers |
+| `src/js/i18n.js` | Translations (dv/en/ar), `t()`, `tagLabel()`, progress milestones |
+| `src/js/csv.js` | CSV parsing, serialisation, and fetch helpers |
 
 ## csv.js
 
@@ -50,7 +50,7 @@ Tiny CSV utilities (~1 KB). No DOM dependencies. Imported by `book-data.js`, `re
 
 ### `initializePageWithMetadata(callback)`
 
-Reader-page entry point (books/reader.html). Reads `?book=CODE` from the URL.
+Reader-page entry point (src/books/reader.html). Reads `?book=CODE` from the URL.
 
 - No `?book=` → returns (the dashboard is initialized by `dashboard.js`)
 - Book found → calls `callback(metadata)`
@@ -64,7 +64,7 @@ initializePageWithMetadata(async function (metadata) {
   // metadata.titleEN    — "Qawaidul Arbau"
   // metadata.titleAR    — "القواعد الأربع"
   // metadata.titleDV    — "ހަތަރު ގަވާއިދު"
-  // metadata.csvPath    — "../data/content/AQD-qawaidulArbau.csv"
+  // metadata.csvPath    — "../../data/content/AQD-qawaidulArbau.csv"
 });
 ```
 
@@ -118,7 +118,7 @@ Resolves a possibly-stale book code to a current registry code. Renames keep the
 
 ### `getCsvPath(bookCode)`
 
-Returns the data CSV path: `"../data/content/" + bookCode + ".csv"`.
+Returns the data CSV path: `"../../data/content/" + bookCode + ".csv"`.
 
 ### `getBookVersionSync(bookCode)`
 
@@ -154,7 +154,7 @@ Dashboard state and rendering moved to `dashboard.js` when the module was split 
 
 The three-tab **info modal**: click the reader's book title, its Arabic subtitle (Dhivevi layout) or `Alt+I` → **Book tab**; click the reader's author line → **Author tab**; the Authors browse modal's per-row ℹ button (the grid's leading column) opens it stacked on top. A third **Works tab** (the author's other works — hidden when the modal has no author) sits alongside. Imports only i18n / book-data / search-utils / csv / export — never facet-browse.js or reader.js (cycle prevention). Re-opening while open re-renders in place (never double-pushes the modal stack).
 
-The same shell renders as a standalone page, **books/info.html** — the deep-link target behind the modal's exports and copy-link button. `openInfoPage(cfg)` (see below) wires a `#infoPageShell` container instead of an overlay; the page keeps the full actions row — copy, copy-link and the four exports run here exactly as they do in the modal (the copy-link button copies the page's own deep-link URL) — and the page's inline styles only let the pane flow with the body. Because the page renders only registry data + notes, a book's info never fetches its content CSV — the reader's rows/chapters counts (which need the CSV) are not part of the page. The modal's look comes from the base `.modal` rule (RTL shell + the Hadithmv webfont); the page has no `.modal` wrapper, so it carries `direction: rtl` + `font-family: var(--font-mixed, …)` itself, and loads **reader-search.css** for the shared search-input wrap (its `#readerPanelSearch` rules are id-scoped and never leak). Tab switches pushState (`?book=` / `?author=` / `&tab=works` — each switch a history entry), so the URL always names the pane and back/forward step through the tabs; the module's `popstate` listener (active only in page mode) re-resolves the location via `openInfoPageFromLocation()`. The modal never touches the host page's URL.
+The same shell renders as a standalone page, **src/books/info.html** — the deep-link target behind the modal's exports and copy-link button. `openInfoPage(cfg)` (see below) wires a `#infoPageShell` container instead of an overlay; the page keeps the full actions row — copy, copy-link and the four exports run here exactly as they do in the modal (the copy-link button copies the page's own deep-link URL) — and the page's inline styles only let the pane flow with the body. Because the page renders only registry data + notes, a book's info never fetches its content CSV — the reader's rows/chapters counts (which need the CSV) are not part of the page. The modal's look comes from the base `.modal` rule (RTL shell + the Hadithmv webfont); the page has no `.modal` wrapper, so it carries `direction: rtl` + `font-family: var(--font-mixed, …)` itself, and loads **reader-search.css** for the shared search-input wrap (its `#readerPanelSearch` rules are id-scoped and never leak). Tab switches pushState (`?book=` / `?author=` / `&tab=works` — each switch a history entry), so the URL always names the pane and back/forward step through the tabs; the module's `popstate` listener (active only in page mode) re-resolves the location via `openInfoPageFromLocation()`. The modal never touches the host page's URL.
 
 ### `openInfoModal(cfg)`
 
@@ -171,7 +171,7 @@ Opens stacked (`window.openModalOnTop`) when any modal is already open, else `wi
 
 ### `openInfoPage(cfg)`
 
-Renders the same panes into the **info page** (`#infoPageShell` — books/info.html), with no overlay: `cfg` is identical to `openInfoModal`'s (`{bookCode, author, tab}`), and the page resolves it from its query string (`?book=CODE` → Book, `?author=CODE` → Author, `&tab=works` → Works). Unknown book codes render the quiet "No notes yet" placeholder; a bare visit (or back to one) shows the empty-state line (`infoPageEmpty`) with the shell tucked away. This is the URL the exports print and the copy-link button copies. **`openInfoPageFromLocation()`** re-resolves `window.location.search` on load and on `popstate` (page mode only) — tab switches pushState new query strings, so back/forward step through the panes and a refresh keeps the active one.
+Renders the same panes into the **info page** (`#infoPageShell` — src/books/info.html), with no overlay: `cfg` is identical to `openInfoModal`'s (`{bookCode, author, tab}`), and the page resolves it from its query string (`?book=CODE` → Book, `?author=CODE` → Author, `&tab=works` → Works). Unknown book codes render the quiet "No notes yet" placeholder; a bare visit (or back to one) shows the empty-state line (`infoPageEmpty`) with the shell tucked away. This is the URL the exports print and the copy-link button copies. **`openInfoPageFromLocation()`** re-resolves `window.location.search` on load and on `popstate` (page mode only) — tab switches pushState new query strings, so back/forward step through the panes and a refresh keeps the active one.
 
 ### `infoLink()`
 
@@ -196,23 +196,23 @@ Chapters = runs of the first column whose lowercased header starts with `kitab` 
 - 📋 copies the active pane's plain text via `window.copyToClipboard(_plain.join("\n"), "toastCopied")` — blank lines are **structural**: the tab builders push `""` entries at block boundaries (head → facts → tags → notes) and `renderMarkdown` keeps blank source lines as `""` (paragraph gaps), so the gaps sit exactly where the rendered sections have them.
 - 🔗 **Copy link** (the button after 📋) copies `infoLink()` — the same URL the exports print — raw, unescaped: the clipboard is not HTML, so a Works-tab link keeps its literal `&tab=works`. Disabled whenever the pane has no export metadata.
 - The format menu exports **Word / PDF / HTML Book / EPUB only** of the active tab, reusing export.js's shared builders: pane sections (`sections.map(s => [s.title, s.body])`) under a synthetic `["headInfo", "bodyInfo"]` header row with `hasRowNums: false` — the existing headinfo/bodyinfo heuristics style the export, EPUB gets one chapter per section. Every export opens with a **title page**: the kind line (`infoExportKindAuthor`/`Book`/`Works` — "Biography of the author" …), a hairline, the name pair (h1 + Arabic subtitle), a hairline, `Hadithmv - v6.9.85` + the **site URL as a live link** (an `<a href>` — the readers' title pages and the EPUB cover anchor print it too; href and text share one escaped string, so a `&tab=works` query survives as `&amp;` in the exported HTML bytes), then — info exports only — a hairline and the fact strip (carried out-of-band via `exportExtra.facts` — the strip is *not* a section; the tags fact is deliberately excluded from the exported facts, the pane and copy keep it). The page-break is a real-character `<p class="page-break">&nbsp;</p>` with `page-break-before:always` — Word drops an empty-div break, so the break must carry content. A **Contents page** follows when the pane has 2+ markdown headings (`exportExtra.toc` — the same rule as the pane's auto-TOC). The reader's exports share the same title-page/TOC shape (no kind/facts; entries derived from head/kitab/bab rows). Busy state disables the whole actions group (`.info-actions button` — the tab band's buttons, one container at any width) during async exports (font fetch + dynamic import) and swaps the clicked button's label to `exportPreparing` ("Preparing…"), restored when the export lands.
-- **Filenames are kind-first, no language tag, no version stamp**: `book-info - <titleEN>.doc`, `author-bio - <authorEN>.doc`, `author-works - <authorEN>.doc` (per pane; `.doc`/`.pdf`/`.html`/`.epub` per format) — the vocabulary matches the notes directory (`notes/works/`), not the modal's tabs.
+- **Filenames are kind-first, no language tag, no version stamp**: `book-info - <titleEN>.doc`, `author-bio - <authorEN>.doc`, `author-works - <authorEN>.doc` (per pane; `.doc`/`.pdf`/`.html`/`.epub` per format) — the vocabulary matches the notes directory (`static/notes/works/`), not the modal's tabs.
 - The buttons live inline in the tab band (`.info-tab-band`: tabs inline-start, actions inline-end — copy + copy-link + hairline + the four formats; the band wraps when tight, dropping the actions to their own line). ≤600px the actions collapse behind the reader's 📥 export chip (`#infoActionsToggle` — the `btnExportText` label, `aria-expanded`/`aria-controls` on `#infoActions`) and open as an anchored dropdown menu over the search row (absolute under the band, card look — the reader's export-menu pattern; Copy and Copy link lead the menu, a hairline separates them from the four formats). The menu is transient — an outside click, picking an item, or a tab switch closes it, exactly like the reader's own export menu.
 
-### Notes content (`notes/`)
+### Notes content (`static/notes/`)
 
-One file per book/author; **the filename is the index** — no registry, no version churn. `notes/works/{bookCode}.md` (book notes) and `notes/authors/{authorCode}.md` (author bio). Fetched lazily on open (cached per path); 404/network failure → quiet "No notes yet" placeholder, never an error. One bio per author, **language-invariant** — the same file shows in all three site languages (per-paragraph `dir="auto"` handles mixed bidi). Write notes in the subset above; anything else renders literally.
+One file per book/author; **the filename is the index** — no registry, no version churn. `static/notes/works/{bookCode}.md` (book notes) and `static/notes/authors/{authorCode}.md` (author bio). Fetched lazily on open (cached per path); 404/network failure → quiet "No notes yet" placeholder, never an error. One bio per author, **language-invariant** — the same file shows in all three site languages (per-paragraph `dir="auto"` handles mixed bidi). Write notes in the subset above; anything else renders literally.
 
 ### Verification notes
 
-- Syntax-check ES modules with the **stdin-pipe form**: `cat js/book-info.js | node --check --input-type=module -` (recent Node rejects the file-path form).
+- Syntax-check ES modules with the **stdin-pipe form**: `cat src/js/book-info.js | node --check --input-type=module -` (recent Node rejects the file-path form).
 - The EPUB export embeds a timestamp inside its deflate-compressed container, so byte-goldens cover Word/PDF/HTML only — the battery's EPUB assertions are structural (PK header, stored `mimetype`, embedded font). Re-run `tools/hmv-golden-capture.mjs` deliberately (and commit the new goldens) after any change that alters export output — a version bump, an export-header edit, a builder refactor.
 
 ---
 
 ## dashboard.js
 
-Dashboard page UI (books/index.html) — built on the metadata layer in `book-data.js`. Split out of book-data.js so the metadata module keeps no dashboard UI.
+Dashboard page UI (src/books/index.html) — built on the metadata layer in `book-data.js`. Split out of book-data.js so the metadata module keeps no dashboard UI.
 
 | Function | Description |
 |---|---|
@@ -368,7 +368,7 @@ Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (co
 
 ## library-search-page.js
 
-The `books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
+The `src/books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
 
 - **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B`, `?authors=A,B` (OR — any author of the book) and `?period=N|modern` (death-century bucket) activate chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
 - **Flow** — reads params → awaits `loadTagDefinitions()` + `loadAuthorDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
@@ -618,7 +618,7 @@ Visible row index: `elementFromPoint` fast path at viewport centre, linear-scan 
 
 ## reader-search-ui.js
 
-In-book search engine wiring behind the unified search window (`js/search-window.js`): runs the page's search when the window input changes, renders this-book results into `#searchWindowResults`, and hosts the history section, whole-word toggle, and advanced conditions. Extracted from reader.js; imports `updatePagination` from reader-position.js, the search engine from search-utils.js, and the window shell API from search-window.js. For `RDF-*` books (dictionaries) the page's header input keeps filtering in place — see `applyRadheefFilter` below.
+In-book search engine wiring behind the unified search window (`src/js/search-window.js`): runs the page's search when the window input changes, renders this-book results into `#searchWindowResults`, and hosts the history section, whole-word toggle, and advanced conditions. Extracted from reader.js; imports `updatePagination` from reader-position.js, the search engine from search-utils.js, and the window shell API from search-window.js. For `RDF-*` books (dictionaries) the page's header input keeps filtering in place — see `applyRadheefFilter` below.
 
 ### `initSearchUI(ctx)`
 
@@ -646,7 +646,7 @@ Parses a raw query string into the internal query shape, including the whole-wor
 
 ## search-window.js
 
-The unified modal search window shell shared by the reader and library pages (styles in `css/search-window.css`). Built once, eagerly, via `createModal("searchWindowOverlay", ...)`; behaviour flows in through `initSearchWindow` cfg callbacks — this module imports no page code (wiring lives in reader-search-ui.js and library-search-page.js). Owns: input row (`#searchWindowInput` + clear), options row (whole-word, advanced toggle), tabs row (reader only), results pane (`#searchWindowResults`), history section, scope section, Authors/Periods facet section (visible with the scope — cross-book search only), footer strip (hint / status / open-page link).
+The unified modal search window shell shared by the reader and library pages (styles in `src/css/search-window.css`). Built once, eagerly, via `createModal("searchWindowOverlay", ...)`; behaviour flows in through `initSearchWindow` cfg callbacks — this module imports no page code (wiring lives in reader-search-ui.js and library-search-page.js). Owns: input row (`#searchWindowInput` + clear), options row (whole-word, advanced toggle), tabs row (reader only), results pane (`#searchWindowResults`), history section, scope section, Authors/Periods facet section (visible with the scope — cross-book search only), footer strip (hint / status / open-page link).
 
 ### `initSearchWindow(cfg)`
 

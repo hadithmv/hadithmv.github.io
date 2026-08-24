@@ -2,7 +2,7 @@
  * Reader Search UI Module
  *
  * Extracted from reader.js to keep the main module under 2 000 lines.
- * The search engine behind the unified search window (js/search-window.js):
+ * The search engine behind the unified search window (src/js/search-window.js):
  * results rendering (buildSnippets / buildAdvResultsHTML), applySearch /
  * applySearchWindow, the RDF dictionary in-place filter
  * (applyRadheefFilter), the whole-word toggle, search history, the

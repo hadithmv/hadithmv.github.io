@@ -1,11 +1,11 @@
 // TOC freshness scan for reader.js: every TOC entry must match a #region
 // whose start line == entry start and whose end == last non-empty line
 // before the region's #endregion.
-// Run: node tools/hmv-toc-scan.cjs [path-to-js-file]  (default: ../js/reader.js
+// Run: node tools/hmv-toc-scan.cjs [path-to-js-file]  (default: ../src/js/reader.js
 // relative to this script, so it works from any cwd).
 const fs = require("fs");
 const path = require("path");
-const target = process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, "..", "js", "reader.js");
+const target = process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, "..", "src", "js", "reader.js");
 const lines = fs.readFileSync(target, "utf8").split(/\r?\n/);
 
 const toc = [];

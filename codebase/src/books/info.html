@@ -10,7 +10,7 @@
          too; its #readerPanelSearch rules are id-scoped and never leak. -->
     <link rel="stylesheet" href="../css/reader-search.css" />
     <style>
-      /* The info page — the modal's tabs + panes (js/book-info.js) as a
+      /* The info page — the modal's tabs + panes (src/js/book-info.js) as a
          plain page, the deep-link target behind the modal's exports and
          copy-link button: ?book=CODE opens the Book pane, ?author=CODE the
          Author pane, &tab=works the Works pane. The full actions row
@@ -19,7 +19,7 @@
          run here exactly as they do in the modal (the copy-link button
          copies the page's own deep-link URL). Tab switches pushState, so
          the URL always names the pane and back/forward step through the
-         tabs (js/book-info.js's openInfoPageFromLocation). */
+         tabs (src/js/book-info.js's openInfoPageFromLocation). */
       body {
         margin: 0;
         /* The modal's look comes from the base .modal rule (RTL shell,
@@ -148,9 +148,9 @@
       hidden
     ></div>
 
-    <script type="module" src="../js/common.js"></script>
+    <script type="module" src="../src/js/common.js"></script>
     <script type="module">
-      import { openInfoPageFromLocation } from "../js/book-info.js";
+      import { openInfoPageFromLocation } from "../src/js/book-info.js";
       openInfoPageFromLocation();
     </script>
   </body>

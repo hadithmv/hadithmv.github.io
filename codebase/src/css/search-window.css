@@ -1,6 +1,6 @@
 /* ============================================================
    Search window — the one modal search surface shared by the
-   reader and library-search pages, built by js/search-window.js
+   reader and library-search pages, built by src/js/search-window.js
    on the unified modal layer. Result/history/advanced row
    classes stay in reader-search.css; this file sizes the window
    and arranges its sections.

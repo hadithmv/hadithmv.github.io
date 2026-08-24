@@ -15,7 +15,7 @@
 
 import { normaliseForSearch } from "./search-utils.js";
 
-var INDEX_PATH = "../data/search-index.json";
+var INDEX_PATH = "../../data/search-index.json";
 
 // ── Tokenisation (SHARED with the index build script) ────────
 // data/08-rebuild-searchIndex.mjs imports this function — the query side and the
