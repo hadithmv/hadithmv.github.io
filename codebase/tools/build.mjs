@@ -26,7 +26,13 @@
  * each run (cannot drift), and is gitignored.
  */
 
-import { rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import {
+  rmSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} from "node:fs";
 import { fileURLToPath } from "node:url";
 import * as esbuild from "esbuild";
 import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(buf, cfg)
@@ -52,7 +58,9 @@ mkdirSync(DIST + "css", { recursive: true });
 const htmlFiles = readdirSync(SRC + "books").filter((f) => f.endsWith(".html"));
 for (const f of htmlFiles) {
   const html = readFileSync(SRC + "books/" + f, "utf8");
-  const out = minifyHtml.minify(Buffer.from(html, "utf8"), { minify_js: true, minify_css: true }).toString("utf8");
+  const out = minifyHtml
+    .minify(Buffer.from(html, "utf8"), { minify_js: true, minify_css: true })
+    .toString("utf8");
   writeFileSync(DIST + "books/" + f, out);
   totalIn += html.length;
   totalOut += out.length;
@@ -82,7 +90,11 @@ for (const f of jsFiles) {
 const cssFiles = readdirSync(SRC + "css").filter((f) => f.endsWith(".css"));
 for (const f of cssFiles) {
   const code = readFileSync(SRC + "css/" + f, "utf8");
-  const result = await esbuild.transform(code, { loader: "css", minify: true, charset: "utf8" });
+  const result = await esbuild.transform(code, {
+    loader: "css",
+    minify: true,
+    charset: "utf8",
+  });
   writeFileSync(DIST + "css/" + f, result.code);
   totalIn += code.length;
   totalOut += result.code.length;
@@ -93,10 +105,33 @@ for (const f of cssFiles) {
 const pct = totalIn ? ((1 - totalOut / totalIn) * 100).toFixed(1) : "0";
 rows.sort((a, b) => b.in - a.in);
 console.log(
-  "built dist/ from src/: " + jsFiles.length + " js, " + cssFiles.length + " css, " + htmlFiles.length + " pages (minified)"
+  "built dist/ from src/: " +
+    jsFiles.length +
+    " js, " +
+    cssFiles.length +
+    " css, " +
+    htmlFiles.length +
+    " pages (minified)",
 );
-console.log("input  " + (totalIn / 1024).toFixed(1) + " KB  →  output " + (totalOut / 1024).toFixed(1) + " KB  (" + pct + "% saved)");
+console.log(
+  "input  " +
+    (totalIn / 1024).toFixed(1) +
+    " KB  →  output " +
+    (totalOut / 1024).toFixed(1) +
+    " KB  (" +
+    pct +
+    "% saved)",
+);
 for (const r of rows) {
-  console.log("  " + r.name.padEnd(32) + String((r.out / 1024).toFixed(1)).padStart(7) + " KB  (was " + (r.in / 1024).toFixed(1) + ")");
+  console.log(
+    "  " +
+      r.name.padEnd(32) +
+      String((r.out / 1024).toFixed(1)).padStart(7) +
+      " KB  (was " +
+      (r.in / 1024).toFixed(1) +
+      ")",
+  );
 }
-console.log("\ndeploy dist/ + static/ + data/ side by side — data/ and static/ are never in dist/");
+console.log(
+  "\ndeploy dist/ + static/ + data/ side by side — data/ and static/ are never in dist/",
+);
