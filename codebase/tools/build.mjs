@@ -7,12 +7,12 @@
  *
  * Layout contract (docs/ARCHITECTURE.md "Build"):
  *   - src/books/*.html  → dist/books/  minified by @minify-html/node
- *     (structure only: whitespace collapse + comment removal + spec-safe
- *     entity normalisation, e.g. << → &lt;&lt; and &gt;&gt; → >>; the pages'
+ *     (structure: whitespace collapse + comment removal + spec-safe entity
+ *     normalisation, e.g. << → &lt;&lt; and &gt;&gt; → >> — plus the inline
+ *     <script>/<style> blocks via minify_js/minify_css, probed and adopted
+ *     2026-08-25; see ARCHITECTURE.md "Why @minify-html/node"). The pages'
  *     ../css/ ../js/ refs are untouched so they resolve inside dist exactly
- *     as in src). Inline <script>/<style> content is NEVER minified
- *     (minify_js / minify_css are off — the inline bootstrap blocks are
- *     small and hand-tuned).
+ *     as in src.
  *   - src/js/*.js       → dist/js/     minified in place — the module
  *     graph and every relative path stay at the same depth, so
  *     ../../data/ (from dist/js/) and ../../static/ (from dist/js/) hit
@@ -46,12 +46,13 @@ mkdirSync(DIST + "js", { recursive: true });
 mkdirSync(DIST + "css", { recursive: true });
 
 // ── 2. Pages: minify the HTML structure (defaults: collapse whitespace,
-//       remove comments, normalise entities spec-safely; inline
-//       script/style content untouched) ──────────────────────────
+//       remove comments, normalise entities spec-safely) + the inline
+//       script/style blocks (minify_js / minify_css — the big hand-tuned
+//       blocks shrank ~40-45%; all four --dist batteries stay green) ────
 const htmlFiles = readdirSync(SRC + "books").filter((f) => f.endsWith(".html"));
 for (const f of htmlFiles) {
   const html = readFileSync(SRC + "books/" + f, "utf8");
-  const out = minifyHtml.minify(Buffer.from(html, "utf8"), {}).toString("utf8");
+  const out = minifyHtml.minify(Buffer.from(html, "utf8"), { minify_js: true, minify_css: true }).toString("utf8");
   writeFileSync(DIST + "books/" + f, out);
   totalIn += html.length;
   totalOut += out.length;

@@ -1059,11 +1059,11 @@ devDependencies — `npm install` once in `codebase/`) emits `dist/` from
 `src/`:
 
 - `src/books/*.html` → `dist/books/`, minified by **@minify-html/node**
-  (structure only: whitespace collapse + comment removal + spec-safe entity
-  normalisation, e.g. `<<` → `&lt;&lt;` and `&gt;&gt;` → `>>`; inline
-  `<script>`/`<style>` content is never touched — `minify_js`/`minify_css`
-  stay off). The pages' `../css/` `../js/` refs resolve inside dist exactly
-  as in src
+  (structure: whitespace collapse + comment removal + spec-safe entity
+  normalisation, e.g. `<<` → `&lt;&lt;` and `&gt;&gt;` → `>>` — plus the
+  inline `<script>`/`<style>` blocks via `minify_js`/`minify_css`, see
+  "Why @minify-html/node"). The pages' `../css/` `../js/` refs resolve
+  inside dist exactly as in src
 - `src/js/*.js` → `dist/js/`, `src/css/*.css` → `dist/css/`, minified **in
   place** — the module graph and every relative path stay at the same depth,
   so `../../data/` and `../../static/` from `dist/js/` hit the siblings
@@ -1071,6 +1071,37 @@ devDependencies — `npm install` once in `codebase/`) emits `dist/` from
 - `data/` and `static/` are **never copied** — they deploy side by side with
   `dist/` (web) or are embedded by the app projects' own builds (Tauri /
   Android assemble their own bundles — the copy logic lives there, not here)
+
+**Why @minify-html/node** (decided 2026-08-25 after a four-way bake-off,
+recorded so the choice doesn't get re-litigated blind). Candidates:
+html-minifier-terser 7.2.0 (effectively unmaintained — no releases since
+2023, ReDoS CVEs), html-minifier-next 8.1.0 (its actively-maintained fork;
+byte-identical output), htmlnano (PostHTML-based), @minify-html/node
+(Rust/WASM). tdewolff/minify (Go) was rejected as the wrong ecosystem.
+Each was run with an equivalent structure-only config (whitespace +
+comments + boolean attrs; inline script/style and entities untouched) and
+scored on four pages: raw + gzip bytes, determinism (run twice, sha256
+compare), content preservation (sentinels `data-i18n` / `../js/` / `../css/`
+/ `<<` / `>>` plus non-ASCII counts), then all four `--dist` batteries
+against each distinct output — all three distinct sets passed. Totals:
+minify-html **63.8 KB → 40.3 KB (−36.9% raw, −17.9% gzip)**, terser/next
+42.5 KB (−33.4% / −16.4%), htmlnano 43.3 KB (−32.2% / −15.7%). Takeaway:
+minify-html wins on bytes at zero config and handles the reader's literal
+`<<` chevron natively — the terser family needs
+`ignoreCustomFragments: [/<{2}/, />{2}/]` to even parse that construct
+(documented escape hatch if ever reintroduced). html-minifier-next is the
+recorded fallback if a pure-JS dependency is ever wanted. Inline blocks:
+`minify_js`/`minify_css` are **on** (adopted 2026-08-25 after a probe —
+the earlier "never minify inline content" rule predates it). The probe
+found the structure-only pass left dist non-uniform: the reader's
+scroll-arrow IIFE and info's shell CSS block were 4-5 KB of hand-tuned,
+comment-dense inline code (the only comments surviving into dist, since
+esbuild strips the external files'). Enabling the flags cut info.html's
+gzip 42% and reader's 7.6% (−5.7 KB raw / −1.2 KB gz across the four
+pages), every minified block passes `node --check`, and all four `--dist`
+batteries stay green. minify-js is conservative (comments stripped,
+identifiers kept), so the inline code reads like its esbuild-minified
+siblings — the "same code minified two ways" concern is cosmetic only.
 
 The whole tree is wiped and rebuilt each run (generated output cannot drift)
 and is gitignored (`/codebase/dist/` in the repo root .gitignore). Run the

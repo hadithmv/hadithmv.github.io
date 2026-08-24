@@ -58,8 +58,8 @@ libscope, qrn-smoke) take `--dist` to run against the built `dist/` tree
 while `static/`/`data/` stay siblings, and S8b's golden comparison
 normalises the embedded tree name so the minified pages/js/css are still
 byte-checked (`src/` runs stay the byte-identity baseline; the pages are
-minified by @minify-html/node — structure only, inline script/style
-untouched). It drives both entry points on the reader
+minified by @minify-html/node — structure + inline script/style blocks via
+`minify_js`/`minify_css`). It drives both entry points on the reader
 (title click + Alt+I → Book tab, author line → Author tab) and the
 authors-modal ℹ affordance (stacking, Escape order), the fact strips
 (data-derived via `parseCSV`), the markdown renderer against the notes

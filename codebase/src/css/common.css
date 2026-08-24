@@ -2511,6 +2511,32 @@ body {
   display: none;
 }
 
+/* The site brand (index / library-search / reader skeleton). Centered over
+   the top bar's flex row — the flanking button groups are asymmetric, so
+   absolute centering is the only true center. Decorative: pointer-events
+   off, never clickable (unlike #pageTitle above). Size is hardcoded, not
+   --fs-title: the brand is deliberately larger than page titles (and the
+   mobile override at the 600px block works because this rule is in the
+   stylesheet, not inline). */
+#topBarBrand {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 800;
+  font-size: 1.3rem;
+  font-family: var(
+    --font-arabic-thaana,
+    "Hadithmv",
+    "Traditional Arabic",
+    "Scheherazade New",
+    "Faruma",
+    serif
+  );
+  color: var(--color-text);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 #backToDashboard {
   width: var(--control-height, 35px);
   height: var(--control-height, 35px);
