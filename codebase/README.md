@@ -53,7 +53,7 @@ src/
 static/
   font/                           ← Custom merged font (Arabic + Thaana + Latin)
   notes/                          ← Markdown book notes & author bios for the info modal
-dist/                           ← Generated: minified js/css + verbatim books (tools/build.mjs) — gitignored, rebuilt each run
+dist/                           ← Generated: minified js/css + pages (tools/build.mjs) — gitignored, rebuilt each run
 docs/                           ← User guide, architecture, API reference
 ```
 

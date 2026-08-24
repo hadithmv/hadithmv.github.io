@@ -2,12 +2,17 @@
  * Hadithmv build — emits dist/ from src/.
  *
  * Run: node tools/build.mjs  (from codebase/, or anywhere — paths are
- * derived from this file's location). Requires the esbuild devDependency
- * (npm install) and Node 20.11+.
+ * derived from this file's location). Requires the esbuild and
+ * @minify-html/node devDependencies (npm install) and Node 20.11+.
  *
  * Layout contract (docs/ARCHITECTURE.md "Build"):
- *   - src/books/*.html  → dist/books/  verbatim (their ../css/ ../js/ refs
- *     resolve inside dist)
+ *   - src/books/*.html  → dist/books/  minified by @minify-html/node
+ *     (structure only: whitespace collapse + comment removal + spec-safe
+ *     entity normalisation, e.g. << → &lt;&lt; and &gt;&gt; → >>; the pages'
+ *     ../css/ ../js/ refs are untouched so they resolve inside dist exactly
+ *     as in src). Inline <script>/<style> content is NEVER minified
+ *     (minify_js / minify_css are off — the inline bootstrap blocks are
+ *     small and hand-tuned).
  *   - src/js/*.js       → dist/js/     minified in place — the module
  *     graph and every relative path stay at the same depth, so
  *     ../../data/ (from dist/js/) and ../../static/ (from dist/js/) hit
@@ -21,27 +26,41 @@
  * each run (cannot drift), and is gitignored.
  */
 
-import { rmSync, mkdirSync, cpSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { rmSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import * as esbuild from "esbuild";
+import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(buf, cfg)
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url)); // codebase/
 const SRC = ROOT + "src/";
 const DIST = ROOT + "dist/";
 
-// ── 1. Fresh dist ──────────────────────────────────────────────
-rmSync(DIST, { recursive: true, force: true });
-mkdirSync(DIST + "js", { recursive: true });
-mkdirSync(DIST + "css", { recursive: true });
-cpSync(SRC + "books", DIST + "books", { recursive: true });
-
-// ── 2. JS: minify in place (format esm, target esnext = no syntax
-//       lowering — whitespace/syntax/identifier minification only) ──
-const jsFiles = readdirSync(SRC + "js").filter((f) => f.endsWith(".js"));
 let totalIn = 0;
 let totalOut = 0;
 const rows = [];
 
+// ── 1. Fresh dist ──────────────────────────────────────────────
+rmSync(DIST, { recursive: true, force: true });
+mkdirSync(DIST + "books", { recursive: true });
+mkdirSync(DIST + "js", { recursive: true });
+mkdirSync(DIST + "css", { recursive: true });
+
+// ── 2. Pages: minify the HTML structure (defaults: collapse whitespace,
+//       remove comments, normalise entities spec-safely; inline
+//       script/style content untouched) ──────────────────────────
+const htmlFiles = readdirSync(SRC + "books").filter((f) => f.endsWith(".html"));
+for (const f of htmlFiles) {
+  const html = readFileSync(SRC + "books/" + f, "utf8");
+  const out = minifyHtml.minify(Buffer.from(html, "utf8"), {}).toString("utf8");
+  writeFileSync(DIST + "books/" + f, out);
+  totalIn += html.length;
+  totalOut += out.length;
+  rows.push({ name: "books/" + f, in: html.length, out: out.length });
+}
+
+// ── 3. JS: minify in place (format esm, target esnext = no syntax
+//       lowering — whitespace/syntax/identifier minification only) ──
+const jsFiles = readdirSync(SRC + "js").filter((f) => f.endsWith(".js"));
 for (const f of jsFiles) {
   const code = readFileSync(SRC + "js/" + f, "utf8");
   const result = await esbuild.transform(code, {
@@ -57,7 +76,7 @@ for (const f of jsFiles) {
   rows.push({ name: "js/" + f, in: code.length, out: result.code.length });
 }
 
-// ── 3. CSS: minify in place (url() paths are left untouched — no
+// ── 4. CSS: minify in place (url() paths are left untouched — no
 //       bundling, so ../../static/font/... keeps its depth) ──────
 const cssFiles = readdirSync(SRC + "css").filter((f) => f.endsWith(".css"));
 for (const f of cssFiles) {
@@ -69,10 +88,12 @@ for (const f of cssFiles) {
   rows.push({ name: "css/" + f, in: code.length, out: result.code.length });
 }
 
-// ── 4. Report ──────────────────────────────────────────────────
+// ── 5. Report ──────────────────────────────────────────────────
 const pct = totalIn ? ((1 - totalOut / totalIn) * 100).toFixed(1) : "0";
 rows.sort((a, b) => b.in - a.in);
-console.log("built dist/ from src/: " + jsFiles.length + " js, " + cssFiles.length + " css, 4 pages verbatim");
+console.log(
+  "built dist/ from src/: " + jsFiles.length + " js, " + cssFiles.length + " css, " + htmlFiles.length + " pages (minified)"
+);
 console.log("input  " + (totalIn / 1024).toFixed(1) + " KB  →  output " + (totalOut / 1024).toFixed(1) + " KB  (" + pct + "% saved)");
 for (const r of rows) {
   console.log("  " + r.name.padEnd(32) + String((r.out / 1024).toFixed(1)).padStart(7) + " KB  (was " + (r.in / 1024).toFixed(1) + ")");

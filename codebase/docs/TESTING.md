@@ -56,8 +56,10 @@ vars override the defaults). The four page batteries (info, authors,
 libscope, qrn-smoke) take `--dist` to run against the built `dist/` tree
 (after `node tools/build.mjs`) — the page root repoints to `dist/books/`
 while `static/`/`data/` stay siblings, and S8b's golden comparison
-normalises the embedded tree name so minified output is still byte-checked
-(`src/` runs stay the byte-identity baseline). It drives both entry points on the reader
+normalises the embedded tree name so the minified pages/js/css are still
+byte-checked (`src/` runs stay the byte-identity baseline; the pages are
+minified by @minify-html/node — structure only, inline script/style
+untouched). It drives both entry points on the reader
 (title click + Alt+I → Book tab, author line → Author tab) and the
 authors-modal ℹ affordance (stacking, Escape order), the fact strips
 (data-derived via `parseCSV`), the markdown renderer against the notes
@@ -149,6 +151,7 @@ Before touching product code, run this sequence:
 | A **non-RDF** reader search leaves the table showing **all rows** | Search runs in the modal window (the header input exists for RDF books only) and — like the old dropdown — **never filters** `filteredData`; typing renders count + snippets in the window, clicking a result jumps the table to the row (`jumpToResultRow` in reader-search-ui.js). RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchWindowCount` in the window's pinned head row (`ނަތީޖާ: N` — no colon = the zero-result branch; the element exists from shell build, hidden/empty until a search runs), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
 | The **library window's** cards differ from the page's (no peek ▾, its own count) | The window renders the same `searchLibrary` results but **without peek toggles** (`resultCardHTML(..., withPeek=false)` — peek ids `btn-peek-CODE` would collide with the page's cards), inside `#searchWindowResults`. Scope changes from **either** surface re-run both (shared picker state fans out via the `libScopeChange` window event); the card↔list toggle re-renders the **cached** results — no re-search, no history write; the window copies the page's query once on open, then searches independently (the page's own input keeps working behind it) | Query `#searchWindowResults` for `.lib-result` (card) / `.search-window-book-link` (list), expect **0** `.lib-peek-toggle` there, and read the count from the head row's `#searchWindowCount`. After a scope tick both `#libResults` and the window re-render. The list view's deep links go to `reader.html?book=CODE&row=<firstRow>&q=…` |
 | A modal opens but `document.activeElement` never becomes what `openModal` focused | The overlay's pop transition (`--t-pop`, common.css:519-529) leaves the modal **computed as `visibility: hidden` for its whole duration** — Blink silently drops every `focus()` called in that window (getComputedStyle says hidden while the fade-in is actually painted). `openModal` (common.js) and the search window's `openSearchWindow` (search-window.js) defer their focus calls past it (~`--t-pop` + 10/30 ms) | `waitFor` the intended focus target (`document.activeElement.id === …`), never assert focus synchronously right after the `open` class appears |
+| `hmv-authors-check` first run reports "modal opens with focus in the filter [active=BUTTON]" (expected INPUT) | Deferred-focus race: the focus lands ~`--t-pop`+10 ms after open (common.js), and on a fast-loading page the test's wait can sample `activeElement` inside that defer window on the first attempt. The modal opens and works; re-running against the identical build passes | Retry the assertion once — a pass on rerun against the same bytes is a pass. Failing on **every** rerun of identical output would be a real defect — file it |
 
 ## Harness traps (test-side failures, not product bugs)
 

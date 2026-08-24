@@ -1054,11 +1054,16 @@ The app has no unit-test framework — the battery suite (`tools/hmv-*.mjs`, see
 
 ## Build (dist/)
 
-`node tools/build.mjs` (needs the esbuild devDependency — `npm install` once
-in `codebase/`) emits `dist/` from `src/`:
+`node tools/build.mjs` (needs the esbuild and @minify-html/node
+devDependencies — `npm install` once in `codebase/`) emits `dist/` from
+`src/`:
 
-- `src/books/*.html` → `dist/books/` **verbatim** — the pages' `../css/`
-  `../js/` refs resolve inside dist
+- `src/books/*.html` → `dist/books/`, minified by **@minify-html/node**
+  (structure only: whitespace collapse + comment removal + spec-safe entity
+  normalisation, e.g. `<<` → `&lt;&lt;` and `&gt;&gt;` → `>>`; inline
+  `<script>`/`<style>` content is never touched — `minify_js`/`minify_css`
+  stay off). The pages' `../css/` `../js/` refs resolve inside dist exactly
+  as in src
 - `src/js/*.js` → `dist/js/`, `src/css/*.css` → `dist/css/`, minified **in
   place** — the module graph and every relative path stay at the same depth,
   so `../../data/` and `../../static/` from `dist/js/` hit the siblings
