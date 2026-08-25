@@ -27,7 +27,9 @@
  *     (Tauri / Android) — see docs/ARCHITECTURE.md "Build"
  *
  * dist/ is generated output only: the whole tree is wiped and rebuilt
- * each run (cannot drift), and is gitignored.
+ * each run. It IS committed — the web publishes committed files as-is, so
+ * build before every commit (node tools/build.mjs, or double-click the
+ * dist-build.bat in codebase/); an unbuilt dist is a stale site.
  */
 
 import {
@@ -38,6 +40,8 @@ import {
   writeFileSync,
 } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { gzipSync } from "node:zlib";
+import { createHash } from "node:crypto";
 import { minify as swcMinify } from "@swc/core"; // Rust terser-family JS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "JS minification")
 import { transform as lightningTransform } from "lightningcss"; // Rust-native CSS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "CSS minification")
 import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(buf, cfg)
@@ -45,6 +49,8 @@ import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(bu
 const ROOT = fileURLToPath(new URL("..", import.meta.url)); // codebase/
 const SRC = ROOT + "src/";
 const DIST = ROOT + "dist/";
+const REPORT = ROOT + "dist-build-report.md"; // committed size ledger (same pattern as data/search-index-report.md)
+const t0 = Date.now();
 
 let totalIn = 0;
 let totalOut = 0;
@@ -63,13 +69,21 @@ mkdirSync(DIST + "css", { recursive: true });
 const htmlFiles = readdirSync(SRC + "books").filter((f) => f.endsWith(".html"));
 for (const f of htmlFiles) {
   const html = readFileSync(SRC + "books/" + f, "utf8");
-  const out = minifyHtml
-    .minify(Buffer.from(html, "utf8"), { minify_js: true, minify_css: true })
-    .toString("utf8");
-  writeFileSync(DIST + "books/" + f, out);
-  totalIn += html.length;
-  totalOut += out.length;
-  rows.push({ name: "books/" + f, in: html.length, out: out.length });
+  const buf = minifyHtml.minify(Buffer.from(html, "utf8"), {
+    minify_js: true,
+    minify_css: true,
+  });
+  writeFileSync(DIST + "books/" + f, buf);
+  const inBytes = Buffer.byteLength(html, "utf8"); // true UTF-8 bytes, not string length
+  totalIn += inBytes;
+  totalOut += buf.length;
+  rows.push({
+    name: "books/" + f,
+    in: inBytes,
+    out: buf.length,
+    gz: gzipSync(buf, { level: 9 }).length,
+    buf,
+  });
 }
 
 // ── 3. JS: minify in place with @swc/core (module: true = esm kept,
@@ -85,10 +99,18 @@ for (const f of jsFiles) {
     mangle: {},
     format: { asciiOnly: false, comments: false, ecma: 2022 },
   });
-  writeFileSync(DIST + "js/" + f, result.code);
-  totalIn += code.length;
-  totalOut += result.code.length;
-  rows.push({ name: "js/" + f, in: code.length, out: result.code.length });
+  const buf = Buffer.from(result.code, "utf8");
+  writeFileSync(DIST + "js/" + f, buf);
+  const inBytes = Buffer.byteLength(code, "utf8"); // true UTF-8 bytes, not string length
+  totalIn += inBytes;
+  totalOut += buf.length;
+  rows.push({
+    name: "js/" + f,
+    in: inBytes,
+    out: buf.length,
+    gz: gzipSync(buf, { level: 9 }).length,
+    buf,
+  });
 }
 
 // ── 4. CSS: minify in place with lightningcss (minify: true — merges
@@ -106,16 +128,26 @@ for (const f of cssFiles) {
     code: Buffer.from(code, "utf8"),
     minify: true,
   });
-  const out = result.code.toString("utf8");
-  writeFileSync(DIST + "css/" + f, out);
-  totalIn += code.length;
-  totalOut += out.length;
-  rows.push({ name: "css/" + f, in: code.length, out: out.length });
+  const buf = result.code;
+  writeFileSync(DIST + "css/" + f, buf);
+  const inBytes = Buffer.byteLength(code, "utf8"); // true UTF-8 bytes, not string length
+  totalIn += inBytes;
+  totalOut += buf.length;
+  rows.push({
+    name: "css/" + f,
+    in: inBytes,
+    out: buf.length,
+    gz: gzipSync(buf, { level: 9 }).length,
+    buf,
+  });
 }
 
 // ── 5. Report ──────────────────────────────────────────────────
 const pct = totalIn ? ((1 - totalOut / totalIn) * 100).toFixed(1) : "0";
 rows.sort((a, b) => b.in - a.in);
+const kb = (n) => (n / 1024).toFixed(1);
+let totalGz = 0;
+for (const r of rows) totalGz += r.gz;
 console.log(
   "built dist/ from src/: " +
     jsFiles.length +
@@ -127,23 +159,58 @@ console.log(
 );
 console.log(
   "input  " +
-    (totalIn / 1024).toFixed(1) +
+    kb(totalIn) +
     " KB  →  output " +
-    (totalOut / 1024).toFixed(1) +
+    kb(totalOut) +
     " KB  (" +
     pct +
     "% saved)",
 );
+console.log("gzip -9:  " + kb(totalGz) + " KB  (per-file sum — the web metric)");
 for (const r of rows) {
   console.log(
     "  " +
       r.name.padEnd(32) +
-      String((r.out / 1024).toFixed(1)).padStart(7) +
+      kb(r.out).padStart(7) +
       " KB  (was " +
-      (r.in / 1024).toFixed(1) +
+      kb(r.in) +
       ")",
   );
 }
+
+// dist-build-report.md — the committed size ledger, mirroring the shape of
+// data/search-index-report.md: content version stamp, totals, build stats.
+const hash = createHash("sha256");
+for (const r of [...rows].sort((a, b) => a.name.localeCompare(b.name))) {
+  hash.update(r.buf);
+}
+const pkg = JSON.parse(readFileSync(ROOT + "package.json", "utf8"));
+const dv = pkg.devDependencies || {};
+const stamp = new Date().toISOString();
+const elapsed = ((Date.now() - t0) / 1000).toFixed(1) + " s";
+const report =
+  "# Dist Build Report\n\n" +
+  "Regenerated by `node tools/build.mjs` — machine output, do not hand-edit.\n\n" +
+  "| Built in | Version |\n|---|---|\n" +
+  "| " + stamp + " (" + elapsed + ") | `" + hash.digest("hex").slice(0, 16) + "` |\n\n" +
+  "| Input | Output | Saved | Gzip (-9) | Files |\n|---|---|---|---|---|\n" +
+  "| " + kb(totalIn) + " KB | " + kb(totalOut) + " KB | " + pct + "% | " + kb(totalGz) + " KB | " + rows.length + " |\n\n" +
+  "## Build Stats\n\n" +
+  "- Node " + process.version + " · @swc/core " + (dv["@swc/core"] || "?") +
+  " · lightningcss " + (dv.lightningcss || "?") + " · @minify-html/node " + (dv["@minify-html/node"] || "?") + "\n" +
+  "- Sizes are true UTF-8 bytes; gzip is per-file at level 9 — GitHub Pages compresses each file separately\n\n" +
+  "## Files\n\n" +
+  "| File | Input | Output | Saved | Gzip |\n|---|---|---|---|---|\n" +
+  rows
+    .map(
+      (r) =>
+        "| " + r.name + " | " + kb(r.in) + " KB | " + kb(r.out) + " KB | " +
+        ((1 - r.out / r.in) * 100).toFixed(1) + "% | " + kb(r.gz) + " KB |",
+    )
+    .join("\n") +
+  "\n";
+writeFileSync(REPORT, report);
+console.log("wrote dist-build-report.md  (" + Buffer.byteLength(report, "utf8") + " B)");
 console.log(
-  "\ndeploy dist/ + static/ + data/ side by side — data/ and static/ are never in dist/",
+  "\ndeploy: commit dist/ + static/ + data/ side by side — data/ and static/ are never in dist/",
 );

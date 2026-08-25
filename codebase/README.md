@@ -53,7 +53,8 @@ src/
 static/
   font/                           ← Custom merged font (Arabic + Thaana + Latin)
   notes/                          ← Markdown book notes & author bios for the info modal
-dist/                           ← Generated: minified js/css + pages (tools/build.mjs) — gitignored, rebuilt each run
+dist/                           ← Generated: minified js/css + pages (tools/build.mjs) — committed, rebuilt before every commit (dist-build.bat)
+dist-build-report.md            ← Generated: per-build size ledger (build.mjs) — committed for diffable history
 docs/                           ← User guide, architecture, API reference
 ```
 

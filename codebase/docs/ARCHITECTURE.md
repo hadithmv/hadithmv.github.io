@@ -1159,8 +1159,8 @@ and the assertion now derives its expected set from the app's own scoring
 over the picker's own book list. S8b's golden was a byte capture from
 00:14; the 09:13 data update («الأصول الستة» → «الأُصُولُ السَّتَّةُ»,
 +16 bytes) staled it — recaptured. Both rows are in TESTING.md's known
-non-errors table. End state: dist 823.2 KB → 361.7 KB (56.1% saved;
-363.7 KB under esbuild), common.css 92.2 KB → 47.9 KB.
+non-errors table. End state: dist 846.1 KB → 367.3 KB (56.6% saved),
+common.css 92.8 KB → 47.9 KB (true UTF-8 bytes — see `dist-build-report.md`).
 
 **Why @swc/core** (the JS minifier; adopted 2026-08-25 after a five-way
 bake-off, recorded so the choice doesn't get re-litigated blind).
@@ -1190,8 +1190,8 @@ may yield incorrect results" (constant inlining and dead-code removal are
 still on its roadmap) — a future contender, not today's choice. terser is
 the recorded fallback if a pure-JS dependency is ever wanted. The battery
 round: all four `--dist` batteries + toc-scan green on the swc-built dist
-(360.5 KB total vs 361.7 KB under esbuild; the Word golden is unaffected —
-exports embed data fields, not JS).
+(367.3 KB total; the Word golden is unaffected — exports embed data
+fields, not JS).
 
 Closure (the Google npm package, `google-closure-compiler` 20260819) was
 listed and rejected on **architecture**. ADVANCED mode's whole-program
@@ -1207,8 +1207,18 @@ exports** — `parseCSV` vanishes from the output. The no-bundling contract
 model is its opposite. Also: JVM per run, and astral emoji escaped as
 `\ud83d…` surrogate pairs even with `charset: UTF-8`.
 
-The whole tree is wiped and rebuilt each run (generated output cannot drift)
-and is gitignored (`/codebase/dist/` in the repo root .gitignore). Run the
+The whole tree is wiped and rebuilt each run — and **committed** (since
+2026-08-25 the gitignore rule is gone: the web publishes committed files
+as-is, so dist ships to Pages like any other file). The working rule is
+**build before commit** — run `node tools/build.mjs` from codebase/, or
+double-click `codebase/dist-build.bat` — then commit the regenerated
+dist/ together with the source; an unbuilt dist is a stale site. The src
+files stay committed too, so the unminified `/codebase/src/…` URLs keep
+working alongside `/codebase/dist/…`. Each run also rewrites
+**`dist-build-report.md`** (codebase root, committed — the same
+diffable-report pattern as `data/search-index-report.md`): a 16-hex content
+Version stamp, raw/gzip totals, build stats (node + minifier versions),
+and a per-file in→out→gzip table, all in true UTF-8 bytes. Run the
 batteries against the build: `node tools/hmv-{info,authors,libscope,qrn-smoke}-check.mjs --dist`
 — the harness repoints the page root at `dist/books/` while `static/` and
 `data/` stay siblings; the info battery's golden comparison (S8b) normalises
