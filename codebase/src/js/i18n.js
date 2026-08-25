@@ -129,7 +129,7 @@ const STRINGS = {
   },
 
   // ── Sidebar ──
-  sidebarTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حديث إم في" },
+  sidebarTitle: { dv: "ހަދީޘްއެމްވީ", en: "Hadithmv", ar: "حَدِيثْ إِيمْ فِي" },
   navDashboard: {
     dv: "ފޮތްތަކުގެ ލިސްޓް",
     en: "Book list",
@@ -173,7 +173,7 @@ const STRINGS = {
   fontHadithmv: {
     dv: "ހަދީޘްއެމްވީ ފޮންޓް",
     en: "Hadithmv Font",
-    ar: "خط هاديث-ام-في",
+    ar: "خط حَدِيثْ إِيمْ فِي",
   },
   fontSystem: { dv: "ސިސްޓަމް ފޮންޓް", en: "System Font", ar: "خط النظام" },
 

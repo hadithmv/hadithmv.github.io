@@ -1064,11 +1064,11 @@ emits `dist/` from `src/`:
   inline `<script>`/`<style>` blocks via `minify_js`/`minify_css`, see
   "Why @minify-html/node"). The pages' `../css/` `../js/` refs resolve
   inside dist exactly as in src
-- `src/js/*.js` → `dist/js/`, minified **in place** by esbuild (format esm,
-  target esnext — no syntax lowering) — the module graph and every relative
-  path stay at the same depth, so `../../data/` and `../../static/` from
-  `dist/js/` hit the siblings exactly as the source tree does (no bundling,
-  no path rewriting)
+- `src/js/*.js` → `dist/js/`, minified **in place** by **@swc/core**
+  (`module: true`, default compress+mangle, no syntax lowering — see "Why
+  @swc/core") — the module graph and every relative path stay at the same
+  depth, so `../../data/` and `../../static/` from `dist/js/` hit the
+  siblings exactly as the source tree does (no bundling, no path rewriting)
 - `src/css/*.css` → `dist/css/`, minified **in place** by **lightningcss**
   (`minify: true`, no targets — modern-baseline output; see "Why
   lightningcss"). `url()` paths are untouched, so `../../static/font/...`
@@ -1161,6 +1161,51 @@ over the picker's own book list. S8b's golden was a byte capture from
 +16 bytes) staled it — recaptured. Both rows are in TESTING.md's known
 non-errors table. End state: dist 823.2 KB → 361.7 KB (56.1% saved;
 363.7 KB under esbuild), common.css 92.2 KB → 47.9 KB.
+
+**Why @swc/core** (the JS minifier; adopted 2026-08-25 after a five-way
+bake-off, recorded so the choice doesn't get re-litigated blind).
+Candidates: esbuild (the incumbent), terser (the reference implementation),
+@swc/core (Rust, terser-family — Next.js's minifier), oxc-minify (Rust,
+alpha), google-closure-compiler (disqualified — below). Equivalent
+minify-only configs over the 26 files (575.6 KB input): module input, no
+syntax lowering, UTF-8 literals kept (Thaana/Arabic stay literal, not
+`\uXXXX`), comments stripped, default compress + mangle. Scored raw + gzip,
+determinism (sha256 × 2 — all deterministic), `node --check` on every
+output, and sentinels: the export names the `--dist` batteries import
+(`parseCSV`, `searchableBooks`, …) + a Thaana literal. Scoreboard:
+
+| candidate | raw KB | saved | gzip KB | time |
+| --- | --- | --- | --- | --- |
+| esbuild (incumbent) | 232.8 | 59.6% | 80.67 | 48 ms |
+| **@swc/core** | **231.5** | **59.8%** | **78.07** | 48 ms |
+| oxc-minify | 232.0 | 59.7% | 78.35 | 10 ms |
+| terser | 232.0 | 59.7% | 78.47 | 371 ms |
+
+swc is the **only strict improvement** over the incumbent on both metrics.
+The esbuild gzip gap is the decider (2.6 KB, 3.2% — esbuild's lighter
+compression leaves gzip more work), and the consumer math is the same as
+CSS: web ships gzip, the Android APK DEFLATEs, Tauri embeds raw — swc wins
+all three. oxc is 5× faster but its own README says "alpha software …
+may yield incorrect results" (constant inlining and dead-code removal are
+still on its roadmap) — a future contender, not today's choice. terser is
+the recorded fallback if a pure-JS dependency is ever wanted. The battery
+round: all four `--dist` batteries + toc-scan green on the swc-built dist
+(360.5 KB total vs 361.7 KB under esbuild; the Word golden is unaffected —
+exports embed data fields, not JS).
+
+Closure (the Google npm package, `google-closure-compiler` 20260819) was
+listed and rejected on **architecture**. ADVANCED mode's whole-program
+renaming is off the table by contract — the batteries dynamically
+`import()` modules by name and module exports are the API — so it was
+tested in SIMPLE mode per file. Per-file runs cannot resolve relative
+imports (`./csv.js` → `JSC_JS_MODULE_LOAD_WARNING`; no `jscomp_off` group
+exists for it in this build). The whole-graph run needs
+`chunk_output_type=ES_MODULES` to pass `import.meta` (book-info.js), and
+that mode merges the 26 modules into one chunk and **renames away the
+exports** — `parseCSV` vanishes from the output. The no-bundling contract
+(sibling data/static depth, dynamic imports) is load-bearing; Closure's
+model is its opposite. Also: JVM per run, and astral emoji escaped as
+`\ud83d…` surrogate pairs even with `charset: UTF-8`.
 
 The whole tree is wiped and rebuilt each run (generated output cannot drift)
 and is gitignored (`/codebase/dist/` in the repo root .gitignore). Run the

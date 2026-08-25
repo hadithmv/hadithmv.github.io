@@ -288,7 +288,7 @@ All errors show visible messages in English, with a ⚠️ Error: prefix on erro
 
 ## Dependencies
 
-Zero runtime dependencies. No CDN — everything ships from the repo (the only devDependencies — esbuild, lightningcss, @minify-html/node — run the optional `dist/` build):
+Zero runtime dependencies. No CDN — everything ships from the repo (the only devDependencies — @swc/core, lightningcss, @minify-html/node — run the optional `dist/` build):
 
 - `src/js/csv.js` — tiny CSV parser (~1 KB), handles quoted fields and multiline values
 - `src/js/export-xlsx.js` — inline XLSX writer (~2.5 KB), lazy-loaded only when exporting to Excel

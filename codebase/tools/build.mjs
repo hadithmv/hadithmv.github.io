@@ -2,8 +2,9 @@
  * Hadithmv build — emits dist/ from src/.
  *
  * Run: node tools/build.mjs  (from codebase/, or anywhere — paths are
- * derived from this file's location). Requires the esbuild and
- * @minify-html/node devDependencies (npm install) and Node 20.11+.
+ * derived from this file's location). Requires the @swc/core,
+ * lightningcss and @minify-html/node devDependencies (npm install) and
+ * Node 20.11+.
  *
  * Layout contract (docs/ARCHITECTURE.md "Build"):
  *   - src/books/*.html  → dist/books/  minified by @minify-html/node
@@ -13,8 +14,9 @@
  *     2026-08-25; see ARCHITECTURE.md "Why @minify-html/node"). The pages'
  *     ../css/ ../js/ refs are untouched so they resolve inside dist exactly
  *     as in src.
- *   - src/js/*.js       → dist/js/     minified in place — the module
- *     graph and every relative path stay at the same depth, so
+ *   - src/js/*.js       → dist/js/     minified in place by @swc/core
+ *     (Rust terser-family — see ARCHITECTURE.md "JS minification"); the
+ *     module graph and every relative path stay at the same depth, so
  *     ../../data/ (from dist/js/) and ../../static/ (from dist/js/) hit
  *     the siblings exactly as the source tree does
  *   - src/css/*.css     → dist/css/    minified in place by lightningcss
@@ -36,7 +38,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { fileURLToPath } from "node:url";
-import * as esbuild from "esbuild";
+import { minify as swcMinify } from "@swc/core"; // Rust terser-family JS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "JS minification")
 import { transform as lightningTransform } from "lightningcss"; // Rust-native CSS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "CSS minification")
 import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(buf, cfg)
 
@@ -70,17 +72,18 @@ for (const f of htmlFiles) {
   rows.push({ name: "books/" + f, in: html.length, out: out.length });
 }
 
-// ── 3. JS: minify in place (format esm, target esnext = no syntax
-//       lowering — whitespace/syntax/identifier minification only) ──
+// ── 3. JS: minify in place with @swc/core (module: true = esm kept,
+//       default compress+mangle — terser-family; format.ecma 2022 = no
+//       syntax lowering; asciiOnly false = Thaana/Arabic stay literal
+//       instead of \uXXXX bloat) ──────────────────────────────────────
 const jsFiles = readdirSync(SRC + "js").filter((f) => f.endsWith(".js"));
 for (const f of jsFiles) {
   const code = readFileSync(SRC + "js/" + f, "utf8");
-  const result = await esbuild.transform(code, {
-    loader: "js",
-    format: "esm",
-    target: "esnext",
-    minify: true,
-    charset: "utf8", // pages are UTF-8 — keep Thaana/Arabic literal instead of \uXXXX bloat
+  const result = await swcMinify(code, {
+    module: true,
+    compress: {},
+    mangle: {},
+    format: { asciiOnly: false, comments: false, ecma: 2022 },
   });
   writeFileSync(DIST + "js/" + f, result.code);
   totalIn += code.length;
