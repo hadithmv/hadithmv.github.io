@@ -1218,8 +1218,9 @@ working alongside `/codebase/dist/…`. Each run also rewrites
 **`dist-build-report.md`** (codebase root, committed — the same
 diffable-report pattern as `data/search-index-report.md`): a 16-hex content
 Version stamp, a per-type summary (js/css/html + total), build stats
-(node + minifier versions), policy notes, and a per-file in→out→gzip
-table grouped by type, all in true UTF-8 bytes. Run the
+(node + minifier versions), policy notes, and a per-file in→out→gz
+table (raw and gz savings vs input) grouped by type, all in true UTF-8
+bytes. Run the
 batteries against the build: `node tools/hmv-{info,authors,libscope,qrn-smoke}-check.mjs --dist`
 — the harness repoints the page root at `dist/books/` while `static/` and
 `data/` stay siblings; the info battery's golden comparison (S8b) normalises
