@@ -108,7 +108,31 @@ every `data/content/*.csv` header and diffs it against the token tables in
 display labels for the advanced-search column dropdown and the column
 toggles). An unknown token means that header would silently fall back to
 its raw identifier in the selection chrome — add a token (plus a `col*`
-entry in `src/js/i18n.js`) or list it in `DELIBERATE_RAW` with a reason. Its
+entry in `src/js/i18n.js`) or list it in `DELIBERATE_RAW` with a reason.
+The font-coverage check lives at `../tools/hmv-font-subset.py`
+(`python tools/hmv-font-subset.py --check`; one-time
+`python -m pip install fonttools brotli`). It rescans the corpus the same
+way the subsetter does — `data/**/*.csv` + `data/**/*.json`,
+`static/notes/**/*.md`, `src/books/*.html`, `src/js/*.js`, `src/css/*.css`,
+decoded like the browser
+sees it (HTML entities, JS `\u` escapes) — and diffs the result against the
+committed fonts' cmap. Coverage contract: **no corpus character the source
+font covered may be missing from the subset** (GSUB/GPOS survive intact —
+Arabic shaping is part of the deal). Characters the source never covered
+(now 326: control codes, Quranic marks, transliteration letters, emoji)
+fall back to system fonts exactly as before — the tool prints them, and
+fails only on a regression. The full run (no `--check`) rewrites the fonts
+and writes `font-build-report.md` (codebase root — a committed, diffable
+ledger: corpus stats, per-flavor before→after sizes, coverage, sha256);
+output is byte-stable across runs (run twice, compare the printed sha256),
+and the tool refuses to re-subset an already-carved font — the full original
+lives archived at `src/font/` (committed once, never overwritten; the carve
+writes `dist/font/`), so a future content addition is: `--check` fails → run
+the tool → it re-carves from `src/font/` with the grown corpus and rewrites
+the report. `dist-build.mjs` runs the carve at the end of every build — dist/
+is wiped first, so a rebuilt tree always ships a fresh subset.
+Run it after any change that introduces characters: a new book, notes, i18n
+keys, export writers, HTML/CSS content. Exit code 0/1, no browser needed. Its
 job: when a check fails, you know
 **in seconds** whether it is a product bug, a test-setup problem, or a
 pre-existing behavior that merely looks wrong — instead of spending an hour

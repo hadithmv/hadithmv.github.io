@@ -364,9 +364,9 @@ body {
 @font-face {
   font-family: "Hadithmv";
   src:
-    url("../../static/font/merged-400.woff2") format("woff2"),
-    url("../../static/font/merged-400.woff") format("woff");
-  font-weight: 300;
+    url("../font/merged-400.woff2") format("woff2"),
+    url("../font/merged-400.woff") format("woff");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }

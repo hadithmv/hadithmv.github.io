@@ -187,7 +187,7 @@ export function buildPdfHTML(cfg, siteURL, versionText, tocTitle) {
     window.location.origin +
     window.location.pathname.replace(
       /\/[^/]*$/,
-      "/../../static/font/merged-400.woff2",
+      "/../../dist/font/merged-400.woff2",
     );
   var pdfHTML =
     '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' +
@@ -264,7 +264,7 @@ export function buildHtmlBook(cfg, siteURL, versionText, tocTitle) {
   var htmlExport =
     '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' +
     (meta.titleEN || cfg.bookCode || "book") +
-    '</title><style>@font-face{font-family:Hadithmv;src:url(../../static/font/merged-400.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:22pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:14pt;color:#888} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+    '</title><style>@font-face{font-family:Hadithmv;src:url(../../dist/font/merged-400.woff2) format("woff2");font-weight:400} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:22pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:14pt;color:#888} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
   htmlExport += titlePageHTML(cfg, meta, siteURL, versionText);
   htmlExport += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
@@ -301,7 +301,7 @@ export function buildHtmlBook(cfg, siteURL, versionText, tocTitle) {
 export function exportEPUB(cfg, siteURL, versionText) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
-  return fetch("../../static/font/merged-400.woff2")
+  return fetch("../../dist/font/merged-400.woff2")
     .then(function (response) {
       return response.ok ? response.arrayBuffer() : null;
     })
@@ -502,7 +502,7 @@ export function initExports(ctx) {
           setExportBusy(false);
           return;
         }
-        fetch("../../static/font/merged-400.woff2")
+        fetch("../../dist/font/merged-400.woff2")
           .then(function (response) {
             return response.blob();
           })
@@ -693,7 +693,7 @@ export function initExports(ctx) {
         var ht =
           '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' +
           (meta.titleEN || baseName) +
-          '</title><style>@font-face{font-family:Hadithmv;src:url(../../static/font/merged-400.woff2) format("woff2");font-weight:300} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:12pt;line-height:1.8;padding:16px;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:16pt;margin-bottom:4px} table{width:100%;border-collapse:collapse;direction:rtl} th,td{padding:6px 8px;border:1px solid #ddd;text-align:right;vertical-align:top} th{background:#f5f5f5;font-weight:700;font-size:10pt;white-space:nowrap} .hd{text-align:center;font-size:9pt;color:#999;margin-bottom:16px}</style></head><body>';
+          '</title><style>@font-face{font-family:Hadithmv;src:url(../../dist/font/merged-400.woff2) format("woff2");font-weight:400} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:12pt;line-height:1.8;padding:16px;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:16pt;margin-bottom:4px} table{width:100%;border-collapse:collapse;direction:rtl} th,td{padding:6px 8px;border:1px solid #ddd;text-align:right;vertical-align:top} th{background:#f5f5f5;font-weight:700;font-size:10pt;white-space:nowrap} .hd{text-align:center;font-size:9pt;color:#999;margin-bottom:16px}</style></head><body>';
         ht +=
           "<h1>" +
           meta.titleDV +

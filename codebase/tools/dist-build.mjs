@@ -42,6 +42,7 @@ import {
 import { fileURLToPath } from "node:url";
 import { gzipSync } from "node:zlib";
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { minify as swcMinify } from "@swc/core"; // Rust terser-family JS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "JS minification")
 import { transform as lightningTransform } from "lightningcss"; // Rust-native CSS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "CSS minification")
 import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(buf, cfg)
@@ -116,7 +117,8 @@ for (const f of jsFiles) {
 // ── 4. CSS: minify in place with lightningcss (minify: true — merges
 //       adjacent @media blocks, groups identical-declaration selectors,
 //       normalises; url() paths are left untouched — no bundling, so
-//       ../../static/font/... keeps its depth). No targets: modern-baseline
+//       ../font/... keeps its depth (src/font/ from the source css, dist/font/
+//       from the built css). No targets: modern-baseline
 //       output — media queries use range syntax ((max-width:600px) →
 //       (width<=600px)), which Safari <16.4 ignores (accepted — the apps'
 //       WebViews are Chromium/WKWebView ≥ that floor) ─────────────────
@@ -142,6 +144,21 @@ for (const f of cssFiles) {
   });
 }
 
+// ── 4b. Font carve ─────────────────────────────────────────────
+// dist/ was wiped above, so dist/font/ must be re-produced. Delegate to the
+// font tool: it carves src/font/ (the archived full font) down to the corpus
+// union in dist/font/ and rewrites font-build-report.md. Byte-stable output —
+// a build with unchanged content produces identical font bytes.
+const carve = spawnSync("python", ["tools/hmv-font-subset.py"], {
+  cwd: ROOT,
+  encoding: "utf-8",
+});
+if (carve.status !== 0) {
+  console.error("font carve failed (python tools/hmv-font-subset.py):");
+  console.error(carve.stderr || carve.stdout || "(no output)");
+  process.exit(1);
+}
+
 // ── 5. Report ──────────────────────────────────────────────────
 const pct = totalIn ? ((1 - totalOut / totalIn) * 100).toFixed(1) : "0";
 rows.sort((a, b) => b.in - a.in);
@@ -156,7 +173,7 @@ console.log(
     cssFiles.length +
     " css, " +
     htmlFiles.length +
-    " pages (minified)",
+    " pages, carved font (minified)",
 );
 console.log(
   "input  " +
@@ -245,6 +262,7 @@ const report =
   "## Notes\n\n" +
   "- Version = sha256 over the output bytes of all files (name-sorted), first 16 hex\n" +
   "- data/ and static/ are never in dist/ — they deploy side by side\n" +
+  "- dist/font/ is carved from src/font/ by tools/hmv-font-subset.py as part of this build — see font-build-report.md\n" +
   "- src/ stays committed, so the unminified `/codebase/src/…` URLs keep working alongside `/codebase/dist/…`\n\n" +
   "## Files\n\n" +
   typeRows

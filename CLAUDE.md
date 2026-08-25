@@ -52,6 +52,9 @@ Run these before declaring work done (from `codebase/`):
   shared facet system across library page, modals, dashboard, reader header).
 - `node tools/hmv-libscope-check.mjs` — library-scope picker battery.
 - `node tools/hmv-toc-scan.cjs` — reader.js TOC freshness scan.
+- `python tools/hmv-font-subset.py --check` — corpus-vs-webfont coverage,
+  after any change that adds characters (one-time `pip install fonttools
+  brotli`; the tool is also the subsetter itself).
 - After `node tools/dist-build.mjs`, run the four page batteries with `--dist` to
   verify the built `dist/` (info, authors, libscope, qrn-smoke).
 - JS syntax: `cat src/js/<file>.js | node --check --input-type=module -`
