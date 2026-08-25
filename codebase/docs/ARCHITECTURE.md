@@ -22,6 +22,17 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 
 **Single source of truth:** behavior facts are described ONCE in this document. The User Guide and README summarize and link here — they never restate behavior in their own words (restating in three places is how facts drift apart and contradict each other).
 
+## Key benefits
+
+- **CSV‑first** — book metadata and tag definitions in CSV files
+- **Shared template** — one HTML page for all books
+- **Zero code changes** — adding books or categories is CSV‑only
+- **Three themes** — light, dark, sepia; persisted, no flash
+- **RTL‑native** — nav and content flow right‑to‑left for Arabic/Dhivehi
+- **Trilingual UI** — Dhivehi, English, Arabic
+- **Infinite scroll** — seamless reading, no page breaks
+- **All settings persisted** — theme, language, content width, font size, font family, hidden columns, tashkeel
+
 ## Where to look (cheat sheet)
 
 | Task                               | Where                                                                 |
@@ -1260,30 +1271,6 @@ and 304-negotiated by Pages independently (a monolithic JS blob would defeat
 that contract — see "Build (dist/)"). Every build output is byte-stable; the
 reports' Version columns are sha fingerprints, so a stale build shows up as a
 diff.
-
-## Adding content
-
-### New book
-
-1. Add a row to `data/03-registry-bookMeta.csv`.
-1. Create `data/content/{bookCode}.csv` with a header row as the first row.
-1. Open the viewer — it appears automatically.
-
-### New tag category
-
-1. Add a row to `data/01-registry-bookTags.csv` with `tagCode,labelAR,labelDV,labelEN`. Colours are auto‑generated — no need to pick hex values.
-1. Use the code as the primary prefix in a `bookCode`, or add it to a book's `tags` column — badges render automatically.
-
-## Key benefits
-
-- **Single source of truth** — book metadata and tag definitions in CSV files
-- **Shared template** — one HTML page for all books
-- **Zero code changes** — adding books or categories is CSV‑only
-- **Three themes** — light, dark, sepia; persisted, no flash
-- **RTL‑native** — nav and content flow right‑to‑left for Arabic/Dhivehi
-- **Trilingual UI** — Dhivehi, English, Arabic
-- **Infinite scroll** — seamless reading, no page breaks
-- **All settings persisted** — theme, language, content width, font size, font family, hidden columns, tashkeel
 
 ## Library search (cross-book)
 
