@@ -34,6 +34,7 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | Wire a new modal                   | `common.js` `createModal()` + `MODAL_IDS` (must open via `openModal`) |
 | Change search behaviour            | `src/js/search-utils.js` (engine) + `src/js/reader.js` (wiring)       |
 | Bump the version                   | `src/js/i18n.js` `appVersion`, commit "Update to vX.Y.Z"              |
+| Understand the optimizations       | "Optimisations at a glance" below                                     |
 | Verify changes                     | "Verification habits" at the bottom                                   |
 
 ## Files
@@ -1234,6 +1235,31 @@ batteries against the build: `node tools/hmv-{info,authors,libscope,qrn-smoke}-c
 the embedded tree name in the exported bytes, so the minified builders are
 still byte-checked. The TOC/header scans and the golden capture remain
 src-based by design (they read source structure).
+
+## Optimisations at a glance
+
+Where each optimisation lives, how it works, and what it buys — the full
+"why" behind each row is in the linked sections. The figures are from the
+2026-08-25 build; the committed reports (`dist-build-report.md`,
+`font-build-report.md`, `data/search-index-report.md`) are the living ledgers.
+
+| What                 | Where                                     | Why / how                                                                                                | Measured                                              |
+| ---                  | ---                                       | ---                                                                                                      | ---                                                   |
+| JS minification      | Build: "Why @swc/core"                    | Rust terser-family; compress+mangle, no syntax lowering, asciiOnly false — Arabic/Thaana stay literal    | 26 files: 599.2 → 237.1 KB, gz 87.0% saved            |
+| CSS minification     | Build: "Why lightningcss"                 | Rust; merges adjacent @media blocks, groups identical-declaration selectors; range-syntax media queries  | 8 files: 188.5 → 96.2 KB, gz 89.4% saved              |
+| HTML minification    | Build: "Why @minify-html/node"            | Rust/WASM; page structure + inline script/style blocks minified, entity-safe                             | 4 pages: 61.5 → 33.9 KB, gz 82.4% saved               |
+| Font subsetting      | Font note (UI & theming)                  | Carve the full font to the corpus union; GSUB/GPOS kept whole; byte-stable output                        | woff2 163.8 → 95.0 KB (−42.0%); woff 194.4 → 110.2 KB |
+| Edge gzip            | TESTING.md "GitHub Pages gzip"            | Pages gzips every file for Accept-Encoding clients — served size, not repo size                          | whole tree gz 109.0 KB (−87.2% vs input)              |
+| Book caching         | API.md `fetchBookCSVCached`               | IndexedDB `books` store; registry content hash validates; miss → fetch + parse + refresh                 | cache hit = zero download, zero parse                 |
+| Search-index caching | API.md `loadSearchIndex` + Library search | conditional request (304) + IndexedDB copy; full parse only when the version changes                     | 16.5 MiB → 5.1 MiB gz (−69.3%)                        |
+| Lazy modules         | JS conventions + API.md                   | dynamic import() for export writers (EPUB/XLSX/ZIP); reader rows load in chunks; notes fetched on demand | heavy modules fetched only when used                  |
+
+Deliberately absent: **bundling** — dist/ mirrors src/ depth exactly, so
+data/ and static/ stay siblings, no URL rewriting, and each file is gzipped
+and 304-negotiated by Pages independently (a monolithic JS blob would defeat
+that contract — see "Build (dist/)"). Every build output is byte-stable; the
+reports' Version columns are sha fingerprints, so a stale build shows up as a
+diff.
 
 ## Adding content
 
