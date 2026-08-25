@@ -257,6 +257,20 @@ def write_report(ts, sha, cps, n_files, bc, already, out, results, times):
         "|---|---|---|",
         "| %d | %d | %d |" % (results["woff2"][0], results["woff2"][1], len(results["woff2"][3])),
         "",
+        "## Build Stats",
+        "",
+        "- Total: %s s — scan %s s · carve %s s · verify %s s"
+        % (times["total"], times["scan"], times["carve"], times["verify"]),
+        "- Python %s · fontTools %s" % (sys.version.split()[0], FONTTOOLS_VERSION),
+        "",
+        "## Notes",
+        "",
+        "- Version = sha256 of woff2, first 16 hex — the diffable key; the timestamp varies, the sha does not",
+        "- The woff is the same carve re-flavored (identical coverage — built from the woff2's bytes)",
+        "- GSUB/GPOS kept whole: Arabic positional forms, lam-alef ligature, ccmp, locl — shaping is intact",
+        "- Output is byte-stable: carving the same source with the same corpus twice yields identical files",
+        "- `node tools/dist-build.mjs` runs this carve as step 4b — see dist-build-report.md",
+        "",
         "## Coverage: corpus chars the source font never covered",
         "",
         "These fall back to system fonts exactly as before the carve — the subset"
@@ -270,19 +284,6 @@ def write_report(ts, sha, cps, n_files, bc, already, out, results, times):
         text.append("| %s | %d |" % (label, count))
     text += [
         "| **Total** | **%d** |" % len(already),
-        "",
-        "## Build Stats",
-        "",
-        "- Total: %s s — scan %s s · carve %s s · verify %s s"
-        % (times["total"], times["scan"], times["carve"], times["verify"]),
-        "- Python %s · fontTools %s" % (sys.version.split()[0], FONTTOOLS_VERSION),
-        "",
-        "## Notes",
-        "",
-        "- Version = sha256 of woff2, first 16 hex — the diffable key; the timestamp varies, the sha does not",
-        "- The woff is the same carve re-flavored (identical coverage — built from the woff2's bytes)",
-        "- GSUB/GPOS kept whole: Arabic positional forms, lam-alef ligature, ccmp, locl — shaping is intact",
-        "- Output is byte-stable: carving the same source with the same corpus twice yields identical files",
         "",
     ]
     REPORT.write_text("\n".join(text), encoding="utf-8", newline="\n")
