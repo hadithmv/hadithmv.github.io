@@ -1,41 +1,41 @@
 bookCode,authorCode,titleAR,titleDV,titleEN,tags,excludeFromIndex,version
-AQD-aqidatuNawawi-HDN,yahyaBinSharafAnNawawi,عقيدة النووي,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT,ENTIRE-BOOK,9ebcc269d59c
-AQD-aqidatuRaziyain_ASM,"abuZurahArRazi,abuHatimArRazi",عقيدة الرازيين (شاد),ދެ ރާޒީންގެ އަގީދާ (ޝާދު),Creed of the Two Razis (Shaad),"NEW,RAW",foot,825fd585e35d
-AQD-aqidatuRaziyain_HMV,"abuZurahArRazi,abuHatimArRazi",عقيدة الرازيين,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT,foot,b59b0badf3a9
-AQD-nawaqidulIslam,muhammadBinAbdulWahhab,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,,"headAR,headDV,foot",e8a6a9aba6c3
-AQD-qawaidulArbau,muhammadBinAbdulWahhab,‌‌القواعد الأربع,ހަތަރު ގަވާއިދު,Four Principles,,"headAR,headDV,foot",4e6391a64c9c
-AQD-sharhuSunnahBarbahari_HMV,alHasanBinAliAlBarbahari,شرح السنة للبربهاري,ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah,DRFT,foot,0d5e8d4ffff5
-AQD-sharhuSunnahLilMuzani_ASM,abuIbrahimAlMuzani,شَرْحُ السُّنَّةِ,ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah,"NEW,RAW",,a2300c7e77e5
-AQD-usooluSiththa,muhammadBinAbdulWahhab,الأصول الستة,ހަ އުސޫލު,Six Principles,DRFT,"headAR,headDV,foot",dc4bd7e0758c
-AQD-usooluSunnahAhmed,ahmedBinHanbal,أصول السنة لأحمد,އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah,DRFT,foot,ebab597e16e5
-AQD-usooluSunnahLilHumaidi_ASM,abuBakrAlHumaidi,أُصُوْلُ السُّنَّةِ,ސުންނަތުގެ އުޞޫލުތައް,Foundations of the Sunnah,"NEW,RAW",,6baa64c7e832
-AQD-usooluThalaatha,muhammadBinAbdulWahhab,الأصول الثلاثة,ތިން އުސޫލު,Three Principles,,"headAR,headDV,foot",2717f72ab217
-DFK-akhbaruShuyukh,abuBakrAlMarruzi,أخبار الشيوخ وأخلاقهم للمروذي,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Accounts and Character of the Scholars,"ATHR,AKLQ","foot,pNo",735cd0dc1032
-DFK-akhlaqHamalathilQuran,abuBakrAlAajurry,أخلاق حملة القرآن للآجري,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Character of the Bearers of the Quran,"ATHR,QRUL,AKLQ","headAR,footAR,headDV,footDV",d1ba3f3bb644
-DFK-aqidatuSalafSoabuni,abuUthmanAsSoabuni,عقيدة السلف لأبي عثمان الصابوني,އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ,Aqidah of the Salaf,AQD,"headAR,footAR,headDV,footDV",de1bd81d6117
-DFK-intisarLiAshabilHadith,abulMuzaffarAsSamaani,الانتصار لأصحاب الحديث للسمعاني,ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,In Defense of the People of Hadith,AQD,"headAR,headDV,footDV",1bff041cf757
-DFK-kalimathulIkhlas,ibnRajabAlHanbali,كلمة الإخلاص لابن رجب,އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Statement of Sincerity,AQD,"headAR,footAR,footDV",e838d1f09c5f
-DFK-kitabulEmanAbiUbaid,abuUbaidAlQasim,كتاب الإيمان لأبي عبيد,އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Book of Faith,AQD,"headAR,footAR,headDV,footDV",fd980da25962
-DFK-kitabulIlmAbiKhaithama,abuKhaythamaZuhair,كتاب العلم لأبي خيثمة,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge,ATHR,"footAR,footDV",318e51dc67a7
-DFK-sharhuSunnahBarbahari,alHasanBinAliAlBarbahari,شرح السنة للبربهاري (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (DFK),AQD,foot,442ffaf36405
-DFK-talkhisKitabiShariah,,تلخيص العقيدة من كتاب الشريعة للآجري,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Summary of Aqidah from Aajurry's Shari'ah,AQD,"headDV,foot,pNo",1438bfbe927e
-HDT-arbaoonAajurry,abuBakrAlAajurry,الأربعون للآجري,އާޖުއްރީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Aajurry,DRFT,"headAR,headDV,foot",2e68b6339e36
-HDT-arbaoonNawawi,yahyaBinSharafAnNawawi,الأربعون النووية,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Nawawi,REV,"noAR,headAR,headDV,footAR,footDV",ef3ddf02a617
-HDT-bulughulMaram,ibnHajarAlAsqalani,بلوغ المرام,ބުލޫޣުލް މަރާމް,Bulughul Maram,DRFT,"kitabAR,babAR,kitabDV,babDV,footAR",68fb5882825a
-HDT-bulughulMaram-FULL-HDN,ibnHajarAlAsqalani,بلوغ المرام,ބުލޫޣުލް މަރާމް,Bulughul Maram,DRFT,"kitabAR,babAR,kitabDV,babDV,footAR",f61a1fa722e3
-HDT-HBK-adabulMufrad,muhammadBinIsmailAlBukhari,الأدب المفرد,އަދަބުލް މުފްރަދު,Adabul Mufrad,INC,"source,#,takhrij",37613cc1b6e7
-HDT-HBK-jamiuTirmidhi,abuEasaTirmidhi,جامع الترمذي,ޖާމިޢުއް ތިރްމިޛީ,Jamiu Tirmidhi,INC,"source,#,takhrij",b30abc5b906f
-HDT-HBK-musnadAhmed,ahmedBinHanbal,مسند أحمد,މުސްނަދު އަޙްމަދު,Musnad Ahmed,INC,"source,#,takhrij",485d2b281a1f
-HDT-HBK-sahihBukhari,muhammadBinIsmailAlBukhari,صحيح البخاري,ޞަޙީޙު ބުޚާރީ,Sahih Bukhari,INC,"source,#,takhrij",d3ffcff8d71f
-HDT-HBK-sahihMuslim,muslimBinAlHajjaj,صحيح مسلم,ޞަޙީޙު މުސްލިމް,Sahih Muslim,INC,"source,#,takhrij",b15bf580d1a5
-HDT-HBK-sunanAbiDawud,abuDawudAsSijistani,سنن أبي داود,ސުނަން އަބީ ދާއޫދު,Sunan Abi Dawud,INC,"source,#,takhrij",8e5fe4271217
-HDT-HBK-sunanIbnMajah,ibnMajahAlQazwini,سنن ابن ماجه,ސުނަން އިބްނު މާޖަހް,Sunan Ibn Majah,INC,"source,#,takhrij",0d76d9006ae3
-HDT-HBK-sunanNasai,ahmedBinShuaibAnNasai,سنن النسائي,ސުނަން ނަސާއީ,Sunan Nasai,INC,"source,#,takhrij",b2a2d74a4d36
-HDT-HMSC-kutubAlbani,muhammadNasiruddeenAlAlbani,كتب الألباني في الحديث,އަލްބާނީގެ ޙަދީޘް ފޮތްތައް,Hadith Books of Albani,DRFT,"source,#,takhrij",9d3912bda7a1
-HDT-misc,,أحاديث مختلفة,ތަފާތު އެކި ޙަދީޘްތައް,Collection of Various Hadith,DRFT,"source,#,takhrij",30fe88ab3bd7
-HDT-muwattaMalik,malikBinAnas,موطأ مالك,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT,"basmala,kitabAR,babAR,kitabDV,babDV,foot",25b92435f2ec
-HDT-umdathulAhkam,abdulGhaniAlMaqdisi,عمدة الأحكام,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,REV,"kitabAR,babAR,kitabDV,babDV,foot",cf58851f371c
-IH-dhuroosMuhimmahLiAammathilUmmah,ibnBaz,الدروس المهمة لعامة الأمة,އުއްމަތުގެ ޢާއްމުންނަށް ޓަކައި މުހިއްމު ފިލާވަޅުތައް,Important Lessons for the General Ummah,"NEW,RAW",,a40c48dea45c
+AQD-aqidatuNawawi-HDN,yahyaBinSharafAnNawawi,عَقِيدَةُ النَّوَوِيِّ,ނަވަވީގެ އަގީދާ,Nawawi's Aqidah,DRFT,ENTIRE-BOOK,9ebcc269d59c
+AQD-aqidatuRaziyain_ASM,"abuZurahArRazi,abuHatimArRazi",عَقِيدَةُ الرَّازِيَّيْنِ ( شَادُ),ދެ ރާޒީންގެ އަގީދާ (ޝާދު),Creed of the Two Razis (Shaad),"NEW,RAW",foot,825fd585e35d
+AQD-aqidatuRaziyain_HMV,"abuZurahArRazi,abuHatimArRazi",عَقِيدَةُ الرَّازِيَّيْنِ,ދެ ރާޒީންގެ އަގީދާ,Creed of the Two Razis,DRFT,foot,b59b0badf3a9
+AQD-nawaqidulIslam,muhammadBinAbdulWahhab,نَوَاقِضُ الْإِسْلَامِ,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,,"headAR,headDV,foot",e8a6a9aba6c3
+AQD-qawaidulArbau,muhammadBinAbdulWahhab,الْقَوَاعِدُ الْأَرْبَعُ,ހަތަރު ގަވާއިދު,Four Principles,,"headAR,headDV,foot",4e6391a64c9c
+AQD-sharhuSunnahBarbahari_HMV,alHasanBinAliAlBarbahari,شَرْحُ السُّنَّةِ (لِلْبَرْبَهَارِيِّ),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah (by Barbahari),DRFT,foot,0d5e8d4ffff5
+AQD-sharhuSunnahLilMuzani_ASM,abuIbrahimAlMuzani,شَرْحُ السُّنَّةِ (لِلْمُزَنِيِّ),މުޒަނީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah (by Muzani),"NEW,RAW",,a2300c7e77e5
+AQD-usooluSiththa,muhammadBinAbdulWahhab,الأُصُولُ السَّتَّةُ,ހަ އުސޫލު,Six Principles,DRFT,"headAR,headDV,foot",dc4bd7e0758c
+AQD-usooluSunnahAhmed,ahmedBinHanbal,أُصُولُ السُّنَّةِ (لِأَحْمَدَ),އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah (by Ahmed),DRFT,foot,ebab597e16e5
+AQD-usooluSunnahLilHumaidi_ASM,abuBakrAlHumaidi,أُصُوْلُ السُّنَّةِ,ޙުމައިދީ ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah (by Humaidi(,"NEW,RAW",,6baa64c7e832
+AQD-usooluThalaatha,muhammadBinAbdulWahhab,الأُصُولُ الثَّلاثَةُ,ތިން އުސޫލު,Three Principles,,"headAR,headDV,foot",2717f72ab217
+DFK-akhbaruShuyukh,abuBakrAlMarruzi,أَخْبَارُ الشُّيُوخِ وَأَخْلَاقُهُمْ,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Accounts and Character of the Scholars,"ATHR,AKLQ","foot,pNo",735cd0dc1032
+DFK-akhlaqHamalathilQuran,abuBakrAlAajurry,(أَخْلَاقُ حَمَلَةِ الْقُرْآنِ (لِلْآجُرِّيَّ,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Character of the Bearers of the Quran (by Aajurry),"ATHR,QRUL,AKLQ","headAR,footAR,headDV,footDV",d1ba3f3bb644
+DFK-aqidatuSalafSoabuni,abuUthmanAsSoabuni,عَقِيدَةُ السَّلَفِ (لِلصَّابُونِيّ),އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ,Aqidah of the Salaf (by Soabuni),AQD,"headAR,footAR,headDV,footDV",de1bd81d6117
+DFK-intisarLiAshabilHadith,abulMuzaffarAsSamaani,الِانْتِصَارُ لِأَصْحَابِ الْحَدِيثِ (لِلْسَّمْعَانِيّ),ސަމްޢާނީ ލިޔުނު ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން,In Defense of the People of Hadith (by Sam'ani),AQD,"headAR,headDV,footDV",1bff041cf757
+DFK-kalimathulIkhlas,ibnRajabAlHanbali,كَلِمَةُ الْإِخْلَاصِ (لِابْنِ رَجَبٍ),އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Statement of Sincerity (by ibn Rajab),AQD,"headAR,footAR,footDV",e838d1f09c5f
+DFK-kitabulEmanAbiUbaid,abuUbaidAlQasim,كِتَابُ الْإِيمَانِ (لِأَبِي عُبَيْدٍ),އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Book of Faith (by Abu Ubaid),AQD,"headAR,footAR,headDV,footDV",fd980da25962
+DFK-kitabulIlmAbiKhaithama,abuKhaythamaZuhair,(كِتَابُ الْعِلْمِ (لِأَبِي خَيْثَمَةَ,އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge (by Abu Khaithamah),ATHR,"footAR,footDV",318e51dc67a7
+DFK-sharhuSunnahBarbahari,alHasanBinAliAlBarbahari,شَرْحُ السُّنَّةِ (لِلْبَرْبَهَارِيِّ) (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (by Barbahari) (DFK),AQD,foot,442ffaf36405
+DFK-talkhisKitabiShariah,,تَلْخِيصُ الْعَقِيدَةِ مِنْ كِتَابِ الشَّرِيعَةِ لِلْآجُرِّيِّ,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Summary of Aqidah from Aajurry's Shari'ah,AQD,"headDV,foot,pNo",1438bfbe927e
+HDT-arbaoonAajurry,abuBakrAlAajurry,الأَرْبَعُونَ (لِلْآجُرِيّ),އާޖުއްރީ ލިޔުނު ސާޅީސް ޙަދީޘް,Forty Hadith (by Aajurry),DRFT,"headAR,headDV,foot",2e68b6339e36
+HDT-arbaoonNawawi,yahyaBinSharafAnNawawi,الأَرْبَعُونَ النَّوَوِيَّةُ,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Nawawi,REV,"noAR,headAR,headDV,footAR,footDV",ef3ddf02a617
+HDT-bulughulMaram,ibnHajarAlAsqalani,بُلُوغُ الْمَرَامِ مِنْ أَدِلَّةِ الْأَحْكَامِ,ބުލޫޣުލް މަރާމް,Bulughul Maram,DRFT,"kitabAR,babAR,kitabDV,babDV,footAR",68fb5882825a
+HDT-bulughulMaram-FULL-HDN,ibnHajarAlAsqalani,بُلُوغُ الْمَرَامِ مِنْ أَدِلَّةِ الْأَحْكَامِ,ބުލޫޣުލް މަރާމް,Bulughul Maram,DRFT,"kitabAR,babAR,kitabDV,babDV,footAR",f61a1fa722e3
+HDT-HBK-adabulMufrad,muhammadBinIsmailAlBukhari,الأَدَبُ الْمُفْرَدُ,އަދަބުލް މުފްރަދު,Adabul Mufrad,INC,"source,#,takhrij",37613cc1b6e7
+HDT-HBK-jamiuTirmidhi,abuEasaTirmidhi,جَامِعُ التُّرْمِذِيّ,ޖާމިޢުއް ތިރްމިޛީ,Jamiu Tirmidhi,INC,"source,#,takhrij",b30abc5b906f
+HDT-HBK-musnadAhmed,ahmedBinHanbal,مُسْنَدُ أَحْمَدَ,މުސްނަދު އަޙްމަދު,Musnad Ahmed,INC,"source,#,takhrij",485d2b281a1f
+HDT-HBK-sahihBukhari,muhammadBinIsmailAlBukhari,صَحِيحُ الْبُخَارِيِّ,ޞަޙީޙު ބުޚާރީ,Sahih Bukhari,INC,"source,#,takhrij",d3ffcff8d71f
+HDT-HBK-sahihMuslim,muslimBinAlHajjaj,صَحِيحٌ مُسْلِمٌ,ޞަޙީޙު މުސްލިމް,Sahih Muslim,INC,"source,#,takhrij",b15bf580d1a5
+HDT-HBK-sunanAbiDawud,abuDawudAsSijistani,سُنَنُ أَبِي دَاوُدَ,ސުނަން އަބީ ދާއޫދު,Sunan Abi Dawud,INC,"source,#,takhrij",8e5fe4271217
+HDT-HBK-sunanIbnMajah,ibnMajahAlQazwini,سُنَنُ ابْنِ مَاجَهْ,ސުނަން އިބްނު މާޖަހް,Sunan Ibn Majah,INC,"source,#,takhrij",0d76d9006ae3
+HDT-HBK-sunanNasai,ahmedBinShuaibAnNasai,سُنَنُ النَّسَائِيِّ,ސުނަން ނަސާއީ,Sunan Nasai,INC,"source,#,takhrij",b2a2d74a4d36
+HDT-HMSC-kutubAlbani,muhammadNasiruddeenAlAlbani,كُتَبُ الْأَلْبَانِيِّ فِي الْحَدِيثِ,އަލްބާނީގެ ޙަދީޘް ފޮތްތައް,Hadith Books of Albani,DRFT,"source,#,takhrij",9d3912bda7a1
+HDT-misc,,أَحَادِيثُ مُخْتَلِفَةٌ,ތަފާތު އެކި ޙަދީޘްތައް,Collection of Various Hadith,DRFT,"source,#,takhrij",30fe88ab3bd7
+HDT-muwattaMalik,malikBinAnas,مُوَطَأُ مَالِكٍ,މުވައްޠައު މާލިކު,Muwatta Malik,DRFT,"basmala,kitabAR,babAR,kitabDV,babDV,foot",25b92435f2ec
+HDT-umdathulAhkam,abdulGhaniAlMaqdisi,عُمْدَةُ الْأَحْكَامِ فِي كَلَامِ خَيْرِ الْأَنْامِ,ޢުމްދަތުލް އަޙްކާމް,Umdathul Ahkam,REV,"kitabAR,babAR,kitabDV,babDV,foot",cf58851f371c
+IH-dhuroosMuhimmahLiAammathilUmmah,ibnBaz,الْدُّرُوسُ الْمُهِمَّةُ لِعَامَّةِ الْأُمَّةِ,އުއްމަތުގެ ޢާއްމުންނަށް ޓަކައި މުހިއްމު ފިލާވަޅުތައް,Important Lessons for the General Ummah,"NEW,RAW",,a40c48dea45c
 IH-fadailWaAadabulMasjidiNabawi,,فَضَائِلُ وَآدَابُ المَسْجِدِ النَّبَوِيِّ وَأَحْكَامُ زِيَارَةِ قَبْرِ النَّبِيِّ ﷺ,މަސްޖިދުއް ނަބަވީގެ މާތްކަމާއި އެ ތަނުގެ އަދަބުތަކާއި، އަދި ނަބިއްޔާ ﷺ ގެ ޤަބުރުފުޅަށް ޒިޔާރަތްކުރުމުގެ ޙުކުމްތައް,The Virtues and Etiquettes of the Prophet's Mosque and the Rulings on Visiting the Grave of the Prophet ﷺ,"NEW,RAW,AQD",,4cbfcfdfa4de
 IH-hirasathuTauhid_1_aqidahSahihah,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 1 - العَقِيدَةُ الصَّحِيحَةُ وَمَا يُضَادُّهَا,ތައުޙީދު ރައްކާތެރިކުރުން 1 - ޞައްޙަ ޢަޤީދާއާއި އެއާ ޚިލާފުވާ ކަންތައްތައް,Safeguarding Tauhid 1 – Correct Creed and What Opposes It,"NEW,RAW,AQD",,46a38d23044a
 IH-hirasathuTauhid_10_tahzeerMinBinailMasajidAlalQubur,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 10 - التَّحْذِيرُ مِنْ بِنَاءِ المَسَاجِدِ عَلَى القُبُورِ,ތައުޙީދު ރައްކާތެރިކުރުން 9 - ޤަބުރުތަކުގެ މަތީގައި މިސްކިތް ބިނާކުރުމާމެދު އިންޛާރުދިނުން,Safeguarding Tauhid 10 – Warning Against Building Mosques Over Graves,"NEW,RAW,AQD",,85c1b07f8dfa
@@ -44,39 +44,39 @@ IH-hirasathuTauhid_12_bayanKufriWaDalalilKhurujAniShariah,ibnBaz,حِرَاسَ�
 IH-hirasathuTauhid_2_istighathahBiNabiy,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 2 - إِقَامَةُ الْبَرَاهِينِ عَلَى حُكْمِ مَنْ اسْتَغَاثَ بِغَيْرِ اللَّهِ,ތައުޙީދު ރައްކާތެރިކުރުން 2 - ﷲ ފިޔަވާ އެހެން ފަރާތަކަށް އިސްތިޣާޘާކުރާ މީހާގެ ޙުކުމަށް ބުރްހާން ޤާއިމުކުރުން,Safeguarding Tauhid 2 – Establishing Proofs Regarding the Ruling on One Who Seeks Deliverance from Other than Allah,"NEW,RAW,AQD",,ad1b037d50a7
 IH-hirasathuTauhid_5_tahzeerMinalBidai,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 5 - الاَتحْذِيرُ مِنَ الْبِدَعِ,ތައުޙީދު ރައްކާތެރިކުރުން 5 - ބިދުޢަތަކާމެދު އިންޒާރުދިނުން,Safeguarding Tauhid 5 – Warning Against Innovations,"NEW,RAW,AQD",,5e399ce4c595
 IH-hirasathuTauhid_9_hukmuSihrWalKahanah,ibnBaz,حِرَاسَةُ التَّوْحِيدِ 9 - حُكْمُ السِّحْرِ وَالكَهَانَةِ وَمَا يَتَعَلَّقُ بِهَا,ތައުޙީދު ރައްކާތެރިކުރުން 9 - ސިޙުރާއި ކާހިނުކަމުގެ ޙުކުމް,Safeguarding Tauhid 9 – Ruling on Sorcery and Fortune Telling,"NEW,RAW,AQD",,3427c5bea198
-IH-hisnulMuslim,saeedAlQahtani,حِصْنُ المُسْلِمِ (دار الإسلام),ޙިޞްނުލް މުސްލިމް (އިސްލާމް ހައުސް),Fortress of the Muslim (Islam House),"NEW,RAW,ZKR",,a0de8aada9b7
-IH-huquqDaathIlaihalFitrah,ibnulUthaymeen,حقوق دعت إليها الفطرة,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް,Rights Advocated by Human Nature,NEW,foot,a7d7a6a242f1
-IH-islamDeenRusulullah,,الإسلام دين رسل الله,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,NEW,,fc12b2efbb0d
-IH-islamDeenulFitrah,,الإسلام - دين الفطرة والعقل والسعادة,އިސްލާމް ދީން - ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",NEW,,49daca16a4ea
-IH-kaifiyyathuSalatiNabiy_IbnBaz,ibnBaz,كَيفِيَّةُ صَلَاةِ النَّبِيِّ ﷺ - ابْنُ بَازٍ,ނަބީ ﷺ ނަމާދުގެ ނަމާދުކުރެއްވި ގޮތް - އިބްނު ބާޒް,Description of the Prophet's Prayer,"NEW,RAW,FQH",,87bc47347a8e
-IH-manKhalaqaniWaLimaza,,من خلقني؟ ولماذا؟,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟,Who Created Me? And Why?,NEW,,843032358f7d
-IH-mukhtasarFiSifathilUmrah,,المختصر في صفة العمرة وأحكامها,ޢުމްރާގެ ޞިފައާއި އޭގެ ޙުކުމްތަކުގެ ކުރު ޚުލާޞާއެއް,Concise Description of Umrah and Its Rulings,"NEW,RAW,FQH",,a63e6dbf3dde
-IH-mukhtasarTauhidilAsmaWaSifat,,مختصر في توحيد الأسماء والصفات,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"NEW,DRFT,AQD",,9dea890896d2
-IH-nubzaMujazahAnilIslam,,رسالة موجزة عن الإسلام,އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam,"NEW,REV",,0c10a2244855
-IH-rasoolulIslamMuhammad,,رسول الإسلام محمد ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,,,995991f3678a
+IH-hisnulMuslim,saeedAlQahtani,حِصْنُ الْمُسْلِمِ مِنْ أَذْكَارِ الْكِتَابِ وَالسُّنَّةِ (دار الإسلام),ޙިޞްނުލް މުސްލިމް (އިސްލާމް ހައުސް),Fortress of the Muslim (Islam House),"NEW,RAW,ZKR",,a0de8aada9b7
+IH-huquqDaathIlaihalFitrah,ibnulUthaymeen,حُقُوقٌ دَعَتْ إِلَيْهَا الْفِطْرَةُ وَقَرَّرَتْهَا الشَّريعَةُ,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ އަދި ޝަރީއަތުން އެ ކަންކަން ކަނޑައަޅާފައިވާ ހައްގުތައް,Rights Called for by Human Nature and Established by Sharia,NEW,foot,a7d7a6a242f1
+IH-islamDeenRusulullah,,الإِسْلَامُ دِينُ رُسُلِ اللَّهِ,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,NEW,,fc12b2efbb0d
+IH-islamDeenulFitrah,,الإِسْلَامُ دِينُ الْفِطْرَةِ وَالْعَقْلِ وَالسَّعَادَةِ,އިސްލާމް ދީން - ފިތުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",NEW,,49daca16a4ea
+IH-kaifiyyathuSalatiNabiy_IbnBaz,ibnBaz,(كَيفِيَّةُ صَلَاةِ النَّبِيِّ ﷺ (ابْنُ بَازٍ,(ނަބީ ﷺ ނަމާދުގެ ނަމާދުކުރެއްވި ގޮތް (އިބްނު ބާޒް,Description of the Prophet's Prayer (bin Baz),"NEW,RAW,FQH",,87bc47347a8e
+IH-manKhalaqaniWaLimaza,,مَنْ خَلَقَنِي؟ وَلِمَاذَا؟ كُلُّ شَيْءٍ يَدُلُّ عَلَى وُجُودِ الْخَالِقِ,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟ ކޮންމެ އެއްޗެއް ވެސް ދަލީލުކުރަނީ ހެއްދެވި ފަރާތް ވާކަމަށެވެ.,Who Created Me? And Why? Everything Indicates the Existence of the Creator,NEW,,843032358f7d
+IH-mukhtasarFiSifathilUmrah,,المُخْتَصَرُ فِي صِفَةِ الْعُمْرَةِ وَأَحْكَامِهَا,ޢުމްރާގެ ޞިފައާއި އޭގެ ޙުކުމްތަކުގެ ކުރު ޚުލާޞާއެއް,Concise Description of Umrah and Its Rulings,"NEW,RAW,FQH",,a63e6dbf3dde
+IH-mukhtasarTauhidilAsmaWaSifat,,مُخْتَصَرٌ فِي تَوْحِيدِ الْأَسْمَاءِ وَالصِّفَاتِ,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"NEW,DRFT,AQD",,9dea890896d2
+IH-nubzaMujazahAnilIslam,,رِسَالَةٌ مُوجَزَةٌ عَنِ الْإِسْلَامِ,އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam,"NEW,REV",,0c10a2244855
+IH-rasoolulIslamMuhammad,,رَسُولُ الْإِسْلَامِ مُحَمَّدٌ ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,,,995991f3678a
 IH-risalaFiDimaiTabiiyyah,ibnulUthaymeen,رِسَالَةٌ فِي الدِّمَاءِ الطَّبِيعِيَّةِ لِلنِّسَاءِ,އަންހެނުންގެ ޠަބީޢީ ލެއާ ބެހޭ ރިސާލާއެއް,A Treatise on Women’s Natural Blood,"NEW,RAW,FQH",,32b8a81ed527
 IH-risalathainMujizathainFiZakathiWaSiyam,ibnBaz,رِسَالَتَانِ مُوجَزَتَانِ فِي الزَّكَاةِ وَالصِّيَامِ,ޒަކާތާއި ރޯދައާ ބެހޭ ޚުލާޞާ ދެ ރިސާލާ,Two Concise Treatises on Zakath and Fasting,"NEW,RAW,FQH",,32790907ec52
-IH-usooluThalaatha,muhammadBinAbdulWahhab,الأصول الستة (دار الإسلام),ހަ އުސޫލު (އިސްލާމް ހައުސް),Six Principles (Islam House),"NEW,RAW,AQD",,2105b23d5add
-KNSH-hadithmv-DSC,,كناشة حديث إم في,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,ENTIRE-BOOK,b19337752be6
-KNSH-muhammedMaldheefi-DSC,,كناشة محمد المالديفي,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,ENTIRE-BOOK,b075d0e59ba6
-QRN-bakurube,bakurube,ترجمة باكرو بي,ބަކުރުބެގެ ތަރުޖަމާ,Quran Translation of Bakurube,,ayahW2W,42f4b474ddeb
-QRN-DATA-ayahImlai,,القرآن بالرسم الإملائي,ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,,ENTIRE-BOOK,f52c6269cfd4
-QRN-DATA-ayahUthmani,,القرآن بالرسم العثماني,ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,ENTIRE-BOOK,756308c8cfaf
-QRN-hadithmv,,ترجمة حديث إم في,ޙަދީޘްއެމްވީގެ ތަރުޖަމާ,Quran Translation of Hadithmv,DRFT,,0f2711a29294
-QRN-jaufarFaiz,jaufarFaiz,تفسير القرآن لجعفر,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,,foot,51f66d1603c8
-QRN-mukhtasarAR,,المختصر في التفسير,ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir (Arabic Only),,ENTIRE-BOOK,ca622e0646a4
-QRN-muyassarAR,,التفسير الميسر (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir (Arabic Only),,ENTIRE-BOOK,db1022a51454
-QRN-rasmee-alt,,ترجمة رسمية (بحروف الديفيهية بالكامل),ރަސްމީ ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),,,c7380ae41cd1
-QRN-rasmee-og,presidentsOfficeMv,الترجمة الرسمية (الأصلية),ރަސްމީ ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ENTIRE-BOOK,24c98a2f7b76
-QRN-soabuniAshari-HDN,muhammadAliSoabuniAlAshari,ترجمة التفسير الواضح الميسر,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,REV,"translation,title,note",246b5d204bb1
-QRUL-ushrulAkhir-ahkamThahimmulMuslim,,تفسير العشر الأخير ويليه أحكام تهم المسلم,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,Explanation of Last Tenth of Quran - with Important Matters for the Muslim,"AQD,REV",bodyAR,38727785181e
-RDF-ahmadFahmyDidi,ahmadFahmyDidi,معجم أحمد فهمي ديدي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,ENTIRE-BOOK,80fe1dcdfc3f
-RDF-all,,الجامع في المعاجم,އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް,Collection of All Dictionaries,LNG,ENTIRE-BOOK,
-RDF-asmaullahilHusna,,أسماء الله الحسنى,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,"AQD,LNG",ENTIRE-BOOK,17f198f4bf43
-RDF-eegaal,malimMoosaMaafaiykileygefaanu,(معجم) الإيقاظ في تعليم الألفاظ,އަލްއީގާޡް,Eegaal Dictionary,"REV,LNG",ENTIRE-BOOK,611a4bc70631
-RDF-hassanAhmedManiku,hassanAhmedManiku,معجم مانيك الموجز للأصول الاشتقاقية للغة الديفيهية,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,LNG,ENTIRE-BOOK,c3012745fe06
-RDF-misc,,معاجم مختلفة,ތަފާތު އެކި ރަދީފުތައް,Collection of Various Dictionaries,"REV,LNG",ENTIRE-BOOK,54defcd995ed
-RDF-nanfoiyComb,,معجم الأسماء الموحد,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,"REV,LNG",ENTIRE-BOOK,d81292aa4369
-RDF-rasmee,,معجم اللغة الديفهية (الرسمية),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Official Dhivehi Dictionary,LNG,ENTIRE-BOOK,60c3f7c3af40
-RDF-W2W-bakurube,,معجم ألفاظ القران (مبني على ترجمة باكرو بي),ގުރްއާނުގެ ލަފްޒުތަކުގެ މާނަ (ބަކުރުބޭގެ ތަރުޖަމާގެ މައްޗަށް ބިނާކުރެވިފަ),Dictionary of Quranic Words (based on Bakurube's Translation),"QRUL,LNG",ENTIRE-BOOK,302f33626836
-ZKR-hisnulMuslim,saeedAlQahtani,حصن المسلم,މުސްލިމުންގެ ކިއްލާ,Fortress of the Muslim,DRFT,"headAR,footAR,headDV,footDV",9b9d95c89bfd
+IH-usooluThalaatha,muhammadBinAbdulWahhab,الأُصُولُ السَّتَّةُ (دار الإسلام),ހަ އުސޫލު (އިސްލާމް ހައުސް),Six Principles (Islam House),"NEW,RAW,AQD",,2105b23d5add
+KNSH-hadithmv-DSC,,كُنَاشَةُ حَدِيثْ إِمِ فِي,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,ENTIRE-BOOK,b19337752be6
+KNSH-muhammedMaldheefi-DSC,,كُنَاشَةُ مُحَمَّدٍ الْمَالْدِيفِيِّ,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,ENTIRE-BOOK,b075d0e59ba6
+QRN-bakurube,bakurube,تَرْجَمَةُ الْقُرْآنِ لِبَاكْرُوبِي,ބަކުރުބެގެ  ގުރްއާން ތަރުޖަމާ,Quran Translation of Bakurube,,ayahW2W,42f4b474ddeb
+QRN-DATA-ayahImlai,,الْقُرْآنُ بِالرَّسْمِ الْإِمْلَائِيِّ (النص العربي),ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,,ENTIRE-BOOK,f52c6269cfd4
+QRN-DATA-ayahUthmani,,الْقُرْآنُ بِالرَّسْمِ الْعُثْمَانِيِّ (النص العربي),ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,ENTIRE-BOOK,756308c8cfaf
+QRN-hadithmv,,تَرْجَمَةُ الْقُرْآنِ لِحَدِيثْ إِمِ فِي,ޙަދީޘްއެމްވީގެ ގުރްއާން ތަރުޖަމާ,Quran Translation of Hadithmv,DRFT,,0f2711a29294
+QRN-jaufarFaiz,jaufarFaiz,تَفْسِيرُ الْقُرْآنِ لِجَعْفَرَ,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,,foot,51f66d1603c8
+QRN-mukhtasarAR,,المُخْتَصَرُ فِي التَّفْسِيرِ (النص العربي),ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir (Arabic Only),,ENTIRE-BOOK,ca622e0646a4
+QRN-muyassarAR,,التَّفْسِيرُ الْمُيَسَّرُ (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir (Arabic Only),,ENTIRE-BOOK,db1022a51454
+QRN-rasmee-alt,,تَرْجَمَةُ الْقُرْآنِ الرَّسْمِيَّةُ بِاللُّغَةِ الدِّيفِيهِيَّةِ (بِحُرُوفِ الدِّيفِهِيَّةِ بِالْكَامِلِ),ގުރްއާނުގެ ރަސްމީ ދިވެހި ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),,,c7380ae41cd1
+QRN-rasmee-og,presidentsOfficeMv,تَرْجَمَةُ الْقُرْآنِ الرَّسْمِيَّةُ بِاللُّغَةِ الدِّيفِيهِيَّةِ (الأَصْلِيَّةُ),ގުރްއާނުގެ ރަސްމީ ދިވެހި ތަރުޖަމާ (އަސްލު),Official Dhivehi Quran Translation (original),,ENTIRE-BOOK,24c98a2f7b76
+QRN-soabuniAshari-HDN,muhammadAliSoabuniAlAshari,تَرْجَمَةُ التَّفْسِيرِ الْوَاضِحِ الْمُيَسَّرِ,އައްޞާބޫނީ އަލްއަޝްޢަރީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު,Clear and Simplified Tafsir,REV,"translation,title,note",246b5d204bb1
+QRUL-ushrulAkhir-ahkamThahimmulMuslim,,تَفْسِيرُ الْعَشْرِ الْأَخِيرِ وَيَلِيْهِ أَحْكَامٌ تَهُمُ الْمُسْلِمَ,ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު، އަދި މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް,Explanation of Last Tenth of Quran - with Important Matters for the Muslim,"AQD,REV",bodyAR,38727785181e
+RDF-ahmadFahmyDidi,ahmadFahmyDidi,مُعْجَمُ أَحْمَدَ فَهْمِي دِيدِي,އަޙްމަދު ފަހްމީ ދީދީގެ ރަދީފު,Dictionary of Ahmad Fahmy Didi,,ENTIRE-BOOK,80fe1dcdfc3f
+RDF-all,,الْجَامِعُ فِي الْمَعَاجِمِ,އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް,Collection of All Dictionaries,LNG,ENTIRE-BOOK,
+RDF-asmaullahilHusna,,أَسْمَاءُ اللهِ الْحُسْنَىٰ,ﷲގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް,Most Beautiful Names of Allah,"AQD,LNG",ENTIRE-BOOK,17f198f4bf43
+RDF-eegaal,malimMoosaMaafaiykileygefaanu,(مُعْجَمُ) الإِيْقَاظُ فِي تَعْلِيمِ الأَلْفَاظِ,އަލްއީގާޡް,Eegaal Dictionary,"REV,LNG",ENTIRE-BOOK,611a4bc70631
+RDF-hassanAhmedManiku,hassanAhmedManiku,مُعْجَمُ مَانِيكَ الْمُوجَزُ لِلْأُصُولِ الْاِشْتِقَاقِيَّةِ لِلُّغَةِ الدِّيْفِيَّةِ,މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު,Manik’s Concise Etymological Vocabulary,LNG,ENTIRE-BOOK,c3012745fe06
+RDF-misc,,مَعَاجِمُ مُخْتَلِفَةٌ,ތަފާތު އެކި ރަދީފުތައް,Collection of Various Dictionaries,"REV,LNG",ENTIRE-BOOK,54defcd995ed
+RDF-nanfoiyComb,,مُعْجَمُ الْأَسْمَاءِ الْمُوَحَّدُ,އެއްކުރެވިފައިވާ ނަންފޮތް,Unified Dictionary of Names,"REV,LNG",ENTIRE-BOOK,d81292aa4369
+RDF-rasmee,,مُعْجَمُ اللُّغَةِ الدِّيفَهِيَّةِ (الرَّسْمِيَّةِ),ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ),Official Dhivehi Dictionary,LNG,ENTIRE-BOOK,60c3f7c3af40
+RDF-W2W-bakurube,,مُعْجَمُ أَلْفَاظِ الْقُرْآنِ (مَبْنِيٌّ عَلَى تَرْجَمَةِ بَاكُرُوبِي),ގުރްއާނުގެ ލަފްޒުތަކުގެ މާނަ (ބަކުރުބޭގެ ތަރުޖަމާގެ މައްޗަށް ބިނާކުރެވިފަ),Dictionary of Quranic Words (based on Bakurube's Translation),"QRUL,LNG",ENTIRE-BOOK,302f33626836
+ZKR-hisnulMuslim,saeedAlQahtani,حِصْنُ الْمُسْلِمِ مِنْ أَذْكَارِ الْكِتَابِ وَالسُّنَّةِ,މުސްލިމުންގެ ކިއްލާ,Fortress of the Muslim,DRFT,"headAR,footAR,headDV,footDV",9b9d95c89bfd
