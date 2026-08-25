@@ -1054,7 +1054,7 @@ The app has no unit-test framework — the battery suite (`tools/hmv-*.mjs`, see
 
 ## Build (dist/)
 
-`node tools/build.mjs` (needs the esbuild, lightningcss and
+`node tools/dist-build.mjs` (needs the @swc/core, lightningcss and
 @minify-html/node devDependencies — `npm install` once in `codebase/`)
 emits `dist/` from `src/`:
 
@@ -1210,7 +1210,7 @@ model is its opposite. Also: JVM per run, and astral emoji escaped as
 The whole tree is wiped and rebuilt each run — and **committed** (since
 2026-08-25 the gitignore rule is gone: the web publishes committed files
 as-is, so dist ships to Pages like any other file). The working rule is
-**build before commit** — run `node tools/build.mjs` from codebase/, or
+**build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` — then commit the regenerated
 dist/ together with the source; an unbuilt dist is a stale site. The src
 files stay committed too, so the unminified `/codebase/src/…` URLs keep

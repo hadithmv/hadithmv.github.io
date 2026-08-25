@@ -54,7 +54,7 @@ The info-modal battery lives at `../tools/hmv-info-check.mjs`
 (`node tools/hmv-info-check.mjs`; `HMV_INFO_PORT` / `HMV_INFO_PROFILE` env
 vars override the defaults). The four page batteries (info, authors,
 libscope, qrn-smoke) take `--dist` to run against the built `dist/` tree
-(after `node tools/build.mjs`) — the page root repoints to `dist/books/`
+(after `node tools/dist-build.mjs`) — the page root repoints to `dist/books/`
 while `static/`/`data/` stay siblings, and S8b's golden comparison
 normalises the embedded tree name so the minified pages/js/css are still
 byte-checked (`src/` runs stay the byte-identity baseline; the pages are

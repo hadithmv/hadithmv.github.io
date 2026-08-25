@@ -53,8 +53,8 @@ src/
 static/
   font/                           ← Custom merged font (Arabic + Thaana + Latin)
   notes/                          ← Markdown book notes & author bios for the info modal
-dist/                           ← Generated: minified js/css + pages (tools/build.mjs) — committed, rebuilt before every commit (dist-build.bat)
-dist-build-report.md            ← Generated: per-build size ledger (build.mjs) — committed for diffable history
+dist/                           ← Generated: minified js/css + pages (tools/dist-build.mjs) — committed, rebuilt before every commit (dist-build.bat)
+dist-build-report.md            ← Generated: per-build size ledger (dist-build.mjs) — committed for diffable history
 docs/                           ← User guide, architecture, API reference
 ```
 
@@ -131,7 +131,7 @@ python -m http.server 8000
 
 Then open `http://localhost:8000/src/books/index.html`.
 
-The optional build — `npm install` then `node tools/build.mjs` — emits the
+The optional build — `npm install` then `node tools/dist-build.mjs` — emits the
 minified `dist/` for deployment; source and dist behave identically (see
 "Build (dist/)" in `docs/ARCHITECTURE.md`).
 

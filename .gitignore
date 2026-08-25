@@ -2,7 +2,7 @@ node_modules
 _site/
 
 # dist/ is committed by design — the web publishes committed files as-is.
-# Build before commit: node tools/build.mjs (or dist-build.bat in codebase/).
+# Build before commit: node tools/dist-build.mjs (or dist-build.bat in codebase/).
 
 
 
