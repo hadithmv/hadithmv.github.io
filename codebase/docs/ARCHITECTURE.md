@@ -1054,9 +1054,9 @@ The app has no unit-test framework — the battery suite (`tools/hmv-*.mjs`, see
 
 ## Build (dist/)
 
-`node tools/build.mjs` (needs the esbuild and @minify-html/node
-devDependencies — `npm install` once in `codebase/`) emits `dist/` from
-`src/`:
+`node tools/build.mjs` (needs the esbuild, lightningcss and
+@minify-html/node devDependencies — `npm install` once in `codebase/`)
+emits `dist/` from `src/`:
 
 - `src/books/*.html` → `dist/books/`, minified by **@minify-html/node**
   (structure: whitespace collapse + comment removal + spec-safe entity
@@ -1064,10 +1064,15 @@ devDependencies — `npm install` once in `codebase/`) emits `dist/` from
   inline `<script>`/`<style>` blocks via `minify_js`/`minify_css`, see
   "Why @minify-html/node"). The pages' `../css/` `../js/` refs resolve
   inside dist exactly as in src
-- `src/js/*.js` → `dist/js/`, `src/css/*.css` → `dist/css/`, minified **in
-  place** — the module graph and every relative path stay at the same depth,
-  so `../../data/` and `../../static/` from `dist/js/` hit the siblings
-  exactly as the source tree does (no bundling, no path rewriting)
+- `src/js/*.js` → `dist/js/`, minified **in place** by esbuild (format esm,
+  target esnext — no syntax lowering) — the module graph and every relative
+  path stay at the same depth, so `../../data/` and `../../static/` from
+  `dist/js/` hit the siblings exactly as the source tree does (no bundling,
+  no path rewriting)
+- `src/css/*.css` → `dist/css/`, minified **in place** by **lightningcss**
+  (`minify: true`, no targets — modern-baseline output; see "Why
+  lightningcss"). `url()` paths are untouched, so `../../static/font/...`
+  keeps its depth
 - `data/` and `static/` are **never copied** — they deploy side by side with
   `dist/` (web) or are embedded by the app projects' own builds (Tauri /
   Android assemble their own bundles — the copy logic lives there, not here)
@@ -1102,6 +1107,60 @@ pages), every minified block passes `node --check`, and all four `--dist`
 batteries stay green. minify-js is conservative (comments stripped,
 identifiers kept), so the inline code reads like its esbuild-minified
 siblings — the "same code minified two ways" concern is cosmetic only.
+
+**Why lightningcss** (the CSS minifier; adopted 2026-08-25 after a five-way
+bake-off, recorded so the choice doesn't get re-litigated blind).
+Candidates: esbuild (the incumbent), lightningcss (Rust native), csso,
+cssnano, clean-css. Each ran with an equivalent minify-only config (no
+targets, no prefixing, no autoprefixer) over the 8 CSS files — 193,005
+bytes raw input — and was scored on raw + gzip bytes, determinism (run
+twice, sha256 compare — all five deterministic), and content preservation
+(a sentinel audit: selectors, `--vars`, `@font-face` family names,
+keyframes, `url()` depths, non-ASCII counts). Scoreboard (out bytes;
+gz = gzip -9 of the minified output):
+
+| candidate | raw | raw saved | gzip |
+| --- | --- | --- | --- |
+| esbuild (incumbent) | 100,566 | 47.9% | 20,808 |
+| **lightningcss** | **98,562** | **48.9%** | **20,659** |
+| csso | 97,555 | 49.5% | 21,008 |
+| cssnano | 98,330 | 49.1% | 20,853 |
+| clean-css | 102,134 | 47.1% | 20,928 |
+
+lightningcss is the **only strict improvement** — it wins both metrics.
+csso's best raw is its worst gzip, and the loss is structural, not noise:
+its declaration-merging removes exactly the repetition gzip feeds on.
+Consumer math settles it — the web ships gzip (Pages gzips for
+Accept-Encoding clients; a bare `curl -I` sees raw bytes), the Android APK
+zip-DEFLATEs its assets (same compression family as gzip — csso loses there
+too), and Tauri embeds CSS raw: csso's only win is ≈3 KB against a
+≈105 MB data tier, 0.003%.
+
+lightningcss's minify pass merges adjacent identical `@media` blocks,
+groups identical-declaration selectors, normalises `::before` → `:before`
+and `nth-child(1)` → `:first-child`, and rewrites `(max-width:600px)` →
+`(width<=600px)` **range syntax** (Media Queries L4). That last one is the
+only behavioural risk: Safari <16.4 ignores range syntax, so a query
+rewritten that way silently dies there. Accepted deliberately — no browser
+targets are set (modern baseline), the apps' WebViews are Chromium/
+WKWebView ≥ that floor, and the site's own breakpoint (600px) is unaffected
+in every browser that renders it.
+
+The battery round: both finalists (lightningcss, csso) initially failed the
+**same two** `--dist` assertions — S6 (libscope filter) and S8b (info Word
+golden) — which looked like a CSS regression; a decisive experiment
+(restoring the esbuild dist reproduced the identical failures) exonerated
+both candidates. The failures were stale test expectations, not output
+defects. S6's picker filter is **always-fuzzy on titles + tag words**
+(`scoreFilterTokens`: 6+-char tokens tolerate 2 edits; only the code is
+exact-only), so «bukhari» legitimately hits Barbahari (window `bahari`) and
+"by Abu Khaithamah" (window `bu khai`) — DFK books registered 2026-08-22 —
+and the assertion now derives its expected set from the app's own scoring
+over the picker's own book list. S8b's golden was a byte capture from
+00:14; the 09:13 data update («الأصول الستة» → «الأُصُولُ السَّتَّةُ»,
++16 bytes) staled it — recaptured. Both rows are in TESTING.md's known
+non-errors table. End state: dist 823.2 KB → 361.7 KB (56.1% saved;
+363.7 KB under esbuild), common.css 92.2 KB → 47.9 KB.
 
 The whole tree is wiped and rebuilt each run (generated output cannot drift)
 and is gitignored (`/codebase/dist/` in the repo root .gitignore). Run the

@@ -280,7 +280,25 @@ async function main() {
       return { n: rows.length, codes: Array.prototype.map.call(rows, function (r) { return r.dataset.book; }) };
     })()`);
     check("S6 filter narrows list", filtRows.n > 0 && filtRows.n < totalRows, totalRows + " → " + filtRows.n);
-    check("S6 filtered rows contain bukhari", filtRows.codes.every((c) => c.toLowerCase().indexOf("bukhari") !== -1), filtRows.codes.join(","));
+    // The filter is always-fuzzy on titles + tag words (scoreFilterTokens:
+    // 6+ char tokens tolerate 2 edits, code exact-only) — «bukhari» also
+    // legitimately hits Barbahari ("bahari" window) and "by Abu Khaithamah"
+    // ("bu khai"). Derive the expected set with the app's own scoring over
+    // the picker's own book list — never "every code contains the query"
+    // (known non-errors row, docs/TESTING.md).
+    const expected = await evalJS(`(async function () {
+      var su = await import('../js/search-utils.js');
+      var bd = await import('../js/book-data.js');
+      var lsp = await import('../js/library-scope-picker.js');
+      var q = su.normaliseForSearch('bukhari'.toLowerCase());
+      var hits = lsp.searchableBooks().filter(function (b) {
+        if (!b || !b.bookCode) return false;
+        var text = su.normaliseForSearch(((b.titleAR || '') + ' ' + (b.titleDV || '') + ' ' + (b.titleEN || '') + ' ' + bd.tagSearchWords(b.bookCode, b)).toLowerCase());
+        return su.scoreFilterTokens([q], [text], su.normaliseForSearch(b.bookCode.toLowerCase())) >= 0;
+      }).map(function (b) { return b.bookCode; }).sort();
+      return hits;
+    })()`);
+    check("S6 filtered rows match the picker's own scoring", filtRows.codes.slice().sort().join(",") === expected.join(","), "visible " + filtRows.codes.length + " vs expected " + expected.length + " [" + expected.join(",") + "]");
     // The filter rides the shared search-input-wrap — the same search-box
     // component as every other filter — so its ✕ clear button mirrors on
     // the query and restores the full list.

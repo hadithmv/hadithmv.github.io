@@ -17,7 +17,9 @@
  *     graph and every relative path stay at the same depth, so
  *     ../../data/ (from dist/js/) and ../../static/ (from dist/js/) hit
  *     the siblings exactly as the source tree does
- *   - src/css/*.css     → dist/css/    minified in place
+ *   - src/css/*.css     → dist/css/    minified in place by lightningcss
+ *     (minify: true, no targets — modern baseline; see ARCHITECTURE.md
+ *     "CSS minification" for the bake-off and the range-syntax note)
  *   - data/  and  static/ are NEVER copied — they deploy side by side
  *     with dist/ (web) or are embedded by the app projects' own builds
  *     (Tauri / Android) — see docs/ARCHITECTURE.md "Build"
@@ -35,6 +37,7 @@ import {
 } from "node:fs";
 import { fileURLToPath } from "node:url";
 import * as esbuild from "esbuild";
+import { transform as lightningTransform } from "lightningcss"; // Rust-native CSS minifier (adopted 2026-08-25 — see ARCHITECTURE.md "CSS minification")
 import minifyHtml from "@minify-html/node"; // CJS module — exports .minify(buf, cfg)
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url)); // codebase/
@@ -85,20 +88,26 @@ for (const f of jsFiles) {
   rows.push({ name: "js/" + f, in: code.length, out: result.code.length });
 }
 
-// ── 4. CSS: minify in place (url() paths are left untouched — no
-//       bundling, so ../../static/font/... keeps its depth) ──────
+// ── 4. CSS: minify in place with lightningcss (minify: true — merges
+//       adjacent @media blocks, groups identical-declaration selectors,
+//       normalises; url() paths are left untouched — no bundling, so
+//       ../../static/font/... keeps its depth). No targets: modern-baseline
+//       output — media queries use range syntax ((max-width:600px) →
+//       (width<=600px)), which Safari <16.4 ignores (accepted — the apps'
+//       WebViews are Chromium/WKWebView ≥ that floor) ─────────────────
 const cssFiles = readdirSync(SRC + "css").filter((f) => f.endsWith(".css"));
 for (const f of cssFiles) {
   const code = readFileSync(SRC + "css/" + f, "utf8");
-  const result = await esbuild.transform(code, {
-    loader: "css",
+  const result = await lightningTransform({
+    filename: f,
+    code: Buffer.from(code, "utf8"),
     minify: true,
-    charset: "utf8",
   });
-  writeFileSync(DIST + "css/" + f, result.code);
+  const out = result.code.toString("utf8");
+  writeFileSync(DIST + "css/" + f, out);
   totalIn += code.length;
-  totalOut += result.code.length;
-  rows.push({ name: "css/" + f, in: code.length, out: result.code.length });
+  totalOut += out.length;
+  rows.push({ name: "css/" + f, in: code.length, out: out.length });
 }
 
 // ── 5. Report ──────────────────────────────────────────────────
