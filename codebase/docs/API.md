@@ -354,7 +354,7 @@ Cross-book search: loads the machine-generated word index (`data/search-index.js
 
 ### `loadSearchIndex()`
 
-Returns `Promise<{meta, words}>`. Fetches the index with a conditional request (`cache: "no-cache"` → a cheap 304 when the file is unchanged), parses only the meta head to read the version, and serves the parsed words from the on-device IndexedDB copy (`hadithmvSearch` DB) when the version matches; the full 40MB `JSON.parse` + store happen only on version change (or first load). Failed loads are retryable — the promise is cleared on failure so a later call tries again.
+Returns `Promise<{meta, words}>`. Fetches the index with a conditional request (`cache: "no-cache"` → a cheap 304 when the file is unchanged), parses only the meta head to read the version, and serves the parsed words from the on-device IndexedDB copy (`hadithmvSearch` DB) when the version matches; the full 40MB `JSON.parse` + store happen only on version change (or first load). **Offline fallback**: if the fetch itself throws (network down — the SW never caches the index, so a failed fetch is real), the stored record is served as-is — it was validated against `meta.version` when stored. The record keeps the whole `meta` (not just the version) precisely so this fallback can resolve `bookIds` into codes; records written before the offline fallback existed carry no `meta` and fall back to throwing, and the next successful load re-stores a complete record. Failed loads are retryable — the promise is cleared on failure so a later call tries again.
 
 ### `searchLibrary(index, query, scopeBookCodes?)`
 
@@ -851,5 +851,56 @@ with urllib.request.urlopen(url) as r:
 # curl into any CSV tool
 curl -s https://hadithmv.github.io/codebase/data/03-registry-bookMeta.csv | csvlook
 ```
+
+---
+
+## Service worker & manifest
+
+`codebase/sw.js` is a static service worker registered at the site root
+(`/codebase/` in production, `/` under the batteries — registration uses the
+scope-relative `../../sw.js` from each page, so both resolve correctly). It is
+**never edited** — all version intelligence lives in `dist/manifest.json`.
+
+### `dist/manifest.json` (the ledger)
+
+A JSON object mapping scope-relative URL → sha256 fingerprint (first 16 hex)
+of every file the SW may serve. Written **whole** by `tools/hmv-manifest.mjs`
+— byte-stable, idempotent, keys sorted, 2-space indent, LF, no trailing
+newline. Covered: `dist/` (books, js, css, font), the six `-registry-` CSVs
+in `data/`, and `static/notes/`. **Not covered** (pass straight through):
+`data/content/*.csv` and `data/search-index.json` — the app's own IndexedDB
+caches own them, and ~105 MB of corpus must never ride the SW cache.
+
+### Behaviour
+
+- **On install**: best-effort precache of every manifest URL, `skipWaiting`.
+- **On activate**: delete unknown caches, `clients.claim()`.
+- **On fetch** (GET, in-scope only): resolve the current manifest
+  (network-first re-fetch with a 2-minute in-session staleness window; one
+  shared version per visit so the visit is internally consistent; on failure
+  the last copy serves and the next request retries). A requested file is
+  served from the `hmv-files` cache when its stored `x-hmv-fp` response
+  header matches the manifest's fingerprint; otherwise it is fetched fresh,
+  a clone is stored with the `x-hmv-fp` header, and the original returns.
+  Files not in the manifest pass through to a plain `fetch`.
+- **Offline**: the last manifest + last cached copies serve everything they
+  cover; book search falls back to the IndexedDB index copy (see
+  `loadSearchIndex`).
+
+### Registration snippet
+
+Each page carries this inline script (it fails silently on `file://` and in
+the Tauri/Android app builds, which bundle their own assets):
+
+```html
+<script>
+  if ("serviceWorker" in navigator) {
+    try { navigator.serviceWorker.register("../../sw.js").catch(function () {}); } catch (e) {}
+  }
+</script>
+```
+
+The battery `tools/hmv-sw-check.mjs` verifies the whole contract (it must
+serve over `http://127.0.0.1` — a secure context is required for SWs).
 
 No authentication, no rate limiting, no CORS — static files on GitHub Pages.

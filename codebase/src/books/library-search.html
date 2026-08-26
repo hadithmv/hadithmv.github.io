@@ -379,5 +379,14 @@
 
     <script type="module" src="../js/common.js"></script>
     <script type="module" src="../js/library-search-page.js"></script>
+
+    <script>
+      // Service worker — repeat visits load from cache (instant, offline). The
+      // script sits at the codebase root (../../sw.js from books/); registration
+      // fails silently on file:// and inside the apps — that is expected.
+      if ("serviceWorker" in navigator) {
+        try { navigator.serviceWorker.register("../../sw.js").catch(function () {}); } catch (e) {}
+      }
+    </script>
   </body>
 </html>

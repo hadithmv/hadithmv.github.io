@@ -176,3 +176,18 @@ if ($added -eq 0 -and $renamed -eq 0 -and $missing -eq 0 -and $normalized -eq 0)
     Write-Host "  ✨ already up to date" -ForegroundColor Green
 }
 Write-Host ""
+
+# ── Refresh the SW manifest ────────────────────────────────────
+# The book registry is served content — the service worker (codebase/sw.js)
+# trusts dist/manifest.json fingerprints. Run the shared writer so registry
+# edits propagate without a full build.
+Write-Section "Refreshing SW manifest"
+try {
+    & node (Join-Path $PSScriptRoot "..\tools\hmv-manifest.mjs")
+    if ($LASTEXITCODE -ne 0) { throw "hmv-manifest.mjs exited $LASTEXITCODE" }
+}
+catch {
+    Write-Host "  ❌ manifest refresh failed: $_" -ForegroundColor Red
+    exit 1
+}
+Write-Add "dist/manifest.json refreshed"

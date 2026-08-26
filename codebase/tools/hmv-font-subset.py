@@ -52,6 +52,7 @@ import hashlib
 import html
 import os
 import re
+import subprocess
 import sys
 import time
 from collections import Counter
@@ -270,6 +271,7 @@ def write_report(ts, sha, cps, n_files, bc, already, out, results, times):
         "- GSUB/GPOS kept whole: Arabic positional forms, lam-alef ligature, ccmp, locl — shaping is intact",
         "- Output is byte-stable: carving the same source with the same corpus twice yields identical files",
         "- `node tools/dist-build.mjs` runs this carve as step 4b — see dist-build-report.md",
+        "- Standalone runs refresh `dist/manifest.json` via `node tools/hmv-manifest.mjs` (the SW ledger)",
         "",
         "## Coverage: corpus chars the source font never covered",
         "",
@@ -391,6 +393,14 @@ def main():
             h, cps, n, bc, already, out, results, times,
         )
         print("wrote %s (%d B)" % (REPORT.name, REPORT.stat().st_size))
+        # The carve changed served bytes — refresh the SW manifest so the new
+        # font fingerprints propagate (the same rule as dist-build: run the
+        # writer after changing anything the SW serves).
+        refresh = subprocess.run(["node", "tools/hmv-manifest.mjs"], cwd=ROOT)
+        if refresh.returncode != 0:
+            print("ERROR: manifest refresh failed (node tools/hmv-manifest.mjs)")
+            sys.exit(1)
+        print("manifest refreshed: dist/manifest.json")
     sys.exit(1 if bad else 0)
 
 

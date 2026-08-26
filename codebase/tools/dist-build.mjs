@@ -26,6 +26,10 @@
  *     with dist/ (web) or are embedded by the app projects' own builds
  *     (Tauri / Android) — see docs/ARCHITECTURE.md "Build"
  *
+ * Step 4c also writes dist/manifest.json (tools/hmv-manifest.mjs) — the
+ * fingerprint ledger codebase/sw.js trusts — so every build ships a fresh
+ * manifest alongside the files it fingerprints.
+ *
  * dist/ is generated output only: the whole tree is wiped and rebuilt
  * each run. It IS committed — the web publishes committed files as-is, so
  * build before every commit (node tools/dist-build.mjs, or double-click the
@@ -172,6 +176,23 @@ if (carve.status !== 0) {
 }
 mark("carve");
 
+// ── 4c. Manifest ──────────────────────────────────────────────
+// dist/manifest.json — the served-tree fingerprint ledger the service worker
+// (codebase/sw.js) trusts: every file this build emitted plus the registries
+// and the notes, keyed by scope-relative URL → sha256. Whole rewrite,
+// byte-stable (no timestamps) — unchanged builds produce identical bytes.
+// The same writer doubles as the tiny standalone command for data-only
+// edits (see tools/hmv-manifest.mjs).
+const manifestRun = spawnSync("node", ["tools/hmv-manifest.mjs"], {
+  cwd: ROOT,
+  encoding: "utf-8",
+});
+if (manifestRun.status !== 0) {
+  console.error("manifest write failed (node tools/hmv-manifest.mjs):");
+  console.error(manifestRun.stderr || manifestRun.stdout || "(no output)");
+  process.exit(1);
+}
+
 // ── 5. Report ──────────────────────────────────────────────────
 const pct = totalIn ? ((1 - totalOut / totalIn) * 100).toFixed(1) : "0";
 rows.sort((a, b) => b.in - a.in);
@@ -279,6 +300,7 @@ const report =
   "- Saved and Gzip saved are both vs Input — the pipeline story: source → minified → served\n" +
   "- data/ and static/ are never in dist/ — they deploy side by side\n" +
   "- dist/font/ is carved from src/font/ by tools/hmv-font-subset.py as part of this build — see font-build-report.md\n" +
+  "- dist/manifest.json is the service worker's freshness ledger (codebase/sw.js) — written by tools/hmv-manifest.mjs after every build; run it alone after data-only edits\n" +
   "- src/ stays committed, so the unminified `/codebase/src/…` URLs keep working alongside `/codebase/dist/…`\n\n" +
   "## Files\n\n" +
   typeRows

@@ -89,6 +89,9 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `src/js/export-epub.js`                                 | EPUB 3 e-book writer — createEPUB(), embedded font, lazy-loaded                                                                                                                                                         |
 | `src/js/export-zip.js`                                  | Minimal store-only ZIP writer — zipStore(), shared by the XLSX + EPUB writers                                                                                                                                           |
 | `src/js/i18n.js`                                        | Translations module (dv/en/ar) — `t()`, `setLanguage()`                                                                                                                                                                 |
+| `codebase/sw.js`                                        | Static service worker — registered at the site root, scope covers dist/, data/, static/; never edited (all version intelligence lives in dist/manifest.json) — see "Service worker & manifest"                          |
+| `dist/manifest.json`                                    | The SW's freshness ledger: scope-relative URL → sha256 fingerprint (first 16 hex) of every SW-served file — written whole by tools/hmv-manifest.mjs after every build and after hand-editing registries/notes                                                                              |
+| `tools/hmv-manifest.mjs`                                | The shared manifest writer — whole-rewrite, byte-stable, idempotent; called at the end of dist-build.mjs / hmv-font-subset.py / 04-update-bookRegistry.ps1, or directly after a data-only edit (no full build needed)     |
 | `src/font/`                                             | Full merged font (Arabic + Thaana + Latin, WOFF2 + WOFF) — archived original, the carve source; source pages load it (see the Font note in UI & theming)                                                                |
 | `dist/font/`                                            | Carved corpus subset (WOFF2 + WOFF) — produced by tools/hmv-font-subset.py during each dist-build.mjs run; the optimized tree serves it (see the Font note in UI & theming)                                             |
 | `data/content/*.csv`                                    | Per-book content files                                                                                                                                                                                                  |
@@ -1067,6 +1070,7 @@ The app has no unit-test framework — the battery suite (`tools/hmv-*.mjs`, see
 - **Import/export resolution**: `node --check` only checks syntax — a wrong import name (`import { getAyahNoFromRowQuran }` where the module exports `getAyahNoFromRow`) is a runtime `SyntaxError` that only surfaces in the browser. Cross-check every `import { … } from "./x.js"` against `x.js`'s export declarations (match `export (async )?(function|var|const|let) <name>` and `export { … }` blocks — name-only, no aliases — and remember the target's own aliased re-exports, e.g. `quran-ui.js` re-exports `getAyahNoFromRow` but reader.js historically imports it as `getAyahNoFromRowQuran` via `as`).
 - **Behaviour equivalence** (search‑engine changes): copy the old module from `git show HEAD:codebase/src/js/…` and compare outputs on Arabic/Thaana test corpora (see the search‑performance notes)
 - **Browser caching**: GitHub Pages serves without cache‑busting — always hard‑refresh (Ctrl+F5) after changes; stale CSS is the most common "it didn't work" cause
+- **Manifest freshness**: after any change to a SW-served file (dist, a registry, a note), `dist/manifest.json` must be regenerated — run the build, or the tiny command `node tools/hmv-manifest.mjs` for data-only edits (the build and the data scripts all call it; see "Service worker & manifest")
 - **RTL**: arrow‑key stepping, scroll directions, and sticky headers behave differently per browser and per element `dir` — test number inputs and scroll rows in both Chrome and Firefox
 - **Direction sanity**: after any change that adds or rewords visible text, switch to dv and to en — each line must read from the correct edge (right in dv/ar, left in en) and must not jump position (pin `text-align` when it matters)
 
@@ -1095,6 +1099,12 @@ emits `dist/` from `src/`:
 - `data/` and `static/` are **never copied** — they deploy side by side with
   `dist/` (web) or are embedded by the app projects' own builds (Tauri /
   Android assemble their own bundles — the copy logic lives there, not here)
+- **`dist/manifest.json`** — written at the end of the run by
+  `tools/hmv-manifest.mjs` (step 4c, after the font carve): the service
+  worker's fingerprint ledger (see "Service worker & manifest" below).
+  The same writer also runs at the end of `hmv-font-subset.py` standalone
+  runs and `04-update-bookRegistry.ps1`, and can be run by hand after a
+  data-only edit — the manifest must always describe the served tree
 
 **Why @minify-html/node** (decided 2026-08-25 after a four-way bake-off,
 recorded so the choice doesn't get re-litigated blind). Candidates:
@@ -1231,7 +1241,11 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` — then commit the regenerated
-dist/ together with the source; an unbuilt dist is a stale site. The src
+dist/ together with the source; an unbuilt dist is a stale site. For a
+**data-only** commit (registry, note, or font change) the full build is
+overkill — run the tiny command `node tools/hmv-manifest.mjs` instead so
+`dist/manifest.json` (the service worker's ledger) describes the new
+files, then commit. The src
 files stay committed too, so the unminified `/codebase/src/…` URLs keep
 working alongside `/codebase/dist/…`. Each run also rewrites
 **`dist-build-report.md`** (codebase root, committed — the same
@@ -1246,6 +1260,40 @@ batteries against the build: `node tools/hmv-{info,authors,libscope,qrn-smoke}-c
 the embedded tree name in the exported bytes, so the minified builders are
 still byte-checked. The TOC/header scans and the golden capture remain
 src-based by design (they read source structure).
+
+## Service worker & manifest (offline)
+
+A static service worker at `codebase/sw.js` (scope = the site root, covering
+`dist/`, `data/`, `static/`) makes the site work offline and keeps repeat
+visits fast, without ever shipping the ~105 MB corpus through the SW cache:
+
+- **`sw.js` itself never changes** — all version intelligence lives in
+  `dist/manifest.json`, a map of scope-relative URL → sha256 fingerprint
+  (first 16 hex) of every file the SW may serve (the 40-odd dist files, the
+  six `-registry-` CSVs, and `static/notes/`). It is written **whole** every
+  time by `tools/hmv-manifest.mjs` — byte-stable and idempotent (no
+  timestamps; unchanged files emit the same bytes) — at the end of
+  `dist-build.mjs` (step 4c), `hmv-font-subset.py`, and
+  `04-update-bookRegistry.ps1`, and by hand after a data-only edit.
+- **Serving model**: on each visit the SW re-fetches the manifest
+  network-first (2-minute in-session staleness window, one shared version
+  per visit). Each requested file is then served from the `hmv-files` cache
+  when its stored `x-hmv-fp` header matches the manifest's fingerprint;
+  only mismatches (or misses) are re-fetched — one changed file costs one
+  request. Offline, the last manifest + last copies serve everything.
+- **Deliberately excluded**: book CSVs and `data/search-index.json` are not
+  in the manifest and pass straight through — the app's own IndexedDB
+  caches own them (`fetchBookCSVCached` version-gates on the registry hash,
+  `loadSearchIndex` on `meta.version`, with an offline fallback to the
+  stored copy). `src/` dev URLs are outside the SW's interest entirely.
+- **Registration**: an inline snippet in all four pages registers
+  `../../sw.js` (scope-relative — `/codebase/` in production, `/` under the
+  batteries); it fails silently on `file://` and in the apps (Tauri /
+  Android bundle their own builds).
+- Battery: `node tools/hmv-sw-check.mjs` (must serve over `http://127.0.0.1`
+  — a secure context is required for SWs) covers registration, precache,
+  cache-served repeat visits, offline rendering, per-file update
+  propagation, and the manifest's network-first re-fetch.
 
 ## Optimisations at a glance
 
@@ -1263,6 +1311,7 @@ Where each optimisation lives, how it works, and what it buys — the full
 | Edge gzip            | TESTING.md "GitHub Pages gzip"            | Pages gzips every file for Accept-Encoding clients — served size, not repo size                          | whole tree gz 109.0 KB (−87.2% vs input)              |
 | Book caching         | API.md `fetchBookCSVCached`               | IndexedDB `books` store; registry content hash validates; miss → fetch + parse + refresh                 | cache hit = zero download, zero parse                 |
 | Search-index caching | API.md `loadSearchIndex` + Library search | conditional request (304) + IndexedDB copy; full parse only when the version changes                     | 16.5 MiB → 5.1 MiB gz (−69.3%)                        |
+| Service worker       | Build: "Service worker & manifest"        | manifest-pinned per-file cache (`x-hmv-fp` header); network-first re-fetch; offline = last copies        | 0 bytes on repeat visits; offline renders             |
 | Lazy modules         | JS conventions + API.md                   | dynamic import() for export writers (EPUB/XLSX/ZIP); reader rows load in chunks; notes fetched on demand | heavy modules fetched only when used                  |
 
 Deliberately absent: **bundling** — dist/ mirrors src/ depth exactly, so

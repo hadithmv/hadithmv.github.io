@@ -8,6 +8,13 @@ GitHub Pages. All code, data, and docs live in `codebase/`.
 
 - **Never commit.** The user commits via their IDE. Leave all changes
   uncommitted; `git status` should show your work when you finish.
+- **Refresh the SW manifest before every commit.** `dist/manifest.json` is
+  the service worker's freshness ledger (codebase/sw.js) — after any change
+  to a served file, run `node tools/dist-build.mjs` (full build) or, for a
+  data-only edit (registry, note, font), the tiny command
+  `node tools/hmv-manifest.mjs` from `codebase/`. The build, the font
+  subsetter, and the registry script all call it themselves; a stale
+  manifest serves stale files to returning visitors.
 - **Design questions → discuss in prose.** The user prefers plain conversation
   over structured pickers.
 - **Verify encodings after any script-based rewrite**: LF (not CRLF), no BOM,
@@ -52,6 +59,10 @@ Run these before declaring work done (from `codebase/`):
   shared facet system across library page, modals, dashboard, reader header).
 - `node tools/hmv-libscope-check.mjs` — library-scope picker battery.
 - `node tools/hmv-toc-scan.cjs` — reader.js TOC freshness scan.
+- `node tools/hmv-sw-check.mjs` — service-worker battery (registration,
+  precache, cache-served repeat visits, offline rendering, per-file update
+  propagation; serves over http://127.0.0.1 — a secure context is required
+  for SWs).
 - `python tools/hmv-font-subset.py --check` — corpus-vs-webfont coverage,
   after any change that adds characters (one-time `pip install fonttools
   brotli`; the tool is also the subsetter itself).

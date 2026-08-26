@@ -74,13 +74,14 @@ function idbGetIndex() {
   });
 }
 
-function idbPutIndex(version, words) {
+function idbPutIndex(meta, words) {
   return openSearchDB().then(function (db) {
     if (!db) return;
     return new Promise(function (resolve) {
       var tx = db.transaction(IDB_STORE, "readwrite").objectStore(IDB_STORE).put({
         id: IDB_ENTRY_ID,
-        version: version,
+        version: meta.version,
+        meta: meta, // kept whole — the offline fallback needs bookIds etc.
         words: words,
       });
       tx.onsuccess = function () { resolve(); };
@@ -101,6 +102,11 @@ var _indexPromise = null;
  *   - Only the meta head is parsed from the fetched text to read the
  *     version; the full 40MB JSON.parse + store happen only when the
  *     version actually changed (or the first time).
+ *   - Offline (fetch threw): the on-device copy is served as-is — it was
+ *     validated against meta.version when it was stored. The stored meta
+ *     (added with the offline fallback) carries the bookIds the search
+ *     page resolves results through; records without it can't, so they
+ *     fall back to the original throw.
  * Failed loads are retryable — the promise is cleared so a later call
  * tries again.
  */
@@ -130,7 +136,20 @@ async function loadIndexInner() {
     cached = null;
   }
 
-  var resp = await fetch(INDEX_PATH, { cache: "no-cache" });
+  var resp;
+  try {
+    resp = await fetch(INDEX_PATH, { cache: "no-cache" });
+  } catch (e) {
+    // Offline (or any network failure): the on-device copy is the best we
+    // have — it was validated against meta.version when it was stored.
+    // Records written before the offline fallback existed carry no meta
+    // and can't resolve numeric bookIds, so only a complete record helps;
+    // the next successful load re-stores one.
+    if (cached && cached.meta && cached.words) {
+      return { meta: cached.meta, words: cached.words };
+    }
+    throw e;
+  }
   if (!resp.ok) {
     throw new Error("Failed to load the search index (" + resp.status + ")");
   }

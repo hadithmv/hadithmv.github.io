@@ -52,7 +52,21 @@ comma in Dhivehi/Arabic, on cards and header alike), and the search
 window's All-books facet section (modals stack over the window).
 The info-modal battery lives at `../tools/hmv-info-check.mjs`
 (`node tools/hmv-info-check.mjs`; `HMV_INFO_PORT` / `HMV_INFO_PROFILE` env
-vars override the defaults). The four page batteries (info, authors,
+vars override the defaults). The service-worker battery lives at
+`../tools/hmv-sw-check.mjs` (`node tools/hmv-sw-check.mjs`; `HMV_SW_PORT` /
+`HMV_SW_UPDATE_PORT` / `HMV_SW_PROFILE` env vars override the defaults).
+Unlike the others it serves the tree over HTTP (`http://127.0.0.1` — a
+service worker needs a secure context, so file:// cannot host one) with
+correct MIME types and Last-Modified/304 revalidation, and its Edge
+`--remote-debugging-port` must differ from the site port (the battery's own
+server holds it). It covers: the registration snippet on every page (S0),
+manifest freshness/completeness — the run-before-commit gate (S2),
+register/install/precache (S1), cache-served repeat visits with zero
+transfer (S3), offline page + book rendering via CDP network emulation (S4),
+per-file fingerprint update propagation — a changed note is re-fetched on
+the next visit while unchanged files are never re-requested, and the
+manifest itself is re-fetched network-first every visit (S5) — and no page
+errors (S6). The four page batteries (info, authors,
 libscope, qrn-smoke) take `--dist` to run against the built `dist/` tree
 (after `node tools/dist-build.mjs`) — the page root repoints to `dist/books/`
 while `static/`/`data/` stay siblings, and S8b's golden comparison
