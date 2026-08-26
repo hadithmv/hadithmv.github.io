@@ -14,7 +14,7 @@
  */
 
 import { currentLang, t } from "./i18n.js";
-import { getColumnSource, getRegistryLabel } from "./quran-data.js";
+import { getColumnSource, getRegistryLabel } from "./book-data.js";
 import { KNOWN_COMPOUNDS, LANG_TOKENS, TOKEN_KEYS, stripHdn, tokenizeHeader } from "./column-tokens.js";
 
 // Derive a display label from a raw header, or null when any token is

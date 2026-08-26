@@ -40,8 +40,8 @@ src/
     reader-position.js            ← Reader position: pagination strip, progress bar, URL sync, read-history
     reader-search-ui.js           ← In-book search: results, history, whole-word toggle, advanced search
     table-scroll-sync.js          ← Table view: top scrollbar, width sync, arrow/wheel scrolling
-    quran-data.js                 ← Quran: data, decoration, column registry
-    quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (re-exports quran-data.js)
+    quran-data.js                 ← Quran: data, decoration, structure (lazy — QRN books only)
+    quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (lazy; re-exports quran-data.js)
     csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
     search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
     library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine

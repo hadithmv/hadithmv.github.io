@@ -6,9 +6,10 @@
     <title></title>
     <!-- ⚠ CSS LOAD ORDER MATTERS: reader.css MUST be last because its mobile
          media queries need to override specificity ties with reader-quran.css.
-         Reordering these <link> tags will break Quran nav sizing on mobile. -->
+         Reordering these <link> tags will break Quran nav sizing on mobile.
+         reader-quran.css is injected by reader.js for QRN books, inserted
+         before reader-search.css so this order is preserved. -->
     <link rel="stylesheet" href="../css/common.css" />
-    <link rel="stylesheet" href="../css/reader-quran.css" />
     <link rel="stylesheet" href="../css/reader-search.css" />
     <link rel="stylesheet" href="../css/reader-table-view.css" />
     <link rel="stylesheet" href="../css/search-window.css" />

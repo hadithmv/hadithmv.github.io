@@ -15,7 +15,6 @@
 import { t, currentLang } from "./i18n.js";
 import { addReadHistory, isPinned, addPin } from "./book-data.js";
 import { formatThousands } from "./search-utils.js";
-import { quranState, findQuranColIndices, getRowSurah, getRowJuz, getSurahInfo, getAyahNoFromRow as getAyahNoFromRowQuran, updateQuranNavDisplay } from "./quran-ui.js";
 
 // Module-scope state — set by initPosition, read by the exported
 // updatePagination and visiblePageIndex (same pattern as quranState
@@ -133,20 +132,23 @@ export function updatePagination(force) {
 
   // Sync Quran nav with scroll position
   if (quranBook && visibleRow >= 0 && visibleRow < filteredData.length) {
+    // Quran UI module is lazy — route through the module object reader.js
+    // passed in ctx (it is settled before any scroll handler can run).
+    var q = ctx.quranUi;
     var scrollRow = filteredData[visibleRow];
-    findQuranColIndices(headerRow);
-    var scrollSurah = getRowSurah(scrollRow, headerRow);
-    var scrollJuz = getRowJuz(scrollRow, headerRow);
-    if (scrollSurah !== quranState.currentSurah) {
-      quranState.currentSurah = scrollSurah;
-      quranState.currentAyah = 1;
-      var info = getSurahInfo(scrollSurah);
+    q.findQuranColIndices(headerRow);
+    var scrollSurah = q.getRowSurah(scrollRow, headerRow);
+    var scrollJuz = q.getRowJuz(scrollRow, headerRow);
+    if (scrollSurah !== q.quranState.currentSurah) {
+      q.quranState.currentSurah = scrollSurah;
+      q.quranState.currentAyah = 1;
+      var info = q.getSurahInfo(scrollSurah);
       if (info) document.getElementById("qrnAyahInput").max = info.ayahCount;
     }
-    quranState.currentJuz = scrollJuz;
-    var ayahNo = getAyahNoFromRowQuran(scrollRow, headerRow);
-    if (ayahNo > 0) quranState.currentAyah = ayahNo;
-    updateQuranNavDisplay();
+    q.quranState.currentJuz = scrollJuz;
+    var ayahNo = q.getAyahNoFromRow(scrollRow, headerRow);
+    if (ayahNo > 0) q.quranState.currentAyah = ayahNo;
+    q.updateQuranNavDisplay();
   }
 
   var atFirst = visibleRow === 0;
@@ -283,10 +285,11 @@ function onScroll() {
     var completionMsg;
     if (quranBook && filteredData.length > 0) {
       // Quran progress is surah-level — name the surah just finished
+      var q = ctx.quranUi;
       var doneRow = filteredData[vRow];
-      findQuranColIndices(headerRow);
-      var doneSurah = getRowSurah(doneRow, headerRow);
-      var doneInfo = getSurahInfo(doneSurah);
+      q.findQuranColIndices(headerRow);
+      var doneSurah = q.getRowSurah(doneRow, headerRow);
+      var doneInfo = q.getSurahInfo(doneSurah);
       var lang = currentLang();
       var doneName = doneInfo ? (lang === "en" ? doneInfo.nameEN : doneInfo.nameAR) : "";
       completionMsg = "✅ " + (doneName ? doneName + " " : "") + t("surahCompleted") + " 📖";
@@ -320,11 +323,12 @@ function onScroll() {
   if (scrollCounter) {
     var vRow = visiblePageIndex();
     if (quranBook && filteredData.length > 0) {
+      var q = ctx.quranUi;
       var scRow = filteredData[vRow];
-      findQuranColIndices(headerRow);
-      var scSurah = getRowSurah(scRow, headerRow);
-      var scAyah = getAyahNoFromRowQuran(scRow, headerRow);
-      var scInfo = getSurahInfo(scSurah);
+      q.findQuranColIndices(headerRow);
+      var scSurah = q.getRowSurah(scRow, headerRow);
+      var scAyah = q.getAyahNoFromRow(scRow, headerRow);
+      var scInfo = q.getSurahInfo(scSurah);
       var scName = scInfo ? scInfo.nameAR : "";
       scrollCounter.innerHTML = scName + ' <span class="scroll-counter-num">' + scSurah + '</span> : <span class="scroll-counter-num">' + scAyah + '</span> <span class="scroll-counter-pct">' + pct + '%</span>';
     } else {

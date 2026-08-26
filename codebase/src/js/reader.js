@@ -6,12 +6,11 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, bookAuthorParts, authorListSeparator, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, bookAuthorParts, authorListSeparator, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync, isQuranBook, isAyahTextColumn, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, loadColumnRegistry } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
 import { isMergedRadheefBook, loadMergedRadheefBook } from "./radheef-merge.js";
-import { isQuranBook, mergeQuranData, loadSurahNames, loadColumnRegistry, getSurahInfo, decorateAyah, isAyahTextColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, quranState, initQuranUI, updateQuranNavDisplay, findQuranColIndices, getAyahNoFromRow as getAyahNoFromRowQuran, getRowJuz, getRowSurah, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn } from "./quran-ui.js";
 import { initExports } from "./export.js";
 import { openInfoModal, computeChapterCount } from "./book-info.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
@@ -24,32 +23,53 @@ initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
-  //   Book loading (standard CSV or Quran merge)           L49-125
-  //   Page header, tag badges, language-aware titles       L128-270
-  //   Persisted settings (LS wrapper, -HDN column init)    L273-319
-  //   Reader state, column toggles, dropdown infrastructure L322-413
-  //   Tashkeel helpers                                     L416-423
-  //   Clipboard formatting (rowText)                       L426-516
-  //   View mode dropdown (card / table / parallel)         L519-567
-  //   Quran helpers                                        L570-574
-  //   Card row renderer (renderRowHTML)                    L577-673
-  //   Parallel row renderer (renderParallelRowHTML)        L676-795
-  //   Chunk + table-row renderers                          L798-860
-  //   Infinite scroll + table scrollbar                    L863-1079
-  //   Navigation (goTo, scroll padding)                    L1082-1138
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1141-1177
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1180-1369
-  //   Keyboard shortcuts (incl. navigation buttons)        L1372-1483
-  //   Touch swipe                                          L1486-1506
-  //   Settings reset + language change                     L1509-1522
-  //   Quran UI (initQuranUI ctx)                           L1525-1545
-  //   Initial render (deep links, reveal)                  L1548-1629
-  //   Module-level helpers (showError)                     L1632-1638
+  //   Book loading (standard CSV or Quran merge)           L48-148
+  //   Page header, tag badges, language-aware titles       L151-293
+  //   Persisted settings (LS wrapper, -HDN column init)    L296-342
+  //   Reader state, column toggles, dropdown infrastructure L345-436
+  //   Tashkeel helpers                                     L439-446
+  //   Clipboard formatting (rowText)                       L449-539
+  //   View mode dropdown (card / table / parallel)         L542-590
+  //   Quran helpers                                        L593-597
+  //   Card row renderer (renderRowHTML)                    L600-696
+  //   Parallel row renderer (renderParallelRowHTML)        L699-818
+  //   Chunk + table-row renderers                          L821-883
+  //   Infinite scroll + table scrollbar                    L886-1102
+  //   Navigation (goTo, scroll padding)                    L1105-1161
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1164-1200
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1203-1392
+  //   Keyboard shortcuts (incl. navigation buttons)        L1395-1506
+  //   Touch swipe                                          L1509-1529
+  //   Settings reset + language change                     L1532-1545
+  //   Quran UI (initQuranUI ctx)                           L1548-1568
+  //   Initial render (deep links, reveal)                  L1571-1653
+  //   Module-level helpers (showError)                     L1656-1662
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
 
   var quranBook = isQuranBook(metadata.bookCode);
+
+  // Quran UI pair (quran-ui.js + quran-data.js) lazy-loads for QRN books
+  // only — no other book pulls the Quran modules into its critical path.
+  // Resolves null for non-QRN books; loadQuranBook and the gated renderers
+  // below use quranUi (set once the module arrives).
+  var quranUi = null;
+  var quranUiPromise = quranBook
+    ? import("./quran-ui.js").then(function (m) { quranUi = m; return m; })
+    : Promise.resolve(null);
+
+  // Quran books load reader-quran.css on demand (it styles only the Quran
+  // nav/surah-selector UI). Injected before reader-search.css so the cascade
+  // order matches the static <link>s — reader.css stays last, its mobile
+  // media queries beat quran ties on ≤600px.
+  if (quranBook) {
+    var quranCssLink = document.createElement("link");
+    quranCssLink.rel = "stylesheet";
+    quranCssLink.href = "../css/reader-quran.css";
+    var searchCssLink = document.querySelector('link[rel=stylesheet][href*="reader-search.css"]');
+    document.head.insertBefore(quranCssLink, searchCssLink || document.head.firstChild);
+  }
 
   // Radheef books (RDF-*) default to table view on desktop — their rows are
   // single-field entries that read better as a table.
@@ -71,9 +91,12 @@ initializePageWithMetadata(async function (metadata) {
   }
 
   function loadQuranBook() {
-    return Promise.all([loadSurahNames(), loadColumnRegistry()]).then(function () {
-      return mergeQuranData(metadata.bookCode).then(function (merged) {
-        return { data: merged.allData, headerRow: merged.headerRow, hasRowNums: false };
+    // The quranUi promise is always settled by the time loadBookData() runs.
+    return quranUiPromise.then(function (q) {
+      return Promise.all([q.loadSurahNames(), loadColumnRegistry()]).then(function () {
+        return q.mergeQuranData(metadata.bookCode).then(function (merged) {
+          return { data: merged.allData, headerRow: merged.headerRow, hasRowNums: false };
+        });
       });
     });
   }
@@ -436,7 +459,7 @@ initializePageWithMetadata(async function (metadata) {
           var qt = "";
           var surahNo = parseInt(row[1], 10) || 0; // surahNo-HDN at col 1
           var ayahNo = parseInt(row[2], 10) || 0; // ayahNo-HDN at col 2
-          var info = getSurahInfo(surahNo);
+          var info = quranUi.getSurahInfo(surahNo);
           var surahName = info ? info.nameAR : "";
           // Ayah text: find ayahImlai or ayahUthmani column
           for (var ci = 0; ci < row.length; ci++) {
@@ -448,7 +471,7 @@ initializePageWithMetadata(async function (metadata) {
                 var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
                 var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
                 var showNumBrackets = LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false);
-                qt += decorateAyah(ayahValue, ayahNo, showBraces, showAyahNum, showNumBrackets);
+                qt += quranUi.decorateAyah(ayahValue, ayahNo, showBraces, showAyahNum, showNumBrackets);
                 break;
               }
             }
@@ -570,7 +593,7 @@ initializePageWithMetadata(async function (metadata) {
       // #region Quran helpers
       // ── Quran helpers ──────────────────────────────────────
       function getAyahNoFromRow(row) {
-        return getAyahNoFromRowQuran(row, headerRow);
+        return quranUi.getAyahNoFromRow(row, headerRow);
       }
       // #endregion
 
@@ -616,7 +639,7 @@ initializePageWithMetadata(async function (metadata) {
             var ayahNo = getAyahNoFromRow(row);
             var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
             var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
-            display = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), query));
+            display = markupTashkeel(highlightMatches(quranUi.decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), query));
           } else {
             display = markupTashkeel(highlightMatches(rawVal, query));
           }
@@ -708,7 +731,7 @@ initializePageWithMetadata(async function (metadata) {
             var ayahNo = getAyahNoFromRow(row);
             var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
             var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
-            d = markupTashkeel(highlightMatches(decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), query));
+            d = markupTashkeel(highlightMatches(quranUi.decorateAyah(rawVal, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), query));
           } else {
             d = markupTashkeel(highlightMatches(rawVal, query));
           }
@@ -840,7 +863,7 @@ initializePageWithMetadata(async function (metadata) {
               var ayahNo = getAyahNoFromRow(row);
               var showBraces = LS.get(window.LS_KEYS.readerQuranShowBraces, true);
               var showAyahNum = LS.get(window.LS_KEYS.readerQuranShowAyahNum, true);
-              display = markupTashkeel(highlightMatches(decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), activeSearchQuery));
+              display = markupTashkeel(highlightMatches(quranUi.decorateAyah(v, ayahNo, showBraces, showAyahNum, LS.get(window.LS_KEYS.readerQuranShowNumBrackets, false)), activeSearchQuery));
             } else {
               display = markupTashkeel(highlightMatches(v, activeSearchQuery));
             }
@@ -1236,7 +1259,7 @@ initializePageWithMetadata(async function (metadata) {
         if (!row) return null;
         var surahNo = parseInt(row[1], 10) || 0;
         var ayahNo = parseInt(row[2], 10) || 0;
-        var info = getSurahInfo(surahNo);
+        var info = quranUi.getSurahInfo(surahNo);
         var surahName = info ? info.nameAR : "";
         return surahName + " " + ayahNo + ":" + surahNo;
       }
@@ -1537,7 +1560,7 @@ initializePageWithMetadata(async function (metadata) {
           goTo: goTo,
           LS: LS
         };
-        initQuranUI(quranCtx);
+        quranUi.initQuranUI(quranCtx);
         // initQuranUI builds the column source map (_columnSourceMap), which
         // columnDisplayLabel reads for registry labels — rebuild the toggles
         // now so QRN books show registry labels, not derived ones.
@@ -1554,6 +1577,7 @@ initializePageWithMetadata(async function (metadata) {
       initPosition({
         metadata: metadata,
         quranBook: quranBook,
+        quranUi: quranUi, // lazy module object — null for non-QRN books
         isRadheefBook: isRadheefBook(metadata.bookCode),
         headerRow: headerRow,
         allData: allData,
@@ -1564,7 +1588,7 @@ initializePageWithMetadata(async function (metadata) {
       loadInitial();
       observeSentinels();
       document.addEventListener("languagechange", function () {
-        if (quranBook) updateQuranNavDisplay();
+        if (quranBook) quranUi.updateQuranNavDisplay();
       });
       expandIfOverflowing();
       window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); refreshTableScrollWidth(); });

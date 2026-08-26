@@ -25,8 +25,8 @@
 | `src/js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
 | `src/js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
 | `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export |
-| `src/js/quran-data.js` | Quran pure data: loading, merging, decoration, column classification, source labels |
-| `src/js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel). |
+| `src/js/quran-data.js` | Quran pure data: loading, merging, decoration, structural derivation — lazy-loaded with quran-ui.js for QRN books only |
+| `src/js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel); dynamically imported by reader.js on QRN detection |
 | `src/js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
 | `src/js/export-xlsx.js` | XLSX writer, `createXLSX()` — lazy-loaded on demand |
 | `src/js/export-epub.js` | EPUB 3 e-book writer, `createEPUB()` — lazy-loaded on demand |
@@ -111,7 +111,7 @@ Looks up a single book by code (async). Returns the metadata object or `null`.
 
 ### `getBookTitleSync(bookCode)`
 
-Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `quran-data.js` for source-book labels and `pins-history.js` for modal book names.
+Synchronous lookup — returns `titleDV` (or `titleEN`) for a book code. Requires the book registry to already be loaded (it is after page init). Returns `null` if the cache isn't populated or the book isn't found. Used by `book-data.js` itself for QRN source-book labels and by `pins-history.js` for modal book names.
 
 ### `resolveBookCode(bookCode)`
 
@@ -439,11 +439,11 @@ All modals (settings, font, pins/history) share the same open/close/Escape patte
 
 ## quran-data.js
 
-Pure data/logic — no DOM dependencies. Detection, CSV loading, data merging, ayah decoration, column classification, registry lookups. Imported by `quran-ui.js`, `reader.js`, and `export-epub.js`.
+Pure data/logic — no DOM dependencies. CSV loading, data merging, ayah decoration, structural derivation. Detection + column classification (and the column source map + registry) moved to `book-data.js` so every book's reader gets them without pulling the Quran modules in. Imported by `quran-ui.js` only — reader.js lazy-loads the pair (dynamic import) when a QRN-prefixed book opens.
 
 ## quran-ui.js
 
-DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re-exports the `quran-data.js` symbols (barrel pattern). Statically imported by `reader.js`.
+DOM-heavy UI — `initQuranUI(ctx)`. Surah/ayah/juz dropdowns, content presets, display options, surah selector overlay, on-demand column loading. Re-exports the `quran-data.js` symbols (barrel pattern). Dynamically imported by `reader.js` on QRN detection; the shared classification helpers it needs come from `book-data.js`, not from the lazy modules.
 
 ### `loadQuranBaseData()`
 
@@ -554,7 +554,7 @@ Shared mutable state object:
 
 ## reader.js
 
-Consumes `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `quran-ui.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, `export.js`. Key internal functions (search/position/scrollbar APIs live in their own modules below):
+Consumes `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `search-utils.js`, `i18n.js`, `book-data.js`, `csv.js`, `export.js`, `book-info.js`. The `quran-ui.js` pair (with `quran-data.js`) is **dynamically imported on QRN detection only** — non-QRN readers never fetch it. Key internal functions (search/position/scrollbar APIs live in their own modules below):
 
 | Function | Description |
 |---|---|
@@ -735,7 +735,7 @@ Recomputes table and spacer widths and scrollbar visibility after column toggles
 
 ## export-epub.js
 
-Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `export-zip.js`, `escapeXML` from `search-utils.js`, `bookAuthorNames` from `book-data.js`, and column helpers from `quran-ui.js`.
+Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `export-zip.js`, `escapeXML` from `search-utils.js`, and `bookAuthorNames` + the column helpers from `book-data.js`.
 
 ### `createEPUB(rows, meta, opts)`
 

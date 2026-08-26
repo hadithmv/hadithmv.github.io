@@ -6,7 +6,7 @@
  * The dashboard UI built on this metadata lives in dashboard.js.
  */
 
-import { fetchCSVObjects } from "./csv.js";
+import { fetchCSVObjects, fetchCSVRows } from "./csv.js";
 import { t, currentLang } from "./i18n.js";
 
 let _bookNamesCache = null;
@@ -497,6 +497,168 @@ export { extractTags };
  */
 export function getCsvPath(bookCode) {
   return `../../data/content/${bookCode}.csv`;
+}
+
+// ---------------------------------------------------------------------------
+// Quran detection + column classification — moved here verbatim from
+// quran-data.js so every book's reader gets the column smarts without
+// pulling the Quran data modules into the critical path (they now
+// lazy-load for QRN books only). The column source map and registry stay
+// empty for non-QRN books, so the accessors are no-ops there.
+// ---------------------------------------------------------------------------
+
+var QRN_RE = /^QRN-/;
+var QRN_DATA_RE = /^QRN-DATA-/;
+
+export function isQuranBook(bookCode) {
+  return QRN_RE.test(bookCode) && !QRN_DATA_RE.test(bookCode);
+}
+
+// The base Quran book's code — its columns are structural (never hidden or
+// reordered). QRN_BASE_STRUCT is a synthetic pseudo-book: the four structural
+// columns (juz/surah/ayah/basmalah) have no CSV file of their own — they are
+// derived at load from 05-registry-quranSurahs.csv + 06-registry-quranJuz.csv.
+export var QRN_BASE_FILE = "QRN-DATA-ayahImlai";
+export var QRN_BASE_STRUCT = "QRN-BASE-STRUCT";
+
+// True for the base book and the derived structural pseudo-book.
+export function isBaseSourceBook(bookCode) {
+  return bookCode === QRN_BASE_FILE || bookCode === QRN_BASE_STRUCT;
+}
+
+export var AYAH_TEXT_COLS = /^ayah(imlai|uthmani)$/i;
+
+export function isAyahTextColumn(header) {
+  return AYAH_TEXT_COLS.test((header || "").trim());
+}
+
+// ── Column classification helpers ────────────────────────────
+// Shared across card/parallel/table renderers and all export formats.
+
+/** Returns the reader-field-* CSS class suffix for a column header, or "". */
+export function columnFieldClass(hdr) {
+  if (hdr.startsWith("head")) return "reader-field-header";
+  if (hdr.startsWith("kitab")) return "reader-field-kitab";
+  if (hdr.startsWith("bab")) return "reader-field-bab";
+  if (hdr.startsWith("matn")) return "reader-field-matn";
+  if (hdr.startsWith("sharh")) return "reader-field-sharh";
+  return "";
+}
+
+/** Returns the td-* classes for table mode, or "". */
+export function columnTdClass(hdr, isQuranBook) {
+  var cls = [];
+  if (hdr.startsWith("matn")) cls.push("td-matn");
+  if (hdr.startsWith("sharh")) cls.push("td-sharh");
+  if (isArabicColumn(hdr, isQuranBook)) cls.push("td-ar");
+  return cls.length ? ' class="' + cls.join(" ") + '"' : "";
+}
+
+export function isFootnoteColumn(hdr) { return hdr.startsWith("foot"); }
+export function isArDvTransition(prevHdr, currHdr) { return prevHdr.endsWith("ar") && currHdr.endsWith("dv"); }
+export function isMatnSharhTransition(prevHdr, currHdr) { return prevHdr.startsWith("matn") && currHdr.startsWith("sharh"); }
+
+/** Classify a column as "ar", "dv", or "neutral" for parallel text view. */
+export function classifyColumnLang(hdr, isQuranBook) {
+  if (isQuranBook && isAyahTextColumn(hdr)) return "ar";
+  if (hdr.endsWith("ar")) return "ar";
+  if (hdr.endsWith("dv")) return "dv";
+  return "neutral";
+}
+
+/** True for columns whose content is Arabic. The language lives in the
+ *  column-naming convention (…AR suffix; ayahImlai/uthmani in Quran books;
+ *  basmalah is Arabic by nature), so the reader can tint Arabic fields
+ *  and cells from the header alone — no per-column registry. */
+export function isArabicColumn(hdr, isQuranBook) {
+  hdr = (hdr || "").toLowerCase();
+  return classifyColumnLang(hdr, isQuranBook) === "ar" || /^basmalah?$/.test(hdr);
+}
+
+// ── Column source map + registry (QRN external columns) ──────
+// Built at QRN reader init (initQuranUI → rebuildColumnSourceMap; the
+// registry fetches 07-registry-quranColumns.csv via loadColumnRegistry).
+
+var _columnSourceMap = null;
+var _colRegistryCache = null; // loadColumnRegistry + label lookups
+export function rebuildColumnSourceMap(loadedColMap) {
+  _columnSourceMap = {};
+  for (var key in loadedColMap) {
+    var idx = loadedColMap[key];
+    var parts = key.split(":");
+    var sourceBook = parts.slice(0, -1).join(":");
+    var sourceCol = parseInt(parts[parts.length - 1], 10);
+    _columnSourceMap[idx] = { sourceBook: sourceBook, sourceCol: sourceCol };
+  }
+}
+
+// Get the human-readable label for any non-base book column
+export function getColumnSourceBookTitle(colIndex) {
+  if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
+  var info = _columnSourceMap[colIndex];
+  if (isBaseSourceBook(info.sourceBook)) return null;
+  return getBookTitleSync(info.sourceBook) || info.sourceBook;
+}
+
+// The source book code a column belongs to (null for base data columns)
+export function getColumnSourceBook(colIndex) {
+  if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
+  return _columnSourceMap[colIndex].sourceBook;
+}
+
+// The full {sourceBook, sourceCol} pair a column was loaded from (null for
+// unmapped columns — regular books, or base data before the merge builds
+// the map). Consumed by src/js/column-labels.js to look up registry labels.
+export function getColumnSource(colIndex) {
+  if (!_columnSourceMap || !_columnSourceMap[colIndex]) return null;
+  return _columnSourceMap[colIndex];
+}
+
+export function loadColumnRegistry() {
+  if (_colRegistryCache) return Promise.resolve(_colRegistryCache);
+  return fetchCSVRows("../../data/07-registry-quranColumns.csv").then(
+    function (rows) {
+      if (rows.length === 0) return [];
+      rows.shift(); // strip header
+      _colRegistryCache = rows.map(function (r) {
+        return {
+          sourceBook: r[0] || "",
+          sourceCol: parseInt(r[1], 10) || 0,
+          displayDV: r[2] || "",
+          displayEN: r[3] || "",
+        };
+      });
+      return _colRegistryCache;
+    },
+  );
+}
+
+// Display labels for a (sourceBook, sourceCol) from the column registry
+// (07-registry-quranColumns.csv) — null when the registry has no row.
+export function getRegistryLabel(sourceBook, sourceCol) {
+  var regs = _colRegistryCache || [];
+  for (var i = 0; i < regs.length; i++) {
+    if (regs[i].sourceBook === sourceBook && regs[i].sourceCol === sourceCol) {
+      return regs[i];
+    }
+  }
+  return null;
+}
+
+export function getAllAvailableColumns() {
+  return (_colRegistryCache || []).slice();
+}
+
+// True when any column from a book other than current or base is loaded
+export function hasExternalColumns(currentBookCode) {
+  if (!_columnSourceMap) return false;
+  for (var idx in _columnSourceMap) {
+    var info = _columnSourceMap[idx];
+    if (!isBaseSourceBook(info.sourceBook) && info.sourceBook !== currentBookCode) {
+      return true;
+    }
+  }
+  return false;
 }
 
 import { addPin, removePin, isPinned, addReadHistory, evictCandidateName } from "./pins-history.js";

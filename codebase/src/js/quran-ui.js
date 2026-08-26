@@ -4,33 +4,36 @@
  * DOM setup for the Quran reader panel: surah/ayah/juz dropdowns,
  * content preset dropdown, display options, surah selector overlay,
  * on-demand column loading, presets.
- * Re-exports all data symbols from quran-data.js (barrel pattern).
- * Imported by reader.js when a QRN-prefixed book is detected.
+ * Re-exports the quran-data.js symbols only the QRN reader needs (barrel
+ * pattern). Loaded lazily: reader.js dynamic-imports this pair only when a
+ * QRN-prefixed book opens, so no other book pays for it. Detection + column
+ * classification live in book-data.js — shared by every book's reader
+ * without pulling the Quran data modules into the critical path.
  */
 
 // Explicit re-exports from quran-data.js (avoids silent name collisions of export *)
 export {
-  isQuranBook, QRN_PRESET_MAIN, QRN_PRESET_ARABIC,
+  QRN_PRESET_MAIN, QRN_PRESET_ARABIC,
   loadQuranBaseData, loadSurahNames,
-  getSurahNames, getSurahInfo, toArabicNumeral, AYAH_TEXT_COLS,
-  isAyahTextColumn, decorateAyah, loadQuranBookCSV, mergeQuranData,
-  loadColumnRegistry,
-  rebuildColumnSourceMap, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns,
-  getAllAvailableColumns, quranState,
+  getSurahNames, getSurahInfo, toArabicNumeral,
+  decorateAyah, loadQuranBookCSV, mergeQuranData,
+  quranState,
   buildSurahListHTML, findQuranColIndices,
   getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,
-  columnFieldClass, columnTdClass, isFootnoteColumn,
-  isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn,
-  QRN_BASE_FILE, QRN_BASE_STRUCT, isBaseSourceBook,
   getSurahStartRow, getJuzStartRow,
 } from "./quran-data.js";
 
 import { QRN_PRESET_MAIN, QRN_PRESET_ARABIC, getSurahInfo,
-  getAllAvailableColumns, rebuildColumnSourceMap, quranState,
+  quranState,
   getRowJuz, getRowSurah, findQuranColIndices, loadQuranBookCSV,
-  applyColumnOrder, BASE_HEADERS, QRN_BASE_FILE, QRN_BASE_STRUCT,
-  isBaseSourceBook, getSurahStartRow, getJuzStartRow,
+  applyColumnOrder, BASE_HEADERS,
+  getSurahStartRow, getJuzStartRow,
   updateQuranNavDisplay, buildSurahListHTML } from "./quran-data.js";
+
+// Shared column smarts — now in book-data.js so every book's reader gets
+// them without pulling the Quran data modules into the critical path.
+import { getAllAvailableColumns, rebuildColumnSourceMap, QRN_BASE_FILE,
+  QRN_BASE_STRUCT, isBaseSourceBook } from "./book-data.js";
 
 import { normaliseForSearch } from "./search-utils.js";
 import { t } from "./i18n.js";
