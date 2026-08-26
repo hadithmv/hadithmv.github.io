@@ -1275,6 +1275,11 @@ visits fast, without ever shipping the ~105 MB corpus through the SW cache:
   timestamps; unchanged files emit the same bytes) — at the end of
   `dist-build.mjs` (step 4c), `hmv-font-subset.py`, and
   `04-update-bookRegistry.ps1`, and by hand after a data-only edit.
+  Fingerprints describe the **committed** bytes — text files pass through
+  git's clean filter (CRLF→LF; `core.autocrlf` smudges untouched files to
+  CRLF on disk), fonts are binary and hashed raw — so a clean checkout on
+  any machine yields the ledger Pages actually serves. The SW battery's
+  S2 mirror and its file server apply the same pass.
 - **Serving model**: on each visit the SW re-fetches the manifest
   network-first (2-minute in-session staleness window, one shared version
   per visit). Each requested file is then served from the `hmv-files` cache

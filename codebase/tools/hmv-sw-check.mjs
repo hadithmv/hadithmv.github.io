@@ -64,6 +64,15 @@ function check(name, cond, detail) {
   if (!cond) failures++;
 }
 const sha16 = (buf) => crypto.createHash("sha256").update(buf).digest("hex").slice(0, 16);
+// Clean-filter bytes — MUST mirror tools/hmv-manifest.mjs: fingerprints
+// describe the committed blobs (LF under core.autocrlf), not the
+// working tree (CRLF-smudged). Fonts are binary — a woff/woff2 stream
+// can legally contain 0x0D 0x0A — so they are hashed AND served raw.
+const LATIN1 = "latin1";
+function cleanBytes(file, buf) {
+  if (buf.indexOf(0x0d) === -1 || file.indexOf("/font/") !== -1) return buf;
+  return Buffer.from(buf.toString(LATIN1).replace(/\r\n/g, "\n"), LATIN1);
+}
 
 // ── S0: the registration snippet on every page ──────────────────────
 // Matches the essential tokens, not literal source: the dist pages carry
@@ -87,7 +96,7 @@ const sha16 = (buf) => crypto.createHash("sha256").update(buf).digest("hex").sli
 // ── S2: the manifest matches the tree ───────────────────────────────
 function expectedManifest() {
   const map = {};
-  const add = (abs) => { map[path.relative(ROOT, abs).split(path.sep).join("/")] = sha16(fs.readFileSync(abs)); };
+  const add = (abs) => { map[path.relative(ROOT, abs).split(path.sep).join("/")] = sha16(cleanBytes(abs, fs.readFileSync(abs))); };
   for (const f of fs.readdirSync(ROOT + "dist/books").filter((n) => n.endsWith(".html"))) add(ROOT + "dist/books/" + f);
   for (const f of fs.readdirSync(ROOT + "dist/js").filter((n) => n.endsWith(".js"))) add(ROOT + "dist/js/" + f);
   for (const f of fs.readdirSync(ROOT + "dist/css").filter((n) => n.endsWith(".css"))) add(ROOT + "dist/css/" + f);
@@ -142,7 +151,7 @@ function makeServer(port, overrides, hits) {
       const mtime = fs.statSync(src).mtime.toUTCString();
       res.setHeader("Last-Modified", mtime);
       if (req.headers["if-modified-since"] === mtime) { res.writeHead(304); res.end(); return; }
-      const buf = fs.readFileSync(src);
+      const buf = cleanBytes(src, fs.readFileSync(src));
       res.writeHead(200, { "Content-Type": MIME[path.extname(src)] || "application/octet-stream" });
       res.end(buf);
     } catch (e) {
@@ -286,7 +295,7 @@ async function main() {
     const writeV = (v) => {
       fs.writeFileSync(tmpNote, realNote + "\n<!-- SWCHECK-" + v + " -->\n");
       const m = JSON.parse(JSON.stringify(realManifest));
-      m[NOTE_KEY] = sha16(fs.readFileSync(tmpNote));
+      m[NOTE_KEY] = sha16(cleanBytes(NOTE_PATH, fs.readFileSync(tmpNote)));
       fs.writeFileSync(tmpManifest, JSON.stringify(m, null, 2));
       // Force distinct Last-Modified stamps: filesystem mtime granularity
       // could otherwise make v2 look unchanged to a revalidation (304), and

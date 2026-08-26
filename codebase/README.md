@@ -22,6 +22,7 @@ src/
     index.html                    ← Dashboard — book list, search, tag filter, table/card view
     reader.html                   ← Book viewer — loaded via ?book=CODE
     library-search.html           ← Cross-book search page — shareable ?q=/?tags= URLs
+    info.html                     ← Book/author info page — shareable ?book=/?author= URLs
   css/
     common.css                    ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
     reader.css                    ← Reader page: focus mode, toolbar, pagination, content, responsive
@@ -54,7 +55,9 @@ static/
   font/                           ← Custom merged font (Arabic + Thaana + Latin)
   notes/                          ← Markdown book notes & author bios for the info modal
 dist/                           ← Generated: minified js/css + pages (tools/dist-build.mjs) — committed, rebuilt before every commit (dist-build.bat)
+dist/manifest.json              ← Generated: the service worker's freshness ledger (tools/hmv-manifest.mjs) — committed; the build, font tool and registry script refresh it, or run the tiny command alone after data-only edits
 dist-build-report.md            ← Generated: per-build size ledger (dist-build.mjs) — committed for diffable history
+sw.js                           ← Static service worker — offline + repeat-visit caching via dist/manifest.json; never edited
 docs/                           ← User guide, architecture, API reference
 ```
 

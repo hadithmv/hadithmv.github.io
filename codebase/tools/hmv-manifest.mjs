@@ -1,7 +1,11 @@
 /**
  * Writes dist/manifest.json — the served-tree fingerprint ledger the service
  * worker (codebase/sw.js) trusts: a map of scope-relative URL → sha256
- * fingerprint (first 16 hex) for every file the SW may serve.
+ * fingerprint (first 16 hex) for every file the SW may serve. Fingerprints
+ * describe the bytes git COMMITS (a CRLF→LF clean-filter pass for text
+ * files — the registry script's convention; fonts are binary and hashed
+ * raw), so a clean checkout on any machine yields the ledger that GitHub
+ * Pages actually serves.
  *
  * Run:  node tools/hmv-manifest.mjs   (from codebase/, or anywhere — paths
  * derive from this file's location)
@@ -16,7 +20,10 @@
  * Whole rewrite every run, never partial: fingerprints are content-derived,
  * so unchanged files emit the same bytes and only truly changed lines diff.
  * No timestamps — a no-op run is byte-identical (idempotent by construction),
- * and reverting a file reverts its line in the manifest for free.
+ * and reverting a file reverts its line in the manifest for free. Each run
+ * also prints "changed: N — …" naming the files whose fingerprints moved
+ * vs the previous manifest (new files count as changed, vanished ones are
+ * marked "(removed)"; a run without a previous manifest skips the line).
  *
  * Deliberately absent: data/content/*.csv and data/search-index.json — the
  * app's own IndexedDB version-gates them (csv.js fetchBookCSVCached,
@@ -52,6 +59,23 @@ function walk(dir, recursive) {
   return out;
 }
 
+// ── Clean-filter bytes ────────────────────────────────────────────
+// Fingerprints must describe the bytes GitHub Pages serves — the
+// committed blobs — not the working-tree bytes. With core.autocrlf=true,
+// a text file untouched since checkout sits CRLF on disk while its blob
+// is LF, and a raw-disk fingerprint would mismatch forever (the registry
+// script solves this identically for book CSVs: "exactly git's clean
+// filter"). CRLF→LF at the byte level, encoding-agnostic — only CRLF
+// pairs are converted; a bare CR inside a quoted field is data and
+// survives, exactly like git's clean filter. Fonts are binary: a
+// woff/woff2 stream can legally contain 0x0D 0x0A inside the compressed
+// data, so they are hashed raw.
+const LATIN1 = "latin1"; // maps every byte 1:1 (the PS1's proven trick)
+function cleanBytes(file, buf) {
+  if (buf.indexOf(0x0d) === -1 || file.indexOf("/font/") !== -1) return buf;
+  return Buffer.from(buf.toString(LATIN1).replace(/\r\n/g, "\n"), LATIN1);
+}
+
 const manifest = {};
 let count = 0;
 for (const src of SOURCES) {
@@ -62,7 +86,7 @@ for (const src of SOURCES) {
   for (const file of walk(src.dir, src.recursive)) {
     const key = path.relative(ROOT, file).split(path.sep).join("/");
     if (!src.match(key.split("/").pop())) continue;
-    const digest = createHash("sha256").update(readFileSync(file)).digest("hex").slice(0, 16);
+    const digest = createHash("sha256").update(cleanBytes(file, readFileSync(file))).digest("hex").slice(0, 16);
     manifest[key] = digest;
     count++;
   }
@@ -70,6 +94,29 @@ for (const src of SOURCES) {
 if (count === 0) {
   console.error("ERROR: no files matched — refusing to write an empty manifest");
   process.exit(1);
+}
+
+// ── Change summary vs the previous manifest ────────────────────
+// Read the old manifest BEFORE overwriting it, then diff fingerprints:
+// new keys count as changed, keys that vanished are named "(removed)".
+// No previous manifest (first run, deleted/corrupt) → changed stays null
+// and the summary line is skipped. The output file never depends on this
+// — byte-stability is untouched.
+let previous = null;
+try {
+  previous = JSON.parse(readFileSync(OUT, "utf8"));
+} catch (e) {
+  previous = null;
+}
+let changed = null;
+if (previous) {
+  changed = [];
+  for (const key of Object.keys(manifest)) {
+    if (previous[key] !== manifest[key]) changed.push(key);
+  }
+  for (const key of Object.keys(previous)) {
+    if (!(key in manifest)) changed.push(key + " (removed)");
+  }
 }
 
 // Keys sorted; 2-space indent keeps each entry on its own diffable line.
@@ -88,3 +135,6 @@ console.log(
   "manifest: " + count + " files, " + kb(Buffer.byteLength(out)) +
   " KB → dist/manifest.json — " + listing,
 );
+if (changed) {
+  console.log("changed: " + changed.length + (changed.length ? " — " + changed.join(", ") : ""));
+}

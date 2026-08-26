@@ -7,6 +7,7 @@
 | `src/books/index.html` | Inline module → `dashboard.js` | `common.js` |
 | `src/books/reader.html` | `reader.js` | `common.js` |
 | `src/books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
+| `src/books/info.html` | `book-info.js` (self-initialising) | `common.js` |
 
 ## Modules
 
