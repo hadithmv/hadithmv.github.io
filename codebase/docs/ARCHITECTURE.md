@@ -1247,22 +1247,22 @@ local preview, build-and-preview, what's-changed, tidy-build-reports (restores
 the two committed build reports after a build dirties them), open-folder,
 an About/health screen, a live-site up-to-date check, and a run-the-checks
 option that fires the whole verification battery and reports which checks
-failed). The menu banner shows the site
+failed). The bat is now only a double-click door: it checks for node and
+hands over to the menu itself, `tools/hmv-toolbox.mjs` — node, so the same
+menu runs unchanged on Windows, macOS and Linux (only the launcher differs
+per OS; the node edition also fixed the size summary's shifted column
+labels). The menu banner shows the site
 version (read from `src/js/i18n.js` via `tools/hmv-version.mjs` — the same
 source the sidebar shows — with the " (Web)" suffix dropped for the console)
 in cyan, followed by a dash-separated branch name in plain white (clamped
-to 12 chars) — the
-tail arrives pre-padded from `hmv-version.mjs` with a `.` sentinel the menu
-drops (cmd's `for /f` strips trailing spaces, so the padding can't travel as
-the last token on its own); no branch characters ever pass through cmd's
-parser. The run-the-checks option also writes a markdown
+to 12 chars); the banner padding is computed in the menu itself, with no
+cmd token juggling. The run-the-checks option writes a markdown
 `checks-report.md` (gitignored — it never dirties "what's changed", and
 never ships): a summary table of the seven checks, per-check details, run
 time, and a bold verdict, opened in Notepad when any check fails. The banner
-warns when the built copy (dist) is stale; it accepts a number argument to jump
-straight to an option (e.g. `Hadithmv Toolbox.bat 5`), times each build
-(epoch-seconds captured via node before/after, `set /a` difference — never
-`Date.now()` milliseconds, which overflow cmd's 32-bit arithmetic), beeps
+warns when the built copy (dist) is stale; the menu accepts a number argument
+to jump straight to an option (e.g. `Hadithmv Toolbox.bat 5`), times each
+build (node `Date.now()` before/after), beeps
 twice on success (BEL BEL) and buzzes twice on failure (a low 180 Hz console
 beep via the detected PowerShell), and remembers a sound on/off choice in
 `%USERPROFILE%\.hadithmv-tools` (toggled with S from the About screen). The
