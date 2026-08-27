@@ -1242,8 +1242,9 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Tools.bat`
-menu — build, search index, book-data refresh, and local preview in one
-window) — then commit the regenerated
+menu — build, search index, book-data refresh, local preview, a pre-commit
+"what's changed" check, and open-folder in one window) — then commit the
+regenerated
 dist/ together with the source; an unbuilt dist is a stale site. For a
 **data-only** commit (registry, note, or font change) the full build is
 overkill — run the tiny command `node tools/hmv-manifest.mjs` instead so
