@@ -23,6 +23,10 @@ GitHub Pages. All code, data, and docs live in `codebase/`.
   («الناس» → «Ø§Ù„Ù†Ø§Ø³»). Use `pwsh` or the Write tool for file edits.
 - When measuring what the site actually serves: GitHub Pages gzips for
   `Accept-Encoding` clients; a bare `curl -I` sees raw bytes.
+- **Toolbox reference**: the double-click menu (`codebase/Hadithmv Toolbox.bat`
+  → `tools/hmv-toolbox.mjs`) is fully documented in `codebase/docs/TOOLBOX.md` —
+  every option, the launch chain, sounds, and the pitfalls. Read it before
+  touching the toolbox files or the check batteries.
 
 ## House style
 

@@ -1242,34 +1242,15 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Toolbox.bat`
-menu — a 13-item console launcher: build, search index, book-data refresh,
-local preview, build-and-preview, what's-changed, tidy-build-reports (restores
-the two committed build reports after a build dirties them), open-folder,
-an About/health screen, a live-site up-to-date check, and a run-the-checks
-option that fires the whole verification battery and reports which checks
-failed). The bat is now only a double-click door: it checks for node and
-hands over to the menu itself, `tools/hmv-toolbox.mjs` — node, so the same
-menu runs unchanged on Windows, macOS and Linux (only the launcher differs
-per OS; the node edition also fixed the size summary's shifted column
-labels). The menu banner shows the site
-version (read from `src/js/i18n.js` via `tools/hmv-version.mjs` — the same
-source the sidebar shows — with the " (Web)" suffix dropped for the console)
-in cyan, followed by a dash-separated branch name in plain white (clamped
-to 12 chars); the banner padding is computed in the menu itself, with no
-cmd token juggling. The run-the-checks option writes a markdown
-`checks-report.md` (gitignored — it never dirties "what's changed", and
-never ships): a summary table of the seven checks, per-check details, run
-time, and a bold verdict, opened in Notepad when any check fails. The banner
-warns when the built copy (dist) is stale; the menu accepts a number argument
-to jump straight to an option (e.g. `Hadithmv Toolbox.bat 5`), times each
-build (node `Date.now()` before/after), beeps
-twice on success (BEL BEL) and buzzes twice on failure (a low 180 Hz console
-beep via the detected PowerShell), and remembers a sound on/off choice in
-`%USERPROFILE%\.hadithmv-tools` (toggled with S from the About screen). The
-preview option reuses a server already listening on its ports (8897–8899)
-instead of starting a second one. A full reference — every option, the
-launch chain, the sounds, and the pitfalls — lives in `docs/TOOLBOX.md`.
-Then commit the
+menu — a 13-item console launcher covering build, search index, book-data
+refresh, local preview, build-and-preview, what's-changed, tidy-build-reports
+(restores the two committed build reports after a build dirties them),
+open-folder, an About/health screen, a live-site up-to-date check, and the
+full verification battery with a written report; the bat is only a
+double-click door — it checks for node and hands over to
+`tools/hmv-toolbox.mjs`, which runs unchanged on Windows, macOS and Linux).
+See `docs/TOOLBOX.md` for the complete reference — every option, the launch
+chain, sounds, and pitfalls. Then commit the
 regenerated
 dist/ together with the source; an unbuilt dist is a stale site. For a
 **data-only** commit (registry, note, or font change) the full build is

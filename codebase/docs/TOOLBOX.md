@@ -44,6 +44,16 @@ verification battery. It is developer tooling, not part of the site itself.
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
 paths around options 1 and 2.
 
+## The banner
+
+The menu's banner reads the site version from `src/js/i18n.js` via
+`tools/hmv-version.mjs` — the same source the site's own sidebar shows, with
+the " (Web)" suffix dropped for the console — in cyan, followed by a
+dash-separated branch name in plain white (clamped to 12 chars); the padding
+is computed in the menu itself. It warns when there is no built copy yet
+("run option 1") and when the built copy is behind the source (the same
+state the About screen reports).
+
 ## Sounds
 
 - **Success beep** — BEL BEL, on options 1 and 9 after a clean build, and on
