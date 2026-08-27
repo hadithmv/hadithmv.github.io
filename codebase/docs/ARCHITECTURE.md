@@ -1267,7 +1267,9 @@ twice on success (BEL BEL) and buzzes twice on failure (a low 180 Hz console
 beep via the detected PowerShell), and remembers a sound on/off choice in
 `%USERPROFILE%\.hadithmv-tools` (toggled with S from the About screen). The
 preview option reuses a server already listening on its ports (8897–8899)
-instead of starting a second one. Then commit the
+instead of starting a second one. A full reference — every option, the
+launch chain, the sounds, and the pitfalls — lives in `docs/TOOLBOX.md`.
+Then commit the
 regenerated
 dist/ together with the source; an unbuilt dist is a stale site. For a
 **data-only** commit (registry, note, or font change) the full build is
