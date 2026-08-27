@@ -7,6 +7,9 @@ rem bats (dist-build.bat, rebuild-index.bat) remain as quick paths.
 rem Run with a number argument to jump straight to an option,
 rem e.g. "Hadithmv Toolbox.bat 5" opens the preview directly.
 title Hadithmv Toolbox
+rem The console is switched to UTF-8 (chcp 65001) so Arabic/Thaana answers
+rem to the prompts (options 15 and 16) survive the round trip - keep this.
+chcp 65001 >nul
 cd /d "%~dp0"
 where node >nul 2>&1
 if errorlevel 1 goto nonode

@@ -1242,14 +1242,19 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Toolbox.bat`
-menu — a 15-item console launcher covering build (then asking whether to run
-the checks), search index, book-data refresh, local preview, build-and-preview,
-what's-changed, tidy-build-reports (restores the two committed build reports
-after a build dirties them), open-folder, open-notes, new-book (copies a
-template into the content folder and prints the add-a-book checklist), an
-About/health screen, a live-site up-to-date check (offering the GitHub
-Actions page when behind), and the verification battery — all seven checks
-or a single one — with a written report; the bat is only a double-click door
+menu — a 17-item console launcher covering build (then asking whether to run
+the checks), search index, book-data refresh, local preview (which can also
+stop a stuck server), build-and-preview, what's-changed, tidy-build-reports
+(restores the two committed build reports after a build dirties them),
+open-folder, open-notes, new-book (copies a template into the content folder,
+prints the add-a-book checklist and offers to fill the registry row),
+finish-a-book-registration (fills or edits a book's row in the book registry:
+titles, author, tags — the version is always computed, never typed),
+add-an-author (appends to the authors registry), an About/health screen, a
+live-site up-to-date check (offering the live site, and the GitHub Actions
+page when behind), and the verification battery — all seven checks or a
+single one — with a written report (opened when any fail, offered when all
+pass); the bat is only a double-click door
 — it checks for node and hands over to
 `tools/hmv-toolbox.mjs`, which runs unchanged on Windows, macOS and Linux).
 See `docs/TOOLBOX.md` for the complete reference — every option, the launch

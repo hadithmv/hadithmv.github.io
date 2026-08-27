@@ -1,6 +1,6 @@
 // tools/hmv-toolbox.mjs - the Hadithmv Toolbox menu (node edition).
 //
-// A 15-item console menu for the common site tasks. Double-click the tiny
+// A 17-item console menu for the common site tasks. Double-click the tiny
 // launcher ("Hadithmv Toolbox.bat" on Windows) or run:
 //   node tools/hmv-toolbox.mjs
 // Run with a number argument to jump straight to an option, e.g.
@@ -18,6 +18,7 @@
 // Colours use ANSI escapes (Windows 10+ consoles support them); on older
 // consoles they degrade to harmless [92m-style text.
 
+import crypto from 'crypto';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -95,6 +96,28 @@ function listeningPorts(ports) {
     const out = spawnSync('ss', ['-tln'], { encoding: 'utf8' });
     return (out.stdout || '').split(/\r?\n/).some((l) => l.includes(':' + p) && l.includes('LISTEN'));
   });
+}
+// PIDs listening on the given ports (for the preview-stop rescue).
+function listenerPids(ports) {
+  if (process.platform === 'win32') {
+    const out = spawnSync('netstat', ['-ano'], { encoding: 'utf8' });
+    const pids = new Set();
+    for (const l of (out.stdout || '').split(/\r?\n/)) {
+      if (l.indexOf('LISTENING') === -1) continue;
+      for (const p of ports) {
+        if (new RegExp(':' + p + '\\s').test(l)) {
+          const t = l.trim().split(/\s+/);
+          const pid = t[t.length - 1];
+          if (/^\d+$/.test(pid)) pids.add(pid);
+        }
+      }
+    }
+    return Array.from(pids);
+  }
+  try { // macOS/Linux: lsof prints the PIDs themselves (-t)
+    const out = spawnSync('lsof', ['-tiTCP:' + ports.join(','), '-sTCP:LISTEN'], { encoding: 'utf8' });
+    return (out.stdout || '').trim().split(/\s+/).filter((l) => /^\d+$/.test(l));
+  } catch (e) { return []; }
 }
 
 // Open something the way the OS expects (URL, folder, file, program).
@@ -174,7 +197,9 @@ function showBanner() {
   console.log(' ' + ITEM + '12.' + OFF + ' Check the live site  (is the published site up to date?)');
   console.log(' ' + ITEM + '13.' + OFF + ' Open the notes folder (authors + works markdown)');
   console.log(' ' + ITEM + '14.' + OFF + ' New book           (copy a template + checklist)');
-  console.log(' ' + ITEM + '15.' + OFF + ' Quit');
+  console.log(' ' + ITEM + '15.' + OFF + ' Finish a book registration (fill the registry row)');
+  console.log(' ' + ITEM + '16.' + OFF + ' Add an author      (append to the authors registry)');
+  console.log(' ' + ITEM + '17.' + OFF + ' Quit');
   console.log();
 }
 
@@ -316,12 +341,31 @@ async function preview() {
   console.log();
   const PY = process.platform === 'win32' ? 'python' : 'python3';
   if (!hasTool(PY)) return noPython();
-  if (listeningPorts([8897, 8898, 8899]).length) {
+  const busy = listeningPorts([8897, 8898, 8899]);
+  if (busy.length) {
     console.log();
-    console.log('A preview server is already running on one of the preview ports.');
-    console.log('If that is the preview from earlier, just press F5 in that tab');
-    console.log('to see the newest build. If it is something else, close it');
-    console.log('first, then try again.');
+    console.log('A preview server is already running on port ' + ITEM + busy[0] + OFF + '.');
+    const a = await ask(WARN + 'Open it (Enter), or stop the server (S)? ' + OFF);
+    if (a.toLowerCase() === 's') {
+      const pids = listenerPids(busy);
+      if (!pids.length) {
+        console.log();
+        console.log(ERR + 'Could not find the server process - close it by hand.' + OFF);
+      } else {
+        for (const pid of pids) {
+          const r = process.platform === 'win32'
+            ? spawnSync('taskkill', ['/F', '/PID', pid], { encoding: 'utf8' })
+            : spawnSync('kill', [pid], { encoding: 'utf8' });
+          console.log('Stopped process ' + pid + (r.status === 0 ? '.' : ' - could not stop it.'));
+        }
+        await sleep(500);
+        console.log();
+        console.log('Preview server stopped - the port is free now. Pick 5 again to start fresh.');
+      }
+    } else {
+      openUrl('http://127.0.0.1:' + busy[0] + '/dist/books/');
+      console.log('Opened the running preview in your browser - press F5 there to see the newest build.');
+    }
     await pause();
     return menu();
   }
@@ -431,6 +475,59 @@ async function openNotes() {
 
 // ── option 14: new book (template copy + checklist) ───────────────────
 const CONTENT = path.join(ROOT, 'data', 'content');
+// ── CSV helpers (options 15 and 16) ────────────────────────────────────
+// The registries are quoted CSV: a field containing a comma, a quote or a
+// newline is wrapped in double quotes, with inner quotes doubled. A row is
+// split with the same rules it is quoted with, so a round trip is byte-exact
+// (and the PS1 keeps `version` as ALWAYS the last column - nothing follows it).
+function csvQuote(f) {
+  if (/[",\r\n]/.test(f)) return '"' + f.replace(/"/g, '""') + '"';
+  return f;
+}
+function csvFields(line) {
+  const out = []; let cur = ''; let inq = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (inq) {
+      if (c === '"') { if (line[i + 1] === '"') { cur += '"'; i++; } else inq = false; }
+      else cur += c;
+    } else if (c === '"') inq = true;
+    else if (c === ',') { out.push(cur); cur = ''; }
+    else cur += c;
+  }
+  out.push(cur);
+  return out;
+}
+function readRegistry(file) {
+  const raw = fs.readFileSync(file, 'utf8');
+  const lines = raw.split(/\r?\n/);
+  return {
+    eol: raw.indexOf('\r\n') !== -1 ? '\r\n' : '\n',
+    endsNL: raw.endsWith('\n'),
+    header: lines[0],
+    rows: lines.slice(1).filter((l) => l.trim() !== ''),
+  };
+}
+function writeRegistry(file, r) {
+  fs.writeFileSync(file, [r.header].concat(r.rows).join(r.eol) + (r.endsNL ? r.eol : ''), 'utf8');
+}
+function registryCodes(file) {
+  try { return readRegistry(file).rows.map((l) => l.split(',')[0].trim()); }
+  catch (e) { return []; }
+}
+// Version = SHA-256 of the content CSV's LF bytes, first 12 hex, lowercase -
+// exactly what option 4 computes (it converts CRLF to LF first, like git's
+// clean filter, so the hash always describes the served bytes).
+function bookVersion(code) {
+  try {
+    const raw = fs.readFileSync(path.join(CONTENT, code + '.csv')).toString('latin1');
+    const clean = raw.indexOf('\r\n') !== -1 ? raw.replace(/\r\n/g, '\n') : raw;
+    return crypto.createHash('sha256').update(clean, 'latin1').digest('hex').slice(0, 12);
+  } catch (e) { return ''; }
+}
+const META = path.join(ROOT, 'data', '03-registry-bookMeta.csv');
+const AUTHORS = path.join(ROOT, 'data', '02-registry-bookAuthors.csv');
+const TAGS = path.join(ROOT, 'data', '01-registry-bookTags.csv');
 // The template default is the smallest book with the fullest layout (row
 // numbers, head + body in both languages, foot) - a small starter; type any
 // code to use that book instead.
@@ -498,19 +595,144 @@ async function newBook() {
   console.log();
   console.log('Checklist:');
   console.log(' 1. Replace the template text with the real book - edit the new CSV.');
-  console.log(' 2. If the author is new - add a row to data/02-registry-bookAuthors.csv');
-  console.log('    (code, names in AR/DV/EN, born/died AH). Optional: notes/authors/' + code + '.md');
+  console.log(' 2. If the author is new - option 16 adds the row to');
+  console.log('    data/02-registry-bookAuthors.csv (code, names in AR/DV/EN, born/died AH).');
+  console.log('    Optional: static/notes/authors/' + code + '.md for the biography.');
   console.log(' 3. If a tag is new - add a row to data/01-registry-bookTags.csv');
   console.log('    (row order = the colour palette order - hand-controlled).');
   console.log(' 4. Run option 4 - it registers the book, computes its version, sorts,');
   console.log('    rebuilds the search index and refreshes the manifest.');
-  console.log(' 5. Fill the new row in 03-registry-bookMeta.csv: the three titles,');
-  console.log('    authorCode, tags (DRFT while it is a draft), excludeFromIndex.');
-  console.log('    Version is computed - leave it, keep it the last column.');
-  console.log(' 6. Optional: write notes/works/' + code + '.md (book notes for the info modal).');
+  console.log(' 5. Option 15 (or the question below) fills the 03 row for you: the');
+  console.log('    three titles, authorCode, tags. Version stays computed, last column.');
+  console.log(' 6. Optional: write static/notes/works/' + code + '.md (book notes for the info modal).');
   console.log(' 7. Run option 10, check 7 - new text may need font glyphs.');
   console.log(' 8. Build (option 1), commit in your IDE, push, then option 12.');
   console.log();
+  const reg = await ask(WARN + 'Register it now - fill the registry row with me? (y/n) ' + OFF);
+  if (reg.toLowerCase() === 'y') return finishBookRegistration(code);
+  await pause();
+  return menu();
+}
+
+// ── option 15: finish a book registration (fill/edit the 03 row) ──────
+async function finishBookRegistration(preCode) {
+  process.title = 'Hadithmv Toolbox - finishing a book registration';
+  console.log();
+  console.log("Fills or edits a book's row in 03-registry-bookMeta.csv - the");
+  console.log('three titles, the author and the tags. The version is computed');
+  console.log('from the book content, never typed.');
+  console.log();
+  let code = preCode || '';
+  if (!code) {
+    code = await ask(WARN + 'Book code (Enter = cancel): ' + OFF);
+    if (!code) { console.log(); console.log('Cancelled.'); await pause(); return menu(); }
+  }
+  if (!/^[A-Za-z0-9_-]{2,64}$/.test(code)) {
+    console.log();
+    console.log(ERR + 'Invalid code - use letters, digits, dashes and underscores only.' + OFF);
+    await pause();
+    return menu();
+  }
+  const hasCsv = fs.existsSync(path.join(CONTENT, code + '.csv'));
+  const reg = readRegistry(META);
+  let ri = reg.rows.findIndex((l) => l.split(',')[0].trim() === code);
+  if (ri === -1 && !hasCsv) {
+    console.log();
+    console.log(ERR + 'Nothing named ' + code + ' - no content CSV and no registry row.' + OFF);
+    console.log(WARN + 'Create the book first with option 14.' + OFF);
+    await pause();
+    return menu();
+  }
+  if (ri === -1) { console.log(); console.log('New row - ' + code + ' will be added to the registry.'); }
+  if (ri !== -1 && !hasCsv) console.log(WARN + 'Warning: the content CSV is missing - the version stays empty until it is back.' + OFF);
+  const cur = ri !== -1 ? csvFields(reg.rows[ri]) : [];
+  while (cur.length < 8) cur.push(''); // code, author, 3 titles, tags, excludeFromIndex, version
+  const keep = (i) => (cur[i] ? ' (Enter = keep "' + cur[i] + '")' : ' (Enter = empty)');
+  const fields = [code, cur[1], cur[2], cur[3], cur[4], cur[5], cur[6], cur[7]];
+  let v = await ask(WARN + 'Author code' + keep(1) + ': ' + OFF);
+  if (v) fields[1] = v;
+  if (fields[1] && registryCodes(AUTHORS).indexOf(fields[1]) === -1)
+    console.log(WARN + 'Author code "' + fields[1] + '" is not in 02-registry-bookAuthors.csv - add it with option 16.' + OFF);
+  v = await ask(WARN + 'Title AR' + keep(2) + ': ' + OFF);
+  if (v) fields[2] = v;
+  v = await ask(WARN + 'Title DV' + keep(3) + ': ' + OFF);
+  if (v) fields[3] = v;
+  v = await ask(WARN + 'Title EN' + keep(4) + ': ' + OFF);
+  if (v) fields[4] = v;
+  v = await ask(WARN + 'Tags' + keep(5) + ' (space- or comma-separated): ' + OFF);
+  if (v) fields[5] = v.split(/[,\s]+/).filter(Boolean).join(',');
+  if (fields[5]) fields[5].split(',').forEach((t) => {
+    if (registryCodes(TAGS).indexOf(t) === -1)
+      console.log(WARN + 'Tag "' + t + '" is not in 01-registry-bookTags.csv - add it by hand (row order = the colour order).' + OFF);
+  });
+  fields[7] = bookVersion(code); // always recomputed - never typed, always last
+  const row = fields.map(csvQuote).join(',');
+  if (ri === -1) reg.rows.push(row); else reg.rows[ri] = row;
+  writeRegistry(META, reg);
+  console.log();
+  console.log(ITEM + 'Row updated:' + OFF);
+  console.log(' ' + row);
+  console.log('Version: ' + ITEM + (fields[7] || '(empty - no content CSV yet)') + OFF + ' - the same value option 4 computes.');
+  console.log();
+  console.log('Refreshing the freshness file (the row is served content)...');
+  const ok = await runCaptured('node', [path.join(ROOT, 'tools/hmv-manifest.mjs')]).then((r) => r.ok);
+  if (!ok) return fail('manifest');
+  console.log();
+  console.log(WARN + 'Remember: if the book is new, run option 4 to rebuild the search index.' + OFF);
+  await pause();
+  return menu();
+}
+
+// ── option 16: add an author (append a row to 02) ──────────────────────
+async function addAuthor() {
+  process.title = 'Hadithmv Toolbox - adding an author';
+  console.log();
+  console.log("Adds a row to 02-registry-bookAuthors.csv - the author's code,");
+  console.log('the three names and the AH years. New authors belong at the');
+  console.log('end of the file, so this appends.');
+  console.log();
+  const code = await ask(WARN + 'Author code (Enter = cancel): ' + OFF);
+  if (!code) { console.log(); console.log('Cancelled.'); await pause(); return menu(); }
+  if (!/^[A-Za-z0-9_-]{2,64}$/.test(code)) {
+    console.log();
+    console.log(ERR + 'Invalid code - use letters, digits, dashes and underscores only.' + OFF);
+    await pause();
+    return menu();
+  }
+  const reg = readRegistry(AUTHORS);
+  if (reg.rows.some((l) => l.split(',')[0].trim() === code)) {
+    console.log();
+    console.log(ERR + code + ' is already in the authors registry - pick another code, or edit that row by hand.' + OFF);
+    await pause();
+    return menu();
+  }
+  const nameAR = await ask(WARN + 'Name AR (Arabic, Enter = empty): ' + OFF);
+  const nameDV = await ask(WARN + 'Name DV (Dhivehi, Enter = empty): ' + OFF);
+  const nameEN = await ask(WARN + 'Name EN (English, Enter = empty): ' + OFF);
+  const bornAH = await ask(WARN + 'Born AH (e.g. 93, Enter = empty): ' + OFF);
+  if (bornAH && !/^\d{0,4}$/.test(bornAH)) console.log(WARN + '"' + bornAH + '" is not a year - leaving it empty.' + OFF);
+  const diedAH = await ask(WARN + 'Died AH (e.g. 179, Enter = empty): ' + OFF);
+  if (diedAH && !/^\d{0,4}$/.test(diedAH)) console.log(WARN + '"' + diedAH + '" is not a year - leaving it empty.' + OFF);
+  const row = [
+    code,
+    nameAR,
+    nameDV,
+    nameEN,
+    /^\d{0,4}$/.test(bornAH) ? bornAH : '',
+    /^\d{0,4}$/.test(diedAH) ? diedAH : '',
+  ].map(csvQuote).join(',');
+  reg.rows.push(row);
+  writeRegistry(AUTHORS, reg);
+  console.log();
+  console.log(ITEM + 'Row added:' + OFF);
+  console.log(' ' + row);
+  console.log();
+  console.log('Refreshing the freshness file (the row is served content)...');
+  const ok = await runCaptured('node', [path.join(ROOT, 'tools/hmv-manifest.mjs')]).then((r) => r.ok);
+  if (!ok) return fail('manifest');
+  console.log();
+  console.log(WARN + 'The author shows on the site after the next build (option 1).' + OFF);
+  console.log(WARN + 'Optional: static/notes/authors/' + code + '.md for the biography.' + OFF);
   await pause();
   return menu();
 }
@@ -615,6 +837,8 @@ async function checks() {
     if (!muted) beep();
     console.log(ITEM + 'All checks passed.' + OFF);
     console.log(ITEM + 'Report saved to checks-report.md.' + OFF);
+    const o = await ask(WARN + 'Open the report? (y/n) ' + OFF);
+    if (o.toLowerCase() === 'y') openNotepad(RPT);
   }
   await pause();
   return menu();
@@ -660,11 +884,14 @@ async function livecheck() {
     console.log(ERR + 'Could not reach the live site - check the internet connection.' + OFF);
   } else if (live === VER) {
     console.log(ITEM + 'The live site is up to date: ' + live + '.' + OFF);
+    const a = await ask(WARN + 'Open the live site? (y/n) ' + OFF);
+    if (a.toLowerCase() === 'y') openUrl('https://hadithmv.github.io/');
   } else {
     console.log(WARN + 'The live site is behind: live ' + live + ', local ' + VER + '.' + OFF);
     console.log(WARN + 'Have you pushed, and did the GitHub Pages build finish?' + OFF);
-    const a = await ask(WARN + 'Open the GitHub Actions page? (y/n) ' + OFF);
-    if (a.toLowerCase() === 'y') openUrl('https://github.com/hadithmv/hadithmv.github.io/actions');
+    const a = await ask(WARN + 'Open the GitHub Actions page (a) or the live site (l)? (Enter = skip) ' + OFF);
+    if (a.toLowerCase() === 'a') openUrl('https://github.com/hadithmv/hadithmv.github.io/actions');
+    else if (a.toLowerCase() === 'l') openUrl('https://hadithmv.github.io/');
   }
   console.log();
   await pause();
@@ -711,7 +938,9 @@ async function dispatch(c) {
     case '12': return livecheck();
     case '13': return openNotes();
     case '14': return newBook();
-    case '15': return quit();
+    case '15': return finishBookRegistration();
+    case '16': return addAuthor();
+    case '17': return quit();
     default: return invalid();
   }
 }

@@ -31,17 +31,19 @@ verification battery. It is developer tooling, not part of the site itself.
 | 2 | **Rebuild search index** — after adding or changing a book, so it shows up in search. |
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness. |
-| 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. Reuses a server already listening on 8897–8899 instead of stacking a second one. |
+| 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
 | 6 | **What's changed** — `git status` summary with hints (e.g. "changed source but didn't build — run option 1"). |
 | 7 | **Tidy build reports** — restores `dist-build-report.md` and `font-build-report.md` to their committed state when a build dirtied them. |
 | 8 | **Open the folder** — the codebase folder in Explorer. |
 | 9 | **Build and preview** — option 1 followed by option 5. |
-| 10 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md` and opens it in Notepad when any check fails. |
+| 10 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
 | 11 | **About / health** — site versions, tool versions on this machine; press **S** to toggle the sound. |
-| 12 | **Check the live site** — compares the published version with the local source; when the live site is behind, offers to open the GitHub Actions page. |
-| 13 | **Open the notes folder** — the hand-authored markdown (authors + works) at the repo root. |
-| 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → authors → tags → option 4 → registry row → font → build). |
-| 15 | **Quit** |
+| 12 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
+| 13 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
+| 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 15). |
+| 15 | **Finish a book registration** — fills or edits a book's row in `03-registry-bookMeta.csv`: the three titles, the author code (checked against 02), the tags. The version is recomputed from the content CSV — never typed. Refreshes the manifest. |
+| 16 | **Add an author** — appends a row to `02-registry-bookAuthors.csv` (code, the three names, AH years), checks for duplicates, refreshes the manifest. |
+| 17 | **Quit** |
 
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
 paths around options 1 and 2.
@@ -62,7 +64,7 @@ state the About screen reports).
   option 10 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
-- Options 2–8, 11, 12, 13 and 14 are silent on success; 15 (Quit) just exits.
+- Options 2–8 and 11–16 are silent on success; 17 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with S
   from the About screen.
@@ -74,7 +76,8 @@ corpus) and exercises a part of the site. Press Enter for all seven, or type
 1–7 to run just that one — the report marks the rest SKIP and the verdict
 names the check. The report lands in `checks-report.md` (gitignored — never
 dirties "what's changed", never ships): a summary table, per-check details,
-run time, and a bold verdict.
+run time, and a bold verdict. The report opens itself in Notepad when any
+check fails; after an all-pass run the menu asks whether to open it.
 
 1. reader smoke test — `tools/hmv-qrn-smoke.mjs`
 2. info modal battery — `tools/hmv-info-check.mjs`
@@ -119,6 +122,9 @@ run time, and a bold verdict.
    ones** — the About screen reads whichever stream has the answer.
 6. **Old consoles render ━/📚/✅ as `??`** — keep the script's own output
    pure ASCII (console fonts, not a bug).
+7. **The launcher sets `chcp 65001`** — without it, Arabic/Thaana answers to
+   the option 15/16 prompts arrive in the console's old codepage and get
+   written into the registries as mojibake. Keep that line in the bat.
 
 ## Related docs
 
