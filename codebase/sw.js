@@ -88,9 +88,7 @@ function currentManifest() {
 async function handle(request) {
   var key = keyOf(request);
   if (!key) return fetch(request);
-  if (!manifest) {
-    try { await currentManifest(); } catch (e) { /* pass-through below */ }
-  }
+  try { await currentManifest(); } catch (e) { /* pass-through below */ }
   if (!manifest || !(key in manifest)) return fetch(request); // IDB-owned or unknown → network
 
   var fp = manifest[key];

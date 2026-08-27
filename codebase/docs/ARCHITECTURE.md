@@ -1241,7 +1241,7 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 2026-08-25 the gitignore rule is gone: the web publishes committed files
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
-double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Tools.bat`
+double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Toolbox.bat`
 menu — a 13-item console launcher: build, search index, book-data refresh,
 local preview, build-and-preview, what's-changed, tidy-build-reports (restores
 the two committed build reports after a build dirties them), open-folder,
@@ -1252,7 +1252,7 @@ version (read from `src/js/i18n.js` via `tools/hmv-version.mjs` — the same
 source the sidebar shows — with the " (Web)" suffix dropped for the console),
 the git branch when git is present, and
 warns when the built copy (dist) is stale; it accepts a number argument to jump
-straight to an option (e.g. `Hadithmv Tools.bat 5`), times each build
+straight to an option (e.g. `Hadithmv Toolbox.bat 5`), times each build
 (epoch-seconds captured via node before/after, `set /a` difference — never
 `Date.now()` milliseconds, which overflow cmd's 32-bit arithmetic), beeps
 twice on success (BEL BEL) and buzzes twice on failure (a low 180 Hz console

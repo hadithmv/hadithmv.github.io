@@ -1,15 +1,15 @@
 @echo off
-rem Hadithmv Tools - one-click menu for the common site tasks.
+rem Hadithmv Toolbox - one-click menu for the common site tasks.
 rem Self-contained: each entry runs its command directly. The sibling
 rem bats (dist-build.bat, rebuild-index.bat) remain as quick paths.
 rem Requires: node on PATH (the preview option also needs Python).
 rem Colours need an ANSI console (Windows 10 or later); on older
 rem consoles they degrade to harmless [92m-style text.
 rem Run with a number argument to jump straight to an option,
-rem e.g. "Hadithmv Tools.bat 5" opens the preview directly.
+rem e.g. "Hadithmv Toolbox.bat 5" opens the preview directly.
 rem The sound setting lives in %USERPROFILE%\.hadithmv-tools -
 rem outside the repo on purpose, so it never shows in git status.
-title Hadithmv Tools
+title Hadithmv Toolbox
 cd /d "%~dp0"
 
 rem Grab the escape character for ANSI colours - this keeps the file
@@ -52,10 +52,10 @@ if not "%~1"=="" goto dispatch
 
 :menu
 cls
-title Hadithmv Tools
+title Hadithmv Toolbox
 echo %C_TITLE%+----------------------------------------------+%C_OFF%
-if defined VER echo %C_TITLE%^|  Hadithmv tools - %VER%                     ^|%C_OFF%
-if not defined VER echo %C_TITLE%^|  Hadithmv tools                              ^|%C_OFF%
+if defined VER echo %C_TITLE%^|  Hadithmv Toolbox - %VER%                  ^|%C_OFF%
+if not defined VER echo %C_TITLE%^|  Hadithmv Toolbox                          ^|%C_OFF%
 echo %C_TITLE%+----------------------------------------------+%C_OFF%
 if defined BRANCH echo %C_ITEM%  Branch: %BRANCH%%C_OFF%
 if not "%VER%"=="" if "%VERD%"=="" echo %C_WARN%Warning: no built copy (dist) yet - run option 1.%C_OFF%
@@ -97,7 +97,7 @@ pause >nul
 goto menu
 
 :build
-title Hadithmv Tools - building the site
+title Hadithmv Toolbox - building the site
 set "FAILSTEP=build"
 echo.
 echo Building the site - the full pre-commit build. This prepares
@@ -119,7 +119,7 @@ pause
 goto menu
 
 :buildpreview
-title Hadithmv Tools - building and previewing
+title Hadithmv Toolbox - building and previewing
 set "FAILSTEP=build"
 echo.
 echo Building the site, then opening the preview...
@@ -135,7 +135,7 @@ if defined ELAPSED (echo Build done in %ELAPSED% seconds - opening the preview n
 goto preview
 
 :index
-title Hadithmv Tools - rebuilding search index
+title Hadithmv Toolbox - rebuilding search index
 set "FAILSTEP=index"
 echo.
 echo Rebuilding the search index - run after adding or changing a
@@ -149,7 +149,7 @@ pause
 goto menu
 
 :manifest
-title Hadithmv Tools - refreshing freshness
+title Hadithmv Toolbox - refreshing freshness
 set "FAILSTEP=manifest"
 echo.
 echo Refreshing the freshness file (dist/manifest.json) - the quick
@@ -163,7 +163,7 @@ pause
 goto menu
 
 :refresh
-title Hadithmv Tools - refreshing book data
+title Hadithmv Toolbox - refreshing book data
 echo.
 echo Refreshing book data - 3 steps. Make sure the book's CSV is
 echo already in the content folder first.
@@ -186,7 +186,7 @@ pause
 goto menu
 
 :preview
-title Hadithmv Tools - starting preview
+title Hadithmv Toolbox - starting preview
 set "FAILSTEP=preview"
 echo.
 echo Starting a local preview - a server window will open, and your
@@ -229,7 +229,7 @@ pause
 goto menu
 
 :changed
-title Hadithmv Tools - what's changed
+title Hadithmv Toolbox - what's changed
 echo.
 echo Here is what git would put in your next commit:
 echo.
@@ -273,7 +273,7 @@ pause
 goto menu
 
 :tidy
-title Hadithmv Tools - tidying the build reports
+title Hadithmv Toolbox - tidying the build reports
 echo.
 echo Tidy the build reports (dist-build-report.md and
 echo font-build-report.md) to their committed state - handy when
@@ -292,7 +292,7 @@ pause
 goto menu
 
 :openfolder
-title Hadithmv Tools - opening the folder
+title Hadithmv Toolbox - opening the folder
 echo.
 echo Opening the codebase folder in Explorer...
 start "" explorer "%cd%"
@@ -302,7 +302,7 @@ pause >nul
 goto menu
 
 :checks
-title Hadithmv Tools - running the checks
+title Hadithmv Toolbox - running the checks
 echo.
 echo Running the pre-commit checks - each opens an invisible browser
 echo and clicks through a part of the site. This takes a few minutes.
@@ -339,7 +339,7 @@ echo  7/7 - the font coverage check skipped - python not found.
 echo.
 if defined CHECKS_FAILED (
   if not "%MUTE%"=="1" "%PWR%" -NoProfile -Command "[console]::beep(180,450); Start-Sleep -m 120; [console]::beep(180,450)"
-  echo %C_ERR%Some checks failed:%C_OFF%%FAILED_LIST:~1%
+  echo %C_ERR%Some checks failed:%C_OFF% %FAILED_LIST:~1%
   echo %C_WARN%Read the failing check's own report above - it shows the details.%C_OFF%
 ) else (
   if not "%MUTE%"=="1" node -e "process.stdout.write(String.fromCharCode(7,7))"
@@ -349,7 +349,7 @@ pause
 goto menu
 
 :about
-title Hadithmv Tools - about
+title Hadithmv Toolbox - about
 set "NODEV="
 where node >nul 2>&1
 if not errorlevel 1 for /f "delims=" %%n in ('node --version 2^>nul') do set "NODEV=%%n"
@@ -385,7 +385,7 @@ if "%MUTE%"=="1" (set "MUTE=0") else (set "MUTE=1")
 goto about
 
 :livecheck
-title Hadithmv Tools - checking the live site
+title Hadithmv Toolbox - checking the live site
 echo.
 echo Checking the published site (needs internet)...
 set "LIVEVER="

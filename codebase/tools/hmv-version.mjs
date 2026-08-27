@@ -1,4 +1,4 @@
-// tools/hmv-version.mjs - the site version(s) for the "Hadithmv Tools" menu.
+// tools/hmv-version.mjs - the site version(s) for the "Hadithmv Toolbox" menu.
 // Reads the same appVersion block that the site sidebar shows (src/js/i18n.js),
 // so the menu can never drift from the site. The " (Web)" suffix is dropped
 // for the console.
