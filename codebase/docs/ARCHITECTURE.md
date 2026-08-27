@@ -1247,10 +1247,16 @@ local preview, build-and-preview, what's-changed, tidy-build-reports (restores
 the two committed build reports after a build dirties them), open-folder,
 an About/health screen, a live-site up-to-date check, and a run-the-checks
 option that fires the whole verification battery and reports which checks
-failed). The menu shows the site
+failed). The menu banner shows the site
 version (read from `src/js/i18n.js` via `tools/hmv-version.mjs` — the same
-source the sidebar shows — with the " (Web)" suffix dropped for the console),
-the git branch when git is present, and
+source the sidebar shows — with the " (Web)" suffix dropped for the console)
+in cyan, with the git branch (when git is present) right-aligned inside the
+banner in plain white — the branch and its padding travel out of
+`hmv-version.mjs` as extra `|`-separated tokens, so no branch characters pass
+through cmd's parser. The run-the-checks option also writes a
+`checks-report.txt` (gitignored — it never dirties "what's changed", and
+never ships) with per-check verdicts, failure details, total run time, and
+opens it in Notepad when any check fails. The banner
 warns when the built copy (dist) is stale; it accepts a number argument to jump
 straight to an option (e.g. `Hadithmv Toolbox.bat 5`), times each build
 (epoch-seconds captured via node before/after, `set /a` difference — never

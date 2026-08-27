@@ -35,16 +35,14 @@ rem (via tools\hmv-version.mjs), so the menu can never drift from
 rem the site. VER = source version, VERD = built copy (dist) version.
 set "VER="
 set "VERD="
-for /f "tokens=1,2 delims=|" %%v in ('node tools\hmv-version.mjs') do set "VER=%%v"&set "VERD=%%w"
+rem Tokens: source version | dist version | branch padding | git branch
+rem (the branch and its right-aligned padding come from hmv-version.mjs, so
+rem no branch characters ever travel through cmd's parser).
+for /f "tokens=1,2,3,4 delims=|" %%v in ('node tools\hmv-version.mjs') do set "VER=%%v"&set "VERD=%%w"&set "BRPAD=%%x"&set "BRANCH=%%y"
 
 rem The sound on/off flag, kept in the user profile.
 set "MUTE="
 if exist "%USERPROFILE%\.hadithmv-tools" for /f "usebackq delims=" %%m in ("%USERPROFILE%\.hadithmv-tools") do set "MUTE=%%m"
-
-rem Which git branch are we on? Only if git is installed; no git, no line.
-set "BRANCH="
-where git >nul 2>&1
-if not errorlevel 1 for /f "delims=" %%b in ('git rev-parse --abbrev-ref HEAD 2^>nul') do set "BRANCH=%%b"
 
 rem A number argument jumps straight to that option.
 if not "%~1"=="" set "choice=%~1"
@@ -53,11 +51,14 @@ if not "%~1"=="" goto dispatch
 :menu
 cls
 title Hadithmv Toolbox
-echo %C_TITLE%+----------------------------------------------+%C_OFF%
-if defined VER echo %C_TITLE%^|  Hadithmv Toolbox - %VER%                  ^|%C_OFF%
-if not defined VER echo %C_TITLE%^|  Hadithmv Toolbox                          ^|%C_OFF%
-echo %C_TITLE%+----------------------------------------------+%C_OFF%
-if defined BRANCH echo %C_ITEM%  Branch: %BRANCH%%C_OFF%
+echo %C_TITLE%+--------------------------------------------------+%C_OFF%
+rem Version in cyan (C_ITEM - meta info), branch right-aligned in plain
+rem white (BRPAD comes from hmv-version.mjs; the pad spaces inherit the
+rem green title colour, which is invisible - only the branch is coloured).
+if defined VER if defined BRANCH echo %C_TITLE%^|  Hadithmv Toolbox - %C_ITEM%%VER%%C_TITLE%%BRPAD%%C_OFF%%BRANCH%%C_TITLE%^|%C_OFF%
+if defined VER if not defined BRANCH echo %C_TITLE%^|  Hadithmv Toolbox - %C_ITEM%%VER%%C_TITLE%                      ^|%C_OFF%
+if not defined VER echo %C_TITLE%^|  Hadithmv Toolbox                                ^|%C_OFF%
+echo %C_TITLE%+--------------------------------------------------+%C_OFF%
 if not "%VER%"=="" if "%VERD%"=="" echo %C_WARN%Warning: no built copy (dist) yet - run option 1.%C_OFF%
 if not "%VER%"=="" if not "%VERD%"=="" if not "%VER%"=="%VERD%" echo %C_WARN%Warning: the built copy (dist) is behind the source (%VERD% vs %VER%) - run option 1 before you commit.%C_OFF%
 echo.
@@ -309,41 +310,114 @@ echo and clicks through a part of the site. This takes a few minutes.
 echo.
 set "CHECKS_FAILED="
 set "FAILED_LIST="
+set "RPT=%~dp0checks-report.txt"
+set "T0="
+set "T1="
+set "ELAPSED="
+for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T0=%%t"
+del "%RPT%" >nul 2>&1
+(
+  echo Hadithmv Toolbox - checks report
+  echo Run date: %date% %time%
+  echo Source: %VER%   Built copy: %VERD%   Branch: %BRANCH%
+  echo ============================================================
+) > "%RPT%"
 echo  1/7 - the reader smoke test (clicks through the Quran reader)...
-node tools\hmv-qrn-smoke.mjs
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% reader")
+node tools\hmv-qrn-smoke.mjs > "%TEMP%\hmv-check1.log" 2>&1
+set "R1=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% reader"&set "R1=FAIL")
+type "%TEMP%\hmv-check1.log"
+echo.
 echo  2/7 - the info modal battery...
-node tools\hmv-info-check.mjs
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% info")
+node tools\hmv-info-check.mjs > "%TEMP%\hmv-check2.log" 2>&1
+set "R2=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% info"&set "R2=FAIL")
+type "%TEMP%\hmv-check2.log"
+echo.
 echo  3/7 - the authors and periods battery...
-node tools\hmv-authors-check.mjs
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% authors")
+node tools\hmv-authors-check.mjs > "%TEMP%\hmv-check3.log" 2>&1
+set "R3=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% authors"&set "R3=FAIL")
+type "%TEMP%\hmv-check3.log"
+echo.
 echo  4/7 - the library scope battery...
-node tools\hmv-libscope-check.mjs
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% library")
+node tools\hmv-libscope-check.mjs > "%TEMP%\hmv-check4.log" 2>&1
+set "R4=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% library"&set "R4=FAIL")
+type "%TEMP%\hmv-check4.log"
+echo.
 echo  5/7 - the service worker battery...
-node tools\hmv-sw-check.mjs
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% service-worker")
+node tools\hmv-sw-check.mjs > "%TEMP%\hmv-check5.log" 2>&1
+set "R5=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% service-worker"&set "R5=FAIL")
+type "%TEMP%\hmv-check5.log"
+echo.
 echo  6/7 - the table-of-contents scan...
-node tools\hmv-toc-scan.cjs
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% contents")
+node tools\hmv-toc-scan.cjs > "%TEMP%\hmv-check6.log" 2>&1
+set "R6=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% contents"&set "R6=FAIL")
+type "%TEMP%\hmv-check6.log"
+echo.
 where python >nul 2>&1
 if errorlevel 1 goto nofontcheck
 echo  7/7 - the font coverage check (the webfont vs the site's text)...
-python tools\hmv-font-subset.py --check
-if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% font")
+python tools\hmv-font-subset.py --check > "%TEMP%\hmv-check7.log" 2>&1
+set "R7=PASS"
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% font"&set "R7=FAIL")
+type "%TEMP%\hmv-check7.log"
+echo.
 goto checksdone
 :nofontcheck
 echo  7/7 - the font coverage check skipped - python not found.
+set "R7=SKIP"
+echo Skipped: python not found. > "%TEMP%\hmv-check7.log"
 :checksdone
+for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T1=%%t"
+if defined T0 if defined T1 set /a ELAPSED=%T1%-%T0
+set "RUNTIME="
+if defined ELAPSED set "RUNTIME=%ELAPSED% seconds"
+(
+  echo.
+  echo === 1/7 reader smoke test - %R1% ===
+  type "%TEMP%\hmv-check1.log"
+  echo.
+  echo === 2/7 info modal battery - %R2% ===
+  type "%TEMP%\hmv-check2.log"
+  echo.
+  echo === 3/7 authors and periods battery - %R3% ===
+  type "%TEMP%\hmv-check3.log"
+  echo.
+  echo === 4/7 library scope battery - %R4% ===
+  type "%TEMP%\hmv-check4.log"
+  echo.
+  echo === 5/7 service worker battery - %R5% ===
+  type "%TEMP%\hmv-check5.log"
+  echo.
+  echo === 6/7 table-of-contents scan - %R6% ===
+  type "%TEMP%\hmv-check6.log"
+  echo.
+  echo === 7/7 font coverage check - %R7% ===
+  type "%TEMP%\hmv-check7.log"
+  echo.
+  echo ============================================================
+  if defined RUNTIME echo Total run time: %RUNTIME%
+  if defined CHECKS_FAILED (
+    echo Verdict: SOME CHECKS FAILED - %FAILED_LIST:~1%
+  ) else (
+    echo Verdict: ALL CHECKS PASSED
+  )
+) >> "%RPT%"
+del "%TEMP%\hmv-check1.log" "%TEMP%\hmv-check2.log" "%TEMP%\hmv-check3.log" "%TEMP%\hmv-check4.log" "%TEMP%\hmv-check5.log" "%TEMP%\hmv-check6.log" "%TEMP%\hmv-check7.log" >nul 2>&1
 echo.
 if defined CHECKS_FAILED (
   if not "%MUTE%"=="1" "%PWR%" -NoProfile -Command "[console]::beep(180,450); Start-Sleep -m 120; [console]::beep(180,450)"
   echo %C_ERR%Some checks failed:%C_OFF% %FAILED_LIST:~1%
-  echo %C_WARN%Read the failing check's own report above - it shows the details.%C_OFF%
+  echo %C_WARN%The full report is in checks-report.txt - opening it now.%C_OFF%
+  start "" notepad "%RPT%"
 ) else (
   if not "%MUTE%"=="1" node -e "process.stdout.write(String.fromCharCode(7,7))"
   echo %C_ITEM%All checks passed.%C_OFF%
+  echo %C_ITEM%Report saved to checks-report.txt.%C_OFF%
 )
 pause
 goto menu
