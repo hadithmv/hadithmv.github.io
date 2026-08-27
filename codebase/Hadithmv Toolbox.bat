@@ -35,10 +35,11 @@ rem (via tools\hmv-version.mjs), so the menu can never drift from
 rem the site. VER = source version, VERD = built copy (dist) version.
 set "VER="
 set "VERD="
-rem Tokens: source version | dist version | branch padding | git branch
-rem (the branch and its right-aligned padding come from hmv-version.mjs, so
-rem no branch characters ever travel through cmd's parser).
-for /f "tokens=1,2,3,4 delims=|" %%v in ('node tools\hmv-version.mjs') do set "VER=%%v"&set "VERD=%%w"&set "BRPAD=%%x"&set "BRANCH=%%y"
+rem Tokens: source version | dist version | banner tail (" - " + branch,
+rem padded, with a "." sentinel the menu drops) | raw branch (About screen).
+rem The branch travels as data from hmv-version.mjs - never through cmd's
+rem parser.
+for /f "tokens=1,2,3,4 delims=|" %%v in ('node tools\hmv-version.mjs') do set "VER=%%v"&set "VERD=%%w"&set "BRTAIL=%%x"&set "BRANCH=%%y"
 
 rem The sound on/off flag, kept in the user profile.
 set "MUTE="
@@ -52,10 +53,12 @@ if not "%~1"=="" goto dispatch
 cls
 title Hadithmv Toolbox
 echo %C_TITLE%+--------------------------------------------------+%C_OFF%
-rem Version in cyan (C_ITEM - meta info), branch right-aligned in plain
-rem white (BRPAD comes from hmv-version.mjs; the pad spaces inherit the
-rem green title colour, which is invisible - only the branch is coloured).
-if defined VER if defined BRANCH echo %C_TITLE%^|  Hadithmv Toolbox - %C_ITEM%%VER%%C_TITLE%%BRPAD%%C_OFF%%BRANCH%%C_TITLE%^|%C_OFF%
+rem Version in cyan (C_ITEM - meta info), then " - branch" in plain white;
+rem the tail arrives pre-padded from hmv-version.mjs and the "." sentinel is
+rem dropped here (cmd's for /f strips trailing spaces, so the padding could
+rem never travel as the last token on its own).
+if defined VER if defined BRANCH set "BRTAIL=%BRTAIL:~0,-1%"
+if defined VER if defined BRANCH echo %C_TITLE%^|  Hadithmv Toolbox - %C_ITEM%%VER%%C_TITLE%%C_OFF%%BRTAIL%%C_TITLE%^|%C_OFF%
 if defined VER if not defined BRANCH echo %C_TITLE%^|  Hadithmv Toolbox - %C_ITEM%%VER%%C_TITLE%                      ^|%C_OFF%
 if not defined VER echo %C_TITLE%^|  Hadithmv Toolbox                                ^|%C_OFF%
 echo %C_TITLE%+--------------------------------------------------+%C_OFF%
@@ -310,17 +313,17 @@ echo and clicks through a part of the site. This takes a few minutes.
 echo.
 set "CHECKS_FAILED="
 set "FAILED_LIST="
-set "RPT=%~dp0checks-report.txt"
+set "RPT=%~dp0checks-report.md"
 set "T0="
 set "T1="
 set "ELAPSED="
 for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T0=%%t"
 del "%RPT%" >nul 2>&1
 (
-  echo Hadithmv Toolbox - checks report
+  echo # Hadithmv Toolbox - checks report
+  echo.
   echo Run date: %date% %time%
-  echo Source: %VER%   Built copy: %VERD%   Branch: %BRANCH%
-  echo ============================================================
+  echo Source: %VER% ^| Built: %VERD% ^| Branch: %BRANCH%
 ) > "%RPT%"
 echo  1/7 - the reader smoke test (clicks through the Quran reader)...
 node tools\hmv-qrn-smoke.mjs > "%TEMP%\hmv-check1.log" 2>&1
@@ -378,33 +381,62 @@ set "RUNTIME="
 if defined ELAPSED set "RUNTIME=%ELAPSED% seconds"
 (
   echo.
-  echo === 1/7 reader smoke test - %R1% ===
+  echo ## Summary
+  echo.
+  echo ^| Check ^| Result ^|
+  echo ^| --- ^| --- ^|
+  echo ^| 1/7 reader smoke test ^| %R1% ^|
+  echo ^| 2/7 info modal battery ^| %R2% ^|
+  echo ^| 3/7 authors and periods battery ^| %R3% ^|
+  echo ^| 4/7 library scope battery ^| %R4% ^|
+  echo ^| 5/7 service worker battery ^| %R5% ^|
+  echo ^| 6/7 table-of-contents scan ^| %R6% ^|
+  echo ^| 7/7 font coverage check ^| %R7% ^|
+  echo.
+  echo ## Details
+  echo.
+  echo ### 1/7 reader smoke test - %R1%
+  echo ```
   type "%TEMP%\hmv-check1.log"
+  echo ```
   echo.
-  echo === 2/7 info modal battery - %R2% ===
+  echo ### 2/7 info modal battery - %R2%
+  echo ```
   type "%TEMP%\hmv-check2.log"
+  echo ```
   echo.
-  echo === 3/7 authors and periods battery - %R3% ===
+  echo ### 3/7 authors and periods battery - %R3%
+  echo ```
   type "%TEMP%\hmv-check3.log"
+  echo ```
   echo.
-  echo === 4/7 library scope battery - %R4% ===
+  echo ### 4/7 library scope battery - %R4%
+  echo ```
   type "%TEMP%\hmv-check4.log"
+  echo ```
   echo.
-  echo === 5/7 service worker battery - %R5% ===
+  echo ### 5/7 service worker battery - %R5%
+  echo ```
   type "%TEMP%\hmv-check5.log"
+  echo ```
   echo.
-  echo === 6/7 table-of-contents scan - %R6% ===
+  echo ### 6/7 table-of-contents scan - %R6%
+  echo ```
   type "%TEMP%\hmv-check6.log"
+  echo ```
   echo.
-  echo === 7/7 font coverage check - %R7% ===
+  echo ### 7/7 font coverage check - %R7%
+  echo ```
   type "%TEMP%\hmv-check7.log"
+  echo ```
   echo.
-  echo ============================================================
-  if defined RUNTIME echo Total run time: %RUNTIME%
+  echo ---
+  echo.
+  if defined RUNTIME echo Run time: %RUNTIME%
   if defined CHECKS_FAILED (
-    echo Verdict: SOME CHECKS FAILED - %FAILED_LIST:~1%
+    echo **Verdict: SOME CHECKS FAILED - %FAILED_LIST:~1%**
   ) else (
-    echo Verdict: ALL CHECKS PASSED
+    echo **Verdict: ALL CHECKS PASSED**
   )
 ) >> "%RPT%"
 del "%TEMP%\hmv-check1.log" "%TEMP%\hmv-check2.log" "%TEMP%\hmv-check3.log" "%TEMP%\hmv-check4.log" "%TEMP%\hmv-check5.log" "%TEMP%\hmv-check6.log" "%TEMP%\hmv-check7.log" >nul 2>&1
@@ -412,12 +444,12 @@ echo.
 if defined CHECKS_FAILED (
   if not "%MUTE%"=="1" "%PWR%" -NoProfile -Command "[console]::beep(180,450); Start-Sleep -m 120; [console]::beep(180,450)"
   echo %C_ERR%Some checks failed:%C_OFF% %FAILED_LIST:~1%
-  echo %C_WARN%The full report is in checks-report.txt - opening it now.%C_OFF%
+  echo %C_WARN%The full report is in checks-report.md - opening it now.%C_OFF%
   start "" notepad "%RPT%"
 ) else (
   if not "%MUTE%"=="1" node -e "process.stdout.write(String.fromCharCode(7,7))"
   echo %C_ITEM%All checks passed.%C_OFF%
-  echo %C_ITEM%Report saved to checks-report.txt.%C_OFF%
+  echo %C_ITEM%Report saved to checks-report.md.%C_OFF%
 )
 pause
 goto menu

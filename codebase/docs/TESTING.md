@@ -215,6 +215,18 @@ Before touching product code, run this sequence:
   «Cannot read properties of undefined (reading 'result')» flake → delete the
   profile dir and retry. Custom CDP properties return token strings — measure
   DOM rects instead.
+- **Same-second `Last-Modified` collisions in `hmv-sw-check` S5.** The S5
+  update origin answers 304 when `If-Modified-Since` matches, and serializes
+  mtime at **second** granularity (`toUTCString`). If the battery's two
+  `writeV` calls land within the same wall-clock second, their bumped mtimes
+  serialize to the identical string — the browser's revalidation gets a 304,
+  the SW's manifest refresh and the note re-fetch silently fall back to the
+  cached v1, and **both** "S5 visit 2" and "S5 visit 3" fail with the old
+  note's byte count (e.g. 278 bytes) even though the product is correct.
+  `writeV` bumps each version's stamp by `+ v * 1000` ms so the strings can
+  never collide; if the visits ever fail again with identical byte counts on
+  both lines, suspect a second same-second path (the bump drift) before the
+  product.
 - **`exceptionDetails.text` is only "Uncaught".** When `Runtime.evaluate`
   throws, `.text` carries just the word "Uncaught" — the real error lives in
   `.exceptionDetails.exception.description`. A throw with no visible cause is

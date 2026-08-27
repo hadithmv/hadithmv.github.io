@@ -1250,13 +1250,15 @@ option that fires the whole verification battery and reports which checks
 failed). The menu banner shows the site
 version (read from `src/js/i18n.js` via `tools/hmv-version.mjs` — the same
 source the sidebar shows — with the " (Web)" suffix dropped for the console)
-in cyan, with the git branch (when git is present) right-aligned inside the
-banner in plain white — the branch and its padding travel out of
-`hmv-version.mjs` as extra `|`-separated tokens, so no branch characters pass
-through cmd's parser. The run-the-checks option also writes a
-`checks-report.txt` (gitignored — it never dirties "what's changed", and
-never ships) with per-check verdicts, failure details, total run time, and
-opens it in Notepad when any check fails. The banner
+in cyan, followed by a dash-separated branch name in plain white (clamped
+to 12 chars) — the
+tail arrives pre-padded from `hmv-version.mjs` with a `.` sentinel the menu
+drops (cmd's `for /f` strips trailing spaces, so the padding can't travel as
+the last token on its own); no branch characters ever pass through cmd's
+parser. The run-the-checks option also writes a markdown
+`checks-report.md` (gitignored — it never dirties "what's changed", and
+never ships): a summary table of the seven checks, per-check details, run
+time, and a bold verdict, opened in Notepad when any check fails. The banner
 warns when the built copy (dist) is stale; it accepts a number argument to jump
 straight to an option (e.g. `Hadithmv Toolbox.bat 5`), times each build
 (epoch-seconds captured via node before/after, `set /a` difference — never

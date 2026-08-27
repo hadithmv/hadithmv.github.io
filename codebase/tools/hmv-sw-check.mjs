@@ -297,10 +297,13 @@ async function main() {
       const m = JSON.parse(JSON.stringify(realManifest));
       m[NOTE_KEY] = sha16(cleanBytes(NOTE_PATH, fs.readFileSync(tmpNote)));
       fs.writeFileSync(tmpManifest, JSON.stringify(m, null, 2));
-      // Force distinct Last-Modified stamps: filesystem mtime granularity
-      // could otherwise make v2 look unchanged to a revalidation (304), and
-      // the SW would never see the new fingerprint.
-      const bump = new Date(Date.now() + 60000);
+      // Force distinct Last-Modified stamps per version: the server serializes
+      // mtime at SECOND granularity (toUTCString), so two writeV calls landing
+      // within the same wall-clock second would collide — the browser's
+      // revalidation (If-Modified-Since) then gets a 304, the SW never sees
+      // the new fingerprint, and the old note is served on every later visit.
+      // + v seconds keeps each version's stamp strictly different.
+      const bump = new Date(Date.now() + 60000 + v * 1000);
       fs.utimesSync(tmpNote, bump, bump);
       fs.utimesSync(tmpManifest, bump, bump);
     };

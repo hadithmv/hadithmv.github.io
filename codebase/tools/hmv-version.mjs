@@ -19,17 +19,21 @@ const read = (f) => {
   }
 };
 
-// git branch, clamped to 12 chars, with the right-alignment padding for the
-// 50-wide banner: "  " + name + " - " = 21 chars, plus the version's length.
-const bannerBranch = (ver) => {
+// git branch (clamped to 12 chars) plus the banner tail: " - " + branch,
+// padded to fill the 50-wide banner ("  " + name + " - " = 21 chars, plus
+// the version's length). The trailing "." is a sentinel: cmd's for /f
+// strips trailing spaces from the line, so the bat drops the last char
+// after reading the token.
+const bannerTail = (ver) => {
   let branch = '';
   try {
     const r = spawnSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], { encoding: 'utf8' });
     if (r.status === 0) branch = r.stdout.trim();
   } catch (e) { /* no git */ }
   const b = branch.slice(0, 12);
-  const pad = branch ? new Array(Math.max(0, 29 - ver.length - b.length) + 1).join(' ') : '';
-  return pad + '|' + b;
+  const tail = b ? ' - ' + b : '';
+  const pad = Math.max(0, 50 - 21 - ver.length - tail.length);
+  return tail + new Array(pad + 1).join(' ') + '.' + '|' + b;
 };
 
 if (process.argv[2] === 'live') {
@@ -45,5 +49,5 @@ if (process.argv[2] === 'live') {
   }).on('error', () => { clearTimeout(t); console.log(''); });
 } else {
   const ver = read('src/js/i18n.js');
-  console.log(ver + '|' + read('dist/js/i18n.js') + '|' + bannerBranch(ver));
+  console.log(ver + '|' + read('dist/js/i18n.js') + '|' + bannerTail(ver));
 }
