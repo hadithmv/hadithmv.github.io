@@ -1242,12 +1242,14 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Toolbox.bat`
-menu — a 13-item console launcher covering build, search index, book-data
-refresh, local preview, build-and-preview, what's-changed, tidy-build-reports
-(restores the two committed build reports after a build dirties them),
-open-folder, an About/health screen, a live-site up-to-date check, and the
-full verification battery with a written report; the bat is only a
-double-click door — it checks for node and hands over to
+menu — a 14-item console launcher covering build (then asking whether to run
+the checks), search index, book-data refresh, local preview, build-and-preview,
+what's-changed, tidy-build-reports (restores the two committed build reports
+after a build dirties them), open-folder, open-notes, an About/health screen,
+a live-site up-to-date check (offering the GitHub Actions page when behind),
+and the verification battery — all seven checks or a single one — with a
+written report; the bat is only a double-click door — it checks for node and
+hands over to
 `tools/hmv-toolbox.mjs`, which runs unchanged on Windows, macOS and Linux).
 See `docs/TOOLBOX.md` for the complete reference — every option, the launch
 chain, sounds, and pitfalls. Then commit the

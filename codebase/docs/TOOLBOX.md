@@ -27,7 +27,7 @@ verification battery. It is developer tooling, not part of the site itself.
 
 | # | What it does |
 | --- | --- |
-| 1 | **Build the site** — the full pre-commit build into `dist/` (~1 minute); prints the size summary from `dist-build-report.md`. |
+| 1 | **Build the site** — the full pre-commit build into `dist/` (~1 minute); prints the size summary from `dist-build-report.md`, then asks whether to run the checks. |
 | 2 | **Rebuild search index** — after adding or changing a book, so it shows up in search. |
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness. |
@@ -36,10 +36,11 @@ verification battery. It is developer tooling, not part of the site itself.
 | 7 | **Tidy build reports** — restores `dist-build-report.md` and `font-build-report.md` to their committed state when a build dirtied them. |
 | 8 | **Open the folder** — the codebase folder in Explorer. |
 | 9 | **Build and preview** — option 1 followed by option 5. |
-| 10 | **Run the checks** — the seven pre-commit batteries (see below); writes `checks-report.md` and opens it in Notepad when any check fails. |
+| 10 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md` and opens it in Notepad when any check fails. |
 | 11 | **About / health** — site versions, tool versions on this machine; press **S** to toggle the sound. |
-| 12 | **Check the live site** — compares the published version with the local source. |
-| 13 | **Quit** |
+| 12 | **Check the live site** — compares the published version with the local source; when the live site is behind, offers to open the GitHub Actions page. |
+| 13 | **Open the notes folder** — the hand-authored markdown (authors + works) at the repo root. |
+| 14 | **Quit** |
 
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
 paths around options 1 and 2.
@@ -60,7 +61,7 @@ state the About screen reports).
   option 10 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
-- Options 2–8, 11, 12 and 13 are silent on success.
+- Options 2–8, 11, 12 and 13 are silent on success; 14 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with S
   from the About screen.
@@ -68,9 +69,11 @@ state the About screen reports).
 ## Checks (option 10)
 
 Seven checks run in order; each opens an invisible browser (or the font
-corpus) and exercises a part of the site. The report lands in
-`checks-report.md` (gitignored — never dirties "what's changed", never
-ships): a summary table, per-check details, run time, and a bold verdict.
+corpus) and exercises a part of the site. Press Enter for all seven, or type
+1–7 to run just that one — the report marks the rest SKIP and the verdict
+names the check. The report lands in `checks-report.md` (gitignored — never
+dirties "what's changed", never ships): a summary table, per-check details,
+run time, and a bold verdict.
 
 1. reader smoke test — `tools/hmv-qrn-smoke.mjs`
 2. info modal battery — `tools/hmv-info-check.mjs`

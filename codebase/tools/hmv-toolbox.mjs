@@ -1,6 +1,6 @@
 // tools/hmv-toolbox.mjs - the Hadithmv Toolbox menu (node edition).
 //
-// A 13-item console menu for the common site tasks. Double-click the tiny
+// A 14-item console menu for the common site tasks. Double-click the tiny
 // launcher ("Hadithmv Toolbox.bat" on Windows) or run:
 //   node tools/hmv-toolbox.mjs
 // Run with a number argument to jump straight to an option, e.g.
@@ -172,7 +172,8 @@ function showBanner() {
   console.log(' ' + ITEM + '10.' + OFF + ' Run the checks       (the pre-commit verification battery)');
   console.log(' ' + ITEM + '11.' + OFF + ' About / health check (versions and tools on this machine)');
   console.log(' ' + ITEM + '12.' + OFF + ' Check the live site  (is the published site up to date?)');
-  console.log(' ' + ITEM + '13.' + OFF + ' Quit');
+  console.log(' ' + ITEM + '13.' + OFF + ' Open the notes folder (authors + works markdown)');
+  console.log(' ' + ITEM + '14.' + OFF + ' Quit');
   console.log();
 }
 
@@ -245,6 +246,8 @@ async function build(followWithPreview) {
   console.log(secs ? 'Build done in ' + secs + ' seconds. Size summary:' : 'Build done. Size summary:');
   const row = totalRow();
   if (row) console.log('  Files: ' + row.files + '   Input: ' + row.input + '   Output: ' + row.output + '   Saved: ' + row.saved + '   Gzip: ' + row.gzip);
+  const runChecks = await ask(WARN + 'Run the checks now? (y/n) ' + OFF);
+  if (runChecks.toLowerCase() === 'y') return checks();
   console.log();
   console.log('When you are happy with it, commit in your IDE.');
   console.log(WARN + 'Tip: option 6 shows what git would put in your next commit.' + OFF);
@@ -410,6 +413,19 @@ async function openFolder() {
   return menu();
 }
 
+// ── option 13: open the notes folder ──────────────────────────────────
+const NOTES = path.join(ROOT, '..', 'notes'); // the notes sit at the repo root, beside codebase/
+async function openNotes() {
+  process.title = 'Hadithmv Toolbox - opening the notes folder';
+  console.log();
+  console.log('Opening the notes folder (authors + works markdown) in Explorer...');
+  openExternal(['start', '', 'explorer', NOTES], [NOTES], [NOTES]);
+  console.log();
+  console.log('Done - press Enter to go back to the menu.');
+  await pause();
+  return menu();
+}
+
 // ── option 10: run the checks ─────────────────────────────────────────
 const CHECK_NAMES = [
   'reader smoke test',
@@ -435,34 +451,57 @@ async function checks() {
   console.log();
   console.log('Running the pre-commit checks - each opens an invisible browser');
   console.log('and clicks through a part of the site. This takes a few minutes.');
-  console.log();
+  console.log('All seven, or just one - type 1-7 for a single check, Enter runs all.');
   const RPT = path.join(ROOT, 'checks-report.md');
   const t = Date.now();
   const results = []; // { ok: true|false|null(SKIP), out }
   const failed = [];
+  const pick = await ask(WARN + 'All 7, or one? (1-7 = just that check) ' + OFF);
+  const single = /^[1-7]$/.test(pick);
+  const idx = single ? parseInt(pick, 10) - 1 : -1;
+  if (single) console.log('Running ' + CHECK_NAMES[idx] + ' only - the report marks the rest SKIP.');
+  console.log();
   try { fs.unlinkSync(RPT); } catch (e) { /* first run */ }
   fs.writeFileSync(RPT, [
     '# Hadithmv Toolbox - checks report', '',
     'Run date: ' + new Date().toLocaleString(), '',
     'Source: ' + VER + ' | Built: ' + VERD + ' | Branch: ' + BR,
+    single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 7 checks',
   ].join('\n') + '\n');
-  for (const c of CHECKS) {
-    console.log(' ' + c.label);
-    const r = await runCaptured('node', [path.join(ROOT, c.file)]);
-    results.push(r);
-    if (!r.ok) failed.push(c.name);
+  if (single) {
+    for (let i = 0; i < 7; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
+    if (idx < 6) {
+      console.log(' ' + CHECKS[idx].label);
+      results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)]);
+      if (!results[idx].ok) failed.push(CHECKS[idx].name);
+    } else if (hasTool('python')) {
+      console.log(' ' + FONT_LABEL);
+      results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check']);
+      if (!results[6].ok) failed.push('font');
+    } else {
+      console.log(' 7/7 - the font coverage check skipped - python not found.');
+      results[6] = { ok: null, out: 'Skipped: python not found.' };
+    }
+    console.log();
+  } else {
+    for (const c of CHECKS) {
+      console.log(' ' + c.label);
+      const r = await runCaptured('node', [path.join(ROOT, c.file)]);
+      results.push(r);
+      if (!r.ok) failed.push(c.name);
+      console.log();
+    }
+    if (hasTool('python')) {
+      console.log(' ' + FONT_LABEL);
+      const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check']);
+      results.push(r);
+      if (!r.ok) failed.push('font');
+    } else {
+      console.log(' 7/7 - the font coverage check skipped - python not found.');
+      results.push({ ok: null, out: 'Skipped: python not found.' });
+    }
     console.log();
   }
-  if (hasTool('python')) {
-    console.log(' ' + FONT_LABEL);
-    const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check']);
-    results.push(r);
-    if (!r.ok) failed.push('font');
-  } else {
-    console.log(' 7/7 - the font coverage check skipped - python not found.');
-    results.push({ ok: null, out: 'Skipped: python not found.' });
-  }
-  console.log();
   const secs = Math.round((Date.now() - t) / 1000);
   const verdict = (r) => (r.ok === null ? 'SKIP' : (r.ok ? 'PASS' : 'FAIL'));
   const lines = ['', '## Summary', '', '| Check | Result |', '| --- | --- |'];
@@ -472,8 +511,10 @@ async function checks() {
     lines.push('### ' + (i + 1) + '/7 ' + n + ' - ' + verdict(results[i]));
     lines.push('```', results[i].out.trimEnd(), '```', '');
   });
-  lines.push('---', '', secs ? 'Run time: ' + secs + ' seconds' : '',
-    failed.length ? '**Verdict: SOME CHECKS FAILED - ' + failed.join(' ') + '**' : '**Verdict: ALL CHECKS PASSED**');
+  const verdictLine = single
+    ? (failed.length ? '**Verdict: CHECK FAILED - ' + failed.join(' ') + '**' : '**Verdict: PASSED (' + CHECK_NAMES[idx] + ' only)**')
+    : (failed.length ? '**Verdict: SOME CHECKS FAILED - ' + failed.join(' ') + '**' : '**Verdict: ALL CHECKS PASSED**');
+  lines.push('---', '', secs ? 'Run time: ' + secs + ' seconds' : '', verdictLine);
   fs.appendFileSync(RPT, lines.join('\n') + '\n');
   console.log();
   if (failed.length) {
@@ -533,6 +574,8 @@ async function livecheck() {
   } else {
     console.log(WARN + 'The live site is behind: live ' + live + ', local ' + VER + '.' + OFF);
     console.log(WARN + 'Have you pushed, and did the GitHub Pages build finish?' + OFF);
+    const a = await ask(WARN + 'Open the GitHub Actions page? (y/n) ' + OFF);
+    if (a.toLowerCase() === 'y') openUrl('https://github.com/hadithmv/hadithmv.github.io/actions');
   }
   console.log();
   await pause();
@@ -577,7 +620,8 @@ async function dispatch(c) {
     case '10': return checks();
     case '11': return about();
     case '12': return livecheck();
-    case '13': return quit();
+    case '13': return openNotes();
+    case '14': return quit();
     default: return invalid();
   }
 }
