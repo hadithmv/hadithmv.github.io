@@ -47,8 +47,8 @@ let muted = (() => {
 const setMuted = (m) => { muted = m; fs.writeFileSync(SOUND_FILE, m ? '1' : '0'); };
 
 // ── PowerShell detection (used for the registry step + the failure buzz);
-//    prefer pwsh (PS 7) — Windows PowerShell 5.1 cannot parse the BOM-less
-//    UTF-8 registry script ─────────────────────────────────────────────
+//    prefer pwsh (PS 7); the registry script carries a UTF-8 BOM so even
+//    Windows PowerShell 5.1 parses it ──────────────────────────────────
 function shellName() {
   try {
     return spawnSync('pwsh', ['-NoProfile', '-Command', 'exit 0'], { stdio: 'ignore' }).status === 0
@@ -100,9 +100,12 @@ function listeningPorts(ports) {
 // Open something the way the OS expects (URL, folder, file, program).
 function openExternal(winArgs, macArgs, linArgs) {
   try {
-    const cmd = process.platform === 'win32' ? 'cmd' : (process.platform === 'darwin' ? 'open' : 'xdg-open');
-    const args = process.platform === 'win32' ? ['/c', ...winArgs] : (process.platform === 'darwin' ? macArgs : linArgs);
-    const c = spawn(cmd, args, { detached: true, stdio: 'ignore' });
+    const c = process.platform === 'win32'
+      // winArgs go through `start` — join them into ONE verbatim string so
+      // node's arg quoting can't mangle them (it rewrites embedded quotes,
+      // which makes cmd read a quoted start-title as a program name).
+      ? spawn('cmd', ['/c', winArgs.join(' ')], { detached: true, stdio: 'ignore', windowsVerbatimArguments: true })
+      : spawn(process.platform === 'darwin' ? 'open' : 'xdg-open', process.platform === 'darwin' ? macArgs : linArgs, { detached: true, stdio: 'ignore' });
     c.unref();
   } catch (e) { /* best effort */ }
 }
@@ -307,7 +310,8 @@ async function preview() {
   console.log('browser will show the built site, just like the live one.');
   console.log('Close the server window when you are done.');
   console.log();
-  if (!hasTool('python')) return noPython();
+  const PY = process.platform === 'win32' ? 'python' : 'python3';
+  if (!hasTool(PY)) return noPython();
   if (listeningPorts([8897, 8898, 8899]).length) {
     console.log();
     console.log('A preview server is already running on one of the preview ports.');
@@ -321,8 +325,18 @@ async function preview() {
   console.log();
   console.log('Opening on http://127.0.0.1:' + PORT + '/dist/books/ (port ' + PORT + ' is free).');
   try { // the server gets its own console window (Windows) — close it when done
-    const c = spawn('cmd', ['/c', 'start', '"Hadithmv preview (port ' + PORT + ') - close this window when done"', 'python', '-m', 'http.server', String(PORT), '--directory', ROOT], { detached: true, stdio: 'ignore' });
-    c.unref();
+    if (process.platform === 'win32') {
+      // ONE verbatim command line (windowsVerbatimArguments): node's quoting
+      // rewrites the start-title's embedded quotes, and cmd then reads a title
+      // fragment as the program name ("Windows cannot find 'preview'").
+      const cmdLine = 'start "Hadithmv preview (port ' + PORT + ') - close this window when done" '
+        + PY + ' -m http.server ' + PORT + ' --directory "' + ROOT + '"';
+      const c = spawn('cmd', ['/c', cmdLine], { detached: true, stdio: 'ignore', windowsVerbatimArguments: true });
+      c.unref();
+    } else { // macOS/Linux: the server just detaches in the background
+      const c = spawn('sh', ['-c', PY + ' -m http.server ' + PORT + ' --directory "' + ROOT + '" >/dev/null 2>&1 &'], { detached: true, stdio: 'ignore' });
+      c.unref();
+    }
   } catch (e) { return fail('preview'); }
   let up = false;
   for (let i = 0; i < 3; i++) { await sleep(1000); if (listeningPorts([PORT]).length) { up = true; break; } }

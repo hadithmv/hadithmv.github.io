@@ -1,4 +1,8 @@
-# Update and sort 03-registry-bookMeta.csv
+﻿# Update and sort 03-registry-bookMeta.csv
+#   - THIS FILE CARRIES A UTF-8 BOM. Windows PowerShell 5.1 reads BOM-less
+#     files as ANSI, and the box-drawing/emoji bytes below misparse into
+#     "Missing closing '}'" errors that swallow the whole tail of the file.
+#     Keep the BOM if you ever re-save this script.
 #   - Scans data/content/ for CSV files not yet registered and adds them
 #     (titles left empty — all three titles are hand-authored)
 #   - Converts CRLF line endings in book CSVs to LF before hashing — exactly
