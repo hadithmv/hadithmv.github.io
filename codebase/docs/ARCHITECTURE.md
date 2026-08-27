@@ -1242,14 +1242,24 @@ The whole tree is wiped and rebuilt each run — and **committed** (since
 as-is, so dist ships to Pages like any other file). The working rule is
 **build before commit** — run `node tools/dist-build.mjs` from codebase/, or
 double-click `codebase/dist-build.bat` (or the `codebase/Hadithmv Tools.bat`
-menu — build, search index, book-data refresh, local preview, build-and-preview,
-an About/health screen, a live-site up-to-date check, a pre-commit "what's
-changed" check, and open-folder in one window). The menu shows the site
+menu — a 13-item console launcher: build, search index, book-data refresh,
+local preview, build-and-preview, what's-changed, tidy-build-reports (restores
+the two committed build reports after a build dirties them), open-folder,
+an About/health screen, a live-site up-to-date check, and a run-the-checks
+option that fires the whole verification battery and reports which checks
+failed). The menu shows the site
 version (read from `src/js/i18n.js` via `tools/hmv-version.mjs` — the same
 source the sidebar shows — with the " (Web)" suffix dropped for the console),
-warns when the built copy (dist) is stale, accepts a number argument to jump
-straight to an option (e.g. `Hadithmv Tools.bat 5`), and beeps when a build
-finishes. Then commit the
+the git branch when git is present, and
+warns when the built copy (dist) is stale; it accepts a number argument to jump
+straight to an option (e.g. `Hadithmv Tools.bat 5`), times each build
+(epoch-seconds captured via node before/after, `set /a` difference — never
+`Date.now()` milliseconds, which overflow cmd's 32-bit arithmetic), beeps
+twice on success (BEL BEL) and buzzes twice on failure (a low 180 Hz console
+beep via the detected PowerShell), and remembers a sound on/off choice in
+`%USERPROFILE%\.hadithmv-tools` (toggled with S from the About screen). The
+preview option reuses a server already listening on its ports (8897–8899)
+instead of starting a second one. Then commit the
 regenerated
 dist/ together with the source; an unbuilt dist is a stale site. For a
 **data-only** commit (registry, note, or font change) the full build is

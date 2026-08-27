@@ -7,6 +7,8 @@ rem Colours need an ANSI console (Windows 10 or later); on older
 rem consoles they degrade to harmless [92m-style text.
 rem Run with a number argument to jump straight to an option,
 rem e.g. "Hadithmv Tools.bat 5" opens the preview directly.
+rem The sound setting lives in %USERPROFILE%\.hadithmv-tools -
+rem outside the repo on purpose, so it never shows in git status.
 title Hadithmv Tools
 cd /d "%~dp0"
 
@@ -35,6 +37,15 @@ set "VER="
 set "VERD="
 for /f "tokens=1,2 delims=|" %%v in ('node tools\hmv-version.mjs') do set "VER=%%v"&set "VERD=%%w"
 
+rem The sound on/off flag, kept in the user profile.
+set "MUTE="
+if exist "%USERPROFILE%\.hadithmv-tools" for /f "usebackq delims=" %%m in ("%USERPROFILE%\.hadithmv-tools") do set "MUTE=%%m"
+
+rem Which git branch are we on? Only if git is installed; no git, no line.
+set "BRANCH="
+where git >nul 2>&1
+if not errorlevel 1 for /f "delims=" %%b in ('git rev-parse --abbrev-ref HEAD 2^>nul') do set "BRANCH=%%b"
+
 rem A number argument jumps straight to that option.
 if not "%~1"=="" set "choice=%~1"
 if not "%~1"=="" goto dispatch
@@ -46,6 +57,7 @@ echo %C_TITLE%+----------------------------------------------+%C_OFF%
 if defined VER echo %C_TITLE%^|  Hadithmv tools - %VER%                     ^|%C_OFF%
 if not defined VER echo %C_TITLE%^|  Hadithmv tools                              ^|%C_OFF%
 echo %C_TITLE%+----------------------------------------------+%C_OFF%
+if defined BRANCH echo %C_ITEM%  Branch: %BRANCH%%C_OFF%
 if not "%VER%"=="" if "%VERD%"=="" echo %C_WARN%Warning: no built copy (dist) yet - run option 1.%C_OFF%
 if not "%VER%"=="" if not "%VERD%"=="" if not "%VER%"=="%VERD%" echo %C_WARN%Warning: the built copy (dist) is behind the source (%VERD% vs %VER%) - run option 1 before you commit.%C_OFF%
 echo.
@@ -55,11 +67,13 @@ echo  %C_ITEM%3.%C_OFF% Refresh freshness     (quick update for data-only change
 echo  %C_ITEM%4.%C_OFF% Refresh book data     (after adding or changing a book)
 echo  %C_ITEM%5.%C_OFF% Preview the site      (opens in your browser, like the live one)
 echo  %C_ITEM%6.%C_OFF% What's changed        (what git would put in your next commit)
-echo  %C_ITEM%7.%C_OFF% Open the folder       (the codebase folder in Explorer)
-echo  %C_ITEM%8.%C_OFF% Build and preview     (build, then open the preview)
-echo  %C_ITEM%9.%C_OFF% About / health check  (versions and tools on this machine)
-echo  %C_ITEM%10.%C_OFF% Check the live site  (is the published site up to date?)
-echo  %C_ITEM%11.%C_OFF% Quit
+echo  %C_ITEM%7.%C_OFF% Tidy build reports    (undo the report changes from a build)
+echo  %C_ITEM%8.%C_OFF% Open the folder       (the codebase folder in Explorer)
+echo  %C_ITEM%9.%C_OFF% Build and preview     (build, then open the preview)
+echo  %C_ITEM%10.%C_OFF% Run the checks       (the pre-commit verification battery)
+echo  %C_ITEM%11.%C_OFF% About / health check (versions and tools on this machine)
+echo  %C_ITEM%12.%C_OFF% Check the live site  (is the published site up to date?)
+echo  %C_ITEM%13.%C_OFF% Quit
 echo.
 set "choice="
 set /p "choice=%C_WARN%Pick a number: %C_OFF%"
@@ -70,11 +84,13 @@ if "%choice%"=="3" goto manifest
 if "%choice%"=="4" goto refresh
 if "%choice%"=="5" goto preview
 if "%choice%"=="6" goto changed
-if "%choice%"=="7" goto openfolder
-if "%choice%"=="8" goto buildpreview
-if "%choice%"=="9" goto about
-if "%choice%"=="10" goto livecheck
-if "%choice%"=="11" goto quit
+if "%choice%"=="7" goto tidy
+if "%choice%"=="8" goto openfolder
+if "%choice%"=="9" goto buildpreview
+if "%choice%"=="10" goto checks
+if "%choice%"=="11" goto about
+if "%choice%"=="12" goto livecheck
+if "%choice%"=="13" goto quit
 echo.
 echo %C_ERR%Not a valid choice - try again.%C_OFF%
 pause >nul
@@ -87,11 +103,14 @@ echo.
 echo Building the site - the full pre-commit build. This prepares
 echo the copy that visitors see (dist/) and takes about a minute.
 echo.
+for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T0=%%t"
 node tools\dist-build.mjs
 if errorlevel 1 goto fail
-node -e "process.stdout.write(String.fromCharCode(7,7))"
+if not "%MUTE%"=="1" node -e "process.stdout.write(String.fromCharCode(7,7))"
+for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T1=%%t"
+if defined T0 if defined T1 set /a ELAPSED=%T1%-%T0
 echo.
-echo Build done. Size summary:
+if defined ELAPSED (echo Build done in %ELAPSED% seconds. Size summary:) else (echo Build done. Size summary:)
 for /f "tokens=4,6,8,10,12 delims=*" %%a in ('type dist-build-report.md ^| findstr /c:"**Total**"') do echo   Files: %%a   Input: %%b   Output: %%c   Saved: %%d   Gzip: %%e
 echo.
 echo When you are happy with it, commit in your IDE.
@@ -105,10 +124,14 @@ set "FAILSTEP=build"
 echo.
 echo Building the site, then opening the preview...
 echo.
+for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T0=%%t"
 node tools\dist-build.mjs
 if errorlevel 1 goto fail
-node -e "process.stdout.write(String.fromCharCode(7,7))"
-echo Build done - opening the preview now.
+if not "%MUTE%"=="1" node -e "process.stdout.write(String.fromCharCode(7,7))"
+for /f %%t in ('node -e "process.stdout.write(String(Math.round(Date.now()/1000)))"') do set "T1=%%t"
+if defined T0 if defined T1 set /a ELAPSED=%T1%-%T0
+echo.
+if defined ELAPSED (echo Build done in %ELAPSED% seconds - opening the preview now.) else (echo Build done - opening the preview now.)
 goto preview
 
 :index
@@ -172,13 +195,13 @@ echo Close the server window when you are done.
 echo.
 where python >nul 2>&1
 if errorlevel 1 goto nopython
-set "PORT=8899"
-netstat -ano | findstr ":8899" | findstr "LISTENING" >nul 2>&1
-if not errorlevel 1 set "PORT=8898"
-netstat -ano | findstr ":8898" | findstr "LISTENING" >nul 2>&1
-if not errorlevel 1 set "PORT=8897"
 netstat -ano | findstr ":8897" | findstr "LISTENING" >nul 2>&1
-if not errorlevel 1 goto allbusy
+if not errorlevel 1 goto previewrunning
+netstat -ano | findstr ":8898" | findstr "LISTENING" >nul 2>&1
+if not errorlevel 1 goto previewrunning
+netstat -ano | findstr ":8899" | findstr "LISTENING" >nul 2>&1
+if not errorlevel 1 goto previewrunning
+set "PORT=8899"
 echo.
 echo Opening on http://127.0.0.1:%PORT%/dist/books/ (port %PORT% is free).
 start "Hadithmv preview (port %PORT%) - close this window when done" python -m http.server %PORT% --directory "%cd%"
@@ -196,11 +219,12 @@ echo.
 echo Preview started. Close the server window when done, then press any key.
 pause >nul
 goto menu
-
-:allbusy
+:previewrunning
 echo.
-echo %C_ERR%All three preview ports (8897-8899) are busy - close the other%C_OFF%
-echo %C_ERR%preview window first, then try again.%C_OFF%
+echo A preview server is already running on one of the preview ports.
+echo If that is the preview from earlier, just press F5 in that tab
+echo to see the newest build. If it is something else, close it
+echo first, then try again.
 pause
 goto menu
 
@@ -248,6 +272,25 @@ echo %C_ERR%git-scm.com and try again.%C_OFF%
 pause
 goto menu
 
+:tidy
+title Hadithmv Tools - tidying the build reports
+echo.
+echo Tidy the build reports (dist-build-report.md and
+echo font-build-report.md) to their committed state - handy when
+echo the build itself was not the point of your change.
+echo.
+where git >nul 2>&1
+if errorlevel 1 goto nogit
+git status --porcelain -- dist-build-report.md font-build-report.md | findstr "." >nul 2>&1
+if errorlevel 1 (
+  echo The build reports are already clean - nothing to tidy.
+) else (
+  git checkout -- dist-build-report.md font-build-report.md
+  echo Reports restored - they no longer show in "what's changed".
+)
+pause
+goto menu
+
 :openfolder
 title Hadithmv Tools - opening the folder
 echo.
@@ -256,6 +299,53 @@ start "" explorer "%cd%"
 echo.
 echo Done - press any key to go back to the menu.
 pause >nul
+goto menu
+
+:checks
+title Hadithmv Tools - running the checks
+echo.
+echo Running the pre-commit checks - each opens an invisible browser
+echo and clicks through a part of the site. This takes a few minutes.
+echo.
+set "CHECKS_FAILED="
+set "FAILED_LIST="
+echo  1/7 - the reader smoke test (clicks through the Quran reader)...
+node tools\hmv-qrn-smoke.mjs
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% reader")
+echo  2/7 - the info modal battery...
+node tools\hmv-info-check.mjs
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% info")
+echo  3/7 - the authors and periods battery...
+node tools\hmv-authors-check.mjs
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% authors")
+echo  4/7 - the library scope battery...
+node tools\hmv-libscope-check.mjs
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% library")
+echo  5/7 - the service worker battery...
+node tools\hmv-sw-check.mjs
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% service-worker")
+echo  6/7 - the table-of-contents scan...
+node tools\hmv-toc-scan.cjs
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% contents")
+where python >nul 2>&1
+if errorlevel 1 goto nofontcheck
+echo  7/7 - the font coverage check (the webfont vs the site's text)...
+python tools\hmv-font-subset.py --check
+if errorlevel 1 (set "CHECKS_FAILED=1"&set "FAILED_LIST=%FAILED_LIST% font")
+goto checksdone
+:nofontcheck
+echo  7/7 - the font coverage check skipped - python not found.
+:checksdone
+echo.
+if defined CHECKS_FAILED (
+  if not "%MUTE%"=="1" "%PWR%" -NoProfile -Command "[console]::beep(180,450); Start-Sleep -m 120; [console]::beep(180,450)"
+  echo %C_ERR%Some checks failed:%C_OFF%%FAILED_LIST:~1%
+  echo %C_WARN%Read the failing check's own report above - it shows the details.%C_OFF%
+) else (
+  if not "%MUTE%"=="1" node -e "process.stdout.write(String.fromCharCode(7,7))"
+  echo %C_ITEM%All checks passed.%C_OFF%
+)
+pause
 goto menu
 
 :about
@@ -275,15 +365,24 @@ echo  Built copy (dist):      %C_ITEM%%VERD%%C_OFF%
 if not "%VER%"=="" if "%VERD%"=="" echo  %C_WARN%There is no dist yet - run option 1.%C_OFF%
 if not "%VER%"=="" if not "%VERD%"=="" if not "%VER%"=="%VERD%" echo  %C_WARN%dist is behind source - run option 1.%C_OFF%
 echo  Folder:                 %cd%
+if defined BRANCH echo  Branch:                 %BRANCH%
+if "%MUTE%"=="1" (echo  Sound:                  off) else (echo  Sound:                  on)
 echo.
 echo  Tools on this machine:
-if defined NODEV (echo   %C_ITEM%%NODEV%%C_OFF%   node - needed for options 1-4 and 8) else (echo   %C_ERR%node not found%C_OFF% - install from nodejs.org)
+if defined NODEV (echo   %C_ITEM%%NODEV%%C_OFF%   node - needed for options 1-4 and 9) else (echo   %C_ERR%node not found%C_OFF% - install from nodejs.org)
 if defined PYV (echo   %C_ITEM%%PYV%%C_OFF%   python - needed for option 5) else (echo   %C_ERR%python not found%C_OFF% - install from python.org)
-if defined GITV (echo   %C_ITEM%%GITV%%C_OFF%   git - needed for option 6) else (echo   %C_ERR%git not found%C_OFF% - install from git-scm.com)
+if defined GITV (echo   %C_ITEM%%GITV%%C_OFF%   git - needed for options 6, 7 and 12) else (echo   %C_ERR%git not found%C_OFF% - install from git-scm.com)
 echo   %C_ITEM%%PWR%%C_OFF%   shell - used for option 4
 echo.
-pause
+echo  Press S to switch the sound on or off, any other key for the menu.
+set "AK="
+set /p "AK=%C_WARN%> %C_OFF%"
+if /i "%AK%"=="S" goto togglesound
 goto menu
+:togglesound
+if "%MUTE%"=="1" (set "MUTE=0") else (set "MUTE=1")
+> "%USERPROFILE%\.hadithmv-tools" echo %MUTE%
+goto about
 
 :livecheck
 title Hadithmv Tools - checking the live site
@@ -320,6 +419,7 @@ pause
 exit /b 1
 
 :fail
+if not "%MUTE%"=="1" "%PWR%" -NoProfile -Command "[console]::beep(180,450); Start-Sleep -m 120; [console]::beep(180,450)"
 echo.
 echo %C_ERR%A step failed - read the error above. Nothing further was done.%C_OFF%
 if "%FAILSTEP%"=="build" echo %C_WARN%Hint: the error above names the file - usually a syntax error.%C_OFF%
