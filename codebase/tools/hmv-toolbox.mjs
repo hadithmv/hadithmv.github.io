@@ -415,9 +415,11 @@ async function openFolder() {
 }
 
 // ── option 13: open the notes folder ──────────────────────────────────
-const NOTES = path.join(ROOT, '..', 'notes'); // the notes sit at the repo root, beside codebase/
+const NOTES = path.join(ROOT, 'static', 'notes'); // the site's hand-authored notes (static/notes/authors + /works)
 async function openNotes() {
   process.title = 'Hadithmv Toolbox - opening the notes folder';
+  fs.mkdirSync(path.join(NOTES, 'authors'), { recursive: true }); // notes are optional - make the folders if missing
+  fs.mkdirSync(path.join(NOTES, 'works'), { recursive: true });
   console.log();
   console.log('Opening the notes folder (authors + works markdown) in Explorer...');
   openExternal(['start', '', 'explorer', NOTES], [NOTES], [NOTES]);
@@ -429,7 +431,20 @@ async function openNotes() {
 
 // ── option 14: new book (template copy + checklist) ───────────────────
 const CONTENT = path.join(ROOT, 'data', 'content');
-const DEFAULT_TEMPLATE = 'HDT-muwattaMalik';
+// The template default is the smallest book with the fullest layout (row
+// numbers, head + body in both languages, foot) - a small starter; type any
+// code to use that book instead.
+function defaultTemplate() {
+  let best = null, bestB = Infinity, any = null, anyB = Infinity;
+  for (const f of fs.readdirSync(CONTENT)) {
+    if (!f.endsWith('.csv')) continue;
+    const b = fs.statSync(path.join(CONTENT, f)).size;
+    if (b < anyB) { anyB = b; any = f.slice(0, -4); }
+    const cols = fs.readFileSync(path.join(CONTENT, f), 'utf8').split(/\r?\n/)[0].split(',');
+    if (cols.length >= 5 && cols.indexOf('foot') !== -1 && b < bestB) { bestB = b; best = f.slice(0, -4); }
+  }
+  return best || any;
+}
 function registeredBookCodes() {
   try {
     return fs.readFileSync(path.join(ROOT, 'data', '03-registry-bookMeta.csv'), 'utf8')
@@ -464,8 +479,9 @@ async function newBook() {
     await pause();
     return menu();
   }
-  const tpl = await ask(WARN + 'Template book (Enter = ' + DEFAULT_TEMPLATE + ', or type another code): ' + OFF);
-  const tplCode = tpl || DEFAULT_TEMPLATE;
+  const defTpl = defaultTemplate();
+  const tpl = await ask(WARN + 'Template book (Enter = ' + defTpl + ' - smallest full-layout book, or type any code): ' + OFF);
+  const tplCode = tpl || defTpl;
   if (!fs.existsSync(path.join(CONTENT, tplCode + '.csv'))) {
     console.log();
     console.log(ERR + 'No template named ' + tplCode + ' - check the content folder.' + OFF);
@@ -473,8 +489,10 @@ async function newBook() {
     return menu();
   }
   fs.copyFileSync(path.join(CONTENT, tplCode + '.csv'), path.join(CONTENT, code + '.csv'));
+  const tplInfo = fs.readFileSync(path.join(CONTENT, tplCode + '.csv'), 'utf8');
   console.log();
   console.log('Copied ' + tplCode + '.csv to ' + code + '.csv (byte-exact - LF, no BOM).');
+  console.log('Template: ' + Math.max(1, Math.round(fs.statSync(path.join(CONTENT, tplCode + '.csv')).size / 1024)) + ' KB, ' + (tplInfo.split(/\r?\n/).length - 1) + ' rows, columns: ' + tplInfo.split(/\r?\n/)[0] + '.');
   openExternal(['start', '', 'explorer', CONTENT], [CONTENT], [CONTENT]);
   console.log('Opened the content folder in Explorer.');
   console.log();
