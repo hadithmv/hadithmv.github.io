@@ -40,7 +40,8 @@ verification battery. It is developer tooling, not part of the site itself.
 | 11 | **About / health** — site versions, tool versions on this machine; press **S** to toggle the sound. |
 | 12 | **Check the live site** — compares the published version with the local source; when the live site is behind, offers to open the GitHub Actions page. |
 | 13 | **Open the notes folder** — the hand-authored markdown (authors + works) at the repo root. |
-| 14 | **Quit** |
+| 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → authors → tags → option 4 → registry row → font → build). |
+| 15 | **Quit** |
 
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
 paths around options 1 and 2.
@@ -61,7 +62,7 @@ state the About screen reports).
   option 10 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
-- Options 2–8, 11, 12 and 13 are silent on success; 14 (Quit) just exits.
+- Options 2–8, 11, 12, 13 and 14 are silent on success; 15 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with S
   from the About screen.

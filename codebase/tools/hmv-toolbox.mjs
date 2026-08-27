@@ -1,6 +1,6 @@
 // tools/hmv-toolbox.mjs - the Hadithmv Toolbox menu (node edition).
 //
-// A 14-item console menu for the common site tasks. Double-click the tiny
+// A 15-item console menu for the common site tasks. Double-click the tiny
 // launcher ("Hadithmv Toolbox.bat" on Windows) or run:
 //   node tools/hmv-toolbox.mjs
 // Run with a number argument to jump straight to an option, e.g.
@@ -173,7 +173,8 @@ function showBanner() {
   console.log(' ' + ITEM + '11.' + OFF + ' About / health check (versions and tools on this machine)');
   console.log(' ' + ITEM + '12.' + OFF + ' Check the live site  (is the published site up to date?)');
   console.log(' ' + ITEM + '13.' + OFF + ' Open the notes folder (authors + works markdown)');
-  console.log(' ' + ITEM + '14.' + OFF + ' Quit');
+  console.log(' ' + ITEM + '14.' + OFF + ' New book           (copy a template + checklist)');
+  console.log(' ' + ITEM + '15.' + OFF + ' Quit');
   console.log();
 }
 
@@ -426,6 +427,76 @@ async function openNotes() {
   return menu();
 }
 
+// ── option 14: new book (template copy + checklist) ───────────────────
+const CONTENT = path.join(ROOT, 'data', 'content');
+const DEFAULT_TEMPLATE = 'HDT-muwattaMalik';
+function registeredBookCodes() {
+  try {
+    return fs.readFileSync(path.join(ROOT, 'data', '03-registry-bookMeta.csv'), 'utf8')
+      .split(/\r?\n/).slice(1) // skip the header
+      .map((l) => l.split(',')[0].trim())
+      .filter(Boolean);
+  } catch (e) { return []; }
+}
+async function newBook() {
+  process.title = 'Hadithmv Toolbox - new book';
+  console.log();
+  console.log('New book - a working copy of an existing book (same columns,');
+  console.log('same language setup) is dropped into the content folder, then');
+  console.log('a checklist walks you through the rest.');
+  console.log();
+  const code = await ask(WARN + 'New book code (letters, digits, dash, underscore - e.g. HDT-something): ' + OFF);
+  if (!/^[A-Za-z0-9_-]{2,64}$/.test(code)) {
+    console.log();
+    console.log(ERR + 'Invalid code - use letters, digits, dashes and underscores only.' + OFF);
+    await pause();
+    return menu();
+  }
+  if (fs.existsSync(path.join(CONTENT, code + '.csv'))) {
+    console.log();
+    console.log(ERR + 'A file named ' + code + '.csv already exists in the content folder.' + OFF);
+    await pause();
+    return menu();
+  }
+  if (registeredBookCodes().indexOf(code) !== -1) {
+    console.log();
+    console.log(ERR + code + ' is already registered - check 03-registry-bookMeta.csv.' + OFF);
+    await pause();
+    return menu();
+  }
+  const tpl = await ask(WARN + 'Template book (Enter = ' + DEFAULT_TEMPLATE + ', or type another code): ' + OFF);
+  const tplCode = tpl || DEFAULT_TEMPLATE;
+  if (!fs.existsSync(path.join(CONTENT, tplCode + '.csv'))) {
+    console.log();
+    console.log(ERR + 'No template named ' + tplCode + ' - check the content folder.' + OFF);
+    await pause();
+    return menu();
+  }
+  fs.copyFileSync(path.join(CONTENT, tplCode + '.csv'), path.join(CONTENT, code + '.csv'));
+  console.log();
+  console.log('Copied ' + tplCode + '.csv to ' + code + '.csv (byte-exact - LF, no BOM).');
+  openExternal(['start', '', 'explorer', CONTENT], [CONTENT], [CONTENT]);
+  console.log('Opened the content folder in Explorer.');
+  console.log();
+  console.log('Checklist:');
+  console.log(' 1. Replace the template text with the real book - edit the new CSV.');
+  console.log(' 2. If the author is new - add a row to data/02-registry-bookAuthors.csv');
+  console.log('    (code, names in AR/DV/EN, born/died AH). Optional: notes/authors/' + code + '.md');
+  console.log(' 3. If a tag is new - add a row to data/01-registry-bookTags.csv');
+  console.log('    (row order = the colour palette order - hand-controlled).');
+  console.log(' 4. Run option 4 - it registers the book, computes its version, sorts,');
+  console.log('    rebuilds the search index and refreshes the manifest.');
+  console.log(' 5. Fill the new row in 03-registry-bookMeta.csv: the three titles,');
+  console.log('    authorCode, tags (DRFT while it is a draft), excludeFromIndex.');
+  console.log('    Version is computed - leave it, keep it the last column.');
+  console.log(' 6. Optional: write notes/works/' + code + '.md (book notes for the info modal).');
+  console.log(' 7. Run option 10, check 7 - new text may need font glyphs.');
+  console.log(' 8. Build (option 1), commit in your IDE, push, then option 12.');
+  console.log();
+  await pause();
+  return menu();
+}
+
 // ── option 10: run the checks ─────────────────────────────────────────
 const CHECK_NAMES = [
   'reader smoke test',
@@ -621,7 +692,8 @@ async function dispatch(c) {
     case '11': return about();
     case '12': return livecheck();
     case '13': return openNotes();
-    case '14': return quit();
+    case '14': return newBook();
+    case '15': return quit();
     default: return invalid();
   }
 }
