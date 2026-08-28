@@ -81,8 +81,11 @@ names the check. The report lands in `checks-report.md` (gitignored — never
 dirties "what's changed", never ships): a summary table, per-check details,
 run time, and a bold verdict. The report opens itself in Notepad when any
 check fails; after an all-pass run the menu asks whether to open it. While
-each battery boots its invisible browser the menu shows a small ASCII
-spinner; the console summary line ends with the run time (e.g. "All checks
+a battery runs, the menu shows a small ASCII spinner whenever it falls
+silent — its browser work is quiet for long stretches between section
+lines — and the build (option 1) spins the same way during its ~1 minute
+of silence, so the menu only shows a spinner when nothing else is
+moving. The console summary line ends with the run time (e.g. "All checks
 passed. - 3m 12s").
 
 1. reader smoke test — `tools/hmv-qrn-smoke.mjs`

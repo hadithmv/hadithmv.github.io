@@ -32,7 +32,7 @@
 //
 // Shared helpers used by several options: runCaptured() (every worker
 // step, with an optional spinner while the child is quiet), startSpin()
-// (the silent-wait spinners in options 5, 10 and 12),
+// (the silent-wait spinners in options 1, 5, 10 and 12),
 // openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
 // listeningPorts()/listenerPids()/previewStatus() (option 5, About and the
 // menu footer), lastChecks()/footerLine() (the menu footer + About),
@@ -330,21 +330,33 @@ async function fail(step) {
 }
 
 // Run a child with live output; resolves { ok, out } with captured output.
-// When `spinLabel` is given, a spinner shows while the child is still quiet
-// (the batteries boot a browser first) and stops on the first output byte.
+// When `spinLabel` is given, a spinner shows whenever the child is quiet:
+// it stops on each output burst and resumes after ~1.5 s of silence, so it
+// covers whole silent runs (the build) and the long gaps between a battery's
+// lines, not just the boot. Close/error always clears the spinner.
 function runCaptured(cmd, args, spinLabel) {
   return new Promise((resolve) => {
     const c = spawn(cmd, args, { cwd: ROOT });
     let out = '';
-    let stop = null;
-    const kick = () => { if (stop) { stop(); stop = null; } };
+    let stop = null; // the active spinner, if any
+    let idle = null; // the resume timer, if armed
+    const talk = () => {
+      if (stop) { stop(); stop = null; }
+      if (idle) { clearTimeout(idle); idle = null; }
+    };
+    const breathe = (d) => {
+      talk();
+      out += d;
+      process.stdout.write(d);
+      if (spinLabel) idle = setTimeout(() => { if (!stop) stop = startSpin(spinLabel); }, 1500);
+    };
     if (spinLabel) stop = startSpin(spinLabel);
-    c.stdout.on('data', (d) => { kick(); out += d; process.stdout.write(d); });
-    c.stderr.on('data', (d) => { kick(); out += d; process.stdout.write(d); });
+    c.stdout.on('data', breathe);
+    c.stderr.on('data', breathe);
     // 'close' (not 'exit'): the last stdout chunk can still be in flight when
     // 'exit' fires — 'close' guarantees every byte is in `out` before resolve.
-    c.on('close', (code) => { kick(); resolve({ ok: code === 0, out }); });
-    c.on('error', () => { kick(); resolve({ ok: false, out: '' }); });
+    c.on('close', (code) => { talk(); resolve({ ok: code === 0, out }); });
+    c.on('error', () => { talk(); resolve({ ok: false, out: '' }); });
   });
 }
 
@@ -366,7 +378,7 @@ async function build(followWithPreview) {
   console.log('the copy that visitors see (dist/) and takes about a minute.');
   console.log();
   const t = Date.now();
-  const code = await runCaptured('node', [path.join(ROOT, 'tools/dist-build.mjs')]).then((r) => r.ok ? 0 : 1);
+  const code = await runCaptured('node', [path.join(ROOT, 'tools/dist-build.mjs')], 'building').then((r) => r.ok ? 0 : 1);
   if (code) return fail('build');
   if (!muted) beep();
   const secs = Math.round((Date.now() - t) / 1000);
@@ -893,11 +905,11 @@ async function checks() {
     for (let i = 0; i < 7; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
     if (idx < 6) {
       console.log(' ' + CHECKS[idx].label);
-      results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'starting');
+      results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'working');
       if (!results[idx].ok) failed.push(CHECKS[idx].name);
     } else if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
-      results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'starting');
+      results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
       if (!results[6].ok) failed.push('font');
     } else {
       console.log(' 7/7 - the font coverage check skipped - python not found.');
@@ -907,14 +919,14 @@ async function checks() {
   } else {
     for (const c of CHECKS) {
       console.log(' ' + c.label);
-      const r = await runCaptured('node', [path.join(ROOT, c.file)], 'starting');
+      const r = await runCaptured('node', [path.join(ROOT, c.file)], 'working');
       results.push(r);
       if (!r.ok) failed.push(c.name);
       console.log();
     }
     if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
-      const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'starting');
+      const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
       results.push(r);
       if (!r.ok) failed.push('font');
     } else {
