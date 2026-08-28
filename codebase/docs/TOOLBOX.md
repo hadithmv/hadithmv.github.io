@@ -33,18 +33,17 @@ verification battery. It is developer tooling, not part of the site itself.
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
 | 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
 | 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1"). |
-| 7 | **Tidy build reports** — restores `dist-build-report.md` and `font-build-report.md` to their committed state when a build dirtied them. |
-| 8 | **Open the folder** — the codebase folder in Explorer. |
-| 9 | **Build and preview** — option 1 followed by option 5. |
-| 10 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
-| 11 | **About / health** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
-| 12 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
-| 13 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
-| 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 15). |
-| 15 | **Finish a book registration** — fills or edits a book's row in `03-registry-bookMeta.csv`: the three titles, the author code (checked against 02), the tags. The version is recomputed from the content CSV — never typed. Refreshes the manifest. |
-| 16 | **Add an author** — appends a row to `02-registry-bookAuthors.csv` (code, the three names, AH years), checks for duplicates, refreshes the manifest. |
-| 17 | **Sound on/off** — mutes the success beeps and the failure buzz; the row shows the current state (the flag lives in `%USERPROFILE%\.hadithmv-tools`, outside the repo). |
-| 18 | **Quit** |
+| 7 | **Open the folder** — the codebase folder in Explorer. |
+| 8 | **Build and preview** — option 1 followed by option 5. |
+| 9 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
+| 10 | **About / health** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
+| 11 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
+| 12 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
+| 13 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 14). |
+| 14 | **Finish a book registration** — fills or edits a book's row in `03-registry-bookMeta.csv`: the three titles, the author code (checked against 02), the tags. The version is recomputed from the content CSV — never typed. Refreshes the manifest. |
+| 15 | **Add an author** — appends a row to `02-registry-bookAuthors.csv` (code, the three names, AH years), checks for duplicates, refreshes the manifest. |
+| 16 | **Sound on/off** — mutes the success beeps and the failure buzz; the row shows the current state (the flag lives in `%USERPROFILE%\.hadithmv-tools`, outside the repo). |
+| 17 | **Quit** |
 
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
 paths around options 1 and 2.
@@ -58,7 +57,7 @@ dash-separated branch name in plain white (clamped to 12 chars); the padding
 is computed in the menu itself. It warns when there is no built copy yet
 ("run option 1") and when the built copy is behind the source (the same
 state the About screen reports). Options whose tools are missing on this
-machine (python for option 5, git for options 6 and 7) appear dimmed —
+machine (python for option 5, git for option 6) appear dimmed —
 picking one still runs and explains. The parenthetical hints in the rows
 are dimmed too, so the action names scan at a glance — except the sound
 row's hint, which carries the live state: dim `(now on)`, amber `(now
@@ -75,8 +74,8 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
   option 10 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
-- Options 2–8 and 11–14 are silent on success; 15 and 16 beep once the row
-  is written and the freshness file refreshed; 18 (Quit) just exits.
+- Options 2–7 and 10–13 are silent on success; 14 and 15 beep once the row
+  is written and the freshness file refreshed; 17 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with
   option 17 (Sound on/off); the row's hint shows the state (`(now off)` in
@@ -122,7 +121,7 @@ when nothing else is moving.
 | `tools/dist-build.mjs`, `data/08-rebuild-searchIndex.mjs`, `tools/hmv-font-subset.py` | The workers behind options 1/2/4/9 and check 7. |
 | `data/04-update-bookRegistry.ps1` | The registry script behind option 4 (see Pitfalls). |
 | `checks-report.md` | Option 10 output (gitignored). |
-| `dist-build-report.md`, `font-build-report.md` | Committed build size ledgers — option 7 restores them. |
+| `dist-build-report.md`, `font-build-report.md` | Committed build size ledgers — the build rewrites them; option 1 reads the summary from the first. |
 | `%USERPROFILE%\.hadithmv-tools` | The sound flag (outside the repo). |
 
 ## Pitfalls — do not re-introduce

@@ -1,6 +1,6 @@
 // tools/hmv-toolbox.mjs - the Hadithmv Toolbox menu (node edition).
 //
-// An 18-item console menu for the common site tasks. Double-click the tiny
+// A 17-item console menu for the common site tasks. Double-click the tiny
 // launcher ("Hadithmv Toolbox.bat" on Windows) or run:
 //   node tools/hmv-toolbox.mjs
 // Run with a number argument to jump straight to an option, e.g.
@@ -15,32 +15,31 @@
 //  5  preview()                  python http.server on 8899; when one is
 //                                already running: open it or stop it (S)
 //  6  changed()                  git status + hints
-//  7  tidy()                     restore the two committed build reports
-//  8  openFolder()               Explorer on the codebase folder
-//  9  build(true)                build + preview
-// 10  checks()                   the 7 batteries, or one; checks-report.md
-// 11  about()                    versions, tools, preview + last-checks
+//  7  openFolder()               Explorer on the codebase folder
+//  8  build(true)                build + preview
+//  9  checks()                   the 7 batteries, or one; checks-report.md
+// 10  about()                    versions, tools, preview + last-checks
 //                                state
-// 12  livecheck()                compare the published version with local
-// 13  openNotes()                Explorer on static/notes/ (authors + works)
-// 14  newBook()                  copy a template + add-a-book checklist,
+// 11  livecheck()                compare the published version with local
+// 12  openNotes()                Explorer on static/notes/ (authors + works)
+// 13  newBook()                  copy a template + add-a-book checklist,
 //                                then offers to fill the registry row
-// 15  finishBookRegistration()   fill/edit a book's row in
+// 14  finishBookRegistration()   fill/edit a book's row in
 //                                03-registry-bookMeta.csv
-// 16  addAuthor()                append a row to 02-registry-bookAuthors.csv
-// 17  soundToggle()              sound on/off (the flag lives in the user
+// 15  addAuthor()                append a row to 02-registry-bookAuthors.csv
+// 16  soundToggle()              sound on/off (the flag lives in the user
 //                                profile, outside the repo)
-// 18  quit()                     exit
+// 17  quit()                     exit
 //
 // Shared helpers used by several options: runCaptured() (every worker
 // step, with an optional spinner while the child is quiet), startSpin()
-// (the silent-wait spinners in options 1, 5, 10 and 12 - they count the
+// (the silent-wait spinners in options 1, 5, 9 and 11 - they count the
 // elapsed seconds once a wait passes a few seconds),
-// openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
+// openExternal()/openUrl()/openNotepad() (options 5, 7, 9, 11, 12),
 // listeningPorts()/listenerPids()/previewStatus() (option 5, About and the
 // menu footer), lastChecks()/footerLine() (the menu footer + About),
 // csvQuote()/csvFields()/readRegistry()/writeRegistry()/registryCodes()/
-// bookVersion() (options 15 and 16 - the registries are quoted CSV;
+// bookVersion() (options 14 and 15 - the registries are quoted CSV;
 // `version` is ALWAYS the last column and is never typed, always computed).
 // The human-facing reference is docs/TOOLBOX.md - read it before touching
 // this file or the batteries.
@@ -111,8 +110,8 @@ const clear = () => process.stdout.write('\x1b[2J\x1b[H');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // A tiny ASCII spinner (|/-\) for the genuinely silent waits: the live-site
-// fetch (option 12), the preview server boot (option 5), the build (option
-// 1), and each battery's quiet stretches in checks() (option 10).
+// fetch (option 11), the preview server boot (option 5), the build (option
+// 1), and each battery's quiet stretches in checks() (option 9).
 // startSpin() returns stop(), which erases the line, so the spinner never
 // fights streamed output. After ~5 s of spinning it starts showing the
 // elapsed seconds ("building - 42s") - real time, not a fake bar.
@@ -276,20 +275,19 @@ function showBanner() {
   const dimG = HAS_GIT ? '' : DIM, dimGOff = HAS_GIT ? '' : OFF;
   console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site' + DIM + '      (opens in your browser, like the live one)' + OFF + dim5Off);
   console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed" + DIM + '        (what git would put in your next commit)' + OFF + dimGOff);
-  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '7.' + OFF + dimG + ' Tidy build reports' + DIM + '    (undo the report changes from a build)' + OFF + dimGOff);
-  console.log(' ' + ITEM + '8.' + OFF + ' Open the folder' + DIM + '       (the codebase folder in Explorer)' + OFF);
-  console.log(' ' + ITEM + '9.' + OFF + ' Build and preview' + DIM + '     (build, then open the preview)' + OFF);
-  console.log(' ' + ITEM + '10.' + OFF + ' Run the checks' + DIM + '       (the pre-commit verification battery)' + OFF);
-  console.log(' ' + ITEM + '11.' + OFF + ' About / health check' + DIM + ' (versions and tools on this machine)' + OFF);
-  console.log(' ' + ITEM + '12.' + OFF + ' Check the live site' + DIM + '  (is the published site up to date?)' + OFF);
-  console.log(' ' + ITEM + '13.' + OFF + ' Open the notes folder' + DIM + ' (authors + works markdown)' + OFF);
-  console.log(' ' + ITEM + '14.' + OFF + ' New book' + DIM + '           (copy a template + checklist)' + OFF);
-  console.log(' ' + ITEM + '15.' + OFF + ' Finish a book registration' + DIM + ' (fill the registry row)' + OFF);
-  console.log(' ' + ITEM + '16.' + OFF + ' Add an author' + DIM + '      (append to the authors registry)' + OFF);
+  console.log(' ' + ITEM + '7.' + OFF + ' Open the folder' + DIM + '       (the codebase folder in Explorer)' + OFF);
+  console.log(' ' + ITEM + '8.' + OFF + ' Build and preview' + DIM + '     (build, then open the preview)' + OFF);
+  console.log(' ' + ITEM + '9.' + OFF + ' Run the checks' + DIM + '       (the pre-commit verification battery)' + OFF);
+  console.log(' ' + ITEM + '10.' + OFF + ' About / health check' + DIM + ' (versions and tools on this machine)' + OFF);
+  console.log(' ' + ITEM + '11.' + OFF + ' Check the live site' + DIM + '  (is the published site up to date?)' + OFF);
+  console.log(' ' + ITEM + '12.' + OFF + ' Open the notes folder' + DIM + ' (authors + works markdown)' + OFF);
+  console.log(' ' + ITEM + '13.' + OFF + ' New book' + DIM + '           (copy a template + checklist)' + OFF);
+  console.log(' ' + ITEM + '14.' + OFF + ' Finish a book registration' + DIM + ' (fill the registry row)' + OFF);
+  console.log(' ' + ITEM + '15.' + OFF + ' Add an author' + DIM + '      (append to the authors registry)' + OFF);
   // the hint carries the state: dim when on, amber when muted (the warn colour
   // the footer used to show for it)
-  console.log(' ' + ITEM + '17.' + OFF + ' Sound on/off' + (muted ? WARN : DIM) + '       (now ' + (muted ? 'off' : 'on') + ')' + OFF);
-  console.log(' ' + ITEM + '18.' + OFF + ' Quit');
+  console.log(' ' + ITEM + '16.' + OFF + ' Sound on/off' + (muted ? WARN : DIM) + '       (now ' + (muted ? 'off' : 'on') + ')' + OFF);
+  console.log(' ' + ITEM + '17.' + OFF + ' Quit');
   const foot = footerLine();
   console.log(DIM + new Array(Math.max(50, foot.plain.length) + 1).join('-') + OFF); // a dim rule closes the menu; the footer below is status, not an option
   console.log(foot.colored);
@@ -405,7 +403,7 @@ function runCaptured(cmd, args, spinLabel) {
   });
 }
 
-// ── option 1 + 9: build / build-and-preview ───────────────────────────
+// ── option 1 + 8: build / build-and-preview ───────────────────────────
 function totalRow() {
   try {
     const line = fs.readFileSync(path.join(ROOT, 'dist-build-report.md'), 'utf8')
@@ -564,7 +562,7 @@ async function preview() {
   return menu();
 }
 
-// ── option 6 + 7: what's changed, tidy build reports ──────────────────
+// ── option 6: what's changed ──────────────────────────────────────────
 async function changed() {
   process.title = "Hadithmv Toolbox - what's changed";
   console.log();
@@ -601,29 +599,7 @@ async function changed() {
   return menu();
 }
 
-async function tidy() {
-  process.title = 'Hadithmv Toolbox - tidying the build reports';
-  console.log();
-  console.log('Tidy the build reports (dist-build-report.md and');
-  console.log('font-build-report.md) to their committed state - handy when');
-  console.log('the build itself was not the point of your change.');
-  console.log();
-  if (!hasTool('git')) return noGit();
-  const st = git(['status', '--porcelain', '--', 'dist-build-report.md', 'font-build-report.md']);
-  if (st.status !== 0) return fail('git');
-  if (!st.stdout.trim()) {
-    console.log();
-    console.log('The build reports are already clean - nothing to tidy.');
-  } else {
-    git(['checkout', '--', 'dist-build-report.md', 'font-build-report.md']);
-    console.log();
-    console.log(ITEM + 'Reports restored - they no longer show in "what\'s changed".' + OFF);
-  }
-  await pause();
-  return menu();
-}
-
-// ── option 8: open the folder ─────────────────────────────────────────
+// ── option 7: open the folder ─────────────────────────────────────────
 async function openFolder() {
   process.title = 'Hadithmv Toolbox - opening the folder';
   console.log();
@@ -635,7 +611,7 @@ async function openFolder() {
   return menu();
 }
 
-// ── option 13: open the notes folder ──────────────────────────────────
+// ── option 12: open the notes folder ──────────────────────────────────
 const NOTES = path.join(ROOT, 'static', 'notes'); // the site's hand-authored notes (static/notes/authors + /works)
 async function openNotes() {
   process.title = 'Hadithmv Toolbox - opening the notes folder';
@@ -650,9 +626,9 @@ async function openNotes() {
   return menu();
 }
 
-// ── option 14: new book (template copy + checklist) ───────────────────
+// ── option 13: new book (template copy + checklist) ───────────────────
 const CONTENT = path.join(ROOT, 'data', 'content');
-// ── CSV helpers (options 15 and 16) ────────────────────────────────────
+// ── CSV helpers (options 14 and 15) ────────────────────────────────────
 // The registries are quoted CSV: a field containing a comma, a quote or a
 // newline is wrapped in double quotes, with inner quotes doubled. A row is
 // split with the same rules it is quoted with, so a round trip is byte-exact
@@ -772,7 +748,7 @@ async function newBook() {
   console.log();
   console.log('Checklist:');
   console.log(' 1. Replace the template text with the real book - edit the new CSV.');
-  console.log(' 2. If the author is new - option 16 adds the row to');
+  console.log(' 2. If the author is new - option 15 adds the row to');
   console.log('    data/02-registry-bookAuthors.csv (code, names in AR/DV/EN, born/died AH).');
   console.log('    Optional: static/notes/authors/' + code + '.md for the biography.');
   console.log(' 3. If a tag is new - add a row to data/01-registry-bookTags.csv');
@@ -782,8 +758,8 @@ async function newBook() {
   console.log(' 5. Option 15 (or the question below) fills the 03 row for you: the');
   console.log('    three titles, authorCode, tags. Version stays computed, last column.');
   console.log(' 6. Optional: write static/notes/works/' + code + '.md (book notes for the info modal).');
-  console.log(' 7. Run option 10, check 7 - new text may need font glyphs.');
-  console.log(' 8. Build (option 1), commit in your IDE, push, then option 12.');
+  console.log(' 7. Run option 9, check 7 - new text may need font glyphs.');
+  console.log(' 8. Build (option 1), commit in your IDE, push, then option 11.');
   console.log();
   const reg = await ask(WARN + 'Register it now - fill the registry row with me? (y/n) ' + OFF);
   if (reg.toLowerCase() === 'y') return finishBookRegistration(code);
@@ -791,7 +767,7 @@ async function newBook() {
   return menu();
 }
 
-// ── option 15: finish a book registration (fill/edit the 03 row) ──────
+// ── option 14: finish a book registration (fill/edit the 03 row) ──────
 async function finishBookRegistration(preCode) {
   process.title = 'Hadithmv Toolbox - finishing a book registration';
   console.log();
@@ -816,7 +792,7 @@ async function finishBookRegistration(preCode) {
   if (ri === -1 && !hasCsv) {
     console.log();
     console.log(ERR + 'Nothing named ' + code + ' - no content CSV and no registry row.' + OFF);
-    console.log(WARN + 'Create the book first with option 14.' + OFF);
+    console.log(WARN + 'Create the book first with option 13.' + OFF);
     await pause();
     return menu();
   }
@@ -829,7 +805,7 @@ async function finishBookRegistration(preCode) {
   let v = await ask(WARN + 'Author code' + keep(1) + ': ' + OFF);
   if (v) fields[1] = v;
   if (fields[1] && registryCodes(AUTHORS).indexOf(fields[1]) === -1)
-    console.log(WARN + 'Author code "' + fields[1] + '" is not in 02-registry-bookAuthors.csv - add it with option 16.' + OFF);
+    console.log(WARN + 'Author code "' + fields[1] + '" is not in 02-registry-bookAuthors.csv - add it with option 15.' + OFF);
   v = await ask(WARN + 'Title AR' + keep(2) + ': ' + OFF);
   if (v) fields[2] = v;
   v = await ask(WARN + 'Title DV' + keep(3) + ': ' + OFF);
@@ -861,7 +837,7 @@ async function finishBookRegistration(preCode) {
   return menu();
 }
 
-// ── option 16: add an author (append a row to 02) ──────────────────────
+// ── option 15: add an author (append a row to 02) ──────────────────────
 async function addAuthor() {
   process.title = 'Hadithmv Toolbox - adding an author';
   console.log();
@@ -916,7 +892,7 @@ async function addAuthor() {
   return menu();
 }
 
-// ── option 10: run the checks ─────────────────────────────────────────
+// ── option 9: run the checks ──────────────────────────────────────────
 const CHECK_NAMES = [
   'reader smoke test',
   'info modal battery',
@@ -1037,7 +1013,7 @@ async function checks() {
   return menu();
 }
 
-// ── option 11: about / health ─────────────────────────────────────────
+// ── option 10: about / health ─────────────────────────────────────────
 async function about() {
   process.title = 'Hadithmv Toolbox - about';
   const nodeV = toolVersion(['--version']);
@@ -1061,17 +1037,17 @@ async function about() {
   console.log(' Sound:                  ' + (muted ? 'off' : 'on'));
   console.log();
   console.log(' Tools on this machine:');
-  console.log(nodeV ? '  ' + ITEM + nodeV + OFF + '   node - needed for options 1-4 and 9' : '  ' + ERR + 'node not found' + OFF + ' - install from nodejs.org');
+  console.log(nodeV ? '  ' + ITEM + nodeV + OFF + '   node - needed for options 1-4 and 8' : '  ' + ERR + 'node not found' + OFF + ' - install from nodejs.org');
   console.log(pyV ? '  ' + ITEM + pyV + OFF + '   python - needed for option 5' : '  ' + ERR + 'python not found' + OFF + ' - install from python.org');
-  console.log(gitV ? '  ' + ITEM + gitV + OFF + '   git - needed for options 6, 7 and 12' : '  ' + ERR + 'git not found' + OFF + ' - install from git-scm.com');
+  console.log(gitV ? '  ' + ITEM + gitV + OFF + '   git - needed for options 6 and 11' : '  ' + ERR + 'git not found' + OFF + ' - install from git-scm.com');
   console.log('  ' + ITEM + PWR + OFF + '   shell - used for option 4');
   console.log();
-  // Sound has its own menu row (option 17); this screen only shows the state.
+  // Sound has its own menu row (option 16); this screen only shows the state.
   await pause();
   return menu();
 }
 
-// ── option 12: check the live site ────────────────────────────────────
+// ── option 11: check the live site ────────────────────────────────────
 async function livecheck() {
   process.title = 'Hadithmv Toolbox - checking the live site';
   console.log();
@@ -1098,7 +1074,7 @@ async function livecheck() {
   return menu();
 }
 
-// ── option 17: sound on/off ───────────────────────────────────────────
+// ── option 16: sound on/off ───────────────────────────────────────────
 async function soundToggle() {
   process.title = 'Hadithmv Toolbox - sound on/off';
   setMuted(!muted);
@@ -1142,18 +1118,17 @@ async function dispatch(c) {
     case '4': return refresh();
     case '5': return preview();
     case '6': return changed();
-    case '7': return tidy();
-    case '8': return openFolder();
-    case '9': return build(true);
-    case '10': return checks();
-    case '11': return about();
-    case '12': return livecheck();
-    case '13': return openNotes();
-    case '14': return newBook();
-    case '15': return finishBookRegistration();
-    case '16': return addAuthor();
-    case '17': return soundToggle();
-    case '18': return quit();
+    case '7': return openFolder();
+    case '8': return build(true);
+    case '9': return checks();
+    case '10': return about();
+    case '11': return livecheck();
+    case '12': return openNotes();
+    case '13': return newBook();
+    case '14': return finishBookRegistration();
+    case '15': return addAuthor();
+    case '16': return soundToggle();
+    case '17': return quit();
     default: return invalid();
   }
 }
