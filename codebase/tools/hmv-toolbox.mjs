@@ -19,7 +19,8 @@
 //  8  openFolder()               Explorer on the codebase folder
 //  9  build(true)                build + preview
 // 10  checks()                   the 7 batteries, or one; checks-report.md
-// 11  about()                    versions + tools; S toggles the sound
+// 11  about()                    versions, tools, preview + last-checks
+//                                state; S toggles the sound
 // 12  livecheck()                compare the published version with local
 // 13  openNotes()                Explorer on static/notes/ (authors + works)
 // 14  newBook()                  copy a template + add-a-book checklist,
@@ -31,11 +32,13 @@
 //
 // Shared helpers used by several options: runCaptured() (every worker
 // step), openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
-// listeningPorts()/listenerPids() (option 5), csvQuote()/csvFields()/
-// readRegistry()/writeRegistry()/registryCodes()/bookVersion() (options
-// 15 and 16 - the registries are quoted CSV; `version` is ALWAYS the last
-// column and is never typed, always computed). The human-facing reference
-// is docs/TOOLBOX.md - read it before touching this file or the batteries.
+// listeningPorts()/listenerPids()/previewStatus() (option 5, About and the
+// menu footer), lastChecks()/footerLine() (the menu footer + About),
+// csvQuote()/csvFields()/readRegistry()/writeRegistry()/registryCodes()/
+// bookVersion() (options 15 and 16 - the registries are quoted CSV;
+// `version` is ALWAYS the last column and is never typed, always computed).
+// The human-facing reference is docs/TOOLBOX.md - read it before touching
+// this file or the batteries.
 //
 // Cross-platform: this script runs unchanged on Windows, macOS and Linux —
 // only the double-click launcher differs per OS. The sibling bats
@@ -68,6 +71,7 @@ const TITLE = '\x1b[92m'; // green — the banner box
 const ITEM = '\x1b[96m'; // cyan — version numbers, menu numbers
 const WARN = '\x1b[93m';
 const ERR = '\x1b[91m';
+const DIM = '\x1b[90m'; // gray - the footer / status line
 const BOX = '+--------------------------------------------------+'; // 50 dashes
 
 // ── the sound flag, kept in the user profile (outside the repo, so it
@@ -127,6 +131,15 @@ function listeningPorts(ports) {
     const out = spawnSync('ss', ['-tln'], { encoding: 'utf8' });
     return (out.stdout || '').split(/\r?\n/).some((l) => l.includes(':' + p) && l.includes('LISTEN'));
   });
+}
+// Cached preview state (5 s) - the footer and the About screen redraw often,
+// and netstat spawns are not free; the preview option itself always asks for
+// a fresh check.
+let _pvAt = 0;
+let _pvPorts = [];
+function previewStatus() {
+  if (Date.now() - _pvAt > 5000) { _pvAt = Date.now(); _pvPorts = listeningPorts([8897, 8898, 8899]); }
+  return _pvPorts;
 }
 // PIDs listening on the given ports (for the preview-stop rescue).
 function listenerPids(ports) {
@@ -231,7 +244,42 @@ function showBanner() {
   console.log(' ' + ITEM + '15.' + OFF + ' Finish a book registration (fill the registry row)');
   console.log(' ' + ITEM + '16.' + OFF + ' Add an author      (append to the authors registry)');
   console.log(' ' + ITEM + '17.' + OFF + ' Quit');
+  console.log(DIM + '--------------------------------------------------' + OFF); // a dim rule closes the menu; the footer below is status, not an option
+  console.log(footerLine());
   console.log();
+}
+
+// The one-line state footer under the menu: when the checks last ran (and
+// the verdict) and whether a preview server is up.
+function footerLine() {
+  const c = lastChecks();
+  const ports = previewStatus();
+  let chk;
+  if (!c) chk = DIM + 'checks: never run' + OFF;
+  else if (c.text.indexOf('FAILED') !== -1) chk = DIM + 'checks: ' + OFF + ERR + 'failed' + OFF + DIM + ' ' + c.when + OFF;
+  else chk = DIM + 'checks: ' + OFF + ITEM + 'passed' + OFF + DIM + ' ' + c.when + OFF;
+  const prv = ports.length ? ITEM + 'preview: running on ' + ports[0] + OFF : DIM + 'preview: off' + OFF;
+  return ' ' + chk + DIM + '  |  ' + OFF + prv;
+}
+
+// The verdict + run time out of checks-report.md (a local file - cheap).
+// Returns null when the report has never been written (or has no verdict).
+function lastChecks() {
+  try {
+    const t = fs.readFileSync(path.join(ROOT, 'checks-report.md'), 'utf8');
+    const m = t.match(/\*\*Verdict: ([^*]+)\*\*/);
+    if (!m) return null;
+    const d = fs.statSync(path.join(ROOT, 'checks-report.md')).mtime;
+    const hh = ('0' + d.getHours()).slice(-2);
+    const mm = ('0' + d.getMinutes()).slice(-2);
+    const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const startOf = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+    const days = Math.round((startOf(new Date()) - startOf(d)) / 86400000);
+    const when = days <= 0 ? 'today ' + hh + ':' + mm
+      : days === 1 ? 'yesterday ' + hh + ':' + mm
+      : d.getDate() + ' ' + MON[d.getMonth()] + ' ' + hh + ':' + mm;
+    return { text: m[1].trim(), when };
+  } catch (e) { return null; }
 }
 
 async function invalid() {
@@ -708,6 +756,7 @@ async function finishBookRegistration(preCode) {
   console.log('Refreshing the freshness file (the row is served content)...');
   const ok = await runCaptured('node', [path.join(ROOT, 'tools/hmv-manifest.mjs')]).then((r) => r.ok);
   if (!ok) return fail('manifest');
+  if (!muted) beep(); // the row is written and the freshness file refreshed
   console.log();
   console.log(WARN + 'Remember: if the book is new, run option 4 to rebuild the search index.' + OFF);
   await pause();
@@ -761,6 +810,7 @@ async function addAuthor() {
   console.log('Refreshing the freshness file (the row is served content)...');
   const ok = await runCaptured('node', [path.join(ROOT, 'tools/hmv-manifest.mjs')]).then((r) => r.ok);
   if (!ok) return fail('manifest');
+  if (!muted) beep(); // the row is written and the freshness file refreshed
   console.log();
   console.log(WARN + 'The author shows on the site after the next build (option 1).' + OFF);
   console.log(WARN + 'Optional: static/notes/authors/' + code + '.md for the biography.' + OFF);
@@ -890,6 +940,10 @@ async function about() {
   if (VER && VERD && VER !== VERD) console.log(' ' + WARN + 'dist is behind source - run option 1.' + OFF);
   console.log(' Folder:                 ' + ROOT);
   if (BR) console.log(' Branch:                 ' + BR);
+  const ports = previewStatus();
+  console.log(' Preview:                ' + (ports.length ? ITEM + 'running on ' + ports[0] + OFF : DIM + 'not running' + OFF));
+  const lc = lastChecks();
+  console.log(' Last checks:            ' + (lc ? (lc.text.indexOf('FAILED') !== -1 ? ERR : ITEM) + lc.text.toLowerCase() + OFF + ' - ' + lc.when : DIM + 'never run' + OFF));
   console.log(' Sound:                  ' + (muted ? 'off' : 'on'));
   console.log();
   console.log(' Tools on this machine:');

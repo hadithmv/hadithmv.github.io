@@ -37,7 +37,7 @@ verification battery. It is developer tooling, not part of the site itself.
 | 8 | **Open the folder** — the codebase folder in Explorer. |
 | 9 | **Build and preview** — option 1 followed by option 5. |
 | 10 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
-| 11 | **About / health** — site versions, tool versions on this machine; press **S** to toggle the sound. |
+| 11 | **About / health** — site versions, tool versions, preview-server state, and when the checks last ran with their verdict; press **S** to toggle the sound. |
 | 12 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 13 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
 | 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 15). |
@@ -56,7 +56,9 @@ the " (Web)" suffix dropped for the console — in cyan, followed by a
 dash-separated branch name in plain white (clamped to 12 chars); the padding
 is computed in the menu itself. It warns when there is no built copy yet
 ("run option 1") and when the built copy is behind the source (the same
-state the About screen reports).
+state the About screen reports). Below the menu, a footer line shows state
+at a glance: when the checks last ran and their verdict, and whether a
+preview server is running.
 
 ## Sounds
 
@@ -64,7 +66,8 @@ state the About screen reports).
   option 10 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
-- Options 2–8 and 11–16 are silent on success; 17 (Quit) just exits.
+- Options 2–8 and 11–14 are silent on success; 15 and 16 beep once the row
+  is written and the freshness file refreshed; 17 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with S
   from the About screen.

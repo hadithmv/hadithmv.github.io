@@ -1250,8 +1250,9 @@ open-folder, open-notes, new-book (copies a template into the content folder,
 prints the add-a-book checklist and offers to fill the registry row),
 finish-a-book-registration (fills or edits a book's row in the book registry:
 titles, author, tags — the version is always computed, never typed),
-add-an-author (appends to the authors registry), an About/health screen, a
-live-site up-to-date check (offering the live site, and the GitHub Actions
+add-an-author (appends to the authors registry), an About/health screen
+(versions, tools, preview state, last-checks verdict), a live-site
+up-to-date check (offering the live site, and the GitHub Actions
 page when behind), and the verification battery — all seven checks or a
 single one — with a written report (opened when any fail, offered when all
 pass); the bat is only a double-click door
