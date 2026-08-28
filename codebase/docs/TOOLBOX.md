@@ -80,7 +80,10 @@ corpus) and exercises a part of the site. Press Enter for all seven, or type
 names the check. The report lands in `checks-report.md` (gitignored — never
 dirties "what's changed", never ships): a summary table, per-check details,
 run time, and a bold verdict. The report opens itself in Notepad when any
-check fails; after an all-pass run the menu asks whether to open it.
+check fails; after an all-pass run the menu asks whether to open it. While
+each battery boots its invisible browser the menu shows a small ASCII
+spinner; the console summary line ends with the run time (e.g. "All checks
+passed. - 3m 12s").
 
 1. reader smoke test — `tools/hmv-qrn-smoke.mjs`
 2. info modal battery — `tools/hmv-info-check.mjs`

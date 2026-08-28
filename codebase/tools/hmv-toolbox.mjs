@@ -31,7 +31,9 @@
 // 17  quit()                     exit
 //
 // Shared helpers used by several options: runCaptured() (every worker
-// step), openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
+// step, with an optional spinner while the child is quiet), startSpin()
+// (the silent-wait spinners in options 5, 10 and 12),
+// openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
 // listeningPorts()/listenerPids()/previewStatus() (option 5, About and the
 // menu footer), lastChecks()/footerLine() (the menu footer + About),
 // csvQuote()/csvFields()/readRegistry()/writeRegistry()/registryCodes()/
@@ -104,6 +106,26 @@ const buzz = () => { // failure: low 180 Hz double beep via the detected shell
 // ── tiny helpers ──────────────────────────────────────────────────────
 const clear = () => process.stdout.write('\x1b[2J\x1b[H');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// A tiny ASCII spinner (|/-\) for the genuinely silent waits: the live-site
+// fetch (option 12), the preview server boot (option 5), and each battery's
+// browser-start gap in checks() (option 10). startSpin() returns stop(),
+// which erases the line, so the spinner never fights streamed output.
+// ASCII only - old consoles render fancy glyphs as ?? (pitfall 6).
+function startSpin(label) {
+  const FRAMES = ['|', '/', '-', '\\'];
+  let i = 0;
+  let stopped = false;
+  const draw = () => process.stdout.write('\r' + label + ' ' + FRAMES[i = (i + 1) % FRAMES.length]);
+  draw();
+  const t = setInterval(draw, 120);
+  return () => {
+    clearInterval(t);
+    if (stopped) return;
+    stopped = true;
+    process.stdout.write('\r' + new Array(label.length + 3).join(' ') + '\r');
+  };
+}
 
 function hasTool(name) {
   try { return spawnSync(name, ['--version'], { stdio: 'ignore' }).status === 0; }
@@ -308,16 +330,21 @@ async function fail(step) {
 }
 
 // Run a child with live output; resolves { ok, out } with captured output.
-function runCaptured(cmd, args) {
+// When `spinLabel` is given, a spinner shows while the child is still quiet
+// (the batteries boot a browser first) and stops on the first output byte.
+function runCaptured(cmd, args, spinLabel) {
   return new Promise((resolve) => {
     const c = spawn(cmd, args, { cwd: ROOT });
     let out = '';
-    c.stdout.on('data', (d) => { out += d; process.stdout.write(d); });
-    c.stderr.on('data', (d) => { out += d; process.stdout.write(d); });
+    let stop = null;
+    const kick = () => { if (stop) { stop(); stop = null; } };
+    if (spinLabel) stop = startSpin(spinLabel);
+    c.stdout.on('data', (d) => { kick(); out += d; process.stdout.write(d); });
+    c.stderr.on('data', (d) => { kick(); out += d; process.stdout.write(d); });
     // 'close' (not 'exit'): the last stdout chunk can still be in flight when
     // 'exit' fires — 'close' guarantees every byte is in `out` before resolve.
-    c.on('close', (code) => resolve({ ok: code === 0, out }));
-    c.on('error', () => resolve({ ok: false, out: '' }));
+    c.on('close', (code) => { kick(); resolve({ ok: code === 0, out }); });
+    c.on('error', () => { kick(); resolve({ ok: false, out: '' }); });
   });
 }
 
@@ -466,7 +493,9 @@ async function preview() {
     }
   } catch (e) { return fail('preview'); }
   let up = false;
+  const stopSpin = startSpin('waiting for the server');
   for (let i = 0; i < 3; i++) { await sleep(1000); if (listeningPorts([PORT]).length) { up = true; break; } }
+  stopSpin();
   if (!up) return fail('preview');
   openUrl('http://127.0.0.1:' + PORT + '/dist/books/');
   console.log();
@@ -864,11 +893,11 @@ async function checks() {
     for (let i = 0; i < 7; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
     if (idx < 6) {
       console.log(' ' + CHECKS[idx].label);
-      results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)]);
+      results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'starting');
       if (!results[idx].ok) failed.push(CHECKS[idx].name);
     } else if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
-      results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check']);
+      results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'starting');
       if (!results[6].ok) failed.push('font');
     } else {
       console.log(' 7/7 - the font coverage check skipped - python not found.');
@@ -878,14 +907,14 @@ async function checks() {
   } else {
     for (const c of CHECKS) {
       console.log(' ' + c.label);
-      const r = await runCaptured('node', [path.join(ROOT, c.file)]);
+      const r = await runCaptured('node', [path.join(ROOT, c.file)], 'starting');
       results.push(r);
       if (!r.ok) failed.push(c.name);
       console.log();
     }
     if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
-      const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check']);
+      const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'starting');
       results.push(r);
       if (!r.ok) failed.push('font');
     } else {
@@ -895,6 +924,7 @@ async function checks() {
     console.log();
   }
   const secs = Math.round((Date.now() - t) / 1000);
+  const dur = secs ? ' - ' + (secs >= 60 ? Math.floor(secs / 60) + 'm ' + (secs % 60) + 's' : secs + 's') : '';
   const verdict = (r) => (r.ok === null ? 'SKIP' : (r.ok ? 'PASS' : 'FAIL'));
   const lines = ['', '## Summary', '', '| Check | Result |', '| --- | --- |'];
   CHECK_NAMES.forEach((n, i) => lines.push('| ' + (i + 1) + '/7 ' + n + ' | ' + verdict(results[i]) + ' |'));
@@ -911,12 +941,12 @@ async function checks() {
   console.log();
   if (failed.length) {
     if (!muted) buzz();
-    console.log(ERR + 'Some checks failed:' + OFF + ' ' + failed.join(' '));
+    console.log(ERR + 'Some checks failed:' + OFF + ' ' + failed.join(' ') + dur);
     console.log(WARN + 'The full report is in checks-report.md - opening it now.' + OFF);
     openNotepad(RPT);
   } else {
     if (!muted) beep();
-    console.log(ITEM + 'All checks passed.' + OFF);
+    console.log(ITEM + 'All checks passed.' + OFF + dur);
     console.log(ITEM + 'Report saved to checks-report.md.' + OFF);
     const o = await ask(WARN + 'Open the report? (y/n) ' + OFF);
     if (o.toLowerCase() === 'y') openNotepad(RPT);
@@ -963,7 +993,9 @@ async function livecheck() {
   process.title = 'Hadithmv Toolbox - checking the live site';
   console.log();
   console.log('Checking the published site (needs internet)...');
+  const stopSpin = startSpin('checking');
   const live = await liveVersion();
+  stopSpin();
   console.log();
   if (!live) {
     console.log(ERR + 'Could not reach the live site - check the internet connection.' + OFF);
