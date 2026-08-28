@@ -58,7 +58,8 @@ is computed in the menu itself. It warns when there is no built copy yet
 ("run option 1") and when the built copy is behind the source (the same
 state the About screen reports). Below the menu, a footer line shows state
 at a glance: when the checks last ran and their verdict, and whether a
-preview server is running.
+preview server is running. The verdict word is coloured by meaning:
+fresh green, stale amber (a passed run more than a week old), failed red.
 
 ## Sounds
 
@@ -80,13 +81,16 @@ corpus) and exercises a part of the site. Press Enter for all seven, or type
 names the check. The report lands in `checks-report.md` (gitignored — never
 dirties "what's changed", never ships): a summary table, per-check details,
 run time, and a bold verdict. The report opens itself in Notepad when any
-check fails; after an all-pass run the menu asks whether to open it. While
-a battery runs, the menu shows a small ASCII spinner whenever it falls
-silent — its browser work is quiet for long stretches between section
-lines — and the build (option 1) spins the same way during its ~1 minute
-of silence, so the menu only shows a spinner when nothing else is
-moving. The console summary line ends with the run time (e.g. "All checks
-passed. - 3m 12s").
+check fails; after an all-pass run the menu asks whether to open it. As
+each battery finishes, its own line appears — PASS or FAIL with the time
+it took — and the console summary line then ends with the total run time
+(e.g. "All checks passed. - 3m 12s"). While a battery runs, the menu
+shows a small ASCII spinner whenever it falls silent — its browser work
+is quiet for long stretches between section lines — and the build
+(option 1) spins the same way during its ~1 minute of silence. After a
+few seconds of spinning it starts counting up the elapsed seconds
+("building - 42s"), so the menu only shows a spinner — and tells time —
+when nothing else is moving.
 
 1. reader smoke test — `tools/hmv-qrn-smoke.mjs`
 2. info modal battery — `tools/hmv-info-check.mjs`

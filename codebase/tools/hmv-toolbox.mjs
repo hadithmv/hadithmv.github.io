@@ -32,7 +32,8 @@
 //
 // Shared helpers used by several options: runCaptured() (every worker
 // step, with an optional spinner while the child is quiet), startSpin()
-// (the silent-wait spinners in options 1, 5, 10 and 12),
+// (the silent-wait spinners in options 1, 5, 10 and 12 - they count the
+// elapsed seconds once a wait passes a few seconds),
 // openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
 // listeningPorts()/listenerPids()/previewStatus() (option 5, About and the
 // menu footer), lastChecks()/footerLine() (the menu footer + About),
@@ -108,22 +109,30 @@ const clear = () => process.stdout.write('\x1b[2J\x1b[H');
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // A tiny ASCII spinner (|/-\) for the genuinely silent waits: the live-site
-// fetch (option 12), the preview server boot (option 5), and each battery's
-// browser-start gap in checks() (option 10). startSpin() returns stop(),
-// which erases the line, so the spinner never fights streamed output.
+// fetch (option 12), the preview server boot (option 5), the build (option
+// 1), and each battery's quiet stretches in checks() (option 10).
+// startSpin() returns stop(), which erases the line, so the spinner never
+// fights streamed output. After ~5 s of spinning it starts showing the
+// elapsed seconds ("building - 42s") - real time, not a fake bar.
 // ASCII only - old consoles render fancy glyphs as ?? (pitfall 6).
 function startSpin(label) {
   const FRAMES = ['|', '/', '-', '\\'];
+  const born = Date.now();
   let i = 0;
   let stopped = false;
-  const draw = () => process.stdout.write('\r' + label + ' ' + FRAMES[i = (i + 1) % FRAMES.length]);
+  const draw = () => {
+    const secs = Math.round((Date.now() - born) / 1000);
+    const t = secs >= 5 ? ' - ' + secs + 's' : '';
+    process.stdout.write('\r' + label + t + ' ' + FRAMES[i = (i + 1) % FRAMES.length]);
+  };
   draw();
   const t = setInterval(draw, 120);
   return () => {
     clearInterval(t);
     if (stopped) return;
     stopped = true;
-    process.stdout.write('\r' + new Array(label.length + 3).join(' ') + '\r');
+    // wide enough for the growing time suffix (" - 9999s") plus the frame
+    process.stdout.write('\r' + new Array(label.length + 18).join(' ') + '\r');
   };
 }
 
@@ -279,7 +288,7 @@ function footerLine() {
   let chk;
   if (!c) chk = DIM + 'checks: never run' + OFF;
   else if (c.text.indexOf('FAILED') !== -1) chk = DIM + 'checks: ' + OFF + ERR + 'failed' + OFF + DIM + ' ' + c.when + OFF;
-  else chk = DIM + 'checks: ' + OFF + ITEM + 'passed' + OFF + DIM + ' ' + c.when + OFF;
+  else chk = DIM + 'checks: ' + OFF + (c.days > STALE_DAYS ? WARN : ITEM) + 'passed' + OFF + DIM + ' ' + c.when + OFF;
   const prv = ports.length ? ITEM + 'preview: running on ' + ports[0] + OFF : DIM + 'preview: off' + OFF;
   return ' ' + chk + DIM + '  |  ' + OFF + prv;
 }
@@ -300,9 +309,13 @@ function lastChecks() {
     const when = days <= 0 ? 'today ' + hh + ':' + mm
       : days === 1 ? 'yesterday ' + hh + ':' + mm
       : d.getDate() + ' ' + MON[d.getMonth()] + ' ' + hh + ':' + mm;
-    return { text: m[1].trim(), when };
+    return { text: m[1].trim(), when, days };
   } catch (e) { return null; }
 }
+
+// A passed verdict older than this many days is stale and turns yellow
+// (footer + About) - fresh green, stale amber, failed red.
+const STALE_DAYS = 7;
 
 async function invalid() {
   console.log();
@@ -881,6 +894,11 @@ const FONT_LABEL = "7/7 - the font coverage check (the webfont vs the site's tex
 
 async function checks() {
   process.title = 'Hadithmv Toolbox - running the checks';
+  const fmtDur = (s) => (s >= 60 ? Math.floor(s / 60) + 'm ' + (s % 60) + 's' : s + 's');
+  const note = (r, t0) => { // one line per battery: PASS/FAIL + its own time
+    const cs = Math.round((Date.now() - t0) / 1000);
+    console.log(' ' + (r.ok ? ITEM + 'PASS' : ERR + 'FAIL') + OFF + ' - ' + (cs ? fmtDur(cs) : '<1s'));
+  };
   console.log();
   console.log('Running the pre-commit checks - each opens an invisible browser');
   console.log('and clicks through a part of the site. This takes a few minutes.');
@@ -905,12 +923,16 @@ async function checks() {
     for (let i = 0; i < 7; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
     if (idx < 6) {
       console.log(' ' + CHECKS[idx].label);
+      const t0 = Date.now();
       results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'working');
       if (!results[idx].ok) failed.push(CHECKS[idx].name);
+      note(results[idx], t0);
     } else if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
+      const t0 = Date.now();
       results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
       if (!results[6].ok) failed.push('font');
+      note(results[6], t0);
     } else {
       console.log(' 7/7 - the font coverage check skipped - python not found.');
       results[6] = { ok: null, out: 'Skipped: python not found.' };
@@ -919,16 +941,20 @@ async function checks() {
   } else {
     for (const c of CHECKS) {
       console.log(' ' + c.label);
+      const t0 = Date.now();
       const r = await runCaptured('node', [path.join(ROOT, c.file)], 'working');
       results.push(r);
       if (!r.ok) failed.push(c.name);
+      note(r, t0);
       console.log();
     }
     if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
+      const t0 = Date.now();
       const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
       results.push(r);
       if (!r.ok) failed.push('font');
+      note(r, t0);
     } else {
       console.log(' 7/7 - the font coverage check skipped - python not found.');
       results.push({ ok: null, out: 'Skipped: python not found.' });
@@ -936,7 +962,7 @@ async function checks() {
     console.log();
   }
   const secs = Math.round((Date.now() - t) / 1000);
-  const dur = secs ? ' - ' + (secs >= 60 ? Math.floor(secs / 60) + 'm ' + (secs % 60) + 's' : secs + 's') : '';
+  const dur = secs ? ' - ' + fmtDur(secs) : '';
   const verdict = (r) => (r.ok === null ? 'SKIP' : (r.ok ? 'PASS' : 'FAIL'));
   const lines = ['', '## Summary', '', '| Check | Result |', '| --- | --- |'];
   CHECK_NAMES.forEach((n, i) => lines.push('| ' + (i + 1) + '/7 ' + n + ' | ' + verdict(results[i]) + ' |'));
@@ -985,7 +1011,7 @@ async function about() {
   const ports = previewStatus();
   console.log(' Preview:                ' + (ports.length ? ITEM + 'running on ' + ports[0] + OFF : DIM + 'not running' + OFF));
   const lc = lastChecks();
-  console.log(' Last checks:            ' + (lc ? (lc.text.indexOf('FAILED') !== -1 ? ERR : ITEM) + lc.text.toLowerCase() + OFF + ' - ' + lc.when : DIM + 'never run' + OFF));
+  console.log(' Last checks:            ' + (lc ? (lc.text.indexOf('FAILED') !== -1 ? ERR : lc.days > STALE_DAYS ? WARN : ITEM) + lc.text.toLowerCase() + OFF + ' - ' + lc.when : DIM + 'never run' + OFF));
   console.log(' Sound:                  ' + (muted ? 'off' : 'on'));
   console.log();
   console.log(' Tools on this machine:');
