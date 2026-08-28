@@ -308,8 +308,11 @@ function footerLine() {
   let plain, colored;
   if (!c) { plain = 'checks: never run'; colored = DIM + plain + OFF; }
   else if (c.text.indexOf('FAILED') !== -1) {
-    plain = 'checks: failed ' + c.when;
-    colored = DIM + 'checks: ' + OFF + ERR + 'failed' + OFF + DIM + ' ' + c.when + OFF;
+    // the verdict names the failing check(s) - surface them in the footer
+    const nm = (c.text.match(/ - (.+)$/) || ['', ''])[1];
+    const name = nm ? ' (' + nm + ')' : '';
+    plain = 'checks: failed' + name + ' ' + c.when;
+    colored = DIM + 'checks: ' + OFF + ERR + 'failed' + OFF + DIM + name + ' ' + c.when + OFF;
   } else {
     plain = 'checks: passed ' + c.when;
     colored = DIM + 'checks: ' + OFF + (c.days > STALE_DAYS ? WARN : ITEM) + 'passed' + OFF + DIM + ' ' + c.when + OFF;
@@ -1049,6 +1052,8 @@ async function about() {
   if (VER && VERD && VER !== VERD) console.log(' ' + WARN + 'dist is behind source - run option 1.' + OFF);
   console.log(' Folder:                 ' + ROOT);
   if (BR) console.log(' Branch:                 ' + BR);
+  // corpus size from the registries - a one-glance sanity check (0 books = a broken registry)
+  console.log(' Corpus:                 ' + ITEM + registryCodes(META).length + OFF + ' books, ' + ITEM + registryCodes(AUTHORS).length + OFF + ' authors');
   const ports = previewStatus();
   console.log(' Preview:                ' + (ports.length ? ITEM + 'running on ' + ports[0] + OFF : DIM + 'not running' + OFF));
   const lc = lastChecks();

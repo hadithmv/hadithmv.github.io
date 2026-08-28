@@ -37,7 +37,7 @@ verification battery. It is developer tooling, not part of the site itself.
 | 8 | **Open the folder** — the codebase folder in Explorer. |
 | 9 | **Build and preview** — option 1 followed by option 5. |
 | 10 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
-| 11 | **About / health** — site versions, tool versions, preview-server state, when the checks last ran with their verdict, and the sound state. |
+| 11 | **About / health** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
 | 12 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 13 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
 | 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 15). |
@@ -64,9 +64,10 @@ are dimmed too, so the action names scan at a glance — except the sound
 row's hint, which carries the live state: dim `(now on)`, amber `(now
 off)` when muted. Below the menu, a footer line shows state at a glance:
 when the checks last ran and their verdict, and whether a preview server
-is running. The verdict word is coloured by meaning: fresh green, stale
-amber (a passed run more than a week old), failed red. Under it, a dim tip
-line notes that Ctrl+C quits from anywhere.
+is running. A failed verdict names the failing check(s) — e.g. `checks:
+failed (sw-check) today 10:28`. The verdict word is coloured by meaning:
+fresh green, stale amber (a passed run more than a week old), failed red.
+Under it, a dim tip line notes that Ctrl+C quits from anywhere.
 
 ## Sounds
 
