@@ -1,6 +1,6 @@
 // tools/hmv-toolbox.mjs - the Hadithmv Toolbox menu (node edition).
 //
-// A 17-item console menu for the common site tasks. Double-click the tiny
+// An 18-item console menu for the common site tasks. Double-click the tiny
 // launcher ("Hadithmv Toolbox.bat" on Windows) or run:
 //   node tools/hmv-toolbox.mjs
 // Run with a number argument to jump straight to an option, e.g.
@@ -20,7 +20,7 @@
 //  9  build(true)                build + preview
 // 10  checks()                   the 7 batteries, or one; checks-report.md
 // 11  about()                    versions, tools, preview + last-checks
-//                                state; S toggles the sound
+//                                state
 // 12  livecheck()                compare the published version with local
 // 13  openNotes()                Explorer on static/notes/ (authors + works)
 // 14  newBook()                  copy a template + add-a-book checklist,
@@ -28,7 +28,9 @@
 // 15  finishBookRegistration()   fill/edit a book's row in
 //                                03-registry-bookMeta.csv
 // 16  addAuthor()                append a row to 02-registry-bookAuthors.csv
-// 17  quit()                     exit
+// 17  soundToggle()              sound on/off (the flag lives in the user
+//                                profile, outside the repo)
+// 18  quit()                     exit
 //
 // Shared helpers used by several options: runCaptured() (every worker
 // step, with an optional spinner while the child is quiet), startSpin()
@@ -251,9 +253,9 @@ function showBanner() {
   clear();
   console.log(TITLE + BOX + OFF);
   if (VER && BR) {
-    const tail = bannerTail();
+    const tail = bannerTail(); // ' - <branch>' — split so both hyphens are box-green
     const pad = Math.max(0, 50 - 21 - VER.length - tail.length);
-    console.log(TITLE + '|  Hadithmv Toolbox - ' + ITEM + VER + TITLE + OFF + tail + new Array(pad + 1).join(' ') + TITLE + '|' + OFF);
+    console.log(TITLE + '|  Hadithmv Toolbox - ' + ITEM + VER + OFF + TITLE + ' - ' + OFF + tail.slice(3) + new Array(pad + 1).join(' ') + TITLE + '|' + OFF);
   } else if (VER) {
     const pad = Math.max(0, 50 - 21 - VER.length);
     console.log(TITLE + '|  Hadithmv Toolbox - ' + ITEM + VER + TITLE + OFF + new Array(pad + 1).join(' ') + TITLE + '|' + OFF);
@@ -282,23 +284,38 @@ function showBanner() {
   console.log(' ' + ITEM + '14.' + OFF + ' New book           (copy a template + checklist)');
   console.log(' ' + ITEM + '15.' + OFF + ' Finish a book registration (fill the registry row)');
   console.log(' ' + ITEM + '16.' + OFF + ' Add an author      (append to the authors registry)');
-  console.log(' ' + ITEM + '17.' + OFF + ' Quit');
-  console.log(DIM + '--------------------------------------------------' + OFF); // a dim rule closes the menu; the footer below is status, not an option
-  console.log(footerLine());
+  console.log(' ' + ITEM + '17.' + OFF + ' Sound on/off       (mutes the beeps and buzzes)');
+  console.log(' ' + ITEM + '18.' + OFF + ' Quit');
+  const foot = footerLine();
+  console.log(DIM + new Array(Math.max(50, foot.plain.length) + 1).join('-') + OFF); // a dim rule closes the menu; the footer below is status, not an option
+  console.log(foot.colored);
   console.log();
 }
 
 // The one-line state footer under the menu: when the checks last ran (and
-// the verdict) and whether a preview server is up.
+// the verdict), whether a preview server is up, and the sound state.
+// Returns { plain, colored } — the rule above it is sized to the plain
+// text, so the status line never outruns its own rule.
 function footerLine() {
   const c = lastChecks();
   const ports = previewStatus();
-  let chk;
-  if (!c) chk = DIM + 'checks: never run' + OFF;
-  else if (c.text.indexOf('FAILED') !== -1) chk = DIM + 'checks: ' + OFF + ERR + 'failed' + OFF + DIM + ' ' + c.when + OFF;
-  else chk = DIM + 'checks: ' + OFF + (c.days > STALE_DAYS ? WARN : ITEM) + 'passed' + OFF + DIM + ' ' + c.when + OFF;
-  const prv = ports.length ? ITEM + 'preview: running on ' + ports[0] + OFF : DIM + 'preview: off' + OFF;
-  return ' ' + chk + DIM + '  |  ' + OFF + prv;
+  let plain, colored;
+  if (!c) { plain = 'checks: never run'; colored = DIM + plain + OFF; }
+  else if (c.text.indexOf('FAILED') !== -1) {
+    plain = 'checks: failed ' + c.when;
+    colored = DIM + 'checks: ' + OFF + ERR + 'failed' + OFF + DIM + ' ' + c.when + OFF;
+  } else {
+    plain = 'checks: passed ' + c.when;
+    colored = DIM + 'checks: ' + OFF + (c.days > STALE_DAYS ? WARN : ITEM) + 'passed' + OFF + DIM + ' ' + c.when + OFF;
+  }
+  const prv = ports.length ? 'preview: running on ' + ports[0] : 'preview: off';
+  const prvCol = ports.length ? ITEM + prv + OFF : DIM + prv + OFF;
+  const snd = muted ? 'sound: off' : 'sound: on';
+  const sndCol = muted ? DIM + 'sound: ' + OFF + WARN + 'off' + OFF : DIM + 'sound: on' + OFF;
+  return {
+    plain: ' ' + plain + '  |  ' + prv + '  |  ' + snd,
+    colored: ' ' + colored + DIM + '  |  ' + OFF + prvCol + DIM + '  |  ' + OFF + sndCol,
+  };
 }
 
 // The verdict + run time out of checks-report.md (a local file - cheap).
@@ -1031,9 +1048,8 @@ async function about() {
   console.log(gitV ? '  ' + ITEM + gitV + OFF + '   git - needed for options 6, 7 and 12' : '  ' + ERR + 'git not found' + OFF + ' - install from git-scm.com');
   console.log('  ' + ITEM + PWR + OFF + '   shell - used for option 4');
   console.log();
-  console.log(' Press ' + ITEM + 'S' + OFF + ' to switch the sound on or off, any other key for the menu.');
-  const a = await ask(WARN + '> ' + OFF);
-  if (a.toLowerCase() === 's') { setMuted(!muted); return about(); }
+  // Sound has its own menu row (option 17); this screen only shows the state.
+  await pause();
   return menu();
 }
 
@@ -1060,6 +1076,18 @@ async function livecheck() {
     else if (a.toLowerCase() === 'l') openUrl('https://hadithmv.github.io/');
   }
   console.log();
+  await pause();
+  return menu();
+}
+
+// ── option 17: sound on/off ───────────────────────────────────────────
+async function soundToggle() {
+  process.title = 'Hadithmv Toolbox - sound on/off';
+  setMuted(!muted);
+  console.log();
+  console.log('Sound is ' + (muted ? ITEM + 'off' + OFF + ' - the beeps and buzzes are muted.' : ITEM + 'on' + OFF + ' - the beeps and buzzes are back.'));
+  console.log();
+  console.log(ITEM + 'Done - press Enter to go back to the menu.' + OFF);
   await pause();
   return menu();
 }
@@ -1106,7 +1134,8 @@ async function dispatch(c) {
     case '14': return newBook();
     case '15': return finishBookRegistration();
     case '16': return addAuthor();
-    case '17': return quit();
+    case '17': return soundToggle();
+    case '18': return quit();
     default: return invalid();
   }
 }
