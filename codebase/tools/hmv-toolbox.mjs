@@ -6,6 +6,37 @@
 // Run with a number argument to jump straight to an option, e.g.
 //   node tools/hmv-toolbox.mjs 5   (the launcher passes its arguments through)
 //
+// ── what's here: option → function ─────────────────────────────────────
+//  1  build()                    full build into dist/ + size summary,
+//                                then offers to run the checks
+//  2  index()                    rebuild the search index
+//  3  manifest()                 rewrite dist/manifest.json (freshness)
+//  4  refresh()                  3 steps: registry PS1 + index + manifest
+//  5  preview()                  python http.server on 8899; when one is
+//                                already running: open it or stop it (S)
+//  6  changed()                  git status + hints
+//  7  tidy()                     restore the two committed build reports
+//  8  openFolder()               Explorer on the codebase folder
+//  9  build(true)                build + preview
+// 10  checks()                   the 7 batteries, or one; checks-report.md
+// 11  about()                    versions + tools; S toggles the sound
+// 12  livecheck()                compare the published version with local
+// 13  openNotes()                Explorer on static/notes/ (authors + works)
+// 14  newBook()                  copy a template + add-a-book checklist,
+//                                then offers to fill the registry row
+// 15  finishBookRegistration()   fill/edit a book's row in
+//                                03-registry-bookMeta.csv
+// 16  addAuthor()                append a row to 02-registry-bookAuthors.csv
+// 17  quit()                     exit
+//
+// Shared helpers used by several options: runCaptured() (every worker
+// step), openExternal()/openUrl()/openNotepad() (options 5, 8, 10, 12, 13),
+// listeningPorts()/listenerPids() (option 5), csvQuote()/csvFields()/
+// readRegistry()/writeRegistry()/registryCodes()/bookVersion() (options
+// 15 and 16 - the registries are quoted CSV; `version` is ALWAYS the last
+// column and is never typed, always computed). The human-facing reference
+// is docs/TOOLBOX.md - read it before touching this file or the batteries.
+//
 // Cross-platform: this script runs unchanged on Windows, macOS and Linux —
 // only the double-click launcher differs per OS. The sibling bats
 // (dist-build.bat, rebuild-index.bat) remain as quick paths.
