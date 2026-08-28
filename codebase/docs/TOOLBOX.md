@@ -30,7 +30,7 @@ verification battery. It is developer tooling, not part of the site itself.
 | 1 | **Build the site** — the full pre-commit build into `dist/` (~1 minute); prints the size summary from `dist-build-report.md`, then asks whether to run the checks. |
 | 2 | **Rebuild search index** — after adding or changing a book, so it shows up in search. |
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
-| 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness. |
+| 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
 | 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
 | 6 | **What's changed** — `git status` summary with hints (e.g. "changed source but didn't build — run option 1"). |
 | 7 | **Tidy build reports** — restores `dist-build-report.md` and `font-build-report.md` to their committed state when a build dirtied them. |
@@ -56,10 +56,13 @@ the " (Web)" suffix dropped for the console — in cyan, followed by a
 dash-separated branch name in plain white (clamped to 12 chars); the padding
 is computed in the menu itself. It warns when there is no built copy yet
 ("run option 1") and when the built copy is behind the source (the same
-state the About screen reports). Below the menu, a footer line shows state
-at a glance: when the checks last ran and their verdict, and whether a
-preview server is running. The verdict word is coloured by meaning:
-fresh green, stale amber (a passed run more than a week old), failed red.
+state the About screen reports). Options whose tools are missing on this
+machine (python for option 5, git for options 6 and 7) appear dimmed —
+picking one still runs and explains. Below the menu, a footer line shows
+state at a glance: when the checks last ran and their verdict, and
+whether a preview server is running. The verdict word is coloured by
+meaning: fresh green, stale amber (a passed run more than a week old),
+failed red.
 
 ## Sounds
 

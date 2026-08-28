@@ -241,6 +241,12 @@ const VER = srcVersion();
 const VERD = distVersion();
 const BR = branch();
 
+// Probed once at load (cheap --version calls): the menu dims the options
+// whose tools are missing (5 needs python, 6 and 7 need git). Picking a
+// dimmed option still runs and explains. The About screen probes afresh.
+const HAS_GIT = hasTool('git');
+const HAS_PY = hasTool('python');
+
 function showBanner() {
   clear();
   console.log(TITLE + BOX + OFF);
@@ -262,9 +268,11 @@ function showBanner() {
   console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index  (so new books show up in search)');
   console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness     (quick update for data-only changes)');
   console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data     (after adding or changing a book)');
-  console.log(' ' + ITEM + '5.' + OFF + ' Preview the site      (opens in your browser, like the live one)');
-  console.log(' ' + ITEM + '6.' + OFF + " What's changed        (what git would put in your next commit)");
-  console.log(' ' + ITEM + '7.' + OFF + ' Tidy build reports    (undo the report changes from a build)');
+  const dim5 = HAS_PY ? '' : DIM, dim5Off = HAS_PY ? '' : OFF;
+  const dimG = HAS_GIT ? '' : DIM, dimGOff = HAS_GIT ? '' : OFF;
+  console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site      (opens in your browser, like the live one)' + dim5Off);
+  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed        (what git would put in your next commit)" + dimGOff);
+  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '7.' + OFF + dimG + ' Tidy build reports    (undo the report changes from a build)' + dimGOff);
   console.log(' ' + ITEM + '8.' + OFF + ' Open the folder       (the codebase folder in Explorer)');
   console.log(' ' + ITEM + '9.' + OFF + ' Build and preview     (build, then open the preview)');
   console.log(' ' + ITEM + '10.' + OFF + ' Run the checks       (the pre-commit verification battery)');
@@ -397,12 +405,12 @@ async function build(followWithPreview) {
   const secs = Math.round((Date.now() - t) / 1000);
   console.log();
   if (followWithPreview) {
-    console.log(secs ? 'Build done in ' + secs + ' seconds - opening the preview now.' : 'Build done - opening the preview now.');
+    console.log(ITEM + (secs ? 'Build done in ' + secs + ' seconds - opening the preview now.' : 'Build done - opening the preview now.') + OFF);
     return preview();
   }
-  console.log(secs ? 'Build done in ' + secs + ' seconds. Size summary:' : 'Build done. Size summary:');
+  console.log(ITEM + (secs ? 'Build done in ' + secs + ' seconds. Size summary:' : 'Build done. Size summary:') + OFF);
   const row = totalRow();
-  if (row) console.log('  Files: ' + row.files + '   Input: ' + row.input + '   Output: ' + row.output + '   Saved: ' + row.saved + '   Gzip: ' + row.gzip);
+  if (row) console.log('  Files: ' + ITEM + row.files + OFF + '   Input: ' + ITEM + row.input + OFF + '   Output: ' + ITEM + row.output + OFF + '   Saved: ' + ITEM + row.saved + OFF + '   Gzip: ' + ITEM + row.gzip + OFF);
   const runChecks = await ask(WARN + 'Run the checks now? (y/n) ' + OFF);
   if (runChecks.toLowerCase() === 'y') return checks();
   console.log();
@@ -422,7 +430,7 @@ async function index() {
   const ok = await runCaptured('node', [path.join(ROOT, 'data/08-rebuild-searchIndex.mjs')]).then((r) => r.ok);
   if (!ok) return fail('index');
   console.log();
-  console.log('Search index rebuilt.');
+  console.log(ITEM + 'Search index rebuilt.' + OFF);
   await pause();
   return menu();
 }
@@ -436,7 +444,7 @@ async function manifest() {
   const ok = await runCaptured('node', [path.join(ROOT, 'tools/hmv-manifest.mjs')]).then((r) => r.ok);
   if (!ok) return fail('manifest');
   console.log();
-  console.log('Freshness file refreshed.');
+  console.log(ITEM + 'Freshness file refreshed.' + OFF);
   await pause();
   return menu();
 }
@@ -449,15 +457,18 @@ async function refresh() {
   console.log();
   console.log('Step 1 of 3 - updating the book registry (recomputes versions)...');
   let ok = await runCaptured(PWR, ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(ROOT, 'data/04-update-bookRegistry.ps1')]).then((r) => r.ok);
-  if (!ok) return fail('registry');
+  if (!ok) { console.log(' ' + ERR + 'failed' + OFF); return fail('registry'); }
+  console.log(' ' + ITEM + 'done' + OFF);
   console.log('Step 2 of 3 - rebuilding the search index...');
   ok = await runCaptured('node', [path.join(ROOT, 'data/08-rebuild-searchIndex.mjs')]).then((r) => r.ok);
-  if (!ok) return fail('index');
+  if (!ok) { console.log(' ' + ERR + 'failed' + OFF); return fail('index'); }
+  console.log(' ' + ITEM + 'done' + OFF);
   console.log('Step 3 of 3 - refreshing the freshness file...');
   ok = await runCaptured('node', [path.join(ROOT, 'tools/hmv-manifest.mjs')]).then((r) => r.ok);
-  if (!ok) return fail('manifest');
+  if (!ok) { console.log(' ' + ERR + 'failed' + OFF); return fail('manifest'); }
+  console.log(' ' + ITEM + 'done' + OFF);
   console.log();
-  console.log('All three steps done.');
+  console.log(ITEM + 'All three steps done.' + OFF);
   await pause();
   return menu();
 }
@@ -491,7 +502,7 @@ async function preview() {
         }
         await sleep(500);
         console.log();
-        console.log('Preview server stopped - the port is free now. Pick 5 again to start fresh.');
+        console.log(ITEM + 'Preview server stopped - the port is free now. Pick 5 again to start fresh.' + OFF);
       }
     } else {
       openUrl('http://127.0.0.1:' + busy[0] + '/dist/books/');
@@ -524,7 +535,7 @@ async function preview() {
   if (!up) return fail('preview');
   openUrl('http://127.0.0.1:' + PORT + '/dist/books/');
   console.log();
-  console.log('Preview started. Close the server window when done, then press Enter.');
+  console.log(ITEM + 'Preview started. Close the server window when done, then press Enter.' + OFF);
   await pause();
   return menu();
 }
@@ -573,7 +584,7 @@ async function tidy() {
   } else {
     git(['checkout', '--', 'dist-build-report.md', 'font-build-report.md']);
     console.log();
-    console.log('Reports restored - they no longer show in "what\'s changed".');
+    console.log(ITEM + 'Reports restored - they no longer show in "what\'s changed".' + OFF);
   }
   await pause();
   return menu();
@@ -586,7 +597,7 @@ async function openFolder() {
   console.log('Opening the codebase folder in Explorer...');
   openExternal(['start', '', 'explorer', ROOT], [ROOT], [ROOT]);
   console.log();
-  console.log('Done - press Enter to go back to the menu.');
+  console.log(ITEM + 'Done - press Enter to go back to the menu.' + OFF);
   await pause();
   return menu();
 }
@@ -601,7 +612,7 @@ async function openNotes() {
   console.log('Opening the notes folder (authors + works markdown) in Explorer...');
   openExternal(['start', '', 'explorer', NOTES], [NOTES], [NOTES]);
   console.log();
-  console.log('Done - press Enter to go back to the menu.');
+  console.log(ITEM + 'Done - press Enter to go back to the menu.' + OFF);
   await pause();
   return menu();
 }
@@ -1020,7 +1031,7 @@ async function about() {
   console.log(gitV ? '  ' + ITEM + gitV + OFF + '   git - needed for options 6, 7 and 12' : '  ' + ERR + 'git not found' + OFF + ' - install from git-scm.com');
   console.log('  ' + ITEM + PWR + OFF + '   shell - used for option 4');
   console.log();
-  console.log(' Press S to switch the sound on or off, any other key for the menu.');
+  console.log(' Press ' + ITEM + 'S' + OFF + ' to switch the sound on or off, any other key for the menu.');
   const a = await ask(WARN + '> ' + OFF);
   if (a.toLowerCase() === 's') { setMuted(!muted); return about(); }
   return menu();
