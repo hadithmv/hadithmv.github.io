@@ -266,34 +266,40 @@ function showBanner() {
   if (VER && !VERD) console.log(WARN + 'Warning: no built copy (dist) yet - run option 1.' + OFF);
   if (VER && VERD && VER !== VERD) console.log(WARN + 'Warning: the built copy (dist) is behind the source (' + VERD + ' vs ' + VER + ') - run option 1 before you commit.' + OFF);
   console.log();
-  console.log(' ' + ITEM + '1.' + OFF + ' Build the site        (full build - run before you commit)');
-  console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index  (so new books show up in search)');
-  console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness     (quick update for data-only changes)');
-  console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data     (after adding or changing a book)');
+  // the action name stays white, the parenthetical hint is dimmed, so the
+  // list scans at a glance; rows whose tool is missing are fully dimmed
+  console.log(' ' + ITEM + '1.' + OFF + ' Build the site' + DIM + '        (full build - run before you commit)' + OFF);
+  console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index' + DIM + '  (so new books show up in search)' + OFF);
+  console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness' + DIM + '     (quick update for data-only changes)' + OFF);
+  console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data' + DIM + '     (after adding or changing a book)' + OFF);
   const dim5 = HAS_PY ? '' : DIM, dim5Off = HAS_PY ? '' : OFF;
   const dimG = HAS_GIT ? '' : DIM, dimGOff = HAS_GIT ? '' : OFF;
-  console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site      (opens in your browser, like the live one)' + dim5Off);
-  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed        (what git would put in your next commit)" + dimGOff);
-  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '7.' + OFF + dimG + ' Tidy build reports    (undo the report changes from a build)' + dimGOff);
-  console.log(' ' + ITEM + '8.' + OFF + ' Open the folder       (the codebase folder in Explorer)');
-  console.log(' ' + ITEM + '9.' + OFF + ' Build and preview     (build, then open the preview)');
-  console.log(' ' + ITEM + '10.' + OFF + ' Run the checks       (the pre-commit verification battery)');
-  console.log(' ' + ITEM + '11.' + OFF + ' About / health check (versions and tools on this machine)');
-  console.log(' ' + ITEM + '12.' + OFF + ' Check the live site  (is the published site up to date?)');
-  console.log(' ' + ITEM + '13.' + OFF + ' Open the notes folder (authors + works markdown)');
-  console.log(' ' + ITEM + '14.' + OFF + ' New book           (copy a template + checklist)');
-  console.log(' ' + ITEM + '15.' + OFF + ' Finish a book registration (fill the registry row)');
-  console.log(' ' + ITEM + '16.' + OFF + ' Add an author      (append to the authors registry)');
-  console.log(' ' + ITEM + '17.' + OFF + ' Sound on/off       (mutes the beeps and buzzes)');
+  console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site' + DIM + '      (opens in your browser, like the live one)' + OFF + dim5Off);
+  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed" + DIM + '        (what git would put in your next commit)' + OFF + dimGOff);
+  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '7.' + OFF + dimG + ' Tidy build reports' + DIM + '    (undo the report changes from a build)' + OFF + dimGOff);
+  console.log(' ' + ITEM + '8.' + OFF + ' Open the folder' + DIM + '       (the codebase folder in Explorer)' + OFF);
+  console.log(' ' + ITEM + '9.' + OFF + ' Build and preview' + DIM + '     (build, then open the preview)' + OFF);
+  console.log(' ' + ITEM + '10.' + OFF + ' Run the checks' + DIM + '       (the pre-commit verification battery)' + OFF);
+  console.log(' ' + ITEM + '11.' + OFF + ' About / health check' + DIM + ' (versions and tools on this machine)' + OFF);
+  console.log(' ' + ITEM + '12.' + OFF + ' Check the live site' + DIM + '  (is the published site up to date?)' + OFF);
+  console.log(' ' + ITEM + '13.' + OFF + ' Open the notes folder' + DIM + ' (authors + works markdown)' + OFF);
+  console.log(' ' + ITEM + '14.' + OFF + ' New book' + DIM + '           (copy a template + checklist)' + OFF);
+  console.log(' ' + ITEM + '15.' + OFF + ' Finish a book registration' + DIM + ' (fill the registry row)' + OFF);
+  console.log(' ' + ITEM + '16.' + OFF + ' Add an author' + DIM + '      (append to the authors registry)' + OFF);
+  // the hint carries the state: dim when on, amber when muted (the warn colour
+  // the footer used to show for it)
+  console.log(' ' + ITEM + '17.' + OFF + ' Sound on/off' + (muted ? WARN : DIM) + '       (now ' + (muted ? 'off' : 'on') + ')' + OFF);
   console.log(' ' + ITEM + '18.' + OFF + ' Quit');
   const foot = footerLine();
   console.log(DIM + new Array(Math.max(50, foot.plain.length) + 1).join('-') + OFF); // a dim rule closes the menu; the footer below is status, not an option
   console.log(foot.colored);
+  console.log(DIM + 'Tip: Ctrl+C quits from anywhere.' + OFF);
   console.log();
 }
 
 // The one-line state footer under the menu: when the checks last ran (and
-// the verdict), whether a preview server is up, and the sound state.
+// the verdict) and whether a preview server is up. The sound state lives in
+// its own menu row (17), not here — no screen shows it twice.
 // Returns { plain, colored } — the rule above it is sized to the plain
 // text, so the status line never outruns its own rule.
 function footerLine() {
@@ -310,11 +316,9 @@ function footerLine() {
   }
   const prv = ports.length ? 'preview: running on ' + ports[0] : 'preview: off';
   const prvCol = ports.length ? ITEM + prv + OFF : DIM + prv + OFF;
-  const snd = muted ? 'sound: off' : 'sound: on';
-  const sndCol = muted ? DIM + 'sound: ' + OFF + WARN + 'off' + OFF : DIM + 'sound: on' + OFF;
   return {
-    plain: ' ' + plain + '  |  ' + prv + '  |  ' + snd,
-    colored: ' ' + colored + DIM + '  |  ' + OFF + prvCol + DIM + '  |  ' + OFF + sndCol,
+    plain: ' ' + plain + '  |  ' + prv,
+    colored: ' ' + colored + DIM + '  |  ' + OFF + prvCol,
   };
 }
 
@@ -573,7 +577,16 @@ async function changed() {
     await pause();
     return menu();
   }
-  console.log(st.stdout.trimEnd());
+  // git-style colours on the status code: staged work green (TITLE), unstaged
+  // work and untracked files red (ERR) - the path itself stays plain
+  const STAGED = { A: TITLE, C: TITLE, D: TITLE, M: TITLE, R: TITLE };
+  const UNSTAGED = { D: ERR, M: ERR, T: ERR };
+  for (const ln of st.stdout.trimEnd().split('\n')) {
+    const x = ln[0], y = ln[1];
+    const cx = x === '?' ? ERR : STAGED[x] || '';
+    const cy = y === '?' ? ERR : UNSTAGED[y] || '';
+    console.log((cx ? cx + x + OFF : x) + (cy ? cy + y + OFF : y) + ln.slice(2));
+  }
   const src = git(['status', '--porcelain', '--', 'src', 'static']).stdout.trim();
   const dist = git(['status', '--porcelain', '--', 'dist']).stdout.trim();
   const data = git(['status', '--porcelain', '--', 'data']).stdout.trim();

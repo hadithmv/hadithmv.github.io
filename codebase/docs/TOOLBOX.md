@@ -32,7 +32,7 @@ verification battery. It is developer tooling, not part of the site itself.
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
 | 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
-| 6 | **What's changed** — `git status` summary with hints (e.g. "changed source but didn't build — run option 1"). |
+| 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1"). |
 | 7 | **Tidy build reports** — restores `dist-build-report.md` and `font-build-report.md` to their committed state when a build dirtied them. |
 | 8 | **Open the folder** — the codebase folder in Explorer. |
 | 9 | **Build and preview** — option 1 followed by option 5. |
@@ -43,7 +43,7 @@ verification battery. It is developer tooling, not part of the site itself.
 | 14 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 15). |
 | 15 | **Finish a book registration** — fills or edits a book's row in `03-registry-bookMeta.csv`: the three titles, the author code (checked against 02), the tags. The version is recomputed from the content CSV — never typed. Refreshes the manifest. |
 | 16 | **Add an author** — appends a row to `02-registry-bookAuthors.csv` (code, the three names, AH years), checks for duplicates, refreshes the manifest. |
-| 17 | **Sound on/off** — mutes the success beeps and the failure buzz (the flag lives in `%USERPROFILE%\.hadithmv-tools`, outside the repo). |
+| 17 | **Sound on/off** — mutes the success beeps and the failure buzz; the row shows the current state (the flag lives in `%USERPROFILE%\.hadithmv-tools`, outside the repo). |
 | 18 | **Quit** |
 
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
@@ -59,11 +59,14 @@ is computed in the menu itself. It warns when there is no built copy yet
 ("run option 1") and when the built copy is behind the source (the same
 state the About screen reports). Options whose tools are missing on this
 machine (python for option 5, git for options 6 and 7) appear dimmed —
-picking one still runs and explains. Below the menu, a footer line shows
-state at a glance: when the checks last ran and their verdict, whether a
-preview server is running, and whether the sound is on. The verdict word
-is coloured by meaning: fresh green, stale amber (a passed run more than
-a week old), failed red.
+picking one still runs and explains. The parenthetical hints in the rows
+are dimmed too, so the action names scan at a glance — except the sound
+row's hint, which carries the live state: dim `(now on)`, amber `(now
+off)` when muted. Below the menu, a footer line shows state at a glance:
+when the checks last ran and their verdict, and whether a preview server
+is running. The verdict word is coloured by meaning: fresh green, stale
+amber (a passed run more than a week old), failed red. Under it, a dim tip
+line notes that Ctrl+C quits from anywhere.
 
 ## Sounds
 
@@ -75,8 +78,9 @@ a week old), failed red.
   is written and the freshness file refreshed; 18 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with
-  option 17 (Sound on/off); the footer shows the state (`sound: off` in
-  amber) and the About screen shows it too.
+  option 17 (Sound on/off); the row's hint shows the state (`(now off)` in
+  amber when muted) and the About screen shows it too — the menu footer
+  deliberately does not repeat it.
 
 ## Checks (option 10)
 
