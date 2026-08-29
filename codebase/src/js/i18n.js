@@ -53,7 +53,7 @@ const STRINGS = {
   // Each feature = term (the syntax), meaning, example — all three per
   // language, because a tip only teaches in the reader's own script.
   searchHelpTitle: {
-    dv: "ސާޗު ޓިޕްސް",
+    dv: "ސާޗު އެހީ",
     en: "Search tips",
     ar: "نصائح البحث",
   },
@@ -83,7 +83,7 @@ const STRINGS = {
   searchHelpRegexName: { dv: "ރެޖެކްސް", en: "Regex Pattern", ar: "نمط" },
   searchHelpPhraseTerm: { dv: '" "', en: '" "', ar: '" "' },
   searchHelpPhraseMean: {
-    dv: "މި އަކުރުތައް، މި ތަރުތީބުގައި، އެއް ޖުމްލައެއްގައި ހޯދާ",
+    dv: "މި އަކުރުތައް، މި ތަރުތީބުގައި، އެއް އިބާރާތެއްގައި ހޯދާ",
     en: "these words together, in order",
     ar: "هذه الكلمات معا، بالترتيب",
   },
@@ -120,7 +120,7 @@ const STRINGS = {
   },
   searchHelpWildcardTerm: { dv: "* ނުވަތަ ?", en: "* or ?", ar: "* أو ?" },
   searchHelpWildcardMean: {
-    dv: "އެ ފާހަގަ ހުރި ތަނުގައި ކޮންމެ އަކުރެއް ހުއްޓަސް ހޯދާ",
+    dv: "ފާހަގަ ހުރި ތަނުގައި ކޮންމެ އަކުރެއް ހުއްޓަސް ހޯދާ",
     en: "any letters in place of the mark",
     ar: "أي حروف مكان العلامة",
   },
@@ -144,20 +144,20 @@ const STRINGS = {
     ar: "col:1:كلمة",
   },
   searchHelpColumnMean: {
-    dv: "ކޮލަމް އެއްގައި ހޯދާ (ނަންބަރު = ކޮލަމްގެ ތަރުތީބު — ނުވަތަ އެޑްވާންސްޑް ގައި ނަމުން ހޮވާ)",
-    en: "search one column (number = column order — or pick it by name in Advanced)",
-    ar: "ابحث في عمود واحد (الرقم = ترتيب العمود — أو اختره بالاسم في المتقدم)",
+    dv: "މިވެނި ކޮލަމް އެއްގައި ހޯދާ (ނަންބަރު:ކޮލަމްގެ ތަރުތީބު)",
+    en: "search one column (number:column order)",
+    ar: "ابحث في عمود واحد (الرقم:ترتيب العمود)",
   },
   searchHelpColumnEx: {
-    dv: "col:1:މާނަ",
-    en: "col:1:meaning",
-    ar: "col:1:معنى",
+    dv: "col:1:ލަފްޒު",
+    en: "col:1:word",
+    ar: "col:1:كلمة",
   },
-  searchHelpRegexTerm: { dv: "/…/", en: "/…/", ar: "/…/" },
+  searchHelpRegexTerm: { dv: "/ /", en: "/ /", ar: "/ /" },
   searchHelpRegexMean: {
-    dv: "ނަމޫނާއަކުން ހޯދާ (ޚިބްރަތުގެ ބޭނުންތެރިންނަށް)",
-    en: "pattern search (expert)",
-    ar: "بحث بأنماط (للخبراء)",
+    dv: "ރެޖެކްސް އިން ހޯދާ",
+    en: "regext pattern search",
+    ar: "بحث بأنماط",
   },
   searchHelpRegexEx: {
     dv: "/(ނަމާދު|ޞަލާތް)/",
@@ -167,17 +167,17 @@ const STRINGS = {
   // The grammar belongs to the This-book tab — All books is a word index
   // that matches whole normalized words exactly (no wildcards, no syntax).
   searchHelpAllBooksNote: {
-    dv: "މި ގޮތަށް ހޯދެނީ މި ފޮތުގެ ސާޗުގައެވެ. ހުރިހާ ފޮތް ސާޗުގައި ފުރިހަމަ ލަފުޒުތައް ހޯދެއެވެ.",
-    en: "This syntax works in This book search. All books matches whole words exactly.",
-    ar: "هذه الصيغ تعمل في بحث هذا الكتاب. بحث جميع الكتب يطابق الكلمات كاملة فقط.",
+    dv: "މި ގޮތްގޮތަށް ހޯދޭނީ ވަކިވަކި ފޮތފޮތުގެ ސާޗުގައި އެކަންޏެވެ. ހުރިހާ ފޮތެއް ސާޗުކުރާ ނަމަ، ހޯދޭނީ ފުރިހަމަ ލަފްޒުތައް އިން ގޮތަށެވެ.",
+    en: "These syntaxes work only in individual book searches. Searches across all books matches whole words.",
+    ar: "تعمل هذه الصيغ فقط في عمليات البحث في الكتب الفردية. البحث عبر جميع الكتب يطابق الكلمات الكاملة.",
   },
   // Every query is normalised before matching — the hamza/alef variants
   // fold, ى→ي, diacritics and tatweel strip, Thaana dotted forms fold.
   // So searches forgive vowel marks; typing them exactly is not required.
   searchHelpNormNote: {
-    dv: "ހޯދުމުގެ ކުރިން އަކުރުތައް އެއްގޮތަކަށް ބަދަލުވެއެވެ — أ/إ/آ ވަނީ ا އަށް، ى ވަނީ ي އަށް، ފިލިތައް އަދި ތަތްވީލް ނެއްޓެއެވެ. ވީމާ ފިލިތައް ފުރިހަމަ ކުރަން ނުޖެހެއެވެ.",
-    en: "Search is normalised first: أ/إ/آ become ا, ى becomes ي, diacritics and tatweel are stripped, Thaana dotted forms fold — you don't have to type the marks exactly.",
-    ar: "يُطبَّع البحث أولاً: أ/إ/آ تصبح ا، ى تصبح ي، وتُحذف التشكيلات والتطويل. فلا تحتاج إلى كتابة التشكيل بدقة.",
+    dv: "ސާޗުކުރާއިރު، އަކުރުތައް އެއްގޮތްވެ ނޯމަލައިޒުވެގެން ދާނެއެވެ — أ/إ/آ ވަނީ ا އަށް، ى ވަނީ ي އަށް، ފިލިތައް އަދި ތަތުވީލަކަށް ފޮހެވޭނެ، އަދި ތިކިޖެހި ތާނަ، ތިކިނުޖަހާ ތާނައާ އެއްގޮތް ވާނެއެވެ. ވީމާ އެ ފަދަ އަކުރުތަކާއި ފިލިތައް ކޮންމެހެން އިން ގޮތަށް ލިޔާކަށް ނުޖެހޭނެއެވެ.",
+    en: "Search becomes normalised: أ/إ/آ become ا, ى becomes ي, diacritics and tatweel are stripped, thikijehi thaana becomes same as thikinujaha thaana — so you don't have to write the forms or marks exactly.",
+    ar: "يصبح البحث مُطَبَّعًا: أ/إ/آ تصبح ا، ى تصبح ي، يتم إزالة التشكيل والتمديد، تصبح تيكجيهي تانا هي نفس غير تيكجيهي تانا — لذلك لا تحتاج إلى كتابة الأشكال أو العلامات بدقة.",
   },
   btnAddCondition: {
     dv: "+ ޝަރުތު އިތުރުކުރޭ",
