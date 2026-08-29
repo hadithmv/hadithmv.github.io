@@ -29,7 +29,9 @@
 // 15  addAuthor()                append a row to 02-registry-bookAuthors.csv
 // 16  soundToggle()              sound on/off (the flag lives in the user
 //                                profile, outside the repo)
-// 17  quit()                     exit
+// 17  restart()                  start the menu over: re-probe the tools,
+//                                re-read the sound flag, redraw
+// 18  quit()                     exit
 //
 // Shared helpers used by several options: runCaptured() (every worker
 // step, with an optional spinner while the child is quiet), startSpin()

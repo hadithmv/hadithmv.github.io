@@ -4,6 +4,14 @@ The Toolbox is the double-click launcher for the site's maintenance tasks —
 building, previewing, refreshing book data, and running the pre-commit
 verification battery. It is developer tooling, not part of the site itself.
 
+At a glance — the 18 options by job: build the site (1), rebuild the
+search index (2), refresh the freshness manifest (3), refresh book
+data (4), preview locally (5, 8), see what git would commit (6), open
+the codebase folder (7) or the notes folder (12), run the pre-commit
+checks (9), about / health (10), live-site status (11), new book /
+finish registration / add author (13–15), sound / restart / quit
+(16–18).
+
 ## Launch chain
 
 - `Hadithmv Toolbox.bat` is only a **door**: a bat always runs in cmd.exe, so
