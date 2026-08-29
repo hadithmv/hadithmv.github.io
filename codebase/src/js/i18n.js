@@ -81,7 +81,12 @@ const STRINGS = {
   },
   searchHelpColumnName: { dv: "ކޮލަމް", en: "Column", ar: "عمود" },
   searchHelpRegexName: { dv: "ރެޖެކްސް", en: "Regex Pattern", ar: "نمط" },
-  searchHelpPhraseTerm: { dv: '" "', en: '" "', ar: '" "' },
+  // both quote styles — the example pair teaches the same two forms
+  searchHelpPhraseTerm: {
+    dv: '" " ނުވަތަ \' \'',
+    en: '" " or \' \'',
+    ar: '" " أو \' \'',
+  },
   searchHelpPhraseMean: {
     dv: "މި އަކުރުތައް، މި ތަރުތީބުގައި، އެއް އިބާރާތެއްގައި ހޯދާ",
     en: "these words together, in order",
@@ -106,7 +111,13 @@ const STRINGS = {
     en: "prayer -funeral",
     ar: "صلاة -جنازة",
   },
-  searchHelpFuzzyTerm: { dv: "~ލަފުޒު", en: "~word", ar: "~كلمة" },
+  // the marker works at EITHER end — the term shows both forms, the
+  // example pair below teaches the same
+  searchHelpFuzzyTerm: {
+    dv: "~ލަފުޒު ނުވަތަ ލަފުޒު~",
+    en: "~word or word~",
+    ar: "~كلمة أو كلمة~",
+  },
   searchHelpFuzzyMean: {
     dv: "ލަފުޒާ ގާތްކުރާ ލަފުޒެއް ވިޔަސް ހޯދާ",
     en: "find it even with a close spelling",

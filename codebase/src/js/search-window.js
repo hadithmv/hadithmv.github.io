@@ -105,7 +105,11 @@ var HELP_FEATURES = ["Phrase", "Exclude", "Fuzzy", "Wildcard", "WholeWord", "Col
 function buildSearchHelp() {
   window.createModal("searchHelpOverlay", "searchHelpTitle", "searchHelpBody", "search-help");
   document.getElementById("searchHelpTitle").textContent = t("searchHelpTitle");
+  // The table + notes live in a dedicated scroll region (the shared
+  // full-size modal structure: pinned header, scrollable content) — a
+  // tall sheet or a short viewport scrolls instead of clipping.
   document.getElementById("searchHelpBody").innerHTML =
+    '<div class="search-help-scroll">' +
     '<table class="search-help-table">' +
     "<thead><tr>" +
     "<th>" + t("searchHelpColFeature") + "</th>" +
@@ -125,6 +129,7 @@ function buildSearchHelp() {
     '<div class="search-help-notes">' +
     '<p id="searchHelpNote" class="search-help-note">' + t("searchHelpAllBooksNote") + "</p>" +
     '<p id="searchHelpNormNote" class="search-help-note">' + t("searchHelpNormNote") + "</p>" +
+    "</div>" +
     "</div>";
 }
 

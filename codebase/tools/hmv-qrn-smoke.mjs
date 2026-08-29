@@ -492,6 +492,10 @@ async function main() {
       // would read as syntax — the sheet teaches a leading-dot token).
       phraseEx: document.querySelectorAll('#searchHelpBody tbody tr')[0].querySelector('.search-help-ex').textContent,
       fuzzyEx: document.querySelectorAll('#searchHelpBody tbody tr')[2].querySelector('.search-help-ex').textContent,
+      // the term cells must teach what the examples teach: the phrase row
+      // shows BOTH quote styles, the fuzzy row the marker at either end
+      phraseTerm: document.querySelectorAll('#searchHelpBody tbody tr')[0].querySelector('.search-help-term').textContent,
+      fuzzyTerm: document.querySelectorAll('#searchHelpBody tbody tr')[2].querySelector('.search-help-term').textContent,
       wildEx: document.querySelectorAll('#searchHelpBody tbody tr')[3].querySelector('.search-help-ex').textContent,
       // the name column: a scannable anchor before the syntax column
       names: (function () {
@@ -560,6 +564,10 @@ async function main() {
     help.fuzzyEx.split("\n").length === 2 && help.fuzzyEx.indexOf("~") !== -1, help.fuzzyEx);
   check("search tips: phrase row pairs both quote styles",
     help.phraseEx.indexOf('"') !== -1 && help.phraseEx.indexOf("'") !== -1, help.phraseEx);
+  check("search tips: phrase term shows both quote styles",
+    help.phraseTerm.indexOf('"') !== -1 && help.phraseTerm.indexOf("'") !== -1, help.phraseTerm);
+  check("search tips: fuzzy term shows the marker at either end",
+    ((help.fuzzyTerm.match(/~/g) || []).length === 2), help.fuzzyTerm);
   check("search tips: All-books caveat note renders",
     help.note.length > 0, help.note);
   check("search tips: normalisation note renders",
@@ -578,6 +586,30 @@ async function main() {
   await waitFor(`!document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
   check("search tips: Escape closes help, window stays",
     await evalJS(`document.getElementById('searchWindowOverlay').classList.contains('open')`));
+
+  // tall-sheet scrolling: the tips share the full-size modal structure —
+  // the body fills the fixed 93vh modal and the table + notes scroll
+  // inside it, the header staying pinned. At a short viewport the sheet
+  // must overflow and scroll, not clip (the no-scroll-region regression).
+  await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 450, deviceScaleFactor: 1, mobile: false });
+  await evalJS(`document.getElementById('searchWindowHelpBtn').click()`);
+  await waitFor(`document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
+  const helpShort = await evalJS(`(function () {
+    var s = document.querySelector('#searchHelpBody .search-help-scroll');
+    return { sh: s.scrollHeight, ch: s.clientHeight, header: document.getElementById('searchHelpTitle').getBoundingClientRect().height };
+  })()`);
+  check("search tips: content overflows its scroll region on a short viewport",
+    helpShort.sh > helpShort.ch, JSON.stringify(helpShort));
+  const helpScrolled = await evalJS(`(function () {
+    var s = document.querySelector('#searchHelpBody .search-help-scroll');
+    s.scrollTop = 60;
+    return s.scrollTop;
+  })()`);
+  check("search tips: the scroll region actually scrolls",
+    helpScrolled > 0, String(helpScrolled));
+  await evalJS(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+  await waitFor(`!document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
+  await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
 
   // clear → history empty state (the two queries above were recorded).
   // The modal has a FIXED height — a content swap (results → history +

@@ -899,6 +899,21 @@
   font-weight: 700;
   color: var(--color-text);
 }
+/* The shared full-size modal structure: the body fills the fixed-height
+   modal (93vh, overflow hidden) and the table + notes scroll inside it,
+   the header staying pinned — the same shell as the search window's
+   results pane and the facet modals' scrollport. Without this the sheet
+   clipped at the modal's bottom edge on short viewports. */
+.search-help .modal-body {
+  flex: 1;
+  min-height: 0;
+}
+.search-help-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
 .search-help-table tbody tr {
   border-bottom: 1px solid var(--color-border);
 }
