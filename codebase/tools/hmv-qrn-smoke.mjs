@@ -459,6 +459,104 @@ async function main() {
   check("advanced apply runs (all rows)", advRc.indexOf("6,236") !== -1, advRc);
   await evalJS(`document.getElementById('searchWindowAdvToggle').click()`); // collapse
 
+  // search tips — the Tips button (a full-width labelled option like
+  // Advanced, not a compact "?") opens the grammar help stacked over the
+  // window; Escape closes the help and the window stays open underneath
+  await evalJS(`document.getElementById('searchWindowHelpBtn').click()`);
+  await waitFor(`document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
+  const help = await evalJS(`(function () {
+    var tips = document.querySelector('#searchHelpOverlay .modal');
+    var win = document.querySelector('#searchWindowOverlay .modal');
+    return {
+      rows: document.querySelectorAll('#searchHelpBody .search-help-table tbody tr').length,
+      terms: document.querySelectorAll('#searchHelpBody .search-help-term').length,
+      headers: document.querySelectorAll('#searchHelpBody .search-help-table th').length,
+      title: (document.getElementById('searchHelpTitle') || {}).textContent || '',
+      btn: (document.getElementById('searchWindowHelpBtn') || {}).textContent || '',
+      // shared full-size geometry — a stacked tips sheet narrower than the
+      // window reads as a glitch (the one shared rule in common.css)
+      tipsW: tips && tips.offsetWidth,
+      winW: win && win.offsetWidth,
+      // cells inherit the RTL modal direction (no per-cell dir="auto") so
+      // the term column aligns on one edge; auto ragged it (Latin terms
+      // went LTR/left, Thaana/Arabic went right)
+      termDirs: (function () {
+        var cells = document.querySelectorAll('#searchHelpBody .search-help-term');
+        var d = [];
+        for (var i = 0; i < cells.length; i++) d.push(getComputedStyle(cells[i]).direction);
+        return d;
+      })(),
+      // multi-example rows: the phrase row pairs both quote styles, the
+      // fuzzy row both marker ends, the wildcard row all positions + the
+      // single-letter "?". Examples are one per line (a "·"-style separator
+      // would read as syntax — the sheet teaches a leading-dot token).
+      phraseEx: document.querySelectorAll('#searchHelpBody tbody tr')[0].querySelector('.search-help-ex').textContent,
+      fuzzyEx: document.querySelectorAll('#searchHelpBody tbody tr')[2].querySelector('.search-help-ex').textContent,
+      wildEx: document.querySelectorAll('#searchHelpBody tbody tr')[3].querySelector('.search-help-ex').textContent,
+      // the name column: a scannable anchor before the syntax column
+      names: (function () {
+        var cells = document.querySelectorAll('#searchHelpBody .search-help-name');
+        var n = [];
+        for (var i = 0; i < cells.length; i++) n.push(cells[i].textContent);
+        return n;
+      })(),
+      // third header must render a real label — a missing i18n key renders
+      // the raw key name (t() returns the key when absent)
+      header3: document.querySelectorAll('#searchHelpBody .search-help-table th')[2].textContent,
+      // the table mirrors the dd-table cell idiom (8px 12px padding, panel
+      // font size) — computed longhands in top/inline-end/bottom/inline-start
+      // order, so the guard reads identically in RTL and LTR
+      thPad: (function () {
+        var s = getComputedStyle(document.querySelector('#searchHelpBody .search-help-table thead th'));
+        return [s.paddingTop, s.paddingInlineEnd, s.paddingBottom, s.paddingInlineStart].join(' ');
+      })(),
+      // th UA-defaults to centered (browsers center table headers) — the
+      // header must be explicitly aligned with its right-aligned rows
+      thAlign: (function () {
+        return getComputedStyle(document.querySelector('#searchHelpBody .search-help-table thead th')).textAlign;
+      })(),
+      tdAlign: (function () {
+        return getComputedStyle(document.querySelector('#searchHelpBody .search-help-table tbody td')).textAlign;
+      })(),
+      // the two notes under the table: All-books caveat + normalisation
+      note: (document.getElementById('searchHelpNote') || {}).textContent || '',
+      normNote: (document.getElementById('searchHelpNormNote') || {}).textContent || '',
+    };
+  })()`);
+  check("search tips: 7 grammar rows render",
+    help.rows === 7 && help.terms === 7 && help.headers === 4 && help.title.length > 0 && help.btn.length > 0,
+    JSON.stringify(help));
+  check("search tips: shares the full-size modal geometry",
+    help.tipsW === help.winW && help.tipsW > 400,
+    "tips " + help.tipsW + "px vs window " + help.winW + "px");
+  check("search tips: term cells align on one edge (all inherit RTL)",
+    help.termDirs.length === 7 && help.termDirs.every(function (d) { return d === 'rtl'; }),
+    JSON.stringify(help.termDirs));
+  check("search tips: name column carries all 7 feature names",
+    help.names.length === 7 && help.names.every(function (n) { return n.length > 0; }),
+    JSON.stringify(help.names));
+  check("search tips: wildcard row shows positions + the single-letter ?",
+    help.wildEx.split("\n").length === 4 && help.wildEx.indexOf("?") !== -1, help.wildEx);
+  check("search tips: fuzzy row shows the marker at either end",
+    help.fuzzyEx.split("\n").length === 2 && help.fuzzyEx.indexOf("~") !== -1, help.fuzzyEx);
+  check("search tips: phrase row pairs both quote styles",
+    help.phraseEx.indexOf('"') !== -1 && help.phraseEx.indexOf("'") !== -1, help.phraseEx);
+  check("search tips: All-books caveat note renders",
+    help.note.length > 0, help.note);
+  check("search tips: normalisation note renders",
+    help.normNote.length > 0, help.normNote);
+  check("search tips: Meaning header is a real label, not a raw key",
+    help.header3.length > 0 && help.header3.indexOf("searchHelpColMeaning") === -1, help.header3);
+  check("search tips: cells carry the dd-table padding rhythm",
+    help.thPad === "8px 12px 8px 12px", help.thPad);
+  check("search tips: header aligns right with its rows, not UA-centered",
+    help.thAlign === 'right' && help.tdAlign === 'right',
+    help.thAlign + " vs " + help.tdAlign);
+  await evalJS(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+  await waitFor(`!document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
+  check("search tips: Escape closes help, window stays",
+    await evalJS(`document.getElementById('searchWindowOverlay').classList.contains('open')`));
+
   // clear → history empty state (the two queries above were recorded).
   // The modal has a FIXED height — a content swap (results → history +
   // placeholder) must not resize the centered window; the rect before and

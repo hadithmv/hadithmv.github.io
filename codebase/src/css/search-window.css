@@ -867,3 +867,73 @@
     flex: 1;
   }
 }
+
+/* ---- Search tips modal (the grammar help) ---- */
+/* Geometry is the shared full-size rule in common.css (`.search-help` joins
+   the stackable-modal selector list) — a narrow tips sheet would read as a
+   glitch over the full-size search window. */
+/* 4-column table: feature | term | meaning | example. The example column
+   is labelled by its header (no per-row "Example:" prefix needed) and the
+   term column stays nowrap so Latin tokens like "col:1:word" keep their
+   column. Cell styling mirrors the pins-history dd-table — the site's
+   modal-table idiom: same 8px 12px padding, panel font size, hairline row
+   separators, hover wash. Alignment is explicit right (the dash-table's
+   header idiom): a bare th UA-defaults to centered — browsers center table
+   headers — while the rows align right, so the header must be set too. */
+.search-help-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.search-help-table th,
+.search-help-table td {
+  text-align: right;
+  vertical-align: top;
+  padding: 8px 12px;
+  font-size: var(--panel-font-size, 0.85rem);
+}
+.search-help-table thead th {
+  font-weight: 700;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+.search-help-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+}
+.search-help-table tbody tr:last-child {
+  border-bottom: none;
+}
+.search-help-table tbody tr:hover td {
+  background: var(--color-nav-btn-hover-bg);
+}
+.search-help-name {
+  white-space: nowrap;
+}
+.search-help-term {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.search-help-ex {
+  color: var(--color-text-muted);
+  /* one example per line: pre-line renders the "\n" separators in the i18n
+     values. A "·"-style inline separator would read as search syntax — the
+     sheet's own grammar gives a dot meaning (the .word whole-word row). */
+  white-space: pre-line;
+}
+/* Notes under the table (All-books caveat + normalisation). One boxed
+   footer block — per-note border-top lines read as phantom table rows
+   (the table's row separators are the same border language). */
+.search-help-notes {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  background: var(--color-nav-btn-hover-bg);
+}
+.search-help-note {
+  margin: 0;
+  font-size: var(--fs-text, 0.95rem);
+  color: var(--color-text-muted);
+}
+.search-help-note + .search-help-note {
+  margin-top: 6px;
+}

@@ -64,6 +64,7 @@ function renderLabels() {
   el("searchWindowTabAllBooks").textContent = t("searchWindowAllBooks");
   el("searchWindowAdvLabel").textContent = t("advancedSearchTitle");
   el("searchWindowAdvToggle").textContent = "⚙ " + t("advancedSearchTitle");
+  el("searchWindowHelpBtn").textContent = "❔ " + t("searchHelpTitle");
   el("searchWindowWholeWordLabel").textContent = t("searchWindowWholeWord");
   el("btnAddCondition").textContent = t("btnAddCondition");
   el("btnApplyAdvancedSearch").textContent = t("btnApplySearch");
@@ -84,6 +85,52 @@ function renderLabels() {
   // calls would zero the reservation, so this is guarded like the scope
   // picker's scopeModalOpen().
   if (_ui && _ui.overlay.classList.contains("open")) reserveWindowCountWidth();
+}
+
+// ── Search tips (the grammar help modal) ────────────────────
+// The search grammar ("…", -word, ~fuzzy, *, ?, .word, col:N:, /…/) is
+// invisible — the Tips button in the options row opens this modal, stacked
+// over the window via openModalOnTop (the scope picker's pattern). It is a
+// 3-column table (term | meaning | example) so the example column is
+// labelled by its header; the row-floating layout drifted on mixed
+// RTL/LTR tokens like "col:1:word". Cells have NO dir attribute: they
+// inherit the modal's RTL direction so the whole column aligns on one edge
+// — per-cell dir="auto" ragged the term column (Latin terms went LTR and
+// left-aligned, Thaana/Arabic went right). A Latin token like col:1:word
+// still reads left-to-right inside its cell via the bidi algorithm, the
+// way every other table on the site renders mixed text. Rebuilt on
+// languagechange while open so a mid-read switch doesn't leave stale text.
+var HELP_FEATURES = ["Phrase", "Exclude", "Fuzzy", "Wildcard", "WholeWord", "Column", "Regex"];
+
+function buildSearchHelp() {
+  window.createModal("searchHelpOverlay", "searchHelpTitle", "searchHelpBody", "search-help");
+  document.getElementById("searchHelpTitle").textContent = t("searchHelpTitle");
+  document.getElementById("searchHelpBody").innerHTML =
+    '<table class="search-help-table">' +
+    "<thead><tr>" +
+    "<th>" + t("searchHelpColFeature") + "</th>" +
+    "<th>" + t("searchHelpColTerm") + "</th>" +
+    "<th>" + t("searchHelpColMeaning") + "</th>" +
+    "<th>" + t("searchHelpColExample") + "</th>" +
+    "</tr></thead><tbody>" +
+    HELP_FEATURES.map(function (name) {
+      return "<tr>" +
+        '<td class="search-help-name">' + t("searchHelp" + name + "Name") + "</td>" +
+        '<td class="search-help-term">' + t("searchHelp" + name + "Term") + "</td>" +
+        '<td class="search-help-mean">' + t("searchHelp" + name + "Mean") + "</td>" +
+        '<td class="search-help-ex">' + t("searchHelp" + name + "Ex") + "</td>" +
+      "</tr>";
+    }).join("") +
+    "</tbody></table>" +
+    '<div class="search-help-notes">' +
+    '<p id="searchHelpNote" class="search-help-note">' + t("searchHelpAllBooksNote") + "</p>" +
+    '<p id="searchHelpNormNote" class="search-help-note">' + t("searchHelpNormNote") + "</p>" +
+    "</div>";
+}
+
+function openSearchHelp() {
+  buildSearchHelp();
+  window.openModalOnTop("searchHelpOverlay");
 }
 
 // The count lives between the input and the reset in the head row — when a
@@ -409,6 +456,7 @@ function buildShell() {
             '<span class="search-window-opt-label" id="searchWindowWholeWordLabel"></span>' +
           '</button>' +
           '<button id="searchWindowAdvToggle" class="search-window-opt" title="Advanced search (Ctrl+Shift+F)"></button>' +
+          '<button id="searchWindowHelpBtn" class="search-window-opt" title="Search tips"></button>' +
         '</div>' +
         '<div class="search-window-view" id="searchWindowView" style="display:none">' +
           '<button id="searchWindowViewCard" class="search-window-opt" title="Card view"></button>' +
@@ -479,6 +527,7 @@ function buildShell() {
     viewList: el("searchWindowViewList"),
     wholeWord: el("searchWindowWholeWord"),
     advToggle: el("searchWindowAdvToggle"),
+    helpBtn: el("searchWindowHelpBtn"),
     advBody: el("searchWindowAdvBody"),
     advRows: el("advancedSearchRows"),
     advAdd: el("btnAddCondition"),
@@ -512,6 +561,11 @@ function buildShell() {
     // re-render for whichever surface holds the shell; the modal's title is
     // set fresh on every open
     refreshScopeLabels();
+    // the search-tips modal re-renders in place when open (its language is
+    // the reader's, which just changed)
+    if (el("searchHelpOverlay") && el("searchHelpOverlay").classList.contains("open")) {
+      buildSearchHelp();
+    }
   });
 
   // The window input is the one shared surface — the debounce lives here
@@ -621,6 +675,10 @@ function buildShell() {
       _ui.advBody.scrollIntoView({ block: "nearest" });
     }
   });
+
+  // Search tips — the grammar help, stacked over the window (the scope
+  // modal's pattern: the window keeps its query and results underneath).
+  _ui.helpBtn.addEventListener("click", openSearchHelp);
 
   // Scope summary — opens the scope picker in the real libScope modal
   // (the same centered, two-pane modal the library page's button opens),

@@ -48,6 +48,137 @@ const STRINGS = {
     en: "Advanced Search",
     ar: "بحث متقدم",
   },
+
+  // ── Search tips (the grammar help modal in the search window) ──
+  // Each feature = term (the syntax), meaning, example — all three per
+  // language, because a tip only teaches in the reader's own script.
+  searchHelpTitle: {
+    dv: "ސާޗު ޓިޕްސް",
+    en: "Search tips",
+    ar: "نصائح البحث",
+  },
+  // Column headers of the tips table — the modal is a 4-column table
+  // (name | you type | what it means | example) so the example is labelled
+  // once by the header instead of per row.
+  searchHelpColFeature: { dv: "ސާޗު ފީޗާ", en: "Feature", ar: "خاصية" },
+  searchHelpColTerm: { dv: "ލިޔާނެ ގޮތް", en: "You type", ar: "تكتب" },
+  searchHelpColMeaning: { dv: "މާނަ", en: "Meaning", ar: "المعنى" },
+  searchHelpColExample: { dv: "މިސާލު", en: "Example", ar: "مثال" },
+  // Feature names — the first column, a scannable anchor before the syntax
+  // (the syntax column alone forced reading every meaning to find a row).
+  searchHelpPhraseName: {
+    dv: "ލަފްޒުތައް އެއްކޮށް",
+    en: "Exact Phrase",
+    ar: "عبارة حرفية",
+  },
+  searchHelpExcludeName: { dv: "ނުލާ", en: "Exclude", ar: "استبعاد" },
+  searchHelpFuzzyName: { dv: "ފަޒީ ސާޗު", en: "Fuzzy", ar: "تقريبي" },
+  searchHelpWildcardName: { dv: "ވައިލްޑް ކާޑު", en: "Wildcards", ar: "بدائل" },
+  searchHelpWholeWordName: {
+    dv: "ސީދާ ލަފްޒު",
+    en: "Whole word",
+    ar: "الكلمة كاملة",
+  },
+  searchHelpColumnName: { dv: "ކޮލަމް", en: "Column", ar: "عمود" },
+  searchHelpRegexName: { dv: "ރެޖެކްސް", en: "Regex Pattern", ar: "نمط" },
+  searchHelpPhraseTerm: { dv: '" "', en: '" "', ar: '" "' },
+  searchHelpPhraseMean: {
+    dv: "މި އަކުރުތައް، މި ތަރުތީބުގައި، އެއް ޖުމްލައެއްގައި ހޯދާ",
+    en: "these words together, in order",
+    ar: "هذه الكلمات معا، بالترتيب",
+  },
+  // two examples — the pair shows both quote styles work; one per line
+  // (a "·"-style separator would read as syntax — the sheet's own grammar
+  // gives a dot meaning in the whole-word row)
+  searchHelpPhraseEx: {
+    dv: "\"އެކަލާނގެ ރަޙްމަތް\"\n'އެކަލާނގެ ރަޙްމަތް'",
+    en: "\"the straight path\"\n'the straight path'",
+    ar: "\"الرحمن الرحيم\"\n'الرحمن الرحيم'",
+  },
+  searchHelpExcludeTerm: { dv: "-ލަފުޒު", en: "-word", ar: "-كلمة" },
+  searchHelpExcludeMean: {
+    dv: "މި ލަފުޒު ނުލާ ހޯދާ",
+    en: "exclude a word",
+    ar: "استبعاد كلمة",
+  },
+  searchHelpExcludeEx: {
+    dv: "ނަމާދު -ޖަނާޒާ",
+    en: "prayer -funeral",
+    ar: "صلاة -جنازة",
+  },
+  searchHelpFuzzyTerm: { dv: "~ލަފުޒު", en: "~word", ar: "~كلمة" },
+  searchHelpFuzzyMean: {
+    dv: "ލަފުޒާ ގާތްކުރާ ލަފުޒެއް ވިޔަސް ހޯދާ",
+    en: "find it even with a close spelling",
+    ar: "ابحث حتى لو كان الإملاء قريباً",
+  },
+  // two examples — the marker works at EITHER end (~term or term~)
+  searchHelpFuzzyEx: {
+    dv: "~ރަސޫލު\nރަސޫލު~",
+    en: "~rasul\nrasul~",
+    ar: "~رسول\nرسول~",
+  },
+  searchHelpWildcardTerm: { dv: "* ނުވަތަ ?", en: "* or ?", ar: "* أو ?" },
+  searchHelpWildcardMean: {
+    dv: "އެ ފާހަގަ ހުރި ތަނުގައި ކޮންމެ އަކުރެއް ހުއްޓަސް ހޯދާ",
+    en: "any letters in place of the mark",
+    ar: "أي حروف مكان العلامة",
+  },
+  // four examples — start, end, middle (the * mark is positional, not
+  // anchored) plus ? = any ONE letter at the same positions
+  searchHelpWildcardEx: {
+    dv: "އަޅު*\n*ރަސޫލު\nނަމާ*ދު\n?ލަފުޒު",
+    en: "pray*\n*word\nw*d\n?ord",
+    ar: "عب*\n*رسول\nص*اة\n?كلمة",
+  },
+  searchHelpWholeWordTerm: { dv: ".ލަފުޒު", en: ".word", ar: ".كلمة" },
+  searchHelpWholeWordMean: {
+    dv: "ސީދާ މި ލަފްޒު އިން ގޮތަށް ހޯދާ",
+    en: "whole-word",
+    ar: "الكلمة كاملة",
+  },
+  searchHelpWholeWordEx: { dv: ".ނަބިއްޔާ", en: ".prophet", ar: ".نبي" },
+  searchHelpColumnTerm: {
+    dv: "col:1:ލަފުޒު",
+    en: "col:1:word",
+    ar: "col:1:كلمة",
+  },
+  searchHelpColumnMean: {
+    dv: "ކޮލަމް އެއްގައި ހޯދާ (ނަންބަރު = ކޮލަމްގެ ތަރުތީބު — ނުވަތަ އެޑްވާންސްޑް ގައި ނަމުން ހޮވާ)",
+    en: "search one column (number = column order — or pick it by name in Advanced)",
+    ar: "ابحث في عمود واحد (الرقم = ترتيب العمود — أو اختره بالاسم في المتقدم)",
+  },
+  searchHelpColumnEx: {
+    dv: "col:1:މާނަ",
+    en: "col:1:meaning",
+    ar: "col:1:معنى",
+  },
+  searchHelpRegexTerm: { dv: "/…/", en: "/…/", ar: "/…/" },
+  searchHelpRegexMean: {
+    dv: "ނަމޫނާއަކުން ހޯދާ (ޚިބްރަތުގެ ބޭނުންތެރިންނަށް)",
+    en: "pattern search (expert)",
+    ar: "بحث بأنماط (للخبراء)",
+  },
+  searchHelpRegexEx: {
+    dv: "/(ނަމާދު|ޞަލާތް)/",
+    en: "/(prayer|salah)/",
+    ar: "/(صلاة|صلاة)/",
+  },
+  // The grammar belongs to the This-book tab — All books is a word index
+  // that matches whole normalized words exactly (no wildcards, no syntax).
+  searchHelpAllBooksNote: {
+    dv: "މި ގޮތަށް ހޯދެނީ މި ފޮތުގެ ސާޗުގައެވެ. ހުރިހާ ފޮތް ސާޗުގައި ފުރިހަމަ ލަފުޒުތައް ހޯދެއެވެ.",
+    en: "This syntax works in This book search. All books matches whole words exactly.",
+    ar: "هذه الصيغ تعمل في بحث هذا الكتاب. بحث جميع الكتب يطابق الكلمات كاملة فقط.",
+  },
+  // Every query is normalised before matching — the hamza/alef variants
+  // fold, ى→ي, diacritics and tatweel strip, Thaana dotted forms fold.
+  // So searches forgive vowel marks; typing them exactly is not required.
+  searchHelpNormNote: {
+    dv: "ހޯދުމުގެ ކުރިން އަކުރުތައް އެއްގޮތަކަށް ބަދަލުވެއެވެ — أ/إ/آ ވަނީ ا އަށް، ى ވަނީ ي އަށް، ފިލިތައް އަދި ތަތްވީލް ނެއްޓެއެވެ. ވީމާ ފިލިތައް ފުރިހަމަ ކުރަން ނުޖެހެއެވެ.",
+    en: "Search is normalised first: أ/إ/آ become ا, ى becomes ي, diacritics and tatweel are stripped, Thaana dotted forms fold — you don't have to type the marks exactly.",
+    ar: "يُطبَّع البحث أولاً: أ/إ/آ تصبح ا، ى تصبح ي، وتُحذف التشكيلات والتطويل. فلا تحتاج إلى كتابة التشكيل بدقة.",
+  },
   btnAddCondition: {
     dv: "+ ޝަރުތު އިތުރުކުރޭ",
     en: "+ Add condition",

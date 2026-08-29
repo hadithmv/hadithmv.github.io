@@ -1042,20 +1042,22 @@ body:has(.modal-overlay.open) {
    filter input and a table whose thead stays pinned while only the rows
    scroll: the table wrap is the flex:1 scrollport. */
 /* The full-size modals — search window, scope modal, the Authors/Periods
-   browse, the Pins/History list and the book & author info modal — share
-   ONE geometry rule. They can stack on top of each other (window → scope /
-   browse on the reader + library pages; browse and the pins list on the
-   dashboard; the info modal over any of them), so a size difference
-   between them would read as a glitch — and a single selector means a
-   size change is one edit, not several that can drift. The dashboard opens
-   the browse modals and the pins list but loads only common.css, so the
-   rule lives here, not in search-window.css. */
+   browse, the Pins/History list, the book & author info modal and the
+   search-tips sheet — share ONE geometry rule. They can stack on top of
+   each other (window → scope / browse / tips on the reader + library
+   pages; browse and the pins list on the dashboard; the info modal over
+   any of them), so a size difference between them would read as a glitch
+   — and a single selector means a size change is one edit, not several
+   that can drift. The dashboard opens the browse modals and the pins list
+   but loads only common.css, so the rule lives here, not in
+   search-window.css. */
 .search-window-modal,
 .lib-scope-modal,
 .lib-authors-modal,
 .lib-periods-modal,
 .pins-history-modal,
-.info-modal {
+.info-modal,
+.search-help {
   width: min(1200px, 95vw);
   height: 93vh;
   max-height: none;
@@ -1064,13 +1066,14 @@ body:has(.modal-overlay.open) {
   overflow: hidden;
 }
 @media (max-width: 600px) {
-  /* Same shared geometry as desktop — one rule for all six modals. */
+  /* Same shared geometry as desktop — one rule for all seven modals. */
   .search-window-modal,
   .lib-scope-modal,
   .lib-authors-modal,
   .lib-periods-modal,
   .pins-history-modal,
-  .info-modal {
+  .info-modal,
+  .search-help {
     width: 100%;
     height: 93vh;
   }
@@ -2776,6 +2779,9 @@ body {
   font-size: var(--panel-font-size, 0.85rem);
   font-weight: 700;
   color: var(--color-text);
+  /* th UA-defaults to centered — align with the rows (the per-column
+     .dd-col-* center/right rules below still win for those columns). */
+  text-align: right;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
