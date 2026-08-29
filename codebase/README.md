@@ -306,3 +306,5 @@ Zero runtime dependencies. No CDN — everything ships from the repo (the only d
 | [User Guide](docs/USER_GUIDE.md) | Readers — how to browse, search, read, and use settings |
 | [Architecture](docs/ARCHITECTURE.md) | Developers & LLMs — system design, data flow, conventions |
 | [API Reference](docs/API.md) | Developers — module exports, function signatures, search syntax |
+| [Toolbox](docs/TOOLBOX.md) | Maintainers — the double-click menu: build, refresh, checks, preview |
+| [Testing Guide](docs/TESTING.md) | Maintainers — verification batteries, known non-errors, traps |
