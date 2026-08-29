@@ -5,10 +5,10 @@ AQD-aqidatuRaziyain_HMV,"abuZurahArRazi,abuHatimArRazi",عَقِيدَةُ ال�
 AQD-nawaqidulIslam,muhammadBinAbdulWahhab,نَوَاقِضُ الْإِسْلَامِ,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nullifiers of Islam,,"headAR,headDV,foot",e8a6a9aba6c3
 AQD-qawaidulArbau,muhammadBinAbdulWahhab,الْقَوَاعِدُ الْأَرْبَعُ,ހަތަރު ގަވާއިދު,Four Principles,,"headAR,headDV,foot",4e6391a64c9c
 AQD-sharhuSunnahBarbahari_HMV,alHasanBinAliAlBarbahari,شَرْحُ السُّنَّةِ (لِلْبَرْبَهَارِيِّ),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah (by Barbahari),DRFT,foot,0d5e8d4ffff5
-AQD-sharhuSunnahLilMuzani_ASM,abuIbrahimAlMuzani,شَرْحُ السُّنَّةِ (لِلْمُزَنِيِّ),މުޒަނީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah (by Muzani),"NEW,RAW",,a2300c7e77e5
+AQD-sharhuSunnahLilMuzani_ASM,abuIbrahimAlMuzani,شَرْحُ السُّنَّةِ (لِلْمُزَنِيِّ),މުޒަނީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ,Explanation of the Sunnah (by Muzani),"NEW,RAW",footDV,9841021ae40f
 AQD-usooluSiththa,muhammadBinAbdulWahhab,الأُصُولُ السَّتَّةُ,ހަ އުސޫލު,Six Principles,DRFT,"headAR,headDV,foot",dc4bd7e0758c
 AQD-usooluSunnahAhmed,ahmedBinHanbal,أُصُولُ السُّنَّةِ (لِأَحْمَدَ),އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah (by Ahmed),DRFT,foot,ebab597e16e5
-AQD-usooluSunnahLilHumaidi_ASM,abuBakrAlHumaidi,أُصُوْلُ السُّنَّةِ,ޙުމައިދީ ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah (by Humaidi(,"NEW,RAW",,6baa64c7e832
+AQD-usooluSunnahLilHumaidi_ASM,abuBakrAlHumaidi,أُصُوْلُ السُّنَّةِ,ޙުމައިދީ ލިޔުނު ސުންނަތުގެ އުސޫލުތައް,Foundations of the Sunnah (by Humaidi(,"NEW,RAW",footDV,de3568a168c7
 AQD-usooluThalaatha,muhammadBinAbdulWahhab,الأُصُولُ الثَّلاثَةُ,ތިން އުސޫލު,Three Principles,,"headAR,headDV,foot",2717f72ab217
 DFK-akhbaruShuyukh,abuBakrAlMarruzi,أَخْبَارُ الشُّيُوخِ وَأَخْلَاقُهُمْ,ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު,Accounts and Character of the Scholars,"ATHR,AKLQ","foot,pNo",735cd0dc1032
 DFK-akhlaqHamalathilQuran,abuBakrAlAajurry,(أَخْلَاقُ حَمَلَةِ الْقُرْآنِ (لِلْآجُرِّيَّ,އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު,Character of the Bearers of the Quran (by Aajurry),"ATHR,QRUL,AKLQ","headAR,footAR,headDV,footDV",d1ba3f3bb644
@@ -48,14 +48,14 @@ IH-hisnulMuslim,saeedAlQahtani,حِصْنُ الْمُسْلِمِ مِنْ أَ
 IH-huquqDaathIlaihalFitrah,ibnulUthaymeen,حُقُوقٌ دَعَتْ إِلَيْهَا الْفِطْرَةُ وَقَرَّرَتْهَا الشَّريعَةُ,ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ އަދި ޝަރީއަތުން އެ ކަންކަން ކަނޑައަޅާފައިވާ ހައްގުތައް,Rights Called for by Human Nature and Established by Sharia,NEW,foot,a7d7a6a242f1
 IH-islamDeenRusulullah,,الإِسْلَامُ دِينُ رُسُلِ اللَّهِ,އިސްލާމް ދީނަކީ ﷲ ގެ ރަސޫލުންގެ ދީނެވެ.,Islam - Religion of Allah's Messengers,NEW,,fc12b2efbb0d
 IH-islamDeenulFitrah,,الإِسْلَامُ دِينُ الْفِطْرَةِ وَالْعَقْلِ وَالسَّعَادَةِ,އިސްލާމް ދީން - ފިތުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީން,"Islam - Religion of Human Nature,Reason,and Happiness",NEW,,49daca16a4ea
-IH-kaifiyyathuSalatiNabiy_IbnBaz,ibnBaz,(كَيفِيَّةُ صَلَاةِ النَّبِيِّ ﷺ (ابْنُ بَازٍ,(ނަބީ ﷺ ނަމާދުގެ ނަމާދުކުރެއްވި ގޮތް (އިބްނު ބާޒް,Description of the Prophet's Prayer (bin Baz),"NEW,RAW,FQH",,87bc47347a8e
+IH-kaifiyyathuSalatiNabiy_IbnBaz,ibnBaz,(كَيفِيَّةُ صَلَاةِ النَّبِيِّ ﷺ (ابْنُ بَازٍ,(ނަބީ ﷺ ނަމާދުގެ ނަމާދުކުރެއްވި ގޮތް (އިބްނު ބާޒް,Description of the Prophet's Prayer (bin Baz),"NEW,RAW,FQH",foot,87bc47347a8e
 IH-manKhalaqaniWaLimaza,,مَنْ خَلَقَنِي؟ وَلِمَاذَا؟ كُلُّ شَيْءٍ يَدُلُّ عَلَى وُجُودِ الْخَالِقِ,އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން؟ ކޮން މަގުސަދަކަށް؟ ކޮންމެ އެއްޗެއް ވެސް ދަލީލުކުރަނީ ހެއްދެވި ފަރާތް ވާކަމަށެވެ.,Who Created Me? And Why? Everything Indicates the Existence of the Creator,NEW,,843032358f7d
 IH-mukhtasarFiSifathilUmrah,,المُخْتَصَرُ فِي صِفَةِ الْعُمْرَةِ وَأَحْكَامِهَا,ޢުމްރާގެ ޞިފައާއި އޭގެ ޙުކުމްތަކުގެ ކުރު ޚުލާޞާއެއް,Concise Description of Umrah and Its Rulings,"NEW,RAW,FQH",,a63e6dbf3dde
 IH-mukhtasarTauhidilAsmaWaSifat,,مُخْتَصَرٌ فِي تَوْحِيدِ الْأَسْمَاءِ وَالصِّفَاتِ,އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގައި އެއްކައުވަންތަކުރުމުގެ ޚުލާސާ,Summary of the Oneness of Divine Names and Attributes,"NEW,DRFT,AQD",,9dea890896d2
 IH-nubzaMujazahAnilIslam,,رِسَالَةٌ مُوجَزَةٌ عَنِ الْإِسْلَامِ,އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް,A Brief Treatise About Islam,"NEW,REV",,0c10a2244855
-IH-rasoolulIslamMuhammad,,رَسُولُ الْإِسْلَامِ مُحَمَّدٌ ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,,,995991f3678a
+IH-rasoolulIslamMuhammad,,رَسُولُ الْإِسْلَامِ مُحَمَّدٌ ﷺ,އިސްލާމް ދީނުގެ ރަސޫލާ މުޙައްމަދު ﷺ,The Messenger of Islam Muhammad ﷺ,NEW,,995991f3678a
 IH-risalaFiDimaiTabiiyyah,ibnulUthaymeen,رِسَالَةٌ فِي الدِّمَاءِ الطَّبِيعِيَّةِ لِلنِّسَاءِ,އަންހެނުންގެ ޠަބީޢީ ލެއާ ބެހޭ ރިސާލާއެއް,A Treatise on Women’s Natural Blood,"NEW,RAW,FQH",,32b8a81ed527
-IH-risalathainMujizathainFiZakathiWaSiyam,ibnBaz,رِسَالَتَانِ مُوجَزَتَانِ فِي الزَّكَاةِ وَالصِّيَامِ,ޒަކާތާއި ރޯދައާ ބެހޭ ޚުލާޞާ ދެ ރިސާލާ,Two Concise Treatises on Zakath and Fasting,"NEW,RAW,FQH",,32790907ec52
+IH-risalathaanMujizathainFiZakathiWaSiyam,ibnBaz,رِسَالَتَانِ مُوجَزَتَانِ فِي الزَّكَاةِ وَالصِّيَامِ,ޒަކާތާއި ރޯދައާ ބެހޭ ޚުލާޞާ ދެ ރިސާލާ,Two Concise Treatises on Zakath and Fasting,"NEW,RAW,FQH",,32790907ec52
 IH-usooluThalaatha,muhammadBinAbdulWahhab,الأُصُولُ السَّتَّةُ (دار الإسلام),ހަ އުސޫލު (އިސްލާމް ހައުސް),Six Principles (Islam House),"NEW,RAW,AQD",,2105b23d5add
 KNSH-hadithmv-DSC,,كُنَاشَةُ حَدِيثْ إِيمْ فِي,ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް,Kunnaasha Hadithmv,,ENTIRE-BOOK,b19337752be6
 KNSH-muhammedMaldheefi-DSC,,كُنَاشَةُ مُحَمَّدٍ الْمَالْدِيفِيِّ,މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް,Notebook of Muhammed Maldheefi,,ENTIRE-BOOK,b075d0e59ba6
