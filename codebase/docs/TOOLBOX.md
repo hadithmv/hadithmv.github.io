@@ -40,7 +40,7 @@ finish registration / add author (13–15), sound / restart / quit
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
 | 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
-| 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1"); the menu row's hint shows how many files git would put in your next commit — "(nothing to commit)" when clean. |
+| 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1") and git's own size line ("N files changed, M insertions(+), K deletions(-)"; tracked changes only); the menu row's hint shows how many files git would put in your next commit — "(nothing to commit)" when clean. |
 | 7 | **Open the folder** — the codebase folder in Explorer. |
 | 8 | **Build and preview** — option 1 followed by option 5. |
 | 9 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
@@ -73,7 +73,8 @@ glance — except the two hints that carry live state: the sound row's
 (dim `(now on)`, amber `(now off)` when muted) and the What's-changed
 row's (amber when files await, dim `(nothing to commit)` when clean).
 Below the menu, a footer line shows state at a glance: when the checks
-last ran and their verdict, and whether a preview server is running.
+last ran and their verdict, when the site was last built (the size
+report's timestamp), and whether a preview server is running.
 A failed verdict names the failing check(s) — e.g. `checks: failed
 (sw-check) today 10:28`. The verdict word is coloured by meaning: fresh
 green, stale amber (a passed run more than a week old), failed red.

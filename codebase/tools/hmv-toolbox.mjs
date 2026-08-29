@@ -306,13 +306,15 @@ function showBanner() {
 }
 
 // The one-line state footer under the menu: when the checks last ran (and
-// the verdict) and whether a preview server is up. The sound state lives in
-// its own menu row (16), not here — no screen shows it twice.
+// the verdict), when the site was last built, and whether a preview server
+// is up. The sound state lives in its own menu row (16), not here — no
+// screen shows it twice.
 // Returns { plain, colored } — the rule above it is sized to the plain
 // text, so the status line never outruns its own rule.
 function footerLine() {
   const c = lastChecks();
   const ports = previewStatus();
+  const bld = lastBuild();
   let plain, colored;
   if (!c) { plain = 'checks: never run'; colored = DIM + plain + OFF; }
   else if (c.text.indexOf('FAILED') !== -1) {
@@ -325,11 +327,13 @@ function footerLine() {
     plain = 'checks: passed ' + c.when;
     colored = DIM + 'checks: ' + OFF + (c.days > STALE_DAYS ? WARN : ITEM) + 'passed' + OFF + DIM + ' ' + c.when + OFF;
   }
+  const bldSeg = bld ? '  |  built ' + bld : ''; // dimmed like the preview-off state - a fact, not a verdict
+  const bldCol = bld ? DIM + '  |  built ' + bld + OFF : '';
   const prv = ports.length ? 'preview: running on ' + ports[0] : 'preview: off';
   const prvCol = ports.length ? ITEM + prv + OFF : DIM + prv + OFF;
   return {
-    plain: ' ' + plain + '  |  ' + prv,
-    colored: ' ' + colored + DIM + '  |  ' + OFF + prvCol,
+    plain: ' ' + plain + bldSeg + '  |  ' + prv,
+    colored: ' ' + colored + bldCol + DIM + '  |  ' + OFF + prvCol,
   };
 }
 
@@ -360,16 +364,34 @@ function lastChecks() {
     const m = t.match(/\*\*Verdict: ([^*]+)\*\*/);
     if (!m) return null;
     const d = fs.statSync(path.join(ROOT, 'checks-report.md')).mtime;
-    const hh = ('0' + d.getHours()).slice(-2);
-    const mm = ('0' + d.getMinutes()).slice(-2);
-    const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const when = relWhen(d);
     const startOf = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
     const days = Math.round((startOf(new Date()) - startOf(d)) / 86400000);
-    const when = days <= 0 ? 'today ' + hh + ':' + mm
-      : days === 1 ? 'yesterday ' + hh + ':' + mm
-      : d.getDate() + ' ' + MON[d.getMonth()] + ' ' + hh + ':' + mm;
     return { text: m[1].trim(), when, days };
   } catch (e) { return null; }
+}
+
+// Shared "when was it" wording — today / yesterday / D Mon, plus HH:MM. One
+// path, so the checks verdict and the last-build time never drift apart.
+function relWhen(d) {
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const hh = ('0' + d.getHours()).slice(-2);
+  const mm = ('0' + d.getMinutes()).slice(-2);
+  const startOf = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime();
+  const days = Math.round((startOf(new Date()) - startOf(d)) / 86400000);
+  return days <= 0 ? 'today ' + hh + ':' + mm
+    : days === 1 ? 'yesterday ' + hh + ':' + mm
+    : d.getDate() + ' ' + MON[d.getMonth()] + ' ' + hh + ':' + mm;
+}
+
+// When the site was last built — the mtime of the size report that every
+// build (option 1 / dist-build.bat) rewrites. Null when it has never been
+// built here; the footer then omits the segment instead of guessing. (The
+// report is committed, so a fresh clone shows the checkout time until the
+// first build — same limitation as any committed ledger.)
+function lastBuild() {
+  try { return relWhen(fs.statSync(path.join(ROOT, 'dist-build-report.md')).mtime); }
+  catch (e) { return null; }
 }
 
 // A passed verdict older than this many days is stale and turns yellow
@@ -616,6 +638,13 @@ async function changed() {
     const cx = x === '?' ? ERR : STAGED[x] || '';
     const cy = y === '?' ? ERR : UNSTAGED[y] || '';
     console.log((cx ? cx + x + OFF : x) + (cy ? cy + y + OFF : y) + ln.slice(2));
+  }
+  // git's own bottom line - "N files changed, X insertions(+), Y deletions(-)".
+  // Tracked changes only; untracked files stay in the porcelain list above.
+  // Skipped when HEAD does not exist yet or only untracked files await.
+  const stat = git(['diff', '--stat', 'HEAD']);
+  if (stat.status === 0 && stat.stdout.trim()) {
+    console.log(DIM + stat.stdout.trimEnd().split('\n').pop().trim() + OFF);
   }
   const src = git(['status', '--porcelain', '--', 'src', 'static']).stdout.trim();
   const dist = git(['status', '--porcelain', '--', 'dist']).stdout.trim();
