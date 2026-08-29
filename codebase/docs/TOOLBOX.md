@@ -32,7 +32,7 @@ verification battery. It is developer tooling, not part of the site itself.
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
 | 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
-| 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1"). |
+| 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1"); the menu row's hint shows how many files git would put in your next commit — "(nothing to commit)" when clean. |
 | 7 | **Open the folder** — the codebase folder in Explorer. |
 | 8 | **Build and preview** — option 1 followed by option 5. |
 | 9 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
@@ -43,7 +43,8 @@ verification battery. It is developer tooling, not part of the site itself.
 | 14 | **Finish a book registration** — fills or edits a book's row in `03-registry-bookMeta.csv`: the three titles, the author code (checked against 02), the tags. The version is recomputed from the content CSV — never typed. Refreshes the manifest. |
 | 15 | **Add an author** — appends a row to `02-registry-bookAuthors.csv` (code, the three names, AH years), checks for duplicates, refreshes the manifest. |
 | 16 | **Sound on/off** — mutes the success beeps and the failure buzz; the row shows the current state (the flag lives in `%USERPROFILE%\.hadithmv-tools`, outside the repo). |
-| 17 | **Quit** |
+| 17 | **Restart** — starts the menu over in place: re-checks the tools (a dimmed row lights up if python or git appeared), re-reads the sound flag, redraws the banner. |
+| 18 | **Quit** |
 
 The sibling bats `dist-build.bat` and `rebuild-index.bat` remain as quick
 paths around options 1 and 2.
@@ -59,13 +60,15 @@ is computed in the menu itself. It warns when there is no built copy yet
 state the About screen reports). Options whose tools are missing on this
 machine (python for option 5, git for option 6) appear dimmed —
 picking one still runs and explains. The parenthetical hints in the rows
-are dimmed too, so the action names scan at a glance — except the sound
-row's hint, which carries the live state: dim `(now on)`, amber `(now
-off)` when muted. Below the menu, a footer line shows state at a glance:
-when the checks last ran and their verdict, and whether a preview server
-is running. A failed verdict names the failing check(s) — e.g. `checks:
-failed (sw-check) today 10:28`. The verdict word is coloured by meaning:
-fresh green, stale amber (a passed run more than a week old), failed red.
+are dimmed too, and all start in the same column, so the list scans at a
+glance — except the two hints that carry live state: the sound row's
+(dim `(now on)`, amber `(now off)` when muted) and the What's-changed
+row's (amber when files await, dim `(nothing to commit)` when clean).
+Below the menu, a footer line shows state at a glance: when the checks
+last ran and their verdict, and whether a preview server is running.
+A failed verdict names the failing check(s) — e.g. `checks: failed
+(sw-check) today 10:28`. The verdict word is coloured by meaning: fresh
+green, stale amber (a passed run more than a week old), failed red.
 Under it, a dim tip line notes that Ctrl+C quits from anywhere.
 
 ## Sounds
@@ -75,10 +78,11 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
 - Options 2–7 and 10–13 are silent on success; 14 and 15 beep once the row
-  is written and the freshness file refreshed; 17 (Quit) just exits.
+  is written and the freshness file refreshed; 17 (Restart) is silent; 18
+  (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with
-  option 17 (Sound on/off); the row's hint shows the state (`(now off)` in
+  option 16 (Sound on/off); the row's hint shows the state (`(now off)` in
   amber when muted) and the About screen shows it too — the menu footer
   deliberately does not repeat it.
 

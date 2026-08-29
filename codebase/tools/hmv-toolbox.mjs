@@ -1,6 +1,6 @@
 // tools/hmv-toolbox.mjs - the Hadithmv Toolbox menu (node edition).
 //
-// A 17-item console menu for the common site tasks. Double-click the tiny
+// An 18-item console menu for the common site tasks. Double-click the tiny
 // launcher ("Hadithmv Toolbox.bat" on Windows) or run:
 //   node tools/hmv-toolbox.mjs
 // Run with a number argument to jump straight to an option, e.g.
@@ -81,9 +81,10 @@ const BOX = '+--------------------------------------------------+'; // 50 dashes
 // ── the sound flag, kept in the user profile (outside the repo, so it
 //    never shows in git status) ────────────────────────────────────────
 const SOUND_FILE = path.join(os.homedir(), '.hadithmv-tools');
-let muted = (() => {
+function readSoundFlag() {
   try { return fs.readFileSync(SOUND_FILE, 'utf8').trim() === '1'; } catch (e) { return false; }
-})();
+}
+let muted = readSoundFlag();
 const setMuted = (m) => { muted = m; fs.writeFileSync(SOUND_FILE, m ? '1' : '0'); };
 
 // ── PowerShell detection (used for the registry step + the failure buzz);
@@ -245,8 +246,10 @@ const BR = branch();
 // Probed once at load (cheap --version calls): the menu dims the options
 // whose tools are missing (5 needs python, 6 and 7 need git). Picking a
 // dimmed option still runs and explains. The About screen probes afresh.
-const HAS_GIT = hasTool('git');
-const HAS_PY = hasTool('python');
+// re-probed by option 17 (Restart), so a tool installed mid-session lights
+// its row back up without relaunching the menu
+let HAS_GIT = hasTool('git');
+let HAS_PY = hasTool('python');
 
 function showBanner() {
   clear();
@@ -266,28 +269,33 @@ function showBanner() {
   if (VER && VERD && VER !== VERD) console.log(WARN + 'Warning: the built copy (dist) is behind the source (' + VERD + ' vs ' + VER + ') - run option 1 before you commit.' + OFF);
   console.log();
   // the action name stays white, the parenthetical hint is dimmed, so the
-  // list scans at a glance; rows whose tool is missing are fully dimmed
-  console.log(' ' + ITEM + '1.' + OFF + ' Build the site' + DIM + '        (full build - run before you commit)' + OFF);
-  console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index' + DIM + '  (so new books show up in search)' + OFF);
-  console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness' + DIM + '     (quick update for data-only changes)' + OFF);
-  console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data' + DIM + '     (after adding or changing a book)' + OFF);
+  // list scans at a glance; rows whose tool is missing are fully dimmed.
+  // Every hint starts in the same column — the longest action name
+  // ('Finish a book registration') plus one space — so the hints scan as
+  // a table of their own.
+  console.log(' ' + ITEM + '1.' + OFF + ' Build the site' + DIM + '              (full build - run before you commit)' + OFF);
+  console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index' + DIM + '        (so new books show up in search)' + OFF);
+  console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness' + DIM + '           (quick update for data-only changes)' + OFF);
+  console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data' + DIM + '           (after adding or changing a book)' + OFF);
   const dim5 = HAS_PY ? '' : DIM, dim5Off = HAS_PY ? '' : OFF;
   const dimG = HAS_GIT ? '' : DIM, dimGOff = HAS_GIT ? '' : OFF;
-  console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site' + DIM + '      (opens in your browser, like the live one)' + OFF + dim5Off);
-  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed" + DIM + '        (what git would put in your next commit)' + OFF + dimGOff);
-  console.log(' ' + ITEM + '7.' + OFF + ' Open the folder' + DIM + '       (the codebase folder in Explorer)' + OFF);
-  console.log(' ' + ITEM + '8.' + OFF + ' Build and preview' + DIM + '     (build, then open the preview)' + OFF);
-  console.log(' ' + ITEM + '9.' + OFF + ' Run the checks' + DIM + '       (the pre-commit verification battery)' + OFF);
-  console.log(' ' + ITEM + '10.' + OFF + ' About / health check' + DIM + ' (versions and tools on this machine)' + OFF);
-  console.log(' ' + ITEM + '11.' + OFF + ' Check the live site' + DIM + '  (is the published site up to date?)' + OFF);
-  console.log(' ' + ITEM + '12.' + OFF + ' Open the notes folder' + DIM + ' (authors + works markdown)' + OFF);
-  console.log(' ' + ITEM + '13.' + OFF + ' New book' + DIM + '           (copy a template + checklist)' + OFF);
+  console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site' + DIM + '            (opens in your browser, like the live one)' + OFF + dim5Off);
+  const ch6 = changedHint(); // the hint's own colour signals the state: amber when files await, dim when clean
+  console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed" + DIM + '              ' + (ch6.color || DIM) + ch6.text + OFF + dimGOff);
+  console.log(' ' + ITEM + '7.' + OFF + ' Open the folder' + DIM + '             (the codebase folder in Explorer)' + OFF);
+  console.log(' ' + ITEM + '8.' + OFF + ' Build and preview' + DIM + '           (build, then open the preview)' + OFF);
+  console.log(' ' + ITEM + '9.' + OFF + ' Run the checks' + DIM + '              (the pre-commit verification battery)' + OFF);
+  console.log(' ' + ITEM + '10.' + OFF + ' About / health check' + DIM + '       (versions and tools on this machine)' + OFF);
+  console.log(' ' + ITEM + '11.' + OFF + ' Check the live site' + DIM + '        (is the published site up to date?)' + OFF);
+  console.log(' ' + ITEM + '12.' + OFF + ' Open the notes folder' + DIM + '      (authors + works markdown)' + OFF);
+  console.log(' ' + ITEM + '13.' + OFF + ' New book' + DIM + '                   (copy a template + checklist)' + OFF);
   console.log(' ' + ITEM + '14.' + OFF + ' Finish a book registration' + DIM + ' (fill the registry row)' + OFF);
-  console.log(' ' + ITEM + '15.' + OFF + ' Add an author' + DIM + '      (append to the authors registry)' + OFF);
+  console.log(' ' + ITEM + '15.' + OFF + ' Add an author' + DIM + '              (append to the authors registry)' + OFF);
   // the hint carries the state: dim when on, amber when muted (the warn colour
   // the footer used to show for it)
-  console.log(' ' + ITEM + '16.' + OFF + ' Sound on/off' + (muted ? WARN : DIM) + '       (now ' + (muted ? 'off' : 'on') + ')' + OFF);
-  console.log(' ' + ITEM + '17.' + OFF + ' Quit');
+  console.log(' ' + ITEM + '16.' + OFF + ' Sound on/off' + (muted ? WARN : DIM) + '               (now ' + (muted ? 'off' : 'on') + ')' + OFF);
+  console.log(' ' + ITEM + '17.' + OFF + ' Restart' + DIM + '                    (start over - re-checks the tools)' + OFF);
+  console.log(' ' + ITEM + '18.' + OFF + ' Quit');
   const foot = footerLine();
   console.log(DIM + new Array(Math.max(50, foot.plain.length) + 1).join('-') + OFF); // a dim rule closes the menu; the footer below is status, not an option
   console.log(foot.colored);
@@ -297,7 +305,7 @@ function showBanner() {
 
 // The one-line state footer under the menu: when the checks last ran (and
 // the verdict) and whether a preview server is up. The sound state lives in
-// its own menu row (17), not here — no screen shows it twice.
+// its own menu row (16), not here — no screen shows it twice.
 // Returns { plain, colored } — the rule above it is sized to the plain
 // text, so the status line never outruns its own rule.
 function footerLine() {
@@ -321,6 +329,25 @@ function footerLine() {
     plain: ' ' + plain + '  |  ' + prv,
     colored: ' ' + colored + DIM + '  |  ' + OFF + prvCol,
   };
+}
+
+// The row-6 hint: how many files git would put in your next commit, so the
+// menu answers "is there anything to commit?" at a glance. Returns
+// { text, color } — the text is plain, the color signals attention:
+// WARN (amber) when files await, '' (the hint's usual dim) when the tree
+// is clean; the plain explanatory hint when git is missing or errors (the
+// row is dimmed then anyway). One ~20ms git call per menu draw - the
+// count is always fresh, so no caching.
+function changedHint() {
+  if (!HAS_GIT) return { text: '(what git would put in your next commit)', color: '' };
+  try {
+    const st = git(['status', '--porcelain']);
+    if (st.status !== 0) return { text: '(what git would put in your next commit)', color: '' };
+    const n = st.stdout.trim() ? st.stdout.trim().split('\n').length : 0;
+    return n
+      ? { text: '(' + n + (n === 1 ? ' file' : ' files') + ' - what git would put in your next commit)', color: WARN }
+      : { text: '(nothing to commit)', color: '' };
+  } catch (e) { return { text: '(what git would put in your next commit)', color: '' }; }
 }
 
 // The verdict + run time out of checks-report.md (a local file - cheap).
@@ -1103,6 +1130,16 @@ async function noGit() {
 }
 
 // ── dispatch + quit ───────────────────────────────────────────────────
+// Option 17: start the menu over in place — re-probe the tools (a dimmed
+// row lights up if python or git appeared mid-session), re-read the sound
+// flag, and redraw. The menu already redraws after every option; this is
+// the part that would otherwise need a fresh double-click of the bat.
+function restart() {
+  HAS_GIT = hasTool('git');
+  HAS_PY = hasTool('python');
+  muted = readSoundFlag();
+  return menu();
+}
 function quit() {
   console.log(TITLE + 'Bye.' + OFF);
   rl.close();
@@ -1128,7 +1165,8 @@ async function dispatch(c) {
     case '14': return finishBookRegistration();
     case '15': return addAuthor();
     case '16': return soundToggle();
-    case '17': return quit();
+    case '17': return restart();
+    case '18': return quit();
     default: return invalid();
   }
 }
