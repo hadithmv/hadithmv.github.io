@@ -13,11 +13,13 @@
 //  3  manifest()                 rewrite dist/manifest.json (freshness)
 //  4  refresh()                  3 steps: registry PS1 + index + manifest
 //  5  preview()                  python http.server on 8899; when one is
-//                                already running: open it or stop it (S)
+//                                already running: open it or stop it (S);
+//                                prints the LAN address for phone testing
 //  6  changed()                  git status + hints
 //  7  openFolder()               Explorer on the codebase folder
 //  8  build(true)                build + preview
-//  9  checks()                   the 7 batteries, or one; checks-report.md
+//  9  checks()                   the 7 batteries, one (1-7), or O to open
+//                                the last report; writes checks-report.md
 // 10  about()                    versions, tools, preview + last-checks
 //                                state
 // 11  livecheck()                compare the published version with local
@@ -546,6 +548,26 @@ async function refresh() {
   return menu();
 }
 
+// The machine's LAN IPv4 - the first non-internal address - so the preview
+// screens can also offer phone/other-device testing. Null when offline.
+function lanIPv4() {
+  try {
+    for (const addrs of Object.values(os.networkInterfaces())) {
+      for (const a of addrs || []) {
+        if ((a.family === 'IPv4' || a.family === 4) && !a.internal) return a.address;
+      }
+    }
+  } catch (e) { /* best effort */ }
+  return null;
+}
+
+// One dim line for the preview screens: reachable from other devices on the
+// same network (phone testing). '' when there is no LAN address.
+function lanNote(port) {
+  const ip = lanIPv4();
+  return ip ? 'On this network, a phone can open http://' + ip + ':' + port + '/dist/books/' : '';
+}
+
 // ── option 5: preview ─────────────────────────────────────────────────
 async function preview() {
   process.title = 'Hadithmv Toolbox - starting preview';
@@ -580,6 +602,8 @@ async function preview() {
     } else {
       openUrl('http://127.0.0.1:' + busy[0] + '/dist/books/');
       console.log('Opened the running preview in your browser - press F5 there to see the newest build.');
+      const ln = lanNote(busy[0]);
+      if (ln) console.log(DIM + ln + OFF);
     }
     await pause();
     return menu();
@@ -607,8 +631,10 @@ async function preview() {
   stopSpin();
   if (!up) return fail('preview');
   openUrl('http://127.0.0.1:' + PORT + '/dist/books/');
+  const ln = lanNote(PORT);
   console.log();
   console.log(ITEM + 'Preview started. Close the server window when done, then press Enter.' + OFF);
+  if (ln) console.log(DIM + ln + OFF);
   await pause();
   return menu();
 }
@@ -980,15 +1006,32 @@ async function checks() {
   console.log();
   console.log('Running the pre-commit checks - each opens an invisible browser');
   console.log('and clicks through a part of the site. This takes a few minutes.');
-  console.log('All seven, or just one - type 1-7 for a single check, Enter runs all.');
+  console.log('All seven, just one (1-7), or O to open the last report - Enter runs all.');
   const RPT = path.join(ROOT, 'checks-report.md');
   const t = Date.now();
   const results = []; // { ok: true|false|null(SKIP), out }
   const failed = [];
-  const pick = await ask(WARN + 'All 7, or one? (1-7 = just that check) ' + OFF);
+  const pick = await ask(WARN + 'All 7 (Enter), one (1-7), or O to open the last report? ' + OFF);
   const single = /^[1-7]$/.test(pick);
   const idx = single ? parseInt(pick, 10) - 1 : -1;
   if (single) console.log('Running ' + CHECK_NAMES[idx] + ' only - the report marks the rest SKIP.');
+  if (/^o$/i.test(pick)) {
+    // "O" opens the last report without running anything - the footer's
+    // verdict is one keystroke from the details (the report is gitignored,
+    // so Explorer alone would not find it easily).
+    if (fs.existsSync(RPT)) {
+      openNotepad(RPT);
+      console.log();
+      console.log(ITEM + 'Opened the last report - press Enter to go back to the menu.' + OFF);
+    } else {
+      console.log();
+      console.log(WARN + 'No report yet - run the checks once to create one.' + OFF);
+      console.log();
+      console.log(ITEM + 'Press Enter to go back to the menu.' + OFF);
+    }
+    await pause();
+    return menu();
+  }
   console.log();
   try { fs.unlinkSync(RPT); } catch (e) { /* first run */ }
   fs.writeFileSync(RPT, [
@@ -1138,6 +1181,10 @@ async function soundToggle() {
   setMuted(!muted);
   console.log();
   console.log('Sound is ' + (muted ? ITEM + 'off' + OFF + ' - the beeps and buzzes are muted.' : ITEM + 'on' + OFF + ' - the beeps and buzzes are back.'));
+  if (!muted) { // just unmuted - play the success beep so you hear what you turned back on
+    beep();
+    console.log(DIM + 'That was the success beep - it plays after a clean build or checks.' + OFF);
+  }
   console.log();
   console.log(ITEM + 'Done - press Enter to go back to the menu.' + OFF);
   await pause();

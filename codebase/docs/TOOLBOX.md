@@ -39,11 +39,11 @@ finish registration / add author (13–15), sound / restart / quit
 | 2 | **Rebuild search index** — after adding or changing a book, so it shows up in search. |
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
-| 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. |
+| 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. On a network it also prints the LAN address, so a phone on the same wifi can open the preview. |
 | 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1") and git's own size line ("N files changed, M insertions(+), K deletions(-)"; tracked changes only); the menu row's hint shows how many files git would put in your next commit — "(nothing to commit)" when clean. |
 | 7 | **Open the folder** — the codebase folder in Explorer. |
 | 8 | **Build and preview** — option 1 followed by option 5. |
-| 9 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass. |
+| 9 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass; **O** opens the last report without running anything. |
 | 10 | **About / health** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
 | 11 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 12 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
@@ -86,9 +86,10 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
   option 10 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
   whenever any option fails, including option 10 with failing checks.
-- Options 2–7 and 10–13 are silent on success; 14 and 15 beep once the row
-  is written and the freshness file refreshed; 17 (Restart) is silent; 18
-  (Quit) just exits.
+- Options 2–7 and 10–13 are silent on success; 14 and 15 beep once the
+  row is written and the freshness file refreshed; 16 plays the success
+  beep on unmute, so you hear what you turned back on; 17 (Restart) is
+  silent; 18 (Quit) just exits.
 - The mute flag lives in `%USERPROFILE%\.hadithmv-tools` (content `1` =
   muted) — outside the repo, so it never shows in git status. Toggled with
   option 16 (Sound on/off); the row's hint shows the state (`(now off)` in
@@ -98,9 +99,10 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
 ## Checks (option 10)
 
 Seven checks run in order; each opens an invisible browser (or the font
-corpus) and exercises a part of the site. Press Enter for all seven, or type
-1–7 to run just that one — the report marks the rest SKIP and the verdict
-names the check. The report lands in `checks-report.md` (gitignored — never
+corpus) and exercises a part of the site. Press Enter for all seven,
+1–7 for just that one, or O to open the last report without running
+anything — the report marks the rest SKIP and the verdict names the
+check. The report lands in `checks-report.md` (gitignored — never
 dirties "what's changed", never ships): a summary table, per-check details,
 run time, and a bold verdict. The report opens itself in Notepad when any
 check fails; after an all-pass run the menu asks whether to open it. As
