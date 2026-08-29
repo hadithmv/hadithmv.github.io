@@ -875,11 +875,13 @@
 /* 4-column table: feature | term | meaning | example. The example column
    is labelled by its header (no per-row "Example:" prefix needed) and the
    term column stays nowrap so Latin tokens like "col:1:word" keep their
-   column. Cell styling mirrors the pins-history dd-table — the site's
-   modal-table idiom: same 8px 12px padding, panel font size, hairline row
-   separators, hover wash. Alignment is explicit right (the dash-table's
-   header idiom): a bare th UA-defaults to centered — browsers center table
-   headers — while the rows align right, so the header must be set too. */
+   column. Cells mirror the pins-history dd-table — the site's modal-table
+   idiom: 8px 12px padding, panel font size, hairline row separators, hover
+   wash. The thead is the shared tabular band (nav-btn-bg bar, 2px
+   divider-ornament, bold full-strength text — the facet thead's recipe,
+   "every tabular surface shares it, per the unified-modal rule").
+   Alignment is explicit right: a bare th UA-defaults to centered —
+   browsers center table headers — while the rows align right. */
 .search-help-table {
   width: 100%;
   border-collapse: collapse;
@@ -892,9 +894,10 @@
   font-size: var(--panel-font-size, 0.85rem);
 }
 .search-help-table thead th {
+  background: var(--color-nav-btn-bg);
+  border-bottom: 2px solid var(--color-divider-ornament);
   font-weight: 700;
-  color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 .search-help-table tbody tr {
   border-bottom: 1px solid var(--color-border);

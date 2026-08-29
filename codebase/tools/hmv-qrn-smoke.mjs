@@ -518,6 +518,25 @@ async function main() {
       tdAlign: (function () {
         return getComputedStyle(document.querySelector('#searchHelpBody .search-help-table tbody td')).textAlign;
       })(),
+      // the thead wears the shared tabular band (nav-btn-bg bar + 2px
+      // divider-ornament — the facet thead / dd-header recipe). The tokens
+      // are resolved through a probe element so the guard holds in every
+      // theme instead of hardcoding a light-mode colour.
+      thBand: (function () {
+        var s = getComputedStyle(document.querySelector('#searchHelpBody .search-help-table thead th'));
+        var p = document.createElement('span');
+        document.body.appendChild(p);
+        var root = getComputedStyle(document.documentElement);
+        p.style.backgroundColor = root.getPropertyValue('--color-nav-btn-bg');
+        var wantBg = getComputedStyle(p).backgroundColor;
+        p.style.backgroundColor = root.getPropertyValue('--color-divider-ornament');
+        var wantDiv = getComputedStyle(p).backgroundColor;
+        document.body.removeChild(p);
+        return {
+          bg: s.backgroundColor, bb: s.borderBottomWidth, bc: s.borderBottomColor,
+          wantBg: wantBg, wantDiv: wantDiv
+        };
+      })(),
       // the two notes under the table: All-books caveat + normalisation
       note: (document.getElementById('searchHelpNote') || {}).textContent || '',
       normNote: (document.getElementById('searchHelpNormNote') || {}).textContent || '',
@@ -552,6 +571,9 @@ async function main() {
   check("search tips: header aligns right with its rows, not UA-centered",
     help.thAlign === 'right' && help.tdAlign === 'right',
     help.thAlign + " vs " + help.tdAlign);
+  check("search tips: thead wears the shared tabular band (bar + 2px divider)",
+    help.thBand.bg === help.thBand.wantBg && help.thBand.bb === '2px' && help.thBand.bc === help.thBand.wantDiv,
+    JSON.stringify(help.thBand));
   await evalJS(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
   await waitFor(`!document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
   check("search tips: Escape closes help, window stays",
