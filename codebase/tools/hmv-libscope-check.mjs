@@ -182,6 +182,23 @@ async function main() {
         && chips[1].dataset.tag === 'HDT'
         && chips[1].classList.contains('active');
     })()`));
+    // A chip lights only when the scope IS its group exactly — covering it
+    // is not enough (the Incomplete tag's books all sit inside the HDT
+    // default; its chip must stay off), so the rail shows exactly one
+    // active chip: the leading group's.
+    check("S1 modal rail: only the HDT chip active", await evalJS(`(function () {
+      var act = [];
+      document.querySelectorAll('#libScopeTypes .tag-chip').forEach(function (c) {
+        if (c.classList.contains('active')) act.push(c.dataset.tag);
+      });
+      return act.length === 1 && act[0] === 'HDT';
+    })()`), await evalJS(`(function () {
+      var act = [];
+      document.querySelectorAll('#libScopeTypes .tag-chip').forEach(function (c) {
+        if (c.classList.contains('active')) act.push(c.dataset.tag);
+      });
+      return act.join(',');
+    })()`));
     check("S1 modal list leads with the HDT books", await waitFor(`(function () {
       var rows = document.querySelectorAll('#libScopeList .lib-scope-row');
       var scope = ${JSON.stringify(HDT_SCOPE)};

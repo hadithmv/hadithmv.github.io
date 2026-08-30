@@ -253,14 +253,16 @@ function setGroupSelected(tagCode, on) {
   _notifyChange();
 }
 
-function isGroupFullySelected(tagCode) {
+/** A tag's rail chip is "selected" when the scope is EXACTLY that group —
+ *  set equality, the same rule as the page's chip row, the leading-group
+ *  reorder and the URL sync. A scope that merely COVERS the group must not
+ *  light its chip: "Incomplete" is not the selection just because the HDT
+ *  default happens to include every incomplete book. */
+function isGroupSelected(tagCode) {
   var gs = scopeGroups();
   for (var i = 0; i < gs.length; i++) {
     if (gs[i].code !== tagCode) continue;
-    for (var j = 0; j < gs[i].codes.length; j++) {
-      if (!isBookSelected(gs[i].codes[j])) return false;
-    }
-    return true;
+    return scopesEqual(_selectedBooks, gs[i].codes);
   }
   return false;
 }
@@ -362,7 +364,7 @@ export function renderScopeShell(target) {
       }
       return;
     }
-    setGroupSelected(chip.dataset.tag, !isGroupFullySelected(chip.dataset.tag));
+    setGroupSelected(chip.dataset.tag, !isGroupSelected(chip.dataset.tag));
   });
   _ui.list.addEventListener("change", function (e) {
     var cb = e.target;
@@ -426,7 +428,7 @@ export function renderScopePopover() {
   _ui.chips.innerHTML =
     window.tagAllChipHtml(_selectedBooks !== null, total) +
     groups.map(function (g) {
-      return window.tagChipHtml(g.code, g.label, g.palette, isGroupFullySelected(g.code), g.codes.length);
+      return window.tagChipHtml(g.code, g.label, g.palette, isGroupSelected(g.code), g.codes.length);
     }).join("");
   var f = normaliseForSearch(_scopeFilter.toLowerCase());
   var html = [];
