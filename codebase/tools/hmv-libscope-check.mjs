@@ -50,7 +50,7 @@ const { parseCSVWithHeader } = await import(pathToFileURL(path.join(import.meta.
 const REG_BOOKS = parseCSVWithHeader(fs.readFileSync(baseDir + "/../data/03-registry-bookMeta.csv", "utf8"));
 const REG_TAGS = parseCSVWithHeader(fs.readFileSync(baseDir + "/../data/01-registry-bookTags.csv", "utf8"));
 const TAG_CODES = new Set(REG_TAGS.map((t) => t.tagCode));
-const MANIFEST = JSON.parse(fs.readFileSync(baseDir + "/../data/search-index.json", "utf8")).meta;
+const MANIFEST = JSON.parse(fs.readFileSync(baseDir + "/../data/search-index-manifest.json", "utf8")).meta;
 function tagsOf(row) {
   const codes = [];
   const parts = row.bookCode.split("-");

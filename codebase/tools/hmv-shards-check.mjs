@@ -1,4 +1,4 @@
-// Shards battery (data/search-index.json manifest + data/search-index/*.json
+// Shards battery (data/search-index-manifest.json manifest + data/search-index/*.json
 // per-book shards) — the scope-aware loader in src/js/library-search-engine.js:
 // the manifest alone feeds the scope picker, and a search fetches only the
 // shards for the books in scope. Served over HTTP (the site needs a secure
@@ -89,7 +89,7 @@ function check(name, cond, detail) {
 
 // ── Expected sets — derived from the on-disk manifest and shards ──────
 // (the app's own data files are the contract; never hardcode book codes)
-const MANIFEST = JSON.parse(fs.readFileSync(ROOT + "data/search-index.json", "utf8")).meta;
+const MANIFEST = JSON.parse(fs.readFileSync(ROOT + "data/search-index-manifest.json", "utf8")).meta;
 const ALL_BOOKS = MANIFEST.bookIds;
 // The page's search scope is computeScope() — the visible books, -HDN
 // excluded (library-search-page.js) — so the page never requests the -HDN
@@ -124,7 +124,7 @@ const HDT_SCOPE = REG_BOOKS.filter((b) =>
 const SCOPE_BOOK = "HDT-muwattaMalik"; // the G1 scoped-search book
 // The hit-counter keys are normalized (backslashes on Windows) — build the
 // prefixes with path.normalize, never string concat with "/".
-const manifestKey = path.normalize(ROOT + "data/search-index.json");
+const manifestKey = path.normalize(ROOT + "data/search-index-manifest.json");
 const shardDirKey = path.normalize(ROOT + "data/search-index/");
 const shardKey = (code) => path.normalize(ROOT + "data/search-index/" + code + ".json");
 // Query words derived from the scope book's own shard: the shard keys ARE the
@@ -344,7 +344,7 @@ async function main() {
     // assertion lies. The probe bypasses all caches (no-store), so any
     // resolution proves the network stack's state.
     const offlineProbe = () => evalJS(
-      `fetch(${JSON.stringify(ORIGIN + "/data/search-index.json")}, { cache: "no-store" })
+      `fetch(${JSON.stringify(ORIGIN + "/data/search-index-manifest.json")}, { cache: "no-store" })
         .then(function () { return "online"; }, function () { return "offline"; })`);
     // Count of index records (1 manifest + N shards). A freshly-created empty
     // DB (a wiped one reopened) has no store — report -1 rather than throw.

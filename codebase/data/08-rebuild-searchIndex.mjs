@@ -17,7 +17,7 @@
  *  - data/search-index/<bookCode>.json — one shard per indexed book, each a
  *    flat { word: "packed-row-ranges" } dict (the book's postings only; the
  *    numeric bookId is its position in the manifest's meta.bookIds).
- *  - data/search-index.json — the MANIFEST: meta only (version, bookIds,
+ *  - data/search-index-manifest.json — the MANIFEST: meta only (version, bookIds,
  *    counts, and the per-book shard hashes). The client fetches the manifest
  *    first, then only the shards for the books it searches — a scoped search
  *    never downloads the whole corpus, and the scope picker reads the
@@ -40,7 +40,7 @@ import { tokenizeText } from "../src/js/library-search-engine.js";
 
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY = path.join(DIR, "03-registry-bookMeta.csv");
-const OUT = path.join(DIR, "search-index.json");
+const OUT = path.join(DIR, "search-index-manifest.json");
 const SHARD_DIR = path.join(DIR, "search-index");
 
 // word → { bookId: Set<row> }   (bookId is a numeric index into bookIds[])

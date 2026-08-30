@@ -18,7 +18,7 @@
 //  S2  dist/manifest.json is fresh and complete: every key's file exists
 //      with the hashed bytes, every served file (books/js/css/font,
 //      02/03-registry, all notes) is listed, and the IDB-owned files
-//      (data/content/*, search-index.json, search-index/*) are absent — the
+//      (data/content/*, search-index-manifest.json, search-index/*) are absent — the
 //      run-before-
 //      commit gate: a stale manifest fails here first
 //  S1  first visit: the SW registers at the site root scope, installs, and
@@ -128,7 +128,7 @@ function expectedManifest() {
     ["dist/books", "dist/js", "dist/css", "dist/font", "data", "static/notes"].every((d) =>
       diskKeys.some((k) => k.startsWith(d + "/"))),
     diskKeys.map((k) => k.split("/")[0]).filter((v, i, a) => a.indexOf(v) === i).join(", "));
-  check("S2 IDB-owned files stay out (no data/content/, no search-index.json)",
+  check("S2 IDB-owned files stay out (no data/content/, no search-index-manifest.json)",
     !diskKeys.some((k) => k.startsWith("data/content/") || k.indexOf("search-index") !== -1));
 }
 

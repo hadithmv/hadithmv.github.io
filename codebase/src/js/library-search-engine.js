@@ -1,7 +1,7 @@
 /**
  * Library Search Module
  * Cross-book search over the machine-generated word-level index — a small
- * manifest (data/search-index.json) plus one shard per indexed book
+ * manifest (data/search-index-manifest.json) plus one shard per indexed book
  * (data/search-index/<bookCode>.json, built by data/08-rebuild-searchIndex.mjs).
  *
  * The manifest is meta only (~2 KB); the postings live in the shards, one
@@ -20,7 +20,7 @@
 
 import { normaliseForSearch } from "./search-utils.js";
 
-var INDEX_PATH = "../../data/search-index.json"; // the manifest — meta only
+var INDEX_PATH = "../../data/search-index-manifest.json"; // the manifest — meta only
 var SHARD_DIR = "../../data/search-index/"; // one flat {word: packed} file per book
 
 // ── Tokenisation (SHARED with the index build script) ────────

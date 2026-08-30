@@ -351,7 +351,7 @@ one surface shows up in the other's recent searches.
 
 ## library-search-engine.js
 
-Cross-book search: loads the machine-generated word index — a small manifest (`data/search-index.json`) plus one shard per indexed book (`data/search-index/<bookCode>.json`) — and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/08-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is). Loading is two-stage and scope-aware — `loadIndexMeta()` (the manifest alone; the scope picker's whole dependency) and `loadScopedIndex(scopeBookCodes)` (the manifest + only the shards for the books in scope).
+Cross-book search: loads the machine-generated word index — a small manifest (`data/search-index-manifest.json`) plus one shard per indexed book (`data/search-index/<bookCode>.json`) — and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/08-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is). Loading is two-stage and scope-aware — `loadIndexMeta()` (the manifest alone; the scope picker's whole dependency) and `loadScopedIndex(scopeBookCodes)` (the manifest + only the shards for the books in scope).
 
 ### `loadIndexMeta()`
 

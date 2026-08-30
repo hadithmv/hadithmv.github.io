@@ -2,7 +2,7 @@
  * Library Search Page Module (books/library-search.html)
  * Cross-book search UI — the engine itself lives in src/js/library-search-engine.js
  * (pure module: loadScopedIndex / loadIndexMeta / searchLibrary / tokenizeText) and
- * the word index in data/search-index.json + data/search-index/ (built by
+ * the word index in data/search-index-manifest.json + data/search-index/ (built by
  * data/08-rebuild-searchIndex.mjs).
  *
  * This page is self-initialising. It reads ?q=, ?tags= and ?books= from the

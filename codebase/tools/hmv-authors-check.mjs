@@ -97,7 +97,7 @@ const VISIBLE_BOOKS = books03.filter((b) => !b.bookCode.endsWith("-HDN"));
 // ENTIRE-BOOK-excluded books (RDF dictionaries, KNSH, …) have no postings,
 // so they are absent from the library's facet counts by design; mirrors
 // library-scope-picker's _searchableBooks.
-const searchIndex = JSON.parse(fs.readFileSync(DATA + "search-index.json", "utf8"));
+const searchIndex = JSON.parse(fs.readFileSync(DATA + "search-index-manifest.json", "utf8"));
 const INDEX_IDS = new Set(searchIndex.meta.bookIds);
 const SEARCHABLE_BOOKS = VISIBLE_BOOKS.filter((b) => INDEX_IDS.has(b.bookCode));
 // Authors with at least one visible book — the dashboard's browse list

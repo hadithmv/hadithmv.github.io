@@ -14,7 +14,7 @@ data/
   07-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
   08-rebuild-searchIndex.mjs    ← Node script: builds the search index (rerun after book changes — or double-click rebuild-index.bat)
   02-registry-bookAuthors.csv       ← Author definitions (authorCode, trilingual names, Hijri birth/death years)
-  search-index.json             ← Generated search-index MANIFEST (meta only — bookIds, shard hashes; ~2 KB)
+  search-index-manifest.json    ← Generated search-index MANIFEST (meta only — bookIds, shard hashes; ~2 KB)
   search-index/                 ← Generated per-book search shards (one flat word→postings file per book)
   content/                      ← Per-book content files (incl. Quran base data)
     *.csv                       ← One file per book
