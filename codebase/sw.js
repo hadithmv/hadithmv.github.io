@@ -15,10 +15,11 @@
  *   - offline: the last manifest + last cached copies serve the whole site
  *
  * Everything NOT in the manifest passes straight through to the network:
- * the book CSVs (data/content/…) and data/search-index.json are owned by
- * the app's own IndexedDB version-gating (csv.js fetchBookCSVCached,
- * library-search-engine.js loadSearchIndex) — ~105 MB of corpus must never
- * ride this cache — and src/ pages stay plain-network dev URLs.
+ * the book CSVs (data/content/…) and the search index (data/search-index.json
+ * manifest + data/search-index/ per-book shards) are owned by the app's own
+ * IndexedDB version-gating (csv.js fetchBookCSVCached,
+ * library-search-engine.js loadIndexMeta/loadScopedIndex) — ~105 MB of corpus
+ * must never ride this cache — and src/ pages stay plain-network dev URLs.
  *
  * Registered from every page ("../../sw.js" — the codebase root, so the
  * scope covers dist/, data/ and static/). Registration fails silently on

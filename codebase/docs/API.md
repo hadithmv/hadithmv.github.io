@@ -351,11 +351,19 @@ one surface shows up in the other's recent searches.
 
 ## library-search-engine.js
 
-Cross-book search: loads the machine-generated word index (`data/search-index.json`) and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/08-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is).
+Cross-book search: loads the machine-generated word index — a small manifest (`data/search-index.json`) plus one shard per indexed book (`data/search-index/<bookCode>.json`) — and answers "which books contain all of these words?". Pure module — no DOM. Used by the library search page (`library-search-page.js`) and by the index build script (`data/08-rebuild-searchIndex.mjs` imports `tokenizeText` so build and query agree on what a word is). Loading is two-stage and scope-aware — `loadIndexMeta()` (the manifest alone; the scope picker's whole dependency) and `loadScopedIndex(scopeBookCodes)` (the manifest + only the shards for the books in scope).
+
+### `loadIndexMeta()`
+
+Returns `Promise<meta>` — the manifest's `{version, built, bookIds, books, excluded, rows, words, shards}`. Fetched with a conditional request (`cache: "no-cache"` → a cheap 304 when unchanged; ~2 KB to parse — a full `JSON.parse`, no head-parsing tricks). Memoized; cleared on failure so retries work. **Offline fallback**: if the fetch throws (network down — the SW never caches the index, so a failed fetch is real), the stored on-device record's `meta` is served as-is — it was validated against `meta.version` when stored; a pre-shard record (no `shards` field) can't resolve shard versions, so it is stale and the original throw stands. The next successful load re-stores a complete record.
+
+### `loadScopedIndex(scopeBookCodes?)`
+
+Returns `Promise<{meta, words}>` in the shape `searchLibrary` consumes. Loads the manifest, then the shards for exactly the books in scope — `null` / absent / `[]` = every indexed book; unknown codes are dropped, so a garbage deep link never 404-fetches a nonexistent shard. Each shard fetches as `data/search-index/<code>.json?v=<shardHash>` — the URL changes exactly when the shard changes, so the HTTP cache can never serve stale postings while the manifest flips — is memoized per `code:version` (cleared on failure), and is written fire-and-forget to the on-device IndexedDB copy (`hadithmvSearch` DB — separate from the book cache in csv.js, so the two modules never contend on a version bump); already-loaded shards are reused across calls as scopes widen. Shards merge into a module-scope master dict — the same shape the pre-shard single file had, so the query engine is untouched. **Any needed shard failing to load rejects the whole call** — result counts stay truthful — and the page's error + Retry path re-attempts just the missing pieces. **Offline rule**: search works offline when the manifest + all needed shards are in IndexedDB; a missing needed shard + fetch failure → error + Retry, never partial results.
 
 ### `loadSearchIndex()`
 
-Returns `Promise<{meta, words}>`. Fetches the index with a conditional request (`cache: "no-cache"` → a cheap 304 when the file is unchanged), parses only the meta head to read the version, and serves the parsed words from the on-device IndexedDB copy (`hadithmvSearch` DB) when the version matches; the full 40MB `JSON.parse` + store happen only on version change (or first load). **Offline fallback**: if the fetch itself throws (network down — the SW never caches the index, so a failed fetch is real), the stored record is served as-is — it was validated against `meta.version` when stored. The record keeps the whole `meta` (not just the version) precisely so this fallback can resolve `bookIds` into codes; records written before the offline fallback existed carry no `meta` and fall back to throwing, and the next successful load re-stores a complete record. Failed loads are retryable — the promise is cleared on failure so a later call tries again.
+Thin alias of `loadScopedIndex(null)` — the whole index — kept for callers without a scope.
 
 ### `searchLibrary(index, query, scopeBookCodes?)`
 
@@ -371,9 +379,10 @@ Splits normalised text into words — `\p{L}\p{M}\p{N}` runs, so Thaana fili (co
 
 The `src/books/library-search.html` page module — self-initialising (runs `init()` on load), exports nothing.
 
-- **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B`, `?authors=A,B` (OR — any author of the book) and `?period=N|modern` (death-century bucket) activate chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable.
+- **URL params** — `?q=TERM` prefills and immediately runs the search; `?tags=A,B`, `?authors=A,B` (OR — any author of the book) and `?period=N|modern` (death-century bucket) activate chips. Typing, chip toggles, and clear keep the address bar in sync via `history.replaceState` — the URL stays shareable. `?tags=` also scopes the picker to the tag groups — chips and the picker share one scope (see the default-scope bullet below).
 - **Flow** — reads params → awaits `loadTagDefinitions()` + `loadAuthorDefinitions()` + `loadBookNames()` (book-data.js) → renders tag chips (counts over visible books, `-HDN` excluded) → searches when `_q` is set, otherwise shows the type-hint.
 - **Authors & Periods browse** — the state, chips and browse modals live in the shared `facet-browse.js` module (the same surface the dashboard's functions panel and the search window's All-books tab use). The two buttons in the search panel open the modals: an authors list (a leading 1-based index — the row's position in the shown list, renumbered when the filter narrows it — then trilingual names, Arabic always shown, Hijri years and their Gregorian (miladi) equivalent, book counts, registry row order, a filter input above a sticky-header table) and a period table (death-century buckets + the single `modern` era — 15th century AH (1401) and later, or no death year — chronological, `modern` last, its row name carrying the open-ended "(+15)" marker and its range cells at the open-ended "from" forms — "+1401 AH" and the CE of 1401, "+1981 CE"). Selection feeds `computeScope()` alongside tags and renders as accent‑tinted chips in the tags row; the page subscribes via `onFacetChange` to re-sync URL, chips and results.
+- **HDT default scope** — fresh visits (no `?books=` / `?tags=` state) default the picker to the HDT group via `initScopePicker({ defaultTag: "HDT", … })`: `library-scope-picker.js` applies it inside `ensureSearchableBooks()` unless the user or a share link already set the scope (`_scopeExplicit`), and the button reads "Search in: N books ▾". The All chip, the reset button, or any modal interaction widens back to every book (and marks the scope explicit). `syncURL()` omits `?books=` while the selection equals the default (`defaultScopeCodes()`) or exactly the active chips' groups — a share link round-trips to the same state. Chip clicks replace the picker selection (`groupBookCodes(tag)`). The reader's search window inits the picker with the same default and no callback (`initSearchWindow`'s reader branch) — its All-books tab also starts scoped to the HDT group; the window's summary (shared `scopeSummaryText()`) shows it, and `searchAllBooks` fetches only the group's shards. The default's apply notifies like any scope change (page callback + `libScopeChange`), so every surface's label catches up; the URL-restore sites (`?books=` in `readURLParams`, the `?tags=` block after `ensureSearchableBooks`) dispatch the same event so the window's summary reflects a share-link scope too. When the selection is exactly one full tag group, the scope modal leads with it — the group's chip first in the rail, its books first in the list (unions and single books keep the registry's palette order); the page's chips row mirrors the scope the same way, so the group's chip shows active and the All chip turns off (no more "All tags" next to "16 books").
 - **Empty-scope guard** — active tags/authors/period matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
 - **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+B` back are handled by common.js.
 - **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old book-data.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
@@ -679,7 +688,7 @@ Shows/hides the hint strip (↑↓ navigate · Enter follow · Esc close). Pages
 
 ### `searchAllBooks(query)`
 
-Cross-book search over the generated index (lazy `loadSearchIndex`; failure → footer status + retry) scoped by the picker selection **intersected with the active author/period facets** (`facetScopedBooks` — a facet state excluding every book renders "No matches" instead of falling through to an unscoped search); renders compact deep-link rows via `buildBookRowsHTML` and syncs the footer status.
+Cross-book search over the generated index (lazy `loadScopedIndex` — scope = picker selection, or every book when the picker isn't open; failure → footer status + retry) scoped by that selection **intersected with the active author/period facets** (`facetScopedBooks` — a facet state excluding every book renders "No matches" instead of falling through to an unscoped search); renders compact deep-link rows via `buildBookRowsHTML` and syncs the footer status.
 
 ### `buildBookRowsHTML(results, q, bookNames)`
 
@@ -869,8 +878,11 @@ of every file the SW may serve. Written **whole** by `tools/hmv-manifest.mjs`
 — byte-stable, idempotent, keys sorted, 2-space indent, LF, no trailing
 newline. Covered: `dist/` (books, js, css, font), the six `-registry-` CSVs
 in `data/`, and `static/notes/`. **Not covered** (pass straight through):
-`data/content/*.csv` and `data/search-index.json` — the app's own IndexedDB
-caches own them, and ~105 MB of corpus must never ride the SW cache.
+`data/content/*.csv`, the search-index manifest and the per-book shards
+(`data/search-index/`) — the app's own IndexedDB caches own them
+(`fetchBookCSVCached` for books, `loadIndexMeta`/`loadScopedIndex` for the
+index), and ~105 MB of corpus plus ~19 MB of postings must never ride the
+SW cache.
 
 ### Behaviour
 
@@ -885,8 +897,9 @@ caches own them, and ~105 MB of corpus must never ride the SW cache.
   a clone is stored with the `x-hmv-fp` header, and the original returns.
   Files not in the manifest pass through to a plain `fetch`.
 - **Offline**: the last manifest + last cached copies serve everything they
-  cover; book search falls back to the IndexedDB index copy (see
-  `loadSearchIndex`).
+  cover; the library search falls back to its IndexedDB copies of the
+  manifest + shards (see `loadIndexMeta`/`loadScopedIndex` — offline search
+  covers the books actually searched online).
 
 ### Registration snippet
 

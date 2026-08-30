@@ -1,7 +1,9 @@
 // Library-search battery: the book-scope picker (?books= + the picker
 // modal, S1-S10) and the unified search window on the library page
 // (S11: open, focus, card/list toggle, scope modal stacked on the window,
-// scoped re-run, Escape-by-layer).
+// scoped re-run, Escape-by-layer). S1 asserts the HDT default scope (the
+// page's initScopePicker defaultTag "HDT": fresh visits search HDT first,
+// the All chip widens) — the expected set is derived from the data files.
 // Run: node tools/hmv-libscope-check.mjs  (from codebase/). Requires Node
 // 20.11+ and Microsoft Edge. Env overrides: HMV_SCOPE_PORT (default 9357).
 import fs from "fs";
@@ -39,6 +41,33 @@ function check(name, cond, detail) {
 }
 
 const Q = "ކަން"; // Dhivehi word the probe battery already proved matches books
+
+// The HDT default scope — derived from the data files exactly as the picker
+// computes its groups (extractTags: the first registered prefix segment +
+// the registry's tags column) over the searchable books (registry ∩ index
+// meta, -HDN excluded) — so the battery never hardcodes book codes.
+const { parseCSVWithHeader } = await import(pathToFileURL(path.join(import.meta.dirname, "..", "src", "js", "csv.js")));
+const REG_BOOKS = parseCSVWithHeader(fs.readFileSync(baseDir + "/../data/03-registry-bookMeta.csv", "utf8"));
+const REG_TAGS = parseCSVWithHeader(fs.readFileSync(baseDir + "/../data/01-registry-bookTags.csv", "utf8"));
+const TAG_CODES = new Set(REG_TAGS.map((t) => t.tagCode));
+const MANIFEST = JSON.parse(fs.readFileSync(baseDir + "/../data/search-index.json", "utf8")).meta;
+function tagsOf(row) {
+  const codes = [];
+  const parts = row.bookCode.split("-");
+  for (const p of parts) {
+    if (TAG_CODES.has(p)) { codes.push(p); break; }
+  }
+  if (row.tags) {
+    row.tags.split(",").forEach((tg) => {
+      const c = tg.trim();
+      if (c && TAG_CODES.has(c) && codes.indexOf(c) === -1) codes.push(c);
+    });
+  }
+  return codes;
+}
+const HDT_SCOPE = REG_BOOKS.filter((b) =>
+  !b.bookCode.endsWith("-HDN") && MANIFEST.bookIds.includes(b.bookCode) && tagsOf(b).includes("HDT")
+).map((b) => b.bookCode);
 
 async function main() {
   killLeftover();
@@ -121,11 +150,64 @@ async function main() {
     await evalJS(`localStorage.setItem('lang', 'en')`);
     await goto(pageURL + "?q=" + encodeURIComponent(Q), 1280, 900);
     check("S1 results render", await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result cards");
-    check("S1 button label = All books", (await evalJS(`document.getElementById('libScopeBtn').textContent`)) === "Search in: All books ▾");
+    // The page defaults the scope to the HDT group (initScopePicker
+    // defaultTag "HDT") — a fresh visit searches HDT first; the All chip,
+    // the reset button, or any picker interaction widens it.
+    check("S1 button label = HDT default", await waitFor(`document.getElementById('libScopeBtn').textContent === ${JSON.stringify("Search in: " + HDT_SCOPE.length + " books ▾")}`), HDT_SCOPE.length + " books");
+    check("S1 results scoped to the HDT group", await evalJS(`(function () {
+      var cards = document.querySelectorAll('.lib-result');
+      var scope = ${JSON.stringify(HDT_SCOPE)};
+      return cards.length > 0 && Array.prototype.every.call(cards, function (c) { return scope.indexOf(c.dataset.book) !== -1; });
+    })()`));
     // The tooltip is the only always-English explainer of the button's action —
     // it must teach the verb ("choose which books"), not describe the result.
     check("S1 button tooltip teaches the action", (await evalJS(`document.getElementById('libScopeBtn').getAttribute('title')`)) === "Choose which books to search");
-    check("S1 no books param", (await evalJS(`new URLSearchParams(location.search).has('books')`)) === false);
+    check("S1 no books param (default scope stays param-free)", (await evalJS(`new URLSearchParams(location.search).has('books')`)) === false);
+    // The chips row mirrors the scope: the default HDT group shows its chip
+    // active and the All chip off — the row and the button never contradict.
+    check("S1 chips row mirrors the HDT default", await waitFor(`(function () {
+      var row = document.getElementById('libTagsRow');
+      var all = row.querySelector('.tag-chip[data-tag="' + window.TAG_ALL + '"]');
+      var hdt = row.querySelector('.tag-chip[data-tag="HDT"]');
+      return all && hdt && hdt.classList.contains('active') && !all.classList.contains('active');
+    })()`));
+    // The modal leads with the active group: HDT chip first in the rail
+    // (after the All chip), HDT books first in the list — every one of them
+    // before any other group's books.
+    await evalJS(`document.getElementById('libScopeBtn').click()`);
+    check("S1 modal rail leads with the HDT chip", await waitFor(`(function () {
+      var chips = document.querySelectorAll('#libScopeTypes .tag-chip');
+      return chips.length > 1
+        && chips[0].dataset.tag === window.TAG_ALL
+        && chips[1].dataset.tag === 'HDT'
+        && chips[1].classList.contains('active');
+    })()`));
+    check("S1 modal list leads with the HDT books", await waitFor(`(function () {
+      var rows = document.querySelectorAll('#libScopeList .lib-scope-row');
+      var scope = ${JSON.stringify(HDT_SCOPE)};
+      if (rows.length < scope.length) return false;
+      for (var i = 0; i < scope.length; i++) {
+        if (scope.indexOf(rows[i].dataset.book) === -1) return false;
+      }
+      return true;
+    })()`));
+    await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+    check("S1 Escape closes modal", await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`));
+    // ── S1b: the All chip undoes the default scope ──
+    // Chips and the picker share one scope: a tag chip narrows to the tag's
+    // group, the All chip widens to every book. S2+ run unscoped from here.
+    await evalJS(`document.querySelector('#libTagsRow .tag-chip[data-tag="' + window.TAG_ALL + '"]').click()`);
+    check("S1b All chip widens to all books", await waitFor(`(function () {
+      return document.getElementById('libScopeBtn').textContent === 'Search in: All books ▾'
+        && !new URLSearchParams(location.search).has('books');
+    })()`));
+    check("S1b results re-render across books", await waitFor(`document.querySelectorAll('.lib-result').length > 0`));
+    check("S1b chips row flips to All active", await evalJS(`(function () {
+      var row = document.getElementById('libTagsRow');
+      var all = row.querySelector('.tag-chip[data-tag="' + window.TAG_ALL + '"]');
+      var hdt = row.querySelector('.tag-chip[data-tag="HDT"]');
+      return all.classList.contains('active') && !hdt.classList.contains('active');
+    })()`));
 
     // ── S2: open the scope modal ──
     await evalJS(`document.getElementById('libScopeBtn').click()`);
@@ -481,6 +563,12 @@ async function main() {
         return m !== null && m.classList.contains('open') &&
                w !== null && w.classList.contains('open');
       })()`));
+    // The library page defaults the scope to the HDT group — reset to all
+    // books first, or the tick below would add its book to the 15-book
+    // default group and the scoped re-run would show far more than 1 card.
+    await evalJS(`document.getElementById('libScopeReset').click()`);
+    check("S11 default scope reset to all books",
+      await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000));
 
     // scope the window search by ticking the first card's book
     const tickBook = await evalJS(`(function () {

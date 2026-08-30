@@ -25,10 +25,11 @@
  * vs the previous manifest (new files count as changed, vanished ones are
  * marked "(removed)"; a run without a previous manifest skips the line).
  *
- * Deliberately absent: data/content/*.csv and data/search-index.json — the
- * app's own IndexedDB version-gates them (csv.js fetchBookCSVCached,
- * library-search-engine.js loadSearchIndex); ~105 MB of corpus must never
- * ride the SW cache. The SW passes anything not listed through untouched.
+ * Deliberately absent: data/content/*.csv, data/search-index.json and
+ * data/search-index/ — the app's own IndexedDB version-gates them (csv.js
+ * fetchBookCSVCached, library-search-engine.js loadIndexMeta/loadScopedIndex);
+ * ~105 MB of corpus must never ride the SW cache. The SW passes anything not
+ * listed through untouched.
  */
 import { readdirSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { createHash } from "node:crypto";

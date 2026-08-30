@@ -18,7 +18,8 @@
 //  S2  dist/manifest.json is fresh and complete: every key's file exists
 //      with the hashed bytes, every served file (books/js/css/font,
 //      02/03-registry, all notes) is listed, and the IDB-owned files
-//      (data/content/*, search-index.json) are absent — the run-before-
+//      (data/content/*, search-index.json, search-index/*) are absent — the
+//      run-before-
 //      commit gate: a stale manifest fails here first
 //  S1  first visit: the SW registers at the site root scope, installs, and
 //      precaches the whole manifest (hmv-files + hmv-manifest caches exist)

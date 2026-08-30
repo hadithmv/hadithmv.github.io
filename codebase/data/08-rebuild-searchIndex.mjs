@@ -1,5 +1,6 @@
 /**
- * Builds data/search-index.json — word-level postings across every book.
+ * Builds the search index — word-level postings across every book — as a
+ * small manifest plus one shard file per indexed book.
  *
  * Run:  node data/08-rebuild-searchIndex.mjs
  *
@@ -10,8 +11,20 @@
  * skips the listed columns — the magic value `ENTIRE-BOOK` skips the whole
  * book. A per-book report of indexed and skipped columns
  * is printed while building and written to data/search-index-report.md
- * (policy table, warnings, build stats, postings by column). The result feeds the
- * cross-book search (js/library-search-engine.js).
+ * (policy table, warnings, build stats, postings by column).
+ *
+ * Outputs:
+ *  - data/search-index/<bookCode>.json — one shard per indexed book, each a
+ *    flat { word: "packed-row-ranges" } dict (the book's postings only; the
+ *    numeric bookId is its position in the manifest's meta.bookIds).
+ *  - data/search-index.json — the MANIFEST: meta only (version, bookIds,
+ *    counts, and the per-book shard hashes). The client fetches the manifest
+ *    first, then only the shards for the books it searches — a scoped search
+ *    never downloads the whole corpus, and the scope picker reads the
+ *    manifest alone (~2 KB instead of the old ~16 MB file).
+ * Shards are written before the manifest, so a new manifest never references
+ * a missing shard; stale shard files (books no longer indexed) are deleted.
+ * The result feeds the cross-book search (js/library-search-engine.js).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -28,6 +41,7 @@ import { tokenizeText } from "../src/js/library-search-engine.js";
 const DIR = path.dirname(fileURLToPath(import.meta.url));
 const REGISTRY = path.join(DIR, "03-registry-bookMeta.csv");
 const OUT = path.join(DIR, "search-index.json");
+const SHARD_DIR = path.join(DIR, "search-index");
 
 // word → { bookId: Set<row> }   (bookId is a numeric index into bookIds[])
 const index = {};
@@ -201,33 +215,100 @@ function packRows(rowSet) {
   return parts.join(",");
 }
 
-const words = {};
+// Shards: per-book flat { word: "packed-row-ranges" }. A shard IS one book,
+// so there's no per-book key inside it — the numeric id is the book's
+// position in meta.bookIds, and every shard is built against the same
+// bookIds order. One pass over the in-memory index; each rowSet is packed
+// exactly once (206k words × per-book fan-out, not × 64).
+const shards = {};
 for (const [word, books] of Object.entries(index)) {
-  const byBook = {};
   for (const [bookId, rowSet] of Object.entries(books)) {
-    byBook[bookId] = packRows(rowSet);
+    let shard = shards[bookId];
+    if (!shard) shard = shards[bookId] = {};
+    shard[word] = packRows(rowSet);
   }
-  words[word] = byBook;
+}
+const uniqueWords = Object.keys(index).length;
+
+// Consistency + filename safety before anything hits disk: shards and bookIds
+// must cover each other exactly (a manifest that references a missing shard —
+// or ships an orphan — would fail every search that touches it), and shard
+// filenames come from the registry.
+const SAFE_NAME = /^[A-Za-z0-9_.-]+$/;
+for (const id of Object.keys(shards)) {
+  if (!bookIds[id]) throw new Error("shard exists for unknown bookId " + id);
+}
+for (const code of bookIds) {
+  if (!shards[bookIdOf[code]]) throw new Error("book " + code + " has no shard");
+  if (!SAFE_NAME.test(code)) throw new Error("unsafe shard filename: " + code);
 }
 
-// Version = hash of the payload — the loader validates its cache against it
-const payload = JSON.stringify(words);
-const version = crypto.createHash("sha256").update(payload).digest("hex").slice(0, 16);
-const tPayloadEnd = performance.now(); // payload stringified + hashed — pack phase done
+fs.mkdirSync(SHARD_DIR, { recursive: true });
 
-const out = JSON.stringify({
-  meta: {
-    version: version,
-    built: new Date().toISOString(),
-    bookIds: bookIds, // postings use numeric ids; resolve back through this
-    books: booksScanned,
-    excluded: booksExcluded, // books skipped via excludeFromIndex: ENTIRE-BOOK
-    rows: rowsScanned,
-    words: Object.keys(words).length,
-  },
-  words: words,
-});
+// Stale-shard cleanup: a book removed/renamed from the index must not leave
+// an orphan file rotting in the repo — nothing would ever fetch it.
+const keep = new Set(bookIds);
+for (const f of fs.readdirSync(SHARD_DIR)) {
+  if (!f.endsWith(".json")) continue;
+  if (!keep.has(f.slice(0, -5))) fs.unlinkSync(path.join(SHARD_DIR, f));
+}
 
+// Write shards and hash each. The hash is the client's per-shard version:
+// the loader fetches shard?code.json?v=<hash>, so the HTTP cache busts
+// exactly when the shard changes, and the IDB record is validated against
+// the same hash.
+const shardHashes = {};
+const shardSizes = []; // report rows: { code, raw, gz }
+let shardRawTotal = 0;
+let shardGzTotal = 0;
+for (let id = 0; id < bookIds.length; id++) {
+  const code = bookIds[id];
+  const payload = JSON.stringify(shards[id]);
+  const hash = crypto.createHash("sha256").update(payload).digest("hex").slice(0, 16);
+  fs.writeFileSync(path.join(SHARD_DIR, code + ".json"), payload, "utf8");
+  shardHashes[code] = hash;
+  const raw = payload.length;
+  const gz = zlib.gzipSync(payload).length;
+  shardRawTotal += raw;
+  shardGzTotal += gz;
+  shardSizes.push({ code: code, raw: raw, gz: gz });
+}
+const tPayloadEnd = performance.now(); // shards packed + hashed — pack phase done
+
+// Manifest — meta only, no words. version = hash of everything that gates the
+// client's cache (per-shard hashes included), deliberately EXCLUDING `built`
+// so a no-op rebuild is version-stable and the loader's cache survives it.
+const meta = {
+  version: "",
+  built: new Date().toISOString(),
+  bookIds: bookIds, // postings use numeric ids; resolve back through this
+  books: booksScanned,
+  excluded: booksExcluded, // books skipped via excludeFromIndex: ENTIRE-BOOK
+  rows: rowsScanned,
+  words: uniqueWords,
+  shards: shardHashes,
+};
+meta.version = crypto
+  .createHash("sha256")
+  .update(
+    JSON.stringify({
+      bookIds: bookIds,
+      books: booksScanned,
+      excluded: booksExcluded,
+      rows: rowsScanned,
+      words: uniqueWords,
+      shards: shardHashes,
+    })
+  )
+  .digest("hex")
+  .slice(0, 16);
+const version = meta.version; // the report and the loader's gate refer to it
+
+const out = JSON.stringify({ meta: meta });
+
+// Write order invariant: shards are already on disk — a new manifest can
+// never reference a missing shard. The old manifest + new shards mix is
+// harmless (shard fetches are version-gated off the manifest).
 fs.writeFileSync(OUT, out, "utf8");
 const tEnd = performance.now(); // all build work done
 const phaseIndex = tIndexEnd - tIndexStart;
@@ -237,40 +318,52 @@ const totalMs = tEnd - tIndexStart;
 const fmtSec = (ms) => (ms / 1000).toFixed(1) + " s";
 const fmtRate = (n, ms) => Math.round((n / ms) * 1000).toLocaleString("en-US");
 const heapMB = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(0);
-console.log("\nindex written:", OUT);
-console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", Object.keys(words).length, "| excludeFromIndex:", booksWithExclusions, "| excluded books:", booksExcluded);
+console.log("\nmanifest written:", OUT);
+console.log("shards written:", SHARD_DIR, "(" + shardSizes.length + " files)");
+console.log("books:", booksScanned, "| rows:", rowsScanned, "| postings:", wordsIndexed, "| unique words:", uniqueWords, "| excludeFromIndex:", booksWithExclusions, "| excluded books:", booksExcluded);
 const rawBytes = fs.statSync(OUT).size;
 const gzBytes = zlib.gzipSync(out).length;
 const rawMB = (rawBytes / 1024 / 1024).toFixed(1);
 const gzipMB = (gzBytes / 1024 / 1024).toFixed(1);
 const gzipSaved = (100 * (1 - gzBytes / rawBytes)).toFixed(1);
-console.log("raw size:", rawMB + " MB");
-console.log("gzip size:", gzipMB + " MB (" + gzipSaved + "% saved)");
+const shardRawMB = (shardRawTotal / 1024 / 1024).toFixed(1);
+const shardGzMB = (shardGzTotal / 1024 / 1024).toFixed(1);
+console.log("manifest size: raw " + rawMB + " MB | gzip " + gzipMB + " MB (" + gzipSaved + "% saved)");
+console.log("shards size:   raw " + shardRawMB + " MB | gzip " + shardGzMB + " MB");
 console.log("elapsed: " + fmtSec(totalMs) + " | " + fmtRate(rowsScanned, phaseIndex) + " rows/s | " + fmtRate(wordsIndexed, phaseIndex) + " postings/s");
 console.log("phases: index " + fmtSec(phaseIndex) + " · pack " + fmtSec(phasePack) + " · write " + fmtSec(phaseWrite));
 console.log("heap used: " + heapMB + " MB | node " + process.version);
 
 // ── Report file — the same policy as a diffable markdown table ──
 const fmt = (n) => n.toLocaleString("en-US"); // thousands separators for humans
+const fmtKB = (n) => (n / 1024).toFixed(1); // KB for the shards table
 let md = "# Search Index Report\n\n";
 md += "Regenerated by `node data/08-rebuild-searchIndex.mjs` — machine output, do not hand-edit.\n\n";
 md += "| Built in | Version |\n|---|---|\n";
 md += "| " + new Date().toISOString() + " (" + (totalMs / 1000).toFixed(1) + " s) | `" + version + "` |\n\n";
-md += "| Books | Rows | Postings | Unique words | Raw | Gzip | Gzip saved | ExcludeColumns | Excluded books |\n";
-md += "|---|---|---|---|---|---|---|---|---|\n";
+md += "| Books | Rows | Postings | Unique words | Manifest raw | Manifest gzip | Gzip saved | Shards raw | Shards gzip | ExcludeColumns | Excluded books |\n";
+md += "|---|---|---|---|---|---|---|---|---|---|---|\n";
 md += "| " + fmt(booksScanned) + " | " + fmt(rowsScanned) + " | " + fmt(wordsIndexed) + " | " +
-  fmt(Object.keys(words).length) + " | " + rawMB + " MiB | " + gzipMB + " MiB | " + gzipSaved + "% | " +
+  fmt(uniqueWords) + " | " + rawMB + " MiB | " + gzipMB + " MiB | " + gzipSaved + "% | " +
+  shardRawMB + " MiB | " + shardGzMB + " MiB | " +
   booksWithExclusions + " | " + booksExcluded + " |\n\n";
 md += "## Build Stats\n\n";
 md += "- Total: " + fmtSec(totalMs) + " — index " + fmtSec(phaseIndex) + " · pack " + fmtSec(phasePack) + " · write " + fmtSec(phaseWrite) + "\n";
 md += "- " + fmtRate(rowsScanned, phaseIndex) + " rows/s · " + fmtRate(wordsIndexed, phaseIndex) + " postings/s\n";
 md += "- Heap used: " + heapMB + " MB · node " + process.version + "\n\n";
+md += "## Shards\n\n";
+md += "One file per indexed book at `data/search-index/<bookCode>.json` — flat `{ word: packed-row-ranges }`, fetched only for the books a search covers. `meta.shards` in the manifest carries each file's 16-hex content hash — the client's per-shard version gate.\n\n";
+md += "| Book | Hash | Raw | Gzip |\n|---|---|---|---|\n";
+for (const s of shardSizes) {
+  md += "| " + s.code + " | `" + shardHashes[s.code] + "` | " + fmtKB(s.raw) + " KB | " + fmtKB(s.gz) + " KB |\n";
+}
+md += "| **Total** | — | " + fmtKB(shardRawTotal) + " KB | " + fmtKB(shardGzTotal) + " KB |\n\n";
 md += "## Notes\n\n";
 md += "- `-HDN` books and columns are hidden from the dashboard and search scope.\n";
 md += "- `# (row numbers)` is the CSV's position column — never indexed.\n";
 md += "- An `excludeFromIndex` registry entry skips the listed columns.\n";
 md += "- `excludeFromIndex: ENTIRE-BOOK` skips the whole book — it stays in the dashboard and reader but is never searchable.\n";
-md += "- Ids are 1-based positions in `meta.bookIds` (what postings in search-index.json reference).\n\n";
+md += "- Ids are 1-based positions in `meta.bookIds` (what postings in the shards reference).\n\n";
 if (reportWarnings.length > 0) {
   md += "## Warnings\n\n";
   for (const w of reportWarnings) md += "- " + w + "\n";

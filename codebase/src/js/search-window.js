@@ -15,7 +15,7 @@
  */
 
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { loadSearchIndex, searchLibrary } from "./library-search-engine.js";
+import { loadScopedIndex, searchLibrary } from "./library-search-engine.js";
 import { loadBookRegistry, extractTags } from "./book-data.js";
 import { escapeHTML, formatThousands, addSearchHistory } from "./search-utils.js";
 import {
@@ -303,9 +303,11 @@ function bookTitle(meta) {
 }
 
 // All-books search — the cross-book index path. Loading state and failures
-// land in the footer status line (calmer than flashing the results area);
-// the retry button re-runs loadSearchIndex, which clears its promise on
-// failure so a retry is a fresh fetch.
+// land in the footer status line (calmer than flashing the results area).
+// The scope (facets, then the picker) decides which shards to load — a
+// scoped search fetches only those books' shards. The retry button re-runs
+// loadScopedIndex with the same scope decision; the failed piece's promise
+// was cleared, so a retry is a fresh fetch.
 export function searchAllBooks(query) {
   var q = query.trim();
   if (!q) return;
@@ -314,10 +316,6 @@ export function searchAllBooks(query) {
   syncFooter(); // the strip lives on the status while the index loads
   registryReady()
     .then(function () {
-      return Promise.all([loadSearchIndex(), ensureSearchableBooks()]);
-    })
-    .then(function (out) {
-      var index = out[0];
       // The window is one surface, so all-books terms land in the same
       // reader history as this-book terms (written once the search runs —
       // same timing as runBookSearch).
@@ -333,10 +331,13 @@ export function searchAllBooks(query) {
         renderAllBooksResults([], q);
         return;
       }
-      var results = searchLibrary(index, q, fb !== null ? fb : getScope());
-      _ui.status.style.display = "none";
-      syncFooter(); // the strip's life is now the hint's / open-page's
-      renderAllBooksResults(results, q);
+      var scope = fb !== null ? fb : getScope();
+      return loadScopedIndex(scope).then(function (index) {
+        var results = searchLibrary(index, q, scope);
+        _ui.status.style.display = "none";
+        syncFooter(); // the strip's life is now the hint's / open-page's
+        renderAllBooksResults(results, q);
+      });
     })
     .catch(function () {
       // textContent wipes any previous retry button — the last failure wins.
@@ -349,11 +350,22 @@ export function searchAllBooks(query) {
         var v = _ui.input.value;
         if (!v.trim()) return;
         _ui.status.textContent = t("searchWindowIndexLoading");
-        loadSearchIndex()
+        // Same scope decision as the main path — a retry must not silently
+        // widen the search past the active facets (the pre-shard code
+        // dropped them here) — and history is written as in the main path.
+        addSearchHistory(v);
+        if (_cfg.onHistoryChange) _cfg.onHistoryChange();
+        var fb2 = facetScopedBooks();
+        if (fb2 !== null && fb2.length === 0) {
+          _ui.status.style.display = "none";
+          syncFooter();
+          renderAllBooksResults([], v);
+          return;
+        }
+        var retryScope = fb2 !== null ? fb2 : getScope();
+        loadScopedIndex(retryScope)
           .then(function (index) {
-            addSearchHistory(v);
-            if (_cfg.onHistoryChange) _cfg.onHistoryChange();
-            var results = searchLibrary(index, v, getScope());
+            var results = searchLibrary(index, v, retryScope);
             _ui.status.style.display = "none";
             syncFooter(); // the strip's life is now the hint's / open-page's
             renderAllBooksResults(results, v);
@@ -782,8 +794,11 @@ export function initSearchWindow(cfg) {
   if (_cfg.mode === "reader") {
     // The reader's All-books tab shares the scope picker; the library page
     // inits its own (it owns the libScope modal and button). No page
-    // callback — the shell reacts through the libScopeChange event.
-    initScopePicker({});
+    // callback — the shell reacts through the libScopeChange event. Same
+    // HDT default as the library page: reader-side cross-book search starts
+    // with the hadith books (the summary + modal show it once the picker's
+    // searchable list resolves).
+    initScopePicker({ defaultTag: "HDT" });
   }
   return _ui;
 }

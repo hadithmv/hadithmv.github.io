@@ -706,6 +706,10 @@ async function main() {
   check("all-books: scope summary opens the libScope modal on top",
     scopeModalState.exists && scopeModalState.modalOpen && scopeModalState.windowOpen,
     JSON.stringify(scopeModalState));
+  // The modal opened with the HDT default scope pre-selected (16 books) —
+  // reset first, so the tick below narrows to exactly one book.
+  await evalJS(`document.getElementById('libScopeReset').click()`);
+  await waitFor(`document.querySelectorAll('#libScopeList .lib-scope-row input:checked').length === 0`, 5000);
   const scopeListed = await evalJS(`(function () {
     var want = ${JSON.stringify(allBookRow)};
     var cb = null;

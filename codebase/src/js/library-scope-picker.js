@@ -11,16 +11,17 @@
  */
 
 import { tagLabel, t, currentLang } from "./i18n.js";
-import { loadSearchIndex } from "./library-search-engine.js";
+import { loadIndexMeta } from "./library-search-engine.js";
 import { extractTags, tagSearchWords, loadBookRegistry } from "./book-data.js";
 import { escapeHTML, scoreFilterTokens, normaliseForSearch } from "./search-utils.js";
 
 // ── State ────────────────────────────────────────────────────
 var _selectedBooks = null; // book scope: null = every book; else explicit bookCode list
+var _scopeExplicit = false; // the user or a share link set the scope — the default must not override
 var _searchableBooks = null; // picker list — visible books that are in the search index
 var _bookByCode = {}; // bookCode → registry entry (picker titles)
 var _scopeFilter = ""; // picker's filter-box text
-var _cfg = null; // { bookNames(), onScopeChange() }
+var _cfg = null; // { bookNames(), onScopeChange(), defaultTag }
 var _ui = {
   target: null, // element the shell currently lives in (one surface at a time)
   filter: null,
@@ -47,7 +48,12 @@ function _notifyChange() {
   window.dispatchEvent(new CustomEvent("libScopeChange"));
 }
 
-/** The page hands over its scope-changed callback. */
+/** The page hands over its scope-changed callback and, optionally, a default
+ *  scope: cfg.defaultTag = a tag code whose searchable group becomes the
+ *  scope on fresh visits (the user can undo it via the All chip, the reset
+ *  button, or any picker interaction). The search window passes the same
+ *  default ("HDT") with no callback — the library page and the window's
+ *  All-books tab both start scoped to the hadith books. */
 export function initScopePicker(cfg) {
   _cfg = cfg;
 }
@@ -57,7 +63,10 @@ export function getScope() {
   return _selectedBooks;
 }
 
+/** Set the scope from outside the picker (share-link restore, tag chips) —
+ *  marks it explicit so a configured default can't override it. */
 export function setScope(list) {
+  _scopeExplicit = true;
   _selectedBooks = list || null;
 }
 
@@ -89,31 +98,43 @@ export function searchableBooks() {
  *  still be null while the page loads) so an eager caller — the search
  *  window's facet chips at window-build time — can never catch the registry
  *  mid-flight. Registry failure resolves without setting anything; callers
- *  fall back to their own lists. */
+ *  fall back to their own lists. Reads only the ~2 KB manifest (loadIndexMeta)
+ *  — never the postings — so this whole path costs a few kilobytes, not the
+ *  old ~16 MB index file. */
 export function ensureSearchableBooks() {
-  if (_searchableBooks) return Promise.resolve();
-  return loadBookRegistry().then(function (bookNames) {
-    if (!bookNames) return;
-    return loadSearchIndex()
-      .then(function (index) {
-        var ids = index.meta.bookIds;
-        _searchableBooks = bookNames.filter(function (b) {
-          return !b.bookCode.endsWith("-HDN") && ids.indexOf(b.bookCode) !== -1;
+  var chain;
+  if (_searchableBooks) {
+    chain = Promise.resolve();
+  } else {
+    chain = loadBookRegistry().then(function (bookNames) {
+      if (!bookNames) return;
+      return loadIndexMeta()
+        .then(function (meta) {
+          var ids = meta.bookIds;
+          _searchableBooks = bookNames.filter(function (b) {
+            return !b.bookCode.endsWith("-HDN") && ids.indexOf(b.bookCode) !== -1;
+          });
+        })
+        .catch(function () {
+          // Index unavailable → fall back to every visible book (search is
+          // failing anyway; the list is still honest about the registry).
+          _searchableBooks = bookNames.filter(function (b) {
+            return !b.bookCode.endsWith("-HDN");
+          });
+        })
+        .then(function () {
+          _bookByCode = {};
+          _searchableBooks.forEach(function (b) {
+            _bookByCode[b.bookCode] = b;
+          });
         });
-      })
-      .catch(function () {
-        // Index unavailable → fall back to every visible book (search is
-        // failing anyway; the list is still honest about the registry).
-        _searchableBooks = bookNames.filter(function (b) {
-          return !b.bookCode.endsWith("-HDN");
-        });
-      })
-      .then(function () {
-        _bookByCode = {};
-        _searchableBooks.forEach(function (b) {
-          _bookByCode[b.bookCode] = b;
-        });
-      });
+    });
+  }
+  // The configured default scope (cfg.defaultTag) applies once the searchable
+  // list exists — every caller (the page's init, openScopeModal, the window's
+  // facet chips) sees the same settled state.
+  return chain.then(function () {
+    _applyDefaultScope();
   });
 }
 
@@ -148,6 +169,55 @@ function allCodes() {
   });
 }
 
+/** The default scope when cfg.defaultTag is configured: the group of
+ *  searchable books carrying that tag (scopeGroups semantics — any tag slot,
+ *  matching the chip row). null when no default is configured or the
+ *  searchable list isn't ready. */
+export function defaultScopeCodes() {
+  if (!_cfg || !_cfg.defaultTag || !_searchableBooks) return null;
+  var gs = scopeGroups();
+  for (var i = 0; i < gs.length; i++) {
+    if (gs[i].code === _cfg.defaultTag) return gs[i].codes.slice();
+  }
+  return null;
+}
+
+/** The searchable books carrying a tag — the picker group a chip refers to.
+ *  Empty when the tag has no searchable books (RDF dictionaries, say). */
+export function groupBookCodes(tagCode) {
+  var gs = scopeGroups();
+  for (var i = 0; i < gs.length; i++) {
+    if (gs[i].code === tagCode) return gs[i].codes.slice();
+  }
+  return [];
+}
+
+/** Set equality for scope lists (order-insensitive). */
+export function scopesEqual(a, b) {
+  if (!a || !b || a.length !== b.length) return false;
+  var s = a.slice().sort();
+  var t = b.slice().sort();
+  for (var i = 0; i < s.length; i++) {
+    if (s[i] !== t[i]) return false;
+  }
+  return true;
+}
+
+/** Apply the configured default scope once the searchable list exists —
+ *  skipped when the user or a share link already set the scope. Notifies on
+ *  an actual change so every surface's label (the page button, the search
+ *  window's summary) catches up — the default is real scope state, not a
+ *  silent initialisation detail. */
+function _applyDefaultScope() {
+  if (_scopeExplicit || !_cfg || !_cfg.defaultTag) return;
+  var def = defaultScopeCodes();
+  if (!def) return;
+  if (!scopesEqual(_selectedBooks, def)) {
+    _selectedBooks = def;
+    _notifyChange();
+  }
+}
+
 /** Update _selectedBooks for one book; a full selection collapses to null. */
 function setBookSelected(code, on) {
   var all = allCodes();
@@ -158,6 +228,7 @@ function setBookSelected(code, on) {
   // Empty and full both mean "no restriction" — an empty array would pass the
   // truthy scope check in computeScope and return zero results.
   _selectedBooks = (cur.length === 0 || cur.length === all.length) ? null : cur;
+  _scopeExplicit = true; // a modal interaction always overrides the default
   _notifyChange();
 }
 
@@ -178,6 +249,7 @@ function setGroupSelected(tagCode, on) {
     if (!on && i !== -1) cur.splice(i, 1);
   }
   _selectedBooks = (cur.length === 0 || cur.length === all.length) ? null : cur;
+  _scopeExplicit = true; // a modal interaction always overrides the default
   _notifyChange();
 }
 
@@ -271,6 +343,7 @@ export function renderScopeShell(target) {
   _ui.reset.addEventListener("click", function () {
     if (_selectedBooks === null) return; // nothing scoped → nothing to reset
     _selectedBooks = null;
+    _scopeExplicit = true; // undoing the default is still an explicit choice
     _notifyChange();
   });
   // Delegation on the containers — they survive list re-renders. No
@@ -284,6 +357,7 @@ export function renderScopeShell(target) {
       // group or per-book selection (the same action as the reset button).
       if (_selectedBooks !== null) {
         _selectedBooks = null;
+        _scopeExplicit = true; // undoing the default is still an explicit choice
         _notifyChange();
       }
       return;
@@ -332,6 +406,18 @@ function scopeRowHTML(code) {
 export function renderScopePopover() {
   if (!_searchableBooks || !_ui.list) return;
   var groups = scopeGroups();
+  // When the selection is exactly one full tag group, that group leads the
+  // rail and its books lead the list — the active choice is the first thing
+  // the user sees. Unions, single books and the unscoped state keep the
+  // registry's palette order: no one group is "the" choice then.
+  if (_selectedBooks) {
+    for (var gi = 0; gi < groups.length; gi++) {
+      if (scopesEqual(_selectedBooks, groups[gi].codes)) {
+        groups.unshift(groups.splice(gi, 1)[0]);
+        break;
+      }
+    }
+  }
   var total = allCodes().length;
   var selCount = _selectedBooks ? _selectedBooks.length : total;
   // The All chip leads the rail (same markup as the dashboard's row):
@@ -347,8 +433,10 @@ export function renderScopePopover() {
   // The rail's chips show every tag a book carries, so a book belongs to
   // several groups — but the list is a picker, not a taxonomy: each book
   // renders exactly once, under its first group (groups run in the tag
-  // registry's file order, which is also the palette/display order); a
-  // group label whose books were all claimed by earlier groups is skipped.
+  // registry's file order, which is also the palette/display order — unless
+  // one group is exactly the selection, in which case it was moved to the
+  // front above and its books lead the list); a group label whose books
+  // were all claimed by earlier groups is skipped.
   // The filter is always-fuzzy, exact-ranked (scoreFilterTokens, same as
   // the dashboard box): titles + tag words may match within a length-scaled
   // edit distance (4–5 chars → 1 edit, 6+ → 2, shorter exact-only), the

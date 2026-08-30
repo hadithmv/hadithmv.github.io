@@ -1,8 +1,9 @@
 /**
  * Library Search Page Module (books/library-search.html)
  * Cross-book search UI — the engine itself lives in src/js/library-search-engine.js
- * (pure module: loadSearchIndex / searchLibrary / tokenizeText) and the word
- * index in data/search-index.json (built by data/08-rebuild-searchIndex.mjs).
+ * (pure module: loadScopedIndex / loadIndexMeta / searchLibrary / tokenizeText) and
+ * the word index in data/search-index.json + data/search-index/ (built by
+ * data/08-rebuild-searchIndex.mjs).
  *
  * This page is self-initialising. It reads ?q=, ?tags= and ?books= from the
  * URL (shareable links), renders tag chips scoped to the visible books, and
@@ -14,7 +15,7 @@
  */
 
 import { tagLabel, t } from "./i18n.js";
-import { loadSearchIndex, searchLibrary } from "./library-search-engine.js";
+import { loadScopedIndex, searchLibrary } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
   loadAuthorDefinitions,
@@ -55,6 +56,9 @@ import {
   refreshScopeLabels,
   fillTemplate,
   scopeSummaryText,
+  defaultScopeCodes,
+  groupBookCodes,
+  scopesEqual,
 } from "./library-scope-picker.js";
 import {
   initSearchWindow,
@@ -138,7 +142,15 @@ function readURLParams() {
   if (booksParam) {
     var books = booksParam.split(",").map(function (x) { return x.trim(); })
       .filter(function (x) { return x; });
-    if (books.length > 0) setScope(books);
+    if (books.length > 0) {
+      setScope(books);
+      // The window is already built (initSearchWindow ran above) and shows
+      // "All books" — this restore never passes through the picker's
+      // notification, so fan the change out the same public channel the
+      // picker uses (the window's summary refreshes; the page's own button
+      // re-renders at init).
+      window.dispatchEvent(new CustomEvent("libScopeChange"));
+    }
   }
 }
 
@@ -151,7 +163,21 @@ function syncURL() {
   if (facets.authors.length > 0) params.set("authors", facets.authors.join(","));
   if (facets.period) params.set("period", facets.period);
   var scopeBooks = getScope();
-  if (scopeBooks && scopeBooks.length > 0) params.set("books", scopeBooks.join(","));
+  if (scopeBooks && scopeBooks.length > 0) {
+    // ?books= stays out of the URL when the scope is the HDT default (fresh
+    // state, the URL is param-free) or exactly the active chips' groups
+    // (?tags= already carries that state) — the shared link must round-trip.
+    var def = defaultScopeCodes();
+    var skip = def && scopesEqual(scopeBooks, def);
+    if (!skip && _selectedTags.length > 0) {
+      var tagUnion = [];
+      _selectedTags.forEach(function (tc) {
+        tagUnion = tagUnion.concat(groupBookCodes(tc));
+      });
+      skip = tagUnion.length > 0 && scopesEqual(scopeBooks, tagUnion);
+    }
+    if (!skip) params.set("books", scopeBooks.join(","));
+  }
   var qs = params.toString();
   history.replaceState(null, "", qs ? "?" + qs : window.location.pathname);
 }
@@ -179,6 +205,28 @@ function renderChips() {
     });
   });
   var tagsActive = _selectedTags.length > 0;
+  // The scope mirrors into the chip row: when the picker's selection is
+  // exactly one tag group (the HDT default, a chip click, a ?tags= link),
+  // that chip shows active and the All chip turns off — the row and the
+  // scope button must never contradict each other. The check runs in the
+  // same palette order the chips render, so an ambiguous scope (two tags
+  // with identical book sets) picks the first in display order.
+  var scopeBooks = getScope();
+  var scopeGroup = null;
+  if (scopeBooks) {
+    Object.keys(tagCounts)
+      .sort(function (a, b) {
+        return tagCounts[a].palette - tagCounts[b].palette;
+      })
+      .some(function (code) {
+        if (scopesEqual(scopeBooks, groupBookCodes(code))) {
+          scopeGroup = code;
+          return true;
+        }
+        return false;
+      });
+  }
+  if (scopeGroup) tagsActive = true;
   var allChipHTML = window.tagAllChipHtml(tagsActive, visible.length);
 
   var html = Object.keys(tagCounts)
@@ -193,7 +241,7 @@ function renderChips() {
         code,
         tc.label,
         tc.palette,
-        _selectedTags.indexOf(code) !== -1,
+        _selectedTags.indexOf(code) !== -1 || scopeGroup === code,
         tc.count
       );
     })
@@ -221,14 +269,21 @@ function onChipsClick(e) {
   var tag = chip.dataset.tag;
   if (tag === window.TAG_ALL) {
     _selectedTags = [];
+    // All = every book — undo any picker scope too. Chips and the picker
+    // share one scope: intersecting a tag with the HDT default would empty it.
+    setScope(null);
   } else {
     var idx = _selectedTags.indexOf(tag);
     if (idx === -1) _selectedTags.push(tag);
     else _selectedTags.splice(idx, 1);
+    // The chip's group replaces the picker scope (same semantics as ?tags=).
+    var codes = groupBookCodes(tag);
+    setScope(codes.length > 0 ? codes : null);
   }
-  syncURL();
+  // applyScopeChange covers URL sync, the scope button and (when querying) the
+  // re-search; the chips row re-renders after so it reflects the new state.
+  applyScopeChange();
   renderChips();
-  if (_q) runSearchAndRender();
 }
 
 // ── Book-scope picker (wiring) ───────────────────────────────
@@ -343,7 +398,8 @@ function runSearchAndRender() {
   addSearchHistory(_q, window.LS_KEYS.searchHistory);
   el.count.style.display = "none";
   el.results.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
-  loadSearchIndex()
+  // Scope-scoped: only the shards for the books in scope are fetched.
+  loadScopedIndex(scope)
     .then(function (index) {
       renderResults(searchLibrary(index, _q, scope), _q);
     })
@@ -774,7 +830,9 @@ function windowSearchRun(q) {
   renderWindowHistorySection(); // history stays visible while the search runs
   winResults.innerHTML = '<div class="empty-state">' + t("libSearching") + "</div>";
   winResults.style.display = "";
-  loadSearchIndex()
+  // Scope-scoped: only the shards for the books in scope are fetched —
+  // a tag-scoped window search never downloads the whole corpus.
+  loadScopedIndex(scope)
     .then(function (index) {
       renderWindowResults(searchLibrary(index, q, scope), q);
     })
@@ -835,6 +893,9 @@ async function init() {
 
   initScopePicker({
     onScopeChange: applyScopeChange,
+    // Default scope: HDT books on a fresh visit (no ?books= / ?tags= state).
+    // The All chip, the reset button, or any picker interaction undoes it.
+    defaultTag: "HDT",
   });
 
   // The search window (library mode): shares the page's scope state, its
@@ -985,6 +1046,25 @@ async function init() {
   // The searchable book list (registry ∩ index) — the set the author/period
   // facets count over, so the counts only cover books really in the library.
   await ensureSearchableBooks();
+
+  // A ?tags= share link scopes the picker to the tag groups too — chips and
+  // the picker share one scope (intersecting a tag with the HDT default would
+  // empty the search). Runs after ensureSearchableBooks: the groups need the
+  // searchable list. The picker's default scope also settles here, so the
+  // scope button re-renders with its true label.
+  if (_selectedTags.length > 0) {
+    var tagCodes = [];
+    _selectedTags.forEach(function (tc) {
+      tagCodes = tagCodes.concat(groupBookCodes(tc));
+    });
+    setScope(tagCodes.length > 0 ? tagCodes : null);
+    // The picker's default notify above already showed the HDT group in the
+    // window's summary — this restore replaces the scope, so refresh every
+    // surface the same way the picker would (the window's summary; the
+    // page's button re-renders just below).
+    window.dispatchEvent(new CustomEvent("libScopeChange"));
+  }
+  renderScopeButton();
 
   // Facet changes (chips, browse modals, the search window — the one shared
   // facet state) re-sync the URL, chips and results

@@ -1,21 +1,27 @@
 /**
  * Library Search Module
- * Cross-book search over the machine-generated word-level index
- * (data/search-index.json, built by data/08-rebuild-searchIndex.mjs).
+ * Cross-book search over the machine-generated word-level index — a small
+ * manifest (data/search-index.json) plus one shard per indexed book
+ * (data/search-index/<bookCode>.json, built by data/08-rebuild-searchIndex.mjs).
  *
- * The index maps normalised words → { bookId → packed row ranges }. This
- * module loads it (IndexedDB-cached, validated against meta.version via a
- * conditional fetch) and answers "which books contain ALL of these words?"
- * — AND across query words, intersected with a caller-supplied book scope
- * (the search page's tag chips). Results carry the first matching row so the
- * page can deep-link to reader.html?book=X&row=N.
+ * The manifest is meta only (~2 KB); the postings live in the shards, one
+ * flat { word → packed row ranges } file per book. This module loads the
+ * manifest first — the scope picker reads it alone — then only the shards
+ * for the books a search actually covers, merging them into the same
+ * { word → { bookId → packed } } shape the query engine consumes, and
+ * answers "which books contain ALL of these words?" — AND across query
+ * words, intersected with a caller-supplied book scope (the search page's
+ * tag chips). Results carry the first matching row so the page can
+ * deep-link to reader.html?book=X&row=N.
  *
- * Pure module — no DOM. Exports: loadSearchIndex, searchLibrary, tokenizeText
+ * Pure module — no DOM. Exports: loadSearchIndex, loadScopedIndex,
+ * loadIndexMeta, searchLibrary, tokenizeText
  */
 
 import { normaliseForSearch } from "./search-utils.js";
 
-var INDEX_PATH = "../../data/search-index.json";
+var INDEX_PATH = "../../data/search-index.json"; // the manifest — meta only
+var SHARD_DIR = "../../data/search-index/"; // one flat {word: packed} file per book
 
 // ── Tokenisation (SHARED with the index build script) ────────
 // data/08-rebuild-searchIndex.mjs imports this function — the query side and the
@@ -74,14 +80,44 @@ function idbGetIndex() {
   });
 }
 
-function idbPutIndex(meta, words) {
+function idbPutIndex(meta) {
+  return openSearchDB().then(function (db) {
+    if (!db) return;
+    return new Promise(function (resolve) {
+      // Same id as the old whole-index record — put() replaces it wholesale,
+      // so the pre-shard record's `words` (~16 MB) is discarded automatically.
+      var tx = db.transaction(IDB_STORE, "readwrite").objectStore(IDB_STORE).put({
+        id: IDB_ENTRY_ID,
+        version: meta.version,
+        meta: meta, // kept whole — the offline fallback needs bookIds/shards
+      });
+      tx.onsuccess = function () { resolve(); };
+      tx.onerror = function () { resolve(); };
+    });
+  });
+}
+
+function idbGetShard(code) {
+  return openSearchDB().then(function (db) {
+    if (!db) return null;
+    return new Promise(function (resolve) {
+      var tx = db
+        .transaction(IDB_STORE, "readonly")
+        .objectStore(IDB_STORE)
+        .get("shard:" + code);
+      tx.onsuccess = function () { resolve(tx.result || null); };
+      tx.onerror = function () { resolve(null); };
+    });
+  });
+}
+
+function idbPutShard(code, version, words) {
   return openSearchDB().then(function (db) {
     if (!db) return;
     return new Promise(function (resolve) {
       var tx = db.transaction(IDB_STORE, "readwrite").objectStore(IDB_STORE).put({
-        id: IDB_ENTRY_ID,
-        version: meta.version,
-        meta: meta, // kept whole — the offline fallback needs bookIds etc.
+        id: "shard:" + code,
+        version: version, // the manifest's per-book shard hash
         words: words,
       });
       tx.onsuccess = function () { resolve(); };
@@ -91,44 +127,41 @@ function idbPutIndex(meta, words) {
 }
 
 // ── Index loading ────────────────────────────────────────────
+// Two stages, both scope-aware:
+//   1. loadIndexMeta()   — the manifest (meta only, ~2 KB). Memoized; it is
+//      the scope picker's whole dependency.
+//   2. loadScopedIndex() — the manifest + the shards for the books in
+//      scope, merged into one { word → { bookId: packed } } dict — the exact
+//      shape the pre-shard single file had, so the query engine is untouched.
+// Each stage is individually memoized and cleared on failure, so every retry
+// path (the page's Retry buttons, the search window's ↺) stays honest.
 
-var _indexPromise = null;
+var _metaPromise = null;
 
 /**
- * Load the search index (parse it) and return { meta, words }.
- * Cached: on-device copy (IndexedDB) + browser HTTP cache.
+ * Load the manifest and return its meta ({version, built, bookIds, books,
+ * excluded, rows, words, shards}). Cached: on-device copy (IndexedDB) +
+ * browser HTTP cache.
  *   - A conditional fetch (cache: "no-cache") revalidates against the
- *     server: unchanged → a cheap 304, no 40MB re-download.
- *   - Only the meta head is parsed from the fetched text to read the
- *     version; the full 40MB JSON.parse + store happen only when the
- *     version actually changed (or the first time).
- *   - Offline (fetch threw): the on-device copy is served as-is — it was
- *     validated against meta.version when it was stored. The stored meta
- *     (added with the offline fallback) carries the bookIds the search
- *     page resolves results through; records without it can't, so they
- *     fall back to the original throw.
+ *     server: unchanged → a cheap 304 and the cached meta is reused.
+ *   - The manifest is ~2 KB — full JSON.parse, no head-parsing tricks.
+ *   - Offline (fetch threw): the on-device meta is served as-is — it was
+ *     validated against meta.version when stored. A pre-shard record (meta
+ *     without `shards`) can't resolve shard versions, so it's stale and the
+ *     original throw stands.
  * Failed loads are retryable — the promise is cleared so a later call
  * tries again.
  */
-export function loadSearchIndex() {
-  if (_indexPromise) return _indexPromise;
-  _indexPromise = loadIndexInner().catch(function (err) {
-    _indexPromise = null;
+export function loadIndexMeta() {
+  if (_metaPromise) return _metaPromise;
+  _metaPromise = loadIndexMetaInner().catch(function (err) {
+    _metaPromise = null;
     throw err;
   });
-  return _indexPromise;
+  return _metaPromise;
 }
 
-// meta has no nested braces (bookIds is an array), so this captures it whole
-var META_RE = /"meta":\s*(\{[^{}]*\})/;
-
-function parseMetaHead(text) {
-  var m = text.match(META_RE);
-  if (!m) throw new Error("Search index is corrupt (missing meta object)");
-  return JSON.parse(m[1]);
-}
-
-async function loadIndexInner() {
+async function loadIndexMetaInner() {
   var cached = null;
   try {
     cached = await idbGetIndex();
@@ -140,30 +173,157 @@ async function loadIndexInner() {
   try {
     resp = await fetch(INDEX_PATH, { cache: "no-cache" });
   } catch (e) {
-    // Offline (or any network failure): the on-device copy is the best we
-    // have — it was validated against meta.version when it was stored.
-    // Records written before the offline fallback existed carry no meta
-    // and can't resolve numeric bookIds, so only a complete record helps;
-    // the next successful load re-stores one.
-    if (cached && cached.meta && cached.words) {
-      return { meta: cached.meta, words: cached.words };
+    if (cached && cached.meta && cached.meta.shards) {
+      return cached.meta;
     }
     throw e;
   }
   if (!resp.ok) {
     throw new Error("Failed to load the search index (" + resp.status + ")");
   }
-  var text = await resp.text();
-  var meta = parseMetaHead(text);
-
-  if (cached && cached.version === meta.version) {
-    return { meta: meta, words: cached.words };
+  var meta = JSON.parse(await resp.text()).meta;
+  if (!meta || !meta.shards) {
+    throw new Error("Search index is corrupt (missing meta object)");
   }
 
-  var words = JSON.parse(text).words;
+  if (!(cached && cached.version === meta.version)) {
+    // Fire-and-forget: don't delay the first search on the write
+    idbPutIndex(meta).catch(function () {});
+  }
+  return meta;
+}
+
+// Per-book shard state, keyed by bookCode. _master is the merged dict — the
+// same shape the monolithic index had — grown monotonically as scopes widen;
+// a full session's footprint equals the old single-file parse, scoped
+// sessions are strictly smaller.
+var _shardPromises = {}; // "code:version" → Promise<words> (cleared on failure)
+var _loadedShards = {}; // code → { version, words }
+var _mergedVersions = {}; // code → version currently folded into _master
+var _master = {};
+
+function ensureShard(code, version) {
+  var key = code + ":" + version;
+  var p = _shardPromises[key];
+  if (p) return p;
+  p = ensureShardInner(code, version).catch(function (err) {
+    delete _shardPromises[key];
+    throw err;
+  });
+  _shardPromises[key] = p;
+  return p;
+}
+
+async function ensureShardInner(code, version) {
+  var rec = null;
+  try {
+    rec = await idbGetShard(code);
+  } catch (e) {
+    rec = null;
+  }
+  if (rec && rec.version === version) {
+    _loadedShards[code] = { version: version, words: rec.words };
+    return rec.words;
+  }
+  // ?v=<version> busts the HTTP cache exactly when the shard changes —
+  // GitHub Pages sends no Cache-Control, so a bare URL could serve stale
+  // bytes for days after a deploy while the manifest flips instantly.
+  var resp = await fetch(SHARD_DIR + code + ".json?v=" + version);
+  if (!resp.ok) {
+    throw new Error("Failed to load the search index (" + resp.status + ")");
+  }
+  var words = JSON.parse(await resp.text());
   // Fire-and-forget: don't delay the first search on the write
-  idbPutIndex(meta.version, words).catch(function () {});
-  return { meta: meta, words: words };
+  idbPutShard(code, version, words).catch(function () {});
+  _loadedShards[code] = { version: version, words: words };
+  return words;
+}
+
+/** Fold one shard's flat { word: packed } dict into _master at its bookId. */
+function mergeIntoMaster(words, numericId) {
+  for (var word in words) {
+    var entry = _master[word];
+    if (!entry) entry = _master[word] = {};
+    entry[String(numericId)] = words[word];
+  }
+}
+
+/** Rebuild _master from every currently-loaded shard. */
+function rebuildMaster(meta) {
+  _master = {};
+  for (var code in _mergedVersions) {
+    var s = _loadedShards[code];
+    if (s) mergeIntoMaster(s.words, meta.bookIds.indexOf(code));
+  }
+}
+
+/**
+ * Bind a shard's code/version to its load promise. The loop calls this with
+ * per-iteration values; a bare closure over the loop's var would tag every
+ * loaded shard with the LAST iteration's code (and the _mergedVersions skip
+ * would then fold only one shard into _master).
+ */
+function tagShard(code, version) {
+  return function (words) {
+    return { code: code, version: version, words: words };
+  };
+}
+
+/**
+ * Load the merged index for a set of books and return { meta, words } in the
+ * shape searchLibrary consumes. scopeBookCodes: the books to cover; null /
+ * absent / empty = every book in the index. Only the shards for the books in
+ * scope are fetched — a scoped search never downloads the whole corpus, and
+ * already-loaded shards (a wider scope, an earlier search) are reused. Any
+ * needed shard failing to load rejects the whole call — result counts stay
+ * truthful — and the caller's error + Retry path re-attempts just the
+ * missing pieces.
+ */
+export function loadScopedIndex(scopeBookCodes) {
+  return loadIndexMeta().then(function (meta) {
+    // Scope → needed codes. A scope is user/URL input; unknown codes are
+    // dropped so a garbage deep link never 404-fetches a nonexistent shard.
+    var codes;
+    if (scopeBookCodes && scopeBookCodes.length > 0) {
+      codes = [];
+      for (var i = 0; i < scopeBookCodes.length; i++) {
+        var c = scopeBookCodes[i];
+        if (meta.bookIds.indexOf(c) !== -1 && codes.indexOf(c) === -1) codes.push(c);
+      }
+    } else {
+      codes = meta.bookIds;
+    }
+
+    var loads = [];
+    for (var j = 0; j < codes.length; j++) {
+      var code = codes[j];
+      var version = meta.shards[code];
+      if (!version) throw new Error("Search index is corrupt (no shard for " + code + ")");
+      loads.push(
+        ensureShard(code, version).then(tagShard(code, version))
+      );
+    }
+    return Promise.all(loads).then(function (loaded) {
+      for (var k = 0; k < loaded.length; k++) {
+        var l = loaded[k];
+        if (_mergedVersions[l.code] === l.version) continue;
+        if (_mergedVersions[l.code]) {
+          // A deploy changed this shard mid-session: rebuild so words that
+          // DISAPPEARED from the shard leave _master too — an incremental
+          // merge would keep their stale postings.
+          rebuildMaster(meta);
+        }
+        mergeIntoMaster(l.words, meta.bookIds.indexOf(l.code));
+        _mergedVersions[l.code] = l.version;
+      }
+      return { meta: meta, words: _master };
+    });
+  });
+}
+
+/** Pre-shard API: the whole index. Thin alias for any caller without a scope. */
+export function loadSearchIndex() {
+  return loadScopedIndex(null);
 }
 
 // ── Query engine (pure) ──────────────────────────────────────

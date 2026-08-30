@@ -316,8 +316,9 @@ blaming the product.
 - **GitHub Pages gzip fools size analysis.** Pages gzips for clients that send
   `Accept-Encoding: gzip, deflate, br` (all browsers do); a bare `curl -I`
   sends no header, gets raw bytes and no `Content-Encoding`, and looks exactly
-  like "server doesn't compress". Verified 2026-08-07: search-index.json is
-  13.77MB over the wire vs 41.65MB raw. Correct: probe with
+  like "server doesn't compress". Verified 2026-08-30: the search-index
+  manifest is 1.9 KB over the wire vs 4.8 KB raw, and a full all-books search
+  totals ~6.0 MB gz of shards vs ~19.4 MB raw. Correct: probe with
   `-H "Accept-Encoding: gzip"` (or `--compressed`) and read `Content-Encoding`;
   the browser's `resp.text()` is unaffected — decompression is transparent.
 - **`git mv` moves names, not data.** After any rename/swap of data files,
