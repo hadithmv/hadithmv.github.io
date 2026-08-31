@@ -19,6 +19,11 @@
  *     stored or hardcoded.
  *   - Caching: each source is cached in IndexedDB keyed by its own version, so
  *     edits to any source book show up here automatically — nothing to re-run.
+ *   - Two load paths, one promise shape: the whole-file assembly
+ *     (loadMergedRadheefBook — used as the fallback) and the streaming twin
+ *     (loadMergedRadheefBookStreamed — HEAD-summed progress total, sequential
+ *     per-source streaming, per-batch projection; the reader's first-visit
+ *     path). See their docstrings.
  *
  * Index: the merged book is excluded from the library search index
  * (excludeFromIndex = ENTIRE-BOOK, like all RDF books) — a postings index over
@@ -59,6 +64,28 @@ export function isMergedRadheefBook(bookCode) {
   return bookCode === MERGED_BOOK_CODE;
 }
 
+// The merged schema projection — every source row maps into the 7 target
+// cells BY HEADER NAME (a source column lands in the target column with the
+// same name; columns without a same-named home are left out). Used by both
+// the whole-file assembly and the streaming path, so the two can never
+// diverge. The source column (last cell) carries the source book's Dhivehi
+// title, read from the registry at load — derived, never stored or hardcoded.
+function projectBatch(rows, idx, title) {
+  var out = [];
+  for (var r = 0; r < rows.length; r++) {
+    var src = rows[r];
+    var tgt = [];
+    for (var c = 0; c < MERGED_HEADERS.length; c++) {
+      var name = MERGED_HEADERS[c];
+      var i = idx[name];
+      tgt.push(i !== undefined ? (src[i] || "") : "");
+    }
+    tgt[MERGED_HEADERS.length - 1] = title;
+    out.push(tgt);
+  }
+  return out;
+}
+
 /**
  * Load the merged radheef book. Resolves to the same shape as
  * reader.js's loadStandardBook: { data, headerRow, hasRowNums }.
@@ -83,19 +110,89 @@ export function loadMergedRadheefBook() {
       for (var h = 0; h < headerRow.length; h++) {
         idx[headerRow[h]] = h;
       }
-      var title = getBookTitleSync(code) || code;
-      for (var r = 0; r < rows.length; r++) {
-        var src = rows[r];
-        var tgt = [];
-        for (var c = 0; c < MERGED_HEADERS.length; c++) {
-          var name = MERGED_HEADERS[c];
-          var i = idx[name];
-          tgt.push(i !== undefined ? (src[i] || "") : "");
-        }
-        tgt[MERGED_HEADERS.length - 1] = title; // source column
-        data.push(tgt);
-      }
+      data = data.concat(projectBatch(rows, idx, getBookTitleSync(code) || code));
     }
     return { data: data, headerRow: MERGED_HEADERS, hasRowNums: false };
+  });
+}
+
+/**
+ * Load the merged radheef book STREAMED (first visits — the merged book is
+ * the library's heaviest: 8 sources, ~15 MB raw, 152,612 merged rows, and
+ * it used to sit on the skeleton for the whole download). streamOpts is the
+ * reader's streaming bridge contract ({ onFirstRow, onRows, onProgress }).
+ *
+ * Phase 0 HEADs every source (parallel) and sums the Content-Lengths — that
+ * sum is the progress line's total. Any HEAD failure (network, missing
+ * header, or file:// where fetch HEAD rejects) keeps the whole-file
+ * assembly below, exactly like the standard path's missing-Content-Length
+ * rule. Phase 1 streams the sources SEQUENTIALLY in MERGED_SOURCES order
+ * (rasmee leads — the block order is deliberate; see MERGED_SOURCES),
+ * projecting every batch into the merged schema BEFORE the reader sees it.
+ * The merged header is static (MERGED_HEADERS) — emitted once, before the
+ * first source, so the reader's bridge owns every source's rows from the
+ * start. Cache-hit / sub-threshold sources never stream (fetchBookCSVCached
+ * and fetchCSVStreamed's own rules) — their rows arrive whole-file through
+ * the same onRows bridge; sources that fail or have no rows are skipped
+ * (the whole-file rule). The aggregate fraction is (completed sources'
+ * bytes + the current source's share) / total — monotonic, clamped at 1
+ * (compressed vs decompressed lengths are the clamp's reason, same as
+ * fetchCSVStreamed's own).
+ *
+ * Resolves null when stream mode engaged (the reader consumed every row via
+ * the callbacks and finalizes on the bridge) or the assembled
+ * { data, headerRow, hasRowNums } from the whole-file fallback — one
+ * promise shape either way.
+ */
+export function loadMergedRadheefBookStreamed(streamOpts) {
+  var sizes = {};
+  return Promise.all(MERGED_SOURCES.map(function (code) {
+    return fetch(getCsvPath(code), { method: "HEAD" }).then(function (res) {
+      var len = parseInt(res.headers.get("content-length") || "0", 10) || 0;
+      if (!res.ok || len < 1) throw new Error("no-content-length " + code);
+      sizes[code] = len;
+    });
+  })).then(function () {
+    streamOpts.onFirstRow(MERGED_HEADERS);
+    var total = MERGED_SOURCES.reduce(function (s, code) { return s + sizes[code]; }, 0);
+    var doneBytes = 0;
+    function streamMergedSource(code) {
+      var len = sizes[code];
+      var title = getBookTitleSync(code) || code;
+      var idx = null; // this source's header name→index map; non-null ⇒ it streamed
+      var opts = {
+        onFirstRow: function (header) {
+          idx = {};
+          for (var h = 0; h < header.length; h++) idx[header[h]] = h;
+        },
+        onRows: function (batch) {
+          streamOpts.onRows(projectBatch(batch, idx, title));
+        },
+        onProgress: function (f) {
+          streamOpts.onProgress(Math.min(1, (doneBytes + f * len) / total));
+        },
+      };
+      return fetchBookCSVCached(code, getBookVersionSync(code) || "", getCsvPath(code), false, opts)
+        .then(function (rows) {
+          if (idx === null) {
+            // Whole-file delivery (cache hit / sub-threshold / no-stream
+            // fallback): the promise carried the full array, header first.
+            if (!rows || rows.length === 0) return;
+            var headerRow = rows.shift();
+            var hIdx = {};
+            for (var h = 0; h < headerRow.length; h++) hIdx[headerRow[h]] = h;
+            var projected = projectBatch(rows, hIdx, title);
+            if (projected.length > 0) streamOpts.onRows(projected);
+          }
+          doneBytes += len;
+        })
+        .catch(function () { doneBytes += len; }); // failed source — skipped (whole-file rule)
+    }
+    var chain = MERGED_SOURCES.reduce(function (p, code) {
+      return p.then(function () { return streamMergedSource(code); });
+    }, Promise.resolve());
+    return chain.then(function () { return null; });
+  }).catch(function () {
+    return loadMergedRadheefBook(); // whole-file fallback — any HEAD failure
   });
 }

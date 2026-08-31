@@ -16,7 +16,7 @@ export {
   QRN_PRESET_MAIN, QRN_PRESET_ARABIC,
   loadQuranBaseData, loadSurahNames,
   getSurahNames, getSurahInfo, toArabicNumeral,
-  decorateAyah, loadQuranBookCSV, mergeQuranData,
+  decorateAyah, loadQuranBookCSV, mergeQuranData, mergeQuranDataStreamed,
   quranState,
   buildSurahListHTML, findQuranColIndices,
   getAyahNoFromRow, getRowJuz, getRowSurah, updateQuranNavDisplay,

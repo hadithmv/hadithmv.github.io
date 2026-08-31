@@ -926,6 +926,39 @@ body:has(.modal-overlay.open) {
 .skeleton-line:nth-child(9) {
   width: 35%;
 }
+/* Streaming-load progress line (reader big-book loads). Rendered INSIDE
+   #pageTitle (reader.js _streamProgress fills the title element while a
+   book streams): the title's own flex:1 slot and safe-centered alignment
+   put the line exactly where the book title will appear, at the title's
+   size (--fs-title) — the swap at the drain reads as one element changing
+   state. The span inherits the title's direction and font stack: in the
+   RTL (Dhivehi/Arabic) layouts the word sits right and the percent left of
+   it — the natural reading order — and the webfont paints both scripts
+   like the title's own text (a forced Latin font made the Thaana word fall
+   back to a system face and read in the wrong order). Only English, whose
+   line is pure LTR text, gets an explicit LTR override — the RTL paragraph
+   would otherwise order the runs in reverse. Muted color and normal weight
+   keep it clearly a loading state. Non-wrapping. */
+.loading-progress {
+  font-weight: 400;
+  color: var(--color-muted, #888);
+  white-space: nowrap;
+}
+html[lang="en"] .loading-progress {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+/* The percent cell holds the % sign INSIDE it (3 digits + %) — an
+   inline-block is bidi-atomic, so "42%" stays one unit in the RTL layouts
+   (a % outside the cell would detach from its digits there), and the
+   fixed width keeps the webfont's proportional digits from shoving the
+   text around on every 0→100% step. Right-aligned: the % keeps its
+   position while the digits grow into the reserved space. */
+.loading-progress-pct {
+  display: inline-block;
+  min-width: 4ch;
+  text-align: right;
+}
 .skeleton-line:nth-child(10) {
   width: 20%;
   margin-top: 16px;
@@ -2981,6 +3014,7 @@ body {
   #pageTitle {
     font-size: 1rem;
   }
+  /* the progress line inherits #pageTitle's size — no separate override */
 
   #topBar .nav-focus-btn {
     width: var(--control-height, 35px);

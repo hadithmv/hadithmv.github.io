@@ -18,7 +18,7 @@
 //  6  changed()                  git status + hints
 //  7  openFolder()               Explorer on the codebase folder
 //  8  build(true)                build + preview
-//  9  checks()                   the 7 batteries, one (1-7), or O to open
+//  9  checks()                   the 8 batteries, one (1-8), or O to open
 //                                the last report; writes checks-report.md
 // 10  about()                    versions, tools, preview + last-checks
 //                                state
@@ -842,7 +842,7 @@ async function newBook() {
   console.log(' 5. Option 15 (or the question below) fills the 03 row for you: the');
   console.log('    three titles, authorCode, tags. Version stays computed, last column.');
   console.log(' 6. Optional: write static/notes/works/' + code + '.md (book notes for the info modal).');
-  console.log(' 7. Run option 9, check 7 - new text may need font glyphs.');
+  console.log(' 7. Run option 9, check 8 - new text may need font glyphs.');
   console.log(' 8. Build (option 1), commit in your IDE, push, then option 11.');
   console.log();
   const reg = await ask(WARN + 'Register it now - fill the registry row with me? (y/n) ' + OFF);
@@ -984,17 +984,19 @@ const CHECK_NAMES = [
   'library scope battery',
   'service worker battery',
   'table-of-contents scan',
+  'streaming battery',
   'font coverage check',
 ];
 const CHECKS = [
-  { file: 'tools/hmv-qrn-smoke.mjs', name: 'reader', label: '1/7 - the reader smoke test (clicks through the Quran reader)...' },
-  { file: 'tools/hmv-info-check.mjs', name: 'info', label: '2/7 - the info modal battery...' },
-  { file: 'tools/hmv-authors-check.mjs', name: 'authors', label: '3/7 - the authors and periods battery...' },
-  { file: 'tools/hmv-libscope-check.mjs', name: 'library', label: '4/7 - the library scope battery...' },
-  { file: 'tools/hmv-sw-check.mjs', name: 'service-worker', label: '5/7 - the service worker battery...' },
-  { file: 'tools/hmv-toc-scan.cjs', name: 'contents', label: '6/7 - the table-of-contents scan...' },
+  { file: 'tools/hmv-qrn-smoke.mjs', name: 'reader', label: '1/8 - the reader smoke test (clicks through the Quran reader)...' },
+  { file: 'tools/hmv-info-check.mjs', name: 'info', label: '2/8 - the info modal battery...' },
+  { file: 'tools/hmv-authors-check.mjs', name: 'authors', label: '3/8 - the authors and periods battery...' },
+  { file: 'tools/hmv-libscope-check.mjs', name: 'library', label: '4/8 - the library scope battery...' },
+  { file: 'tools/hmv-sw-check.mjs', name: 'service-worker', label: '5/8 - the service worker battery...' },
+  { file: 'tools/hmv-toc-scan.cjs', name: 'contents', label: '6/8 - the table-of-contents scan...' },
+  { file: 'tools/hmv-stream-check.mjs', name: 'stream', label: '7/8 - the streaming battery (big-book CSV parity + throttled first-content)...' },
 ];
-const FONT_LABEL = "7/7 - the font coverage check (the webfont vs the site's text)...";
+const FONT_LABEL = "8/8 - the font coverage check (the webfont vs the site's text)...";
 
 async function checks() {
   process.title = 'Hadithmv Toolbox - running the checks';
@@ -1006,13 +1008,13 @@ async function checks() {
   console.log();
   console.log('Running the pre-commit checks - each opens an invisible browser');
   console.log('and clicks through a part of the site. This takes a few minutes.');
-  console.log('All seven, just one (1-7), or O to open the last report - Enter runs all.');
+  console.log('All eight, just one (1-8), or O to open the last report - Enter runs all.');
   const RPT = path.join(ROOT, 'checks-report.md');
   const t = Date.now();
   const results = []; // { ok: true|false|null(SKIP), out }
   const failed = [];
-  const pick = await ask(WARN + 'All 7 (Enter), one (1-7), or O to open the last report? ' + OFF);
-  const single = /^[1-7]$/.test(pick);
+  const pick = await ask(WARN + 'All 8 (Enter), one (1-8), or O to open the last report? ' + OFF);
+  const single = /^[1-8]$/.test(pick);
   const idx = single ? parseInt(pick, 10) - 1 : -1;
   if (single) console.log('Running ' + CHECK_NAMES[idx] + ' only - the report marks the rest SKIP.');
   if (/^o$/i.test(pick)) {
@@ -1038,11 +1040,11 @@ async function checks() {
     '# Hadithmv Toolbox - checks report', '',
     'Run date: ' + new Date().toLocaleString(), '',
     'Source: ' + VER + ' | Built: ' + VERD + ' | Branch: ' + BR,
-    single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 7 checks',
+    single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 8 checks',
   ].join('\n') + '\n');
   if (single) {
-    for (let i = 0; i < 7; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
-    if (idx < 6) {
+    for (let i = 0; i < 8; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
+    if (idx < 7) {
       console.log(' ' + CHECKS[idx].label);
       const t0 = Date.now();
       results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'working');
@@ -1051,12 +1053,12 @@ async function checks() {
     } else if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
       const t0 = Date.now();
-      results[6] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
-      if (!results[6].ok) failed.push('font');
-      note(results[6], t0);
+      results[7] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
+      if (!results[7].ok) failed.push('font');
+      note(results[7], t0);
     } else {
-      console.log(' 7/7 - the font coverage check skipped - python not found.');
-      results[6] = { ok: null, out: 'Skipped: python not found.' };
+      console.log(' 8/8 - the font coverage check skipped - python not found.');
+      results[7] = { ok: null, out: 'Skipped: python not found.' };
     }
     console.log();
   } else {
@@ -1077,7 +1079,7 @@ async function checks() {
       if (!r.ok) failed.push('font');
       note(r, t0);
     } else {
-      console.log(' 7/7 - the font coverage check skipped - python not found.');
+      console.log(' 8/8 - the font coverage check skipped - python not found.');
       results.push({ ok: null, out: 'Skipped: python not found.' });
     }
     console.log();
@@ -1086,10 +1088,10 @@ async function checks() {
   const dur = secs ? ' - ' + fmtDur(secs) : '';
   const verdict = (r) => (r.ok === null ? 'SKIP' : (r.ok ? 'PASS' : 'FAIL'));
   const lines = ['', '## Summary', '', '| Check | Result |', '| --- | --- |'];
-  CHECK_NAMES.forEach((n, i) => lines.push('| ' + (i + 1) + '/7 ' + n + ' | ' + verdict(results[i]) + ' |'));
+  CHECK_NAMES.forEach((n, i) => lines.push('| ' + (i + 1) + '/8 ' + n + ' | ' + verdict(results[i]) + ' |'));
   lines.push('', '## Details', '');
   CHECK_NAMES.forEach((n, i) => {
-    lines.push('### ' + (i + 1) + '/7 ' + n + ' - ' + verdict(results[i]));
+    lines.push('### ' + (i + 1) + '/8 ' + n + ' - ' + verdict(results[i]));
     lines.push('```', results[i].out.trimEnd(), '```', '');
   });
   const verdictLine = single

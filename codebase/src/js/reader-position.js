@@ -170,6 +170,20 @@ export function updatePagination(force) {
     document.activeElement.classList.contains("page-strip-sel");
   if (stripFocused) return;
 
+  // Streaming: filteredData is still growing — never advertise a partial
+  // total, and never offer a jump input that accepts targets past the rows
+  // loaded so far (a far goTo would append the whole backlog synchronously).
+  // Keep the "…" stub the streaming bridge seeded; the stream-finalize call
+  // (streamActive cleared) renders the real strip. Don't cache totals here —
+  // they change with every append, and the finalize call must write fresh.
+  if (ctx.streamActive) {
+    var stubEl = document.getElementById("readerPageNumbers");
+    if (stubEl && !stubEl.querySelector(".page-strip-sel")) {
+      stubEl.innerHTML = "<span class=\"page-of-label\">…</span>";
+    }
+    return;
+  }
+
   var selHTML = pageSelectHTML(cur, total);
   document.getElementById("readerPageNumbers").innerHTML = selHTML;
 

@@ -29,7 +29,7 @@ finish registration / add author (13–15), sound / restart / quit
 - **cmd is used only for `start`** — opening the preview window, Explorer,
   Notepad and URLs.
 - **Python runs the preview server** (`python` on Windows, `python3`
-  elsewhere) and the font coverage check inside option 10.
+  elsewhere) and the font coverage check inside option 9.
 
 ## Options
 
@@ -43,7 +43,7 @@ finish registration / add author (13–15), sound / restart / quit
 | 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1") and git's own size line ("N files changed, M insertions(+), K deletions(-)"; tracked changes only); the menu row's hint shows how many files git would put in your next commit — "(nothing to commit)" when clean. |
 | 7 | **Open the folder** — the codebase folder in Explorer. |
 | 8 | **Build and preview** — option 1 followed by option 5. |
-| 9 | **Run the checks** — the seven pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass; **O** opens the last report without running anything. |
+| 9 | **Run the checks** — the eight pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass; **O** opens the last report without running anything. |
 | 10 | **About / health** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
 | 11 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 12 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
@@ -122,7 +122,9 @@ when nothing else is moving.
 4. library scope battery — `tools/hmv-libscope-check.mjs`
 5. service worker battery — `tools/hmv-sw-check.mjs`
 6. table-of-contents scan — `tools/hmv-toc-scan.cjs`
-7. font coverage check — `tools/hmv-font-subset.py --check` (skipped with a
+7. streaming battery — `tools/hmv-stream-check.mjs` (big-book CSV parse
+   parity + the throttled first-content UX on reader.html)
+8. font coverage check — `tools/hmv-font-subset.py --check` (skipped with a
    SKIP row when python is missing)
 
 ## Files
@@ -133,7 +135,7 @@ when nothing else is moving.
 | `tools/hmv-toolbox.mjs` | The menu — all options, one function each. |
 | `tools/hmv-version.mjs` | Shared version/branch/banner helper (also used by legacy CLI consumers). |
 | `tools/hmv-manifest.mjs` | Writes `dist/manifest.json` — option 3, step 3 of option 4, and the tiny data-only command from CLAUDE.md. |
-| `tools/dist-build.mjs`, `data/08-rebuild-searchIndex.mjs`, `tools/hmv-font-subset.py` | The workers behind options 1/2/4/9 and check 7. |
+| `tools/dist-build.mjs`, `data/08-rebuild-searchIndex.mjs`, `tools/hmv-font-subset.py` | The workers behind options 1/2/4/9 and check 8. |
 | `data/04-update-bookRegistry.ps1` | The registry script behind option 4 (see Pitfalls). |
 | `checks-report.md` | Option 10 output (gitignored). |
 | `dist-build-report.md`, `font-build-report.md` | Committed build size ledgers — the build rewrites them; option 1 reads the summary from the first. |

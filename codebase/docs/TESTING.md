@@ -66,7 +66,81 @@ transfer (S3), offline page + book rendering via CDP network emulation (S4),
 per-file fingerprint update propagation — a changed note is re-fetched on
 the next visit while unchanged files are never re-requested, and the
 manifest itself is re-fetched network-first every visit (S5) — and no page
-errors (S6). The four page batteries (info, authors,
+errors (S6). The streaming battery lives at `../tools/hmv-stream-check.mjs`
+(`node tools/hmv-stream-check.mjs`; `HMV_STREAM_PORT` / `HMV_STREAM_DEBUG_PORT` /
+`HMV_STREAM_PROFILE` env vars override the defaults). Phase 1 (pure node,
+no browser) proves the chunk-fed stream parser (`createStreamParser`) is
+byte-identical to `parseCSV` over every `data/content` CSV — seeded
+adversarial chunkings, byte-by-byte on the ≤ 64 KB files, and a
+callback-delivery pass that mirrors `fetchCSVStreamed`'s batching — plus
+synthetic chunk-boundary cases (`\r\n`/lone-`\r` splits, multiline quoted
+fields, `""` across chunks, multi-byte Thaana/Arabic splits). Phase 2
+(browser) serves the tree over HTTP like sw-check, throttles the network to
+500 KB/s via CDP `Network.emulateNetworkConditions` on a fresh profile,
+loads `reader.html?book=RDF-misc` (8.4 MB raw — past the 256 KB streaming
+threshold) at a 480 px mobile viewport (card mode), and asserts on a
+pre-navigation sampler's timeline: the CSV download is actually paced (B2 —
+the harness, not the product, is at fault if not), the `Loading… N%`
+progress line appears and climbs (B3), the first rows become VISIBLE while
+the progress line is still up (B4 — the sampler measures `getClientRects()`,
+real visibility: a reader built behind the hidden skeleton once made
+streaming invisible while every DOM-count assertion passed, so B4b also
+guards that no row ever appears while the skeleton is still up), the
+search-window button is disabled mid-stream and re-enabled at the end (B5),
+the pagination strip's total equals `parseCSV(rows) − 1` and the progress
+line is hidden again (B6 — the strip shows the "…" stub until the stream
+ends, then the real total; the line renders INSIDE `#pageTitle` — the
+title's `flex:1` slot is its true centre — with the i18n "loading" word
+(the sampler forces `lang=en` so "Loading…" is textual): B4c asserts the
+title never shows the REAL book title while the line is up, and B6 probes
+the title straight on the DOM at check time (evalJS — the sampler's last
+tick can race `streamFinalize`'s swap) and asserts it reads as the book
+title once the drain ends), a strip jump to the
+end renders the final row (B7), and the page logged no errors (B8). B9 then
+scrubs for a **table-mode** pass: it navigates to a same-origin scrub page
+(`/__b9-scrub__` — a bare 404 would render as an opaque origin and deny
+IndexedDB), deletes the `hadithmv` IDB database, clears the HTTP cache, and
+reloads the same book at a 1280 px viewport to assert rows are visible and
+grow incrementally while the line is up, the drain completes with the strip
+at the real total, the line hidden, and gating released. **B10** scrubs
+again and loads `reader.html?book=QRN-hadithmv` (2.6 MB raw) at the 480 px
+viewport: the Quran loader merges into the 6,236-row base skeleton instead
+of a straight parse, and the merge itself must stream — progress line up,
+rows visible mid-stream, the quran surah/ayah/juz nav gated while the line
+is up and released at the end (a mid-stream jump would freeze the reader on
+a partial slice), the strip totalling `parseCSV(rows) − 1` = 6,236 (every
+merged row arrived), the first/last rendered cards carrying the book's
+first/last CSV cells (merge alignment at both ends of the dataset), and no
+page errors. **B11** scrubs once more and loads
+`reader.html?book=RDF-all` — the virtual merged radheef book, no content CSV
+of its own (radheef-merge.js assembles the combined view from 8 source
+books) — re-throttled to 1500 KB/s (3× the single-book passes; the merged
+load is ~15 MB raw): the sequential per-source streaming must engage
+(progress line up and climbing — its total is the summed HEAD
+Content-Lengths; rows visible mid-stream, projected into the 7-column
+merged schema before the reader sees them; every source fetched, HEAD +
+GET), the search window gated and released, the strip totalling the sum of
+every source's rows (152,612 — derived from the CSVs via the app's own
+parser, never hardcoded), the first rendered card carrying the rasmee
+block's first cell (rasmee leads — the deliberate block order) and the last
+rendered card carrying the W2W block's Dhivehi title in its source column
+(read from the registry's `titleDV`), and no page errors. The product yields
+to the event loop on every streamed chunk (`setTimeout(res, 0)` in the
+`fetchCSVStreamed` read loop) so the progress line and the drain's timers
+always get a turn — a burst must drain on bounded 50 ms ticks (up to 4 table
+inserts per tick), never one synchronous backlog loop. The service worker is 404'd
+(SW fetches run on a network context the CDP throttle does not pace — the
+sw-check battery owns SW behaviour), and the server sends an explicit
+Content-Length (Node's `writeHead()`+`end(buf)` shape otherwise sends
+chunked, which drops `fetchCSVStreamed` to its whole-file fallback — no
+progress, no early rows, no gating; a missing trailing newline in the real
+RDF-misc file once dropped its last row, caught by B6/B7). Another whole-file
+trigger worth knowing: `file://` responses carry no Content-Length at all
+(verified in headless Edge — the stream guard sees total 0 and falls back),
+so a local double-click preview never streams, no matter the book size;
+only HTTP(S) engages streaming. The batteries always serve HTTP for exactly
+this reason. The four page
+batteries (info, authors,
 libscope, qrn-smoke) take `--dist` to run against the built `dist/` tree
 (after `node tools/dist-build.mjs`) — the page root repoints to `dist/books/`
 while `static/`/`data/` stay siblings, and S8b's golden comparison
@@ -306,6 +380,29 @@ Before touching product code, run this sequence:
   navigation off the window input, anything that focuses a target on open —
   must click with real CDP mouse events and snapshot `document.activeElement`
   (tag + id + class) immediately after each click, before dispatching keys.
+- **Stream-battery B10/B11 stalls are an environmental fetch stall — retry,
+  don't debug.** Against `--dist`, the throttled big-book section occasionally
+  stalls: the progress line freezes **below 100%** (observed B10 at 78%,
+  B11 at 67/94/95%), the in-page sampler's timeline ends mid-stream, and
+  ~70 s of main-thread timer blackout follows (a CDP `Debugger.pause` fired
+  during the blackout times out at 30 s — the main thread is stuck in native
+  code, not JS). The page then recovers — the battery's 120 s in-page waitFor
+  fires and its probes run — but the fetch stays dead. Every product cost is
+  bounded: the fire-and-forget IDB puts at source-completion boundaries are
+  exonerated (measured 31 ms / 122 ms serialization+commit for 21 MB /
+  78 MB), drains are bounded, the parser is linear. The stalled observation
+  arrays are byte-identical across failures and pass on the immediate rerun —
+  the frozen positions (B10 p=24/51/78% at t=10291/11692/13093) are the
+  deterministic throttle pace × a timing-based block, not a data trigger.
+  Tally: dist runs 1-4 flaked (B10 2×, B11 3×), runs 5-7 all green; src 3/3
+  green; no page errors in any run. Suspect a Chromium fetch/throttle
+  interaction — the stream loop has no read timeout
+  (`await reader.read()` hangs forever on a stalled socket), so a stalled
+  network becomes a hang instead of an error. **Discriminator: an
+  environmental stall freezes progress <100% with the sampler dead → retry
+  (kill the leftover headless Edge, fresh `--user-data-dir`, rerun). The old
+  drain-wedge class froze at exactly =100% with the gate never released →
+  that one is a product bug — do not retry, file it.**
 
 ## Traps from adjacent workflows
 

@@ -82,6 +82,167 @@ export async function fetchCSVRows(path, keepEmpty) {
   return parseCSV(text, keepEmpty);
 }
 
+// ── Streaming CSV parse (big books) ─────────────────────────
+// The reader streams large books so the first rows render before the whole
+// file has downloaded (reader.js). Same row semantics as parseCSV — identical
+// trims, keepEmpty rule and `""` escaping — but consumes chunked input: a
+// row is emitted as soon as the characters that form it have arrived.
+//
+// Two chunk-boundary hazards, both handled here:
+//   - multi-byte Thaana/Arabic split across chunks → the caller feeds the
+//     decoder with TextDecoder({stream:true}), which buffers partial
+//     sequences; the parser itself only ever sees whole characters.
+//   - a `\r` that might be the first half of `\r\n` across a chunk boundary
+//     → a trailing `\r` outside quotes is held back until the next chunk.
+//   - multiline quoted fields (verified in the data — up to 392 lines) →
+//     the CSV inQuote flag carries across chunks; a record is only emitted
+//     when it has fully arrived.
+// The tail logic replicates parseCSV exactly, including its trailing-empty-
+// row behaviour with keepEmpty — the two parses are byte-for-byte identical
+// (guarded by tools/hmv-stream-check.mjs over every data/content CSV).
+
+export function createStreamParser(keepEmpty, onRow) {
+  var rows = []; // complete rows — also the final resolve value (header first)
+  var row = [];
+  var field = "";
+  var inQuote = false;
+  var buf = ""; // unprocessed tail (nothing after the last emitted row)
+
+  function emit() {
+    if (keepEmpty || row.some(function (c) { return c !== ""; })) {
+      rows.push(row);
+      if (onRow) onRow(row);
+    }
+    row = [];
+    field = "";
+  }
+
+  function scan() {
+    var i = 0;
+    while (i < buf.length) {
+      var ch = buf[i];
+      var next = i + 1 < buf.length ? buf[i + 1] : null;
+      if (inQuote) {
+        if (ch === '"' && next === '"') {
+          field += '"'; // escaped quote
+          i++;
+        } else if (ch === '"') {
+          if (i === buf.length - 1) break; // hold — may be the first half of "" across chunks
+          inQuote = false;
+        } else {
+          field += ch;
+        }
+      } else if (ch === '"') {
+        inQuote = true;
+      } else if (ch === ",") {
+        row.push(field.trim());
+        field = "";
+      } else if (ch === "\n" || (ch === "\r" && next === "\n")) {
+        if (ch === "\r") i++; // skip \r in \r\n
+        row.push(field.trim());
+        emit();
+      } else if (ch === "\r") {
+        if (i === buf.length - 1) break; // hold — may be \r\n across chunks
+        row.push(field.trim());
+        emit();
+      } else {
+        field += ch;
+      }
+      i++;
+    }
+    buf = buf.slice(i); // drop the processed prefix; a held \r stays
+  }
+
+  return {
+    push: function (chunk) {
+      buf += chunk;
+      scan();
+    },
+    finish: function () {
+      // Replicate parseCSV's tail: a held \r is a row end, then the final
+      // field/row is pushed (an empty trailing row when the file ends with
+      // a newline — kept only under keepEmpty, exactly like parseCSV).
+      if (buf === "\r") {
+        row.push(field.trim());
+        emit();
+        buf = "";
+      }
+      row.push(field.trim());
+      emit();
+      return rows;
+    },
+  };
+}
+
+// Responses below this many compressed bytes keep the whole-file path
+// (fetch + text + parseCSV) — streaming's early-row win only matters once
+// the download is large enough to notice; repeat visits come from IndexedDB
+// anyway. 256 KB gz ≈ 0.7–2 MB of Thaana/Arabic text.
+var STREAM_MIN_BYTES = 256 * 1024;
+
+/**
+ * Streaming fetch + parse for large CSVs. Same final result as
+ * fetchCSVRows — the full 2D array, header row first — but for large
+ * responses it consumes the body in chunks: opts.onFirstRow fires when the
+ * header has parsed, opts.onRows gets batches of data rows as they land,
+ * opts.onProgress gets 0..1 from Content-Length vs bytes read (clamped —
+ * the browser reports decompressed bytes against the compressed total).
+ * Small responses, missing Content-Length, or no ReadableStream/TextDecoder
+ * support fall back to the exact whole-file behaviour, callbacks never fire.
+ */
+export async function fetchCSVStreamed(path, keepEmpty, opts) {
+  var resp = await fetch(path);
+  if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
+  var total = parseInt(resp.headers.get("content-length") || "0", 10) || 0;
+  if (total < STREAM_MIN_BYTES || !resp.body || !resp.body.getReader || !("TextDecoder" in window)) {
+    return parseCSV(await resp.text(), keepEmpty);
+  }
+  var first = true;
+  var batch = [];
+  var parser = createStreamParser(keepEmpty, function (row) {
+    if (first) {
+      first = false;
+      if (opts && opts.onFirstRow) opts.onFirstRow(row);
+      return;
+    }
+    batch.push(row);
+    if (batch.length >= 128) {
+      if (opts && opts.onRows) opts.onRows(batch);
+      batch = [];
+    }
+  });
+  var reader = resp.body.getReader();
+  var decoder = new TextDecoder("utf-8");
+  var got = 0;
+  while (true) {
+    var r = await reader.read();
+    if (r.done) break;
+    got += r.value.byteLength;
+    if (opts && opts.onProgress && total) {
+      opts.onProgress(Math.min(1, got / total));
+    }
+    parser.push(decoder.decode(r.value, { stream: true }));
+    // Yield one macrotask per chunk: buffered reads resolve as microtasks, so
+    // a fast network can feed the whole file in a burst (the service worker's
+    // fetch context even bypasses DevTools' network throttling) — a
+    // microtask-bound loop would starve timers AND paints, and the reader's
+    // rows would never show until the drain ends. One 0 ms timeout per chunk
+    // is negligible; it lets the reader paint between batches.
+    await new Promise(function (res) { setTimeout(res, 0); });
+  }
+  parser.push(decoder.decode()); // flush decoder tail
+  // finish() can still emit rows the chunks never closed: a trailing lone \r
+  // held for the \r\n check, or a final row with no trailing newline. They
+  // must reach onRows — finish BEFORE the final batch flush, or the last row
+  // is orphaned in `batch` (the reader would render one row short; the
+  // returned array stays complete either way).
+  var full = parser.finish();
+  if (batch.length > 0) {
+    if (opts && opts.onRows) opts.onRows(batch);
+  }
+  return full;
+}
+
 /**
  * Parse CSV text into an array of objects using the first row as headers.
  */
@@ -168,15 +329,22 @@ function idbPut(bookCode, version, rows, keepEmpty) {
  * parses apart. Both sides normalize with `|| false` so an absent field
  * (old records, or records stored by flag-less callers) means drop mode and
  * matches other drop-mode requests; `true` never matches drop mode.
+ * `streamOpts` ({ onFirstRow, onRows, onProgress }) opts into the streaming
+ * path for large responses (fetchCSVStreamed); omit it for the exact
+ * whole-file behaviour. A cache hit never streams — repeat visits are
+ * instant. The stored record is the same in both paths (full array, header
+ * first — the put happens after the stream completes).
  */
-export async function fetchBookCSVCached(bookCode, version, path, keepEmpty) {
+export async function fetchBookCSVCached(bookCode, version, path, keepEmpty, streamOpts) {
   if (version) {
     var cached = await idbGet(bookCode);
     if (cached && cached.version === version && (cached.keepEmpty || false) === (keepEmpty || false)) {
       return cached.rows;
     }
   }
-  var rows = await fetchCSVRows(path, keepEmpty);
+  var rows = streamOpts
+    ? await fetchCSVStreamed(path, keepEmpty, streamOpts)
+    : await fetchCSVRows(path, keepEmpty);
   if (version) {
     // Fire-and-forget: don't delay first render on the write
     idbPut(bookCode, version, rows, keepEmpty).catch(function () {});

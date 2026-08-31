@@ -303,6 +303,98 @@ export function mergeQuranData(bookCode) {
 }
 
 // ═══════════════════════════════════════════════════════════════
+// Streaming-capable load + merge
+// ═══════════════════════════════════════════════════════════════
+
+// mergeQuranData above always takes the whole-file path. This twin drives
+// the same csv.js streaming machinery as the reader's standard path: the
+// book CSV streams (≥ 256 KB response with Content-Length, no IDB hit) and
+// each raw batch is merged into the base skeleton row-by-row BEFORE the
+// caller's onRows sees it — the merge cursor runs across batches, so the
+// 128-row batch boundaries never shift the row alignment. The promise
+// resolves null when the stream engaged (the reader consumed every row
+// through the callbacks) or { headerRow, allData } in the whole-file
+// fallback (sub-threshold response, missing Content-Length, no
+// ReadableStream, or an IndexedDB cache hit — repeat visits never stream),
+// so the caller gets one promise shape either way. The IDB record stored by
+// csv.js is the RAW book CSV (the put happens before the merge), so cache
+// records stay byte-compatible with the whole-file path. streamOpts mirrors
+// fetchCSVStreamed's: { onFirstRow(mergedHeader), onRows(mergedBatch),
+// onProgress }.
+export function mergeQuranDataStreamed(bookCode, streamOpts) {
+  return loadQuranBaseData().then(function (baseRows) {
+    var baseLen = baseRows.length;
+    var streamed = false;
+    var nextBase = 0; // running merge cursor across batches
+    var warned = false;
+
+    // Merge raw book rows (in file order) into the base skeleton. Rows past
+    // the base's end are dropped — mergeQuranData does the same (its loop is
+    // bounded by baseRows.length), with a console-only authoring warning.
+    function mergeRows(rawRows) {
+      var out = new Array(rawRows.length);
+      var n = 0;
+      for (var r = 0; r < rawRows.length; r++) {
+        var baseRow = baseRows[nextBase + r];
+        if (!baseRow) break;
+        var mrow = baseRow.slice();
+        var rawRow = rawRows[r];
+        for (var c = 0; c < rawRow.length; c++) mrow.push(rawRow[c] || "");
+        out[n++] = mrow;
+      }
+      nextBase += n;
+      return n === rawRows.length ? out : out.slice(0, n);
+    }
+
+    return fetchBookCSVCached(
+      bookCode,
+      getBookVersionSync(bookCode),
+      "../../data/content/" + bookCode + ".csv",
+      true, // keepEmpty — 6,236-slot alignment (see loadQuranBookCSV)
+      {
+        onFirstRow: function (bookHeader) {
+          streamed = true;
+          var mergedHeader = BASE_HEADERS.slice();
+          for (var i = 0; i < bookHeader.length; i++) mergedHeader.push(bookHeader[i]);
+          if (streamOpts && streamOpts.onFirstRow) streamOpts.onFirstRow(mergedHeader);
+        },
+        onRows: function (rawBatch) {
+          if (!warned && nextBase + rawBatch.length > baseLen) {
+            warned = true;
+            console.warn("QRN book " + bookCode + " has more rows than the base (" + baseLen + ") — merge will misalign. Expected one row per ayah (6,236).");
+          }
+          if (streamOpts && streamOpts.onRows) streamOpts.onRows(mergeRows(rawBatch));
+        },
+        onProgress: streamOpts && streamOpts.onProgress,
+      }
+    ).then(function (rawRows) {
+      if (streamed) {
+        // The reader consumed every row via onRows; csv.js already put the
+        // raw record in IDB. Warn on a short book (the over-long case warned
+        // at the cursor overrun above).
+        if (!warned && nextBase !== baseLen) {
+          console.warn("QRN book " + bookCode + " has " + nextBase + " rows, base has " + baseLen + " — merge will misalign. Expected one row per ayah (6,236).");
+        }
+        return null;
+      }
+      // Whole-file fallback: merge now, in one pass, mirroring mergeQuranData.
+      if (rawRows.length === 0) return { headerRow: BASE_HEADERS.slice(), allData: [] };
+      var bookHeader = rawRows.shift();
+      var mergedHeader = BASE_HEADERS.slice();
+      for (var i = 0; i < bookHeader.length; i++) mergedHeader.push(bookHeader[i]);
+      if (rawRows.length !== baseLen) {
+        console.warn(
+          "QRN book " + bookCode + " has " + rawRows.length + " rows, base has " +
+          baseLen + " — merge will misalign. Expected one row per ayah (6,236)."
+        );
+      }
+      nextBase = 0;
+      return { headerRow: mergedHeader, allData: mergeRows(rawRows) };
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
 // Column ordering — the reader's column layout is always rebuilt
 // from an ordered list of column keys (the content modal's order)
 // ═══════════════════════════════════════════════════════════════

@@ -10,7 +10,7 @@ import { initializePageWithMetadata, extractTags, bookAuthorParts, authorListSep
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
-import { isMergedRadheefBook, loadMergedRadheefBook } from "./radheef-merge.js";
+import { isMergedRadheefBook, loadMergedRadheefBookStreamed } from "./radheef-merge.js";
 import { initExports } from "./export.js";
 import { openInfoModal, computeChapterCount } from "./book-info.js";
 import { initTableScroll, refreshTableScrollWidth } from "./table-scroll-sync.js";
@@ -23,27 +23,27 @@ initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
-  //   Book loading (standard CSV or Quran merge)           L48-148
-  //   Page header, tag badges, language-aware titles       L151-293
-  //   Persisted settings (LS wrapper, -HDN column init)    L296-342
-  //   Reader state, column toggles, dropdown infrastructure L345-436
-  //   Tashkeel helpers                                     L439-446
-  //   Clipboard formatting (rowText)                       L449-539
-  //   View mode dropdown (card / table / parallel)         L542-590
-  //   Quran helpers                                        L593-597
-  //   Card row renderer (renderRowHTML)                    L600-696
-  //   Parallel row renderer (renderParallelRowHTML)        L699-818
-  //   Chunk + table-row renderers                          L821-883
-  //   Infinite scroll + table scrollbar                    L886-1102
-  //   Navigation (goTo, scroll padding)                    L1105-1161
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1164-1200
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1203-1392
-  //   Keyboard shortcuts (incl. navigation buttons)        L1395-1506
-  //   Touch swipe                                          L1509-1529
-  //   Settings reset + language change                     L1532-1545
-  //   Quran UI (initQuranUI ctx)                           L1548-1568
-  //   Initial render (deep links, reveal)                  L1571-1653
-  //   Module-level helpers (showError)                     L1656-1662
+  //   Book loading (standard CSV or Quran merge)           L48-293
+  //   Page header, tag badges, language-aware titles       L296-448
+  //   Persisted settings (LS wrapper, -HDN column init)    L451-497
+  //   Reader state, column toggles, dropdown infrastructure L500-595
+  //   Tashkeel helpers                                     L598-605
+  //   Clipboard formatting (rowText)                       L608-698
+  //   View mode dropdown (card / table / parallel)         L701-749
+  //   Quran helpers                                        L752-756
+  //   Card row renderer (renderRowHTML)                    L759-855
+  //   Parallel row renderer (renderParallelRowHTML)        L858-977
+  //   Chunk + table-row renderers                          L980-1042
+  //   Infinite scroll + table scrollbar                    L1045-1263
+  //   Navigation (goTo, scroll padding)                    L1266-1322
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1325-1361
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1364-1553
+  //   Keyboard shortcuts (incl. navigation buttons)        L1556-1671
+  //   Touch swipe                                          L1674-1694
+  //   Settings reset + language change                     L1697-1710
+  //   Quran UI (initQuranUI ctx)                           L1713-1733
+  //   Initial render (deep links, reveal)                  L1736-1983
+  //   Module-level helpers (showError)                     L1986-2003
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -77,24 +77,144 @@ initializePageWithMetadata(async function (metadata) {
     return !!bookCode && bookCode.indexOf("RDF-") === 0;
   }
 
+  // ── Streaming big-book load ─────────────────────────────────
+  // Books ≥ 256 KB gz (fetchCSVStreamed's threshold in csv.js) stream their
+  // CSV so the first rows render before the download finishes: the header
+  // triggers buildReader on the first batch, the bridge appends the rest as
+  // it arrives, and the page title element shows the download progress
+  // (see _streamProgress — the line lives inside #pageTitle).
+  // Search/filter/export stay disabled until the final batch lands
+  // (gateInteractions inside buildReader). -DSC books display rows
+  // last-to-first — the "first" streamed row would be the LAST visible one —
+  // and small books / cache hits / browsers without ReadableStream keep the
+  // whole-file path (fetchCSVStreamed's fallback never fires the callbacks).
+  var _streamState = null;
+  // Table-mode streaming appends coalesce to ~1000-row inserts per tick (see
+  // the streaming bridge) — enough to keep the drain at a handful of table
+  // relayouts per second without the UI freezing between ticks.
+  var STREAM_TABLE_FLUSH_ROWS = 1000;
+  // The stream/drain DOM fill stops here (rows, not chunks): rendering the
+  // WHOLE book into the DOM makes every insert force a full-document layout
+  // whose cost grows with the row count — the merged RDF-all (152,612 rows)
+  // wedged the page for a minute inside one late drain tick. The first
+  // DRAIN_MAX_ROWS keep the "rows keep coming" effect; past them the scroll
+  // window (sentinel appends) owns the fill.
+  var DRAIN_MAX_ROWS = 20000;
+
+  function _streamFirstRow(headerRow) {
+    _streamState = { headerRow: headerRow, bridge: null, complete: false };
+  }
+
+  function _streamRows(batch) {
+    var st = _streamState;
+    if (!st || st.complete) return;
+    if (st.bridge) {
+      st.bridge.append(batch);
+    } else {
+      // First batch: seed the data and build the reader — it renders
+      // immediately (the loading message stays up until the stream ends).
+      var rows = batch.slice();
+      var firstCol = (st.headerRow[0] || "").trim();
+      st.bridge = buildReader({
+        data: rows,
+        headerRow: st.headerRow,
+        hasRowNums: (firstCol === "#" || firstCol === ""),
+      }, true);
+    }
+  }
+
+  function _streamProgress(fraction) {
+    var el = document.getElementById("pageTitle");
+    if (!el) return;
+    // The line lives INSIDE #pageTitle — the title's own flex:1 slot and
+    // safe-centered alignment put it exactly where the book title will
+    // appear (a sibling flex child could never share that spot), and the
+    // swap at the drain is one element changing content. First call stashes
+    // the real title text (updatePageHeader set it at buildReader) so a
+    // failed stream can restore it (showError).
+    var st = _streamState;
+    if (st && st.prevTitle === undefined) st.prevTitle = el.textContent;
+    // The percent and the % sign sit INSIDE one fixed-width cell
+    // (.loading-progress-pct) — an inline-block is bidi-atomic, so "42%"
+    // never splits across the RTL/Dhivehi layouts' run order (a % outside
+    // the cell would detach from its digits there), and the stable width
+    // keeps the webfont's proportional digits from shoving the text around
+    // on every 0→100% step. The percent is a number (Math.round) and the
+    // translations are plain text, so innerHTML is safe here. The span
+    // inherits the title's direction and font stack — the Dhivehi/Arabic
+    // word sits right with the percent left of it (natural RTL order); the
+    // en-only LTR override lives in the CSS.
+    el.innerHTML = "<span class=\"loading-progress\">" + t("loading") +
+      " <span class=\"loading-progress-pct\">" + Math.round(fraction * 100) + "%</span></span>";
+  }
+
+  function _streamComplete(data) {
+    var st = _streamState;
+    st.complete = true;
+    if (!st.bridge) {
+      // Header-only (or empty) file — the stream never produced a first
+      // batch, so the reader never built.
+      showError("No data found in CSV file: " + metadata.csvPath);
+      return;
+    }
+    // The progress line IS the title slot — the bridge's finalize swaps
+    // the real title in the moment the data is complete (streamFinalize
+    // runs BEFORE its cosmetic DOM fill), so there is nothing left to
+    // hide here.
+    st.bridge.finalize(function () {});
+  }
+
   function loadStandardBook() {
+    // -DSC books display rows last-to-first: the "first" streamed row would
+    // be the LAST visible one, so streaming would render the book backwards —
+    // keep the whole-file path for them.
+    var streaming = !metadata.bookCode || !metadata.bookCode.toUpperCase().endsWith("-DSC");
     // On-device cache (IndexedDB): repeat visits skip download + parse;
     // metadata.version (registry content hash) guards staleness.
-    return fetchBookCSVCached(metadata.bookCode, metadata.version || "", metadata.csvPath)
-      .then(function (data) {
-        if (data.length === 0) return { data: data, headerRow: null, hasRowNums: false };
-        var headerRow = data.shift();
-        var firstCol = (headerRow[0] || "").trim();
-        var hasRowNums = (firstCol === "#" || firstCol === "");
-        return { data: data, headerRow: headerRow, hasRowNums: hasRowNums };
-      });
+    return fetchBookCSVCached(
+      metadata.bookCode,
+      metadata.version || "",
+      metadata.csvPath,
+      false,
+      streaming ? {
+        onFirstRow: _streamFirstRow,
+        onRows: _streamRows,
+        onProgress: _streamProgress,
+      } : undefined
+    ).then(function (data) {
+      // Streaming resolves with the full array too (parser.finish). If the
+      // stream engaged, the reader already built + finalized on the batches —
+      // resolve null so the caller skips the normal build.
+      if (_streamState) {
+        _streamComplete(data);
+        return null;
+      }
+      if (data.length === 0) return { data: data, headerRow: null, hasRowNums: false };
+      var headerRow = data.shift();
+      var firstCol = (headerRow[0] || "").trim();
+      var hasRowNums = (firstCol === "#" || firstCol === "");
+      return { data: data, headerRow: headerRow, hasRowNums: hasRowNums };
+    });
   }
 
   function loadQuranBook() {
     // The quranUi promise is always settled by the time loadBookData() runs.
     return quranUiPromise.then(function (q) {
       return Promise.all([q.loadSurahNames(), loadColumnRegistry()]).then(function () {
-        return q.mergeQuranData(metadata.bookCode).then(function (merged) {
+        // QRN books stream like any standard book (the whole-file path still
+        // runs when the stream can't engage — cache hit, sub-threshold, or
+        // no ReadableStream — and resolves the same merged shape).
+        return q.mergeQuranDataStreamed(metadata.bookCode, {
+          onFirstRow: _streamFirstRow,
+          onRows: _streamRows,
+          onProgress: _streamProgress,
+        }).then(function (merged) {
+          if (merged === null) {
+            // Stream engaged — the reader already built + finalized on the
+            // batches; resolve null so the caller skips the normal build.
+            _streamComplete(null);
+            return null;
+          }
           return { data: merged.allData, headerRow: merged.headerRow, hasRowNums: false };
         });
       });
@@ -102,16 +222,41 @@ initializePageWithMetadata(async function (metadata) {
   }
 
   // Virtual merged radheef book (RDF-all): no content CSV — the rows are
-  // assembled in memory from the source books (see radheef-merge.js).
+  // assembled in memory from the source books (see radheef-merge.js). The
+  // streamed variant streams the 8 sources sequentially when it can (HEAD
+  // sizes, merged batches through the same bridge) and falls back to the
+  // whole-file assembly when it can't — one promise shape either way.
   function loadBookData() {
     if (quranBook) return loadQuranBook();
-    if (isMergedRadheefBook(metadata.bookCode)) return loadMergedRadheefBook();
+    if (isMergedRadheefBook(metadata.bookCode)) {
+      return loadMergedRadheefBookStreamed({
+        onFirstRow: _streamFirstRow,
+        onRows: _streamRows,
+        onProgress: _streamProgress,
+      }).then(function (merged) {
+        if (merged === null) {
+          // Stream engaged — the reader already built + finalized on the
+          // batches; resolve null so the caller skips the normal build.
+          _streamComplete(null);
+          return null;
+        }
+        return merged;
+      });
+    }
     return loadStandardBook();
   }
 
-  loadBookData()
-    .then(function (result) {
-      // ═══════════════════════════════════════════════════════════════
+  // The whole build is one function so it can be re-entered with the first
+  // streamed batch (see _streamRows) and still share the closure state;
+  // `streaming` marks that first-batch run (its bridge appends the rest).
+  function buildReader(result, streaming) {
+    // Streaming book? _streamProgress takes over the title element with
+    // "Loading… N%" while rows stream — the title's own slot and centering
+    // put the line exactly where the title will sit. streamFinalize flips
+    // this flag and re-renders the header with the real title when the
+    // drain ends; whole-file loads never set it.
+    var isStreaming = streaming;
+    // ═══════════════════════════════════════════════════════════════
       // SHARED MUTABLE STATE — every function in this closure reads or
       // writes some of these. Keep them grouped here so you can see what
       // is shared at a glance. New closure variables should either go
@@ -173,6 +318,12 @@ initializePageWithMetadata(async function (metadata) {
         var pageSubtitle = document.getElementById("readerPageSubtitle");
         var pageSubRow = document.getElementById("readerPageSubRow");
         var pageAuthor = document.getElementById("readerPageAuthor");
+        // Streaming: _streamProgress has taken over the title element with
+        // the loading line (it stashed the real title as prevTitle on its
+        // first call) — this header sets the real text anyway (correct for
+        // whole-file loads; mid-stream the next progress tick re-writes the
+        // line within a chunk's time, and streamFinalize swaps the title in
+        // for good after the drain).
         // The author names sit bare next to the title — no " · " separator
         // (the title and the authors read as one line of plain text, both
         // clickable). The dash-led died-only years follow (the bare dash
@@ -268,6 +419,10 @@ initializePageWithMetadata(async function (metadata) {
       }
       var pageTitleEl = document.getElementById("pageTitle");
       pageTitleEl.addEventListener("click", function () {
+        // While a book streams, the title slot holds the progress line —
+        // clicking it must not open the info modal (whose counts come from
+        // a partial dataset anyway).
+        if (isStreaming) return;
         openBookInfo("book");
       });
       // The Arabic subtitle (visible only in the Dhivehi layout) is a
@@ -355,7 +510,9 @@ initializePageWithMetadata(async function (metadata) {
       // Search and snippet building read these instead of re-normalising
       // every cell on every keystroke — the main win on big books.
       // Kept in sync with quran-ui.js column insertion via the ctx bridge.
-      var normAllData = buildNormData(allData);
+      // Streamed books fill this per-batch in the bridge (append) — the
+      // search paths that read it are gated until the stream completes.
+      var normAllData = streaming ? [] : buildNormData(allData);
       // The active search query — the renderers highlight by this instead
       // of reading the header input, which only exists for RDF books now
       // (every other book searches in the window). Owned here, written via
@@ -378,7 +535,9 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Column info ─────────────────────────────────────────
-      const maxCols = allData.reduce((m, r) => Math.max(m, r.length), 0);
+      // var + recomputed by the streaming bridge: later batches can bring
+      // wider rows than the first one saw.
+      var maxCols = allData.reduce((m, r) => Math.max(m, r.length), 0);
       function colLabel(idx) {
         if (headerRow && headerRow[idx]) return headerRow[idx];
         return "" + (idx + 1);
@@ -949,9 +1108,11 @@ initializePageWithMetadata(async function (metadata) {
         });
       }
 
-      function appendNext() {
+      function appendNext(maxRows) {
         if (loadedEnd >= filteredData.length) return;
-        var chunkSize = viewMode === "table" ? 30 : ROWS_PER_CHUNK;
+        // maxRows (streaming flush) overrides the scroll-triggered step size —
+        // one big insert instead of many small relayouts.
+        var chunkSize = maxRows || (viewMode === "table" ? 30 : ROWS_PER_CHUNK);
         var nextEnd = Math.min(loadedEnd + chunkSize, filteredData.length);
         if (viewMode === "table") {
           var body = document.getElementById("tableBody");
@@ -1491,10 +1652,14 @@ initializePageWithMetadata(async function (metadata) {
         }
         if (e.key === "F" && e.shiftKey && (e.ctrlKey || e.metaKey)) {
           e.preventDefault();
+          // Gated while a big book is still streaming in — the window
+          // would search a partial dataset (see gateInteractions).
+          if (_streamState && !_streamState.complete) return;
           openSearchWindow({ openAdvanced: true });
         }
         if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
           e.preventDefault();
+          if (_streamState && !_streamState.complete) return;
           if (isRadheefBook(metadata.bookCode)) {
             // RDF books keep the in-place filter — focus it directly
             searchInput.focus();
@@ -1574,7 +1739,7 @@ initializePageWithMetadata(async function (metadata) {
       // sync, read-history) lives in reader-position.js — wired BEFORE
       // loadInitial, because the table branch calls updatePagination() and
       // the module needs its ctx by then (null ctx would throw).
-      initPosition({
+      var paginationCtx = {
         metadata: metadata,
         quranBook: quranBook,
         quranUi: quranUi, // lazy module object — null for non-QRN books
@@ -1584,7 +1749,13 @@ initializePageWithMetadata(async function (metadata) {
         getFilteredData: function () { return filteredData; },
         pinLabel: pinLabel,
         goTo: goTo,
-      });
+        // streamActive: set by the streaming bridge while rows are still
+        // appending — reader-position.js keeps the pagination strip stubbed
+        // ("…") until the stream's finalize clears it (partial totals and
+        // premature jump targets must never be advertised).
+        streamActive: false,
+      };
+      initPosition(paginationCtx);
       loadInitial();
       observeSentinels();
       document.addEventListener("languagechange", function () {
@@ -1592,7 +1763,159 @@ initializePageWithMetadata(async function (metadata) {
       });
       expandIfOverflowing();
       window.addEventListener("resize", function () { updateTableHeaderTop(); expandIfOverflowing(); refreshTableScrollWidth(); });
+      // ── Interaction gating (streaming) ──────────────────────
+      // While a big book is still downloading, search/filter/export act on
+      // a partial dataset — disable them until the final batch lands. The
+      // quran nav joins in for QRN books: surah/juz jumps replace the
+      // filtered view with a slice of allData (quran-ui.js) — a mid-stream
+      // click would freeze the reader on a partial slice, and the stream's
+      // later appends only ever touch allData.
+      function gateInteractions(disabled) {
+        ["btnSearchWindow", "readerSearchInput", "btnCopy", "btnExport", "btnColumnDropdown",
+          "qrnSurahPrev", "qrnSurahBtn", "qrnSurahNext",
+          "qrnAyahPrev", "qrnAyahInput", "qrnAyahNext",
+          "qrnJuzPrev", "qrnJuzInput", "qrnJuzNext",
+        ].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.disabled = disabled;
+        });
+      }
+
+      // ── Streaming bridge ────────────────────────────────────
+      // buildReader is re-entered with the FIRST batch while the download
+      // is still running (see _streamRows); this bridge lets the stream
+      // append rows as they land and finalize when the file has fully
+      // arrived. filteredData === allData here, so a mid-stream search
+      // would see a partial dataset — that's exactly what the gating above
+      // blocks. Navigation stays live: goTo already appends rows on demand.
+      if (streaming) {
+        gateInteractions(true);
+        // Pagination must not advertise a partial total (or accept a jump
+        // past the loaded rows) while rows are still appending — the strip
+        // stays stubbed until the drain lands (streamFinalize clears it).
+        paginationCtx.streamActive = true;
+        // The first rows are real content — reveal them now, not at finalize
+        // (the download still runs; the progress line above the first row
+        // carries the loading state from here on).
+        revealReader();
+        var stripLabel = document.querySelector("#readerPageNumbers .page-of-label");
+        if (stripLabel) stripLabel.textContent = "…";
+        // Streaming appends coalesce onto a tick timer instead of inserting
+        // eagerly: every <tr> insert forces the browser to relayout the WHOLE
+        // table, so a fast drain (the service worker's fetch context bypasses
+        // DevTools throttling — the burst case) would relayout the growing
+        // table once per 30-row append, hundreds of times; and card mode's
+        // eager 25-row inserts would all run synchronously inside the parser
+        // push that produced the batches. One bounded insert per 150 ms tick
+        // keeps the rows visibly growing with a fraction of the layout work
+        // and paints between inserts.
+        var streamFlushTimer = null;
+        function streamTickSize() {
+          // null → appendNext's default (ROWS_PER_CHUNK) — the card-mode tick
+          // is one scroll chunk, the table-mode tick is the coalescing batch.
+          return viewMode === "table" ? STREAM_TABLE_FLUSH_ROWS : null;
+        }
+        function drainTarget() {
+          // Where the stream/drain fill stops: the DRAIN_MAX_ROWS cap (the
+          // whole book's per-insert layout cost grows with the row count —
+          // see the constant), or the end of the current view (a mid-drain
+          // search narrows filteredData; the fill must end there rather
+          // than spin on rows that no longer exist).
+          return Math.min(allData.length, filteredData.length, DRAIN_MAX_ROWS);
+        }
+        function armStreamFlush() {
+          if (streamFlushTimer) return;
+          streamFlushTimer = setTimeout(function () {
+            streamFlushTimer = null;
+            if (loadedEnd < drainTarget()) {
+              appendNext(streamTickSize());
+              if (loadedEnd < drainTarget()) armStreamFlush();
+            }
+          }, 150);
+        }
+        // Finalize's drain must ALSO tick: in a burst the whole backlog is
+        // already in memory, and a synchronous drain loop would block the
+        // main thread for seconds with nothing painting — the table would sit
+        // frozen and then jump to full. Bounded inserts per 50 ms tick let
+        // the browser paint between them, so the table visibly fills.
+        function drainStepSize() {
+          // Finish the backlog in ~20 bounded inserts regardless of mode: an
+          // insert must never be smaller than one stream tick — a 25-row
+          // card drain at a 50 ms timer floor would take a minute for a
+          // burst backlog.
+          return Math.max(streamTickSize() || ROWS_PER_CHUNK, Math.ceil((drainTarget() - loadedEnd) / 20));
+        }
+        function drainStreamFlush(onDone) {
+          if (streamFlushTimer) { clearTimeout(streamFlushTimer); streamFlushTimer = null; }
+          if (loadedEnd >= drainTarget()) {
+            if (onDone) onDone();
+            return;
+          }
+          streamFlushTimer = setTimeout(function () {
+            streamFlushTimer = null;
+            // Table mode: up to 4 bounded inserts per tick. The table is
+            // table-layout:auto — every paint of the growing table recomputes
+            // column widths from ALL rows, so a paint-per-insert drain would
+            // pay that full relayout ~20 times (a minute for a heavy book).
+            // 4 inserts then a paint keeps the fill visible at a quarter of
+            // the relayouts. Card mode: 1 insert per tick — div inserts are
+            // cheap and smooth.
+            var perTick = viewMode === "table" ? 4 : 1;
+            for (var i = 0; i < perTick && loadedEnd < drainTarget(); i++) {
+              appendNext(drainStepSize());
+            }
+            if (loadedEnd < drainTarget()) {
+              drainStreamFlush(onDone);
+            } else {
+              if (onDone) onDone();
+            }
+          }, 50);
+        }
+        function streamFinalize() {
+          // The drain landed — the dataset is complete and the pagination
+          // strip can advertise the real total again.
+          paginationCtx.streamActive = false;
+          // The stream ended: updatePageHeader overwrites the progress line
+          // (which owns the title element mid-stream) with the real title.
+          isStreaming = false;
+          updatePageHeader();
+          maxCols = allData.reduce(function (m, r) { return Math.max(m, r.length); }, 0);
+          buildColumnToggles();
+          updatePagination(true);
+          revealReader();
+          gateInteractions(false);
+          deepLinkBlock();
+        }
+        return {
+          append: function (batch) {
+            Array.prototype.push.apply(allData, batch);
+            Array.prototype.push.apply(normAllData, buildNormData(batch));
+            maxCols = batch.reduce(function (m, r) { return Math.max(m, r.length); }, maxCols);
+            armStreamFlush();
+          },
+          finalize: function (onDone) {
+            // The DATA is complete the moment the stream's last batch lands —
+            // release the title (the progress line swaps to the real title),
+            // the strip's real total, the gated controls and search NOW,
+            // without waiting for the DOM fill: the merged RDF-all's fill
+            // takes minutes, and the line must not sit at "Loading… 100%"
+            // (with search blocked) while it runs. The fill below continues
+            // on the same bounded ticks, purely visual.
+            streamFinalize();
+            var onDoneOnce = (function () {
+              var called = false;
+              return function () {
+                if (!called) { called = true; if (onDone) onDone(); }
+              };
+            })();
+            if (loadedEnd >= drainTarget()) { onDoneOnce(); return; }
+            drainStreamFlush(onDoneOnce);
+          },
+        };
+      }
+
       // Handle shared URL with &row= parameter
+      function deepLinkBlock() {
       var sharedRow = parseInt(new URLSearchParams(window.location.search).get("row"), 10);
       if (sharedRow >= 1 && sharedRow <= filteredData.length) {
         setTimeout(function () { goTo(sharedRow - 1); }, 200);
@@ -1628,12 +1951,13 @@ initializePageWithMetadata(async function (metadata) {
           setTimeout(function () { goTo(qTarget); }, 200);
         }
       }
+      }
       // Reveal everything at once
+      function revealReader() {
       document.getElementById("loadingMessage").style.display = "none";
       document.getElementById("topBarBrand").style.display = "none";
       document.getElementById("backToDashboard").style.display = "";
       document.getElementById("btnFocus").style.display = "";
-      document.getElementById("pageTitle").style.display = "";
       document.getElementById("readerWrapper").style.display = "block";
       // Measure the sticky chrome (topbar + collapsible panel) only now —
       // while the wrapper was display:none the panel measured 0, so the
@@ -1647,6 +1971,12 @@ initializePageWithMetadata(async function (metadata) {
       updateBookmarkButton();
       // Scroll arrows can't detect overflow while #readerWrapper was hidden
       if (window.initScrollArrows) window.initScrollArrows();
+      }
+      deepLinkBlock();
+      revealReader();
+    }
+    loadBookData().then(function (result) {
+      if (result !== null) buildReader(result, false);
     }).catch(function (err) {
       showError("Error loading CSV: " + err);
     });
@@ -1656,6 +1986,17 @@ initializePageWithMetadata(async function (metadata) {
 // #region Module-level helpers (showError)
 function showError(message) {
   document.getElementById("loadingMessage").style.display = "none";
+  // A stream that failed mid-load left the progress line in the title slot —
+  // restore the real title text (stashed by _streamProgress on its first
+  // call; null for whole-file loads, where the title was never displaced).
+  var st = _streamState;
+  if (st && st.prevTitle !== undefined) {
+    var tEl = document.getElementById("pageTitle");
+    if (tEl) {
+      tEl.textContent = st.prevTitle;
+      tEl.style.display = "";
+    }
+  }
   document.getElementById("errorMessage").textContent = message;
   document.getElementById("errorMessage").style.display = "block";
   console.error(message);
