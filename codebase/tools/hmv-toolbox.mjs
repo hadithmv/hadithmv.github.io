@@ -255,6 +255,12 @@ const BR = branch();
 let HAS_GIT = hasTool('git');
 let HAS_PY = hasTool('python');
 
+// The same dim hyphen rule the footer uses, drawn between the menu's five
+// job groups (1-4 build/refresh, 5-8 local preview & status, 9-11 verify &
+// health, 12-15 content, 16-18 the menu itself) — rhythm for the eye,
+// nothing to read, no renumbering.
+const RULE = DIM + new Array(51).join('-') + OFF;
+
 function showBanner() {
   clear();
   console.log(TITLE + BOX + OFF);
@@ -281,6 +287,7 @@ function showBanner() {
   console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index' + DIM + '        (search words only - a new book still needs option 4)' + OFF);
   console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness' + DIM + '           (quick update for data-only changes)' + OFF);
   console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data' + DIM + '           (after adding or changing a book)' + OFF);
+  console.log(RULE);
   const dim5 = HAS_PY ? '' : DIM, dim5Off = HAS_PY ? '' : OFF;
   const dimG = HAS_GIT ? '' : DIM, dimGOff = HAS_GIT ? '' : OFF;
   console.log(' ' + (HAS_PY ? ITEM : DIM) + '5.' + OFF + dim5 + ' Preview the site' + DIM + '            (opens in your browser, like the live one)' + OFF + dim5Off);
@@ -288,13 +295,16 @@ function showBanner() {
   console.log(' ' + (HAS_GIT ? ITEM : DIM) + '6.' + OFF + dimG + " What's changed" + DIM + '              ' + (ch6.color || DIM) + ch6.text + OFF + dimGOff);
   console.log(' ' + ITEM + '7.' + OFF + ' Open the folder' + DIM + '             (the codebase folder in Explorer)' + OFF);
   console.log(' ' + ITEM + '8.' + OFF + ' Build and preview' + DIM + '           (build, then open the preview)' + OFF);
+  console.log(RULE);
   console.log(' ' + ITEM + '9.' + OFF + ' Run the checks' + DIM + '              (the pre-commit verification battery)' + OFF);
   console.log(' ' + ITEM + '10.' + OFF + ' About / health check' + DIM + '       (versions and tools on this machine)' + OFF);
   console.log(' ' + ITEM + '11.' + OFF + ' Check the live site' + DIM + '        (is the published site up to date?)' + OFF);
+  console.log(RULE);
   console.log(' ' + ITEM + '12.' + OFF + ' Open the notes folder' + DIM + '      (authors + works markdown)' + OFF);
   console.log(' ' + ITEM + '13.' + OFF + ' New book' + DIM + '                   (copy a template + checklist)' + OFF);
   console.log(' ' + ITEM + '14.' + OFF + ' Finish a book registration' + DIM + ' (fill the registry row)' + OFF);
   console.log(' ' + ITEM + '15.' + OFF + ' Add an author' + DIM + '              (append to the authors registry)' + OFF);
+  console.log(RULE);
   // the hint carries the state: dim when on, amber when muted (the warn colour
   // the footer used to show for it)
   console.log(' ' + ITEM + '16.' + OFF + ' Sound on/off' + (muted ? WARN : DIM) + '               (now ' + (muted ? 'off' : 'on') + ')' + OFF);

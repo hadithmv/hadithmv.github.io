@@ -72,6 +72,10 @@ are dimmed too, and all start in the same column, so the list scans at a
 glance — except the two hints that carry live state: the sound row's
 (dim `(now on)`, amber `(now off)` when muted) and the What's-changed
 row's (amber when files await, dim `(nothing to commit)` when clean).
+Dim hyphen rules (the same rule the footer uses) split the list into five
+job groups without renumbering anything — build/refresh (1–4), local
+preview & status (5–8), verify & health (9–11), content (12–15), the menu
+itself (16–18) — so the blocks scan as units.
 Below the menu, a footer line shows state at a glance: when the checks
 last ran and their verdict, when the site was last built (the size
 report's timestamp), and whether a preview server is running.
