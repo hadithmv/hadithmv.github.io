@@ -36,7 +36,7 @@ finish registration / add author (13–15), sound / restart / quit
 | # | What it does |
 | --- | --- |
 | 1 | **Build the site** — the full pre-commit build into `dist/` (~1 minute); prints the size summary from `dist-build-report.md`, then asks whether to run the checks. |
-| 2 | **Rebuild search index** — after adding or changing a book, so it shows up in search. |
+| 2 | **Rebuild search index** — the search words only; a new book goes through option 4 (registry + index + freshness in one). |
 | 3 | **Refresh freshness** — the quick update for data-only changes: rewrites `dist/manifest.json` (the service worker's ledger) without a full build. |
 | 4 | **Refresh book data** — 3 steps: registry update (the PS1 — scans `data/content/`, recomputes version hashes, sorts), search index, freshness; each step is marked done/failed as it finishes. |
 | 5 | **Preview the site** — starts Python's http.server on port 8899 in its own window and opens the built site in the browser. When one is already running on 8897–8899: Enter opens it, S stops the server. On a network it also prints the LAN address, so a phone on the same wifi can open the preview. |
@@ -44,7 +44,7 @@ finish registration / add author (13–15), sound / restart / quit
 | 7 | **Open the folder** — the codebase folder in Explorer. |
 | 8 | **Build and preview** — option 1 followed by option 5. |
 | 9 | **Run the checks** — the eight pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass; **O** opens the last report without running anything. |
-| 10 | **About / health** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
+| 10 | **About / health check** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
 | 11 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 12 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
 | 13 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 14). |
@@ -82,10 +82,10 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
 
 ## Sounds
 
-- **Success beep** — BEL BEL, on options 1 and 9 after a clean build, and on
-  option 10 when all checks pass.
+- **Success beep** — BEL BEL, on options 1 and 8 after a clean build, and on
+  option 9 when all checks pass.
 - **Failure buzz** — a low 180 Hz double beep (via the detected PowerShell),
-  whenever any option fails, including option 10 with failing checks.
+  whenever any option fails, including option 9 with failing checks.
 - Options 2–7 and 10–13 are silent on success; 14 and 15 beep once the
   row is written and the freshness file refreshed; 16 plays the success
   beep on unmute, so you hear what you turned back on; 17 (Restart) is
@@ -96,11 +96,11 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
   amber when muted) and the About screen shows it too — the menu footer
   deliberately does not repeat it.
 
-## Checks (option 10)
+## Checks (option 9)
 
-Seven checks run in order; each opens an invisible browser (or the font
-corpus) and exercises a part of the site. Press Enter for all seven,
-1–7 for just that one, or O to open the last report without running
+Eight checks run in order; each opens an invisible browser (or the font
+corpus) and exercises a part of the site. Press Enter for all eight,
+1–8 for just that one, or O to open the last report without running
 anything — the report marks the rest SKIP and the verdict names the
 check. The report lands in `checks-report.md` (gitignored — never
 dirties "what's changed", never ships): a summary table, per-check details,

@@ -89,10 +89,13 @@ initializePageWithMetadata(async function (metadata) {
   // and small books / cache hits / browsers without ReadableStream keep the
   // whole-file path (fetchCSVStreamed's fallback never fires the callbacks).
   var _streamState = null;
-  // Table-mode streaming appends coalesce to ~1000-row inserts per tick (see
-  // the streaming bridge) — enough to keep the drain at a handful of table
-  // relayouts per second without the UI freezing between ticks.
-  var STREAM_TABLE_FLUSH_ROWS = 1000;
+  // Table-mode streaming appends coalesce to ~3000-row inserts per tick (see
+  // the streaming bridge). Bigger than the old 1000: the fill (capped at
+  // DRAIN_MAX_ROWS) lands in ~7 inserts, so the columns settle and the whole
+  // table goes still early in the download instead of re-laying out once per
+  // 1000-row insert for the load's whole duration. Each insert's sync work
+  // stays under ~300 ms, so the progress line keeps breathing.
+  var STREAM_TABLE_FLUSH_ROWS = 3000;
   // The stream/drain DOM fill stops here (rows, not chunks): rendering the
   // WHOLE book into the DOM makes every insert force a full-document layout
   // whose cost grows with the row count — the merged RDF-all (152,612 rows)
@@ -1839,11 +1842,14 @@ initializePageWithMetadata(async function (metadata) {
         // frozen and then jump to full. Bounded inserts per 50 ms tick let
         // the browser paint between them, so the table visibly fills.
         function drainStepSize() {
-          // Finish the backlog in ~20 bounded inserts regardless of mode: an
-          // insert must never be smaller than one stream tick — a 25-row
-          // card drain at a 50 ms timer floor would take a minute for a
-          // burst backlog.
-          return Math.max(streamTickSize() || ROWS_PER_CHUNK, Math.ceil((drainTarget() - loadedEnd) / 20));
+          // Finish the backlog in ~20 bounded inserts regardless of mode. The
+          // drain does NOT inherit the stream's 3000-row batch — four of
+          // those per 50 ms tick would be ~1–2 s of sync work per tick.
+          // Table mode caps the drain insert at 1000 rows (the old stream
+          // cadence); card mode keeps its 25-row inserts — div inserts are
+          // cheap and smooth.
+          var floor = viewMode === "table" ? 1000 : ROWS_PER_CHUNK;
+          return Math.max(floor, Math.ceil((drainTarget() - loadedEnd) / 20));
         }
         function drainStreamFlush(onDone) {
           if (streamFlushTimer) { clearTimeout(streamFlushTimer); streamFlushTimer = null; }

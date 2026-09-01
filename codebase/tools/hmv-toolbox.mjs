@@ -278,7 +278,7 @@ function showBanner() {
   // ('Finish a book registration') plus one space — so the hints scan as
   // a table of their own.
   console.log(' ' + ITEM + '1.' + OFF + ' Build the site' + DIM + '              (full build - run before you commit)' + OFF);
-  console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index' + DIM + '        (so new books show up in search)' + OFF);
+  console.log(' ' + ITEM + '2.' + OFF + ' Rebuild search index' + DIM + '        (search words only - a new book still needs option 4)' + OFF);
   console.log(' ' + ITEM + '3.' + OFF + ' Refresh freshness' + DIM + '           (quick update for data-only changes)' + OFF);
   console.log(' ' + ITEM + '4.' + OFF + ' Refresh book data' + DIM + '           (after adding or changing a book)' + OFF);
   const dim5 = HAS_PY ? '' : DIM, dim5Off = HAS_PY ? '' : OFF;

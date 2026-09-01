@@ -688,10 +688,10 @@ async function browserPhase(dist) {
       !!firstVisibleT && firstVisibleT.t < lastT.t,
       firstVisibleT ? firstVisibleT.rows + " rows at t=" + firstVisibleT.t + "ms (wrapper shown, line up)" : "rows never visible mid-stream");
     // Incremental growth: with the coalesced flush, the table fills in
-    // bounded ~1000-row inserts per tick — the sampler must catch counts
-    // strictly between 0 and the full total, proving the drain renders
-    // progressively instead of all-at-once (nothing visible until the end)
-    // or row-by-row (relayout storm).
+    // bounded inserts per tick (3000-row stream ticks, 1000-row drain steps)
+    // — the sampler must catch counts strictly between 0 and the full total,
+    // proving the drain renders progressively instead of all-at-once
+    // (nothing visible until the end) or row-by-row (relayout storm).
     const midRowsT = obsT.filter((o) => o.rows > 0 && o.rows < EXPECTED_ROWS);
     check("B9 table rows grow incrementally through the stream",
       midRowsT.length > 0,

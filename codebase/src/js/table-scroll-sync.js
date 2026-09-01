@@ -25,8 +25,15 @@ function getTable() {
   return tableWrap ? tableWrap.querySelector(".reader-table") : null;
 }
 
-// Compute and apply table width: first col 60px, rest 150px each.
-// If total exceeds wrapper width, table overflows → scrollbar appears.
+// Compute and apply table width: row-number column 60px, the rest sized to
+// content. Returns the table's MEASURED natural width — refreshScrollWidth
+// pins the table at exactly that, so the auto layout is never constrained
+// and columns only widen when a genuinely wider cell arrives, never
+// re-distribute. The old fixed estimate (60 + (visCols−1) × 150) under-measured
+// real tables, and pinning that narrower total made the browser re-balance
+// the difference among columns on every content change — visible re-layout
+// churn while a streamed book fills (the merged RDF-all wobbled through ~11
+// width states per load).
 function applyTableWidth() {
   var table = getTable();
   if (!table) return 0;
@@ -39,8 +46,6 @@ function applyTableWidth() {
     }
   }
   if (visCols === 0) return 0;
-  // Estimate: first col 60px, others 150px each (used only for overflow check)
-  var colWidth = 60 + (visCols - 1) * 150;
   // Reset to CSS defaults — let table-layout:auto size columns to content
   table.style.width = "";
   var ths = table.querySelectorAll("thead th");
@@ -50,7 +55,8 @@ function applyTableWidth() {
       ths[k].style.width = ""; // let browser size by content
     }
   }
-  return colWidth;
+  // The read forces layout — the natural width is what we pin.
+  return table.scrollWidth;
 }
 
 function refreshScrollWidth(colWidth) {
