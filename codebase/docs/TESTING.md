@@ -124,7 +124,33 @@ every source's rows (152,612 — derived from the CSVs via the app's own
 parser, never hardcoded), the first rendered card carrying the rasmee
 block's first cell (rasmee leads — the deliberate block order) and the last
 rendered card carrying the W2W block's Dhivehi title in its source column
-(read from the registry's `titleDV`), and no page errors. The product yields
+(read from the registry's `titleDV`), and no page errors. **B12** drives the
+QRN content modal's on-demand external-book column loads (the last
+"download everything, then pop" path — the reader's own streaming never
+covered the modal): on scrubbed profiles, ticking an external book's column
+shows the modal's status line with the book code and a climbing % (the
+cancel pass re-throttles to 250 KB/s — ~7.7 s for QRN-muyassarAR — so the
+abort lands mid-flight), the modal gates while a download runs (other
+checkboxes and the preset buttons disabled — the sequential-preset
+guarantee), the Cancel button drops the in-flight column silently (no
+error toast, no late insert), a full download lands the column and releases
+the gate, and the arabic preset loads its two books strictly sequentially
+(proven from the status line's pct timeline — one book's 0→100 climb
+finishes before the next book's begins; a fetch wrapper can't prove this,
+it only sees response headers, which the throttle barely paces). A page
+script records every toast (text + timestamp) so a "no error toast" FAIL
+names the offending message, and console.error entries are captured with
+their arguments (the app's catch logs the reason the toast hides). One
+trail this surfaced: a "column landed" that is only the `-1` marker — the
+commit threw inside `applyColumnOrder` (row 0, `normAllData` missing) and
+the settle re-render checked the box from the marker. That was a real
+product bug: the streaming reader built norm data only for batches after
+the seed (`reader.js` `buildReader` — the seed's norm rows are now built
+there too), leaving `normAllData` short by the first batch, so every
+on-demand column insert on a streamed book failed this way. If the
+throttle doesn't pace the downloads
+the claims are reported WARN, not FAIL — the established harness-fault
+convention. The product yields
 to the event loop on every streamed chunk (`setTimeout(res, 0)` in the
 `fetchCSVStreamed` read loop) so the progress line and the drain's timers
 always get a turn — a burst must drain on bounded 50 ms ticks (up to 4 table
@@ -380,8 +406,12 @@ Before touching product code, run this sequence:
   navigation off the window input, anything that focuses a target on open —
   must click with real CDP mouse events and snapshot `document.activeElement`
   (tag + id + class) immediately after each click, before dispatching keys.
-- **Stream-battery B10/B11 stalls are an environmental fetch stall — retry,
-  don't debug.** Against `--dist`, the throttled big-book section occasionally
+- **Stream-battery B10/B11/B12 stalls are an environmental fetch stall —
+  retry, don't debug.** (B12's WARNs — "modal throttle did not pace the
+  download", "B12 gate probe skipped", "B12c pct never paced mid-range" —
+  are the same harness-fault class: the CDP throttle did not pace the
+  modal's download on that machine. They must never be reported as product
+  failures.) Against `--dist`, the throttled big-book section occasionally
   stalls: the progress line freezes **below 100%** (observed B10 at 78%,
   B11 at 67/94/95%), the in-page sampler's timeline ends mid-stream, and
   ~70 s of main-thread timer blackout follows (a CDP `Debugger.pause` fired

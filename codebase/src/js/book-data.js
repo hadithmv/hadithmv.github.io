@@ -252,8 +252,8 @@ var MODERN_PERIOD_FROM_AH = (MODERN_PERIOD_CENTURY - 1) * 100 + 1;
 /** Period bucket of an author — death century as a string ("3"), "modern"
  *  when no death year is recorded OR the death fell in the modern era (the
  *  15th century AH, 1401, and later) — one bucket, not a numeric century
- *  and a "modern" catch-all. Buckets come from the 08 registry, not the
- *  data. */
+ *  and a "modern" catch-all. Computed from the death year in the 02
+ *  authors registry — never stored. */
 export function authorPeriodOf(code) {
   var d = authorDefs()[code];
   if (!d || !d.diedAH) return "modern";

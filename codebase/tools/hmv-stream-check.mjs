@@ -68,8 +68,22 @@
 // deliberate block order) and the last rendered row carrying the W2W
 // source's Dhivehi title in its source column (the last block's title —
 // derived from the registry, never hardcoded).
-// If the CDP throttle does not pace the CSV on a given machine, the UX
-// claims are reported as unproven (WARN) rather than failed — the harness,
+// B12 drives the QRN content modal's on-demand external-book column loads
+// (the last "download everything, then pop" path — the add-column flow the
+// reader's own streaming never covered) on scrubbed profiles: a tick of an
+// external book's checkbox shows a status line with a climbing % and gates
+// the modal (other checkboxes + preset buttons disabled — one download at a
+// time, sequential presets), the Cancel button drops the in-flight column
+// silently (no toast, no late insert), a full download lands the column,
+// and the arabic preset loads its two books strictly sequentially (proven
+// from the status line's pct timeline — one 0→100 climb finishes before the
+// next begins; a fetch wrapper cannot prove this, it only sees response
+// headers). A page script records every toast (text + timestamp) so a
+// "no error toast" FAIL names the offending message. The cancel pass runs
+// at 250 KB/s (muyassarAR ≈ 7.7 s) so the abort lands mid-flight; the land
+// pass at the standard 500. If the CDP throttle does not pace the CSV on a
+// given machine, the UX claims are reported as unproven (WARN) rather than
+// failed — the harness,
 // not the product, would be at fault.
 //
 // Run: node tools/hmv-stream-check.mjs  (from codebase/, or anywhere —
@@ -408,8 +422,13 @@ async function browserPhase(dist) {
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); }
-      if (m.method === "Runtime.exceptionThrown") pageErrors.push(m.params.exceptionDetails.text || "exception");
-      if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") pageErrors.push("console.error");
+      if (m.method === "Runtime.exceptionThrown") {
+        const ed = m.params.exceptionDetails;
+        pageErrors.push((ed.exception && ed.exception.description) || ed.text || "exception");
+      }
+      if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") {
+        pageErrors.push("console.error: " + (m.params.args || []).map((a) => (a.value !== undefined ? a.value : a.description || JSON.stringify(a))).join(" "));
+      }
     };
     await new Promise((r) => (ws.onopen = r));
     const send = (method, params = {}) =>
@@ -459,6 +478,23 @@ async function browserPhase(dist) {
     await sendChecked("Page.enable");
     const samplerReg = await sendChecked("Page.addScriptToEvaluateOnNewDocument", { source: SAMPLER });
     console.log("     sampler registered id", samplerReg.result && samplerReg.result.identifier);
+    // Toast ledger: showToast REUSES one .toast element (it only swaps
+    // textContent), so a childList observer would catch just the first
+    // creation — a 100 ms text poll records every message with its wall
+    // clock. Runs on every phase-2 document (B1 → B12c), so a "no error
+    // toast" FAIL carries the actual toast text and timestamp instead of an
+    // opaque "toast visible".
+    await sendChecked("Page.addScriptToEvaluateOnNewDocument", {
+      source: "(function () {" +
+        "window.__toastLog = [];" +
+        "var last = '';" +
+        "window.__toastTimer = setInterval(function () {" +
+        "  var t = document.querySelector('.toast');" +
+        "  var txt = t ? t.textContent : '';" +
+        "  if (txt && txt !== last) { window.__toastLog.push({ text: txt, at: Date.now() }); last = txt; }" +
+        "}, 100);" +
+      "})();",
+    });
     await sendChecked("Network.enable");
     await sendChecked("Network.clearBrowserCache");
     await sendChecked("Network.emulateNetworkConditions", {
@@ -929,6 +965,237 @@ async function browserPhase(dist) {
         t: o.t, p: o.progress, r: o.rows, l: o.loading, d: o.disabled, s: o.strip, tt: o.title, td: o.titleDisp,
       }))).slice(0, 1500));
     }
+
+    // ── B12: QRN content-modal column loads ─────────────────────────────
+    // The content modal's on-demand external-book columns load the whole
+    // source-book CSV (up to 11.3 MB) with no progress, no cancel, and
+    // presets firing every download in parallel. This pass proves the new
+    // UX under throttle, on scrubbed profiles (the base book's IDB record
+    // must not mask the modal's downloads — and B12b caches muyassarAR, so
+    // B12c scrubs again): a status line with % appears, the modal gates
+    // (other checkboxes + preset buttons disabled — one download at a time,
+    // which is what makes the presets sequential), Cancel drops the
+    // in-flight column silently with no late insert, a full download lands
+    // it, and the arabic preset fetches its two books strictly sequentially
+    // (fetch-wrapper overlap probe). B11 left the throttle at 1500 KB/s —
+    // re-throttle here.
+    const MUYASSAR_BOX = '#qrnContentModalBody tr[data-key="QRN-muyassarAR:0"] input[type=checkbox]';
+    const MUKHTASAR_BOX = '#qrnContentModalBody tr[data-key="QRN-mukhtasarAR:0"] input[type=checkbox]';
+    const BAKURUBE_BOX = '#qrnContentModalBody tr[data-key="QRN-bakurube:0"] input[type=checkbox]';
+    const PRESET_ALL_BTN = '#qrnContentOverlay .quran-preset-btn[data-preset="all"]';
+    const boxExpr = (sel) => `(function () {
+      var b = document.querySelector(${JSON.stringify(sel)});
+      return b ? { checked: b.checked, disabled: b.disabled } : null;
+    })()`;
+    async function scrubModal() {
+      pageErrors.length = 0;
+      await send("Page.navigate", { url: "http://127.0.0.1:" + PORT + "/__b9-scrub__" });
+      await evalJS(`new Promise(function (res) {
+        var t0 = Date.now();
+        (function poll() {
+          if (document.readyState === "complete") return res(true);
+          if (Date.now() - t0 > 15000) return res(false);
+          setTimeout(poll, 100);
+        })();
+      })`);
+      let idbDelete = "unset";
+      try {
+        idbDelete = await evalJS(`new Promise(function (res) {
+          var q = indexedDB.deleteDatabase("hadithmv");
+          q.onsuccess = function () { res("deleted"); };
+          q.onerror = function () { res("error"); };
+          q.onblocked = function () { res("blocked"); };
+          setTimeout(function () { res("timeout"); }, 3000);
+        })`);
+      } catch (e) {
+        idbDelete = "exc: " + String(e.message || e).slice(0, 60);
+      }
+      return idbDelete;
+    }
+    async function openQuranModal() {
+      await evalJS("document.getElementById('qrnContentBtn').click()");
+      return await waitFor("getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'", 10000, 100);
+    }
+    // Error toasts only (showErrorToast prepends ⚠️) — plain toasts are the
+    // app's normal feedback and don't violate the silent-cancel contract.
+    const toastLog = () => evalJS(`(function () {
+      return (window.__toastLog || []).filter(function (t) { return t.text.indexOf("⚠") !== -1; });
+    })()`);
+
+    // B12 — cancel pass at 250 KB/s (muyassarAR ≈ 7.7 s): the abort must
+    // land mid-flight for the assertions to mean anything.
+    const idbDelB12 = await scrubModal();
+    check("B12 scrub: IDB deleted before modal-column load", idbDelB12 === "deleted", idbDelB12);
+    await sendChecked("Network.clearBrowserCache");
+    await sendChecked("Network.emulateNetworkConditions", {
+      offline: false, latency: 400, downloadThroughput: 250 * 1024, uploadThroughput: 250 * 1024,
+    });
+    await goto(READER_QRN, 480, 900);
+    const finishedB12 = await waitFor(FINISHED_EXPR, 90000, 150);
+    check("B12 quran reader finished loading", finishedB12, finishedB12 ? "" : "still loading after 90 s");
+    check("B12 content modal opened", await openQuranModal(), "overlay never visible");
+    await evalJS(`document.querySelector(${JSON.stringify(MUYASSAR_BOX)}).click()`);
+    const statusShownB12 = await waitFor(`(function () {
+      var s = document.getElementById("qrnColumnStatus");
+      return !!(s && s.hidden === false && s.textContent.indexOf("QRN-muyassarAR") !== -1);
+    })()`, 10000, 100);
+    check("B12 status line appears with the book code", statusShownB12, statusShownB12 ? "" : "status line never visible");
+    // Sample the pct while the download runs (stop early if it settles)
+    const pctSamples = [];
+    for (let s = 0; s < 12; s++) {
+      const p = await evalJS(`(function () {
+        var e = document.getElementById("qrnColumnStatusPct");
+        var st = document.getElementById("qrnColumnStatus");
+        if (!e || !st || st.hidden === true) return null;
+        return e.textContent;
+      })()`);
+      if (p === null) break;
+      pctSamples.push(parseInt(p, 10));
+      await sleep(300);
+    }
+    if (pctSamples.length >= 3) {
+      check("B12 progress pct climbs (0 < N < 100)", pctSamples.some((p) => p > 0 && p < 100),
+        pctSamples.join(","));
+    } else {
+      console.log("WARN modal throttle did not pace the download (harness, not product) — " +
+        pctSamples.length + " pct sample(s)");
+    }
+    // Gate probe in one evalJS (race-proof against the download settling)
+    const gateProbeB12 = await evalJS(`(function () {
+      var s = document.getElementById("qrnColumnStatus");
+      var other = document.querySelector(${JSON.stringify(BAKURUBE_BOX)});
+      var preset = document.querySelector(${JSON.stringify(PRESET_ALL_BTN)});
+      return { shown: !!(s && s.hidden === false),
+               otherDisabled: !!(other && other.disabled),
+               presetDisabled: !!(preset && preset.disabled) };
+    })()`);
+    if (gateProbeB12.shown) {
+      check("B12 gate: other checkbox + preset disabled while a download runs",
+        gateProbeB12.otherDisabled === true && gateProbeB12.presetDisabled === true,
+        JSON.stringify(gateProbeB12));
+    } else {
+      console.log("WARN B12 gate probe skipped — download already settled (throttle unproven)");
+    }
+    await evalJS("document.getElementById('qrnColumnCancel').click()");
+    const cancelledB12 = await waitFor(`(function () {
+      var s = document.getElementById("qrnColumnStatus");
+      var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+      var preset = document.querySelector(${JSON.stringify(PRESET_ALL_BTN)});
+      return !!(s && s.hidden === true && b && b.checked === false && b.disabled === false &&
+        preset && preset.disabled === false);
+    })()`, 10000, 100);
+    check("B12 cancel: status hidden, gate released, column dropped", cancelledB12,
+      cancelledB12 ? "" : "cancel did not settle (status/gate/checkbox state)");
+    await sleep(1500);
+    const lateInsertB12 = await evalJS(`(function () {
+      var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+      var s = document.getElementById("qrnColumnStatus");
+      return { checked: b ? b.checked : null, statusHidden: s ? s.hidden : null };
+    })()`);
+    check("B12 no late insert after cancel", lateInsertB12.checked === false && lateInsertB12.statusHidden === true,
+      JSON.stringify(lateInsertB12));
+    check("B12 cancel silent: no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
+    check("B12 cancel: no page errors", pageErrors.length === 0, pageErrors.slice(0, 3).join("; "));
+
+    // B12b — land pass at the standard throttle (muyassarAR ≈ 3.9 s): the
+    // same column completes its download and lands, gate released after.
+    await sendChecked("Network.emulateNetworkConditions", {
+      offline: false, latency: 400, downloadThroughput: THROTTLE_BYTES, uploadThroughput: THROTTLE_BYTES,
+    });
+    await evalJS(`document.querySelector(${JSON.stringify(MUYASSAR_BOX)}).click()`);
+    // The click itself ticks the box — checked alone cannot prove the commit
+    // (the settle probe once ran mid-download and saw the correct in-flight
+    // state as a false FAIL). The settled state (checked + status hidden +
+    // gate released) occurs only after endColumnLoad, i.e. after the
+    // download completed and the column committed.
+    const landedB12b = await waitFor(`(function () {
+      var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+      var s = document.getElementById("qrnColumnStatus");
+      var preset = document.querySelector(${JSON.stringify(PRESET_ALL_BTN)});
+      return !!(b && s && preset && b.checked === true && s.hidden === true && preset.disabled === false);
+    })()`, 30000, 150);
+    check("B12b column lands and settles after a full download", landedB12b,
+      landedB12b ? "" : "column never committed (download failed?)");
+    check("B12b no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
+    check("B12b no page errors", pageErrors.length === 0, pageErrors.slice(0, 3).join("; "));
+
+    // B12c — preset sequential pass: B12b cached muyassarAR (a cache hit
+    // never streams), so scrub again, then install a fetch wrapper BEFORE
+    // clicking the preset and prove the two books' fetches never overlap.
+    const idbDelB12c = await scrubModal();
+    check("B12c scrub: IDB deleted before preset load", idbDelB12c === "deleted", idbDelB12c);
+    await sendChecked("Network.clearBrowserCache");
+    await sendChecked("Network.emulateNetworkConditions", {
+      offline: false, latency: 400, downloadThroughput: THROTTLE_BYTES, uploadThroughput: THROTTLE_BYTES,
+    });
+    await goto(READER_QRN, 480, 900);
+    const finishedB12c = await waitFor(FINISHED_EXPR, 90000, 150);
+    check("B12c quran reader finished loading", finishedB12c, finishedB12c ? "" : "still loading after 90 s");
+    check("B12c content modal opened", await openQuranModal(), "overlay never visible");
+    // Sequentiality is proven from the STATUS LINE, not a fetch wrapper: the
+    // wrapper only sees response HEADERS (fetch resolves at headers), which
+    // the throttle barely paces — it could never order the bodies. The pct
+    // timeline IS the body: sequential loading shows one book's 0→100 climb
+    // complete before the next book's begins; the old parallel preset showed
+    // both books' percentages interleaving from the first second.
+    await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="arabic"]').click()`);
+    const seqSamples = [];
+    const seqT0 = Date.now();
+    while (Date.now() - seqT0 < 30000) {
+      const s = await evalJS(`(function () {
+        var st = document.getElementById("qrnColumnStatus");
+        var a = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+        var b = document.querySelector(${JSON.stringify(MUKHTASAR_BOX)});
+        var m = st && st.hidden === false ? (st.textContent.match(/QRN-[A-Za-z0-9]+/) || [null])[0] : null;
+        var p = document.getElementById("qrnColumnStatusPct");
+        return { book: m, pct: p ? parseInt(p.textContent, 10) : null,
+                 aDone: !!(a && a.checked), bDone: !!(b && b.checked) };
+      })()`);
+      seqSamples.push(s);
+      if (s.aDone && s.bDone) break;
+      await sleep(150);
+    }
+    const seqEnd = seqSamples[seqSamples.length - 1];
+    check("B12c preset lands both arabic columns", !!(seqEnd && seqEnd.aDone && seqEnd.bDone),
+      seqEnd ? "aDone=" + seqEnd.aDone + " bDone=" + seqEnd.bDone + " of " + seqSamples.length + " samples" : "no samples");
+    // Pacing gate: at least 3 mid-range pct samples prove the throttle paced
+    // the bodies, so the sequencing below is meaningful. Unproven pacing →
+    // WARN (harness, not product) — the B10/B12 convention.
+    const midSamples = seqSamples.filter(function (s) { return s.book && s.pct > 0 && s.pct < 100; });
+    if (midSamples.length >= 3) {
+      // Sequential: mukhtasarAR's first progress sample appears only after
+      // muyassarAR's climb reached the top (it sits at 100% through the
+      // final parse). Parallel: mukhtasarAR's first chunk lands ~0.5 s in,
+      // while muyassarAR is still near 0%.
+      var firstMukh = -1;
+      for (var si = 0; si < seqSamples.length; si++) {
+        if (seqSamples[si].book === "QRN-mukhtasarAR" && seqSamples[si].pct > 0) {
+          firstMukh = si;
+          break;
+        }
+      }
+      var maxMuy = 0;
+      for (var sj = 0; sj < (firstMukh === -1 ? seqSamples.length : firstMukh); sj++) {
+        if (seqSamples[sj].book === "QRN-muyassarAR" && seqSamples[sj].pct > maxMuy) {
+          maxMuy = seqSamples[sj].pct;
+        }
+      }
+      check("B12c preset books load sequentially (one 0→100 climb at a time)",
+        firstMukh === -1 ? midSamples.length >= 3 : maxMuy >= 90,
+        "firstMukh=" + firstMukh + " maxMuyassarPctBefore=" + maxMuy + " of " + seqSamples.length + " samples");
+    } else {
+      console.log("WARN B12c pct never paced mid-range — sequentiality unproven (harness, not product): " +
+        midSamples.length + " mid-range sample(s) of " + seqSamples.length);
+    }
+    const gateOffB12c = await evalJS(`(function () {
+      var preset = document.querySelector(${JSON.stringify(PRESET_ALL_BTN)});
+      var s = document.getElementById("qrnColumnStatus");
+      return { presetEnabled: preset ? !preset.disabled : null, statusHidden: s ? s.hidden : null };
+    })()`);
+    check("B12c gate released after preset",
+      gateOffB12c.presetEnabled === true && gateOffB12c.statusHidden === true, JSON.stringify(gateOffB12c));
+    check("B12c no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
+    check("B12c no page errors", pageErrors.length === 0, pageErrors.slice(0, 3).join("; "));
   } finally {
     edge.kill();
     server.close();
@@ -940,7 +1207,7 @@ console.log("── Phase 1: stream-parser parity ──────────
 parityPhase();
 syntheticPhase();
 const DIST = process.argv.includes("--dist");
-console.log("── Phase 2: throttled big-book UX (" + (DIST ? "dist" : "src") + "/books/reader.html?book=RDF-misc) ──");
+console.log("── Phase 2: throttled big-book UX (" + (DIST ? "dist" : "src") + "/books/reader.html?book=RDF-misc) + quran content-modal column loads ──");
 await browserPhase(DIST);
 console.log(failures === 0 ? "STREAM-CHECK OK" : "STREAM-CHECK FAILURES: " + failures);
 process.exitCode = failures > 0 ? 1 : 0;

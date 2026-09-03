@@ -127,7 +127,8 @@ when nothing else is moving.
 5. service worker battery — `tools/hmv-sw-check.mjs`
 6. table-of-contents scan — `tools/hmv-toc-scan.cjs`
 7. streaming battery — `tools/hmv-stream-check.mjs` (big-book CSV parse
-   parity + the throttled first-content UX on reader.html)
+   parity + the throttled first-content UX on reader.html + the quran
+   content-modal column loads: progress, cancel, sequential presets)
 8. font coverage check — `tools/hmv-font-subset.py --check` (skipped with a
    SKIP row when python is missing)
 

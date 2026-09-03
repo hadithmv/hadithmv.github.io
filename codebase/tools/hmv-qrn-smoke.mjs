@@ -374,6 +374,14 @@ async function main() {
   })()`);
   check("no error toast after preset all", !toast || toast.indexOf("⚠️") === -1, toast);
 
+  // Presets now load sequentially with the modal gated — a reset click on a
+  // disabled button is a no-op, so wait for the queue's settle (status
+  // hidden, gate released) before resetting.
+  await waitFor(`(function () {
+    var s = document.getElementById("qrnColumnStatus");
+    var p = document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]');
+    return !!(s && s.hidden === true && p && p.disabled === false);
+  })()`, 60000);
   await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="reset"]').click()`);
   await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 15000);
   await sleep(400);

@@ -66,7 +66,8 @@ Run these before declaring work done (from `codebase/`):
 - `node tools/hmv-stream-check.mjs` — streaming battery: stream-parser
   parity with `parseCSV` (every content CSV, seeded chunkings + callback
   delivery) + the throttled big-book UX (progress line, first rows while
-  loading, gating; ports in the script header).
+  loading, gating) + the quran content-modal column loads (progress line,
+  cancel, sequential presets; ports in the script header).
 - `node tools/hmv-sw-check.mjs` — service-worker battery (registration,
   precache, cache-served repeat visits, offline rendering, per-file update
   propagation; serves over http://127.0.0.1 — a secure context is required

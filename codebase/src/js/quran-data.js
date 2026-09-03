@@ -241,7 +241,7 @@ export function decorateAyah(
 // the whole CSV per column. Bounded: only the most recent book is retained.
 var _bookCsvCache = null; // { bookCode, headerRow, allData }
 
-export function loadQuranBookCSV(bookCode) {
+export function loadQuranBookCSV(bookCode, streamOpts) {
   if (_bookCsvCache && _bookCsvCache.bookCode === bookCode) {
     return Promise.resolve(_bookCsvCache);
   }
@@ -250,7 +250,10 @@ export function loadQuranBookCSV(bookCode) {
   // parse (and the cache) so the by-index merge in mergeQuranData stays
   // aligned with the base file. The base files (QRN-DATA-*) have no blank
   // rows, so keeping them here is a no-op for those.
-  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../../data/content/" + bookCode + ".csv", true).then(function (rows) {
+  // streamOpts ({ onProgress, signal }) opts into the streaming path — the
+  // content modal uses it for its progress line and Cancel. Absent (the
+  // reader's merge paths) means the exact whole-file behaviour as before.
+  return fetchBookCSVCached(bookCode, getBookVersionSync(bookCode), "../../data/content/" + bookCode + ".csv", true, streamOpts).then(function (rows) {
     if (rows.length === 0) return { headerRow: [], allData: [] };
     var headerRow = rows.shift();
     _bookCsvCache = { bookCode: bookCode, headerRow: headerRow, allData: rows };

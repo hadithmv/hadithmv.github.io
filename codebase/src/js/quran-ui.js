@@ -452,6 +452,14 @@ export function initQuranUI(ctx) {
   })();
   var _pendingColumnValues = {}; // key → {name, values, normValues} awaiting applyColumnOrder
 
+  // In-flight external-book column load (content modal). External books load
+  // one download at a time: the gate disables every checkbox + preset button
+  // while one runs (sequential presets), the status line shows the book and
+  // %, and the Cancel button aborts the current fetch.
+  var _columnAbort = null;     // AbortController of the in-flight load
+  var _loadInProgress = false; // gate: modal controls disabled while loading
+  var _columnBook = null;      // book currently downloading (reopen refresh)
+
   function colLabelFor(key) {
     var availableCols = getAllAvailableColumns();
     for (var i = 0; i < availableCols.length; i++) {
@@ -485,6 +493,16 @@ export function initQuranUI(ctx) {
       '<button class="quran-preset-btn" data-preset="' + PRESET_ARABIC + '"></button>' +
       '<button class="quran-preset-btn" data-preset="' + PRESET_RESET + '"></button>' +
     '</div>' +
+    // Status line for external-book downloads: the book code + % (the shared
+    // .loading-progress spans) and the Cancel button. Hidden unless a load is
+    // in flight — the display dance lives in reader-quran.css, where an
+    // author display:flex would otherwise override the UA [hidden] rule.
+    '<div id="qrnColumnStatus" class="quran-column-status" hidden>' +
+      '<span class="loading-progress"><span id="qrnColumnStatusText"></span> ' +
+        '<span class="loading-progress-pct" id="qrnColumnStatusPct"></span></span>' +
+      '<button type="button" id="qrnColumnCancel" class="quran-column-cancel">' +
+        t("confirmCancel") + '</button>' +
+    '</div>' +
     // The header row lives in its own wrapper above the scrollable wrap —
     // the wrap's scrollbar spans only the list, never the pinned header
     // (a sticky thead inside the scroller would keep its scrollbar
@@ -508,6 +526,7 @@ export function initQuranUI(ctx) {
       var key = "qrnPreset" + btn.dataset.preset.charAt(0).toUpperCase() + btn.dataset.preset.slice(1);
       btn.textContent = t(key);
     });
+    document.getElementById("qrnColumnCancel").textContent = t("confirmCancel");
   }
   updateQuranContentLabels();
   document.addEventListener("languagechange", updateQuranContentLabels);
@@ -516,47 +535,80 @@ export function initQuranUI(ctx) {
   document.querySelectorAll("#qrnContentOverlay .quran-preset-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var preset = this.dataset.preset;
+      if (_loadInProgress) return; // belt — the gate disables the buttons anyway
       var hiddenCols = ctx.getHiddenColumns();
+      var targets = [];
       if (preset === PRESET_ALL) {
+        // Registry order, sequential — the queue below loads one book's
+        // columns at a time (the per-book parse cache makes the 2nd+ column
+        // of a book instant).
         var availableCols = getAllAvailableColumns();
-        availableCols.forEach(function (col) {
-          loadAndInsertColumn(col.sourceBook, col.sourceCol);
-        });
-        ctx.rebuildAll();
-        renderQuranContentList();
-        return;
-      }
-      // Hide all external columns
-      Object.keys(_loadedColMap).forEach(function (k) {
-        var idx = _loadedColMap[k];
-        if (idx === undefined) return;
-        var parts = k.split(":");
-        var sourceBook = parts.slice(0, -1).join(":");
-        if (!isBaseSourceBook(sourceBook) && sourceBook !== metadata.bookCode) {
-          if (hiddenCols.indexOf(idx) === -1) hiddenCols.push(idx);
+        for (var i = 0; i < availableCols.length; i++) {
+          targets.push([availableCols[i].sourceBook, availableCols[i].sourceCol]);
         }
-      });
-      if (preset === PRESET_RESET) {
-        ctx.rebuildAll();
-        renderQuranContentList();
-        return;
-      }
-      // Load preset-specific books
-      var targets = preset === PRESET_MAIN ? QRN_PRESET_MAIN : QRN_PRESET_ARABIC;
-      targets.forEach(function (sourceBook) {
-        var presetCols = getAllAvailableColumns();
-        presetCols.forEach(function (col) {
-          if (col.sourceBook === sourceBook) loadAndInsertColumn(sourceBook, col.sourceCol);
+      } else {
+        // Hide all external columns
+        Object.keys(_loadedColMap).forEach(function (k) {
+          var idx = _loadedColMap[k];
+          if (idx === undefined) return;
+          var parts = k.split(":");
+          var sourceBook = parts.slice(0, -1).join(":");
+          if (!isBaseSourceBook(sourceBook) && sourceBook !== metadata.bookCode) {
+            if (hiddenCols.indexOf(idx) === -1) hiddenCols.push(idx);
+          }
         });
-      });
+        if (preset === PRESET_RESET) {
+          ctx.rebuildAll();
+          renderQuranContentList();
+          return;
+        }
+        // Load preset-specific books, book by book
+        var presetBooks = preset === PRESET_MAIN ? QRN_PRESET_MAIN : QRN_PRESET_ARABIC;
+        var presetCols = getAllAvailableColumns();
+        for (var p = 0; p < presetBooks.length; p++) {
+          for (var c = 0; c < presetCols.length; c++) {
+            if (presetCols[c].sourceBook === presetBooks[p]) {
+              targets.push([presetCols[c].sourceBook, presetCols[c].sourceCol]);
+            }
+          }
+        }
+      }
       ctx.rebuildAll();
       renderQuranContentList();
+      // Sequential queue: beginColumnLoad gates the modal while one download
+      // runs, each insert's settle advances the queue, and a cancel (aborted
+      // signal) stops it — landed columns stay. The null guard matters:
+      // instant targets (basmalah/imlai/already-loaded) early-return without
+      // creating a controller.
+      var idx = 0;
+      function next() {
+        if (idx >= targets.length || (_columnAbort && _columnAbort.signal.aborted)) {
+          endColumnLoad();
+          ctx.rebuildAll();
+          renderQuranContentList();
+          return;
+        }
+        var t = targets[idx++];
+        beginColumnLoad(t[0]);
+        loadAndInsertColumn(t[0], t[1]).then(next);
+      }
+      next();
     });
+  });
+
+  // Cancel button: abort the in-flight download. Silent by design — the
+  // column simply doesn't land (columns already landed by a preset stay).
+  document.getElementById("qrnColumnCancel").addEventListener("click", function () {
+    if (!_loadInProgress) return;
+    if (_columnAbort) _columnAbort.abort();
+    endColumnLoad();
   });
 
   function openQuranContentModal() {
     window.closeAllDropdowns();
     renderQuranContentList();
+    // A load can outlive a modal close — show its status again on reopen.
+    if (_loadInProgress && _columnBook) showColumnStatus(_columnBook);
     window.openModal("qrnContentOverlay");
   }
 
@@ -594,7 +646,8 @@ export function initQuranUI(ctx) {
       html +=
         '<tr class="quran-content-item" data-key="' + key + '">' +
         '<td class="quran-col-check"><input type="checkbox" data-source="' +
-        sourceBook + '" data-col="' + sourceCol + '" ' + checked + "></td>" +
+        sourceBook + '" data-col="' + sourceCol + '" ' + checked +
+        (_loadInProgress ? " disabled" : "") + "></td>" +
         '<td class="quran-col-label"><span>' + colLabelFor(key) + "</span></td>" +
         '<td class="quran-col-move">' +
         '<span class="chip-arrow' + (base || i === 0 ? " chip-arrow-disabled" : "") +
@@ -609,13 +662,15 @@ export function initQuranUI(ctx) {
         var sourceBook = this.dataset.source;
         var sourceCol = parseInt(this.dataset.col, 10);
         if (this.checked) {
-          var label = this.closest("tr").querySelector(".quran-col-label span");
-          var origText = label.textContent;
-          this.disabled = true;
-          label.textContent = t("loading");
-          loadAndInsertColumn(sourceBook, sourceCol).finally(function () {
-            cb.disabled = false;
-            label.textContent = origText;
+          if (_loadInProgress) return; // belt — gated boxes can't fire change
+          beginColumnLoad(sourceBook);
+          var loadPromise = loadAndInsertColumn(sourceBook, sourceCol);
+          var myAbort = _columnAbort; // assigned synchronously by the load
+          loadPromise.then(function () {
+            // endColumnLoad restores the truth: a landed insert re-renders
+            // the box checked, a cancel re-renders it unchecked. The identity
+            // guard keeps a stale settle from clearing a newer load's gate.
+            if (_columnAbort === myAbort) endColumnLoad();
           });
         } else {
           hideLoadedColumn(sourceBook, sourceCol);
@@ -690,6 +745,47 @@ export function initQuranUI(ctx) {
     rebuildColumnSourceMap(_loadedColMap);
   }
 
+  // ── On-demand column load helpers (content modal) ──
+
+  function showColumnStatus(bookCode) {
+    _columnBook = bookCode;
+    var status = document.getElementById("qrnColumnStatus");
+    if (status) status.hidden = false;
+    document.getElementById("qrnColumnStatusText").textContent = "Loading " + bookCode + "…";
+    document.getElementById("qrnColumnStatusPct").textContent = "0%";
+  }
+  function updateColumnStatus(bookCode, fraction) {
+    showColumnStatus(bookCode);
+    document.getElementById("qrnColumnStatusPct").textContent = Math.round(fraction * 100) + "%";
+  }
+  function hideColumnStatus() {
+    var status = document.getElementById("qrnColumnStatus");
+    if (status) status.hidden = true;
+  }
+  // The gate: in place, no re-render. A re-render would recompute the ticked
+  // box's checked state from _loadedColMap, which doesn't contain the
+  // in-flight column yet, and visually untick it mid-download.
+  function setColumnGate(on) {
+    _loadInProgress = on;
+    document.querySelectorAll("#qrnContentList input[type=checkbox]").forEach(function (cb) {
+      cb.disabled = on;
+    });
+    document.querySelectorAll("#qrnContentOverlay .quran-preset-btn").forEach(function (btn) {
+      btn.disabled = on;
+    });
+  }
+  function beginColumnLoad(bookCode) {
+    setColumnGate(true);
+    showColumnStatus(bookCode);
+  }
+  // Idempotent: called from the cancel button and from every load settle.
+  function endColumnLoad() {
+    _columnBook = null;
+    setColumnGate(false);
+    renderQuranContentList(); // restores truth: landed → checked, cancelled → not
+    hideColumnStatus();
+  }
+
   function loadAndInsertColumn(sourceBook, sourceCol) {
     // Juz/surah/ayah have no CSV file and no modal toggle — a no-op for
     // them only. Basmalah (QRN-BASE-STRUCT:3) falls through to the
@@ -707,8 +803,21 @@ export function initQuranUI(ctx) {
     }
     // loadQuranBookCSV keeps a one-entry parse cache — inserting several
     // columns from the same book fetches and parses that book's CSV once.
-    return loadQuranBookCSV(sourceBook)
+    // streamOpts give the download a progress line and a Cancel: onProgress
+    // updates the status pct, the signal aborts the fetch mid-stream. A
+    // cancelled load settles silently — no toast, no column, no IDB write
+    // (the put happens only after the fetch resolves).
+    var myAbort = new AbortController();
+    _columnAbort = myAbort;
+    return loadQuranBookCSV(sourceBook, {
+      signal: myAbort.signal,
+      onProgress: function (fraction) { updateColumnStatus(sourceBook, fraction); },
+    })
       .then(function (book) {
+        // A cancel can land after the body was read but before this settle
+        // (the final synchronous parse can't be interrupted) — never commit
+        // a column for an aborted load.
+        if (myAbort.signal.aborted) return;
         var rows = book.allData;
         var csvHeader = book.headerRow;
         if (rows.length === 0) return;
@@ -734,7 +843,11 @@ export function initQuranUI(ctx) {
         rebuildColumnOrder();
         renderQuranContentList();
       })
-      .catch(function () {
+      .catch(function (err) {
+        // User cancel: silent by design. A real failure keeps the error
+        // toast — and logs the reason, which the toast deliberately hides.
+        if (myAbort.signal.aborted) return;
+        console.error("Quran column load failed (" + sourceBook + "):", err);
         window.showErrorToast("Could not load “" + sourceBook + "”");
       });
   }

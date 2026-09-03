@@ -119,6 +119,47 @@
   flex-wrap: wrap;
   flex-shrink: 0;
 }
+/* Status line for on-demand external-book column loads (the content modal):
+   the shared .loading-progress spans (common.css) carry the muted style; this
+   row hosts them plus the Cancel button while a book downloads. English-only
+   status text + ASCII book codes → forced LTR. The :not([hidden]) dance is
+   required: an author display:flex would override the UA [hidden] rule, and
+   the line would always be visible. */
+.quran-column-status {
+  display: none;
+  flex-shrink: 0;
+}
+.quran-column-status:not([hidden]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--control-gap, 6px);
+  margin-bottom: var(--section-gap, 6px);
+  padding: 6px 10px;
+  direction: ltr;
+  text-align: left;
+  background: var(--color-nav-btn-bg);
+  border-radius: var(--radius-sm, 6px);
+  font-size: var(--panel-font-size, 0.85rem);
+}
+.quran-column-cancel {
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text);
+  border-radius: var(--radius-sm, 6px);
+  padding: 2px 10px;
+  font-size: var(--panel-font-size, 0.85rem);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.quran-column-cancel:hover {
+  filter: brightness(0.9);
+}
+.quran-preset-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  filter: none;
+}
 /* The header table sits in a non-scrolling wrapper above the wrap — its
    border-spacing is flat because the body table's own top spacing (2px)
    provides the gap to row 1. */

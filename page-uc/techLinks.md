@@ -1302,7 +1302,7 @@ Zikuru
 
 <!-- TOC --><a name="backups"></a>
 
-### Backups
+### Backing Up Apps
 
 - authenticator apps (google, microsoft)
   - export accounts via QR code to the new phone or ensure cloud sync is active before wiping the old phone

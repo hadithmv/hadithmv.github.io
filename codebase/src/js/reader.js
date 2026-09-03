@@ -513,9 +513,12 @@ initializePageWithMetadata(async function (metadata) {
       // Search and snippet building read these instead of re-normalising
       // every cell on every keystroke — the main win on big books.
       // Kept in sync with quran-ui.js column insertion via the ctx bridge.
-      // Streamed books fill this per-batch in the bridge (append) — the
-      // search paths that read it are gated until the stream completes.
-      var normAllData = streaming ? [] : buildNormData(allData);
+      // The seed batch's norm rows are built HERE (allData is the first
+      // streamed batch) — the bridge's append only adds the batches that
+      // follow, so an empty start would leave normAllData short by the seed
+      // and every quran-ui applyColumnOrder would throw on row 0. Search
+      // paths that read it stay gated until the stream completes.
+      var normAllData = buildNormData(allData);
       // The active search query — the renderers highlight by this instead
       // of reading the header input, which only exists for RDF books now
       // (every other book searches in the window). Owned here, written via

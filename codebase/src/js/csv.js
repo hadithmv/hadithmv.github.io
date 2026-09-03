@@ -180,6 +180,15 @@ export function createStreamParser(keepEmpty, onRow) {
 // anyway. 256 KB gz ≈ 0.7–2 MB of Thaana/Arabic text.
 var STREAM_MIN_BYTES = 256 * 1024;
 
+// Thrown (and rethrown) when opts.signal aborts a fetchCSVStreamed call.
+// Named AbortError to match the DOMException fetch itself raises on abort —
+// callers can treat both the same way.
+function abortError() {
+  var e = new Error("Aborted");
+  e.name = "AbortError";
+  return e;
+}
+
 /**
  * Streaming fetch + parse for large CSVs. Same final result as
  * fetchCSVRows — the full 2D array, header row first — but for large
@@ -187,15 +196,25 @@ var STREAM_MIN_BYTES = 256 * 1024;
  * header has parsed, opts.onRows gets batches of data rows as they land,
  * opts.onProgress gets 0..1 from Content-Length vs bytes read (clamped —
  * the browser reports decompressed bytes against the compressed total).
+ * opts.signal aborts the download: an already-aborted signal rejects
+ * immediately, a mid-stream abort drops the result (the pending read also
+ * rejects natively), and an abort that lands after the body was fully read
+ * still discards it. One caveat: a cancel arriving inside the final
+ * synchronous parser.finish() cannot interrupt the parse (no workers) —
+ * callers that commit shared state should re-check signal.aborted after the
+ * promise settles, and skip the commit.
  * Small responses, missing Content-Length, or no ReadableStream/TextDecoder
  * support fall back to the exact whole-file behaviour, callbacks never fire.
  */
 export async function fetchCSVStreamed(path, keepEmpty, opts) {
-  var resp = await fetch(path);
+  var signal = opts && opts.signal;
+  var resp = await fetch(path, signal ? { signal: signal } : undefined);
   if (!resp.ok) throw new Error("Failed to load " + path + " (" + resp.status + ")");
   var total = parseInt(resp.headers.get("content-length") || "0", 10) || 0;
   if (total < STREAM_MIN_BYTES || !resp.body || !resp.body.getReader || !("TextDecoder" in window)) {
-    return parseCSV(await resp.text(), keepEmpty);
+    var text = await resp.text();
+    if (signal && signal.aborted) throw abortError();
+    return parseCSV(text, keepEmpty);
   }
   var first = true;
   var batch = [];
@@ -215,6 +234,10 @@ export async function fetchCSVStreamed(path, keepEmpty, opts) {
   var decoder = new TextDecoder("utf-8");
   var got = 0;
   while (true) {
+    if (signal && signal.aborted) {
+      try { reader.cancel(); } catch (e) {}
+      throw abortError();
+    }
     var r = await reader.read();
     if (r.done) break;
     got += r.value.byteLength;
@@ -230,6 +253,11 @@ export async function fetchCSVStreamed(path, keepEmpty, opts) {
     // is negligible; it lets the reader paint between batches.
     await new Promise(function (res) { setTimeout(res, 0); });
   }
+  // A cancel can land after the body was fully read (during the final parse,
+  // which can't be interrupted) — the fetch itself may even have resolved.
+  // Drop the result here; the caller's post-settle signal check closes the
+  // same hole on the committing side.
+  if (signal && signal.aborted) throw abortError();
   parser.push(decoder.decode()); // flush decoder tail
   // finish() can still emit rows the chunks never closed: a trailing lone \r
   // held for the \r\n check, or a final row with no trailing newline. They
