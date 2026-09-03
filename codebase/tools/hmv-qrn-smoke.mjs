@@ -295,18 +295,25 @@ async function main() {
   // guard — after the basefile-1 split, loadAndInsertColumn early-returned for
   // ALL QRN-BASE_STRUCT keys, so basmalah (:3, a real toggle) could be hidden
   // but never re-enabled, and its checkbox silently lied about the state.
+  // Reader rebuilds are DEFERRED while the modal is open — a live rebuild
+  // must slide the page by the rows' growth above the viewport (the preset-
+  // click scroll bug), so each toggle commits on the close's flush rebuild.
   await evalJS(`(function () {
     var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-BASE-STRUCT:3"] input[type=checkbox]');
     cb.click();
   })()`);
+  await evalJS("window.closeModal('qrnContentOverlay')");
   const hid = await waitFor(`document.querySelectorAll('.reader-table th').length === 2`, 5000);
-  check("basmalah uncheck hides column", hid, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+  check("basmalah uncheck hides column (flush at close)", hid, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+  await evalJS("document.getElementById('qrnContentBtn').click()");
+  await waitFor(`getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'`, 5000);
   await evalJS(`(function () {
     var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-BASE-STRUCT:3"] input[type=checkbox]');
     cb.click();
   })()`);
+  await evalJS("window.closeModal('qrnContentOverlay')");
   const rest = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 5000);
-  check("basmalah re-check restores column", rest, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+  check("basmalah re-check restores column (flush at close)", rest, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
 
   // ── B2. Nav-then-add regression ────────────────────────────────────
   // User repro: navigate via the surah AND ayah dropdowns, then add a
@@ -314,7 +321,6 @@ async function main() {
   // cells. The surah filter's data slice held pre-insert row arrays and
   // column rebuilds only replaced allData's elements. applyColumnOrder now
   // rewrites rows in place, so filtered slices stay live.
-  await evalJS("window.closeModal('qrnContentOverlay')");
   await goSurah(2);
   await evalJS("document.getElementById('qrnAyahInput').click()");
   await waitFor(`!!document.querySelector('#qrnAyahDropdown [data-v="255"]')`, 5000);
@@ -326,6 +332,19 @@ async function main() {
     var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-jaufarFaiz:0"] input[type=checkbox]');
     cb.click();
   })()`);
+  // The download lands behind the open modal — the commit signal is the
+  // queue's settle (status hidden, gate released, box checked), not the
+  // table: the reader rebuild defers to closeModal's flush below.
+  const jaufarSettled = await waitFor(`(function () {
+    var s = document.getElementById("qrnColumnStatus");
+    var p = document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]');
+    var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-jaufarFaiz:0"] input[type=checkbox]');
+    return !!(s && s.hidden === true && p && p.disabled === false && cb && cb.checked);
+  })()`, 30000);
+  check("nav-then-add: jaufar column downloaded (modal settle)", jaufarSettled, jaufarSettled ? "" : "queue never settled");
+  check("nav-then-add: landed column defers behind the open modal",
+    await evalJS(`document.querySelectorAll('.reader-table th').length === 3`), "");
+  await evalJS("window.closeModal('qrnContentOverlay')"); // flush: one keepSpot rebuild
   const navAdd = await waitFor(`document.querySelectorAll('.reader-table th').length === 4`, 20000);
   const navRows = await evalJS(`(function () {
     var first = document.querySelector('.reader-table tbody tr:first-child');
@@ -353,18 +372,35 @@ async function main() {
     jaufarRow >= 0 && jaufarRow < jaufar.length &&
     unornament(navRows.cell4 || "") === unornament(jaufar[jaufarRow][0] || ""),
     (navRows.cell4 || "").slice(0, 20));
-  // leave state as section B ends it: column unchecked, modal open
-  // (section C clicks preset buttons inside the overlay)
+  // Untick: the uncheck defers too — reopen the modal, untick, and let the
+  // close's flush restore the base layout. Section C reopens once more.
+  await evalJS("document.getElementById('qrnContentBtn').click()");
+  await waitFor(`getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'`, 5000);
   await evalJS(`(function () {
     var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-jaufarFaiz:0"] input[type=checkbox]');
     cb.click();
   })()`);
+  await evalJS("window.closeModal('qrnContentOverlay')");
   const navUndo = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 10000);
   check("nav-then-add: uncheck restores base columns", navUndo, "");
 
   // ── C. PRESET_ALL / RESET ──────────────────────────────────────────
   console.log("== C. presets ==");
+  await evalJS("document.getElementById('qrnContentBtn').click()");
+  await waitFor(`getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'`, 5000);
   await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]').click()`);
+  // The sequential queue runs behind the open modal — wait for its settle
+  // (status hidden, gate released). Every landing's rebuild defers to the
+  // close below, so one flush renders the whole preset at once.
+  const settled = await waitFor(`(function () {
+    var s = document.getElementById("qrnColumnStatus");
+    var p = document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]');
+    return !!(s && s.hidden === true && p && p.disabled === false);
+  })()`, 60000);
+  check("preset all queue settled (gate released)", settled, settled ? "" : "queue never finished");
+  check("preset all landings defer behind the open modal",
+    await evalJS(`document.querySelectorAll('.reader-table th').length === 3`), "");
+  await evalJS("window.closeModal('qrnContentOverlay')"); // flush: one rebuild renders every landed column
   const grew = await waitFor(`document.querySelectorAll('.reader-table th').length > 6`, 20000);
   const thAfter = await evalJS(`document.querySelectorAll('.reader-table th').length`);
   check("preset all loads book columns", grew && thAfter > 6, String(thAfter) + " th");
@@ -374,19 +410,15 @@ async function main() {
   })()`);
   check("no error toast after preset all", !toast || toast.indexOf("⚠️") === -1, toast);
 
-  // Presets now load sequentially with the modal gated — a reset click on a
-  // disabled button is a no-op, so wait for the queue's settle (status
-  // hidden, gate released) before resetting.
-  await waitFor(`(function () {
-    var s = document.getElementById("qrnColumnStatus");
-    var p = document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]');
-    return !!(s && s.hidden === true && p && p.disabled === false);
-  })()`, 60000);
+  // Reset is an overlay button — reopen, click, and let the close flush it.
+  await evalJS("document.getElementById('qrnContentBtn').click()");
+  await waitFor(`getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'`, 5000);
   await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="reset"]').click()`);
-  await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 15000);
+  await evalJS("window.closeModal('qrnContentOverlay')");
+  const backToBase = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 15000);
   await sleep(400);
   const thReset = await evalJS(`document.querySelectorAll('.reader-table th').length`);
-  check("preset reset back to base", thReset === 3, String(thReset) + " th");
+  check("preset reset back to base", backToBase && thReset === 3, String(thReset) + " th");
 
   // ── D. search window + settings reset ──────────────────────────────
   // Search moved into the modal window (non-RDF books): the header input is

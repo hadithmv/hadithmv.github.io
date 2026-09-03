@@ -459,6 +459,7 @@ export function initQuranUI(ctx) {
   var _columnAbort = null;     // AbortController of the in-flight load
   var _loadInProgress = false; // gate: modal controls disabled while loading
   var _columnBook = null;      // book currently downloading (reopen refresh)
+  var _readerDirty = false;    // reader DOM behind the modal changed, rebuild deferred
 
   function colLabelFor(key) {
     var availableCols = getAllAvailableColumns();
@@ -493,16 +494,6 @@ export function initQuranUI(ctx) {
       '<button class="quran-preset-btn" data-preset="' + PRESET_ARABIC + '"></button>' +
       '<button class="quran-preset-btn" data-preset="' + PRESET_RESET + '"></button>' +
     '</div>' +
-    // Status line for external-book downloads: the book code + % (the shared
-    // .loading-progress spans) and the Cancel button. Hidden unless a load is
-    // in flight — the display dance lives in reader-quran.css, where an
-    // author display:flex would otherwise override the UA [hidden] rule.
-    '<div id="qrnColumnStatus" class="quran-column-status" hidden>' +
-      '<span class="loading-progress"><span id="qrnColumnStatusText"></span> ' +
-        '<span class="loading-progress-pct" id="qrnColumnStatusPct"></span></span>' +
-      '<button type="button" id="qrnColumnCancel" class="quran-column-cancel">' +
-        t("confirmCancel") + '</button>' +
-    '</div>' +
     // The header row lives in its own wrapper above the scrollable wrap —
     // the wrap's scrollbar spans only the list, never the pinned header
     // (a sticky thead inside the scroller would keep its scrollbar
@@ -516,7 +507,51 @@ export function initQuranUI(ctx) {
     '</table></div>' +
     '<div class="quran-content-table-wrap"><table class="quran-content-table">' +
       '<tbody id="qrnContentList"></tbody>' +
-    '</table></div>';
+    '</table></div>' +
+    // Load-status footer for external-book downloads: the book code + % (the
+    // shared .loading-progress spans) and the Cancel button. Pinned to the
+    // modal body's bottom edge as an OUT-OF-FLOW overlay (reader-quran.css) —
+    // appearing/disappearing never shifts the column list, so the cursor
+    // stays on the row the user just clicked. Hidden unless a load is in
+    // flight; the list under it is fully gated while it shows.
+    '<div id="qrnColumnStatus" class="quran-column-status" hidden>' +
+      '<span class="loading-progress"><span id="qrnColumnStatusText"></span> ' +
+        '<span class="loading-progress-pct" id="qrnColumnStatusPct"></span></span>' +
+      '<button type="button" id="qrnColumnCancel" class="quran-column-cancel">' +
+        t("confirmCancel") + '</button>' +
+    '</div>';
+
+  // Reader rebuilds are DEFERRED while the content modal is open. A column
+  // insert adds text to every row, so the rows above the viewport (the
+  // rebuild window) grow taller — a live rebuild must then slide the page
+  // down by that growth to keep the reading row on screen, which visibly
+  // scrolls the scrimmed page (thousands of px per landing column — the
+  // preset buttons "scroll the page along"). The reader is hidden behind
+  // the modal anyway, so modal-driven changes only mark the DOM dirty and
+  // renderQuranContentList keeps the modal itself live. When the modal
+  // closes (backdrop, ✕, Escape — every path removes the overlay's "open"
+  // class) one keepSpot rebuild re-renders the landed state; its scroll
+  // adjustment cancels the growth above the viewport exactly, so the
+  // reading row never moves on screen. A settle that lands AFTER the modal
+  // closed (a preset left downloading in the background) rebuilds at once —
+  // the user is reading again, and rebuildAllKeepSpot holds their spot.
+  var qrnOverlay = document.getElementById("qrnContentOverlay");
+  function scheduleReaderRebuild() {
+    if (qrnOverlay.classList.contains("open")) {
+      _readerDirty = true; // flushed on close
+    } else {
+      _readerDirty = false;
+      ctx.rebuildAllKeepSpot();
+    }
+  }
+  function flushReaderRebuild() {
+    if (!_readerDirty) return;
+    _readerDirty = false;
+    ctx.rebuildAllKeepSpot();
+  }
+  new MutationObserver(function () {
+    if (!qrnOverlay.classList.contains("open")) flushReaderRebuild();
+  }).observe(qrnOverlay, { attributes: true, attributeFilter: ["class"] });
 
   function updateQuranContentLabels() {
     document.getElementById("qrnContentModalTitle").textContent = t("qrnContent");
@@ -527,6 +562,11 @@ export function initQuranUI(ctx) {
       btn.textContent = t(key);
     });
     document.getElementById("qrnColumnCancel").textContent = t("confirmCancel");
+    // A language change mid-download re-words the live status text (the pct
+    // is untouched — the next progress chunk updates it anyway).
+    if (_loadInProgress && _columnBook) {
+      document.getElementById("qrnColumnStatusText").textContent = t("loading") + " " + _columnBook;
+    }
   }
   updateQuranContentLabels();
   document.addEventListener("languagechange", updateQuranContentLabels);
@@ -558,7 +598,7 @@ export function initQuranUI(ctx) {
           }
         });
         if (preset === PRESET_RESET) {
-          ctx.rebuildAll();
+          scheduleReaderRebuild();
           renderQuranContentList();
           return;
         }
@@ -573,7 +613,7 @@ export function initQuranUI(ctx) {
           }
         }
       }
-      ctx.rebuildAll();
+      scheduleReaderRebuild();
       renderQuranContentList();
       // Sequential queue: beginColumnLoad gates the modal while one download
       // runs, each insert's settle advances the queue, and a cancel (aborted
@@ -584,7 +624,7 @@ export function initQuranUI(ctx) {
       function next() {
         if (idx >= targets.length || (_columnAbort && _columnAbort.signal.aborted)) {
           endColumnLoad();
-          ctx.rebuildAll();
+          scheduleReaderRebuild();
           renderQuranContentList();
           return;
         }
@@ -751,7 +791,11 @@ export function initQuranUI(ctx) {
     _columnBook = bookCode;
     var status = document.getElementById("qrnColumnStatus");
     if (status) status.hidden = false;
-    document.getElementById("qrnColumnStatusText").textContent = "Loading " + bookCode + "…";
+    // t("loading") is the interface-language word ("Loading…" / Dhivehi /
+    // Arabic) — the ASCII book code follows it plain; the status footer is
+    // chrome, so it speaks the UI language like the reader's own progress
+    // line, not English.
+    document.getElementById("qrnColumnStatusText").textContent = t("loading") + " " + bookCode;
     document.getElementById("qrnColumnStatusPct").textContent = "0%";
   }
   function updateColumnStatus(bookCode, fraction) {
@@ -798,7 +842,7 @@ export function initQuranUI(ctx) {
       var idx = _loadedColMap[key];
       var pos = hiddenColumns.indexOf(idx);
       if (pos !== -1) hiddenColumns.splice(pos, 1);
-      ctx.rebuildAll();
+      scheduleReaderRebuild();
       return Promise.resolve();
     }
     // loadQuranBookCSV keeps a one-entry parse cache — inserting several
@@ -883,7 +927,7 @@ export function initQuranUI(ctx) {
     for (var h = 0; h < res.hiddenColumns.length; h++) hiddenCols.push(res.hiddenColumns[h]);
     _pendingColumnValues = {};
     rebuildColumnSourceMap(_loadedColMap);
-    ctx.rebuildAll();
+    scheduleReaderRebuild();
   }
 
   function hideLoadedColumn(sourceBook, sourceCol) {
@@ -892,7 +936,7 @@ export function initQuranUI(ctx) {
       var idx = _loadedColMap[key];
       var hiddenCols = ctx.getHiddenColumns();
       if (hiddenCols.indexOf(idx) === -1) hiddenCols.push(idx);
-      ctx.rebuildAll();
+      scheduleReaderRebuild();
     }
   }
 }

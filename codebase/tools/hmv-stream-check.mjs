@@ -419,6 +419,17 @@ async function browserPhase(dist) {
     let id = 0;
     const pending = new Map();
     const pageErrors = [];
+    // Chromium's fetch-abort machinery fires a racy internal unhandled
+    // rejection — "AbortError: BodyStreamBuffer was aborted", attributed to
+    // the task that called AbortController.abort() — when a cancel lands on a
+    // streamed fetch mid-body. The promise lives inside the body-stream
+    // implementation: no app frame holds it, nothing is visible in the page's
+    // UX, and the cancel stays silent. The app's own abort path throws
+    // AbortError "Aborted" (csv.js abortError()) — textually distinct — so
+    // this filter cannot mask a real app failure. Only the cancel passes
+    // (B12/B12b) use it; every other pass checks pageErrors raw.
+    // Known non-error: docs/TESTING.md §known non-errors.
+    const appErrors = () => pageErrors.filter((e) => e.indexOf("BodyStreamBuffer was aborted") === -1);
     ws.onmessage = (ev) => {
       const m = JSON.parse(ev.data);
       if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id); }
@@ -1034,12 +1045,32 @@ async function browserPhase(dist) {
     const finishedB12 = await waitFor(FINISHED_EXPR, 90000, 150);
     check("B12 quran reader finished loading", finishedB12, finishedB12 ? "" : "still loading after 90 s");
     check("B12 content modal opened", await openQuranModal(), "overlay never visible");
+    // The load-status footer is an OUT-OF-FLOW overlay pinned to the modal's
+    // bottom edge — its appearance must never shift the column list (an
+    // in-flow line shoved the whole table down and left the cursor pointing
+    // at the wrong row). Capture the clicked row's viewport top before the
+    // tick; show and hide must leave it unchanged (row-height changes only
+    // via layout, never during a download).
+    const geoB12 = await evalJS(`(function () {
+      var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+      return b ? b.getBoundingClientRect().top : null;
+    })()`);
+    check("B12 geometry captured before the load", typeof geoB12 === "number", "rowTop=" + geoB12);
     await evalJS(`document.querySelector(${JSON.stringify(MUYASSAR_BOX)}).click()`);
     const statusShownB12 = await waitFor(`(function () {
       var s = document.getElementById("qrnColumnStatus");
       return !!(s && s.hidden === false && s.textContent.indexOf("QRN-muyassarAR") !== -1);
     })()`, 10000, 100);
     check("B12 status line appears with the book code", statusShownB12, statusShownB12 ? "" : "status line never visible");
+    {
+      const rowTopNow = await evalJS(`(function () {
+        var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+        return b ? b.getBoundingClientRect().top : null;
+      })()`);
+      check("B12 status footer shown: clicked row did not shift",
+        typeof rowTopNow === "number" && Math.abs(rowTopNow - geoB12) < 1,
+        "rowTop " + geoB12 + " -> " + rowTopNow);
+    }
     // Sample the pct while the download runs (stop early if it settles)
     const pctSamples = [];
     for (let s = 0; s < 12; s++) {
@@ -1094,8 +1125,17 @@ async function browserPhase(dist) {
     })()`);
     check("B12 no late insert after cancel", lateInsertB12.checked === false && lateInsertB12.statusHidden === true,
       JSON.stringify(lateInsertB12));
+    {
+      const rowTopNow = await evalJS(`(function () {
+        var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+        return b ? b.getBoundingClientRect().top : null;
+      })()`);
+      check("B12 status footer hidden after cancel: clicked row did not shift",
+        typeof rowTopNow === "number" && Math.abs(rowTopNow - geoB12) < 1,
+        "rowTop " + geoB12 + " -> " + rowTopNow);
+    }
     check("B12 cancel silent: no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
-    check("B12 cancel: no page errors", pageErrors.length === 0, pageErrors.slice(0, 3).join("; "));
+    check("B12 cancel: no page errors", appErrors().length === 0, appErrors().slice(0, 3).join("; "));
 
     // B12b — land pass at the standard throttle (muyassarAR ≈ 3.9 s): the
     // same column completes its download and lands, gate released after.
@@ -1117,7 +1157,7 @@ async function browserPhase(dist) {
     check("B12b column lands and settles after a full download", landedB12b,
       landedB12b ? "" : "column never committed (download failed?)");
     check("B12b no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
-    check("B12b no page errors", pageErrors.length === 0, pageErrors.slice(0, 3).join("; "));
+    check("B12b no page errors", appErrors().length === 0, appErrors().slice(0, 3).join("; "));
 
     // B12c — preset sequential pass: B12b cached muyassarAR (a cache hit
     // never streams), so scrub again, then install a fetch wrapper BEFORE

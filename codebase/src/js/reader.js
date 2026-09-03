@@ -23,27 +23,27 @@ initializePageWithMetadata(async function (metadata) {
   // ═══════════════════════════════════════════════════════════════
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
-  //   Book loading (standard CSV or Quran merge)           L48-293
-  //   Page header, tag badges, language-aware titles       L296-448
-  //   Persisted settings (LS wrapper, -HDN column init)    L451-497
-  //   Reader state, column toggles, dropdown infrastructure L500-595
-  //   Tashkeel helpers                                     L598-605
-  //   Clipboard formatting (rowText)                       L608-698
-  //   View mode dropdown (card / table / parallel)         L701-749
-  //   Quran helpers                                        L752-756
-  //   Card row renderer (renderRowHTML)                    L759-855
-  //   Parallel row renderer (renderParallelRowHTML)        L858-977
-  //   Chunk + table-row renderers                          L980-1042
-  //   Infinite scroll + table scrollbar                    L1045-1263
-  //   Navigation (goTo, scroll padding)                    L1266-1322
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1325-1361
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1364-1553
-  //   Keyboard shortcuts (incl. navigation buttons)        L1556-1671
-  //   Touch swipe                                          L1674-1694
-  //   Settings reset + language change                     L1697-1710
-  //   Quran UI (initQuranUI ctx)                           L1713-1733
-  //   Initial render (deep links, reveal)                  L1736-1983
-  //   Module-level helpers (showError)                     L1986-2003
+  //   Book loading (standard CSV or Quran merge)           L48-296
+  //   Page header, tag badges, language-aware titles       L299-451
+  //   Persisted settings (LS wrapper, -HDN column init)    L454-500
+  //   Reader state, column toggles, dropdown infrastructure L503-601
+  //   Tashkeel helpers                                     L604-611
+  //   Clipboard formatting (rowText)                       L614-704
+  //   View mode dropdown (card / table / parallel)         L707-755
+  //   Quran helpers                                        L758-762
+  //   Card row renderer (renderRowHTML)                    L765-861
+  //   Parallel row renderer (renderParallelRowHTML)        L864-983
+  //   Chunk + table-row renderers                          L986-1048
+  //   Infinite scroll + table scrollbar                    L1051-1269
+  //   Navigation (goTo, scroll padding)                    L1272-1328
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1331-1367
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1370-1559
+  //   Keyboard shortcuts (incl. navigation buttons)        L1562-1677
+  //   Touch swipe                                          L1680-1700
+  //   Settings reset + language change                     L1703-1716
+  //   Quran UI (initQuranUI ctx)                           L1719-1752
+  //   Initial render (deep links, reveal)                  L1755-2005
+  //   Module-level helpers (showError)                     L2008-2025
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -1728,6 +1728,19 @@ initializePageWithMetadata(async function (metadata) {
           setFilteredData: function (v) { filteredData = v; },
           getHiddenColumns: function () { return hiddenColumns; },
           rebuildAll: rebuildAll,
+          // Modal-driven rebuilds (the content-modal column flow: preset
+          // clicks, landing columns, the ▲▼ reorder, hide/show) run while
+          // the scrim covers the reader — rebuildAll's default centre-anchor
+          // would rewrite the scroll to put the "current" row mid-viewport,
+          // visibly yanking the page behind the modal (a preset landing a
+          // column moved the scroll by thousands of px). Preserve the row's
+          // on-screen position instead — the tashkeel idiom (vRow + anchorPos
+          // captured from the settled pre-rebuild layout).
+          rebuildAllKeepSpot: function () {
+            var vRow = visiblePageIndex();
+            var vEl = readerContent.querySelector('.reader-chunk[data-row="' + vRow + '"]');
+            rebuildAll(vRow, vEl ? { scrollY: window.scrollY, rowTop: vEl.getBoundingClientRect().top } : undefined);
+          },
           goTo: goTo,
           LS: LS
         };

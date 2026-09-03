@@ -104,6 +104,7 @@
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
+  position: relative; /* anchors the floating load-status footer */
   /* the base .modal-body gap (16px) would float the header table away from
      the list it heads — the presets row carries its own bottom margin */
   gap: 0;
@@ -119,41 +120,60 @@
   flex-wrap: wrap;
   flex-shrink: 0;
 }
-/* Status line for on-demand external-book column loads (the content modal):
-   the shared .loading-progress spans (common.css) carry the muted style; this
-   row hosts them plus the Cancel button while a book downloads. English-only
-   status text + ASCII book codes → forced LTR. The :not([hidden]) dance is
-   required: an author display:flex would override the UA [hidden] rule, and
-   the line would always be visible. */
+/* Load-status footer for on-demand external-book column loads (the content
+   modal). Pinned to the modal body's bottom edge and OUT OF FLOW: appearing
+   and disappearing never shifts the column list, so the cursor stays on the
+   row the user just clicked (an in-flow line above the table shoved the
+   whole list down by its own height at every load start/end). The list
+   under it is fully gated while a download runs, so the overlap costs
+   nothing, and pointer-events: none lets the wheel scroll the list through
+   the bar (the Cancel button re-enables events for itself). The top border
+   echoes the header table's 2px separators. The label rides the shared
+   .loading-progress spans (common.css — muted weight/color, the % in the
+   bidi-atomic pct cell) and speaks the interface language: t("loading") +
+   the ASCII book code, so no direction override is needed. The
+   :not([hidden]) dance is required: an author display:flex would override
+   the UA [hidden] rule, and the bar would always be visible. */
 .quran-column-status {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: none;
-  flex-shrink: 0;
+  pointer-events: none;
 }
 .quran-column-status:not([hidden]) {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--control-gap, 6px);
-  margin-bottom: var(--section-gap, 6px);
-  padding: 6px 10px;
-  direction: ltr;
-  text-align: left;
+  padding: 7px 12px;
   background: var(--color-nav-btn-bg);
-  border-radius: var(--radius-sm, 6px);
+  border-top: 2px solid var(--color-border);
   font-size: var(--panel-font-size, 0.85rem);
 }
 .quran-column-cancel {
+  pointer-events: auto;
+  padding: 4px 14px;
   border: 1px solid var(--color-border);
   background: transparent;
   color: var(--color-text);
   border-radius: var(--radius-sm, 6px);
-  padding: 2px 10px;
   font-size: var(--panel-font-size, 0.85rem);
+  font-weight: 600;
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
   cursor: pointer;
   flex-shrink: 0;
 }
 .quran-column-cancel:hover {
-  filter: brightness(0.9);
+  background: var(--color-nav-btn-hover-bg);
 }
 .quran-preset-btn:disabled {
   opacity: 0.4;
