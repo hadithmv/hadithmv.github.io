@@ -131,9 +131,13 @@
    echoes the header table's 2px separators. The label rides the shared
    .loading-progress spans (common.css — muted weight/color, the % in the
    bidi-atomic pct cell) and speaks the interface language: t("loading") +
-   the ASCII book code, so no direction override is needed. The
-   :not([hidden]) dance is required: an author display:flex would override
-   the UA [hidden] rule, and the bar would always be visible. */
+   the loading column's DISPLAY label (the row's own name — Thaana, English
+   or Arabic). Mixed-script spans resolve direction per run by the bidi
+   algorithm (no direction override needed), and labels are bounded by the
+   row ellipsis at the same modal width, so none can crowd the Cancel
+   button. The :not([hidden]) dance is required: an author display:flex
+   would override the UA [hidden] rule, and the bar would always be
+   visible. */
 .quran-column-status {
   position: absolute;
   left: 0;
@@ -190,7 +194,7 @@
      the list's content box — otherwise the wrap's classic scrollbar makes
      the body table ~15px narrower and the columns misalign. */
   overflow-y: hidden;
-  scrollbar-gutter: stable;
+  /* scrollbar-gutter: stable; */
   /* The rule reads as the header's own bar: full-width lines above and
      below the cells. The top line is the section separator (the presets
      row above carries no border of its own); the bottom line separates

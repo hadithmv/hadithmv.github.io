@@ -454,11 +454,12 @@ export function initQuranUI(ctx) {
 
   // In-flight external-book column load (content modal). External books load
   // one download at a time: the gate disables every checkbox + preset button
-  // while one runs (sequential presets), the status line shows the book and
-  // %, and the Cancel button aborts the current fetch.
+  // while one runs (sequential presets), the status line names the column
+  // being fetched (its display label — the row's own name, never the ASCII
+  // book code) with a %, and the Cancel button aborts the current fetch.
   var _columnAbort = null;     // AbortController of the in-flight load
   var _loadInProgress = false; // gate: modal controls disabled while loading
-  var _columnBook = null;      // book currently downloading (reopen refresh)
+  var _columnLabel = null;     // display label being downloaded (reopen refresh)
   var _readerDirty = false;    // reader DOM behind the modal changed, rebuild deferred
 
   function colLabelFor(key) {
@@ -508,12 +509,13 @@ export function initQuranUI(ctx) {
     '<div class="quran-content-table-wrap"><table class="quran-content-table">' +
       '<tbody id="qrnContentList"></tbody>' +
     '</table></div>' +
-    // Load-status footer for external-book downloads: the book code + % (the
-    // shared .loading-progress spans) and the Cancel button. Pinned to the
-    // modal body's bottom edge as an OUT-OF-FLOW overlay (reader-quran.css) —
-    // appearing/disappearing never shifts the column list, so the cursor
-    // stays on the row the user just clicked. Hidden unless a load is in
-    // flight; the list under it is fully gated while it shows.
+    // Load-status footer for external-book downloads: the loading column's
+    // display label + % (the shared .loading-progress spans) and the Cancel
+    // button. Pinned to the modal body's bottom edge as an OUT-OF-FLOW
+    // overlay (reader-quran.css) — appearing/disappearing never shifts the
+    // column list, so the cursor stays on the row the user just clicked.
+    // Hidden unless a load is in flight; the list under it is fully gated
+    // while it shows.
     '<div id="qrnColumnStatus" class="quran-column-status" hidden>' +
       '<span class="loading-progress"><span id="qrnColumnStatusText"></span> ' +
         '<span class="loading-progress-pct" id="qrnColumnStatusPct"></span></span>' +
@@ -564,8 +566,8 @@ export function initQuranUI(ctx) {
     document.getElementById("qrnColumnCancel").textContent = t("confirmCancel");
     // A language change mid-download re-words the live status text (the pct
     // is untouched — the next progress chunk updates it anyway).
-    if (_loadInProgress && _columnBook) {
-      document.getElementById("qrnColumnStatusText").textContent = t("loading") + " " + _columnBook;
+    if (_loadInProgress && _columnLabel) {
+      document.getElementById("qrnColumnStatusText").textContent = t("loading") + " " + _columnLabel;
     }
   }
   updateQuranContentLabels();
@@ -616,21 +618,38 @@ export function initQuranUI(ctx) {
       scheduleReaderRebuild();
       renderQuranContentList();
       // Sequential queue: beginColumnLoad gates the modal while one download
-      // runs, each insert's settle advances the queue, and a cancel (aborted
-      // signal) stops it — landed columns stay. The null guard matters:
-      // instant targets (basmalah/imlai/already-loaded) early-return without
-      // creating a controller.
+      // runs, and each target's settle advances the queue. A cancel stops it
+      // — but the stop is decided per target, against the AbortController
+      // THAT target's load created (loadAndInsertColumn assigns _columnAbort
+      // synchronously for every invocation, instant targets included). Never
+      // test the global _columnAbort at the top of next(): after a cancel it
+      // stays an aborted controller until the next load overwrites it, so a
+      // re-clicked preset would read "cancelled" before its first target and
+      // silently drop every download (the preset-button dead state).
       var idx = 0;
       function next() {
-        if (idx >= targets.length || (_columnAbort && _columnAbort.signal.aborted)) {
+        if (idx >= targets.length) {
           endColumnLoad();
           scheduleReaderRebuild();
           renderQuranContentList();
           return;
         }
         var t = targets[idx++];
-        beginColumnLoad(t[0]);
-        loadAndInsertColumn(t[0], t[1]).then(next);
+        beginColumnLoad(t[0], t[1]);
+        var loadPromise = loadAndInsertColumn(t[0], t[1]);
+        var myAbort = _columnAbort; // assigned synchronously by the load
+        loadPromise.then(function () {
+          // Landed (or failed — the error toast already spoke) → next target.
+          // Cancelled → stop: the gate is already released by the cancel
+          // handler, so this just re-renders the truth; landed columns stay.
+          if (myAbort.signal.aborted) {
+            endColumnLoad();
+            scheduleReaderRebuild();
+            renderQuranContentList();
+            return;
+          }
+          next();
+        });
       }
       next();
     });
@@ -648,7 +667,7 @@ export function initQuranUI(ctx) {
     window.closeAllDropdowns();
     renderQuranContentList();
     // A load can outlive a modal close — show its status again on reopen.
-    if (_loadInProgress && _columnBook) showColumnStatus(_columnBook);
+    if (_loadInProgress && _columnLabel) showColumnStatus(_columnLabel);
     window.openModal("qrnContentOverlay");
   }
 
@@ -703,7 +722,7 @@ export function initQuranUI(ctx) {
         var sourceCol = parseInt(this.dataset.col, 10);
         if (this.checked) {
           if (_loadInProgress) return; // belt — gated boxes can't fire change
-          beginColumnLoad(sourceBook);
+          beginColumnLoad(sourceBook, sourceCol);
           var loadPromise = loadAndInsertColumn(sourceBook, sourceCol);
           var myAbort = _columnAbort; // assigned synchronously by the load
           loadPromise.then(function () {
@@ -787,19 +806,23 @@ export function initQuranUI(ctx) {
 
   // ── On-demand column load helpers (content modal) ──
 
-  function showColumnStatus(bookCode) {
-    _columnBook = bookCode;
+  function showColumnStatus(label) {
+    _columnLabel = label;
     var status = document.getElementById("qrnColumnStatus");
     if (status) status.hidden = false;
     // t("loading") is the interface-language word ("Loading…" / Dhivehi /
-    // Arabic) — the ASCII book code follows it plain; the status footer is
-    // chrome, so it speaks the UI language like the reader's own progress
-    // line, not English.
-    document.getElementById("qrnColumnStatusText").textContent = t("loading") + " " + bookCode;
+    // Arabic), followed by the column's DISPLAY label — the same name the
+    // modal row shows (the registry's displayDV/displayEN), never the ASCII
+    // book code. The footer is chrome, so it speaks the UI language like the
+    // reader's own progress line, not English. Thaana/Arabic labels flow RTL
+    // in their own span by bidi resolution; no direction override is needed.
+    document.getElementById("qrnColumnStatusText").textContent = t("loading") + " " + label;
     document.getElementById("qrnColumnStatusPct").textContent = "0%";
   }
-  function updateColumnStatus(bookCode, fraction) {
-    showColumnStatus(bookCode);
+  // Progress chunks only move the pct — the status is already showing (the
+  // load's beginColumnLoad called showColumnStatus), so re-showing per chunk
+  // would re-set the label and flash "0%" on every chunk.
+  function updateColumnStatus(fraction) {
     document.getElementById("qrnColumnStatusPct").textContent = Math.round(fraction * 100) + "%";
   }
   function hideColumnStatus() {
@@ -818,19 +841,31 @@ export function initQuranUI(ctx) {
       btn.disabled = on;
     });
   }
-  function beginColumnLoad(bookCode) {
+  function beginColumnLoad(sourceBook, sourceCol) {
     setColumnGate(true);
-    showColumnStatus(bookCode);
+    showColumnStatus(colLabelFor(sourceBook + ":" + sourceCol));
   }
   // Idempotent: called from the cancel button and from every load settle.
   function endColumnLoad() {
-    _columnBook = null;
+    _columnLabel = null;
     setColumnGate(false);
     renderQuranContentList(); // restores truth: landed → checked, cancelled → not
     hideColumnStatus();
   }
 
   function loadAndInsertColumn(sourceBook, sourceCol) {
+    // EVERY invocation gets its own controller, assigned before any early
+    // return — instant targets (structural no-ops, already-loaded unhides)
+    // included. _columnAbort therefore always names the CURRENT invocation,
+    // and a settle can tell "my download was cancelled" from "an old,
+    // unrelated load was cancelled": callers capture the controller after
+    // this function returns and test its signal, never a global past-tense.
+    // (With the assignment only on the download path, a cancel left an
+    // aborted controller behind, and the next preset queue read it as its
+    // own cancellation before its first target — every preset silently dead
+    // until reload.)
+    var myAbort = new AbortController();
+    _columnAbort = myAbort;
     // Juz/surah/ayah have no CSV file and no modal toggle — a no-op for
     // them only. Basmalah (QRN-BASE-STRUCT:3) falls through to the
     // loaded-map unhide path below: hiding it (hideLoadedColumn) must be
@@ -848,14 +883,13 @@ export function initQuranUI(ctx) {
     // loadQuranBookCSV keeps a one-entry parse cache — inserting several
     // columns from the same book fetches and parses that book's CSV once.
     // streamOpts give the download a progress line and a Cancel: onProgress
-    // updates the status pct, the signal aborts the fetch mid-stream. A
-    // cancelled load settles silently — no toast, no column, no IDB write
-    // (the put happens only after the fetch resolves).
-    var myAbort = new AbortController();
-    _columnAbort = myAbort;
+    // moves the status pct (the label already shows — beginColumnLoad set
+    // it), the signal aborts the fetch mid-stream. A cancelled load settles
+    // silently — no toast, no column, no IDB write (the put happens only
+    // after the fetch resolves).
     return loadQuranBookCSV(sourceBook, {
       signal: myAbort.signal,
-      onProgress: function (fraction) { updateColumnStatus(sourceBook, fraction); },
+      onProgress: function (fraction) { updateColumnStatus(fraction); },
     })
       .then(function (book) {
         // A cancel can land after the body was read but before this settle

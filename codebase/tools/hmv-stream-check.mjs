@@ -982,14 +982,17 @@ async function browserPhase(dist) {
     // source-book CSV (up to 11.3 MB) with no progress, no cancel, and
     // presets firing every download in parallel. This pass proves the new
     // UX under throttle, on scrubbed profiles (the base book's IDB record
-    // must not mask the modal's downloads — and B12b caches muyassarAR, so
-    // B12c scrubs again): a status line with % appears, the modal gates
-    // (other checkboxes + preset buttons disabled — one download at a time,
-    // which is what makes the presets sequential), Cancel drops the
-    // in-flight column silently with no late insert, a full download lands
-    // it, and the arabic preset fetches its two books strictly sequentially
-    // (fetch-wrapper overlap probe). B11 left the throttle at 1500 KB/s —
-    // re-throttle here.
+    // must not mask the modal's downloads — and B12b downloads both arabic
+    // books, so B12c scrubs again): a status line with % names the loading
+    // column by its display label (the row's own name, not the book code),
+    // the modal gates (other checkboxes + preset buttons disabled — one
+    // download at a time, which is what makes the presets sequential),
+    // Cancel drops the in-flight column silently with no late insert, a
+    // preset run right after that cancel (same page state, no reload) still
+    // lands both books — the stale-abort regression — and a scrubbed reload
+    // shows the arabic preset fetching its two books strictly sequentially
+    // (pct-timeline probe). B11 left the throttle at 1500 KB/s — re-throttle
+    // here.
     const MUYASSAR_BOX = '#qrnContentModalBody tr[data-key="QRN-muyassarAR:0"] input[type=checkbox]';
     const MUKHTASAR_BOX = '#qrnContentModalBody tr[data-key="QRN-mukhtasarAR:0"] input[type=checkbox]';
     const BAKURUBE_BOX = '#qrnContentModalBody tr[data-key="QRN-bakurube:0"] input[type=checkbox]';
@@ -1056,12 +1059,24 @@ async function browserPhase(dist) {
       return b ? b.getBoundingClientRect().top : null;
     })()`);
     check("B12 geometry captured before the load", typeof geoB12 === "number", "rowTop=" + geoB12);
+    // The status line names the column being fetched by its DISPLAY label —
+    // the row's own name, never the ASCII book code. Read the label from the
+    // row the battery is about to tick; the footer must show the same text.
+    const muyassarLabel = await evalJS(`(function () {
+      var tr = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+      return tr ? tr.closest("tr").querySelector("td.quran-col-label").textContent : null;
+    })()`);
+    check("B12 clicked row label captured", !!muyassarLabel && muyassarLabel.indexOf("QRN-") === -1,
+      "label=" + muyassarLabel);
     await evalJS(`document.querySelector(${JSON.stringify(MUYASSAR_BOX)}).click()`);
     const statusShownB12 = await waitFor(`(function () {
       var s = document.getElementById("qrnColumnStatus");
-      return !!(s && s.hidden === false && s.textContent.indexOf("QRN-muyassarAR") !== -1);
+      var t = s ? s.textContent : "";
+      return !!(s && s.hidden === false && t.indexOf(${JSON.stringify(muyassarLabel)}) !== -1 &&
+        t.indexOf("QRN-") === -1);
     })()`, 10000, 100);
-    check("B12 status line appears with the book code", statusShownB12, statusShownB12 ? "" : "status line never visible");
+    check("B12 status line names the clicked column (display label, not the book code)",
+      statusShownB12, statusShownB12 ? "" : "status line never visible (or still shows the code)");
     {
       const rowTopNow = await evalJS(`(function () {
         var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
@@ -1137,31 +1152,37 @@ async function browserPhase(dist) {
     check("B12 cancel silent: no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
     check("B12 cancel: no page errors", appErrors().length === 0, appErrors().slice(0, 3).join("; "));
 
-    // B12b — land pass at the standard throttle (muyassarAR ≈ 3.9 s): the
-    // same column completes its download and lands, gate released after.
+    // B12b — the REGRESSION guard. B12 just cancelled a download on this
+    // page session; now a PRESET runs on the same state, no reload between.
+    // The sequential queue used to test the global _columnAbort at its top —
+    // after a cancel it stayed an aborted controller, so a re-clicked preset
+    // read "cancelled" before its first target and silently dropped every
+    // download (preset buttons dead until reload). Each target now carries
+    // its own controller, so the queue after a cancel must run to
+    // completion: both arabic columns land, gate released.
     await sendChecked("Network.emulateNetworkConditions", {
       offline: false, latency: 400, downloadThroughput: THROTTLE_BYTES, uploadThroughput: THROTTLE_BYTES,
     });
-    await evalJS(`document.querySelector(${JSON.stringify(MUYASSAR_BOX)}).click()`);
-    // The click itself ticks the box — checked alone cannot prove the commit
-    // (the settle probe once ran mid-download and saw the correct in-flight
-    // state as a false FAIL). The settled state (checked + status hidden +
-    // gate released) occurs only after endColumnLoad, i.e. after the
-    // download completed and the column committed.
+    await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="arabic"]').click()`);
+    // Settled = status hidden + gate released + BOTH preset columns checked
+    // (the preset's own box tick is instant; the settle probe covers the
+    // commit — checked + hidden + gate-off occur only after endColumnLoad).
     const landedB12b = await waitFor(`(function () {
-      var b = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
       var s = document.getElementById("qrnColumnStatus");
+      var a = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
+      var b = document.querySelector(${JSON.stringify(MUKHTASAR_BOX)});
       var preset = document.querySelector(${JSON.stringify(PRESET_ALL_BTN)});
-      return !!(b && s && preset && b.checked === true && s.hidden === true && preset.disabled === false);
-    })()`, 30000, 150);
-    check("B12b column lands and settles after a full download", landedB12b,
-      landedB12b ? "" : "column never committed (download failed?)");
+      return !!(s && a && b && preset && s.hidden === true && a.checked === true && b.checked === true &&
+        preset.disabled === false);
+    })()`, 60000, 150);
+    check("B12b preset after cancel: both arabic columns land", landedB12b,
+      landedB12b ? "" : "preset queue never settled after a cancel (stale-abort regression?)");
     check("B12b no error toast", (await toastLog()).length === 0, JSON.stringify(await toastLog()));
     check("B12b no page errors", appErrors().length === 0, appErrors().slice(0, 3).join("; "));
 
-    // B12c — preset sequential pass: B12b cached muyassarAR (a cache hit
-    // never streams), so scrub again, then install a fetch wrapper BEFORE
-    // clicking the preset and prove the two books' fetches never overlap.
+    // B12c — preset sequential pass: B12b just downloaded both arabic books
+    // (a cache hit never streams), so scrub again and reload before proving
+    // the sequencing.
     const idbDelB12c = await scrubModal();
     check("B12c scrub: IDB deleted before preset load", idbDelB12c === "deleted", idbDelB12c);
     await sendChecked("Network.clearBrowserCache");
@@ -1178,6 +1199,21 @@ async function browserPhase(dist) {
     // timeline IS the body: sequential loading shows one book's 0→100 climb
     // complete before the next book's begins; the old parallel preset showed
     // both books' percentages interleaving from the first second.
+    // The status line names the in-flight book by the COLUMN'S display label
+    // (the row's own name, never the ASCII book code) — classify each sample
+    // by which row's label the status text contains. Longer label wins when
+    // one is a substring of the other; both can never be loading at once.
+    const seqLabels = await evalJS(`(function () {
+      var grab = function (boxSel) {
+        var tr = document.querySelector(boxSel);
+        return tr ? tr.closest("tr").querySelector("td.quran-col-label").textContent : null;
+      };
+      return { a: grab(${JSON.stringify(MUYASSAR_BOX)}), b: grab(${JSON.stringify(MUKHTASAR_BOX)}) };
+    })()`);
+    check("B12c preset row labels captured (not book codes)",
+      !!seqLabels.a && !!seqLabels.b &&
+        seqLabels.a.indexOf("QRN-") === -1 && seqLabels.b.indexOf("QRN-") === -1,
+      JSON.stringify(seqLabels));
     await evalJS(`document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="arabic"]').click()`);
     const seqSamples = [];
     const seqT0 = Date.now();
@@ -1186,9 +1222,22 @@ async function browserPhase(dist) {
         var st = document.getElementById("qrnColumnStatus");
         var a = document.querySelector(${JSON.stringify(MUYASSAR_BOX)});
         var b = document.querySelector(${JSON.stringify(MUKHTASAR_BOX)});
-        var m = st && st.hidden === false ? (st.textContent.match(/QRN-[A-Za-z0-9]+/) || [null])[0] : null;
+        var text = st && st.hidden === false ? st.textContent : "";
+        var book = null;
+        if (text) {
+          var la = null, lb = null;
+          if (a) { var tra = a.closest("tr"); la = tra ? tra.querySelector("td.quran-col-label").textContent : null; }
+          if (b) { var trb = b.closest("tr"); lb = trb ? trb.querySelector("td.quran-col-label").textContent : null; }
+          if (la && lb && la.length < lb.length) {
+            if (text.indexOf(lb) !== -1) book = "QRN-mukhtasarAR";
+            else if (text.indexOf(la) !== -1) book = "QRN-muyassarAR";
+          } else {
+            if (text.indexOf(la || "") !== -1) book = "QRN-muyassarAR";
+            else if (text.indexOf(lb || "") !== -1) book = "QRN-mukhtasarAR";
+          }
+        }
         var p = document.getElementById("qrnColumnStatusPct");
-        return { book: m, pct: p ? parseInt(p.textContent, 10) : null,
+        return { book: book, pct: p ? parseInt(p.textContent, 10) : null,
                  aDone: !!(a && a.checked), bDone: !!(b && b.checked) };
       })()`);
       seqSamples.push(s);

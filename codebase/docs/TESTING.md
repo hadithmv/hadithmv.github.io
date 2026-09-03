@@ -128,8 +128,11 @@ rendered card carrying the W2W block's Dhivehi title in its source column
 QRN content modal's on-demand external-book column loads (the last
 "download everything, then pop" path — the reader's own streaming never
 covered the modal): on scrubbed profiles, ticking an external book's column
-shows the modal's status footer with the book code and a climbing % (the
-label is the interface language's `t("loading")` + code; the footer is an
+shows the modal's status footer with the loading column's display label
+(read from the ticked row's own `td.quran-col-label`, never a hardcoded
+string — the footer must name it, and must never show the ASCII book code)
+and a climbing % (the label is the interface language's `t("loading")` +
+that display label; the footer is an
 out-of-flow overlay pinned to the modal's bottom edge, and the cancel pass
 captures the clicked row's viewport top before the tick and asserts it has
 not moved while the footer shows nor after it hides — the regression guard
@@ -138,10 +141,20 @@ cancel pass re-throttles to 250 KB/s — ~7.7 s for QRN-muyassarAR — so the
 abort lands mid-flight), the modal gates while a download runs (other
 checkboxes and the preset buttons disabled — the sequential-preset
 guarantee), the Cancel button drops the in-flight column silently (no
-error toast, no late insert), a full download lands the column and releases
-the gate, and the arabic preset loads its two books strictly sequentially
+error toast, no late insert), a preset run on that same page state right
+after the cancel (no reload — the exact state the stale-abort bug lived
+in) must still land both arabic columns: the sequential queue used to test
+the global `_columnAbort` at its top, and after a cancel it stayed an
+aborted controller, so the next preset read "cancelled" before its first
+target and silently dropped every download — the preset buttons "dead"
+until reload; each target now carries its own controller
+(`loadAndInsertColumn` assigns one per invocation, instant targets
+included) and the settle decides by its own signal. And the arabic preset
+loads its two books strictly sequentially
 (proven from the status line's pct timeline — one book's 0→100 climb
-finishes before the next book's begins; a fetch wrapper can't prove this,
+finishes before the next book's begins; the in-flight book is identified by
+which row's display label the status text contains — the footer no longer
+carries the book code; a fetch wrapper can't prove this,
 it only sees response headers, which the throttle barely paces). A page
 script records every toast (text + timestamp) so a "no error toast" FAIL
 names the offending message, and console.error entries are captured with
