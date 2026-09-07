@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -39,13 +39,13 @@
       rel="stylesheet"
       href="../../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../../js/navbar.js"></script>
     <style>
@@ -93,14 +93,20 @@
           <div class="tab">
             <button
               class="tablinks"
-              onclick="openTab(event, 'tabOne'); focusEditor();"
+              onclick="
+                openTab(event, 'tabOne');
+                focusEditor();
+              "
               id="defaultOpen"
             >
               Umrah
             </button>
             <button
               class="tablinks"
-              onclick="openTab(event, 'tabTwo'); focusAdder();"
+              onclick="
+                openTab(event, 'tabTwo');
+                focusAdder();
+              "
             >
               <!--   -->
               Travel
@@ -847,7 +853,7 @@
             </div>
           </div>
 
-          <h3>3. Accessories</h3>
+          <h3>4. Accessories</h3>
 
           <div class="row3">
             <div class="column">
@@ -899,7 +905,7 @@
             </div>
           </div>
 
-          <h3>4. Clothes</h3>
+          <h3>5. Clothes</h3>
 
           <div class="row3">
             <div class="column">
@@ -958,7 +964,7 @@
             </div>
           </div>
 
-          <h3>5. Toiletries (Liquids are not allowed in carry-on bags)</h3>
+          <h3>6. Toiletries (Liquids are not allowed in carry-on bags)</h3>
 
           <div class="row3">
             <div class="column">
@@ -1026,7 +1032,7 @@
           </div>
 
           <h3>
-            6. Medications (Liquids are not allowed onboard in carry-on bags)
+            7. Medications (Liquids are not allowed onboard in carry-on bags)
           </h3>
 
           <div class="row3">
@@ -1174,7 +1180,7 @@
             for (i = 0; i < tablinks.length; i++) {
               tablinks[i].className = tablinks[i].className.replace(
                 " active",
-                ""
+                "",
               );
             }
             document.getElementById(tabName).style.display = "block";
