@@ -751,6 +751,7 @@ hr {
 }
 .modal-box h2 {
   text-align: center;
+  margin-top: 0.8rem;
   margin-bottom: 0.8rem;
   color: var(--text);
   font-size: 1rem;
