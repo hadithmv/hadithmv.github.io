@@ -510,6 +510,7 @@ ShareX
 
 - dark reader
   - allow access to file urls
+  - click extension, more, all settings, enable for pdf files
 
 - ultrasurf
   - disconnect after installing
