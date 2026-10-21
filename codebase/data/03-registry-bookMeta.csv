@@ -17,7 +17,7 @@ DFK-intisarLiAshabilHadith,abulMuzaffarAsSamaani,الِانْتِصَارُ لِ
 DFK-kalimathulIkhlas,ibnRajabAlHanbali,كَلِمَةُ الْإِخْلَاصِ (لِابْنِ رَجَبٍ),އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ,Statement of Sincerity (by ibn Rajab),AQD,"headAR,footAR,footDV",e838d1f09c5f
 DFK-kitabulEmanAbiUbaid,abuUbaidAlQasim,كِتَابُ الْإِيمَانِ (لِأَبِي عُبَيْدٍ),އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް,Book of Faith (by Abu Ubaid),AQD,"headAR,footAR,headDV,footDV",fd980da25962
 DFK-kitabulIlmAbiKhaithama,abuKhaythamaZuhair,كِتَابُ الْعِلْمِ (لِأَبِي خَيْثَمَةَ),އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް,Book of Knowledge (by Abu Khaithamah),ATHR,"footAR,footDV",318e51dc67a7
-DFK-sharhuSunnahBarbahari,alHasanBinAliAlBarbahari,شَرْحُ السُّنَّةِ (لِلْبَرْبَهَارِيِّ) (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (by Barbahari) (DFK),AQD,foot,442ffaf36405
+DFK-sharhuSunnahBarbahari,alHasanBinAliAlBarbahari,شَرْحُ السُّنَّةِ (لِلْبَرْبَهَارِيِّ) (دفك),ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ (ދފކ),Explanation of the Sunnah (by Barbahari) (DFK),AQD,foot,5265e7df1caf
 DFK-talkhisKitabiShariah,,تَلْخِيصُ الْعَقِيدَةِ مِنْ كِتَابِ الشَّرِيعَةِ لِلْآجُرِّيِّ,އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް,Summary of Aqidah from Aajurry's Shari'ah,AQD,"headDV,foot,pNo",1438bfbe927e
 HDT-arbaoonAajurry,abuBakrAlAajurry,الأَرْبَعُونَ (لِلْآجُرِيّ),އާޖުއްރީ ލިޔުނު ސާޅީސް ޙަދީޘް,Forty Hadith (by Aajurry),DRFT,"headAR,headDV,foot",2e68b6339e36
 HDT-arbaoonNawawi,yahyaBinSharafAnNawawi,الأَرْبَعُونَ النَّوَوِيَّةُ,ނަވަވީގެ ސާޅީސް ޙަދީޘް,Forty Hadith of Nawawi,REV,"noAR,headAR,headDV,footAR,footDV",ef3ddf02a617
@@ -64,7 +64,7 @@ QRN-bakurube,bakurube,تَرْجَمَةُ الْقُرْآنِ لِبَاكْر
 QRN-DATA-ayahImlai,,الْقُرْآنُ بِالرَّسْمِ الْإِمْلَائِيِّ (النص العربي),ކީރިތި ގުރްއާން (އިމްލާއީ ރަސްމު),Quran in Standard Orthographic Script,,ENTIRE-BOOK,f52c6269cfd4
 QRN-DATA-ayahUthmani,,الْقُرْآنُ بِالرَّسْمِ الْعُثْمَانِيِّ (النص العربي),ކީރިތި ގުރްއާން (އުޘްމާނީ ރަސްމު),Quran in Uthmani Script,,ENTIRE-BOOK,756308c8cfaf
 QRN-hadithmv,,تَرْجَمَةُ الْقُرْآنِ لِحَدِيثْ إِيمْ فِي,ޙަދީޘްއެމްވީގެ ގުރްއާން ތަރުޖަމާ,Quran Translation of Hadithmv,DRFT,,0f2711a29294
-QRN-jaufarFaiz,jaufarFaiz,تَفْسِيرُ الْقُرْآنِ لِجَعْفَرَ,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,,foot,51f66d1603c8
+QRN-jaufarFaiz,jaufarFaiz,تَفْسِيرُ الْقُرْآنِ لِجَعْفَرَ,ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު,Tafsir of Jaufar Faiz,,foot,9ac2bbda4ecd
 QRN-mukhtasarAR,,المُخْتَصَرُ فِي التَّفْسِيرِ (النص العربي),ތަފްސީރު މުޚްތަޞަރު (އަރަބި އެކަނި),Short Tafsir (Arabic Only),,ENTIRE-BOOK,ca622e0646a4
 QRN-muyassarAR,,التَّفْسِيرُ الْمُيَسَّرُ (النص العربي),ތަފްސީރު މުޔައްސަރު (އަރަބި އެކަނި),Easy Tafsir (Arabic Only),,ENTIRE-BOOK,db1022a51454
 QRN-rasmee-alt,,تَرْجَمَةُ الْقُرْآنِ الرَّسْمِيَّةُ بِاللُّغَةِ الدِّيفِيهِيَّةِ (بِحُرُوفِ الدِّيفِهِيَّةِ بِالْكَامِلِ),ގުރްއާނުގެ ރަސްމީ ދިވެހި ތަރުޖަމާ (އެއްކޮށް ދިވެހިން),Official Dhivehi Quran Translation (transliteration),,,c7380ae41cd1
