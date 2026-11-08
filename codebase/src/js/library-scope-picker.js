@@ -12,7 +12,7 @@
 
 import { tagLabel, t, currentLang } from "./i18n.js";
 import { loadIndexMeta } from "./library-search-engine.js";
-import { extractTags, tagSearchWords, loadBookRegistry } from "./book-data.js";
+import { extractTags, tagSearchWords, authorSearchWords, loadBookRegistry } from "./book-data.js";
 import { escapeHTML, scoreFilterTokens, normaliseForSearch } from "./search-utils.js";
 
 // ── State ────────────────────────────────────────────────────
@@ -440,9 +440,10 @@ export function renderScopePopover() {
   // front above and its books lead the list); a group label whose books
   // were all claimed by earlier groups is skipped.
   // The filter is always-fuzzy, exact-ranked (scoreFilterTokens, same as
-  // the dashboard box): titles + tag words may match within a length-scaled
-  // edit distance (4–5 chars → 1 edit, 6+ → 2, shorter exact-only), the
-  // code is exact-only — a 2-edit match on a code is a different book.
+  // the dashboard box): titles + tag words + author names may match within
+  // a length-scaled edit distance (4–7 chars → 1 edit, 8+ → 2, shorter
+  // exact-only), the code is exact-only — a 2-edit match on a code is a
+  // different book.
   // Exact hits float to the top of their group; the sort is stable, so
   // equal scores keep the registry's hand-set display order.
   var seen = {};
@@ -460,9 +461,11 @@ export function renderScopePopover() {
           // dashboard (hamza/tashkeel forms, Thaana dotted letters), then
           // lowercase for Latin case-insensitivity. Tag words (labels +
           // aliases, all languages) — a query hitting a tag's text finds
-          // every book carrying that tag's code.
+          // every book carrying that tag's code; author names likewise
+          // find that author's books.
           normaliseForSearch(((b ? (b.titleAR || "") + " " + (b.titleDV || "") + " " + (b.titleEN || "") : "") +
-            (b ? " " + tagSearchWords(code, b) : "")).toLowerCase())
+            (b ? " " + tagSearchWords(code, b) : "") +
+            (b ? " " + authorSearchWords(b) : "")).toLowerCase())
         ],
         normaliseForSearch(code.toLowerCase())
       );

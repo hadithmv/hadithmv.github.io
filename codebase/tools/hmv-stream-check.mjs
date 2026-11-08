@@ -56,8 +56,10 @@
 // (every merged row arrived), the first/last merged rows carrying the
 // book's first/last cells, and the title swapping in at the end.
 // B11 re-runs the load for the virtual merged radheef book (RDF-all) on a
-// scrubbed profile at a 1500 KB/s throttle (3× the others — the merged book
-// is the library's heaviest: 8 sources, ~15 MB raw, ~152,612 merged rows):
+// scrubbed profile at the single-book 500 KB/s throttle (the merged book is
+// the library's heaviest — 8 sources, ~15 MB raw, ~152,612 merged rows — so
+// its paced load is ~30 s; Edge 157's CDP throttle stalled deterministically
+// at the old 1500 KB/s, see the B11 block):
 // every source CSV must be fetched (HEAD for its Content-Length — the
 // progress line's total is the summed sizes — plus GET for its rows, the
 // sequential per-source streaming pass), the progress line must appear and
@@ -874,9 +876,13 @@ async function browserPhase(dist) {
     // sources' rows (152,612 — every merged row arrived, projected and
     // ordered), the first/last rendered rows carrying the right content,
     // and the title swapping in at the end. Scrub like B9/B10 — no source
-    // may come from IDB. Throttle at 1500 KB/s (3× the single-book passes):
-    // the merged load is ~15 MB raw and needs ~10 s even paced — rich
-    // progress samples without a ~30 s wait.
+    // may come from IDB. Throttle at the single-book 500 KB/s: the merged
+    // load is ~15 MB raw and needs ~30 s paced — still inside the 120 s
+    // wait, with rich progress samples. (Was 1500 KB/s. On Edge 157
+    // (2026-11-05) that rate stalls deterministically — rasmee's GET dies
+    // at 1–6% with the socket open and the sampler alive; the pre-change
+    // dist build fails identically, so it is the CDP throttle, not the
+    // product. 500 KB/s passes on the same Edge.)
     pageErrors.length = 0;
     await send("Page.navigate", { url: "http://127.0.0.1:" + PORT + "/__b9-scrub__" });
     await evalJS(`new Promise(function (res) {
@@ -902,7 +908,7 @@ async function browserPhase(dist) {
     check("B11 scrub: IDB deleted before merged load", idbDeleteM === "deleted", idbDeleteM);
     await sendChecked("Network.clearBrowserCache");
     await sendChecked("Network.emulateNetworkConditions", {
-      offline: false, latency: 400, downloadThroughput: 1500 * 1024, uploadThroughput: 1500 * 1024,
+      offline: false, latency: 400, downloadThroughput: 500 * 1024, uploadThroughput: 500 * 1024,
     });
     const READER_MERGED = "http://127.0.0.1:" + PORT + (dist ? "/dist/books/reader.html?book=RDF-all" : "/src/books/reader.html?book=RDF-all");
     await goto(READER_MERGED, 480, 900);
@@ -991,7 +997,7 @@ async function browserPhase(dist) {
     // preset run right after that cancel (same page state, no reload) still
     // lands both books — the stale-abort regression — and a scrubbed reload
     // shows the arabic preset fetching its two books strictly sequentially
-    // (pct-timeline probe). B11 left the throttle at 1500 KB/s — re-throttle
+    // (pct-timeline probe). B11 left the throttle at 500 KB/s — re-throttle
     // here.
     const MUYASSAR_BOX = '#qrnContentModalBody tr[data-key="QRN-muyassarAR:0"] input[type=checkbox]';
     const MUKHTASAR_BOX = '#qrnContentModalBody tr[data-key="QRN-mukhtasarAR:0"] input[type=checkbox]';

@@ -31,7 +31,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 
 When you open the site, you see the **book list**. You can:
 
-- **Search** — type in the search bar at the top (auto‑focused on desktop). It searches across all languages (Dhivehi, Arabic, English) and book codes. It works with or without Arabic diacritics (tashkeel). If nothing matches your search or tag combination, a "no books found" message appears where the grid would be.
+- **Search** — type in the search bar at the top (auto‑focused on desktop). It searches titles, tag names, author names and book codes across all languages (Dhivehi, Arabic, English), and tolerates small typos. It works with or without Arabic diacritics (tashkeel). If nothing matches your search or tag combination, a "no books found" message appears where the grid would be.
 
 - **Search in books** — the 🔎 button next to the search bar opens the library search page, carrying your search text along. There you search all books at once — whole words, all languages — with tag chips to scope the search and per‑book results that expand (▾) to preview the matching lines before you open them. Every result links into the book with the term pre‑highlighted, and the page URL stays shareable (`?q=…&tags=…`). Also reachable from the sidebar on every page.
 
@@ -64,7 +64,7 @@ A thin progress bar runs along the bottom of the top bar. For Quran books it tra
 
 | Row            | What it does                                                                                                                                                                                                           |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Search**     | The 🔎 button (or `/` / `Ctrl+F`) opens the search window. Find text inside the book — wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~` — typo tolerance scales with length: 4–5 chars tolerate 1 edit, 6+ tolerate 2, shorter words match exactly), negation (`-word`), and exact column matching (`col:2:word`); the `ab` button toggles whole‑word mode for all terms. Search history and advanced filters live in the window too. |
+| **Search**     | The 🔎 button (or `/` / `Ctrl+F`) opens the search window. Find text inside the book — wildcards (`*`, `?`), whole‑word (`.word`), fuzzy (`~word~` — typo tolerance scales with length: 4–7 chars tolerate 1 edit, 8+ tolerate 2, shorter words match exactly), negation (`-word`), and exact column matching (`col:2:word`); the `ab` button toggles whole‑word mode for all terms. Search history and advanced filters live in the window too. |
 | **Toolbar**    | Copy the current row, hide Arabic diacritics, share a link, switch view mode (Card / Table / Parallel), reset, export (TXT, PDF, Excel, etc.), hide columns. Swipe or scroll sideways if buttons overflow.                     |
 | **Pagination** | First (`<<`), Previous (`<`), page selector, Next (`>`), Last (`>>`). The page selector is a number box — type a page and press Enter (arrow keys don't step it). The subtitle and tag badges are on the same row — scroll sideways if it's too wide.                                                              |
 

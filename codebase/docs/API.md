@@ -141,7 +141,11 @@ extractTags("HDT-muwattaMalik", { tags: "DRFT" });
 
 All searchable words a book's tags contribute — every tag's labels plus alias lists, all three languages, space-joined. This is the tag row's text that search matches against the code: a query word hitting an alias or label finds every book carrying that tag's code. Wired into the dashboard search haystacks and the scope-modal filter; empty aliases contribute nothing.
 
-**Aliases are word-level only.** Script-level equivalence — hamza/tashkeel forms, Thaana thikijehi, the guarded definite-article strip — comes from `normaliseForSearch` and must not be duplicated in alias cells (an alias that normalises to the label's own normalised form adds nothing; see `01-registry-bookTags.csv` in ARCHITECTURE.md). Since the filter boxes are always‑fuzzy (`scoreFilterTokens` — length‑scaled: ≤ 2 edits for 6+ char terms, ≤ 1 for 4–5, exact below), an alias within its term's scaled tolerance of its own label is dead weight too — the label already catches it.
+**Aliases are word-level only.** Script-level equivalence — hamza/tashkeel forms, Thaana thikijehi, the guarded definite-article strip — comes from `normaliseForSearch` and must not be duplicated in alias cells (an alias that normalises to the label's own normalised form adds nothing; see `01-registry-bookTags.csv` in ARCHITECTURE.md). Since the filter boxes are always‑fuzzy (`scoreFilterTokens` — length‑scaled: ≤ 2 edits for 8+ char terms, ≤ 1 for 4–7, exact below), an alias within its term's scaled tolerance of its own label is dead weight too — the label already catches it.
+
+### `authorSearchWords(entry)`
+
+All searchable words a book's authors contribute — every author's name in all three languages, space-joined. The author analogue of `tagSearchWords()`: a query word hitting an author's name finds that author's books (`authorCode` lists are resolved through the loaded `02-registry-bookAuthors.csv` cache; `""` when the book has no author or the cache has not loaded). Wired into the dashboard search box and the scope-modal filter alongside the title and tag haystacks.
 
 Dashboard state and rendering moved to `dashboard.js` when the module was split out of book-data.js — see below.
 
@@ -223,7 +227,7 @@ Dashboard page UI (src/books/index.html) — built on the metadata layer in `boo
 | `renderDashboard(bookNames)` | Renders the card grid or table view, tag chips with counts, active facet chips, result count, and the continue-reading card. |
 | `setupDashboardControls()` | Wires search, tag chips, sort, view toggle, pins/history modals, the Authors/Periods browse buttons, the library-search jump, scroll arrows, and keyboard shortcuts. |
 
-Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. Author/period facets live in `facet-browse.js` (shared with the library page and search window): the functions panel's ✍️ Authors / 🗓️ Periods buttons open the shared browse modals, active selections render as accent‑tinted chips in the tags row and filter the grid; `?authors=…&period=…` deep links and `?tags=` are kept in the address bar by `syncDashURL` (the reset button clears everything via `clearFacets()`). The search box is always‑fuzzy, exact‑ranked (`scoreFilterTokens` — see below): titles and tag words may match within a length‑scaled edit distance (4–5 chars → 1 edit, 6+ → 2, shorter exact‑only), the book code is exact‑only; a search re‑sorts the grid by match score first, then the chosen order. Re-renders on `dashboardReset` and `languagechange` (when visible).
+Module state: `_dashFilter` — `{ search, tags[], sort, pinsOnly }` — current filter state; `_dashTableMode` — `boolean` — card grid vs table view. Author/period facets live in `facet-browse.js` (shared with the library page and search window): the functions panel's ✍️ Authors / 🗓️ Periods buttons open the shared browse modals, active selections render as accent‑tinted chips in the tags row and filter the grid; `?authors=…&period=…` deep links and `?tags=` are kept in the address bar by `syncDashURL` (the reset button clears everything via `clearFacets()`). The search box is always‑fuzzy, exact‑ranked (`scoreFilterTokens` — see below): titles, tag words and author names may match within a length‑scaled edit distance (4–7 chars → 1 edit, 8+ → 2, shorter exact‑only), the book code is exact‑only; a search re‑sorts the grid by match score first, then the chosen order. Re-renders on `dashboardReset` and `languagechange` (when visible).
 
 ---
 
@@ -271,7 +275,7 @@ Used by dashboard search, book search, the scope-modal filter, the library engin
 
 ### `scoreFilterTokens(tokens, textFields, codeText)`
 
-Scores one book against the list‑filter boxes (dashboard search box, library scope‑modal filter) — always‑fuzzy, exact‑ranked. Each token scores `0` on an exact (substring) hit in any text field or the code, `1–2` when it lands within a *length‑scaled* Levenshtein distance of a *text* field (titles, tag words) — 4–5 char tokens tolerate 1 edit, 6+ tolerate 2, shorter tokens are exact‑only. Returns the sum of per‑token scores, or `-1` when any token matches nothing. **Codes are exact‑only** — they are machine names, and a 2‑edit match on a code is a different book; the fuzzy pass never sees `codeText`. Callers drop `-1` books and sort by score (exact hits first, near‑misses below, then the caller's own order). Text fields and tokens must already be `normaliseForSearch`'d (the dashboard strips `[\s-]` on both sides, consistent with its exact matching). The cross‑book index (`searchLibrary`) is deliberately untouched — it remains whole‑word exact.
+Scores one book against the list‑filter boxes (dashboard search box, library scope‑modal filter) — always‑fuzzy, exact‑ranked. Each token scores `0` on an exact (substring) hit in any text field or the code, `1–2` when it lands within a *length‑scaled* Levenshtein distance of a *text* field (titles, tag words, author names) — 4–7 char tokens tolerate 1 edit, 8+ tolerate 2, shorter tokens are exact‑only. Returns the sum of per‑token scores, or `-1` when any token matches nothing. **Codes are exact‑only** — they are machine names, and a 2‑edit match on a code is a different book; the fuzzy pass never sees `codeText`. Callers drop `-1` books and sort by score (exact hits first, near‑misses below, then the caller's own order). Text fields and tokens must already be `normaliseForSearch`'d (the dashboard strips `[\s-]` on both sides, consistent with its exact matching). The cross‑book index (`searchLibrary`) is deliberately untouched — it remains whole‑word exact.
 
 ### `formatThousands(n)`
 
@@ -302,7 +306,7 @@ parseQuery("الله -رسول .سلام col:2:بسم");
 | `word` | Normal substring match |
 | `.word` | Whole‑word match |
 | `-word` | Exclude |
-| `~word~` | Fuzzy — tolerance scales with the word's length: 4–5 chars → 1 edit, 6+ → 2 edits. Shorter terms are exact (a 2‑edit budget is longer than a 1–3 char word itself); wildcards still cover them. |
+| `~word~` | Fuzzy — tolerance scales with the word's length: 4–7 chars → 1 edit, 8+ → 2 edits. Shorter terms are exact (a 2‑edit budget is longer than a 1–3 char word itself); wildcards still cover them. |
 | `*` / `?` | Wildcard (any / one char) |
 | `col:N:word` | Scope to column N |
 | `/pattern/flags` | Explicit regex — the pattern is normalised like any term (regexes test the normalised text) |

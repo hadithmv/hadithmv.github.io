@@ -22,6 +22,7 @@ import {
   loadBookRegistry,
   extractTags,
   tagSearchWords,
+  authorSearchWords,
 } from "./book-data.js";
 import {
   isPinned,
@@ -164,10 +165,10 @@ function renderDashboard(bookNames) {
   // both sides, so "RDF-rasmee" and "rdfrasmee" find the same book.
   // Always-fuzzy, exact-ranked: a token scores 0 on an exact hit anywhere
   // (including the code), or 1–2 when it lands within a length-scaled edit
-  // distance of a title or tag word (scoreFilterTokens: 4–5 char tokens →
-  // 1 edit, 6+ → 2, shorter exact-only). The code is exact-only — a 2-edit
-  // match on a code is a different book. Books with a token matching
-  // nothing are dropped; survivors sort by score below.
+  // distance of a title, tag word or author name (scoreFilterTokens: 4–7
+  // char tokens → 1 edit, 8+ → 2, shorter exact-only). The code is
+  // exact-only — a 2-edit match on a code is a different book. Books with
+  // a token matching nothing are dropped; survivors sort by score below.
   var q = _dashFilter.search.trim();
   var scores = null;
   if (q) {
@@ -191,6 +192,9 @@ function renderDashboard(bookNames) {
             // Tag words (labels + aliases, all languages) — a query hitting a
             // tag's text finds every book carrying that tag's code.
             normaliseForSearch(tagSearchWords(b.bookCode, b) || "").replace(/[\s-]/g, ""),
+            // Author names (all languages) — a query hitting an author's
+            // name finds that author's books.
+            normaliseForSearch(authorSearchWords(b) || "").replace(/[\s-]/g, ""),
           ],
           normaliseForSearch(b.bookCode || "").replace(/[\s-]/g, "")
         );

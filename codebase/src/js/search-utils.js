@@ -227,10 +227,12 @@ function matchCompiled(normText, term) {
     // pattern itself, so ~قرأ~ used to match every row of every book.
     // Under 4 chars → exact substring only — no fuzzy, but the search
     // still works (wildcards cover fuzzy needs for very short patterns);
-    // 4–5 chars → 1 edit; 6+ chars → 2 edits.
+    // 4–7 chars → 1 edit; 8+ chars → 2 edits. The 2-edit tier starts at 8
+    // because two edits on a 6-char word is a third of the word: "tarifi"
+    // sat 2 edits from "darfi"/"lorifi" and matched them.
     var fLen = term.fuzzyTerm.length;
     if (fLen < 4) return normText.indexOf(term.fuzzyTerm) !== -1;
-    return fuzzyMatch(normText, term.fuzzyTerm, fLen < 6 ? 1 : 2);
+    return fuzzyMatch(normText, term.fuzzyTerm, fLen < 8 ? 1 : 2);
   }
   if (term.re) return term.re.test(normText);
   return normText.indexOf(term.nterm) !== -1;
@@ -288,12 +290,13 @@ function levenshtein(a, b, max) {
 // library scope picker). Always-fuzzy, exact-ranked: each query token
 // scores 0 on an exact (substring) hit in any text field or the code, or
 // 1–2 when it lands within a *length-scaled* Levenshtein distance of a
-// *text* field (titles, tag words): 4–5 char tokens tolerate 1 edit,
-// 6+ tolerate 2, shorter tokens are exact-only — the same gate as the
-// engine's ~term~ above. Codes are exact-only — they are machine names,
-// and a 2-edit match on a code is a different book. Callers keep books
-// whose tokens all matched and sort by the returned score (exact hits
-// first, near-misses below, then the caller's own order).
+// *text* field (titles, tag words, author names): 4–7 char tokens
+// tolerate 1 edit, 8+ tolerate 2, shorter tokens are exact-only — the
+// same gate as the engine's ~term~ above. Codes are exact-only — they
+// are machine names, and a 2-edit match on a code is a different book.
+// Callers keep books whose tokens all matched and sort by the returned
+// score (exact hits first, near-misses below, then the caller's own
+// order).
 
 /** Score one query token against one field: 0 exact, 1–2 fuzzy, -1 none. */
 function scoreOne(token, text) {
@@ -302,11 +305,12 @@ function scoreOne(token, text) {
   // Same length-scaling as the engine's ~term~ above: fuzzy is noise on
   // short tokens (a 2-edit budget is longer than a 3-char pattern), so
   // tokens under 4 chars are exact-only, and the 2-edit tier exists only
-  // for 6+ — 4–5 chars are single-edit territory, and the tier must not
-  // award score 2 for a distance the pattern can't afford.
+  // for 8+ — 4–7 chars are single-edit territory. At 6 chars two edits is
+  // a third of the word ("tarifi" vs "darfi"), which read as noise, not
+  // typo tolerance.
   if (token.length < 4) return -1;
   if (fuzzyMatch(text, token, 1)) return 1;
-  if (token.length >= 6 && fuzzyMatch(text, token, 2)) return 2;
+  if (token.length >= 8 && fuzzyMatch(text, token, 2)) return 2;
   return -1;
 }
 
@@ -347,8 +351,8 @@ export function scoreFilterTokens(tokens, textFields, codeText) {
  *   word         – normal match
  *   .word        – whole‑word match
  *   -word        – exclude
- *   ~word~        – fuzzy (tolerance scales with length: 4–5 chars → 1
- *                  edit, 6+ → 2; shorter terms are exact)
+ *   ~word~        – fuzzy (tolerance scales with length: 4–7 chars → 1
+ *                  edit, 8+ → 2; shorter terms are exact)
  *   * / ?        – wildcard
  *   col:N:word   – scope to column N
  *   /pattern/fl  – explicit regex (the pattern is normalised like any

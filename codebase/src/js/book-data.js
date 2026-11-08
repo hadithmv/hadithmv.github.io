@@ -407,6 +407,29 @@ export function bookAuthorParts(entry) {
   return parts;
 }
 
+/**
+ * All searchable words a book's authors contribute — every author's name in
+ * all three languages, space-joined. The author analogue of tagSearchWords():
+ * a query word hitting an author's name finds that author's books. ""
+ * when the book has no author (or the author registry has not loaded).
+ */
+export function authorSearchWords(entry) {
+  var defs = _authorDefinitionsCache || {};
+  var codes = ((entry && entry.authorCode) || "")
+    .split(",")
+    .map(function (s) { return s.trim(); })
+    .filter(Boolean);
+  var words = [];
+  codes.forEach(function (code) {
+    var d = defs[code];
+    if (!d) return;
+    ["dv", "en", "ar"].forEach(function (l) {
+      if (d.name[l]) words.push(d.name[l]);
+    });
+  });
+  return words.join(" ");
+}
+
 // ---------------------------------------------------------------------------
 // Book registry — loaded from bookNames.csv
 // ---------------------------------------------------------------------------
