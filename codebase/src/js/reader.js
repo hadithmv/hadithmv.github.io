@@ -42,8 +42,8 @@ initializePageWithMetadata(async function (metadata) {
   //   Touch swipe                                          L1680-1700
   //   Settings reset + language change                     L1703-1716
   //   Quran UI (initQuranUI ctx)                           L1719-1752
-  //   Initial render (deep links, reveal)                  L1755-2005
-  //   Module-level helpers (showError)                     L2008-2025
+  //   Initial render (deep links, reveal)                  L1755-2160
+  //   Module-level helpers (showError)                     L2163-2180
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -1901,6 +1901,9 @@ initializePageWithMetadata(async function (metadata) {
           // (which owns the title element mid-stream) with the real title.
           isStreaming = false;
           updatePageHeader();
+          // The real title just replaced the progress line — tease it once
+          // now (whole-file loads get theirs at the end of buildReader).
+          teasePageTitleSoon();
           maxCols = allData.reduce(function (m, r) { return Math.max(m, r.length); }, 0);
           buildColumnToggles();
           updatePagination(true);
@@ -1994,8 +1997,160 @@ initializePageWithMetadata(async function (metadata) {
       // Scroll arrows can't detect overflow while #readerWrapper was hidden
       if (window.initScrollArrows) window.initScrollArrows();
       }
+
+      // ── One-time title scroll tease ─────────────────────────
+      // A title longer than the top bar clips inside #pageTitle's hidden
+      // horizontal scroller — the start shows, the tail does not. On open,
+      // once, the title runs as a marquee: one continuous glide through the
+      // whole text, the tail followed by the head wrapping back in from the
+      // start edge (a hidden duplicate supplies the second pass), instead
+      // of a there-and-back bounce in reverse. The seam is invisible — at
+      // the loop's end the duplicate sits exactly where the original was —
+      // so the motion simply stops, back where it started. Skipped when the
+      // title fits; a language change (title rewritten) or a manual scroll
+      // of the bar cancels it. Called from the reveal below (whole-file
+      // loads) and from streamFinalize (streamed books swap the real title
+      // in only when the data is complete), so a streaming book teases
+      // once, on its final title.
+      function teasePageTitleSoon() {
+        // Deliberately NOT gated on prefers-reduced-motion: the rest of the
+        // site's motion (html smooth scrolling, modal pop transitions, toasts)
+        // is not gated either, and gating only this one made the tease
+        // silently vanish on machines whose OS/Edge sets "reduce" — the
+        // maintainer's own browser was one. This is a one-shot, small,
+        // non-flashing reveal confined to the top bar.
+        // Wait for the webfont — the overflow is measured off font metrics.
+        // The 250 ms beat lets the reveal settle so the motion reads as a
+        // title tease rather than load jitter.
+        var begin = function () {
+          setTimeout(teasePageTitle, 250);
+        };
+        if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+          document.fonts.ready.then(begin);
+        } else {
+          begin();
+        }
+      }
+
+      function teasePageTitle() {
+        var el = document.getElementById("pageTitle");
+        if (!el) return;
+        var max = el.scrollWidth - el.clientWidth;
+        if (max < 4) return; // the title fits — nothing clipped to reveal
+        var start = el.scrollLeft;
+        var text = el.textContent;
+        if (!text) return;
+
+        // A marquee wraps without reversing: lay the title out twice so the
+        // head of the second copy follows the tail of the first. #pageTitle
+        // is an RTL flex row whose first item sits at the start edge
+        // (right), so the copy appended after the real one sits to its
+        // left — exactly "after the end, the beginning" on screen. The
+        // margin is the beat that marks the seam. Both copies are plain
+        // text set via textContent; the duplicate is aria-hidden so screen
+        // readers do not read the title twice.
+        var orig = document.createElement("span");
+        orig.textContent = text;
+        orig.style.marginInlineEnd = "36px";
+        var dup = document.createElement("span");
+        dup.textContent = text;
+        dup.setAttribute("aria-hidden", "true");
+        el.textContent = "";
+        el.appendChild(orig);
+        el.appendChild(dup);
+        // One loop = the distance between the two copies' start edges.
+        // Scroll by it and the duplicate lands exactly where the original
+        // sat, so the marquee can stop with no jump back.
+        var loopLen = Math.round(Math.abs(
+          orig.getBoundingClientRect().left - dup.getBoundingClientRect().left
+        ));
+        // Pin scroll-behavior for the run: html carries smooth (see
+        // prependPrev), and a smooth scroller would swallow these writes —
+        // the probe below would misread the engine and the rAF steps would
+        // lag behind the clock.
+        var prevBehavior = el.style.scrollBehavior;
+        el.style.scrollBehavior = "auto";
+        // The far-edge scrollLeft sign differs by engine on RTL boxes
+        // (Chrome/Edge/Safari: 0 at the start edge, negative toward the far
+        // end; older Firefox: positive toward the far end). Probe both —
+        // the writes and the restore all land before the next paint.
+        el.scrollLeft = start - loopLen;
+        var end = el.scrollLeft;
+        if (Math.abs(end - start) < 1) {
+          el.scrollLeft = start + loopLen;
+          end = el.scrollLeft;
+        }
+        el.scrollLeft = start;
+        if (Math.abs(end - start) < loopLen - 1) {
+          // The scroller clamped the probe — a clipped title plus its
+          // duplicate should always leave room for one full loop. Give up
+          // rather than stop at a torn seam.
+          el.textContent = text;
+          el.style.scrollBehavior = prevBehavior;
+          return;
+        }
+
+        // A calm ticker pace: ~150 px/s whatever the title's length (capped
+        // at 4 s). Linear on purpose — easing through the middle piles the
+        // speed up mid-run and reads as a zip, not a glide.
+        var dist = Math.abs(end - start);
+        var durMs = Math.min(4000, Math.max(1600, dist * 6.5));
+        var frame = 0;
+        var t0 = null;
+        var cancelled = false;
+
+        function teardown(restoreTitle, resetScroll) {
+          if (cancelled) return;
+          cancelled = true;
+          window.cancelAnimationFrame(frame);
+          el.removeEventListener("wheel", onManual, true);
+          el.removeEventListener("touchmove", onManual, true);
+          if (restoreTitle) el.textContent = text;
+          if (resetScroll) el.scrollLeft = start;
+          el.style.scrollBehavior = prevBehavior;
+        }
+        function onManual() {
+          // The user took the bar: drop the marquee copy right away but
+          // leave the scroll where they put it.
+          teardown(true, false);
+        }
+        function tick(now) {
+          if (cancelled) return;
+          // A language change swaps the title text (taking the copy with
+          // it) — stop, and do not put the stale title back.
+          if (!el.contains(dup)) {
+            teardown(false, false);
+            return;
+          }
+          if (t0 === null) t0 = now;
+          var p = (now - t0) / durMs;
+          if (p >= 1) {
+            // Paint the seam frame (the copy exactly where the original
+            // sat), then swap back on the next frame — the two states are
+            // pixel-identical, so the loop ends invisibly.
+            el.scrollLeft = end;
+            frame = window.requestAnimationFrame(function () {
+              if (cancelled) return;
+              if (!el.contains(dup)) {
+                teardown(false, false);
+                return;
+              }
+              teardown(true, true);
+            });
+            return;
+          }
+          el.scrollLeft = start + (end - start) * p;
+          frame = window.requestAnimationFrame(tick);
+        }
+
+        el.addEventListener("wheel", onManual, true);
+        el.addEventListener("touchmove", onManual, true);
+        frame = window.requestAnimationFrame(tick);
+      }
+
       deepLinkBlock();
       revealReader();
+      teasePageTitleSoon();
     }
     loadBookData().then(function (result) {
       if (result !== null) buildReader(result, false);
