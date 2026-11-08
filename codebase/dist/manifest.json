@@ -41,10 +41,11 @@
   "dist/font/merged-400.woff2": "5e3cd95fcca60633",
   "data/01-registry-bookTags.csv": "2faa1230379a3fab",
   "data/02-registry-bookAuthors.csv": "7990d4b98ab10d2c",
-  "data/03-registry-bookMeta.csv": "50d859ee51f7b5c4",
+  "data/03-registry-bookMeta.csv": "d9d480b4371bd0ad",
   "data/05-registry-quranSurahs.csv": "d7a7d6243f2fe3d9",
   "data/06-registry-quranJuz.csv": "fbdd2b6780e53a33",
   "data/07-registry-quranColumns.csv": "19e3b4a72debf254",
+  "static/notes/authors/abdulAzizMarzuqAtTarifi.md": "ebcc0234d7f42d19",
   "static/notes/authors/malikBinAnas.md": "7f14d45755fcb274",
   "static/notes/works/HDT-muwattaMalik.md": "3b85c245c5e6ffd1"
 }
