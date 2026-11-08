@@ -1,11 +1,12 @@
 /**
  * Book & Author Info Module
  *
- * The two-tab info modal. Entry points: the reader's book-title click
- * (Book tab), the reader's author-line click (Author tab — the old
- * dashboard-filter jump moved inside the modal as the "show all books"
- * link), Alt+I, and the authors browse modal's per-row ℹ button (stacked
- * over the browse modal — Escape returns to it).
+ * The three-tab info modal. Entry points: Alt+I and the reader's Arabic
+ * subtitle (Book tab), the reader's author-line click (Author tab — the
+ * old dashboard-filter jump moved inside the modal as the "show all books"
+ * link), and the authors browse modal's per-row ℹ button (stacked over the
+ * browse modal — Escape returns to it). A reader title click is not an
+ * entry point — it copies the title and replays its scroll tease.
  *
  * Book tab: registry facts (titles, author, Hijri/Gregorian years, century,
  * age, tags) + optional markdown book notes from static/notes/works/<bookCode>.md.

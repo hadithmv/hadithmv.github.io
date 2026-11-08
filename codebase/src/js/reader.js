@@ -24,26 +24,26 @@ initializePageWithMetadata(async function (metadata) {
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
   //   Book loading (standard CSV or Quran merge)           L48-296
-  //   Page header, tag badges, language-aware titles       L299-451
-  //   Persisted settings (LS wrapper, -HDN column init)    L454-500
-  //   Reader state, column toggles, dropdown infrastructure L503-601
-  //   Tashkeel helpers                                     L604-611
-  //   Clipboard formatting (rowText)                       L614-704
-  //   View mode dropdown (card / table / parallel)         L707-755
-  //   Quran helpers                                        L758-762
-  //   Card row renderer (renderRowHTML)                    L765-861
-  //   Parallel row renderer (renderParallelRowHTML)        L864-983
-  //   Chunk + table-row renderers                          L986-1048
-  //   Infinite scroll + table scrollbar                    L1051-1269
-  //   Navigation (goTo, scroll padding)                    L1272-1328
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1331-1367
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1370-1559
-  //   Keyboard shortcuts (incl. navigation buttons)        L1562-1677
-  //   Touch swipe                                          L1680-1700
-  //   Settings reset + language change                     L1703-1716
-  //   Quran UI (initQuranUI ctx)                           L1719-1752
-  //   Initial render (deep links, reveal)                  L1755-2160
-  //   Module-level helpers (showError)                     L2163-2180
+  //   Page header, tag badges, language-aware titles       L299-508
+  //   Persisted settings (LS wrapper, -HDN column init)    L511-557
+  //   Reader state, column toggles, dropdown infrastructure L560-658
+  //   Tashkeel helpers                                     L661-668
+  //   Clipboard formatting (rowText)                       L671-761
+  //   View mode dropdown (card / table / parallel)         L764-812
+  //   Quran helpers                                        L815-819
+  //   Card row renderer (renderRowHTML)                    L822-918
+  //   Parallel row renderer (renderParallelRowHTML)        L921-1040
+  //   Chunk + table-row renderers                          L1043-1105
+  //   Infinite scroll + table scrollbar                    L1108-1326
+  //   Navigation (goTo, scroll padding)                    L1329-1385
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1388-1424
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1427-1616
+  //   Keyboard shortcuts (incl. navigation buttons)        L1619-1734
+  //   Touch swipe                                          L1737-1757
+  //   Settings reset + language change                     L1760-1773
+  //   Quran UI (initQuranUI ctx)                           L1776-1809
+  //   Initial render (deep links, reveal)                  L1812-2230
+  //   Module-level helpers (showError)                     L2233-2250
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -360,14 +360,14 @@ initializePageWithMetadata(async function (metadata) {
 
         if (lang === "en") {
           pageTitle.textContent = metadata.titleEN || metadata.bookCode;
-          pageTitle.title = "Open book info (Alt+I)";
+          pageTitle.title = "Click: copy title + replay scroll · Drag: scroll · Alt+I: book info";
           pageTitle.dir = "ltr";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
           pageSubRow.style.margin = "0 0 0 0";
         } else if (lang === "dv") {
           pageTitle.textContent = metadata.titleDV || metadata.bookCode;
-          pageTitle.title = "Open book info (Alt+I)";
+          pageTitle.title = "Click: copy title + replay scroll · Drag: scroll · Alt+I: book info";
           pageTitle.dir = "rtl";
           // The Arabic title shows under the Thaana one as a button like
           // the author line's (same reader.css rule), opening the modal's
@@ -387,7 +387,7 @@ initializePageWithMetadata(async function (metadata) {
           pageSubRow.dir = "";
         } else if (lang === "ar") {
           pageTitle.textContent = metadata.titleAR || metadata.bookCode;
-          pageTitle.title = "Open book info (Alt+I)";
+          pageTitle.title = "Click: copy title + replay scroll · Drag: scroll · Alt+I: book info";
           pageTitle.dir = "rtl";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
@@ -400,8 +400,9 @@ initializePageWithMetadata(async function (metadata) {
       document.addEventListener("languagechange", updatePageHeader);
 
       // ── Book & author info modal wiring (book-info.js) ──────
-      // The book title opens the modal's Book tab, the author line its
-      // Author tab (multi-author books open on the first author). The row
+      // The Arabic subtitle opens the modal's Book tab, the author line
+      // its Author tab (multi-author books open on the first author);
+      // Alt+I opens the Book tab from anywhere in the reader. The row
       // and chapter counts are computed here, at load, where the CSV is
       // already in hand — the modal never refetches the book data.
       var infoCounts = null;
@@ -420,14 +421,70 @@ initializePageWithMetadata(async function (metadata) {
           counts: infoCounts,
         });
       }
+      // The title is a live widget of its own: a click copies the full
+      // title and replays the scroll tease; a horizontal mouse/pen drag
+      // scrolls it (touch scrolls natively — the pointer handlers skip
+      // touch pointers). Alt+I and the Arabic subtitle button still open
+      // the book info modal. A drag must not count as a click, so a
+      // pointer sequence that passes a small threshold swallows the click
+      // that follows it.
       var pageTitleEl = document.getElementById("pageTitle");
+      var titleDrag = null;        // { id, x, sc } while a drag is live
+      var titleDragMoved = false;  // the last pointer sequence was a drag
+      var activeTitleTease = null; // cancel fn of the marquee in flight
       pageTitleEl.addEventListener("click", function () {
+        if (titleDragMoved) { titleDragMoved = false; return; }
         // While a book streams, the title slot holds the progress line —
-        // clicking it must not open the info modal (whose counts come from
-        // a partial dataset anyway).
+        // neither copying nor replaying applies yet.
         if (isStreaming) return;
-        openBookInfo("book");
+        // A running tease leaves the duplicated copy in the DOM; cancel it
+        // so the clipboard gets the real title. The replay itself rewinds
+        // the bar to the title's beginning (see teasePageTitle).
+        if (activeTitleTease) activeTitleTease();
+        window.copyToClipboard(pageTitleEl.textContent, "toastCopied", "toastCopyFailed");
+        // Replay the loop (a no-op when the title fits its slot).
+        teasePageTitle();
       });
+      pageTitleEl.addEventListener("pointerdown", function (e) {
+        if (e.pointerType === "touch" || e.button !== 0) return;
+        if (isStreaming) return;
+        if (pageTitleEl.scrollWidth - pageTitleEl.clientWidth < 4) return;
+        // A running tease would fight the drag — drop it (and its copy),
+        // then stay where the user grabbed the bar rather than snapping
+        // back to the title's start.
+        var keepSc = pageTitleEl.scrollLeft;
+        if (activeTitleTease) activeTitleTease();
+        pageTitleEl.scrollLeft = keepSc;
+        titleDrag = { id: e.pointerId, x: e.clientX, sc: pageTitleEl.scrollLeft };
+        titleDragMoved = false;
+        try { pageTitleEl.setPointerCapture(e.pointerId); } catch (_) {}
+        document.body.style.userSelect = "none"; // no text selection mid-drag
+      });
+      pageTitleEl.addEventListener("pointermove", function (e) {
+        if (!titleDrag || e.pointerId !== titleDrag.id) return;
+        var dx = e.clientX - titleDrag.x;
+        if (!titleDragMoved && Math.abs(dx) < 4) return;
+        titleDragMoved = true;
+        // Content follows the pointer: dragging right moves the text right,
+        // bringing the clipped left-hand tail into view (scrollLeft goes
+        // negative); dragging left returns toward the start.
+        pageTitleEl.scrollLeft = titleDrag.sc - dx;
+      });
+      function endTitleDrag(e) {
+        if (!titleDrag || (e && e.pointerId !== titleDrag.id)) return;
+        try { pageTitleEl.releasePointerCapture(titleDrag.id); } catch (_) {}
+        var moved = titleDragMoved;
+        titleDrag = null;
+        document.body.style.userSelect = "";
+        if (moved) {
+          // The click that follows this pointerup must be swallowed — but a
+          // drag released off the element may produce no click at all, so
+          // clear the flag right after this task either way.
+          setTimeout(function () { titleDragMoved = false; }, 0);
+        }
+      }
+      pageTitleEl.addEventListener("pointerup", endTitleDrag);
+      pageTitleEl.addEventListener("pointercancel", endTitleDrag);
       // The Arabic subtitle (visible only in the Dhivehi layout) is a
       // button like the author line's and opens the same Book tab — the
       // title's companion affordance. updatePageHeader rebuilds its
@@ -2008,10 +2065,12 @@ initializePageWithMetadata(async function (metadata) {
       // the loop's end the duplicate sits exactly where the original was —
       // so the motion simply stops, back where it started. Skipped when the
       // title fits; a language change (title rewritten) or a manual scroll
-      // of the bar cancels it. Called from the reveal below (whole-file
-      // loads) and from streamFinalize (streamed books swap the real title
-      // in only when the data is complete), so a streaming book teases
-      // once, on its final title.
+      // of the bar cancels it, and a click on the title replays it (that
+      // same click also copies the title — see the top-bar handlers).
+      // Called from the reveal below (whole-file loads) and from
+      // streamFinalize (streamed books swap the real title in only when the
+      // data is complete), so a streaming book teases once, on its final
+      // title.
       function teasePageTitleSoon() {
         // Deliberately NOT gated on prefers-reduced-motion: the rest of the
         // site's motion (html smooth scrolling, modal pop transitions, toasts)
@@ -2035,8 +2094,16 @@ initializePageWithMetadata(async function (metadata) {
       function teasePageTitle() {
         var el = document.getElementById("pageTitle");
         if (!el) return;
+        // A replay (title click) cancels the loop already in flight before
+        // laying the copies out again.
+        if (activeTitleTease) activeTitleTease();
         var max = el.scrollWidth - el.clientWidth;
         if (max < 4) return; // the title fits — nothing clipped to reveal
+        // Every run starts from the title's true beginning, even when a
+        // drag (or a cancelled run) left the bar mid-title: rewind first,
+        // then measure. scrollLeft 0 is the start edge in both RTL sign
+        // conventions, and reading it back confirms the write landed.
+        el.scrollLeft = 0;
         var start = el.scrollLeft;
         var text = el.textContent;
         if (!text) return;
@@ -2051,7 +2118,7 @@ initializePageWithMetadata(async function (metadata) {
         // readers do not read the title twice.
         var orig = document.createElement("span");
         orig.textContent = text;
-        orig.style.marginInlineEnd = "36px";
+        orig.style.marginInlineEnd = "96px";
         var dup = document.createElement("span");
         dup.textContent = text;
         dup.setAttribute("aria-hidden", "true");
@@ -2090,11 +2157,11 @@ initializePageWithMetadata(async function (metadata) {
           return;
         }
 
-        // A calm ticker pace: ~150 px/s whatever the title's length (capped
-        // at 4 s). Linear on purpose — easing through the middle piles the
+        // A calm ticker pace: ~140 px/s whatever the title's length (capped
+        // at 4.4 s). Linear on purpose — easing through the middle piles the
         // speed up mid-run and reads as a zip, not a glide.
         var dist = Math.abs(end - start);
-        var durMs = Math.min(4000, Math.max(1600, dist * 6.5));
+        var durMs = Math.min(4400, Math.max(1600, dist * 7.2));
         var frame = 0;
         var t0 = null;
         var cancelled = false;
@@ -2108,7 +2175,10 @@ initializePageWithMetadata(async function (metadata) {
           if (restoreTitle) el.textContent = text;
           if (resetScroll) el.scrollLeft = start;
           el.style.scrollBehavior = prevBehavior;
+          if (activeTitleTease === cancelRun) activeTitleTease = null;
         }
+        var cancelRun = function () { teardown(true, true); };
+        activeTitleTease = cancelRun;
         function onManual() {
           // The user took the bar: drop the marquee copy right away but
           // leave the scroll where they put it.

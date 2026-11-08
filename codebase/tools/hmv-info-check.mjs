@@ -1,7 +1,9 @@
 // Book & Author info modal battery (src/js/book-info.js) — the two-tab modal on
-// every entry point: reader book-title click (Book tab), reader author-line
-// click (Author tab), Alt+I, and the authors browse modal's per-row ℹ button
-// (stacked — Escape closes the info modal first, then the browse modal).
+// every entry point: Alt+I and the reader's Arabic subtitle (Book tab), the
+// reader author-line click (Author tab), and the authors browse modal's
+// per-row ℹ button (stacked — Escape closes the info modal first, then the
+// browse modal). A title click is no longer an entry point — it copies the
+// title and replays the scroll tease (S1 covers that).
 // Covers the pane content (facts derived from 02/03 + the content CSV, notes
 // from the fixture markdown, the bio's auto-TOC), the re-targeting search
 // (count == number of <mark>s, query survives tab switches, no-match, clear),
@@ -14,8 +16,9 @@
 // Env overrides: HMV_INFO_PORT (default 9365), HMV_INFO_PROFILE.
 //
 // Checks:
-//  S1  reader title click → Book tab: title pair, author/years/CE/century/
-//      age/tags fact rows, rows·chapters·version meta line, markdown notes
+//  S1  reader title click copies the title (Copied! toast, no modal);
+//      Alt+I → Book tab: title pair, author/years/CE/century/age/tags
+//      fact rows, markdown notes
 //  S2  a book with no notes file shows the quiet "No notes yet" placeholder
 //      (and an author without a bio gets one on the Author tab too; the
 //      Works tab still renders)
@@ -274,6 +277,13 @@ async function main() {
     })`);
   }
 
+  // Open the info modal from the reader the way the reader still offers it:
+  // Alt+I (a title click copies the title + replays the scroll tease now).
+  async function openInfoReader() {
+    await evalJS(`document.dispatchEvent(new KeyboardEvent('keydown', { key: 'i', altKey: true, bubbles: true }))`);
+    await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  }
+
   // The reader fixture (muwatta) — the battery runs the page in English and
   // derives its expected strings from 02/03 + the notes fixtures.
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
@@ -281,13 +291,28 @@ async function main() {
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
   await waitFor(`document.querySelector('#readerContent .reader-chunk')`);
 
-  // ── S1: title click → Book tab ─────────────────────────────────────
-  await evalJS(`document.getElementById('pageTitle').click()`);
-  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  // ── S1: title click copies + replays (no modal); Alt+I → Book tab ──
+  // The title is a live widget: a click copies the full title and replays
+  // the scroll tease. Use a trusted CDP pointer click — a programmatic
+  // .click() carries no user activation, and the clipboard refuses to
+  // write without it (a ⚠️ toast instead of "Copied!").
+  const titlePt = await evalJS(`(function () {
+    var r = document.getElementById('pageTitle').getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  })()`);
+  await send("Input.dispatchMouseEvent", { type: "mousePressed", x: titlePt.x, y: titlePt.y, button: "left", buttons: 1, clickCount: 1 });
+  await send("Input.dispatchMouseEvent", { type: "mouseReleased", x: titlePt.x, y: titlePt.y, button: "left", buttons: 0, clickCount: 1 });
+  await waitFor(`!!document.querySelector('.toast.show')`);
+  check("S1 title click copies the title (Copied! toast)", await evalJS(
+    `!!document.querySelector('.toast.show') && document.querySelector('.toast.show').textContent === 'Copied!'`),
+    await evalJS(`document.querySelector('.toast.show') ? document.querySelector('.toast.show').textContent : '(no toast)'`));
+  check("S1 title click no longer opens the info modal", await evalJS(
+    `!document.getElementById('infoOverlay') || !document.getElementById('infoOverlay').classList.contains('open')`));
+  await openInfoReader();
   // The pane renders async (author definitions → registry → notes fetch) —
   // wait for the notes section label before asserting anything in it.
   await waitFor(`!!document.querySelector('#infoPane .info-section-label')`);
-  check("S1 title click opens the info modal on the Book tab", await evalJS(
+  check("S1 Alt+I opens the info modal on the Book tab", await evalJS(
     `document.getElementById('infoOverlay').classList.contains('open') &&
      document.querySelector('#infoModalBody .info-tab[data-tab="book"]').classList.contains('active')`));
   check("S1 head shows the current-lang title pair", await evalJS(
@@ -727,8 +752,7 @@ async function main() {
   await send("Emulation.setDeviceMetricsOverride", { width: 600, height: 800, deviceScaleFactor: 1, mobile: false });
   await goto("file://" + ROOT + "reader.html?book=HDT-muwattaMalik");
   await waitFor(`document.querySelector('#readerContent .reader-chunk')`);
-  await evalJS(`document.getElementById('pageTitle').click()`);
-  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  await openInfoReader();
   await waitFor(`!!document.querySelector('#infoPane .info-section-label')`);
   // The info modal shares the full-size geometry rule with the search
   // window (both 92vw-capped at mobile by the base .modal max-width) — the
@@ -803,8 +827,7 @@ async function main() {
   // The same modal at desktop width: the actions sit inline in the band
   // (the toggle is display:none) — the S11 mobile checks above proved the
   // collapsed state, this one proves the untouched desktop layout.
-  await evalJS(`document.getElementById('pageTitle').click()`);
-  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  await openInfoReader();
   check("S11 desktop: actions inline in the tab band, toggle hidden", await evalJS(
     `(() => { var t = document.getElementById('infoActionsToggle').getBoundingClientRect(); var a = document.getElementById('infoActions').getBoundingClientRect(); return t.width === 0 && t.height === 0 && a.width > 0 && a.height > 0; })()`),
     await evalJS(`(() => { var t = document.getElementById('infoActionsToggle').getBoundingClientRect(); var a = document.getElementById('infoActions').getBoundingClientRect(); return 'toggle=' + Math.round(t.width) + 'x' + Math.round(t.height) + ' actions=' + Math.round(a.width) + 'x' + Math.round(a.height); })()`));
@@ -817,8 +840,7 @@ async function main() {
   // fixtures) — each surface shows the placeholder, never an error.
   await goto("file://" + ROOT + "reader.html?book=HDT-arbaoonNawawi");
   await waitFor(`document.querySelector('#readerContent .reader-chunk')`);
-  await evalJS(`document.getElementById('pageTitle').click()`);
-  await waitFor(`!!document.getElementById('infoOverlay') && document.getElementById('infoOverlay').classList.contains('open')`);
+  await openInfoReader();
   await waitFor(`document.querySelectorAll('#infoPane .info-no-notes').length === 1`);
   check("S2 book without notes shows the placeholder", await evalJS(
     `document.querySelector('#infoPane .info-no-notes').textContent === 'No notes yet'`));

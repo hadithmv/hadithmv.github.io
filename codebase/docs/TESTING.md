@@ -197,9 +197,10 @@ while `static/`/`data/` stay siblings, and S8b's golden comparison
 normalises the embedded tree name so the minified pages/js/css are still
 byte-checked (`src/` runs stay the byte-identity baseline; the pages are
 minified by @minify-html/node — structure + inline script/style blocks via
-`minify_js`/`minify_css`). It drives both entry points on the reader
-(title click + Alt+I → Book tab, author line → Author tab) and the
-authors-modal ℹ affordance (stacking, Escape order), the fact strips
+`minify_js`/`minify_css`). It drives the reader's info-modal entry points
+(Alt+I → Book tab, author line → Author tab — S1 separately asserts that
+a title click copies the title, replays the tease and opens no modal) and
+the authors-modal ℹ affordance (stacking, Escape order), the fact strips
 (data-derived via `parseCSV`), the markdown renderer against the notes
 fixtures (auto-TOC, deep links), the Works tab (a third tab, hidden
 without an author, holding the works list + dashboard link), the in-modal
@@ -442,6 +443,16 @@ Before touching product code, run this sequence:
   navigation off the window input, anything that focuses a target on open —
   must click with real CDP mouse events and snapshot `document.activeElement`
   (tag + id + class) immediately after each click, before dispatching keys.
+- **`el.click()` also carries no user activation — clipboard probes need a
+  trusted click.** `navigator.clipboard.writeText` rejects without transient
+  activation, and the `execCommand` fallback returns false by design
+  (common.js refuses to claim a copy that didn't happen) — so a synthetic
+  `.click()` on the reader title shows the ⚠️ failure toast even though the
+  handler ran. The info battery's S1 clicks the title with
+  `Input.dispatchMouseEvent` and asserts the "Copied!" toast;
+  `Browser.grantPermissions` (`clipboardReadWrite`) plus a `readText`
+  read-back is the strongest form when the probe must prove the copied
+  text, not just the toast.
 - **Stream-battery B10/B11/B12 stalls are an environmental fetch stall —
   retry, don't debug.** (B12's WARNs — "modal throttle did not pace the
   download", "B12 gate probe skipped", "B12c pct never paced mid-range" —
