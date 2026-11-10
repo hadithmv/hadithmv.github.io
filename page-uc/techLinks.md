@@ -67,6 +67,8 @@
 
 ---
 
+---
+
 <!-- TOC --><a name="software-websites"></a>
 
 ## Software Websites
@@ -135,11 +137,11 @@
 
 ## AI Models
 
-[Claude](https://claude.ai/chat)
+[Anthropic Claude](https://claude.ai/chat)
 
-[ChatGPT](https://chat.openai.com)
+[OpenAI ChatGPT](https://chat.openai.com)
 
-[Gemini](https://gemini.google.com/chat)
+[Google Gemini](https://gemini.google.com/chat)
 
 [DeepSeek](https://www.deepseek.com/en/)
 
@@ -160,6 +162,8 @@
 [iLovePDF](https://www.ilovepdf.com/)
 
 [VirusTotal](https://www.virustotal.com/)
+
+---
 
 <!-- TOC --><a name="graphics-and-media"></a>
 
@@ -204,6 +208,8 @@
 [TableConvert](https://tableconvert.com)
 
 [html-to-markdown](https://html-to-markdown.com/api/demo-convert)
+
+---
 
 ---
 
@@ -278,9 +284,11 @@ Last Price Change: $331.00 USD (2026-11-02) -->
 
 ---
 
+---
+
 <!-- TOC --><a name="windows-setup-migration"></a>
 
-## Windows Pre Setup / Migration
+## Windows Setup / Migration
 
 <!-- dont know about these:
 Add Windows Sandbox setup (requires Pro/Enterprise)
@@ -307,6 +315,64 @@ https://files.community/
 Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, consider Cloudflare WARP (1.1.1.1) (free, faster) or a reputable VPN like ProtonVPN.
 
 -->
+
+---
+
+<!-- TOC --><a name="base-setup"></a>
+
+### Drivers and Updates
+
+- plug in to internet?
+- create restore point
+- update windows (until no more updates)
+- update motherboard firmware and drivers (from official sources, can usually detect device from website, and have vendor software for managing it, but turn off its auto updates)
+- update gpu firmware and drivers (nvidia, amd, intel?)
+- update microsoft store
+
+---
+
+<!-- TOC --><a name="apps-debloat"></a>
+
+### Apps & Debloat
+
+- ninite?
+  - skip ignore all edge questions / offers
+
+- iobit uninstall bloatware (preinstalled software & games)
+  - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)?
+  - or https://github.com/christitustech/winutil?
+    - standard?
+
+---
+
+### Initial Setup
+
+- date uk + short date + time zone: utc +5 karachi (might need to do some from control panel later)
+- language for non unicode programs: arabic saudi?
+
+- startup apps, turn off unneeded
+  - run; shell:startup
+
+- mouse settings?
+  - Enhance pointer precision (acceleration)?
+  - set pointer speed: (default)
+  - mouse pointer and touch, size: 1? 2?
+
+- bios settings
+  - bios auto-on schedule?
+  - bios cpu undervolt
+  - bios ram overclock?
+  - bios keyboard backlight?
+
+- dev drive
+  - first backup, then format D drive,
+    - disk management, right click D drive, delete
+    - create a dev drive, label: DevDrive
+  - VHDX?
+
+- create restore point
+
+---
 
 <!-- TOC --><a name="export-windows-software-list"></a>
 
@@ -537,6 +603,7 @@ ZKBio CVAccess
 
 ...
 
+Microsoft Office
 ShareX
 
 ---
@@ -544,9 +611,6 @@ ShareX
 <!-- TOC --><a name="other-program-configs"></a>
 
 ### Other Program Configs
-
-- apps, startup
-  - disable unneeded
 
 - powertoys
   - autostart
@@ -735,7 +799,7 @@ ShareX
 
 <!-- TOC --><a name="messaging-programs"></a>
 
-### Messaging Programs
+### Desktop Messaging Programs
 
 - telegram
   - add accounts
@@ -889,7 +953,7 @@ ShareX
 
 <!-- TOC --><a name="personalization"></a>
 
-### Personalization
+### Windows Personalization
 
 - bluetooth: off
 
@@ -932,17 +996,11 @@ ShareX
     - refresh rate?
 
   - dark mode (requires windows activation)
-
   - fonts (faruma, fira code) / font size adjustments?
-
   - adjust cleartype text
-
   - add keyboards: ar saudi, divehi (phonetic)
-
   - uk date + first day of the week; sun
-
   - 12 hour clock + short time & date no zero
-
   - windows clipboard history: on
 
 - taskbar, taskbar items
@@ -960,9 +1018,165 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="before-installing-fresh-windows"></a>
+<!-- TOC --><a name="pin-to-taskbar"></a>
 
-### Before Installing Fresh Windows
+### Pin to Taskbar
+
+- remove uneeded pins
+- pin
+  - task manager, qdir, file explorer, everything, browser
+  - email, notepad++, notion, word, excel
+  - vscode, meldmerge, android studio, antigravity
+  - chrome remote desktop
+  - teams, telegram, whatsapp, signal, viber
+  - shamela, jamiulkhadem, hmv
+
+---
+
+<!-- TOC --><a name="personal-files-final-setup"></a>
+
+### Desktop Personal Files & Final Setup
+
+- transfer files + folders
+- windows backup
+- cloud backup (google, onedrive)
+- power mode: battery / performance
+- screen off: 15 mins
+- sleep: 5 hours
+- create restore point again
+
+---
+
+<!-- TOC --><a name="apps-debloat"></a>
+
+## Web Browser
+
+- edge
+  - sign in?
+  - settings
+    - profile, theme color, avatar
+    - ad privacy
+      - ad topics: off
+      - site suggested ads: off
+      - ad measurement: off
+    - performance
+      - memory saver: on, balanced?
+    - appearance
+      - customize your toolbar
+        - bookmarks: on
+        - history: on
+        - downloads: on
+        - reading mode: on
+      - show bookmarks bar: on
+      - show tab search button
+      - show tab groups in bookmark bar
+      - side panel position: right
+      - show tab preview images
+      - show tab memory usage
+      - font size: medium?
+      - page zoom: 125%?
+      - allow split view drag and drop
+    - search engine: google
+    - on startup: continue where you left off
+    - chrome://flags
+      - vertical tabs: enabled
+        - close and reopen chrome
+        - right click tab: show tabs vertically
+    - enable desktop notifications for
+      - gmail
+
+---
+
+<!-- TOC --><a name="exportimport-browser-bookmarks"></a>
+
+### Export/Import Browser Bookmarks
+
+<!-- last done: 12/6/26 -->
+
+- open bookmarks/favorites menu
+  - ...
+  - export favorites
+  - save html file
+- note: if using workspaces, no normal way to export those as workspaces, instead have to:
+  - right click empty space in tab area
+  - choose 'add open pages to favorites'
+  - give it a folder name
+  - have to do this one by one for each workspace
+
+<!-- TOC --><a name="export-browser-extensions-list"></a>
+
+---
+
+### Export Browser Extensions
+
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
+
+Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
+
+- export all to csv, open as spreadsheet
+- copy first column list
+
+<!-- TOC --><a name="browser-extensions"></a>
+
+---
+
+### Browser Extensions List
+
+Allow Copy +
+Chrome Regex Search
+Chrome Remote Desktop
+Dark Reader
+Extension List
+Focus Tab Groups
+GitHub Repo and File Size
+Lighthouse
+Markdown Editor for Chrome™
+Markdown Viewer
+New Tab Draft?
+Office Editing for Docs, Sheets & Slides
+Open incognito tab
+Open Selected Links
+OneTab
+Page Grid?
+Page Ruler?
+Quick Chrome History Export
+Refined GitHub
+Session Buddy
+Tab Manager Plus for Chrome
+Tab Porter
+Tab Suspender by Workona
+Table Capture
+Table Download
+uBlock Origin Lite
+UltraSurf Security, Privacy & Freedom VPN
+
+---
+
+<!-- TOC --><a name="android-setup-migration"></a>
+
+## Browser Extensions Setup
+
+- focus tab groups?
+  - tab repositioning; reposition tabs direction & reposition tab group direction; none
+
+- dark reader, uBlock Origin Lite, ultrasurf
+  - allow inprivate
+
+- dark reader
+  - allow access to file urls
+  - click extension, more, all settings, enable for pdf files
+
+- ultrasurf
+  - disconnect after installing
+
+---
+
+---
+
+## Installing Fresh Windows
+
+### Preparation
 
 - note all apps + settings on old pc
 - backup all files + folders to a hard drive
@@ -1059,213 +1273,32 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="base-setup"></a>
-
-### Drivers and Updates
-
-- plug in to internet?
-- create restore point
-- update windows (until no more updates)
-- update motherboard firmware and drivers (from official sources, can usually detect device from website, and have vendor software for managing it, but turn off its auto updates)
-- update gpu firmware and drivers (nvidia, amd, intel?)
-- update microsoft store
-
----
-
-### Initial Setup
-
-- date uk + short date + time zone: utc +5 karachi (might need to do some from control panel later)
-- language for non unicode programs: arabic saudi?
-
-- startup apps, turn off unneeded
-  - run; shell:startup
-
-- mouse settings?
-  - Enhance pointer precision (acceleration)?
-  - set pointer speed: (default)
-  - mouse pointer and touch, size: 1? 2?
-
-- bios settings
-  - bios auto-on schedule?
-  - bios cpu undervolt
-  - bios ram overclock?
-  - bios keyboard backlight?
-
-- dev drive?
-  - first backup, then format D drive,
-    - disk management, right click D drive, delete
-    - create a dev drive, label: DevDrive
-
-- create restore point
-
----
-
-<!-- TOC --><a name="apps-debloat"></a>
-
-### Apps & Debloat
-
-- ninite?
-  - skip ignore all edge questions / offers
-
-- iobit uninstall bloatware (preinstalled software & games)
-  - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)?
-  - or https://github.com/christitustech/winutil?
-    - standard?
-
-- microsoft office
-
----
-
-<!-- TOC --><a name="pin-to-taskbar"></a>
-
-### Pin to Taskbar
-
-- remove useless pins
-- task manager, qdir, file explorer, everything, browser
-- email, notepad++, notion, word, excel
-- vscode, meldmerge, android studio, antigravity
-- chrome remote desktop
-- teams, telegram, whatsapp, signal, viber
-- shamela, jamiulkhadem, hmv
-
-<!-- TOC --><a name="personal-files-final-setup"></a>
-
-### Personal Files & Final Setup
-
-- transfer files + folders
-- windows backup
-- cloud backup (google, onedrive)
-- power mode: battery / performance
-- screen off: 15 mins
-- sleep: 5 hours
-- create restore point again
-
----
-
-<!-- TOC --><a name="apps-debloat"></a>
-
-### Web Browser
-
-- edge
-  - sign in?
-  - settings
-    - profile, theme color, avatar
-    - ad privacy
-      - ad topics: off
-      - site suggested ads: off
-      - ad measurement: off
-    - performance
-      - memory saver: on, balanced?
-    - appearance
-      - customize your toolbar
-        - bookmarks: on
-        - history: on
-        - downloads: on
-        - reading mode: on
-      - show bookmarks bar: on
-      - show tab search button
-      - show tab groups in bookmark bar
-      - side panel position: right
-      - show tab preview images
-      - show tab memory usage
-      - font size: medium?
-      - page zoom: 125%?
-      - allow split view drag and drop
-    - search engine: google
-    - on startup: continue where you left off
-    - chrome://flags
-      - vertical tabs: enabled
-        - close and reopen chrome
-        - right click tab: show tabs vertically
-    - enable desktop notifications for
-      - gmail
-
----
-
-<!-- TOC --><a name="exportimport-browser-bookmarks"></a>
-
-### Export/Import Browser Bookmarks
-
-<!-- last done: 12/6/26 -->
-
-- open bookmarks/favorites menu
-  - ...
-  - export favorites
-  - save html file
-- note: if using workspaces, no normal way to export those as workspaces, instead have to:
-  - right click empty space in tab area
-  - choose 'add open pages to favorites'
-  - give it a folder name
-  - have to do this one by one for each workspace
-
-<!-- TOC --><a name="export-browser-extensions-list"></a>
-
-### Export Browser Extensions List
-
-<!-- last done: 12/6/26
-make sure to take one backup of last list before adding new one -->
-
-Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
-
-- export all to csv, open as spreadsheet
-- copy first column list
-
-<!-- TOC --><a name="browser-extensions"></a>
-
-### Browser Extensions
-
-Allow Copy +
-Chrome Regex Search
-Chrome Remote Desktop
-Dark Reader
-Extension List
-Focus Tab Groups
-GitHub Repo and File Size
-Lighthouse
-Markdown Editor for Chrome™
-Markdown Viewer
-New Tab Draft?
-Office Editing for Docs, Sheets & Slides
-Open incognito tab
-Open Selected Links
-OneTab
-Page Grid?
-Page Ruler?
-Quick Chrome History Export
-Refined GitHub
-Session Buddy
-Tab Manager Plus for Chrome
-Tab Porter
-Tab Suspender by Workona
-Table Capture
-Table Download
-uBlock Origin Lite
-UltraSurf Security, Privacy & Freedom VPN
-
----
-
-<!-- TOC --><a name="android-setup-migration"></a>
-
-## Extensions Setup
-
-- focus tab groups?
-  - tab repositioning; reposition tabs direction & reposition tab group direction; none
-
-- dark reader, uBlock Origin Lite, ultrasurf
-  - allow inprivate
-
-- dark reader
-  - allow access to file urls
-  - click extension, more, all settings, enable for pdf files
-
-- ultrasurf
-  - disconnect after installing
-
 ---
 
 <!-- TOC --><a name="android-setup-migration"></a>
 
 ## Android Setup / Migration
+
+---
+
+<!-- TOC --><a name="export-android-apps-list"></a>
+
+### Export Android Apps List
+
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
+
+Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_manager]
+
+- install, skip permissions
+- tap and hold and app, then in top left corner open dropdown, select all apps
+- in the top menu to the right, tap share
+- what to share: change to app names
+- tap the copy icon to the right
+- paste elsewhere
+- some apps will not be available from playstore, so will have to get them from apk mirrors, or back them up using another app like 'apps backup restore'
+
+---
 
 <!-- ! REMEMBER TO REMOVE:
 Binance
@@ -1392,19 +1425,24 @@ Zikuru
 
 <!-- TOC --><a name="backups"></a>
 
-### Backing Up Apps
+### Backing Up App Data
 
 - authenticator apps (google, microsoft)
   - export accounts via QR code to the new phone or ensure cloud sync is active before wiping the old phone
+
 - bitwarden
   - sync vault, ensure master password is memorized
+
 - messaging apps (telegram, signal)
   - whatsapp: ..., settings, chats, chat backup, 'back up'
   - whatsapp business: do the same
   - viber: ..., settings, account, viber backup, 'back up now'
   - signal: ..., settings, backups, view settings, 'back up now'. view recovery key, record your recovery key, copy and save in password manager
+
 - google contacts
   - organize, export to file, select all, save as vcf in downloads, copy elsewhere
+
+---
 
 <!-- TOC --><a name="before-wiping-old-phone"></a>
 
@@ -1509,6 +1547,7 @@ Zikuru
 ### Phone Settings
 
 - bluetooth: off
+
 - lock screen
   - sleep after 2 mins of inactivity
   - customise shortcuts: left calculator, right camera
@@ -1527,12 +1566,14 @@ Zikuru
     - press and hold home button: circle to search
     - press and hold back button: turn off screen
   - arrange items in recents, show memory status: on
+
 - display and brightness
   - automatic brightness: off
   - set screen brightness
   - reading mode on, cycle
   - refresh rate default, others like it high (120hz)?
   - font size / zoom?
+
 - sound and vibration
   - notification: preinstalled ringtones, droplets
   - ringtone: beep
@@ -1548,6 +1589,7 @@ Zikuru
     - (only leave; when charger connected)
   - fingerprint effects, fingeprint recognition, fingerprint animation: off
   - themes, my account, settings: show ads off, personalized recommendations: off
+
 - fingerprints, add more fingers
   - lock screen
     - make pattern visible: off
@@ -1559,12 +1601,14 @@ Zikuru
     - enroll in user experience program: off
     - ad services, personalized ads: off
     - find hub: allow device to be location, set remote lock online
+
 - safety and emergency
   - medical information
     - name
     - blood type
   - emergency contacts: add
   - emergency sos?
+
 - apps
   - background autostart, turn off:
     - google wallet
@@ -1573,14 +1617,17 @@ Zikuru
     - wallpaper carousel
     - signal
     - calendar?
+
 - battery
   - set power profile (balanced/battery saver?)
   - close apsp that drain battery / put unused apps to sleep
+
 - digital wellbeing
   - bedtime mode
     - next, use a schedule, done
     - motion and light detection: off
   - screen time reminders: on
+
 - accessibility
   - general, gesture shortcuts
     - launch digital assistant: off
@@ -1588,9 +1635,11 @@ Zikuru
   - vision
     - display size and magnification?
     - remove animations on
+
 - additional settings
   - date and time, 24 hour format: off
   - memory extension: off
+
 - privacy
   - ads
     - ads privacy:
@@ -1600,17 +1649,22 @@ Zikuru
     - reset advertising id
     - delete advertising id
   - usage and diagnostics: off
+
 - location
   - share location info with carrier: deny
   - wifi scanning: off
   - bluetooth scanning: off
+
 - camera, down arrow from the top, settings
   - photo
     - quality?
   - general
     - gridlines: golden ratio, center mark
     - shutter sound: off
+
 - change weekday start from monday to sunday?
+
+---
 
 <!-- TOC --><a name="other-settings"></a>
 
@@ -1652,7 +1706,7 @@ Zikuru
       - withdrawal of consent?
   - settings, fingerprints and security, authorization and revocation, msa: off
 - disable/restrict unused system services (careful)?
-- alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
+- alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill?, but effective for samsung/xiaomi devices?)
 
 ---
 
@@ -1676,15 +1730,19 @@ Zikuru
   - set download folder? -->
 - sign in to play console
 - add recovery email for new google account
+
 - google translate
   - download offline languages?
+
 - google maps
   - download offline map
+
 - restore social media app backups
   - whatsapp → verify number → restore when prompted
   - whatsapp business too
   - signal → transfer or restore → enter passphrase
   - viber from google drive
+
 - restore authenticator / 2FA codes
   - microsoft authenticator: dont 'add account', instead 'begin recovery'
     - this auto adds personal account authenticators
@@ -1693,6 +1751,7 @@ Zikuru
     - in new phone, tap 'action' required on those required, then scan the qr code
     - repeat for the rest of the accounts
     - turn off app lock
+
 - sign into:
   - bitwarden
   - microsoft
@@ -1701,6 +1760,7 @@ Zikuru
       - on your mobile device: open the outlook mobile app and tap add account, if prompted, select sign in using the qr code on your computer, select scan qr code to open your camera, then point it at the qr code displayed on your computer screen (might have to turn off dark mode)
       - for work/school accounts, have to sign in manually
       - teams, onedrive, office too
+
 - BML mobile, dark theme
 <!-- - dual apps -->
 - faisamobile
@@ -1709,6 +1769,7 @@ Zikuru
 <!-- - dual apps -->
 - efaas
 - notion
+
 - social apps
   - facebook, instagram; skip access to contacts | ..., settings: dark mode
   - business suite; phone settings, display, dark mode options, individual apps: business suite
@@ -1729,8 +1790,10 @@ Zikuru
     - add widget to home screen
   - 1.1.1.1 / ultrasurf / orbot
     - verify VPN config, set auto-connect preferences?
+
 - al quran / quran apps
   - translations and tafsirs
+
 - anydesk / remote desktop
   - re-add saved connections
 
@@ -2011,6 +2074,7 @@ Zikuru
 - transfer backed up files + folders via USB (from PC, or wirelessly via ShareMe / Quick Share)
 - set up do not disturb (dnd) schedule for sleep hours?
 - disable or delay startup apps you don't need (developer options / phone manager)?
+
 - insert sim, verify signal
   - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is, settings should auto configure, might recieve an sms
   - check if data is working, if not need to set apn
@@ -2019,6 +2083,7 @@ Zikuru
   - give names to sims
   - check if calls and SMS working on sims
   - block / mute sms from numbers
+
 - restart phone to ensure everything is running smoothly?
 - set alarms, refer to old alarm screenshots
 - keep old phone around atleast a month until everything is tested and working on new device
@@ -2027,42 +2092,25 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="export-android-apps-list"></a>
-
-### Export Android Apps List
-
-<!-- last done: 12/6/26
-make sure to take one backup of last list before adding new one -->
-
-Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_manager]
-
-- install, skip permissions
-- tap and hold and app, then in top left corner open dropdown, select all apps
-- in the top menu to the right, tap share
-- what to share: change to app names
-- tap the copy icon to the right
-- paste elsewhere
-- some apps will not be available from playstore, so will have to get them from apk mirrors, or back them up using another app like 'apps backup restore'
-
 ---
 
 <!-- TOC --><a name="code-editors"></a>
 
 ## Code Editors
 
-[Visual Studio Code with GitHub Copilot](https://code.visualstudio.com)
+[Visual Studio Code](https://code.visualstudio.com)
 
-[Google AI Studio](https://aistudio.google.com/)
+[Google Antigravity IDE](https://antigravity.google/)
 
 [Cursor](https://cursor.com/)
 
-[Windsurf](https://windsurf.com/)
+[Devin](https://devin.ai/desktop)
 
 ---
 
 <!-- TOC --><a name="export-code-editor-extensions-list"></a>
 
-## Export Code Editor Extensions List
+## Export Extensions
 
 in terminal, use command:
 code --list-extensions
@@ -2070,6 +2118,12 @@ select and copy
 
 <!-- last done: 12/6/26
 make sure to take one backup of last list before adding new one -->
+
+---
+
+<!-- TOC --><a name="export-code-editor-extensions-list"></a>
+
+## Extensions List
 
 aaron-bond.better-comments
 alefragnani.project-manager
@@ -2154,6 +2208,32 @@ zh9528.file-size
 
 ---
 
+## Agentic Coding Tools
+
+[Claude Code](https://claude.com/product/claude-code)
+
+[OpenAI Codex](https://openai.com/codex/)
+
+[DeepSeek Harness](https://www.deepseek.com/en/harness/)
+
+---
+
+## AI API Platforms
+
+[Claude API](https://platform.claude.com/)
+
+[OpenAI API](https://platform.openai.com/)
+
+[Gemini API](https://ai.google.dev/)
+
+[DeepSeek API](https://platform.deepseek.com/usage)
+
+[OpenRouter Aggregator](https://openrouter.ai/)
+
+[OpenCode Agent](https://opencode.ai/)
+
+---
+
 <!-- TOC --><a name="node"></a>
 
 ## Node
@@ -2161,6 +2241,12 @@ zh9528.file-size
 [Node.js](https://nodejs.org)
 
 <!-- TOC --><a name="export-npm-packages-list"></a>
+
+## Install NPM Packages Globally
+
+1 package: npm install -g 'package_name'
+
+multiple packages: npm install -g 'package-one' 'package-two' 'package-three'
 
 ## Export NPM Packages List
 
@@ -2170,12 +2256,6 @@ make sure to take one backup of last list before adding new one -->
 in terminal, use command:
 npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
 select and copy
-
-## Install NPM Packages Globally
-
-1 package: npm install -g 'package_name'
-
-multiple packages: npm install -g 'package-one' 'package-two' 'package-three'
 
 <!-- TOC --><a name="npm-packages"></a>
 
@@ -2196,6 +2276,10 @@ typescript
 uglify-js
 
 <!-- TOC --><a name="torrents"></a>
+
+---
+
+---
 
 ## Torrents
 
@@ -2225,6 +2309,8 @@ tools > options >
 [Uptodown](https://en.uptodown.com/)
 
 [AppBrain](https://www.appbrain.com/)
+
+---
 
 ---
 
@@ -2356,7 +2442,13 @@ Xnip
 
 ---
 
-## Router / Hotspot Setup
+---
+
+## Router / Hotspot setup?
+
+## NAS / Homelab setup?
+
+<!-- !? -->
 
 ---
 
@@ -2466,9 +2558,10 @@ https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_
 
 #### Local - Maldives
 
-[Personal Computers](https://shop.personalcomputers.mv/) (they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER)
+[Personal Computers](https://shop.personalcomputers.mv/) (they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER. No refunds though.)
 
-[Click](https://click.mv/) (they have NO warranty and bad discounts, like a hundred mvr, they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is bad)
+[Click](https://click.mv/)
+(they have NO warranty and bad discounts, like a hundred mvr, they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is bad)
 
 [Computer Plus](https://computerplus.com.mv/categories)
 
