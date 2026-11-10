@@ -715,8 +715,19 @@ ShareX
   - install resizable emulator with latest system image api
 
 - docker desktop
+  - harware must allow virtualization
+    - to check, open task manager, performance, cpu, it should say virtualization: enabled, else you need to enable it through bios settings
   - turn windows features on, virtual machine platform: on, restart
-  - install with defaults
+  - install docker desktop with defaults
+  - install WSL, terminal: wsl --install, wait for it to install (you will now have a 'Linux' directory in my pc)
+    - then it will download ubuntu, wait for it to install too,
+      - create a default unix user account with username and password, save those
+      - backspace 'y', type 'n' and hinter enter to say no to metrics collection
+      - (you will now have an 'Ubuntu' directory in my pc) that is the path url to that directory
+  - open docker desktop
+    - settings, scroll down to WSL integration, toggle on enable integration with my default WSL distro
+      - apply and restart engine (you will now have an 'docker-desktop' directory in my pc)
+  - restart pc
 
 - sharex
   - settings
@@ -1114,7 +1125,7 @@ ShareX
 - pin
   - task manager, qdir, file explorer, everything, browser
   - email, notepad++, notion, word, excel
-  - vscode, meldmerge, android studio, antigravity
+  - vscode, meldmerge, terminal, android studio, antigravity
   - chrome remote desktop
   - teams, telegram, whatsapp, signal, viber
   - shamela, jamiulkhadem, hmv
