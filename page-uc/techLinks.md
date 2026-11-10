@@ -325,6 +325,7 @@ CrystalDiskInfo 9.8.0
 CrystalDiskMark 9.0.2
 CrystalMark Retro 2.0.6
 Cursor (User)
+Docker Desktop
 DB Browser for SQLite
 Dell Connected Service Delivery
 Dell Connected Service Delivery SubAgent
@@ -1250,6 +1251,7 @@ Hijri Calendar
 Hisnul Muslim
 Hisnul Muslim
 Instagram
+Jira
 Keep Notes
 Lens
 Male' Map
