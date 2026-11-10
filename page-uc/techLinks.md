@@ -13,31 +13,37 @@
 - [Documents and Files](#documents-and-files)
 - [Graphics and Media](#graphics-and-media)
 - [Miscellaneous](#miscellaneous)
-- [Web Browser](#web-browser)
-  - [Browser Setup](#browser-setup)
-  - [Export/Import Browser Bookmarks](#exportimport-browser-bookmarks)
-  - [Export Browser Extensions List](#export-browser-extensions-list)
-  - [Browser Extensions](#browser-extensions)
 - [Hardware / Uses](#hardware-uses)
 - [Windows Setup / Migration](#windows-setup-migration)
-  - [Export Windows Software List](#export-windows-software-list)
-- [Windows Software &amp; Programs](#windows-software-amp-programs)
-- [Other Windows Software](#other-windows-software)
-  - [Other Program Configs](#other-program-configs)
-  - [Messaging Programs](#messaging-programs)
-  - [Before Installing Fresh Windows](#before-installing-fresh-windows)
-  - [Clean Install](#clean-install)
-  - [Base Setup](#base-setup)
-  - [Personalization](#personalization)
+  - [Drivers and Updates](#drivers-and-updates)
   - [Apps & Debloat](#apps-debloat)
-  - [Pin to Taskbar](#pin-to-taskbar)
-  - [Personal Files & Final Setup](#personal-files-final-setup)
-- [Android Setup / Migration](#android-setup-migration)
-- [Android Apps](#android-apps)
-  - [Backups](#backups)
-  - [Before Wiping Old Phone](#before-wiping-old-phone)
   - [Initial Setup](#initial-setup)
-  - [Base Setup](#base-setup-1)
+  - [Export Windows Software List](#export-windows-software-list)
+  - [Windows Software &amp; Programs](#windows-software-amp-programs)
+  - [Other Windows Software](#other-windows-software)
+  - [Other Program Configs](#other-program-configs)
+  - [Desktop Messaging Programs](#desktop-messaging-programs)
+  - [Windows Personalization](#windows-personalization)
+  - [Pin to Taskbar](#pin-to-taskbar)
+  - [Desktop Personal Files & Final Setup](#desktop-personal-files-final-setup)
+- [Web Browser](#web-browser)
+  - [Export/Import Browser Bookmarks](#exportimport-browser-bookmarks)
+  - [Export Browser Extensions](#export-browser-extensions)
+  - [Browser Extensions List](#browser-extensions-list)
+  - [Browser Extensions Setup](#browser-extensions-setup)
+- [Installing Fresh Windows](#installing-fresh-windows)
+  - [Preparation](#preparation)
+  - [Creating Bootable Drive](#creating-bootable-drive)
+  - [Booting and Partioning](#booting-and-partioning)
+  - [Installing Windows](#installing-windows)
+- [Android Setup / Migration](#android-setup-migration)
+  - [Android Sites](#android-sites)
+  - [Export Android Apps List](#export-android-apps-list)
+  - [Android Apps List](#android-apps-list)
+  - [Backing Up App Data](#backing-up-app-data)
+  - [Before Wiping Old Phone](#before-wiping-old-phone)
+  - [Initial Setup](#initial-setup-1)
+  - [Base Setup](#base-setup)
   - [Keyboard Settings](#keyboard-settings)
   - [Phone Settings](#phone-settings)
   - [Other Settings](#other-settings)
@@ -45,17 +51,22 @@
   - [App Restoration](#app-restoration)
   - [Messaging Apps](#messaging-apps)
   - [Home Screen Layout](#home-screen-layout)
-  - [Personal Files & Final Setup](#personal-files-final-setup-1)
-  - [Export Android Apps List](#export-android-apps-list)
+  - [Personal Files & Final Setup](#personal-files-final-setup)
 - [Code Editors](#code-editors)
-- [Export Code Editor Extensions List](#export-code-editor-extensions-list)
+  - [Export Extensions](#export-extensions)
+  - [Extensions List](#extensions-list)
+  - [VSCode Settings](#vscode-settings)
+  - [Agentic Coding Tools](#agentic-coding-tools)
+  - [AI API Platforms](#ai-api-platforms)
 - [Node](#node)
-- [Export NPM Packages List](#export-npm-packages-list)
-- [NPM Packages](#npm-packages)
+  - [Install NPM Packages Globally](#install-npm-packages-globally)
+  - [Export NPM Packages List](#export-npm-packages-list)
+  - [NPM Packages](#npm-packages)
 - [Torrents](#torrents)
-- [Android Sites](#android-sites)
 - [Apple Sites](#apple-sites)
 - [Apple Software & Programs](#apple-software-programs)
+- [Router / Hotspot setup?](#router-hotspot-setup)
+- [NAS / Homelab setup?](#nas-homelab-setup)
 - [PC Building](#pc-building)
   - [Compatibility](#compatibility)
   - [Specs](#specs)
@@ -66,6 +77,80 @@
 <!-- TOC end -->
 
 ---
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Software Websites](#software-websites)
+- [Misc Websites](#misc-websites)
+- [Learn Coding](#learn-coding)
+- [AI Models](#ai-models)
+- [Documents and Files](#documents-and-files)
+- [Graphics and Media](#graphics-and-media)
+- [Miscellaneous](#miscellaneous)
+- [Hardware / Uses](#hardware-uses)
+- [Windows Setup / Migration](#windows-setup-migration)
+  - [Drivers and Updates](#drivers-and-updates)
+  - [Apps & Debloat](#apps-debloat)
+  - [Initial Setup](#initial-setup)
+  - [Export Windows Software List](#export-windows-software-list)
+  - [Windows Software &amp; Programs](#windows-software-amp-programs)
+  - [Other Windows Software](#other-windows-software)
+  - [Other Program Configs](#other-program-configs)
+  - [Desktop Messaging Programs](#desktop-messaging-programs)
+  - [Windows Personalization](#windows-personalization)
+  - [Pin to Taskbar](#pin-to-taskbar)
+  - [Desktop Personal Files & Final Setup](#desktop-personal-files-final-setup)
+- [Web Browser](#web-browser)
+  - [Export/Import Browser Bookmarks](#exportimport-browser-bookmarks)
+  - [Export Browser Extensions](#export-browser-extensions)
+  - [Browser Extensions List](#browser-extensions-list)
+  - [Browser Extensions Setup](#browser-extensions-setup)
+- [Installing Fresh Windows](#installing-fresh-windows)
+  - [Preparation](#preparation)
+  - [Creating Bootable Drive](#creating-bootable-drive)
+  - [Booting and Partioning](#booting-and-partioning)
+  - [Installing Windows](#installing-windows)
+- [Android Setup / Migration](#android-setup-migration)
+  - [Export Android Apps List](#export-android-apps-list)
+  - [Android Apps List](#android-apps-list)
+  - [Backing Up Android App Data](#backing-up-android-app-data)
+  - [Before Wiping Old Android Phone](#before-wiping-old-android-phone)
+  - [Android Initial Setup](#android-initial-setup)
+  - [Android Base Setup](#android-base-setup)
+  - [Android Keyboard Settings](#android-keyboard-settings)
+  - [Android Phone Settings](#android-phone-settings)
+  - [Android Other Settings](#android-other-settings)
+  - [Android Debloat and Remove Ads](#android-debloat-and-remove-ads)
+  - [Android App Restoration](#android-app-restoration)
+  - [Android Messaging Apps](#android-messaging-apps)
+  - [Android Home Screen Layout](#android-home-screen-layout)
+  - [Android Personal Files & Final Setup](#android-personal-files-final-setup)
+- [Android Sites](#android-sites)
+- [Code Editors](#code-editors)
+  - [Export VS Code Extensions](#export-vs-code-extensions)
+  - [VS Code Extensions List](#vs-code-extensions-list)
+  - [VSCode Settings](#vscode-settings)
+  - [Agentic Coding Tools](#agentic-coding-tools)
+  - [AI API Platforms](#ai-api-platforms)
+- [Node](#node)
+  - [Install NPM Packages Globally](#install-npm-packages-globally)
+  - [Export NPM Packages List](#export-npm-packages-list)
+  - [NPM Packages](#npm-packages)
+- [Torrents](#torrents)
+- [Apple Stuff](#apple-stuff)
+  - [Export Windows Software List](#export-windows-software-list-1)
+  - [Apple Software & Programs](#apple-software-programs)
+  - [Apple Sites](#apple-sites)
+- [Router / Hotspot setup?](#router-hotspot-setup)
+- [NAS / Homelab setup?](#nas-homelab-setup)
+- [PC Building](#pc-building)
+  - [Compatibility](#compatibility)
+  - [Specs](#specs)
+  - [PC Shops](#pc-shops)
+    - [International](#international)
+    - [Local - Maldives](#local-maldives)
+
+<!-- TOC end -->
 
 ---
 
@@ -318,7 +403,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 ---
 
-<!-- TOC --><a name="base-setup"></a>
+<!-- TOC --><a name="drivers-and-updates"></a>
 
 ### Drivers and Updates
 
@@ -344,6 +429,8 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
     - standard?
 
 ---
+
+<!-- TOC --><a name="initial-setup"></a>
 
 ### Initial Setup
 
@@ -394,7 +481,7 @@ Use: [UninstallView](https://www.nirsoft.net/utils/uninstall_view.html)
 
 <!-- TOC --><a name="windows-software-amp-programs"></a>
 
-## Windows Software &amp; Programs
+### Windows Software &amp; Programs
 
 QianXin Version 2.2.1
 7-Zip 26.01 (x64)
@@ -566,7 +653,7 @@ Hadithmv
 
 <!-- TOC --><a name="other-windows-software"></a>
 
-## Other Windows Software
+### Other Windows Software
 
 Advanced IP Scanner 2.5.1
 AXIS IP Utility 5.3.1.0
@@ -797,7 +884,7 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="messaging-programs"></a>
+<!-- TOC --><a name="desktop-messaging-programs"></a>
 
 ### Desktop Messaging Programs
 
@@ -951,7 +1038,7 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="personalization"></a>
+<!-- TOC --><a name="windows-personalization"></a>
 
 ### Windows Personalization
 
@@ -1033,7 +1120,7 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="personal-files-final-setup"></a>
+<!-- TOC --><a name="desktop-personal-files-final-setup"></a>
 
 ### Desktop Personal Files & Final Setup
 
@@ -1047,7 +1134,7 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="apps-debloat"></a>
+<!-- TOC --><a name="web-browser"></a>
 
 ## Web Browser
 
@@ -1103,9 +1190,9 @@ ShareX
   - give it a folder name
   - have to do this one by one for each workspace
 
-<!-- TOC --><a name="export-browser-extensions-list"></a>
-
 ---
+
+<!-- TOC --><a name="export-browser-extensions"></a>
 
 ### Export Browser Extensions
 
@@ -1117,9 +1204,9 @@ Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cb
 - export all to csv, open as spreadsheet
 - copy first column list
 
-<!-- TOC --><a name="browser-extensions"></a>
-
 ---
+
+<!-- TOC --><a name="browser-extensions-list"></a>
 
 ### Browser Extensions List
 
@@ -1153,9 +1240,9 @@ UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
-<!-- TOC --><a name="android-setup-migration"></a>
+<!-- TOC --><a name="browser-extensions-setup"></a>
 
-## Browser Extensions Setup
+### Browser Extensions Setup
 
 - focus tab groups?
   - tab repositioning; reposition tabs direction & reposition tab group direction; none
@@ -1174,7 +1261,11 @@ UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
+<!-- TOC --><a name="installing-fresh-windows"></a>
+
 ## Installing Fresh Windows
+
+<!-- TOC --><a name="preparation"></a>
 
 ### Preparation
 
@@ -1190,7 +1281,7 @@ UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
-<!-- TOC --><a name="clean-install"></a>
+<!-- TOC --><a name="creating-bootable-drive"></a>
 
 ### Creating Bootable Drive
 
@@ -1215,7 +1306,7 @@ UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
-<!-- TOC --><a name="clean-install"></a>
+<!-- TOC --><a name="booting-and-partioning"></a>
 
 ### Booting and Partioning
 
@@ -1225,7 +1316,7 @@ UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
-<!-- TOC --><a name="clean-install"></a>
+<!-- TOC --><a name="installing-windows"></a>
 
 ### Installing Windows
 
@@ -1279,8 +1370,6 @@ UltraSurf Security, Privacy & Freedom VPN
 
 ## Android Setup / Migration
 
----
-
 <!-- TOC --><a name="export-android-apps-list"></a>
 
 ### Export Android Apps List
@@ -1305,9 +1394,9 @@ Binance
 What to Expect
 -->
 
-<!-- TOC --><a name="android-apps"></a>
+<!-- TOC --><a name="android-apps-list"></a>
 
-## Android Apps
+### Android Apps List
 
 1.1.1.1
 3CX
@@ -1423,9 +1512,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="backups"></a>
+<!-- TOC --><a name="backing-up-android-app-data"></a>
 
-### Backing Up App Data
+### Backing Up Android App Data
 
 - authenticator apps (google, microsoft)
   - export accounts via QR code to the new phone or ensure cloud sync is active before wiping the old phone
@@ -1444,9 +1533,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="before-wiping-old-phone"></a>
+<!-- TOC --><a name="before-wiping-old-android-phone"></a>
 
-### Before Wiping Old Phone
+### Before Wiping Old Android Phone
 
 - export android apps list
 - take screenshots of home screen layout, to record where apps and widgets are positioned, homescreen folders too
@@ -1479,9 +1568,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="initial-setup"></a>
+<!-- TOC --><a name="android-initial-setup"></a>
 
-### Initial Setup
+### Android Initial Setup
 
 - charge both phones
 - boot up
@@ -1506,9 +1595,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="base-setup-1"></a>
+<!-- TOC --><a name="android-base-setup"></a>
 
-### Base Setup
+### Android Base Setup
 
 - update android OS (settings > system update) until no more updates
 - update google play system (settings > security > google play system update / fingerprint and security, privacy, google play system update)
@@ -1519,9 +1608,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="keyboard-settings"></a>
+<!-- TOC --><a name="android-keyboard-settings"></a>
 
-### Keyboard Settings
+### Android Keyboard Settings
 
 - install keyboard (microsoft swiftkey)
   - set as default keyboard
@@ -1542,9 +1631,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="phone-settings"></a>
+<!-- TOC --><a name="android-phone-settings"></a>
 
-### Phone Settings
+### Android Phone Settings
 
 - bluetooth: off
 
@@ -1666,9 +1755,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="other-settings"></a>
+<!-- TOC --><a name="android-other-settings"></a>
 
-### Other Settings
+### Android Other Settings
 
 - enable developer options (about phone, tap os version / build number 7 times)
 - settings, additional settings, developer options
@@ -1680,9 +1769,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="debloat-and-remove-ads"></a>
+<!-- TOC --><a name="android-debloat-and-remove-ads"></a>
 
-### Debloat and Remove Ads
+### Android Debloat and Remove Ads
 
 - remove useless widgets/pins: delete the google search bar and any unwanted default panels
 - uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
@@ -1710,9 +1799,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="app-restoration"></a>
+<!-- TOC --><a name="android-app-restoration"></a>
 
-### App Restoration
+### Android App Restoration
 
 - reinstall missing apps from your backup list
 - grant app permissions (deny location/camera/mic to apps that don't need it)
@@ -1797,9 +1886,9 @@ Zikuru
 - anydesk / remote desktop
   - re-add saved connections
 
-<!-- TOC --><a name="messaging-apps"></a>
+<!-- TOC --><a name="android-messaging-apps"></a>
 
-### Messaging Apps
+### Android Messaging Apps
 
 - discord
   - settings
@@ -2047,9 +2136,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="home-screen-layout"></a>
+<!-- TOC --><a name="android-home-screen-layout"></a>
 
-### Home Screen Layout
+### Android Home Screen Layout
 
 - remove all unneeded apps and shortcut pins from the home screen to keep it clean
 - arrange home screen layout (refer to screenshots)
@@ -2066,9 +2155,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="personal-files-final-setup-1"></a>
+<!-- TOC --><a name="android-personal-files-final-setup"></a>
 
-### Personal Files & Final Setup
+### Android Personal Files & Final Setup
 
 - nfc settings?
 - transfer backed up files + folders via USB (from PC, or wirelessly via ShareMe / Quick Share)
@@ -2092,6 +2181,22 @@ Zikuru
 
 ---
 
+<!-- TOC --><a name="android-sites"></a>
+
+## Android Sites
+
+[F-Droid](https://f-droid.org/en/)
+
+[APKMirror](https://www.apkmirror.com/)
+
+[Aptoide](https://en.aptoide.com/)
+
+[Uptodown](https://en.uptodown.com/)
+
+[AppBrain](https://www.appbrain.com/)
+
+---
+
 ---
 
 <!-- TOC --><a name="code-editors"></a>
@@ -2108,9 +2213,9 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="export-code-editor-extensions-list"></a>
+<!-- TOC --><a name="export-vs-code-extensions"></a>
 
-## Export Extensions
+### Export VS Code Extensions
 
 in terminal, use command:
 code --list-extensions
@@ -2121,9 +2226,9 @@ make sure to take one backup of last list before adding new one -->
 
 ---
 
-<!-- TOC --><a name="export-code-editor-extensions-list"></a>
+<!-- TOC --><a name="vs-code-extensions-list"></a>
 
-## Extensions List
+### VS Code Extensions List
 
 aaron-bond.better-comments
 alefragnani.project-manager
@@ -2200,7 +2305,9 @@ zh9528.file-size
 
 ---
 
-## VSCode Settings
+<!-- TOC --><a name="vscode-settings"></a>
+
+### VSCode Settings
 
 - settings ui
   - editor word wrap: on
@@ -2208,7 +2315,9 @@ zh9528.file-size
 
 ---
 
-## Agentic Coding Tools
+<!-- TOC --><a name="agentic-coding-tools"></a>
+
+### Agentic Coding Tools
 
 [Claude Code](https://claude.com/product/claude-code)
 
@@ -2218,7 +2327,9 @@ zh9528.file-size
 
 ---
 
-## AI API Platforms
+<!-- TOC --><a name="ai-api-platforms"></a>
+
+### AI API Platforms
 
 [Claude API](https://platform.claude.com/)
 
@@ -2240,15 +2351,17 @@ zh9528.file-size
 
 [Node.js](https://nodejs.org)
 
-<!-- TOC --><a name="export-npm-packages-list"></a>
+<!-- TOC --><a name="install-npm-packages-globally"></a>
 
-## Install NPM Packages Globally
+### Install NPM Packages Globally
 
 1 package: npm install -g 'package_name'
 
 multiple packages: npm install -g 'package-one' 'package-two' 'package-three'
 
-## Export NPM Packages List
+<!-- TOC --><a name="export-npm-packages-list"></a>
+
+### Export NPM Packages List
 
 <!-- last done: 12/6/26
 make sure to take one backup of last list before adding new one -->
@@ -2259,7 +2372,7 @@ select and copy
 
 <!-- TOC --><a name="npm-packages"></a>
 
-## NPM Packages
+### NPM Packages
 
 cssnano
 csso-cli
@@ -2275,11 +2388,11 @@ terser
 typescript
 uglify-js
 
+---
+
+---
+
 <!-- TOC --><a name="torrents"></a>
-
----
-
----
 
 ## Torrents
 
@@ -2296,56 +2409,28 @@ tools > options >
 
 ---
 
-<!-- TOC --><a name="android-sites"></a>
-
-## Android Sites
-
-[F-Droid](https://f-droid.org/en/)
-
-[APKMirror](https://www.apkmirror.com/)
-
-[Aptoide](https://en.aptoide.com/)
-
-[Uptodown](https://en.uptodown.com/)
-
-[AppBrain](https://www.appbrain.com/)
-
 ---
 
----
+<!-- TOC --><a name="apple-stuff"></a>
 
-<!-- TOC --><a name="apple-sites"></a>
+## Apple Stuff
 
-## Apple Sites
+<!-- TOC --><a name="export-windows-software-list-1"></a>
 
-[MacUpdate](https://www.macupdate.com/)
+### Export Windows Software List
 
-[Thriftmac](https://www.thriftmac.com/)
+<!-- last done: 17/5/26 -->
 
-[Macapps.link](https://macapps.link/)
-
-[Mac menu bar](https://macmenubar.com/recently-added/)
-
-[AppAddict](https://appaddict.app/)
-
-[Mac Treasure](https://mactreasure.com/)
-
-[Open Source Mac Apps](https://indiegoodies.com/awesome-open-source-mac-apps)
-
-[Awesome Mac](https://github.com/jaywcjlove/awesome-mac)
-
----
-
-<!-- last done: 17/5/26
 Copying the Finder View (Basic List)
 Open Finder and click Applications in the left sidebar.
 Click the View button in the Finder toolbar (the icon with four small squares) and select as List.
 Select all items (Cmd + A), copy them (Cmd + C), and paste them (Cmd + V) into a text file.
--->
+
+---
 
 <!-- TOC --><a name="apple-software-programs"></a>
 
-## Apple Software & Programs
+### Apple Software & Programs
 
 Siri
 Adobe Acrobat DC
@@ -2442,9 +2527,35 @@ Xnip
 
 ---
 
+<!-- TOC --><a name="apple-sites"></a>
+
+### Apple Sites
+
+[MacUpdate](https://www.macupdate.com/)
+
+[Thriftmac](https://www.thriftmac.com/)
+
+[Macapps.link](https://macapps.link/)
+
+[Mac menu bar](https://macmenubar.com/recently-added/)
+
+[AppAddict](https://appaddict.app/)
+
+[Mac Treasure](https://mactreasure.com/)
+
+[Open Source Mac Apps](https://indiegoodies.com/awesome-open-source-mac-apps)
+
+[Awesome Mac](https://github.com/jaywcjlove/awesome-mac)
+
 ---
 
+---
+
+<!-- TOC --><a name="router-hotspot-setup"></a>
+
 ## Router / Hotspot setup?
+
+<!-- TOC --><a name="nas-homelab-setup"></a>
 
 ## NAS / Homelab setup?
 
