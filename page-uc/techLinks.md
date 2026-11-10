@@ -674,9 +674,10 @@ ShareX
 - unigetui
   - settings
     - user interface preferences, appearance application theme: dark
-    - general
+    - general preferences
       - telemetry, manage, decline
       - privacy, hide my username from the logs: enable
+    - scheduled maintenance, check for package updates: off
 
 ---
 
@@ -1037,7 +1038,6 @@ ShareX
   - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)?
   - or https://github.com/christitustech/winutil?
     - standard?
-- unigetui, update check frequency: weekly
 - microsoft office
 - set autostart apps, run; shell:startup
 - add peripherals; keyboard, mouse, printer
