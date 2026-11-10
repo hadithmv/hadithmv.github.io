@@ -518,7 +518,6 @@ Chrome Remote Desktop
 Chrome Remote Desktop Host
 Cloudflare One Client
 Copilot
-CPUID CPU-Z 2.19
 CrystalDiskInfo 9.8.0
 CrystalDiskMark 9.0.2
 CrystalMark Retro 2.0.6
@@ -546,6 +545,7 @@ GPL Ghostscript
 Hard Disk Sentinel PRO
 High-Logic MainType 13
 HP Connection Optimizer
+HWiNFO
 Intel® Hardware Accelerated Execution Manager
 IObit Uninstaller 15
 IObit Unlocker
