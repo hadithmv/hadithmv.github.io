@@ -502,32 +502,15 @@ ShareX
 - powertoys
   - autostart
 
-- focus tab groups
-  - tab repositioning; reposition tabs direction & reposition tab group direction; none
-
-- dark reader, ublock origin, ultrasurf
-  - allow inprivate
-
-- dark reader
-  - allow access to file urls
-  - click extension, more, all settings, enable for pdf files
-
-- ultrasurf
-  - disconnect after installing
-
-- irfanview
-  - open images
-
 - apps, startup
   - disable unneeded
 
-  <!-- !! -- >
-
-
-- 7zip manager
+- 7 zip manager
   - default app to open archives
   - view, 2 panels
-    - options
+  - tools, options
+    - system: associate 7 zip with: +
+    - 7 zip
       - integrate to shell context menu
       - cascaded context menu
       - icons in context menu: on
@@ -660,11 +643,13 @@ ShareX
 - irfanview
   - download all plugins and install
   - options, viewing, window options: enable dark mode, ok
+  - open app as admin, options, set file associations
+    - images only, ok
 
 - meld
   - ..., preferences
-    - font
-      - editor font, select font 'sakkal majalla', size 23?
+    - font, deselect system fixed width font
+      - editor font, select font 'sakkal majalla' (download if dont have), size 23?
       - enable text wrapping
       - highlight current line
       - show line numbers
@@ -675,21 +660,23 @@ ShareX
   - settings, preferences, dark mode
 
 - notion
-  - settings, notifications, meeting detection: off
+  - settings, preferences, theme: dark
 
 - patch my pc
-  - schedular, off
+  - automatic update scheduler popup, choose no
 
 - qdir
-  - extras, dark theme
+  - extras, dark theme (requires system dark mode first)
 
 - sumatrapdf
   - settings, theme, dark
 
 - unigetui
   - settings
-    - telemetry, manage, decline
-    - privacy, hide my username from the logs: on
+    - user interface preferences, appearance application theme: dark
+    - general
+      - telemetry, manage, decline
+      - privacy, hide my username from the logs: enable
 
 ---
 
@@ -699,65 +686,68 @@ ShareX
 
 - telegram
   - add accounts
-  - settings
-    - notifications and sounds
-      - show notifications from: all accounts
-      - global settings
-        - desktop notifications: on
-        - flash the taskbar icon: on
-        - allow sound: on
-        - notifications for chats
-          - private chats: off + exceptions
-          - groups: off + exceptions
-          - channels: off + exceptions
-          - reactions: on
-        - contact joined telegram: off
-        - pinned messages: on
-        - accept calls on this device: on
-        - badge counter
-          - include muted chats in unread count: on
-          - include muted chats in folder counters: on
-          - count unread messasges: on
-        - system integration
-          - use windows notifications: off
-          - respect system focus mode: off
-      - privacy and security
-        - connected websites
-          - disconnect unneeded
-        - local passcode?
-        - chat settings
-          - loop animated stickers: off
-      - advanced
-        - automatic media download
-          - in private chats
-            - automatically download
-              - photos: on
-              - files: off
-              - limit by size: 1 mb
-            - autoplay
-              - round video messages: off
-              - videos: off
-              - gifs: off
-              - limit by size: 1 mb
-          - same with in groups and in channels
-        - window title bar
-          - show chat name: on
-          - show active account: on
-          - total unread count: on
-          - use system window frame: off
-        - system integration
-          - show tray icon: on
-          - show taskbar icon: on
-          - use monochrome icon: on
-          - launch telegram when system starts: off
-          - place telegram in send to menu: off
-        - performance
-          - battery and animations: all off
-          - hardware accelerated video decoding: off
-        - version and updates
-          - update automatically: on
-        - export telegram data?
-        - default interface scale: 170%?
+  - ...,
+    - night mode
+    - settings
+      - (if having multiple accounts)
+      - notifications and sounds?
+        - show notifications from: all accounts
+        - global settings
+          - desktop notifications: off
+          - flash the taskbar icon: on
+          - allow sound: off
+          - notifications for chats
+            - private chats: off + exceptions
+            - groups: off + exceptions
+            - channels: off + exceptions
+            - reactions: off
+          - contact joined telegram: off
+          - pinned messages: on
+          - accept calls on this device: on
+          - badge counter
+            - include muted chats in unread count: on
+            - include muted chats in folder counters: on
+            - count unread messasges: on
+          - system integration
+            - use windows notifications: off
+            - respect system focus mode: off
+        - privacy and security?
+          - connected websites, disconnect unneeded?
+          - local passcode lock?
+          - chat settings
+            - loop animated stickers: off
+        - advanced
+          - automatic media download
+            - in private chats (click to open)
+              - automatically download
+                - photos: on
+                - files: off
+                - limit by size: 1 mb
+              - autoplay
+                - round video messages: off
+                - videos: off
+                - gifs: off
+                - limit by size: 1 mb
+            - same with 'groups' and 'channels'
+          - window title bar
+            - show chat name: on
+            - show active account: on
+            - total unread count: on
+            - use system window frame: off
+          - system integration
+            - show tray icon: on
+            - show taskbar icon: on
+            - use monochrome icon: on
+            - launch telegram when system starts: off
+            - restore last opened windows: off
+            - place telegram in send to menu: off
+          - performance
+            - battery and animations: all off
+            - hardware accelerated video decoding: off
+          - version and updates
+            - update automatically: on
+          - export telegram data?
+          - default interface scale: 170%?
   - tips
     - while forwarding, right click to remove sender info
     - double click on someone's message to reply
@@ -769,8 +759,9 @@ ShareX
       - font size: 80%?
     - privacy
       - app lock?
-      - turn off previews: on
+      - turn off previews: off
     - chats
+      - display, theme: dark
       - media auto download
         - photos: on
         - audio: off
@@ -781,7 +772,7 @@ ShareX
       - show taskbar notification badge: always
       - messages, groups, calls: on
       - status: off
-      - show previews: on
+      - show previews: off
       - play sound for outgoing messages: off
 
 - viber
@@ -949,7 +940,7 @@ ShareX
 - plug in to internet?
 - create restore point
 - update windows (until no more updates)
-- update motherboard firmware and drivers (from official sources)
+- update motherboard firmware and drivers (from official sources, can usually detect device from website, and have vendor software for managing it, but turn off its auto updates)
 - update gpu firmware and drivers (nvidia, amd, intel?)
 - update microsoft store
 
@@ -957,22 +948,23 @@ ShareX
 
 ### Initial Setup
 
-- date uk + short date + time zone: utc +5 karachi
-- language for non unicode programs: arabic saudi
+- date uk + short date + time zone: utc +5 karachi (might need to do some from control panel later)
+- language for non unicode programs: arabic saudi?
 - startup apps
   - turn off unneeded
-- mouse settings
-  - set pointer speed: 10
-  - mouse pointer and touch
-    - size: 2?
-  - acceleration?
+- mouse settings?
+  - Enhance pointer precision (acceleration)?
+  - set pointer speed: (default)
+  - mouse pointer and touch, size: 1? 2?
 
 - bios settings
   - bios auto-on schedule?
   - bios cpu undervolt
   - bios ram overclock?
   - bios keyboard backlight?
-- create dev drive
+- create dev drive?
+  - first backup, then format D drive
+    - System > Storage > Disks & volumes > New Volume (D:), scroll down and format
 - create restore point
 
 ---
@@ -983,10 +975,9 @@ ShareX
 
 - bluetooth: off
 - privacy and security
-  - advertising id
-    - turn everything off
-  - diagnostics and feedback
-    - send optional diagnostic data: off
+- device encryption / bitlocker check?
+  - recommendations and offers, turn everything off
+  - diagnostics and feedback, send optional diagnostic data: off
   - search (privacy & security)
     - search history: off
     - show search highlights: off
@@ -994,14 +985,14 @@ ShareX
       - microsoft account: off
       - work or school account: off
 - run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
-- performance options (system properties > performance > settings), turn off:
+- performance options (system properties > performance > settings),
+  - (to put it short; remove everything else and just keep: enable peek, show shadows under mouse pointer, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.) or else turn off:
   - animate controls and elements inside windows
   - animate windows when minimizing and maximizing
   - animations in the taskbar
   - fade or slide menus into view
   - fade or slide tool tips into view
   - fade out menu items after clicking
-  - show shadows under mouse pointer
   - show shadows under windows
   - show translucent selection rectangle
   - show window contents while dragging
@@ -1009,30 +1000,29 @@ ShareX
   - use drop shadows for icon labels on the desktop
   - ?save taskbar menu previews
   - ?smooth scroll list boxes
-  - (to put it short; remove everything else and just keep: enable peek, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.)
 - ui, input & accessibility
   - display settings
     - set main display
-    - night light: on
-    - hdr: off
+    - night light, schedule: on, set hours 7pm to 7am
+    - hdr: off?
     - scale: 125%?
     - display resolution: til icons are clear
     - refresh rate?
-  - dark mode + night light
-  - fonts (faruma, fira code) / font size adjustments
-  - adjust cleartype
+  - dark mode (requires windows activation)
+  - fonts (faruma, fira code) / font size adjustments?
+  - adjust cleartype text
   - add keyboards: ar saudi, divehi (phonetic)
   - uk date + first day of the week; sun
   - 12 hour clock + short time & date no zero
-  - windows clipboard history
-- taskbar settings
-  - search: search box
+  - windows clipboard history: on
+- taskbar, taskbar items
+  - search: search box (default)
   - widgets: off
 - ux
   - file explorer
     - view, show: file name extensions + hidden items
-    - ..., options, view, advanced file settings, nnavigation pane: expand to open folder: off
-  - enable biometrics / pin
+    - ..., options, view, advanced settings, navigation pane, expand to open folder: off (default)
+  - biometrics / pin?
 
 ---
 
@@ -1154,24 +1144,46 @@ Chrome Remote Desktop
 Dark Reader
 Extension List
 Focus Tab Groups
-GitHub Repository Size
-Google Docs Offline
-Incognito Tab Mover
+GitHub Repo and File Size
 Lighthouse
-Markdown Reader
-New Tab Draft
+Markdown Editor for Chrome™
+Markdown Viewer
+New Tab Draft?
 Office Editing for Docs, Sheets & Slides
+Open incognito tab
 Open Selected Links
-Page Grid
-Page Ruler
+OneTab
+Page Grid?
+Page Ruler?
+Quick Chrome History Export
 Refined GitHub
-Tab Manager by Workona
+Session Buddy
 Tab Manager Plus for Chrome
+Tab Porter
 Tab Suspender by Workona
 Table Capture
 Table Download
-uBlock Origin
+uBlock Origin Lite
 UltraSurf Security, Privacy & Freedom VPN
+
+---
+
+<!-- TOC --><a name="android-setup-migration"></a>
+
+## Extensions Setup
+
+- focus tab groups?
+  - tab repositioning; reposition tabs direction & reposition tab group direction; none
+
+- dark reader, uBlock Origin Lite, ultrasurf
+  - allow inprivate
+
+- dark reader
+  - allow access to file urls
+  - click extension, more, all settings, enable for pdf files
+
+- ultrasurf
+  - disconnect after installing
 
 ---
 
