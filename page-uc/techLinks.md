@@ -905,7 +905,7 @@ ShareX
       - that turns them all into unallocated space, click that then next
       - create partions
         - 150 to 200+ gb for the partion you will be installing windows in (C:)
-        - the remainder for the other partion (for devdrive later?)
+        - the remainder for the other partion (for dev drive later?)
     - install
   - choose country: us
   - name the pc
@@ -963,9 +963,10 @@ ShareX
   - bios cpu undervolt
   - bios ram overclock?
   - bios keyboard backlight?
-- create dev drive?
-  - first backup, then format D drive
-    - System > Storage > Disks & volumes > New Volume (D:), scroll down and format
+- dev drive?
+  - first backup, then format D drive,
+    - disk management, right click D drive, delete
+    - create a dev drive, label: DevDrive
 - create restore point
 
 ---
