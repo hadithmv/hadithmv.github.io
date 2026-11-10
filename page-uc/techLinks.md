@@ -635,6 +635,7 @@ WizTree v4.31
 
 <!-- below are some programs that do not appear on the list above, so kept them here seperately -->
 
+Microsoft Office
 Microsoft 365 Copilot
 Microsoft Clipchamp
 Microsoft PC Manager
@@ -646,6 +647,7 @@ JADX
 Windows Subsystem for Linux
 WhatsApp
 Hadithmv
+Cloudflare One Client 1.1.1.1
 
 ---
 
@@ -690,7 +692,6 @@ ZKBio CVAccess
 
 ...
 
-Microsoft Office
 ShareX
 
 ---
@@ -1210,7 +1211,7 @@ Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cb
 
 ### Browser Extensions List
 
-Allow Copy +
+Allow Copy +?
 Chrome Regex Search
 Chrome Remote Desktop
 Dark Reader
@@ -1220,7 +1221,6 @@ GitHub Repo and File Size
 Lighthouse
 Markdown Editor for Chrome™
 Markdown Viewer
-New Tab Draft?
 Office Editing for Docs, Sheets & Slides
 Open incognito tab
 Open Selected Links
@@ -1232,7 +1232,6 @@ Refined GitHub
 Session Buddy
 Tab Manager Plus for Chrome
 Tab Porter
-Tab Suspender by Workona
 Table Capture
 Table Download
 uBlock Origin Lite
