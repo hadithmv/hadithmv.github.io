@@ -211,31 +211,76 @@
 
 ## Hardware / Uses
 
-Use: Speccy / CPU-Z
+Use: HWiNFO6 / Speccy / CPU-Z
 
 <!-- CPU: Dell Vostro 3910 -->
 <!-- Graphics: Dell Intel UHD Graphics 730 -->
 <!-- Motherboard: Dell Inc. 04VHC5 A04 (U3EI) -->
 <!-- PCI-Express 4.0 -->
 
-12th Gen Intel(R) Core(TM) i5-12400, 2500 Mhz, 6 Core(s), 12 Logical Processor(s)
+<!-- 12th Gen Intel(R) Core(TM) i5-12400, 2500 Mhz, 6 Core(s), 12 Logical Processor(s)
 Crucial Pro 64GB Kit (32GBx2) DDR4-3200 UDIMM
 1TB NVMe Lexar SSD NM620
 Logitech ERGO K860 Wireless Split Keyboard
-Logitech MX Vertical Ergonomic Wireless Mouse
-Acer SA322QK Monitor
+ -->
 
 <!-- Acer R271 Monitor
 HP 24es Monitor
 Philips 221V8/94 Monitor -->
 
+Computer: GIGABYTE B850M AORUS ELITE WIFI6E ICE
+CPU: AMD Ryzen 9 9900X (Granite Ridge, GNR-B0)
+Motherboard: GIGABYTE B850M AORUS ELITE WIFI6E ICE
+Chipset: AMD X870/B850 (Promontory PROM21L.6)
+Memory: 65536 MBytes DDR5 SDRAM @ 2395 MHz, 40-40-40-77 - 32768 MB PC49600 DDR5 SDRAM - Corsair CMP64GX5M2B6000Z30 - 32768 MB PC49600 DDR5 SDRAM - Corsair CMP64GX5M2B6000Z30
+Graphics: Zotac GeForce RTX 5060 Ti
+NVIDIA GeForce RTX 5060 Ti, 16311 MB GDDR7 SDRAM
+Graphics: AMD Granite Ridge - Internal GPU [GIGABYTE]
+AMD Radeon, 2048 MB DDR5 SDRAM
+Drive: Samsung SSD 9100 PRO 2TB, 1953.5 GB, NVMe
+
+Logitech MX Vertical Ergonomic Wireless Mouse
+Acer SA322QK Monitor
+Aula F75 Keyboard
 Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
+
+---
+
+AMD Ryzen 9 9900X
+
+Class: Desktop
+Socket: AM5
+Clockspeed: 4.4 GHz
+Turbo Speed: 5.6 GHz
+Cores: 12 Threads: 24
+Typical TDP: 120 W
+
+Cache per CPU Package:
+L1 Instruction Cache: 12 x 32 KB
+L1 Data Cache: 12 x 48 KB
+L2 Cache: 12 x 1024 KB
+L3 Cache: 64 MB
+
+Average CPU Markrating
+Multithread Rating: 54280
+Single Thread Rating: 4671
+
+<!-- CPU First Seen on Charts: Q3 2024
+
+CPUmark/$Price: 163.99
+
+Overall Rank:
+239th fastest in multithreading out of 6067 CPUs
+43rd fastest in single threading out of 6067 CPUs
+51st fastest in out of 1595 Desktop CPUs
+
+Last Price Change: $331.00 USD (2026-11-02) -->
 
 ---
 
 <!-- TOC --><a name="windows-setup-migration"></a>
 
-## Windows Setup / Migration
+## Windows Pre Setup / Migration
 
 <!-- dont know about these:
 Add Windows Sandbox setup (requires Pro/Enterprise)
@@ -500,45 +545,11 @@ ShareX
 
 ### Other Program Configs
 
-- powertoys
-  - autostart
-
 - apps, startup
   - disable unneeded
 
-- 7 zip manager
-  - default app to open archives
-  - view, 2 panels
-  - tools, options
-    - system: associate 7 zip with: +
-    - 7 zip
-      - integrate to shell context menu
-      - cascaded context menu
-      - icons in context menu: on
-
-- anydesk
-  - install anydesk; on this device (click the purple second card in dashboard)
-    - create desktop icon: off
-    - install anydesk printer: off
-      - accept and install
-  - settings, access, unlock
-    - unattended access
-      - set password
-      - allow other devices to save login: off?
-
-- advanced systemcare
-  - when running a care scan, set to auto fix
-  - ...
-    - transparency: off
-  - speed up
-    - turbo boost, configure, system services
-      windows media player network sharing service: off
-  - startup optimizer (optimize, disable or delay programs based on need)
-    - quick optimization
-    - startup items
-    - services too
-    - schedules tasks
-    - browser startups?
+- powertoys
+  - autostart
 
 - alldup
   - options, general, unicode text support: on
@@ -551,40 +562,9 @@ ShareX
   - migrations if any
   - install resizable emulator with latest system image api
 
-- taskbar monitor
-  - right click app in tray, settings
-    - general
-      - history size: 40
-      - poll time: 5
-    - graphs
-      - mem
-        - move up, above cpu
-      - net
-        - move up, above mem
-      - gpu
-        - enabled: off?
-      - gpu mem
-        - enabled: off?
-
-- tauri
-  - microsoft c++ build tools
-    - desktop development with c++
-  - rust
-
-- snipping tool
-  - open powertoys
-    - input and output
-      - keyboard manager
-        - on
-        - switch to new editor
-        - editor: open editor
-          - add new mapping
-            - trigger: press to start recording
-            - ctrl + shift + s
-            - action: press to start recording
-            - hit a random key to give it some input at first
-            - then click the dropdown on that shown key and choose: print screen
-            - ok
+- docker desktop
+  - turn windows features on, virtual machine platform: on, restart
+  - install with defaults
 
 - sharex
   - settings
@@ -608,12 +588,6 @@ ShareX
 - logi options
   <!-- !! ? -->
 
-- anydesk
-  - your address code, save
-  - settings
-    - allow collection of usage data: off
-  - access, unattended access?
-
 - audacity
   - download and install separate FFmpeg import/export library
 
@@ -622,7 +596,7 @@ ShareX
     - autorun: off
     - when you click X: exit
     - tap: off
-    - sleep: on
+    - sleep: on, 2 mins
     - debounce: 2 stage
   - key assignment
     - instead of this, use powertoys keyboard manager to remap keys
@@ -631,15 +605,6 @@ ShareX
     - fixed_on
     - brightness: 1
     - color: red
-
-- glary utilities
-  - settings, auto care, automatic update: disable
-  - windows notifications: off
-
-- iobit uninstaller
-  - settings, user interface, transparency: 0
-  - general, enable and load at windows startup: off
-  - update method: update manually
 
 - irfanview
   - download all plugins and install
@@ -663,14 +628,26 @@ ShareX
 - notion
   - settings, preferences, theme: dark
 
-- patch my pc
-  - automatic update scheduler popup, choose no
-
 - qdir
   - extras, dark theme (requires system dark mode first)
 
 - sumatrapdf
   - settings, theme, dark
+
+<!-- ! sep  -->
+
+- 7 zip manager
+  - default app to open archives
+  - view, 2 panels
+  - tools, options
+    - system: associate 7 zip with: +
+    - 7 zip
+      - integrate to shell context menu
+      - cascaded context menu
+      - icons in context menu: on
+
+- patch my pc
+  - automatic update scheduler popup, choose no
 
 - unigetui
   - settings
@@ -679,6 +656,80 @@ ShareX
       - telemetry, manage, decline
       - privacy, hide my username from the logs: enable
     - scheduled maintenance, check for package updates: off
+
+- taskbar monitor
+  - right click app in tray, settings
+    - general
+      - history size: 40
+      - poll time: 5
+    - graphs
+      - mem
+        - move up, above cpu
+      - net
+        - move up, above mem
+      - gpu
+        - enabled: off?
+      - gpu mem
+        - enabled: off?
+
+- anydesk
+  - install anydesk; on this device (click the purple second card in dashboard)
+    - create desktop icon: off
+    - install anydesk printer: off
+      - accept and install
+  - settings
+    - allow collection of usage data: off
+    - access, unlock
+      - unattended access
+        - set password
+        - allow other devices to save login: off?
+  - your address code, save it for yourself
+
+- advanced systemcare
+  - when running a care scan, set to auto fix
+  - ...
+    - transparency: off
+  - speed up
+    - turbo boost, configure, system services
+      windows media player network sharing service: off
+  - startup optimizer (optimize, disable or delay programs based on need)
+    - quick optimization
+    - startup items
+    - services too
+    - schedules tasks
+    - browser startups?
+- glary utilities
+  - settings, auto care, automatic update: disable
+  - windows notifications: off
+
+- iobit uninstaller
+  - settings, user interface, transparency: 0
+  - general, enable and load at windows startup: off
+  - update method: update manually
+
+- tauri
+  - microsoft c++ build tools
+    - desktop development with c++
+  - rust
+
+- snipping tool (win + shift + s)
+  - ??
+  - open powertoys
+    - input and output
+      - keyboard manager
+        - on
+        - switch to new editor
+        - editor: open editor
+          - add new mapping
+            - trigger: press to start recording
+            - ctrl + shift + s
+            - action: press to start recording
+            - hit a random key to give it some input at first
+            - then click the dropdown on that shown key and choose: print screen
+            - ok
+
+- chrome remote desktop
+  - add computer
 
 ---
 
@@ -836,6 +887,79 @@ ShareX
 
 ---
 
+<!-- TOC --><a name="personalization"></a>
+
+### Personalization
+
+- bluetooth: off
+
+- privacy and security
+  - device encryption / bitlocker check? (windows pro)
+    - recommendations and offers, turn everything off
+    - diagnostics and feedback, send optional diagnostic data: off
+    - search (privacy & security)
+      - search history: off
+      - show search highlights: off
+      - search my accounts
+        - microsoft account: off
+        - work or school account: off
+
+- run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
+
+- performance options (system properties > performance > settings),
+  - (to put it short; remove everything else and just keep: enable peek, show shadows under mouse pointer, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.) or else turn off:
+  - animate controls and elements inside windows
+  - animate windows when minimizing and maximizing
+  - animations in the taskbar
+  - fade or slide menus into view
+  - fade or slide tool tips into view
+  - fade out menu items after clicking
+  - show shadows under windows
+  - show translucent selection rectangle
+  - show window contents while dragging
+  - slide open combo boxes
+  - use drop shadows for icon labels on the desktop
+  - ?save taskbar menu previews
+  - ?smooth scroll list boxes
+
+- ui, input & accessibility
+  - display settings
+    - set main display
+    - night light, schedule: on, set hours 7pm to 7am
+    - hdr: off?
+    - scale: 125%?
+    - display resolution: til icons are clear
+    - refresh rate?
+
+  - dark mode (requires windows activation)
+
+  - fonts (faruma, fira code) / font size adjustments?
+
+  - adjust cleartype text
+
+  - add keyboards: ar saudi, divehi (phonetic)
+
+  - uk date + first day of the week; sun
+
+  - 12 hour clock + short time & date no zero
+
+  - windows clipboard history: on
+
+- taskbar, taskbar items
+  - search: search box (default)
+  - widgets: off
+
+- ux
+  - file explorer
+    - view, show: file name extensions + hidden items
+    - ..., options, view, advanced settings, navigation pane, expand to open folder: off (default)
+  - biometrics / pin?
+
+- add peripherals; keyboard, mouse, printer
+  - install associated drivers
+
+---
+
 <!-- TOC --><a name="before-installing-fresh-windows"></a>
 
 ### Before Installing Fresh Windows
@@ -952,8 +1076,10 @@ ShareX
 
 - date uk + short date + time zone: utc +5 karachi (might need to do some from control panel later)
 - language for non unicode programs: arabic saudi?
-- startup apps
-  - turn off unneeded
+
+- startup apps, turn off unneeded
+  - run; shell:startup
+
 - mouse settings?
   - Enhance pointer precision (acceleration)?
   - set pointer speed: (default)
@@ -964,68 +1090,13 @@ ShareX
   - bios cpu undervolt
   - bios ram overclock?
   - bios keyboard backlight?
+
 - dev drive?
   - first backup, then format D drive,
     - disk management, right click D drive, delete
     - create a dev drive, label: DevDrive
+
 - create restore point
-
----
-
-<!-- TOC --><a name="personalization"></a>
-
-### Personalization
-
-- bluetooth: off
-- privacy and security
-- device encryption / bitlocker check?
-  - recommendations and offers, turn everything off
-  - diagnostics and feedback, send optional diagnostic data: off
-  - search (privacy & security)
-    - search history: off
-    - show search highlights: off
-    - search my accounts
-      - microsoft account: off
-      - work or school account: off
-- run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
-- performance options (system properties > performance > settings),
-  - (to put it short; remove everything else and just keep: enable peek, show shadows under mouse pointer, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.) or else turn off:
-  - animate controls and elements inside windows
-  - animate windows when minimizing and maximizing
-  - animations in the taskbar
-  - fade or slide menus into view
-  - fade or slide tool tips into view
-  - fade out menu items after clicking
-  - show shadows under windows
-  - show translucent selection rectangle
-  - show window contents while dragging
-  - slide open combo boxes
-  - use drop shadows for icon labels on the desktop
-  - ?save taskbar menu previews
-  - ?smooth scroll list boxes
-- ui, input & accessibility
-  - display settings
-    - set main display
-    - night light, schedule: on, set hours 7pm to 7am
-    - hdr: off?
-    - scale: 125%?
-    - display resolution: til icons are clear
-    - refresh rate?
-  - dark mode (requires windows activation)
-  - fonts (faruma, fira code) / font size adjustments?
-  - adjust cleartype text
-  - add keyboards: ar saudi, divehi (phonetic)
-  - uk date + first day of the week; sun
-  - 12 hour clock + short time & date no zero
-  - windows clipboard history: on
-- taskbar, taskbar items
-  - search: search box (default)
-  - widgets: off
-- ux
-  - file explorer
-    - view, show: file name extensions + hidden items
-    - ..., options, view, advanced settings, navigation pane, expand to open folder: off (default)
-  - biometrics / pin?
 
 ---
 
@@ -1035,24 +1106,27 @@ ShareX
 
 - ninite?
   - skip ignore all edge questions / offers
-- chrome remote desktop
+
 - iobit uninstall bloatware (preinstalled software & games)
   - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)?
   - or https://github.com/christitustech/winutil?
     - standard?
+
 - microsoft office
-- set autostart apps, run; shell:startup
-- add peripherals; keyboard, mouse, printer
-  - install associated drivers
+
+---
 
 <!-- TOC --><a name="pin-to-taskbar"></a>
 
 ### Pin to Taskbar
 
 - remove useless pins
-- task manager, qdir, notion, browser, vscode, notepad++, telegram, meldmerge
-- shamela, jamiulkhadem, file explorer, signal, android studio, word, excel, notepad
-- whatsapp, email, hmv, teams, antigravity, chrome remote desktop
+- task manager, qdir, file explorer, everything, browser
+- email, notepad++, notion, word, excel
+- vscode, meldmerge, android studio, antigravity
+- chrome remote desktop
+- teams, telegram, whatsapp, signal, viber
+- shamela, jamiulkhadem, hmv
 
 <!-- TOC --><a name="personal-files-final-setup"></a>
 
