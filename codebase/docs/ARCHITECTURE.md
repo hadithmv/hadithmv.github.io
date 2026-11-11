@@ -54,10 +54,11 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `data/03-registry-bookMeta.csv`                         | Central registry of books (code, authorCode, titles in AR/DV/EN, secondary `tags` column, version)                                                                                                                      |
 | `data/01-registry-bookTags.csv`                         | Tag definitions (tagCode, labelAR/labelDV/labelEN) — colours auto‑generated (golden‑ratio HSL), slot = file order = display order, hand‑controlled (03 never rewrites this file)                                        |
-| `data/02-registry-bookAuthors.csv`                      | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 02's `authorCode` column                                                        |
+| `data/02-registry-bookAuthors.csv`                      | Author definitions (authorCode, nameAR/nameDV/nameEN, bornAH/diedAH) — trilingual names + Hijri years, hand‑controlled, referenced from 03's `authorCode` column                                                        |
 | `src/books/index.html`                                  | Dashboard — book list, search, tag filter, table/card view                                                                                                                                                              |
 | `src/books/reader.html`                                 | Book viewer — loaded via `?book=CODE`                                                                                                                                                                                   |
 | `src/books/library-search.html`                         | Library search page — self-initialising, shareable `?q=`/`?tags=`/`?books=` URLs                                                                                                                                        |
+| `src/books/info.html`                                   | Book/author info page — markdown notes, fact strip, auto-TOC, in-modal search, pane exports.                                                                                                                            |
 | `src/css/common.css`                                    | Shared: themes, fonts, topBar, sidebar, unified modals, `.dd-item` / `.dd-menu` dropdown classes, tag colors                                                                                                            |
 | `src/css/reader.css`                                    | Reader page: focus mode, toolbar, pagination, content, responsive. **Must load last** so its mobile media queries override reader-quran.css on specificity ties.                                                        |
 | `src/css/reader-search.css`                             | Reader: RDF header filter, search window input/history/advanced                                                                                                                                                         |
@@ -70,12 +71,15 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `src/js/book-data.js`                                   | Book metadata: registry + tag loaders, tag extraction, page bootstrap                                                                                                                                                   |
 | `src/js/book-info.js`                                   | Book/author info modal **+ the src/books/info.html page**: markdown notes renderer, fact strip, auto-TOC, in-modal search, copy, copy-link, 4-format pane export (reuses `src/js/export.js`'s shared builders)          |
 | `src/js/dashboard.js`                                   | Dashboard UI: card/table grid, search, tags, sort, pins & history modals, keyboard                                                                                                                                      |
+| `src/js/facet-browse.js`                                | Authors & Periods facets: shared modal + chips + state                                                                                                                                                                  |
 | `src/js/pins-history.js`                                | Pins & history: storage CRUD, modal UI, sidebar wiring                                                                                                                                                                  |
 | `src/js/reader.js`                                      | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links                                                                                                                                                 |
 | `src/js/radheef-merge.js`                               | Virtual merged radheef book (RDF-all): assembles the 8 source books in memory at load — see "Virtual merged books"                                                                                                      |
 | `src/js/reader-position.js`                             | Reader position: pagination strip, progress, URL sync, history log                                                                                                                                                      |
 | `src/js/search-window.js`                               | Unified search window shell: tabs, scope, all-books tab, link-row keys                                                                                                                                                  |
 | `src/js/reader-search-ui.js`                            | Reader search UI: results, history, whole-word, advanced search                                                                                                                                                         |
+| `src/js/column-labels.js`                               | Column display labels — friendly names for toggles and advanced search                                                                                                                                                  |
+| `src/js/column-tokens.js`                               | Column token tables — camelCase tokenizer shared with the header scan                                                                                                                                                   |
 | `src/js/table-scroll-sync.js`                           | Table view top scrollbar: width sync, RTL-aware transform, wheel scroll                                                                                                                                                 |
 | `src/js/export.js`                                      | Export formats (TXT, MD, JSON, CSV, TSV, PDF, PNG, Excel, EPUB, YAML, TOON, HTML, HTML Table, XML, Word) — the PDF/HTML/Word/EPUB builders are module-scope pure functions shared with the info modal's pane export     |
 | `src/js/quran-data.js`                                  | Quran pure data/logic: loading, merging, ayah decoration, structural derivation — detection + column classification moved to book-data.js. Lazy-loaded with quran-ui.js for QRN books                                   |
@@ -125,7 +129,7 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | Quran data / decoration                                          | `quran-data.js`                                                                                          | `decorateAyah`, `isAyahTextColumn`, `mergeQuranData`, column classification helpers                                                                                                                                                                                                                                                                                                                                                |
 | Quran nav / dropdowns                                            | `quran-ui.js`                                                                                            | `initQuranUI(ctx)` — re-exports quran-data.js                                                                                                                                                                                                                                                                                                                                                                                      |
 | Reader core                                                      | `reader.js`                                                                                              | Rendering, loaders, `goTo`, STATE, toolbar, keyboard, deep links, focus mode                                                                                                                                                                                                                                                                                                                                                       |
-| Info modal                                                       | `book-info.js`                                                                                           | `openInfoModal(cfg)`, `renderMarkdown(src)`, `computeChapterCount(rows, headerRow)` — imports only i18n / book-data / search-utils / csv / export (never facet-browse or reader — cycle prevention)                                                                                                                                                                                                                                |
+| Info modal                                                       | `book-info.js`                                                                                           | `openInfoModal(cfg)`, `renderMarkdown(src)`, `computeChapterCount(rows, headerRow)` — imports only i18n / book-data / search-utils / export (never facet-browse or reader — cycle prevention)                                                                                                                                                                                                                                      |
 | Reader position                                                  | `reader-position.js`                                                                                     | `initPosition(ctx)`, `updatePagination()`, `visiblePageIndex()` — pagination strip, scroll block (progress, milestones, URL sync, read-history)                                                                                                                                                                                                                                                                                    |
 | Table scrollbar                                                  | `table-scroll-sync.js`                                                                                   | `initTableScroll(ctx)`, `refreshTableScrollWidth()` — top scrollbar, width sync, arrow/wheel scrolling                                                                                                                                                                                                                                                                                                                             |
 | Export formats                                                   | `export.js`                                                                                              | `initExports(ctx)` — TXT, MD, PDF, EPUB, etc.                                                                                                                                                                                                                                                                                                                                                                                      |
@@ -265,6 +269,28 @@ Content loads in chunks: 25 rows (card mode) or 30 rows (table mode), with 50 ro
 The DOM never holds the whole book — only the loaded window around the viewport (25–50 rows per chunk, one or two chunks past each edge).
 
 ### Big-book streaming
+
+```text
+fetchCSVStreamed (response ≥ 256 KB)
+  chunks → TextDecoder(stream:true) → createStreamParser → rows (byte-identical to parseCSV)
+     │
+     ▼
+header row + first 128-row batch → buildReader(result, streaming)
+     │                              skeleton → real rows NOW
+     │                              title = "Loading… N%"; search / export / jump gated
+     ▼
+later 128-row batches → bridge.append → arm 150 ms flush → one render per burst
+     │
+     ▼
+parser.finish() (flushes the trailing row) → finalize
+     │  streamFinalize(): data complete → real title, controls released,
+     │                    real total, teasePageTitleSoon()
+     ▼
+drain: 50 ms ticks, table ≤ 4 inserts/tick, stop at DRAIN_MAX_ROWS (20,000)
+     │  purely visual — the reader is usable before the fill lands
+     ▼
+sentinel appends own the rest of the scroll window
+```
 
 Big books (response ≥ 256 KB — `fetchCSVStreamed`'s threshold in `csv.js`) are fetched and parsed **incrementally** so the first rows render before the download finishes. The stream parser (`createStreamParser`) is chunk-fed and produces rows byte-identical to `parseCSV` (same trims, `keepEmpty` rule, `""` escaping and row splitting — including multi-byte Thaana/Arabic split across chunks via a `TextDecoder({stream:true})` wrapper, a held trailing `\r` that might be half of `\r\n`, and a held trailing `"` that might be half of `""`). The reader consumes it through callbacks:
 
@@ -408,7 +434,7 @@ Controls stay a fixed `var(--control-height, 35px)` tall at any font size — on
 
 ### Persisted state
 
-Settings and small state live in `localStorage` (table below). **IndexedDB** is used for exactly two things, both validated against a content-hash version stamp: the **on‑device book cache** in `csv.js` (`fetchBookCSVCached`) — parsed book CSVs stored keyed by `bookCode`, validated against the registry `version` hash — and the **search index cache** in `library-search-engine.js` (the separate `hadithmvSearch` DB, keyed by a fixed id, validated against the index's own `meta.version` hash). Cache hit + version match → read locally with zero download/parse; mismatch or empty version → fetch, parse, refresh the cache. Every failure path degrades to a plain fetch. Only book CSVs and the search index are cached (registries are small and change often). No sessionStorage or cookies. In‑memory caches (`bookNamesCache`, `tagDefinitionsCache`) are populated at startup and never written to disk.
+Settings and small state live in `localStorage` (table and list below). **IndexedDB** is used for exactly two things, both validated against a content-hash version stamp: the **on‑device book cache** in `csv.js` (`fetchBookCSVCached`) — parsed book CSVs stored keyed by `bookCode`, validated against the registry `version` hash — and the **search index cache** in `library-search-engine.js` (the separate `hadithmvSearch` DB, keyed by a fixed id, validated against the index's own `meta.version` hash). Cache hit + version match → read locally with zero download/parse; mismatch or empty version → fetch, parse, refresh the cache. Every failure path degrades to a plain fetch. Only book CSVs and the search index are cached (registries are small and change often). No sessionStorage or cookies. In‑memory caches (`bookNamesCache`, `tagDefinitionsCache`) are populated at startup and never written to disk.
 
 | Key            | Where used  | Shape                                 | Notes                                           |
 | -------------- | ----------- | ------------------------------------- | ----------------------------------------------- |
@@ -419,19 +445,21 @@ Settings and small state live in `localStorage` (table below). **IndexedDB** is 
 | `lang`         | `i18n.js`   | `"dv"` / `"en"` / `"ar"`              | UI language                                     |
 | `focus`        | `common.js` | `"1"` or `"0"`                        | Focus mode (shared across reader and dashboard) |
 
-| `reader:hideTashkeel` | `reader.js` | boolean (JSON) | Tashkeel visibility |
-| `reader:hiddenColumns:{bookCode}` | `reader.js` | `[int, ...]` (JSON) | Indices of hidden columns — **keyed per book** (a global key leaked hidden indices across books; see the `-HDN` convention) |
-| `searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent search queries (max 20) — **one shared store**: the reader's search window (this-book and all-books) and the library-search page all record on every applied search; key defaults when none is passed |
-| `dash:searchHistory` | `search-utils.js` | `[string, ...]` (JSON) | Recent dashboard (book list) search queries (max 20) — the index page records on every applied search / history-item click |
-| `pinnedBooks` | `pins-history.js` | `[{bookCode, row, addedAt}, ...]` (JSON) | Pinned books (max 10). **One entry per book.** The reader's 📌 button toggles (pin / unpin); while pinned, the entry's row auto‑updates as the user reads (the 2 s scroll debounce calls `addPin` on the pinned book — see the dashboard section). Any future multi‑pin feature must change this model |
-| `readHistory` | `pins-history.js` | `[{bookCode, row, ts}, ...]` (JSON) | Reading history (max 10) |
-| `reader:quranShowAyahNum` | `reader.js` | boolean (JSON) | Show ayah number decoration |
-| `reader:quranShowBraces` | `reader.js` | boolean (JSON) | Show Quranic braces decoration |
-| `reader:quranShowNumBrackets` | `reader.js` | boolean (JSON) | Brackets around number only (not ayah text) |
+**Reader, search, pins & history keys** — same `localStorage` store; only the `reader:` prefix is reader-page-only:
+
+- `reader:hideTashkeel` — `reader.js`; boolean (JSON). Tashkeel visibility.
+- `reader:hiddenColumns:{bookCode}` — `reader.js`; `[int, ...]` (JSON). Hidden column indices, **keyed per book** (a global key leaked hidden indices across books; see the `-HDN` convention).
+- `searchHistory` — `search-utils.js`; `[string, ...]` (JSON). Recent search queries (max 20) — **one shared store**: the reader's search window (this-book and all-books) and the library-search page all record on every applied search; the key defaults when none is passed.
+- `dash:searchHistory` — `search-utils.js`; `[string, ...]` (JSON). Recent dashboard (book list) search queries (max 20) — the index page records on every applied search / history-item click.
+- `pinnedBooks` — `pins-history.js`; `[{bookCode, row, addedAt}, ...]` (JSON). Pinned books (max 10), **one entry per book**: the reader's 📌 button toggles (pin / unpin); while pinned, the entry's row auto‑updates as the user reads (the 2 s scroll debounce calls `addPin` on the pinned book — see the dashboard section). Any future multi‑pin feature must change this model.
+- `readHistory` — `pins-history.js`; `[{bookCode, row, ts}, ...]` (JSON). Reading history (max 10).
+- `reader:quranShowAyahNum` — `reader.js`; boolean (JSON). Show ayah number decoration.
+- `reader:quranShowBraces` — `reader.js`; boolean (JSON). Show Quranic braces decoration.
+- `reader:quranShowNumBrackets` — `reader.js`; boolean (JSON). Brackets around number only (not ayah text).
 
 The settings reset button clears all of the above and resets language to Dhivehi. Keys prefixed with `reader:` are scoped to the reader page and are not touched by dashboard-level operations. Dashboard keys (`pinnedBooks`, `readHistory`) are separate — the prefix convention prevents accidental cross-contamination.
 
-> **When adding new persisted state**, add a row to this table, add the key to `window.LS_KEYS` in common.js, and use a `reader:` prefix for reader‑specific keys. Prefer `window.LS_KEYS` over raw string literals for any key listed here (some older call sites still use the raw strings directly). This is the single reference for porting to desktop, mobile, or other platforms.
+> **When adding new persisted state**, add a row to the table (or a bullet to the list), add the key to `window.LS_KEYS` in common.js, and use a `reader:` prefix for reader‑specific keys. Prefer `window.LS_KEYS` over raw string literals for any key listed here (some older call sites still use the raw strings directly). This is the single reference for porting to desktop, mobile, or other platforms.
 
 ### Internationalisation
 
@@ -499,7 +527,7 @@ Dashboard keyboard shortcuts only fire when the dashboard is visible. Tag chips,
 | `excludeFromIndex` | **Optional** — comma‑separated header names to skip in the cross‑book index (case‑insensitive). `-HDN` and row‑number columns are always skipped regardless. Empty = all columns indexed. Build-only                                                                                                                                                                                                                                                                                                                                                                               |
 | `version`          | **Content hash** (first 12 hex chars of SHA‑256) of the book CSV — filled by `04-update-bookRegistry.ps1` on every run. The reader validates its on‑device IndexedDB cache against it; empty = cache bypassed                                                                                                                                                                                                                                                                                                                                                                      |
 
-**Virtual books** (e.g. `RDF-all`) have a registry row but **no content CSV** — the `version` field stays empty (03 writes it only when a file exists), and 03's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
+**Virtual books** (e.g. `RDF-all`) have a registry row but **no content CSV** — the `version` field stays empty (`04-update-bookRegistry.ps1` writes it only when a file exists), and the script's missing-file warning is silenced via its `$virtualBooks` list. Rows are assembled in memory at load — see "Virtual merged books".
 
 **`excludeFromIndex` magic value:** `ENTIRE-BOOK` (case‑insensitive) skips the whole book from the cross‑book index — it stays fully visible in the dashboard and reader but is never searchable, and its postings are not emitted at all (shrinking the index). Other names in the same cell are ignored; `ENTIRE-BOOK` wins.
 
@@ -529,7 +557,7 @@ Tags are auto‑assigned a colour using golden‑ratio HSL hue rotation (`n × 1
 
 | Column       | Description                                                                                                                     |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `authorCode` | Author code — referenced from 02's `authorCode` column, one token per contributor, comma‑separated for co‑authored works        |
+| `authorCode` | Author code — referenced from 03's `authorCode` column, one token per contributor, comma‑separated for co‑authored works        |
 | `nameAR`     | Arabic display name                                                                                                             |
 | `nameDV`     | Dhivehi display name                                                                                                            |
 | `nameEN`     | English display name                                                                                                            |
@@ -573,7 +601,7 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
 03-registry-bookMeta.csv         01-registry-bookTags.csv    02-registry-bookAuthors.csv
 ┌─────────────────────────┐       ┌──────────────────┐       ┌──────────────────────┐
 │ bookCode, titleDV/AR/EN │       │ tagCode, label   │       │ authorCode, names,   │
-│ authorCode → 08         │       │ e.g. AQD→Aqidah  │       │ bornAH/diedAH (Hijri)│
+│ authorCode → 02         │       │ e.g. AQD→Aqidah  │       │ bornAH/diedAH (Hijri)│
 │ Defines every book      │       │ palette by order │       │ e.g. bukhari         │
 └──────────┬──────────────┘       └────────┬─────────┘       └───────────┬──────────┘
            │                              │
@@ -608,6 +636,69 @@ Suffix flags are pure app conventions — `-HDN` hides the book from the dashboa
     └── window.LS_KEYS            (canonical key registry)
 ```
 
+### Entities & relationships (ERD)
+
+The model is flat CSV tables plus files on disk — no foreign-key columns and no
+joins. Every relationship is carried either by a name (the `bookCode` prefix, a
+file named after a code) or by a comma-list cell parsed once at load.
+
+```text
+                    ┌────────────────────────────┐
+                    │ 01-registry-bookTags.csv   │
+                    │ PK tagCode                 │
+                    │ labels/aliases ×3, slot    │
+                    └──────────┬─────────────────┘
+        primary: bookCode's    │    secondary: 03.tags
+        first segment (1:0..N) │    comma list (N:M)
+                               ▼
+┌────────────────────────────┐   ┌────────────────────────────┐
+│ 02-registry-bookAuthors.csv│◄──┤ 03-registry-bookMeta.csv   │
+│ PK authorCode              │N:M│ PK bookCode                │
+│ names ×3, bornAH/diedAH    │   │ titles ×3, tags, version   │
+└──────────┬─────────────────┘   └─┬──────┬──────┬──────┬─────┘
+           │ 0..1                  │0..1  │0..1  │0..1  │0..1
+           ▼                       ▼      ▼      ▼      ▼
+  static/notes/authors/     content/  notes/  data/   IDB hadithmv/books
+  {authorCode}.md           {code}    works/  search-  keyPath bookCode
+                            .csv      {code}  index/   (version-checked)
+                                                {code}
+```
+
+| Relationship | Cardinality | Carried by | Notes |
+| --- | --- | --- | --- |
+| tag → book (primary) | 1 : 0..N | first segment of `bookCode` | the code is the foreign key — there is no `primaryTag` column |
+| tag ↔ book (secondary) | N : M | quoted comma list in `03.tags` | flat CSVs have no join table; unknown codes are ignored; `extractTags` splits once at load |
+| author ↔ book | N : M | comma list in `03.authorCode` | one token per contributor; 02's row order is the display order; empty = no author line |
+| book → content CSV | 1 : 0..1 | filename `{bookCode}.csv` | 0 for virtual books (`RDF-all`) |
+| book → work note | 1 : 0..1 | `static/notes/works/{bookCode}.md` | lazy fetch; 404 renders the "No notes yet" placeholder |
+| author → bio | 1 : 0..1 | `static/notes/authors/{authorCode}.md` | same fetch contract |
+| book → search shard | 1 : 0..1 | `data/search-index/{bookCode}.json` | 0 when `excludeFromIndex: ENTIRE-BOOK`; the manifest's shard hash cache-busts `?v=` |
+| book → IDB book record | 1 : 0..1 | `hadithmv` DB, `books` store, keyPath `bookCode` | valid only while the record's `version` equals `03.version`; an empty version bypasses the cache |
+| quran column → book | N : 1 | `07-registry-quranColumns.sourceBook` | names the book a toggleable column comes from; the reader loads that book's CSV |
+| QRN book → ayah slot | 1 : 6,236 | row index against `QRN-DATA-ayahImlai.csv` | no key column — row order is the join; an all-empty row is a meaningful slot |
+| served file ↔ SW manifest entry | 1 : 1 | URL key in `dist/manifest.json` | the SW serves from cache when `x-hmv-fp` matches the fingerprint |
+| search manifest ↔ shard | 1 : N | `meta.bookIds` + `meta.shards` | shards are written first, the manifest last — no dangling reference |
+
+**Four kinds of digest, four different keys** — mixing them up is the usual source of a stale cache:
+
+| Digest | Where | Length | Hashes | Keys |
+| --- | --- | --- | --- | --- |
+| content version | `03-registry-bookMeta.csv` `version` | 12 hex, lowercase | the book's content CSV | reader IDB validation, merged-book source freshness (compared case-sensitively) |
+| shard hash | `search-index-manifest.json` `meta.shards` | 16 hex | one search shard | the shard's `?v=` cache-bust |
+| index version | `search-index-manifest.json` `meta.version` | 16 hex | the whole index except `built` | no-op rebuild stability; the IndexedDB copy's validation |
+| SW fingerprint | `dist/manifest.json` | 16 hex | each SW-served file (git-clean bytes) | the cached response's `x-hmv-fp` header |
+
+**Why flat files.** Every relationship above is a naming convention or a comma
+list, so the whole library stays editable in a text editor and diffable in git:
+adding a book is a CSV plus a registry row, never a schema migration. The cost
+is that referential integrity is checked by tooling, not enforced by a database
+— `04-update-bookRegistry.ps1` warns when a registered book has no content file
+(virtual books exempted), and `08-rebuild-searchIndex.mjs` skips unregistered or
+excluded books. The registry `version` is the one join between the metadata
+world and the bytes: change a CSV and its IDB record re-validates, the merged
+book re-fetches that source, the search index is rebuilt, and the SW ledger is
+regenerated — in that order of ownership.
+
 ## Virtual merged books
 
 A **virtual book** has a registry row in `03-registry-bookMeta.csv` (card, tags, reader routing) but **no content CSV** — its rows are assembled in memory at load. The only current example is **`RDF-all`** (الجامع في المعاجم / އެއްކުރެވިފައިވާ ހުރިހާ ރަދީފުތައް / Collection of All Dictionaries): the combined radheef dictionary over the eight source radheef books.
@@ -615,12 +706,12 @@ A **virtual book** has a registry row in `03-registry-bookMeta.csv` (card, tags,
 `src/js/radheef-merge.js` (`loadMergedRadheefBook`) is the assembler, wired into the reader's load path (`loadBookData()` in reader.js) after the Quran branch. Contract per source book:
 
 - **By-name projection** — every source row is projected into the merged schema `wordAR, wordDV, wordEN, meanAR, meanDV, meanEN, source`, matched **by header name**. A source column lands in the target column with the same name; columns without a same-named home (eegaal's `pNo`, nanfoiy's `gender/approvedBy/originLang`, rasmee's technical columns, …) are left out. A source's column _order_ is irrelevant.
-- **Block order = `MERGED_SOURCES`, deliberate** — the 8 sources concatenate in `MERGED_SOURCES` array order: **rasmee leads** (it is the primary Dhivehi dictionary, so the merged book opens on it), then the remaining seven follow 02's alphabetical sort (case-insensitive): fahmy, asma, eegaal, maniku, misc, nanfoiyComb, W2W. The order is a design choice, not alphabetical — change it only on purpose; every consumer (row indexing, `?row=` deep links, the rasmee tint's first-block visibility) follows this array. No client-side row sorting exists anywhere; file/concat order is reading order.
+- **Block order = `MERGED_SOURCES`, deliberate** — the 8 sources concatenate in `MERGED_SOURCES` array order: **rasmee leads** (it is the primary Dhivehi dictionary, so the merged book opens on it), then the remaining seven follow 03's alphabetical sort (case-insensitive): fahmy, asma, eegaal, maniku, misc, nanfoiyComb, W2W. The order is a design choice, not alphabetical — change it only on purpose; every consumer (row indexing, `?row=` deep links, the rasmee tint's first-block visibility) follows this array. No client-side row sorting exists anywhere; file/concat order is reading order.
 - **`source` column** — each row's 7th cell carries its book's **Dhivehi title**, read from the registry at load (`getBookTitleSync`) — derived, never stored or hardcoded.
 - **Caching** — sources load through the normal `fetchBookCSVCached`, each keyed by its own registry `version`, so an edit to any source book shows up here automatically with nothing to re-run; no merged file exists to go stale.
 - **Index** — `excludeFromIndex: ENTIRE-BOOK` keeps the merged book out of the library search index (like all RDF books): a postings index over dictionaries would dwarf the rest of the site. Its search runs inside the reader over the loaded rows — see "Search" below (RDF books get the in-place filter).
 - **Rasmee rows stand out** — rows whose `source` is the RDF-rasmee book carry `merged-row-rasmee` (`reader.js` `mergedRowRasmeeClass`, source cell compared against `getBookTitleSync("RDF-rasmee")` — content-derived, never hardcoded), tinted with the site's one content wash (`--color-wash-bg` in common.css — theme-aware, the _same_ token Arabic-original content uses via `isArabicColumn`, so both tint families share one definition and cannot drift apart) in both card and table layouts, and the `source` column renders small/muted as chrome rather than content.
-- **Registry script** — 03's missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `08-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
+- **Registry script** — `04-update-bookRegistry.ps1`'s missing-file check is exempted for virtual books via its `$virtualBooks` list (must be kept in sync with `MERGED_SOURCES`'s home module); the version field stays empty and the row survives every run. `08-rebuild-searchIndex.mjs` reports "skip (no file)" for it.
 
 Size reference: 152,612 merged rows in `MERGED_SOURCES` block order — 0-based block starts: rasmee 0 (53,841 rows), fahmy 53,841 (682), asma 54,523 (110), eegaal 54,633 (13,376), maniku 68,009 (2,231), misc 70,240 (41,051), nanfoiyComb 111,291 (8,784), W2W 120,075 (32,537).
 
@@ -861,9 +952,39 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **Module pattern.** All JS files are ES modules (`<script type="module">`). Heavy modules (`export-epub.js`, `export-xlsx.js`, `export-zip.js`) use dynamic `import()` — they are only fetched when the user triggers an export, keeping the initial bundle small.
 
+**Dependency map.** Entry points, then imports (arrows point from importer to dependency):
+
+```text
+Page entry points (common.js loads first, then the page module)
+  books/index.html           → dashboard.js
+  books/reader.html          → reader.js
+  books/library-search.html  → library-search-page.js
+  books/info.html            → book-info.js (also imported by reader/dashboard as the info modal)
+
+  dashboard.js ─► facet-browse, pins-history, book-data, search-utils, i18n
+  reader.js ────► reader-search-ui ─► search-window ─► library-search-engine,
+                │                                    library-scope-picker, facet-browse
+                ├► reader-position, table-scroll-sync, export, book-info, radheef-merge
+                ├► column-labels ─► column-tokens
+                └► book-data, csv, search-utils, i18n
+                quran-ui (dynamic, QRN only) ─► quran-data
+  library-search-page.js ─► search-window, library-scope-picker, facet-browse,
+                            library-search-engine, book-data, csv, search-utils, i18n
+  book-info.js ─► export, book-data, search-utils, i18n
+  export.js ─► csv, search-utils; dynamic ─► export-epub / export-xlsx ─► export-zip
+  quran-data.js ─► csv, book-data, search-utils, i18n
+  radheef-merge.js ─► csv, book-data
+  library-search-engine.js ─► search-utils
+  pins-history.js ─► book-data, i18n
+  book-data.js ─► csv, i18n (+ late pins-history import → explicit re-export)
+  search-utils.js, i18n.js ─► nothing (foundation)
+```
+
+**The one cycle is deliberate.** `book-data.js` imports the pins/history helpers at the bottom of the file and re-exports them for `reader.js` and `reader-position.js`; `pins-history.js` imports `getBookTitleSync`/`resolveBookCode` back from `book-data.js`. It is safe because neither module calls the other while evaluating — pins-history resolves titles at event time. Keep the cycle two-party: a third module that calls into it at module evaluation reintroduces the load-order hazard. `quran-ui.js` is a barrel (explicit re-exports of `quran-data.js`), and the Quran pair never enters the non-QRN critical path — the dynamic import in `reader.js` runs only when the book code is `QRN-`.
+
 **Variable style.** `var` is the default for mutable and shared closure state (function‑scoped, hoisted to the closure). `const` for read‑only DOM references and locals that never rebind. `let` only where a block‑scoped binding must rebind (loop accumulators, swap temporaries).
 
-**Closure state (reader.js).** The reader's 1 274‑line closure centralises shared mutable state in a `STATE` object at the top. Convenience aliases (`var filteredData = STATE.filteredData`) are read‑only — mutations MUST write back: `STATE.filteredData = filteredData`. This pattern makes shared state visible at a glance without rewriting every reference to `STATE.*`. The ctx‑object pattern used by `export.js`, `quran-ui.js`, `table-scroll-sync.js`, `reader-position.js` and `reader-search-ui.js` is the same idea applied to extracted modules: each extracted module owns module‑scope state (set by its `initX(ctx)` call — the `quranState` precedent), and ctx carries plain values, callback closures, and getter/setter accessors for anything core REBINDS (`filteredData`, `hiddenColumns`, `loadedStart`/`loadedEnd` — a captured ref would go stale). Utilities (`t`, search‑utils, book‑data) are imported directly, not passed via ctx.
+**Closure state (reader.js).** The reader's `buildReader` closure centralises shared mutable state in a `STATE` object at the top. Convenience aliases (`var filteredData = STATE.filteredData`) are read‑only — mutations MUST write back: `STATE.filteredData = filteredData`. This pattern makes shared state visible at a glance without rewriting every reference to `STATE.*`. The ctx‑object pattern used by `export.js`, `quran-ui.js`, `table-scroll-sync.js`, `reader-position.js` and `reader-search-ui.js` is the same idea applied to extracted modules: each extracted module owns module‑scope state (set by its `initX(ctx)` call — the `quranState` precedent), and ctx carries plain values, callback closures, and getter/setter accessors for anything core REBINDS (`filteredData`, `hiddenColumns`, `loadedStart`/`loadedEnd` — a captured ref would go stale). Utilities (`t`, search‑utils, book‑data) are imported directly, not passed via ctx.
 
 **Window globals.** `window.*` functions used by BOTH pages live in `common.js` (`setFocus`, `showToast`, `copyToClipboard`, etc.). Reader‑only helpers (`openDropdown`, `closeAllDropdowns`, `registerDropdown`) stay in `reader.js`. Pins/history helpers (`openPinsModal`, `openHistoryModal`) live in `pins-history.js`. Rule: before adding `window.X = …`, ask _does it serve both pages?_ YES → common.js, NO → owning module. A comment in `common.js:1‑20` documents the full inventory.
 
@@ -910,7 +1031,7 @@ The reader uses RTL (`direction: rtl`) throughout. This affects horizontal scrol
 
 **CSV column naming.** `*AR` = Arabic text, `*DV` = Dhivehi text. Heading hierarchy: `head` > `kitab` > `bab`. `matn` = main text, `sharh` = commentary, `foot` = footnotes. Column 0 = `#` means row numbers (hidden from content, shown as `#N` labels). These names drive CSS class assignment in the reader — changing a prefix changes its visual treatment.
 
-**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain with stable reference data first — book registries first (`01-` tags, `02-` books), the script that maintains them (`03-update-*`), then the Quran registries (`04-` surahs, `05-` juz, `06-` columns), then the global index builder (`08-rebuild-*`) — whose generated output (the `search-index-manifest.json` manifest plus its shard folder) is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`, `rebuild-searchIndex`) — single-word entities show no case mixing. `QRN-DATA-ayahImlai` / `QRN-DATA-ayahUthmani` name the two Quran text sources (imlai and Uthmani scripts). The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
+**File naming.** A book's CSV file must match its `bookCode` exactly (e.g. `AQD-nawaqidulIslam.csv`). Control files in `data/` carry a numeric prefix for curated top-of-folder order: `NN-registry-*` for registries, grouped by domain with stable reference data first — book registries first (`01-` tags, `02-` authors, `03-` books), the script that maintains them (`04-update-*`), then the Quran registries (`05-` surahs, `06-` juz, `07-` columns), then the global index builder (`08-rebuild-*`) — whose generated output (the `search-index-manifest.json` manifest plus its shard folder) is deliberately unnumbered (machine-produced, not curated). Every control file is `NN-<verb>-<Entity>`: the entity segment deliberately uses the data model's CamelCase identifiers (`registry-bookTags`, `update-bookRegistry`, `rebuild-searchIndex`) — single-word entities show no case mixing. `QRN-DATA-ayahImlai` / `QRN-DATA-ayahUthmani` name the two Quran text sources (imlai and Uthmani scripts). The `-HDN` suffix on CSV headers hides columns by default; the `-HDN` suffix on book codes hides books from the dashboard. For a representative sample CSV, see `AQD-nawaqidulIslam.csv`.
 
 **CSS load order.** `reader-quran.css` has no static `<link>` — reader.js injects it when a QRN-prefixed book is detected, before `reader-search.css`, so the cascade order matches the original static order (common → quran → reader-search → reader-table-view → search-window → **reader.css last**). Reader.css's mobile `@media` queries win specificity ties (both `0,1,0` → last one wins), so Quran nav items use the same `--panel-font-size-mobile` as all other panel controls. Non-QRN books never fetch the stylesheet.
 
@@ -965,7 +1086,7 @@ Any new button or action that has a keyboard shortcut documents it in the toolti
 
 **Reset flow.** The settings modal's ↺ Reset is a **confirmed factory reset** (`confirmResetAll` message): on confirm it delegates to `btnResetFont` + `btnResetReader`, clears remaining LS keys, **clears pins and history**, and dispatches `dashboardReset`. Each delegated button handles its own domain — no duplicate reset logic. The dashboard and reader resets stay view-only (pins/history preserved).
 
-**Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) table. This table is the single inventory for porting to desktop/mobile apps — keep it current.
+**Persisted state.** Any new `localStorage` key must be added to the [Persisted state](#persisted-state) section (its table or key list). That inventory is the single reference for porting to desktop/mobile apps — keep it current.
 
 ### Documentation
 
@@ -1101,6 +1222,25 @@ The app has no unit-test framework — the battery suite (`tools/hmv-*.mjs`, see
 `node tools/dist-build.mjs` (needs the @swc/core, lightningcss and
 @minify-html/node devDependencies — `npm install` once in `codebase/`)
 emits `dist/` from `src/`:
+
+```text
+BUILD — node tools/dist-build.mjs
+src/books/*.html ──@minify-html──► dist/books/*.html
+src/js/*.js      ──@swc/core────► dist/js/*.js       (minified in place — same depth)
+src/css/*.css    ──lightningcss─► dist/css/*.css
+src/font/*       ──font carve───► dist/font/*
+                                        │
+                    tools/hmv-manifest.mjs ┘ → dist/manifest.json
+                    reports → dist-build-report.md, font-build-report.md
+
+SERVED TREE — data/ and static/ are never copied
+site root (codebase/ on Pages)
+├── src/       committed source; pages resolve ../data and ../static
+├── dist/      committed output; same depth → the same siblings resolve
+├── data/      shared: registries, content CSVs, search index
+├── static/    shared: notes
+└── sw.js      registered at the site root; scope covers dist/, data/, static/
+```
 
 - `src/books/*.html` → `dist/books/`, minified by **@minify-html/node**
   (structure: whitespace collapse + comment removal + spec-safe entity

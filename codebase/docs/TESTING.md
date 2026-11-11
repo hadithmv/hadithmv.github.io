@@ -305,12 +305,12 @@ Before touching product code, run this sequence:
 | Quran-nav fields "exist" on a non-Quran book | `#readerPanelQuran`, `#qrnJuzInput` etc. are **static markup on every book page**; only `initQuranUI`'s `style.display = ""` (Quran books only) reveals the panel | Check the panel's `getComputedStyle(...).display`, not element existence |
 | Imlai cell text never equals the CSV value | Cells render wrapped in ﴿ … ١ ﴾ (`decorateAyah`, `quran-data.js:212`) | Strip U+FD3F/U+FD3E **and** the trailing Arabic-Indic numerals U+0660–U+0669 (the ayah number sits inside the brackets) before comparing |
 | "Surah 114:1 has no basmalah" — wrong | Only surahs **1 and 9** lack the basmalah; 114:1 has it. Juz 30 opens at 78:1, which also has it | Basmalah present on 2:1/114:1/78:1; empty on 1:1/9:1 |
-| English strings never match titles/labels | The page defaults to **Dhivehi**: titles, modal labels, result counts and toasts are Thaana | Never assert English UI text; read expected strings from the registries (05 displayDV, 02 titleDV) with the app's own `parseCSV` |
+| English strings never match titles/labels | The page defaults to **Dhivehi**: titles, modal labels, result counts and toasts are Thaana | Never assert English UI text; read expected strings from the registries (05 displayDV, 03 titleDV) with the app's own `parseCSV` |
 | Search result count differs between runs | Quick search matches **`allData`** — all loaded columns incl. hidden book columns (`runBookSearch` in reader-search-ui.js). With Arabic tafseer books loaded: 841 matches for «الناس»; base columns only: 179. Empty-result text is «ނަތީޖާ 0» (no colon), results are «ނަތީޖާ: N» | Assert count relative to the column set loaded, or just > 0 and < 6236; treat "0 with no colon" as the no-results branch, not an error |
 | PRESET_RESET does not restore a juz/surah slice | Reset only hides external columns (`quran-ui.js` PRESET_RESET branch); the filtered slice from navigation stays | Not a regression — confirm the slice behavior separately if it matters |
 | A Thaana term's first glyph looks chipped on a history item / result snippet / title / surah-search input | The Hadithmv webfont paints ~1–5px of **start-side ink past the pen origin** on horizontal Thaana letters (ސ, ޗ, … — alef has none). Any surface that clips (overflow-hidden, ellipsis, line-clamp, or an input's inner editor) cuts that overhang when the run's origin sits at the clip edge; the clip is invisible when the surface has a start inset. The fixed surfaces carry their insets (`.hist-text` 6px, `.search-result-snippet` 8px, `.quran-surah-search` `text-indent: 6px`, `#pageTitle` 8px) — the battery's section F asserts them | Computed styles, not pixels: section F of `hmv-qrn-smoke.mjs`, or `getComputedStyle(...).paddingInlineStart` / `.textIndent` on the four surfaces. A bare pixel probe needs a **clipped-vs-visible reference pair** (same box, overflow forced visible) — see the mirror traps below |
 | A security audit claims reflected XSS via `?q=` or unescaped cells | Not exploitable. Every `?q=` → innerHTML sink escapes (`input.value` is a property assignment; the no-matches line uses `escapeHTML(q)`; snippets pass through `highlightMatches`, which escapes text and `<mark>` content). Cells render raw as HTML **by design** — the data files are the trust boundary (RDF carries `<br>`/`<span>`/entities, e.g. `data/content/RDF-misc.csv`). The one raw-attribute spot (`data-q="…"` in library-search cards) can't fire: a payload must tokenize into real search-index words (`tokenizeText` splits on every non-letter/mark/number char; `searchLibrary` ANDs), and index words never contain `"`/`<` — zero `onmouseover`/`onerror`/`javascript:` tokens in any data file (verified 2026-08-10). Audit line numbers routinely don't match this codebase — re-anchor each citation to the working tree first | Trace each sink, then grep `data/` for the payload tokens (the engine's matching gate is decisive); if the payload can't match a row, it can't render. `escapeHTML` covers `& < > " '` — safe in text and quoted attributes |
-| `RDF-all` is registered in 02 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `src/js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). 03's missing-file warning is silenced via its `$virtualBooks` list; 08-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 02 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
+| `RDF-all` is registered in 03 but has no CSV in `data/content/` | **Virtual book by design**: no content file exists — `src/js/radheef-merge.js` assembles its rows in memory from the eight source radheef books (see ARCHITECTURE.md → "Virtual merged books"). `04-update-bookRegistry.ps1`'s missing-file warning is silenced via its `$virtualBooks` list; 08-rebuild-searchIndex.mjs reports "skip (no file)" in the report's Warnings; the 03 version field stays empty | Assert the merged behavior instead: 7 headers (`wordAR…source`), row count = sum of the 8 sources' rows (152,612), per-block counts by searching each source's Dhivehi title (the `source` column is searchable), block order via `?row=` deep links (e.g. row 5000 lands inside rasmee — rasmee leads `MERGED_SOURCES`; fahmy starts at row 53,842 1-based, and the first untinted row is 53,842) |
 | A **non-RDF** reader search leaves the table showing **all rows** | Search runs in the modal window (the header input exists for RDF books only) and — like the old dropdown — **never filters** `filteredData`; typing renders count + snippets in the window, clicking a result jumps the table to the row (`jumpToResultRow` in reader-search-ui.js). RDF books are different by design: typing **does** filter in place (`applyRadheefFilter`), clearing restores all rows, and the scroll counter shows the match count | Read the match count from `#searchWindowCount` in the window's pinned head row (`ނަތީޖާ: N` — no colon = the zero-result branch; the element exists from shell build, hidden/empty until a search runs), not from table rows or the scroll counter; a result row's `data-real` is its global `allData` index. For RDF books assert the filter instead: row count drops to the match count, first row = expected first match, clear restores row 1 |
 | The **library window's** cards differ from the page's (no peek ▾, its own count) | The window renders the same `searchLibrary` results but **without peek toggles** (`resultCardHTML(..., withPeek=false)` — peek ids `btn-peek-CODE` would collide with the page's cards), inside `#searchWindowResults`. Scope changes from **either** surface re-run both (shared picker state fans out via the `libScopeChange` window event); the card↔list toggle re-renders the **cached** results — no re-search, no history write; the window copies the page's query once on open, then searches independently (the page's own input keeps working behind it) | Query `#searchWindowResults` for `.lib-result` (card) / `.search-window-book-link` (list), expect **0** `.lib-peek-toggle` there, and read the count from the head row's `#searchWindowCount`. After a scope tick both `#libResults` and the window re-render. The list view's deep links go to `reader.html?book=CODE&row=<firstRow>&q=…` |
 | A modal opens but `document.activeElement` never becomes what `openModal` focused | The overlay's pop transition (`--t-pop`, common.css:519-529) leaves the modal **computed as `visibility: hidden` for its whole duration** — Blink silently drops every `focus()` called in that window (getComputedStyle says hidden while the fade-in is actually painted). `openModal` (common.js) and the search window's `openSearchWindow` (search-window.js) defer their focus calls past it (~`--t-pop` + 10/30 ms) | `waitFor` the intended focus target (`document.activeElement.id === …`), never assert focus synchronously right after the `open` class appears |
@@ -521,7 +521,7 @@ blaming the product.
   hand-controlled (tags since 2026-08-14; before that every run re-sorted tags,
   shifting colours). After any change to the script, run it twice and compare
   hashes — a byte-stable second run proves idempotency. **Invariant:** `version`
-  is ALWAYS the last column of 02 — the version swap matches a trailing hex
+  is ALWAYS the last column of 03 — the version swap matches a trailing hex
   field, which is only safe because nothing can follow it (a quoted cell can't
   end in a hex match). New columns (like `authorCode`, which sits immediately
   after `bookCode`) go BEFORE it; never after. The version swap replaces only
@@ -529,12 +529,12 @@ blaming the product.
   mangles quoted comma-bearing cells (a quoted titleEN `, with` lost its space)
   and an uppercase-versions run forced a one-time cache re-download for every
   visitor (versions compare case-sensitively at csv.js:163). The editor re-saves
-  02 as LF over script output — check file mtimes before trusting a "before"
+  03 as LF over script output — check file mtimes before trusting a "before"
   hash.
   The script's `$virtualBooks` list (RDF-all today) exempts virtual books
   from the missing-file warning — keep it in sync with radheef-merge.js's
-  `MERGED_SOURCES` (add/remove a book in both, or 03 will warn on the merged
-  book's deliberately absent CSV, or 02 will carry a row with a stale hash
+  `MERGED_SOURCES` (add/remove a book in both, or 04 will warn on the merged
+  book's deliberately absent CSV, or 03 will carry a row with a stale hash
   contract).
 - **`01-registry-bookTags.csv` has no comment syntax.** Blank lines are
   dropped by `parseCSV` (csv.js) and consume no palette slot — slots count
@@ -549,7 +549,7 @@ blaming the product.
   trailing newline; blank `bornAH`/`diedAH` cells mean unknown/living — and a
   death in the 15th century AH (1401) and later — lands the author in the
   single `modern` period bucket (there is no "Century 15" row). An author code
-  referenced from 02 but missing from 08 renders no author line (bookAuthorLine
+  referenced from 03 but missing from 02 renders no author line (bookAuthorLine
   skips unresolvable codes) — the Authors browse modal only lists authors with
   ≥1 book, so a dangling code shows up as a silent gap, not an error. The
   period facet is derived client-side (`Math.ceil(diedAH/100)` with the modern
@@ -561,7 +561,7 @@ blaming the product.
   app's own AH→CE conversion, never hardcoded) — so an assertion change to a
   hardcoded "1981" would break the battery's `ceFromAh(1401)` derivation the
   moment the conversion changes; derive it the way the battery does.
-- **Batteries must resolve 02 columns by header name, not position.** 02's
+- **Batteries must resolve 03 columns by header name, not position.** 03's
   layout is free to grow between `bookCode` and `version` (the version-last
   invariant), so a positional read of `03-registry-bookMeta.csv` in a tool
   (e.g. `rows02[r][2]` for titleDV) silently returns the wrong column after

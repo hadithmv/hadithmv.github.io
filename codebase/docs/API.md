@@ -18,12 +18,18 @@
 | `src/js/book-info.js` | Book/author info modal **and the src/books/info.html page**: markdown notes renderer, tabs, in-modal search, copy, copy-link, pane export — see below |
 | `src/js/dashboard.js` | Dashboard UI: card/table grid, search, tags, sort, modals, keyboard |
 | `src/js/pins-history.js` | Pins & history: localStorage CRUD, modal UI, sidebar wiring |
-| `src/js/reader.js` | Book viewer core: CSV parsing, rendering, loaders, STATE, goTo, keyboard, deep links |
+| `src/js/reader.js` | Book viewer core: rendering, loaders, STATE, goTo, keyboard, deep links |
 | `src/js/radheef-merge.js` | Virtual merged radheef book (RDF-all): `isMergedRadheefBook()`, `loadMergedRadheefBook()` — see below |
 | `src/js/reader-position.js` | Reader position: pagination strip, visible-page detector, scroll block (progress, milestones, URL sync, read-history) |
 | `src/js/reader-search-ui.js` | In-book search UI: results, history, whole-word toggle, advanced search |
+| `src/js/search-window.js` | Shared search window shell: tabs, scope, all-books tab, history, link-row keys — see below |
+| `src/js/facet-browse.js` | Authors/Periods facet state, browse modals and chips shared by the dashboard, library page and search window — see below |
+| `src/js/column-labels.js` | Column display labels: registry label → header-token label → raw header |
+| `src/js/column-tokens.js` | Column-header token tables (shared with the header scan) |
 | `src/js/table-scroll-sync.js` | Table view top scrollbar: width sync, RTL-aware transform, arrow/wheel scrolling |
+| `src/js/library-search-engine.js` | Cross-book search: manifest/shard loader (IndexedDB-cached) + pure query engine |
 | `src/js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results, peek previews |
+| `src/js/library-scope-picker.js` | Book-scope picker: groups, chips, rail, default HDT scope |
 | `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export |
 | `src/js/quran-data.js` | Quran pure data: loading, merging, decoration, structural derivation — lazy-loaded with quran-ui.js for QRN books only |
 | `src/js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel); dynamically imported by reader.js on QRN detection |

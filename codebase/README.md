@@ -6,14 +6,14 @@ A metadata-driven, single-page book viewer for Islamic texts. All configuration 
 
 ```text
 data/
-  01-registry-bookTags.csv      ← Tag definitions (tagCode, trilingual labels, aliases, colors)
-  03-registry-bookMeta.csv     ← Book registry (bookCode, authorCode, titles in AR/DV/EN, secondary tags, version hash)
-  04-update-bookRegistry.ps1    ← Auto-generate titleEN, sync new books
+  01-registry-bookTags.csv      ← Tag definitions (tagCode, trilingual labels, aliases)
+  02-registry-bookAuthors.csv   ← Author definitions (authorCode, trilingual names, Hijri birth/death years)
+  03-registry-bookMeta.csv      ← Book registry (bookCode, authorCode, titles in AR/DV/EN, secondary tags, version hash)
+  04-update-bookRegistry.ps1    ← Adds new books, recomputes version hashes, sorts the book registry
   05-registry-quranSurahs.csv   ← 114 surah names in AR/DV/EN with ayah counts
   06-registry-quranJuz.csv      ← 30 juz cut points (startSurah, startAyah)
   07-registry-quranColumns.csv  ← Quran column registry (source, labels, defaults)
   08-rebuild-searchIndex.mjs    ← Node script: builds the search index (rerun after book changes — or double-click rebuild-index.bat)
-  02-registry-bookAuthors.csv       ← Author definitions (authorCode, trilingual names, Hijri birth/death years)
   search-index-manifest.json    ← Generated search-index MANIFEST (meta only — bookIds, shard hashes; ~2 KB)
   search-index/                 ← Generated per-book search shards (one flat word→postings file per book)
   content/                      ← Per-book content files (incl. Quran base data)
@@ -27,7 +27,8 @@ src/
   css/
     common.css                    ← Shared: themes, fonts, topBar, sidebar, settings modal, tag colors
     reader.css                    ← Reader page: focus mode, toolbar, pagination, content, responsive
-    reader-search.css             ← Reader: search bar, results dropdown, advanced search
+    reader-search.css             ← Reader: RDF header filter, search-window input/history/advanced
+    search-window.css             ← Shared search window shell: grid, tabs/scope, results pane, hint strip
     reader-table-view.css         ← Reader: table view mode, top scrollbar, sentinels
     reader-quran.css              ← Reader: Quran navigation row, dropdowns, surah overlay
     dashboard.css                 ← Dashboard: grid, cards, controls, table view
@@ -35,31 +36,38 @@ src/
   js/
     common.js                     ← Shared init: theme, fonts, i18n, sidebar, settings, keyboard
     book-data.js                  ← Book metadata: registry + tag loaders, page bootstrap
+    book-info.js                  ← Book/author info modal + info page: notes renderer, tabs, search, exports
     pins-history.js               ← Pins & history: localStorage, modals, sidebar wiring
     dashboard.js                  ← Dashboard UI: card/table grid, search, tags, sort, keyboard
+    facet-browse.js               ← Authors & Periods facets: shared browse modal + filters
     reader.js                     ← Book viewer core: render, loaders, goTo, toolbar, keyboard, deep links
+    radheef-merge.js              ← Virtual merged radheef book (RDF-all): in-memory assembly
     reader-position.js            ← Reader position: pagination strip, progress bar, URL sync, read-history
     reader-search-ui.js           ← In-book search: results, history, whole-word toggle, advanced search
+    search-window.js              ← Shared search window shell: tabs, scope, all-books tab, link-row keys
     table-scroll-sync.js          ← Table view: top scrollbar, width sync, arrow/wheel scrolling
     quran-data.js                 ← Quran: data, decoration, structure (lazy — QRN books only)
     quran-ui.js                   ← Quran: nav, dropdowns, on-demand column loading (lazy; re-exports quran-data.js)
     csv.js                        ← Tiny CSV parser (~1 KB), replaces PapaParse
     search-utils.js               ← Search engine: normalisation, compiled queries, norm cache, matching, history
+    column-labels.js              ← Friendly column labels: registry → header tokens → raw header
+    column-tokens.js              ← Column-header token tables shared with the header scan
     library-search-engine.js      ← Cross-book search: index loader (IndexedDB-cached) + query engine
     library-search-page.js        ← Library search page UI: chips, results, peek previews
+    library-scope-picker.js       ← Book-scope picker: groups, chips, rail, default scope
     i18n.js                       ← Translations (dv/en/ar)
     export.js                     ← Export feature: formats menu, downloads, lazy-loaded writers
     export-xlsx.js                ← Inline XLSX writer (~2.5 KB), lazy-loaded on export
     export-epub.js                ← EPUB 3 e-book writer (~4 KB), lazy-loaded on export
     export-zip.js                 ← Minimal ZIP writer (store), shared by the XLSX + EPUB writers
+  font/                         ← Full merged font (Arabic + Thaana + Latin) — the carve source
 static/
-  font/                           ← Custom merged font (Arabic + Thaana + Latin)
   notes/                          ← Markdown book notes & author bios for the info modal
 dist/                           ← Generated: minified js/css + pages (tools/dist-build.mjs) — committed, rebuilt before every commit (dist-build.bat)
 dist/manifest.json              ← Generated: the service worker's freshness ledger (tools/hmv-manifest.mjs) — committed; the build, font tool and registry script refresh it, or run the tiny command alone after data-only edits
 dist-build-report.md            ← Generated: per-build size ledger (dist-build.mjs) — committed for diffable history
 sw.js                           ← Static service worker — offline + repeat-visit caching via dist/manifest.json; never edited
-docs/                           ← User guide, architecture, API reference
+docs/                           ← User guide, architecture, API reference, testing, toolbox
 ```
 
 ## Quick start
