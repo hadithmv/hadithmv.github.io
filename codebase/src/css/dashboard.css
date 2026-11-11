@@ -227,13 +227,7 @@ a.toolbar-btn {
 
 /* Title trio (shared with library results) lives in common.css */
 
-/* ---- Tags ---- */
-.book-card .card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--control-gap, 6px);
-  margin-bottom: var(--section-gap, 6px);
-}
+/* ---- Tags (the .card-tags row layout is shared in common.css) ---- */
 
 .pin-badge {
   /* Keep text centered even when the flex row stretches the badge to

@@ -1,9 +1,11 @@
 // Library-search battery: the book-scope picker (?books= + the picker
 // modal, S1-S10) and the unified search window on the library page
 // (S11: open, focus, card/list toggle, scope modal stacked on the window,
-// scoped re-run, Escape-by-layer). S1 asserts the HDT default scope (the
-// page's initScopePicker defaultTag "HDT": fresh visits search HDT first,
-// the All chip widens) — the expected set is derived from the data files.
+// scoped re-run, Escape-by-layer). S12 pins the result-card chrome in the
+// Dhivehi layout (no English caption, the tag row keeps the shared flex
+// gap). S1 asserts the HDT default scope (the page's initScopePicker
+// defaultTag "HDT": fresh visits search HDT first, the All chip widens) —
+// the expected set is derived from the data files.
 // Run: node tools/hmv-libscope-check.mjs  (from codebase/). Requires Node
 // 20.11+ and Microsoft Edge. Env overrides: HMV_SCOPE_PORT (default 9357).
 import fs from "fs";
@@ -159,6 +161,13 @@ async function main() {
       var scope = ${JSON.stringify(HDT_SCOPE)};
       return cards.length > 0 && Array.prototype.every.call(cards, function (c) { return scope.indexOf(c.dataset.book) !== -1; });
     })()`));
+    // The English caption is this layout's own title (AR + DV + EN trio);
+    // the Dhivehi/Arabic layouts drop it — S12 pins that half.
+    check("S1 result cards carry the English caption (en UI)",
+      await evalJS(`(function () {
+        var cards = document.querySelectorAll('.lib-result');
+        return cards.length > 0 && Array.prototype.every.call(cards, function (c) { return !!c.querySelector('.title-en'); });
+      })()`));
     // The tooltip is the only always-English explainer of the button's action —
     // it must teach the verb ("choose which books"), not describe the result.
     check("S1 button tooltip teaches the action", (await evalJS(`document.getElementById('libScopeBtn').getAttribute('title')`)) === "Choose which books to search");
@@ -670,6 +679,34 @@ async function main() {
     check("S11 mobile window stacked geometry",
       geomM.stacked && geomM.fullWidth && geomM.insideModal, JSON.stringify(geomM));
     await evalJS(`document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
+
+    // ── S12: result-card chrome in the Dhivehi layout ──
+    // The English caption is dropped outside the English UI, and the tag
+    // row keeps the shared flex gap instead of collapsing into touching
+    // inline badges (the library page never loads dashboard.css, so that
+    // rule lives in common.css).
+    await evalJS(`localStorage.setItem('lang', 'dv')`);
+    await goto(pageURL + "?q=" + encodeURIComponent(Q), 1280, 900);
+    check("S12 results render (dv UI)",
+      await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result cards");
+    check("S12 no English caption in the Dhivehi UI",
+      await evalJS(`document.querySelectorAll('.lib-result .title-en').length === 0`));
+    const tagRow = await evalJS(`(function () {
+      var tags = null;
+      document.querySelectorAll('.lib-result').forEach(function (c) {
+        var t = c.querySelector('.card-tags');
+        if (!tags && t && t.querySelectorAll('.tag-badge').length >= 2) tags = t;
+      });
+      if (!tags) return null;
+      var b = tags.querySelectorAll('.tag-badge');
+      var r1 = b[0].getBoundingClientRect(), r2 = b[1].getBoundingClientRect();
+      return {
+        display: getComputedStyle(tags).display,
+        gap: Math.round(Math.abs(r1.left - r2.right) || Math.abs(r2.left - r1.right)),
+      };
+    })()`);
+    check("S12 tag row is a flex line with the shared gap",
+      tagRow && tagRow.display.indexOf("flex") !== -1 && tagRow.gap >= 3, JSON.stringify(tagRow));
 
     // ── S10: no page errors anywhere ──
     check("S10 no page errors", pageErrors.length === 0, pageErrors.join(" | "));

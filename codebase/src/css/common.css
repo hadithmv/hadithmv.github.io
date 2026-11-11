@@ -759,6 +759,17 @@ body:has(.modal-overlay.open) {
   opacity: 0.7;
 }
 
+/* Tag row above the title trio — flex with the shared control gap so the
+   badges wrap at the same rhythm on both card surfaces (dashboard book
+   cards + library result cards; the latter never loads dashboard.css). */
+.book-card .card-tags,
+.lib-result .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--control-gap, 6px);
+  margin-bottom: var(--section-gap, 6px);
+}
+
 /* ── Shared card title trio (book cards + library results) ── */
 /* Arabic and Dhivehi at --title-scale (same size); the English caption
    stays at base; ar/dv sit --title-gap apart, --title-gap-caption

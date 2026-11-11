@@ -14,7 +14,7 @@
  * consumes that query (pre-highlights + scrolls to the row).
  */
 
-import { tagLabel, t } from "./i18n.js";
+import { tagLabel, t, currentLang } from "./i18n.js";
 import { loadScopedIndex, searchLibrary } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
@@ -674,9 +674,14 @@ function resultCardHTML(r, q, withPeek) {
     '<div class="title-dv">' +
     escapeHTML(meta ? meta.titleDV || "" : "") +
     "</div>" +
-    '<div class="title-en">' +
-    escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
-    "</div>" +
+    // The English caption is the UI-language title only on the English
+    // layout; the Dhivehi and Arabic layouts already carry their titles
+    // (the dashboard's cards drop it entirely for the same reason).
+    (currentLang() === "en"
+      ? '<div class="title-en">' +
+        escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
+        "</div>"
+      : "") +
     (authorLine
       ? '<div class="card-author">' + escapeHTML(authorLine) + "</div>"
       : "") +
