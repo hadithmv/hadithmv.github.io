@@ -36,14 +36,14 @@ initializePageWithMetadata(async function (metadata) {
   //   Chunk + table-row renderers                          L1043-1105
   //   Infinite scroll + table scrollbar                    L1108-1326
   //   Navigation (goTo, scroll padding)                    L1329-1385
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1388-1424
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1427-1616
-  //   Keyboard shortcuts (incl. navigation buttons)        L1619-1734
-  //   Touch swipe                                          L1737-1757
-  //   Settings reset + language change                     L1760-1773
-  //   Quran UI (initQuranUI ctx)                           L1776-1809
-  //   Initial render (deep links, reveal)                  L1812-2230
-  //   Module-level helpers (showError)                     L2233-2250
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1388-1427
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1430-1619
+  //   Keyboard shortcuts (incl. navigation buttons)        L1622-1737
+  //   Touch swipe                                          L1740-1760
+  //   Settings reset + language change                     L1763-1776
+  //   Quran UI (initQuranUI ctx)                           L1779-1812
+  //   Initial render (deep links, reveal)                  L1815-2233
+  //   Module-level helpers (showError)                     L2236-2253
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -1398,6 +1398,9 @@ initializePageWithMetadata(async function (metadata) {
       initSearchUI({
         allData: allData,
         normAllData: normAllData,
+        // Results show the book's own row id only when the first column is
+        // the row-number column (same contract as the reader renderers).
+        hasRowNums: hasRowNums,
         bookCode: metadata.bookCode,
         isRadheefBook: isRadheefBook(metadata.bookCode),
         isMergedRadheefBook: isMergedRadheefBook(metadata.bookCode),

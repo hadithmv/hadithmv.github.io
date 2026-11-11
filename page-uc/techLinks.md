@@ -333,7 +333,8 @@ Drive: Samsung SSD 9100 PRO 2TB, 1953.5 GB, NVMe
 Logitech MX Vertical Ergonomic Wireless Mouse
 Acer SA322QK Monitor
 Aula F75 Keyboard
-Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
+
+<!-- Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer -->
 
 ---
 
@@ -524,6 +525,7 @@ CrystalMark Retro 2.0.6
 Cursor (User)
 Docker Desktop
 DB Browser for SQLite
+DeepSeek Harness
 Dell Connected Service Delivery
 Dell Connected Service Delivery SubAgent
 Dell Core Services

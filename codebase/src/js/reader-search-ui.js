@@ -81,7 +81,11 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
   var html = ""; var count = 0;
   for (var i = 0; i < rows.length && count < MAX; i++) {
     var row = rows[i];
-    var rowNum = row[0] || (realIdxMap[i] + 1);
+    // Row id only for books whose first column IS the id column; in a
+    // content-first book (header bodyDV,foot) row[0] is a whole paragraph —
+    // in the flex-shrink:0 number slot it forced the row to max-content and
+    // crushed the snippet into one unwrapped line (the reported bug).
+    var rowNum = ctx.hasRowNums ? (row[0] || (realIdxMap[i] + 1)) : (realIdxMap[i] + 1);
     var snippets = buildSnippets(row, q, compiled, ctx.normAllData[realIdxMap[i]]);
     if (snippets.length === 0) {
       // Fallback: show first non-empty cell
@@ -485,7 +489,11 @@ function applyAdvancedSearch() {
       var limit = Math.min(tempFiltered.length, 30);
       for (var i = 0; i < limit; i++) {
         var row = tempFiltered[i];
-        var rowNum = row[0] || (realIdxMap[i] + 1);
+        // Row id only for books whose first column IS the id column; in a
+    // content-first book (header bodyDV,foot) row[0] is a whole paragraph —
+    // in the flex-shrink:0 number slot it forced the row to max-content and
+    // crushed the snippet into one unwrapped line (the reported bug).
+    var rowNum = ctx.hasRowNums ? (row[0] || (realIdxMap[i] + 1)) : (realIdxMap[i] + 1);
         var snip = linkifyURLs(escapeHTML(String(row[1] || row[0] || "").slice(0, 120)));
         resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + formatThousands(rowNum) + '</span><span class="search-result-snippet">' + snip + '</span></div>';
       }
