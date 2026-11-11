@@ -474,16 +474,16 @@ const STRINGS = {
   // Died-only authors lead with the same en-dash the born–died range uses
   // (the born slot is simply missing), glued to the year like the range's
   // own dash: "–179 ހ." — language-neutral.
-  authorDied: { dv: "–{y} ހ.", en: "–{y} AH", ar: "–{y}هـ" },
-  authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d}هـ" },
-  authorLifeCe: { dv: "{b}–{d} މ.", en: "{b}–{d} CE", ar: "{b}–{d}م" },
-  authorDiedCe: { dv: "–{y} މ.", en: "–{y} CE", ar: "–{y}م" },
+  authorDied: { dv: "–{y} ހ.", en: "–{y} AH", ar: "–{y} هـ" },
+  authorLife: { dv: "{b}–{d} ހ.", en: "{b}–{d} AH", ar: "{b}–{d} هـ" },
+  authorLifeCe: { dv: "{b}–{d} މ.", en: "{b}–{d} CE", ar: "{b}–{d} م" },
+  authorDiedCe: { dv: "–{y} މ.", en: "–{y} CE", ar: "–{y} م" },
   // The open-ended "from" forms for the modern era bucket — "+1401 ހ." /
   // "+1981 މ." (periodRangeText / periodRangeCeText for "modern"): the
   // bucket has a start but no closing year, the plus leading the year the
   // way the "+15" marker leads its century number.
-  periodFromAH: { dv: "+{y} ހ.", en: "+{y} AH", ar: "+{y}هـ" },
-  periodFromCE: { dv: "+{y} މ.", en: "+{y} CE", ar: "+{y}م" },
+  periodFromAH: { dv: "+{y} ހ.", en: "+{y} AH", ar: "+{y} هـ" },
+  periodFromCE: { dv: "+{y} މ.", en: "+{y} CE", ar: "+{y} م" },
   // The modern era's century cell — the centuryN-style label with the
   // leading plus ("ގަރުނު +15" / "Century +15" / "القرن +15"), the same
   // "+" the periodFrom* from-forms carry (the death century itself is

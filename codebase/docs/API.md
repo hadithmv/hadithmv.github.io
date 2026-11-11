@@ -91,7 +91,7 @@ Synchronous accessor for the loaded author map (`{}` until `loadAuthorDefinition
 
 ### `authorYearsText(def)`
 
-Hijri years text for one author definition in the current UI language — `"–256 AH"` (died only — the bare en-dash marks the missing born year, the same dash the born–died range uses between its years, glued to the year like the range's own dash), `"194–256 AH"` (born + died), `""` (neither). The templates come from `t("authorDied")` / `t("authorLife")`; the suffix is **language-specific** (`ހ.` / `AH` / `هـ`), so the same author reads naturally in each language's block of the title-click citation. Digits are the plain registry numbers.
+Hijri years text for one author definition in the current UI language — `"–256 AH"` (died only — the bare en-dash marks the missing born year, the same dash the born–died range uses between its years, glued to the year like the range's own dash), `"194–256 AH"` (born + died), `""` (neither). The templates come from `t("authorDied")` / `t("authorLife")`; the suffix is **language-specific** (`ހ.` / `AH` / ` هـ` — the Arabic marker takes a leading space, `194–256 هـ`), so the same author reads naturally in each language's block of the title-click citation. Digits are the plain registry numbers.
 
 ### `authorYearsTextIn(def, lang)`
 
