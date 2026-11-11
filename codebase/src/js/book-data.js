@@ -7,7 +7,7 @@
  */
 
 import { fetchCSVObjects, fetchCSVRows } from "./csv.js";
-import { t, currentLang } from "./i18n.js";
+import { t, tIn, currentLang } from "./i18n.js";
 
 let _bookNamesCache = null;
 let _tagDefinitionsCache = null;
@@ -220,12 +220,20 @@ function _fmtYears(str, map) {
   });
 }
 
-/** Hijri years text for one author def — "d. 256 AH" / "194–256 AH" / "" (living). */
-export function authorYearsText(def) {
+/** Hijri years text for one author def in a specific language — the
+ *  template carries that language's Hijri suffix (ހ. / AH / هـ), so a
+ *  mixed-language citation reads naturally in each block:
+ *  "194–256 AH" / "–256 AH" / "" (living). */
+export function authorYearsTextIn(def, lang) {
   if (!def) return "";
-  if (def.bornAH && def.diedAH) return _fmtYears(t("authorLife"), { b: def.bornAH, d: def.diedAH });
-  if (def.diedAH) return _fmtYears(t("authorDied"), { y: def.diedAH });
+  if (def.bornAH && def.diedAH) return _fmtYears(tIn("authorLife", lang), { b: def.bornAH, d: def.diedAH });
+  if (def.diedAH) return _fmtYears(tIn("authorDied", lang), { y: def.diedAH });
   return "";
+}
+
+/** Hijri years text for one author def in the current UI language. */
+export function authorYearsText(def) {
+  return authorYearsTextIn(def, currentLang());
 }
 
 // Author/period derivation — moved here from facet-browse.js so the browse
@@ -371,15 +379,26 @@ export function bookAuthorNames(entry) {
  * ones). "" when the book has no author.
  */
 export function bookAuthorLine(entry) {
-  return bookAuthorParts(entry)
+  return bookAuthorLineIn(entry, currentLang());
+}
+
+/** bookAuthorLine pinned to one language — the title-click citation build
+ *  needs the Arabic line even while the UI reads in Dhivehi or English. */
+export function bookAuthorLineIn(entry, lang) {
+  return bookAuthorPartsIn(entry, lang)
     .map(function (p) { return p.text; })
-    .join(authorListSeparator());
+    .join(authorListSeparatorIn(lang));
 }
 
 /** The script-appropriate multi-author separator — the Latin comma in the
  *  English layout, the Arabic comma in the RTL ones. */
 export function authorListSeparator() {
-  return currentLang() === "en" ? ", " : "، ";
+  return authorListSeparatorIn(currentLang());
+}
+
+/** authorListSeparator pinned to one language. */
+export function authorListSeparatorIn(lang) {
+  return lang === "en" ? ", " : "، ";
 }
 
 /**
@@ -390,18 +409,24 @@ export function authorListSeparator() {
  * book has no author.
  */
 export function bookAuthorParts(entry) {
+  return bookAuthorPartsIn(entry, currentLang());
+}
+
+/** bookAuthorParts pinned to one language — same shape, names and Hijri
+ *  suffix taken from that language. */
+export function bookAuthorPartsIn(entry, lang) {
   var defs = _authorDefinitionsCache || {};
   var codes = ((entry && entry.authorCode) || "")
     .split(",")
     .map(function (s) { return s.trim(); })
     .filter(Boolean);
-  var l = currentLang();
+  var l = lang || currentLang();
   var parts = [];
   codes.forEach(function (code) {
     var d = defs[code];
     if (!d) return;
     var nm = d.name[l] || d.name.en || d.name.ar || code;
-    var yrs = authorYearsText(d);
+    var yrs = authorYearsTextIn(d, l);
     parts.push({ code: code, text: yrs ? nm + " (" + yrs + ")" : nm });
   });
   return parts;

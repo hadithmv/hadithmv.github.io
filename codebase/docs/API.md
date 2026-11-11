@@ -91,19 +91,35 @@ Synchronous accessor for the loaded author map (`{}` until `loadAuthorDefinition
 
 ### `authorYearsText(def)`
 
-Hijri years text for one author definition — `"–256 AH"` (died only — the bare en-dash marks the missing born year, the same dash the born–died range uses between its years, glued to the year like the range's own dash), `"194–256 AH"` (born + died), `""` (neither). The template strings come from `t("authorDied")` / `t("authorLife")` — language-neutral, so they look identical in every UI language; the digits are the plain registry numbers.
+Hijri years text for one author definition in the current UI language — `"–256 AH"` (died only — the bare en-dash marks the missing born year, the same dash the born–died range uses between its years, glued to the year like the range's own dash), `"194–256 AH"` (born + died), `""` (neither). The templates come from `t("authorDied")` / `t("authorLife")`; the suffix is **language-specific** (`ހ.` / `AH` / `هـ`), so the same author reads naturally in each language's block of the title-click citation. Digits are the plain registry numbers.
+
+### `authorYearsTextIn(def, lang)`
+
+The same text pinned to one language (the title-click citation renders an Arabic author line while the UI may be Dhivehi or English).
 
 ### `bookAuthorLine(entry)`
 
 One display line for a book registry entry's authors, in the current language — `"al-Bukhari (–256 AH)"` — multi-author books joined with `authorListSeparator()`: the Latin comma `", "` in the English layout, the Arabic comma `"، "` in the Dhivehi/Arabic ones. `""` when the book has no author (`authorCode` empty or unresolvable). Drives the library result cards, the dashboard cards, and the info modal's Book-tab author fact.
 
+### `bookAuthorLineIn(entry, lang)`
+
+The same line pinned to one language — used by the title-click citation for its Arabic block (the reader passes `"ar"` while the UI language is `dv`/`en`).
+
 ### `bookAuthorParts(entry)`
 
 The same derivation as an array of `{code, text}` — one entry per author, each name with its Hijri years. The reader header splits these into **one button per author** (joined with `authorListSeparator()`), each button carrying its `data-author` code and opening that author's Author tab.
 
+### `bookAuthorPartsIn(entry, lang)`
+
+The same parts pinned to one language (names and Hijri suffix from `lang`).
+
 ### `authorListSeparator()`
 
 `", "` when the current UI language is English, `"، "` otherwise — the script-appropriate comma between author names.
+
+### `authorListSeparatorIn(lang)`
+
+The same separator pinned to one language.
 
 ### `bookAuthorNames(entry)`
 
@@ -406,6 +422,10 @@ The `src/books/library-search.html` page module — self-initialising (runs `ini
 ### `t(key)`
 
 Returns the translated string for `key` in the current language.
+
+### `tIn(key, lang)`
+
+Returns the translated string for `key` in a specific language — the same resolution rule as `t` (requested language, then English, then the key). Used where one payload needs several languages at once (the title-click citation's Arabic block while the UI reads in Dhivehi or English).
 
 ### `setLanguage(lang)`
 

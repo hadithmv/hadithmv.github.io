@@ -904,14 +904,20 @@ try {
 
 // ── Public API ─────────────────────────────────────────────
 
-/** Return the translated string for a key in the current language. */
-export function t(key) {
+/** Return the translated string for a key in a specific language
+ *  (falls back to English, then the key — same rule as `t`). */
+export function tIn(key, lang) {
   const entry = STRINGS[key];
   if (!entry) {
     console.warn('i18n: missing key "' + key + '"');
     return key;
   }
-  return entry[_currentLang] || entry.en || key;
+  return entry[lang] || entry.en || key;
+}
+
+/** Return the translated string for a key in the current language. */
+export function t(key) {
+  return tIn(key, _currentLang);
 }
 
 /** Get the current language code. */

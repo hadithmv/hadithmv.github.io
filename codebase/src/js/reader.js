@@ -6,7 +6,7 @@
  * tashkeel toggle, export (via export.js), and keyboard shortcuts.
  */
 
-import { initializePageWithMetadata, extractTags, bookAuthorParts, authorListSeparator, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync, isQuranBook, isAyahTextColumn, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, loadColumnRegistry } from "./book-data.js";
+import { initializePageWithMetadata, extractTags, bookAuthorParts, bookAuthorLineIn, authorListSeparator, addPin, removePin, isPinned, evictCandidateName, getBookTitleSync, isQuranBook, isAyahTextColumn, columnFieldClass, columnTdClass, isFootnoteColumn, isArDvTransition, isMatnSharhTransition, classifyColumnLang, isArabicColumn, getColumnSourceBook, getColumnSourceBookTitle, hasExternalColumns, loadColumnRegistry } from "./book-data.js";
 import { t, tagLabel, currentLang } from "./i18n.js";
 import { compileQuery, rowMatchesQueryNorm, buildNormData, highlightMatches, linkifyURLs } from "./search-utils.js";
 import { fetchBookCSVCached } from "./csv.js";
@@ -24,26 +24,26 @@ initializePageWithMetadata(async function (metadata) {
   // SECTIONS — fold with #region/#endregion; names are the anchors,
   // line numbers below are approximate (freshness check pins the last).
   //   Book loading (standard CSV or Quran merge)           L48-296
-  //   Page header, tag badges, language-aware titles       L299-508
-  //   Persisted settings (LS wrapper, -HDN column init)    L511-557
-  //   Reader state, column toggles, dropdown infrastructure L560-658
-  //   Tashkeel helpers                                     L661-668
-  //   Clipboard formatting (rowText)                       L671-761
-  //   View mode dropdown (card / table / parallel)         L764-812
-  //   Quran helpers                                        L815-819
-  //   Card row renderer (renderRowHTML)                    L822-918
-  //   Parallel row renderer (renderParallelRowHTML)        L921-1040
-  //   Chunk + table-row renderers                          L1043-1105
-  //   Infinite scroll + table scrollbar                    L1108-1326
-  //   Navigation (goTo, scroll padding)                    L1329-1385
-  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1388-1427
-  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1430-1619
-  //   Keyboard shortcuts (incl. navigation buttons)        L1622-1737
-  //   Touch swipe                                          L1740-1760
-  //   Settings reset + language change                     L1763-1776
-  //   Quran UI (initQuranUI ctx)                           L1779-1812
-  //   Initial render (deep links, reveal)                  L1815-2233
-  //   Module-level helpers (showError)                     L2236-2253
+  //   Page header, tag badges, language-aware titles       L299-532
+  //   Persisted settings (LS wrapper, -HDN column init)    L535-581
+  //   Reader state, column toggles, dropdown infrastructure L584-682
+  //   Tashkeel helpers                                     L685-692
+  //   Clipboard formatting (rowText)                       L695-785
+  //   View mode dropdown (card / table / parallel)         L788-836
+  //   Quran helpers                                        L839-843
+  //   Card row renderer (renderRowHTML)                    L846-942
+  //   Parallel row renderer (renderParallelRowHTML)        L945-1064
+  //   Chunk + table-row renderers                          L1067-1129
+  //   Infinite scroll + table scrollbar                    L1132-1350
+  //   Navigation (goTo, scroll padding)                    L1353-1409
+  //   Search UI (wiring — search-window.js + reader-search-ui.js) L1412-1451
+  //   Toolbar (tashkeel, share, pin, copy, focus, export, reset) L1454-1643
+  //   Keyboard shortcuts (incl. navigation buttons)        L1646-1761
+  //   Touch swipe                                          L1764-1784
+  //   Settings reset + language change                     L1787-1800
+  //   Quran UI (initQuranUI ctx)                           L1803-1836
+  //   Initial render (deep links, reveal)                  L1839-2257
+  //   Module-level helpers (showError)                     L2260-2277
   // ═══════════════════════════════════════════════════════════════
   // #region Book loading (standard CSV or Quran merge)
   document.title = metadata.titleEN || metadata.bookCode;
@@ -360,14 +360,14 @@ initializePageWithMetadata(async function (metadata) {
 
         if (lang === "en") {
           pageTitle.textContent = metadata.titleEN || metadata.bookCode;
-          pageTitle.title = "Click: copy title + replay scroll · Drag: scroll · Alt+I: book info";
+          pageTitle.title = "Click: copy book citation + replay scroll · Drag: scroll · Alt+I: book info";
           pageTitle.dir = "ltr";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
           pageSubRow.style.margin = "0 0 0 0";
         } else if (lang === "dv") {
           pageTitle.textContent = metadata.titleDV || metadata.bookCode;
-          pageTitle.title = "Click: copy title + replay scroll · Drag: scroll · Alt+I: book info";
+          pageTitle.title = "Click: copy book citation + replay scroll · Drag: scroll · Alt+I: book info";
           pageTitle.dir = "rtl";
           // The Arabic title shows under the Thaana one as a button like
           // the author line's (same reader.css rule), opening the modal's
@@ -387,7 +387,7 @@ initializePageWithMetadata(async function (metadata) {
           pageSubRow.dir = "";
         } else if (lang === "ar") {
           pageTitle.textContent = metadata.titleAR || metadata.bookCode;
-          pageTitle.title = "Click: copy title + replay scroll · Drag: scroll · Alt+I: book info";
+          pageTitle.title = "Click: copy book citation + replay scroll · Drag: scroll · Alt+I: book info";
           pageTitle.dir = "rtl";
           pageSubtitle.style.display = "none";
           pageSubRow.style.display = "";
@@ -421,9 +421,9 @@ initializePageWithMetadata(async function (metadata) {
           counts: infoCounts,
         });
       }
-      // The title is a live widget of its own: a click copies the full
-      // title and replays the scroll tease; a horizontal mouse/pen drag
-      // scrolls it (touch scrolls natively — the pointer handlers skip
+      // The title is a live widget of its own: a click copies a book
+      // citation block and replays the scroll tease; a horizontal mouse/pen
+      // drag scrolls it (touch scrolls natively — the pointer handlers skip
       // touch pointers). Alt+I and the Arabic subtitle button still open
       // the book info modal. A drag must not count as a click, so a
       // pointer sequence that passes a small threshold swallows the click
@@ -432,16 +432,40 @@ initializePageWithMetadata(async function (metadata) {
       var titleDrag = null;        // { id, x, sc } while a drag is live
       var titleDragMoved = false;  // the last pointer sequence was a drag
       var activeTitleTease = null; // cancel fn of the marquee in flight
+      // The citation is built from the registry (not the DOM): the bar shows
+      // one language, and its author buttons carry no language variants.
+      // Block 1 = the UI language's title and that language's author line;
+      // block 2 = the Arabic title + author, the
+      // source language — except on the Arabic layout, where block 1 already
+      // is the Arabic block.
+      function bookCitationText() {
+        var lang = currentLang();
+        var primaryTitle =
+          lang === "en" ? metadata.titleEN : lang === "ar" ? metadata.titleAR : metadata.titleDV;
+        var lines = [];
+        if (primaryTitle) lines.push(primaryTitle);
+        var primaryAuthor = bookAuthorLineIn(metadata, lang);
+        if (primaryAuthor) lines.push(primaryAuthor);
+        var text = lines.join("\n");
+        if (lang !== "ar") {
+          var arLines = [];
+          if (metadata.titleAR) arLines.push(metadata.titleAR);
+          var arAuthor = bookAuthorLineIn(metadata, "ar");
+          if (arAuthor) arLines.push(arAuthor);
+          if (arLines.length > 0) text += "\n\n" + arLines.join("\n");
+        }
+        return text;
+      }
       pageTitleEl.addEventListener("click", function () {
         if (titleDragMoved) { titleDragMoved = false; return; }
         // While a book streams, the title slot holds the progress line —
         // neither copying nor replaying applies yet.
         if (isStreaming) return;
         // A running tease leaves the duplicated copy in the DOM; cancel it
-        // so the clipboard gets the real title. The replay itself rewinds
+        // so the tease cannot outlive the click. The replay itself rewinds
         // the bar to the title's beginning (see teasePageTitle).
         if (activeTitleTease) activeTitleTease();
-        window.copyToClipboard(pageTitleEl.textContent, "toastCopied", "toastCopyFailed");
+        window.copyToClipboard(bookCitationText(), "toastCopied", "toastCopyFailed");
         // Replay the loop (a no-op when the title fits its slot).
         teasePageTitle();
       });
