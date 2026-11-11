@@ -15,11 +15,11 @@
  */
 
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { loadScopedIndex, searchLibrary } from "./library-search-engine.js";
+import { loadScopedIndex, searchLibraryDetailed } from "./library-search-engine.js";
 import { loadBookRegistry, extractTags } from "./book-data.js";
 import { escapeHTML, formatThousands, addSearchHistory } from "./search-utils.js";
 import {
-  getScope, fillTemplate, ensureSearchableBooks, searchableBooks,
+  getScope, setScope, fillTemplate, ensureSearchableBooks, searchableBooks,
   renderScopeShell, ensureScopeShell, renderScopePopover, clearScopeFilter,
   initScopePicker, reserveScopeCountWidth, refreshScopeLabels, scopeSummaryText,
 } from "./library-scope-picker.js";
@@ -28,6 +28,7 @@ import {
   openPeriodsModal,
   onFacetChange,
   facetActive,
+  clearFacets,
   bookMatchesFacets,
   facetChipsHTML,
   visibleCounts,
@@ -54,12 +55,21 @@ var _currentTab = "thisBook";
 
 function el(id) { return document.getElementById(id); }
 
+// The input's placeholder follows the active surface: the reader's two tabs
+// search different engines (full grammar vs the whole-word cross-book
+// index), and the library page's window is always cross-book (no tabs).
+// Set on tab switches and language changes, like every other JS-built label.
+function placeholderText() {
+  var crossBook = _cfg.mode === "library" || (_cfg.tabs && _currentTab === "allBooks");
+  return t(crossBook ? "searchAllBooksPlaceholder" : "searchPlaceholder");
+}
+
 // JS-built DOM has no data-i18n — labels are set here and re-set on
 // languagechange (same pattern as the library's scope modal).
 function renderLabels() {
   el("searchWindowTitle").textContent = t("searchWindowTitle");
   el("searchWindowSideLabel").textContent = t("searchWindowSideLabel");
-  el("searchWindowInput").placeholder = t("searchPlaceholder");
+  el("searchWindowInput").placeholder = placeholderText();
   el("searchWindowTabThisBook").textContent = t("searchWindowThisBook");
   el("searchWindowTabAllBooks").textContent = t("searchWindowAllBooks");
   el("searchWindowAdvLabel").textContent = t("advancedSearchTitle");
@@ -252,6 +262,7 @@ function setView(view) {
 
 function setTab(tab, silent) {
   _currentTab = tab;
+  _ui.input.placeholder = placeholderText();
   var btns = _ui.tabs.querySelectorAll(".search-window-tab");
   for (var i = 0; i < btns.length; i++) {
     btns[i].classList.toggle("active", btns[i].getAttribute("data-tab") === tab);
@@ -315,30 +326,7 @@ export function searchAllBooks(query) {
   _ui.status.textContent = t("searchWindowIndexLoading");
   syncFooter(); // the strip lives on the status while the index loads
   registryReady()
-    .then(function () {
-      // The window is one surface, so all-books terms land in the same
-      // reader history as this-book terms (written once the search runs —
-      // same timing as runBookSearch).
-      addSearchHistory(q);
-      if (_cfg.onHistoryChange) _cfg.onHistoryChange();
-      var fb = facetScopedBooks();
-      if (fb !== null && fb.length === 0) {
-        // Facets exclude every book (possibly vs the picker scope) — show no
-        // matches, never fall through to an unscoped search (the engine
-        // treats [] as "every book")
-        _ui.status.style.display = "none";
-        syncFooter();
-        renderAllBooksResults([], q);
-        return;
-      }
-      var scope = fb !== null ? fb : getScope();
-      return loadScopedIndex(scope).then(function (index) {
-        var results = searchLibrary(index, q, scope);
-        _ui.status.style.display = "none";
-        syncFooter(); // the strip's life is now the hint's / open-page's
-        renderAllBooksResults(results, q);
-      });
-    })
+    .then(function () { return runAllBooksSearch(q); })
     .catch(function () {
       // textContent wipes any previous retry button — the last failure wins.
       _ui.status.textContent = t("searchWindowIndexError") + " ";
@@ -349,31 +337,69 @@ export function searchAllBooks(query) {
       retry.addEventListener("click", function () {
         var v = _ui.input.value;
         if (!v.trim()) return;
-        _ui.status.textContent = t("searchWindowIndexLoading");
-        // Same scope decision as the main path — a retry must not silently
-        // widen the search past the active facets (the pre-shard code
-        // dropped them here) — and history is written as in the main path.
-        addSearchHistory(v);
-        if (_cfg.onHistoryChange) _cfg.onHistoryChange();
-        var fb2 = facetScopedBooks();
-        if (fb2 !== null && fb2.length === 0) {
-          _ui.status.style.display = "none";
-          syncFooter();
-          renderAllBooksResults([], v);
-          return;
-        }
-        var retryScope = fb2 !== null ? fb2 : getScope();
-        loadScopedIndex(retryScope)
-          .then(function (index) {
-            var results = searchLibrary(index, v, retryScope);
-            _ui.status.style.display = "none";
-            syncFooter(); // the strip's life is now the hint's / open-page's
-            renderAllBooksResults(results, v);
-          })
-          .catch(function () {});
+        // Re-enter the main path — same scope decision as the original run
+        // (facets + picker, never silently widened), same history write, and
+        // the same failure → retry handling if the fetch fails again.
+        searchAllBooks(v);
       });
       _ui.status.appendChild(retry);
     });
+}
+
+// The shared all-books search body (initial run + retry both land here): the
+// scope decision (facets intersect the picker selection), shard loading, the
+// detailed search (results + grammar-support info), and the result render.
+function runAllBooksSearch(q) {
+  // The window is one surface, so all-books terms land in the same reader
+  // history as this-book terms (written once the search runs — same timing
+  // as runBookSearch).
+  addSearchHistory(q);
+  if (_cfg.onHistoryChange) _cfg.onHistoryChange();
+  var fb = facetScopedBooks();
+  if (fb !== null && fb.length === 0) {
+    // Facets exclude every book (possibly vs the picker scope) — show no
+    // matches, never fall through to an unscoped search (the engine treats
+    // [] as "every book"). scopeInfo still marks it narrowed so the
+    // "Search all books" escape hatch renders.
+    _ui.status.style.display = "none";
+    syncFooter();
+    renderAllBooksResults([], q, { count: 0 }, null);
+    return;
+  }
+  var scope = fb !== null ? fb : getScope();
+  var scopeInfo = null;
+  if (fb !== null) scopeInfo = { count: fb.length };
+  else if (scope && scope.length > 0) scopeInfo = { count: scope.length };
+  return loadScopedIndex(scope).then(function (index) {
+    var out = searchLibraryDetailed(index, q, scope);
+    _ui.status.style.display = "none";
+    syncFooter(); // the strip's life is now the hint's / open-page's
+    renderAllBooksResults(out.results, q, scopeInfo, out.info);
+  });
+}
+
+/** The all-books grammar note (empty when the query needs no caveat). */
+export function allBooksQueryNote(info) {
+  if (!info) return "";
+  var key = info.regexOnly
+    ? "libAllBooksRegexNote"
+    : info.excludeOnly
+      ? "libAllBooksExcludeOnlyNote"
+      : info.approximated
+        ? "libAllBooksApproxNote"
+        : "";
+  return key ? '<div class="search-query-note">' + t(key) + "</div>" : "";
+}
+
+// Scoped zero's escape hatch: clear every narrowing (picker scope + facets)
+// and run the same query over every book. setScope() first — clearFacets()
+// notifies synchronously, and that notification re-runs the search, so the
+// subscriber must see the fully widened state.
+function widenAllBooksScope(q) {
+  setScope(null);
+  refreshScopeSummary(); // setScope is silent — the summary must catch up
+  if (facetActive()) clearFacets(); // notify → onFacetChange re-runs this search
+  else searchAllBooks(q);
 }
 
 // Compact per-book rows: current-language title, tag badges, match count,
@@ -412,19 +438,38 @@ export function buildBookRowsHTML(results, q, bookNames) {
   return html;
 }
 
-function renderAllBooksResults(results, q) {
+function renderAllBooksResults(results, q, scopeInfo, info) {
   var total = 0;
   for (var i = 0; i < results.length; i++) total += results[i].count;
   setWindowCount(fillTemplate("libResultSummary", { a: formatThousands(total), b: results.length }));
-  var html = "";
+  var html = allBooksQueryNote(info);
   if (results.length === 0) {
-    html += '<div class="search-no-matches">' + t("noMatchesMsg") + ': "' +
-      escapeHTML(q) + '"</div>';
+    // Zero inside a narrowed scope is a dead end unless the message names
+    // the scope and offers the widen action; zero with no narrowing is just
+    // a no-match.
+    var msg = scopeInfo && scopeInfo.count > 0
+      ? fillTemplate(
+          scopeInfo.count === 1 ? "libNoResultsInScopeOne" : "libNoResultsInScope",
+          { n: formatThousands(scopeInfo.count) }
+        )
+      : t("noMatchesMsg");
+    html += '<div class="search-no-matches">' + msg + ': "' +
+      escapeHTML(q) + '"' +
+      (scopeInfo
+        ? ' <button type="button" class="modal-reset-small search-widen-btn" ' +
+          'title="Clear filters and search every book">' +
+          t("searchAllBooksAction") + "</button>"
+        : "") +
+      "</div>";
   } else {
     html += buildBookRowsHTML(results, q, _registryCache);
   }
   _ui.results.innerHTML = html;
   _ui.results.style.display = "";
+  var widen = _ui.results.querySelector(".search-widen-btn");
+  if (widen) {
+    widen.addEventListener("click", function () { widenAllBooksScope(q); });
+  }
   // No history hiding here — the section is always visible (see the
   // buildShell comment). A display:none on this tab stuck forever: nothing
   // ever re-showed it, so Reset (back to this-book) read as a wiped history.

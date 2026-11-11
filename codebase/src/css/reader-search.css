@@ -185,6 +185,24 @@
   color: var(--color-text-muted);
   text-align: center;
 }
+/* Inline escape hatch beside a no-matches line / in an empty state
+   ("Search all books" — widen a scoped search, or hop this-book → all-books). */
+.search-no-matches .search-widen-btn,
+.search-no-matches .search-goto-all-btn,
+.empty-state .search-widen-btn {
+  margin-inline-start: 8px;
+}
+/* All-books grammar note — the query used syntax the word index can only
+   approximate or cannot serve; one quiet line above the results (the reader
+   window and the library page share this rule). */
+.search-query-note {
+  padding: 8px 14px;
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
+  background: var(--color-nav-btn-bg);
+  border-bottom: 1px solid var(--color-border);
+  text-align: start;
+}
 .search-history-item .hist-remove:hover {
   color: var(--color-error-text);
 }
@@ -351,4 +369,19 @@
   /* Same webfont start-side overhang as .hist-text — the line-clamp clip
      cuts the first glyph of every line. Larger font → larger inset. */
   padding-inline-start: 8px;
+}
+
+/* Pager under the capped this-book result list — "… and more results" plus
+   the button that grows the render limit by one page. */
+.search-more-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--control-gap, 6px);
+  padding: 10px 14px;
+  border-top: 1px solid var(--color-border);
+}
+.search-more-note {
+  font-size: var(--panel-font-size, 0.85rem);
+  color: var(--color-text-muted);
 }

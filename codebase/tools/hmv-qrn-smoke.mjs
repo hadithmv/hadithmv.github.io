@@ -457,6 +457,32 @@ async function main() {
     String(inputWBefore));
   check("search results render in window", res.rc !== null, res.rc);
 
+  // Result cap — the window paints one page of 30 snippet lines; a broader
+  // match set gets the pager row ("…and more" + Show more) instead of a
+  // thousand-line list sheet.
+  const totalN = Number(String(res.rc).replace(/[^\d]/g, ""));
+  const page1 = await evalJS(`(function () {
+    return {
+      shown: document.querySelectorAll('#searchWindowResults .search-result[data-real]').length,
+      more: !!document.querySelector('#searchWindowResults .search-more-btn'),
+      note: !!document.querySelector('#searchWindowResults .search-more-note'),
+    };
+  })()`);
+  check("this-book results cap at one page + pager",
+    totalN > 30 && page1.shown === 30 && page1.more && page1.note,
+    JSON.stringify({ total: totalN, page: page1 }));
+  await evalJS(`document.querySelector('#searchWindowResults .search-more-btn').click()`);
+  await sleep(200);
+  const page2 = await evalJS(`(function () {
+    return {
+      shown: document.querySelectorAll('#searchWindowResults .search-result[data-real]').length,
+      more: !!document.querySelector('#searchWindowResults .search-more-btn'),
+    };
+  })()`);
+  check("show more appends another page",
+    page2.shown === Math.min(60, totalN) && page2.more === (totalN > 60),
+    JSON.stringify({ total: totalN, page: page2 }));
+
   // regex query path — same engine, must yield the identical result set as
   // the plain term. Regression guard: the compiled regex used to carry the
   // `g` flag (default "gi"), making shared .test() calls stateful and
@@ -670,6 +696,11 @@ async function main() {
   })()`);
   check("window does not resize on content swap", rectAfterClear === rectBeforeClear, rectBeforeClear + " → " + rectAfterClear);
 
+  // Tab-aware placeholder — the same input must tell the truth per tab:
+  // this-book says "search this book", all-books says "all books (whole
+  // words)". Capture the value here and compare on both switches.
+  const tbPlaceholder = await evalJS(`document.getElementById('searchWindowInput').placeholder`);
+
   // All-books tab — cross-book search over the shared index, with the
   // scope picker rendered inside the window
   await evalJS(`document.getElementById('searchWindowTabAllBooks').click()`);
@@ -682,12 +713,16 @@ async function main() {
       scopeShown: scope.style.display !== 'none',
       optsHidden: opts.style.display === 'none',
       summary: document.getElementById('searchWindowScopeSummary').textContent.trim(),
+      placeholder: document.getElementById('searchWindowInput').placeholder,
     };
   })()`);
   check("all-books tab: scope section on, options row off",
     allTab.active && allTab.scopeShown && allTab.optsHidden, JSON.stringify(allTab));
   check("all-books tab: scope summary label + caret",
     allTab.summary.length > 1 && allTab.summary.indexOf("▾") !== -1, allTab.summary);
+  check("all-books tab: placeholder switches to the cross-book wording",
+    allTab.placeholder.length > 0 && allTab.placeholder !== tbPlaceholder,
+    JSON.stringify({ thisBook: tbPlaceholder, allBooks: allTab.placeholder }));
 
   // type a query → per-book rows with deep links
   await evalJS(`(function () {
@@ -772,6 +807,34 @@ async function main() {
   await evalJS(`document.getElementById('libScopeReset').click()`);
   await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000);
 
+  // All-books grammar note — a regex has no word-index representation; the
+  // index path returns nothing, and the render must say why instead of
+  // silently no-matching a query the in-book search would run.
+  await evalJS(`(function () {
+    var inp = document.getElementById('searchWindowInput');
+    inp.value = '/الناس/';
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelector('#searchWindowResults .search-query-note') !== null`, 10000);
+  const noteState = await evalJS(`(function () {
+    var n = document.querySelector('#searchWindowResults .search-query-note');
+    return {
+      text: n ? n.textContent.trim() : '',
+      rows: document.querySelectorAll('#searchWindowResults .search-window-book-link').length,
+      empty: !!document.querySelector('#searchWindowResults .search-no-matches'),
+    };
+  })()`);
+  check("all-books: regex query shows the inline grammar note",
+    noteState.text.length > 0 && noteState.rows === 0 && noteState.empty,
+    JSON.stringify(noteState));
+  // restore the plain term for the Escape checks below
+  await evalJS(`(function () {
+    var inp = document.getElementById('searchWindowInput');
+    inp.value = 'الناس';
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000);
+
   // close the scope modal — Escape closes the innermost (the scope modal)
   // first, leaving the window open; the later Escape closes the window
   await evalJS(`(function () {
@@ -789,9 +852,12 @@ async function main() {
       scopeHidden: document.getElementById('searchWindowScope').style.display === 'none',
       optsShown: document.getElementById('searchWindowOptions').style.display !== 'none',
       openPageHidden: document.getElementById('searchWindowOpenPage').style.display === 'none',
+      placeholder: document.getElementById('searchWindowInput').placeholder,
     };
   })()`);
   check("this-book tab: scope off, options back", tb.scopeHidden && tb.optsShown && tb.openPageHidden, JSON.stringify(tb));
+  check("this-book tab: placeholder switches back",
+    tb.placeholder === tbPlaceholder, JSON.stringify({ want: tbPlaceholder, got: tb.placeholder }));
 
   // Escape closes the window — unified modal layer handles it
   await evalJS(`(function () {
@@ -857,6 +923,42 @@ async function main() {
   })()`);
   check("Enter jumps to the row and closes the window",
     !jump.open && jump.scrollY > 0, JSON.stringify({ yBefore: yBefore, after: jump }));
+
+  // This-book zero → the escape hatch: the no-match line offers the same
+  // query on the All-books tab. A Latin nonsense token is a guaranteed miss
+  // and keeps the check free of hardcoded non-ASCII expectations.
+  await evalJS(`document.getElementById('btnSearchWindow').click()`);
+  await waitFor(`document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000);
+  await evalJS(`(function () {
+    var inp = document.getElementById('searchWindowInput');
+    inp.value = 'zzzqqq';
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+  })()`);
+  await waitFor(`document.querySelector('#searchWindowResults .search-goto-all-btn') !== null`, 10000);
+  const zeroState = await evalJS(`(function () {
+    var b = document.querySelector('#searchWindowResults .search-goto-all-btn');
+    return { shown: !!b, text: b ? b.textContent.trim() : '' };
+  })()`);
+  check("this-book zero offers search-all-books",
+    zeroState.shown && zeroState.text.length > 0, JSON.stringify(zeroState));
+  await evalJS(`document.querySelector('#searchWindowResults .search-goto-all-btn').click()`);
+  await waitFor(`document.getElementById('searchWindowTabAllBooks').classList.contains('active')`, 5000);
+  await sleep(800);
+  const zeroAll = await evalJS(`(function () {
+    return {
+      active: document.getElementById('searchWindowTabAllBooks').classList.contains('active'),
+      input: document.getElementById('searchWindowInput').value,
+      empty: !!document.querySelector('#searchWindowResults .search-no-matches'),
+      rows: document.querySelectorAll('#searchWindowResults .search-window-book-link').length,
+    };
+  })()`);
+  check("all-books hop keeps the query and reports no matches",
+    zeroAll.active && zeroAll.input === 'zzzqqq' && zeroAll.empty && zeroAll.rows === 0,
+    JSON.stringify(zeroAll));
+  await evalJS(`(function () {
+    document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+  })()`);
+  await waitFor(`!document.getElementById('searchWindowOverlay').classList.contains('open')`, 5000);
 
   // ── E. imlai book as a standard 1-column book ──────────────────────
   console.log("== E. imlai book standalone ==");

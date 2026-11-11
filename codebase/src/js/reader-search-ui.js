@@ -50,9 +50,16 @@ var _searchDebounceTimer = null;
 var _lastResultCount = 0;
 // The last result set and its whole-book (absolute) row map, cached by
 // the search runs. Re-opening the window re-runs the query instead of
-// drawing from this cache, so it only backs the count header's mirrors.
+// drawing from this cache — it backs the count header's mirrors AND the
+// "Show more" pager below (a re-render of the same rows, never a re-search).
 var _lastResultSet = [];
 var _lastRealIdxMap = [];
+var _lastResultsQuery = "";  // highlight query for the cached set
+var _lastResultsMode = "";   // "adv" (grammar query) | "advFallback" (conditions only)
+// The render cap: snippet LINES per paint (a row can contribute several).
+// "Show more" grows it by RESULT_PAGE and repaints from the cached set.
+var RESULT_PAGE = 30;
+var _resultLimit = RESULT_PAGE;
 var advConditions = [];
 var OPERATORS = [
   { id: "equals", fn: function(cellVal, q) { return cellVal === q; }, needsValue: true },
@@ -72,14 +79,17 @@ function buildSnippets(row, q, compiled, normRow) {
   return buildSnippetsFromSearch(row, parsed, q, normRow);
 }
 
-function buildAdvResultsHTML(query, rows, realIdxMap) {
-  var MAX = 30;
+// Render up to `limit` snippet LINES (a row can contribute several) and
+// report whether any lines remain. The caller paints the pager when `more`.
+function buildAdvResultsHTML(query, rows, realIdxMap, limit) {
+  var max = limit || RESULT_PAGE;
   var q = query.trim();
-  if (!q || rows.length === 0) return "";
+  if (!q || rows.length === 0) return { html: "", shown: 0, more: false };
   // Compile once for the whole result set — not once per row
   var compiled = parseQueryWithMode(q);
-  var html = ""; var count = 0;
-  for (var i = 0; i < rows.length && count < MAX; i++) {
+  var html = ""; var shown = 0; var more = false;
+  for (var i = 0; i < rows.length; i++) {
+    if (shown >= max) { more = true; break; }
     var row = rows[i];
     // Row id only for books whose first column IS the id column; in a
     // content-first book (header bodyDV,foot) row[0] is a whole paragraph —
@@ -96,12 +106,55 @@ function buildAdvResultsHTML(query, rows, realIdxMap) {
         }
       }
     }
-    for (var s = 0; s < snippets.length && count < MAX; s++) {
+    for (var s = 0; s < snippets.length; s++) {
+      if (shown >= max) { more = true; break; }
       html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + formatThousands(rowNum) + '</span><span class="search-result-snippet">' + snippets[s] + '</span></div>';
-      count++;
+      shown++;
     }
   }
-  return linkifyURLs(html);
+  return { html: linkifyURLs(html), shown: shown, more: more };
+}
+
+// Advanced search with no usable first-condition value: one line per row,
+// first content cell (the old fallback loop, now paged with the result cap).
+function buildFallbackResultsHTML(rows, realIdxMap, limit) {
+  var max = limit || RESULT_PAGE;
+  var html = "";
+  for (var i = 0; i < rows.length && i < max; i++) {
+    var row = rows[i];
+    // Row id only for books whose first column IS the id column (see the
+    // same guard in buildAdvResultsHTML).
+    var rowNum = ctx.hasRowNums ? (row[0] || (realIdxMap[i] + 1)) : (realIdxMap[i] + 1);
+    var snip = linkifyURLs(escapeHTML(String(row[1] || row[0] || "").slice(0, 120)));
+    html += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + formatThousands(rowNum) + '</span><span class="search-result-snippet">' + snip + '</span></div>';
+  }
+  return { html: html, shown: Math.min(rows.length, max), more: rows.length > max };
+}
+
+// The pager under a capped list: the caption the window had always had an
+// unused string for, plus the button that grows the cap by one page.
+function moreResultsHTML() {
+  return '<div class="search-more-row">' +
+    '<span class="search-more-note">' + t("andMore") + "</span>" +
+    '<button type="button" class="modal-reset-small search-more-btn">' +
+    t("showMoreResults") + "</button></div>";
+}
+
+// Paint the cached result set at the current page size. Both search paths
+// (grammar query and advanced conditions) land their rows + query in the
+// shared state; "Show more" repaints from it — no re-search, no history write.
+function paintThisBookResults() {
+  var built = _lastResultsMode === "advFallback"
+    ? buildFallbackResultsHTML(_lastResultSet, _lastRealIdxMap, _resultLimit)
+    : buildAdvResultsHTML(_lastResultsQuery, _lastResultSet, _lastRealIdxMap, _resultLimit);
+  if (_lastResultsMode === "adv" && built.shown === 0 && _lastResultSet.length > 0) {
+    // The query yielded no snippet lines (e.g. an exclusion-only condition
+    // value) — the pre-pager renderer fell back to the first content cell;
+    // keep that behaviour instead of showing an empty pane under a count.
+    built = buildFallbackResultsHTML(_lastResultSet, _lastRealIdxMap, _resultLimit);
+  }
+  var html = built.html + (built.more ? moreResultsHTML() : "");
+  showWindowResults(html);
 }
 
 // Wire result-row clicks (jump + close the window — a jump that stays
@@ -134,6 +187,22 @@ function showWindowResults(html) {
   renderHistorySection();
   selectedResultIdx = -1;
   wireWindowResultClicks();
+  // Pager under a capped list — repaint with one more page of lines.
+  var moreBtn = searchResultsEl.querySelector(".search-more-btn");
+  if (moreBtn) {
+    moreBtn.addEventListener("click", function () {
+      _resultLimit += RESULT_PAGE;
+      paintThisBookResults();
+    });
+  }
+  // This-book zero → the same query on the All-books tab (the shell's
+  // setTab fires onTabChange, which runs searchAllBooks with the input).
+  var gotoAll = searchResultsEl.querySelector(".search-goto-all-btn");
+  if (gotoAll) {
+    gotoAll.addEventListener("click", function () {
+      getSearchWindowUI().setTab("allBooks");
+    });
+  }
 }
 
 // Jump to an absolute (whole-book) result row. Search results are book-wide,
@@ -168,19 +237,24 @@ function runBookSearch(q) {
   var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
   _lastResultSet = tempFiltered;
   _lastRealIdxMap = realIdxMap;
+  _lastResultsQuery = q;
+  _lastResultsMode = "adv";
+  _resultLimit = RESULT_PAGE;
   // The count lives in the window's head row (scope-modal pattern), not in
   // the scrolling results pane — setWindowCount shows it beside the input.
   setWindowCount(t("resultCount") + ": " + formatThousands(tempFiltered.length));
-  var html = "";
   if (tempFiltered.length === 0) {
-    html +=
+    // A this-book zero is a dead end otherwise: offer the same query on the
+    // All-books tab (the cross-book index usually has the words somewhere).
+    showWindowResults(
       '<div class="search-no-matches">' + t("noMatchesMsg") + ': "' +
       escapeHTML(q) +
-      '"</div>';
-  } else {
-    html += buildAdvResultsHTML(q, tempFiltered, realIdxMap);
+      '" <button type="button" class="modal-reset-small search-goto-all-btn" ' +
+      'title="Search every book for this query">' +
+      t("searchAllBooksAction") + "</button></div>");
+    return;
   }
-  showWindowResults(html);
+  paintThisBookResults();
 }
 
 export function applySearch(query) {
@@ -478,29 +552,17 @@ function applyAdvancedSearch() {
   var realIdxMap = tempFiltered.map(function(r) { return ctx.allData.indexOf(r); });
   _lastResultSet = tempFiltered;
   _lastRealIdxMap = realIdxMap;
+  _lastResultsQuery = q;
+  // No queryable first-condition value → the first-content-cell fallback
+  // (paged with the same cap; "Show more" repaints from the cached set).
+  _lastResultsMode = q.trim() ? "adv" : "advFallback";
+  _resultLimit = RESULT_PAGE;
   setWindowCount(t("resultCount") + ": " + formatThousands(tempFiltered.length));
-  var html = "";
   if (tempFiltered.length === 0) {
-    html += '<div class="search-no-matches">' + t("noMatchesMsg") + "</div>";
-  } else {
-    var resHTML = q ? buildAdvResultsHTML(q, tempFiltered, realIdxMap) : "";
-    if (!resHTML) {
-      // No queryable first condition — fall back to the first content cell
-      var limit = Math.min(tempFiltered.length, 30);
-      for (var i = 0; i < limit; i++) {
-        var row = tempFiltered[i];
-        // Row id only for books whose first column IS the id column; in a
-    // content-first book (header bodyDV,foot) row[0] is a whole paragraph —
-    // in the flex-shrink:0 number slot it forced the row to max-content and
-    // crushed the snippet into one unwrapped line (the reported bug).
-    var rowNum = ctx.hasRowNums ? (row[0] || (realIdxMap[i] + 1)) : (realIdxMap[i] + 1);
-        var snip = linkifyURLs(escapeHTML(String(row[1] || row[0] || "").slice(0, 120)));
-        resHTML += '<div class="search-result" data-real="' + realIdxMap[i] + '"><span class="search-result-num">#' + formatThousands(rowNum) + '</span><span class="search-result-snippet">' + snip + '</span></div>';
-      }
-    }
-    html += resHTML;
+    showWindowResults('<div class="search-no-matches">' + t("noMatchesMsg") + "</div>");
+    return;
   }
-  showWindowResults(html);
+  paintThisBookResults();
 }
 
 // Window open with text → re-run the query against the active tab (the

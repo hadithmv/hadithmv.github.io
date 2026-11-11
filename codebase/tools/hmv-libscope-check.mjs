@@ -617,6 +617,63 @@ async function main() {
     check("S11 window scope reset restores",
       await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000));
 
+    // Zero INSIDE a narrowed scope is a dead end unless the message names
+    // the scope and offers the widen action. Narrow to the first card's
+    // book again, then type a guaranteed-miss token.
+    const tickZeroBook = await evalJS(`(function () {
+      var code = document.querySelector('#searchWindowResults .lib-result').dataset.book;
+      var cb = null;
+      document.querySelectorAll('#libScopeList .lib-scope-row input[type=checkbox]').forEach(function (c) {
+        if (c.dataset.book === code) cb = c;
+      });
+      if (cb) cb.click();
+      return !!cb;
+    })()`);
+    check("S11 window re-narrow for the zero test", tickZeroBook);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length === 1`, 15000);
+    await evalJS(`(function () {
+      var inp = document.getElementById('searchWindowInput');
+      inp.value = 'zzzqqq';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    })()`);
+    check("S11 scoped zero shows the widen action",
+      await waitFor(`document.querySelector('#searchWindowResults .search-no-matches .search-widen-btn') !== null`, 15000));
+    const scopedZero = await evalJS(`(function () {
+      return {
+        cards: document.querySelectorAll('#searchWindowResults .lib-result').length,
+        links: document.querySelectorAll('#searchWindowResults .search-window-book-link').length,
+        sumBefore: document.getElementById('searchWindowScopeSummary').textContent,
+        msg: (document.querySelector('#searchWindowResults .search-no-matches') || {}).textContent || '',
+      };
+    })()`);
+    check("S11 scoped zero reports no rows",
+      scopedZero.cards === 0 && scopedZero.links === 0 && scopedZero.msg.length > 0,
+      JSON.stringify(scopedZero));
+    await evalJS(`document.querySelector('#searchWindowResults .search-widen-btn').click()`);
+    check("S11 widen clears the scope and keeps the query",
+      await waitFor(`(function () {
+        return document.getElementById('searchWindowInput').value === 'zzzqqq' &&
+          !document.querySelector('#searchWindowResults .search-widen-btn') &&
+          !!document.querySelector('#searchWindowResults .search-no-matches');
+      })()`, 15000));
+    const widenedZero = await evalJS(`(function () {
+      return {
+        sumAfter: document.getElementById('searchWindowScopeSummary').textContent,
+        input: document.getElementById('searchWindowInput').value,
+      };
+    })()`);
+    check("S11 widen reports the full scope",
+      widenedZero.sumAfter !== scopedZero.sumBefore && widenedZero.input === 'zzzqqq',
+      JSON.stringify({ before: scopedZero.sumBefore, after: widenedZero.sumAfter }));
+
+    // restore the shared query/state for the geometry checks below
+    await evalJS(`(function () {
+      var inp = document.getElementById('searchWindowInput');
+      inp.value = 'الناس';
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    })()`);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000);
+
     // Desktop geometry — the two-column body: the side pane (controls) sits
     // beside the main pane (results), narrower than it, both inside the
     // modal. The window is RTL, so the side pane is the right-hand column:

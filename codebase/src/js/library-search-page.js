@@ -1,7 +1,8 @@
 /**
  * Library Search Page Module (books/library-search.html)
  * Cross-book search UI — the engine itself lives in src/js/library-search-engine.js
- * (pure module: loadScopedIndex / loadIndexMeta / searchLibrary / tokenizeText) and
+ * (pure module: loadScopedIndex / loadIndexMeta / searchLibraryDetailed /
+ * analyseAllBooksQuery / tokenizeText) and
  * the word index in data/search-index-manifest.json + data/search-index/ (built by
  * data/08-rebuild-searchIndex.mjs).
  *
@@ -15,7 +16,7 @@
  */
 
 import { tagLabel, t, currentLang } from "./i18n.js";
-import { loadScopedIndex, searchLibrary } from "./library-search-engine.js";
+import { loadScopedIndex, searchLibraryDetailed } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
   loadAuthorDefinitions,
@@ -67,11 +68,13 @@ import {
   buildBookRowsHTML,
   setWindowCount,
   showWindowHint,
+  allBooksQueryNote,
 } from "./search-window.js";
 import {
   facetState,
   setFacets,
   facetActive,
+  clearFacets,
   onFacetChange,
   bookMatchesFacets,
   facetCounts,
@@ -119,6 +122,9 @@ var winHistoryClearEl = null; // #searchWindowHistoryClear (sibling — display 
 var _winView = "card";    // card | list (window view toggle)
 var _winLastQ = null;     // last window query + results (view re-render, no re-search)
 var _winLastResults = null;
+var _winLastInfo = null;  // grammar-support report for the note
+var _winLastNarrowed = false;
+var _winLastScopeCount = 0;
 
 // ── URL sync (?q= / ?tags= / ?books= — shareable links) ──────
 function readURLParams() {
@@ -375,6 +381,58 @@ function showEmpty(messageKey) {
   el.count.style.display = "none";
 }
 
+// True when chips, facets or the picker narrow the search below every book —
+// the zero-result message and its widen action key off this.
+function scopeNarrowed() {
+  var scopeBooks = getScope();
+  return _selectedTags.length > 0 || facetActive() ||
+    !!(scopeBooks && scopeBooks.length > 0);
+}
+
+/**
+ * Zero-result state for the page grid. A narrowed scope gets a message that
+ * names it plus a "Search all books" action (clears every narrowing); an
+ * unscoped zero is just "No results". The all-books grammar note (when the
+ * query used syntax the word index can't serve) explains a zero that came
+ * from the query itself.
+ */
+function showScopedEmpty(info, narrowed, scopeCount) {
+  var msg = narrowed && scopeCount > 0
+    ? fillTemplate(
+        scopeCount === 1 ? "libNoResultsInScopeOne" : "libNoResultsInScope",
+        { n: formatThousands(scopeCount) }
+      )
+    : t("libNoResults");
+  el.results.innerHTML =
+    allBooksQueryNote(info) +
+    '<div class="empty-state">' + msg +
+    (narrowed
+      ? ' <button type="button" class="modal-reset-small search-widen-btn" ' +
+        'title="Clear filters and search every book">' +
+        t("searchAllBooksAction") + "</button>"
+      : "") +
+    "</div>";
+  el.count.textContent = "";
+  el.count.style.display = "none";
+  var widen = el.results.querySelector(".search-widen-btn");
+  if (widen) widen.addEventListener("click", widenPageScope);
+}
+
+/** Clear every narrowing (chips, facets, picker) and re-run the page search. */
+function widenPageScope() {
+  _selectedTags = [];
+  setScope(null);
+  // clearFacets notifies synchronously → the page's onFacetChange handler
+  // syncs the URL/chips and re-runs the search; state is already widened.
+  clearFacets();
+  renderChips();
+  syncURL();
+  renderScopeButton();
+  // setScope() is silent — fan out through the picker's public channel so
+  // the window's summary (and any later open) shows the widened scope.
+  window.dispatchEvent(new CustomEvent("libScopeChange"));
+}
+
 /** Run the search and render results (caller debounces). */
 function runSearchAndRender() {
   _q = (el.input.value || "").trim();
@@ -387,10 +445,9 @@ function runSearchAndRender() {
   // no books must NOT fall through to an unscoped search (the engine treats
   // [] as "every book").
   var scope = computeScope();
-  var scopeBooks = getScope();
-  if ((_selectedTags.length > 0 || facetActive() ||
-       (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
-    showEmpty("libNoResults");
+  var narrowed = scopeNarrowed();
+  if (narrowed && scope.length === 0) {
+    showScopedEmpty(null, true, 0);
     return;
   }
   // Record the query as it is applied — same as the reader (applySearch), so
@@ -401,7 +458,8 @@ function runSearchAndRender() {
   // Scope-scoped: only the shards for the books in scope are fetched.
   loadScopedIndex(scope)
     .then(function (index) {
-      renderResults(searchLibrary(index, _q, scope), _q);
+      var out = searchLibraryDetailed(index, _q, scope);
+      renderResults(out.results, _q, out.info, narrowed, scope.length);
     })
     .catch(function () {
       el.results.innerHTML =
@@ -704,9 +762,9 @@ function resultCardHTML(r, q, withPeek) {
 }
 
 /** Render grouped-by-book results into the results area. */
-function renderResults(results, q) {
+function renderResults(results, q, info, narrowed, scopeCount) {
   if (!results || results.length === 0) {
-    showEmpty("libNoResults");
+    showScopedEmpty(info, narrowed, scopeCount);
     return;
   }
   var total = 0;
@@ -714,6 +772,7 @@ function renderResults(results, q) {
   el.count.style.display = "";
   el.count.textContent = fillTemplate("libResultSummary", { a: total, b: results.length });
   el.results.innerHTML =
+    allBooksQueryNote(info) +
     '<div class="lib-results">' +
     results.map(function (r) { return resultCardHTML(r, q, true); }).join("") +
     "</div>";
@@ -795,17 +854,35 @@ function renderWindowHistory() {
 }
 
 /** Render the window's search results (card view or compact list view). */
-function renderWindowResults(results, q) {
+function renderWindowResults(results, q, info, narrowed, scopeCount) {
   _winLastQ = q;
   _winLastResults = results;
+  _winLastInfo = info || null;
+  _winLastNarrowed = !!narrowed;
+  _winLastScopeCount = scopeCount || 0;
   var total = 0;
   for (var i = 0; i < results.length; i++) total += results[i].count;
   // The count lives in the window's head row (scope-modal pattern) — the
   // results pane is rows only.
   setWindowCount(fillTemplate("libResultSummary", { a: formatThousands(total), b: results.length }));
-  var html = "";
+  var html = allBooksQueryNote(info);
   if (results.length === 0) {
-    html += '<div class="search-no-matches">' + t("libNoResults") + "</div>";
+    // Same escape hatch as the page grid: name the narrowed scope and offer
+    // to widen (a zero inside "16 books" usually means one filter too many).
+    var msg = narrowed && scopeCount > 0
+      ? fillTemplate(
+          scopeCount === 1 ? "libNoResultsInScopeOne" : "libNoResultsInScope",
+          { n: formatThousands(scopeCount) }
+        )
+      : t("libNoResults");
+    html += '<div class="search-no-matches">' + msg + ': "' +
+      escapeHTML(q) + '"' +
+      (narrowed
+        ? ' <button type="button" class="modal-reset-small search-widen-btn" ' +
+          'title="Clear filters and search every book">' +
+          t("searchAllBooksAction") + "</button>"
+        : "") +
+      "</div>";
   } else if (_winView === "list") {
     html += buildBookRowsHTML(results, q, _bookNames);
   } else {
@@ -815,9 +892,27 @@ function renderWindowResults(results, q) {
   }
   winResults.innerHTML = html;
   winResults.style.display = "";
+  var widen = winResults.querySelector(".search-widen-btn");
+  if (widen) widen.addEventListener("click", function () { widenWindowScope(); });
   // The keyboard hint appears with the rows; the no-matches line hides it
   // (and the strip collapses).
   showWindowHint(results.length > 0);
+}
+
+// Window zero → widen. Clearing the facets notifies synchronously (the page
+// grid + this window re-run through their subscriptions); setScope(null) and
+// the tag clear land before the notification so it sees the widened state.
+// setScope() is silent, so fan the change out through the picker's public
+// channel too — the window's summary and popover refresh, and its
+// library-mode branch re-runs the open window through cfg.onInput.
+function widenWindowScope() {
+  _selectedTags = [];
+  setScope(null);
+  clearFacets();
+  renderChips();
+  syncURL();
+  renderScopeButton();
+  window.dispatchEvent(new CustomEvent("libScopeChange"));
 }
 
 /** Run the window search — the same pipeline as the page's runSearchAndRender
@@ -826,9 +921,9 @@ function renderWindowResults(results, q) {
 function windowSearchRun(q) {
   setWindowCount(""); // the head row shows the count only once a run lands
   var scope = computeScope();
-  var scopeBooks = getScope();
-  if ((_selectedTags.length > 0 || facetActive() || (scopeBooks && scopeBooks.length > 0)) && scope.length === 0) {
-    renderWindowResults([], q);
+  var narrowed = scopeNarrowed();
+  if (narrowed && scope.length === 0) {
+    renderWindowResults([], q, null, true, 0);
     return;
   }
   addSearchHistory(q, window.LS_KEYS.searchHistory);
@@ -839,7 +934,8 @@ function windowSearchRun(q) {
   // a tag-scoped window search never downloads the whole corpus.
   loadScopedIndex(scope)
     .then(function (index) {
-      renderWindowResults(searchLibrary(index, q, scope), q);
+      var out = searchLibraryDetailed(index, q, scope);
+      renderWindowResults(out.results, q, out.info, narrowed, scope.length);
     })
     .catch(function () {
       winResults.innerHTML =
@@ -881,7 +977,10 @@ function onWindowOpenPage(q) {
 /** Card/list toggle — re-render the cached results, no re-search. */
 function onWindowViewChange(view) {
   _winView = view;
-  if (_winLastQ && _winLastResults) renderWindowResults(_winLastResults, _winLastQ);
+  if (_winLastQ && _winLastResults) {
+    renderWindowResults(_winLastResults, _winLastQ, _winLastInfo,
+      _winLastNarrowed, _winLastScopeCount);
+  }
 }
 
 // ── Page initialisation ──────────────────────────────────────
@@ -995,7 +1094,10 @@ async function init() {
     if (_q) runSearchAndRender();
     // The window's own labels re-render via the shell's languagechange
     // listener; its cached results re-render here (no re-search).
-    if (_winLastQ && _winLastResults) renderWindowResults(_winLastResults, _winLastQ);
+    if (_winLastQ && _winLastResults) {
+      renderWindowResults(_winLastResults, _winLastQ, _winLastInfo,
+        _winLastNarrowed, _winLastScopeCount);
+    }
   });
 
   // Focus mode button (collapse chips + count, keep the search visible)

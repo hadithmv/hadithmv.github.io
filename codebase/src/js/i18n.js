@@ -16,6 +16,13 @@ const STRINGS = {
     en: "Search this book…",
     ar: "…ابحث في هذا الكتاب",
   },
+  // The All-books tab / library-search window — cross-book search is
+  // whole-word only, so the placeholder says so before the first keystroke.
+  searchAllBooksPlaceholder: {
+    dv: "ހުރިހާ ފޮތަކުން ހޯދާ (ފުރިހަމަ ލަފްޒު)…",
+    en: "Search all books (whole words)…",
+    ar: "…ابحث في كل الكتب (كلمات كاملة)",
+  },
 
   // ── Toolbar ──
   btnAdvancedSearchText: {
@@ -176,11 +183,29 @@ const STRINGS = {
     ar: "/(صلاة|صلاة)/",
   },
   // The grammar belongs to the This-book tab — All books is a word index
-  // that matches whole normalized words exactly (no wildcards, no syntax).
+  // that matches whole normalized words exactly (plus -exclusions) and can
+  // only approximate the rest, with an inline note (libAllBooks*Note).
   searchHelpAllBooksNote: {
-    dv: "މި ގޮތްގޮތަށް ހޯދޭނީ ވަކިވަކި ފޮތފޮތުގެ ސާޗުގައި އެކަންޏެވެ. ހުރިހާ ފޮތެއް ސާޗުކުރާ ނަމަ، ހޯދޭނީ ފުރިހަމަ ލަފްޒުތައް އިން ގޮތަށެވެ.",
-    en: "These syntaxes work only in individual book searches. Searches across all books matches whole words.",
-    ar: "تعمل هذه الصيغ فقط في عمليات البحث في الكتب الفردية. البحث عبر جميع الكتب يطابق الكلمات الكاملة.",
+    dv: "މި ގޮތްގޮތަށް ހޯދޭނީ ވަކިވަކި ފޮތްފޮތުގެ ސާޗުގައި އެކަންޏެވެ. ހުރިހާ ފޮތެއް ސާޗުކުރާ ނަމަ، ހޯދޭނީ ފުރިހަމަ ލަފްޒުތަކާއި -ނަފީކުރާ ލަފްޒުތަކެވެ.",
+    en: "These syntaxes work only in individual book searches. Across all books, whole words and -exclusions are matched.",
+    ar: "تعمل هذه الصيغ فقط في عمليات البحث في الكتب الفردية. عبر جميع الكتب تُطابَق الكلمات الكاملة والاستثناءات (-).",
+  },
+  // Inline all-books notes (both search surfaces) — shown when the query
+  // used syntax the word index can only approximate or cannot serve.
+  libAllBooksApproxNote: {
+    dv: "ހުރިހާ ފޮތެއްގެ ސާޗުގައި މެޗުވާނީ ފުރިހަމަ ލަފްޒުތަކަށެވެ — ~ ގާތް ލަފްޒާ، ވައިލްޑްކާޑާ (*، ?)، ކޮލަމާ (col:) އަދި ރެޖެކްސް (/…/) މަސައްކަތްކުރާނީ އެކަން ފޮތެއްގެ ސާޗުގައެވެ.",
+    en: "Across all books only whole words are matched — ~fuzzy~, wildcards, col: and /regex/ work in this-book search.",
+    ar: "عبر جميع الكتب تُطابَق الكلمات الكاملة فقط — البحث التقريبي (~) والرموز البديلة وcol: والتعبير النمطي (/…/) تعمل داخل الكتاب الواحد.",
+  },
+  libAllBooksRegexNote: {
+    dv: "ރެޖެކްސް ސާޗު (/…/) ކުރެވޭނީ އެކަން ފޮތެއްގެ ސާޗުގައެވެ.",
+    en: "Regex search (/…/) works only inside a single book.",
+    ar: "بحث التعبير النمطي (/…/) يعمل فقط داخل كتاب واحد.",
+  },
+  libAllBooksExcludeOnlyNote: {
+    dv: "ސާޗު ލަފުޒެއް އިތުރުކުރޭ — ނަފީކުރާ ލަފްޒުތަކާ އެކަނި ހުރިހާ ފޮތަކުން ދައްކާކަށް ނުޖެހޭނެއެވެ.",
+    en: "Add a search word — exclusions alone can't be listed across all books.",
+    ar: "أضف كلمة بحث — لا يمكن عرض الاستثناءات وحدها عبر جميع الكتب.",
   },
   // Every query is normalised before matching — the hamza/alef variants
   // fold, ى→ي, diacritics and tatweel strip, Thaana dotted forms fold.
@@ -260,6 +285,19 @@ const STRINGS = {
     dv: "… އަދި އިތުރު ނަތީޖާ",
     en: "… and more results",
     ar: "… والمزيد من النتائج",
+  },
+  // The pager under the capped this-book results (RESULT_PAGE at a time).
+  showMoreResults: {
+    dv: "އިތުރު ނަތީޖާ ދެއްކޭ",
+    en: "Show more",
+    ar: "عرض المزيد",
+  },
+  // Zero-result escape hatches: this-book 0 → run the query cross-book;
+  // scoped all-books 0 → clear the narrowing and search every book.
+  searchAllBooksAction: {
+    dv: "ހުރިހާ ފޮތަކުން ހޯދާ",
+    en: "Search all books",
+    ar: "ابحث في كل الكتب",
   },
 
   // ── Toast ──
@@ -403,6 +441,18 @@ const STRINGS = {
     dv: "އެއްވެސް ނަތީޖާއެއް ނެތް",
     en: "No results",
     ar: "لا توجد نتائج",
+  },
+  // Scoped zero — name the narrowed set so the dead end is visible, with a
+  // "Search all books" action beside it (the widen escape hatch).
+  libNoResultsInScope: {
+    dv: "{n} ފޮތެއްގައި ނަތީޖާއެއް ނެތް",
+    en: "No matches in {n} books",
+    ar: "لا توجد نتائج في {n} كتب",
+  },
+  libNoResultsInScopeOne: {
+    dv: "މި ފޮތުގައި ނަތީޖާއެއް ނެތް",
+    en: "No matches in this book",
+    ar: "لا توجد نتائج في هذا الكتاب",
   },
   libBookMatches: { dv: "{n} ނަތީޖާ", en: "{n} matches", ar: "{n} نتيجة" },
   libResultSummary: {

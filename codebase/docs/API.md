@@ -393,9 +393,17 @@ Returns `Promise<{meta, words}>` in the shape `searchLibrary` consumes. Loads th
 
 Thin alias of `loadScopedIndex(null)` — the whole index — kept for callers without a scope.
 
+### `analyseAllBooksQuery(query)`
+
+Classifies a query for the word index. Runs the shared `parseQuery` grammar (the in-book grammar), normalises and tokenises each term, and returns `{includeWords, excludeWords, regexOnly, excludeOnly, approximated}`. `approximated` marks terms the index can only approximate at word level — wildcards (`*`/`?`), fuzzy (`~word~`), column-scoped (`col:N:term`) and quoted phrases all reduce to their constituent words. `regexOnly` and `excludeOnly` mark queries the index cannot answer at all (a regex, or exclusions with no include term). The UI uses this to render the quiet inline note above all-books results (`allBooksQueryNote` in `search-window.js`).
+
+### `searchLibraryDetailed(index, query, scopeBookCodes?)`
+
+Pure query against a parsed index — the full-grammar path. Goes through `analyseAllBooksQuery`'s classification: include terms are looked up as whole words and ANDed at row level, exclude terms are subtracted from the matched set per book, and the intersection with `scopeBookCodes` (omit for every book in the index) stays as before. Returns `{results, info}` — `results` is per-book `Array<{bookCode, count, firstRow}>` sorted by match count descending; `info` is the `analyseAllBooksQuery` classification. `count` is the number of matching rows; `firstRow` is the first one, as a **1-based data position** (the reader's `?row=` contract — the index stores positions, not CSV `#` values, which are not always sequential) for deep links. Word lookup stays exact — `رحم` does not find الرحمن (substring matching stays in-book); wildcard/fuzzy/column terms degrade to their plain words, and a regex-only or exclude-only query returns `[]` with the reason on `info`. `[]` also comes back when nothing matched.
+
 ### `searchLibrary(index, query, scopeBookCodes?)`
 
-Pure query against a parsed index. Normalises + tokenises the query (whole words only, AND across words at row level), intersects with `scopeBookCodes` (omit for every book in the index), and returns per-book results `Array<{bookCode, count, firstRow}>` sorted by match count descending — `[]` when the query has no searchable terms or nothing matched. `count` is the number of matching rows; `firstRow` is the first one, as a **1-based data position** (the reader's `?row=` contract — the index stores positions, not CSV `#` values, which are not always sequential) for deep links. Word lookup is exact — `رحم` does not find الرحمن (substring matching stays in-book).
+Thin wrapper returning `searchLibraryDetailed(...).results` — kept for callers that don't render the grammar note.
 
 ### `tokenizeText(normText)`
 

@@ -15,10 +15,11 @@
  * deep-link to reader.html?book=X&row=N.
  *
  * Pure module — no DOM. Exports: loadSearchIndex, loadScopedIndex,
- * loadIndexMeta, searchLibrary, tokenizeText
+ * loadIndexMeta, searchLibrary, searchLibraryDetailed, analyseAllBooksQuery,
+ * tokenizeText
  */
 
-import { normaliseForSearch } from "./search-utils.js";
+import { normaliseForSearch, parseQuery } from "./search-utils.js";
 
 var INDEX_PATH = "../../data/search-index-manifest.json"; // the manifest — meta only
 var SHARD_DIR = "../../data/search-index/"; // one flat {word: packed} file per book
@@ -358,28 +359,118 @@ function intersectSorted(a, b) {
   return out;
 }
 
+/** Sorted-array difference (a without b) — both inputs ascending, unique. */
+function differenceSorted(a, b) {
+  var out = [];
+  var i = 0;
+  var j = 0;
+  while (i < a.length) {
+    if (j >= b.length) { out.push(a[i]); i++; continue; }
+    if (a[i] === b[j]) { i++; j++; }
+    else if (a[i] < b[j]) { out.push(a[i]); i++; }
+    else j++;
+  }
+  return out;
+}
+
+// ── Query analysis ──────────────────────────────────────────
+
 /**
- * Search the library index for a query.
+ * Parse an all-books query into word tokens plus a support report.
+ *
+ * The cross-book index is a whole-word postings list, so unlike the in-book
+ * matcher (rowMatchesQueryNorm in search-utils.js) it cannot evaluate every
+ * grammar construct. This keeps what the index CAN serve exact — plain
+ * words, `.word` (identical at word level) and `-exclude` (subtracted from
+ * each book's candidate rows) — and degrades the rest to their literal
+ * words, reporting the approximation through flags so each renderer can
+ * show a note instead of silently mangling the query:
+ *   - quoted phrase → its words, ANDed (word order is not enforced);
+ *   - `~fuzzy~` → the literal word (no edit tolerance at index level);
+ *   - `*`/`?` wildcards → the literal fragments around them;
+ *   - `col:N:` → the term without the column restriction.
+ * A `/regex/` query has no words to degrade to: it reports `regexOnly` and
+ * yields no results (the UI explains). An exclude-only query cannot be
+ * listed either — the index knows where a word IS, not where it is not —
+ * so it reports `excludeOnly` and yields no results.
+ *
+ * @param {string} query - raw query text
+ * @returns {{includeWords: string[], excludeWords: string[],
+ *   regexOnly: boolean, excludeOnly: boolean, approximated: boolean}}
+ */
+export function analyseAllBooksQuery(query) {
+  var parsed = parseQuery(query || "");
+  var info = {
+    includeWords: [],
+    excludeWords: [],
+    regexOnly: false,
+    excludeOnly: false,
+    approximated: false,
+  };
+  if (parsed.regex) {
+    info.regexOnly = true;
+    return info;
+  }
+
+  function addWords(term, bag) {
+    var tokens = tokenizeText(normaliseForSearch(term));
+    for (var i = 0; i < tokens.length; i++) {
+      if (bag.indexOf(tokens[i]) === -1) bag.push(tokens[i]);
+    }
+  }
+  function analyseTerm(term, bag) {
+    if (term.col !== null) info.approximated = true;
+    if (term.fuzzy) info.approximated = true;
+    if (/[*?]/.test(term.term)) info.approximated = true;
+    if (/\s/.test(term.term)) info.approximated = true; // quoted phrase
+    addWords(term.term, bag);
+  }
+
+  for (var i = 0; i < parsed.include.length; i++) {
+    analyseTerm(parsed.include[i], info.includeWords);
+  }
+  for (var j = 0; j < parsed.exclude.length; j++) {
+    analyseTerm(parsed.exclude[j], info.excludeWords);
+  }
+  if (info.includeWords.length === 0 && info.excludeWords.length > 0) {
+    info.excludeOnly = true;
+  }
+  return info;
+}
+
+/**
+ * Search the library index for a query, with the query-support report the
+ * renderers use to show the all-books grammar note.
  *
  * @param {Object} index - parsed index ({meta, words}) from loadSearchIndex()
- * @param {string} query - raw query text; tokenised with tokenizeText()
+ * @param {string} query - raw query text; parsed by analyseAllBooksQuery()
  * @param {string[]} [scopeBookCodes] - book codes to limit the search to
  *   (e.g. tag-scoped, -HDN excluded). Omit / empty = every book in the index.
- * @returns {Array<{bookCode, count, firstRow}>} books with at least one
- *   matching row, sorted by match count descending. Empty when the query has
- *   no searchable terms or nothing matched.
+ * @returns {{results: Array<{bookCode, count, firstRow}>, info: Object}}
+ *   results: books with at least one matching row, sorted by match count
+ *   descending; empty when the query has no searchable terms, a term exists
+ *   nowhere, or nothing matched. info: see analyseAllBooksQuery().
  */
-export function searchLibrary(index, query, scopeBookCodes) {
-  if (!index || !index.words) return [];
-  var terms = tokenizeText(normaliseForSearch(query || ""));
-  if (terms.length === 0) return [];
+export function searchLibraryDetailed(index, query, scopeBookCodes) {
+  var info = analyseAllBooksQuery(query);
+  if (!index || !index.words) return { results: [], info: info };
+  if (info.regexOnly || info.includeWords.length === 0) {
+    return { results: [], info: info };
+  }
 
   var words = index.words;
   var postings = [];
-  for (var i = 0; i < terms.length; i++) {
-    var posting = words[terms[i]];
-    if (!posting) return []; // a term exists nowhere → no row can contain all terms
+  for (var i = 0; i < info.includeWords.length; i++) {
+    var posting = words[info.includeWords[i]];
+    if (!posting) return { results: [], info: info }; // a term exists nowhere → no row can contain all terms
     postings.push(posting);
+  }
+  // Exclusions only subtract where the word exists; a word absent from the
+  // whole index excludes nothing.
+  var excludePostings = [];
+  for (var e = 0; e < info.excludeWords.length; e++) {
+    var ep = words[info.excludeWords[e]];
+    if (ep) excludePostings.push(ep);
   }
 
   // Resolve scope (book codes → numeric ids). "3" is a string key.
@@ -404,7 +495,7 @@ export function searchLibrary(index, query, scopeBookCodes) {
     if (pivot === null || pCount < pivot.count) {
       pivot = { index: t, count: pCount };
     }
-    if (pCount === 0) return [];
+    if (pCount === 0) return { results: [], info: info };
   }
 
   var results = [];
@@ -421,6 +512,14 @@ export function searchLibrary(index, query, scopeBookCodes) {
       rows = intersectSorted(rows, rangesToArray(other));
       if (rows.length === 0) break;
     }
+    // Exclusions subtract per book — the row must contain every include
+    // word and none of the exclude words (searchLibrary used to treat
+    // "-word" as a positive term because the raw tokeniser dropped the
+    // minus; parseQuery keeps the semantics).
+    for (var x = 0; x < excludePostings.length && rows.length > 0; x++) {
+      var exRows = excludePostings[x][bookKey];
+      if (exRows) rows = differenceSorted(rows, rangesToArray(exRows));
+    }
     if (rows.length === 0) continue;
     results.push({
       bookCode: bookIds[+bookKey],
@@ -430,5 +529,15 @@ export function searchLibrary(index, query, scopeBookCodes) {
   }
 
   results.sort(function (a, b) { return b.count - a.count; });
-  return results;
+  return { results: results, info: info };
+}
+
+/**
+ * Array-only wrapper around searchLibraryDetailed — the historical API for
+ * callers that don't render the grammar note.
+ *
+ * @returns {Array<{bookCode, count, firstRow}>}
+ */
+export function searchLibrary(index, query, scopeBookCodes) {
+  return searchLibraryDetailed(index, query, scopeBookCodes).results;
 }
