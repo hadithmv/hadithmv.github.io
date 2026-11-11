@@ -773,7 +773,10 @@
 .search-window-book-count {
   flex-shrink: 0;
   font-size: var(--panel-font-size, 0.85rem);
-  font-weight: 600;
+  /* Deliberately normal weight — the app's other count labels (.search-info,
+     .lib-scope-count) are 600, but this per-row figure sits muted beside a
+     title that is itself 400; bold made it the loudest thing in the row. */
+  font-weight: 400;
   color: var(--color-text-muted);
   white-space: nowrap;
   /* the count label is trilingual ("434 ނަތީޖާ") — without this it

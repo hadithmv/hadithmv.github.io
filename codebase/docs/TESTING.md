@@ -48,7 +48,8 @@ buttons + `?authors=` deep links + the no-English-title cards, the reader
 header's per-author buttons (one button per author — the multi-author Razi
 fixture — each opening its own Author tab, joined with the
 script-appropriate comma: the Latin comma in the English layout, the Arabic
-comma in Dhivehi/Arabic, on cards and header alike), and the search
+comma in Dhivehi/Arabic, on cards and header alike), the library result
+rows' muted author suffix with its author-line tooltip, and the search
 window's All-books facet section (modals stack over the window).
 The info-modal battery lives at `../tools/hmv-info-check.mjs`
 (`node tools/hmv-info-check.mjs`; `HMV_INFO_PORT` / `HMV_INFO_PROFILE` env
@@ -603,9 +604,9 @@ blaming the product.
   the registry versions are the LF-form hashes, so after the next commit
   those 8 books re-download once per visitor, then stabilize. Static audits against
   HTML miss classes only present in JS strings — the Tier 2 sweep deleted two
-  live rules (`.modal-overlay` base, `.card` surface; `class="card book-card"`
-  in dashboard.js:408, `class="card lib-result"` in library-search-page.js:381;
-  both restored verbatim from HEAD). Correct procedure: (1) grep the bare class
+  live rules (`.modal-overlay` base — `overlay.className = "modal-overlay"` in
+  common.js; `.card` surface — `class="card book-card"` in dashboard.js; both
+  restored verbatim from HEAD). Correct procedure: (1) grep the bare class
   token with word boundaries across `src/books/*.html` **and** `src/js/*.js`;
   (2) watch pairs where a `.open`/`.hover`/`.active` variant survives but its
   base was deleted — the base is almost certainly still live; (3) re-serve and
