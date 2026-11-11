@@ -1,9 +1,9 @@
 // Library-search battery: the book-scope picker (?books= + the picker
 // modal, S1-S10) and the unified search window on the library page
-// (S11: open, focus, card/list toggle, scope modal stacked on the window,
-// scoped re-run, Escape-by-layer). S12 pins the result-card chrome in the
-// Dhivehi layout (no English caption, the tag row keeps the shared flex
-// gap). S13 pins all-books prefix matching end-to-end: a derived stem
+// (S11: open, focus, rows-only results, scope modal stacked on the window,
+// scoped re-run, Escape-by-layer). S12 pins the result-row chrome in the
+// Dhivehi layout (one title line, no card triad, the tag row keeps the
+// shared flex gap). S13 pins all-books prefix matching end-to-end: a derived stem
 // (absent from the HDT index, with 2+ longer forms) must return exactly the
 // union of its forms' rows, computed independently from the HDT shards;
 // `.stem` must be exact-only; and an unindexed 1–2 letter word must show
@@ -256,7 +256,7 @@ async function main() {
     await goto(pageURL, 1280, 900);
     await evalJS(`localStorage.setItem('lang', 'en')`);
     await goto(pageURL + "?q=" + encodeURIComponent(Q), 1280, 900);
-    check("S1 results render", await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result cards");
+    check("S1 results render", await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result rows");
     // The page defaults the scope to the HDT group (initScopePicker
     // defaultTag "HDT") — a fresh visit searches HDT first; the All chip,
     // the reset button, or any picker interaction widens it.
@@ -266,12 +266,18 @@ async function main() {
       var scope = ${JSON.stringify(HDT_SCOPE)};
       return cards.length > 0 && Array.prototype.every.call(cards, function (c) { return scope.indexOf(c.dataset.book) !== -1; });
     })()`));
-    // The English caption is this layout's own title (AR + DV + EN trio);
-    // the Dhivehi/Arabic layouts drop it — S12 pins that half.
-    check("S1 result cards carry the English caption (en UI)",
+    // Search results are one-line rows on every surface: the title and the
+    // match count share the line, and the old stacked card chrome (title
+    // trio + author) is gone.
+    check("S1 result rows carry a title and a count (en UI)",
       await evalJS(`(function () {
-        var cards = document.querySelectorAll('.lib-result');
-        return cards.length > 0 && Array.prototype.every.call(cards, function (c) { return !!c.querySelector('.title-en'); });
+        var rows = document.querySelectorAll('.lib-result');
+        return rows.length > 0 && Array.prototype.every.call(rows, function (r) {
+          var title = r.querySelector('.search-window-book-title');
+          return title && title.textContent.trim().length > 0 &&
+            !!r.querySelector('.search-window-book-count') &&
+            !r.querySelector('.title-ar, .title-dv, .title-en, .card-author');
+        });
       })()`));
     // The tooltip is the only always-English explainer of the button's action —
     // it must teach the verb ("choose which books"), not describe the result.
@@ -611,56 +617,43 @@ async function main() {
     const winInit = await evalJS(`(function () {
       return {
         scopeShown: document.getElementById('searchWindowScope').style.display !== 'none',
-        viewShown: document.getElementById('searchWindowView').style.display !== 'none',
+        viewGone: !document.getElementById('searchWindowView'),
         optsHidden: document.getElementById('searchWindowOptions').style.display === 'none',
         query: document.getElementById('searchWindowInput').value,
       };
     })()`);
-    check("S11 window surfaces (scope + view on, options off)",
-      winInit.scopeShown && winInit.viewShown && winInit.optsHidden, JSON.stringify(winInit));
+    check("S11 window surfaces (scope on, no view toggle, options off)",
+      winInit.scopeShown && winInit.viewGone && winInit.optsHidden, JSON.stringify(winInit));
     check("S11 window inherits the page query", winInit.query === Q, winInit.query);
 
-    // card view renders — the window's own cards, no peek toggles
-    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000);
-    const cards = await evalJS(`(function () {
-      var r = document.getElementById('searchWindowResults');
-      return {
-        n: r.querySelectorAll('.lib-result').length,
-        peeks: r.querySelectorAll('.lib-peek-toggle').length,
-        rc: (document.getElementById('searchWindowCount') || {}).textContent || null,
-      };
-    })()`);
-    check("S11 card view renders in window", cards.n > 1 && cards.peeks === 0, JSON.stringify(cards));
-    check("S11 window count header", cards.rc !== null && /\d/.test(cards.rc), cards.rc);
-
-    // list view toggle — compact rows, cards gone, button active
-    await evalJS(`document.getElementById('searchWindowViewList').click()`);
-    await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 10000);
-    const listView = await evalJS(`(function () {
+    // One-line rows render — the window's own (no peek toggles; the page
+    // owns those), and no card wrapper anywhere in the window.
+    await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000);
+    const rows = await evalJS(`(function () {
       var r = document.getElementById('searchWindowResults');
       return {
         n: r.querySelectorAll('.search-window-book-link').length,
         cards: r.querySelectorAll('.lib-result').length,
-        active: document.getElementById('searchWindowViewList').classList.contains('active'),
+        peeks: r.querySelectorAll('.lib-peek-toggle').length,
+        rc: (document.getElementById('searchWindowCount') || {}).textContent || null,
       };
     })()`);
-    check("S11 list view renders", listView.n > 1 && listView.cards === 0 && listView.active, JSON.stringify(listView));
-
-    // back to card view
-    await evalJS(`document.getElementById('searchWindowViewCard').click()`);
-    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 10000);
-    check("S11 back to card view",
-      await evalJS(`document.getElementById('searchWindowViewCard').classList.contains('active')`));
+    check("S11 result rows render in the window", rows.n > 1 && rows.cards === 0 && rows.peeks === 0, JSON.stringify(rows));
+    check("S11 window count header", rows.rc !== null && /\d/.test(rows.rc), rows.rc);
+    check("S11 no card/list toggle in the window",
+      await evalJS(`document.getElementById('searchWindowView') === null &&
+        document.getElementById('searchWindowViewCard') === null &&
+        document.getElementById('searchWindowViewList') === null`));
 
     // window → page hop: a NEW term typed in the window applies to the page
-    // in place — the page input, its card grid and the URL all take it over,
+    // in place — the page input, its row list and the URL all take it over,
     // and the window closes (the library page owns onOpenPage)
     await evalJS(`(function () {
       var inp = document.getElementById('searchWindowInput');
       inp.value = 'الناس';
       inp.dispatchEvent(new Event('input', { bubbles: true }));
     })()`);
-    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 0`, 15000);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 0`, 15000);
     check("S11 hop link shows for cross-book query",
       await evalJS(`document.getElementById('searchWindowOpenPage').style.display !== 'none'`));
     await evalJS(`document.getElementById('searchWindowOpenPage').click()`);
@@ -696,14 +689,14 @@ async function main() {
       })()`));
     // The library page defaults the scope to the HDT group — reset to all
     // books first, or the tick below would add its book to the 15-book
-    // default group and the scoped re-run would show far more than 1 card.
+    // default group and the scoped re-run would show far more than 1 row.
     await evalJS(`document.getElementById('libScopeReset').click()`);
     check("S11 default scope reset to all books",
-      await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000));
+      await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000));
 
-    // scope the window search by ticking the first card's book
+    // scope the window search by ticking the first row's book
     const tickBook = await evalJS(`(function () {
-      var code = document.querySelector('#searchWindowResults .lib-result').dataset.book;
+      var code = document.querySelector('#searchWindowResults .search-window-book-link').dataset.book;
       var cb = null;
       document.querySelectorAll('#libScopeList .lib-scope-row input[type=checkbox]').forEach(function (c) {
         if (c.dataset.book === code) cb = c;
@@ -712,21 +705,21 @@ async function main() {
       return { found: !!cb, code: code };
     })()`);
     check("S11 window scope tick book", tickBook.found, tickBook.code);
-    check("S11 scoped window search re-runs (1 card)",
-      await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length === 1`, 15000));
+    check("S11 scoped window search re-runs (1 row)",
+      await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length === 1`, 15000));
     check("S11 window summary reflects scope",
       (await evalJS(`document.getElementById('searchWindowScopeSummary').textContent`)).indexOf("1 book") !== -1);
 
     // reset the scope → all books again
     await evalJS(`document.getElementById('libScopeReset').click()`);
     check("S11 window scope reset restores",
-      await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000));
+      await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000));
 
     // Zero INSIDE a narrowed scope is a dead end unless the message names
-    // the scope and offers the widen action. Narrow to the first card's
+    // the scope and offers the widen action. Narrow to the first row's
     // book again, then type a guaranteed-miss token.
     const tickZeroBook = await evalJS(`(function () {
-      var code = document.querySelector('#searchWindowResults .lib-result').dataset.book;
+      var code = document.querySelector('#searchWindowResults .search-window-book-link').dataset.book;
       var cb = null;
       document.querySelectorAll('#libScopeList .lib-scope-row input[type=checkbox]').forEach(function (c) {
         if (c.dataset.book === code) cb = c;
@@ -735,7 +728,7 @@ async function main() {
       return !!cb;
     })()`);
     check("S11 window re-narrow for the zero test", tickZeroBook);
-    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length === 1`, 15000);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length === 1`, 15000);
     await evalJS(`(function () {
       var inp = document.getElementById('searchWindowInput');
       inp.value = 'zzzqqq';
@@ -745,14 +738,13 @@ async function main() {
       await waitFor(`document.querySelector('#searchWindowResults .search-no-matches .search-widen-btn') !== null`, 15000));
     const scopedZero = await evalJS(`(function () {
       return {
-        cards: document.querySelectorAll('#searchWindowResults .lib-result').length,
         links: document.querySelectorAll('#searchWindowResults .search-window-book-link').length,
         sumBefore: document.getElementById('searchWindowScopeSummary').textContent,
         msg: (document.querySelector('#searchWindowResults .search-no-matches') || {}).textContent || '',
       };
     })()`);
     check("S11 scoped zero reports no rows",
-      scopedZero.cards === 0 && scopedZero.links === 0 && scopedZero.msg.length > 0,
+      scopedZero.links === 0 && scopedZero.msg.length > 0,
       JSON.stringify(scopedZero));
     await evalJS(`document.querySelector('#searchWindowResults .search-widen-btn').click()`);
     check("S11 widen clears the scope and keeps the query",
@@ -777,7 +769,7 @@ async function main() {
       inp.value = 'الناس';
       inp.dispatchEvent(new Event('input', { bubbles: true }));
     })()`);
-    await waitFor(`document.querySelectorAll('#searchWindowResults .lib-result').length > 1`, 15000);
+    await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000);
 
     // Desktop geometry — the two-column body: the side pane (controls) sits
     // beside the main pane (results), narrower than it, both inside the
@@ -842,21 +834,27 @@ async function main() {
       geomM.stacked && geomM.fullWidth && geomM.insideModal, JSON.stringify(geomM));
     await evalJS(`document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
 
-    // ── S12: result-card chrome in the Dhivehi layout ──
-    // The English caption is dropped outside the English UI, and the tag
-    // row keeps the shared flex gap instead of collapsing into touching
-    // inline badges (the library page never loads dashboard.css, so that
-    // rule lives in common.css).
+    // ── S12: result-row chrome in the Dhivehi layout ──
+    // Search results are one-line rows on every surface: a single
+    // current-language title (never the stacked AR/DV/EN card triad) and
+    // inline tag badges that keep the shared flex gap instead of collapsing
+    // into touching badges.
     await evalJS(`localStorage.setItem('lang', 'dv')`);
     await goto(pageURL + "?q=" + encodeURIComponent(Q), 1280, 900);
     check("S12 results render (dv UI)",
-      await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result cards");
-    check("S12 no English caption in the Dhivehi UI",
-      await evalJS(`document.querySelectorAll('.lib-result .title-en').length === 0`));
+      await waitFor(`document.querySelectorAll('.lib-result').length > 0`), "no result rows");
+    check("S12 rows carry one title line and no card chrome",
+      await evalJS(`(function () {
+        var rows = document.querySelectorAll('.lib-result');
+        return rows.length > 0 && Array.prototype.every.call(rows, function (r) {
+          return !!r.querySelector('.search-window-book-title') &&
+            !r.querySelector('.title-en, .card-author, .lib-result-meta');
+        });
+      })()`));
     const tagRow = await evalJS(`(function () {
       var tags = null;
       document.querySelectorAll('.lib-result').forEach(function (c) {
-        var t = c.querySelector('.card-tags');
+        var t = c.querySelector('.search-window-book-tags');
         if (!tags && t && t.querySelectorAll('.tag-badge').length >= 2) tags = t;
       });
       if (!tags) return null;
@@ -876,11 +874,11 @@ async function main() {
     // above — the page's default HDT scope matches the fixture's scope.
     await evalJS(`localStorage.setItem('lang', 'en')`);
     await goto(pageURL + "?q=" + encodeURIComponent(STEM), 1280, 900);
-    check("S13 prefix stem renders result cards",
+    check("S13 prefix stem renders result rows",
       await waitFor(`document.querySelectorAll('#libResults .lib-result').length > 0`), JSON.stringify(STEM));
     const prefixState = await evalJS(`(function () {
       var total = 0;
-      document.querySelectorAll('#libResults .lib-result-meta').forEach(function (m) {
+      document.querySelectorAll('#libResults .search-window-book-count').forEach(function (m) {
         total += parseInt(m.textContent.replace(/[^0-9]/g, ''), 10) || 0;
       });
       return { cards: document.querySelectorAll('#libResults .lib-result').length, total: total };
@@ -899,7 +897,7 @@ async function main() {
       JSON.stringify({ stem: STEM, ex: EX_STEM }));
     const exState = await evalJS(`(function () {
       var total = 0;
-      document.querySelectorAll('#libResults .lib-result-meta').forEach(function (m) {
+      document.querySelectorAll('#libResults .search-window-book-count').forEach(function (m) {
         total += parseInt(m.textContent.replace(/[^0-9]/g, ''), 10) || 0;
       });
       return { total: total };

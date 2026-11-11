@@ -45,11 +45,9 @@ var _cfg = {
   tabs: false,          // reader mode: true → this-book + all-books tabs
   options: true,        // whole-word + advanced row (this-book tab only)
   scope: false,         // library mode pins the scope section on regardless
-  viewToggle: false,    // library mode: card/list view buttons above results
   onOpen: null,         // fired after openModal + input focus
   onOpenAdvanced: null, // fired when the advanced section expands
   onTabChange: null,    // (tab) fired on a tab switch
-  onViewChange: null,   // (view) fired on a card/list switch
   onInput: null,        // (value) debounced — the page decides what a query means
   onHistoryChange: null, // () history was written by the shell — page refreshes its section
 };
@@ -81,8 +79,6 @@ function renderLabels() {
   el("btnAddCondition").textContent = t("btnAddCondition");
   el("btnApplyAdvancedSearch").textContent = t("btnApplySearch");
   el("btnClearAdvancedSearch").textContent = t("btnReset");
-  el("searchWindowViewCard").textContent = t("searchWindowCardView");
-  el("searchWindowViewList").textContent = t("searchWindowListView");
   el("searchWindowHint").textContent = t("searchWindowOpenHint");
   el("searchWindowOpenPage").textContent = t("searchWindowOpenPage");
   el("searchWindowReset").textContent = t("libScopeReset");
@@ -256,12 +252,6 @@ function collapseAdvanced() {
   _ui.advToggle.classList.remove("active");
 }
 
-function setView(view) {
-  _ui.viewCard.classList.toggle("active", view === "card");
-  _ui.viewList.classList.toggle("active", view === "list");
-  if (_cfg.onViewChange) _cfg.onViewChange(view);
-}
-
 function setTab(tab, silent) {
   _currentTab = tab;
   _ui.input.placeholder = placeholderText();
@@ -414,12 +404,16 @@ function widenAllBooksScope(q) {
   else searchAllBooks(q);
 }
 
-// Compact per-book rows: current-language title, tag badges, match count,
-// deep link to the book's first match (reader.html?book=&row=&q= — the
-// library page's card pattern). No data-real rows — these are links, not
+// Compact one-line per-book rows: current-language title, tag badges, match
+// count, deep link to the book's first match (reader.html?book=&row=&q= — the
+// library page's peek pattern). No data-real rows — these are links, not
 // jumps, so no result-click wiring. Shared by the reader's All-books tab
-// (registry cache) and the library window's list view (page registry).
-export function buildBookRowsHTML(results, q, bookNames) {
+// (registry cache), the library window (page registry) and the library
+// page's result list; withPeek wraps each link in a `.lib-result` row and
+// appends the page's expandable peek panel (the toggle sits on the same
+// line, outside the link so it never navigates). Cards are for browsing the
+// dashboard — search results are rows on every surface.
+export function buildBookRowsHTML(results, q, bookNames, withPeek) {
   var html = "";
   for (var r = 0; r < results.length; r++) {
     var res = results[r];
@@ -439,13 +433,26 @@ export function buildBookRowsHTML(results, q, bookNames) {
     }
     var link = "reader.html?book=" + res.bookCode + "&row=" + res.firstRow +
       "&q=" + encodeURIComponent(q);
-    html += '<a class="search-window-book-link" href="' + link +
-      '" title="' + res.bookCode + '">' +
+    var row = '<a class="search-window-book-link" data-book="' + res.bookCode +
+      '" href="' + link + '" title="' + res.bookCode + '">' +
       '<span class="search-window-book-title">' +
       escapeHTML(bookTitle(meta) || res.bookCode) + "</span>" +
       (tagHtml ? '<span class="search-window-book-tags">' + tagHtml + "</span>" : "") +
       '<span class="search-window-book-count">' +
       fillTemplate("libBookMatches", { n: formatThousands(res.count) }) + "</span></a>";
+    if (!withPeek) {
+      html += row;
+      continue;
+    }
+    html += '<div class="lib-result lib-result-row" data-book="' + res.bookCode +
+      '" data-q="' + escapeHTML(q) + '">' +
+      '<div class="lib-result-line">' + row +
+      '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>' +
+      '</div>' +
+      '<div class="lib-peek" style="display:none">' +
+      '<div class="lib-peek-items"></div>' +
+      '<button class="toolbar-btn lib-peek-more" style="display:none"></button>' +
+      '</div></div>';
   }
   return html;
 }
@@ -515,7 +522,7 @@ function buildShell() {
       '<span id="searchWindowCount" class="lib-scope-count"></span>' +
       '<button type="button" id="searchWindowReset" class="toolbar-btn lib-scope-reset" title="Reset search">↺ Reset</button>' +
     '</div>' +
-    // Desktop two-column body: the controls (tabs, options, view, advanced,
+    // Desktop two-column body: the controls (tabs, options, advanced,
     // scope) and the search-history section live in the side pane; the
     // results and status footer fill the main pane. On ≤600px the grid
     // collapses to a single stacked column (css/search-window.css).
@@ -531,10 +538,6 @@ function buildShell() {
           '</button>' +
           '<button id="searchWindowAdvToggle" class="search-window-opt" title="Advanced search (Ctrl+Shift+F)"></button>' +
           '<button id="searchWindowHelpBtn" class="search-window-opt" title="Search tips"></button>' +
-        '</div>' +
-        '<div class="search-window-view" id="searchWindowView" style="display:none">' +
-          '<button id="searchWindowViewCard" class="search-window-opt" title="Card view"></button>' +
-          '<button id="searchWindowViewList" class="search-window-opt" title="List view"></button>' +
         '</div>' +
         '<div class="search-window-adv" id="searchWindowAdvBody" style="display:none">' +
           '<div class="search-window-adv-label" id="searchWindowAdvLabel"></div>' +
@@ -596,9 +599,6 @@ function buildShell() {
     count: el("searchWindowCount"),
     reset: el("searchWindowReset"),
     options: el("searchWindowOptions"),
-    view: el("searchWindowView"),
-    viewCard: el("searchWindowViewCard"),
-    viewList: el("searchWindowViewList"),
     wholeWord: el("searchWindowWholeWord"),
     advToggle: el("searchWindowAdvToggle"),
     helpBtn: el("searchWindowHelpBtn"),
@@ -661,15 +661,14 @@ function buildShell() {
   });
 
   // Link-row keyboard navigation (the All-books tab's rows and the library
-  // window's cards/list rows). The input's own listener fires before any
-  // page document-level handler, and it no-ops when no link rows are on
-  // screen — this-book results (.search-result[data-real]) stay owned by
-  // the reader page. The hint strip's ↑↓/Enter promise holds on every tab.
+  // window's rows — one row language on every cross-book surface). The
+  // input's own listener fires before any page document-level handler, and
+  // it no-ops when no link rows are on screen — this-book results
+  // (.search-result[data-real]) stay owned by the reader page. The hint
+  // strip's ↑↓/Enter promise holds on every tab.
   _ui.input.addEventListener("keydown", function (e) {
     if (!_ui.overlay.classList.contains("open")) return;
-    var rows = _ui.results.querySelectorAll(
-      ".search-window-book-link, .lib-result",
-    );
+    var rows = _ui.results.querySelectorAll(".search-window-book-link");
     if (rows.length === 0) return;
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
@@ -691,11 +690,7 @@ function buildShell() {
       }
       if (!cur) return;
       e.preventDefault();
-      // Cards wrap their link inside; the All-books rows ARE the link.
-      var a = cur.classList.contains("search-window-book-link")
-        ? cur
-        : cur.querySelector(".lib-result-link");
-      if (a && a.href) window.location.href = a.href;
+      if (cur.href) window.location.href = cur.href;
     }
   });
 
@@ -728,11 +723,6 @@ function buildShell() {
   // switch means via onTabChange.
   _ui.tabThis.addEventListener("click", function () { setTab("thisBook"); });
   _ui.tabAll.addEventListener("click", function () { setTab("allBooks"); });
-
-  // Card/list view (library mode) — visual switch only; the page re-renders
-  // its cached results via onViewChange.
-  _ui.viewCard.addEventListener("click", function () { setView("card"); });
-  _ui.viewList.addEventListener("click", function () { setView("list"); });
 
   // Advanced expander — onOpenAdvanced fires on every expand, so condition
   // rows render fresh against the current column layout.
@@ -843,11 +833,9 @@ export function initSearchWindow(cfg) {
   ensureBuilt();
   _ui.tabs.style.display = _cfg.tabs ? "" : "none";
   if (_cfg.options === false) _ui.options.style.display = "none";
-  _ui.view.style.display = _cfg.viewToggle ? "" : "none";
   // Apply the initial tab's section visibility without firing the page
   // callback (its refs are not wired yet at init time).
   setTab(_currentTab, true);
-  setView("card");
   if (_cfg.mode === "reader") {
     // The reader's All-books tab shares the scope picker; the library page
     // inits its own (it owns the libScope modal and button). No page

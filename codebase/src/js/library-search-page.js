@@ -15,12 +15,11 @@
  * consumes that query (pre-highlights + scrolls to the row).
  */
 
-import { tagLabel, t, currentLang } from "./i18n.js";
+import { t } from "./i18n.js";
 import { loadScopedIndex, searchLibraryDetailed } from "./library-search-engine.js";
 import {
   loadTagDefinitions,
   loadAuthorDefinitions,
-  bookAuthorLine,
   loadBookRegistry,
   extractTags,
   tagSearchWords,
@@ -119,8 +118,7 @@ var winInput = null;      // #searchWindowInput
 var winResults = null;    // #searchWindowResults
 var winHistoryList = null; // #searchWindowHistoryList (items — innerHTML)
 var winHistoryClearEl = null; // #searchWindowHistoryClear (sibling — display + click)
-var _winView = "card";    // card | list (window view toggle)
-var _winLastQ = null;     // last window query + results (view re-render, no re-search)
+var _winLastQ = null;     // last window query + results (language re-render, no re-search)
 var _winLastResults = null;
 var _winLastInfo = null;  // grammar-support report for the note
 var _winLastNarrowed = false;
@@ -679,89 +677,9 @@ function togglePeek(root, bookCode, q) {
   }
 }
 
-/** One result card's markup, shared by the page and the window's card view.
- *  The page cards carry the expandable peek (withPeek); the window's omit it
- *  — no peek buttons there (their ids would collide with the page's cards). */
-function resultCardHTML(r, q, withPeek) {
-  var meta = (_bookNames || []).find(function (b) {
-    return b.bookCode === r.bookCode;
-  });
-  var tags = meta ? extractTags(meta.bookCode, meta) : [];
-  var authorLine = bookAuthorLine(meta);
-  var tagHtml =
-    tags.length > 0
-      ? '<div class="card-tags">' +
-        tags
-          .map(function (tg) {
-            return (
-              '<span class="tag-badge' +
-              (tg.palette >= 0 ? " tag-palette-" + tg.palette : "") +
-              '" title="Category: ' +
-              tagLabel(tg.code, tg.label, "en") +
-              '">' +
-              tagLabel(tg.code, tg.label) +
-              "</span>"
-            );
-          })
-          .join("") +
-        "</div>"
-      : "";
-  var link =
-    "reader.html?book=" +
-    r.bookCode +
-    "&row=" +
-    r.firstRow +
-    "&q=" +
-    encodeURIComponent(q);
-  return (
-    '<div class="card lib-result" data-book="' +
-    r.bookCode +
-    '" data-q="' +
-    escapeHTML(q) +
-    '">' +
-    '<div class="lib-result-top">' +
-    '<a class="lib-result-link" href="' +
-    link +
-    '" title="' +
-    r.bookCode +
-    '">' +
-    tagHtml +
-    '<div class="title-ar">' +
-    escapeHTML(meta ? meta.titleAR || "" : "") +
-    "</div>" +
-    '<div class="title-dv">' +
-    escapeHTML(meta ? meta.titleDV || "" : "") +
-    "</div>" +
-    // The English caption is the UI-language title only on the English
-    // layout; the Dhivehi and Arabic layouts already carry their titles
-    // (the dashboard's cards drop it entirely for the same reason).
-    (currentLang() === "en"
-      ? '<div class="title-en">' +
-        escapeHTML(meta ? meta.titleEN || r.bookCode : r.bookCode) +
-        "</div>"
-      : "") +
-    (authorLine
-      ? '<div class="card-author">' + escapeHTML(authorLine) + "</div>"
-      : "") +
-    '<div class="lib-result-meta">' +
-    fillTemplate("libBookMatches", { n: formatThousands(r.count) }) +
-    "</div>" +
-    "</a>" +
-    (withPeek
-      ? '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>'
-      : "") +
-    "</div>" +
-    (withPeek
-      ? '<div class="lib-peek" style="display:none">' +
-        '<div class="lib-peek-items"></div>' +
-        '<button class="toolbar-btn lib-peek-more" style="display:none"></button>' +
-        "</div>"
-      : "") +
-    "</div>"
-  );
-}
-
-/** Render grouped-by-book results into the results area. */
+/** Render grouped-by-book results into the results area — one compact row
+ *  per book (the reader's All-books language), each with the page-only
+ *  expandable peek. */
 function renderResults(results, q, info, narrowed, scopeCount) {
   if (!results || results.length === 0) {
     showScopedEmpty(info, narrowed, scopeCount);
@@ -774,7 +692,7 @@ function renderResults(results, q, info, narrowed, scopeCount) {
   el.results.innerHTML =
     allBooksQueryNote(info) +
     '<div class="lib-results">' +
-    results.map(function (r) { return resultCardHTML(r, q, true); }).join("") +
+    buildBookRowsHTML(results, q, _bookNames, true) +
     "</div>";
 
   // Wire peek toggles + paging (rows are static HTML at this point)
@@ -853,7 +771,8 @@ function renderWindowHistory() {
   renderWindowHistorySection();
 }
 
-/** Render the window's search results (card view or compact list view). */
+/** Render the window's search results — the same compact one-line rows as
+ *  the page and the reader's All-books tab (no peek: the page owns it). */
 function renderWindowResults(results, q, info, narrowed, scopeCount) {
   _winLastQ = q;
   _winLastResults = results;
@@ -883,12 +802,8 @@ function renderWindowResults(results, q, info, narrowed, scopeCount) {
           t("searchAllBooksAction") + "</button>"
         : "") +
       "</div>";
-  } else if (_winView === "list") {
-    html += buildBookRowsHTML(results, q, _bookNames);
   } else {
-    html += '<div class="lib-results">' +
-      results.map(function (r) { return resultCardHTML(r, q, false); }).join("") +
-      "</div>";
+    html += buildBookRowsHTML(results, q, _bookNames);
   }
   winResults.innerHTML = html;
   winResults.style.display = "";
@@ -964,7 +879,7 @@ function onWindowOpen() {
 }
 
 /** Window → page hop: apply the window's query to the page and close the
- *  window — the page's input, card grid and URL are the full-page form of
+ *  window — the page's input, row list and URL are the full-page form of
  *  the same search (one search, two looks). */
 function onWindowOpenPage(q) {
   if (!q) return;
@@ -972,15 +887,6 @@ function onWindowOpenPage(q) {
   updateSearchClear();
   window.closeModal("searchWindowOverlay");
   runSearchAndRender();
-}
-
-/** Card/list toggle — re-render the cached results, no re-search. */
-function onWindowViewChange(view) {
-  _winView = view;
-  if (_winLastQ && _winLastResults) {
-    renderWindowResults(_winLastResults, _winLastQ, _winLastInfo,
-      _winLastNarrowed, _winLastScopeCount);
-  }
 }
 
 // ── Page initialisation ──────────────────────────────────────
@@ -1003,16 +909,14 @@ async function init() {
   });
 
   // The search window (library mode): shares the page's scope state, its
-  // own input + card/list views. The page stays fully functional behind it.
+  // own input + result rows. The page stays fully functional behind it.
   var ui = initSearchWindow({
     mode: "library",
     tabs: false,
     options: false,  // no whole-word / advanced conditions on this page
     scope: true,     // the scope section is always visible here
-    viewToggle: true,
     onOpen: onWindowOpen,
     onInput: windowSearch,
-    onViewChange: onWindowViewChange,
     onOpenPage: onWindowOpenPage,
   });
   winInput = ui.input;

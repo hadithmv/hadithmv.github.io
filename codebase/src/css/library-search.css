@@ -48,42 +48,43 @@
   margin-top: var(--section-gap, 6px);
 }
 
-/* ── Library results ── */
+/* ── Library results — one compact row per book ──
+   The row itself (title ellipsis, tag badges, count) is
+   .search-window-book-link in search-window.css — the library-search page
+   loads that sheet, so the page, the window and the reader's All-books tab
+   share one result language. Only the peek is page-only: its toggle sits
+   on the row's line (outside the link) and the panel opens below it. */
 .lib-results {
   display: flex;
   flex-direction: column;
-  gap: 14px;
   direction: rtl;
 }
-.lib-result-top {
+.lib-result-line {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
 }
-.lib-result-link {
+.lib-result-line:hover {
+  background: var(--color-nav-btn-hover-bg);
+}
+.lib-result-line .search-window-book-link {
   flex: 1;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: inherit;
+  border-bottom: none;
 }
-/* Title trio (shared with book cards) lives in common.css */
-.lib-result-meta {
-  color: var(--color-text-muted);
-  font-size: calc(var(--panel-font-size, 0.85rem) * 0.95);
-  font-family: var(--font-mixed, "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif);
+.lib-result-line .search-window-book-link:hover {
+  background: transparent; /* the whole line highlights, toggle included */
 }
 .lib-peek-toggle {
   flex-shrink: 0;
   padding: 2px 10px;
+  margin-inline-end: 4px;
 }
 .lib-peek {
   display: flex;
   flex-direction: column;
-  margin-top: 12px;
-  border-top: 1px dashed var(--color-border);
-  padding-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-border);
 }
 .lib-peek-items {
   display: flex;
@@ -165,9 +166,6 @@
   }
   #libSearchPanel .search-input {
     flex-basis: 100%;
-  }
-  .lib-result {
-    padding: var(--card-padding-mobile, 12px);
   }
   .lib-peek-item {
     font-size: var(--fs-aux, 0.8rem);

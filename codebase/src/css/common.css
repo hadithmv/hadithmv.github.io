@@ -760,29 +760,25 @@ body:has(.modal-overlay.open) {
 }
 
 /* Tag row above the title trio — flex with the shared control gap so the
-   badges wrap at the same rhythm on both card surfaces (dashboard book
-   cards + library result cards; the latter never loads dashboard.css). */
-.book-card .card-tags,
-.lib-result .card-tags {
+   badges wrap at the shared rhythm on dashboard book cards. (Library search
+   results are one-line rows now — their tags live inline in the row.) */
+.book-card .card-tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--control-gap, 6px);
   margin-bottom: var(--section-gap, 6px);
 }
 
-/* ── Shared card title trio (book cards + library results) ── */
+/* ── Dashboard card title trio ── */
 /* Arabic and Dhivehi at --title-scale (same size); the English caption
    stays at base; ar/dv sit --title-gap apart, --title-gap-caption
    before the caption */
 .book-card .title-ar,
-.lib-result .title-ar,
-.book-card .title-dv,
-.lib-result .title-dv {
+.book-card .title-dv {
   font-size: calc(var(--panel-font-size, 0.85rem) * var(--title-scale, 1.2));
 }
 
-.book-card .title-ar,
-.lib-result .title-ar {
+.book-card .title-ar {
   color: var(--color-text);
   direction: rtl;
   text-align: right;
@@ -797,8 +793,7 @@ body:has(.modal-overlay.open) {
   );
 }
 
-.book-card .title-dv,
-.lib-result .title-dv {
+.book-card .title-dv {
   color: var(--color-text);
   direction: rtl;
   text-align: right;
@@ -806,8 +801,7 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
 }
 
-.book-card .title-en,
-.lib-result .title-en {
+.book-card .title-en {
   direction: ltr; /* English caption — LTR even when right-aligned */
   text-align: right;
   font-size: var(--panel-font-size, 0.85rem);
@@ -818,12 +812,11 @@ body:has(.modal-overlay.open) {
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
 }
 
-/* Author line under the title trio (dashboard cards + library result cards).
+/* Author line under the title trio (dashboard book cards).
    The muted secondary-name tone, a step above the panel size (1.05×) with
    normal weight — grey and light enough to stay a supporting line under
    the titles, big enough to read at a glance. */
-.book-card .card-author,
-.lib-result .card-author {
+.book-card .card-author {
   direction: ltr; /* names may be latin; years stay digits */
   text-align: right;
   margin-top: 4px;
@@ -858,8 +851,6 @@ body:has(.modal-overlay.open) {
 
 [data-font-system] .book-card .title-ar,
 [data-font-system] .book-card .title-dv,
-[data-font-system] .lib-result .title-ar,
-[data-font-system] .lib-result .title-dv,
 [data-font-system] #readerPageHeader h1,
 [data-font-system] #readerPageHeader p,
 [data-font-system] .toolbar-btn,
@@ -2967,15 +2958,12 @@ body {
 /* ---- Responsive ---- */
 @media (max-width: 600px) {
   .book-card .title-ar,
-  .lib-result .title-ar,
-  .book-card .title-dv,
-  .lib-result .title-dv {
+  .book-card .title-dv {
     font-size: calc(
       var(--panel-font-size-mobile, 0.78rem) * var(--title-scale, 1.2)
     );
   }
-  .book-card .title-en,
-  .lib-result .title-en {
+  .book-card .title-en {
     font-size: var(--panel-font-size-mobile, 0.78rem);
   }
 

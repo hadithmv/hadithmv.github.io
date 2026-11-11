@@ -440,17 +440,18 @@ async function main() {
   const resultBooks = await evalJS(`Array.from(document.querySelectorAll('#libResults .lib-result')).map(function(r){return r.dataset.book;})`);
   check("scoped search yields results", resultBooks.length > 0, resultBooks.length);
   check("scoped search results all by nawawi", resultBooks.every((c) => NAWAWI_BOOKS.indexOf(c) !== -1), resultBooks.join(","));
-  check("author line on result card", await evalJS(
-    `document.querySelector('#libResults .lib-result .card-author').textContent.indexOf(${JSON.stringify(nameEN("yahyaBinSharafAnNawawi"))}) !== -1 &&
-     document.querySelector('#libResults .lib-result .card-author').textContent.indexOf('676 AH') !== -1`),
-    await evalJS(`document.querySelector('#libResults .lib-result .card-author').textContent`));
-  // The author line: the muted secondary-name tone (facet-name-ar / the EN
-  // caption colour), a step above the panel size (14.28px = 0.85rem × 1.05
-  // at the 16px root; change --panel-font-size or the 1.05 scale and this
-  // value together), normal weight.
-  check("author line muted, a step up", await evalJS(
-    `(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return cs.fontSize === '14.28px' && cs.fontWeight === '400' && cs.color === ts.color; })()`),
-    await evalJS(`(() => { var el = document.querySelector('#libResults .lib-result .card-author'); var t = document.querySelector('#libResults .lib-result .title-en'); var cs = getComputedStyle(el); var ts = getComputedStyle(t); return 'size=' + cs.fontSize + ' weight=' + cs.fontWeight + ' color=' + cs.color + ' mutedCaptionColor=' + ts.color; })()`));
+  // Results are one-line rows on every search surface (the author context
+  // lives in the dashboard cards and the info modal, not in the result
+  // rows): a single title line + count, no stacked card triad.
+  check("scoped results are one-line rows", await evalJS(
+    `(function () {
+       var rows = document.querySelectorAll('#libResults .lib-result');
+       return rows.length > 0 && Array.prototype.every.call(rows, function (r) {
+         return !!r.querySelector('.search-window-book-title') &&
+           !!r.querySelector('.search-window-book-count') &&
+           !r.querySelector('.card-author, .title-ar, .title-dv, .title-en');
+       });
+     })()`));
 
   // ── Library: Periods modal ────────────────────────────────────────
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);

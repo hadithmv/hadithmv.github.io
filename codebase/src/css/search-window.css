@@ -261,7 +261,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm, 6px);
   cursor: pointer;
-  /* option labels are trilingual too (whole-word / card / list) */
+  /* option labels are trilingual too (whole-word / advanced / tips) */
   font-family: var(
     --font-mixed,
     "Hadithmv",
@@ -289,24 +289,6 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
-}
-
-/* ---- Card/list view (library mode) ---- */
-.search-window-view {
-  display: flex;
-  gap: 6px;
-  padding: 4px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md, 8px);
-  background: var(--color-card-bg);
-}
-.search-window-view .search-window-opt {
-  flex: 1;
-  border: none;
-  background: transparent;
-}
-.search-window-view .search-window-opt:hover:not(.active) {
-  background: var(--color-nav-btn-hover-bg);
 }
 
 /* ---- Advanced conditions ---- */
@@ -749,8 +731,7 @@
 }
 /* Keyboard-navigated rows (↑↓ in the window) — same wash as the hover,
    matching .search-result.active on the this-book tab. */
-.search-window-book-link.active,
-.lib-result.active {
+.search-window-book-link.active {
   background: var(--color-nav-btn-hover-bg);
 }
 .search-window-book-title {
@@ -786,6 +767,17 @@
   font-weight: 600;
   color: var(--color-text-muted);
   white-space: nowrap;
+  /* the count label is trilingual ("434 ނަތީޖާ") — without this it
+     inherits the library page's Latin stack and the Thaana word falls back
+     to a system font */
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
 }
 
 /* ---- Footer (the hint strip, inside the main card) ---- */

@@ -812,16 +812,6 @@ const STRINGS = {
     en: "Book index could not be loaded",
     ar: "تعذر تحميل فهرس الكتب",
   },
-  searchWindowCardView: {
-    dv: "ކާޑު",
-    en: "Card view",
-    ar: "عرض البطاقات",
-  },
-  searchWindowListView: {
-    dv: "ލިސްޓް",
-    en: "List view",
-    ar: "عرض القائمة",
-  },
   searchWindowOpenHint: {
     dv: "↑↓ ބަދަލުކުރުމަށް · Enter ދިޔުމަށް · Esc ލެއްޕުމަށް",
     en: "↑↓ Navigate · Enter open · Esc close",

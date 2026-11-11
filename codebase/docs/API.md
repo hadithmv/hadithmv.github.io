@@ -99,7 +99,7 @@ The same text pinned to one language (the title-click citation renders an Arabic
 
 ### `bookAuthorLine(entry)`
 
-One display line for a book registry entry's authors, in the current language — `"al-Bukhari (–256 AH)"` — multi-author books joined with `authorListSeparator()`: the Latin comma `", "` in the English layout, the Arabic comma `"، "` in the Dhivehi/Arabic ones. `""` when the book has no author (`authorCode` empty or unresolvable). Drives the library result cards, the dashboard cards, and the info modal's Book-tab author fact.
+One display line for a book registry entry's authors, in the current language — `"al-Bukhari (–256 AH)"` — multi-author books joined with `authorListSeparator()`: the Latin comma `", "` in the English layout, the Arabic comma `"، "` in the Dhivehi/Arabic ones. `""` when the book has no author (`authorCode` empty or unresolvable). Drives the dashboard cards and the info modal's Book-tab author fact.
 
 ### `bookAuthorLineIn(entry, lang)`
 
@@ -421,6 +421,7 @@ The `src/books/library-search.html` page module — self-initialising (runs `ini
 - **HDT default scope** — fresh visits (no `?books=` / `?tags=` state) default the picker to the HDT group via `initScopePicker({ defaultTag: "HDT", … })`: `library-scope-picker.js` applies it inside `ensureSearchableBooks()` unless the user or a share link already set the scope (`_scopeExplicit`), and the button reads "Search in: N books ▾". The All chip, the reset button, or any modal interaction widens back to every book (and marks the scope explicit). `syncURL()` omits `?books=` while the selection equals the default (`defaultScopeCodes()`) or exactly the active chips' groups — a share link round-trips to the same state. Chip clicks replace the picker selection (`groupBookCodes(tag)`). The reader's search window inits the picker with the same default and no callback (`initSearchWindow`'s reader branch) — its All-books tab also starts scoped to the HDT group; the window's summary (shared `scopeSummaryText()`) shows it, and `searchAllBooks` fetches only the group's shards. The default's apply notifies like any scope change (page callback + `libScopeChange`), so every surface's label catches up; the URL-restore sites (`?books=` in `readURLParams`, the `?tags=` block after `ensureSearchableBooks`) dispatch the same event so the window's summary reflects a share-link scope too. When the selection is exactly one full tag group, the scope modal leads with it — the group's chip first in the rail, its books first in the list (unions and single books keep the registry's palette order); the page's chips row mirrors the scope the same way, so the group's chip shows active and the All chip turns off (no more "All tags" next to "16 books"). A chip lights only when the scope IS its group exactly (`scopesEqual`) — merely covering it isn't enough, so a subset tag (Incomplete, say, whose 8 books all sit inside the HDT default) stays off: the rail and the row show exactly the one group that was chosen.
 - **Empty-scope guard** — active tags/authors/period matching no books render "No results" instead of passing `[]` to `searchLibrary` (which would mean "every book").
 - **Keyboard** — `/` or `Ctrl+F` focuses the input, `Escape` in the input clears it, `Alt+Z` toggles focus mode (collapses chips + count). `Ctrl+,` settings / `Ctrl+B` back are handled by common.js.
+- **Results** — one compact row per book (current-language title, inline tag badges, right-aligned match count), rendered by `buildBookRowsHTML(..., withPeek=true)` from search-window.js. Each row deep-links to its first match; the ▾ toggle on the row's line opens the peek. The window and the reader's All-books tab render the same rows without the peek.
 - **Peek previews** — per-book expandable snippets (8 per batch, "Show next N" pager), cached per book+query in module scope (two-level `_peekCache[bookCode][q]` — cache write fixes the old book-data.js bug where `key` was undefined and nothing was ever stored), deep-linking `reader.html?book=X&row=N&q=…`.
 
 ---
@@ -705,11 +706,11 @@ The unified modal search window shell shared by the reader and library pages (st
 
 ### `initSearchWindow(cfg)`
 
-Builds and configures the shell; returns the UI refs object. cfg: `mode` (`"reader"` | `"library"`), `tabs` (show the This book / All books tabs), `options` (`false` hides the options row), `viewToggle` (show the card/list view toggle), `scope` (`true` keeps the scope section visible in the this-book tab too), and callbacks: `onOpen`, `onOpenAdvanced`, `onTabChange(tab)`, `onViewChange(view)`, `onInput(value)`, `onHistoryChange`, `onReset`, `onOpenPage(value)`. Reader mode inits the shared scope picker (`library-scope-picker.js`) for the All-books tab.
+Builds and configures the shell; returns the UI refs object. cfg: `mode` (`"reader"` | `"library"`), `tabs` (show the This book / All books tabs), `options` (`false` hides the options row), `scope` (`true` keeps the scope section visible in the this-book tab too), and callbacks: `onOpen`, `onOpenAdvanced`, `onTabChange(tab)`, `onInput(value)`, `onHistoryChange`, `onReset`, `onOpenPage(value)`. Reader mode inits the shared scope picker (`library-scope-picker.js`) for the All-books tab.
 
 ### `getSearchWindowUI()`
 
-Returns the shell's element refs (`{ overlay, input, count, reset, options, view, wholeWord, advToggle, advBody, tabs, tabThis, tabAll, scope, results, history, hint, status, ... }`), building the shell on first call — page modules resolve refs at init time after import.
+Returns the shell's element refs (`{ overlay, input, count, reset, options, wholeWord, advToggle, advBody, tabs, tabThis, tabAll, scope, results, history, hint, status, ... }`), building the shell on first call — page modules resolve refs at init time after import.
 
 ### `openSearchWindow(opts)`
 
@@ -735,11 +736,11 @@ Shows/hides the hint strip (↑↓ navigate · Enter follow · Esc close). Pages
 
 Cross-book search over the generated index (lazy `loadScopedIndex` — scope = picker selection, or every book when the picker isn't open; failure → footer status + retry) scoped by that selection **intersected with the active author/period facets** (`facetScopedBooks` — a facet state excluding every book renders "No matches" instead of falling through to an unscoped search); renders compact deep-link rows via `buildBookRowsHTML` and syncs the footer status.
 
-### `buildBookRowsHTML(results, q, bookNames)`
+### `buildBookRowsHTML(results, q, bookNames, withPeek)`
 
-Pure row builder for the All-books tab and the library window's compact list view: escaped titles, tag badges, match counts, deep links (`reader.html?book=CODE&row=N&q=…`).
+Pure one-line row builder — the single result language for the All-books tab, the library window and the library page's result list: escaped current-language titles (ellipsized), inline tag badges, match counts, deep links (`reader.html?book=CODE&row=N&q=…`). `withPeek` (library page only) wraps each link in a `.lib-result` row with the ▾ toggle and the expandable peek panel; the window and reader omit it.
 
-**Link-row keyboard navigation.** The shell's input-level keydown listener owns link rows (`.search-window-book-link`, `.lib-result`): ↑↓ toggles `.active`, Enter follows the row's `a.href`. It fires before any page document-level handler and no-ops when no link rows are on screen — this-book result rows (`.search-result[data-real]`) stay owned by the reader page's `onSearchKeydown`. The footer renders only while the hint, status, or open-page link is visible (`syncFooter`).
+**Link-row keyboard navigation.** The shell's input-level keydown listener owns link rows (`.search-window-book-link`): ↑↓ toggles `.active`, Enter follows the row's `a.href`. It fires before any page document-level handler and no-ops when no link rows are on screen — this-book result rows (`.search-result[data-real]`) stay owned by the reader page's `onSearchKeydown`. The footer renders only while the hint, status, or open-page link is visible (`syncFooter`).
 
 ## facet-browse.js
 
