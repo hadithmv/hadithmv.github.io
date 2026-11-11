@@ -2,8 +2,9 @@
 // modal, S1-S10) and the unified search window on the library page
 // (S11: open, focus, rows-only results, scope modal stacked on the window,
 // scoped re-run, Escape-by-layer). S12 pins the result-row chrome in the
-// Dhivehi layout (one title line, no card triad, the tag row keeps the
-// shared flex gap). S13 pins all-books prefix matching end-to-end: a derived stem
+// Dhivehi layout (one title line, no card triad, the muted author suffix
+// inside the title lane, the tag row keeps the shared flex gap). S13 pins
+// all-books prefix matching end-to-end: a derived stem
 // (absent from the HDT index, with 2+ longer forms) must return exactly the
 // union of its forms' rows, computed independently from the HDT shards;
 // `.stem` must be exact-only; and an unindexed 1–2 letter word must show
@@ -850,6 +851,22 @@ async function main() {
           return !!r.querySelector('.search-window-book-title') &&
             !r.querySelector('.title-en, .card-author, .lib-result-meta');
         });
+      })()`));
+    // The author suffix is data-driven (bookAuthorLine) — finding one in the
+    // dv layout proves author defs are loaded on this page; the smaller
+    // computed size proves the muted tier rule is applied, and living
+    // inside .search-window-book-title means it shares the title's clip.
+    check("S12 author suffix rides inside the title lane (dv UI)",
+      await evalJS(`(function () {
+        var a = document.querySelector('#libResults .search-window-book-title .search-window-book-author');
+        if (!a) return false;
+        var title = a.parentElement;
+        return a.textContent.trim().length > 0 &&
+          parseFloat(getComputedStyle(a).fontSize) < parseFloat(getComputedStyle(title).fontSize);
+      })()`),
+      await evalJS(`(function () {
+        var a = document.querySelector('#libResults .search-window-book-title .search-window-book-author');
+        return a ? a.textContent : 'no suffix';
       })()`));
     const tagRow = await evalJS(`(function () {
       var tags = null;

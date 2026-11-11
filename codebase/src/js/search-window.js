@@ -18,7 +18,7 @@ import { t, tagLabel, currentLang } from "./i18n.js";
 import {
   loadScopedIndex, searchLibraryDetailed, PREFIX_MIN_CHARS,
 } from "./library-search-engine.js";
-import { loadBookRegistry, extractTags } from "./book-data.js";
+import { loadBookRegistry, extractTags, bookAuthorLine } from "./book-data.js";
 import { escapeHTML, formatThousands, addSearchHistory } from "./search-utils.js";
 import {
   getScope, setScope, fillTemplate, ensureSearchableBooks, searchableBooks,
@@ -404,15 +404,15 @@ function widenAllBooksScope(q) {
   else searchAllBooks(q);
 }
 
-// Compact one-line per-book rows: current-language title, tag badges, match
-// count, deep link to the book's first match (reader.html?book=&row=&q= — the
-// library page's peek pattern). No data-real rows — these are links, not
-// jumps, so no result-click wiring. Shared by the reader's All-books tab
-// (registry cache), the library window (page registry) and the library
-// page's result list; withPeek wraps each link in a `.lib-result` row and
-// appends the page's expandable peek panel (the toggle sits on the same
-// line, outside the link so it never navigates). Cards are for browsing the
-// dashboard — search results are rows on every surface.
+// Compact one-line per-book rows: current-language title, a muted author
+// suffix, tag badges, match count, deep link to the book's first match
+// (reader.html?book=&row=&q= — the library page's peek pattern). No data-real
+// rows — these are links, not jumps, so no result-click wiring. Shared by the
+// reader's All-books tab (registry cache), the library window (page registry)
+// and the library page's result list; withPeek wraps each link in a
+// `.lib-result` row and appends the page's expandable peek panel (the toggle
+// sits on the same line, outside the link so it never navigates). Cards are
+// for browsing the dashboard — search results are rows on every surface.
 export function buildBookRowsHTML(results, q, bookNames, withPeek) {
   var html = "";
   for (var r = 0; r < results.length; r++) {
@@ -431,12 +431,21 @@ export function buildBookRowsHTML(results, q, bookNames, withPeek) {
         '" title="Category: ' + tagLabel(tags[g].code, tags[g].label, "en") + '">' +
         tagLabel(tags[g].code, tags[g].label) + "</span>";
     }
+    // Author as a suffix inside the title lane (same ellipsis clip): the
+    // title always survives, and the author is what clips away when the row
+    // runs out of room. <bdi> isolates the run so a Latin name cannot swap
+    // the separator/parentheses with the RTL row around it.
+    var authorLine = meta ? bookAuthorLine(meta) : "";
+    var authorHtml = authorLine
+      ? ' · <bdi class="search-window-book-author">' + escapeHTML(authorLine) + "</bdi>"
+      : "";
     var link = "reader.html?book=" + res.bookCode + "&row=" + res.firstRow +
       "&q=" + encodeURIComponent(q);
     var row = '<a class="search-window-book-link" data-book="' + res.bookCode +
-      '" href="' + link + '" title="' + res.bookCode + '">' +
+      '" href="' + link + '" title="' +
+      escapeHTML(authorLine ? authorLine + " — " + res.bookCode : res.bookCode) + '">' +
       '<span class="search-window-book-title">' +
-      escapeHTML(bookTitle(meta) || res.bookCode) + "</span>" +
+      escapeHTML(bookTitle(meta) || res.bookCode) + authorHtml + "</span>" +
       (tagHtml ? '<span class="search-window-book-tags">' + tagHtml + "</span>" : "") +
       '<span class="search-window-book-count">' +
       fillTemplate("libBookMatches", { n: formatThousands(res.count) }) + "</span></a>";

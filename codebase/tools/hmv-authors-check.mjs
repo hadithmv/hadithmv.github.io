@@ -1,7 +1,8 @@
 // Authors & Periods browse battery — the shared facet system (src/js/facet-browse.js)
 // on every surface: library-search page chips + modals, dashboard functions
 // panel + deep links, search window's All-books section, and the author line
-// on cards + reader header (a dash-separated link to the filtered dashboard).
+// on cards, search result rows + reader header (a dash-separated link to the
+// filtered dashboard).
 // Run: node tools/hmv-authors-check.mjs  (from codebase/, or anywhere — paths
 // resolve relative to this script). Requires Node 20.11+ and Microsoft Edge.
 // Env overrides: HMV_AUTHORS_PORT (default 9361), HMV_AUTHORS_PROFILE.
@@ -27,9 +28,10 @@
 //    modern row's name carries the open-ended "(+15)" marker and its
 //    ranges are the "+1401 AH" / "+1981 CE" from-forms
 //  - ?authors=/?period= deep links activate chips on load
-//  - scoped search: with an author active, every result card belongs to one
+//  - scoped search: with an author active, every result row belongs to one
 //    of that author's books (derived from 03)
-//  - author line renders on library result cards, dashboard cards, reader
+//  - author line renders on library result rows (the muted title-lane
+//    suffix, plus the full line in the row tooltip), dashboard cards, reader
 //    header ("<nameEN> (<born>–<died> AH)" — a plain-background button
 //    with real button chrome opening the info modal's Author tab; the
 //    Dhivevi layout's Arabic subtitle is the same button, opening the
@@ -128,6 +130,9 @@ const PERIODS = [...new Set(SEARCHABLE_AUTHORS.map(periodOf))]
     a === "modern" ? 1 : b === "modern" ? -1 : parseInt(a, 10) - parseInt(b, 10));
 const NAWAWI = authors02.find((a) => a.authorCode === "yahyaBinSharafAnNawawi");
 const NAWAWI_BOOKS = VISIBLE_BOOKS.filter((b) => authorCodesOf(b).includes("yahyaBinSharafAnNawawi")).map((b) => b.bookCode);
+// Exact en author line for Nawawi, per the i18n authorLife template
+// "{b}–{d} AH" — the result rows' muted author suffix (bookAuthorLine).
+const NAWAWI_LINE_EN = nameEN("yahyaBinSharafAnNawawi") + " (" + NAWAWI.bornAH + "–" + NAWAWI.diedAH + " AH)";
 const MALIK_BOOK = books03.find((b) => b.bookCode === "HDT-muwattaMalik");
 const malikRow = authors02.find((a) => a.authorCode === "malikBinAnas");
 // Exact en author line for Malik, per the i18n authorLife template "{b}–{d} AH":
@@ -440,9 +445,10 @@ async function main() {
   const resultBooks = await evalJS(`Array.from(document.querySelectorAll('#libResults .lib-result')).map(function(r){return r.dataset.book;})`);
   check("scoped search yields results", resultBooks.length > 0, resultBooks.length);
   check("scoped search results all by nawawi", resultBooks.every((c) => NAWAWI_BOOKS.indexOf(c) !== -1), resultBooks.join(","));
-  // Results are one-line rows on every search surface (the author context
-  // lives in the dashboard cards and the info modal, not in the result
-  // rows): a single title line + count, no stacked card triad.
+  // Results are one-line rows on every search surface: a single title line,
+  // a muted author suffix inside that lane (the same current-language
+  // bookAuthorLine as the dashboard cards and the info modal, years
+  // included), and the count — no stacked card triad.
   check("scoped results are one-line rows", await evalJS(
     `(function () {
        var rows = document.querySelectorAll('#libResults .lib-result');
@@ -452,6 +458,17 @@ async function main() {
            !r.querySelector('.card-author, .title-ar, .title-dv, .title-en');
        });
      })()`));
+  check("result rows carry the author suffix and its tooltip", await evalJS(
+    `(function () {
+       var line = ${JSON.stringify(NAWAWI_LINE_EN)};
+       var rows = document.querySelectorAll('#libResults .lib-result');
+       return rows.length > 0 && Array.prototype.every.call(rows, function (r) {
+         var a = r.querySelector('.search-window-book-title .search-window-book-author');
+         var link = r.querySelector('.search-window-book-link');
+         return !!a && a.textContent === line &&
+           !!link && link.getAttribute('title') === line + ' — ' + r.dataset.book;
+       });
+     })()`), NAWAWI_LINE_EN);
 
   // ── Library: Periods modal ────────────────────────────────────────
   await evalJS(`document.getElementById('libPeriodsBtn').click()`);

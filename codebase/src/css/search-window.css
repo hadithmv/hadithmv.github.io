@@ -752,6 +752,15 @@
      cuts the first glyph of every title */
   padding-inline-start: 6px;
 }
+/* Author suffix inside the title lane — muted, a step below the title. It
+   shares the title's ellipsis clip: the title stays whole and the author is
+   what clips away when the row runs out of room. The markup's <bdi> keeps a
+   Latin author from reordering the " · " separator or the year parentheses
+   against the RTL row. */
+.search-window-book-author {
+  font-size: 0.9em;
+  color: var(--color-text-muted);
+}
 .search-window-book-tags {
   flex-shrink: 0;
   display: inline-flex;
