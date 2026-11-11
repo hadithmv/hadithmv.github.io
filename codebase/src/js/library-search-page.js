@@ -744,7 +744,7 @@ function resultCardHTML(r, q, withPeek) {
       ? '<div class="card-author">' + escapeHTML(authorLine) + "</div>"
       : "") +
     '<div class="lib-result-meta">' +
-    fillTemplate("libBookMatches", { n: r.count }) +
+    fillTemplate("libBookMatches", { n: formatThousands(r.count) }) +
     "</div>" +
     "</a>" +
     (withPeek
@@ -770,7 +770,7 @@ function renderResults(results, q, info, narrowed, scopeCount) {
   var total = 0;
   for (var i = 0; i < results.length; i++) total += results[i].count;
   el.count.style.display = "";
-  el.count.textContent = fillTemplate("libResultSummary", { a: total, b: results.length });
+  el.count.textContent = fillTemplate("libResultSummary", { a: formatThousands(total), b: results.length });
   el.results.innerHTML =
     allBooksQueryNote(info) +
     '<div class="lib-results">' +

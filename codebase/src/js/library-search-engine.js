@@ -16,7 +16,7 @@
  *
  * Pure module — no DOM. Exports: loadSearchIndex, loadScopedIndex,
  * loadIndexMeta, searchLibrary, searchLibraryDetailed, analyseAllBooksQuery,
- * tokenizeText
+ * tokenizeText, PREFIX_MIN_CHARS
  */
 
 import { normaliseForSearch, parseQuery } from "./search-utils.js";
@@ -373,18 +373,97 @@ function differenceSorted(a, b) {
   return out;
 }
 
+/** Pack a sorted, unique row array back into the index's "1-5,8" form. */
+function packRanges(rows) {
+  var parts = [];
+  var start = rows[0];
+  var prev = rows[0];
+  for (var i = 1; i < rows.length; i++) {
+    var v = rows[i];
+    if (v === prev) continue;
+    if (v === prev + 1) { prev = v; continue; }
+    parts.push(start === prev ? String(start) : start + "-" + prev);
+    start = prev = v;
+  }
+  parts.push(start === prev ? String(start) : start + "-" + prev);
+  return parts.join(",");
+}
+
+// ── Prefix expansion ────────────────────────────────────────
+
+/**
+ * Shortest normalised word that implicitly expands to its longer forms.
+ * Every word matches exactly at any length; from this length up, a bare
+ * word also matches every indexed word beginning with it. `.word` opts a
+ * word out of the expansion at any length. The floor keeps 1–2 letter
+ * beginnings from turning a query into a corpus sweep (އ matches 34,781
+ * words / 39,752 rows; އެ 10,490 / 35,500; އެކ 1,426 / 16,586 — see
+ * docs/ARCHITECTURE.md).
+ */
+export var PREFIX_MIN_CHARS = 3;
+
+/**
+ * Merge every indexed word beginning with `prefix` into one posting, limited
+ * to the resolved scope. Returns null when no in-scope book has a match.
+ * The scan is linear over the merged word list — the measured cost at the
+ * 3-character floor is tens of milliseconds (docs/ARCHITECTURE.md).
+ */
+function collectPrefixPosting(words, prefix, allowed) {
+  var byBook = null;
+  for (var w in words) {
+    if (w.lastIndexOf(prefix, 0) !== 0) continue; // startsWith, ES5
+    var posting = words[w];
+    for (var bookKey in posting) {
+      if (allowed && !allowed[bookKey]) continue;
+      var rows = rangesToArray(posting[bookKey]);
+      if (!byBook) byBook = {};
+      var bag = byBook[bookKey];
+      if (!bag) byBook[bookKey] = rows;
+      else {
+        for (var r = 0; r < rows.length; r++) bag.push(rows[r]);
+      }
+    }
+  }
+  if (!byBook) return null;
+  var out = {};
+  for (var key in byBook) {
+    out[key] = packRanges(byBook[key].sort(function (x, y) { return x - y; }));
+  }
+  return out;
+}
+
+/**
+ * Resolve one analysed term to a posting. Exact at any length; a 3+-character
+ * bare word additionally unions every indexed word beginning with it (the
+ * exact word is one of those, so the prefix posting covers both). `.word`
+ * (wholeWord) is exact-only — the precision escape hatch. Scope filtering
+ * happens inside the prefix union so out-of-scope shards already merged into
+ * _master never leak into a narrowed search.
+ */
+function resolveTermPosting(words, term, allowed) {
+  if (term.wholeWord || term.word.length < PREFIX_MIN_CHARS) {
+    return words[term.word] || null;
+  }
+  return collectPrefixPosting(words, term.word, allowed);
+}
+
 // ── Query analysis ──────────────────────────────────────────
 
 /**
- * Parse an all-books query into word tokens plus a support report.
+ * Parse an all-books query into word terms plus a support report.
  *
- * The cross-book index is a whole-word postings list, so unlike the in-book
+ * The cross-book index is a word postings list, so unlike the in-book
  * matcher (rowMatchesQueryNorm in search-utils.js) it cannot evaluate every
- * grammar construct. This keeps what the index CAN serve exact — plain
- * words, `.word` (identical at word level) and `-exclude` (subtracted from
- * each book's candidate rows) — and degrades the rest to their literal
- * words, reporting the approximation through flags so each renderer can
- * show a note instead of silently mangling the query:
+ * grammar construct. Matching keeps the index's precision and adds one
+ * deliberate relaxation:
+ *   - every word matches exactly, at any length;
+ *   - a bare word of PREFIX_MIN_CHARS+ normalised characters ALSO matches
+ *     every indexed word beginning with it — އެކަލޭގެފާނ finds
+ *     އެކަލޭގެފާނު and the word's other inflections. `.word` opts out
+ *     (exact only, any length). Exclusions follow the same rule — a 3+
+ *     character `-word` subtracts the expanded set.
+ * The rest of the grammar degrades to the literal words, reporting the
+ * approximation through flags so each renderer can show a note:
  *   - quoted phrase → its words, ANDed (word order is not enforced);
  *   - `~fuzzy~` → the literal word (no edit tolerance at index level);
  *   - `*`/`?` wildcards → the literal fragments around them;
@@ -392,45 +471,64 @@ function differenceSorted(a, b) {
  * A `/regex/` query has no words to degrade to: it reports `regexOnly` and
  * yields no results (the UI explains). An exclude-only query cannot be
  * listed either — the index knows where a word IS, not where it is not —
- * so it reports `excludeOnly` and yields no results.
+ * so it reports `excludeOnly` and yields no results. A query whose only
+ * missing include word is shorter than the expansion floor reports
+ * `shortWordMiss` on the search result (searchLibraryDetailed), so the UI
+ * can say "keep typing" instead of a bare no-results line.
+ *
+ * Lengths are measured on normalised tokens; every indexed script (Thaana,
+ * Arabic, Latin) is BMP, so `word.length` is the codepoint count.
  *
  * @param {string} query - raw query text
  * @returns {{includeWords: string[], excludeWords: string[],
- *   regexOnly: boolean, excludeOnly: boolean, approximated: boolean}}
+ *   includeTerms: Array<{word: string, wholeWord: boolean}>,
+ *   excludeTerms: Array<{word: string, wholeWord: boolean}>,
+ *   regexOnly: boolean, excludeOnly: boolean, approximated: boolean,
+ *   shortWordMiss: boolean}}
  */
 export function analyseAllBooksQuery(query) {
   var parsed = parseQuery(query || "");
   var info = {
     includeWords: [],
     excludeWords: [],
+    includeTerms: [],
+    excludeTerms: [],
     regexOnly: false,
     excludeOnly: false,
     approximated: false,
+    shortWordMiss: false,
   };
   if (parsed.regex) {
     info.regexOnly = true;
     return info;
   }
 
-  function addWords(term, bag) {
-    var tokens = tokenizeText(normaliseForSearch(term));
+  function addWords(term, bag, terms) {
+    var tokens = tokenizeText(normaliseForSearch(term.term));
     for (var i = 0; i < tokens.length; i++) {
-      if (bag.indexOf(tokens[i]) === -1) bag.push(tokens[i]);
+      var word = tokens[i];
+      if (bag.indexOf(word) === -1) bag.push(word);
+      var entry = null;
+      for (var j = 0; j < terms.length; j++) {
+        if (terms[j].word === word) { entry = terms[j]; break; }
+      }
+      if (entry) entry.wholeWord = entry.wholeWord || term.wholeWord;
+      else terms.push({ word: word, wholeWord: term.wholeWord });
     }
   }
-  function analyseTerm(term, bag) {
+  function analyseTerm(term, bag, terms) {
     if (term.col !== null) info.approximated = true;
     if (term.fuzzy) info.approximated = true;
     if (/[*?]/.test(term.term)) info.approximated = true;
     if (/\s/.test(term.term)) info.approximated = true; // quoted phrase
-    addWords(term.term, bag);
+    addWords(term, bag, terms);
   }
 
   for (var i = 0; i < parsed.include.length; i++) {
-    analyseTerm(parsed.include[i], info.includeWords);
+    analyseTerm(parsed.include[i], info.includeWords, info.includeTerms);
   }
   for (var j = 0; j < parsed.exclude.length; j++) {
-    analyseTerm(parsed.exclude[j], info.excludeWords);
+    analyseTerm(parsed.exclude[j], info.excludeWords, info.excludeTerms);
   }
   if (info.includeWords.length === 0 && info.excludeWords.length > 0) {
     info.excludeOnly = true;
@@ -442,6 +540,12 @@ export function analyseAllBooksQuery(query) {
  * Search the library index for a query, with the query-support report the
  * renderers use to show the all-books grammar note.
  *
+ * Plain include/exclude terms resolve exactly at any length and, at 3+
+ * normalised characters, also union every indexed word beginning with them
+ * (PREFIX_MIN_CHARS; `.word` opts out). Prefix unions are filtered to the
+ * scope inside the union itself, so a narrowed search stays narrowed even
+ * though _master carries shards from earlier, wider loads.
+ *
  * @param {Object} index - parsed index ({meta, words}) from loadSearchIndex()
  * @param {string} query - raw query text; parsed by analyseAllBooksQuery()
  * @param {string[]} [scopeBookCodes] - book codes to limit the search to
@@ -449,28 +553,15 @@ export function analyseAllBooksQuery(query) {
  * @returns {{results: Array<{bookCode, count, firstRow}>, info: Object}}
  *   results: books with at least one matching row, sorted by match count
  *   descending; empty when the query has no searchable terms, a term exists
- *   nowhere, or nothing matched. info: see analyseAllBooksQuery().
+ *   nowhere, or nothing matched. info: see analyseAllBooksQuery();
+ *   `shortWordMiss` is set here when a 1–2 character include word is not
+ *   itself indexed (no expansion is possible at that length).
  */
 export function searchLibraryDetailed(index, query, scopeBookCodes) {
   var info = analyseAllBooksQuery(query);
   if (!index || !index.words) return { results: [], info: info };
   if (info.regexOnly || info.includeWords.length === 0) {
     return { results: [], info: info };
-  }
-
-  var words = index.words;
-  var postings = [];
-  for (var i = 0; i < info.includeWords.length; i++) {
-    var posting = words[info.includeWords[i]];
-    if (!posting) return { results: [], info: info }; // a term exists nowhere → no row can contain all terms
-    postings.push(posting);
-  }
-  // Exclusions only subtract where the word exists; a word absent from the
-  // whole index excludes nothing.
-  var excludePostings = [];
-  for (var e = 0; e < info.excludeWords.length; e++) {
-    var ep = words[info.excludeWords[e]];
-    if (ep) excludePostings.push(ep);
   }
 
   // Resolve scope (book codes → numeric ids). "3" is a string key.
@@ -482,6 +573,30 @@ export function searchLibraryDetailed(index, query, scopeBookCodes) {
       var id = bookIds.indexOf(scopeBookCodes[s]);
       if (id !== -1) allowed[id] = true;
     }
+  }
+
+  var words = index.words;
+  var postings = [];
+  for (var i = 0; i < info.includeTerms.length; i++) {
+    var term = info.includeTerms[i];
+    var posting = resolveTermPosting(words, term, allowed);
+    if (!posting) {
+      // A short word can only be exact (no expansion), so a miss at that
+      // length is "too short to expand and not itself indexed" — the UI
+      // tells the user to keep typing. Missing longer words just miss.
+      if (term.word.length < PREFIX_MIN_CHARS && !words[term.word]) {
+        info.shortWordMiss = true;
+      }
+      return { results: [], info: info }; // a term exists nowhere in scope → no row can contain all terms
+    }
+    postings.push(posting);
+  }
+  // Exclusions only subtract where the term exists; a term absent from the
+  // resolved scope excludes nothing.
+  var excludePostings = [];
+  for (var e = 0; e < info.excludeTerms.length; e++) {
+    var ep = resolveTermPosting(words, info.excludeTerms[e], allowed);
+    if (ep) excludePostings.push(ep);
   }
 
   // Iterate the term whose posting reaches the fewest books (after scope)

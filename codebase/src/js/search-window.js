@@ -15,7 +15,9 @@
  */
 
 import { t, tagLabel, currentLang } from "./i18n.js";
-import { loadScopedIndex, searchLibraryDetailed } from "./library-search-engine.js";
+import {
+  loadScopedIndex, searchLibraryDetailed, PREFIX_MIN_CHARS,
+} from "./library-search-engine.js";
 import { loadBookRegistry, extractTags } from "./book-data.js";
 import { escapeHTML, formatThousands, addSearchHistory } from "./search-utils.js";
 import {
@@ -56,8 +58,8 @@ var _currentTab = "thisBook";
 function el(id) { return document.getElementById(id); }
 
 // The input's placeholder follows the active surface: the reader's two tabs
-// search different engines (full grammar vs the whole-word cross-book
-// index), and the library page's window is always cross-book (no tabs).
+// search different engines (full grammar vs the word-index cross-book
+// engine), and the library page's window is always cross-book (no tabs).
 // Set on tab switches and language changes, like every other JS-built label.
 function placeholderText() {
   var crossBook = _cfg.mode === "library" || (_cfg.tabs && _currentTab === "allBooks");
@@ -268,9 +270,10 @@ function setTab(tab, silent) {
     btns[i].classList.toggle("active", btns[i].getAttribute("data-tab") === tab);
   }
   // Section visibility: the All-books tab swaps the options row (whole-word,
-  // advanced) for the scope section — cross-book search has neither
-  // whole-word semantics nor per-column conditions, and the scope is its
-  // only modifier. Library mode pins the scope section on (cfg.scope).
+  // advanced) for the scope section — cross-book search has its own
+  // per-word exact/beginning rule (`.word` for exact-only) rather than the
+  // this-book whole-word toggle, and no per-column conditions; the scope is
+  // its only modifier. Library mode pins the scope section on (cfg.scope).
   var isAll = tab === "allBooks";
   _ui.scope.style.display = ((_cfg.tabs && isAll) || _cfg.scope === true) ? "" : "none";
   _ui.facets.style.display = ((_cfg.tabs && isAll) || _cfg.scope === true) ? "" : "none";
@@ -378,17 +381,26 @@ function runAllBooksSearch(q) {
   });
 }
 
-/** The all-books grammar note (empty when the query needs no caveat). */
+/**
+ * The all-books grammar note (empty when the query needs no caveat).
+ * shortWordMiss outranks approximated: when the zero is a too-short word,
+ * "keep typing" is the actionable message (and approximation notes would
+ * otherwise bury it).
+ */
 export function allBooksQueryNote(info) {
   if (!info) return "";
   var key = info.regexOnly
     ? "libAllBooksRegexNote"
     : info.excludeOnly
       ? "libAllBooksExcludeOnlyNote"
-      : info.approximated
-        ? "libAllBooksApproxNote"
-        : "";
-  return key ? '<div class="search-query-note">' + t(key) + "</div>" : "";
+      : info.shortWordMiss
+        ? "libAllBooksShortNote"
+        : info.approximated
+          ? "libAllBooksApproxNote"
+          : "";
+  return key
+    ? '<div class="search-query-note">' + fillTemplate(key, { n: PREFIX_MIN_CHARS }) + "</div>"
+    : "";
 }
 
 // Scoped zero's escape hatch: clear every narrowing (picker scope + facets)
@@ -452,7 +464,7 @@ function renderAllBooksResults(results, q, scopeInfo, info) {
           scopeInfo.count === 1 ? "libNoResultsInScopeOne" : "libNoResultsInScope",
           { n: formatThousands(scopeInfo.count) }
         )
-      : t("noMatchesMsg");
+      : t("libNoResults");
     html += '<div class="search-no-matches">' + msg + ': "' +
       escapeHTML(q) + '"' +
       (scopeInfo

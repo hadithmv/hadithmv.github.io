@@ -3,7 +3,11 @@
 // (S11: open, focus, card/list toggle, scope modal stacked on the window,
 // scoped re-run, Escape-by-layer). S12 pins the result-card chrome in the
 // Dhivehi layout (no English caption, the tag row keeps the shared flex
-// gap). S1 asserts the HDT default scope (the page's initScopePicker
+// gap). S13 pins all-books prefix matching end-to-end: a derived stem
+// (absent from the HDT index, with 2+ longer forms) must return exactly the
+// union of its forms' rows, computed independently from the HDT shards;
+// `.stem` must be exact-only; and an unindexed 1–2 letter word must show
+// the "keep typing" note. S1 asserts the HDT default scope (the page's initScopePicker
 // defaultTag "HDT": fresh visits search HDT first, the All chip widens) —
 // the expected set is derived from the data files.
 // Run: node tools/hmv-libscope-check.mjs  (from codebase/). Requires Node
@@ -70,6 +74,107 @@ function tagsOf(row) {
 const HDT_SCOPE = REG_BOOKS.filter((b) =>
   !b.bookCode.endsWith("-HDN") && MANIFEST.bookIds.includes(b.bookCode) && tagsOf(b).includes("HDT")
 ).map((b) => b.bookCode);
+
+// S13 fixtures: the HDT-scoped word index, read from the shards directly so
+// the expected prefix totals never come from the engine under test. The
+// engine/i18n imports below are only for the expansion floor and the
+// expected note text (the page under test may be src or dist).
+const SEARCH_SRC = path.join(import.meta.dirname, "..", "src", "js");
+const { normaliseForSearch } = await import(pathToFileURL(path.join(SEARCH_SRC, "search-utils.js")));
+const { tIn } = await import(pathToFileURL(path.join(SEARCH_SRC, "i18n.js")));
+const { PREFIX_MIN_CHARS } = await import(pathToFileURL(path.join(SEARCH_SRC, "library-search-engine.js")));
+const HDT_INDEX = {}; // word → { bookCode: packed }
+for (const code of HDT_SCOPE) {
+  const shard = JSON.parse(fs.readFileSync(baseDir + "/../data/search-index/" + code + ".json", "utf8"));
+  for (const w in shard) {
+    (HDT_INDEX[w] || (HDT_INDEX[w] = {}))[code] = shard[w];
+  }
+}
+function packedRows(packed) {
+  const out = [];
+  for (const part of packed.split(",")) {
+    const dash = part.indexOf("-");
+    const a = dash === -1 ? +part : +part.slice(0, dash);
+    const b = dash === -1 ? a : +part.slice(dash + 1);
+    for (let n = a; n <= b; n++) out.push(n);
+  }
+  return out;
+}
+function rowUnionTotal(wordsList) {
+  const byBook = {};
+  for (const w of wordsList) {
+    for (const code in HDT_INDEX[w]) {
+      const set = byBook[code] || (byBook[code] = new Set());
+      for (const r of packedRows(HDT_INDEX[w][code])) set.add(r);
+    }
+  }
+  let total = 0;
+  for (const code in byBook) total += byBook[code].size;
+  return total;
+}
+// A stem absent from the HDT index (so only expansion can match it) with at
+// least two longer forms — derivation from the data, no hardcoded script.
+const HDT_WORDS = Object.keys(HDT_INDEX).sort();
+const HDT_WORDSET = new Set(HDT_WORDS);
+const STEM_FORM_COUNTS = Object.create(null); // one-char-trimmed stem → form count
+for (const w of HDT_WORDS) {
+  if (w.length < 5) continue;
+  const s = w.slice(0, w.length - 1);
+  if (s.length >= PREFIX_MIN_CHARS) STEM_FORM_COUNTS[s] = (STEM_FORM_COUNTS[s] || 0) + 1;
+}
+const STEM_SOURCE = HDT_WORDS.find((w) => {
+  if (w.length < 5) return false;
+  const stem = w.slice(0, w.length - 1);
+  return stem.length >= PREFIX_MIN_CHARS &&
+    normaliseForSearch(stem) === stem &&
+    !HDT_WORDSET.has(stem) &&
+    STEM_FORM_COUNTS[stem] >= 2;
+});
+if (!STEM_SOURCE) throw new Error("S13: no stem fixture found");
+const STEM = STEM_SOURCE.slice(0, STEM_SOURCE.length - 1);
+const STEM_FORMS = Object.keys(HDT_INDEX).filter((w) => w.startsWith(STEM));
+if (STEM_FORMS.length < 2) throw new Error("S13: stem fixture has no longer forms");
+const STEM_UNION_ROWS = rowUnionTotal(STEM_FORMS);
+const STEM_SOURCE_ROWS = rowUnionTotal([STEM_SOURCE]);
+// An exclusion stem (same rule) that provably subtracts from the stem's
+// union — expected rows computed per book from the shard sets.
+function bookSets(wordsList) {
+  const byBook = {};
+  for (const w of wordsList) {
+    for (const code in HDT_INDEX[w]) {
+      const set = byBook[code] || (byBook[code] = new Set());
+      for (const r of packedRows(HDT_INDEX[w][code])) set.add(r);
+    }
+  }
+  return byBook;
+}
+const STEM_SETS = bookSets(STEM_FORMS);
+let EX_STEM = null;
+let EX_EXPECTED_ROWS = 0;
+for (const w of HDT_WORDS) {
+  if (w.length < 5 || w === STEM_SOURCE) continue;
+  const stem = w.slice(0, w.length - 1);
+  if (stem.length < PREFIX_MIN_CHARS || stem === STEM || normaliseForSearch(stem) !== stem) continue;
+  const exSets = bookSets(HDT_WORDS.filter((k) => k.startsWith(stem)));
+  let expected = 0;
+  let removed = 0;
+  for (const code in STEM_SETS) {
+    const ex = exSets[code];
+    for (const r of STEM_SETS[code]) {
+      if (ex && ex.has(r)) removed++;
+      else expected++;
+    }
+  }
+  if (removed > 0) {
+    EX_STEM = stem;
+    EX_EXPECTED_ROWS = expected;
+    break;
+  }
+}
+if (!EX_STEM) throw new Error("S13: no overlapping exclusion fixture found");
+const SHORT_MISS = ["zz", "qq", "xx", "jj", "vv", "ww"].find((s) => !HDT_INDEX[s]);
+if (!SHORT_MISS) throw new Error("S13: no unindexed 2-letter fixture found");
+const SHORT_MISS_NOTE = tIn("libAllBooksShortNote", "en").replace("{n}", String(PREFIX_MIN_CHARS));
 
 async function main() {
   killLeftover();
@@ -764,6 +869,73 @@ async function main() {
     })()`);
     check("S12 tag row is a flex line with the shared gap",
       tagRow && tagRow.display.indexOf("flex") !== -1 && tagRow.gap >= 3, JSON.stringify(tagRow));
+
+    // ── S13: all-books exact + word-beginning matching ──
+    // A bare stem (absent from the index, 2+ longer forms) must return the
+    // union of every form's rows, exactly as computed from the HDT shards
+    // above — the page's default HDT scope matches the fixture's scope.
+    await evalJS(`localStorage.setItem('lang', 'en')`);
+    await goto(pageURL + "?q=" + encodeURIComponent(STEM), 1280, 900);
+    check("S13 prefix stem renders result cards",
+      await waitFor(`document.querySelectorAll('#libResults .lib-result').length > 0`), JSON.stringify(STEM));
+    const prefixState = await evalJS(`(function () {
+      var total = 0;
+      document.querySelectorAll('#libResults .lib-result-meta').forEach(function (m) {
+        total += parseInt(m.textContent.replace(/[^0-9]/g, ''), 10) || 0;
+      });
+      return { cards: document.querySelectorAll('#libResults .lib-result').length, total: total };
+    })()`);
+    check("S13 prefix total = independent union of the stem's forms",
+      prefixState.total === STEM_UNION_ROWS,
+      JSON.stringify({ rendered: prefixState.total, expected: STEM_UNION_ROWS, cards: prefixState.cards }));
+    check("S13 prefix expansion goes beyond the exact word",
+      STEM_UNION_ROWS > STEM_SOURCE_ROWS,
+      STEM_FORMS.length + " forms, " + STEM_UNION_ROWS + " rows vs exact " + STEM_SOURCE_ROWS);
+    // Exclusions expand by the same rule: the subtracted set is the union of
+    // every word beginning with the exclusion stem.
+    await goto(pageURL + "?q=" + encodeURIComponent(STEM + " -" + EX_STEM), 1280, 900);
+    check("S13 prefix-exclusion query settles",
+      await waitFor(`document.querySelectorAll('#libResults .lib-result').length > 0 || document.querySelector('#libResults .empty-state') !== null`, 15000),
+      JSON.stringify({ stem: STEM, ex: EX_STEM }));
+    const exState = await evalJS(`(function () {
+      var total = 0;
+      document.querySelectorAll('#libResults .lib-result-meta').forEach(function (m) {
+        total += parseInt(m.textContent.replace(/[^0-9]/g, ''), 10) || 0;
+      });
+      return { total: total };
+    })()`);
+    check("S13 prefix exclusion subtracts the expanded set",
+      exState.total === EX_EXPECTED_ROWS && EX_EXPECTED_ROWS < STEM_UNION_ROWS,
+      JSON.stringify({ rendered: exState.total, expected: EX_EXPECTED_ROWS, before: STEM_UNION_ROWS }));
+    // `.stem` is exact-only: the stem is not a word, so zero — and no
+    // grammar note (the zero is the query, not unsupported syntax).
+    await goto(pageURL + "?q=" + encodeURIComponent("." + STEM), 1280, 900);
+    check("S13 .stem reaches the empty state",
+      await waitFor(`document.querySelector('#libResults .empty-state') !== null`), "no empty state");
+    const dotState = await evalJS(`(function () {
+      return {
+        cards: document.querySelectorAll('#libResults .lib-result').length,
+        note: !!document.querySelector('#libResults .search-query-note'),
+      };
+    })()`);
+    check("S13 .stem is exact-only (0 cards) and shows no grammar note",
+      dotState.cards === 0 && dotState.note === false, JSON.stringify(dotState));
+    // A 1–2 letter include word that is not indexed cannot expand; the page
+    // must say "keep typing" rather than imply the corpus lacks the term.
+    await goto(pageURL + "?q=" + encodeURIComponent(SHORT_MISS), 1280, 900);
+    check("S13 short unindexed word reaches the note state",
+      await waitFor(`document.querySelector('#libResults .search-query-note') !== null`, 10000), JSON.stringify(SHORT_MISS));
+    const shortState = await evalJS(`(function () {
+      var n = document.querySelector('#libResults .search-query-note');
+      return {
+        cards: document.querySelectorAll('#libResults .lib-result').length,
+        note: n ? n.textContent.trim() : '',
+        empty: !!document.querySelector('#libResults .empty-state'),
+      };
+    })()`);
+    check("S13 short word: no cards, keep-typing note, empty state",
+      shortState.cards === 0 && shortState.empty && shortState.note === SHORT_MISS_NOTE,
+      JSON.stringify(shortState));
 
     // ── S10: no page errors anywhere ──
     check("S10 no page errors", pageErrors.length === 0, pageErrors.join(" | "));

@@ -16,12 +16,13 @@ const STRINGS = {
     en: "Search this book…",
     ar: "…ابحث في هذا الكتاب",
   },
-  // The All-books tab / library-search window — cross-book search is
-  // whole-word only, so the placeholder says so before the first keystroke.
+  // The All-books tab / library-search window — cross-book search matches
+  // words exactly and by their beginnings (3+ letters), so the placeholder
+  // says so before the first keystroke.
   searchAllBooksPlaceholder: {
-    dv: "ހުރިހާ ފޮތަކުން ހޯދާ (ފުރިހަމަ ލަފްޒު)…",
-    en: "Search all books (whole words)…",
-    ar: "…ابحث في كل الكتب (كلمات كاملة)",
+    dv: "ހުރިހާ ފޮތަކުން ހޯދާ (ލަފްޒުގެ ފެށުން)…",
+    en: "Search all books (word beginnings)…",
+    ar: "…ابحث في كل الكتب (بدايات الكلمات)",
   },
 
   // ── Toolbar ──
@@ -183,19 +184,21 @@ const STRINGS = {
     ar: "/(صلاة|صلاة)/",
   },
   // The grammar belongs to the This-book tab — All books is a word index
-  // that matches whole normalized words exactly (plus -exclusions) and can
-  // only approximate the rest, with an inline note (libAllBooks*Note).
+  // that always matches words exactly and, from PREFIX_MIN_CHARS letters,
+  // their beginnings too; -exclusions follow the same rule. `.word` is the
+  // exact-only escape hatch. Everything it cannot serve is approximated
+  // with an inline note (libAllBooks*Note).
   searchHelpAllBooksNote: {
-    dv: "މި ގޮތްގޮތަށް ހޯދޭނީ ވަކިވަކި ފޮތްފޮތުގެ ސާޗުގައި އެކަންޏެވެ. ހުރިހާ ފޮތެއް ސާޗުކުރާ ނަމަ، ހޯދޭނީ ފުރިހަމަ ލަފްޒުތަކާއި -ނަފީކުރާ ލަފްޒުތަކެވެ.",
-    en: "These syntaxes work only in individual book searches. Across all books, whole words and -exclusions are matched.",
-    ar: "تعمل هذه الصيغ فقط في عمليات البحث في الكتب الفردية. عبر جميع الكتب تُطابَق الكلمات الكاملة والاستثناءات (-).",
+    dv: "މި ގޮތްގޮތަށް ހޯދޭނީ ވަކިވަކި ފޮތްފޮތުގެ ސާޗުގައި އެކަންޏެވެ. ހުރިހާ ފޮތެއް ސާޗުކުރާ ނަމަ، ލަފްޒުތައް ސީދާއަދި ލަފްޒުގެ ފެށުން (3 އަކުރުން ފެށިގެން) ހޯދައެވެ؛ -ނަފީކުރާ ލަފްޒުތައްވެސް އެގޮތަށް މަސައްކަތްކުރެއެވެ. ލަފުޒުގެ ކުރިން . ލައިފިނަމަ އެ ލަފްޒު އެކަނި ސީދާ ހޯދައެވެ.",
+    en: "These syntaxes work only in individual book searches. Across all books, words match exactly and by their beginnings (from 3 letters); -exclusions work the same way. Put . before a word to match it exactly only.",
+    ar: "تعمل هذه الصيغ فقط في عمليات البحث في الكتب الفردية. عبر جميع الكتب تُطابَق الكلمات كاملةً وبداياتها (من 3 حروف)؛ والاستثناءات (-) تعمل بالطريقة نفسها. ضع . قبل الكلمة لمطابقتها كاملةً فقط.",
   },
   // Inline all-books notes (both search surfaces) — shown when the query
   // used syntax the word index can only approximate or cannot serve.
   libAllBooksApproxNote: {
-    dv: "ހުރިހާ ފޮތެއްގެ ސާޗުގައި މެޗުވާނީ ފުރިހަމަ ލަފްޒުތަކަށެވެ — ~ ގާތް ލަފްޒާ، ވައިލްޑްކާޑާ (*، ?)، ކޮލަމާ (col:) އަދި ރެޖެކްސް (/…/) މަސައްކަތްކުރާނީ އެކަން ފޮތެއްގެ ސާޗުގައެވެ.",
-    en: "Across all books only whole words are matched — ~fuzzy~, wildcards, col: and /regex/ work in this-book search.",
-    ar: "عبر جميع الكتب تُطابَق الكلمات الكاملة فقط — البحث التقريبي (~) والرموز البديلة وcol: والتعبير النمطي (/…/) تعمل داخل الكتاب الواحد.",
+    dv: "ހުރިހާ ފޮތެއްގެ ސާޗުގައި ލަފްޒުތައް ސީދާއަދި ލަފްޒުގެ ފެށުން (3 އަކުރުން ފެށިގެން) މެޗުވެއެވެ — ~ ގާތް ލަފްޒާ، ވައިލްޑްކާޑާ (*، ?)، ކޮލަމާ (col:) އަދި ރެޖެކްސް (/…/) މަސައްކަތްކުރާނީ އެކަން ފޮތެއްގެ ސާޗުގައެވެ.",
+    en: "Across all books, words match exactly and by their beginnings (from 3 letters) — ~fuzzy~, wildcards, col: and /regex/ work in this-book search.",
+    ar: "عبر جميع الكتب تُطابَق الكلمات كاملةً وبداياتها (من 3 حروف) — البحث التقريبي (~) والرموز البديلة وcol: والتعبير النمطي (/…/) تعمل داخل الكتاب الواحد.",
   },
   libAllBooksRegexNote: {
     dv: "ރެޖެކްސް ސާޗު (/…/) ކުރެވޭނީ އެކަން ފޮތެއްގެ ސާޗުގައެވެ.",
@@ -206,6 +209,14 @@ const STRINGS = {
     dv: "ސާޗު ލަފުޒެއް އިތުރުކުރޭ — ނަފީކުރާ ލަފްޒުތަކާ އެކަނި ހުރިހާ ފޮތަކުން ދައްކާކަށް ނުޖެހޭނެއެވެ.",
     en: "Add a search word — exclusions alone can't be listed across all books.",
     ar: "أضف كلمة بحث — لا يمكن عرض الاستثناءات وحدها عبر جميع الكتب.",
+  },
+  // A 1–2 letter include word can only match itself (no prefix expansion
+  // at that length), and it is not in the index — so the zero is "keep
+  // typing", not a dead end. {n} = PREFIX_MIN_CHARS.
+  libAllBooksShortNote: {
+    dv: "ލަފްޒުގެ ފެށުން ހޯދަނީ {n} އަކުރުން ފެށިގެންނެވެ — އިތުރަށް ލިޔޭ.",
+    en: "Word beginnings match from {n} letters — keep typing.",
+    ar: "تُطابَق بدايات الكلمات من {n} حروف — تابع الكتابة.",
   },
   // Every query is normalised before matching — the hamza/alef variants
   // fold, ى→ي, diacritics and tatweel strip, Thaana dotted forms fold.
