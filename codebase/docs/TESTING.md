@@ -5,6 +5,7 @@
 - [Batteries at a glance](#batteries-at-a-glance)
 - [Battery details](#battery-details)
 - [Specialist batteries](#specialist-batteries)
+- [Coverage gaps](#coverage-gaps)
 - [When a check fails — classify first](#when-a-check-fails--classify-first)
 - [Known non-errors (pre-existing behaviors that look like failures)](#known-non-errors-pre-existing-behaviors-that-look-like-failures)
 - [Harness traps (test-side failures, not product bugs)](#harness-traps-test-side-failures-not-product-bugs)
@@ -19,8 +20,10 @@ Two tiers: **routine** — the eight the toolbox's option 9 runs as the
 pre-commit gate — and **specialist** — maintained but manual, run when the
 trigger names the code you touched. Counts are the `N / N checks passed`
 line from a passing run on 2026-11-12; times are wall-clock on this
-development machine (warm disk, headless Edge) and vary with load. Scans
-print coverage counts instead of check totals.
+development machine (warm disk, headless Edge) and vary with load. The
+eight together are a ~5-minute gate, and streaming alone is ~3½ minutes —
+it is the lever if the pre-commit run ever needs to be faster. Scans print
+coverage counts instead of check totals.
 
 Running the eight through toolbox option 9 writes `checks-report.md`
 (codebase root, gitignored): per-check PASS/FAIL/SKIP with its own time,
@@ -376,6 +379,41 @@ area is in doubt; each script header names its env-var overrides.
   before export-affecting markup changes and after data changes that touch
   the exported fields (titles, version) — see the known-non-errors row for
   S8b.
+
+## Coverage gaps
+
+A green run is strong evidence for the surfaces above, and silence everywhere
+else. The known gaps, so a pass is not over-read:
+
+- **Edge only.** Every browser battery drives headless Microsoft Edge on
+  Windows. Firefox, Safari (desktop and iOS), and real mobile Chrome are
+  untested — differences in scrollbars, webfont rendering, `Intl`, and
+  service-worker timing would not show up here.
+- **Source pages, not `dist/`.** Toolbox option 9 runs the batteries against
+  `src/`; the built site is verified separately by the four `--dist`
+  batteries after a build (CLAUDE.md). A green gate does not by itself prove
+  `dist/`.
+- **No CI.** The batteries run on demand from the toolbox or a terminal; a
+  commit can be pushed without them. No per-push test job catches what a
+  local run skipped.
+- **No performance budget.** Runtimes are pass/fail noise tolerance, not
+  thresholds: the batteries assert behavior and geometry, not load time,
+  memory, or scroll FPS.
+- **Exports are byte/structure checks.** The Word golden, the EPUB container
+  (`PK` header, stored `mimetype`, embedded font), and the XLSX/PDF HTML are
+  captured and compared — never opened in Microsoft Word/Excel, a real EPUB
+  reader, or a print dialog.
+- **Data is sampled, not exhaustive.** Expectations are derived from the
+  data files and spot-check representative rows; the batteries do not verify
+  every one of the 150k+ merged rows, nor translation accuracy.
+- **Mobile is emulated.** Viewport width and a mobile user agent via CDP,
+  not a real device: virtual keyboards, safe-area insets, and platform font
+  fallback are outside the harness.
+- **Font coverage is corpus coverage.** The font check proves the carved
+  woff2 contains every character the corpus uses; it does not prove each
+  glyph renders correctly in every browser or font stack.
+- **Accessibility is targeted, not audited.** Focus placement, RTL geometry,
+  and label text have checks; there is no screen-reader pass or WCAG sweep.
 
 ## When a check fails — classify first
 
