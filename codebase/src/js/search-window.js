@@ -453,7 +453,8 @@ export function buildBookRowsHTML(results, q, bookNames) {
     html += '<div class="lib-result lib-result-row" data-book="' + res.bookCode +
       '" data-q="' + escapeHTML(q) + '">' +
       '<div class="lib-result-line">' + row +
-      '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">▾</button>' +
+      '<button class="toolbar-btn lib-peek-toggle" title="Preview matches in this book">' +
+      '<span class="lib-peek-arrow">▾</span></button>' +
       '</div>' +
       '<div class="lib-peek" style="display:none">' +
       '<div class="lib-peek-items"></div>' +

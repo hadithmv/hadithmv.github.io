@@ -57,7 +57,7 @@ Click any book card or table row to open it.
 ### Top bar
 
 - **↩ Return** (red) — goes back to the book list
-- **▾ Focus** (green) — toggles distraction‑free reading mode. Click again or press `Alt+Z` to exit.
+- **▴ Focus** (green) — toggles distraction‑free reading mode. Click again or press `Alt+Z` to exit. (The chevron points the way the next click moves the chrome — like every expand/collapse arrow: ▾ closed, ▴ open.)
 - **Title** — the book title in the centre. Scrolls if too long — and a long title runs once as a slow looping marquee when the book opens: the hidden end passes, the beginning wraps back in, and it stops exactly where it started. **Click** the title to copy a short citation — the title and the author, then the Arabic title and author (just Arabic when the site is in Arabic); a "Copied!" toast confirms — and replay the marquee from the start of the text, even if you had dragged it partway; **drag** it left/right with a mouse or pen to scroll through it yourself (on touch screens, swipe it as usual). The book info modal opens from `Alt+I` or the Arabic subtitle (in the Dhivehi layout).
 - **☰ Menu** (blue) — opens the sidebar with navigation, pins, history, and settings.
 
@@ -122,7 +122,7 @@ This view is especially useful for Quran reading — you see the Arabic ayah on 
 
 ### Focus mode
 
-Press `Alt+Z` or click the green ▾ button to hide everything except the essential content. Press again to return.
+Press `Alt+Z` or click the green ▴ button to hide everything except the essential content. Press again to return.
 
 - **On the reader page** — the search bar (dictionary books), toolbar, pagination, and Quran nav collapse, leaving only the book text.
 - **On the dashboard** — the tag chips and sort/filter row collapse, leaving the search bar and book grid visible.

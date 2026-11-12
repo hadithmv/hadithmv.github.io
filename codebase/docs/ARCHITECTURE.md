@@ -269,7 +269,7 @@ Both pages share `common.js` for theme, fonts, i18n, sidebar, settings modal, an
 
 ```text
 ┌─ Fixed topBar (z-index 101, opaque bg) ───────────────────═┐
-│  ↩ Return  ▾ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
+│  ↩ Return  ▴ Focus  │  Book Title (scrollable)  │  ☰ Menu   │
 │  ═══ progress bar (surah-level for QRN, milestone toasts, green border + surah-completed toast at 100%) │
 ├─ Sticky readerPanel shell (z-index 50) ──────────────────────┤
 │  readerPanelSearch       [input]  ✕  (RDF books only)         │
@@ -443,7 +443,7 @@ The toolbar and pagination rows are wrapped in a `.horizontal-scroll-wrap` conta
 
 ### Focus mode
 
-Toggled via the green ▾/▴ button in the topBar or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
+Toggled via the green focus button in the topBar (▴ while the chrome is open, rotated to ▾ in focus mode — the app-wide disclosure rule) or `Alt+Z`. Shared across both pages via `window.setFocus(on)` in common.js; persisted to `localStorage.focus`. Dispatches a `focuschange` CustomEvent for page‑specific layout recalculations.
 
 **Reader:** Split like the dashboard for a shared structure, but focus hides the whole chrome: `#collapsibleReaderPanel` (functions, pagination, Quran nav) collapses via CSS Grid `grid-template-rows: 1fr → 0fr`, the search row snaps off (`display: none` — it holds the RDF books' header filter; non-RDF books hide it at load), and the shell sheds its padding and border. Only the topBar and reader content remain.
 
@@ -550,7 +550,7 @@ Why this is a silent trap: Thaana and Arabic are strong-RTL scripts, so a single
 | `Enter`         | Search window input    | Follow the selected result                          |
 | `/` or `Ctrl+F` | Anywhere               | Open search window (RDF: header filter)             |
 | `Ctrl+Shift+F`  | Anywhere               | Open search window, advanced expanded               |
-| `Alt+Z`         | Reader                 | Toggle focus mode (same as ▾/▴ button)              |
+| `Alt+Z`         | Reader                 | Toggle focus mode (same as ▴/▾ button)              |
 | `Alt+T`         | Reader                 | Toggle tashkeel                                     |
 | `Alt+V`         | Reader                 | Cycle view mode (Card → Table → Parallel → Card)    |
 | `Alt+P`         | Reader                 | Toggle bookmark (pin)                               |

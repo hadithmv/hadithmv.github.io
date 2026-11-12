@@ -649,11 +649,24 @@ async function main() {
         document.getElementById('searchWindowViewCard') === null &&
         document.getElementById('searchWindowViewList') === null`));
     // ▾ opens the shared peek in the window; its line pins (sticky) while
-    // the snippets scroll, and only one peek stays open at a time.
+    // the snippets scroll, and only one peek stays open at a time. The arrow
+    // flips by rotation (CSS), like every two-state toggle: ▾ closed, ▴ open.
+    check("S11 peek arrow starts as ▾", await evalJS(`(function () {
+      var a = document.querySelector('#searchWindowResults .lib-peek-arrow');
+      return a !== null && getComputedStyle(a).transform === 'none';
+    })()`));
     await evalJS(`document.querySelector('#searchWindowResults .lib-peek-toggle').click()`);
     check("S11 peek opens in the window", await waitFor(`(function () {
       var r = document.querySelector('#searchWindowResults .lib-result');
       return r && r.classList.contains('peek-open');
+    })()`, 5000));
+    check("S11 peek arrow rotates open", await waitFor(`(function () {
+      var a = document.querySelector('#searchWindowResults .lib-result.peek-open .lib-peek-arrow');
+      if (!a) return false;
+      var t = getComputedStyle(a).transform;
+      if (t === 'none') return false;
+      var m = new DOMMatrixReadOnly(t);
+      return m.a < -0.99 && m.d < -0.99;
     })()`, 5000));
     check("S11 peek line pins", (await evalJS(`(function () {
       var l = document.querySelector('#searchWindowResults .lib-result.peek-open > .lib-result-line');
@@ -887,6 +900,20 @@ async function main() {
     check("S11 page new peek starts under the panel",
       pageReset && pageReset.open === 1 && Math.abs(pageReset.delta) <= 1,
       JSON.stringify(pageReset));
+
+    // Chevron uniformity: the focus button follows the same two-state rule as
+    // the peek and tags toggles — ▴ while the chrome is open, ▾ once focus
+    // mode has folded it away. (It rotates in CSS, hence computed transforms.)
+    await evalJS(`document.getElementById('btnFocus').click()`);
+    check("S11 focus button rotates to ▾ in focus mode", await waitFor(`(function () {
+      var t = getComputedStyle(document.getElementById('btnFocus')).transform;
+      if (t === 'none') return false;
+      var m = new DOMMatrixReadOnly(t);
+      return m.a < -0.99 && m.d < -0.99;
+    })()`, 5000));
+    await evalJS(`document.getElementById('btnFocus').click()`);
+    check("S11 focus button back to ▴ when chrome opens", await waitFor(
+      `getComputedStyle(document.getElementById('btnFocus')).transform === 'none'`, 5000));
 
     // Mobile geometry — the ≤600px collapse: the side pane stacks above the
     // main pane at full modal width.

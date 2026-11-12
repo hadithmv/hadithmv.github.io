@@ -823,6 +823,16 @@
   padding: 2px 10px;
   margin-inline-end: 4px;
 }
+/* The arrow flips with the same motion as the tags and focus toggles —
+   one two-state disclosure language: ▾ closed, ▴ open. */
+.lib-peek-toggle .lib-peek-arrow {
+  display: inline-block;
+  transition: transform var(--t-panel, 0.3s)
+    var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+}
+.lib-result.peek-open .lib-peek-toggle .lib-peek-arrow {
+  transform: rotate(180deg);
+}
 .lib-peek {
   display: flex;
   flex-direction: column;

@@ -200,11 +200,9 @@ function scrollPeekToStart(root) {
   }
 }
 
-/** Collapse one row's peek (toggle arrow back to ▾, panel hidden). */
+/** Collapse one row's peek (the arrow rotates back, panel hidden). */
 function closePeek(root) {
   root.classList.remove("peek-open");
-  var toggle = root.querySelector(".lib-peek-toggle");
-  if (toggle) toggle.textContent = "▾";
   var peek = root.querySelector(".lib-peek");
   if (peek) peek.style.display = "none";
 }
@@ -218,8 +216,6 @@ function togglePeek(root, bookCode, q, container) {
   var openRows = container.querySelectorAll(".lib-result.peek-open");
   for (var i = 0; i < openRows.length; i++) closePeek(openRows[i]);
   root.classList.add("peek-open");
-  var toggle = root.querySelector(".lib-peek-toggle");
-  if (toggle) toggle.textContent = "▴";
   var peek = root.querySelector(".lib-peek");
   if (peek) peek.style.display = "";
   openPeek(root, bookCode, q);

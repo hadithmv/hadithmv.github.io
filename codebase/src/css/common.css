@@ -2688,7 +2688,7 @@ body {
   border-color: var(--color-focus-text, #15803d);
   transform: rotate(
     180deg
-  ); /* ▾ → ▴, same animation as the tags toggle arrow */
+  ); /* ▴ → ▾, same animation as the tags toggle arrow */
   transition:
     background var(--t-panel, 0.3s) ease,
     border-color var(--t-panel, 0.3s) ease,
