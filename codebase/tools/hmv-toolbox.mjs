@@ -154,6 +154,18 @@ function toolVersion(args) {
 }
 function git(args) { return spawnSync('git', args, { encoding: 'utf8' }); }
 
+// The commit a report was captured against — short hash + working-tree
+// state, so a report pasted into an issue says what it actually verified.
+// "—" when git is missing or this is not a repo.
+function commitStamp() {
+  try {
+    const h = git(['rev-parse', '--short', 'HEAD']);
+    if (h.status !== 0) return '—';
+    const st = git(['status', '--porcelain']);
+    return h.stdout.trim() + (st.status === 0 && st.stdout.trim() ? ' (dirty)' : ' (clean)');
+  } catch (e) { return '—'; }
+}
+
 // Windows: netstat; macOS: lsof; Linux: ss — which preview ports are up.
 function listeningPorts(ports) {
   if (process.platform === 'win32') {
@@ -1051,6 +1063,7 @@ async function checks() {
     '# Hadithmv Toolbox - checks report', '',
     'Run date: ' + new Date().toLocaleString(), '',
     'Source: ' + VER + ' | Built: ' + VERD + ' | Branch: ' + BR,
+    'Commit: ' + commitStamp(),
     single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 8 checks',
   ].join('\n') + '\n');
   if (single) {

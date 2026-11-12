@@ -16,9 +16,12 @@
 
 ## Batteries at a glance
 
-Two tiers: **routine** — the eight the toolbox's option 9 runs as the
-pre-commit gate — and **specialist** — maintained but manual, run when the
-trigger names the code you touched. Counts are the `N / N checks passed`
+About 600 checks in total — roughly 500 in the routine batteries and 100
+in the specialists; the TOC scan, header scan, and font check report
+coverage counts instead (regions, headers, glyphs), so they are not in
+that total. Two tiers: **routine** — the eight the toolbox's option 9 runs
+as the pre-commit gate — and **specialist** — maintained but manual, run
+when the trigger names the code you touched. Counts are the `N / N checks passed`
 line from a passing run on 2026-11-12; times are wall-clock on this
 development machine (warm disk, headless Edge) and vary with load. The
 eight together are a ~5-minute gate, and streaming alone is ~3½ minutes —
