@@ -838,6 +838,21 @@
   flex-direction: column;
   padding: 10px;
   border-bottom: 1px solid var(--color-border);
+  /* Presence only, never layout: the panel's height depends on async
+     snippet loads, so it must not animate. The animation restarts whenever
+     display flips back from none — first open, cached re-open and the
+     single-open switch all get it; closing stays instant so the next
+     peek's scroll reset measures the collapsed layout immediately. */
+  animation: lib-peek-in var(--t-pop, 0.2s)
+    var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+}
+/* No `to` keyframe: the animation ends on the panel's own styles (opacity 1,
+   untransformed), so no fill mode is needed. */
+@keyframes lib-peek-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
 }
 .lib-peek-items {
   display: flex;

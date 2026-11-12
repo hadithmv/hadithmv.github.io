@@ -196,7 +196,12 @@ function scrollPeekToStart(root) {
   if (scroller) {
     scroller.scrollTop += top - scroller.getBoundingClientRect().top - slot;
   } else {
-    window.scrollBy(0, top - slot);
+    // Direct scrollTop assignment, not window.scrollBy: the document sets
+    // `scroll-behavior: smooth`, which would turn this reset into a glide
+    // toward a target measured before the new peek's content loads. Property
+    // sets are instant by spec, so the reset lands where it was measured.
+    (document.scrollingElement || document.documentElement).scrollTop +=
+      top - slot;
   }
 }
 

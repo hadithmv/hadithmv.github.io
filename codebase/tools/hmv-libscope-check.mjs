@@ -668,6 +668,21 @@ async function main() {
       var m = new DOMMatrixReadOnly(t);
       return m.a < -0.99 && m.d < -0.99;
     })()`, 5000));
+    // The panel enters with presence motion only (fade + 5px drop on the
+    // shared --t-pop / --ease-panel tokens) — never its height, which depends
+    // on async snippet loads. Motion stays ungated on prefers-reduced-motion
+    // by the app-wide decision recorded in ARCHITECTURE.md ("Title scroll
+    // tease"); the computed animation must therefore apply even though
+    // headless Edge reports `reduce` by default.
+    const peekAnim = await evalJS(`(function () {
+      var p = document.querySelector('#searchWindowResults .lib-result.peek-open > .lib-peek');
+      if (!p) return null;
+      var s = getComputedStyle(p);
+      return { name: s.animationName, dur: parseFloat(s.animationDuration) };
+    })()`);
+    check("S11 peek panel eases in",
+      peekAnim && peekAnim.name === 'lib-peek-in' && peekAnim.dur > 0,
+      JSON.stringify(peekAnim));
     check("S11 peek line pins", (await evalJS(`(function () {
       var l = document.querySelector('#searchWindowResults .lib-result.peek-open > .lib-result-line');
       return l ? getComputedStyle(l).position : null;
@@ -884,8 +899,10 @@ async function main() {
       JSON.stringify(pagePin));
 
     // Deep-scrolled document, same reset: the page's document-scroll branch
-    // (window.scrollBy to the line's sticky slot) must land the new row
-    // under the panel.
+    // must land the new row under the panel. It sets scrollTop directly (a
+    // window.scrollBy would glide under the document's scroll-behavior:
+    // smooth and drift toward a stale target), so the assertion — read
+    // synchronously after the click — also pins the reset as instant.
     await evalJS(`window.scrollTo(0, document.body.scrollHeight)`);
     await evalJS(`document.querySelectorAll('#libResults .lib-peek-toggle')[1].click()`);
     const pageReset = await evalJS(`(function () {
