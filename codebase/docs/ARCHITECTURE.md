@@ -137,6 +137,57 @@ Key functions and where they're defined. Many are re-exported through barrel mod
 | `window.openDropdown` / `closeAllDropdowns` / `registerDropdown` | `reader.js`                                                                                              | Shared dropdown helpers                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `window.showToast`                                               | `common.js`                                                                                              | Single toast implementation                                                                                                                                                                                                                                                                                                                                                                                                        |
 
+## UI surfaces
+
+Four pages, one shared chrome, and the overlays that open over them. This is the map — the deep references are "Reader UI", "Request flow" (the dashboard), "Library search → The UI", and "Info modal".
+
+```text
+Every app page (dashboard, reader, library search): top bar · ☰ sidebar → settings / pins / history · toasts
+
+index.html (dashboard)
+├─ Authors / Periods browse modals (filter the card grid)
+├─ continue-reading card
+└─ 🔎 → library-search.html
+
+reader.html?book=CODE
+├─ search window (This book / All books)
+│   ├─ library scope picker
+│   └─ Authors / Periods → authors modal → ℹ → info modal
+├─ info modal (Alt+I / Arabic subtitle / author line)
+├─ Quran content modal (QRN books only, lazy)
+├─ export menu
+└─ scroll pill · progress bar
+
+library-search.html?q=&tags=&authors=&period=&books=
+├─ tag chips · Authors / Periods · library scope picker (one shared scope)
+├─ per-book results with ▾ peek previews
+└─ search window (library mode — same scope, same facets)
+
+info.html?book=CODE | ?author=CODE — the info shell as a page (same three tabs; its own slim top bar, no sidebar)
+```
+
+The Authors modal's ℹ button opens the info modal on its Author tab, from any page.
+
+| Surface                    | Opens from                                                                     | Module(s)                                                                                                                                               | Stylesheet(s)                                                                                                            |
+| -------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Dashboard page             | `index.html`                                                                   | `dashboard.js`, `book-data.js`, `facet-browse.js`, `pins-history.js`                                                                                    | `common.css`, `reader-search.css`, `dashboard.css`                                                                       |
+| Reader page                | `reader.html?book=`                                                            | `reader.js`, `reader-position.js`, `reader-search-ui.js`, `table-scroll-sync.js`, `radheef-merge.js`, `export.js`, `book-info.js`, `quran-ui.js` (lazy) | `common.css`, `reader.css`, `reader-search.css`, `reader-table-view.css`, `search-window.css`, `reader-quran.css` (lazy) |
+| Library search page        | `library-search.html`                                                          | `library-search-page.js`, `library-search-engine.js`, `library-scope-picker.js`, `facet-browse.js`                                                      | `common.css`, `reader-search.css`, `library-search.css`, `search-window.css`                                             |
+| Info page                  | `info.html?book=` / `?author=`                                                 | `book-info.js`                                                                                                                                          | `common.css`, `reader-search.css`                                                                                        |
+| Top bar + sidebar          | Dashboard, reader, library search                                              | `common.js` (+ `pins-history.js` for its entries)                                                                                                       | `common.css`                                                                                                             |
+| Settings modal             | Sidebar                                                                        | `common.js`                                                                                                                                             | `common.css`                                                                                                             |
+| Info modal                 | Reader (Alt+I, subtitle, author line); the info button in the Authors modal    | `book-info.js`                                                                                                                                          | `common.css`, `reader-search.css`                                                                                        |
+| Authors / Periods modals   | Dashboard, library search page, search window                                  | `facet-browse.js`                                                                                                                                       | `common.css` + host-page rules (`library-search.css`, `search-window.css`)                                               |
+| Library scope picker       | Library search page (inline and window), reader search window                  | `library-scope-picker.js`                                                                                                                               | `common.css` + host-page rules (`library-search.css`, `search-window.css`)                                               |
+| Pins / History modals      | Sidebar (the three app pages), dashboard sort row                              | `pins-history.js`                                                                                                                                       | `common.css`                                                                                                             |
+| Search window              | Reader (the `/` key or the search button); library search page (window button) | `search-window.js`, `reader-search-ui.js`, `search-utils.js`                                                                                            | `search-window.css`, `reader-search.css`                                                                                 |
+| Quran content modal        | Reader (QRN books)                                                             | `quran-ui.js` (lazy)                                                                                                                                    | `reader-quran.css` (lazy)                                                                                                |
+| Export menu                | Reader toolbar, info modal and page                                            | `export.js` (+ lazy `export-xlsx.js`, `export-epub.js`, `export-zip.js`)                                                                                | `reader.css`, `common.css`                                                                                               |
+| Toasts                     | Every page                                                                     | `common.js` (`showToast`)                                                                                                                               | `common.css`                                                                                                             |
+| Scroll pill + progress bar | Reader                                                                         | `reader-position.js`                                                                                                                                    | `reader.css`                                                                                                             |
+
+All overlays sit on the shared modal layer (`createModal` / `openModal` / `openModalOnTop` in `common.js`): focus moves in on open and returns to the trigger on close, Tab stays inside the topmost modal, `Escape` closes it first (a stacked modal unwraps to the one below), and body scroll locks while any is open. Every search box in the app — dashboard, reader, search window, info modal, both facet modals, scope picker and surah selector — is the same `.search-input-wrap` component with its ✕ clear button.
+
 ## Request flow
 
 ```text

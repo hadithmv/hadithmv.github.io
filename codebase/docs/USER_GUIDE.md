@@ -17,11 +17,12 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 
 | Category | Features |
 |---|---|
-| **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, continue‑reading card (resume your last book), pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
+| **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips or by author and Hijri period, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, continue‑reading card (resume your last book), pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
 | **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, scroll‑to‑top |
 | **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), search window with full‑text search (wildcards/fuzzy/negation/regex/column‑scope), whole‑word toggle, search history, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%), surah‑completed toast on Quran books and completion animation, scroll counter with reading percentage, URL position sync |
 | **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand with reorderable columns, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
 | **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), one pin per book — the 📌 button toggles (pinned → click to unpin) and a pinned book's position follows you as you read — reorder via ▲▼, reading history with relative timestamps, confirmed clear‑all, sidebar access from both pages |
+| **Book info** | Book / Author / Works tabs with hand‑written notes and author bios, search within the open tab, copy and export (Word / PDF / HTML / EPUB), and a shareable info page |
 | **Export** | TXT, MD, JSON, CSV, TSV, Excel, EPUB (embedded font), PDF (print), PNG (current row), HTML, HTML Table, Word, YAML, TOON, XML |
 | **Customisation** | Three themes (Light / Dark / Sepia), adjustable font size ±, font family (Hadithmv / System), content width (600/800/1000/1200/full), three UI languages (Dhivehi / English / Arabic) |
 | **Keyboard** | `←` `→` prev/next row, `Home`/`End` first/last, `Alt+Z` focus mode, `Alt+T` tashkeel, `Alt+V` cycle view mode, `Alt+P` toggle pin, `Alt+S` share link, `Alt+E` export, `/` or `Ctrl+F` open the search window, `Ctrl+Shift+F` open it with advanced options, `Ctrl+,` settings, `Ctrl+B` back to library, `Escape` close, swipe gestures on mobile |
@@ -33,9 +34,11 @@ When you open the site, you see the **book list**. You can:
 
 - **Search** — type in the search bar at the top (auto‑focused on desktop). It searches titles, tag names, author names and book codes across all languages (Dhivehi, Arabic, English), and tolerates small typos. It works with or without Arabic diacritics (tashkeel). If nothing matches your search or tag combination, a "no books found" message appears where the grid would be.
 
-- **Search in books** — the 🔎 button next to the search bar opens the library search page, carrying your search text along. There you search all books at once — every word matches exactly, and from 3 letters it also matches the words that begin with it, in all languages; `-word` excludes, and a leading `.` makes a word exact-only — with tag chips (and Authors / Periods / specific books) to scope the search and one‑line per‑book results — title, author, tags, match count — whose ▾ expands to preview the matching lines before you open them. The search window shows the same one‑line rows on every surface. Searching a scoped set that has no matches names the scope and offers **Search all books** to widen it. Wildcards, fuzzy matching and regex work only in individual book searches; across books a short note says so when the query used them. Every result links into the book with the term pre‑highlighted, and the page URL stays shareable (`?q=…&tags=…`). Also reachable from the sidebar on every page.
+- **Search in books** — the 🔎 button next to the search bar opens the library search page, carrying your search text along. There you search all books at once — every word matches exactly, and from 3 letters it also matches the words that begin with it, in all languages; `-word` excludes, and a leading `.` makes a word exact-only — with tag chips (and Authors / Periods / specific books) to scope the search and one‑line per‑book results — title, author, tags, match count — whose ▾ expands to preview the matching lines before you open them. The search window shows the same one‑line rows on every surface. Searching a scoped set that has no matches names the scope and offers **Search all books** to widen it. Wildcards, fuzzy matching and regex work only in individual book searches; across books a short note says so when the query used them. Every result links into the book with the term pre‑highlighted, and the page URL stays shareable (`?q=…&tags=…`). Also reachable from the sidebar on every page. A fresh visit starts scoped to the **Hadith** (HDT) group; the **All** chip widens the search to every book.
 
 - **Filter by tag** — click a tag chip below the search bar (e.g. Aqidah, Hadith, Draft). Click it again to remove the filter. You can select multiple tags — books matching ANY of the selected tags are shown (OR). An **All** chip (highlighted when no tags are selected) clears every selected tag at once.
+
+- **Browse by author or period** — the ✍️ Authors and 🗓️ Periods buttons in the sort row open a searchable list: every author with their years, or the periods present in the library — the authors' Hijri death centuries, plus a **Modern** bucket (15th century AH onward, and authors with no recorded death year). Pick one or more authors, or one period, to narrow the grid — selected rows carry a ✓, and active filters appear as chips in the chip row (click a chip to remove it). The page URL records the selection (`?authors=…`, `?period=…`), so a filtered view can be bookmarked or shared. The same buttons and chips appear on the library search page and in the search window, where they scope the search instead of the grid.
 
 - **Sort** — use the dropdown on the right to sort books A→Z or Z→A. The whole sort row stays on one line — scroll it sideways (◀▶ arrows or mouse wheel) if it's too wide for the screen.
 
@@ -129,6 +132,20 @@ Press `Alt+Z` or click the green ▾ button to hide everything except the essent
 Your position is saved in the URL as you scroll. Copy the address bar to share the exact row you're reading.
 
 The **📋 Copy** button copies the current row as formatted text. For Quran books, columns are grouped by source book with a book-level label (no per-column headers), and the surah reference appears in the format `[البَقَرَة 2 : 60]`.
+
+## Book info
+
+The book info view has three tabs:
+
+- **Book** — the book's titles, author, tags, and any hand‑written notes for the book.
+- **Author** — the author's biography, with their Hijri years, Gregorian span, century, and age.
+- **Works** — the author's other books in the library; each opens in the reader, and the **Show all works by …** link filters the book list to that author. The tab appears when the book has an author.
+
+Open it with `Alt+I`, or click the Arabic subtitle under the title (in the Dhivehi layout). Clicking the author line opens it straight on the Author tab; in the ✍️ Authors list, the ℹ button on a row opens the same Author tab over the list — close it and you are back in the list.
+
+The search bar at the top of the view searches inside the open tab: matches are highlighted with a count, and ▲/▼ (or `Enter` / `Shift+Enter`) step through them. 📋 copies the tab's text, 🔗 copies a link to it, and the export menu saves it as Word, PDF, HTML, or EPUB.
+
+The same view also exists as a shareable page (`info.html?book=…` or `?author=…`), which is what the copy‑link button and every export link to. The page names its open tab in the URL, so a link can point straight at an author's works list.
 
 ## Sidebar
 
