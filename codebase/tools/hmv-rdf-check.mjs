@@ -1,8 +1,19 @@
-// TEMPORARY probe for the RDF family work (codes RDF-all/RDF-misc/HDT-misc,
-// filtered search, rasmee tint, thousands separators). Delete after running.
-// Run: node tools/hmv-probe-rdf.mjs  (from codebase/). Requires Node 20.11+
-// and Microsoft Edge. Env overrides: HMV_PROBE_PORT (default 9354),
-// HMV_PROBE_PROFILE (default %TEMP%\hmv-probe-rdf-profile).
+// RDF / merged-book battery — specialist, not part of the routine toolbox
+// run (see docs/TESTING.md "Specialist batteries"). Covers the RDF family
+// (RDF-all / RDF-misc / HDT-misc): merged-block boundaries and source
+// labels, rasmee tint + muted source column, the in-place filter and ?q=
+// deep link, thousands separators, the search window against the huge
+// merged book, card-mode tint, windowed pagination (btnFirst/Prev/Next/
+// Last, scroll-up anchoring), and the reference-book progress bar
+// (fills at the true bottom, never celebrates).
+//
+// Run when touching: radheef-merge.js, reader.js's infinite-scroll goTo
+// windows, reader-position.js's progress/milestones, the reader search
+// filter, or formatThousands.
+//
+// Run: node tools/hmv-rdf-check.mjs  (from codebase/). Requires Node 20.11+
+// and Microsoft Edge. Env overrides: HMV_RDF_PORT (default 9354),
+// HMV_RDF_PROFILE (default %TEMP%\hmv-rdf-profile-<timestamp>).
 import fs from "fs";
 import path from "path";
 import { spawn, execSync } from "child_process";
@@ -16,12 +27,12 @@ const { parseQuery, compileQuery, buildNormData, rowMatchesQueryNorm } = await i
 const baseDir = import.meta.dirname.replace(/\\/g, "/");
 const ROOT = baseDir + "/../src/books/";
 const DATA = baseDir + "/../data/";
-const PORT = process.env.HMV_PROBE_PORT ? parseInt(process.env.HMV_PROBE_PORT, 10) : 9354;
+const PORT = process.env.HMV_RDF_PORT ? parseInt(process.env.HMV_RDF_PORT, 10) : 9354;
 // Unique per run — a crashed run may leave the browser alive holding its
 // profile; a fresh profile sidesteps the lock entirely.
-const PROFILE = process.env.HMV_PROBE_PROFILE || (process.env.TEMP + "\\hmv-probe-rdf-profile-" + Date.now());
-// Self-heal: kill any leftover probe Edge still listening on PORT (only our
-// spawned browser ever binds it). Best-effort; the unique profile covers us.
+const PROFILE = process.env.HMV_RDF_PROFILE || (process.env.TEMP + "\\hmv-rdf-profile-" + Date.now());
+// Self-heal: kill any leftover rdf-check Edge still listening on PORT (only
+// our spawned browser ever binds it). Best-effort; the fresh profile covers us.
 function killLeftover() {
   try {
     const out = execSync('netstat -ano | findstr ":' + PORT + '"', { encoding: "utf8" });
@@ -33,15 +44,17 @@ function killLeftover() {
       }
     }
     for (const pid of pids) {
-      try { execSync("taskkill /PID " + pid + " /F /T", { stdio: "ignore" }); console.log("  (killed leftover probe Edge PID " + pid + ")"); } catch (e) { /* already gone */ }
+      try { execSync("taskkill /PID " + pid + " /F /T", { stdio: "ignore" }); console.log("  (killed leftover rdf-check Edge PID " + pid + ")"); } catch (e) { /* already gone */ }
     }
   } catch (e) { /* no listener yet */ }
 }
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + String(detail).slice(0, 160) + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 
@@ -295,22 +308,28 @@ async function main() {
   // Reference books don't get milestone toasts or the completion ring
   // (green .done bar + flashing border): the progress bar still fills,
   // but nothing celebrates. Guards reader-position.js's milestonesEnabled.
+  //
+  // The reader keeps only a ~200-row window in the DOM (infinite scroll),
+  // so the document bottom from the start window is row ~200 of 152,612,
+  // not the book's end — the app correctly reports ~0% there. Reach the
+  // true bottom the way a reader does: btnLast rebuilds the window around
+  // the final row, after which the document bottom IS the book bottom.
   const botRes = await evalJS(`(async function () {
     var toast = document.querySelector('.toast');
     if (toast) toast.remove();
+    document.getElementById('btnLast').click();
     var se = document.scrollingElement;
     document.documentElement.style.scrollBehavior = "auto";
-    // The previous clicks' last smooth scrollIntoView may still be running —
-    // an instant scrollTop assignment does NOT cancel it in headless, and the
-    // animation's next frame drags the position back mid-jump. Wait for 100ms
-    // of stillness first, then jump.
+    // The jump's smooth scrollIntoView may still be running — an instant
+    // scrollTop assignment does NOT cancel it in headless, and the
+    // animation's next frame drags the position back mid-jump. Wait for
+    // 100ms of stillness first, then force the bottom.
     var last = -1, stableSince = Date.now(), tEnd = Date.now() + 10000;
     while (Date.now() - stableSince < 100 && Date.now() < tEnd) {
       var y = se.scrollTop;
       if (y !== last) { last = y; stableSince = Date.now(); }
       await new Promise(function (r) { setTimeout(r, 40); });
     }
-    se.scrollTop = 0;
     se.scrollTop = se.scrollHeight;
     await new Promise(function (r) { setTimeout(r, 300); });
     var fill = document.getElementById('readerProgressFill');
@@ -554,7 +573,7 @@ async function main() {
     // the programmatic scroll becomes an animation whose scroll events may
     // never flush. Override to an instant scroll so the event fires.
     await evalJS(`document.documentElement.style.scrollBehavior = "auto";`);
-    await evalJS(`window.__probeReal = 0; window.addEventListener('scroll', function () { window.__probeReal++; }, { capture: true });`);
+    await evalJS(`window.__rdfCheckScrolls = 0; window.addEventListener('scroll', function () { window.__rdfCheckScrolls++; }, { capture: true });`);
     await evalJS(`window.scrollTo(0, 600);`);
     // Headless quirk: without bringToFront the page may not produce frames,
     // so viewport-scroll events never get dispatched.
@@ -588,7 +607,7 @@ async function main() {
       }
     }
     const state = await pageSnapshot();
-    return [ok, state + " realScrollEvents:" + await evalJS(`window.__probeReal`) + " PAGE-ERRORS:[" + pageErrors.splice(0).join(" | ") + "] " + (synthetic || "")];
+    return [ok, state + " realScrollEvents:" + await evalJS(`window.__rdfCheckScrolls`) + " PAGE-ERRORS:[" + pageErrors.splice(0).join(" | ") + "] " + (synthetic || "")];
   }
   const [okF, stateF] = await counterAfter(async function () {
     await typeQuery(FILTER_Q);
@@ -609,6 +628,7 @@ async function main() {
   check("T8 HDT-misc renders", await waitFor(`document.querySelectorAll('.reader-chunk').length > 0`));
   check("T8 HDT-misc no error toast", await evalJS(`(function(){var t=document.querySelector('.toast');return !t||t.textContent.indexOf('⚠️')===-1})()`));
 
+  console.log((checksRun - failures) + " / " + checksRun + " checks passed");
   console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
   return failures === 0;
   } finally {
@@ -618,4 +638,4 @@ async function main() {
 }
 main()
   .then(function (ok) { process.exit(ok ? 0 : 1); })
-  .catch(function (e) { console.log("PROBE CRASH: " + e.message); process.exit(1); });
+  .catch(function (e) { console.log("RDF-CHECK CRASH: " + e.message); process.exit(1); });

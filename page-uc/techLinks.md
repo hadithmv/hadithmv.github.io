@@ -822,6 +822,9 @@ ShareX
       - privacy, hide my username from the logs: enable
     - scheduled maintenance, check for package updates: off
 
+- iobit uninstaller
+  - settings, notifications, notify me when bundleware is installed: off
+
 - taskbar monitor
   - right click app in tray, settings
     - general

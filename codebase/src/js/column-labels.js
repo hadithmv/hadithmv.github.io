@@ -9,8 +9,9 @@
  *   1. Column registry (07-registry-quranColumns.csv) — QRN books only
  *   2. Derived from the raw header's camelCase tokens (tables in
  *      column-tokens.js, labels in i18n.js as col* keys)
- *   3. Raw header text (fallback — unmapped headers are caught by
- *      tools/hmv-header-scan.mjs, which reuses the same token tables)
+ *   3. Raw header text (fallback by design — an uncurated header shows the
+ *      same identifier the table header shows; tools/hmv-header-scan.mjs
+ *      lists uncurated tokens as optional tidying)
  */
 
 import { currentLang, t } from "./i18n.js";

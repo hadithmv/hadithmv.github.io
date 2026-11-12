@@ -60,8 +60,10 @@ const NOTE_KEY = "static/notes/works/HDT-muwattaMalik.md"; // the S5 update targ
 const NOTE_PATH = ROOT + NOTE_KEY;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + detail + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 const sha16 = (buf) => crypto.createHash("sha256").update(buf).digest("hex").slice(0, 16);
@@ -353,6 +355,7 @@ async function main() {
     for (const s of servers) if (s) s.close();
     if (edge.exitCode === null) edge.kill();
   }
+  console.log((checksRun - failures) + " / " + checksRun + " checks passed");
   process.exit(failures ? 1 : 0);
 }
 

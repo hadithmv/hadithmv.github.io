@@ -82,8 +82,10 @@ const PAGE = ORIGIN + "/src/books/library-search.html";
 const READER = ORIGIN + "/src/books/reader.html";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + String(detail).slice(0, 200) + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 
@@ -617,6 +619,7 @@ async function main() {
 
     check("S no page errors", pageErrors.length === 0, pageErrors.slice(0, 3).join(" | "));
 
+    console.log((checksRun - failures) + " / " + checksRun + " checks passed");
     console.log(failures === 0 ? "\nALL PASS" : "\n" + failures + " FAILURES");
     edge.kill();
   } finally {

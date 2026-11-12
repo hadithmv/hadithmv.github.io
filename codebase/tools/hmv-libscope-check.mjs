@@ -42,8 +42,10 @@ function killLeftover() {
 const EDGE = "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + String(detail).slice(0, 200) + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 
@@ -955,6 +957,7 @@ async function main() {
     // ── S10: no page errors anywhere ──
     check("S10 no page errors", pageErrors.length === 0, pageErrors.join(" | "));
 
+    console.log((checksRun - failures) + " / " + checksRun + " checks passed");
     console.log(failures === 0 ? "\nALL PASS (" + (0) + " failures)" : "\n" + failures + " FAILURES");
   } finally {
     edge.kill();

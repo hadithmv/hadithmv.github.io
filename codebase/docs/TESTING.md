@@ -1,5 +1,46 @@
 # Testing & Verification Guide
 
+## Contents
+
+- [Batteries at a glance](#batteries-at-a-glance)
+- [Battery details](#battery-details)
+- [Specialist batteries](#specialist-batteries)
+- [When a check fails — classify first](#when-a-check-fails--classify-first)
+- [Known non-errors (pre-existing behaviors that look like failures)](#known-non-errors-pre-existing-behaviors-that-look-like-failures)
+- [Harness traps (test-side failures, not product bugs)](#harness-traps-test-side-failures-not-product-bugs)
+- [Traps from adjacent workflows](#traps-from-adjacent-workflows)
+- [Assertion rules](#assertion-rules)
+- [Capturing clipboard & export bytes](#capturing-clipboard--export-bytes)
+- [Keeping this guide alive](#keeping-this-guide-alive)
+
+## Batteries at a glance
+
+Two tiers: **routine** — the eight the toolbox's option 9 runs as the
+pre-commit gate — and **specialist** — maintained but manual, run when the
+trigger names the code you touched. Counts are the `N / N checks passed`
+line from a passing run on 2026-11-12; times are wall-clock on this
+development machine (warm disk, headless Edge) and vary with load. Scans
+print coverage counts instead of check totals.
+
+| Battery | Script | Checks | Time | Run when |
+| --- | --- | --- | --- | --- |
+| **Routine** | | | | |
+| 1. Reader smoke | `tools/hmv-qrn-smoke.mjs` | 107 | ~60 s | Reader UI/navigation, QRN lazy modules, search window, column toggles, Thaana font insets |
+| 2. Info modal | `tools/hmv-info-check.mjs` | 82 | ~13 s | Info/author/works modal, notes renderer, clipboard, the four exports |
+| 3. Authors & periods | `tools/hmv-authors-check.mjs` | 103 | ~14 s | The shared facet system — library page, modals, dashboard, reader header |
+| 4. Library scope | `tools/hmv-libscope-check.mjs` | 117 | ~13 s | Library-scope picker, scoped search |
+| 5. Service worker | `tools/hmv-sw-check.mjs` | 16 | ~5 s | SW registration/precache/offline, `dist/manifest.json` freshness |
+| 6. TOC scan | `tools/hmv-toc-scan.cjs` | 21 regions | <1 s | After editing `reader.js` region markers |
+| 7. Streaming | `tools/hmv-stream-check.mjs` | 87 | ~3½ min | CSV stream parser, big-book load UX, content-modal column loads |
+| 8. Font coverage | `tools/hmv-font-subset.py --check` | 323 cps / 754 glyphs | ~4 s | After adding any characters (book, notes, i18n, export/CSS text) |
+| **Specialist** | | | | |
+| RDF / merged book | `tools/hmv-rdf-check.mjs` | 64 | ~27 s | `radheef-merge.js`, reader infinite-scroll/goTo, progress/milestones, RDF filter, `formatThousands` |
+| Search-index shards | `tools/hmv-shards-check.mjs` | 38 | ~9 s | `08-rebuild-searchIndex.mjs`, the shard format/manifest, `library-search-engine.js` |
+| Header coverage | `tools/hmv-header-scan.mjs` | 82 files / 74 headers | ~1 s | Optional: see which picker labels are still raw (uncurated headers are fine) |
+| Word golden capture | `tools/hmv-golden-capture.mjs` | — (capture) | — | Before export-affecting changes; recaptures `tools/golden/reader-word.doc` |
+
+## Battery details
+
 Companion to the headless-Edge smoke battery used to verify data-layer changes.
 The battery lives at `../tools/hmv-qrn-smoke.mjs` (run `node tools/hmv-qrn-smoke.mjs`
 from the codebase root; paths resolve relative to the script, and
@@ -246,9 +287,12 @@ The column-label coverage scan lives at
 every `data/content/*.csv` header and diffs it against the token tables in
 `src/js/column-tokens.js` (the same tables `src/js/column-labels.js` uses to derive
 display labels for the advanced-search column dropdown and the column
-toggles). An unknown token means that header would silently fall back to
-its raw identifier in the selection chrome — add a token (plus a `col*`
-entry in `src/js/i18n.js`) or list it in `DELIBERATE_RAW` with a reason.
+toggles). An unmapped token is not an error: that header falls back to its
+raw identifier in the selection chrome — the same identifier the table
+header shows — so a new book can land with new columns and work
+immediately. Adding a token (plus a `col*` entry in `src/js/i18n.js`) is
+optional polish: do it when a label is worth the three translations, or
+list the header in `DELIBERATE_RAW` to record a conscious raw decision.
 The font-coverage check lives at `../tools/hmv-font-subset.py`
 (`python tools/hmv-font-subset.py --check`; one-time
 `python -m pip install fonttools brotli`). It rescans the corpus the same
@@ -277,6 +321,55 @@ job: when a check fails, you know
 **in seconds** whether it is a product bug, a test-setup problem, or a
 pre-existing behavior that merely looks wrong — instead of spending an hour
 re-diagnosing each one.
+
+## Specialist batteries
+
+Maintained, but not part of the toolbox's eight: they either cost browser
+time or only matter in one corner of the app. Run them by hand when their
+area is in doubt; each script header names its env-var overrides.
+
+- **RDF / merged book — `tools/hmv-rdf-check.mjs`** (64 checks, ~27 s).
+  Covers `RDF-all` / `RDF-misc` / `HDT-misc`: merged block boundaries and
+  source labels, rasmee tint and the muted source column, the in-place
+  filter and `?q=` deep link, thousands separators (unit checks plus the
+  rendered counters), the search window against the 152,612-row virtual
+  book, card-mode tint, windowed pagination (btnFirst/Prev/Next/Last, ≤700
+  DOM rows, far jumps under 2 s, scroll-up anchoring), and the reference-
+  book progress bar — it fills at the true bottom but never celebrates (no
+  `.done` bar, no completion border, no "100%" toast). Run when touching
+  `radheef-merge.js`, reader.js's infinite-scroll windows, reader-position.js's
+  progress/milestones, the RDF filter, or `formatThousands`. The
+  progress-bar check reaches the true bottom via btnLast — the reader keeps
+  only a ~200-row window in the DOM, so the document bottom from the start
+  window is row ~200 of 152,612, not the book's end (and the bar correctly
+  reads ~0% there).
+- **Search-index shards — `tools/hmv-shards-check.mjs`** (38 checks, ~9 s).
+  Serves the tree over HTTP and proves the scope-aware loader
+  (`library-search-engine.js`) fetches only what the scope needs: the page
+  load and picker fetch the manifest alone (the 5 MiB→2 KB win), a scoped search
+  fetches exactly that book's shard, the HDT default group and the reader
+  window's All-books tab fetch exactly the group, an explicit all-books
+  search fetches every visible book's shard, and the warm/cold offline
+  paths render cached results or the error + Retry state. Run after
+  changing `08-rebuild-searchIndex.mjs`, the shard format/manifest, or the
+  loader. The HTTP server's hit counter is authoritative — a client fetch
+  spy alone cannot prove what the network was asked for.
+- **Header coverage — `tools/hmv-header-scan.mjs`** (~1 s). A tidying
+  report, not a gate: it walks every content CSV header through the same
+  tokenizer the label mapper uses and lists tokens it cannot resolve.
+  Unmapped headers stay as their raw identifier in the advanced-search
+  column dropdown and column toggles **by design** — the table header shows
+  the same identifier, so nothing is broken and no new book is blocked.
+  Curating a word in `src/js/column-tokens.js` (plus a `col*` entry in
+  `src/js/i18n.js`) is optional polish that then serves every book using
+  that word. Run the scan when you want the current list; its nonzero exit
+  is the audit result, not a build failure.
+- **Word golden capture — `tools/hmv-golden-capture.mjs`**. Not a check:
+  it recaptures `tools/golden/reader-word.doc`, the byte-identity golden
+  for the reader's Word export (asserted by info-check S8b). Re-run it
+  before export-affecting markup changes and after data changes that touch
+  the exported fields (titles, version) — see the known-non-errors row for
+  S8b.
 
 ## When a check fails — classify first
 
@@ -763,3 +856,8 @@ product**, record it in the same session, while the context is fresh:
   differently now) → update the affected checks in `../tools/hmv-qrn-smoke.mjs`
   in the same change; prefer a comment over silently deleting a check, so
   `git log` on the battery explains why the expectation moved.
+- **Inventory drift** → when a battery gains or loses checks, its runtime
+  changes materially, or a new specialist lands, update *Batteries at a
+  glance* in the same change. Take the count from the battery's own
+  `N / N checks passed` line, not from counting `check(` call sites — loops
+  and helpers make the two differ.

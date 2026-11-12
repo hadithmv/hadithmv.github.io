@@ -4,7 +4,8 @@
  * Pure data + tokenizer shared by two consumers:
  *   - src/js/column-labels.js  — resolves reader columns to display labels
  *   - tools/hmv-header-scan.mjs — diffs every content CSV header against
- *     these tables and reports unmapped tokens
+ *     these tables and lists uncurated tokens (an optional tidying audit;
+ *     the mapper's raw fallback is by design)
  *
  * Kept free of imports (and therefore Node-safe) so the scan can import
  * exactly the tables the mapper uses — a re-copy would drift. Labels for

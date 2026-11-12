@@ -36,8 +36,10 @@ const PORT = process.env.HMV_SMOKE_PORT ? parseInt(process.env.HMV_SMOKE_PORT, 1
 const PROFILE = process.env.HMV_SMOKE_PROFILE || (process.env.TEMP + "\\hmv-qrn-smoke-profile");
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + detail + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 
@@ -173,7 +175,7 @@ async function main() {
     var w = document.getElementById('readerWrapper');
     return w && getComputedStyle(w).display === 'block';
   })()`);
-  check("quran nav panel visible", await evalJS(`(function () {
+  check("A quran nav panel visible", await evalJS(`(function () {
     var p = document.getElementById('readerPanelQuran');
     return p && getComputedStyle(p).display !== 'none';
   })()`));
@@ -182,15 +184,15 @@ async function main() {
 
   const headers = await evalJS(`Array.from(document.querySelectorAll('.reader-table th')).map(function (t) { return t.textContent.trim(); })`);
   console.log("th:", JSON.stringify(headers));
-  check("3 visible columns (basmalah + ayahImlai + translation)", headers.length === 3, headers.join("|"));
-  check("no -HDN header rendered", !headers.some((h) => /-HDN/i.test(h)), "");
-  check("has basmalah header", headers.indexOf("basmalah") !== -1, "");
-  check("has ayahImlai header", headers.indexOf("ayahImlai") !== -1, "");
+  check("A 3 visible columns (basmalah + ayahImlai + translation)", headers.length === 3, headers.join("|"));
+  check("A no -HDN header rendered", !headers.some((h) => /-HDN/i.test(h)), "");
+  check("A has basmalah header", headers.indexOf("basmalah") !== -1, "");
+  check("A has ayahImlai header", headers.indexOf("ayahImlai") !== -1, "");
 
   const first = await firstRowCells();
-  check("1:1 basmalah cell empty", first[0] === "", JSON.stringify(first[0]));
-  check("1:1 imlai cell = first ayah", unornament(first[1]) === imlai[0][0], unornament(first[1]).slice(0, 18));
-  check("1:1 translation non-empty", !!first[2], first[2] ? first[2].slice(0, 18) : "empty");
+  check("A 1:1 basmalah cell empty", first[0] === "", JSON.stringify(first[0]));
+  check("A 1:1 imlai cell = first ayah", unornament(first[1]) === imlai[0][0], unornament(first[1]).slice(0, 18));
+  check("A 1:1 translation non-empty", !!first[2], first[2] ? first[2].slice(0, 18) : "empty");
 
   // juz landing: the table's first row must be the juz's start row.
   // Order 2/12/13/30 first, 1 last (view already starts at 1:1).
@@ -206,7 +208,7 @@ async function main() {
     const cells = await firstRowCells();
     const imlaiOk = unornament(cells[1]) === imlai[JSTARTS[j - 1]][0];
     const basmOk = j === 30 ? cells[0] === BASM : cells[0] === ""; // juz 30 opens at 78:1
-    check("juz " + j + " lands on " + s + ":" + a,
+    check("A juz " + j + " lands on " + s + ":" + a,
       st.juz === String(j) && st.surah.indexOf(s + " ") === 0 && imlaiOk && basmOk,
       JSON.stringify({ st: st, imlai: imlaiOk, basm: cells[0] ? "present" : "empty" }));
   }
@@ -221,25 +223,25 @@ async function main() {
   await goSurah(2);
   let st = await navState();
   let cells = await firstRowCells();
-  check("surah 2 nav lands 2:1", st.surah.indexOf("2 ") === 0, JSON.stringify(st));
-  check("2:1 basmalah + imlai", cells[0] === BASM && unornament(cells[1]) === imlai[surahStarts[2]][0], (cells[0] || "").slice(0, 12));
+  check("A surah 2 nav lands 2:1", st.surah.indexOf("2 ") === 0, JSON.stringify(st));
+  check("A 2:1 basmalah + imlai", cells[0] === BASM && unornament(cells[1]) === imlai[surahStarts[2]][0], (cells[0] || "").slice(0, 12));
 
   await goSurah(9);
   st = await navState();
   cells = await firstRowCells();
-  check("surah 9 nav lands 9:1", st.surah.indexOf("9 ") === 0, JSON.stringify(st));
-  check("9:1 basmalah empty + imlai right", cells[0] === "" && unornament(cells[1]) === imlai[surahStarts[9]][0], unornament(cells[1]).slice(0, 12));
+  check("A surah 9 nav lands 9:1", st.surah.indexOf("9 ") === 0, JSON.stringify(st));
+  check("A 9:1 basmalah empty + imlai right", cells[0] === "" && unornament(cells[1]) === imlai[surahStarts[9]][0], unornament(cells[1]).slice(0, 12));
 
   await goSurah(114);
   st = await navState();
   cells = await firstRowCells();
-  check("surah 114 nav lands 114:1", st.surah.indexOf("114 ") === 0, JSON.stringify(st));
-  check("114:1 basmalah + imlai", cells[0] === BASM && unornament(cells[1]) === imlai[surahStarts[114]][0], unornament(cells[1]).slice(0, 12));
+  check("A surah 114 nav lands 114:1", st.surah.indexOf("114 ") === 0, JSON.stringify(st));
+  check("A 114:1 basmalah + imlai", cells[0] === BASM && unornament(cells[1]) === imlai[surahStarts[114]][0], unornament(cells[1]).slice(0, 12));
 
   await goSurah(1);
   st = await navState();
   cells = await firstRowCells();
-  check("surah 1 nav lands 1:1", st.surah.indexOf("1 ") === 0 && cells[0] === "", JSON.stringify(st));
+  check("A surah 1 nav lands 1:1", st.surah.indexOf("1 ") === 0 && cells[0] === "", JSON.stringify(st));
 
   // ── B. Content modal: base keys, labels, no struct text ────────────
   console.log("== B. content modal ==");
@@ -260,11 +262,11 @@ async function main() {
       bodyText: document.body.innerText,
     };
   })()`);
-  check("1 structural row (QRN-BASE-STRUCT:3 basmalah)", modal.struct === 1, String(modal.struct));
-  check("1 imlai row (QRN-DATA-ayahImlai:0)", modal.imlai === 1, String(modal.imlai));
-  check("2 base rows total", modal.struct + modal.imlai === 2, String(modal.total) + " rows total");
-  check("no QRN-BASE-STRUCT text anywhere", modal.bodyText.indexOf("QRN-BASE-STRUCT") === -1, "");
-  check("base labels match 05 registry (dv)", JSON.stringify(modal.baseLabels) === JSON.stringify(expLabels), JSON.stringify(modal.baseLabels));
+  check("B 1 structural row (QRN-BASE-STRUCT:3 basmalah)", modal.struct === 1, String(modal.struct));
+  check("B 1 imlai row (QRN-DATA-ayahImlai:0)", modal.imlai === 1, String(modal.imlai));
+  check("B 2 base rows total", modal.struct + modal.imlai === 2, String(modal.total) + " rows total");
+  check("B no QRN-BASE-STRUCT text anywhere", modal.bodyText.indexOf("QRN-BASE-STRUCT") === -1, "");
+  check("B base labels match 05 registry (dv)", JSON.stringify(modal.baseLabels) === JSON.stringify(expLabels), JSON.stringify(modal.baseLabels));
 
   // Regression guard: every 06 registry (sourceBook, sourceCol) must exist in
   // that book's CSV header AND appear in the modal — a missing registry row
@@ -289,7 +291,7 @@ async function main() {
       regBad.push(r[0] + ":" + r[1] + " (missing from modal list)");
     }
   }
-  check("every 06 registry column exists in CSV + modal", regBad.length === 0, regBad.join("; "));
+  check("B every 06 registry column exists in CSV + modal", regBad.length === 0, regBad.join("; "));
 
   // basmalah toggle round-trip: uncheck hides, re-check restores. Regression
   // guard — after the basefile-1 split, loadAndInsertColumn early-returned for
@@ -304,7 +306,7 @@ async function main() {
   })()`);
   await evalJS("window.closeModal('qrnContentOverlay')");
   const hid = await waitFor(`document.querySelectorAll('.reader-table th').length === 2`, 5000);
-  check("basmalah uncheck hides column (flush at close)", hid, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+  check("B basmalah uncheck hides column (flush at close)", hid, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
   await evalJS("document.getElementById('qrnContentBtn').click()");
   await waitFor(`getComputedStyle(document.getElementById('qrnContentOverlay')).display !== 'none'`, 5000);
   await evalJS(`(function () {
@@ -313,7 +315,7 @@ async function main() {
   })()`);
   await evalJS("window.closeModal('qrnContentOverlay')");
   const rest = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 5000);
-  check("basmalah re-check restores column (flush at close)", rest, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
+  check("B basmalah re-check restores column (flush at close)", rest, String(await evalJS(`document.querySelectorAll('.reader-table th').length`)) + " th");
 
   // ── B2. Nav-then-add regression ────────────────────────────────────
   // User repro: navigate via the surah AND ayah dropdowns, then add a
@@ -341,8 +343,8 @@ async function main() {
     var cb = document.querySelector('#qrnContentModalBody tr[data-key="QRN-jaufarFaiz:0"] input[type=checkbox]');
     return !!(s && s.hidden === true && p && p.disabled === false && cb && cb.checked);
   })()`, 30000);
-  check("nav-then-add: jaufar column downloaded (modal settle)", jaufarSettled, jaufarSettled ? "" : "queue never settled");
-  check("nav-then-add: landed column defers behind the open modal",
+  check("B2 nav-then-add: jaufar column downloaded (modal settle)", jaufarSettled, jaufarSettled ? "" : "queue never settled");
+  check("B2 nav-then-add: landed column defers behind the open modal",
     await evalJS(`document.querySelectorAll('.reader-table th').length === 3`), "");
   await evalJS("window.closeModal('qrnContentOverlay')"); // flush: one keepSpot rebuild
   const navAdd = await waitFor(`document.querySelectorAll('.reader-table th').length === 4`, 20000);
@@ -356,8 +358,8 @@ async function main() {
       cell4: first && first.children[3] ? first.children[3].textContent : null,
     };
   })()`);
-  check("nav-then-add: column label appears", navAdd && navRows.ths === 4, String(navRows.ths) + " th");
-  check("nav-then-add: rows carry the new column", navRows.tds === navRows.ths,
+  check("B2 nav-then-add: column label appears", navAdd && navRows.ths === 4, String(navRows.ths) + " th");
+  check("B2 nav-then-add: rows carry the new column", navRows.tds === navRows.ths,
     String(navRows.tds) + " td vs " + String(navRows.ths) + " th");
   const jaufar = parseCSV(fs.readFileSync(DATA + "content/QRN-jaufarFaiz.csv", "utf8"), true);
   jaufar.shift();
@@ -368,7 +370,7 @@ async function main() {
   // guards the original bug: a stale pre-insert slice would render the new
   // cell empty or misaligned with the row's other cells.
   const jaufarRow = navRows.row >= 0 ? surahStarts[2] + navRows.row : -1;
-  check("nav-then-add: jaufar cell matches data file",
+  check("B2 nav-then-add: jaufar cell matches data file",
     jaufarRow >= 0 && jaufarRow < jaufar.length &&
     unornament(navRows.cell4 || "") === unornament(jaufar[jaufarRow][0] || ""),
     (navRows.cell4 || "").slice(0, 20));
@@ -382,7 +384,7 @@ async function main() {
   })()`);
   await evalJS("window.closeModal('qrnContentOverlay')");
   const navUndo = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 10000);
-  check("nav-then-add: uncheck restores base columns", navUndo, "");
+  check("B2 nav-then-add: uncheck restores base columns", navUndo, "");
 
   // ── C. PRESET_ALL / RESET ──────────────────────────────────────────
   console.log("== C. presets ==");
@@ -397,18 +399,18 @@ async function main() {
     var p = document.querySelector('#qrnContentOverlay .quran-preset-btn[data-preset="all"]');
     return !!(s && s.hidden === true && p && p.disabled === false);
   })()`, 60000);
-  check("preset all queue settled (gate released)", settled, settled ? "" : "queue never finished");
-  check("preset all landings defer behind the open modal",
+  check("C preset all queue settled (gate released)", settled, settled ? "" : "queue never finished");
+  check("C preset all landings defer behind the open modal",
     await evalJS(`document.querySelectorAll('.reader-table th').length === 3`), "");
   await evalJS("window.closeModal('qrnContentOverlay')"); // flush: one rebuild renders every landed column
   const grew = await waitFor(`document.querySelectorAll('.reader-table th').length > 6`, 20000);
   const thAfter = await evalJS(`document.querySelectorAll('.reader-table th').length`);
-  check("preset all loads book columns", grew && thAfter > 6, String(thAfter) + " th");
+  check("C preset all loads book columns", grew && thAfter > 6, String(thAfter) + " th");
   const toast = await evalJS(`(function () {
     var t = document.querySelector('.toast');
     return t && t.textContent ? t.textContent : null;
   })()`);
-  check("no error toast after preset all", !toast || toast.indexOf("⚠️") === -1, toast);
+  check("C no error toast after preset all", !toast || toast.indexOf("⚠️") === -1, toast);
 
   // Reset is an overlay button — reopen, click, and let the close flush it.
   await evalJS("document.getElementById('qrnContentBtn').click()");
@@ -418,7 +420,7 @@ async function main() {
   const backToBase = await waitFor(`document.querySelectorAll('.reader-table th').length === 3`, 15000);
   await sleep(400);
   const thReset = await evalJS(`document.querySelectorAll('.reader-table th').length`);
-  check("preset reset back to base", backToBase && thReset === 3, String(thReset) + " th");
+  check("C preset reset back to base", backToBase && thReset === 3, String(thReset) + " th");
 
   // ── D. search window + settings reset ──────────────────────────────
   // Search moved into the modal window (non-RDF books): the header input is
@@ -451,11 +453,11 @@ async function main() {
       rc: h ? h.textContent.trim() : null,
     };
   })()`);
-  check("search keeps table rows (incremental render)", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
-  check("count appears without shifting the input",
+  check("D search keeps table rows (incremental render)", res.rows > 0 && res.rows < 6236, JSON.stringify(res));
+  check("D count appears without shifting the input",
     await evalJS(`document.querySelector('.search-window-input-wrap').offsetWidth`) === inputWBefore,
     String(inputWBefore));
-  check("search results render in window", res.rc !== null, res.rc);
+  check("D search results render in window", res.rc !== null, res.rc);
 
   // Result cap — the window paints one page of 30 snippet lines; a broader
   // match set gets the pager row ("…and more" + Show more) instead of a
@@ -468,7 +470,7 @@ async function main() {
       note: !!document.querySelector('#searchWindowResults .search-more-note'),
     };
   })()`);
-  check("this-book results cap at one page + pager",
+  check("D this-book results cap at one page + pager",
     totalN > 30 && page1.shown === 30 && page1.more && page1.note,
     JSON.stringify({ total: totalN, page: page1 }));
   await evalJS(`document.querySelector('#searchWindowResults .search-more-btn').click()`);
@@ -479,7 +481,7 @@ async function main() {
       more: !!document.querySelector('#searchWindowResults .search-more-btn'),
     };
   })()`);
-  check("show more appends another page",
+  check("D show more appends another page",
     page2.shown === Math.min(60, totalN) && page2.more === (totalN > 60),
     JSON.stringify({ total: totalN, page: page2 }));
 
@@ -500,7 +502,7 @@ async function main() {
     var h = document.getElementById('searchWindowCount');
     return h ? h.textContent.trim() : null;
   })()`);
-  check("regex search matches plain-term count", resRe === res.rc, resRe);
+  check("D regex search matches plain-term count", resRe === res.rc, resRe);
 
   // whole-word toggle — marks itself active and re-runs the window search
   await evalJS(`document.getElementById('searchWindowWholeWord').click()`);
@@ -512,17 +514,17 @@ async function main() {
       rc: (document.getElementById('searchWindowCount') || {}).textContent || null,
     };
   })()`);
-  check("whole-word toggle active + results kept", ww.active && ww.rc !== null, JSON.stringify(ww));
+  check("D whole-word toggle active + results kept", ww.active && ww.rc !== null, JSON.stringify(ww));
 
   // advanced conditions — the default condition (first visible text column,
   // "contains", empty value) matches every row, so the count is the book's
   await evalJS(`document.getElementById('searchWindowAdvToggle').click()`);
   await waitFor(`document.getElementById('searchWindowAdvBody').style.display !== 'none'`, 5000);
-  check("advanced condition row renders", await evalJS(`!!document.querySelector('#advancedSearchRows .advanced-search-row')`));
+  check("D advanced condition row renders", await evalJS(`!!document.querySelector('#advancedSearchRows .advanced-search-row')`));
   await evalJS(`document.getElementById('btnApplyAdvancedSearch').click()`);
   await waitFor(`document.getElementById('searchWindowCount').textContent !== ''`, 10000);
   const advRc = await evalJS(`(document.getElementById('searchWindowCount') || {}).textContent || ''`);
-  check("advanced apply runs (all rows)", advRc.indexOf("6,236") !== -1, advRc);
+  check("D advanced apply runs (all rows)", advRc.indexOf("6,236") !== -1, advRc);
   await evalJS(`document.getElementById('searchWindowAdvToggle').click()`); // collapse
 
   // search tips — the Tips button (a full-width labelled option like
@@ -612,45 +614,45 @@ async function main() {
       normNote: (document.getElementById('searchHelpNormNote') || {}).textContent || '',
     };
   })()`);
-  check("search tips: 7 grammar rows render",
+  check("D search tips: 7 grammar rows render",
     help.rows === 7 && help.terms === 7 && help.headers === 4 && help.title.length > 0 && help.btn.length > 0,
     JSON.stringify(help));
-  check("search tips: shares the full-size modal geometry",
+  check("D search tips: shares the full-size modal geometry",
     help.tipsW === help.winW && help.tipsW > 400,
     "tips " + help.tipsW + "px vs window " + help.winW + "px");
-  check("search tips: term cells align on one edge (all inherit RTL)",
+  check("D search tips: term cells align on one edge (all inherit RTL)",
     help.termDirs.length === 7 && help.termDirs.every(function (d) { return d === 'rtl'; }),
     JSON.stringify(help.termDirs));
-  check("search tips: name column carries all 7 feature names",
+  check("D search tips: name column carries all 7 feature names",
     help.names.length === 7 && help.names.every(function (n) { return n.length > 0; }),
     JSON.stringify(help.names));
-  check("search tips: wildcard row shows positions + the single-letter ?",
+  check("D search tips: wildcard row shows positions + the single-letter ?",
     help.wildEx.split("\n").length === 4 && help.wildEx.indexOf("?") !== -1, help.wildEx);
-  check("search tips: fuzzy row shows the marker at either end",
+  check("D search tips: fuzzy row shows the marker at either end",
     help.fuzzyEx.split("\n").length === 2 && help.fuzzyEx.indexOf("~") !== -1, help.fuzzyEx);
-  check("search tips: phrase row pairs both quote styles",
+  check("D search tips: phrase row pairs both quote styles",
     help.phraseEx.indexOf('"') !== -1 && help.phraseEx.indexOf("'") !== -1, help.phraseEx);
-  check("search tips: phrase term shows both quote styles",
+  check("D search tips: phrase term shows both quote styles",
     help.phraseTerm.indexOf('"') !== -1 && help.phraseTerm.indexOf("'") !== -1, help.phraseTerm);
-  check("search tips: fuzzy term shows the marker at either end",
+  check("D search tips: fuzzy term shows the marker at either end",
     ((help.fuzzyTerm.match(/~/g) || []).length === 2), help.fuzzyTerm);
-  check("search tips: All-books caveat note renders",
+  check("D search tips: All-books caveat note renders",
     help.note.length > 0, help.note);
-  check("search tips: normalisation note renders",
+  check("D search tips: normalisation note renders",
     help.normNote.length > 0, help.normNote);
-  check("search tips: Meaning header is a real label, not a raw key",
+  check("D search tips: Meaning header is a real label, not a raw key",
     help.header3.length > 0 && help.header3.indexOf("searchHelpColMeaning") === -1, help.header3);
-  check("search tips: cells carry the dd-table padding rhythm",
+  check("D search tips: cells carry the dd-table padding rhythm",
     help.thPad === "8px 12px 8px 12px", help.thPad);
-  check("search tips: header aligns right with its rows, not UA-centered",
+  check("D search tips: header aligns right with its rows, not UA-centered",
     help.thAlign === 'right' && help.tdAlign === 'right',
     help.thAlign + " vs " + help.tdAlign);
-  check("search tips: thead wears the shared tabular band (bar + 2px divider)",
+  check("D search tips: thead wears the shared tabular band (bar + 2px divider)",
     help.thBand.bg === help.thBand.wantBg && help.thBand.bb === '2px' && help.thBand.bc === help.thBand.wantDiv,
     JSON.stringify(help.thBand));
   await evalJS(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
   await waitFor(`!document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
-  check("search tips: Escape closes help, window stays",
+  check("D search tips: Escape closes help, window stays",
     await evalJS(`document.getElementById('searchWindowOverlay').classList.contains('open')`));
 
   // tall-sheet scrolling: the tips share the full-size modal structure —
@@ -664,14 +666,14 @@ async function main() {
     var s = document.querySelector('#searchHelpBody .search-help-scroll');
     return { sh: s.scrollHeight, ch: s.clientHeight, header: document.getElementById('searchHelpTitle').getBoundingClientRect().height };
   })()`);
-  check("search tips: content overflows its scroll region on a short viewport",
+  check("D search tips: content overflows its scroll region on a short viewport",
     helpShort.sh > helpShort.ch, JSON.stringify(helpShort));
   const helpScrolled = await evalJS(`(function () {
     var s = document.querySelector('#searchHelpBody .search-help-scroll');
     s.scrollTop = 60;
     return s.scrollTop;
   })()`);
-  check("search tips: the scroll region actually scrolls",
+  check("D search tips: the scroll region actually scrolls",
     helpScrolled > 0, String(helpScrolled));
   await evalJS(`window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }))`);
   await waitFor(`!document.getElementById('searchHelpOverlay').classList.contains('open')`, 5000);
@@ -689,12 +691,12 @@ async function main() {
   await evalJS(`document.getElementById('searchWindowClear').click()`);
   await waitFor(`document.querySelector('#searchWindowHistory .search-history-item') !== null`, 5000);
   const histCount = await evalJS(`document.querySelectorAll('#searchWindowHistory .search-history-item').length`);
-  check("history listed in window", histCount >= 2, String(histCount));
+  check("D history listed in window", histCount >= 2, String(histCount));
   const rectAfterClear = await evalJS(`(function () {
     var r = document.querySelector('.search-window-modal').getBoundingClientRect();
     return [r.left, r.top, r.width, r.height].join(',');
   })()`);
-  check("window does not resize on content swap", rectAfterClear === rectBeforeClear, rectBeforeClear + " → " + rectAfterClear);
+  check("D window does not resize on content swap", rectAfterClear === rectBeforeClear, rectBeforeClear + " → " + rectAfterClear);
 
   // Tab-aware placeholder — the same input must tell the truth per tab:
   // this-book says "search this book", all-books says "all books (whole
@@ -716,11 +718,11 @@ async function main() {
       placeholder: document.getElementById('searchWindowInput').placeholder,
     };
   })()`);
-  check("all-books tab: scope section on, options row off",
+  check("D all-books tab: scope section on, options row off",
     allTab.active && allTab.scopeShown && allTab.optsHidden, JSON.stringify(allTab));
-  check("all-books tab: scope summary label + caret",
+  check("D all-books tab: scope summary label + caret",
     allTab.summary.length > 1 && allTab.summary.indexOf("▾") !== -1, allTab.summary);
-  check("all-books tab: placeholder switches to the cross-book wording",
+  check("D all-books tab: placeholder switches to the cross-book wording",
     allTab.placeholder.length > 0 && allTab.placeholder !== tbPlaceholder,
     JSON.stringify({ thisBook: tbPlaceholder, allBooks: allTab.placeholder }));
 
@@ -742,18 +744,18 @@ async function main() {
       counts: document.querySelectorAll('#searchWindowResults .search-window-book-count').length,
     };
   })()`);
-  check("all-books: per-book rows render",
+  check("D all-books: per-book rows render",
     allRes.n > 1 && allRes.counts === allRes.n, JSON.stringify(allRes));
-  check("all-books: count header lists books + matches",
+  check("D all-books: count header lists books + matches",
     allRes.rc !== null && /\d/.test(allRes.rc), allRes.rc);
-  check("all-books: deep link shape",
+  check("D all-books: deep link shape",
     allRes.href !== null && /^reader\.html\?book=.+&row=\d+&q=/.test(allRes.href), allRes.href);
   const allBookRow = await evalJS(`(function () {
     var link = document.querySelector('#searchWindowResults .search-window-book-link');
     var m = link ? (link.getAttribute('href') || '').match(/book=([^&]+)/) : null;
     return m ? m[1] : null;
   })()`);
-  check("all-books: rows carry book codes", allBookRow !== null, allBookRow);
+  check("D all-books: rows carry book codes", allBookRow !== null, allBookRow);
 
   // the cross-book hop — "open in library page" shows for a cross-book query
   // with a deep-link href carrying the query (and scope when set)
@@ -761,7 +763,7 @@ async function main() {
     var a = document.getElementById('searchWindowOpenPage');
     return a ? { shown: a.style.display !== 'none', href: a.getAttribute('href') } : null;
   })()`);
-  check("all-books: open-in-library-page link",
+  check("D all-books: open-in-library-page link",
     hopLink !== null && hopLink.shown && /^library-search\.html\?q=/.test(hopLink.href),
     JSON.stringify(hopLink));
 
@@ -778,7 +780,7 @@ async function main() {
       windowOpen: w !== null && w.classList.contains('open'),
     };
   })()`);
-  check("all-books: scope summary opens the libScope modal on top",
+  check("D all-books: scope summary opens the libScope modal on top",
     scopeModalState.exists && scopeModalState.modalOpen && scopeModalState.windowOpen,
     JSON.stringify(scopeModalState));
   // The modal opened with the HDT default scope pre-selected (16 books) —
@@ -794,14 +796,14 @@ async function main() {
     if (cb) cb.click();
     return !!cb;
   })()`);
-  check("all-books: scope list contains the matched book", scopeListed);
+  check("D all-books: scope list contains the matched book", scopeListed);
 
   // the scope change re-runs the all-books search — one book → one row
   await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length === 1`, 15000);
   const scopedN = await evalJS(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length`);
-  check("all-books: scoped search re-runs (1 book)", scopedN === 1, String(scopedN));
+  check("D all-books: scoped search re-runs (1 book)", scopedN === 1, String(scopedN));
   const scopedSum = await evalJS(`document.getElementById('searchWindowScopeSummary').textContent.trim()`);
-  check("all-books: summary reflects the scope", scopedSum !== allTab.summary, scopedSum);
+  check("D all-books: summary reflects the scope", scopedSum !== allTab.summary, scopedSum);
 
   // reset the scope → all books again (reset click fires libScopeChange)
   await evalJS(`document.getElementById('libScopeReset').click()`);
@@ -824,7 +826,7 @@ async function main() {
       empty: !!document.querySelector('#searchWindowResults .search-no-matches'),
     };
   })()`);
-  check("all-books: regex query shows the inline grammar note",
+  check("D all-books: regex query shows the inline grammar note",
     noteState.text.length > 0 && noteState.rows === 0 && noteState.empty,
     JSON.stringify(noteState));
   // restore the plain term for the Escape checks below
@@ -841,7 +843,7 @@ async function main() {
     document.getElementById('searchWindowInput').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
   })()`);
   await waitFor(`!document.getElementById('libScopeOverlay').classList.contains('open')`, 5000);
-  check("all-books: Escape closes only the scope modal",
+  check("D all-books: Escape closes only the scope modal",
     (await evalJS(`document.getElementById('searchWindowOverlay').classList.contains('open')`)) === true);
 
   // back to This book — scope section off, options row back
@@ -855,8 +857,8 @@ async function main() {
       placeholder: document.getElementById('searchWindowInput').placeholder,
     };
   })()`);
-  check("this-book tab: scope off, options back", tb.scopeHidden && tb.optsShown && tb.openPageHidden, JSON.stringify(tb));
-  check("this-book tab: placeholder switches back",
+  check("D this-book tab: scope off, options back", tb.scopeHidden && tb.optsShown && tb.openPageHidden, JSON.stringify(tb));
+  check("D this-book tab: placeholder switches back",
     tb.placeholder === tbPlaceholder, JSON.stringify({ want: tbPlaceholder, got: tb.placeholder }));
 
   // Escape closes the window — unified modal layer handles it
@@ -871,7 +873,7 @@ async function main() {
     var t = document.querySelector('.toast');
     return t && t.textContent ? t.textContent : null;
   })()`);
-  check("settings reset no error toast", !toastR || toastR.indexOf("⚠️") === -1, toastR);
+  check("D settings reset no error toast", !toastR || toastR.indexOf("⚠️") === -1, toastR);
 
   // Arrow-key navigation over the results — real CDP key events (the
   // handler gates on document.activeElement, so the input must be focused).
@@ -901,19 +903,19 @@ async function main() {
   await arrow("ArrowDown");
   await sleep(150);
   const ar1 = await activeState();
-  check("arrow Down selects first result", ar1.total > 0 && ar1.active === 0, JSON.stringify(ar1));
+  check("D arrow Down selects first result", ar1.total > 0 && ar1.active === 0, JSON.stringify(ar1));
   await arrow("ArrowDown");
   await sleep(150);
   const ar2 = await activeState();
-  check("arrow Down advances", ar2.active === 1, JSON.stringify(ar2));
+  check("D arrow Down advances", ar2.active === 1, JSON.stringify(ar2));
   await arrow("ArrowUp");
   await sleep(150);
   const ar3 = await activeState();
-  check("arrow Up steps back", ar3.active === 0, JSON.stringify(ar3));
+  check("D arrow Up steps back", ar3.active === 0, JSON.stringify(ar3));
   for (let i = 0; i < ar1.total + 5; i++) { await arrow("ArrowDown"); await sleep(40); }
   await sleep(200);
   const ar4 = await activeState();
-  check("arrow Down clamps at last result", ar4.active === ar4.total - 1, JSON.stringify(ar4));
+  check("D arrow Down clamps at last result", ar4.active === ar4.total - 1, JSON.stringify(ar4));
   const yBefore = await evalJS(`window.scrollY`);
   await send("Input.dispatchKeyEvent", { type: "keyDown", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
   await send("Input.dispatchKeyEvent", { type: "keyUp", key: "Enter", code: "Enter", windowsVirtualKeyCode: 13, nativeVirtualKeyCode: 13 });
@@ -921,7 +923,7 @@ async function main() {
   const jump = await evalJS(`(function () {
     return { open: document.getElementById('searchWindowOverlay').classList.contains('open'), scrollY: window.scrollY };
   })()`);
-  check("Enter jumps to the row and closes the window",
+  check("D Enter jumps to the row and closes the window",
     !jump.open && jump.scrollY > 0, JSON.stringify({ yBefore: yBefore, after: jump }));
 
   // This-book zero → the escape hatch: the no-match line offers the same
@@ -939,7 +941,7 @@ async function main() {
     var b = document.querySelector('#searchWindowResults .search-goto-all-btn');
     return { shown: !!b, text: b ? b.textContent.trim() : '' };
   })()`);
-  check("this-book zero offers search-all-books",
+  check("D this-book zero offers search-all-books",
     zeroState.shown && zeroState.text.length > 0, JSON.stringify(zeroState));
   await evalJS(`document.querySelector('#searchWindowResults .search-goto-all-btn').click()`);
   await waitFor(`document.getElementById('searchWindowTabAllBooks').classList.contains('active')`, 5000);
@@ -952,7 +954,7 @@ async function main() {
       rows: document.querySelectorAll('#searchWindowResults .search-window-book-link').length,
     };
   })()`);
-  check("all-books hop keeps the query and reports no matches",
+  check("D all-books hop keeps the query and reports no matches",
     zeroAll.active && zeroAll.input === 'zzzqqq' && zeroAll.empty && zeroAll.rows === 0,
     JSON.stringify(zeroAll));
   await evalJS(`(function () {
@@ -978,9 +980,9 @@ async function main() {
       title: (document.getElementById('pageTitle') || {}).textContent || '',
     };
   })()`);
-  check("no quran nav panel", !std.quranPanel, String(std.quranPanel));
-  check("single ayahImlai column", std.headers.length === 1 && std.headers[0] === "ayahImlai", JSON.stringify(std.headers));
-  check("book title from 02 (dv)", std.title.indexOf(EXP_TITLE_DV) !== -1, std.title);
+  check("E no quran nav panel", !std.quranPanel, String(std.quranPanel));
+  check("E single ayahImlai column", std.headers.length === 1 && std.headers[0] === "ayahImlai", JSON.stringify(std.headers));
+  check("E book title from 02 (dv)", std.title.indexOf(EXP_TITLE_DV) !== -1, std.title);
 
   // incremental render — scroll to bottom to load all chunks (30 rows each)
   const allLoaded = await waitFor(`(function () {
@@ -988,13 +990,13 @@ async function main() {
     return document.querySelectorAll('.reader-table tbody tr').length >= 6236;
   })()`, 90000);
   const rowsFinal = await evalJS(`document.querySelectorAll('.reader-table tbody tr').length`);
-  check("6236 rows rendered after scroll", allLoaded && rowsFinal === 6236, String(rowsFinal));
+  check("E 6236 rows rendered after scroll", allLoaded && rowsFinal === 6236, String(rowsFinal));
   const lastText = await evalJS(`(function () {
     var trs = document.querySelectorAll('.reader-table tbody tr');
     var last = trs[trs.length - 1].querySelectorAll('td');
     return last[0] ? last[0].textContent : '';
   })()`);
-  check("last row = 6236th imlai", unornament(lastText) === imlai[6235][0], lastText);
+  check("E last row = 6236th imlai", unornament(lastText) === imlai[6235][0], lastText);
 
   // ── F. Thaana text-inset guard ──────────────────────────────────────
   // The Hadithmv webfont paints ~1–5px of start-side ink past the pen
@@ -1034,10 +1036,10 @@ async function main() {
     wrap.remove();
     return { pt: pt, ti: ti, htPad: htPad, snPad: snPad };
   })()`);
-  check("pageTitle start inset 8px", insets.pt === "8px", insets.pt);
-  check("quran-surah-search text-indent 6px", insets.ti === "6px", String(insets.ti));
-  check("hist-text start padding 6px", insets.htPad === "6px", insets.htPad);
-  check("result-snippet start padding 8px", insets.snPad === "8px", insets.snPad);
+  check("F pageTitle start inset 8px", insets.pt === "8px", insets.pt);
+  check("F quran-surah-search text-indent 6px", insets.ti === "6px", String(insets.ti));
+  check("F hist-text start padding 6px", insets.htPad === "6px", insets.htPad);
+  check("F result-snippet start padding 8px", insets.snPad === "8px", insets.snPad);
   // The surah selector's search rides the shared search-input-wrap, so its
   // ✕ clear button mirrors on the query and restores the list — the
   // unification sweep ("no search box without a ✕") pinned here so a future
@@ -1052,7 +1054,7 @@ async function main() {
   })()`);
   await waitFor(`document.getElementById('qrnSurahSearchClear').classList.contains('visible')`);
   await evalJS(`document.getElementById('qrnSurahSearchClear').click()`);
-  check("surah ✕ clears the box, restores the list, re-focuses", await waitFor(`(function () {
+  check("F surah ✕ clears the box, restores the list, re-focuses", await waitFor(`(function () {
     var f = document.getElementById('qrnSurahSearch');
     return f.value === ''
       && !document.getElementById('qrnSurahSearchClear').classList.contains('visible')
@@ -1079,7 +1081,7 @@ async function main() {
     w.remove();
     return { pad: pad, wrap: wrap, ovf: ovf, ell: ell };
   })()`);
-  check("mobile: dash-continue one row, title ellipsized + 6px inset",
+  check("F mobile: dash-continue one row, title ellipsized + 6px inset",
     cont.wrap === "nowrap" && cont.ovf === "hidden" && cont.ell === "ellipsis" && cont.pad === "6px",
     cont.wrap + " / " + cont.ovf + " / " + cont.ell + " / " + cont.pad);
   await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
@@ -1102,7 +1104,7 @@ async function main() {
     var f = document.getElementById('readerProgressFill');
     return { ring: !!document.querySelector('.completion-border'), done: f.classList.contains('done') };
   })()`);
-  check("last-page jump lands at the bottom without celebrating",
+  check("G last-page jump lands at the bottom without celebrating",
     afterJump.ring === false && afterJump.done === false, JSON.stringify(afterJump));
   // the reported repro: scroll up a bit — two nudges, then nothing must fire
   await evalJS(`scrollBy(0, -120)`);
@@ -1114,7 +1116,7 @@ async function main() {
     return { ring: !!document.querySelector('.completion-border'), done: f.classList.contains('done'),
       y: Math.round(window.scrollY) };
   })()`);
-  check("scrolling up after the jump does not celebrate",
+  check("G scrolling up after the jump does not celebrate",
     afterUp.ring === false && afterUp.done === false, JSON.stringify(afterUp));
   // positive control: a genuine scroll to the bottom still celebrates
   await evalJS(`scrollTo(0, document.documentElement.scrollHeight)`);
@@ -1123,11 +1125,12 @@ async function main() {
     var f = document.getElementById('readerProgressFill');
     return { ring: !!document.querySelector('.completion-border'), done: f.classList.contains('done') };
   })()`);
-  check("genuine read to the bottom still celebrates",
+  check("G genuine read to the bottom still celebrates",
     afterBottom.ring === true && afterBottom.done === true, JSON.stringify(afterBottom));
 
   ws.close();
   edge.kill();
+  console.log("== " + (checksRun - failures) + " / " + checksRun + " checks passed ==");
   console.log(failures ? "== " + failures + " FAILURES ==" : "== ALL PASS ==");
   process.exit(failures ? 1 : 0);
 }

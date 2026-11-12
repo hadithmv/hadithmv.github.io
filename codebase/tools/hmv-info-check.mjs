@@ -81,8 +81,10 @@ const PORT = process.env.HMV_INFO_PORT ? parseInt(process.env.HMV_INFO_PORT, 10)
 const PROFILE = process.env.HMV_INFO_PROFILE || (process.env.TEMP + "\\hmv-info-check-profile");
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + detail + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 
@@ -979,6 +981,7 @@ async function main() {
   check("S12 no page errors", pageErrors.length === 0, pageErrors.join("; "));
   ws.close();
   edge.kill();
+  console.log((checksRun - failures) + " / " + checksRun + " checks passed");
   console.log(failures === 0 ? "ALL PASS" : failures + " FAILURES");
   process.exit(failures === 0 ? 0 : 1);
 }

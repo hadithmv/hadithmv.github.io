@@ -1,15 +1,18 @@
-// Header-coverage scan: every CSV header in data/content/ must be fully
-// mappable to a display label by src/js/column-labels.js. It walks all content
-// files, tokenizes each header with the SAME tokenizer the mapper uses, and
-// reports any header whose tokens the mapper does not know (those would
-// silently fall back to the raw identifier in the advanced-search dropdown
-// and column toggles).
+// Header-label audit: lists CSV headers in data/content/ whose camelCase
+// tokens have no entry in src/js/column-tokens.js (the tables
+// src/js/column-labels.js uses to derive display labels). This is OPTIONAL
+// tidying, not a gate: an unmapped header falls back to its raw identifier in
+// the advanced-search column dropdown and the column toggles — the same
+// identifier the table header shows — so a new book's columns work
+// immediately and nothing is blocked.
 //
 // Usage: node tools/hmv-header-scan.mjs
-// Exit:  0 = all headers mapped, 1 = unknown tokens (or a data problem)
+// Exit:  0 = every header is curated, 1 = uncurated headers exist (the audit
+//        result, not a build failure) or a data problem
 //
-// When this reports an unknown token, add it to src/js/column-tokens.js (and a
-// col* entry in src/js/i18n.js) or to DELIBERATE_RAW below if it must stay raw.
+// When you want to clear a header, add its token to src/js/column-tokens.js
+// (and a col* entry in src/js/i18n.js), or list the header in DELIBERATE_RAW
+// below to record a conscious decision to leave it raw.
 //
 // DELIBERATE_RAW: headers we intentionally leave as raw text. Today: none —
 // the trailing empty field in IH-manKhalaqaniWaLimaza.csv never reaches the
@@ -26,6 +29,7 @@ const CONTENT_DIR = path.join(ROOT, "data", "content");
 const DELIBERATE_RAW = {}; // exact header text → reason
 
 let failures = 0;
+let uncurated = 0;
 let filesChecked = 0;
 let headersChecked = 0;
 const seen = new Map(); // header → {files, unknown}
@@ -56,9 +60,9 @@ for (const name of fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith(".csv"))
 for (const [hdr, entry] of seen) {
   const label = hdr === "" ? "(empty)" : hdr;
   if (entry.unknown.length > 0) {
-    failures++;
+    uncurated++;
     console.log(
-      "UNKNOWN " + label + " -> [" + entry.unknown.join(", ") + "]  in " + entry.files.join(", ")
+      "UNCURATED " + label + " -> [" + entry.unknown.join(", ") + "]  in " + entry.files.join(", ")
     );
   } else {
     console.log("ok      " + label);
@@ -66,12 +70,13 @@ for (const [hdr, entry] of seen) {
 }
 console.log(
   "\n" + filesChecked + " files, " + seen.size + " distinct headers, " +
-  headersChecked + " header cells" + (failures ? ", " + failures + " with unknown tokens" : ", all mapped")
+  headersChecked + " header cells" + (uncurated ? ", " + uncurated + " uncurated" : ", all curated")
 );
-if (failures) {
+if (uncurated) {
   console.log(
-    "Fix: add tokens to src/js/column-labels.js (with col* labels in src/js/i18n.js), " +
-    "or list the header in DELIBERATE_RAW with a reason."
+    "Optional cleanup: add tokens to src/js/column-tokens.js (with col* labels in " +
+    "src/js/i18n.js), or list the header in DELIBERATE_RAW with a reason. Raw fallback " +
+    "is by design, so this is not a build failure."
   );
-  process.exit(1);
 }
+if (failures || uncurated) process.exit(1);

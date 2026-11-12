@@ -70,11 +70,19 @@ Run these before declaring work done (from `codebase/`):
   cancel, sequential presets; ports in the script header).
 - `node tools/hmv-sw-check.mjs` — service-worker battery (registration,
   precache, cache-served repeat visits, offline rendering, per-file update
-  propagation; serves over http://127.0.0.1 — a secure context is required
+  propagation; serves over `http://127.0.0.1` — a secure context is required
   for SWs).
 - `python tools/hmv-font-subset.py --check` — corpus-vs-webfont coverage,
   after any change that adds characters (one-time `pip install fonttools
   brotli`; the tool is also the subsetter itself).
+- `node tools/hmv-rdf-check.mjs` — RDF/merged-book battery (block order,
+  tint, in-place filter, separators, windowed pagination, reference-book
+  progress); run after touching `radheef-merge.js`, reader windowing/goTo,
+  reader-position.js progress/milestones, or `formatThousands`.
+- `node tools/hmv-shards-check.mjs` — search-index shard battery (manifest/
+  shard fetch scoping, warm/cold offline); run after changing
+  `08-rebuild-searchIndex.mjs`, the shard format, or
+  `library-search-engine.js`.
 - After `node tools/dist-build.mjs`, run the four page batteries with `--dist` to
   verify the built `dist/` (info, authors, libscope, qrn-smoke).
 - JS syntax: `cat src/js/<file>.js | node --check --input-type=module -`

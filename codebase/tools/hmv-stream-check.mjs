@@ -149,8 +149,10 @@ const FINISHED_EXPR =
   "(!document.getElementById('loadingMessage') || document.getElementById('loadingMessage').style.display === 'none')" +
   " && (function(){var t=document.getElementById('pageTitle'); if (!t || !t.textContent) return false; return t.textContent.indexOf('Loading…') === -1;})()";
 let failures = 0;
+let checksRun = 0;
 function check(name, cond, detail) {
   console.log((cond ? "PASS  " : "FAIL  ") + name + (detail !== undefined ? "   [" + String(detail).slice(0, 200) + "]" : ""));
+  checksRun++;
   if (!cond) failures++;
 }
 
@@ -1304,5 +1306,6 @@ syntheticPhase();
 const DIST = process.argv.includes("--dist");
 console.log("── Phase 2: throttled big-book UX (" + (DIST ? "dist" : "src") + "/books/reader.html?book=RDF-misc) + quran content-modal column loads ──");
 await browserPhase(DIST);
+console.log((checksRun - failures) + " / " + checksRun + " checks passed");
 console.log(failures === 0 ? "STREAM-CHECK OK" : "STREAM-CHECK FAILURES: " + failures);
 process.exitCode = failures > 0 ? 1 : 0;
