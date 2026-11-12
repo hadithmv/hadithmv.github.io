@@ -22,6 +22,12 @@ line from a passing run on 2026-11-12; times are wall-clock on this
 development machine (warm disk, headless Edge) and vary with load. Scans
 print coverage counts instead of check totals.
 
+Running the eight through toolbox option 9 writes `checks-report.md`
+(codebase root, gitignored): per-check PASS/FAIL/SKIP with its own time,
+the full captured output of each battery, the total run time, and a
+verdict — it opens automatically on failure. Running a battery directly
+gives the same output in the terminal, without the report.
+
 | Battery | Script | Checks | Time | Run when |
 | --- | --- | --- | --- | --- |
 | **Routine** | | | | |

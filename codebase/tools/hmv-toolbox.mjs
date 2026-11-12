@@ -1014,6 +1014,7 @@ async function checks() {
   const note = (r, t0) => { // one line per battery: PASS/FAIL + its own time
     const cs = Math.round((Date.now() - t0) / 1000);
     console.log(' ' + (r.ok ? ITEM + 'PASS' : ERR + 'FAIL') + OFF + ' - ' + (cs ? fmtDur(cs) : '<1s'));
+    return cs; // kept for the report's summary table
   };
   console.log();
   console.log('Running the pre-commit checks - each opens an invisible browser');
@@ -1021,7 +1022,7 @@ async function checks() {
   console.log('All eight, just one (1-8), or O to open the last report - Enter runs all.');
   const RPT = path.join(ROOT, 'checks-report.md');
   const t = Date.now();
-  const results = []; // { ok: true|false|null(SKIP), out }
+  const results = []; // { ok: true|false|null(SKIP), out, secs }
   const failed = [];
   const pick = await ask(WARN + 'All 8 (Enter), one (1-8), or O to open the last report? ' + OFF);
   const single = /^[1-8]$/.test(pick);
@@ -1053,22 +1054,22 @@ async function checks() {
     single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 8 checks',
   ].join('\n') + '\n');
   if (single) {
-    for (let i = 0; i < 8; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.' });
+    for (let i = 0; i < 8; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.', secs: null });
     if (idx < 7) {
       console.log(' ' + CHECKS[idx].label);
       const t0 = Date.now();
       results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'working');
       if (!results[idx].ok) failed.push(CHECKS[idx].name);
-      note(results[idx], t0);
+      results[idx].secs = note(results[idx], t0);
     } else if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
       const t0 = Date.now();
       results[7] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
       if (!results[7].ok) failed.push('font');
-      note(results[7], t0);
+      results[7].secs = note(results[7], t0);
     } else {
       console.log(' 8/8 - the font coverage check skipped - python not found.');
-      results[7] = { ok: null, out: 'Skipped: python not found.' };
+      results[7] = { ok: null, out: 'Skipped: python not found.', secs: null };
     }
     console.log();
   } else {
@@ -1078,7 +1079,7 @@ async function checks() {
       const r = await runCaptured('node', [path.join(ROOT, c.file)], 'working');
       results.push(r);
       if (!r.ok) failed.push(c.name);
-      note(r, t0);
+      r.secs = note(r, t0);
       console.log();
     }
     if (hasTool('python')) {
@@ -1087,18 +1088,21 @@ async function checks() {
       const r = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
       results.push(r);
       if (!r.ok) failed.push('font');
-      note(r, t0);
+      r.secs = note(r, t0);
     } else {
       console.log(' 8/8 - the font coverage check skipped - python not found.');
-      results.push({ ok: null, out: 'Skipped: python not found.' });
+      results.push({ ok: null, out: 'Skipped: python not found.', secs: null });
     }
     console.log();
   }
   const secs = Math.round((Date.now() - t) / 1000);
   const dur = secs ? ' - ' + fmtDur(secs) : '';
   const verdict = (r) => (r.ok === null ? 'SKIP' : (r.ok ? 'PASS' : 'FAIL'));
-  const lines = ['', '## Summary', '', '| Check | Result |', '| --- | --- |'];
-  CHECK_NAMES.forEach((n, i) => lines.push('| ' + (i + 1) + '/8 ' + n + ' | ' + verdict(results[i]) + ' |'));
+  const timeCell = (r) => (r.ok === null ? '—' : (r.secs ? fmtDur(r.secs) : '<1s'));
+  const lines = ['', '## Summary', '', '| Check | Result | Time |', '| --- | --- | --- |'];
+  CHECK_NAMES.forEach((n, i) => lines.push(
+    '| ' + (i + 1) + '/8 ' + n + ' | ' + verdict(results[i]) + ' | ' + timeCell(results[i]) + ' |'
+  ));
   lines.push('', '## Details', '');
   CHECK_NAMES.forEach((n, i) => {
     lines.push('### ' + (i + 1) + '/8 ' + n + ' - ' + verdict(results[i]));
@@ -1107,7 +1111,7 @@ async function checks() {
   const verdictLine = single
     ? (failed.length ? '**Verdict: CHECK FAILED - ' + failed.join(' ') + '**' : '**Verdict: PASSED (' + CHECK_NAMES[idx] + ' only)**')
     : (failed.length ? '**Verdict: SOME CHECKS FAILED - ' + failed.join(' ') + '**' : '**Verdict: ALL CHECKS PASSED**');
-  lines.push('---', '', secs ? 'Run time: ' + secs + ' seconds' : '', verdictLine);
+  lines.push('---', '', 'Run time: ' + (secs ? fmtDur(secs) : '<1s'), verdictLine);
   fs.appendFileSync(RPT, lines.join('\n') + '\n');
   console.log();
   if (failed.length) {

@@ -107,8 +107,9 @@ corpus) and exercises a part of the site. Press Enter for all eight,
 1–8 for just that one, or O to open the last report without running
 anything — the report marks the rest SKIP and the verdict names the
 check. The report lands in `checks-report.md` (gitignored — never
-dirties "what's changed", never ships): a summary table, per-check details,
-run time, and a bold verdict. The report opens itself in Notepad when any
+dirties "what's changed", never ships): a summary table with each check's
+verdict and time, per-check details, the total run time, and a bold
+verdict. The report opens itself in Notepad when any
 check fails; after an all-pass run the menu asks whether to open it. As
 each battery finishes, its own line appears — PASS or FAIL with the time
 it took — and the console summary line then ends with the total run time
@@ -151,7 +152,7 @@ runtimes.
 | `tools/hmv-manifest.mjs` | Writes `dist/manifest.json` — option 3, step 3 of option 4, and the tiny data-only command from CLAUDE.md. |
 | `tools/dist-build.mjs`, `data/08-rebuild-searchIndex.mjs`, `tools/hmv-font-subset.py` | The workers behind options 1/2/4/9 and check 8. |
 | `data/04-update-bookRegistry.ps1` | The registry script behind option 4 (see Pitfalls). |
-| `checks-report.md` | Option 10 output (gitignored). |
+| `checks-report.md` | Option 9 output (gitignored). |
 | `dist-build-report.md`, `font-build-report.md` | Committed build size ledgers — the build rewrites them; option 1 reads the summary from the first. |
 | `%USERPROFILE%\.hadithmv-tools` | The sound flag (outside the repo). |
 
