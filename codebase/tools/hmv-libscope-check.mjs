@@ -664,6 +664,26 @@ async function main() {
     await evalJS(`document.querySelectorAll('#searchWindowResults .lib-peek-toggle')[1].click()`);
     check("S11 peek is single-open", await waitFor(
       `document.querySelectorAll('#searchWindowResults .lib-result.peek-open').length === 1`, 5000));
+    // Deep-scrolled pane: opening another peek must land on ITS first
+    // snippet (row at the pane's top), not carry the previous peek's offset
+    // over and leave the new peek showing its tail (the row's rect, not the
+    // pinned line's, is the anchor — a pinned line reads as if at the top
+    // no matter how deep its snippets are scrolled).
+    await evalJS(`document.getElementById('searchWindowResults').scrollTop = 9999`);
+    await evalJS(`document.querySelector('#searchWindowResults .lib-peek-toggle').click()`);
+    const peekReset = await evalJS(`(function () {
+      var pane = document.getElementById('searchWindowResults');
+      var l = pane.querySelector('.lib-result.peek-open > .lib-result-line');
+      if (!l) return null;
+      return {
+        open: pane.querySelectorAll('.lib-result.peek-open').length,
+        delta: Math.round(l.getBoundingClientRect().top - pane.getBoundingClientRect().top),
+        scroll: Math.round(pane.scrollTop),
+      };
+    })()`);
+    check("S11 new peek starts at the pane top",
+      peekReset && peekReset.open === 1 && Math.abs(peekReset.delta) <= 1,
+      JSON.stringify(peekReset));
 
     // window → page hop: a NEW term typed in the window applies to the page
     // in place — the page input, its row list and the URL all take it over,
@@ -849,6 +869,24 @@ async function main() {
     check("S11 page peek line pins under the panel",
       pagePin && pagePin.pos === 'sticky' && Math.abs(pagePin.top - pagePin.want) < 1,
       JSON.stringify(pagePin));
+
+    // Deep-scrolled document, same reset: the page's document-scroll branch
+    // (window.scrollBy to the line's sticky slot) must land the new row
+    // under the panel.
+    await evalJS(`window.scrollTo(0, document.body.scrollHeight)`);
+    await evalJS(`document.querySelectorAll('#libResults .lib-peek-toggle')[1].click()`);
+    const pageReset = await evalJS(`(function () {
+      var l = document.querySelector('#libResults .lib-result.peek-open > .lib-result-line');
+      if (!l) return null;
+      return {
+        open: document.querySelectorAll('#libResults .lib-result.peek-open').length,
+        delta: Math.round(l.getBoundingClientRect().top - parseFloat(getComputedStyle(l).top)),
+        scroll: Math.round(window.scrollY),
+      };
+    })()`);
+    check("S11 page new peek starts under the panel",
+      pageReset && pageReset.open === 1 && Math.abs(pageReset.delta) <= 1,
+      JSON.stringify(pageReset));
 
     // Mobile geometry — the ≤600px collapse: the side pane stacks above the
     // main pane at full modal width.

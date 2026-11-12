@@ -39,7 +39,7 @@ gives the same output in the terminal, without the report.
 | 1. Reader smoke | `tools/hmv-qrn-smoke.mjs` | 107 | ~60 s | Reader UI/navigation, QRN lazy modules, search window, column toggles, Thaana font insets |
 | 2. Info modal | `tools/hmv-info-check.mjs` | 82 | ~13 s | Info/author/works modal, notes renderer, clipboard, the four exports |
 | 3. Authors & periods | `tools/hmv-authors-check.mjs` | 103 | ~14 s | The shared facet system — library page, modals, dashboard, reader header |
-| 4. Library scope | `tools/hmv-libscope-check.mjs` | 122 | ~15 s | Library-scope picker, scoped search, window/page peek |
+| 4. Library scope | `tools/hmv-libscope-check.mjs` | 124 | ~15 s | Library-scope picker, scoped search, window/page peek |
 | 5. Service worker | `tools/hmv-sw-check.mjs` | 16 | ~5 s | SW registration/precache/offline, `dist/manifest.json` freshness |
 | 6. TOC scan | `tools/hmv-toc-scan.cjs` | 21 regions | <1 s | After editing `reader.js` region markers |
 | 7. Streaming | `tools/hmv-stream-check.mjs` | 87 | ~3½ min | CSV stream parser, big-book load UX, content-modal column loads |

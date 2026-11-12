@@ -12,7 +12,9 @@
  *
  * One peek open at a time: the open row's line pins (position: sticky) while
  * its snippets scroll, so the book identity and the ▾ stay reachable; two
- * pinned lines would fight for the same slot.
+ * pinned lines would fight for the same slot. Opening a peek also resets the
+ * view to its start — the previous peek's scroll offset would otherwise
+ * carry over and leave the new one showing its tail.
  */
 
 import { t } from "./i18n.js";
@@ -165,6 +167,39 @@ function openPeek(root, bookCode, q) {
     });
 }
 
+/**
+ * Align an opening peek's row to its pinned slot, so the peek always starts
+ * at its first snippet. The offset must come from the row, not the line:
+ * a pinned line's rect is already at the slot no matter how deep its
+ * snippets are scrolled, so it cannot tell the viewport has carried over.
+ */
+function scrollPeekToStart(root) {
+  var line = root.querySelector(".lib-result-line");
+  if (!line) return;
+  // A peek-open line is sticky; its computed top is the slot to align to.
+  var slot = parseFloat(getComputedStyle(line).top) || 0;
+  // The windows scroll their results pane; on the library page no ancestor
+  // scrolls and the document itself does.
+  var scroller = null;
+  for (
+    var node = root.parentElement;
+    node && node !== document.body;
+    node = node.parentElement
+  ) {
+    var overflowY = getComputedStyle(node).overflowY;
+    if (overflowY === "auto" || overflowY === "scroll") {
+      scroller = node;
+      break;
+    }
+  }
+  var top = root.getBoundingClientRect().top;
+  if (scroller) {
+    scroller.scrollTop += top - scroller.getBoundingClientRect().top - slot;
+  } else {
+    window.scrollBy(0, top - slot);
+  }
+}
+
 /** Collapse one row's peek (toggle arrow back to ▾, panel hidden). */
 function closePeek(root) {
   root.classList.remove("peek-open");
@@ -188,6 +223,7 @@ function togglePeek(root, bookCode, q, container) {
   var peek = root.querySelector(".lib-peek");
   if (peek) peek.style.display = "";
   openPeek(root, bookCode, q);
+  scrollPeekToStart(root);
 }
 
 /**
