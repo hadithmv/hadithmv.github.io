@@ -8,10 +8,10 @@
  * reader-search-ui.js wires the this-book input/results/whole-word/advanced
  * pipeline, library-search-page.js wires its own. The All-books tab's
  * cross-book search (lazy search index, scope section from the shared
- * picker module, compact per-book rows with deep links) lives here — it is
- * window-owned machinery neither page duplicates. Never imports page UI
- * modules — behaviour flows in via initSearchWindow cfg callbacks (no
- * import cycles).
+ * picker module, compact per-book rows with deep links and the shared ▾
+ * peeks) lives here — it is window-owned machinery neither page duplicates.
+ * Never imports page UI modules — behaviour flows in via initSearchWindow cfg
+ * callbacks (no import cycles).
  */
 
 import { t, tagLabel, currentLang } from "./i18n.js";
@@ -36,6 +36,7 @@ import {
   visibleCounts,
   onFacetChipClick,
 } from "./facet-browse.js";
+import { wirePeeks } from "./library-peek.js";
 
 var _ui = null;
 var _registryCache = null; // reader-mode registry entries (book titles, facet scoping)
@@ -406,14 +407,14 @@ function widenAllBooksScope(q) {
 
 // Compact one-line per-book rows: current-language title, a muted author
 // suffix, tag badges, match count, deep link to the book's first match
-// (reader.html?book=&row=&q= — the library page's peek pattern). No data-real
-// rows — these are links, not jumps, so no result-click wiring. Shared by the
-// reader's All-books tab (registry cache), the library window (page registry)
-// and the library page's result list; withPeek wraps each link in a
-// `.lib-result` row and appends the page's expandable peek panel (the toggle
-// sits on the same line, outside the link so it never navigates). Cards are
-// for browsing the dashboard — search results are rows on every surface.
-export function buildBookRowsHTML(results, q, bookNames, withPeek) {
+// (reader.html?book=&row=&q=). No data-real rows — these are links, not
+// jumps, so no result-click wiring. Shared by the reader's All-books tab
+// (registry cache), the library window (page registry) and the library
+// page's result list. Each link is wrapped in a `.lib-result` row with the
+// expandable peek panel (the toggle sits on the same line, outside the link
+// so it never navigates); library-peek.js wires the behaviour. Cards are for
+// browsing the dashboard — search results are rows on every surface.
+export function buildBookRowsHTML(results, q, bookNames) {
   var html = "";
   for (var r = 0; r < results.length; r++) {
     var res = results[r];
@@ -449,10 +450,6 @@ export function buildBookRowsHTML(results, q, bookNames, withPeek) {
       (tagHtml ? '<span class="search-window-book-tags">' + tagHtml + "</span>" : "") +
       '<span class="search-window-book-count">' +
       fillTemplate("libBookMatches", { n: formatThousands(res.count) }) + "</span></a>";
-    if (!withPeek) {
-      html += row;
-      continue;
-    }
     html += '<div class="lib-result lib-result-row" data-book="' + res.bookCode +
       '" data-q="' + escapeHTML(q) + '">' +
       '<div class="lib-result-line">' + row +
@@ -494,6 +491,7 @@ function renderAllBooksResults(results, q, scopeInfo, info) {
   }
   _ui.results.innerHTML = html;
   _ui.results.style.display = "";
+  wirePeeks(_ui.results);
   var widen = _ui.results.querySelector(".search-widen-btn");
   if (widen) {
     widen.addEventListener("click", function () { widenAllBooksScope(q); });

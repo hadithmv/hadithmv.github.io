@@ -50,83 +50,9 @@
 
 /* ── Library results — one compact row per book ──
    The row itself (title ellipsis, tag badges, count) is
-   .search-window-book-link in search-window.css — the library-search page
-   loads that sheet, so the page, the window and the reader's All-books tab
-   share one result language. Only the peek is page-only: its toggle sits
-   on the row's line (outside the link) and the panel opens below it. */
-.lib-results {
-  display: flex;
-  flex-direction: column;
-  direction: rtl;
-}
-.lib-result-line {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--color-border);
-}
-.lib-result-line:hover {
-  background: var(--color-nav-btn-hover-bg);
-}
-.lib-result-line .search-window-book-link {
-  flex: 1;
-  min-width: 0;
-  border-bottom: none;
-}
-.lib-result-line .search-window-book-link:hover {
-  background: transparent; /* the whole line highlights, toggle included */
-}
-.lib-peek-toggle {
-  flex-shrink: 0;
-  padding: 2px 10px;
-  margin-inline-end: 4px;
-}
-.lib-peek {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border-bottom: 1px solid var(--color-border);
-}
-.lib-peek-items {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.lib-peek-loading {
-  text-align: center;
-  color: var(--color-text-muted);
-  padding: 6px;
-}
-.lib-peek-item {
-  display: flex;
-  gap: 10px;
-  align-items: baseline;
-  padding: 8px 12px;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md, 8px);
-  background: var(--color-nav-btn-bg);
-  text-decoration: none;
-  color: inherit;
-  font-size: var(--fs-muted, 0.9rem);
-  line-height: 1.8;
-  font-family: var(--font-thaana, "Hadithmv", "Faruma", "MV Boli", sans-serif);
-}
-.lib-peek-item:hover {
-  border-color: var(--color-card-hover-border);
-}
-.lib-peek-num {
-  flex-shrink: 0;
-  color: var(--color-text-muted);
-  font-size: 0.8em;
-}
-.lib-peek-text {
-  flex: 1;
-  min-width: 0;
-  word-break: break-word;
-}
-.lib-peek-more {
-  align-self: center;
-  margin-top: var(--section-gap, 6px);
-}
+   .search-window-book-link in search-window.css, together with the shared
+   .lib-result / .lib-peek styles — the reader page loads only that sheet,
+   and every search surface renders the same row + peek. */
 
 /* ---- Book-scope picker ---- */
 .lib-scope-btn {
@@ -166,10 +92,6 @@
   }
   #libSearchPanel .search-input {
     flex-basis: 100%;
-  }
-  .lib-peek-item {
-    font-size: var(--fs-aux, 0.8rem);
-    line-height: 1.7;
   }
   .lib-scope-btn {
     /* font-size: the global ≤600px panel swap (common.css) covers it */

@@ -22,19 +22,9 @@ import {
   loadAuthorDefinitions,
   loadBookRegistry,
   extractTags,
-  tagSearchWords,
-  getBookVersionSync,
-  getCsvPath,
 } from "./book-data.js";
-import { fetchBookCSVCached } from "./csv.js";
 import {
   escapeHTML,
-  parseQuery,
-  compileQuery,
-  rowMatchesQueryNorm,
-  buildNormData,
-  buildSnippets,
-  highlightMatches,
   addSearchHistory,
   getSearchHistory,
   removeSearchHistoryItem,
@@ -69,6 +59,7 @@ import {
   showWindowHint,
   allBooksQueryNote,
 } from "./search-window.js";
+import { wirePeeks } from "./library-peek.js";
 import {
   facetState,
   setFacets,
@@ -92,9 +83,6 @@ var _selectedTags = []; // active tag chips (OR — same semantics as the grid)
 var _searchTimer = null; // input debounce
 var _refreshTags = null; // tag-row collapse refresh (common.js)
 var _skipHistoryOnFocus = false; // true only for the initial desktop auto-focus
-
-var PEEK_BATCH = 8;
-var _peekCache = {}; // bookCode → q → {q, allData, normAllData, compiled, matches, pos, hasRowNums}
 
 var el = {
   input: null,
@@ -527,159 +515,12 @@ function renderSearchHistory() {
 }
 
 // ── Result peek (expand to preview matching rows inline) ─────
-// Clicking ▾ on a result fetches THAT book (through the on-device IndexedDB
-// cache — instant once opened before), runs the reader's exact search
-// machinery over it, and shows the first few matching rows as highlighted
-// snippets with a "Show next" pager. Each snippet deep-links to its row.
-
-/** Load the book + compute all matching positions (cached per book+query). */
-function peekEnsureData(bookCode, q) {
-  var cached = _peekCache[bookCode] && _peekCache[bookCode][q];
-  if (cached && cached.q === q) return Promise.resolve(cached);
-  // QRN books are 6,236-slot skeletons — empty rows are untranslated ayahs.
-  // The peek's row numbers must match the reader's merged table (and the
-  // index postings), which keep those rows, so parse them with keepEmpty.
-  return fetchBookCSVCached(
-    bookCode,
-    getBookVersionSync(bookCode),
-    getCsvPath(bookCode),
-    bookCode.indexOf("QRN-") === 0,
-  ).then(function (rows) {
-    if (!rows || rows.length < 2) throw new Error("Book has no content");
-    var allData = rows.slice(1);
-    var normAllData = buildNormData(allData);
-    var compiled = compileQuery(parseQuery(q));
-    var matches = [];
-    for (var i = 0; i < allData.length; i++) {
-      if (rowMatchesQueryNorm(allData[i], normAllData[i], compiled)) {
-        matches.push(i);
-      }
-    }
-    var entry = {
-      q: q,
-      allData: allData,
-      normAllData: normAllData,
-      compiled: compiled,
-      matches: matches,
-      pos: 0,
-      hasRowNums:
-        (rows[0][0] || "").trim() === "#" || (rows[0][0] || "").trim() === "",
-    };
-    (_peekCache[bookCode] = _peekCache[bookCode] || {})[q] = entry;
-    return entry;
-  });
-}
-
-/** One matching row as a highlighted, clickable snippet. */
-function peekItemHTML(entry, q, bookCode, position) {
-  var row = entry.allData[position];
-  var label = entry.hasRowNums ? row[0] || position + 1 : position + 1;
-  var snippets = buildSnippets(
-    row,
-    entry.compiled,
-    q,
-    entry.normAllData[position],
-  );
-  var text = snippets[0] || "";
-  if (!text) {
-    // Fallback: first non-row-number cell, raw highlight
-    var cell = "";
-    for (var c = 0; c < row.length; c++) {
-      if (entry.hasRowNums && c === 0) continue;
-      if (row[c]) { cell = row[c]; break; }
-    }
-    text = highlightMatches(String(cell).slice(0, 240), q);
-  }
-  return (
-    '<a class="lib-peek-item" href="reader.html?book=' +
-    bookCode +
-    "&row=" +
-    (position + 1) +
-    "&q=" +
-    encodeURIComponent(q) +
-    '" title="' +
-    bookCode +
-    " row " +
-    (position + 1) +
-    '">' +
-    '<span class="lib-peek-num">#' +
-    label +
-    "</span>" +
-    '<span class="lib-peek-text">' +
-    text +
-    "</span></a>"
-  );
-}
-
-/** Append the next batch of matches into the peek, update the pager. */
-function peekRenderBatch(peekEl, entry, q, bookCode) {
-  var items = peekEl.querySelector(".lib-peek-items");
-  var moreBtn = peekEl.querySelector(".lib-peek-more");
-  if (!items) return;
-  var batch = entry.matches.slice(entry.pos, entry.pos + PEEK_BATCH);
-  entry.pos += batch.length;
-  var html = "";
-  for (var i = 0; i < batch.length; i++) {
-    html += peekItemHTML(entry, q, bookCode, batch[i]);
-  }
-  items.insertAdjacentHTML("beforeend", html);
-  if (moreBtn) {
-    if (entry.pos >= entry.matches.length) {
-      moreBtn.style.display = "none";
-    } else {
-      moreBtn.style.display = "";
-      moreBtn.textContent = fillTemplate("libShowNext", {
-        n: Math.min(PEEK_BATCH, entry.matches.length - entry.pos),
-      });
-    }
-  }
-}
-
-/** Load + render the first peek batch into an open peek. */
-function openPeek(root, bookCode, q) {
-  var peek = root.querySelector(".lib-peek");
-  var items = peek.querySelector(".lib-peek-items");
-  var moreBtn = peek.querySelector(".lib-peek-more");
-  if (moreBtn) moreBtn.style.display = "none";
-  if (items.childElementCount > 0) return; // already rendered (collapse/re-open)
-  items.innerHTML = '<div class="lib-peek-loading">' + t("libSearching") + "</div>";
-  peekEnsureData(bookCode, q)
-    .then(function (entry) {
-      if (!root.classList.contains("peek-open")) return; // closed while loading
-      entry.pos = 0;
-      items.innerHTML = "";
-      peekRenderBatch(peek, entry, q, bookCode);
-    })
-    .catch(function () {
-      if (!root.classList.contains("peek-open")) return;
-      items.innerHTML =
-        '<div class="lib-peek-loading">⚠️ Error: Failed to load the book. ' +
-        '<button class="retry-btn" data-peek-retry="1">↺ Retry</button></div>';
-      var retryBtn = items.querySelector("[data-peek-retry]");
-      if (retryBtn)
-        retryBtn.addEventListener("click", function () {
-          items.innerHTML = "";
-          openPeek(root, bookCode, q);
-        });
-    });
-}
-
-function togglePeek(root, bookCode, q) {
-  var peek = root.querySelector(".lib-peek");
-  var toggle = root.querySelector(".lib-peek-toggle");
-  var open = root.classList.toggle("peek-open");
-  if (toggle) toggle.textContent = open ? "▴" : "▾";
-  if (open) {
-    peek.style.display = "";
-    openPeek(root, bookCode, q);
-  } else {
-    peek.style.display = "none";
-  }
-}
+// The peek machinery is shared with the search window and the reader's
+// All-books tab — see src/js/library-peek.js.
 
 /** Render grouped-by-book results into the results area — one compact row
- *  per book (the reader's All-books language), each with the page-only
- *  expandable peek. */
+ *  per book (the reader's All-books language), each with an expandable
+ *  peek. */
 function renderResults(results, q, info, narrowed, scopeCount) {
   if (!results || results.length === 0) {
     showScopedEmpty(info, narrowed, scopeCount);
@@ -692,26 +533,11 @@ function renderResults(results, q, info, narrowed, scopeCount) {
   el.results.innerHTML =
     allBooksQueryNote(info) +
     '<div class="lib-results">' +
-    buildBookRowsHTML(results, q, _bookNames, true) +
+    buildBookRowsHTML(results, q, _bookNames) +
     "</div>";
 
   // Wire peek toggles + paging (rows are static HTML at this point)
-  el.results.querySelectorAll(".lib-result").forEach(function (root) {
-    var bookCode = root.dataset.book;
-    var peekQ = root.dataset.q;
-    var toggle = root.querySelector(".lib-peek-toggle");
-    if (toggle)
-      toggle.addEventListener("click", function () {
-        togglePeek(root, bookCode, peekQ);
-      });
-    var more = root.querySelector(".lib-peek-more");
-    if (more)
-      more.addEventListener("click", function () {
-        var entry = _peekCache[bookCode] && _peekCache[bookCode][peekQ];
-        if (entry)
-          peekRenderBatch(root.querySelector(".lib-peek"), entry, peekQ, bookCode);
-      });
-  });
+  wirePeeks(el.results);
 }
 
 // ── Search window (library mode) ─────────────────────────────
@@ -771,8 +597,8 @@ function renderWindowHistory() {
   renderWindowHistorySection();
 }
 
-/** Render the window's search results — the same compact one-line rows as
- *  the page and the reader's All-books tab (no peek: the page owns it). */
+/** Render the window's search results — the same compact one-line rows and
+ *  the same expandable peek as the page and the reader's All-books tab. */
 function renderWindowResults(results, q, info, narrowed, scopeCount) {
   _winLastQ = q;
   _winLastResults = results;
@@ -807,6 +633,7 @@ function renderWindowResults(results, q, info, narrowed, scopeCount) {
   }
   winResults.innerHTML = html;
   winResults.style.display = "";
+  wirePeeks(winResults);
   var widen = winResults.querySelector(".search-widen-btn");
   if (widen) widen.addEventListener("click", function () { widenWindowScope(); });
   // The keyboard hint appears with the rows; the no-matches line hides it
@@ -900,6 +727,22 @@ async function init() {
   el.history = document.getElementById("searchHistoryDropdown");
   el.clearBtn = document.getElementById("libSearchClear");
   if (!el.input) return;
+
+  // The open peek's line sticks under the sticky panel on this page; its
+  // offset is the panel's live height (chips wrap, focus mode collapses the
+  // tag row, language/font settings resize it). A ResizeObserver covers all
+  // of them; the window host sticks at its scrollport top and never reads it.
+  var panel = document.getElementById("libPanel");
+  if (panel && window.ResizeObserver) {
+    var syncPeekOffset = function () {
+      el.results.style.setProperty(
+        "--lib-peek-panel-h",
+        panel.getBoundingClientRect().height + "px"
+      );
+    };
+    syncPeekOffset();
+    new ResizeObserver(syncPeekOffset).observe(panel);
+  }
 
   initScopePicker({
     onScopeChange: applyScopeChange,

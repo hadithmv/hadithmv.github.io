@@ -1,7 +1,7 @@
 // Library-search battery: the book-scope picker (?books= + the picker
 // modal, S1-S10) and the unified search window on the library page
-// (S11: open, focus, rows-only results, scope modal stacked on the window,
-// scoped re-run, Escape-by-layer). S12 pins the result-row chrome in the
+// (S11: open, focus, rows + the shared peek, scope modal stacked on the
+// window, scoped re-run, Escape-by-layer). S12 pins the result-row chrome in the
 // Dhivehi layout (one title line, no card triad, the muted author suffix
 // inside the title lane, the tag row keeps the shared flex gap). S13 pins
 // all-books prefix matching end-to-end: a derived stem
@@ -629,8 +629,9 @@ async function main() {
       winInit.scopeShown && winInit.viewGone && winInit.optsHidden, JSON.stringify(winInit));
     check("S11 window inherits the page query", winInit.query === Q, winInit.query);
 
-    // One-line rows render — the window's own (no peek toggles; the page
-    // owns those), and no card wrapper anywhere in the window.
+    // One-line rows render — every surface carries the shared ▾ peek now
+    // (library-peek.js), one .lib-result wrapper per row, and no card
+    // wrapper anywhere in the window.
     await waitFor(`document.querySelectorAll('#searchWindowResults .search-window-book-link').length > 1`, 15000);
     const rows = await evalJS(`(function () {
       var r = document.getElementById('searchWindowResults');
@@ -641,12 +642,28 @@ async function main() {
         rc: (document.getElementById('searchWindowCount') || {}).textContent || null,
       };
     })()`);
-    check("S11 result rows render in the window", rows.n > 1 && rows.cards === 0 && rows.peeks === 0, JSON.stringify(rows));
+    check("S11 result rows render in the window", rows.n > 1 && rows.cards === rows.n && rows.peeks === rows.n, JSON.stringify(rows));
     check("S11 window count header", rows.rc !== null && /\d/.test(rows.rc), rows.rc);
     check("S11 no card/list toggle in the window",
       await evalJS(`document.getElementById('searchWindowView') === null &&
         document.getElementById('searchWindowViewCard') === null &&
         document.getElementById('searchWindowViewList') === null`));
+    // ▾ opens the shared peek in the window; its line pins (sticky) while
+    // the snippets scroll, and only one peek stays open at a time.
+    await evalJS(`document.querySelector('#searchWindowResults .lib-peek-toggle').click()`);
+    check("S11 peek opens in the window", await waitFor(`(function () {
+      var r = document.querySelector('#searchWindowResults .lib-result');
+      return r && r.classList.contains('peek-open');
+    })()`, 5000));
+    check("S11 peek line pins", (await evalJS(`(function () {
+      var l = document.querySelector('#searchWindowResults .lib-result.peek-open > .lib-result-line');
+      return l ? getComputedStyle(l).position : null;
+    })()`)) === 'sticky');
+    check("S11 peek renders snippets", await waitFor(
+      `document.querySelectorAll('#searchWindowResults .lib-peek-item').length > 0`, 30000));
+    await evalJS(`document.querySelectorAll('#searchWindowResults .lib-peek-toggle')[1].click()`);
+    check("S11 peek is single-open", await waitFor(
+      `document.querySelectorAll('#searchWindowResults .lib-result.peek-open').length === 1`, 5000));
 
     // window → page hop: a NEW term typed in the window applies to the page
     // in place — the page input, its row list and the URL all take it over,
@@ -814,6 +831,24 @@ async function main() {
       };
     })()`);
     check("S11 page behind intact", pageIntact.cards > 1 && pageIntact.count.length > 0, JSON.stringify(pageIntact));
+
+    // The page host's pinned line sits under the live-height sticky panel —
+    // library-search-page.js sets --lib-peek-panel-h from a ResizeObserver.
+    await evalJS(`document.querySelector('#libResults .lib-peek-toggle').click()`);
+    const pagePin = await evalJS(`(function () {
+      var l = document.querySelector('#libResults .lib-result.peek-open > .lib-result-line');
+      var p = document.getElementById('libPanel');
+      if (!l) return null;
+      var s = getComputedStyle(l);
+      return {
+        pos: s.position,
+        top: parseFloat(s.top),
+        want: p.getBoundingClientRect().height + parseFloat(getComputedStyle(p).top),
+      };
+    })()`);
+    check("S11 page peek line pins under the panel",
+      pagePin && pagePin.pos === 'sticky' && Math.abs(pagePin.top - pagePin.want) < 1,
+      JSON.stringify(pagePin));
 
     // Mobile geometry — the ≤600px collapse: the side pane stacks above the
     // main pane at full modal width.
