@@ -517,7 +517,9 @@ Canon Quick Menu
 Canon Wi-Fi Connection Assistant
 Chrome Remote Desktop
 Chrome Remote Desktop Host
+Claude Code
 Cloudflare One Client
+Codex
 Copilot
 CrystalDiskInfo 9.8.0
 CrystalDiskMark 9.0.2
@@ -2317,6 +2319,11 @@ yandeu.five-server
 yzane.markdown-pdf
 yzhang.markdown-all-in-one
 zh9528.file-size
+
+<!--  -->
+
+claude code
+codex
 
 ---
 
