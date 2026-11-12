@@ -25,8 +25,7 @@ when the trigger names the code you touched. Counts are the `N / N checks passed
 line from a passing run on 2026-11-12; times are wall-clock on this
 development machine (warm disk, headless Edge) and vary with load. The
 eight together are a ~5-minute gate, and streaming alone is ~3½ minutes —
-it is the lever if the pre-commit run ever needs to be faster. Scans print
-coverage counts instead of check totals.
+it is the lever if the pre-commit run ever needs to be faster.
 
 Running the eight through toolbox option 9 writes `checks-report.md`
 (codebase root, gitignored): per-check PASS/FAIL/SKIP with its own time,
