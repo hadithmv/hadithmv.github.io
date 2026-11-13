@@ -802,6 +802,11 @@ ShareX
 - sumatrapdf
   - settings, theme, dark
 
+- laravel herd
+  - install helper service: grant access
+  - launch at login: off
+  - heard studio: enable
+
 <!-- ! sep  -->
 
 - 7 zip manager
