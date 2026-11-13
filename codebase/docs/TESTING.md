@@ -45,10 +45,29 @@ gives the same output in the terminal, without the report.
 | 7. Streaming | `tools/hmv-stream-check.mjs` | 87 | ~3½ min | CSV stream parser, big-book load UX, content-modal column loads |
 | 8. Font coverage | `tools/hmv-font-subset.py --check` | 323 cps / 754 glyphs | ~4 s | After adding any characters (book, notes, i18n, export/CSS text) |
 | **Specialist** | | | | |
+| Integrity baseline | `tools/hmv-integrity-check.mjs` | 0 failures / 0 warnings | ~2 s | After any data/registry/index change — frozen Quran set, append-aware row counts, index freshness |
 | RDF / merged book | `tools/hmv-rdf-check.mjs` | 64 | ~27 s | `radheef-merge.js`, reader infinite-scroll/goTo, progress/milestones, RDF filter, `formatThousands` |
 | Search-index shards | `tools/hmv-shards-check.mjs` | 38 | ~9 s | `08-rebuild-searchIndex.mjs`, the shard format/manifest, `library-search-engine.js` |
 | Header coverage | `tools/hmv-header-scan.mjs` | 82 files / 74 headers | ~1 s | Optional: see which picker labels are still raw (uncurated headers are fine) |
 | Word golden capture | `tools/hmv-golden-capture.mjs` | — (capture) | — | Before export-affecting changes; recaptures `tools/golden/reader-word.doc` |
+
+## Integrity baseline
+
+`tools/hmv-integrity-check.mjs` compares the repo against the committed
+`data/integrity-baseline.json`. **Frozen** (FAIL on change): the two
+canonical Quran text books, `05` surahs, `06` juz, `07` QRN columns, and
+`01-registry-bookTags.csv` (row order = palette slots). Every book also
+carries its data-row count and a prefix hash: a pure append is INFO, while a
+change/insert/delete inside the old rows is WARN for ordinary books and
+FAIL for QRN books (their rows merge into the 6,236-slot skeleton by index,
+so a shift puts translations under the wrong ayahs). Structural checks cover
+the surah/juz math, the DATA books' 6,236 non-empty rows, registry ↔ file ↔
+version parity, and CSV hygiene; search-index freshness compares the
+manifest's `meta.sourceVersions` with the files on disk and each shard file
+with `meta.shards`. Editing cells, filling placeholder rows and appending
+chapters trigger nothing. `--update` re-records the baseline — only after
+reading the diff it prints; that diff is the audit trail for a deliberate
+frozen change.
 
 ## Battery details
 

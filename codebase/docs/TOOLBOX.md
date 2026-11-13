@@ -134,10 +134,12 @@ when nothing else is moving.
    SKIP row when python is missing)
 
 Deliberately **not** in this run: the specialist batteries —
-`tools/hmv-shards-check.mjs` (search-index shards + scope-aware loader) and
-`tools/hmv-rdf-check.mjs` (the RDF merged-book reader paths) — plus the
-one-area utilities `tools/hmv-header-scan.mjs` (optional picker-label audit —
-unmapped headers show their raw identifier by design) and
+`tools/hmv-shards-check.mjs` (search-index shards + scope-aware loader),
+`tools/hmv-rdf-check.mjs` (the RDF merged-book reader paths), and the
+integrity baseline check `tools/hmv-integrity-check.mjs` (frozen Quran set,
+append-aware row-count drift, index freshness — ~2 s, no browser) — plus
+the one-area utilities `tools/hmv-header-scan.mjs` (optional picker-label
+audit — unmapped headers show their raw identifier by design) and
 `tools/hmv-golden-capture.mjs`. Run them by hand when their area changes;
 `TESTING.md` → "Batteries at a glance" lists the triggers, counts, and
 runtimes.

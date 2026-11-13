@@ -1,0 +1,342 @@
+{
+  "note": "Hadithmv integrity baseline. Frozen entries are full SHA-256 of the LF bytes GitHub Pages serves; books carry data-row counts plus a prefix hash (header + first N rows). Regenerate deliberately with: node tools/hmv-integrity-check.mjs --update",
+  "version": 1,
+  "frozen": {
+    "data/01-registry-bookTags.csv": "2faa1230379a3fab7666704c7a7ec7dd0da4e9e2987e8b3574cfa54f3b8c8f3b",
+    "data/05-registry-quranSurahs.csv": "d7a7d6243f2fe3d996bcc4bf9b6d34881cd9dbeeb1c42eb010413acb4b254acc",
+    "data/06-registry-quranJuz.csv": "fbdd2b6780e53a334e0c0269f12aebcdb1153da252dc5a15c33e100a24ce8045",
+    "data/07-registry-quranColumns.csv": "19e3b4a72debf25413765bb873c0de967fe74a1c298b25733406d3c452cf8669",
+    "data/content/QRN-DATA-ayahImlai.csv": "f52c6269cfd47fda48df0cf91b7891606564ce4b223dd2f1b60d4ae2f222b249",
+    "data/content/QRN-DATA-ayahUthmani.csv": "756308c8cfafd5d9dbfa8d60951610b06002a01bf699f589826d46009be56d5e"
+  },
+  "books": {
+    "AQD-aqidatuNawawi-HDN": {
+      "rows": 115,
+      "prefix": "c80b018580c482ac96ace57fd60f4792323299030a4d355ca891aea084d7ad4c"
+    },
+    "AQD-aqidatuRaziyain_ASM": {
+      "rows": 53,
+      "prefix": "4fa5efb3899eefb4b94ada9082250e717f312d1c9f16a5cd8e8534e90acf57cf"
+    },
+    "AQD-aqidatuRaziyain_HMV": {
+      "rows": 42,
+      "prefix": "7a66bfcc7e373fce840644624494e7e7aa0fc3b56c2efd763475a829359072aa"
+    },
+    "AQD-nawaqidulIslam": {
+      "rows": 10,
+      "prefix": "ea2b3f43a7dd5bd1eca7ddc07a3d43cbbaa852bbaf64b7a78b81bb916bb00a75"
+    },
+    "AQD-qawaidulArbau": {
+      "rows": 4,
+      "prefix": "d8d733422f2af0b4f34826709e1a927f23cb827d5d5961d5f523bb377e1db2a2"
+    },
+    "AQD-sharhuSunnahBarbahari_HMV": {
+      "rows": 156,
+      "prefix": "c26d7963f77383742463c5fac6f958a8962437cfafa69c125af916222858c455"
+    },
+    "AQD-sharhuSunnahLilMuzani_ASM": {
+      "rows": 25,
+      "prefix": "22f869795686a91292459e8622117201c2e264bf5b51d5c3af782332228e3487"
+    },
+    "AQD-usooluSiththa": {
+      "rows": 6,
+      "prefix": "bf73b0451d0611994f6b89d505d8ef6a7adf43c65638fcdfccc7b779cdf7ae37"
+    },
+    "AQD-usooluSunnahAhmed": {
+      "rows": 70,
+      "prefix": "751926b39af87e74aff6bafb88594d451ca0881be97faf40e66e29629f039111"
+    },
+    "AQD-usooluSunnahLilHumaidi_ASM": {
+      "rows": 13,
+      "prefix": "417a20fd1aa1e76d127606c6c92de3f4e92c0c72fbae742039552e99ba4b1e22"
+    },
+    "AQD-usooluThalaatha": {
+      "rows": 18,
+      "prefix": "f105c9f83d3630dce96f3d51d8bc9dc45ce77ce4bc0c2381ac6755c10a11f63e"
+    },
+    "DFK-akhbaruShuyukh": {
+      "rows": 390,
+      "prefix": "7b9382527d18014548869e791b759ada3b11e2a8446bbdd6ddb7f3f820d4f3af"
+    },
+    "DFK-akhlaqHamalathilQuran": {
+      "rows": 125,
+      "prefix": "f66fd2c7bfbe8e2e44d1e028ca5a520f379a9fed1913aef0c4db05b02ad6fc98"
+    },
+    "DFK-aqidatuSalafSoabuni": {
+      "rows": 140,
+      "prefix": "3cb3790acd9c01d776e78edf35640425e4576f4b924a4641477239d1cd9bc8d2"
+    },
+    "DFK-intisarLiAshabilHadith": {
+      "rows": 81,
+      "prefix": "e80e2a5d3ef986ab68d89b0d7da51b07258ba66975ad60548b4ef9caec55b8df"
+    },
+    "DFK-kalimathulIkhlas": {
+      "rows": 62,
+      "prefix": "b50954b6a0947951c1f6fe87802014fb600799ff7468a9953fb19d0efa15565c"
+    },
+    "DFK-kitabulEmanAbiUbaid": {
+      "rows": 149,
+      "prefix": "1cd4d5001d7d449a86e6804642d5cacb086d9ae0e7aa8955f7c134d2c05c7b44"
+    },
+    "DFK-kitabulIlmAbiKhaithama": {
+      "rows": 168,
+      "prefix": "ca212b788721709437586a6b4fb271c224c3ef5bbf185219bee89234c9e562ba"
+    },
+    "DFK-sharhuSunnahBarbahari": {
+      "rows": 156,
+      "prefix": "8ca40a84f95901477e43fcc3e67f3ae837d86aa7d685b194460714c0e046c9a7"
+    },
+    "DFK-talkhisKitabiShariah": {
+      "rows": 141,
+      "prefix": "834d9c3d6ebcec05c1487ec2b9d9c82f9dd7e7ac2e714bea6a48c7576ba163fe"
+    },
+    "DFK-tauzimullahiWaHukmuShathimih": {
+      "rows": 30,
+      "prefix": "96aa0df37485a1d90c7c7045f59012e5887b766a2fb909952314fd7070c5e230"
+    },
+    "HDT-HBK-adabulMufrad": {
+      "rows": 32,
+      "prefix": "32412eb43b5e9c66b2c65b7b12dd68bc2aad12c8689f50fc37c9afe2ca5ac0b6"
+    },
+    "HDT-HBK-jamiuTirmidhi": {
+      "rows": 164,
+      "prefix": "47084275f837b714444a2deaa1ded926889366f18e3c73e474e90d7f2340e50a"
+    },
+    "HDT-HBK-musnadAhmed": {
+      "rows": 98,
+      "prefix": "8f4c4cf6fe0885869b07fd7e4eeaf7fc868a51b7163702204645da65bc1dc534"
+    },
+    "HDT-HBK-sahihBukhari": {
+      "rows": 586,
+      "prefix": "a8489bda7f964e8bf2d970d44fcc6bd2b8fd1c4747fdb6bd0b826b2abe847b7a"
+    },
+    "HDT-HBK-sahihMuslim": {
+      "rows": 411,
+      "prefix": "4dfc5a6f3061259ec4de3e528e0e6ebc7061f2fff68cd723651bdfe01aad1042"
+    },
+    "HDT-HBK-sunanAbiDawud": {
+      "rows": 125,
+      "prefix": "e18947f3af437591be16cec446cb9de4aa7fe04f1a3ac7535f443d79af3cc41e"
+    },
+    "HDT-HBK-sunanIbnMajah": {
+      "rows": 68,
+      "prefix": "2ca1857ce0b306f921434ee1627e4e55ec74c3feda956da97b0aa0683f97451b"
+    },
+    "HDT-HBK-sunanNasai": {
+      "rows": 46,
+      "prefix": "391c3180d651e119cce1a0b9e427c2349d32cade810f28c5581aa622871b792e"
+    },
+    "HDT-HMSC-kutubAlbani": {
+      "rows": 29,
+      "prefix": "075ea7e79bf53a68d508807f32eec5769aa00a0d0490fdd6b06e9ca92ce3e8ef"
+    },
+    "HDT-arbaoonAajurry": {
+      "rows": 41,
+      "prefix": "b7752661fb6599b0b684e47c2ca842c13518b5975508a27dc14a144a331db1b6"
+    },
+    "HDT-arbaoonNawawi": {
+      "rows": 50,
+      "prefix": "28d83c5c05855b1d9c9fcbf3577145d79a015d092290ba4cd833b3f0c7c2a810"
+    },
+    "HDT-bulughulMaram": {
+      "rows": 200,
+      "prefix": "e234ca143122c2613363caa99a0704ea6be6cc91fe77d694fccd32760cde9557"
+    },
+    "HDT-bulughulMaram-FULL-HDN": {
+      "rows": 1726,
+      "prefix": "d220daf04f8979d365694fc05ff8db2e3d9daf65958a1995ec63dad3057c7b55"
+    },
+    "HDT-misc": {
+      "rows": 175,
+      "prefix": "f921c64ba6afec03282ae934afc91d9243727ffda7cb5fc13af87e42928d7f09"
+    },
+    "HDT-muwattaMalik": {
+      "rows": 2861,
+      "prefix": "14217e574a9e9fd499ac6f848cdc2710366a952e99d44cf2d7c39e14727d74e6"
+    },
+    "HDT-umdathulAhkam": {
+      "rows": 414,
+      "prefix": "df3783239dcdba588105f22b430b448db33d5c61e69afcd2c60c52409aff44bf"
+    },
+    "IH-dhuroosMuhimmahLiAammathilUmmah": {
+      "rows": 206,
+      "prefix": "3023c20fbd190a43e63cc4e469e9c08eb817ed5d5ff88cdd7d21abdc01c15a9e"
+    },
+    "IH-fadailWaAadabulMasjidiNabawi": {
+      "rows": 164,
+      "prefix": "0c5e41299d9e4586990356634e69e04517e613ca183ee95a8b8db454b209f0ac"
+    },
+    "IH-hirasathuTauhid_10_tahzeerMinBinailMasajidAlalQubur": {
+      "rows": 24,
+      "prefix": "6124d47771f48f49d5d1b5504d9fa62d3d3770e03210247432cda0e2da685ca0"
+    },
+    "IH-hirasathuTauhid_11_dafnulMauthaFilMasajid": {
+      "rows": 13,
+      "prefix": "1489054ad97cd005e38a43b973d3e3c40b6472bb88649b596f781508f3f3fe3b"
+    },
+    "IH-hirasathuTauhid_12_bayanKufriWaDalalilKhurujAniShariah": {
+      "rows": 91,
+      "prefix": "c84dc396d393f38a5570ba6a7a5ed83615b5a3a6b646a05f45b9ca2b85b39b60"
+    },
+    "IH-hirasathuTauhid_1_aqidahSahihah": {
+      "rows": 286,
+      "prefix": "fd093c8f0eeb50a480f0e2ba27f736f2887a1e9a435140a26bcb07b10fbbddcf"
+    },
+    "IH-hirasathuTauhid_2_istighathahBiNabiy": {
+      "rows": 473,
+      "prefix": "233d94a4d7d9cc52cc32b79b091b25ba63ea5d58f1874276df2d507ceffe0ee2"
+    },
+    "IH-hirasathuTauhid_5_tahzeerMinalBidai": {
+      "rows": 270,
+      "prefix": "4308ceae8be5e8ddedfd4b2c32326e7425b983bc29c369f9dcf5bccc5e9e34ba"
+    },
+    "IH-hirasathuTauhid_9_hukmuSihrWalKahanah": {
+      "rows": 109,
+      "prefix": "c3b0f5ccd28a4087f5967946309644e40c791e13cd333088d7381dc626dc74d3"
+    },
+    "IH-hisnulMuslim": {
+      "rows": 1291,
+      "prefix": "72d6997b1174047aa3c6c3aeed8157f6cc19b4a45dd00a9dd342892a56b3fb83"
+    },
+    "IH-huquqDaathIlaihalFitrah": {
+      "rows": 101,
+      "prefix": "33fc92cf612eb816cb88656ff300ad5e09c16025919c0678b34b34cdb49bf4fc"
+    },
+    "IH-islamDeenRusulullah": {
+      "rows": 10,
+      "prefix": "6924975d44e8fd7a070a491fd5e1511a1341d2c8327fab8c23a180dedf094c2a"
+    },
+    "IH-islamDeenulFitrah": {
+      "rows": 10,
+      "prefix": "701ad1ec4e4e794ae235c19f51af58d8dc1fd75e2f89d27bec0e6fb83fd62a71"
+    },
+    "IH-kaifiyyathuSalatiNabiy_IbnBaz": {
+      "rows": 96,
+      "prefix": "57938f813ed05a4e82e15f60dedf4e2ee91d17b5a80739683665d6197da91ca7"
+    },
+    "IH-manKhalaqaniWaLimaza": {
+      "rows": 23,
+      "prefix": "46e22db58fc5b4869959c627e0ab6ed63b591d1ce9057d0f7a3f5a6d70c0157a"
+    },
+    "IH-mausooathulHadith-HDT": {
+      "rows": 3,
+      "prefix": "504ae1684c9c58ed050838103343f0a2e166147a320b6032d3d3d61c79889665"
+    },
+    "IH-mukhtasarFiSifathilUmrah": {
+      "rows": 127,
+      "prefix": "1bea7643a21927a234a043ccd49fcc2fbde46814eb15721a5bb927da4f845ea1"
+    },
+    "IH-mukhtasarTauhidilAsmaWaSifat": {
+      "rows": 18,
+      "prefix": "da7532bd42034fac5844b7279d2bc06b51991c1e21995f979a30fe4638cf1c32"
+    },
+    "IH-nubzaMujazahAnilIslam": {
+      "rows": 12,
+      "prefix": "2b0bbe84662dee99849815b9bc765322f10402cc769f32e6eebf4240475f72ac"
+    },
+    "IH-rasoolulIslamMuhammad": {
+      "rows": 50,
+      "prefix": "8cb0df97bf9289153c87a1a70e890c2574de3961602bfe89b508d7f2d93b2f33"
+    },
+    "IH-risalaFiDimaiTabiiyyah": {
+      "rows": 495,
+      "prefix": "da021b211c61bf0d9f0c5f3f4789c29a074d4db5bcdcfa5c23f7111cc30b9122"
+    },
+    "IH-risalathaanMujizathainFiZakathiWaSiyam": {
+      "rows": 169,
+      "prefix": "2a38aa6e464e9806a0f8e3dd07ecb207c670ffccf31770107b00922550d2dd85"
+    },
+    "IH-usooluThalaatha": {
+      "rows": 269,
+      "prefix": "1dd36f490c005fbc31e0d49e236c1d7a48fa1fc19044b4e6dd64e1c285908a86"
+    },
+    "KNSH-hadithmv-DSC": {
+      "rows": 70,
+      "prefix": "197921c7b40495385c94fd9efb1e818576e47065b5ef77e3eaebe17089eb1b7d"
+    },
+    "KNSH-muhammedMaldheefi-DSC": {
+      "rows": 3427,
+      "prefix": "00faa934502f3141f84662d9244d3224f9e6990faff84f6bb6ac87047df87a48"
+    },
+    "QRN-DATA-ayahImlai": {
+      "rows": 6236,
+      "prefix": "cb625eb1a515b0356b2fdf41cdf4f8a768c63867508dcf61384a1f8368c0a6ef"
+    },
+    "QRN-DATA-ayahUthmani": {
+      "rows": 6236,
+      "prefix": "bc481cc35f850e7a01cc3feceaa549928cc5534ddb755e78f33e6eca21609f16"
+    },
+    "QRN-bakurube": {
+      "rows": 6236,
+      "prefix": "a4f84d971070a4bc416a68ced4510d6671d33a36c57f98a2aeb0e2feea44f277"
+    },
+    "QRN-hadithmv": {
+      "rows": 6236,
+      "prefix": "6b4a4be4740eaaa712305617f2d0d0e67fde4dd4723ccc0947236ef1e987ea02"
+    },
+    "QRN-jaufarFaiz": {
+      "rows": 6236,
+      "prefix": "08f1b356a1f5f0289fa9540d5497c8f264a94e46354e6b9a665c289c09eeafed"
+    },
+    "QRN-mukhtasarAR": {
+      "rows": 6236,
+      "prefix": "2bf74cca06f962e30f1693bcfed97c41c32ef5e516bb9ee6bf50028b4c7678f8"
+    },
+    "QRN-muyassarAR": {
+      "rows": 6236,
+      "prefix": "42dc8d0048feaa619dab4ce19076bc328e5e05a04f36a1eed660708c93c81367"
+    },
+    "QRN-rasmee-alt": {
+      "rows": 6236,
+      "prefix": "fdd96e84c45920381da35442ee30baa1aacddedcd3692d60c9457cc868cac844"
+    },
+    "QRN-rasmee-og": {
+      "rows": 6236,
+      "prefix": "6ef1b111eaf7da06e2a6744ab132d239f77096f576966f9a509b0f0ff2e39ba6"
+    },
+    "QRN-soabuniAshari-HDN": {
+      "rows": 6236,
+      "prefix": "b349934629930c950a06dfcd2af0590bcbc006e22d6efdccb29dfa2bf4c7cd5d"
+    },
+    "QRUL-ushrulAkhir-ahkamThahimmulMuslim": {
+      "rows": 183,
+      "prefix": "a434d438ac85cc2be447271dd8a9d6721779d7bbf7a4c363655ab61439b7d0c1"
+    },
+    "RDF-W2W-bakurube": {
+      "rows": 32537,
+      "prefix": "8873828286a34b699d5cead31b8f99752a3c899bd281d99c4ef335c675f9f738"
+    },
+    "RDF-ahmadFahmyDidi": {
+      "rows": 682,
+      "prefix": "54b9964a08650b7bafe7829c401f83c66aa80e0cfcce451eee414dc4459326a6"
+    },
+    "RDF-asmaullahilHusna": {
+      "rows": 110,
+      "prefix": "fcc60d7e2f409eb15e117b1aef538eedd8636c0bb9b93a13627f2c807d4bc50f"
+    },
+    "RDF-eegaal": {
+      "rows": 13376,
+      "prefix": "b8c5799883636315dc89dba77a509f3b6ce3d6403e2cad008aa678441dc93b79"
+    },
+    "RDF-hassanAhmedManiku": {
+      "rows": 2231,
+      "prefix": "205e725435f897eb019a036dc39741ecc4a86d1332d6856c3f6f2372436be0d4"
+    },
+    "RDF-misc": {
+      "rows": 41051,
+      "prefix": "c8627ccafa2a53516a3e4f66f3762c3921a8d203ae4e0e7a56bad6999e3dda18"
+    },
+    "RDF-nanfoiyComb": {
+      "rows": 8784,
+      "prefix": "10d6d070bca5e3ac573a04c24445651ee052b6e7dc80dec7f112987516deaa47"
+    },
+    "RDF-rasmee": {
+      "rows": 53841,
+      "prefix": "18d7d69f99502c6096104e743ad5aba48ade56d645b2b8d43faa6967dea93aed"
+    },
+    "ZKR-hisnulMuslim": {
+      "rows": 267,
+      "prefix": "b26fcc2608cb2ad97c7174363ec13009babb076bd88587b11f18bd3fd4e6dd31"
+    }
+  }
+}

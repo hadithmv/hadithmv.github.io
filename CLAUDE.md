@@ -54,6 +54,12 @@ GitHub Pages. All code, data, and docs live in `codebase/`.
 
 Run these before declaring work done (from `codebase/`):
 
+- `node tools/hmv-integrity-check.mjs` — the committed integrity baseline
+  (`data/integrity-baseline.json`): frozen canonical Quran text + structure
+  registries + tag-registry order, append-aware book row counts, registry ↔
+  file version parity, CSV hygiene, and search-index freshness. Run after
+  any data change; `--update` only to accept a frozen change deliberately
+  (the baseline diff it writes is the audit trail).
 - `node tools/hmv-qrn-smoke.mjs` — headless-Edge smoke battery over the QRN
   reader (paths/ports are in the script header; needs Microsoft Edge).
 - `node tools/hmv-info-check.mjs` — info-modal battery (title/author entry

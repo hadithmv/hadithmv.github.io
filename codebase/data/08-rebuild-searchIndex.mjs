@@ -18,7 +18,8 @@
  *    flat { word: "packed-row-ranges" } dict (the book's postings only; the
  *    numeric bookId is its position in the manifest's meta.bookIds).
  *  - data/search-index-manifest.json — the MANIFEST: meta only (version, bookIds,
- *    counts, and the per-book shard hashes). The client fetches the manifest
+ *    counts, the per-book shard hashes, and each shard's source content
+ *    version for the integrity check). The client fetches the manifest
  *    first, then only the shards for the books it searches — a scoped search
  *    never downloads the whole corpus, and the scope picker reads the
  *    manifest alone (~2 KB instead of the old ~16 MB file).
@@ -34,6 +35,7 @@ import { performance } from "node:perf_hooks";
 import { fileURLToPath } from "node:url";
 import { parseCSV } from "../src/js/csv.js";
 import { normaliseForSearch } from "../src/js/search-utils.js";
+import { contentVersionBytes } from "../tools/hmv-content-version.mjs";
 // Same tokeniser the query side uses (src/js/library-search-engine.js) — build
 // and query MUST agree on what a word is, or lookups would silently miss.
 import { tokenizeText } from "../src/js/library-search-engine.js";
@@ -51,6 +53,7 @@ const bookPostings = {}; // bookCode → posting count (for the report)
 const colPostings = {}; // bookCode → { column → posting count } (for the report)
 const reportEntries = []; // per-book rows for data/search-index-report.md
 const reportWarnings = []; // build warnings, mirrored into the report file
+const sourceVersions = {}; // bookCode → content version the shard was built from
 let booksScanned = 0;
 let rowsScanned = 0;
 let wordsIndexed = 0;
@@ -90,7 +93,8 @@ for (const entry of registryRows.slice(1)) {
   // not formatting. Keep those rows so postings' row numbers match the reader's
   // merged table, which keeps them via the same flag (loadQuranBookCSV).
   const isQRN = bookCode.indexOf("QRN-") === 0;
-  const rows = parseCSV(fs.readFileSync(csvPath, "utf8"), isQRN);
+  const csvBuf = fs.readFileSync(csvPath);
+  const rows = parseCSV(csvBuf.toString("utf8"), isQRN);
   if (rows.length === 0) continue;
   const csvHeader = rows[0];
   const dataRows = rows.slice(1);
@@ -111,6 +115,11 @@ for (const entry of registryRows.slice(1)) {
     excludedEntries.push({ code: bookCode, rows: dataRows.length });
     continue;
   }
+  // Stamp the manifest with the exact content version this shard is built
+  // from, independent of the registry's copy (a stale registry is a separate
+  // problem, and must not mask a stale index). The integrity check compares
+  // these stamps with the files on disk.
+  sourceVersions[bookCode] = contentVersionBytes(csvBuf);
   if (excludedList) {
     booksWithExclusions++;
     for (const name of excludedList) {
@@ -286,6 +295,11 @@ const meta = {
   excluded: booksExcluded, // books skipped via excludeFromIndex: ENTIRE-BOOK
   rows: rowsScanned,
   words: uniqueWords,
+  // Per-book content version (LF bytes, first 12 hex) this build read. Not
+  // part of meta.version: it gates freshness, not the client's shard cache
+  // (the shard hashes do that) — a content edit that leaves postings
+  // identical must not bust the cached shards.
+  sourceVersions: sourceVersions,
   shards: shardHashes,
 };
 meta.version = crypto

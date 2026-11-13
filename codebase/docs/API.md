@@ -384,7 +384,7 @@ Cross-book search: loads the machine-generated word index — a small manifest (
 
 ### `loadIndexMeta()`
 
-Returns `Promise<meta>` — the manifest's `{version, built, bookIds, books, excluded, rows, words, shards}`. Fetched with a conditional request (`cache: "no-cache"` → a cheap 304 when unchanged; ~2 KB to parse — a full `JSON.parse`, no head-parsing tricks). Memoized; cleared on failure so retries work. **Offline fallback**: if the fetch throws (network down — the SW never caches the index, so a failed fetch is real), the stored on-device record's `meta` is served as-is — it was validated against `meta.version` when stored; a pre-shard record (no `shards` field) can't resolve shard versions, so it is stale and the original throw stands. The next successful load re-stores a complete record.
+Returns `Promise<meta>` — the manifest's `{version, built, bookIds, books, excluded, rows, words, sourceVersions, shards}`. `sourceVersions` maps each indexed book to the content version its shard was built from; `tools/hmv-integrity-check.mjs` uses it (with `meta.shards`) to flag a stale index without re-tokenizing anything. Fetched with a conditional request (`cache: "no-cache"` → a cheap 304 when unchanged; ~2 KB to parse — a full `JSON.parse`, no head-parsing tricks). Memoized; cleared on failure so retries work. **Offline fallback**: if the fetch throws (network down — the SW never caches the index, so a failed fetch is real), the stored on-device record's `meta` is served as-is — it was validated against `meta.version` when stored; a pre-shard record (no `shards` field) can't resolve shard versions, so it is stale and the original throw stands. The next successful load re-stores a complete record.
 
 ### `loadScopedIndex(scopeBookCodes?)`
 
