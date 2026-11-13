@@ -558,6 +558,7 @@ Java 8 Update 461 (64-bit)
 Java(TM) SE Development Kit 20.0.2 (64-bit)
 K-Lite Codec Pack 19.6.0 Standard
 LDPlayer
+Laravel Herd
 Logi Options+
 Logi Plugin Service
 Meld
