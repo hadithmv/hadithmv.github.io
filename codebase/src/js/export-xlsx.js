@@ -24,7 +24,7 @@ import { zipStore } from "./export-zip.js";
  * @param {string} [sheetName]    — sheet name (sanitised to 31 chars, special chars removed)
  * @returns {Blob}  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
  */
-export function createXLSX(rows, sheetName) {
+export function createXLSX(rows, sheetName, opts) {
   var enc = new TextEncoder();
 
   // 0→A, 1→B, … 25→Z, 26→AA …
@@ -66,6 +66,7 @@ export function createXLSX(rows, sheetName) {
     '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
     '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
     '<Default Extension="xml" ContentType="application/xml"/>' +
+    (opts && opts.provenance ? '<Default Extension="txt" ContentType="text/plain"/>' : '') +
     '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' +
     '</Types>';
 
@@ -75,13 +76,20 @@ export function createXLSX(rows, sheetName) {
     '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>' +
     '</Relationships>';
 
-  var zipped = zipStore([
+  var zipFiles = [
     { name: '[Content_Types].xml', data: enc.encode(ct) },
     { name: '_rels/.rels',       data: enc.encode(rootRels) },
     { name: 'xl/workbook.xml',   data: enc.encode(wb) },
     { name: 'xl/_rels/workbook.xml.rels', data: enc.encode(wbRels) },
     { name: 'xl/worksheets/sheet1.xml',  data: enc.encode(sheet) }
-  ]);
+  ];
+  if (opts && opts.provenance) {
+    zipFiles.push({
+      name: 'hadithmv.txt',
+      data: enc.encode(opts.provenance.url + "\n" + opts.provenance.line)
+    });
+  }
+  var zipped = zipStore(zipFiles);
 
   return new Blob([zipped], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 }

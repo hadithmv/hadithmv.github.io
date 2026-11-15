@@ -121,6 +121,9 @@ export function createEPUB(rows, meta, opts) {
     // The cover URL is a live link too (the title-page anchor in the HTML
     // builders) — href and text carry the same escaped string.
     + '<p class="cover-url"><a href="' + xmlEsc(opts.siteURL || "") + '">' + xmlEsc(opts.siteURL || "") + '</a></p>';
+  if (opts.qrSvg) {
+    cover += '<div class="cover-qr">' + opts.qrSvg + "</div>";
+  }
   if (opts.provenance) {
     cover += '<p class="cover-provenance" dir="ltr"><a href="' +
       xmlEsc(opts.provenance.url) + '">' + xmlEsc(opts.provenance.line) + '</a></p>';
@@ -155,6 +158,10 @@ export function createEPUB(rows, meta, opts) {
   }
   // CSS
   manifestItems += '<item id="css" href="styles.css" media-type="text/css"/>';
+  // Verify marker (auxiliary text part; not in the spine)
+  if (opts.provenance) {
+    manifestItems += '<item id="provenance" href="hadithmv.txt" media-type="text/plain"/>';
+  }
   // Font (if embedded)
   var hasFont = !!(opts.fontData && opts.fontData.length);
   if (hasFont) {
@@ -206,8 +213,10 @@ export function createEPUB(rows, meta, opts) {
     + '.cover-brand { font-size: 0.95rem; color: #999; margin: 0; }\n'
     + '.cover-url { font-size: 0.85rem; color: #aaa; margin: 0.2em 0 0; }\n'
     + '.cover-url a { color: inherit; text-decoration: none; }\n'
-    + '.cover-provenance { font-size: 0.72rem; color: #aaa; direction: ltr; margin: 0.3em 0 0; word-break: break-all; }\n'
+    + '.cover-provenance { font-size: 0.72rem; color: #aaa; direction: ltr; margin: 0.8em 0 0; word-break: break-all; }\n'
     + '.cover-provenance a { color: inherit; text-decoration: none; }\n'
+    + '.cover-qr { margin-top: 0.8em; }\n'
+    + '.cover-qr svg { width: 150px; height: 150px; }\n'
     + '/* Nav */\n'
     + 'nav ol { padding-right: 1.5em; }\n'
     + 'nav li { margin: 0.3em 0; }\n'
@@ -234,6 +243,12 @@ export function createEPUB(rows, meta, opts) {
   }
   if (hasFont) {
     zipFiles.push({ name: "OEBPS/fonts/hadithmv.woff2", data: opts.fontData });
+  }
+  if (opts.provenance) {
+    zipFiles.push({
+      name: "OEBPS/hadithmv.txt",
+      data: enc.encode(opts.provenance.url + "\n" + opts.provenance.line),
+    });
   }
 
   var zipped = zipStore(zipFiles);

@@ -122,6 +122,48 @@ body {
   color: var(--color-text);
 }
 
+.verify-book-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-bg, #fff);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+}
+
+.verify-content {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.verify-content:empty {
+  display: none;
+}
+
+.verify-diffs {
+  margin: 10px 0 0;
+  padding-inline-start: 20px;
+  color: var(--color-text);
+  font-size: var(--fs-muted, 0.9rem);
+  line-height: 1.7;
+}
+
+.verify-diffs li {
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.verify-content-note {
+  margin: 10px 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-muted, 0.9rem);
+  line-height: 1.6;
+}
+
 .verify-result {
   min-height: 80px;
   margin-top: 16px;

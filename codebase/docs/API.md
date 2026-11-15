@@ -33,12 +33,16 @@
 | `src/js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results |
 | `src/js/library-peek.js` | Cross-book result peeks: ▾ expand, per-book snippet batches, deep links — shared by the page, the window and the reader's All-books tab |
 | `src/js/library-scope-picker.js` | Book-scope picker: groups, chips, rail, default HDT scope |
-| `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export; the reader's title pages carry the provenance marker |
+| `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export; the reader's title pages carry the provenance marker + book-page QR |
 | `src/js/export-provenance.js` | Whole-book export marker: ASCII provenance line + verify URL builder |
 | `src/js/qr.js` | QR wrapper over the vendored encoder — `qrCreate`/`qrSvg`/`qrPngDataUrl` |
 | `src/js/qr-page.js` | QR tool page UI (live preview, error levels, SVG/PNG downloads) |
 | `src/js/vendor-qrcodegen.js` | Vendored Nayuki QR encoder (MIT) — compiled from the upstream TypeScript |
-| `src/js/verify-page.js` | Verify-export page: claim parser + registry freshness check |
+| `src/js/verify-page.js` | Verify-export page: claim parser + registry freshness check + content comparison wiring |
+| `src/js/verify-content.js` | Content comparison for text exports: structured parsers + rebuilt rich-export bodies |
+| `src/js/verify-pdf.js` | Tolerant PDF marker scan: verify link + Title/Producer in raw/Flate streams (body not inspected) |
+| `src/js/png-text.js` | PNG tEXt marker insert/read (no image decoding) |
+| `src/js/zip-read.js` | Store-only ZIP entry reader for the EPUB/XLSX `hadithmv.txt` marker |
 | `src/js/quran-data.js` | Quran pure data: loading, merging, decoration, structural derivation — lazy-loaded with quran-ui.js for QRN books only |
 | `src/js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel); dynamically imported by reader.js on QRN detection |
 | `src/js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
@@ -808,7 +812,7 @@ source: v0f2711a29294 - rows: 41
 
 ## qr.js
 
-The app's one entry point to the vendored QR encoder (`src/js/vendor-qrcodegen.js` — Nayuki's qrcodegen, MIT; compiled from the upstream TypeScript with an ESM export appended). Text is encoded in byte mode as UTF-8, so Dhivehi and Arabic scan correctly. Used by `qr-page.js` (the sidebar's QR tool) and, later, the verify QR on export title pages.
+The app's one entry point to the vendored QR encoder (`src/js/vendor-qrcodegen.js` — Nayuki's qrcodegen, MIT; compiled from the upstream TypeScript with an ESM export appended). Text is encoded in byte mode as UTF-8, so Dhivehi and Arabic scan correctly. Used by `qr-page.js` (the sidebar's QR tool) and the book-page QR on the reader's export title pages.
 
 - `qrCreate(text, eclKey?)` → `{ qr, version, size, bytes }`; `eclKey` is `"L" | "M" | "Q" | "H"` (default `"Q"`). Throws `RangeError("Data too long")` when the text exceeds the level's capacity.
 - `qrSvg(qr, { border = 4, size = 512, label })` → an SVG string with a white quiet zone and one dark-module path. Only coordinates are interpolated — the input text never enters the markup, so inserting it with `innerHTML` is safe.
@@ -818,7 +822,25 @@ The `qr.html` page (`qr-page.js`) previews on a permanently white card in every 
 
 ## verify-page.js
 
-The verify-export page (`src/books/verify.html`, English-only and LTR). Accepts `?book=CODE&v=VERSION`, a pasted source caption (`source: v… - rows: …`) — with a title-page/reader URL (the book code comes from the URL), or alone when its source version uniquely matches a current book — a full legacy provenance line, a pasted verify URL, or a text export file; resolves the book against `data/03-registry-bookMeta.csv` (author from 02) and reports whether the claimed source version is current, different, or unknown. It is a **claim check** — the file's text is not compared yet.
+The verify-export page (`src/books/verify.html`, English-only and LTR). Accepts `?book=CODE&v=VERSION`, a pasted source caption (`source: v… - rows: …`) — with a title-page/reader URL (the book code comes from the URL), or alone when its source version uniquely matches a current book — a full legacy provenance line, a pasted verify URL, or a file. Claims resolve against `data/03-registry-bookMeta.csv` (author from 02) and report whether the claimed source version is current, different, or unknown.
+
+For an uploaded/file-selected export it also compares the **content**: CSV/TSV/JSON/XML/HTML Table are parsed directly and compared row-by-row to the current book CSV; HTML Book and Word exports are rebuilt with `export.js`'s own builders and compared as normalized body lines (the title page and TOC are stripped). The book code can come from the claim/title-page URL or from the page's Book code field (needed for data formats, which have no title page). PDFs, PNGs, EPUB and XLSX are marker-scanned instead of content-compared: the page finds the title-page verify link in the PDF's raw file/Flate-decompressed streams (plus Title/Producer), in the PNG's `Hadithmv` tEXt chunk (plus the row from the URL), or in the ZIP's `hadithmv.txt` entry; no body is inspected. TXT/MD/YAML/TOON remain claim-only. The comparison uses the current data; an older claimed version is flagged in the result.
+
+## verify-content.js
+
+The content comparison behind the verify page. `compareContent({ text, filename, meta, canonical })` detects the format (extension, then light sniffing), parses structured exports (CSV via `parseCSV`, TSV, JSON, XML, HTML Table) or rebuilds the expected rich body with `buildHtmlBook`/`buildWordHTML`, and returns `{ status: "match" | "diff" | "unsupported" | "error", summary, diffs }`. `canonical` is `{ header, rows, hasRowNums }` from the current book CSV. The comparison is format-aware about the writers' whitespace rules (TSV turns each tab/newline into one space; HTML Table turns newline runs into the literal `<br>` text).
+
+## verify-pdf.js
+
+Tolerant marker scan for print-to-PDF exports. `scanPdf(buffer)` does not parse the PDF: it searches the raw bytes — then each Flate-decompressed `stream … endstream` chunk via `DecompressionStream("deflate")` — for the title-page verify link (`verify.html?book=…&v=…`) and reads `/Title` / `/Producer` literal strings. Returns `{ marker, title, producer }`; the PDF body is never inspected. Chrome's print-to-PDF keeps the title-page link as a URI action and the document title in the Info dictionary, which is what makes the claim recoverable.
+
+## png-text.js
+
+PNG tEXt marker support for the reader's row PNG and the verify page. `insertPngText(pngBytes, "Hadithmv", text)` returns a copy with a CRC-correct tEXt chunk (keyword + NUL + Latin-1 text) inserted before IEND; `readPngText(bytes)` returns that text or `""`. The marker text is the verify URL (with the row) plus the source caption. No image decoding; platforms that re-encode images may strip the chunk.
+
+## zip-read.js
+
+`readZipEntry(bytes, suffix)` walks the store-only ZIP local file headers (the inverse of `zipStore()`) and returns the UTF-8 text of the first entry whose name ends with `suffix`, or `""`. Used by the verify page to read the `hadithmv.txt` marker from EPUB (`OEBPS/hadithmv.txt`) and XLSX (`hadithmv.txt`) exports. Compressed entries (external re-zips) return `""`; the app's own exports are stored.
 
 ## export-epub.js
 

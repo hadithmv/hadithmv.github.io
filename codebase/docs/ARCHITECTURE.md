@@ -102,6 +102,10 @@ Everything is client‑side: search is in‑memory, pins/history/settings live i
 | `src/js/qr.js`                                          | QR wrapper — `qrCreate`/`qrSvg`/`qrPngDataUrl` over the vendored encoder; byte-mode UTF-8                                                                                                                               |
 | `src/js/qr-page.js`                                     | QR tool page UI — live preview, L/M/Q/H levels, capacity error, SVG/PNG downloads                                                                                                                                       |
 | `src/js/verify-page.js`                                 | Verify page wiring — parses line/URL/file, registry lookup, current/different/unknown status                                                                                                                            |
+| `src/js/verify-content.js`                              | Content comparison for text exports — structured parsers + rebuilt rich-export bodies                                                                                                                                   |
+| `src/js/verify-pdf.js`                                  | Tolerant PDF marker scan — verify link + Title/Producer in raw/Flate streams (body not inspected)                                                                                                                       |
+| `src/js/png-text.js`                                    | PNG tEXt marker insert/read — row PNG + verify page (no image decoding)                                                                                                                                                 |
+| `src/js/zip-read.js`                                    | Store-only ZIP entry reader — EPUB/XLSX hadithmv.txt marker (verify page)                                                                                                                                               |
 | `src/js/vendor-qrcodegen.js`                            | Vendored Nayuki QR encoder (MIT) — compiled from upstream TypeScript @ bcfe1b0; ESM export appended                                                                                                                     |
 | `codebase/sw.js`                                        | Static service worker — registered at the site root, scope covers dist/, data/, static/; never edited (all version intelligence lives in dist/manifest.json) — see "Service worker & manifest"                          |
 | `dist/manifest.json`                                    | The SW's freshness ledger: scope-relative URL → sha256 fingerprint (first 16 hex) of every SW-served file — written whole by tools/hmv-manifest.mjs after every build and after hand-editing registries/notes                                                                              |
@@ -1490,10 +1494,10 @@ titles, author, tags — the version is always computed, never typed),
 add-an-author (appends to the authors registry), an About/health screen
 (versions, tools, preview state, last-checks verdict), a live-site
 up-to-date check (offering the live site, and the GitHub Actions
-page when behind), and the verification battery — all seven checks or a
-single one — with a written report (opened when any fail, offered when all
-pass); the bat is only a double-click door
-— it checks for node and hands over to
+page when behind), and the verification battery — all nine checks (the
+integrity baseline first) or a single one — with a written report (opened
+when any fail, offered when all pass); the bat is only a double-click
+door — it checks for node and hands over to
 `tools/hmv-toolbox.mjs`, which runs unchanged on Windows, macOS and Linux).
 See `docs/TOOLBOX.md` for the complete reference — every option, the launch
 chain, sounds, and pitfalls. Then commit the

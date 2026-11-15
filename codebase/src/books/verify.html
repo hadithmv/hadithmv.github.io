@@ -37,7 +37,10 @@
           with the title-page URL (or the verify link). A caption on its own
           can identify the book when its source version is current; otherwise
           include the URL. For PDFs, copy the caption and the title-page URL.
-          Or choose a text export below.
+          Or choose an export below — CSV, TSV, JSON, XML, HTML Table and
+          HTML/Word exports are compared to the current text; PDFs, PNGs,
+          EPUB and Excel are scanned for the verify link marker (their
+          body/image/content is not inspected).
         </p>
 
         <label class="verify-label" for="verifyInput"
@@ -56,13 +59,29 @@
 
         <div class="verify-file-row">
           <label class="verify-label" for="verifyFile"
-            >…or choose a text export</label
+            >…or choose an export file</label
           >
           <input
             id="verifyFile"
             type="file"
-            accept=".txt,.md,.html,.htm,.doc,.csv,.tsv,.json,.yaml,.yml,.xml,.toon"
+            accept=".txt,.md,.html,.htm,.doc,.pdf,.png,.epub,.xlsx,.csv,.tsv,.json,.yaml,.yml,.xml,.toon"
           />
+        </div>
+
+        <div class="verify-file-row">
+          <label class="verify-label" for="verifyBook"
+            >Book code (for files without a title page)</label
+          >
+          <input
+            id="verifyBook"
+            class="verify-book-input"
+            type="text"
+            list="verifyBookList"
+            placeholder="e.g. HDT-muwattaMalik"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <datalist id="verifyBookList"></datalist>
         </div>
 
         <div id="verifyResult" class="verify-result" aria-live="polite">
@@ -70,10 +89,12 @@
             Paste a provenance line or open a verify link to see the claim.
           </p>
         </div>
+        <div id="verifyContent" class="verify-content" aria-live="polite"></div>
 
         <p class="verify-note">
-          This checks the claimed book and source version against the current
-          registry. The file's text is not compared yet.
+          This checks the claim against the current registry and compares
+          supported text exports to the current text. PDFs, PNGs, EPUB and
+          Excel files are marker-scanned, not body-inspected.
         </p>
       </section>
     </main>

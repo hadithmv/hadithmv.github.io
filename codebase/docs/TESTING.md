@@ -17,17 +17,19 @@
 ## Batteries at a glance
 
 About 600 checks in total — roughly 500 in the routine batteries and 100
-in the specialists; the TOC scan, header scan, and font check report
-coverage counts instead (regions, headers, glyphs), so they are not in
-that total. Two tiers: **routine** — the eight the toolbox's option 9 runs
-as the pre-commit gate — and **specialist** — maintained but manual, run
-when the trigger names the code you touched. Counts are the `N / N checks passed`
+in the specialists; the TOC scan, header scan, font check, and integrity
+baseline report coverage counts or a failure/warning tally instead
+(regions, headers, glyphs, findings), so they are not in that total. Two
+tiers: **routine** — the nine the toolbox's option 9 runs as the
+pre-commit gate, integrity baseline first (it is instant and needs no
+browser) — and **specialist** — maintained but manual, run when the
+trigger names the code you touched. Counts are the `N / N checks passed`
 line from a passing run on 2026-11-12; times are wall-clock on this
 development machine (warm disk, headless Edge) and vary with load. The
-eight together are a ~5-minute gate, and streaming alone is ~3½ minutes —
-it is the lever if the pre-commit run ever needs to be faster.
+nine together are about a 5-minute gate, and streaming alone is ~3½
+minutes — it is the lever if the pre-commit run ever needs to be faster.
 
-Running the eight through toolbox option 9 writes `checks-report.md`
+Running the nine through toolbox option 9 writes `checks-report.md`
 (codebase root, gitignored): per-check PASS/FAIL/SKIP with its own time,
 the full captured output of each battery, the total run time, and a
 verdict — it opens automatically on failure. Running a battery directly
@@ -36,18 +38,18 @@ gives the same output in the terminal, without the report.
 | Battery | Script | Checks | Time | Run when |
 | --- | --- | --- | --- | --- |
 | **Routine** | | | | |
-| 1. Reader smoke | `tools/hmv-qrn-smoke.mjs` | 107 | ~60 s | Reader UI/navigation, QRN lazy modules, search window, column toggles, Thaana font insets |
-| 2. Info modal | `tools/hmv-info-check.mjs` | 87 | ~13 s | Info/author/works modal, notes renderer, clipboard, the four exports, reader provenance marker |
-| 3. Authors & periods | `tools/hmv-authors-check.mjs` | 103 | ~14 s | The shared facet system — library page, modals, dashboard, reader header |
-| 4. Library scope | `tools/hmv-libscope-check.mjs` | 129 | ~15 s | Library-scope picker, scoped search, window/page peek |
-| 5. Service worker | `tools/hmv-sw-check.mjs` | 16 | ~5 s | SW registration/precache/offline, `dist/manifest.json` freshness |
-| 6. TOC scan | `tools/hmv-toc-scan.cjs` | 21 regions | <1 s | After editing `reader.js` region markers |
-| 7. Streaming | `tools/hmv-stream-check.mjs` | 87 | ~3½ min | CSV stream parser, big-book load UX, content-modal column loads |
-| 8. Font coverage | `tools/hmv-font-subset.py --check` | 323 cps / 754 glyphs | ~4 s | After adding any characters (book, notes, i18n, export/CSS text) |
+| 1. Integrity baseline | `tools/hmv-integrity-check.mjs` | 0 failures / 0 warnings | ~2 s | After any data/registry/index change — frozen Quran set, append-aware row counts, CSV artifacts, index freshness |
+| 2. Reader smoke | `tools/hmv-qrn-smoke.mjs` | 107 | ~60 s | Reader UI/navigation, QRN lazy modules, search window, column toggles, Thaana font insets |
+| 3. Info modal | `tools/hmv-info-check.mjs` | 88 | ~13 s | Info/author/works modal, notes renderer, clipboard, the four exports, reader provenance marker + book-page QR |
+| 4. Authors & periods | `tools/hmv-authors-check.mjs` | 103 | ~14 s | The shared facet system — library page, modals, dashboard, reader header |
+| 5. Library scope | `tools/hmv-libscope-check.mjs` | 129 | ~15 s | Library-scope picker, scoped search, window/page peek |
+| 6. Service worker | `tools/hmv-sw-check.mjs` | 16 | ~5 s | SW registration/precache/offline, `dist/manifest.json` freshness |
+| 7. TOC scan | `tools/hmv-toc-scan.cjs` | 21 regions | <1 s | After editing `reader.js` region markers |
+| 8. Streaming | `tools/hmv-stream-check.mjs` | 87 | ~3½ min | CSV stream parser, big-book load UX, content-modal column loads |
+| 9. Font coverage | `tools/hmv-font-subset.py --check` | 323 cps / 754 glyphs | ~4 s | After adding any characters (book, notes, i18n, export/CSS text) |
 | **Specialist** | | | | |
-| Integrity baseline | `tools/hmv-integrity-check.mjs` | 0 failures / 0 warnings | ~2 s | After any data/registry/index change — frozen Quran set, append-aware row counts, index freshness |
 | QR tool | `tools/hmv-qr-check.mjs` | 23 | ~12 s | Collapsed Tools group + expansion (current-language label), LTR qr.html generation/levels/capacity, SVG/PNG downloads, dark-theme white preview |
-| Verify export | `tools/hmv-verify-check.mjs` | 15 | ~10 s | Tools group Verify link, claim parser (caption + URL, caption-only version lookup, legacy line, verify URL), current/different/unknown status, LTR |
+| Verify export | `tools/hmv-verify-check.mjs` | 39 | ~35 s | Tools group Verify link, claim parser (caption + URL, caption-only version lookup, legacy line, verify URL), current/different/unknown status, content comparison (CSV/JSON/TSV/HTML Table/XML/HTML Book/Word match + one-cell diff), PDF/PNG/EPUB/XLSX marker scans (incl. the writers' own markers), LTR |
 | RDF / merged book | `tools/hmv-rdf-check.mjs` | 64 | ~27 s | `radheef-merge.js`, reader infinite-scroll/goTo, progress/milestones, RDF filter, `formatThousands` |
 | Search-index shards | `tools/hmv-shards-check.mjs` | 38 | ~9 s | `08-rebuild-searchIndex.mjs`, the shard format/manifest, `library-search-engine.js` |
 | Header coverage | `tools/hmv-header-scan.mjs` | 82 files / 74 headers | ~1 s | Optional: see which picker labels are still raw (uncurated headers are fine) |
@@ -361,7 +363,7 @@ re-diagnosing each one.
 
 ## Specialist batteries
 
-Maintained, but not part of the toolbox's eight: they either cost browser
+Maintained, but not part of the toolbox's nine: they either cost browser
 time or only matter in one corner of the app. Run them by hand when their
 area is in doubt; each script header names its env-var overrides.
 
@@ -417,7 +419,7 @@ else. The known gaps, so a pass is not over-read:
   Windows. Firefox, Safari (desktop and iOS), and real mobile Chrome are
   untested — differences in scrollbars, webfont rendering, `Intl`, and
   service-worker timing would not show up here.
-- **Source pages, not `dist/`.** Toolbox option 9 runs the batteries against
+- **Source pages, not `dist/`.** Toolbox option 9 runs the browser batteries against
   `src/`; the built site is verified separately by the four `--dist`
   batteries after a build (CLAUDE.md). A green gate does not by itself prove
   `dist/`.

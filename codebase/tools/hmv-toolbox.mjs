@@ -18,7 +18,7 @@
 //  6  changed()                  git status + hints
 //  7  openFolder()               Explorer on the codebase folder
 //  8  build(true)                build + preview
-//  9  checks()                   the 8 batteries, one (1-8), or O to open
+//  9  checks()                   the 9 checks, one (1-9), or O to open
 //                                the last report; writes checks-report.md
 // 10  about()                    versions, tools, preview + last-checks
 //                                state
@@ -308,7 +308,7 @@ function showBanner() {
   console.log(' ' + ITEM + '7.' + OFF + ' Open the folder' + DIM + '             (the codebase folder in Explorer)' + OFF);
   console.log(' ' + ITEM + '8.' + OFF + ' Build and preview' + DIM + '           (build, then open the preview)' + OFF);
   console.log(RULE);
-  console.log(' ' + ITEM + '9.' + OFF + ' Run the checks' + DIM + '              (the pre-commit verification battery)' + OFF);
+  console.log(' ' + ITEM + '9.' + OFF + ' Run the checks' + DIM + '              (the pre-commit verification checks)' + OFF);
   console.log(' ' + ITEM + '10.' + OFF + ' About / health check' + DIM + '       (versions and tools on this machine)' + OFF);
   console.log(' ' + ITEM + '11.' + OFF + ' Check the live site' + DIM + '        (is the published site up to date?)' + OFF);
   console.log(RULE);
@@ -868,7 +868,7 @@ async function newBook() {
   console.log('    three titles, authorCode, tags. Version stays computed, last column.');
   console.log(' 6. Optional: write static/notes/works/' + code + '.md (book notes for the info modal).');
   console.log(' 7. Run node tools/hmv-integrity-check.mjs - baseline, row counts, index.');
-  console.log(' 8. Run option 9, check 8 - new text may need font glyphs.');
+  console.log(' 8. Run option 9, check 9 - new text may need font glyphs.');
   console.log(' 9. Build (option 1), commit in your IDE, push, then option 11.');
   console.log();
   const reg = await ask(WARN + 'Register it now - fill the registry row with me? (y/n) ' + OFF);
@@ -1004,6 +1004,7 @@ async function addAuthor() {
 
 // ── option 9: run the checks ──────────────────────────────────────────
 const CHECK_NAMES = [
+  'integrity baseline check',
   'reader smoke test',
   'info modal battery',
   'authors and periods battery',
@@ -1014,15 +1015,16 @@ const CHECK_NAMES = [
   'font coverage check',
 ];
 const CHECKS = [
-  { file: 'tools/hmv-qrn-smoke.mjs', name: 'reader', label: '1/8 - the reader smoke test (clicks through the Quran reader)...' },
-  { file: 'tools/hmv-info-check.mjs', name: 'info', label: '2/8 - the info modal battery...' },
-  { file: 'tools/hmv-authors-check.mjs', name: 'authors', label: '3/8 - the authors and periods battery...' },
-  { file: 'tools/hmv-libscope-check.mjs', name: 'library', label: '4/8 - the library scope battery...' },
-  { file: 'tools/hmv-sw-check.mjs', name: 'service-worker', label: '5/8 - the service worker battery...' },
-  { file: 'tools/hmv-toc-scan.cjs', name: 'contents', label: '6/8 - the table-of-contents scan...' },
-  { file: 'tools/hmv-stream-check.mjs', name: 'stream', label: '7/8 - the streaming battery (big-book CSV parity + throttled first-content)...' },
+  { file: 'tools/hmv-integrity-check.mjs', name: 'integrity', label: '1/9 - the integrity baseline check (frozen Quran set, row-count drift, index freshness)...' },
+  { file: 'tools/hmv-qrn-smoke.mjs', name: 'reader', label: '2/9 - the reader smoke test (clicks through the Quran reader)...' },
+  { file: 'tools/hmv-info-check.mjs', name: 'info', label: '3/9 - the info modal battery...' },
+  { file: 'tools/hmv-authors-check.mjs', name: 'authors', label: '4/9 - the authors and periods battery...' },
+  { file: 'tools/hmv-libscope-check.mjs', name: 'library', label: '5/9 - the library scope battery...' },
+  { file: 'tools/hmv-sw-check.mjs', name: 'service-worker', label: '6/9 - the service worker battery...' },
+  { file: 'tools/hmv-toc-scan.cjs', name: 'contents', label: '7/9 - the table-of-contents scan...' },
+  { file: 'tools/hmv-stream-check.mjs', name: 'stream', label: '8/9 - the streaming battery (big-book CSV parity + throttled first-content)...' },
 ];
-const FONT_LABEL = "8/8 - the font coverage check (the webfont vs the site's text)...";
+const FONT_LABEL = "9/9 - the font coverage check (the webfont vs the site's text)...";
 
 async function checks() {
   process.title = 'Hadithmv Toolbox - running the checks';
@@ -1033,15 +1035,15 @@ async function checks() {
     return cs; // kept for the report's summary table
   };
   console.log();
-  console.log('Running the pre-commit checks - each opens an invisible browser');
-  console.log('and clicks through a part of the site. This takes a few minutes.');
-  console.log('All eight, just one (1-8), or O to open the last report - Enter runs all.');
+  console.log('Running the pre-commit checks - the integrity check reads the');
+  console.log('data, then each browser battery clicks through a part of the site.');
+  console.log('All nine, just one (1-9), or O to open the last report - Enter runs all.');
   const RPT = path.join(ROOT, 'checks-report.md');
   const t = Date.now();
   const results = []; // { ok: true|false|null(SKIP), out, secs }
   const failed = [];
-  const pick = await ask(WARN + 'All 8 (Enter), one (1-8), or O to open the last report? ' + OFF);
-  const single = /^[1-8]$/.test(pick);
+  const pick = await ask(WARN + 'All 9 (Enter), one (1-9), or O to open the last report? ' + OFF);
+  const single = /^[1-9]$/.test(pick);
   const idx = single ? parseInt(pick, 10) - 1 : -1;
   if (single) console.log('Running ' + CHECK_NAMES[idx] + ' only - the report marks the rest SKIP.');
   if (/^o$/i.test(pick)) {
@@ -1068,11 +1070,11 @@ async function checks() {
     'Run date: ' + new Date().toLocaleString(), '',
     'Source: ' + VER + ' | Built: ' + VERD + ' | Branch: ' + BR,
     'Commit: ' + commitStamp(),
-    single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 8 checks',
+    single ? 'Scope: ' + CHECK_NAMES[idx] + ' only (the rest were skipped)' : 'Scope: all 9 checks',
   ].join('\n') + '\n');
   if (single) {
-    for (let i = 0; i < 8; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.', secs: null });
-    if (idx < 7) {
+    for (let i = 0; i < 9; i++) results.push({ ok: null, out: 'Skipped: single-check run - only the chosen check ran.', secs: null });
+    if (idx < 8) {
       console.log(' ' + CHECKS[idx].label);
       const t0 = Date.now();
       results[idx] = await runCaptured('node', [path.join(ROOT, CHECKS[idx].file)], 'working');
@@ -1081,12 +1083,12 @@ async function checks() {
     } else if (hasTool('python')) {
       console.log(' ' + FONT_LABEL);
       const t0 = Date.now();
-      results[7] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
-      if (!results[7].ok) failed.push('font');
-      results[7].secs = note(results[7], t0);
+      results[8] = await runCaptured('python', [path.join(ROOT, 'tools/hmv-font-subset.py'), '--check'], 'working');
+      if (!results[8].ok) failed.push('font');
+      results[8].secs = note(results[8], t0);
     } else {
-      console.log(' 8/8 - the font coverage check skipped - python not found.');
-      results[7] = { ok: null, out: 'Skipped: python not found.', secs: null };
+      console.log(' 9/9 - the font coverage check skipped - python not found.');
+      results[8] = { ok: null, out: 'Skipped: python not found.', secs: null };
     }
     console.log();
   } else {
@@ -1107,7 +1109,7 @@ async function checks() {
       if (!r.ok) failed.push('font');
       r.secs = note(r, t0);
     } else {
-      console.log(' 8/8 - the font coverage check skipped - python not found.');
+      console.log(' 9/9 - the font coverage check skipped - python not found.');
       results.push({ ok: null, out: 'Skipped: python not found.', secs: null });
     }
     console.log();
@@ -1118,11 +1120,11 @@ async function checks() {
   const timeCell = (r) => (r.ok === null ? '—' : (r.secs ? fmtDur(r.secs) : '<1s'));
   const lines = ['', '## Summary', '', '| Check | Result | Time |', '| --- | --- | --- |'];
   CHECK_NAMES.forEach((n, i) => lines.push(
-    '| ' + (i + 1) + '/8 ' + n + ' | ' + verdict(results[i]) + ' | ' + timeCell(results[i]) + ' |'
+    '| ' + (i + 1) + '/9 ' + n + ' | ' + verdict(results[i]) + ' | ' + timeCell(results[i]) + ' |'
   ));
   lines.push('', '## Details', '');
   CHECK_NAMES.forEach((n, i) => {
-    lines.push('### ' + (i + 1) + '/8 ' + n + ' - ' + verdict(results[i]));
+    lines.push('### ' + (i + 1) + '/9 ' + n + ' - ' + verdict(results[i]));
     lines.push('```', results[i].out.trimEnd(), '```', '');
   });
   const verdictLine = single

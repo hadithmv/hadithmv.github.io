@@ -732,8 +732,18 @@ async function main() {
     // the minified builders emit output identical to the golden's.
     live = Buffer.from(live.toString("utf8").replace(/\/dist\/books\//g, "/src/books/"), "utf8");
   }
-  check("S8b reader Word export byte-identical to the golden", golden.equals(live),
-    golden.length + " vs " + live.length + " bytes");
+  // The verify QR encodes the page URL (src vs dist), so its matrix differs
+  // between trees; strip the QR block before the byte comparison — its
+  // presence is asserted separately below.
+  const stripQr = (buf) =>
+    Buffer.from(
+      buf.toString("utf8").replace(/<div class="provenance-qr"[\s\S]*?<\/div>/, ""),
+      "utf8",
+    );
+  const goldenCmp = stripQr(golden);
+  const liveCmp = stripQr(live);
+  check("S8b reader Word export byte-identical to the golden", goldenCmp.equals(liveCmp),
+    goldenCmp.length + " vs " + liveCmp.length + " bytes");
   const readerWordName = await evalJS(`(window.__downloads || []).filter(function (n) { return /\\.doc$/.test(n); }).pop() || ""`);
   check("S8b reader Word export is brand-tagged",
     readerWordName === "[Hadithmv] " + usool.titleEN + ".doc", readerWordName);
@@ -754,6 +764,10 @@ async function main() {
   check("S8b reader PDF carries the provenance line + verify link",
     readerPdf.indexOf(PROV_LINE) !== -1 && readerPdf.indexOf("verify.html?book=AQD-usooluSiththa") !== -1,
     PROV_LINE);
+  check("S8b reader exports carry the book-page QR",
+    liveText.indexOf('class="provenance-qr"') !== -1 &&
+      readerPdf.indexOf('class="provenance-qr"') !== -1,
+    liveText.indexOf('class="provenance-qr"') + " / " + readerPdf.indexOf('class="provenance-qr"'));
 
   // ── S9: authors-modal ℹ stacks the info modal; Escape unwinds ──────
   await goto("file://" + ROOT + "library-search.html");

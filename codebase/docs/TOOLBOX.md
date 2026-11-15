@@ -43,7 +43,7 @@ finish registration / add author (13–15), sound / restart / quit
 | 6 | **What's changed** — colour-coded `git status` summary (staged green, unstaged/untracked red, git-style) with hints (e.g. "changed source but didn't build — run option 1") and git's own size line ("N files changed, M insertions(+), K deletions(-)"; tracked changes only); the menu row's hint shows how many files git would put in your next commit — "(nothing to commit)" when clean. |
 | 7 | **Open the folder** — the codebase folder in Explorer. |
 | 8 | **Build and preview** — option 1 followed by option 5. |
-| 9 | **Run the checks** — the eight pre-commit batteries, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass; **O** opens the last report without running anything. |
+| 9 | **Run the checks** — the nine pre-commit checks, or a single one of your choosing (see below); writes `checks-report.md`, opens it in Notepad when any check fails, and offers to open it when all pass; **O** opens the last report without running anything. |
 | 10 | **About / health check** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
 | 11 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 12 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
@@ -102,16 +102,17 @@ Under it, a dim tip line notes that Ctrl+C quits from anywhere.
 
 ## Checks (option 9)
 
-Eight checks run in order; each opens an invisible browser (or the font
-corpus) and exercises a part of the site. Press Enter for all eight,
-1–8 for just that one, or O to open the last report without running
-anything — the report marks the rest SKIP and the verdict names the
-check. The report lands in `checks-report.md` (gitignored — never
-dirties "what's changed", never ships): a summary table with each check's
-verdict and time, per-check details, the total run time, and a bold
-verdict. The report opens itself in Notepad when any
+Nine checks run in order. The first is the integrity baseline — instant,
+no browser, so it runs before anything slow — and the rest each open an
+invisible browser (or the font corpus) and exercise a part of the site.
+Press Enter for all nine, 1–9 for just that one, or O to open the last
+report without running anything — the report marks the rest SKIP and the
+verdict names the check. The report lands in `checks-report.md`
+(gitignored — never dirties "what's changed", never ships): a summary
+table with each check's verdict and time, per-check details, the total
+run time, and a bold verdict. The report opens itself in Notepad when any
 check fails; after an all-pass run the menu asks whether to open it. As
-each battery finishes, its own line appears — PASS or FAIL with the time
+each check finishes, its own line appears — PASS or FAIL with the time
 it took — and the console summary line then ends with the total run time
 (e.g. "All checks passed. - 3m 12s"). While a battery runs, the menu
 shows a small ASCII spinner whenever it falls silent — its browser work
@@ -121,23 +122,24 @@ few seconds of spinning it starts counting up the elapsed seconds
 ("building - 42s"), so the menu only shows a spinner — and tells time —
 when nothing else is moving.
 
-1. reader smoke test — `tools/hmv-qrn-smoke.mjs`
-2. info modal battery — `tools/hmv-info-check.mjs`
-3. authors and periods battery — `tools/hmv-authors-check.mjs`
-4. library scope battery — `tools/hmv-libscope-check.mjs`
-5. service worker battery — `tools/hmv-sw-check.mjs`
-6. table-of-contents scan — `tools/hmv-toc-scan.cjs`
-7. streaming battery — `tools/hmv-stream-check.mjs` (big-book CSV parse
+1. integrity baseline — `tools/hmv-integrity-check.mjs` (frozen Quran set,
+   append-aware row-count drift, CSV artifacts, index freshness — ~2 s,
+   no browser)
+2. reader smoke test — `tools/hmv-qrn-smoke.mjs`
+3. info modal battery — `tools/hmv-info-check.mjs`
+4. authors and periods battery — `tools/hmv-authors-check.mjs`
+5. library scope battery — `tools/hmv-libscope-check.mjs`
+6. service worker battery — `tools/hmv-sw-check.mjs`
+7. table-of-contents scan — `tools/hmv-toc-scan.cjs`
+8. streaming battery — `tools/hmv-stream-check.mjs` (big-book CSV parse
    parity + the throttled first-content UX on reader.html + the quran
    content-modal column loads: progress, cancel, sequential presets)
-8. font coverage check — `tools/hmv-font-subset.py --check` (skipped with a
+9. font coverage check — `tools/hmv-font-subset.py --check` (skipped with a
    SKIP row when python is missing)
 
 Deliberately **not** in this run: the specialist batteries —
 `tools/hmv-shards-check.mjs` (search-index shards + scope-aware loader),
-`tools/hmv-rdf-check.mjs` (the RDF merged-book reader paths), and the
-integrity baseline check `tools/hmv-integrity-check.mjs` (frozen Quran set,
-append-aware row-count drift, index freshness — ~2 s, no browser), and the
+`tools/hmv-rdf-check.mjs` (the RDF merged-book reader paths), the
 QR tool battery `tools/hmv-qr-check.mjs` (sidebar Tools link, generation,
 levels, capacity error, SVG/PNG downloads), and the verify-export battery
 `tools/hmv-verify-check.mjs` (provenance parsing and the current-version
@@ -155,7 +157,7 @@ runtimes.
 | `tools/hmv-toolbox.mjs` | The menu — all options, one function each. |
 | `tools/hmv-version.mjs` | Shared version/branch/banner helper (also used by legacy CLI consumers). |
 | `tools/hmv-manifest.mjs` | Writes `dist/manifest.json` — option 3, step 3 of option 4, and the tiny data-only command from CLAUDE.md. |
-| `tools/dist-build.mjs`, `data/08-rebuild-searchIndex.mjs`, `tools/hmv-font-subset.py` | The workers behind options 1/2/4/9 and check 8. |
+| `tools/dist-build.mjs`, `data/08-rebuild-searchIndex.mjs`, `tools/hmv-font-subset.py` | The workers behind options 1/2/4/9 and check 9. |
 | `data/04-update-bookRegistry.ps1` | The registry script behind option 4 (see Pitfalls). |
 | `checks-report.md` | Option 9 output (gitignored). |
 | `dist-build-report.md`, `font-build-report.md` | Committed build size ledgers — the build rewrites them; option 1 reads the summary from the first. |
