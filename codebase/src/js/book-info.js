@@ -52,7 +52,7 @@ import {
   authorAgeText,
 } from "./book-data.js";
 import { escapeHTML, normaliseForSearch, highlightMatches, formatThousands } from "./search-utils.js";
-import { downloadFile, buildWordHTML, buildPdfHTML, buildHtmlBook, exportEPUB } from "./export.js";
+import { downloadFile, exportInfoFileBase, buildWordHTML, buildPdfHTML, buildHtmlBook, exportEPUB } from "./export.js";
 
 // ── State ──────────────────────────────────────────────────────
 var _overlay = null;   // #infoOverlay (the .open class lives on the overlay)
@@ -1073,14 +1073,13 @@ function infoLink() {
 function exportPane(fmt, btn) {
   if (_exportBusy || _sections.length === 0 || !_exportMeta) return;
   var meta = _exportMeta;
-  // Kind-first filename — every info export announces its kind up front
-  // (book-info / author-bio / author-works), so downloads sort by family
-  // and the three panes never collide with each other or with the reader's
-  // title-only names.
-  var kind = _activeTab === "author" ? "author-bio"
-    : _activeTab === "works" ? "author-works"
-    : "book-info";
-  var baseName = kind + " - " + (meta.titleEN || meta.bookCode || "info");
+  // Bracketed tag, then the subject: "[Hmv - Book Info] <title>". The short
+  // brand keeps the info family apart from the reader's "[Hadithmv] <title>"
+  // exports, and the closed bracket marks exactly where the subject begins.
+  var kind = _activeTab === "author" ? "Author Bio"
+    : _activeTab === "works" ? "Author Works"
+    : "Book Info";
+  var baseName = exportInfoFileBase(kind, meta.titleEN || meta.bookCode || "info");
   var siteURL = infoLink();
   var versionFull = t("appVersion");
   var versionText = versionFull.replace(/ \(.*\)/, "");
@@ -1099,7 +1098,7 @@ function exportPane(fmt, btn) {
     downloadFile(buildWordHTML(cfg, siteURL, versionText), baseName + ".doc", "application/msword");
     setExportBusy(false);
   } else if (fmt === "pdf") {
-    var pdfHTML = buildPdfHTML(cfg, siteURL, versionText);
+    var pdfHTML = buildPdfHTML(cfg, siteURL, versionText, undefined, baseName);
     var win = window.open("", "_blank");
     if (!win) { window.showErrorToast("PDF export failed — popup blocked"); setExportBusy(false); return; }
     win.document.write(pdfHTML);

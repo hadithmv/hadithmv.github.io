@@ -100,6 +100,7 @@ const nameEN = (code) => (authors02.find((a) => a.authorCode === code) || {}).na
 const nameAR = (code) => (authors02.find((a) => a.authorCode === code) || {}).nameAR || "";
 const malikRow = authors02.find((a) => a.authorCode === "malikBinAnas");
 const muwatta = books03.find((b) => b.bookCode === "HDT-muwattaMalik");
+const usool = books03.find((b) => b.bookCode === "AQD-usooluSiththa");
 // Author line and fact values on the Book tab — the same derivations as
 // book-data.js (the authorLife "{b}–{d} AH" template, the CE approximation,
 // the "Century N" period label, diedAH − bornAH with the "y." unit).
@@ -205,6 +206,15 @@ const PATCH_EXPORTS = `(function () {
       onload: null,
       print: function () {}
     };
+  };
+  window.__downloads = [];
+  var origAnchorClick = HTMLAnchorElement.prototype.click;
+  HTMLAnchorElement.prototype.click = function () {
+    if (this.download) {
+      window.__downloads.push(this.download);
+      return;
+    }
+    return origAnchorClick.call(this);
   };
 })()`;
 
@@ -638,6 +648,13 @@ async function main() {
   check("S8 PDF: popup document carries the info-page link + version", pdfHtml &&
     pdfHtml.indexOf("<html") !== -1 && pdfHtml.indexOf("info.html?book=HDT-muwattaMalik") !== -1 &&
     pdfHtml.indexOf(VERSION_TEXT) !== -1, (pdfHtml || "").length + " chars");
+  // The print dialog's Save-as-PDF filename comes from the document title;
+  // an untitled about:blank popup defaults to "download". The title is the
+  // export's kind-first base name.
+  const pdfTitleMatch = (pdfHtml || "").match(/<title>([^<]*)<\/title>/);
+  check("S8 PDF: document title names the save file",
+    pdfTitleMatch && pdfTitleMatch[1] === "[Hmv - Book Info] " + muwatta.titleEN,
+    pdfTitleMatch ? pdfTitleMatch[1] : "no <title>");
   // EPUB — async (font fetch + dynamic import); the footer disables while
   // it runs and re-enables when the blob lands. The content is
   // deflate-compressed, so the checks are the stored mimetype (the only
@@ -717,6 +734,9 @@ async function main() {
   }
   check("S8b reader Word export byte-identical to the golden", golden.equals(live),
     golden.length + " vs " + live.length + " bytes");
+  const readerWordName = await evalJS(`(window.__downloads || []).filter(function (n) { return /\\.doc$/.test(n); }).pop() || ""`);
+  check("S8b reader Word export is brand-tagged",
+    readerWordName === "[Hadithmv] " + usool.titleEN + ".doc", readerWordName);
 
   // ── S9: authors-modal ℹ stacks the info modal; Escape unwinds ──────
   await goto("file://" + ROOT + "library-search.html");

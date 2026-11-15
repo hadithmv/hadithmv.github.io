@@ -18,6 +18,20 @@ import { escapeHTML } from "./search-utils.js";
 
 // ── Shared builders — module scope, usable by any surface ─────────
 
+// Exported filenames open with a bracketed tag, then the subject. The whole
+// book gets the full brand — "[Hadithmv] <title>". The info exports get the
+// short brand plus their kind — "[Hmv - Book Info] <subject>". The closing
+// bracket is the boundary: a title containing " - " or parentheses can never
+// blur where the label ends. The PDF is print-only — its <title> carries the
+// same base, and the print dialog proposes it as the save name.
+export function exportFileBase(name) {
+  return "[Hadithmv] " + (name || "book");
+}
+
+export function exportInfoFileBase(kind, subject) {
+  return "[Hmv - " + kind + "] " + (subject || "info");
+}
+
 export function downloadFile(content, filename, mime) {
   var blob = new Blob([content], { type: mime });
   var url = URL.createObjectURL(blob);
@@ -178,9 +192,23 @@ export function buildWordHTML(cfg, siteURL, versionText, tocTitle) {
   return content;
 }
 
+// The print dialog proposes the PDF's filename from the document title. The
+// popup is an untitled about:blank document, so without a <title> the save
+// dialog falls back to "download". Name it after the export, keeping the
+// baseName shape the other formats use (filename-illegal characters folded).
+function pdfDocTitle(name) {
+  var s = String(name || "")
+    .replace(/[\\/:*?"<>|]+/g, "-")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 120);
+  return s || "Hadithmv";
+}
+
 // PDF — the popup-print page: an RTL document styled for print with a
 // footer page counter; the caller opens it, writes, and calls win.print().
-export function buildPdfHTML(cfg, siteURL, versionText, tocTitle) {
+// docTitle names the print document (the save dialog's default filename).
+export function buildPdfHTML(cfg, siteURL, versionText, tocTitle, docTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
   var fontUrl =
@@ -189,8 +217,13 @@ export function buildPdfHTML(cfg, siteURL, versionText, tocTitle) {
       /\/[^/]*$/,
       "/../../dist/font/merged-400.woff2",
     );
+  var pdfTitle = pdfDocTitle(
+    docTitle || meta.titleEN || cfg.bookCode || "Hadithmv",
+  );
   var pdfHTML =
-    '<html dir="rtl"><head><meta charset="utf-8"><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(' +
+    '<html dir="rtl"><head><meta charset="utf-8"><title>' +
+    pdfTitle +
+    "</title><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(" +
     fontUrl +
     ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;font-size:22pt;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0} .title-page{text-align:center;margin:100px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
   pdfHTML += titlePageHTML(cfg, meta, siteURL, versionText);
@@ -367,7 +400,7 @@ export function initExports(ctx) {
     btn.addEventListener("click", function () {
       var fmt = this.dataset.format;
       var meta = ctx.metadata;
-      var baseName = meta.titleEN || meta.bookCode || "book";
+      var baseName = exportFileBase(meta.titleEN || meta.bookCode);
       var rows = ctx.allData;
       var rowsWithHeader = ctx.headerRow ? [ctx.headerRow].concat(rows) : rows;
       var content, filename, mime;
@@ -479,7 +512,7 @@ export function initExports(ctx) {
         filename = baseName + ".tsv";
         mime = "text/tab-separated-values";
       } else if (fmt === "pdf") {
-        var pdfHTML = buildPdfHTML(ctx, siteURL, versionText, ctx.t("infoToc"));
+        var pdfHTML = buildPdfHTML(ctx, siteURL, versionText, ctx.t("infoToc"), baseName);
         var win = window.open("", "_blank");
         if (!win) {
           window.showErrorToast("PDF export failed — popup blocked");
