@@ -118,6 +118,12 @@ the "keeping this guide alive" capture-at-discovery rule.
   CSV fields when hand-editing registries.
 - Version = SHA-256 of the content CSV, first 12 hex, **lowercase** (compared
   case-sensitively client-side).
+- Content CSVs come from spreadsheet exports. Excel must use "CSV UTF-8"
+  (plain CSV writes ANSI and destroys Arabic/Thaana) and its BOM must be
+  stripped; Google Sheets exports UTF-8 BOM-less. Never sort/reorder a QRN
+  sheet — a sort keeps the row count, so the baseline's order hashes are the
+  only detector (FAIL for QRN, WARN otherwise); reorder in a copy. Run the
+  integrity check after every import.
 - After registry or book changes, regenerate the search index:
   `node data/08-rebuild-searchIndex.mjs` (or double-click
   `codebase/rebuild-index.bat`).

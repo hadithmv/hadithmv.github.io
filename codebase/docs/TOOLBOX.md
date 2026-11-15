@@ -47,7 +47,7 @@ finish registration / add author (13–15), sound / restart / quit
 | 10 | **About / health check** — site versions, tool versions, preview-server state, corpus size (books + authors from the registries), when the checks last ran with their verdict, and the sound state. |
 | 11 | **Check the live site** — compares the published version with the local source; offers the live site itself, and the GitHub Actions page when the live site is behind. |
 | 12 | **Open the notes folder** — the hand-authored markdown (authors + works) in `static/notes/`. |
-| 13 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content → author → tag → option 4 → registry row → font → build), then offers to fill the registry row with you (option 14). |
+| 13 | **New book** — copies a chosen template into `data/content/` under a new book code and prints the checklist (content + spreadsheet export hygiene → author → tag → option 4 → registry row → notes → integrity check → font → build), then offers to fill the registry row with you (option 14). |
 | 14 | **Finish a book registration** — fills or edits a book's row in `03-registry-bookMeta.csv`: the three titles, the author code (checked against 02), the tags. The version is recomputed from the content CSV — never typed. Refreshes the manifest. |
 | 15 | **Add an author** — appends a row to `02-registry-bookAuthors.csv` (code, the three names, AH years), checks for duplicates, refreshes the manifest. |
 | 16 | **Sound on/off** — mutes the success beeps and the failure buzz; the row shows the current state (the flag lives in `%USERPROFILE%\.hadithmv-tools`, outside the repo). |

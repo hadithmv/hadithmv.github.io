@@ -854,6 +854,9 @@ async function newBook() {
   console.log();
   console.log('Checklist:');
   console.log(' 1. Replace the template text with the real book - edit the new CSV.');
+  console.log('    Drafting in a spreadsheet? Excel must use "CSV UTF-8" (plain CSV');
+  console.log('    writes ANSI and destroys Arabic/Thaana) and its BOM must be stripped;');
+  console.log('    Google Sheets is UTF-8. Never sort or reorder a QRN sheet - use a copy.');
   console.log(' 2. If the author is new - option 15 adds the row to');
   console.log('    data/02-registry-bookAuthors.csv (code, names in AR/DV/EN, born/died AH).');
   console.log('    Optional: static/notes/authors/' + code + '.md for the biography.');
@@ -864,8 +867,9 @@ async function newBook() {
   console.log(' 5. Option 15 (or the question below) fills the 03 row for you: the');
   console.log('    three titles, authorCode, tags. Version stays computed, last column.');
   console.log(' 6. Optional: write static/notes/works/' + code + '.md (book notes for the info modal).');
-  console.log(' 7. Run option 9, check 8 - new text may need font glyphs.');
-  console.log(' 8. Build (option 1), commit in your IDE, push, then option 11.');
+  console.log(' 7. Run node tools/hmv-integrity-check.mjs - baseline, row counts, index.');
+  console.log(' 8. Run option 9, check 8 - new text may need font glyphs.');
+  console.log(' 9. Build (option 1), commit in your IDE, push, then option 11.');
   console.log();
   const reg = await ask(WARN + 'Register it now - fill the registry row with me? (y/n) ' + OFF);
   if (reg.toLowerCase() === 'y') return finishBookRegistration(code);

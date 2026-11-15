@@ -60,9 +60,14 @@ canonical Quran text books, `05` surahs, `06` juz, `07` QRN columns, and
 carries its data-row count and a prefix hash: a pure append is INFO, while a
 change/insert/delete inside the old rows is WARN for ordinary books and
 FAIL for QRN books (their rows merge into the 6,236-slot skeleton by index,
-so a shift puts translations under the wrong ayahs). Structural checks cover
-the surah/juz math, the DATA books' 6,236 non-empty rows, registry ↔ file ↔
-version parity, and CSV hygiene; search-index freshness compares the
+so a shift puts translations under the wrong ayahs). Same-count in-place
+edits are silent, but a same-count **reorder** (a spreadsheet sort keeps the
+count) is caught by the ordered/multiset hashes — WARN for ordinary books,
+FAIL for QRN. Structural checks cover the surah/juz math, the DATA books'
+6,236 non-empty rows, registry ↔ file ↔ version parity, and CSV hygiene;
+the hygiene pass also flags spreadsheet artifacts (U+FFFD replacement
+characters, ANSI/UTF-8 mojibake, Excel `#REF!`-style tokens), which can hit
+a file without changing its row count. Search-index freshness compares the
 manifest's `meta.sourceVersions` with the files on disk and each shard file
 with `meta.shards`. Editing cells, filling placeholder rows and appending
 chapters trigger nothing. `--update` re-records the baseline — only after

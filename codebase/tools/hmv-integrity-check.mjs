@@ -22,13 +22,18 @@
  *    position (pins, history, ?row= links) — WARN for ordinary books, FAIL
  *    for QRN books, whose rows merge into the 6,236-slot skeleton by row
  *    index, so one shifted row puts translations under the wrong ayahs.
+ *    Same-count content edits are silent by design (normal authoring); a
+ *    same-count REORDER is caught by the ordered/multiset hashes (a sheet
+ *    sort keeps the count) — WARN for ordinary books, FAIL for QRN books.
  *    Editing cells, filling empty rows and appending chapters trigger
- *    nothing. Same-count edits in ordinary books are not detectable by
- *    design (git review is their record).
+ *    nothing.
  *
  * Plus structural invariants (Quran math, QRN-DATA shape, registry ↔ file ↔
  * version consistency, CSV hygiene) and search-index freshness (the index
- * manifest's per-book source versions vs the files on disk).
+ * manifest's per-book source versions vs the files on disk). The hygiene
+ * pass also looks for spreadsheet-export artifacts — U+FFFD replacement
+ * characters, ANSI/UTF-8 mojibake, Excel formula errors — failures that can
+ * hit a file without changing its row count.
  *
  * Severities: FAIL exits 1; WARN is printed but exits 0; INFO records routine
  * events (appends, new books) until --update records them.
@@ -193,6 +198,25 @@ function prefixHash(rows, dataRows) {
     .digest("hex");
 }
 
+// Ordered vs order-independent hashes: equal multisets + different ordered
+// hashes = the same rows in a different order. This catches a spreadsheet
+// sort (which leaves the row count untouched) without flagging ordinary
+// in-place edits, whose multiset differs too.
+function orderedHash(rows) {
+  return crypto
+    .createHash("sha256")
+    .update(JSON.stringify(rows), "utf8")
+    .digest("hex");
+}
+
+function multisetHash(rows) {
+  const parts = rows.map((r) => JSON.stringify(r)).sort();
+  return crypto
+    .createHash("sha256")
+    .update(parts.join("\n"), "utf8")
+    .digest("hex");
+}
+
 function readBaseline() {
   try {
     return JSON.parse(fs.readFileSync(BASELINE, "utf8"));
@@ -209,9 +233,10 @@ function writeBaseline(frozen, books) {
   const out = {
     note:
       "Hadithmv integrity baseline. Frozen entries are full SHA-256 of the " +
-      "LF bytes GitHub Pages serves; books carry data-row counts plus a " +
-      "prefix hash (header + first N rows). Regenerate deliberately with: " +
-      "node tools/hmv-integrity-check.mjs --update",
+      "LF bytes GitHub Pages serves; books carry data-row counts, a prefix " +
+      "hash (header + first N rows), and ordered + multiset hashes (used to " +
+      "tell a same-count reorder from an ordinary edit). Regenerate " +
+      "deliberately with: node tools/hmv-integrity-check.mjs --update",
     version: 1,
     frozen: sortedFrozen,
     books: sortedBooks,
@@ -243,6 +268,8 @@ function runUpdate() {
     books[entry.code] = {
       rows: info.dataRows,
       prefix: prefixHash(info.rows, info.dataRows),
+      ordered: orderedHash(info.rows),
+      multiset: multisetHash(info.rows),
     };
   }
 
@@ -277,8 +304,14 @@ function runUpdate() {
     } else if (ob.rows !== nb.rows) {
       console.log("CHANGED  book    " + k + "  rows " + fmt(ob.rows) + " → " + fmt(nb.rows));
       changed++;
-    } else if (ob.prefix !== nb.prefix) {
-      console.log("CHANGED  book    " + k + "  (content within the baseline rows)");
+    } else if (ob.prefix !== nb.prefix || ob.ordered !== nb.ordered) {
+      if (ob.ordered === undefined) {
+        console.log("UPGRADED book    " + k + "  (order hashes added)");
+      } else if (ob.multiset === nb.multiset) {
+        console.log("CHANGED  book    " + k + "  (reordered)");
+      } else {
+        console.log("CHANGED  book    " + k + "  (content within the baseline rows)");
+      }
       changed++;
     }
   }
@@ -503,6 +536,25 @@ function runCheck() {
     }
     if (info.dataRows === old.rows) {
       matchedBooks++;
+      // A sort/reorder keeps the count. Equal multisets + a different
+      // ordered hash means the same rows moved — the one spreadsheet mistake
+      // the count check cannot see. In-place content edits change the
+      // multiset too, so normal authoring stays silent (by design).
+      if (old.ordered !== undefined && old.multiset !== undefined) {
+        if (orderedHash(info.rows) !== old.ordered && multisetHash(info.rows) === old.multiset) {
+          if (isQrn) {
+            fail(
+              code + ": rows reordered without a count change",
+              "QRN rows merge by position — translations after the moved rows now sit under the wrong ayahs; restore the order, then --update only if intended",
+            );
+          } else {
+            warn(
+              code + ": rows reordered",
+              "pins, history and ?row= links now point at different rows",
+            );
+          }
+        }
+      }
       continue;
     }
     const grew = info.dataRows > old.rows;
@@ -551,6 +603,27 @@ function runCheck() {
     }
     if (buf.length && buf[buf.length - 1] === 10) {
       warn(where + ": trailing newline", "data files end without a newline");
+      hygieneIssues++;
+    }
+    // Spreadsheet-export artifacts: these can hit a file without changing
+    // its row count, so the count baseline cannot see them.
+    const text = buf.toString("utf8");
+    const replacement = text.split(String.fromCharCode(0xfffd)).length - 1;
+    if (replacement) {
+      warn(where + ": " + replacement + " U+FFFD replacement character(s)", "not valid UTF-8 — re-export the sheet as UTF-8");
+      hygieneIssues++;
+    }
+    const mojibake = (text.match(/[ÃÂØÙÐ][\u0080-¿]/g) || []).length;
+    if (mojibake) {
+      warn(where + ": " + mojibake + " mojibake sequence(s) (Ã/Ø/Ù before a control-range character)", "likely an ANSI/UTF-8 mix-up — re-export as UTF-8");
+      hygieneIssues++;
+    }
+    const excelErrors = text.match(/#(?:REF!|VALUE!|NAME\?|DIV\/0!|N\/A|NULL!|NUM!)/g) || [];
+    if (excelErrors.length) {
+      warn(
+        where + ": " + excelErrors.length + " Excel error token(s), first " + JSON.stringify(excelErrors[0]),
+        "a spreadsheet export carried formula errors — fix the sheet and re-export",
+      );
       hygieneIssues++;
     }
   }
