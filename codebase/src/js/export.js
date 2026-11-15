@@ -15,6 +15,7 @@
 
 import { unparseCSV } from "./csv.js";
 import { escapeHTML } from "./search-utils.js";
+import { buildProvenance } from "./export-provenance.js";
 
 // ── Shared builders — module scope, usable by any surface ─────────
 
@@ -72,6 +73,16 @@ function titlePageHTML(cfg, meta, siteURL, versionText) {
     '">' +
     escapeHTML(siteURL) +
     "</a></p>";
+  // The provenance marker is a human-readable line AND a live link: the
+  // PDF keeps the link annotation, and the same URL is the QR payload.
+  if (cfg.provenance) {
+    h +=
+      '<p class="provenance" dir="ltr"><a href="' +
+      escapeHTML(cfg.provenance.url) +
+      '">' +
+      escapeHTML(cfg.provenance.line) +
+      "</a></p>";
+  }
   if (cfg.titleFacts && cfg.titleFacts.length) {
     h +=
       '<hr class="title-sep"><p class="title-facts">' +
@@ -124,7 +135,7 @@ export function buildWordHTML(cfg, siteURL, versionText, tocTitle) {
   var meta = cfg.metadata;
   var rows = cfg.rows;
   var content =
-    '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h1{font-size:22pt;margin:0} h2{font-size:12pt;color:#666} .title-page{text-align:center;margin:80px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:14pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:6px 0}</style></head><body>';
+    '<html dir="rtl"><head><meta charset="utf-8"><style>body{font-family:"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2;padding:20px;direction:rtl} h1{font-size:22pt;margin:0} h2{font-size:12pt;color:#666} .title-page{text-align:center;margin:80px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .provenance{font-size:10pt;color:#aaa;direction:ltr;word-break:break-all;margin:8px 0 0} .provenance a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:14pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:6px 0}</style></head><body>';
   content += titlePageHTML(cfg, meta, siteURL, versionText);
   content += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
@@ -225,7 +236,7 @@ export function buildPdfHTML(cfg, siteURL, versionText, tocTitle, docTitle) {
     pdfTitle +
     "</title><style>@page{@bottom-center{content:counter(page);font-family:Hadithmv;font-size:9pt;color:#999}} @font-face{font-family:Hadithmv;src:url(" +
     fontUrl +
-    ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;font-size:22pt;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0} .title-page{text-align:center;margin:100px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+    ') format("woff2");font-weight:300;font-display:block} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:30px;direction:rtl;max-width:700px;margin:0 auto} h1{text-align:center;font-size:22pt;margin-bottom:8px} h2{font-size:11pt;color:#888;margin:24px 0 4px} p{margin:8px 0} hr{border:none;border-top:1px solid #ddd;margin:16px 0} .title-page{text-align:center;margin:100px 0} .kind{font-size:14pt;color:#666} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .provenance{font-size:10pt;color:#aaa;direction:ltr;word-break:break-all;margin:8px 0 0} .provenance a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
   pdfHTML += titlePageHTML(cfg, meta, siteURL, versionText);
   pdfHTML += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
@@ -297,7 +308,7 @@ export function buildHtmlBook(cfg, siteURL, versionText, tocTitle) {
   var htmlExport =
     '<!doctype html><html dir="rtl"><head><meta charset="utf-8"><title>' +
     (meta.titleEN || cfg.bookCode || "book") +
-    '</title><style>@font-face{font-family:Hadithmv;src:url(../../dist/font/merged-400.woff2) format("woff2");font-weight:400} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:22pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:14pt;color:#888} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
+    '</title><style>@font-face{font-family:Hadithmv;src:url(../../dist/font/merged-400.woff2) format("woff2");font-weight:400} body{font-family:Hadithmv,"Traditional Arabic","Scheherazade New",serif;font-size:14pt;line-height:2.2;padding:24px;max-width:700px;margin:0 auto;direction:rtl;background:#fff;color:#1a202c} h1{text-align:center;font-size:22pt;margin-bottom:4px} h2{font-size:11pt;color:#888;margin:28px 0 4px} p{margin:6px 0} .sharh{font-size:12.5pt} hr{border:none;border-top:1px solid #ddd;margin:20px 0} .ms-sep{text-align:center;color:#bbb;margin:10px 0;font-size:8pt;letter-spacing:3px} .sep{text-align:center;color:#ccc;margin:20px 0} .title-page{text-align:center;margin:60px 0} .kind{font-size:14pt;color:#888} .title-sep{border:none;border-top:1px solid #ccc;margin:26px 0} .subtitle{font-size:18pt;color:#444;margin:6px 0 0} .title-facts{font-size:12pt;color:#555;line-height:2.2} .brand{font-size:12pt;color:#888} .url{font-size:11pt;color:#999;word-break:break-all;margin:4px 0 0} .url a{color:inherit;text-decoration:none} .provenance{font-size:10pt;color:#aaa;direction:ltr;word-break:break-all;margin:8px 0 0} .provenance a{color:inherit;text-decoration:none} .page-break{page-break-before:always;font-size:1pt;line-height:1px;margin:0;color:#fff} .toc{text-align:center;margin:60px 0} .toc h2{font-size:13pt;color:#666} .toc ol{padding:0;list-style:none} .toc li{margin:8px 0}</style></head><body>';
   htmlExport += titlePageHTML(cfg, meta, siteURL, versionText);
   htmlExport += tocPageHTML(cfg, tocTitle);
   for (var i = 0; i < rows.length; i++) {
@@ -355,6 +366,7 @@ export function exportEPUB(cfg, siteURL, versionText) {
             versionText: versionText || "",
             kindTitle: cfg.kindTitle || "",
             titleFacts: cfg.titleFacts || null,
+            provenance: cfg.provenance || null,
           },
         );
       });
@@ -367,6 +379,17 @@ export function initExports(ctx) {
   var btnExport = document.getElementById("btnExport");
   var exportDropdown = document.getElementById("exportDropdown");
   if (!btnExport || !exportDropdown) return;
+
+  // The whole-book marker: the reader surface is the only caller of
+  // initExports, so the info panes (which build their own cfg) stay
+  // unmarked until they get a composite fingerprint.
+  if (ctx.metadata && ctx.allData && !ctx.provenance) {
+    ctx.provenance = buildProvenance({
+      bookCode: ctx.metadata.bookCode,
+      version: ctx.metadata.version,
+      rows: ctx.allData.length,
+    });
+  }
 
   btnExport.addEventListener("click", function (e) {
     e.stopPropagation();
@@ -430,6 +453,12 @@ export function initExports(ctx) {
           versionText +
           "\n" +
           siteURL +
+          (ctx.provenance
+            ? "\n" +
+              ctx.provenance.line +
+              "\nVerify: " +
+              ctx.provenance.url
+            : "") +
           "\n\n──────────\n\n";
         if (tocLines.length >= 2) {
           content +=
@@ -456,6 +485,12 @@ export function initExports(ctx) {
           versionText +
           "\n\n" +
           siteURL +
+          (ctx.provenance
+            ? "\n\n" +
+              ctx.provenance.line +
+              "\n\nVerify: " +
+              ctx.provenance.url
+            : "") +
           "\n\n---\n\n";
         if (tocLines.length >= 2) {
           content +=

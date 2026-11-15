@@ -1,0 +1,187 @@
+/* Verify-export page — English-only, LTR, linked from export title pages. */
+body {
+  margin: 0;
+  direction: ltr;
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
+  background: var(--color-bg, #fff);
+  color: var(--color-text);
+}
+
+.verify-top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 2px solid var(--color-divider-ornament);
+  background: var(--color-bg, #fff);
+}
+
+.verify-top-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.verify-top h1 {
+  flex: 1;
+  margin: 0;
+  font-size: var(--fs-title-lg, 1.2rem);
+  font-weight: 800;
+  color: var(--color-text);
+  text-align: center;
+}
+
+#verifyBack {
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
+  color: var(--color-danger-text, #dc2626);
+  background: var(--color-danger-bg, #fef2f2);
+  border: 1px solid var(--color-danger-border, #fecaca);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
+}
+
+#verifyBack:hover {
+  border-color: var(--color-danger-border-hover, #fca5a5);
+}
+
+.verify-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.verify-card {
+  background: var(--color-card-bg, #fff);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 12px);
+  padding: 20px;
+}
+
+.verify-intro {
+  margin: 0 0 16px;
+  color: var(--color-text-muted);
+  font-size: var(--fs-muted, 0.9rem);
+  line-height: 1.7;
+}
+
+.verify-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: var(--fs-muted, 0.9rem);
+  font-weight: 700;
+}
+
+.verify-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 70px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-bg, #fff);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  resize: vertical;
+}
+
+.verify-file-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.verify-file-row .verify-label {
+  margin: 0;
+}
+
+.verify-file-row input {
+  font-family: inherit;
+  font-size: var(--fs-muted, 0.9rem);
+  color: var(--color-text);
+}
+
+.verify-result {
+  min-height: 80px;
+  margin-top: 16px;
+}
+
+.verify-empty {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-muted, 0.9rem);
+  line-height: 1.7;
+}
+
+.verify-status {
+  margin: 0;
+  font-size: var(--fs-muted, 0.95rem);
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.verify-status.ok {
+  color: #15803d;
+}
+
+.verify-status.warn {
+  color: #b45309;
+}
+
+.verify-status.bad {
+  color: var(--color-danger-text, #dc2626);
+}
+
+.verify-dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+  margin: 12px 0 0;
+  font-size: var(--fs-muted, 0.9rem);
+}
+
+.verify-dl dt {
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.verify-dl dd {
+  margin: 0;
+  word-break: break-word;
+}
+
+.verify-note {
+  margin: 18px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .verify-card {
+    padding: 14px;
+  }
+}

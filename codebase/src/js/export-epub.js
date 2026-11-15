@@ -121,6 +121,10 @@ export function createEPUB(rows, meta, opts) {
     // The cover URL is a live link too (the title-page anchor in the HTML
     // builders) — href and text carry the same escaped string.
     + '<p class="cover-url"><a href="' + xmlEsc(opts.siteURL || "") + '">' + xmlEsc(opts.siteURL || "") + '</a></p>';
+  if (opts.provenance) {
+    cover += '<p class="cover-provenance" dir="ltr"><a href="' +
+      xmlEsc(opts.provenance.url) + '">' + xmlEsc(opts.provenance.line) + '</a></p>';
+  }
   if (opts.titleFacts && opts.titleFacts.length) {
     cover += '<hr/><p class="cover-facts">' + opts.titleFacts.map(xmlEsc).join("<br/>") + '</p>';
   }
@@ -202,6 +206,8 @@ export function createEPUB(rows, meta, opts) {
     + '.cover-brand { font-size: 0.95rem; color: #999; margin: 0; }\n'
     + '.cover-url { font-size: 0.85rem; color: #aaa; margin: 0.2em 0 0; }\n'
     + '.cover-url a { color: inherit; text-decoration: none; }\n'
+    + '.cover-provenance { font-size: 0.72rem; color: #aaa; direction: ltr; margin: 0.3em 0 0; word-break: break-all; }\n'
+    + '.cover-provenance a { color: inherit; text-decoration: none; }\n'
     + '/* Nav */\n'
     + 'nav ol { padding-right: 1.5em; }\n'
     + 'nav li { margin: 0.3em 0; }\n'

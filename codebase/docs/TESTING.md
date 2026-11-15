@@ -37,7 +37,7 @@ gives the same output in the terminal, without the report.
 | --- | --- | --- | --- | --- |
 | **Routine** | | | | |
 | 1. Reader smoke | `tools/hmv-qrn-smoke.mjs` | 107 | ~60 s | Reader UI/navigation, QRN lazy modules, search window, column toggles, Thaana font insets |
-| 2. Info modal | `tools/hmv-info-check.mjs` | 84 | ~13 s | Info/author/works modal, notes renderer, clipboard, the four exports |
+| 2. Info modal | `tools/hmv-info-check.mjs` | 87 | ~13 s | Info/author/works modal, notes renderer, clipboard, the four exports, reader provenance marker |
 | 3. Authors & periods | `tools/hmv-authors-check.mjs` | 103 | ~14 s | The shared facet system — library page, modals, dashboard, reader header |
 | 4. Library scope | `tools/hmv-libscope-check.mjs` | 129 | ~15 s | Library-scope picker, scoped search, window/page peek |
 | 5. Service worker | `tools/hmv-sw-check.mjs` | 16 | ~5 s | SW registration/precache/offline, `dist/manifest.json` freshness |
@@ -47,6 +47,7 @@ gives the same output in the terminal, without the report.
 | **Specialist** | | | | |
 | Integrity baseline | `tools/hmv-integrity-check.mjs` | 0 failures / 0 warnings | ~2 s | After any data/registry/index change — frozen Quran set, append-aware row counts, index freshness |
 | QR tool | `tools/hmv-qr-check.mjs` | 23 | ~12 s | Collapsed Tools group + expansion (current-language label), LTR qr.html generation/levels/capacity, SVG/PNG downloads, dark-theme white preview |
+| Verify export | `tools/hmv-verify-check.mjs` | 15 | ~10 s | Tools group Verify link, claim parser (caption + URL, caption-only version lookup, legacy line, verify URL), current/different/unknown status, LTR |
 | RDF / merged book | `tools/hmv-rdf-check.mjs` | 64 | ~27 s | `radheef-merge.js`, reader infinite-scroll/goTo, progress/milestones, RDF filter, `formatThousands` |
 | Search-index shards | `tools/hmv-shards-check.mjs` | 38 | ~9 s | `08-rebuild-searchIndex.mjs`, the shard format/manifest, `library-search-engine.js` |
 | Header coverage | `tools/hmv-header-scan.mjs` | 82 files / 74 headers | ~1 s | Optional: see which picker labels are still raw (uncurated headers are fine) |

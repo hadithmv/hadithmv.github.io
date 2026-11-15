@@ -737,6 +737,23 @@ async function main() {
   const readerWordName = await evalJS(`(window.__downloads || []).filter(function (n) { return /\\.doc$/.test(n); }).pop() || ""`);
   check("S8b reader Word export is brand-tagged",
     readerWordName === "[Hadithmv] " + usool.titleEN + ".doc", readerWordName);
+  // The whole-book marker: the title page carries the ASCII provenance line,
+  // and the Word/PDF links carry the verify URL (the PDF keeps the link
+  // annotation — the machine-readable carrier).
+  const usoolRows = parseCSV(fs.readFileSync(DATA + "content/AQD-usooluSiththa.csv", "utf8")).length - 1;
+  const PROV_LINE = "source: v" + String(usool.version || "").toLowerCase() + " - rows: " + usoolRows;
+  const liveText = live.toString("utf8");
+  check("S8b reader Word export carries the provenance marker",
+    liveText.indexOf(PROV_LINE) !== -1 && liveText.indexOf("verify.html?book=AQD-usooluSiththa") !== -1,
+    PROV_LINE);
+  await evalJS(`document.getElementById('btnExport').click()`);
+  await sleep(200);
+  await evalJS(`document.querySelector('.export-option[data-format="pdf"]').click()`);
+  check("S8b reader PDF popup opens", await waitFor(`window.__pdf.length === 1`, 20000));
+  const readerPdf = await evalJS(`window.__pdf[0] || ""`);
+  check("S8b reader PDF carries the provenance line + verify link",
+    readerPdf.indexOf(PROV_LINE) !== -1 && readerPdf.indexOf("verify.html?book=AQD-usooluSiththa") !== -1,
+    PROV_LINE);
 
   // ── S9: authors-modal ℹ stacks the info modal; Escape unwinds ──────
   await goto("file://" + ROOT + "library-search.html");

@@ -139,7 +139,9 @@ Deliberately **not** in this run: the specialist batteries —
 integrity baseline check `tools/hmv-integrity-check.mjs` (frozen Quran set,
 append-aware row-count drift, index freshness — ~2 s, no browser), and the
 QR tool battery `tools/hmv-qr-check.mjs` (sidebar Tools link, generation,
-levels, capacity error, SVG/PNG downloads) — plus the one-area utilities `tools/hmv-header-scan.mjs` (optional picker-label
+levels, capacity error, SVG/PNG downloads), and the verify-export battery
+`tools/hmv-verify-check.mjs` (provenance parsing and the current-version
+check) — plus the one-area utilities `tools/hmv-header-scan.mjs` (optional picker-label
 audit — unmapped headers show their raw identifier by design) and
 `tools/hmv-golden-capture.mjs`. Run them by hand when their area changes;
 `TESTING.md` → "Batteries at a glance" lists the triggers, counts, and

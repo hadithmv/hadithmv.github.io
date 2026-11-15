@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify export · Hadithmv</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/verify.css" />
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (t && t !== "light")
+          document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <header class="verify-top">
+      <div class="verify-top-inner">
+        <button
+          id="verifyBack"
+          title="Back to the book list"
+          onclick="window.location.href = 'index.html'"
+        >
+          ↩
+        </button>
+        <h1>Verify export</h1>
+      </div>
+    </header>
+
+    <main class="verify-main">
+      <section class="verify-card">
+        <p class="verify-intro">
+          Check where a Hadithmv export came from. Open this page from the
+          link on an export's title page, or paste the source caption together
+          with the title-page URL (or the verify link). A caption on its own
+          can identify the book when its source version is current; otherwise
+          include the URL. For PDFs, copy the caption and the title-page URL.
+          Or choose a text export below.
+        </p>
+
+        <label class="verify-label" for="verifyInput"
+          >Source line, title-page URL, or verify link</label
+        >
+        <textarea
+          id="verifyInput"
+          class="verify-input"
+          rows="3"
+          dir="auto"
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="off"
+          placeholder="http://…/reader.html?book=CODE&#10;source: v87bc47347a8e - rows: 96"
+        ></textarea>
+
+        <div class="verify-file-row">
+          <label class="verify-label" for="verifyFile"
+            >…or choose a text export</label
+          >
+          <input
+            id="verifyFile"
+            type="file"
+            accept=".txt,.md,.html,.htm,.doc,.csv,.tsv,.json,.yaml,.yml,.xml,.toon"
+          />
+        </div>
+
+        <div id="verifyResult" class="verify-result" aria-live="polite">
+          <p class="verify-empty">
+            Paste a provenance line or open a verify link to see the claim.
+          </p>
+        </div>
+
+        <p class="verify-note">
+          This checks the claimed book and source version against the current
+          registry. The file's text is not compared yet.
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/verify-page.js"></script>
+
+    <script>
+      // Service worker — repeat visits load from cache (instant, offline).
+      // Registration fails silently on file:// and inside the apps.
+      if ("serviceWorker" in navigator) {
+        try {
+          navigator.serviceWorker.register("../../sw.js").catch(function () {});
+        } catch (e) {}
+      }
+    </script>
+  </body>
+</html>

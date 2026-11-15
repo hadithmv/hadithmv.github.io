@@ -18,7 +18,7 @@ Welcome to Hadithmv, a digital library of Islamic texts in Dhivehi, Arabic, and 
 | Category | Features |
 |---|---|
 | **Library** | Search across all languages, filter by tag (Aqidah, Hadith, Fiqh…) with tag‑badge chips or by author and Hijri period, ⚠️ Draft badges for work‑in‑progress books, sort A→Z/Z→A, card or table view, continue‑reading card (resume your last book), pinned bookmarks, reading history with timestamps, auto‑focus search on desktop, focus mode (`z` key) |
-| **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, QR tool, scroll‑to‑top |
+| **Sidebar** | Navigation (library, pins, history), settings, font controls, GitHub link, FAQ, Help, Contact, QR and export-verification tools, scroll‑to‑top |
 | **Reader** | Pagination (first/prev/page‑selector/next/last), infinite scroll, three view modes (Card / Table / Parallel text), search window with full‑text search (wildcards/fuzzy/negation/regex/column‑scope), whole‑word toggle, search history, advanced search with AND/OR conditions, tashkeel toggle, copy (with formatting) / share (deep link) / export (15 formats), column visibility toggles, reset button, focus mode, progress bar with milestone toasts (25/50/75/100%), surah‑completed toast on Quran books and completion animation, scroll counter with reading percentage, URL position sync |
 | **Quran** | Surah / ayah / juz navigation with searchable overlays, add translations/tafsirs from multiple books on demand with reorderable columns, content presets (Main / All / Arabic / Reset), configurable ayah decoration (braces, ayah numbers, number‑only brackets), side‑by‑side parallel text view |
 | **Pins & History** | Pins with position labels (surah references for Quran, row numbers otherwise), one pin per book — the 📌 button toggles (pinned → click to unpin) and a pinned book's position follows you as you read — reorder via ▲▼, reading history with relative timestamps, confirmed clear‑all, sidebar access from both pages |
@@ -157,12 +157,25 @@ Open with the blue ☰ button. From here you can:
 - Visit the GitHub page
 - Open FAQ, Help, or Contact pages
 - Expand **Tools**, then open the **QR code** tool — turn any text or link into a QR code
+- Expand **Tools**, then open **Verify export** — check an export's provenance against the current registry
 - Open **Settings**
 - Scroll to the top of the page
 
 ### QR tool
 
 Expand **Tools** in the sidebar to reach the **QR code** tool (the tool page is in English and laid out left-to-right). Type or paste any text or link and the code appears instantly — generated on your device, with nothing sent anywhere. Pick the error-correction level (L/M/Q/H; Q is the default) and download it as **SVG** for print or **PNG** for chat. The preview always stays black-on-white, even in dark or sepia themes, because inverted codes scan unreliably. If the text is too long for the chosen level, a capacity message appears — shorten it or pick a lower level.
+
+### Verify an export
+
+Whole-book exports from the reader (TXT, MD, HTML, Word, PDF and EPUB) carry a small source caption on their title page, under the site link:
+
+```text
+Hadithmv - v6.9.85
+http://…/reader.html?book=HDT-muwattaMalik
+source: v25b92435f2ec - rows: 183
+```
+
+The caption is a link to **Verify export** (also under **Tools** in the sidebar). Open the link, paste the caption together with the title-page URL (the book code comes from the URL), or choose a text export on that page to check the claimed book and source version against the current registry. A caption on its own also works when its source version is still current — the page matches the version to its book; otherwise include the title-page URL with it. It tells you whether the claim is current, names the book and author, and warns when the book has changed since the export. It checks the **claim**, not the file's body yet — a PDF's pasted text is unreliable in Arabic/Dhivehi, so copy just the caption and the URL. The same claim is what the future export QR encodes.
 
 ## Settings
 

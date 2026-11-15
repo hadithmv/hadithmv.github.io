@@ -8,6 +8,8 @@
 | `src/books/reader.html` | `reader.js` | `common.js` |
 | `src/books/library-search.html` | `library-search-page.js` (self-initialising) | `common.js` |
 | `src/books/info.html` | `book-info.js` (self-initialising) | `common.js` |
+| `src/books/qr.html` | `qr-page.js` | none (English-only tool page) |
+| `src/books/verify.html` | `verify-page.js` | none (English-only tool page) |
 
 ## Modules
 
@@ -31,7 +33,12 @@
 | `src/js/library-search-page.js` | Library search page UI: `?q=`/`?tags=`, chip scoping, grouped results |
 | `src/js/library-peek.js` | Cross-book result peeks: ▾ expand, per-book snippet batches, deep links — shared by the page, the window and the reader's All-books tab |
 | `src/js/library-scope-picker.js` | Book-scope picker: groups, chips, rail, default HDT scope |
-| `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export |
+| `src/js/export.js` | Export formats (15 formats) — `initExports(ctx)` receives a context object; the PDF/HTML/Word/EPUB builders are module-scope pure functions (`buildPdfHTML`, `buildHtmlBook`, `buildWordHTML`, `exportEPUB`, `downloadFile`) shared with book-info.js's pane export; the reader's title pages carry the provenance marker |
+| `src/js/export-provenance.js` | Whole-book export marker: ASCII provenance line + verify URL builder |
+| `src/js/qr.js` | QR wrapper over the vendored encoder — `qrCreate`/`qrSvg`/`qrPngDataUrl` |
+| `src/js/qr-page.js` | QR tool page UI (live preview, error levels, SVG/PNG downloads) |
+| `src/js/vendor-qrcodegen.js` | Vendored Nayuki QR encoder (MIT) — compiled from the upstream TypeScript |
+| `src/js/verify-page.js` | Verify-export page: claim parser + registry freshness check |
 | `src/js/quran-data.js` | Quran pure data: loading, merging, decoration, structural derivation — lazy-loaded with quran-ui.js for QRN books only |
 | `src/js/quran-ui.js` | Quran UI: dropdowns, presets, surah selector. Re‑exports quran-data.js (barrel); dynamically imported by reader.js on QRN detection |
 | `src/js/search-utils.js` | Search engine: normalisation, parsing, matching, history |
@@ -789,6 +796,16 @@ Recomputes table and spacer widths and scrollbar visibility after column toggles
 
 ---
 
+## export-provenance.js
+
+Builds the whole-book source caption printed on the title page — the brand line above supplies the site version, and the site URL supplies the book code, so the caption only adds the source version and row count:
+
+```text
+source: v0f2711a29294 - rows: 41
+```
+
+`buildProvenance({ bookCode, version, rows })` returns `{ line, url, bookCode, version, rows }`; `verifyPageURL(bookCode, version)` builds `verify.html?book=CODE&v=VERSION` as a sibling of the current page. `initExports` sets `ctx.provenance` once for the reader surface — the info-pane exports don't carry it yet (their sources are composite: book + author registry + notes). The caption is ASCII and stable; the verify page parses it together with a title-page/reader URL, and still accepts the older full line for exports made during testing.
+
 ## qr.js
 
 The app's one entry point to the vendored QR encoder (`src/js/vendor-qrcodegen.js` — Nayuki's qrcodegen, MIT; compiled from the upstream TypeScript with an ESM export appended). Text is encoded in byte mode as UTF-8, so Dhivehi and Arabic scan correctly. Used by `qr-page.js` (the sidebar's QR tool) and, later, the verify QR on export title pages.
@@ -798,6 +815,10 @@ The app's one entry point to the vendored QR encoder (`src/js/vendor-qrcodegen.j
 - `qrPngDataUrl(qr, { border = 4, size = 1024 })` → a canvas PNG data URL (browser only), integer-scaled so modules stay crisp.
 
 The `qr.html` page (`qr-page.js`) previews on a permanently white card in every theme — inverted QR codes scan unreliably.
+
+## verify-page.js
+
+The verify-export page (`src/books/verify.html`, English-only and LTR). Accepts `?book=CODE&v=VERSION`, a pasted source caption (`source: v… - rows: …`) — with a title-page/reader URL (the book code comes from the URL), or alone when its source version uniquely matches a current book — a full legacy provenance line, a pasted verify URL, or a text export file; resolves the book against `data/03-registry-bookMeta.csv` (author from 02) and reports whether the claimed source version is current, different, or unknown. It is a **claim check** — the file's text is not compared yet.
 
 ## export-epub.js
 

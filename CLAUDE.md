@@ -71,6 +71,9 @@ Run these before declaring work done (from `codebase/`):
 - `node tools/hmv-qr-check.mjs` — QR tool battery (the sidebar's collapsed
   Tools group + expansion, qr.html generation/error levels/capacity error,
   SVG/PNG downloads, the always-white preview in the dark theme).
+- `node tools/hmv-verify-check.mjs` — verify-export battery (the Tools
+  group's Verify link, provenance-line/verify-URL parsing, current vs
+  different vs unknown book, LTR).
 - `node tools/hmv-toc-scan.cjs` — reader.js TOC freshness scan.
 - `node tools/hmv-stream-check.mjs` — streaming battery: stream-parser
   parity with `parseCSV` (every content CSV, seeded chunkings + callback

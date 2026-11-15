@@ -342,6 +342,11 @@ const STRINGS = {
   navContact: { dv: "📧 ގުޅުން", en: "📧 Contact", ar: "📧 اتصل بنا" },
   navTools: { dv: "🧰 ޓޫލްސް", en: "🧰 Tools", ar: "🧰 أدوات" },
   navQrTool: { dv: "🔳 QR ކޯޑް", en: "🔳 QR code", ar: "🔳 رمز QR" },
+  navVerifyTool: {
+    dv: "✅ އެކްސްޕޯޓް ކަށަވަރުކުރޭ",
+    en: "✅ Verify export",
+    ar: "✅ التحقق من التصدير",
+  },
   labelWidth: {
     dv: "ފުޅާމިން",
     en: "Width",
