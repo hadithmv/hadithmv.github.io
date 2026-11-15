@@ -652,7 +652,6 @@ JADX
 Windows Subsystem for Linux
 WhatsApp
 Hadithmv
-Cloudflare One Client 1.1.1.1
 
 ---
 
@@ -792,6 +791,7 @@ ShareX
 
 - notepad++
   - settings, preferences, dark mode
+  - set as default text app
 
 - notion
   - settings, preferences, theme: dark
@@ -820,7 +820,7 @@ ShareX
       - icons in context menu: on
 
 - patch my pc
-  - automatic update scheduler popup, choose no
+  - scheduler, Send a Notification for Outdated Apps on the Schedule Below: no
 
 - unigetui
   - settings
@@ -1844,7 +1844,7 @@ Zikuru
 - add recovery email for new google account
 
 - google translate
-  - download offline languages?
+  - download offline languages
 
 - google maps
   - download offline map
@@ -2330,6 +2330,7 @@ zh9528.file-size
 
 claude code
 codex
+Gemini Code Assist
 
 ---
 
@@ -2337,9 +2338,14 @@ codex
 
 ### VSCode Settings
 
-- settings ui
-  - editor word wrap: on
-  - diff editor word wrap: on
+- file, preferences, settings
+  - commonly used
+    - format on save: on
+    - word wrap: on
+  - workbench, editor, enablePreview: off
+  - ui
+    - editor word wrap: on
+    - diff editor word wrap: on
 
 ---
 
