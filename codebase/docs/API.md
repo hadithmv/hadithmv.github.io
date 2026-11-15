@@ -789,6 +789,16 @@ Recomputes table and spacer widths and scrollbar visibility after column toggles
 
 ---
 
+## qr.js
+
+The app's one entry point to the vendored QR encoder (`src/js/vendor-qrcodegen.js` — Nayuki's qrcodegen, MIT; compiled from the upstream TypeScript with an ESM export appended). Text is encoded in byte mode as UTF-8, so Dhivehi and Arabic scan correctly. Used by `qr-page.js` (the sidebar's QR tool) and, later, the verify QR on export title pages.
+
+- `qrCreate(text, eclKey?)` → `{ qr, version, size, bytes }`; `eclKey` is `"L" | "M" | "Q" | "H"` (default `"Q"`). Throws `RangeError("Data too long")` when the text exceeds the level's capacity.
+- `qrSvg(qr, { border = 4, size = 512, label })` → an SVG string with a white quiet zone and one dark-module path. Only coordinates are interpolated — the input text never enters the markup, so inserting it with `innerHTML` is safe.
+- `qrPngDataUrl(qr, { border = 4, size = 1024 })` → a canvas PNG data URL (browser only), integer-scaled so modules stay crisp.
+
+The `qr.html` page (`qr-page.js`) previews on a permanently white card in every theme — inverted QR codes scan unreliably.
+
 ## export-epub.js
 
 Lazy-loaded module — only fetched when the user chooses EPUB export. Imports `zipStore` from `export-zip.js`, `escapeXML` from `search-utils.js`, and `bookAuthorNames` + the column helpers from `book-data.js`.

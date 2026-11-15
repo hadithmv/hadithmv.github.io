@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR code · Hadithmv</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/qr.css" />
+    <script>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (t && t !== "light")
+          document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+
+  <body>
+    <header class="qr-top">
+      <div class="qr-top-inner">
+        <button
+          id="qrBack"
+          title="Back to the book list"
+          onclick="window.location.href = 'index.html'"
+        >
+          ↩
+        </button>
+        <h1>QR code</h1>
+      </div>
+    </header>
+
+    <main class="qr-main">
+      <section class="qr-card">
+        <p class="qr-intro">
+          Paste a link or type any text to generate a QR code.
+        </p>
+
+        <label class="qr-label" for="qrText">Text or URL</label>
+        <textarea
+          id="qrText"
+          class="qr-input"
+          rows="3"
+          dir="auto"
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="off"
+        ></textarea>
+
+        <div class="qr-row">
+          <label class="qr-label" for="qrEcc">Error correction</label>
+          <select id="qrEcc" class="qr-select">
+            <option value="L">L · 7%</option>
+            <option value="M">M · 15%</option>
+            <option value="Q" selected>Q · 25%</option>
+            <option value="H">H · 30%</option>
+          </select>
+        </div>
+
+        <div id="qrPreview" class="qr-preview" aria-live="polite"></div>
+        <p id="qrMeta" class="qr-meta"></p>
+        <p id="qrError" class="qr-error" role="status" hidden></p>
+
+        <div class="qr-actions">
+          <button id="qrDownloadSvg" class="qr-btn" type="button" disabled>
+            Download SVG
+          </button>
+          <button id="qrDownloadPng" class="qr-btn" type="button" disabled>
+            Download PNG
+          </button>
+        </div>
+
+        <p class="qr-local">
+          Generated locally — nothing leaves this page.
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/qr-page.js"></script>
+
+    <script>
+      // Service worker — repeat visits load from cache (instant, offline).
+      // Registration fails silently on file:// and inside the apps.
+      if ("serviceWorker" in navigator) {
+        try {
+          navigator.serviceWorker.register("../../sw.js").catch(function () {});
+        } catch (e) {}
+      }
+    </script>
+  </body>
+</html>

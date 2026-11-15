@@ -530,6 +530,38 @@ button.sidebar-link {
   background: var(--color-border);
 }
 
+/* Collapsible Tools group — a native <details> styled as a sidebar row. */
+.sidebar-tools summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: inherit;
+}
+
+.sidebar-tools summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Same two-state disclosure language as the peek/focus arrows:
+   ▾ closed, rotated to ▴ open. */
+.sidebar-tools-toggle .sidebar-tools-arrow {
+  display: inline-block;
+  transition: transform var(--t-panel, 0.3s)
+    var(--ease-panel, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+.sidebar-tools[open] .sidebar-tools-arrow {
+  transform: rotate(180deg);
+}
+
+.sidebar-tools-link {
+  padding-inline-start: 30px;
+  margin-top: 2px;
+}
+
 /* ---- Settings modal ---- */
 .modal-overlay {
   position: fixed;

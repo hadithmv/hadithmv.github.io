@@ -1,0 +1,227 @@
+/* QR tool page — a standalone utility linked from the sidebar's Tools group. */
+body {
+  margin: 0;
+  direction: ltr;
+  font-family: var(
+    --font-mixed,
+    "Hadithmv",
+    "Faruma",
+    system-ui,
+    -apple-system,
+    sans-serif
+  );
+  background: var(--color-bg, #fff);
+  color: var(--color-text);
+}
+
+/* Top strip — the info page's sticky bar: the chrome reads LTR, the page
+   below stays RTL. */
+.qr-top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 2px solid var(--color-divider-ornament);
+  background: var(--color-bg, #fff);
+}
+
+.qr-top-inner {
+  max-width: var(--content-width, 800px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.qr-top h1 {
+  flex: 1;
+  margin: 0;
+  font-size: var(--fs-title-lg, 1.2rem);
+  font-weight: 800;
+  color: var(--color-text);
+  text-align: center;
+}
+
+#qrBack {
+  width: var(--control-height, 35px);
+  height: var(--control-height, 35px);
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  font-family: var(--font-latin, system-ui, -apple-system, sans-serif);
+  color: var(--color-danger-text, #dc2626);
+  background: var(--color-danger-bg, #fef2f2);
+  border: 1px solid var(--color-danger-border, #fecaca);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--t-hover, 0.15s) ease,
+    border-color var(--t-hover, 0.15s) ease;
+}
+
+#qrBack:hover {
+  border-color: var(--color-danger-border-hover, #fca5a5);
+}
+
+.qr-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.qr-card {
+  background: var(--color-card-bg, #fff);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 12px);
+  padding: 20px;
+}
+
+.qr-intro {
+  margin: 0 0 16px;
+  color: var(--color-text-muted);
+  font-size: var(--fs-muted, 0.9rem);
+  line-height: 1.7;
+}
+
+.qr-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: var(--fs-muted, 0.9rem);
+  font-weight: 700;
+}
+
+.qr-input,
+.qr-select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: var(--color-bg, #fff);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+}
+
+.qr-input {
+  min-height: 72px;
+  margin-bottom: 14px;
+  resize: vertical;
+}
+
+.qr-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.qr-row .qr-label {
+  margin: 0;
+}
+
+.qr-select {
+  width: auto;
+  min-width: 140px;
+}
+
+/* The QR itself always sits on white, in every theme — inverted codes are
+   unreliable to scan. */
+.qr-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  margin: 0 0 8px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: var(--radius-md, 8px);
+}
+
+.qr-preview svg {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+}
+
+.qr-empty {
+  margin: 0;
+  color: #64748b;
+  font-size: var(--fs-muted, 0.9rem);
+  text-align: center;
+}
+
+.qr-meta {
+  min-height: 1.2em;
+  margin: 0 0 8px;
+  color: var(--color-text-muted);
+  font-size: var(--fs-muted, 0.9rem);
+  text-align: center;
+}
+
+.qr-error {
+  margin: 0 0 8px;
+  color: var(--color-danger-text, #dc2626);
+  font-size: var(--fs-muted, 0.9rem);
+  text-align: center;
+}
+
+.qr-error[hidden] {
+  display: none;
+}
+
+.qr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 14px 0 10px;
+}
+
+.qr-btn {
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: var(--fs-muted, 0.9rem);
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: background var(--t-hover, 0.15s) ease;
+}
+
+.qr-btn:hover:not(:disabled) {
+  background: var(--color-nav-btn-hover-bg);
+}
+
+.qr-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.qr-local {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .qr-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .qr-select {
+    width: 100%;
+  }
+
+  .qr-card {
+    padding: 14px;
+  }
+}

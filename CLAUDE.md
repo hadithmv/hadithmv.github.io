@@ -68,6 +68,9 @@ Run these before declaring work done (from `codebase/`):
 - `node tools/hmv-authors-check.mjs` — Authors & Periods browse battery (the
   shared facet system across library page, modals, dashboard, reader header).
 - `node tools/hmv-libscope-check.mjs` — library-scope picker battery.
+- `node tools/hmv-qr-check.mjs` — QR tool battery (the sidebar's collapsed
+  Tools group + expansion, qr.html generation/error levels/capacity error,
+  SVG/PNG downloads, the always-white preview in the dark theme).
 - `node tools/hmv-toc-scan.cjs` — reader.js TOC freshness scan.
 - `node tools/hmv-stream-check.mjs` — streaming battery: stream-parser
   parity with `parseCSV` (every content CSV, seeded chunkings + callback

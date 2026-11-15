@@ -340,6 +340,8 @@ const STRINGS = {
   navFaq: { dv: "❓ ސުވާލުތައް", en: "❓ FAQ", ar: "❓ الأسئلة الشائعة" },
   navHelp: { dv: "🛟 އެހީ", en: "🛟 Help", ar: "🛟 مساعدة" },
   navContact: { dv: "📧 ގުޅުން", en: "📧 Contact", ar: "📧 اتصل بنا" },
+  navTools: { dv: "🧰 ޓޫލްސް", en: "🧰 Tools", ar: "🧰 أدوات" },
+  navQrTool: { dv: "🔳 QR ކޯޑް", en: "🔳 QR code", ar: "🔳 رمز QR" },
   labelWidth: {
     dv: "ފުޅާމިން",
     en: "Width",
@@ -925,6 +927,7 @@ const STRINGS = {
   colLangAR: { dv: "އަރަބި", en: "Arabic", ar: "العربية" },
   colLangDV: { dv: "ދިވެހި", en: "Dhivehi", ar: "الديفهية" },
   colLangEN: { dv: "އިނގިރޭސި", en: "English", ar: "الإنجليزية" },
+
 };
 
 /**

@@ -46,6 +46,7 @@ gives the same output in the terminal, without the report.
 | 8. Font coverage | `tools/hmv-font-subset.py --check` | 323 cps / 754 glyphs | ~4 s | After adding any characters (book, notes, i18n, export/CSS text) |
 | **Specialist** | | | | |
 | Integrity baseline | `tools/hmv-integrity-check.mjs` | 0 failures / 0 warnings | ~2 s | After any data/registry/index change — frozen Quran set, append-aware row counts, index freshness |
+| QR tool | `tools/hmv-qr-check.mjs` | 23 | ~12 s | Collapsed Tools group + expansion (current-language label), LTR qr.html generation/levels/capacity, SVG/PNG downloads, dark-theme white preview |
 | RDF / merged book | `tools/hmv-rdf-check.mjs` | 64 | ~27 s | `radheef-merge.js`, reader infinite-scroll/goTo, progress/milestones, RDF filter, `formatThousands` |
 | Search-index shards | `tools/hmv-shards-check.mjs` | 38 | ~9 s | `08-rebuild-searchIndex.mjs`, the shard format/manifest, `library-search-engine.js` |
 | Header coverage | `tools/hmv-header-scan.mjs` | 82 files / 74 headers | ~1 s | Optional: see which picker labels are still raw (uncurated headers are fine) |
