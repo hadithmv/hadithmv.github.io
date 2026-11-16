@@ -455,7 +455,8 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - dev drive
   - first backup, then format D drive,
     - disk management, right click D drive, delete
-    - create a dev drive, label: DevDrive
+    - create a dev drive, label: DevDrive, create
+    - (note that OneDrive Desktop does not work with ReFS drive like dev drives, however Google Drive Desktop does work when you add it as a folder which OneDrive cannot do, if using OneDrive have to change it back to NTFS)
   - VHDX?
 
 - create restore point
@@ -806,6 +807,11 @@ ShareX
   - install helper service: grant access
   - launch at login: off
   - heard studio: enable
+
+- openai codex
+  - edit, settings, connections
+    - setup control this pc, and control other devices
+    - vice versa
 
 <!-- ! sep  -->
 
