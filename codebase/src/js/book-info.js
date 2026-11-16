@@ -51,30 +51,42 @@ import {
   authorYearsCeText,
   authorAgeText,
 } from "./book-data.js";
-import { escapeHTML, normaliseForSearch, highlightMatches, formatThousands } from "./search-utils.js";
-import { downloadFile, exportInfoFileBase, buildWordHTML, buildPdfHTML, buildHtmlBook, exportEPUB } from "./export.js";
+import {
+  escapeHTML,
+  normaliseForSearch,
+  highlightMatches,
+  formatThousands,
+} from "./search-utils.js";
+import {
+  downloadFile,
+  exportInfoFileBase,
+  buildWordHTML,
+  buildPdfHTML,
+  buildHtmlBook,
+  exportEPUB,
+} from "./export.js";
 
 // ── State ──────────────────────────────────────────────────────
-var _overlay = null;   // #infoOverlay (the .open class lives on the overlay)
-var _body = null;      // #infoModalBody
-var _pane = null;      // #infoPane — the modal's only scrollport
+var _overlay = null; // #infoOverlay (the .open class lives on the overlay)
+var _body = null; // #infoModalBody
+var _pane = null; // #infoPane — the modal's only scrollport
 var _searchInput = null;
 var _clearBtn = null;
 var _countSlot = null;
-var _state = null;     // { bookCode, author, counts } of the current cfg
+var _state = null; // { bookCode, author, counts } of the current cfg
 var _activeTab = "book";
-var _renderSeq = 0;    // stale-async guard: a fast tab switch aborts the old render
-var _marks = [];       // the live <mark> list (search)
+var _renderSeq = 0; // stale-async guard: a fast tab switch aborts the old render
+var _marks = []; // the live <mark> list (search)
 var _markIndex = -1;
-var _notesCache = {};  // path → Promise<string|null> (null = 404/error)
-var _plain = [];       // plain-text lines of the active pane (copy)
-var _sections = [];    // [{title, body}] raw-text export rows of the active pane
-var _exportMeta = null;  // {bookCode, titleDV, titleAR, titleEN, authorCode} for the builders
-var _exportKind = "";    // the export's kind line ("Biography of the author" …) — title-page top
-var _exportFacts = [];   // fact-strip lines — rendered on the export's title page
-var _exportToc = null;   // markdown headings (2+) — the export's Contents page
+var _notesCache = {}; // path → Promise<string|null> (null = 404/error)
+var _plain = []; // plain-text lines of the active pane (copy)
+var _sections = []; // [{title, body}] raw-text export rows of the active pane
+var _exportMeta = null; // {bookCode, titleDV, titleAR, titleEN, authorCode} for the builders
+var _exportKind = ""; // the export's kind line ("Biography of the author" …) — title-page top
+var _exportFacts = []; // fact-strip lines — rendered on the export's title page
+var _exportToc = null; // markdown headings (2+) — the export's Contents page
 var _exportBusy = false;
-var _isPage = false;     // true on books/info.html — tab switches pushState
+var _isPage = false; // true on books/info.html — tab switches pushState
 
 // ── Markdown subset renderer ───────────────────────────────────
 // # → h2, ## → h3 (id="info-hN" anchors for the TOC), "- " → ul/li,
@@ -117,7 +129,10 @@ export function renderMarkdown(src) {
   var plain = [];
   var inList = false;
   function closeList() {
-    if (inList) { html.push("</ul>"); inList = false; }
+    if (inList) {
+      html.push("</ul>");
+      inList = false;
+    }
   }
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i].trim();
@@ -135,15 +150,25 @@ export function renderMarkdown(src) {
       var tag = m[1].length === 2 ? "h3" : "h2";
       headings.push(m[2]);
       html.push(
-        "<" + tag + ' id="info-h' + headings.length + '" dir="auto">' +
-        inlineMarkup(escapeHTML(m[2])) + "</" + tag + ">"
+        "<" +
+          tag +
+          ' id="info-h' +
+          headings.length +
+          '" dir="auto">' +
+          inlineMarkup(escapeHTML(m[2])) +
+          "</" +
+          tag +
+          ">",
       );
       plain.push(m[2]);
     } else if (/^-\s+/.test(line)) {
       // dir="auto" on the UL too, not just the lis: an RTL list holding LTR
       // items renders its outside-position markers past the list's edge —
       // a phantom ~20px of pane overflow (the horizontal-scrollbar bug).
-      if (!inList) { html.push('<ul dir="auto">'); inList = true; }
+      if (!inList) {
+        html.push('<ul dir="auto">');
+        inList = true;
+      }
       var item = line.replace(/^-\s+/, "");
       html.push('<li dir="auto">' + inlineMarkup(escapeHTML(item)) + "</li>");
       plain.push(item);
@@ -154,7 +179,11 @@ export function renderMarkdown(src) {
     }
   }
   closeList();
-  return { html: html.join("\n"), headings: headings, plainText: plain.join("\n") };
+  return {
+    html: html.join("\n"),
+    headings: headings,
+    plainText: plain.join("\n"),
+  };
 }
 
 /** Chapter count for the Book tab — runs of the first column whose
@@ -164,13 +193,21 @@ export function renderMarkdown(src) {
 export function computeChapterCount(rows, headerRow) {
   if (!headerRow || !rows) return null;
   var first = (headerRow[0] || "").trim().toLowerCase();
-  var mode = first.indexOf("kitab") === 0 ? "kitab" : first.indexOf("bab") === 0 ? "bab" : "";
+  var mode =
+    first.indexOf("kitab") === 0
+      ? "kitab"
+      : first.indexOf("bab") === 0
+        ? "bab"
+        : "";
   if (!mode) return rows.length;
   var runs = 0;
   var last = null;
   for (var i = 0; i < rows.length; i++) {
     var v = (rows[i][0] || "").trim();
-    if (v && v !== last) { runs++; last = v; }
+    if (v && v !== last) {
+      runs++;
+      last = v;
+    }
   }
   return runs;
 }
@@ -186,7 +223,9 @@ function fetchNote(path) {
       if (!resp.ok) return null;
       return resp.text();
     })
-    .catch(function () { return null; });
+    .catch(function () {
+      return null;
+    });
   return _notesCache[path];
 }
 
@@ -200,7 +239,12 @@ var _wired = false;
 
 function ensureModal() {
   if (_overlay) return;
-  window.createModal("infoOverlay", "infoModalTitle", "infoModalBody", "info-modal");
+  window.createModal(
+    "infoOverlay",
+    "infoModalTitle",
+    "infoModalBody",
+    "info-modal",
+  );
   _overlay = document.getElementById("infoOverlay");
   document.getElementById("infoModalTitle").textContent = t("infoModalTitle");
   wireShell(document.getElementById("infoModalBody"));
@@ -229,8 +273,8 @@ function wireShell(container) {
     '<button type="button" id="infoCopyBtn" class="toolbar-btn"></button>' +
     '<button type="button" id="infoCopyLinkBtn" class="toolbar-btn"></button>' +
     '<span class="info-actions-sep" aria-hidden="true"></span>' +
-    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="word" title="Word document">Word</button>' +
     '<button type="button" class="toolbar-btn info-export-btn" data-fmt="pdf" title="PDF for printing">PDF</button>' +
+    '<button type="button" class="toolbar-btn info-export-btn" data-fmt="word" title="Word document">Word</button>' +
     '<button type="button" class="toolbar-btn info-export-btn" data-fmt="html" title="HTML web page">HTML</button>' +
     '<button type="button" class="toolbar-btn info-export-btn" data-fmt="epub" title="EPUB e-book">EPUB</button>' +
     "</div>" +
@@ -239,7 +283,7 @@ function wireShell(container) {
     '<div class="search-input-wrap">' +
     '<input id="infoSearchInput" type="search" class="search-input info-search-input" autocomplete="off" />' +
     '<button type="button" id="infoSearchClear" class="search-clear-btn" title="Clear search" aria-label="Clear search">✕</button>' +
-    '</div>' +
+    "</div>" +
     // Match stepping wears the scroll-row triangle style (▲ ▼) while
     // keeping the up/down semantics: previous match = up, next = down.
     // Direction-neutral, so no RTL mirroring is needed.
@@ -260,8 +304,16 @@ function wireShell(container) {
     applySearch();
     _searchInput.focus();
   });
-  document.getElementById("infoSearchPrev").addEventListener("click", function () { prevMatch(); });
-  document.getElementById("infoSearchNext").addEventListener("click", function () { nextMatch(); });
+  document
+    .getElementById("infoSearchPrev")
+    .addEventListener("click", function () {
+      prevMatch();
+    });
+  document
+    .getElementById("infoSearchNext")
+    .addEventListener("click", function () {
+      nextMatch();
+    });
   var copyBtn = document.getElementById("infoCopyBtn");
   copyBtn.title = "Copy this tab's content to the clipboard";
   copyBtn.addEventListener("click", function () {
@@ -269,7 +321,8 @@ function wireShell(container) {
     // builders and the markdown renderer push at block boundaries (head →
     // facts → tags → notes; between markdown paragraphs), so the
     // clipboard text has gaps exactly where the sections have them.
-    if (_plain.length > 0) window.copyToClipboard(_plain.join("\n"), "toastCopied");
+    if (_plain.length > 0)
+      window.copyToClipboard(_plain.join("\n"), "toastCopied");
   });
   // Copy link — the info page's URL for the active pane, the same string
   // the exports print on their title page (one source of truth, so the
@@ -304,11 +357,20 @@ function wireShell(container) {
   });
   // Item clicks (copy or a format) run their action, then close the menu
   // (the document listener above skips clicks inside the menu).
-  actionsMenu.addEventListener("click", function () { setActionsMenu(false); });
-  Array.prototype.forEach.call(_body.querySelectorAll(".info-export-btn"), function (b) {
-    b.addEventListener("click", function () { exportPane(this.dataset.fmt, this); });
+  actionsMenu.addEventListener("click", function () {
+    setActionsMenu(false);
   });
-  _searchInput.addEventListener("input", function () { applySearch(); });
+  Array.prototype.forEach.call(
+    _body.querySelectorAll(".info-export-btn"),
+    function (b) {
+      b.addEventListener("click", function () {
+        exportPane(this.dataset.fmt, this);
+      });
+    },
+  );
+  _searchInput.addEventListener("input", function () {
+    applySearch();
+  });
   _searchInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -347,7 +409,10 @@ function labels() {
   tabs[2].hidden = !_state.author;
   Array.prototype.forEach.call(tabs, function (b) {
     b.classList.toggle("active", b.dataset.tab === _activeTab);
-    b.setAttribute("aria-selected", b.dataset.tab === _activeTab ? "true" : "false");
+    b.setAttribute(
+      "aria-selected",
+      b.dataset.tab === _activeTab ? "true" : "false",
+    );
   });
   // The band's action buttons carry language text — the copy chips and the
   // 📥 toggle (the reader's export label). Relabelled with the tabs so a
@@ -359,7 +424,8 @@ function labels() {
   document.getElementById("infoCopyLinkBtn").disabled = !_exportMeta;
   document.getElementById("infoActionsToggle").textContent = t("btnExportText");
   _searchInput.placeholder = t("infoSearchPlaceholder");
-  _searchInput.title = "Search the active tab (Enter: next match, Shift+Enter: previous)";
+  _searchInput.title =
+    "Search the active tab (Enter: next match, Shift+Enter: previous)";
 }
 
 function setTab(tab) {
@@ -385,10 +451,15 @@ function setTab(tab) {
  *  an author up front — it cannot open authorless. Shared by the modal and
  *  the info page so the two surfaces resolve the same way. */
 function resolveTab(cfg) {
-  return cfg.tab === "author" ? "author"
-    : cfg.tab === "works" && cfg.author ? "works"
-    : cfg.tab === "book" ? "book"
-    : cfg.author ? "author" : "book";
+  return cfg.tab === "author"
+    ? "author"
+    : cfg.tab === "works" && cfg.author
+      ? "works"
+      : cfg.tab === "book"
+        ? "book"
+        : cfg.author
+          ? "author"
+          : "book";
 }
 
 // ── Entry points ───────────────────────────────────────────────
@@ -453,9 +524,11 @@ export function openInfoPageFromLocation() {
   }
   if (empty) empty.hidden = true;
   if (shell) shell.hidden = false;
-  openInfoPage(book
-    ? { bookCode: book, author: author || null, tab: tab || "book" }
-    : { bookCode: null, author: author, tab: tab || "author" });
+  openInfoPage(
+    book
+      ? { bookCode: book, author: author || null, tab: tab || "book" }
+      : { bookCode: null, author: author, tab: tab || "author" },
+  );
 }
 
 // The page's tab switches pushState, so back/forward step through the
@@ -485,7 +558,9 @@ function factRow(label, value) {
   if (lab && lab.indexOf(":") === -1) lab += ":";
   return (
     (label ? '<div class="info-fact-label">' + lab + "</div>" : "") +
-    '<div class="info-fact-value">' + value + "</div>"
+    '<div class="info-fact-value">' +
+    value +
+    "</div>"
   );
 }
 
@@ -512,13 +587,18 @@ function showPane(seq, paneHtml, plain, sections, exportMeta, exportExtra) {
 function renderBookTab(seq) {
   var code = _state.bookCode;
   loadAuthorDefinitions()
-    .then(function () { return loadBookRegistry(); })
+    .then(function () {
+      return loadBookRegistry();
+    })
     .then(function (reg) {
       if (seq !== _renderSeq) return;
       var entry = null;
       if (code && reg) {
         for (var i = 0; i < reg.length; i++) {
-          if (reg[i].bookCode === code) { entry = reg[i]; break; }
+          if (reg[i].bookCode === code) {
+            entry = reg[i];
+            break;
+          }
         }
       }
       var pane = [];
@@ -526,15 +606,19 @@ function renderBookTab(seq) {
       var sections = [];
       var factLines = [];
       var exportMeta = null;
-      var title = entry ? (entry.titleDV || entry.titleEN || code) : "";
-      var titleAr = entry ? (entry.titleAR || "") : "";
+      var title = entry ? entry.titleDV || entry.titleEN || code : "";
+      var titleAr = entry ? entry.titleAR || "" : "";
       if (title) {
         pane.push(
           '<div class="info-head"><div class="info-head-title" dir="auto">' +
-          escapeHTML(title) +
-          "</div>" +
-          (titleAr ? '<div class="info-head-ar" dir="auto">' + escapeHTML(titleAr) + "</div>" : "") +
-          "</div>"
+            escapeHTML(title) +
+            "</div>" +
+            (titleAr
+              ? '<div class="info-head-ar" dir="auto">' +
+                escapeHTML(titleAr) +
+                "</div>"
+              : "") +
+            "</div>",
         );
         plain.push(title);
         if (titleAr) plain.push(titleAr);
@@ -594,20 +678,36 @@ function renderBookTab(seq) {
         }
         var tags = extractTags(code, entry);
         if (tags.length > 0) {
-          var chips = tags.map(function (tag) {
-            var label;
-            if (currentLang() === "dv") {
-              label = tagLabel(tag.code, tag.label, "dv") + " · " + tagLabel(tag.code, tag.label, "ar");
-            } else {
-              label = tagLabel(tag.code, tag.label);
-            }
-            var pal = tag.palette >= 0 ? " tag-palette-" + tag.palette : "";
-            return '<span class="tag-badge' + pal + '" dir="auto">' + escapeHTML(label) + "</span>";
-          }).join("");
+          var chips = tags
+            .map(function (tag) {
+              var label;
+              if (currentLang() === "dv") {
+                label =
+                  tagLabel(tag.code, tag.label, "dv") +
+                  " · " +
+                  tagLabel(tag.code, tag.label, "ar");
+              } else {
+                label = tagLabel(tag.code, tag.label);
+              }
+              var pal = tag.palette >= 0 ? " tag-palette-" + tag.palette : "";
+              return (
+                '<span class="tag-badge' +
+                pal +
+                '" dir="auto">' +
+                escapeHTML(label) +
+                "</span>"
+              );
+            })
+            .join("");
           facts.push(factRow(t("tagsLabel").replace(":", ""), chips));
-          var tagsPlain = t("tagsLabel").replace(":", "") + ": " + tags.map(function (tag) {
-            return tagLabel(tag.code, tag.label);
-          }).join(" · ");
+          var tagsPlain =
+            t("tagsLabel").replace(":", "") +
+            ": " +
+            tags
+              .map(function (tag) {
+                return tagLabel(tag.code, tag.label);
+              })
+              .join(" · ");
           plain.push(tagsPlain);
           // The tags stay in the pane's strip and the copy — the export's
           // title-page facts drop them (a "Tags: …" line doesn't belong
@@ -615,7 +715,11 @@ function renderBookTab(seq) {
         }
       }
       if (facts.length > 0) {
-        pane.push('<div class="info-card"><div class="info-fact-strip">' + facts.join("") + "</div></div>");
+        pane.push(
+          '<div class="info-card"><div class="info-fact-strip">' +
+            facts.join("") +
+            "</div></div>",
+        );
         // The fact strip is untitled in the pane — the export matches; the
         // author line is already the strip's first fact. The strip is not a
         // section: its lines travel via exportExtra.facts to the export's
@@ -624,7 +728,11 @@ function renderBookTab(seq) {
       }
       var noBook = !entry;
       if (noBook) {
-        pane.push('<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>");
+        pane.push(
+          '<div class="info-no-notes">' +
+            escapeHTML(t("infoNoNotes")) +
+            "</div>",
+        );
         plain.push(t("infoNoNotes"));
         showPane(seq, pane.join("\n"), plain);
         return;
@@ -633,39 +741,53 @@ function renderBookTab(seq) {
       // section lands; the search re-runs when it does). All pages live in
       // src/books/, so the notes root is two levels up (../../static/notes).
       // its content share one card, the search modal's section look.
-      fetchNote("../../static/notes/works/" + code + ".md").then(function (text) {
-        if (seq !== _renderSeq) return;
-        var card = [
-          '<div class="info-card">',
-          '<div class="info-section-label">' + escapeHTML(t("infoBookNotesLabel")) + "</div>",
-        ];
-        if (text && text.trim()) {
-          var md = renderMarkdown(text);
-          // .info-md carries the markdown typography (line-height, heading
-          // sizes, paragraph/list margins, link colour) — same wrapper the
-          // author tab's bio uses.
-          card.push('<div class="info-md">' + md.html + "</div>");
-          if (md.plainText) {
+      fetchNote("../../static/notes/works/" + code + ".md").then(
+        function (text) {
+          if (seq !== _renderSeq) return;
+          var card = [
+            '<div class="info-card">',
+            '<div class="info-section-label">' +
+              escapeHTML(t("infoBookNotesLabel")) +
+              "</div>",
+          ];
+          if (text && text.trim()) {
+            var md = renderMarkdown(text);
+            // .info-md carries the markdown typography (line-height, heading
+            // sizes, paragraph/list margins, link colour) — same wrapper the
+            // author tab's bio uses.
+            card.push('<div class="info-md">' + md.html + "</div>");
+            if (md.plainText) {
+              plain.push(t("infoBookNotesLabel"));
+              plain.push(""); // the section label's boundary
+              plain.push(md.plainText);
+            }
+            sections.push({
+              title: t("infoBookNotesLabel"),
+              body: md.plainText,
+            });
+          } else {
+            card.push(
+              '<div class="info-no-notes">' +
+                escapeHTML(t("infoNoNotes")) +
+                "</div>",
+            );
             plain.push(t("infoBookNotesLabel"));
-            plain.push(""); // the section label's boundary
-            plain.push(md.plainText);
+            plain.push("");
+            plain.push(t("infoNoNotes"));
+            sections.push({
+              title: t("infoBookNotesLabel"),
+              body: t("infoNoNotes"),
+            });
           }
-          sections.push({ title: t("infoBookNotesLabel"), body: md.plainText });
-        } else {
-          card.push('<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>");
-          plain.push(t("infoBookNotesLabel"));
-          plain.push("");
-          plain.push(t("infoNoNotes"));
-          sections.push({ title: t("infoBookNotesLabel"), body: t("infoNoNotes") });
-        }
-        card.push("</div>");
-        pane.push(card.join(""));
-        showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
-          kind: t("infoExportKindBook"),
-          facts: factLines.length > 0 ? factLines : null,
-          toc: null,
-        });
-      });
+          card.push("</div>");
+          pane.push(card.join(""));
+          showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
+            kind: t("infoExportKindBook"),
+            facts: factLines.length > 0 ? factLines : null,
+            toc: null,
+          });
+        },
+      );
     });
 }
 
@@ -676,7 +798,10 @@ function renderBookTab(seq) {
  *  re-deriving. Multi-author books open on the first author. */
 function resolveAuthorCode(seq, then) {
   var code = _state.author;
-  if (code) { then(code); return; }
+  if (code) {
+    then(code);
+    return;
+  }
   loadBookRegistry().then(function (reg) {
     if (seq !== _renderSeq) return;
     var c = null;
@@ -695,11 +820,15 @@ function resolveAuthorCode(seq, then) {
 }
 
 function renderAuthorTab(seq) {
-  resolveAuthorCode(seq, function (code) { showAuthorPane(seq, code); });
+  resolveAuthorCode(seq, function (code) {
+    showAuthorPane(seq, code);
+  });
 }
 
 function renderWorksTab(seq) {
-  resolveAuthorCode(seq, function (code) { showWorksPane(seq, code); });
+  resolveAuthorCode(seq, function (code) {
+    showWorksPane(seq, code);
+  });
 }
 
 function showAuthorPane(seq, code) {
@@ -711,7 +840,9 @@ function showAuthorPane(seq, code) {
     if (seq !== _renderSeq) return;
     var def = code ? authorDefs()[code] : null;
     if (!def) {
-      pane.push('<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>");
+      pane.push(
+        '<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>",
+      );
       plain.push(t("infoNoNotes"));
       showPane(seq, pane.join("\n"), plain);
       return;
@@ -730,10 +861,14 @@ function showAuthorPane(seq, code) {
     };
     pane.push(
       '<div class="info-head"><div class="info-head-title" dir="auto">' +
-      escapeHTML(name) +
-      "</div>" +
-      (nameAr ? '<div class="info-head-ar" dir="auto">' + escapeHTML(nameAr) + "</div>" : "") +
-      "</div>"
+        escapeHTML(name) +
+        "</div>" +
+        (nameAr
+          ? '<div class="info-head-ar" dir="auto">' +
+            escapeHTML(nameAr) +
+            "</div>"
+          : "") +
+        "</div>",
     );
     plain.push(name);
     if (nameAr) plain.push(nameAr);
@@ -768,7 +903,11 @@ function showAuthorPane(seq, code) {
       factLines.push(t("facetColAge") + ": " + age);
     }
     if (facts.length > 0) {
-      pane.push('<div class="info-card"><div class="info-fact-strip">' + facts.join("") + "</div></div>");
+      pane.push(
+        '<div class="info-card"><div class="info-fact-strip">' +
+          facts.join("") +
+          "</div></div>",
+      );
       // The fact strip is untitled in the pane — the export matches (the
       // h1 already names the author; a repeating title would duplicate it).
       // The strip is not a section: its lines travel via exportExtra.facts
@@ -778,53 +917,74 @@ function showAuthorPane(seq, code) {
 
     // The bio section — label and content share one card, the search
     // modal's section look.
-    fetchNote("../../static/notes/authors/" + code + ".md").then(function (text) {
-      if (seq !== _renderSeq) return;
-      var card = [
-        '<div class="info-card">',
-        '<div class="info-section-label">' + escapeHTML(t("infoAuthorBioLabel")) + "</div>",
-      ];
-      var md = null;
-      if (text && text.trim()) md = renderMarkdown(text);
-      if (md && md.headings.length > 0) {
-        // Auto-TOC — only with 2+ headings (a single section heading needs
-        // no table of contents)
-        if (md.headings.length >= 2) {
-          var toc = ['<nav class="info-toc"><div class="info-toc-title">' + escapeHTML(t("infoToc")) + "</div>"];
-          for (var i = 0; i < md.headings.length; i++) {
-            toc.push('<a href="#info-h' + (i + 1) + '">' + escapeHTML(md.headings[i]) + "</a>");
+    fetchNote("../../static/notes/authors/" + code + ".md").then(
+      function (text) {
+        if (seq !== _renderSeq) return;
+        var card = [
+          '<div class="info-card">',
+          '<div class="info-section-label">' +
+            escapeHTML(t("infoAuthorBioLabel")) +
+            "</div>",
+        ];
+        var md = null;
+        if (text && text.trim()) md = renderMarkdown(text);
+        if (md && md.headings.length > 0) {
+          // Auto-TOC — only with 2+ headings (a single section heading needs
+          // no table of contents)
+          if (md.headings.length >= 2) {
+            var toc = [
+              '<nav class="info-toc"><div class="info-toc-title">' +
+                escapeHTML(t("infoToc")) +
+                "</div>",
+            ];
+            for (var i = 0; i < md.headings.length; i++) {
+              toc.push(
+                '<a href="#info-h' +
+                  (i + 1) +
+                  '">' +
+                  escapeHTML(md.headings[i]) +
+                  "</a>",
+              );
+            }
+            toc.push("</nav>");
+            card.push(toc.join(""));
           }
-          toc.push("</nav>");
-          card.push(toc.join(""));
+          card.push('<div class="info-md">' + md.html + "</div>");
+          plain.push(t("infoAuthorBioLabel"));
+          plain.push(""); // the section label's boundary
+          plain.push(md.plainText);
+          sections.push({ title: t("infoAuthorBioLabel"), body: md.plainText });
+        } else if (md) {
+          card.push('<div class="info-md">' + md.html + "</div>");
+          plain.push(t("infoAuthorBioLabel"));
+          plain.push(""); // the section label's boundary
+          plain.push(md.plainText);
+          sections.push({ title: t("infoAuthorBioLabel"), body: md.plainText });
+        } else {
+          card.push(
+            '<div class="info-no-notes">' +
+              escapeHTML(t("infoNoNotes")) +
+              "</div>",
+          );
+          plain.push(t("infoAuthorBioLabel"));
+          plain.push(""); // the section label's boundary
+          plain.push(t("infoNoNotes"));
+          sections.push({
+            title: t("infoAuthorBioLabel"),
+            body: t("infoNoNotes"),
+          });
         }
-        card.push('<div class="info-md">' + md.html + "</div>");
-        plain.push(t("infoAuthorBioLabel"));
-        plain.push(""); // the section label's boundary
-        plain.push(md.plainText);
-        sections.push({ title: t("infoAuthorBioLabel"), body: md.plainText });
-      } else if (md) {
-        card.push('<div class="info-md">' + md.html + "</div>");
-        plain.push(t("infoAuthorBioLabel"));
-        plain.push(""); // the section label's boundary
-        plain.push(md.plainText);
-        sections.push({ title: t("infoAuthorBioLabel"), body: md.plainText });
-      } else {
-        card.push('<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>");
-        plain.push(t("infoAuthorBioLabel"));
-        plain.push(""); // the section label's boundary
-        plain.push(t("infoNoNotes"));
-        sections.push({ title: t("infoAuthorBioLabel"), body: t("infoNoNotes") });
-      }
-      card.push("</div>");
-      pane.push(card.join(""));
-      // The author's works live on their own Works tab (renderWorksTab) —
-      // the Author tab is the facts + bio.
-      showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
-        kind: t("infoExportKindAuthor"),
-        facts: factLines.length > 0 ? factLines : null,
-        toc: (md && md.headings.length >= 2) ? md.headings : null,
-      });
-    });
+        card.push("</div>");
+        pane.push(card.join(""));
+        // The author's works live on their own Works tab (renderWorksTab) —
+        // the Author tab is the facts + bio.
+        showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
+          kind: t("infoExportKindAuthor"),
+          facts: factLines.length > 0 ? factLines : null,
+          toc: md && md.headings.length >= 2 ? md.headings : null,
+        });
+      },
+    );
   });
 }
 
@@ -836,7 +996,9 @@ function showWorksPane(seq, code) {
     if (seq !== _renderSeq) return;
     var def = code ? authorDefs()[code] : null;
     if (!def) {
-      pane.push('<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>");
+      pane.push(
+        '<div class="info-no-notes">' + escapeHTML(t("infoNoNotes")) + "</div>",
+      );
       plain.push(t("infoNoNotes"));
       showPane(seq, pane.join("\n"), plain);
       return;
@@ -854,10 +1016,14 @@ function showWorksPane(seq, code) {
     };
     pane.push(
       '<div class="info-head"><div class="info-head-title" dir="auto">' +
-      escapeHTML(name) +
-      "</div>" +
-      (nameAr ? '<div class="info-head-ar" dir="auto">' + escapeHTML(nameAr) + "</div>" : "") +
-      "</div>"
+        escapeHTML(name) +
+        "</div>" +
+        (nameAr
+          ? '<div class="info-head-ar" dir="auto">' +
+            escapeHTML(nameAr) +
+            "</div>"
+          : "") +
+        "</div>",
     );
     plain.push(name);
     if (nameAr) plain.push(nameAr);
@@ -879,8 +1045,11 @@ function showWorksPane(seq, code) {
         }
       }
       if (books.length === 0) {
-        pane.push('<div class="info-card"><div class="info-no-notes">' +
-          escapeHTML(t("infoNoNotes")) + "</div></div>");
+        pane.push(
+          '<div class="info-card"><div class="info-no-notes">' +
+            escapeHTML(t("infoNoNotes")) +
+            "</div></div>",
+        );
         plain.push(t("infoNoNotes"));
         showPane(seq, pane.join("\n"), plain, sections, exportMeta, {
           kind: t("infoExportKindWorks"),
@@ -899,10 +1068,18 @@ function showWorksPane(seq, code) {
         var bt = getBookTitleSync(b.bookCode);
         var bar = b.titleAR || "";
         rows.push(
-          '<a class="info-book-row" href="reader.html?book=' + b.bookCode + '">' +
-          '<span class="info-book-title" dir="auto">' + escapeHTML(bt) + "</span>" +
-          (bar ? '<span class="info-book-ar" dir="auto">' + escapeHTML(bar) + "</span>" : "") +
-          "</a>"
+          '<a class="info-book-row" href="reader.html?book=' +
+            b.bookCode +
+            '">' +
+            '<span class="info-book-title" dir="auto">' +
+            escapeHTML(bt) +
+            "</span>" +
+            (bar
+              ? '<span class="info-book-ar" dir="auto">' +
+                escapeHTML(bar) +
+                "</span>"
+              : "") +
+            "</a>",
         );
         plain.push(bt + (bar ? " — " + bar : ""));
         bookLines.push(bt + (bar ? " — " + bar : ""));
@@ -910,12 +1087,18 @@ function showWorksPane(seq, code) {
       var showAll = t("infoShowAllWorks").replace("{name}", name);
       pane.push(
         '<div class="info-card">' +
-        '<div class="info-section-label">' + escapeHTML(listLabel) + "</div>" +
-        '<div class="info-books-list">' + rows.join("") + "</div>" +
-        '<a class="info-show-all" href="index.html?authors=' + code + '">' +
-        escapeHTML(showAll) +
-        "</a>" +
-        "</div>"
+          '<div class="info-section-label">' +
+          escapeHTML(listLabel) +
+          "</div>" +
+          '<div class="info-books-list">' +
+          rows.join("") +
+          "</div>" +
+          '<a class="info-show-all" href="index.html?authors=' +
+          code +
+          '">' +
+          escapeHTML(showAll) +
+          "</a>" +
+          "</div>",
       );
       plain.push(""); // the rows block's end — the show-all line stands apart
       plain.push(showAll);
@@ -948,10 +1131,13 @@ function showWorksPane(seq, code) {
  *  before the next pass — a changed query must not compound marks or nest
  *  wrappers. */
 function unwrapHighlights() {
-  Array.prototype.forEach.call(_pane.querySelectorAll("mark, .info-hm-wrap"), function (el) {
-    var t = document.createTextNode(el.textContent);
-    el.parentNode.replaceChild(t, el);
-  });
+  Array.prototype.forEach.call(
+    _pane.querySelectorAll("mark, .info-hm-wrap"),
+    function (el) {
+      var t = document.createTextNode(el.textContent);
+      el.parentNode.replaceChild(t, el);
+    },
+  );
 }
 
 function applySearch() {
@@ -990,9 +1176,10 @@ function updateSearchUI() {
     _countSlot.textContent = _searchInput.value ? t("infoNoMatch") : "";
     return;
   }
-  _countSlot.textContent = _markIndex >= 0
-    ? String(_markIndex + 1) + " / " + String(n)
-    : t("libBookMatches").replace("{n}", String(n));
+  _countSlot.textContent =
+    _markIndex >= 0
+      ? String(_markIndex + 1) + " / " + String(n)
+      : t("libBookMatches").replace("{n}", String(n));
 }
 
 /** Step to the next/previous highlight, wrapping, and take the user there. */
@@ -1003,8 +1190,12 @@ function goMatch(dir) {
   updateSearchUI();
 }
 
-function nextMatch() { goMatch(1); }
-function prevMatch() { goMatch(-1); }
+function nextMatch() {
+  goMatch(1);
+}
+function prevMatch() {
+  goMatch(-1);
+}
 
 // ── Export ──────────────────────────────────────────────────────
 // The four file formats (Word / PDF / HTML Book / EPUB — the reader's full
@@ -1022,7 +1213,9 @@ function prevMatch() { goMatch(-1); }
 // files.
 
 function paneRows() {
-  return _sections.map(function (s) { return [s.title, s.body]; });
+  return _sections.map(function (s) {
+    return [s.title, s.body];
+  });
 }
 
 /** Busy state — EPUB is async (font fetch + dynamic import); disable the
@@ -1033,16 +1226,19 @@ function paneRows() {
  *  pattern), restored on completion. */
 function setExportBusy(on, btn) {
   _exportBusy = on;
-  Array.prototype.forEach.call(_body.querySelectorAll(".info-actions button"), function (b) {
-    if (on && b === btn) {
-      b.dataset.origText = b.textContent;
-      b.textContent = t("exportPreparing");
-    } else if (!on && b.dataset.origText) {
-      b.textContent = b.dataset.origText;
-      delete b.dataset.origText;
-    }
-    b.disabled = on;
-  });
+  Array.prototype.forEach.call(
+    _body.querySelectorAll(".info-actions button"),
+    function (b) {
+      if (on && b === btn) {
+        b.dataset.origText = b.textContent;
+        b.textContent = t("exportPreparing");
+      } else if (!on && b.dataset.origText) {
+        b.textContent = b.dataset.origText;
+        delete b.dataset.origText;
+      }
+      b.disabled = on;
+    },
+  );
 }
 
 /** The info page's own URL, derived from this module's script URL — the
@@ -1076,10 +1272,16 @@ function exportPane(fmt, btn) {
   // Bracketed tag, then the subject: "[Hmv - Book Info] <title>". The short
   // brand keeps the info family apart from the reader's "[Hadithmv] <title>"
   // exports, and the closed bracket marks exactly where the subject begins.
-  var kind = _activeTab === "author" ? "Author Bio"
-    : _activeTab === "works" ? "Author Works"
-    : "Book Info";
-  var baseName = exportInfoFileBase(kind, meta.titleEN || meta.bookCode || "info");
+  var kind =
+    _activeTab === "author"
+      ? "Author Bio"
+      : _activeTab === "works"
+        ? "Author Works"
+        : "Book Info";
+  var baseName = exportInfoFileBase(
+    kind,
+    meta.titleEN || meta.bookCode || "info",
+  );
   var siteURL = infoLink();
   var versionFull = t("appVersion");
   var versionText = versionFull.replace(/ \(.*\)/, "");
@@ -1095,18 +1297,32 @@ function exportPane(fmt, btn) {
   };
   setExportBusy(true, btn);
   if (fmt === "word") {
-    downloadFile(buildWordHTML(cfg, siteURL, versionText), baseName + ".doc", "application/msword");
+    downloadFile(
+      buildWordHTML(cfg, siteURL, versionText),
+      baseName + ".doc",
+      "application/msword",
+    );
     setExportBusy(false);
   } else if (fmt === "pdf") {
     var pdfHTML = buildPdfHTML(cfg, siteURL, versionText, undefined, baseName);
     var win = window.open("", "_blank");
-    if (!win) { window.showErrorToast("PDF export failed — popup blocked"); setExportBusy(false); return; }
+    if (!win) {
+      window.showErrorToast("PDF export failed — popup blocked");
+      setExportBusy(false);
+      return;
+    }
     win.document.write(pdfHTML);
     win.document.close();
-    win.onload = function () { win.print(); };
+    win.onload = function () {
+      win.print();
+    };
     setExportBusy(false);
   } else if (fmt === "html") {
-    downloadFile(buildHtmlBook(cfg, siteURL, versionText), baseName + ".html", "text/html");
+    downloadFile(
+      buildHtmlBook(cfg, siteURL, versionText),
+      baseName + ".html",
+      "text/html",
+    );
     setExportBusy(false);
   } else if (fmt === "epub") {
     exportEPUB(cfg, siteURL, versionText)
@@ -1114,7 +1330,10 @@ function exportPane(fmt, btn) {
         downloadFile(epubBlob, baseName + ".epub", "application/epub+zip");
         setExportBusy(false);
       })
-      .catch(function () { window.showErrorToast("EPUB export failed"); setExportBusy(false); });
+      .catch(function () {
+        window.showErrorToast("EPUB export failed");
+        setExportBusy(false);
+      });
   }
 }
 

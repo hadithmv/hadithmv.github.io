@@ -889,6 +889,12 @@ ShareX
   - general, enable and load at windows startup: off
   - update method: update manually
 
+- Outlook
+  - file, settings,
+    - account, signatures, do
+    - general, language and time, date format: dd-MMMM-yy
+  - also: https://myaccount.microsoft.com/settingsandprivacy/language
+
 - tauri
   - microsoft c++ build tools
     - desktop development with c++
