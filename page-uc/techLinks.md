@@ -484,7 +484,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - cloud backup (google, onedrive)
 - power mode: battery / performance
 - screen off: 15 mins
-- sleep: 5 hours
+- sleep: 5 hours / never
 - create restore point again
 
 ---
@@ -1117,36 +1117,167 @@ ShareX
 - edge
   - sign in?
   - settings
-    - profile, theme color, avatar
-    - ad privacy
-      - ad topics: off
-      - site suggested ads: off
-      - ad measurement: off
-    - performance
-      - memory saver: on, balanced?
+    - profiles
+      - add profile
+      - theme color
+      - avatar
+      - Re-sync data to this device
+        - re-sync now
+      - import exported browser data if needed
+      - Microsoft Rewards
+        - Earn Microsoft Rewards in Microsoft Edge: on
+      - Profile preferences
+        - automatic sign on on edge: on
+        - Automatically sign in to sites with current Microsoft account: off
+        - Default profile for external links: last used (default)
+        - Open external links in another profile when recommended by external applications: off
+        - Allow single sign-on for work or school sites using this profile: off
+        - Automatic profile switching
+          - Automatically switch to your Edge profile when you visit a site and log in with a work or personal account: off
+          - Shopping switch: off
+          - Intranet switch: on
+          - IE Mode switch: on
+          - Get notified when your profile is automatically switched: on
+      - Share browsing data with other Windows features: on
+
+    - Passwords and autofill
+      - Ask to save passwords and passkeys: on
+      - more settings
+        - Automatically upgrade to passkeys: on
+        - Autofill passwords and passkeys: on
+        - Scan passwords for leaks: off
+        - Suggest strong passwords: on
+
+    - Privacy, search, and services
+      - tracking prevention: balanced (default)
+      - privacy
+        - send do not track requests: off
+        - send optional diagnostic data: off
+        - help improve microsoft products: off
+        - allow microsoft to save your data to personalize: off
+      - security
+        - Protect from harmful sites and downloads: on
+        - Block sites detected as scams: on
+        - Website typo protection: on
+        - Automatically switch to HTTPS: off
+        - Scareware blocker: on
+        - Block sites detected as scams: on
+        - Share detected scam sites with Microsoft Defender SmartScreen: on
+        - Use secure DNS: on
+        - Enhance your security on the web: off
+        - Use Microsoft Edge Secure Network: off
+      - Search and connected experiences
+        - Use a web service to help resolve navigation errors: on
+        - Suggest similar sites when a website can't be found: on
+        - Save time and money with Shopping in Microsoft Edge: on
+        - Let Microsoft Edge help keep your tabs organized: on
+        - Address bar and search
+          - Search engine used in the address bar: google
+          - Search on new tabs uses search box or address bar: search box
+          - Search suggestions and filters
+            - Show search and site suggestions using your typed characters: on
+            - Show suggestions from history, favorites and other data on this device using your typed characters: on
+            - Allow Edge to suggest using my copied text and links: on
+
+    - Copilot and AI
+      - Show Copilot button in toolbar: on
+      - Allow Copilot to read context clues on the web: off
+      - Copilot new tab page: off
+      - Allow Cowork to take actions on your behalf: off
+
     - appearance
-      - customize your toolbar
-        - bookmarks: on
-        - history: on
-        - downloads: on
-        - reading mode: on
-      - show bookmarks bar: on
-      - show tab search button
-      - show tab groups in bookmark bar
-      - side panel position: right
-      - show tab preview images
-      - show tab memory usage
-      - font size: medium?
-      - page zoom: 125%?
-      - allow split view drag and drop
-    - search engine: google
-    - on startup: continue where you left off
-    - chrome://flags
-      - vertical tabs: enabled
-        - close and reopen chrome
-        - right click tab: show tabs vertically
-    - enable desktop notifications for
-      - gmail
+      - overall appearance: dark
+      - other appearance settings
+        - page zoom: 100% (default)
+        - touch mode: auto
+        - toolbar
+          - workspaces: on
+          - favourites bar: always
+          - forward button: show automatically (default)
+          - remix: off
+          - favourites: on
+          - split screen: on
+          - history: on
+          - apps: off
+          - downloads: on
+          - reading mode: on
+          - performance: off
+          - screenshot: off
+          - share: off
+        - Browser behavior and features
+          - general behavior
+            - Ask before closing a window with multiple tabs: off
+            - Ask before closing a window with pinned tabs: off
+            - Turn off custom scrollbars: off
+            - Show picture-in-picture control inside video frame: off
+          - mouse gesture
+            - enable mouse gesture: off
+          - visual search
+            - enable visual search: on
+            - use keyboard shortcut to trigger visual search: on
+            - show visual search in context menu: on
+            - show hover menu on image hover: on
+          - split screen
+            - drag link or tab to open with split screen: off
+            - configure split screen
+              - link tabs by default: off
+        - fonts
+          - font size: medium
+        - tabs
+          - show vertical tabs: on
+          - hide title bar in vertical tabs: off
+          - Show tab search: on
+          - Tab hover preview card
+            - Show tab preview images: on
+            - Show tab memory usage: on
+          - Show tab groups in favorites bar: on
+        - behavior
+          - Drag to group tabs: on
+          - Use double-click to close browser tabs: off
+
+    - Start, home, and new tab page
+      - on startup: Open tabs from the previous session
+      - new tab page
+        - copilot new tab page: off
+        - preload your new tab page: off
+      - on windows device start, auto open edge when sign into windows: off
+
+...
+
+[chrome stuff]
+
+- sign in
+- settings
+  - profile, theme color, avatar
+  - ad privacy
+    - ad topics: off
+    - site suggested ads: off
+    - ad measurement: off
+  - performance
+    - memory saver: on, balanced
+  - appearance
+    - customize your toolbar
+      - bookmarks: on
+      - history: on
+      - downloads: on
+      - reading mode: on
+    - show bookmarks bar: on
+    - show tab search button
+    - show tab groups in bookmark bar
+    - side panel position: right
+    - show tab preview images
+    - show tab memory usage
+    - font size: medium?
+    - page zoom: 125%?
+    - allow split view drag and drop
+  - search engine: google
+  - on startup: continue where you left off
+  - chrome://flags
+    - vertical tabs: enabled
+      - close and reopen chrome
+      - right click tab: show tabs vertically
+  - enable desktop notifications for
+    - gmail
 
 ---
 
