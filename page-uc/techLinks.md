@@ -18,88 +18,15 @@
   - [Drivers and Updates](#drivers-and-updates)
   - [Apps & Debloat](#apps-debloat)
   - [Initial Setup](#initial-setup)
+  - [Windows Personalization](#windows-personalization)
+  - [Workplace Setup](#workplace-setup)
+  - [Desktop Personal Files & Final Setup](#desktop-personal-files-final-setup)
   - [Export Windows Software List](#export-windows-software-list)
   - [Windows Software &amp; Programs](#windows-software-amp-programs)
   - [Other Windows Software](#other-windows-software)
+  - [Pin to Taskbar](#pin-to-taskbar)
   - [Other Program Configs](#other-program-configs)
   - [Desktop Messaging Programs](#desktop-messaging-programs)
-  - [Windows Personalization](#windows-personalization)
-  - [Pin to Taskbar](#pin-to-taskbar)
-  - [Desktop Personal Files & Final Setup](#desktop-personal-files-final-setup)
-- [Web Browser](#web-browser)
-  - [Export/Import Browser Bookmarks](#exportimport-browser-bookmarks)
-  - [Export Browser Extensions](#export-browser-extensions)
-  - [Browser Extensions List](#browser-extensions-list)
-  - [Browser Extensions Setup](#browser-extensions-setup)
-- [Installing Fresh Windows](#installing-fresh-windows)
-  - [Preparation](#preparation)
-  - [Creating Bootable Drive](#creating-bootable-drive)
-  - [Booting and Partioning](#booting-and-partioning)
-  - [Installing Windows](#installing-windows)
-- [Android Setup / Migration](#android-setup-migration)
-  - [Android Sites](#android-sites)
-  - [Export Android Apps List](#export-android-apps-list)
-  - [Android Apps List](#android-apps-list)
-  - [Backing Up App Data](#backing-up-app-data)
-  - [Before Wiping Old Phone](#before-wiping-old-phone)
-  - [Initial Setup](#initial-setup-1)
-  - [Base Setup](#base-setup)
-  - [Keyboard Settings](#keyboard-settings)
-  - [Phone Settings](#phone-settings)
-  - [Other Settings](#other-settings)
-  - [Debloat and Remove Ads](#debloat-and-remove-ads)
-  - [App Restoration](#app-restoration)
-  - [Messaging Apps](#messaging-apps)
-  - [Home Screen Layout](#home-screen-layout)
-  - [Personal Files & Final Setup](#personal-files-final-setup)
-- [Code Editors](#code-editors)
-  - [Export Extensions](#export-extensions)
-  - [Extensions List](#extensions-list)
-  - [VSCode Settings](#vscode-settings)
-  - [Agentic Coding Tools](#agentic-coding-tools)
-  - [AI API Platforms](#ai-api-platforms)
-- [Node](#node)
-  - [Install NPM Packages Globally](#install-npm-packages-globally)
-  - [Export NPM Packages List](#export-npm-packages-list)
-  - [NPM Packages](#npm-packages)
-- [Torrents](#torrents)
-- [Apple Sites](#apple-sites)
-- [Apple Software & Programs](#apple-software-programs)
-- [Router / Hotspot setup?](#router-hotspot-setup)
-- [NAS / Homelab setup?](#nas-homelab-setup)
-- [PC Building](#pc-building)
-  - [Compatibility](#compatibility)
-  - [Specs](#specs)
-  - [PC Shops](#pc-shops)
-    - [International](#international)
-    - [Local - Maldives](#local-maldives)
-
-<!-- TOC end -->
-
----
-
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-
-- [Software Websites](#software-websites)
-- [Misc Websites](#misc-websites)
-- [Learn Coding](#learn-coding)
-- [AI Models](#ai-models)
-- [Documents and Files](#documents-and-files)
-- [Graphics and Media](#graphics-and-media)
-- [Miscellaneous](#miscellaneous)
-- [Hardware / Uses](#hardware-uses)
-- [Windows Setup / Migration](#windows-setup-migration)
-  - [Drivers and Updates](#drivers-and-updates)
-  - [Apps & Debloat](#apps-debloat)
-  - [Initial Setup](#initial-setup)
-  - [Export Windows Software List](#export-windows-software-list)
-  - [Windows Software &amp; Programs](#windows-software-amp-programs)
-  - [Other Windows Software](#other-windows-software)
-  - [Other Program Configs](#other-program-configs)
-  - [Desktop Messaging Programs](#desktop-messaging-programs)
-  - [Windows Personalization](#windows-personalization)
-  - [Pin to Taskbar](#pin-to-taskbar)
-  - [Desktop Personal Files & Final Setup](#desktop-personal-files-final-setup)
 - [Web Browser](#web-browser)
   - [Export/Import Browser Bookmarks](#exportimport-browser-bookmarks)
   - [Export Browser Extensions](#export-browser-extensions)
@@ -151,8 +78,6 @@
     - [Local - Maldives](#local-maldives)
 
 <!-- TOC end -->
-
----
 
 <!-- TOC --><a name="software-websites"></a>
 
@@ -463,6 +388,107 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 ---
 
+<!-- TOC --><a name="windows-personalization"></a>
+
+### Windows Personalization
+
+- bluetooth: off
+
+- privacy and security
+  - device encryption / bitlocker check? (windows pro)
+    - recommendations and offers, turn everything off
+    - diagnostics and feedback, send optional diagnostic data: off
+    - search (privacy & security)
+      - search history: off
+      - show search highlights: off
+      - search my accounts
+        - microsoft account: off
+        - work or school account: off
+
+- run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
+
+- performance options (system properties > performance > settings),
+  - (to put it short; remove everything else and just keep: enable peek, show shadows under mouse pointer, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.) or else turn off:
+  - animate controls and elements inside windows
+  - animate windows when minimizing and maximizing
+  - animations in the taskbar
+  - fade or slide menus into view
+  - fade or slide tool tips into view
+  - fade out menu items after clicking
+  - show shadows under windows
+  - show translucent selection rectangle
+  - show window contents while dragging
+  - slide open combo boxes
+  - use drop shadows for icon labels on the desktop
+  - ?save taskbar menu previews
+  - ?smooth scroll list boxes
+
+- ui, input & accessibility
+  - display settings
+    - set main display
+    - night light, schedule: on, set hours 7pm to 7am
+    - hdr: off?
+    - scale: 125%?
+    - display resolution: til icons are clear
+    - refresh rate?
+
+  - dark mode (requires windows activation)
+  - fonts (faruma, fira code) / font size adjustments?
+  - adjust cleartype text
+  - add keyboards: ar saudi, divehi (phonetic)
+  - uk date + first day of the week; sun
+  - 12 hour clock + short time & date no zero
+  - windows clipboard history: on
+
+- taskbar, taskbar items
+  - search: search box (default)
+  - widgets: off
+
+- ux
+  - file explorer
+    - view, show: file name extensions + hidden items
+    - ..., options, view, advanced settings, navigation pane, expand to open folder: off (default)
+  - biometrics / pin?
+
+- add peripherals; keyboard, mouse, printer
+  - install associated drivers
+
+---
+
+<!-- TOC --><a name="workplace-setup"></a>
+
+### Workplace Setup
+
+- Outlook
+  - file, settings
+    - account, signatures, do
+    - general, language and time, date format: dd-MMMM-yy
+  - also: https://myaccount.microsoft.com/settingsandprivacy/language
+
+- browser edge
+  - setup work profile with personal email
+
+- use a personal email address for logins as much as possible
+  - such as programs and sites like github desktop, edge browser profile, etc
+  - apart from things that only work with work email, like onedrive, etc
+  - so as not to be limited by access permissions and errors
+
+---
+
+<!-- TOC --><a name="desktop-personal-files-final-setup"></a>
+
+### Desktop Personal Files & Final Setup
+
+- transfer files + folders
+- windows backup
+- cloud backup (google, onedrive)
+- power mode: battery / performance
+- screen off: 15 mins
+- sleep: 5 hours
+- create restore point again
+
+---
+
 <!-- TOC --><a name="export-windows-software-list"></a>
 
 ### Export Windows Software List
@@ -652,7 +678,7 @@ Shamela
 JADX
 Windows Subsystem for Linux
 WhatsApp
-Hadithmv
+Hadithmv Desktop
 
 ---
 
@@ -698,6 +724,21 @@ ZKBio CVAccess
 ...
 
 ShareX
+
+---
+
+<!-- TOC --><a name="pin-to-taskbar"></a>
+
+### Pin to Taskbar
+
+- remove uneeded pins
+- pin
+  - task manager, qdir, file explorer, everything, browser
+  - email, notepad++, notion, word, excel
+  - vscode, meldmerge, terminal, android studio, antigravity
+  - chrome remote desktop
+  - teams, telegram, whatsapp, signal, viber
+  - shamela, jamiulkhadem, hmv
 
 ---
 
@@ -889,18 +930,15 @@ ShareX
   - general, enable and load at windows startup: off
   - update method: update manually
 
-- Outlook
-  - file, settings,
-    - account, signatures, do
-    - general, language and time, date format: dd-MMMM-yy
-  - also: https://myaccount.microsoft.com/settingsandprivacy/language
-
 - tauri
   - microsoft c++ build tools
     - desktop development with c++
   - rust
 
-- snipping tool (win + shift + s)
+- chrome remote desktop
+  - add computer
+
+<!-- - snipping tool (win + shift + s)
   - ??
   - open powertoys
     - input and output
@@ -914,10 +952,7 @@ ShareX
             - action: press to start recording
             - hit a random key to give it some input at first
             - then click the dropdown on that shown key and choose: print screen
-            - ok
-
-- chrome remote desktop
-  - add computer
+            - ok -->
 
 ---
 
@@ -1075,102 +1110,6 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="windows-personalization"></a>
-
-### Windows Personalization
-
-- bluetooth: off
-
-- privacy and security
-  - device encryption / bitlocker check? (windows pro)
-    - recommendations and offers, turn everything off
-    - diagnostics and feedback, send optional diagnostic data: off
-    - search (privacy & security)
-      - search history: off
-      - show search highlights: off
-      - search my accounts
-        - microsoft account: off
-        - work or school account: off
-
-- run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
-
-- performance options (system properties > performance > settings),
-  - (to put it short; remove everything else and just keep: enable peek, show shadows under mouse pointer, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.) or else turn off:
-  - animate controls and elements inside windows
-  - animate windows when minimizing and maximizing
-  - animations in the taskbar
-  - fade or slide menus into view
-  - fade or slide tool tips into view
-  - fade out menu items after clicking
-  - show shadows under windows
-  - show translucent selection rectangle
-  - show window contents while dragging
-  - slide open combo boxes
-  - use drop shadows for icon labels on the desktop
-  - ?save taskbar menu previews
-  - ?smooth scroll list boxes
-
-- ui, input & accessibility
-  - display settings
-    - set main display
-    - night light, schedule: on, set hours 7pm to 7am
-    - hdr: off?
-    - scale: 125%?
-    - display resolution: til icons are clear
-    - refresh rate?
-
-  - dark mode (requires windows activation)
-  - fonts (faruma, fira code) / font size adjustments?
-  - adjust cleartype text
-  - add keyboards: ar saudi, divehi (phonetic)
-  - uk date + first day of the week; sun
-  - 12 hour clock + short time & date no zero
-  - windows clipboard history: on
-
-- taskbar, taskbar items
-  - search: search box (default)
-  - widgets: off
-
-- ux
-  - file explorer
-    - view, show: file name extensions + hidden items
-    - ..., options, view, advanced settings, navigation pane, expand to open folder: off (default)
-  - biometrics / pin?
-
-- add peripherals; keyboard, mouse, printer
-  - install associated drivers
-
----
-
-<!-- TOC --><a name="pin-to-taskbar"></a>
-
-### Pin to Taskbar
-
-- remove uneeded pins
-- pin
-  - task manager, qdir, file explorer, everything, browser
-  - email, notepad++, notion, word, excel
-  - vscode, meldmerge, terminal, android studio, antigravity
-  - chrome remote desktop
-  - teams, telegram, whatsapp, signal, viber
-  - shamela, jamiulkhadem, hmv
-
----
-
-<!-- TOC --><a name="desktop-personal-files-final-setup"></a>
-
-### Desktop Personal Files & Final Setup
-
-- transfer files + folders
-- windows backup
-- cloud backup (google, onedrive)
-- power mode: battery / performance
-- screen off: 15 mins
-- sleep: 5 hours
-- create restore point again
-
----
-
 <!-- TOC --><a name="web-browser"></a>
 
 ## Web Browser
@@ -1256,7 +1195,7 @@ Focus Tab Groups
 GitHub Repo and File Size
 Lighthouse
 Markdown Editor for Chrome™
-Markdown Viewer
+Markdown Reader
 Office Editing for Docs, Sheets & Slides
 Open incognito tab
 Open Selected Links
