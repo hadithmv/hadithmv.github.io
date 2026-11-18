@@ -368,7 +368,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 - mouse settings?
   - Enhance pointer precision (acceleration)?
-  - set pointer speed: (default)
+  - set pointer speed: 10 default / 15
   - mouse pointer and touch, size: 1? 2?
 
 - bios settings
@@ -453,11 +453,31 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - add peripherals; keyboard, mouse, printer
   - install associated drivers
 
+- sign in options
+  - ways to sign in: pin
+  - additional settings
+    - for improved security, only allow windows hello sign in for ms accounts on this device: on
+    - if you've been away, windows should require you to sign in again: when pc wakes up from sleep
+    - dynamic lock: off
+    - automatically save my restartable apps when i sign back in: off
+    - show account details such as email on sign in screen: off
+    - use sign in info to automatically finish setting up after an update
+
 ---
 
 <!-- TOC --><a name="workplace-setup"></a>
 
 ### Workplace Setup
+
+- learn floors, places
+- save staff phone numbers
+
+- system restore
+- personalize windows
+- download and install apps
+- dark mode
+- clean out and setup physical workspace: cable management, extra monitor, big and small marker, pens, pencil, books, pen holder, stapler, staples, staple remover, scissor, cutter, tape, file holder, bag, plastic bags
+- personal peripherals: phone charge and cable, phone stand, water bottle, herbal inhaler, small comb, meds, perfume
 
 - Outlook
   - file, settings
@@ -472,6 +492,8 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
   - such as programs and sites like github desktop, edge browser profile, etc
   - apart from things that only work with work email, like onedrive, etc
   - so as not to be limited by access permissions and errors
+
+- connect to printer
 
 ---
 
