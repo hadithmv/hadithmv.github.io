@@ -463,6 +463,9 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
     - show account details such as email on sign in screen: off
     - use sign in info to automatically finish setting up after an update
 
+- personalization, colors
+  - transparency effects: off
+
 ---
 
 <!-- TOC --><a name="workplace-setup"></a>
@@ -508,6 +511,7 @@ Enable dark mode on Windows 10 or 11 (No Activation Required)
   - Modify these two DWORD values:
     - AppsUseLightTheme → 0
     - SystemUsesLightTheme → 0
+    - (if key doesnt exist will have to create key and entries)
   - Restart Explorer or sign out/in for full effect.
 
 - Method 2: Theme File
