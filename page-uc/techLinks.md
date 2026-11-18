@@ -476,6 +476,9 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - personalize windows
 - download and install apps
 - dark mode
+- setup onedrive
+- pin explorer folders: work files and software
+
 - clean out and setup physical workspace: cable management, extra monitor, big and small marker, pens, pencil, books, pen holder, stapler, staples, staple remover, scissor, cutter, tape, file holder, bag, plastic bags
 - personal peripherals: phone charge and cable, phone stand, water bottle, herbal inhaler, small comb, meds, perfume
 
@@ -494,6 +497,34 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
   - so as not to be limited by access permissions and errors
 
 - connect to printer
+
+...
+
+Enable dark mode on Windows 10 or 11 (No Activation Required)
+
+- Method 1: Registry Editor (Most Reliable)
+  - Win + R, type regedit, Enter.
+  - Navigate to HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+  - Modify these two DWORD values:
+    - AppsUseLightTheme → 0
+    - SystemUsesLightTheme → 0
+  - Restart Explorer or sign out/in for full effect.
+
+- Method 2: Theme File
+  - File Explorer, go to:
+    - C:\Windows\Resources\Themes
+    - Double‑click dark.theme
+    - This immediately switches the system to dark mode.
+
+- Method 3 — Group Policy (Windows Pro Only)
+  - If you want to unlock theme switching:
+  - Press Win + R, type gpedit.msc, go to - User Configuration > Administrative Templates > Control Panel > Personalization
+    Open Prevent changing theme → set to Disabled
+
+- Notes & Limitations
+  - Dark mode toggle in Settings remains locked until Windows is activated.
+  - Registry edits apply dark mode system‑wide but may require restarting Explorer for full effect.
+  - Some apps (e.g., Chrome) may not follow system dark mode unless set manually.
 
 ---
 
