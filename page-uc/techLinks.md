@@ -473,7 +473,9 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 ### Workplace Setup
 
 - learn floors, places
+
 - save staff phone numbers
+  - hr system, email, teams, chat groups, etc.
 
 - system restore
 - personalize windows
@@ -2208,7 +2210,10 @@ Zikuru
           - when connected on wifi: photos
           - when roaming: no media
         - accessibility, animation, all off
-
+    - for whatsapp business, also do the following
+      - settings, apps, ..., other settings, default apps, opening links, whatsapp business,
+        - change 'in the app' to 'in your browser'
+        - this stops auto opening links in whatsapp business when its supposed to be normal whatsapp, and accidentally joining groups with the wrong account
 - viber (mute spammy groups)
   - ... more
     - settings
