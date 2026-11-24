@@ -475,13 +475,14 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - learn floors, places
 
 - save staff phone numbers
-  - hr system, email, teams, chat groups, etc.
+  - get them from: hr system, email, teams, chat groups, etc.
 
 - system restore
 - personalize windows
 - download and install apps
 - dark mode
 - setup onedrive
+  - set 'always keep on this device' folders
 - pin explorer folders: work files and software
 
 - clean out and setup physical workspace: cable management, extra monitor, big and small marker, pens, pencil, books, pen holder, stapler, staples, staple remover, scissor, cutter, tape, file holder, bag, plastic bags
@@ -806,7 +807,7 @@ ShareX
 ### Other Program Configs
 
 - powertoys
-  - autostart
+  - run at startup
 
 - alldup
   - options, general, unicode text support: on
@@ -834,17 +835,9 @@ ShareX
       - apply and restart engine (you will now have an 'docker-desktop' directory in my pc)
   - restart pc
 
-- sharex
-  - settings
-    - task settings
-      - screen recording options
-        - install recorder devices (if havent already, if that has issues, install sharex from ms store instead)
-        - test its working
-      - screen recorder
-        - screen recording fps: 60
-        - back in screen recording options,
-          - in 'additional command line arguments:' box
-            - add '-threads 1', close
+- vlc
+  - tools, preferences, use a dark palette
+  - windows settings, setup associations
 
   <!-- !! ? -->
 
