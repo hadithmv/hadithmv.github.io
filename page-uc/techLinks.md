@@ -475,7 +475,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - learn floors, places
 
 - save staff phone numbers
-  - get them from: hr system, email, teams, chat groups, etc.
+  - get them from: hr system, email (export), teams, chat groups (whatsapp web contact export extension), etc.
 
 - system restore
 - personalize windows
