@@ -474,8 +474,11 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 - learn floors, places
 
+- cateogrize work chat groups
 - save staff phone numbers
   - get them from: hr system, email (export), teams, chat groups (whatsapp web contact export extension), etc.
+    - note that for WA there are a lot of demo extensions, get a full one
+- add them as new created contacts in google contacts web
 
 - system restore
 - personalize windows
@@ -496,6 +499,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 - browser edge
   - setup work profile with personal email
+  - setup bookmarks, browser folders, etc.
 
 - use a personal email address for logins as much as possible
   - such as programs and sites like github desktop, edge browser profile, etc
