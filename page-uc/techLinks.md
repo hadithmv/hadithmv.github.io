@@ -2302,6 +2302,17 @@ Zikuru
 
 <!-- TOC --><a name="android-home-screen-layout"></a>
 
+### Android Control Center Layout
+
+- settings, notification and status bar,
+- pull down control center (from the right side)
+  - at the very bottom click on 'edit' (might be hard to see if system navigation set to buttons instead of gesture)
+    - order of control center items: mute, flashlight, rotate screen, location, airplane mode, battery saver, scanner, bluetooth, settings, calculator, ultra battery saver, hotspot, cast, screen recorder
+
+---
+
+<!-- TOC --><a name="android-home-screen-layout"></a>
+
 ### Android Home Screen Layout
 
 - remove all unneeded apps and shortcut pins from the home screen to keep it clean
